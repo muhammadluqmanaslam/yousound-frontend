@@ -5,7 +5,7 @@
  */
 import io from 'socket.io-client'
 
-var SocketManager = (socketHost, roomName, token) => {
+var SocketManager = (socketHost, roomName, token, callback) => {
   this.room = roomName || getParameterByName('room') || 'general' // TODO: change 'general'
 
   var sm = this
@@ -15,13 +15,14 @@ var SocketManager = (socketHost, roomName, token) => {
     console.log('SocketManager connected to ' + roomName + ' @ ' + socketHost)
     socket.emit('authentication', { token })
     socket.on('authenticated', () => {
+      callback()
       socket.emit('loadMessages', sm.room) // ask for old messages and to join artist soundroom
     })
     socket.on('unauthorized', (err) => {
       alert('There was an error with the authentication: ' + err.message) // TODO: don't use alert
     })
-    socket.on('newMessage', sm.onMessage)
-    socket.on('loadMessages', sm.onLoadMessages)
+    socket.on('newMessage', (a) => { sm.onMessage(a) })
+    socket.on('loadMessages', (a) => { sm.onLoadMessages(a) })
     socket.on('roomInfo', sm.onRoomInfo)
     socket.on('userInfo', sm.onUserInfo)
     socket.on('disconnect', sm.onDisconnect)
@@ -69,6 +70,10 @@ var SocketManager = (socketHost, roomName, token) => {
   sm.onReconnect = () => {
     console.log('reconnected :)') // switch to toast eventually instead
     socket.emit('loadMessages', sm.room) // reload messages
+  }
+
+  sm.loadMessages = () => {
+    socket.emit('loadMessages', sm.room)
   }
 
   sm.onUserInfo = (user) => {
