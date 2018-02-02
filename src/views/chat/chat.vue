@@ -1,0 +1,522 @@
+<template>
+  <div class="page chat-page">
+    <v-flex xs12 sm12 class="chat-popup" v-if="show_broadcastPopup">
+      <div class="popup-section">
+        <img class="popup-image" src="/static/images/earphone.png"/>
+        <p class="popup-title">Get ready to broadcast!</p>
+        <p class="popup-text">When users select your broadcast, they will hear everything you play.</p>
+        <v-btn class="gotta-btn" @click.native="startBroadcasting()">Start broadcasting</v-btn>
+      </div>
+    </v-flex>
+
+    <v-flex xs12 sm12 class="chat-popup listen" v-if="show_confirmPopup">
+      <div class="popup-section">
+        <p class="popup-title">You are about to listen to</p>
+        <div class="artist-section">
+          <div class="user-avatar-image" :style="`background-image: url(${$store.state.auth.user.avatar.url})`"></div>
+          <label class="user-name">{{ $store.state.auth.user.display_name }}
+            <v-icon class="user-status" 
+              v-bind:class="{'online': $store.state.auth.user.status == 'active'}" 
+              v-if="$store.state.auth.user.user_type == 'artist'"
+            >fa-check-circle</v-icon>
+          </label>
+        </div>
+        <p class="popup-text">When users select your broadcast, they will hear everything you play.</p>
+        <v-btn class="gotta-btn" @click.native="startListenning()">Yes, I want to listen!</v-btn>
+      </div>
+    </v-flex>
+
+    <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">
+      <div class="popup-section">
+        <div class="requests-section">
+          <div class="header-section">
+            <p class="section-title">Attach content to chat</p>
+            <div class="option-area">
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='album'}" @click.native="onRequestTab('album')">Album</v-btn>
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='merch'}" @click.native="onRequestTab('merch')">Merch</v-btn>
+            </div>
+          </div>
+          <div class="content-section" v-if="request_tab=='album'">
+            <div class="request-item" :class="{'selected':item_index==index}" v-for="(album, index) in albums" :key="index" @click="selectItemIndex(index)">
+              <div class="avatar-area">
+                <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div> 
+              </div>
+              <div class="detail-area">
+                <label class="item-name">{{ album.name }}</label>
+                <label class="user-name">{{ album.user.display_name }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="content-section" v-if="request_tab=='merch'">
+            <div class="request-item" :class="{'selected':item_index==index}" v-for="(product, index) in products" :key="index" @click="selectItemIndex(index)">
+              <div class="avatar-area">
+                <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div> 
+              </div>
+              <div class="detail-area">
+                <label class="item-name">{{ product.name }}</label>
+                <label class="user-name">{{ product.merchant.display_name }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </v-flex>
+
+    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="user">
+      <h2 class="page-title">{{ user.username }}</h2><label class="chat-room">CHAT ROOM</label>
+    </v-flex>
+    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="chat-page-content" v-if="user">
+      <v-layout row>
+        <v-flex xs12 sm9 pa-0 class="chat-content-section">
+          <div class="chat-list-section">
+            <!-- <div class="chat-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
+              <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
+              <div class="message-section">
+                <div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div>
+                <div class="message-content text">
+                  <label class="text-message">{{ message.body }}</label>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div> -->
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Lola_</a>
+                  <label class="messaged-time">Today 9:13 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Anyone here?</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Man0Chaus</a>
+                  <label class="messaged-time">Today 9:12 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Has joined</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Brooh</a>
+                  <label class="messaged-time">Today 9:10 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Yo guys! This track is dope as fuck. Can’t wait to play it on my party.</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user4.png');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Good_Fellas</a>
+                  <label class="messaged-time">Today 9:10 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Has joined</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Lola_</a>
+                  <label class="messaged-time">Today 9:07 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Wow! Love this track.</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/sample_user.png');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Buddahh!</a>
+                  <label class="messaged-time">Today 9:05 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Has joined</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Brooh</a>
+                  <label class="messaged-time">Today 9:04 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">DAAAAMN BOY! 🔥🔥🔥</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">GoodMorgan</a>
+                  <label class="messaged-time">Today 9:00 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Dope!!!</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Lola_</a>
+                  <label class="messaged-time">Today 9:13 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Anyone here?</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Man0Chaus</a>
+                  <label class="messaged-time">Today 9:12 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Has joined</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Brooh</a>
+                  <label class="messaged-time">Today 9:10 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Yo guys! This track is dope as fuck. Can’t wait to play it on my party.</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user4.png');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Good_Fellas</a>
+                  <label class="messaged-time">Today 9:10 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Has joined</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Lola_</a>
+                  <label class="messaged-time">Today 9:07 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Wow! Love this track.</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/sample_user.png');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Buddahh!</a>
+                  <label class="messaged-time">Today 9:05 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Has joined</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">Brooh</a>
+                  <label class="messaged-time">Today 9:04 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">DAAAAMN BOY! 🔥🔥🔥</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="chat-item other">
+              <div class="user-avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <a class="item-user">GoodMorgan</a>
+                  <label class="messaged-time">Today 9:00 AM</label>
+                </div>
+                <div class="chat-content text">
+                  <label class="text-message">Dope!!!</label>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="send-chat-section">
+            <input 
+              type="text" 
+              class="chat-input-box" 
+              placeholder="Write a message..." 
+              v-model="message" 
+              @keyup.enter="sendMessage()" 
+              ref="chat" 
+              autofocus 
+            />
+            <picker
+              title="Pick your emoji…"
+              emoji="point_up"
+              class="emoji-picker"
+              @click="addEmoji"
+              v-if="showEmojiPicker"
+            ></picker>
+            <v-btn 
+              class="show-emoji-box-btn" 
+              :class="{'selected': showEmojiPicker}"
+              @click.native="showEmojiPicker=!showEmojiPicker"
+            >
+              <v-icon>tag_faces</v-icon>
+            </v-btn>
+            <v-btn class="send-chat-btn" @click.native="sendMessage()">Send</v-btn>
+          </div>
+        </v-flex>
+
+        <v-flex xs12 sm3 pa-0 class="requests-section">
+          <div class="header-section">
+            <p class="section-title">38 Members</p>
+            <div class="option-area">
+              <v-btn class="request-option-btn" @click.native="meberList=true" :class="{'selected': meberList}"><v-icon>supervisor_account</v-icon>Member List</v-btn>
+              <v-btn class="request-option-btn" @click.native="meberList=false" :class="{'selected': !meberList}"><v-icon>fa-at</v-icon>Mentions</v-btn>
+            </div>
+          </div>
+          <div class="content-section" v-if="meberList">
+            <div class="member-group">MODERATOR</div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Ruckazoid</a>
+              </div>
+            </div>
+            <div class="member-group mt-3">Broadcasting: 6</div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
+                <div class="memeber-status normal"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Julia219</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
+                <div class="memeber-status normal"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">BOOM_BA</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user4.png');"></div>
+                <div class="memeber-status normal"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Good_Fellas</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/sample_user.png');"></div>
+                <div class="memeber-status normal"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">BoogaBoom</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
+                <div class="memeber-status normal"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Megatrix</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status normal"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">HellYas</a>
+              </div>
+            </div>
+            <div class="member-group mt-3">Online: 10</div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">ManoChaus</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user4.png');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">GoodMorgan</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">BrokenLights</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/sample_user.png');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">12345Six</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">BoxerBeats</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Lola_</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Man0Chaus</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Brooh</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Good_Fellas</a>
+              </div>
+            </div>
+            <div class="member-item">
+              <div class="avatar-area">
+                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="memeber-status online"></div>
+              </div>
+              <div class="detail-area">
+                <a class="user-name">Buddahh!</a>
+              </div>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+      <!-- <div class="full-height" style="position: relative;">
+        <div id="msg-container">
+          <center>
+            <v-progress-circular v-if="!last" indeterminate class="primary--text text-xs-center"></v-progress-circular>
+          </center>
+          <div v-for="(message, i) in reverseMessages" :key="message.localId">
+            <message :message="message" :i="i" :messages="reverseMessages"></message>
+          </div>
+          <div v-for="(message, i) in sendingMessages" :key="message.localId">
+            <message :sending="true" :message="message" :i="i" :messages="reverseMessages"></message>
+          </div>
+        </div>
+        <br>
+        <br>
+        <message-input :user="user" :settings="room.settings" v-on:submit="sendMessage"></message-input>
+      </div> -->
+    </v-flex>
+  </div>
+</template>
+<script type="text/javascript" src="./chat.ctrl.js"></script>
+<style>
+/*#msg-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100% - 200px);
+}
+
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.full-height {
+  height: 100%;
+}*/
+</style>

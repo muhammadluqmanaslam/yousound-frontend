@@ -1,0 +1,35 @@
+.page.notifications-page {
+	.notifications-page-header {
+		margin-bottom: 26.25px;
+    .menu {
+      padding-top: 20px;
+      i {
+      	color: #c5c5c5;
+      }
+      .menu__activator .btn {
+        margin: 0;
+        height: 37.5px;
+        /* Rectangle 2: */
+				background: #FFFFFF !important;
+				border: 1px solid #E1E1E1 !important;
+				border-radius: 3.75px;        
+				/* Line: */
+        // transform: rotate(-180deg);
+        // border: 2.25px solid #FFFFFF;
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #000;
+        letter-spacing: -0.6px;
+        box-shadow: none;
+        text-transform: none;
+        width: 127.5px;
+
+				
+      }
+    }
+	}
+	.notifications-page-content {
+		border-top: 0.75px solid #e1e1e1;
+    padding-bottom: 150px;
+	}
+}

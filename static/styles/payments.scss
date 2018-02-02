@@ -1,0 +1,200 @@
+.page.payments-page {
+  .page-title {
+    // color: #FFFFFF;
+  }
+  .wallet-section {
+    width: 300px;
+    height: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 15px;
+    font-family: Avenir-Roman;
+    z-index: 2;
+    border-radius: 8px;
+    .available-money-amount {
+      display: block;
+      font-family: Avenir;
+      font-weight: 500;
+      font-size: 26px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+      margin-bottom: 5px;
+      margin-top: -6px;
+      letter-spacing: -.5px;
+      .currency {
+        font-weight: 900;
+        font-size: 18px;
+        font-family: sans-serif;
+      }
+    }
+    .action-section{
+      .link-btn {
+        color: #3A92FF;
+        cursor: pointer;
+      }
+    }
+  }
+  .payments-tab {
+    position: relative;
+    .tabs {
+      .tabs__bar {
+        .tabs__wrapper.tabs__wrapper--scrollable {
+          margin: 0;
+          .tabs__li {
+            margin-right: 33px;
+            .tabs__item {
+              padding: 0;
+              text-transform: none;
+              /* Recommended New Rele: */
+              font-family: Avenir;
+              font-size: 18px;
+              color: #8E8E8E;
+              letter-spacing: -0.5px;
+              font-weight: 500;
+              &.tabs__item--active {
+                color: #000000;
+              }
+            }
+          }
+        }
+      }
+      .tabs__items {
+        border: none;
+        margin-top: 36px;
+      }
+    }
+    .card.card--flat {
+      background: none;
+      border: none;
+    }
+    .menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      .menu__activator .btn {
+        margin: 0;
+        height: 41.25px;
+        /* Rectangle 2: */
+        background: rgba(255,255,255,0.10) !important;
+        border: 1.6500000000000001px solid rgba(255,255,255,0.30) !important;
+        border-radius: 4.125px;
+        /* Line: */
+        // transform: rotate(-180deg);
+        // border: 2.475px solid #FFFFFF;
+        /* Any genre: */
+        font-family: Avenir-Roman;
+        font-size: 16.5px;
+        // color: #000000 !important;
+        letter-spacing: -0.66px;
+        box-shadow: none;
+        text-transform: none;
+        width: 132px;
+      }
+    }
+    .payment-table {
+      width: 100%;
+      font-family: Avenir-Roman;
+      font-size: 14px;
+      border-collapse: collapse;
+      tr {
+        border-bottom: 1px solid #d7d7d7;
+      }
+      thead {
+        th {
+          padding-bottom: 15px;
+          color: rgba(0, 0, 0, 0.58);
+          font-weight: 400;
+        }
+      }
+      tbody {
+        td {
+          padding: 10px 0;
+        }
+      }
+      .profile-section {
+        .user-avatar-image {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          vertical-align: middle;
+          background-size: cover;
+          background-position: center;
+          margin-right: 10px;
+        }
+        .user-info-section {
+          display: inline-block;
+          vertical-align: middle;
+          .user-name {
+            display: block;
+            font-family: Avenir-Heavy;
+          }
+          .user-type {
+            display: block;
+            color: #8E8E8E;
+          }
+        }
+      }
+      .send-message-btn {
+        background: #4598ff !important;
+        color: white;
+        box-shadow: none;
+        font-size: 14px;
+        height: 30px;
+        border-radius: 100px;
+        text-transform: none !important;
+        .btn__content {
+          padding: 0px 10px 0;
+        }
+      }
+    }
+  }
+
+  .tabs__item {
+    padding: 0 !important;
+    text-transform: none;
+    /* Recommended New Rele: */
+    font-family: Avenir-Heavy;
+    font-size: 16.5px;
+    // color: #000000 !important;
+    letter-spacing: -0.66px;
+  }
+  .track-name {
+    color: #000000 !important;
+  }
+  .track-user-name {
+    color: #8E8E8E !important;
+  }
+  .track-posted-at label {
+    color: #8E8E8E !important;
+  }
+  .product-name {
+    color: #000000 !important;
+  }
+  .product-user-name {
+    color: #8E8E8E !important;
+  }
+  .product-posted-at label {
+    color: #8E8E8E !important;
+  }
+}
+.withdraw-dialog {
+  min-height: 250px;
+  label {
+    font-size: 18px;
+    &.error-text {
+      font-size: 12px;
+      color: #dc3545 !important;
+    }
+  }
+  .available-money-amount {
+    font-weight: 900;
+    font-size: 20px;
+    // border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+    .currency {
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }  
+}

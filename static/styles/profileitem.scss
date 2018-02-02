@@ -1,0 +1,177 @@
+.profile-item-section {
+  // position: absolute;
+  // top: 22.5px;
+  // left: 0px;
+  // width: 60px;
+  // height: 60px;
+  &:hover {
+    .activity-item-profile-cover {
+      display: block;
+      opacity: 1;
+    }  
+  }
+  .activity-item-profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center;
+  }
+  .activity-item-profile-cover {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    -webkit-transition: visibility 0s opacity 0.3s ease-in-out;
+    -moz-transition: visibility 0s opacity 0.3s ease-in-out;
+    -ms-transition: visibility 0s opacity 0.3s ease-in-out;
+    -o-transition: visibility 0s opacity 0.3s ease-in-out;
+    transition: visibility 0s opacity 0.3s ease-in-out;
+    .profile-cover-arrow {
+      width: 0;
+      height: 0;
+      margin-left: 22.5px;
+      border-bottom: 7.5px solid rgba(235, 235, 235, 0.7);
+      border-left: 7.5px solid transparent;
+      border-right: 7.5px solid transparent;
+      div {
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 2.25px;
+        margin-left: -7.5px;
+        border-bottom: 7.5px solid #FAFAFA;
+        border-left: 7.5px solid transparent;
+        border-right: 7.5px solid transparent;
+      }
+    }
+    .profile-cover {
+      width: 315px;
+      height: 172.5px;
+      // margin-top: 7.5px;
+      /* Combined Shape: */
+      background: #FAFAFA;
+      border: 1.5px solid #EBEBEB;
+      box-shadow: 0 1.5px 7.5px 0 rgba(0,0,0,0.10);
+      border-radius: 3.75px;
+      .profile-cover-body {
+        margin: 28.5px 0px 0px 66.75px;
+        display: flex;
+        .profile-cover-avatar {
+          width: 75px;
+          height: 75px;
+          .activity-item-profile-avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 37.5px;
+          }
+        }
+        .profile-cover-content {
+          margin-left: 7.5px;
+          margin-top: 15px;
+          margin-right: 15px;
+          .user-name {
+            /* Kris Boy: */
+            font-family: Avenir-Black;
+            font-size: 18.75px;
+            color: #000000;
+            letter-spacing: 0;
+            text-decoration: none;
+          }
+          .user-followers {
+            display: block;
+            /* 2.8k Followers: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #000000;
+            letter-spacing: 0;
+          }
+        }
+      }
+      .profile-cover-action-buttons {
+        width: 256px;
+        height: 30px;
+        margin: 7.5px 30px;
+        .text-button {
+          width: 105px;
+          height: 30px;
+          margin: 0 4.5px 0 0;
+          background: transparent !important;
+          box-shadow: none;
+          /* Rectangle 64: */
+          border: 1.5px solid #3A92FF;
+          border-radius: 75px;
+          /* Follow: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #3A92FF;
+          letter-spacing: 0;
+          text-transform: none;
+        }
+        .follow-btn {
+          width: 105px;
+          height: 30px;
+          margin: 0 4.5px 0 0;
+          background: transparent !important;
+          box-shadow: none;
+          /* Rectangle 64: */
+          border-radius: 75px;
+          /* Follow: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          letter-spacing: 0;
+          text-transform: none;
+          min-width: 100px;
+          &.follow {
+            color: #3A92FF !important;
+            border: 1.5px solid #3A92FF;
+          }
+          &.following {
+            /* Rectangle: */
+            color: #5BAD00 !important;
+            border: 1.5px solid #5BAD00;
+            &:hover {
+              color: #dc3545 !important;
+              border: 1.5px solid #dc3545;
+            }
+          }
+        }
+        .more-menu.menu {
+          width: 30px;
+          height: 30px;
+          margin: 0;
+          position: relative;
+          .btn {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            margin: 0;
+            background: transparent !important;
+            // background-color: rgba(255, 255, 255, 0.5) !important;
+            box-shadow: none;
+            border: 1.5px solid #A7A7A7 !important;
+            border-radius: 75px;
+            color: #696969;
+            /* ic_more: */
+            .btn__content {
+              padding: 0;
+              i {
+                margin: 0;
+                color: #696969;
+              }
+            }
+          }
+          .img {
+            /* Repost Download Shar: */
+            font-family: Avenir-Roman;
+            font-size: 13.5px;
+            color: #000000;
+            letter-spacing: 0;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+  }
+}

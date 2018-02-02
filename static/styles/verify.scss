@@ -1,0 +1,241 @@
+.page.verify-page {
+  .verifying-page {
+    margin: 0 -22.5px;
+    margin-top: 106.5px;
+    .logo-section {
+      padding: 0 22.5px;
+    }
+    .content-section {
+      margin-top: 39px;
+      .left-section {
+        max-width: 360px;
+        margin: 0 22.5px;
+        .body-section {
+          width: calc(100% - 26.25px);
+          display: inline-block;
+          h4 {
+            margin-bottom: 22.5px;
+            /* Thank you for signin: */
+            font-family: Avenir-Book;
+            font-size: 23.25px;
+            color: #2D2D2D;
+            letter-spacing: -1.18px;
+          }
+          p {
+            /* Thank you for signin: */
+            font-family: Avenir-Book;
+            font-size: 15px;
+            color: #2D2D2D;
+            letter-spacing: -1.18px;
+          }
+        }
+        .divider-section {
+          display: inline-block;
+          height: 100%;
+          margin-left: 21px;
+          width: 0.75px;
+          /* Line: */
+          background-color: #979797;
+        }
+      }
+      .right-section {
+        .header-section {
+          padding: 0 22.5px;
+          h4 {
+            /* Tell us about your m: */
+            font-family: Avenir-Black;
+            font-size: 27px;
+            color: #000000;
+            letter-spacing: 0;            
+          }
+        }
+        .body-section {
+          .input-text-section {
+            padding: 0 22.5px;
+            input[type=text] {
+              /* Rectangle: */
+              background: #FFFFFF;
+              border: 0.75px solid #D2D2D2;
+              border-radius: 3.75px;
+              height: 45px;
+              width: 100%;
+              /* hello@jardsonalmeida: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #4A4A4A;
+              letter-spacing: 0;
+              padding: 0 15px;
+              margin-bottom: 7.5px;
+              &:focus, &:hover, &:active {
+                outline: none;
+                // background: rgba(150, 150, 150, 0.2);
+              }
+              &::-webkit-input-placeholder {
+                color:#ABABAB;
+              }
+              &:-moz-placeholde {
+                color:#ABABAB;
+              }
+              &::-moz-placeholder {
+                color:#ABABAB;
+              }
+              &:-ms-input-placeholder {
+                color:#ABABAB;
+              }
+            }
+            .input-group--select {
+              margin-bottom: 6px;
+              label {
+                padding-left: 15px;
+                font-family: Avenir-Roman;
+                font-size: 15px;
+                color:#ABABAB;
+                letter-spacing: 0;
+                line-height: 45px;
+                height: 45px;
+              }
+              .input-group__input {
+                height: 45px;
+                min-height: 30px;
+                padding-left: 11.25px;
+                /* Rectangle: */
+                border: 0.75px solid #D2D2D2;
+                border-radius: 3.75px;
+              }  
+            }
+          }
+          .text-area-section {
+            padding: 0 22.5px;
+            .verifying-description {
+              /* Rectangle: */
+              border: 0.75px solid #D2D2D2;
+              border-radius: 3.75px;
+              /* What artists and/or: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              letter-spacing: 0;
+              padding: 16.5px;
+              height: 255px;
+              &:focus, &:hover, &:active {
+                outline: none;
+                // background: rgba(150, 150, 150, 0.2);
+              }
+              &::-webkit-input-placeholder {
+                color:#ABABAB;
+              }
+              &:-moz-placeholde {
+                color:#ABABAB;
+              }
+              &::-moz-placeholder {
+                color:#ABABAB;
+              }
+              &:-ms-input-placeholder {
+                color:#ABABAB;
+              }
+            }
+          }
+          .action-section {
+            padding: 0 22.5px;
+            text-align: right;
+            display: block;
+            .submit-btn {
+              margin: 0;
+              height: 37.5px;
+              text-transform: none;
+              box-shadow: none;
+              /* Rectangle: */
+              background: #3A92FF !important;
+              border-radius: 75px;
+              /* Submit Your Applicat: */
+              font-family: Avenir-Medium;
+              font-size: 15px;
+              color: #FFFFFF;
+              letter-spacing: 0;
+              .btn__content {
+                padding: 0 37.5px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .verified-page {
+
+  }
+  .footer {
+    // background-color: #fff !important;
+    // position: inherit;
+    position: absolute;
+    bottom: 22.5px;
+    left: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding-bottom: 22.5px;
+    padding-top: 37.5px;
+    a {
+      /* FAQ Blog Help Terms: */
+      font-family: Avenir-Medium;
+      font-size: 15px;
+      color: #1F1F1F;
+      letter-spacing: 0;
+      text-decoration: none;
+      margin-right: 22.5px;
+    }
+    .copyright {
+      display: inline-block;
+      /* FAQ Blog Help Terms: */
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #A8A8A8;
+      letter-spacing: 0;
+    }
+  }
+  .verified-page {
+    margin-top: 90px;
+    .logo-section {
+      padding: 0 22.5px;
+      .logo {
+
+      }
+    }
+    .verified-title {
+      margin-top: 117.75px;
+      /* Your application has: */
+      font-family: Avenir-Black;
+      font-size: 27px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    .verified-text {
+      // max-width: 855px;
+      width: 100%;
+      display: block;
+      text-align: center;
+      /* You are currently re: */
+      font-family: Avenir-Book;
+      font-size: 23.25px;
+      color: #2D2D2D;
+      letter-spacing: -1.18px;
+    }
+    .awesome-btn {
+      margin: 0;
+      margin-top: 45px;
+      height: 37.5px;
+      text-transform: none;
+      box-shadow: none;
+      /* Rectangle: */
+      background: #3A92FF !important;
+      border-radius: 75px;
+      /* Submit Your Applicat: */
+      font-family: Avenir-Medium;
+      font-size: 15px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      .btn__content {
+        padding: 0 37.5px;
+      }      
+    }
+  }
+}

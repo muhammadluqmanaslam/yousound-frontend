@@ -1,0 +1,158 @@
+.activity-item {
+  padding-top: 22.5px;
+  .activity-item-body {
+    padding-bottom: 22.5px;
+    border-bottom: 0.75px solid #E1E1E1;
+    position: relative;
+    &.last-item {
+      border: none;
+    }
+    .activity-item-section {
+      /* Line Copy: */
+      border-right: 0.75px solid #E1E1E1;
+      &.no-reposts {
+        border: none;
+      }
+      .activity-item-section-body {
+        position: relative;
+        padding: 22.5px 0px;
+        .activity-item-profile-avatar-area {
+          position: absolute;
+          top: 22.5px;
+          left: 0px;
+          width: 80px;
+          height: 80px;
+          border-radius: 100%;
+          background-size: cover;
+          background-position: center;
+          .activity-item-profile-cover {
+            left: 0;
+            top: 54.75px;
+          }
+        }
+        .activity-item-content-area {
+          padding: 7.5px 15px 0 0;
+          margin-left: 90px;
+          .activity-item-content {
+            line-height: 13.5px;
+            .user-name {
+              /* Kris Boy: */
+              font-family: Avenir-Medium;
+              font-size: 18px;
+              color: #3A92FF;
+              letter-spacing: 0;
+              text-decoration: none;
+            }
+            .item-status {
+              /* ic_inbox: */
+              color: #959595;
+
+            }
+            .description-text {
+              /* commented on Darkest: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #959595;
+              letter-spacing: 0;
+              display: block;
+              padding-top: 3.75px;
+              .items-title {
+                font-family: Avenir-Heavy;
+                color: #000000;
+                text-decoration: none;
+                cursor: pointer;
+              }
+              .share-icon {
+
+              }
+              .play-icon {
+
+              }
+              .comment-icon {
+                height: 15px;
+              }
+              .recommend-icon {
+
+              }
+              .release-icon {
+
+              }
+              .follow-icon {
+
+              }
+              .repost-icon {
+                height: 15px;
+              }
+              .download-icon {
+                height: 15px;
+              }
+            }
+          }
+          .details {
+            margin-top: 20px;
+            .detailed-description {
+              /* “Oh man, this track: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: 0;
+            }
+            .actioned-item {
+              width: 120px;
+              height: 120px;
+              margin-right: 6px;
+              border-radius: 3.75px;
+              background-size: cover;
+              overflow: hidden;
+              background-position: center;
+              display: inline-block;
+              a {
+                padding-right: 100%;
+                padding-bottom: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+    .activity-item-recent-posts {
+      padding-left: 30px;
+      padding-top: 22.5px;
+      padding-bottom: 22.5px;
+      .recent-posts-section-title {
+        /* Recent reposts: */
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #959595;
+        letter-spacing: 0;
+        margin-bottom: 3.75px;
+      }
+      .recent-post-item {
+        /* Rectangle 3 Copy 4: */
+        /* Sketch doesnt export pattern fills at this point */
+        width: 100px;
+        height: 100px;
+        margin-right: 6px;
+        border-radius: 3.75px;
+        background-size: cover;
+        overflow: hidden;
+        display: inline-block;
+        background-position: center;
+        // a {
+        //   padding-left: 100%;
+        //   padding-bottom: 100%;
+        // }
+      }
+    }
+    .activity-time {
+      position: absolute;
+      top: 9.75px;
+      right: 0;
+      /* Now: */
+      font-family: Avenir-Book;
+      font-size: 13.5px;
+      color: #BCBCBC;
+      letter-spacing: 0;
+    }
+  }
+}

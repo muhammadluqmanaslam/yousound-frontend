@@ -1,0 +1,598 @@
+.page.chat-page {
+  .chat-popup {
+    /* Rectangle: */
+    background: rgba(255, 255, 255, 0.95);
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    z-index: 15;
+    text-align: center;
+    &.listen {
+      .popup-section {
+        padding-top: 0;
+        .artist-section {
+          .user-avatar-image {
+            margin: 50px auto 10px;
+            height: 160px;
+            width: 160px;
+            border-radius: 80px;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+          }
+          .user-name {
+            font-family: Avenir-Heavy;
+            font-size: 20px;
+            color: #000000;
+            letter-spacing: -0.6px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    &.requests {
+      text-align: left;
+      .popup-section {
+        padding-top: 0;
+        padding-bottom: 0;
+        .requests-section {
+          /* Rectangle 12 Copy 3: */
+          // background: #FFFFFF;
+          height: 600px;
+          // height: 100vh;
+          // max-height: 600px;
+          border: 0.75px solid #E1E1E1;
+          border-left: none;
+          border-top-left-radius: 7.5px;
+          border-top-right-radius: 7.5px;
+          .header-section {
+            width: 100%;
+            height: 75px;
+            border-top: 0.75px solid #E1E1E1;
+            border-bottom: 0.75px solid #E1E1E1;
+            border-top-left-radius: 7.5px;
+            border-top-right-radius: 7.5px;
+            /* Rectangle 13 Copy: */
+            background: #FAFAFA;
+            text-align: center;
+            .section-title {
+              margin: 0;
+              padding-top: 3px;
+              /* Request repost: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: -0.6px;
+            }
+            .option-area {
+              .request-option-btn {
+                border-radius: 75px;
+                text-transform: none;
+                box-shadow: none;
+                background-color: transparent;
+                /* Merch: */
+                font-family: Avenir-Roman;
+                font-size: 15px;
+                color: #000000;
+                letter-spacing: -0.6px;
+                &.selected {
+                  /* Rectangle 4: */
+                  background: #3A92FF;
+                  /* Album: */
+                  color: #FFFFFF;
+                }
+              }
+            }
+          }
+          .content-section {
+            max-height: 523px;
+            padding-top: 8px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            .request-item {
+              padding: 4px 12px;
+              // cursor: pointer;
+              &.selected {
+                background-color: rgba(0, 0, 0, 0.1);
+              }
+              .avatar-area {
+                width: 60px;
+                height: 60px;
+                display: inline-block;
+                vertical-align: middle;
+                .avatar-image {
+                  width: 60px;
+                  height: 60px;
+                  border-radius: 3.75px;
+                  background-size: cover;
+                }
+              }
+              .detail-area {
+                width: calc(100% - 80px);
+                padding-left: 11.25px;
+                display: inline-block;
+                vertical-align: middle;
+                .item-name {
+                  display: block;
+                  cursor: pointer;
+                  /* I'll Take You There: */
+                  font-family: Avenir-Roman;
+                  font-size: 15px;
+                  color: #000000;
+                  letter-spacing: -0.6px;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                }
+                .user-name {
+                  display: block;
+                  cursor: pointer;
+                  /* Ruckazoid: */
+                  opacity: 0.5;
+                  font-family: Avenir-Roman;
+                  font-size: 15px;
+                  color: #000000;
+                  letter-spacing: -0.6px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .popup-section {
+      max-width: 375px;
+      padding-top: 67.5px;
+      padding-bottom: 52.5px;
+      margin-top: calc(50vh - 285px);
+      margin-left: auto;
+      margin-right: auto;
+      /* Rectangle 2: */
+      background: #FFFFFF;
+      box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+      border-radius: 7.5px;
+      .popup-image {
+      }
+      .popup-title {
+        padding: 45px 15px 0;
+        margin: 0;
+        /* The music will stop: */
+        font-family: Avenir-Roman;
+        font-size: 22.5px;
+        color: #000000;
+        letter-spacing: 0;
+      }
+      .popup-text {
+        padding: 7.5px 30px 45px;
+        /* Messages is where ar: */
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #000000;
+        letter-spacing: 0;
+      }
+      .gotta-btn {
+        width: 248.25px;
+        height: 37.5px;
+        margin: 0;
+        box-shadow: none;
+        text-transform: none;
+        /* Rectangle: */
+        background: #3A92FF !important;
+        border-radius: 75px;
+        /* Ok. Got it!: */
+        font-family: Avenir-Medium;
+        font-size: 15px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+      }
+    }
+  }
+  .page-title {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  .chat-page-content {
+    // border-top: 0.75px solid #e1e1e1;
+    .chat-content-section {
+      /* Rectangle 12 Copy: */
+      // background: #FFFFFF;
+      height: calc(100vh - 265.75px);
+      border: 0.75px solid #E1E1E1;
+      position: relative;
+      .header-section {
+        width: 100%;
+        height: 75px;
+        border-bottom: 0.75px solid #E1E1E1;
+        position: relative;
+        background: rgba(192, 192, 192, 0.08);
+        .user-name {
+          padding-top: 15.75px;
+          margin: 0;
+          /* Kris Boy: */
+          font-family: Avenir-Medium;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: 0;
+          text-align: center;
+        }
+        .messaged-time {
+          // padding-top: 3.75px;
+          margin: 0;
+          /* Today, 9:13 AM: */
+          font-family: Avenir-Roman;
+          font-size: 13.5px;
+          color: #9F9F9F;
+          letter-spacing: 0;
+          text-align: center;
+        }
+        .more-menu.menu {
+          position: absolute;
+          top: 22.5px;
+          right: 15px;
+          width: 30px;
+          height: 30px;
+          margin: 0;
+          .btn {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            margin: 0;
+            background: transparent !important;
+            // background-color: rgba(255, 255, 255, 0.5) !important;
+            box-shadow: none;
+            border: 1px solid #FFF !important;
+            border-radius: 75px;
+            color: #696969;
+            /* ic_more: */
+            .btn__content {
+              padding: 0;
+              i {
+                margin: 0;
+                color: #696969;
+              }
+            }
+          }
+          .img {
+            /* Repost Download Shar: */
+            font-family: Avenir-Roman;
+            font-size: 13.5px;
+            color: #000000;
+            letter-spacing: 0;
+            line-height: 30px;
+          }
+        }
+      }
+      .chat-list-section {
+        max-height: calc(100vh - 327.5px);
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 22.5px 0;
+        margin-bottom: 60px;
+      }
+      .send-chat-section {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        padding: 0 1px;
+        /* Rectangle 13: */
+        border-top: 0.75px solid #E1E1E1;
+        // border-right: 0.75px solid #E1E1E1;
+        .chat-input-box {
+          border: none;
+          width: 100%;
+          padding: 17px 26.25px;
+          padding-right: 150.5px;
+          /* Write a message...: */
+          font-family: Avenir-Roman;
+          font-size: 16px;
+          letter-spacing: -0.2px;
+          &:focus, &:hover, &:active {
+            outline: none;
+            // background: rgba(150, 150, 150, 0.2);
+          }
+          &::-webkit-input-placeholder {
+            color:#ABABAB;
+          }
+          &:-moz-placeholde {
+            color:#ABABAB;
+          }
+          &::-moz-placeholder {
+            color:#ABABAB;
+          }
+          &:-ms-input-placeholder {
+            color:#ABABAB;
+          }
+        }
+        .show-emoji-box-btn {
+          position: absolute;
+          width: 30px;
+          min-width: 30px;
+          height: 30px;
+          right: 110px;
+          bottom: 13.5px;
+          margin: 0;
+          text-transform: none;
+          box-shadow: none;
+          /* Rectangle: */
+          background: #FFFFFF;
+          border: 0.75px solid #DDDDDD;
+          border-radius: 75px;
+          /* Send: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #9B9B9B;
+          letter-spacing: -0.6px;
+          &.selected {
+            background: #3A92FF;
+            border: none;
+            color: #FFFFFF;
+          }
+        }
+        .send-chat-btn {
+          position: absolute;
+          width: 72.75px;
+          height: 30px;
+          right: 15px;
+          bottom: 13.5px;
+          margin: 0;
+          text-transform: none;
+          box-shadow: none;
+          /* Rectangle: */
+          background: #FFFFFF;
+          border: 0.75px solid #B1B1B1;
+          border-radius: 75px;
+          /* Send: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #9B9B9B;
+          letter-spacing: -0.6px;
+        }
+        .emoji-picker {
+          position: absolute;
+          bottom: 60px;
+          right: 110px;
+        }
+      }
+    }
+    .requests-section {
+      /* Rectangle 12 Copy 3: */
+      // background: #FFFFFF;
+      height: calc(100vh - 265.75px);
+      border: 0.75px solid #E1E1E1;
+      border-left: none;
+      overflow: auto;
+      .header-section {
+        width: 100%;
+        height: 85px;
+        border-top: 0.75px solid #E1E1E1;
+        border-bottom: 0.75px solid #E1E1E1;
+        /* Rectangle 13 Copy: */
+        background: #FAFAFA;
+        text-align: center;
+        padding: 0 1px;
+        .section-title {
+          margin: 0;
+          padding-top: 11.25px;
+          /* Request repost: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: -0.6px;
+        }
+        .option-area {
+          .request-option-btn {
+            border-radius: 75px;
+            text-transform: none;
+            box-shadow: none;
+            background-color: transparent;
+            /* Merch: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #000000;
+            letter-spacing: -0.6px;
+            &.selected {
+              /* Rectangle 4: */
+              background: #3A92FF;
+              /* Album: */
+              color: #FFFFFF;
+            }
+            .fa.icon {
+              font-size: 20px;
+              margin-right: 5px;
+            }
+            .icon {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+      .content-section {
+        max-height: calc(100vh - 352.5px);
+        padding: 15px 20px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        .member-group {
+          display: block;
+          cursor: pointer;
+          /* Ruckazoid: */
+          opacity: 0.5;
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: -0.6px;
+          text-transform: uppercase;
+          padding: 7.5px 11.25px;
+        }
+        .member-item {
+          padding: 2px 11.25px;
+          // cursor: pointer;
+          .avatar-area {
+            width: 35px;
+            height: 35px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            .avatar-image {
+              width: 35px;
+              height: 35px;
+              border-radius: 3.75px;
+              background-size: cover;
+              background-position: center;
+            }
+            .memeber-status{
+              width: 10px;
+              height: 10px;
+              border: 1px solid white;
+              border-radius: 100%;
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              background-color: #9F9F9F;
+              &.online {
+                background-color: #7ED321;
+              }
+              &.normal {
+                background-color: #3A92FF;
+              }
+            }
+          }
+          .detail-area {
+            width: calc(100% - 80px);
+            padding-left: 11.25px;
+            display: inline-block;
+            vertical-align: middle;
+            .item-name {
+              display: block;
+              cursor: pointer;
+              /* I'll Take You There: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: -0.6px;
+            }
+            .user-name {
+              display: block;
+              cursor: pointer;
+              /* Ruckazoid: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: -0.6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.chat-item {
+  padding: 3.75px 15px 10px;
+  .user-avatar-image {
+    width: 37.5px;
+    height: 37.5px;
+    display: inline-block;
+    overflow: hidden;
+    background-size: cover;
+    border-radius: 100%;
+    // vertical-align: bottom;
+  }
+  .chat-section {
+    max-width: calc(100% - 67.5px);
+    .info-section {
+      // vertical-align: middle;
+      .item-user {
+        font-family: Avenir-Heavy;
+        font-size: 15px;
+        color: #000000;
+        letter-spacing: -0.6px;
+        cursor: pointer;
+      }
+      .messaged-time {
+        text-align: center;
+        /* Today 9:13 AM: */
+        font-family: Avenir-Roman;
+        font-size: 13.5px;
+        color: #9F9F9F;
+        letter-spacing: 0;
+        margin-bottom: 22.5px;
+      }
+    }
+    .chat-content {
+      border-radius: 22.5px;
+      display: inline-block;
+      padding-left: 7.5px;
+      // padding: 7.5px 18.75px;
+      // max-width: calc(100% - 82.5px);
+      &.text {
+        .text-message {
+          /* Yo can you repost my: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          letter-spacing: -0.6px;
+        }
+      }
+    }
+  }
+}
+
+.chat-item.self {
+  .user-avatar-image {
+    float: right;
+  }
+  .chat-section {
+    padding-right: 7.5px;
+    float: right;
+    .info-section {
+    }
+    .chat-content {
+      width: 100%;
+      text-align: left;
+      &.no-top-corner {
+        border-top-right-radius: 7.5px;
+      }
+      &.no-bottom-corner {
+        border-bottom-right-radius: 7.5px;
+      }
+      &.text {
+        text-align: right;
+        .text-message {
+          color: #000000;
+        }
+      }
+    }
+  }
+}
+
+.chat-item.other {
+  .user-avatar-image {
+    float: left;
+  }
+  .chat-section {
+    padding-left: 7.5px;
+    float: left;
+    .info-section {
+    }
+    .chat-content {      
+      &.no-top-corner {
+        border-top-left-radius: 7.5px;
+      }
+      &.no-bottom-corner {
+        border-bottom-left-radius: 7.5px;
+      }
+      &.text {
+        .text-message {
+          color: #000000;
+        }
+      }
+    }
+  }
+}
+
+.chat-item.space {
+  margin-top: 22.5px;
+}

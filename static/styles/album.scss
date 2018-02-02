@@ -1,0 +1,1233 @@
+.GLOBAL-album-collaborators-follow-item {
+  width: 300px;
+
+  .list__tile__action {
+    .chip__content {
+      cursor: pointer;
+    }
+  }
+}
+
+.page.upload-album-page {
+  .album-info-section {
+    padding: 37.5px 123.75px 161.25px;
+    background-color: #FFF;
+    .album-info-title {
+      margin-bottom: 3px;
+      /* Album Info: */
+      font-family: Avenir-Roman;
+      font-size: 22.5px;
+      color: #000000;
+      letter-spacing: -1.1.5px;
+    }
+    .album-image-section {
+      width: 300px;
+      .image-section {
+        /* Rectangle: */
+        background: #3A92FF;
+        border: 0.75px solid #D2D2D2;
+        border-radius: 3.75px;
+        width: 100%;
+        padding-bottom: 100%;
+        margin-top: 4.5px;
+        position: relative;
+        .loading-activity {
+          position: absolute;
+          margin-top: 0px;
+          top: calc(50% - 15px);
+          left: calc(50% - 15px);
+        }
+        .album-image {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          /* Oval: */
+          background: #FFFFFF;
+          border: 0.75px solid #D2D2D2;
+          width: 100%;
+          height: 100%;
+          border-radius: 3.75px;
+          background-size: cover;
+          overflow: hidden;
+          background-position: center;
+        }
+        .album-image-upload-section {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          .add-album-image-file {
+            width: 0.0.75px;
+            height: 0.0.75px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+          }
+          .add-album-image-file + label {
+            width: 100%;
+            height: 100%;
+            /* Add Image: */
+            font-family: Avenir-Medium;
+            font-size: 15px;
+            color: #FFFFFF;
+            letter-spacing: 0;
+            .camera {
+              /* ic_camera_profile: */
+              color: #FFFFFF;
+              font-size: 28.5px;
+              display: block;
+              margin-top: calc(50% - 22.5px);
+            }
+          }
+          .add-album-image-file:focus + label,
+          .add-album-image-file + label:hover {
+            color: rgba(255, 255, 255, 0.50);
+            .camera {
+              /* ic_camera_profile: */
+              color: rgba(255, 255, 255, 0.50);
+            }
+          }
+        }
+      }
+      .image-change-section {
+        margin-top: 11.25px;
+        text-align: center;
+        .change-album-image-file {
+          width: 0.0.75px;
+          height: 0.0.75px;
+          opacity: 0;
+          overflow: hidden;
+          position: absolute;
+          z-index: -1;
+        }
+        .change-album-image-file + label {
+          /* Change: */
+          font-family: Avenir-Roman;
+          font-size: 13.5px;
+          color: #3A92FF;
+          letter-spacing: 0;
+        }
+        .change-album-image-file:focus + label,
+        .change-album-image-file + label:hover {
+          color: rgba(58, 146, 255, 0.50);
+        }
+      }
+    }
+    .album-content-section {
+      padding: 0 0 0 22.5px;
+      width: calc(100% - 300px);
+      .album-description {
+        height: 129px;
+        padding: 7.5px 11.25px;
+        /* Rectangle: */
+        background: #FFFFFF;
+        border: 0.75px solid #D2D2D2;
+        border-radius: 3.75px;
+        a {
+          color: #3A92FF;
+        }
+      }
+      .form-group {
+        margin-bottom: 18.75px;
+        // margin-bottom: 22.5px;
+      }
+    }
+    .promote-album-section {
+      background-color: #FFF;
+      padding: 37.5px 0 0;
+      .promote-album-image {
+        width: 112.5px;
+        height: 112.5px;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        background: #eeeeee; /* Old browsers */
+        background: -moz-linear-gradient(top, #eeeeee 0%, #eeeeee 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #eeeeee 0%,#eeeeee 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #eeeeee 0%,#eeeeee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+        .promote-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          overflow: hidden;
+          background-position: center;
+        }
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .promote-album-description {
+        width: 50%;
+        padding-left: 22.5px;
+        font-size: 15px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .promote-btn {
+        // float: right;
+        height: 40px;
+        margin: 0;
+        text-transform: none;
+        /* Rectangle: */
+        background: #ffffff !important;
+        border: 1px solid #3A92FF;
+        border-radius: 75px;
+        /* Release Now: */
+        font-family: Avenir-Medium;
+        font-size: 14px;
+        color: #3A92FF;
+        letter-spacing: 0;
+      }
+      .promote-album-action {
+        display: inline-block;
+        vertical-align: middle;
+        width: calc(50% - 120px);
+        text-align: right;
+        .promote-title {
+          display: inline-block;
+          vertical-align: middle;
+          padding-right: 12px;
+          /* Promote this album: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: 0;
+        }
+        .promote-switch {
+          width: inherit;
+          display: inline-block;
+          vertical-align: middle;
+          padding:0;
+          width: 37.5px;
+          .input-group--selection-controls__toggle {
+            height: 24px;
+            width: 37.5px;
+            border-radius: 12px;
+            &.input-group--selection-controls__toggle--active {
+              opacity: 1;
+              background-color: #3A92FF;
+            }
+          }
+          .input-group--selection-controls__ripple:after {
+            height: 21px;
+            width: 21px;
+            left: 65.5%;
+          }
+          .input-group--selection-controls__ripple--active::after {
+            background-color: #FFF;
+          }
+        }
+      }
+    }
+    .album-section {
+      border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .collaborator-section {
+      // margin: 7.5px;
+      padding: 15px 0;
+      border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
+      .option-content {
+        margin: 0 -7.5px;
+        .sm6 {
+          padding: 0 7.5px;
+        }
+      }
+      .add-option-btn {
+        margin: 0px;
+        box-shadow: none !important;
+        min-width: 24px;
+        height: 40px;
+        min-width: 0px;
+        /* Rectangle 17 Copy: */
+        background: #FFFFFF !important;
+        color: #3A92FF;
+        text-transform: none;
+        .btn__content {
+          padding: 0;
+          i {
+            color: #3A92FF;
+            font-size: 18px;
+            border: 0.75px solid #3A92FF;
+            border-radius: 1.5px;
+            margin-right: 10px;
+          }
+        }
+      }
+      .clear-btn {
+        // padding-top: 18.75px;
+        color: #C1C1C1;
+        cursor: pointer;
+      }
+      .cancel-button {
+        height: 37.5px;
+        margin-right: 15px;
+        float: right;
+        cursor: pointer;
+        /* Cancel: */
+        font-family: Avenir-Roman;
+        font-size: 13.5px;
+        color: #3A92FF;
+        letter-spacing: 0;
+        line-height: 37.5px;
+      }
+    }
+
+    .contributor-section {
+      // margin: 7.5px;
+      padding: 15px 0;
+      border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
+      .option-content {
+        margin: 0 -7.5px;
+        .sm6 {
+          padding: 0 7.5px;
+        }
+      }
+      .add-option-btn {
+        margin: 0px;
+        box-shadow: none !important;
+        min-width: 24px;
+        height: 40px;
+        min-width: 0px;
+        /* Rectangle 17 Copy: */
+        background: #FFFFFF !important;
+        color: #3A92FF;
+        text-transform: none;
+        .btn__content {
+          padding: 0;
+          i {
+            color: #3A92FF;
+            font-size: 18px;
+            border: 0.75px solid #3A92FF;
+            border-radius: 1.5px;
+            margin-right: 10px;
+          }
+        }
+      }
+      .clear-btn {
+        // padding-top: 18.75px;
+        color: #C1C1C1;
+        cursor: pointer;
+      }
+      .cancel-button {
+        height: 37.5px;
+        margin-right: 15px;
+        float: right;
+        cursor: pointer;
+        /* Cancel: */
+        font-family: Avenir-Roman;
+        font-size: 13.5px;
+        color: #3A92FF;
+        letter-spacing: 0;
+        line-height: 37.5px;
+      }
+    }
+
+    .album-action-section {
+      margin-top: 20px;
+      padding-top: 15px;
+      /* Line 5: */
+      // border-top: 0.75px solid #979797;
+      .delete-album-btn {
+        padding-top: 9px;
+        /* Remove Album: */
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #D0021B;
+        letter-spacing: 0;
+        cursor: pointer;
+      }
+      .release-now-btn {
+        float: right;
+        height: 37.5px;
+        margin: 0;
+        text-transform: none;
+        /* Rectangle: */
+        background: #3A92FF !important;
+        border-radius: 75px;
+        /* Release Now: */
+        font-family: Avenir-Medium;
+        font-size: 15px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+      }
+      .save-for-later-btn {
+        float: right;
+        height: 37.5px;
+        margin: 0 7.5px 0 0;
+        text-transform: none;
+        /* Rectangle: */
+        background: #FFFFFF;
+        border: 0.75px solid #3A92FF;
+        border-radius: 75px;
+        /* Save for later: */
+        font-family: Avenir-Medium;
+        font-size: 15px;
+        color: #3A92FF;
+        letter-spacing: 0;
+      }
+    }
+  }
+  .footer {
+    bottom: 45px;
+    // background-color: transparent !important;
+  }
+}
+
+.page.album-detail-page {
+  // .background-image {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100vw !important;
+  //   height: 100% !important;
+  //   background: #414141;
+  //   overflow: hidden;
+  //   div {
+  //     // width: 2403px;
+  //     // height: 2403px;
+  //     width: 100%;
+  //     height: 100%;
+  //     margin-top: -797.25px;
+  //     margin-left: -482.25px;
+  //     opacity: 0.6;
+  //     border-radius: 7.5px;
+  //     background-size: cover;
+  //     -webkit-filter: blur(160px);
+  //     -moz-filter: blur(160px);
+  //     -o-filter: blur(160px);
+  //     -ms-filter: blur(160px);
+  //     filter: blur(160px);
+  //   }
+  // }
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100% !important;
+    // background: #414141;
+    overflow: hidden;
+    // opacity: 0.6;
+    background-color: #000000;
+    opacity: 0.8;
+    div {
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+      background-size: cover;
+      -webkit-filter: blur(160px);
+      -moz-filter: blur(160px);
+      -o-filter: blur(160px);
+      -ms-filter: blur(160px);
+      filter: blur(160px);
+    }
+  }
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100% !important;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.2);
+  }
+  .album-pages {
+    z-index: 9;
+    margin-top: 60px;
+    margin-bottom: 85px;
+    .album-info-page {
+      min-height: calc(100vh - 230px);
+      z-index: 10;
+      .album-image-section {
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        .album-image {
+          width: 375px;
+          height: 375px;
+          background-color: #000;
+          background-size: cover;
+          overflow: hidden;
+          background-position: center;
+        }
+        .play-button-section {
+          width: 375px;
+          height: 375px;
+          background: rgba(0, 0, 0, 0.80);
+          position: absolute;
+          padding: 0;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          // cursor: pointer;
+          -webkit-transition: opacity 0.3s ease-in-out;
+          -moz-transition: opacity 0.3s ease-in-out;
+          -ms-transition: opacity 0.3s ease-in-out;
+          -o-transition: opacity 0.3s ease-in-out;
+          transition: opacity 0.3s ease-in-out;
+          &:hover {
+            opacity: 1;
+          }
+          .play-button {
+            border: rgba(255, 255, 255, 0.5) solid 1px;
+            border-radius: 100%;
+            // background: rgba(0, 0, 0, 0.5) !important;
+            background: transparent !important;
+            box-shadow: none;
+            // width: 33.33333333333333%;
+            // height: 33.33333333333333%;
+            // margin-left: 33.33333333333333%;
+            // margin-top: 33.33333333333333%;
+            width: 80px;
+            height: 80px;
+            margin-left: calc(50% - 40px);
+            margin-top: calc(50% - 40px);
+            min-width: 80px;
+            .btn__content {
+              padding: 0;
+            }
+            img {
+              // width: 100%;
+              max-width: 60px;
+            }
+            .icon {
+              &.play {
+                font-size: 70px;
+              }
+              &.pause {
+                font-size: 50px;
+              }
+            }
+          }
+        }
+        .album-merch-section {
+          margin-top: 30px;
+          cursor: pointer;
+          .title {
+            color: white;
+            font-family: Avenir;
+            font-weight: 300;
+            font-size: 24px !important;
+            letter-spacing: -0.6px !important;
+            border-bottom: 1px solid rgba(215, 215, 215, 0.20);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+          }
+          .merch-detail-section {
+            margin-top: 10px;
+            background-color: transparent;
+            padding: 0;
+            border-radius: 3px;
+            .merch-avatar {
+              width: 80px;
+              height: 80px;
+              display: inline-block;
+              vertical-align: middle;
+              background-size: cover;
+              background-position: center;
+              overflow: hidden;
+              border-radius: 5px;
+              border: 3px solid white;
+            }
+            .info-section {
+              display: inline-block;
+              vertical-align: middle;
+              padding-left: 10px;
+              .merch-name {
+                display: block;
+                color: white;
+                font-family: Avenir-Roman;
+                font-weight: 900;
+                font-size: 20px;
+                letter-spacing: -0.6px;
+                cursor: pointer;
+              }
+              .merch-price {
+                display: block;
+                color: white;
+                font-family: Avenir-Roman;
+                font-size: 20px;
+                letter-spacing: -0.6px;
+                cursor: pointer;
+              }
+              .link-btn {
+                display: block;
+                color: rgba(255, 255, 255, 0.52);
+                font-family: Avenir-Roman;
+                font-size: 16px;
+                letter-spacing: -0.6px;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+        .action-section {
+          .action-btn {
+            width: 82.5px;
+            box-shadow: none;
+            margin-left: 0;
+            margin-right: 4px;
+            /* Rectangle 10: */
+            background-color: transparent !important;
+            border: 0.75px solid rgba(255, 255, 255, 0.3) !important;
+            border-radius: 3.75px;
+            .icon {
+              color: rgba(255, 255, 255, 0.5);
+            }
+            img {
+              height: 11.25px;
+              padding-right: 3.75px;
+            }
+          }
+        }
+      }
+      .album-detail-section {
+        display: inline-block;
+        width: calc(100% - 379px);
+
+        .album-info-section {
+          position: relative;
+          margin: 21px 22.5px 0px 37.5px;
+
+          .album-title {
+            text-transform: uppercase;
+            /* ALBUM: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.6px;
+          }
+          .album-name {
+            /* World Without Sound: */
+            font-family: Avenir-Black;
+            font-size: 36px;
+            color: #FFFFFF;
+            letter-spacing: 0;
+            line-height: 41.25px;
+          }
+          .album-description {
+            /* Emerging in 1993, wh: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #FFFFFF;
+            letter-spacing: 0;
+          }
+          .album-detail {
+            /* by Ruckazoid • 2017: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.6px;
+            padding-bottom: 20px;
+
+            .album-stats-btn {
+              color: #FFFFFF;
+              font-size: 14px;
+              font-weight: 700;
+              text-transform: uppercase;
+              cursor: pointer;
+            }
+
+            .album-stats {
+              display: inline-block;
+
+              .action-btn {
+                background-color: rgba(255, 255, 255, 0.1) !important;
+                box-shadow: none;
+                margin: 0;
+                color: rgba(255, 255, 255, 0.5);
+                min-width: 78px;
+                .btn__content {
+                  padding: 0;
+                }
+                .icon {
+                  color: rgba(255, 255, 255, 0.5);
+                }
+                img {
+                  height: 11.25px;
+                  padding-right: 3.75px;
+                }
+              }
+            }
+          }
+
+          .album-credits-dialog {
+            .text-btn {
+              position: relative;
+              box-shadow: none;
+              background: transparent !important;
+              margin: 0;
+              padding: 0 2px;
+              height: inherit;
+              .btn__content {
+                padding: 0;
+              }
+            }
+          }
+
+          .album-action-section {
+            position: absolute;
+            right: -35px;
+            bottom: 10px;
+
+            #follow_selector {
+              .btn {
+                width: 140px;
+                height: 40px;
+                box-shadow: none;
+                text-transform: none;
+                margin: 8px 0px 8px 0px;
+                background-color: transparent !important;
+                border-radius: 82px;
+                border: 1px solid #FFFFFF;
+                font-family: Avenir-Roman;
+                font-size: 16px;
+                letter-spacing: 0;
+
+                .btn__content {
+                  padding: 0 16px 0 32px;
+
+                  .icon {
+                    margin-left: 8px;
+                  }
+                }
+              }
+            }
+
+            .follow-btn {
+              width: 130px;
+              height: 40px;
+              box-shadow: none;
+              text-transform: none;
+              margin: 8px 0px 8px 0px;
+              /* Rectangle 64: */
+              background-color: transparent !important;
+              border-radius: 82px;
+              /* Send love: */
+              font-family: Avenir-Roman;
+              font-size: 16px;
+              letter-spacing: 0;
+              &.follow {
+                color: #FFFFFF !important;
+                border: 1px solid #FFFFFF;
+              }
+              &.following {
+                /* Rectangle: */
+                color: #FFFFFF !important;
+                border: 1px solid #FFFFFF;
+                &:hover {
+                  color: #dc3545 !important;
+                  border: 1px solid #dc3545;
+                }
+              }
+            }
+
+            .more-btn {
+              width: 40px;
+              min-width: 40px;
+              height: 40px;
+              box-shadow: none;
+              margin: 8px 8px 8px 0px;
+              padding: 0px;
+              /* Rectangle 64: */
+              background-color: transparent !important;
+              // border: 1px solid #A7A7A7 !important;
+              border-radius: 82px;
+              color: #FFFFFF;
+              /* ic_more: */
+              .btn__content {
+                padding: 0;
+              }
+              .icon {
+                color: #FFFFFF;
+                margin: 0;
+              }
+            }
+          }
+        }
+
+
+        .album-tracks-section {
+          margin-left: 22.5px;
+
+          .album-track-item {
+            padding: 6px 11.25px;
+
+            .track-name {
+              /* M-A-X: */
+              line-height: 36px;
+              padding-left: 3.75px;
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #FFFFFF;
+              letter-spacing: 0;
+              vertical-align: middle;
+              display: inline-block;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              max-width: 375px;
+              min-width: 75px;
+              .track-index {
+                font-family: Avenir-Roman;
+                font-size: 15px;
+                color: rgba(255, 255, 255, 0.5);
+                letter-spacing: 0;
+                vertical-align: middle;
+              }
+            }
+            .action-btn {
+              background-color: transparent !important;
+              box-shadow: none;
+              margin: 0;
+              color: rgba(255, 255, 255, 0.5);
+              min-width: 36px;
+              .btn__content {
+                padding: 0;
+              }
+              .icon {
+                color: rgba(255, 255, 255, 0.5);
+              }
+              img {
+                height: 11.25px;
+                padding-right: 3.75px;
+              }
+            }
+            .track-actions {
+              display: inline-block;
+              opacity: 0;
+              .action-btn {
+                background-color: transparent !important;
+                box-shadow: none;
+                margin: 0;
+                color: rgba(255, 255, 255, 0.5);
+                min-width: 78px;
+                .btn__content {
+                  padding: 0;
+                }
+                .icon {
+                  color: rgba(255, 255, 255, 0.5);
+                }
+                img {
+                  height: 11.25px;
+                  padding-right: 3.75px;
+                }
+              }
+            }
+            .right-section {
+              float: right;
+              .track-more-action {
+                opacity: 0;
+                .more-btn {
+                  width: 37.5px;
+                  min-width: 37.5px;
+                  display: inline-block;
+                  vertical-align: middle;
+                  background-color: transparent !important;
+                  box-shadow: none;
+                  margin: 0;
+                  color: rgba(255, 255, 255, 0.5);
+                  .btn__content {
+                    padding: 0;
+                  }
+                  .icon {
+                    margin: 0;
+                    font-size: 22.5px;
+                  }
+                }
+                .track-menu-item {
+                }
+              }
+              .track-length {
+                display: inline-block;
+                vertical-align: middle;
+                /* 6:13: */
+                font-family: Avenir-Roman;
+                font-size: 15px;
+                color: rgba(255, 255, 255, 0.5);
+                letter-spacing: 0;
+              }
+            }
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.1);
+              .track-actions {
+                opacity: 1;
+              }
+              .right-section {
+                .track-more-action {
+                  opacity: 1;
+                }
+              }
+            }
+            &.selected {
+              background-color: rgba(255, 255, 255, 0.1);
+              .track-actions {
+                opacity: 1;
+              }
+              .right-section {
+                .track-more-action {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .album-comment-page {
+      padding-top: 200px;
+      .comment-title {
+        /* Talk to Ruckazoid: */
+        font-family: Avenir-Heavy;
+        font-size: 28px;
+        color: #000000;
+        letter-spacing: -1.3px;
+        padding: 0 11.25px;
+        margin-top: -40px;
+        margin-bottom: 10px;
+      }
+      .description {
+        /* Comments are only se: */
+        font-family: Avenir-Roman;
+        font-size: 16px;
+        padding: 0 12px;
+        color: #676767;
+        letter-spacing: 0;
+        display: block;
+        margin-top: -16px;
+      }
+      .comments-section {
+        padding-top: 30px;
+        .tab-section {
+          padding: 0 12px;
+          .comment-tab {
+            padding-bottom: 15px;
+            /* Line: */
+            border-bottom: 1px solid #C3C3C3;
+            .comment-count {
+              padding-right: 22px;
+              padding-bottom: 14px;
+              /* 231 Comments: */
+              font-family: Avenir-Roman;
+              font-size: 18px;
+              color: #000000;
+              letter-spacing: 0;
+              /* Line: */
+              border-bottom: 3px solid #3A92FF;
+            }            
+          }
+        }
+      }
+      .content-section {
+        margin-top: 33.75px;
+        .add-comment-section {
+          padding: 0 11.25px 0 11.25px;
+          position: relative;
+          .profile-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            vertical-align: middle;
+          }
+          .comment-input {
+            margin-left: 15px;
+            width: calc(100% - 80px);
+            /* Rectangle 11: */
+            background: #FFFFFF;
+            border: 1.5px solid #E5E5E5;
+            border-radius: 3.75px;
+            padding: 15px;
+            /* Join the discussion.: */
+            font-family: Avenir-Roman;
+            font-size: 18.75px;
+            // color: #A2A2A2;
+            letter-spacing: 0;
+          }
+          .show-emoji-box-btn {
+            position: absolute;
+            width: 30px;
+            min-width: 30px;
+            height: 30px;
+            right: 28px;
+            top: 15.5px;
+            margin: 0;
+            text-transform: none;
+            box-shadow: none;
+            /* Rectangle: */
+            background: #FFFFFF;
+            border: 0.75px solid #DDDDDD;
+            border-radius: 75px;
+            /* Send: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #9B9B9B;
+            letter-spacing: -0.6px;
+            &.selected {
+              background: #3A92FF;
+              border: none;
+              color: #FFFFFF;
+            }
+          }
+        }
+        .emoji-picker {
+          position: absolute;
+          bottom: 60px;
+          right: 30px;
+        }
+      }
+      .comment-items {
+        padding-top: 26.25px;
+        .comment-item {
+          margin-top: 26.25px;
+          .comment-parent-item {
+            padding: 7.5px 11.25px;
+            position: relative;
+            .profile-image {
+              width: 60px;
+              height: 60px;
+              border-radius: 100%;
+              vertical-align: middle;
+            }
+            .comment-user-avatar {
+              width: 60px;
+              height: 60px;
+              border-radius: 100%;
+              vertical-align: middle;
+              border: 0.75px solid rgba(255,255,255,0.30);
+              background-size: cover;
+              overflow: hidden;
+              background-position: center;
+              display: inline-block;
+              .activity-item-profile-cover {
+                // left: -18.75px;
+                // top: 20.25px;
+              }
+            }
+            .comment-content {
+              display: inline-block;
+              margin-left: 7.5px;
+              vertical-align: middle;
+              // margin-top: 7.5px;
+              width: calc(100% - 210px);
+              .user-name {
+                /* Kris Boy: */
+                font-family: Avenir-Medium;
+                font-size: 15px;
+                color: #3A92FF;
+                letter-spacing: 0;
+                cursor: pointer;
+              }
+              .comment-text {
+                /* Yooooo!!! This is so: */
+                font-family: Avenir-Roman;
+                font-size: 15px;
+                color: #000000;
+                letter-spacing: 0;
+                margin: 0;
+                a {
+                  color: #3A92FF;
+                }
+              }
+            }
+            .right-section {
+              width: 135px;
+              text-align: right;
+              vertical-align: middle;
+              display: inline-block;
+              .comment-more-action {
+                opacity: 0;
+                .more-btn {
+                  width: 30px;
+                  min-width: 30px;
+                  display: inline-block;
+                  vertical-align: middle;
+                  background-color: transparent !important;
+                  box-shadow: none;
+                  margin: 0;
+                  color: #7A7A7A;
+                  .btn__content {
+                    padding: 0;
+                  }
+                  .icon {
+                    margin: 0;
+                    color: #444444;
+                    font-size: 22.5px;
+                  }
+                }
+                .track-menu-item {
+                }
+              }
+              .comment-time {
+                /* Now: */
+                font-family: Avenir-Book;
+                font-size: 15px;
+                color: #BCBCBC;
+                letter-spacing: 0;
+              }
+            }
+            &:hover {
+              /* Rectangle 2: */
+              background: #E4E4E4;
+              background: rgba(228, 228, 228, 0.6);
+              // opacity: 0.6;
+              border-radius: 7.5px;
+              .comment-more-action {
+                opacity: 1;
+              }
+            }
+          }
+          .child-items {
+            margin-left: 67.5px;
+            width: calc(100% - 67.5px);
+            .comment-child-item {
+              padding: 7.5px 11.25px;
+              margin-top: 6px;
+              .profile-image {
+                width: 37.5px;
+                height: 37.5px;
+                border-radius: 100%;
+                vertical-align: middle;
+              }
+              .comment-content {
+                margin-left: 7.5px;
+                width: calc(100% - 187px);
+                display: inline-block;
+                vertical-align: middle;
+                .user-name {
+                  /* Ruckazoid: */
+                  font-family: Avenir-Medium;
+                  font-size: 15px;
+                  color: #3A92FF;
+                  letter-spacing: 0;
+                }
+                .comment-text {
+                  /* Yeah, I want that to: */
+                  font-family: Avenir-Roman;
+                  font-size: 15px;
+                  color: #000000;
+                  letter-spacing: 0;
+                  margin: 0;
+                }
+              }
+              .right-section {
+                width: 135px;
+                text-align: right;
+                vertical-align: middle;
+                display: inline-block;
+                .comment-more-action {
+                  opacity: 0;
+                  .more-btn {
+                    width: 30px;
+                    min-width: 30px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    background-color: transparent !important;
+                    box-shadow: none;
+                    margin: 0;
+                    color: #7A7A7A;
+                    .btn__content {
+                      padding: 0;
+                    }
+                    .icon {
+                      margin: 0;
+                      color: #444444;
+                      font-size: 22.5px;
+                    }
+                  }
+                  .track-menu-item {
+                  }
+                }
+                .comment-time {
+                  /* Now: */
+                  font-family: Avenir-Book;
+                  font-size: 15px;
+                  color: #BCBCBC;
+                  letter-spacing: 0;
+                }
+              }
+              &:hover {
+                /* Rectangle 2: */
+                background: #E4E4E4;
+                opacity: 0.6;
+                border-radius: 7.5px;
+                .comment-more-action {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .footer {
+    position: relative;
+    bottom: 0;
+    margin-bottom: 45px;
+  }
+}
+
+.theme--light .card {
+    background: linear-gradient(to top, #ece9e6, #ffffff);
+  }
+
+.list__tile {
+  font-size: 14px;
+  }
+
+.chip__content {
+  border-radius: 200px;
+}
+
+.list__tile .avatar {
+  min-width: 0;
+}
+
+.dialog--scrollable>.card>.card__text{
+  margin-left: 12px;
+  padding-right: 36px;
+}
+.album-dialog-body.card {
+  padding-bottom: 10px;
+
+  .card__title {
+    font-family: Avenir;
+    font-size: 28px;
+    font-weight: 900;
+    // color: rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.6px;
+    padding-left: 28px;
+    padding-bottom: 8px;
+    padding-top: 10px; 
+    border-bottom: 1px solid rgba(195, 195, 195, 0.25);  
+  }
+  .card__text {
+    .album-info-label {
+      // margin-top: 20px;
+      font-family: Avenir-Heavy;
+      font-size: 15px;
+      // color: rgba(0, 0, 0, 0.5);
+      letter-spacing: 0.6px;
+    }
+    .album-info-text {
+      font-family: Avenir-Roman;
+      font-size: 14px;
+      // color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.6px;
+
+      .collaborator-info, .contributor-info {
+        padding-left: 20px;
+      }
+    }
+  }
+}

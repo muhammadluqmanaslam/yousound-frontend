@@ -1,0 +1,436 @@
+.page.profile-slider-page {
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100% !important;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.6);
+    div {
+      width: 100%;
+      height: 100%;
+      opacity: 0.6;
+      background-size: cover;
+      -webkit-filter: blur(160px);
+      -moz-filter: blur(160px);
+      -o-filter: blur(160px);
+      -ms-filter: blur(160px);
+      filter: blur(160px);
+    }    
+  }
+  .background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100% !important;
+    overflow: hidden;
+    // background-color: rgba(0, 0, 0, 0.2);
+  }
+  #profile_section {
+    width: 400px;
+    height: 123px;
+    margin: auto;
+    .user-profile-section {
+      display: block;
+      opacity: 1;
+      animation: FadeIn 0.5s ease-in-out;
+    }
+    .user-follow-section {
+      display: none;
+      opacity: 0;
+      animation: FadeOut 0.5s ease-in-out;
+    }
+    &:hover {
+      .user-profile-section {
+        display: none;
+        opacity: 0;
+        animation: FadeOut 0.5s ease-in-out;
+      }
+      .user-follow-section {
+        display: block;
+        opacity: 1;
+        animation: FadeIn 0.5s ease-in-out;
+      }
+    }
+  }
+  .user-follow-section {
+    height: 123px;
+    width: 400px;
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 10px;
+    .user-status-section {
+      text-align: center;
+      .follower-count {
+        /* 2.8k Followers: */
+        font-family: Avenir-Heavy;
+        font-size: 14px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        margin-right: 10px;
+        line-height: 36px;
+      }
+      .vertical-divider {
+        margin: 0px;
+        font-size: 14px;
+        background-color: #FFFFFF;
+        /* Line: */
+        border-left: 1px solid #FFFFFF;
+      }
+      .user-role {
+        text-transform: capitalize;
+        /* Artist: */
+        font-family: Avenir-Book;
+        font-size: 14x;
+        color: #FFFFFF;
+        letter-spacing: 1px;
+        margin-left: 10px;
+      }
+      .user-status {
+        padding-left: 14px;
+        font-size: 24px;
+      }
+    }
+    .user-action-section {
+      .play-btn {
+        width: 100px;
+        height: 36px;
+        box-shadow: none;
+        text-transform: none;
+        margin: 8px 0px 8px 0px;
+        /* Rectangle 64: */
+        background-color: #3A92FF !important;
+        border-radius: 82px;
+        /* Play: */
+        font-family: Avenir-Roman;
+        font-size: 14px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+        .icon {
+          color: #FFFFFF;
+          font-size: 24px;
+        }
+      }
+      .send-love-btn {
+        width: 100px;
+        height: 36px;
+        box-shadow: none;
+        text-transform: none;
+        margin: 8px 0px 8px 0px;
+        /* Rectangle 64: */
+        background-color: rgba(255, 255, 255, 0) !important;
+        border: 1px solid #FFF !important;
+        border-radius: 82px;
+        /* Send love: */
+        font-family: Avenir-Roman;
+        font-size: 14px;
+        color: #FFF;
+        letter-spacing: 0;
+      }
+      .follow-btn {
+        width: 100px;
+        height: 36px;
+        box-shadow: none;
+        text-transform: none;
+        margin: 8px 0px 8px 0px;
+        /* Rectangle 64: */
+        background-color: rgba(255, 255, 255, 0) !important;
+        border-radius: 82px;
+        /* Send love: */
+        font-family: Avenir-Roman;
+        font-size: 14px;
+        letter-spacing: 0;
+        &.follow {
+          color: #FFF;
+          border: 1px solid #FFF !important;
+          // color: #3A92FF !important;
+          // border: 1px solid #3A92FF;
+        }
+        &.following {
+          /* Rectangle: */
+          color: #5BAD00 !important;
+          border: 1px solid #5BAD00;
+          &:hover {
+            color: #dc3545 !important;
+            border: 1px solid #dc3545;
+          }
+        }
+      }
+      .more-btn {
+        width: 36px;
+        min-width: 36px;
+        height: 36px;
+        box-shadow: none;
+        margin: 8px 8px 8px 0px;
+        padding: 0px;
+        /* Rectangle 64: */
+        background-color: rgba(255, 255, 255, 0) !important;
+        border: 1px solid #FFF !important;
+        border-radius: 82px;
+        color: #FFF;
+        /* ic_more: */
+        .btn__content {
+          padding: 0;
+        }
+        .icon {
+          color: #FFF;
+          margin: 0;
+        }
+      }
+    }
+  }
+  .user-profile-section {
+    position: relative;
+    text-align: center;
+    width: 400px;
+    height: 123px;
+    margin: 0 auto;
+    .user-profile-image-section {
+      margin:auto;
+      width: 75px;
+      height: 75px;
+      overflow: hidden;
+      // display: inline-block;
+      vertical-align: top;
+      // margin-bottom: -36px;
+      .user-profile-image {
+        width: 75px;
+        height: 75px;
+        border-radius: 100%;
+        margin: 0 auto;
+        background-color: #FAFAFA;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+    .user-info-section {
+      .user-name-section {
+        font-family: Avenir-Roman;
+        font-size: 32px;
+        // color: #000000;
+        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: 0;
+        font-weight: 400;
+        // margin-top: 10px;
+        // margin-bottom: -44px;
+      }
+    }
+  }
+  .profile-slider-tab {
+    position: relative;
+    // margin-top: 41.25px;
+    // margin-bottom: -24px;
+    .tabs {
+      .tabs__bar {
+        .tabs__wrapper.tabs__wrapper--scrollable {
+          margin: 0;
+          .tabs__li {
+            margin-right: 33px;
+            .tabs__item {
+              padding: 0;
+              text-transform: none;
+              /* Recommended New Rele: */
+              font-family: Avenir;
+              font-size: 16.5px;
+              font-weight: 500;
+              color: white !important;
+              letter-spacing: -0.5px;
+              &.tabs__item--active {
+                color: white !important;
+              }
+            }
+          }
+        }
+      }
+      .tabs__items {
+        border: none;
+        margin-top: 45.37500000000001px;
+        margin-bottom: 0;
+      }
+    }
+    .card.card--flat {
+      background: none;
+      border: none;
+    }
+    .right-menu-section {
+      position: absolute;
+      top: 5.5px;
+      right: 0;
+    }
+    .more-btn {
+      margin: 0;
+      height: 40px;
+      /* Rectangle 2: */
+      // background: rgba(255,255,255,0.10) !important;
+      background: transparent !important;
+      border: 0px solid #E1E1E1 !important;
+      border-radius: 4.125px;
+      min-width: 40px;
+      /* Line: */
+      // transform: rotate(-180deg);
+      // border: 2.475px solid #FFFFFF;
+      /* Any genre: */
+      font-family: Avenir-Roman;
+      font-size: 16px;
+      // color: #000000;
+      color: white !important;
+      letter-spacing: -0.66px;
+      box-shadow: none;
+      text-transform: none;
+      // width: 132px;
+      .icon {
+        color: #E1E1E1;
+      }
+      .btn__content {
+        padding: 0 10px;
+      }
+    }
+  }
+  .track-name {
+    color: #000000 !important;
+  }
+  .track-user-name {
+    color: #8E8E8E !important;
+  }
+  .track-posted-at label {
+    color: #8E8E8E !important;
+  }
+  .product-name {
+    color: #000000 !important;
+  }
+  .product-user-name {
+    color: #8E8E8E !important;
+  }
+  .product-posted-at label {
+    color: #8E8E8E !important;
+  }
+}
+
+.application.application.theme--light.gray {
+  .page.profile-slider-page {
+    .user-follow-section {
+      .user-status-section {
+        .follower-count {
+          /* 2.8k Followers: */
+          color: #000000;
+        }
+        .user-role {
+          color: #000000;
+        }
+      }
+      .user-action-section {
+        .send-love-btn {
+          border: 1px solid #3A92FF !important;
+          color: #3A92FF;
+          letter-spacing: 0;
+        }
+        .follow-btn {
+          &.follow {
+            color: #3A92FF;
+            border: 1px solid #3A92FF !important;
+          }
+          &.following {
+            /* Rectangle: */
+            color: #5BAD00 !important;
+            border: 1px solid #5BAD00;
+            &:hover {
+              color: #dc3545 !important;
+              border: 1px solid #dc3545;
+            }
+          }
+        }
+        .more-btn {
+          border: 1px solid #3A92FF !important;
+          color: #3A92FF;
+          .icon {
+            color: #3A92FF;
+          }
+        }
+      }
+    }
+    .user-profile-section {
+      .user-info-section {
+        .user-name-section {
+          color: #000000;
+        }
+      }
+    }
+    .profile-slider-tab {
+      .tabs__slider.white {
+        background-color: #000 !important;
+      }
+      .tabs__item {
+        color: #000000;
+      }
+      .tabs {
+        .tabs__bar {
+          .tabs__wrapper.tabs__wrapper--scrollable {
+            .tabs__li {
+              .tabs__item {
+                color: #8E8E8E !important;
+                &.tabs__item--active {
+                  color: #000000 !important;
+                }
+              }
+            }
+          }
+        }
+      }
+      .more-btn {
+        border: 0px solid #E1E1E1 !important;
+        color: black !important;
+        svg {
+          g {
+            g {
+              fill: #000000;
+            }
+          }
+        }
+        .icon {
+          color: #E1E1E1;
+        }
+      }
+    }
+    .product-detail {
+      .product-name {
+        color: #000 !important;
+      }
+      .product-user-name {
+        color: #000 !important;
+      }
+      .product-posted-at label {
+        // color: #000 !important;
+      }
+    }
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+    // height: initial;
+  }
+  100% {
+    opacity: 1;
+    // height: initial;
+  }
+}
+@keyframes FadeOut {
+  0% {
+    opacity: 1;
+    // height: initial;
+  }
+  99% {
+    opacity: 0;
+    // height: initial;
+  }
+  100% {
+    // height: 0;
+    opacity: 0;
+    // height: 0;
+  }
+}

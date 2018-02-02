@@ -1,0 +1,262 @@
+.direct-message-section {
+  /* Rectangle: */
+  background: rgba(255, 255, 255, 0.95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  z-index: 15;
+  text-align: center;
+  .dismiss-section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .main-section {
+    width: 100%;
+    height: 100%;
+  }
+  .popup-section {
+    max-width: 907.5px;
+    margin-top: calc(50vh - 228.75px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 20;
+    /* Rectangle 2: */
+    background: #FFFFFF;
+    box-shadow: 0 30px 56px 0 rgba(0,0,0,0.30);
+    border-radius: 8px;
+    .content-section {
+      text-align: center;
+      padding: 38px 8px 23px;
+      .avatar-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        background-size: cover;
+        overflow: hidden;
+        background-position: center;
+        margin: auto;
+      }
+      .user-name {
+        padding-top: 0;
+        margin-top: 6px;
+        margin-bottom: 0;
+        /* Kris Boy: */
+        font-family: Avenir-Medium;
+        font-size: 18px;
+        color: #000000;
+        letter-spacing: 0;
+      }
+      .repost-price {
+        /* Repost Price: $1,000: */
+        font-family: Avenir-Roman;
+        font-size: 14px;
+        color: #848484;
+        letter-spacing: 0;
+      }
+      .send-message-section {
+        padding-top: 22px;
+        .message-input-area {
+          width: 100%;
+          height: 135px;
+          display: block;
+          padding: 15px;
+          padding-bottom: 60px;
+          /* Rectangle 13: */
+          border: 1px solid #E1E1E1;
+          resize: none;
+          /* Yoooooo!: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: 0;
+          border-radius: 6px;
+          &:focus, &:hover, &:active {
+            outline: none;
+            // background: rgba(150, 150, 150, 0.2);
+          }
+          &::-webkit-input-placeholder {
+            color:#ABABAB;
+          }
+          &:-moz-placeholde {
+            color:#ABABAB;
+          }
+          &::-moz-placeholder {
+            color:#ABABAB;
+          }
+          &:-ms-input-placeholder {
+            color:#ABABAB;
+          }
+        }
+        .show-emoji-box-btn {
+          position: absolute;
+          width: 30px;
+          min-width: 30px;
+          height: 30px;
+          right: 110px;
+          bottom: 9px;
+          margin: 0;
+          text-transform: none;
+          box-shadow: none;
+          /* Rectangle: */
+          background: #FFFFFF;
+          border: 0.75px solid #DDDDDD;
+          border-radius: 75px;
+          /* Send: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #9B9B9B;
+          letter-spacing: -0.6px;
+          &.selected {
+            background: #3A92FF;
+            border: none;
+            color: #FFFFFF;
+          }
+        }
+        .send-message-btn {
+          width: 72.75px;
+          height: 30px;
+          position: absolute;
+          bottom: 9px;
+          right: 15px;
+          margin: 0;
+          box-shadow: none;
+          text-transform: none;
+          /* Rectangle: */
+          background: #3A92FF !important;
+          border-radius: 75px;
+          /* Send: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #FFFFFF;
+          letter-spacing: -0.6px;
+        }
+        .emoji-picker {
+          position: absolute;
+          bottom: 45px;
+          right: 110px;
+        }
+      }
+      .followed-count-text {
+        padding-top: 75px;
+        margin: 0;
+        /* This user is followe: */
+        font-family: Avenir-Roman;
+        font-size: 13.5px;
+        color: #9F9F9F;
+        letter-spacing: 0;
+        .followed-user {
+          color: #3A92FF;
+          cursor: pointer;
+        }
+      }
+    }
+    .requests-section {
+      /* Rectangle 12 Copy 3: */
+      // background: #FFFFFF;
+      // height: calc(100vh - 201.75px);
+      // height: 400px;
+      // max-height: calc(100% - 75px);
+      // max-height: 400px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border: 1px solid #E1E1E1;
+      .header-section {
+        width: 100%;
+        height: 90px;
+        border-bottom: 1px solid #E1E1E1;
+        border-top-right-radius: 3.75px;
+        /* Rectangle 13 Copy: */
+        background: #FAFAFA;
+        text-align: center;
+        .section-title {
+          margin: 0 0 2px 0;
+          padding-top: 12px;
+          /* Request repost: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: -0.6px;
+        }
+        .option-area {
+          .request-option-btn {
+            border-radius: 75px;
+            text-transform: none;
+            box-shadow: none;
+            background-color: transparent;
+            /* Merch: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #000000;
+            letter-spacing: -0.6px;
+            &.selected {
+              /* Rectangle 4: */
+              background: #3A92FF;
+              /* Album: */
+              color: #FFFFFF;
+            }
+          }
+        }
+      }
+      .content-section {
+        padding-top: 6px;
+        max-height: 362px;
+        border-bottom-right-radius: 4px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        .request-item {
+          padding: 5px 0px 5px 6px;
+          // cursor: pointer;
+          &.selected {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+          .avatar-area {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+            .avatar-image {
+              width: 60px;
+              height: 60px;
+              border-radius: 4px;
+              background-size: cover;
+              overflow: hidden;
+              background-position: center;
+            }
+          }
+          .detail-area {
+            width: calc(100% - 64px);
+            padding-left: 11.25px;
+            display: inline-block;
+            vertical-align: middle;
+            .item-name {
+              display: block;
+              text-align: left;
+              cursor: pointer;
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: -0.6px;
+            }
+            .user-name {
+              display: block;
+              text-align: left;
+              cursor: pointer;
+              opacity: 0.5;
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: -0.6px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

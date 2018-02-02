@@ -1,0 +1,113 @@
+.product-item {
+  margin-bottom: 22.5px;
+  .product-content-section {
+    /* Rectangle 3 Copy: */
+    background: #FFFFFF;
+    border: 0.75px solid #B8B8B8;
+    .product-image {
+      /* Rectangle 2: */
+      width: 75px;
+      height: 75px;
+      background: #D5D5D5;
+      border-radius: 7.5px;
+      // margin: 7.5px 7.5px 3px;
+      margin: 7.5px;
+      background-size: cover;
+      overflow: hidden;
+      background-position: center;
+      /* Bitmap: */
+    }
+    .product-content {
+      position: absolute;
+      top: 15px;
+      left: 93.75px;
+      width: calc(100% - 93.75px);
+      padding-right: 22.5px;
+      .product-content-row {
+        .product-name {
+          /* Supreme X Snapback: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: -0.6px;
+        }
+        .product-count {
+          padding-left: 22.5px;
+          float: right;
+          /* Quantity: 2: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: 0;
+        }
+        .product-status {
+          /* Active: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #5BAD00;
+          letter-spacing: 0;
+          text-transform: capitalize;
+          i {
+            &.active {
+              /* ic_check: */
+              color: #7ED321;
+              font-size: 18px;
+            }
+          }
+        }
+        .product-price {
+          /* $35: */
+          font-family: Avenir-Heavy;
+          font-size: 22.5px;
+          color: #000000;
+          letter-spacing: -1.1.5px;
+        }
+        .product-category-text {
+          float: right;
+          padding: 0 11.25px;
+          margin-top: 3.75px;
+          /* Category: Apparel: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #A0A0A0;
+          letter-spacing: 0;
+        }
+        .btn-divider {
+          margin-top: 3.75px;
+          float: right;
+          height: 22.5px;
+          width: 0.75px;
+          background-color: #DBDBDB;
+        }
+        .text-btn {
+          float: right;
+          margin: 3.75px 0 0;
+          padding: 0 11.25px;
+          height: 22.5px;
+          background: transparent !important;
+          text-transform: none;
+          box-shadow: none;
+          cursor: pointer;
+          display: block;
+          // width: 45px;
+          min-width: 45px;
+          /* View Order Details M: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #3A92FF;
+          letter-spacing: 0;
+          .btn__content {
+            padding: 0;
+          }
+          &:hover,&:focus {
+            .btn__content {
+              &::before {
+                background: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

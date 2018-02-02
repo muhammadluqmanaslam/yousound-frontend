@@ -1,0 +1,35 @@
+import AuthService from '@/services/auth.js'
+
+export default {
+  data () {
+    return {
+      verifying_request: {
+        main_genre: null,
+        releases: null,
+        soundcloud_url: null,
+        bandcamp_url: null,
+        website_url: null,
+        description: null
+      }
+    }
+  },
+
+  components: {
+  },
+
+  computed: {
+  },
+
+  created () {
+    this.$store.dispatch('navigator/goNextState', {page: 'register', tab: ''})
+  },
+
+  methods: {
+    submit () {      
+    }
+  },
+
+  mounted () {
+    $('#content-view').css('padding-top', '0');
+  }
+}

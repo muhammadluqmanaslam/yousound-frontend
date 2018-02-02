@@ -1,0 +1,457 @@
+.album-card {
+  // flex: initial !important;
+  // margin-bottom: 22.5px;
+  // padding: 0 11.25px !important;
+  // width: 202.5px !important;
+  // max-width: 202.5px !important;
+  // min-width: 202.5px !important;
+  width: 100%;
+  .album-info {
+    position: relative;
+    .album-user {
+      .album-user-avatar {
+        width: 22.5px;
+        height: 22.5px;
+        border: 0.75px solid rgba(255,255,255,0.30);
+        border-radius: 11.25px;
+        background-size: cover;
+        overflow: hidden;
+        background-position: center;
+        // border: 0.75px solid rgba(0, 0, 0, 0.3);
+      }
+      .album-user-name {
+        color: #FFF;
+        font-size: 10.5px;
+        position: absolute;
+        top: 0px;
+        left: 37.5px;
+      }
+      .album-posted-at {
+        width: 100%;
+        position: absolute;
+        top: 9px;
+        left: 37.5px;
+        .album-status-icon {
+          height: 9px;
+          opacity: 0.5;
+          position: absolute;
+          top: 5.25px;
+          left: 0px;
+        }
+        label {
+          position: absolute;
+          color: rgba(255, 255, 255, 0.5);
+          top: 0.75px;
+          left: 13.5px;
+          font-size: 10.5px;
+        }
+      }
+    }
+    .album-cover {
+      position: relative;
+      padding: 0;
+      margin-top: 7.5px;
+      .album-image {
+        width: 100%;
+        padding-bottom: 100%;
+        background-size: cover;
+        border-radius: 7.5px;
+        overflow: hidden;
+        background-position: center;
+      }
+      .album-actions {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.86);
+        border-radius: 7.5px;
+        position: absolute;
+        padding: 0;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        // cursor: pointer;
+        -webkit-transition: opacity 0.3s ease-in-out;
+        -moz-transition: opacity 0.3s ease-in-out;
+        -ms-transition: opacity 0.3s ease-in-out;
+        -o-transition: opacity 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        .album-count {
+          position: absolute;
+          margin: 0;
+          bottom: 10.5px;
+          left: 20.25px;
+          font-family: Avenir-Roman;
+          font-size: 13.5px;
+          color: #FFFFFF;
+          letter-spacing: 0;
+        }
+
+        .action-btn {
+          display: block;
+          border: none;
+          border-radius: 15px;
+          background: none !important;
+          text-transform: none;
+          box-shadow: none;
+          height: 30px;
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          letter-spacing: 0;
+
+          .btn__content {
+          float: left;
+          }
+
+          &.height {
+            height: 60px;
+          }
+        }
+
+        .collaboration-status {
+          color: #fff;
+
+          .approve-wrapper {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 16px;
+
+            @media (max-width: 1200px) {
+              margin-top: 5px;
+              font-size: 14px;
+            }
+
+            span {
+              font-weight: bold;
+            }
+
+            .action-btn.release {
+              display: inline-block;
+              height: 32px;
+              padding: 0 8px;
+              margin-top: 10px;
+              border-radius: 20px;
+              background: #3A92FF !important;
+
+              @media (max-width: 1200px) {
+                height: 28px;
+                padding: 0 4px;
+                margin-top: 5px;
+              }
+
+              .btn__content {
+                float: none;
+                font-size: 16px;
+
+                @media (max-width: 1200px) {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+
+          .status-overview {
+            margin: 16px 0 0 24px;
+            line-height: 17px;
+            font-size: 14px;
+
+            .accepted-title {
+              color: #88e324;
+              padding-bottom: 8px;
+              font-weight: 600;
+              font-size: 15px;
+            }
+
+            .denied-title {
+              color: #dc3545;
+            }
+
+            .pending-title {
+              color: #ffff00;
+            }
+
+            & > div + div {
+              margin-top: 8px;
+            }
+          }
+        }
+
+        .collaboration-actions {
+          padding: 0 4px;
+
+          .action-btn.accept {
+            float: left;
+            .btn__content {
+              float: none;
+            }
+          }
+
+          .action-btn.deny {
+            float: right;
+            .btn__content {
+              float: none;
+            }
+          }
+        }
+      }
+      .label-user-avatar {
+        width: 30%;
+        padding-bottom: 30%;
+        margin: 10px auto;
+        background-size: contain;
+        border-radius: 100%;
+        background-position: center;
+        @media (max-width: 1200px) {
+          margin-top: 2px;
+          margin-bottom: 2px;
+          display: block;
+        }
+        @media (max-width: 1130px) {
+          display: none;
+        }
+        @media (max-width: 1012px) {
+          margin-top: 2px;
+          display: block;
+        }
+        @media (max-width: 910px) {
+          display: none;
+        }
+        @media (max-width: 809px) {
+          margin-top: 0;
+          display: block;
+        }
+        @media (max-width: 735px) {
+          margin-top: 5px;
+        }
+        @media (max-width: 679px) {
+          margin-top: 3px;
+        }
+        @media (max-width: 607px) {
+          margin-top: 10px;
+          width: 35%;
+          padding-bottom: 35%;
+        }
+        @media (max-width: 445px) {
+          display: none;
+        }
+        @media (max-width: 404px) {
+          margin-top: 20px;
+          width: 40%;
+          padding-bottom: 40%;
+          display: block;
+        }
+        @media (max-width: 300px) {
+          margin-top: 10px;
+          width: 35%;
+          padding-bottom: 35%;
+        }
+        @media (max-width: 264px) {
+          width: 30%;
+          padding-bottom: 30%;
+        }
+        @media (max-width: 235px) {
+          display: none;
+        }
+
+        @media (min-width: 1580px) {
+          width: 35%;
+          padding-bottom: 35%;
+          margin-top: 15px;
+        }
+      }
+      .label-username {
+        padding: 0 10px;
+        text-align: center;
+        font-family: Avenir-Heavy;
+        font-size: 20px;
+        color: #FFFFFF;
+        letter-spacing: -0.6px;
+        @media (max-width: 607px) {
+          margin-top: 20px;
+        }
+        @media (max-width: 500px) {
+          margin-top: 0;
+        }
+        @media (max-width: 404px) {
+          margin-top: 20px;
+        }
+      }
+      .label-description {
+        padding: 0 10px;
+        text-align: center;
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #FFFFFF;
+        letter-spacing: -0.6px;
+        line-height: 15px;
+        @media (max-width: 404px) {
+          margin-top: 10px;
+        }
+      }
+      .label-actions-section {
+        text-align: center;
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        @media (max-width: 404px) {
+          margin-bottom: 20px;
+        }
+        @media (max-width: 300px) {
+          margin-bottom: 10px;
+        }
+        @media (min-width: 1580px) {
+          margin-bottom: 10px;
+        }
+        .action-btn {
+          display: inline-block !important;
+          @media (max-width: 1376px) {
+            margin: 5px;
+          }
+          @media (max-width: 1300px) {
+            min-width: 50px;
+            margin: 5px;
+          }
+          @media (max-width: 1200px) {
+            min-width: 50px;
+            margin: 2px 2px 0;
+          }
+          @media (max-width: 1130px) {
+            min-width: 100px;
+          }
+          @media (max-width: 1012px) {
+            min-width: 50px;
+            margin: 5px 5px 0;
+          }
+          @media (max-width: 910px) {
+            min-width: 100px;
+          }
+          @media (max-width: 809px) {
+            min-width: 50px;
+            margin: 5px 5px 0;
+          }
+          @media (max-width: 735px) {
+            margin-bottom: 10px;
+          }
+          @media (max-width: 679px) {
+            min-width: 50px;
+            margin-bottom: 0;
+          }
+          @media (max-width: 404px) {
+            min-width: 100px;
+          }
+          @media (max-width: 264px) {
+            margin-bottom: 0;
+          }
+          .btn__content {
+            float: initial !important;
+          }
+          &.accept {
+            background: #5BAD00 !important;
+          }
+          &.deny {
+            background: #dc3545 !important;
+          }
+        }
+      }
+    }
+    .album-detail {
+      margin-top: 15px;
+      .album-name {
+        margin: 0;
+        color: #444;
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        letter-spacing: -0.6px;
+      }
+      .album-posted-date {
+        margin: 0;
+        // text-align: center;
+        /* Ruckazoid: */
+        opacity: 0.5;
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #8E8E8E;
+        letter-spacing: -0.6px;
+      }
+    }
+  }
+}
+
+.album-menu-item {
+  img {
+    vertical-align: middle;
+    margin-right: 9px;
+    width: 15px;
+    max-height: 15px;
+  }
+  label {
+    vertical-align: middle;
+    /* Repost Download Shar: */
+    font-family: Avenir-Roman;
+    font-size: 13.5px;
+    color: #000000;
+    letter-spacing: 0;
+  }
+}
+
+
+// @media (min-width: 0) {
+//   .album-card {
+//     flex-basis: 100%;
+//     max-width: 100%;
+//     width: 100%;
+//   }
+// }
+
+// @media (min-width: 405px) {
+//   .album-card {
+//     flex-basis: 50%;
+//     max-width: 50%;
+//     width: 50%;
+//   }
+// }
+
+// @media (min-width: 607.5px) {
+//   .album-card {
+//     flex-basis: 33.33333333333333%;
+//     max-width: 33.33333333333333%;
+//     width: 33.33333333333333%;
+//   }
+// }
+
+// @media (min-width: 810px) {
+//   .album-card {
+//     flex-basis: 25%;
+//     max-width: 25%;
+//     width: 25%;
+//   }
+// }
+
+// @media (min-width: 1012.5px) {
+//   .album-card {
+//     flex-basis: 20%;
+//     max-width: 20%;
+//     width: 20%;
+//   }
+// }
+
+// @media (min-width: 1215px) {
+//   .album-card {
+//     flex-basis: 16.66666666666667%;
+//     max-width: 16.66666666666667%;
+//     width: 16.66666666666667%;
+//   }
+// }
+
+// @media (min-width: 1417.5px) {
+//   .album-card {
+//     flex-basis: 14.28571428571429%;
+//     max-width: 14.28571428571429%;
+//     width: 14.28571428571429%;
+//   }
+// }
+

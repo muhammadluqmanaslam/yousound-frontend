@@ -1,0 +1,39 @@
+.page.album-stats-page {
+  .album-section {
+    border-bottom: 0.75px solid #E1E1E1;
+    .album-info-section {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      .album-cover-image {
+        width: 80px;
+        height: 80px;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .album-detail-section {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 15px;
+        .album-name {
+          margin: 0;
+          font-family: Avenir-Black;
+          font-size: 22.5px;
+          color: #000000;
+          letter-spacing: -1.1.5px;
+        }
+        .user-name {
+          margin: 0;
+          font-family: Avenir-Roman;
+          font-size: 16px;
+          color: #000000;
+          a {
+            color: #000000;
+          }
+        }
+      }
+    }
+  }
+}

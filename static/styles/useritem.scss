@@ -1,0 +1,294 @@
+.user-item {
+  padding-top: 22.5px;
+  .user-item-body {
+    padding-bottom: 12.5px;
+    border-bottom: 0.75px solid #E1E1E1;
+    position: relative;
+    &.last-item {
+      border: none;
+    }
+    .user-item-section {
+      /* Line Copy: */
+      border-right: 0.75px solid #E1E1E1;
+      &.no-reposts {
+        border: none;
+      }
+      .user-item-section-body {
+        position: relative;
+        padding: 12.5px 0px;
+        .user-item-profile-avatar-area {
+          // position: absolute;
+          // top: 22.5px;
+          // left: 0px;
+          width: 110px;
+          height: 110px;
+          display: inline-block;
+          vertical-align: middle;
+          &:hover {
+            .user-item-profile-cover {
+              display: block;
+              opacity: 1;
+            }  
+          }
+          .user-item-profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 55px;
+            background-size: cover;
+            overflow: hidden;
+            background-position: center;
+          }
+          .user-item-profile-cover {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            top: 54.75px;
+            opacity: 0;
+            -webkit-transition: visibility 0s opacity 0.3s ease-in-out;
+            -moz-transition: visibility 0s opacity 0.3s ease-in-out;
+            -ms-transition: visibility 0s opacity 0.3s ease-in-out;
+            -o-transition: visibility 0s opacity 0.3s ease-in-out;
+            transition: visibility 0s opacity 0.3s ease-in-out;
+            .profile-cover-arrow {
+              width: 0;
+              height: 0;
+              margin-left: 22.5px;
+              border-bottom: 7.5px solid rgba(235, 235, 235, 0.7);
+              border-left: 7.5px solid transparent;
+              border-right: 7.5px solid transparent;
+              div {
+                width: 0;
+                height: 0;
+                position: absolute;
+                top: 2.25px;
+                margin-left: -7.5px;
+                border-bottom: 7.5px solid #FAFAFA;
+                border-left: 7.5px solid transparent;
+                border-right: 7.5px solid transparent;
+              }
+            }
+            .profile-cover {
+              width: 315px;
+              height: 172.5px;
+              // margin-top: 7.5px;
+              /* Combined Shape: */
+              background: #FAFAFA;
+              border: 1.5px solid #EBEBEB;
+              box-shadow: 0 1.5px 7.5px 0 rgba(0,0,0,0.10);
+              border-radius: 3.75px;
+              .profile-cover-body {
+                margin: 28.5px 0px 0px 66.75px;
+                display: flex;
+                .profile-cover-avatar {
+                  width: 75px;
+                  height: 75px;
+                  .user-item-profile-avatar {
+                    width: 75px;
+                    height: 75px;
+                    border-radius: 37.5px;
+                  }
+                }
+                .profile-cover-content {
+                  margin-left: 7.5px;
+                  margin-top: 15px;
+                  margin-right: 15px;
+                  .user-name {
+                    /* Kris Boy: */
+                    font-family: Avenir-Black;
+                    font-size: 18.75px;
+                    color: #000000;
+                    letter-spacing: 0;
+                    text-decoration: none;
+                  }
+                  .user-followers {
+                    display: block;
+                    /* 2.8k Followers: */
+                    font-family: Avenir-Roman;
+                    font-size: 15px;
+                    color: #000000;
+                    letter-spacing: 0;
+                  }
+                }              
+              }
+              .profile-cover-action-buttons {
+                width: 255px;
+                height: 30px;
+                margin: 7.5px 30px;
+                .text-button {
+                  width: 105px;
+                  height: 30px;
+                  margin: 0 4.5px 0 0;
+                  background: transparent !important;
+                  box-shadow: none;
+                  /* Rectangle 64: */
+                  border: 1.5px solid #3A92FF;
+                  border-radius: 75px;
+                  /* Follow: */
+                  font-family: Avenir-Roman;
+                  font-size: 15px;
+                  color: #3A92FF;
+                  letter-spacing: 0;
+                  text-transform: none;
+                }
+                .more-menu.menu {
+                  width: 30px;
+                  height: 30px;
+                  margin: 0;
+                  .btn {
+                    width: 30px;
+                    height: 30px;
+                    min-width: 30px;
+                    margin: 0;
+                    background: transparent !important;
+                    // background-color: rgba(255, 255, 255, 0.5) !important;
+                    box-shadow: none;
+                    border: 1.5px solid #A7A7A7 !important;
+                    border-radius: 75px;
+                    color: #696969;
+                    /* ic_more: */
+                    .btn__content {
+                      padding: 0;
+                      i {
+                        margin: 0;
+                        color: #696969;
+                      }
+                    }
+                  }
+                  .img {
+                    /* Repost Download Shar: */
+                    font-family: Avenir-Roman;
+                    font-size: 13.5px;
+                    color: #000000;
+                    letter-spacing: 0;
+                    line-height: 30px;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .user-item-content-area {
+          padding: 7.5px 15px 0 0;
+          margin-left: 20px;
+          display: inline-block;
+          vertical-align: middle;
+          .user-item-content {
+            line-height: 13.5px;
+            .user-name {
+              /* Kris Boy: */
+              font-family: Avenir-Medium;
+              font-size: 15px;
+              color: #3A92FF;
+              letter-spacing: 0;
+              text-decoration: none;
+            }
+            .item-status {
+              /* ic_inbox: */
+              color: #959595;
+            }
+            .follower-count {
+              /* 2.8k Followers: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: 0;
+              display: block;
+              padding-top: 3.75px;
+            }
+          }
+          .actions-section {
+            .follow-btn {
+              width: 88.5px;
+              height: 27.75px;
+              box-shadow: none;
+              text-transform: none;
+              margin: 7.5px 5.25px 7.5px 0px;
+              /* Rectangle 64: */
+              background-color: rgba(255, 255, 255, 0.5) !important;
+              border-radius: 75px;
+              /* Send love: */
+              font-family: Avenir-Roman;
+              font-size: 12px;
+              letter-spacing: 0;
+              min-width: 100px;
+              &.follow {
+                color: #3A92FF !important;
+                border: 1.5px solid #3A92FF;
+              }
+              &.following {
+                /* Rectangle: */
+                color: #5BAD00 !important;
+                border: 1.5px solid #5BAD00;
+                &:hover {
+                  color: #dc3545 !important;
+                  border: 1.5px solid #dc3545;
+                }
+              }
+            }
+            .more-btn {
+              width: 30px;
+              min-width: 30px;
+              height: 30px;
+              box-shadow: none;
+              margin: 7.5px 7.5px 7.5px 0px;
+              padding: 0px;
+              /* Rectangle 64: */
+              background-color: rgba(255, 255, 255, 0.5) !important;
+              border: 1.5px solid #A7A7A7 !important;
+              border-radius: 75px;
+              color: #696969;
+              /* ic_more: */
+              .btn__content {
+                padding: 0;
+              }
+              .icon {
+                color: #696969;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+    .user-item-recent-posts {
+      padding-left: 30px;
+      vertical-align: top;
+      // padding-top: 22.5px;
+      // padding-bottom: 22.5px;
+      .recent-posts-section-title {
+        /* Recent reposts: */
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #959595;
+        letter-spacing: 0;
+        margin-bottom: 3.75px;
+      }
+      .recent-post-item {
+        /* Rectangle 3 Copy 4: */
+        /* Sketch doesnt export pattern fills at this point */
+        width: 100px;
+        height: 100px;
+        margin-right: 6px;
+        border-radius: 7.5px;
+        background-size: cover;
+        overflow: hidden;
+        background-position: center;
+        display: inline-block;
+        a {
+          padding-left: 100%;
+          padding-bottom: 100%;
+        }
+      }
+    }
+    .following-time {
+      position: absolute;
+      top: 9.75px;
+      right: 0;
+      /* Now: */
+      font-family: Avenir-Book;
+      font-size: 13.5px;
+      color: #BCBCBC;
+      letter-spacing: 0;
+    }
+  }
+}

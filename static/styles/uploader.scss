@@ -1,0 +1,188 @@
+.uploaderBox {
+  position: relative;
+  padding-top: 37.5px;
+  font-size: 12px;
+  text-align: center;
+  &.is-dragover {
+    .uploaderBox__input {    
+      .uploaderBox_image {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .uploaderBox__input {
+    text-align: center;
+
+    .uploaderBox_image {
+      /*width: 100%;*/
+      height: calc(50vh - 50px);
+      border: 1px solid rgb(241, 241, 241);
+      border-radius: 500px;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+    .uploaderBox__icon {
+      color: #000;
+      font-size: 60px;
+    }
+  }
+  .uploaderBox__file + label {
+    display: inline-block;
+    /* Click or Drag & Drop: */
+    font-family: Avenir-Roman;
+    font-size: 22.5px;
+    color: #000000;
+    letter-spacing: 0;
+  }
+  .uploaderBox__file {
+    display: none;
+  }
+
+  .uploaderBox__uploading {
+    font-size: 15px;
+    color: material-color('blue', 'a700');
+  }
+
+  .uploaderBox__success {
+    font-size: 15px;
+    color: material-color('green', 'a700');
+  }
+
+  .uploaderBox__error {
+    font-size: 15px;
+    color: material-color('red', 'a700');
+  }
+
+  .uploaderBox__desc {
+    margin-top: 15px;
+    margin-bottom: 30px;
+    .uploaderBox__dragndrop {
+      /* Click or Drag & Drop: */
+      font-family: Avenir-Roman;
+      font-size: 22.5px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    .uploaderBox__filetype {
+      display: block;
+      /* MP3 audio files only: */
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #969696;
+      letter-spacing: 0;
+    }
+  }
+}
+
+.track-list-section{
+  padding: 37.5px 96.75px 0px 123.75px;
+  background-color: #FFF;
+  text-align: left;
+  .track-list-title {
+    /* Track List: */
+    font-family: Avenir-Roman;
+    font-size: 22.5px;
+    color: #000000;
+    letter-spacing: -1.1.5px;
+    margin: 0;
+    padding-bottom: 12px;
+  }
+  .track-items {
+    .track-item {
+      margin-top: 22.5px;
+      position: relative;
+      .item-index {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        /* 1 2: */
+        font-family: Avenir-Roman;
+        font-size: 22.5px;
+        color: #B0B0B0;
+        letter-spacing: 0;
+        line-height: 33.75px;
+      }
+      .item-section {
+        position: relative;
+        height: 40px;
+        margin-left: 30px;
+        margin-right: 26.25px;
+        /* Rectangle: */
+        background: #FFFFFF;
+        border: 0.75px solid #D6D6D6;
+        border-radius: 3.75px;
+        .item-name {
+          // position: absolute;
+          // left: 18.75px;
+          // /* World Without Sound: */
+          // font-family: Avenir-Medium;
+          // font-size: 15px;
+          // color: #000000;
+          // letter-spacing: 0;
+          // line-height: 30px;
+          position: absolute;
+          left: 4.5px;
+          font-family: Avenir-Medium;
+          font-size: 14px;
+          color: #000000;
+          letter-spacing: 0;
+          line-height: 15px;
+          width: calc(100% - 45px);
+          height: 32px;
+          border-radius: 0;
+          margin-top: 3px;
+          padding: 0 11.25px;
+        }
+        .item-progress {
+          height: 30px;
+          position: absolute;
+          /* Rectangle: */
+          background: #F6FAFF;
+          border: 0.75px solid #3A92FF;
+          border-radius: 3.75px;
+        }
+        .item-progress-value {
+          position: absolute;
+          right: 12.75px;
+          /* 28%: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #8C8C8C;
+          letter-spacing: 0;
+          line-height: 30px;
+        }
+        .done {
+          position: absolute;
+          top: 7px;
+          right: 8px;
+          color: #3A92FF;
+        }
+        .failed {
+          position: absolute;
+          top: 7px;
+          right: 12.75px;
+          color: #D0021B;
+        }
+        .loading {
+          position: absolute;
+          top: 9px;
+          right: 12.75px;
+          color: #D0021B;
+        }
+      }
+      .clear-btn {
+        position: absolute;
+        cursor: pointer;
+        top: 9px;
+        right: -5px;
+        width: 22.5px;
+        height: 22.5px;
+        /* Line 3: */
+        color: #C1C1C1;
+      }
+    }  
+  }
+}

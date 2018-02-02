@@ -1,0 +1,663 @@
+
+.page.auth-page {
+}
+
+.footer {
+  // background-color: #fff !important;
+  position: absolute;
+  bottom: 22.5px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  display: block;
+  a {
+    /* FAQ Blog Help Terms: */
+    font-family: Avenir-Medium;
+    font-size: 15px;
+    color: #1F1F1F;
+    letter-spacing: 0;
+    text-decoration: none;
+    margin-right: 22.5px;
+  }
+  .copyright {
+    display: inline-block;
+    /* FAQ Blog Help Terms: */
+    font-family: Avenir-Roman;
+    font-size: 15px;
+    color: #A8A8A8;
+    letter-spacing: 0;
+  }
+}
+
+.page.auth-page.auth-login-header {
+  width: 306px;
+  margin: 90px auto 0;
+  .logo {
+    // width: 200.25px;
+    height: 80.25px;
+  }
+  h4 {
+    /* Sign in: */
+    font-family: Avenir-Book;
+    font-weight: 300;
+    font-size: 40.25px;
+    color: #2D2D2D;
+    letter-spacing: -3.18px;
+    margin-top: 63.75px;
+  }
+}
+
+.page.auth-page.auth-login-page {
+  width: 306px;
+  margin: 0 auto 0;
+  .logo {
+    // width: 200.25px;
+    height: 80.25px;
+  }
+  h4 {
+    /* Sign in: */
+    font-family: Avenir-Book;
+    font-weight: 300;
+    font-size: 40.25px;
+    color: #2D2D2D;
+    letter-spacing: -3.18px;
+    margin-top: 63.75px;
+  }
+  input[type=text],
+  input[type=email],
+  input[type=password] {
+    /* Rectangle: */
+    background: #FFFFFF;
+    border: 0.75px solid #D2D2D2;
+    border-radius: 3.75px;
+    height: 45px;
+    width: 300px;
+    /* hello@jardsonalmeida: */
+    font-family: Avenir-Roman;
+    font-size: 15px;
+    color: #4A4A4A;
+    letter-spacing: 0;
+    padding: 0 15px;
+  }
+  .email {
+    margin-top: 22.5px;
+  }
+  .password {
+    margin-top: 7.5px;
+  }
+  .regular-checkbox {
+    margin-top: 13.5px;
+    margin-bottom: 0px;
+  }
+  a {
+    /* Forgot password?: */
+    font-family: Avenir-Medium;
+    font-size: 13.5px;
+    color: #3A92FF;
+    letter-spacing: 0;
+    text-decoration: none;
+    display: block;    
+  }
+  .forgot-password {
+    margin-top: 15px;
+    cursor: pointer;
+  }
+
+  .login-button {
+    margin-top: 15px;
+    /* Rectangle: */
+    background: #3A92FF !important;
+    border-radius: 75px;
+    height: 40.5px;
+    width: 300px;
+    box-shadow: none;
+    /* Sign in: */
+    font-family: Avenir-Medium;
+    font-size: 15px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .or-divider {
+    margin-top: 30px;
+  }
+  .or {
+    /* OR: */
+    font-family: Avenir-Roman;
+    font-size: 13.5px;
+    color: #262626;
+    letter-spacing: 0;
+    margin-bottom: 0px;
+  }
+  .divider {
+    margin: 9px 0px;
+    /* Line: */
+    background-color: #D0D0D0;
+  }
+
+  .create-account {
+    margin-top: 11.25px;
+    cursor: pointer;
+  }
+}
+
+.page.auth-page.auth-register-as-page {
+  // width: 397.5px;
+  margin: 24px auto 0;
+  position: relative;
+  .avatar {
+    width: 187.5px;
+    height: 187.5px;
+    border-radius: 93.75px;
+  }    
+  .listener-area,
+  .artist-area {
+    width: 187.5px;
+    // position: absolute;
+    display: inline-block;
+    margin: 0 10px;
+    // top: 0px;
+    // left: 0px;
+    a {
+      cursor: pointer;
+    }
+  }
+  .artist-area {
+    left: 210px;
+  }
+  a {
+    font-family: Avenir-Medium;
+    font-size: 26.25px;
+    color: #3A92FF;
+    letter-spacing: 0;
+    text-decoration: none;
+  }
+}
+
+.page.auth-page.auth-register-header {
+  width: 313.5px;
+  margin: 46.5px auto 0;
+  .logo {
+    // width: 200.25px;
+    height: 80.25px;
+  }
+  h4 {
+    /* Sign in: */
+    font-family: Avenir-Book;
+    font-weight: 300;
+    font-size: 40.25px;
+    color: #2D2D2D;
+    letter-spacing: -3.18px;
+    margin-top: 15px;
+    width: 307.5px;
+  }
+  &.artist {
+    margin: 100px auto 0;
+  }
+}
+
+.page.auth-page.auth-register-page {
+  width: 306px;
+  margin: 0 auto;
+  .avatar-area {
+    /* Rectangle: */
+    background: #FAFAFA;
+    border: 0.75px solid #D2D2D2;
+    border-radius: 3.75px;
+    width: 300px;
+    height: 90px;
+    margin: 28.5px auto 0;
+    position: relative;
+    .avatar {
+      position: absolute;
+      top: 7.5px;
+      left: 15px;
+      /* Oval: */
+      background: #FFFFFF;
+      border: 0.75px solid #E9E9E9;
+      width: 75px;
+      height: 75px;
+      border-radius: 37.5px;
+
+    }
+    .upload-caption {
+      position: absolute;
+      top: 21px;
+      left: 97.5px;
+      /* Upload image: */
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #000000;
+      letter-spacing: 0;
+    }
+    .avatar-upload {
+      position: absolute;
+      top: 46.5px;
+      left: 97.5px;      
+      .avatar-file {
+        width: 0.0.75px;
+        height: 0.0.75px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+      }
+      .avatar-file + label {
+        /* Rectangle 3: */
+        background: #FFFFFF;
+        border: 0.75px solid #DFDFDF;
+        box-shadow: inset 0 -1.5px 2.25px 0 rgba(0,0,0,0.10);
+        border-radius: 2.25px;
+        /* Choose file: */
+        font-family: Avenir-Roman;
+        font-size: 13.5px;
+        color: #000000;
+        letter-spacing: 0;
+        padding: 1.5px 10.5px 0.75px;
+        display: inline-block;
+      }
+      .avatar-file:focus + label,
+      .avatar-file + label:hover {
+        box-shadow: inset 0 0.75px 1.5px 0 rgba(0,0,0,0.10);        
+      }
+    }
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password] {
+    /* Rectangle: */
+    margin-top: 7.5px;
+    background: #FFFFFF;
+    border: 0.75px solid #D2D2D2;
+    border-radius: 3.75px;
+    height: 45px;
+    width: 300px;
+    /* hello@jardsonalmeida: */
+    font-family: Avenir-Roman;
+    font-size: 15px;
+    color: #4A4A4A;
+    letter-spacing: 0;
+    padding: 0 15px;
+  }
+  .regular-checkbox {
+    margin-top: 11.25px;
+  }
+  a {
+    /* Accept Terms & Condi: */
+    font-family: Avenir-Medium;
+    font-size: 13.5px;
+    color: #3A92FF;
+    letter-spacing: 0;
+    text-decoration: none;
+  }
+  .create-account-button {
+    text-transform: none;
+    box-shadow: none;
+    /* Rectangle: */
+    background: #3A92FF !important;
+    border-radius: 75px;
+    /* Create account: */
+    font-family: Avenir-Medium;
+    font-size: 15px;
+    color: #FFFFFF;
+    letter-spacing: 0;    
+    width: 300px;
+    height:40.5px;
+  }
+  &.artist {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+    .field-title {
+      /* Username: */
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #B0B0B0;
+      letter-spacing: 0;
+    }
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+      /* Rectangle: */
+      height: 35px;
+      width: 300px;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .info-section {
+      width: 346px;
+      display: inline-block;
+      text-align: left;
+      vertical-align: top;
+      .info-title {
+        /* Artists can - Upload: */
+        font-family: Avenir-Black;
+        font-size: 28px;
+        color: #262626;
+        letter-spacing: 0;
+        vertical-align: top;
+        display: block;
+      }
+      .info-description {
+        /* Artists can - Upload: */
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #262626;
+        letter-spacing: 0;
+      }
+    }
+    .register-section {
+      width: 346px;
+      display: inline-block;
+      padding-left: 40px;
+      border-left: 0.75px solid rgba(0, 0, 0, 0.30);
+    }
+  }
+}
+
+.page.auth-page.social-verify-page {
+  .page-header {
+    width: 306px;
+    margin: 90px auto 0;
+    .logo {
+      // width: 200.25px;
+      height: 80.25px;
+    }
+    h4 {
+      /* Sign in: */
+      font-family: Avenir-Book;
+      font-weight: 300;
+      font-size: 30.25px;
+      color: #2D2D2D;
+      letter-spacing: -3.18px;
+      margin-top: 63.75px;
+    }
+  }
+
+  .page-content {
+    padding-top: 30px;
+    p {
+      font-family: Avenir-Medium;
+      font-size: 18px;
+    }
+    hr {
+      width: 300px;
+      margin: 30px auto 30px auto;
+      border: none;
+      border-top: 1px solid #ccc;
+    }
+    .btn {
+      width: 300px;
+      background: #3A92FB !important;
+      font-family: Avenir-Medium;
+      font-size: 15px;
+      color: rgb(255, 255, 255);
+      letter-spacing: 0px;
+      text-transform: none;
+    }
+    a {
+      /* Forgot password?: */
+      font-family: Avenir-Medium;
+      font-size: 18px;
+      color: #3A92FF;
+      letter-spacing: 0;
+      display: block;
+    }
+    .goto-login {
+      margin-top: 75px;
+    }
+  }
+}
+
+.page.auth-page.auth-forgot-page {
+  .page-header {
+    width: 306px;
+    margin: 90px auto 0;
+    .logo {
+      // width: 200.25px;
+      height: 80.25px;
+    }
+    h4 {
+      /* Sign in: */
+      font-family: Avenir-Book;
+      font-weight: 300;
+      font-size: 30.25px;
+      color: #2D2D2D;
+      letter-spacing: -3.18px;
+      margin-top: 63.75px;
+    }
+  }
+
+  .page-content {
+    width: 306px;
+    margin: 0 auto;
+
+    input[type=text],
+    input[type=email] {
+      /* Rectangle: */
+      background: #FFFFFF;
+      border: 0.75px solid #D2D2D2;
+      border-radius: 3.75px;
+      height: 45px;
+      width: 300px;
+      margin-top: 22.5px;
+      /* hello@jardsonalmeida: */
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #4A4A4A;
+      letter-spacing: 0;
+      padding: 0 15px;
+    }
+    a {
+      /* Forgot password?: */
+      font-family: Avenir-Medium;
+      font-size: 13.5px;
+      color: #3A92FF;
+      letter-spacing: 0;
+      text-decoration: none;
+      display: block;    
+    }
+
+    .reset-btn {
+      margin-top: 15px;
+      /* Rectangle: */
+      background: #3A92FF !important;
+      border-radius: 75px;
+      height: 37.5px;
+      width: 300px;
+      box-shadow: none;
+      /* Sign in: */
+      font-family: Avenir-Medium;
+      font-size: 15px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .or-divider {
+      margin-top: 30px;
+    }
+    .or {
+      /* OR: */
+      font-family: Avenir-Roman;
+      font-size: 13.5px;
+      color: #262626;
+      letter-spacing: 0;
+      margin-bottom: 0px;
+    }
+    .divider {
+      margin: 9px 0px;
+      /* Line: */
+      background-color: #D0D0D0;
+    }
+
+    .sign-in {
+      margin-top: 11.25px;
+    }
+  }
+}
+
+.page.auth-page.auth-reset-page {
+  .page-header {
+    width: 306px;
+    margin: 90px auto 0;
+    .logo {
+      // width: 200.25px;
+      height: 80.25px;
+    }
+    h4 {
+      /* Sign in: */
+      font-family: Avenir-Book;
+      font-weight: 300;
+      font-size: 30.25px;
+      color: #2D2D2D;
+      letter-spacing: -3.18px;
+      margin-top: 63.75px;
+    }
+  }
+
+  .page-content {
+    width: 306px;
+    margin: 0 auto;
+
+    input[type=text],
+    input[type=password] {
+      /* Rectangle: */
+      background: #FFFFFF;
+      border: 0.75px solid #D2D2D2;
+      border-radius: 3.75px;
+      height: 45px;
+      width: 300px;
+      margin-top: 22.5px;
+      /* hello@jardsonalmeida: */
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #4A4A4A;
+      letter-spacing: 0;
+      padding: 0 15px;
+    }
+    a {
+      /* Forgot password?: */
+      font-family: Avenir-Medium;
+      font-size: 13.5px;
+      color: #3A92FF;
+      letter-spacing: 0;
+      text-decoration: none;
+      display: block;    
+    }
+
+    .reset-btn {
+      margin-top: 15px;
+      /* Rectangle: */
+      background: #3A92FF !important;
+      border-radius: 75px;
+      height: 37.5px;
+      width: 300px;
+      box-shadow: none;
+      /* Sign in: */
+      font-family: Avenir-Medium;
+      font-size: 15px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .or-divider {
+      margin-top: 30px;
+    }
+    .or {
+      /* OR: */
+      font-family: Avenir-Roman;
+      font-size: 13.5px;
+      color: #262626;
+      letter-spacing: 0;
+      margin-bottom: 0px;
+    }
+    .divider {
+      margin: 9px 0px;
+      /* Line: */
+      background-color: #D0D0D0;
+    }
+
+    .sign-in {
+      margin-top: 11.25px;
+    }
+  }
+}
+
+.page.auth-page.auth-twitter-page {
+  .page-header {
+    width: 306px;
+    margin: 90px auto 0;
+    .logo {
+      // width: 200.25px;
+      height: 80.25px;
+    }
+    h4 {
+      /* Sign in: */
+      font-family: Avenir-Book;
+      font-weight: 300;
+      font-size: 30.25px;
+      color: #2D2D2D;
+      letter-spacing: -3.18px;
+      margin-top: 63.75px;
+    }
+  }
+
+  .page-content {
+    width: 306px;
+    margin: 0 auto;
+
+    .main_genre {
+      .input-group--select__autocomplete {
+        background-color: transparent !important;
+        padding-left: 5px;
+      }
+      .input-group__input {
+        height: 45px;
+      }
+      .input-group__details {
+        display: none;
+      }
+    }
+
+    input[type=text],
+    input[type=email],
+    textarea {
+      /* Rectangle: */
+      background: #FFFFFF;
+      border: 0.75px solid #D2D2D2;
+      border-radius: 3.75px;
+      height: 45px;
+      width: 300px;
+      margin-top: 22.5px;
+      /* hello@jardsonalmeida: */
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #4A4A4A;
+      letter-spacing: 0;
+      padding: 0 15px;
+    }
+    
+    textarea {
+      resize: none;
+      height: 90px;
+      padding: 10px 15px;
+    }
+
+    .btn {
+      margin-top: 15px;
+      /* Rectangle: */
+      background: #3A92FF !important;
+      border-radius: 75px;
+      height: 37.5px;
+      width: 300px;
+      box-shadow: none;
+      /* Sign in: */
+      font-family: Avenir-Medium;
+      font-size: 15px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  }
+}

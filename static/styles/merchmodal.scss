@@ -1,0 +1,200 @@
+.merch-section {
+  /* Rectangle: */
+  background: rgba(255, 255, 255, 0.95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  z-index: 15;
+  .dismiss-section {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+  .popup-section {
+    max-width: 850px;
+    margin-top: calc(50vh - 270px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 20;
+    /* Rectangle 2: */
+    background: #FFFFFF;
+    box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+    border-radius: 7.5px;
+    padding: 37.5px 11.25px 30px;
+    .image-section {
+      max-width: 54%;
+      height: 380px;
+      padding: 0 30px 0px 36px;
+
+      .product-carousel {
+        border-radius: 7.5px;
+        height: 0;
+        padding-bottom: 100%;
+        .carousel__item {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 342px;
+          height: 342px;
+          background-size: cover;
+          background-position: center;
+        }
+        .carousel__right {
+          left: 288px;
+        }
+      }
+      .product-cover-image {
+        height: 342px !important;
+        width: 342px !important;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background: #D5D5D5;
+        border-radius: 10px;
+        background-position: center;
+        overflow: hidden;
+      }
+    }
+    .info-section {
+      padding: 0 11.25px;
+      .profile-section {
+        .avatar-image {
+          width: 60px;
+          height: 60px;
+          border-radius: 100%;
+          background-size: cover;
+          display: inline-block;
+          vertical-align: middle;
+          overflow: hidden;
+          background-position: center;
+          .activity-item-profile-cover {
+            margin-left: -11.25px;
+          }
+        }
+        .profile-content {
+          display: inline-block;
+          width: 250px;
+          vertical-align: middle;
+          padding-left: 10px;
+
+          .profile-title {
+            font-size: 14px;
+            line-height: 16px;
+            color: #ccc;
+          }
+          .user-name {
+            margin: 0;
+            cursor: pointer;
+            /* Ruckazoid: */
+            font-family: Avenir-Roman;
+            font-size: 16px;
+            line-height: 20px;
+            color: #000000;
+            letter-spacing: 0;
+          }
+        }
+      }
+      .item-section {
+        padding-top: 6px;
+        padding-bottom: 58.5px;
+        .item-name {
+          text-align: left;
+          margin: 0;
+          font-family: Avenir-Roman;
+          font-size: 18px;
+          color: #000000;
+          letter-spacing: -.5px;
+        }
+        .item-price {
+          text-align: left;
+          margin: 0;
+          /* $35: */
+          font-family: Avenir-Heavy;
+          font-size: 20px;
+          color: #000000;
+          letter-spacing: -1px;
+          margin-top: -4px;
+        }
+        .item-description {
+          text-align: left;
+          padding-top: 5.25px;
+          margin-bottom: 22.5px;
+          font-family: Avenir-Roman;
+          font-size: 14px;
+          color: #838383;
+          letter-spacing: 0;
+        }
+        .add-to-cart-btn {
+          text-transform: none;
+          box-shadow: none;
+          height: 50px;
+          width: 100%;
+          margin: 18px 0 0;
+          /* Rectangle: */
+          background: #3A92FF !important;
+          border-radius: 75px;
+          /* Download: */
+          font-family: Avenir-Medium;
+          font-size: 15px;
+          color: #FFFFFF;
+          letter-spacing: 0;
+        }
+      }
+    }
+    .carousel__controls{
+      display: none;
+      background: transparent;
+    }
+    .theme--dark.btn {
+      color: #707070
+    }
+    .carousel {
+      box-shadow: none;
+    }
+
+    .policy-section {
+      height: 380px;
+      .tabs {
+        height: 380px;
+        .tabs__item {
+          color: #333 !important;
+        }
+        .tabs__items {
+          height: 290px;
+          overflow: scroll;
+
+          .card {
+            background: transparent;
+          }
+        }
+      }
+    }
+
+    .actions-section {
+      text-align: center;
+      text-align: center;
+      border-top: 1px solid #e7e7e7;
+      padding-top: 20px;
+      .action-btn {
+        /* Return policy: */
+        vertical-align: middle;
+        padding: 0 22.5px;
+        cursor: pointer;
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #3A92FF;
+        letter-spacing: 0;
+        &.right-border {
+          /* Line 4 Copy: */
+          border-right: 0.75px solid #DBDBDB;
+        }
+      }
+    }
+  }
+}
+

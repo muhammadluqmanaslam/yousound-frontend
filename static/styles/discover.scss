@@ -1,0 +1,109 @@
+.application.application.theme--light.primary {
+  .page.discover-page {
+    .page-title {
+      color: #FFFFFF;
+    }
+    .discover-tab {
+      position: relative;
+      .tabs__wrapper.tabs__wrapper--scrollable {
+        margin: 0 !important;
+      }
+      .tabs__li {
+        margin-right: 33px !important;
+      }    
+      .tabs__items {
+        border: none !important;
+        margin-top: 24px;
+      }
+      .card.card--flat {
+        background: none;
+        border: none;
+      }
+      .menu.genre_menu {
+        position: absolute;
+        top: 5.5px;
+        right: 0;
+        .menu__activator .btn {
+          margin: 0;
+          height: 41.25px;
+          /* Rectangle 2: */
+          background: rgba(255,255,255,0.10) !important;
+          border: 1.1px solid rgba(255, 255, 255, 0.3) !important;
+          border-radius: 4.125px;
+          /* Line: */
+          // transform: rotate(-180deg);
+          // border: 2.475px solid #FFFFFF;
+          /* Any genre: */
+          font-family: Avenir-Roman;
+          font-size: 16.5px;
+          color: #FFFFFF;
+          letter-spacing: -0.66px;
+          box-shadow: none;
+          text-transform: none;
+          // width: 132px;
+        }
+      }
+    }
+
+    .tabs__item {
+      padding: 0 !important;
+      text-transform: none;
+      /* Recommended New Rele: */
+      font-family: Avenir;
+      font-size: 18px;
+      color: #FFFFFF !important;
+      letter-spacing: -.5px;
+      font-weight: 500;
+    }
+  }
+}
+.application.application.theme--light.gray {
+  .page.discover-page {
+    .page-title {
+      color: #000000;
+    }
+    .discover-tab {
+      position: relative;
+      .tabs__wrapper.tabs__wrapper--scrollable {
+        margin: 0 !important;
+      }
+      .tabs__li {
+        margin-right: 33px !important;
+      }
+      .tabs__slider.white {
+        background-color: #000 !important;
+      }
+      .tabs__items {
+        border: none !important;
+        margin-top: 24px;
+      }
+      .card.card--flat {
+        background: none;
+        border: none;
+      }
+    }
+
+    .tabs__item {
+      padding: 0 !important;
+      text-transform: none;
+      /* Recommended New Rele: */
+      font-family: Avenir;
+      font-size: 18px;
+      font-weight: 500;
+      color: #8E8E8E;
+      letter-spacing: -0.5px;
+      &.tabs__item--active {
+        color: #000000;
+      }
+    }
+  }
+  .product-detail {
+    .product-name {
+      color: #000 !important;
+    }
+    .product-user-name {
+      color: #000 !important;
+    }
+  }
+}
+

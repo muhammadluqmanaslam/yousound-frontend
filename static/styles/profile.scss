@@ -1,0 +1,270 @@
+.page.profile-grid-page {
+  .user-profile-section {
+    .user-profile-image-section {
+      width: 114px;
+      height: 140px;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: top;
+      .user-profile-image {
+        width: 110px;
+        height: 110px;
+        border-radius: 100%;
+        background-color: #FAFAFA;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        // width: 152px;
+        // height: 152px;
+        // margin-top: -1px;
+        // margin-left: -1px;
+      }
+    }
+    .user-info-section {
+      width: calc(100% - 168px);
+      margin-left: 14px;
+      display: inline-block;
+      vertical-align: top;
+      .user-name-section {
+        font-family: Avenir;
+        font-size: 32px;
+        color: #000000;
+        letter-spacing: 0;
+        font-weight: 400;
+        margin-top: -4px;
+        margin-bottom: -14px;
+      }
+      .user-status-section {
+        line-height: 24px;
+        margin-bottom: -4px;
+        margin-left: 1px;
+        .follower-count {
+          /* 2.8k Followers: */
+          font-family: Avenir-Heavy;
+          font-size: 14px;
+          color: #000000;
+          letter-spacing: 0;
+          margin-right: 10px;
+          line-height: 36px;
+        }
+        .vertical-divider {
+          margin: 0px;
+          font-size: 14px;
+          background-color: #9D9D9D;
+          /* Line: */
+          border-left: 1px solid #9D9D9D;
+        }
+        .user-role {
+          text-transform: capitalize;
+          /* Artist: */
+          font-family: Avenir-Book;
+          font-size: 14x;
+          color: #000000;
+          letter-spacing: 1px;
+          margin-left: 10px;
+        }
+        .user-status {
+          padding-left: 14px;
+          font-size: 24px;
+        }
+      }
+      .user-action-section {
+        .play-btn {
+          width: 130px;
+          height: 40px;
+          box-shadow: none;
+          text-transform: none;
+          margin: 8px 0px 8px 0px;
+          /* Rectangle 64: */
+          background-color: #3A92FF !important;
+          border-radius: 82px;
+          /* Play: */
+          font-family: Avenir-Roman;
+          font-size: 16px;
+          color: #FFFFFF;
+          letter-spacing: 0;
+          .icon {
+            color: #FFFFFF;
+            font-size: 24px;
+          }
+        }
+        .send-love-btn {
+          width: 130px;
+          height: 40px;
+          box-shadow: none;
+          text-transform: none;
+          margin: 8px 0px 8px 0px;
+          /* Rectangle 64: */
+          background-color: rgba(255, 255, 255, 0.5) !important;
+          border: 1px solid #3A92FF !important;
+          border-radius: 82px;
+          /* Send love: */
+          font-family: Avenir-Roman;
+          font-size: 16px;
+          color: #3A92FF;
+          letter-spacing: 0;
+        }
+        .follow-btn {
+          width: 130px;
+          height: 40px;
+          box-shadow: none;
+          text-transform: none;
+          margin: 8px 0px 8px 0px;
+          /* Rectangle 64: */
+          background-color: rgba(255, 255, 255, 0.5) !important;
+          border-radius: 82px;
+          /* Send love: */
+          font-family: Avenir-Roman;
+          font-size: 16px;
+          letter-spacing: 0;
+          &.follow {
+            color: #3A92FF !important;
+            border: 1px solid #3A92FF;
+          }
+          &.following {
+            /* Rectangle: */
+            color: #5BAD00 !important;
+            border: 1px solid #5BAD00;
+            &:hover {
+              color: #dc3545 !important;
+              border: 1px solid #dc3545;
+            }
+          }
+        }
+        .more-btn {
+          width: 40px;
+          min-width: 40px;
+          height: 40px;
+          box-shadow: none;
+          margin: 8px 8px 8px 0px;
+          padding: 0px;
+          /* Rectangle 64: */
+          background-color: rgba(255, 255, 255, 0.5) !important;
+          border: 1px solid #A7A7A7 !important;
+          border-radius: 82px;
+          color: #696969;
+          /* ic_more: */
+          .btn__content {
+            padding: 0;
+          }
+          .icon {
+            color: #696969;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  .profile-grid-tab {
+    position: relative;
+    margin-top: 0;
+    .tabs {
+      .tabs__bar {
+        .tabs__wrapper.tabs__wrapper--scrollable {
+          margin: 0;
+          .tabs__li {
+            margin-right: 33px;
+            .tabs__item {
+              padding: 0;
+              text-transform: none;
+              font-family: Avenir;
+              font-size: 18px;
+              font-weight: 500;
+              color: #8E8E8E;
+              letter-spacing: -0.5px;
+              &.tabs__item--active {
+                color: #000000;
+              }
+            }
+          }
+        }
+      }
+      .tabs__items {
+        border: none;
+        margin-top: 12px;
+      }
+    }
+    .card.card--flat {
+      background: none;
+      border: none;
+    }
+    .right-menu-section {
+      position: absolute;
+      top: 5.5px;
+      right: 0;
+    }
+    .more-btn {
+      margin: 0;
+      height: 40px;
+      /* Rectangle 2: */
+      // background: rgba(255,255,255,0.10) !important;
+      background: rgba(255,255,255,0.10) !important;
+      border: 0px solid #E1E1E1 !important;
+      border-radius: 4.125px;
+      min-width: 40px;
+      /* Line: */
+      // transform: rotate(-180deg);
+      // border: 2.475px solid #FFFFFF;
+      /* Any genre: */
+      font-family: Avenir-Roman;
+      font-size: 16px;
+      // color: #000000;
+      color: white !important;
+      letter-spacing: -0.66px;
+      box-shadow: none;
+      text-transform: none;
+      opacity: .7;
+      // width: 132px;
+      .icon {
+        color: #888;
+      }
+      .btn__content {
+        padding: 0 10px;
+      }
+    }
+    .menu.filter_menu {
+      position: absolute;
+      top: 5.5px;
+      right: 0;
+      .menu__activator .btn {
+        margin: 0;
+        height: 37.5px;
+        background-color: #FFF !important;
+        border: 1px solid #E1E1E1 !important;
+        border-radius: 3.75px;
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #000;
+        letter-spacing: -0.6px;
+        width: 127.5px;
+        box-shadow: none;
+        text-transform: none;
+        .btn__content {
+          padding: 0 8px 0 24px;
+          .icon.icon--right {
+            position: relative;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+  .track-name {
+    color: #000000 !important;
+  }
+  .track-user-name {
+    color: #8E8E8E !important;
+  }
+  .track-posted-at label {
+    color: #8E8E8E !important;
+  }
+  .product-name {
+    color: #000000 !important;
+  }
+  .product-user-name {
+    color: #8E8E8E !important;
+  }
+  .product-posted-at label {
+    color: #8E8E8E !important;
+  }
+}

@@ -1,0 +1,53 @@
+.page.protect-page {
+  .page-header {
+    width: 640px;
+    margin: 90px auto 0;
+    .logo {
+      // width: 200.25px;
+      height: 80.25px;
+    }
+    h4 {
+      font-family: Avenir-Book;
+      font-weight: 300;
+      font-size: 30.25px;
+      color: #2D2D2D;
+      letter-spacing: 1.18px;
+      margin-top: 63.75px;
+    }
+  }
+
+  .page-content {
+    width: 306px;
+    margin: 0 auto;
+
+    input[type=text],
+    input[type=email] {
+      background: #FFFFFF;
+      border: 0.75px solid #D2D2D2;
+      border-radius: 3.75px;
+      height: 45px;
+      width: 300px;
+      margin-top: 22.5px;
+      font-family: Avenir-Roman;
+      font-size: 15px;
+      color: #4A4A4A;
+      letter-spacing: 0;
+      padding: 0 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: #3A92FF !important;
+      border-radius: 5px;
+      height: 37.5px;
+      width: 200px;
+      box-shadow: none;
+      font-family: Avenir-Medium;
+      font-size: 15px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  }
+}

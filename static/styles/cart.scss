@@ -1,0 +1,360 @@
+.page.cart-page {
+
+  .card {
+    min-height: 375px;
+  }
+
+  .orders-status-section {
+    padding: 30px 22.5px 37.5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 262.5px;
+    /* Rectangle 3: */
+    background: #F6F6F6;
+    .status-row {
+      padding-bottom: 18.75px;
+      // display: block;
+      .status-title {
+        /* Subtotal Shipping Fe: */
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #000000;
+        letter-spacing: 0;
+        // float: left;
+        &.value {
+          float: right;
+        }
+      }
+    }
+    .total-row {
+      /* Line 2: */
+      border-top: 0.75px solid #E4E4E4;
+      padding-top: 15px;
+      display: flow-root;
+      .status-title {
+        /* Total: */
+        font-family: Avenir-Roman;
+        font-size: 15px;
+        color: #000000;
+        letter-spacing: 0;
+        float: left;
+        &.value {
+          /* $113.00: */
+          font-family: Avenir-Black;
+          font-size: 22.5px;
+          color: #000000;
+          letter-spacing: 0;
+          float: right;
+        }
+      }
+    }
+    .action-row {
+      padding-top: 15px;
+      text-align: center;
+      .checkout-btn {
+        width: 217.5px;
+        height: 37.5px;
+        box-shadow: none;
+        text-transform: none;
+        margin: 0px;
+        /* Rectangle: */
+        background: #3A92FF !important;
+        border-radius: 75px;
+        /* Proceed to Checkout: */
+        font-family: Avenir-Medium;
+        font-size: 15px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+      }
+    }
+  }
+
+  .order-item {
+    // margin-bottom: 22.5px;
+    width: calc(100% - 262.5px);
+    .order-section {
+      .order-content-section {
+        background: #FFFFFF;
+        border: 0.75px solid #B8B8B8;
+        margin-right: 30px;
+        .product-cover-image {
+          width: 97.5px;
+          height: 97.5px;
+          background: #D5D5D5;
+          border-radius: 7.5px;
+          // margin: 7.5px 7.5px 3px;
+          margin: 7.5px;
+          background-position: center;
+          background-size: cover;
+        }
+        .product-content {
+          position: absolute;
+          top: 15px;
+          left: 116.25px;
+          width: calc(100% - 116.25px);
+          padding-right: 22.5px;
+          .product-content-row {
+            .product-name {
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: -0.6px;
+            }
+            .product-count {
+              float: right;
+              padding: 0 11.25px;
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: 0;
+            }
+            .product-count-adjust-btn {
+              float: right;
+              margin: 0px;
+              box-shadow: none !important;
+              width: 19.5px;
+              height: 19.5px;
+              min-width: 0px;
+              background: #FFFFFF !important;
+              border: 0.75px solid #D1D1D1 !important;
+              border-radius: 3.75px;
+              .btn__content {
+                i {
+                  color: #D1D1D1;
+                  font-size: 18px;
+                }
+              }
+              &.active {
+                border: 0.75px solid #3A92FF !important;
+                border-radius: 1.5px;
+                color: #3A92FF;
+                .btn__content {
+                  i {
+                    color: #3A92FF;
+                    font-size: 18px;
+                  }
+                }
+              }
+            }
+            .user-name {
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #8E8E8E;
+              letter-spacing: -0.6px;
+            }
+            .product-price {
+              font-family: Avenir-Heavy;
+              font-size: 22.5px;
+              color: #000000;
+              letter-spacing: -1.1.5px;
+            }
+            .order-detail-btn {
+              float: right;
+              padding-right: 11.25px;
+              margin-top: 11.25px;
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #3A92FF;
+              letter-spacing: 0;
+              border-right: 0.75px solid #DBDBDB;
+            }
+            .message-buyer-btn {
+              float: right;
+              padding-left: 11.25px;
+              margin-top: 11.25px;
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #3A92FF;
+              letter-spacing: 0;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .order-history-item {
+    margin-bottom: 22.5px;
+    .profile-section {
+      .profile-content-section {
+        margin-right: 30px;
+        width: calc(100% - 262.5px);
+        .profile-avatar {
+          width: 37.5px;
+          height: 37.5px;
+          display: inline-block;
+          .order-item-profile-avatar {
+            /* Oval 12 Copy: */
+            /* Sketch doesnt export pattern fills at this point */
+            border: 0.75px solid #CACACA;
+            width: 37.5px;
+            height: 37.5px;
+            border-radius: 100%;
+            .activity-item-profile-cover {
+              left: -15px;
+            }
+          }
+        }
+        .profile-content {
+          position: absolute;
+          top: 10px;
+          left: 50px;
+          .user-name {
+            /* Tara Bromwell purcha: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #000000;
+            letter-spacing: 0;
+          }
+          .order-detail-text {
+            /* Tara Bromwell purcha: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #000000;
+            letter-spacing: 0;
+          }
+        }
+        .profile-actions {
+          position: absolute;
+          right: 0;
+          top: 10px;
+
+          .order-detail-btn {
+            padding-right: 11.25px;
+            margin-top: 3.75px;
+            /* View Order Details M: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #3A92FF;
+            letter-spacing: 0;
+            border-right: 0.75px solid #DBDBDB;
+          }
+
+          .message-buyer-btn {
+            padding-left: 11.25px;
+            margin-top: 3.75px;
+            /* View Order Details M: */
+            font-family: Avenir-Roman;
+            font-size: 15px;
+            color: #3A92FF;
+            letter-spacing: 0;
+            /* Line 4: */
+            cursor: pointer;
+          }
+
+          .order-date {
+            padding-left: 11.25px;
+            font-family: Avenir-Roman;
+            font-size: 13.5px;
+            color: #9F9F9F;
+            letter-spacing: 0;
+          }  
+        }
+      }
+      .status-section {
+        width: 262.5px;
+      }
+    }
+    .order-section {
+      padding-top: 5px;
+
+      .order-content-section {
+        width: calc(100% - 262.5px);
+        /* Rectangle 3 Copy: */
+        background: #FFFFFF;
+        border: 0.75px solid #B8B8B8;
+        margin-right: 30px;
+        .product-cover-image {
+          /* Rectangle 2: */
+          width: 75px;
+          height: 75px;
+          background: #D5D5D5;
+          border-radius: 7.5px;
+          // margin: 7.5px 7.5px 3px;
+          margin: 7.5px;
+          background-position: center;
+          background-size: cover;
+          /* Bitmap: */
+        }
+
+        .product-content {
+          position: absolute;
+          top: 10px;
+          left: 93.75px;
+          width: calc(100% - 93.75px);
+          padding-right: 22.5px;
+
+          .product-content-row {
+            .product-name {
+              /* Supreme X Snapback: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: -0.6px;
+            }
+            .product-count {
+              float: right;
+              /* Quantity: 2: */
+              font-family: Avenir-Roman;
+              font-size: 15px;
+              color: #000000;
+              letter-spacing: 0;
+            }
+            .product-price {
+              /* $35: */
+              font-family: Avenir-Heavy;
+              font-size: 20.5px;
+              color: #000000;
+              letter-spacing: -1.1.5px;
+            }
+          }
+        }
+      }
+      .order-status-section {
+        /* Rectangle 3: */
+        background: #F6F6F6;
+        width: 262.5px;
+        &.shipped {
+          background: #388e3c;
+          .order-status-text {
+            color: #FFFFFF;
+          }
+        }
+        .order-status-text {
+          // margin: 12.75px 0 4.5px;
+          margin: 0;
+          padding-top: calc(20% - 16px);
+          /* Pending Approval: */
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          color: #000000;
+          letter-spacing: 0;
+        }
+        .order-status-btn {
+          margin: 0;
+          width: 112.5px;
+          height: 37.5px;
+          text-transform: none;
+          /* Rectangle: */
+          border: none !important;
+          box-shadow: none !important;
+          border-radius: 75px;
+          /* Ship: */
+          font-family: Avenir-Medium;
+          font-size: 15px;
+          color: #FFFFFF;
+          letter-spacing: 0;
+          &.ship {
+            background: #3A92FF !important;
+          }
+          &.shipped {
+            /* Rectangle: */
+            background: #5BAD00 !important;
+          }
+        }
+      }
+    }
+  }
+}
