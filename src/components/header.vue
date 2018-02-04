@@ -183,7 +183,7 @@
                 <label v-if="$store.state.auth.user.user_type=='label'">Record Label</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="payments" to="/payments" v-if="$store.state.auth.user.user_type=='listener' || $store.state.auth.user.user_type=='artist'">
+            <v-list-tile key="payments" to="/payments" v-if="['listener', 'artist', 'label'].indexOf($store.state.auth.user.user_type) > -1">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-question</v-icon> -->
                 <label>Payments</label>

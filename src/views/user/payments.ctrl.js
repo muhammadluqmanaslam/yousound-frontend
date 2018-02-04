@@ -46,7 +46,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'payments', tab: ''})
+    this.$store.dispatch('navigator/goNextState', { page: 'payments', tab: '' })
     this.loadUserInfo()
   },
 
@@ -57,14 +57,9 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.user = response.body
         this.loadPayments('received')
-      })
-      .catch(e => {
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
