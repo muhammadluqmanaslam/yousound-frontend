@@ -8,6 +8,7 @@ import genreTab from './components/genres'
 import settingTab from './components/settings'
 import userTab from './components/users'
 import signupTab from './components/signups'
+import globalstatsTab from './components/global_stats'
 
 export default {
   components: {
@@ -17,7 +18,8 @@ export default {
     albumTab,
     signupTab,
     genreTab,
-    settingTab
+    settingTab,
+    globalstatsTab
   },
 
   data () {
@@ -69,82 +71,6 @@ export default {
         maintenance: false,
         message: 'Test'
       },
-      globalstats_categories: [
-        'YESTERDAY',
-        'LAST MONTH',
-        'TOTAL'
-      ],
-      globalstats_category: '',
-      globalstats: [
-        {
-          name: 'Total Users',
-          value: 10000000
-        },
-        {
-          name: 'Logins',
-          value: 10000000
-        },
-        {
-          name: 'Listener Signups',
-          value: 10000000
-        },
-        {
-          name: 'Artist Signups',
-          value: 10000000
-        },
-        {
-          name: 'Listeners',
-          value: 10000000
-        },
-        {
-          name: 'Uploads',
-          value: 10000000
-        },
-        {
-          name: 'Merch Uploads',
-          value: 10000000
-        },
-        {
-          name: 'Merch Sales',
-          value: 10000000
-        },
-        {
-          name: 'Repost Requests',
-          value: 10000000
-        },
-        {
-          name: '# of Donations',
-          value: 10000000
-        },
-        {
-          name: 'Revenue made from Donations',
-          value: 10000000
-        },
-        {
-          name: 'Downloads',
-          value: 10000000
-        },
-        {
-          name: 'Plays',
-          value: 10000000
-        },
-        {
-          name: 'Playlists Created',
-          value: 10000000
-        },
-        {
-          name: 'Top 10 popular genres',
-          value: 10000000
-        },
-        {
-          name: 'Blocked Users (view users',
-          value: 10000000
-        },
-        {
-          name: 'Cancelled Accounts',
-          value: 10000000
-        }
-      ],
       isPageReady: false
     }
   },

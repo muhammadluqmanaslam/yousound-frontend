@@ -22,5 +22,9 @@ export default {
 
   getProducts (params) {
     return Vue.http.get(API_BASE_URL + '/products', { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  },
+
+  getGlobalStats (params) {
+    return Vue.http.get(API_BASE_URL + '/global_stats', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   }
 }

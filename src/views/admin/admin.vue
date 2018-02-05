@@ -32,28 +32,7 @@
               <setting-tab v-if="$store.state.auth.tab == 'settings'"></setting-tab>
             </v-tabs-content>
             <v-tabs-content key="globalstats" id="globalstats">
-              <v-card flat>
-                <v-layout row wrap>
-                  <v-flex xs12 sm6>
-                    <v-select
-                      v-bind:items="globalstats_categories"
-                      v-model="globalstats_category"
-                      class="normal-input ml-4"
-                      autocomplete></v-select>
-                  </v-flex>
-                </v-layout>
-                <v-data-table
-                  v-bind:items="globalstats"
-                  class="globalstats-table">
-                  <template slot="items" slot-scope="props">
-                    <td class="text-xs-left">{{ props.item.name }}</td>
-                    <td class="text-xs-right">{{ props.item.value }}</td>
-                  </template>
-                  <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-                    From {{ pageStart }} to {{ pageStop }}
-                  </template>
-                </v-data-table>
-              </v-card>
+              <globalstats-tab v-if="$store.state.auth.tab == 'globalstats'"></globalstats-tab>
             </v-tabs-content>
           </v-tabs-items>
         </v-tabs>
