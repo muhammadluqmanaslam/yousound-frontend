@@ -13,7 +13,7 @@
         <form @submit.prevent="submit()">
           <v-flex xs12 text-xs-left>
             <label class="field-title"></label>
-            <input type="text" name="secret_code" autocomplete="off" placeholder="Code word" v-model="secret_code">
+            <input type="password" name="secret_code" autocomplete="off" placeholder="Code Word" v-model="secret_code">
           </v-flex>
           <v-flex xs12 text-xs-center>
             <v-btn block round dark type="submit" class="reset-btn">Go</v-btn>  
