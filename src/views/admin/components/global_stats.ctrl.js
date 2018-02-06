@@ -21,13 +21,13 @@ export default {
         { name: 'Label Signups', value: 0 },
         { name: 'Listeners', value: 0 },
         { name: 'Uploads', value: 0 },
+        { name: 'Downloads', value: 0 },
+        { name: 'Plays', value: 0 },
         { name: 'Merch Uploads', value: 0 },
         { name: 'Merch Sales', value: 0 },
         { name: 'Repost Requests', value: 0 },
         { name: '# of Donations', value: 0 },
         { name: 'Revenue made from Donations', value: 0 },
-        { name: 'Downloads', value: 0 },
-        { name: 'Plays', value: 0 },
         { name: 'Playlists Created', value: 0 },
         { name: 'Top 10 popular genres', value: 0 },
         { name: 'Blocked Users (view users', value: 0 },
@@ -51,14 +51,14 @@ export default {
       switch (this.globalstats_category) {
         case 'YESTERDAY':
           params = {
-            start_date: now.subtract(1, 'days').startOf('day').format(),
-            end_date: now.subtract(1, 'days').endOf('day').format()
+            start_date: now.clone().subtract(1, 'days').startOf('day').format(),
+            end_date: now.clone().subtract(1, 'days').endOf('day').format()
           }
           break
         case 'LAST MONTH':
           params = {
-            start_date: now.subtract(1, 'months').startOf('month').format(),
-            end_date: now.subtract(1, 'months').endOf('month').format()
+            start_date: now.clone().subtract(1, 'months').startOf('month').format(),
+            end_date: now.clone().subtract(1, 'months').endOf('month').format()
           }
           break
       }
@@ -72,15 +72,15 @@ export default {
           { name: 'Brand Signups', value: stats.signup_brand_users },
           { name: 'Label Signups', value: stats.signup_label_users },
           { name: 'Listeners', value: 0 },
-          { name: 'Uploads', value: 0 },
-          { name: 'Merch Uploads', value: 0 },
-          { name: 'Merch Sales', value: 0 },
+          { name: 'Uploads', value: stats.uploaded_albums },
+          { name: 'Downloads', value: stats.downloaded_albums },
+          { name: 'Plays', value: stats.played_albums },
+          { name: 'Merch Uploads', value: stats.uploaded_products },
+          { name: 'Merch Sales', value: stats.sold_products },
           { name: 'Repost Requests', value: 0 },
           { name: '# of Donations', value: 0 },
           { name: 'Revenue made from Donations', value: 0 },
-          { name: 'Downloads', value: 0 },
-          { name: 'Plays', value: 0 },
-          { name: 'Playlists Created', value: 0 },
+          { name: 'Playlists Created', value: stats.created_playlists },
           { name: 'Top 10 popular genres', value: 0 },
           { name: 'Blocked Users (view users)', value: 0 },
           { name: 'Cancelled Accounts', value: 0 }
@@ -94,7 +94,6 @@ export default {
   watch: {
     globalstats_category: {
       handler () {
-        console.log('globalstats_category handler', this.globalstats_category)
         this.loadData()
       }
     }

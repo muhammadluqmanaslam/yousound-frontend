@@ -561,6 +561,11 @@ export default {
       this.playlist = []
       this.index = 0
       if (tracks.length > 0) {
+        if (this.$store.state.auth.user) {
+          const album = object.assoc || object
+          AlbumService.playAlbum(album.id).then(response => (console.log('played', album.id)))
+        }
+
         for (let track in tracks) {
           this.playlist.push({
             track: tracks[track],
@@ -568,10 +573,10 @@ export default {
             howl: null
           })
         }
-        if (this.$store.state.player.trackIndex > -1) {
-          this.index = this.$store.state.player.trackIndex
-          // this.$store.dispatch('player/setTrackIndex', 0)
-        }
+        // if (this.$store.state.player.trackIndex > -1) {
+        //   this.index = this.$store.state.player.trackIndex
+        // }
+        this.$store.dispatch('player/setTrackIndex', 0)
         this.trackIndex = (this.index + 1) + ' of ' + this.playlist.length
         // this.trackName = this.playlist[this.index].track.name
         this.track = this.playlist[this.index].track

@@ -104,7 +104,6 @@ export default {
     },
 
     onTab(tab) {
-      console.log('Admin Tab', tab)
       this.$store.dispatch('auth/setTab', tab)
     }
   },

@@ -122,21 +122,18 @@ export default {
   watch: {
     published_pagination: {
       handler () {
-        console.log('published_pagination handler', this.published_pagination)
         this.loadPublishedAlbums()
       }
     },
 
     privated_pagination: {
       handler () {
-        console.log('privated_pagination handler', this.privated_pagination)
         this.loadPrivatedAlbums()
       }
     },
 
     product_pagination: {
       handler () {
-        console.log('product_pagination handler', this.product_pagination)
         this.loadProducts()
       }
     },       
