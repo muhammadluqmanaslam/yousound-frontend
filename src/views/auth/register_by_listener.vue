@@ -16,10 +16,10 @@
         <form v-on:submit.prevent="submit()">
           <v-flex xs12 text-xs-center>
             <div class="avatar-area">
-              <img class="avatar" src="/static/images/placeholder.png" id="avatar" />
+              <img class="avatar" src="/static/images/placeholder.png" id="avatar" ref="avatar" />
               <label class="upload-caption">Upload image</label>
               <div class="avatar-upload">
-                <input type="file" name="avatar_file" id="avatar_file" class="avatar-file" accept="image/*" v-validate="'required'" @change="imageChanged($event)">
+                <input type="file" name="avatar_file" id="avatar_file" ref="avatar_file" class="avatar-file" accept="image/*" v-validate="'required'" @change="imageChanged($event)">
                 <label for="avatar_file">Choose a file</label>
               </div>
             </div>

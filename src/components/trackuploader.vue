@@ -134,7 +134,7 @@ export default {
         .from(Array(fileList.length).keys())
         .map(x => {
           const filesize = fileList[x].size / 1024 / 1024
-          if (filesize <= 15) {
+          if (filesize <= 100) {
             const formData = new FormData()
             formData.append('track[name]', fileList[x].name)
             formData.append('track[description]', fileList[x].name)
@@ -160,7 +160,7 @@ export default {
               }, 100)
             }
           } else {
-            this.$store.dispatch('error/showErrorToast', [fileList[x].name + ' size is over the limit.'])
+            this.$store.dispatch('error/showErrorToast', [fileList[x].name + ' size is over 100MB.'])
           }
         })
     },

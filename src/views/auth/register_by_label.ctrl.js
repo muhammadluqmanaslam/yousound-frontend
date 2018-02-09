@@ -77,6 +77,12 @@ export default {
     },
 
     imageChanged (e) {
+      if (e.target.files[0].size > 2097152) {
+        this.$refs.avatar_file.value = null
+        this.$refs.avatar.src = '/static/images/placeholder.png'
+        this.$store.dispatch('error/showErrorToast', ['You can upload an avatar 2MB in maximum'])
+        return
+      }
       this.user.avatar_file = e.target.files[0]
       var reader = new FileReader()
       reader.addEventListener('load', (event) => {
