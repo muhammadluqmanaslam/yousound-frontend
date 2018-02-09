@@ -38,7 +38,7 @@ export default {
       this.$validator.validateAll().then(response => {
         if (response === true) {
           this.$store.dispatch('error/showLoadingActivity', true)
-          console.log('registering', this.user)
+          // console.log('registering', this.user)
           var formData = new FormData();
           formData.append('user[email]', this.user.email);
           formData.append('user[password]', this.user.password);

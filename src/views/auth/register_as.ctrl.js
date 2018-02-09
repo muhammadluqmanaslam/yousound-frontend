@@ -31,7 +31,7 @@ export default {
 
   methods: {
     submit (register_by) {
-      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${register_by}` }).then(response => {
+      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${register_by}&code=${this.$store.state.auth.secret_code}` }).then(response => {
         Storage.set('twitter_info', JSON.stringify(response.body))
         location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${response.body.oauth_token}`
       })

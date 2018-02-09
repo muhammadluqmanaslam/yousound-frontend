@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3  md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2 transition="slide-x-reverse-transition">
       <div class="page-header">
         <v-flex xs12 text-xs-center>
-          <img class="logo" src="/static/images/logo_icon.svg">
+          <img class="logo" src="/static/images/nav_logo_primary.png">
         </v-flex>
         <v-flex xs12 text-xs-center>
           <h4>Additional Information</h4>

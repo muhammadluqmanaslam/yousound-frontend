@@ -34,6 +34,7 @@ Vue.filter('formatFullUrl', Filter.formatFullUrl)
 Vue.filter('capitalize', Filter.capitalize)
 
 router.beforeEach((to, frm, next) => {
+  console.log('to', store.state.auth.secret_code, ',', to.path)
   if (/^\/(protect|_oauth|confirm)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
     next()
   } else {

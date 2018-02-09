@@ -44,6 +44,9 @@ export default {
           website_url: null
         }
 
+        // console.log(this.$route.query['code'])
+        this.$store.dispatch('auth/setSecretCode', this.$route.query['code'])
+
         this.isPageReady = false
         this.$store.dispatch('error/showLoadingActivity', true)
         Promise.all([
@@ -54,7 +57,7 @@ export default {
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
         }).catch(reason => {
-          console.log('reason', reason)
+          // console.log('reason', reason)
           this.$store.dispatch('error/showLoadingActivity', false)
         })
       })
