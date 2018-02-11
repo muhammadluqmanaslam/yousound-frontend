@@ -4,7 +4,7 @@
       <v-flex xs12 class="album-cover">
         <div class="album-image" :style="{'background-image': 'url(' + album.cover.url + ')'}"></div>
         <v-flex xs12 class="album-actions">
-          <a :href="`/${album.album_type}/${album.slug}`"><v-flex xs12 class="touch-flex"></v-flex></a>
+          <router-link :to="`/${album.album_type}/${album.slug}`"><v-flex xs12 class="touch-flex"></v-flex></router-link>
           <v-flex xs12 class="touch-flex" @click.self="editButtonAction(album)" v-if="this.$store.state.auth.user.id === album.user.id && editButtonAction"></v-flex>
           <v-flex xs12 pt-2>
             <!-- <v-btn dark class="action-btn" @click.native="editButtonAction(album)">Edit</v-btn> -->

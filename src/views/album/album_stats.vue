@@ -6,10 +6,9 @@
         <div class="album-cover-image" :style="{'background-image': 'url(' + album.cover.thumb.url + ')'}"></div>
         <div class="album-detail-section">
           <p class="album-name">{{ album.name }}</p>
-          <p class="user-name">By <a :href="'/' + album.user.slug">{{ album.user.display_name }}</a></p>
+          <p class="user-name">By <router-link :to="'/' + album.user.slug">{{ album.user.display_name }}</router-link></p>
         </div>
       </div>
-
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
@@ -20,18 +19,14 @@
               v-for="tab in tabs"
               :key="tab.id"
               :href="'#' + tab.id"
-              ripple
-            >
-              {{ tab.title}}
-            </v-tabs-item>
+              ripple>{{ tab.title }}</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content
               v-for="tab in tabs"
               :key="tab.id"
-              :id="tab.id"
-            >
+              :id="tab.id">
               <v-card flat>
                 <v-layout row wrap class="user-item">
                   <v-flex xs12 sm10 offset-sm1 class="user-item-body">

@@ -50,8 +50,8 @@
           <p class="recent-posts-section-title">Recent reposts</p>
           <div class="recent-post-item" :style="{'background-image': 'url(' + imageURL(userItem.assoc) + ')'}" v-for="(repost, index) in userItem.recent_reposts" :key="index">
           <!-- <div class="recent-post-item" :style="{'background-image': 'url(/static/images/post1.jpg)'}"> -->
-            <a :href="'/album/' + repost.slug" v-if="repost.album_type"></a>
-            <a href="/" v-if="!repost.album_type"></a>
+            <router-link :to="'/album/' + repost.slug" v-if="repost.album_type"></router-link>
+            <router-link to="/" v-if="!repost.album_type"></router-link>
           </div>
           <!-- <img class="recent-post-item" src="/static/images/post1.jpg" />
           <img class="recent-post-item" src="/static/images/post2.jpg" />

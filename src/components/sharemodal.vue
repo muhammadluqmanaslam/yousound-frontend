@@ -3,8 +3,8 @@
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
     <v-layout row wrap class="popup-section">
       <v-flex xs12 class="profile-section">
-        <a :href="'/' + user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div></a>
-        <a :href="'/' + user.slug"><label class="user-name">{{ user.display_name }} <v-icon class="user-status" v-bind:class="{'online': user.status == 'active'}" v-if="user.user_type == 'artist'">fa-check-circle</v-icon></label></a>
+        <router-link :to="'/' + user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div></router-link>
+        <router-link :to="'/' + user.slug"><label class="user-name">{{ user.display_name }} <v-icon class="user-status" v-bind:class="{'online': user.status == 'active'}" v-if="user.user_type == 'artist'">fa-check-circle</v-icon></label></router-link>
         <v-btn 
           :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }" 
           @mouseenter="buttonHover = true"
@@ -39,8 +39,7 @@
           class ="clipboard-btn" 
           v-clipboard:copy="albumURL"
           v-clipboard:success="onCopy"
-          v-clipboard:error="onError"
-        >
+          v-clipboard:error="onError">
           <v-icon>fa-clipboard</v-icon>
         </v-btn>
       </v-flex>

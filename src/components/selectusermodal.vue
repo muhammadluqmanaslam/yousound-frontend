@@ -41,13 +41,12 @@
             xs12 class="user-item"
             :key="index"
             @click.self="onSelectUser(user)">
-          <a :href="'/' + user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div></a>
+          <router-link :to="'/' + user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div></router-link>
           <label class="user-name" @click="onSelectUser(user)">
             {{ user.display_name }}
-            <v-icon 
+            <v-icon v-if="user.user_type == 'artist'"
               class="user-status"
-              :class="{'online': user.status == 'active'}"
-              v-if="user.user_type == 'artist'">fa-check-circle</v-icon>
+              :class="{'online': user.status == 'active'}">fa-check-circle</v-icon>
           </label>
         </v-flex>
       </v-flex>

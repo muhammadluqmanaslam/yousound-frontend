@@ -4,7 +4,7 @@
       <v-flex xs12 class="artist-info-section">
         <div class="artist-cover" :style="{'background-image': 'url(' + artist.avatar.url + ')'}"></div>
         <v-flex xs12 class="artist-actions">
-          <a :href="`/${artist.slug}`"><v-flex xs12 class="touch-flex"></v-flex></a>
+          <router-link :to="`/${artist.slug}`"><v-flex xs12 class="touch-flex"></v-flex></router-link>
           <div class="avatar-cover">
             <div class="hover-title">View Profile</div>
           </div>

@@ -7,8 +7,8 @@
         <p class="title-label">Send payment to this user</p>
       </v-layout>
       <v-flex xs12 class="profile-section">
-        <!-- <a :href="'/' + item.slug"><div class="avatar-image" :style="{'background-image': 'url(' + item.avatar.thumb.url + ')'}"></div></a> -->
-        <!-- <a :href="'/' + item.slug"><label class="user-name">{{ item.display_name }} <v-icon class="user-status" v-bind:class="{'online': item.status == 'active'}" v-if="item.user_type == 'artist'">fa-check-circle</v-icon></label></a> -->
+        <!-- <router-link :to="'/' + item.slug"><div class="avatar-image" :style="{'background-image': 'url(' + item.avatar.thumb.url + ')'}"></div></router-link> -->
+        <!-- <router-link :to="'/' + item.slug"><label class="user-name">{{ item.display_name }} <v-icon class="user-status" v-bind:class="{'online': item.status == 'active'}" v-if="item.user_type == 'artist'">fa-check-circle</v-icon></label></router-link> -->
         <div class="avatar-image" :style="{'background-image': 'url(' + item.avatar.thumb.url + ')'}"></div>
         <label class="user-name">{{ item.display_name }} 
           <v-icon class="user-status" v-bind:class="{'online': item.status == 'active'}" v-if="item.user_type == 'artist'">fa-check-circle</v-icon>

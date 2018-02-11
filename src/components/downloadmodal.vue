@@ -8,8 +8,8 @@
     <v-layout row wrap class="popup-section">
       <v-flex xs12 class="profile-section">
         <!-- <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div> -->
-        <a :href="'/' + item.user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')'}"></div></a>
-        <a :href="'/' + item.user.slug"><label class="user-name">{{ item.user.display_name }} <v-icon class="user-status" v-bind:class="{'online': item.user.status == 'active'}" v-if="item.user.user_type == 'artist'">fa-check-circle</v-icon></label></a>
+        <router-link :to="'/' + item.user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')'}"></div></router-link>
+        <router-link :to="'/' + item.user.slug"><label class="user-name">{{ item.user.display_name }} <v-icon class="user-status" v-bind:class="{'online': item.user.status == 'active'}" v-if="item.user.user_type == 'artist'">fa-check-circle</v-icon></label></router-link>
         <v-btn v-if="item.user.id!=$store.state.auth.user.id"
             :class="{ 'follow-btn': true, 'follow': !item.user.is_following, 'following': item.user.is_following }"
             @mouseenter="buttonHover = true"

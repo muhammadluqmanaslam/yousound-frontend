@@ -2,8 +2,7 @@
   <v-flex x12 sm12 class="roster-user-item">
     <!-- <div class="user-avatar" :style="{'background-image': 'url(' + user
     .avatar.thumb.url + ')'}"></div> -->
-    <a :href="'/' + user.slug"><div class="user-avatar" :style="{'background-image': 'url(' + user
-    .avatar.thumb.url + ')'}"></div></a>
+    <router-link :to="'/' + user.slug"><div class="user-avatar" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div></router-link>
     <div class="user-name">{{ user.display_name }}</div>
     <v-btn class="text-btn error px-2" @click.native="deleteFunc(user)" v-if="deleteFunc">{{ deleteText }}</v-btn>
 
