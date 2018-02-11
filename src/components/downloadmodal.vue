@@ -11,10 +11,10 @@
         <router-link :to="'/' + item.user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')'}"></div></router-link>
         <router-link :to="'/' + item.user.slug"><label class="user-name">{{ item.user.display_name }} <v-icon class="user-status" v-bind:class="{'online': item.user.status == 'active'}" v-if="item.user.user_type == 'artist'">fa-check-circle</v-icon></label></router-link>
         <v-btn v-if="item.user.id!=$store.state.auth.user.id"
-            :class="{ 'follow-btn': true, 'follow': !item.user.is_following, 'following': item.user.is_following }"
-            @mouseenter="buttonHover = true"
-            @mouseleave="buttonHover = false"
-            @click.native="followUser()">{{ followButtonText }}</v-btn>
+          :class="{ 'follow-btn': true, 'follow': !item.user.is_following, 'following': item.user.is_following }"
+          @mouseenter="buttonHover = true"
+          @mouseleave="buttonHover = false"
+          @click.native="followUser()">{{ followButtonText }}</v-btn>
       </v-flex>
       <v-flex xs12 class="item-section">
         <!-- <div class="item-image" style="background-image: url('/static/images/post1.jpg');"></div> -->
@@ -37,15 +37,15 @@
     </v-layout>
 
     <payment-modal v-if="showPaymentModal"
-        :type="''"
-        :amount="donate_amount_by_cent"
-        :dismiss="hidePaymentDialog"
-        :finish="sendLove"></payment-modal>
+      :type="''"
+      :amount="donate_amount_by_cent"
+      :dismiss="hidePaymentDialog"
+      :finish="sendLove"></payment-modal>
   </v-flex>
 </template>
 
 <script type="text/javascript">
-  // import AlbumService from '@/services/album'
+  import AlbumService from '@/services/album'
   import UserService from '@/services/user'
   import paymentModal from '@/components/paymentmodal'
   import { Utils } from '@/helper'
@@ -141,7 +141,7 @@
       downloadItem () {
         this.dismiss()
         if (this.track) {
-          console.log(this.track)
+          // console.log(this.track)
           // AlbumService.downloadAlbum(this.item.id)
           // window.open(this.track.audio.url, '_blank')
           var filePath = this.track.audio.url
@@ -159,11 +159,11 @@
           //   success: window.download.bind(true, 'application/octet-stream', filename)
           // })
         } else {
-          // AlbumService.downloadAlbum(this.item.id).then(response => {
-          //   this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
-          // }).catch(e => {
-          //   this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          // })
+          AlbumService.downloadAlbum(this.item.id).then(response => {
+            this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          })
         }
       },
 
