@@ -16,7 +16,7 @@
           <card
             class="stripe-card pa-2"
             :class="{ complete }"
-            stripe="pk_test_BGl9NS9JlXwm69dVGAUsi5re"
+            :stripe="stripe_publishable_key"
             :options="stripeOptions"
             @change="complete = $event.complete"
             v-show="payment_method == 'stripe'"/>
@@ -66,7 +66,7 @@
 
     data () {
       return {
-        stripe_key: process.env.STRIPE_CONNECT_CLIENT_ID,
+        stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
         payment_method: 'balance',
         sent_payment: false,
         complete: false,
