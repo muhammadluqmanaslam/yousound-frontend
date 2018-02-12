@@ -26,15 +26,15 @@
               type="text" name="release_count" placeholder="How many release do you have">
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <input v-model="user.soundcloud_url" v-validate="'required|max:1023'"
+            <input v-model="user.soundcloud_url" v-validate="'required|max:1023|url:true'"
               type="text" name="soundcloud_url" placeholder="Soundcloud URL">
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <input v-model="user.basecamp_url" v-validate="'required|max:1023'"
+            <input v-model="user.basecamp_url" v-validate="'required|max:1023|url:true'"
               type="text" name="basecamp_url" placeholder="Basecamp URL">
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <input v-model="user.website_url" v-validate="'required|max:1023'"
+            <input v-model="user.website_url" v-validate="'required|max:1023|url:true'"
               type="text" name="website_url" placeholder="Website URL">
           </v-flex>
           <v-flex xs12 text-xs-center>
