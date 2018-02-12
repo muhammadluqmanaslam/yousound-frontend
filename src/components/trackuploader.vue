@@ -105,14 +105,9 @@ export default {
         // JSON responses are automatically parsed.
         file.status = this.status.success
         file.track = response.body
-      })
-      .catch(e => {
+      }).catch(e => {
         file.status = this.status.failed
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -153,16 +148,17 @@ export default {
             vm.album.tracks.push(file)
             if (vm.autoUpload) {
               vm.saveTrack(file)
-              setTimeout(function () {
-                $('html, body').animate({
-                  scrollTop: $('#track_list').offset().top - 37.5
-                }, 700)
-              }, 100)
             }
           } else {
             this.$store.dispatch('error/showErrorToast', [fileList[x].name + ' size is over 100MB.'])
           }
         })
+
+      setTimeout(function () {
+        $('html, body').animate({
+          scrollTop: $('#track_list').offset().top - 37.5
+        }, 700)
+      }, 100)
     },
 
     onEnd () {
@@ -176,13 +172,8 @@ export default {
         // JSON responses are automatically parsed.
         this.album.tracks[index].track = response.body
         // file.file_name = ''
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     }
   },
