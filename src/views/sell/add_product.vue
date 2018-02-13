@@ -28,7 +28,7 @@
             </v-flex>
             <v-flex xs12 form-group>
               <label class="control-label">Description</label>
-              <textarea v-model="product.description" class="product-description form-control non-resizable"></textarea>
+              <textarea v-model="product.description" class="product-description form-control non-resizable" maxlength="250"></textarea>
             </v-flex>
             <v-flex xs6>
               <v-radio-group v-model="product.stock_status" row>

@@ -50,7 +50,7 @@ export default {
     },
 
     isEditable () {
-      ['privated', 'published', 'collaborated'].indexOf(this.product.status) == -1 
+      return ['privated', 'published', 'collaborated'].indexOf(this.product.status) == -1
     },
 
     artists() {
@@ -215,14 +215,14 @@ export default {
       } else {
         formData.append('shop_product[category_id]', this.product.category)
       }
-      formData.append('shop_product[price]', this.product.price * 100)
+      formData.append('shop_product[price]', Math.round(this.product.price * 100))
       for (let index in this.product.variants) {
-        this.product.variants[index].price *= 100
+        this.product.variants[index].price = Math.round(this.product.variants[index].price * 100)
       }
       formData.append('shop_product[variants]', JSON.stringify(this.product.variants))
       for (let index in this.product.shipments) {
-        this.product.shipments[index].shipment_alone_price *= 100
-        this.product.shipments[index].shipment_with_price *= 100
+        this.product.shipments[index].shipment_alone_price = Math.round(this.product.shipments[index].shipment_alone_price * 100)
+        this.product.shipments[index].shipment_with_price = Math.round(this.product.shipments[index].shipment_with_price * 100)
       }
       formData.append('shop_product[shipments]', JSON.stringify(this.product.shipments))
       if (this.product_image1) {
@@ -252,14 +252,9 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('order/setTab', 'products')
         this.$router.push({ path: '/sell' })
-      })
-      .catch(e => {
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 

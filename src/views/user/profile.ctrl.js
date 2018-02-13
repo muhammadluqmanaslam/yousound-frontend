@@ -295,6 +295,17 @@ export default {
       }
     },
 
+    followersClickHandler () {
+      this.grid_show = true
+      this.tab = 'followings'
+      const value = 'followers', name = 'Follower'
+      this.followings_selector = value
+      this.getItems('followings', false)
+      this.$nextTick(() => {
+        $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+      })
+    },
+
     setGridView (flag) {
       this.grid_show = flag
       this.$store.dispatch('player/setGridShow', flag)

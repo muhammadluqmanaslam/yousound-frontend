@@ -196,14 +196,14 @@ export default {
       formData.append('shop_product[description]', this.product.description)
       formData.append('shop_product[stock_status]', this.product.stock_status)
       formData.append('shop_product[category_id]', this.product.category)
-      formData.append('shop_product[price]', parseInt(this.product.price) * 100)
+      formData.append('shop_product[price]', Math.round(this.product.price * 100))
       for (let index in this.product.variants) {
-        this.product.variants[index].price *= 100
+        this.product.variants[index].price = Math.round(this.product.variants[index].price * 100)
       }
       formData.append('shop_product[variants]', JSON.stringify(this.product.variants))
       for (let index in this.product.shipments) {
-        this.product.shipments[index].shipment_alone_price *= 100
-        this.product.shipments[index].shipment_with_price *= 100
+        this.product.shipments[index].shipment_alone_price = Math.round(this.product.shipments[index].shipment_alone_price * 100)
+        this.product.shipments[index].shipment_with_price = Math.round(this.product.shipments[index].shipment_with_price * 100)
       }
       formData.append('shop_product[shipments]', JSON.stringify(this.product.shipments))
       formData.append('shop_product[cover1]', this.product.image1)

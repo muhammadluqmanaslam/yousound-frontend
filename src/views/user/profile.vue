@@ -166,7 +166,7 @@
               <label>{{ user.display_name }} <v-icon class="user-status online" v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1">fa-check-circle</v-icon></label>
             </div>
             <div class="user-status-section">
-              <label class="follower-count"><strong>{{ user.followers }}</strong> Followers</label>
+              <label class="follower-count" @click="followersClickHandler()"><strong>{{ user.followers }}</strong> Followers</label>
               <label class="vertical-divider"></label>
               <label class="user-role">{{ user.user_type }}</label>
             </div>
