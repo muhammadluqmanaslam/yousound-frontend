@@ -50,7 +50,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'upload', tab: ''})
+    this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })
     if (this.$store.state.auth.user && this.$store.state.auth.user.user_type === 'artist') {
       const params = {
         'page': this.page_index,
@@ -128,8 +128,7 @@ export default {
       AlbumService.deleteAlbum(id).then(response => {
         this.isLoading = false
         this.$router.push({ path: '/discover' })
-      })
-      .catch(e => {
+      }).catch(e => {
         this.isLoading = false
         this.errorMessage = e.body.errors[0].detail
         this.showError = true
@@ -188,7 +187,8 @@ export default {
           this.releaseAlbum(response.body.id)
         } else {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$router.push({ path: '/discover' })
+          this.$store.dispatch('navigator/setParams', { album_id: response.body.id })
+          this.$router.push({ path: '/albums' })
         }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)

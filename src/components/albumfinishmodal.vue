@@ -54,8 +54,7 @@
                 class ="clipboard-btn" 
                 v-clipboard:copy="albumURL"
                 v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
-              >
+                v-clipboard:error="onError">
                 <v-icon>fa-clipboard</v-icon>
               </v-btn>
             </div>

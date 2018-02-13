@@ -4,7 +4,8 @@ const state = {
   // user: Utils.parseJSON(Storage.get('user')),
   current: {
     page: '',
-    tab: ''
+    tab: '',
+    params: {}
   },
   history: []
 }
@@ -26,6 +27,10 @@ const actions = {
     commit('auth/setTab', current.tab, {root: true})
   },
 
+  setParams ({commit}, params) {
+    commit('setParams', params)
+  },
+
   goNextState ({commit}, next) {
     if (_.isEqual(state.current, next) === false) {
       commit('pushToHistory')
@@ -39,6 +44,10 @@ const actions = {
 const mutations = {
   setCurrentState (state, current) {
     state.current = current
+  },
+
+  setParams (state, params) {
+    state.current.params = params
   },
 
   pushToHistory (state) {

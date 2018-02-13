@@ -49,7 +49,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'album_edit', tab: ''})
+    this.$store.dispatch('navigator/goNextState', { page: 'album_edit', tab: '' })
     if (this.$store.state.auth.user) {
       if (this.$store.state.auth.user.user_type !== 'artist') {
         this.$router.push({ path: '/'})

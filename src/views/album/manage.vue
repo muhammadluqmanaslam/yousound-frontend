@@ -1,6 +1,29 @@
 <template>
   <div row wrap class="page manage-page">
 
+    <v-flex xs12 sm12 class="album-finish-section" v-if="show_album_finish_modal">
+      <v-flex xs12 sm12 class="dismiss-section" @click="closeAlbumFinishModal()"></v-flex>
+      <v-layout row wrap class="popup-section">
+        <v-flex xs12 class="title-section">
+          <label class="title-text">This album is pending release, <router-link to="/upload/album" class="link-text">upload another</router-link></label>
+        </v-flex>
+        <v-flex xs12 class="promote-album-section">
+          <v-flex xs12 class="header-section">
+            <label class="header-text">What Next?</label>
+          </v-flex>
+          <div class="content-section">
+            <div class="promote-album-image">
+              <div class="promote-image" :style="{'background-image': 'url(' + album.cover.url + ')'}"></div>
+            </div>
+            <div class="promote-album-description">
+              <p>When you added collaborators accept your collaboration via Direct Message or Manage > Pending Collaborations, you will then be able to release the album.</p>
+              <p>Visit Manage > Pending Collaborations to see who accepted and/or denied your collaboration.</p>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-flex>
+
     <v-dialog v-model="album_delete_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Delete an Album</v-card-title>
@@ -34,25 +57,25 @@
         <v-tabs dark v-model="tab">
           <v-tabs-bar class="transparent">
             <v-tabs-item
-                key="published"
-                href="#published"
-                @click.native="onTab('published')"
-                ripple>Published</v-tabs-item>
+              key="published"
+              href="#published"
+              @click.native="onTab('published')"
+              ripple>Published</v-tabs-item>
             <v-tabs-item
-                key="private"
-                href="#private"
-                @click.native="onTab('private')"
-                ripple>Private</v-tabs-item>
+              key="private"
+              href="#private"
+              @click.native="onTab('private')"
+              ripple>Private</v-tabs-item>
             <v-tabs-item
-                key="collaborated"
-                href="#collaborated"
-                @click.native="onTab('collaborated')"
-                ripple>Collaborations</v-tabs-item>
+              key="collaborated"
+              href="#collaborated"
+              @click.native="onTab('collaborated')"
+              ripple>Collaborations</v-tabs-item>
             <v-tabs-item
-                key="pending"
-                href="#pending"
-                @click.native="onTab('pending')"
-                ripple>Pending Collaborations</v-tabs-item>
+              key="pending"
+              href="#pending"
+              @click.native="onTab('pending')"
+              ripple>Pending Collaborations</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
@@ -61,10 +84,10 @@
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in published_albums" :key="index">
                     <album-card
-                        :album="album"
-                        :editButtonAction="editAlbum"
-                        :deleteButtonAction="showAlbumDeleteConfirmDialog"
-                        :updateButtonAction="showAlbumStatusConfirmDialog"></album-card>
+                      :album="album"
+                      :editButtonAction="editAlbum"
+                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
+                      :updateButtonAction="showAlbumStatusConfirmDialog"></album-card>
                   </div>
                 </v-layout>
               </v-card>
@@ -74,11 +97,11 @@
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in private_albums" :key="index">
                     <album-card
-                        :album="album"
-                        :showPromoteButton="false"
-                        :editButtonAction="editAlbum"
-                        :deleteButtonAction="showAlbumDeleteConfirmDialog"
-                        :updateButtonAction="showAlbumStatusConfirmDialog"></album-card>
+                      :album="album"
+                      :showPromoteButton="false"
+                      :editButtonAction="editAlbum"
+                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
+                      :updateButtonAction="showAlbumStatusConfirmDialog"></album-card>
                   </div>
                 </v-layout>
               </v-card>
@@ -88,9 +111,9 @@
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in collaborated_albums" :key="index">
                     <album-card
-                        :album="album"
-                        :editButtonAction="editAlbum"
-                        :deleteButtonAction="showAlbumDeleteConfirmDialog"></album-card>
+                      :album="album"
+                      :editButtonAction="editAlbum"
+                      :deleteButtonAction="showAlbumDeleteConfirmDialog"></album-card>
                   </div>
                 </v-layout>
               </v-card>
@@ -100,19 +123,19 @@
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in pending_albums" :key="index">
                     <album-card v-if="album.user.id==$store.state.auth.user.id"
-                        :album="album"
-                        :showPromoteButton="false"
-                        :editButtonAction="editAlbum"
-                        :deleteButtonAction="showAlbumDeleteConfirmDialog"
-                        :releaseButtonAction="releaseAlbum"></album-card>
+                      :album="album"
+                      :showPromoteButton="false"
+                      :editButtonAction="editAlbum"
+                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
+                      :releaseButtonAction="releaseAlbum"></album-card>
                     <album-card v-else-if="notResponded(album)"
-                        :album="album"
-                        :showPromoteButton="false"
-                        :acceptButtonAction="acceptAlbum"
-                        :denyButtonAction="denyAlbum"></album-card>
+                      :album="album"
+                      :showPromoteButton="false"
+                      :acceptButtonAction="acceptAlbum"
+                      :denyButtonAction="denyAlbum"></album-card>
                     <album-card v-else
-                        :album="album"
-                        :showPromoteButton="false"></album-card>
+                      :album="album"
+                      :showPromoteButton="false"></album-card>
                   </div>
                 </v-layout>
               </v-card>
@@ -124,5 +147,5 @@
 
   </div>
 </template>
-<script type="text/javascript" src="./manage.ctrl.js"></script>
 
+<script type="text/javascript" src="./manage.ctrl.js"></script>
