@@ -10,7 +10,7 @@ export default {
 
   data () {
     return {
-      page_index: 0,
+      page_index: 1,
       total_pages: 1,
       items_per_page: 8 * 1,
       filter: 'all',
@@ -91,16 +91,12 @@ export default {
     loadActivities() {
       this.$store.dispatch('error/showLoadingActivity', true)
       this.isPageReady = false
-      // const params = new FormData()
-      // params.append('page', this.page_index + 1)
-      // params.append('per_page', this.items_per_page)
-      // const params = {
-      //   'page': this.page_index + 1,
-      //   'per_page': this.items_per_page
-      // }
-
+      const params = {
+        'page': this.page_index,
+        'per_page': this.items_per_page
+      }
       ActivityService.getActivities(this.page_index + 1, this.items_per_page).then(response => {
-        this.activities = response.body.activities
+        this.activities = this.activities.concat(response.body.activities)
         this.page_index = response.body.pagination.current_page
         this.total_pages = response.body.pagination.total_pages
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -111,17 +107,14 @@ export default {
         if (e.status === 401) {
           this.$root.$emit('showLoginModal')
         } else {
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }
       })
     },
 
-    submit () {
-      console.log('stream / submit')
+    loadMore () {
+      this.page_index += 1
+      this.loadActivities()
     }
   },
 

@@ -26,6 +26,10 @@
                   <v-layout row wrap class="covers-content">
                     <stream-user :user="user"></stream-user>
                   </v-layout>
+
+                  <div class="text-xs-center">
+                    <v-btn class="loadmore-btn" @click.native="loadMore()" v-show="page_index < total_pages">Load More</v-btn>
+                  </div>
                 </div>
               </template>
             </v-tabs-content>
@@ -35,4 +39,5 @@
     </v-flex>
   </div>
 </template>
+
 <script type="text/javascript" src="./stream.ctrl.js"></script>

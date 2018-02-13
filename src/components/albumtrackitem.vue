@@ -116,7 +116,7 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <label class="track-length" @click.self="selectTrack()">6:13</label>
+      <!-- <label class="track-length" @click.self="selectTrack()">6:13</label> -->
     </div>
     <download-modal :item="album" :track="track" :dismiss="dismissDownloadDialog" v-if="download_dialog"></download-modal>
     <share-modal :item="album" :dismiss="dismissShareDialog" v-if="share_dialog"></share-modal>

@@ -57,13 +57,14 @@ export default {
     loadFeeds (filter) {
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
-      const params = new FormData()
-      params.append('filter', filter)
-      params.append('page', this.page_index)
-      params.append('per_page', this.items_per_page)
-      SearchService.searchStreamV2(params).then( response=> {
-        // this.users = this.users.concat(response.body.users)
-        this.users = response.body.users
+      const params = {
+        filter: filter,
+        page: this.page_index,
+        per_page: this.items_per_page
+      }
+      SearchService.searchStreamV2(params).then(response => {
+        this.users = this.users.concat(response.body.users)
+        // this.users = response.body.users
         this.page_index = response.body.pagination.current_page
         this.total_pages = response.body.pagination.total_pages
 
@@ -79,11 +80,18 @@ export default {
       })
     },
 
+    loadMore() {
+      this.page_index += 1
+      this.loadFeeds(this.activeTab)
+    },
+
     onTab (tab) {
       if (this.activeTab == tab) {
         return
       }
 
+      this.users = []
+      this.page_index = 1
       this.activeTab = tab
       this.$store.dispatch('navigator/goNextState', { page: 'stream', tab: tab })
       this.loadFeeds(tab)

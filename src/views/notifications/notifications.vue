@@ -27,6 +27,9 @@
       </div>
       <template v-else>
         <activity-item v-for="(activity, index) in filtered_activities" :key="index" :activityItem="activity"></activity-item>
+        <div class="text-xs-center">
+          <v-btn class="loadmore-btn" @click.native="loadMore()" v-show="page_index < total_pages">Load More</v-btn>
+        </div>
       </template>
     </v-flex>
   </div>
