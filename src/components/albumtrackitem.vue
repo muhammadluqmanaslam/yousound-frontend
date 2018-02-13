@@ -4,7 +4,7 @@
     :class="{'selected': buttonHover || (isPlaying && trackIndex==$store.state.player.trackIndex) || (!isPlaying && trackIndex==0)}"
     @mouseenter="buttonHover=true"
     @mouseleave="buttonHover=false">
-    <v-btn class="action-btn" v-if="!$store.state.auth.user || ($store.state.auth.user && album.user.id!=$store.state.auth.user.id)">
+    <v-btn class="action-btn" v-if="false && (!$store.state.auth.user || ($store.state.auth.user && album.user.id!=$store.state.auth.user.id))">
       <!-- <v-icon v-if="(trackIndex==$store.state.player.trackIndex && !isPlaying) || (buttonHover && trackIndex!=$store.state.player.trackIndex)">play_arrow</v-icon> -->
       <v-icon v-if="trackIndex==$store.state.player.trackIndex && isPlaying">pause</v-icon>
       <v-icon v-else-if="buttonHover || (trackIndex==0 && !isPlaying)">play_arrow</v-icon>

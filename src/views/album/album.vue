@@ -26,7 +26,7 @@
               <div class="merch-avatar" :style="`background-image: url(${album.products[0].covers[0].cover.thumb.url})`" @click.self="showMerchDialog()"></div>
               <div class="info-section" @click.self="showMerchDialog()">
                 <label class="merch-name" @click.self="showMerchDialog()">{{ album.products[0].name }}</label>
-                <label class="merch-price" @click.self="showMerchDialog()">${{ album.products[0].price }}</label>
+                <label class="merch-price" @click.self="showMerchDialog()">${{ album.products[0].price | formatNumber }}</label>
                 <label class="link-btn" @click="goToArtistProfile()">View all artists merch</label>
               </div>
             </div>
