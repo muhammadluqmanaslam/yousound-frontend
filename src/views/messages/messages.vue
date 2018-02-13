@@ -314,14 +314,14 @@
                 class="message-input-box"
                 placeholder="Write a message..."
                 @keyup.enter="checkMessage()"
-                @blur="blurMessage()"
                 ref="message"
                 autofocus/>
               <picker v-if="showEmojiPicker"
                 title="Pick your emoji…"
                 emoji="point_up"
                 class="emoji-picker"
-                @click="addEmoji"></picker>
+                @click="addEmoji"
+                v-on-click-outside="hideEmojiDialog"></picker>
               <v-btn
                 class="show-emoji-box-btn"
                 :class="{'selected': showEmojiPicker}"

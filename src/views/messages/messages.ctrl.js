@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { mixin as onClickOutside } from 'vue-on-click-outside'
 import { Utils } from '@/helper'
 import MessageService from '@/services/message'
 import AuthService from '@/services/auth'
@@ -19,6 +20,8 @@ export default {
     activityProductCard,
     paymentModal
   },
+
+  mixins: [onClickOutside],
 
   data () {
     return {
@@ -160,12 +163,18 @@ export default {
       // console.log('addEmoji')
       this.showEmojiPicker = false
       this.message.body += emoji.native
-      this.$refs.message.focus()
+      // this.$refs.message.focus()
     },
 
     showEmojiDialog () {
+      // console.log('showEmojiDialog')
       this.showEmojiPicker = !this.showEmojiPicker
-      this.$refs.message.focus()
+      // this.$refs.message.focus()
+    },
+
+    hideEmojiDialog () {
+      // console.log('hideEmojiDialog')
+      this.showEmojiPicker = false
     },
 
     blurMessage () {

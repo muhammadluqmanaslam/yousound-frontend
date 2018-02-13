@@ -11,6 +11,7 @@ import VueNumeric from 'vue-numeric'
 import VeeValidate from 'vee-validate'
 import VueClipboard from 'vue-clipboard2'
 import SocialSharing from 'vue-social-sharing'
+import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
 
 import '@/../static/styles/app.scss'
@@ -23,6 +24,8 @@ Vue.use(VueNumeric)
 Vue.use(VeeValidate)
 Vue.use(VueClipboard)
 Vue.use(SocialSharing)
+
+Vue.directive('on-click-outside', onClickOutside)
 
 // Vue.filter('formatNumber', function (value) {
 //   return numeral(value / 100).format('0.00') // displaying other groupings/separators is possible, look at the docs
