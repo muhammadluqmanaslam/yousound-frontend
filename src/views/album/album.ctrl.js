@@ -97,6 +97,13 @@ export default {
       }
     },
 
+    followButtonText () {
+      if (this.album.user.is_following) {
+        return this.buttonHover ? 'Unfollow' : 'Following'
+      }
+      return 'Follow'
+    },
+
     genres () {
       return _.map(this.album.genres, 'name').join(', ')
     }

@@ -104,7 +104,7 @@
                   :class="{ 'follow-btn': true, 'follow': false, 'following': true }"
                   @mouseenter="buttonHover = true"
                   @mouseleave="buttonHover = false"
-                  @click.native="followUser(album.user)">Follow</v-btn>
+                  @click.native="followUser(album.user)">{{ followButtonText }}</v-btn>
                 <v-menu v-else
                   id="follow_selector"
                   left down
@@ -125,7 +125,7 @@
                         <template v-if="album.user.is_following">
                           <v-chip label outline color="red" @click.native="followUser(album.user)">Unfollow</v-chip>
                         </template>
-                        <template v-else>
+                        <template v-else-if="album.user.id != $store.state.auth.user.id">
                           <v-chip label outline color="teal" @click.native="followUser(album.user)">Follow</v-chip>
                         </template>
                       </v-list-tile-action>
@@ -142,7 +142,7 @@
                         <template v-if="collaborator.user.is_following">
                           <v-chip label outline color="red" @click.native="followUser(collaborator.user)">Unfollow</v-chip>
                         </template>
-                        <template v-else>
+                        <template v-else-if="collaborator.user.id != $store.state.auth.user.id">
                           <v-chip label outline color="teal" @click.native="followUser(collaborator.user)">Follow</v-chip>
                         </template>
                       </v-list-tile-action>
