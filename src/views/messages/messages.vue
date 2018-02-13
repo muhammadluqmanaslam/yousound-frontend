@@ -10,6 +10,18 @@
       </div>
     </v-flex>
 
+    <v-dialog v-model="show_block_user_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Block a User</v-card-title>
+        <v-card-text>Are you sure you want to block this?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeBlockUserConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-dialog v-model="show_conversation_delete_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Delete a Conversation</v-card-title>
@@ -123,7 +135,7 @@
                       <label>Delete entire message</label>
                     </v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile key="block" class="default-menu-item" @click.native="blockUser(conversations[selected_index].other)">
+                  <v-list-tile key="block" class="default-menu-item" @click.native="openBlockUserConfirmDialog()">
                     <v-list-tile-title>
                       <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
                       <label>Block User</label>

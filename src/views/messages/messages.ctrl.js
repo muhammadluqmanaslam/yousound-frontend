@@ -29,6 +29,7 @@ export default {
       item_index: -1,
       show_stopPopup: false,
       show_conversation_delete_confirm_dialog: false,
+      show_block_user_confirm_dialog: false,
       showEmojiPicker: false,
       showPaymentModal: false,
       page_index: 0,
@@ -150,13 +151,23 @@ export default {
       })
     },
 
-    blockUser (user) {
+    openBlockUserConfirmDialog () {
+      this.show_block_user_confirm_dialog = true
+    },
+
+    closeBlockUserConfirmDialog () {
+      this.show_block_user_confirm_dialog = false
+    },
+
+    blockUser () {
+      const user = this.conversations[this.selected_index].other
       UserService.blockUser(user.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You blocked ' + user.display_name + ', go to settings page to unblock'])
         this.loadConversations()
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
+      this.closeBlockUserConfirmDialog()
     },
 
     showAllMesssages () {

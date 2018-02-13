@@ -9,7 +9,7 @@
         </div>
       </v-flex>
       <v-flex xs12 class="product-cover">
-        <p class="product-price">${{ item.price }}</p>
+        <p class="product-price">${{ item.price | formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.url + ')'}"/></div>
         <v-flex xs12 class="product-actions" relative>
           <!-- <v-flex xs12 class="touch-flex" @click="showMerchDialog"></v-flex> -->

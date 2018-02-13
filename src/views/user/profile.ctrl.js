@@ -80,6 +80,7 @@ export default {
       ],
       slug: null,
       user: null,
+      show_block_user_confirm_dialog: false,
       showPageMerchModal: false,
       selectedProduct: {},
       showPageShareModal: false,
@@ -425,9 +426,18 @@ export default {
       this.$router.push({ path: '/' + this.user.id + '/chat' })
     },
 
+    openBlockUserConfirmDialog () {
+      this.show_block_user_confirm_dialog = true
+    },
+
+    closeBlockUserConfirmDialog () {
+      this.show_block_user_confirm_dialog = false
+    },
+
     blockUser () {
       UserService.blockUser(this.user.id).then(response => {
       }).catch(e => this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body]))
+      this.closeBlockUserConfirmDialog()
     },
 
     followUser () {

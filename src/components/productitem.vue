@@ -1,11 +1,13 @@
 <template>
   <v-flex xs12 class="product-item">
+
     <promote-modal 
       :item="product" 
       :dismiss="dismissPromoteModal" 
       :success="saveAndFinish" 
       v-if="showPromoteMessage"
     ></promote-modal>
+
     <v-flex sm12 product-content-section pa-0 relative>
       <div class="product-image" :style="{'background-image': 'url(' + product.covers[0].cover.thumb.url + ')'}"/></div>
       <div class="product-content">
@@ -42,6 +44,7 @@
         </v-flex>
       </div>
     </v-flex>
+
     <v-dialog v-model="dialog" persistent>
       <v-card>
         <v-card-title class="headline">Delete Product</v-card-title>
@@ -53,6 +56,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </v-flex>
 </template>
 <script type="text/javascript">

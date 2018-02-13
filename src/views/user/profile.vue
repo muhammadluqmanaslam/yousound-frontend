@@ -1,7 +1,21 @@
 <template>
   <div v-if="user">
+
     <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+
     <send-love-modal :item="user" :dismiss="dismissLoveDialog" v-if="showSendLoveModal"></send-love-modal>
+
+    <v-dialog v-model="show_block_user_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Block a User</v-card-title>
+        <v-card-text>Are you sure you want to block this?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeBlockUserConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <div class="page profile-slider-page image-container" v-show="!grid_show">
       <canvas id="canvas" class="background-image" v-if="slide_tab!='merch'"></canvas>
@@ -65,7 +79,7 @@
                         <label>Flag</label>
                       </v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile key="block" @click.native="blockUser()">
+                    <v-list-tile key="block" @click.native="openBlockUserConfirmDialog()">
                       <v-list-tile-title class="default-menu-item">
                         <label>Block</label>
                       </v-list-tile-title>
@@ -210,7 +224,7 @@
                       <label>Flag</label>
                     </v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile key="block" @click.native="blockUser()">
+                  <v-list-tile key="block" @click.native="openBlockUserConfirmDialog()">
                     <v-list-tile-title class="default-menu-item">
                       <label>Block</label>
                     </v-list-tile-title>
@@ -311,11 +325,6 @@
       </v-flex>
     </div>
 
-    <!-- <div colorify-gradient-color>
-      <img colorify src="/static/images/post1.jpg">
-      <img colorify src="/static/images/post2.jpg">
-      <img colorify src="/static/images/post3.jpg">
-    </div> -->
   </div>
 </template>
 <script type="text/javascript" src="./profile.ctrl.js"></script>
