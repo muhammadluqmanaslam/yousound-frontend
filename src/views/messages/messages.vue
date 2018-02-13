@@ -91,9 +91,7 @@
             <div class="content-section">
               <div class="message-room-item " v-for="(conv, index) in conversations" :key="index" :class="{'new': !conv.last_message.is_read, 'selected': index==selected_index}" @click="selectedConversation(index)">
                 <div class="avatar-area">
-                  <!-- <router-link :to="'/' + conv.other.slug"><div class="avatar-image" :style="'background-image: url(' + conv.other.avatar.thumb.url + ');'"></div></router-link> -->
-                  <div class="avatar-image" :style="'background-image: url(' + conv.other[0].avatar.thumb.url + ');'" v-if="conv.other.length"></div>
-                  <div class="avatar-image" :style="'background-image: url(' + conv.other.avatar.thumb.url + ');'" v-if="!conv.other.length"></div>
+                  <router-link :to="`/${conv.other.slug}`"><div class="avatar-image" :style="'background-image: url(' + conv.other.avatar.thumb.url + ');'" v-if="!conv.other.length"></div></router-link>
                 </div>
                 <div class="detail-area">
                   <!-- <router-link class="user-name" :to="'/' + conv.other.slug">{{ conv.other.display_name }}</router-link> -->
@@ -108,11 +106,9 @@
             <div class="header-section">
               <p href="" class="user-name">
                 {{ conversations[selected_index].other.display_name }}
-                <v-icon 
+                <v-icon v-if="conversations[selected_index].other.user_type == 'artist'"
                   class="user-status" 
-                  :class="{'online': conversations[selected_index].other.status == 'active'}" 
-                  v-if="conversations[selected_index].other.user_type == 'artist'"
-                >fa-check-circle</v-icon>
+                  :class="{'online': conversations[selected_index].other.status == 'active'}">fa-check-circle</v-icon>
               </p>
               <!-- <p class="messaged-time">{{ toLocalTimeString(conversations[selected_index].last_message.created_at) }}</p> -->
               <p class="messaged-time">RepostPrice: ${{ conversations[selected_index].other.repost_price|formatNumber }}</p>
@@ -140,7 +136,7 @@
               <div class="message-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
                 <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
                 <div class="message-section">
-                  <div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div>
+                  <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
 
                   <template v-if="message.attachment">
                     <template v-if="message.attachment.attachment_type=='repost'">

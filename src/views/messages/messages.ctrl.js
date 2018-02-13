@@ -108,9 +108,15 @@ export default {
     loadMessages(id, loadMore) {
       MessageService.getMessages(id).then(response => {
         if (loadMore) {
-          this.conversation.messages = this.conversation.messages.concat(response.body.messages)
+          // this.conversation.messages = this.conversation.messages.concat(response.body.messages)
+          this.conversation.messages = _.reverse(response.body.messages).concat(this.conversation.messages.concat)
         } else {
           this.conversation = response.body
+          _.reverse(this.conversation.messages)
+          this.$nextTick(() => {
+            // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
+            $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
+          })
         }
         // this.$forceUpdate()
       }).catch(e => {
