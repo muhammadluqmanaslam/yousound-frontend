@@ -61,7 +61,7 @@
             </v-flex> -->
             <v-flex xs12 price-option-section>
               <h4 class="option-title">Price & Options({{ product.variants.length }})
-                <v-btn class="add-option-btn" @click.native="addVariant()" v-if="isEditable">
+                <v-btn class="add-option-btn" @click.native="addVariant()">
                   <v-icon>add</v-icon>
                 </v-btn>
               </h4>
@@ -69,17 +69,18 @@
             <v-layout row product-option-content form-group v-for="(variant, index) in product.variants" :key="index">
               <v-flex xs12 sm4>
                 <label class="control-label">Name</label>
-                <input type="text" class="form-control" v-model="variant.name" :readonly="!isEditable">              
+                <input type="text" class="form-control" v-model="variant.name">              
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">In Stock</label>
-                <input type="text" class="form-control" v-model="variant.quantity" :readonly="!isEditable">              
+                <input type="text" class="form-control" v-model="variant.quantity">              
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">Price</label>
-                <input type="text" class="form-control" v-model="variant.price" :readonly="!isEditable">
+                <input type="text" class="form-control" v-model="variant.price">
               </v-flex>
-              <v-icon class="clear-btn" @click="deleteVariant(index)" v-if="isEditable">clear</v-icon>
+              <v-icon class="clear-btn" @click="deleteVariant(index)" v-if="!variant.id">clear</v-icon>
+              <v-icon class="clear-btn" v-else>block</v-icon>
             </v-layout>
           </v-flex>
         </v-flex>
@@ -90,7 +91,7 @@
           <v-flex xs12 product-section>
             <v-flex xs12 price-option-section form-group>
               <h4 class="option-title">Options({{ product.shipments.length }})
-                <v-btn class="add-option-btn" @click.native="addShipment()" v-if="isEditable">
+                <v-btn class="add-option-btn" @click.native="addShipment()">
                   <v-icon>add</v-icon>
                 </v-btn>
               </h4>
@@ -104,18 +105,18 @@
                   item-text="name"
                   item-value="name"
                   class="pt-0"
-                  :disabled="!isEditable"
                   autocomplete></v-select>
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">Shipped Alone</label>
-                <input type="text" class="form-control" v-model="shipment.shipment_alone_price" :readonly="!isEditable">
+                <input type="text" class="form-control" v-model="shipment.shipment_alone_price">
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">With others</label>
-                <input type="text" class="form-control" v-model="shipment.shipment_with_price" :readonly="!isEditable">
+                <input type="text" class="form-control" v-model="shipment.shipment_with_price">
               </v-flex>
-              <v-icon class="clear-btn" @click="deleteShipment(index)" v-if="isEditable">clear</v-icon>
+              <v-icon class="clear-btn" @click="deleteShipment(index)" v-if="!shipment.id">clear</v-icon>
+              <v-icon class="clear-btn" v-else>block</v-icon>
             </v-layout>
           </v-flex>
         </v-flex>
