@@ -61,7 +61,11 @@ export default {
       Promise.all([
         GenreService.getGenres2(),
         UserService.searchUsers(params),
-        ProductService.getProducts({ statuses: 'published,collaborated' })
+        ProductService.getProducts({
+          statuses: 'published, collaborated',
+          stock_statuses: 'active',
+          user_statuses: 'accepted'
+        })
       ]).then(values => {
         for (let index in values[0].body) {
           const main_category = values[0].body[index]

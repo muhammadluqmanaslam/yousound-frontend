@@ -273,6 +273,7 @@ export default {
     loadProducts () {
       const params = {
         statuses: 'published, collaborated',
+        stock_statuses: 'active',
         user_statuses: 'accepted'
       }
       ProductService.getProducts(params).then(response => {

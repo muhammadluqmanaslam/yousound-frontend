@@ -125,6 +125,7 @@
         }),
         ProductService.getProducts({
           statuses: 'published, collaborated',
+          stock_statuses: 'active',
           user_statuses: 'accepted'
         })
       ]).then(values => {

@@ -63,7 +63,11 @@ export default {
         this.slug = this.$route.params.slug
         Promise.all([
           GenreService.getGenres2(),
-          ProductService.getProducts({statuses: 'published,collaborated'}),
+          ProductService.getProducts({
+            statuses: 'published, collaborated',
+            stock_statuses: 'active',
+            user_statuses: 'accepted'
+          }),
           AlbumService.getAlbum(this.slug),
           UserService.searchUsers(params)
         ]).then(values => {

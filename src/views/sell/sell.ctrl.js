@@ -79,7 +79,11 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         OrderService.getReceivedOrders({ page: this.page_index, per_page: this.items_per_page }),
-        ProductService.getProducts()
+        ProductService.getProducts({
+          statuses: 'published, collaborated',
+          stock_statuses: 'any',
+          user_statuses: 'accepted'
+        })
       ]).then(values => {
         this.orderHistories = values[0].body.orders
         this.products = values[1].body

@@ -413,10 +413,13 @@
 
     created () {
       this.searchUsers()
-      ProductService.getProducts().then(response => {
+      ProductService.getProducts({
+        statuses: 'published, collaborated',
+        stock_statuses: 'active',
+        user_statuses: 'accepted'
+      }).then(response => {
         this.products = response.body
-      })
-      .catch(e => {
+      }).catch(e => {
         console.log(e)
       })
     },
@@ -446,25 +449,15 @@
           UserService.unfavoriteUser(user.id).then(response => {
             this.$store.dispatch('error/showErrorToast', [`removed <${user.display_name}> from Favorite successfully!`])
             this.$store.dispatch('auth/removeFavoriteUser', user)
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         } else {
           UserService.favoriteUser(user.id).then(response => {
             this.$store.dispatch('error/showErrorToast', [`added <${user.display_name}> to Favorite successfully!`])
             this.$store.dispatch('auth/addFavoriteUser', user)
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         }
       },
@@ -481,14 +474,9 @@
         PromoteService.searchUsers(params).then(response => {
           // this.$store.dispatch('error/showLoadingActivity', false)
           this.users = response.body
-        })
-        .catch(e => {
+        }).catch(e => {
           // this.$store.dispatch('error/showLoadingActivity', false)
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       },
 
@@ -499,14 +487,9 @@
         PromoteService.calculateSuggestedReposters(params).then(response => {
           // this.$store.dispatch('error/showLoadingActivity', false)
           this.suggested_values = response.body
-        })
-        .catch(e => {
+        }).catch(e => {
           // this.$store.dispatch('error/showLoadingActivity', false)
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       },
 
@@ -525,14 +508,9 @@
           this.current_values.total_paid = response.body.total_paid
           this.current_values.total_potential_reach = response.body.total_potential_reach
           this.current_values.total_actual_reach = response.body.total_actual_reach
-        })
-        .catch(e => {
+        }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       },
 

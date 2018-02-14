@@ -10,7 +10,7 @@
         </div>
       </v-flex>
       <v-flex xs12 class="product-cover">
-        <p class="product-price">${{ item.price|formatNumber }}</p>
+        <p class="product-price">${{ item.price | formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.url + ')'}"/></div>
         <v-flex xs12 class="product-actions" relative v-if="$store.state.auth.user">
           <!-- <v-btn dark class="play-button">
@@ -46,7 +46,8 @@
       </v-flex>
       <v-flex xs12 class="product-detail" pa-0>
         <p class="product-name">{{ item.name }}</p>
-        <router-link :to="'/' + owner.slug"><p class="product-user-name">{{ owner.display_name }}</p></router-link>
+        <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0"><p class="product-user-name">{{ owner.display_name }}</p></router-link>
+        <router-link :to="'/' + owner.slug" v-else><p class="track-user-name">Merch Collaborations</p></router-link>
       </v-flex>
     </v-flex>
 

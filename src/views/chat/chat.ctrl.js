@@ -122,24 +122,19 @@ export default {
       AlbumService.getAlbums().then(response => {
         this.albums = response.body
       }).catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
     loadProducts () {
-      ProductService.getProducts().then(response => {
+      ProductService.getProducts({
+        statuses: 'published, collaborated',
+        stock_statuses: 'active',
+        user_statuses: 'accepted'
+      }).then(response => {
         this.products = response.body
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -170,10 +165,8 @@ export default {
       this.user = response
       this.loadAlbums()
       // sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken());
-    })
-    .catch(e => {
+    }).catch(e => {
       this.$store.dispatch('error/showLoadingActivity', false)
-      console.log(e)
     })
   },
   mounted() {

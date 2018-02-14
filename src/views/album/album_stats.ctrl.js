@@ -46,30 +46,23 @@ export default {
       AlbumService.getAlbum(slug).then(response => {
         this.album = response.body
         this.loadData(this.active)
-      })
-      .catch(e => {
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
     loadData (filter) {
-      ProductService.getProducts().then(response => {
+      ProductService.getProducts({
+        statuses: 'published, collaborated',
+        stock_statuses: 'active',
+        user_statuses: 'accepted'
+      }).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.products = response.body
-        // this.$store.dispatch('product/setProducts', response.body)
-      })
-      .catch(e => {
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -79,13 +72,8 @@ export default {
     followUser (user) {
       UserService.followUser(user.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You just followed ' + user.display_name])
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     }
   },
