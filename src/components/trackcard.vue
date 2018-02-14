@@ -437,8 +437,10 @@ export default {
           if (this.playlist.image) {
             params.append('cover', this.playlist.image)
           }
-          params.append('assoc_id', this.item.id)
-          params.append('assoc_type', 'Album')
+          // params.append('assoc_id', this.item.id)
+          // params.append('assoc_type', 'Album')
+          params.append('assoc_id', this.item.tracks[0].id)
+          params.append('assoc_type', 'Track')
           this.$store.dispatch('error/showLoadingActivity', true)
           PlaylistService.createPlaylist(params).then(response => {
             this.playlist_dialog = false
