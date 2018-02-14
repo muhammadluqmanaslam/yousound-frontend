@@ -91,5 +91,5 @@
     </v-flex>
   </v-layout>
 </template>
-<script type="text/javascript" src="./orderdetail.ctrl.js"></script>
 
+<script type="text/javascript" src="./orderdetail.ctrl.js"></script>

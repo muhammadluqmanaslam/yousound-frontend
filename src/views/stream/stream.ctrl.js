@@ -40,7 +40,7 @@ export default {
       ],
       page_index: 1,
       total_pages: 1,
-      items_per_page: 1,
+      items_per_page: 5,
       users: [],
       isPageReady: false
     }

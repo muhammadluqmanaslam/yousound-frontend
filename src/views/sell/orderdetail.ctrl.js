@@ -1,10 +1,8 @@
-import productItem from '@/components/productitem'
 import ProductService from '@/services/product'
 import OrderService from '@/services/order'
 
 export default {
   components: {
-    productItem
   },
 
   data () {

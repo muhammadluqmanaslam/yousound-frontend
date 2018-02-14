@@ -182,12 +182,12 @@ export default {
 
     deleteProduct () {
       ProductService.deleteProduct(this.product.id).then(response => {
-        _.remove(this.products, (item) => { return item.id == this.product.id });
-        const arr = this.products.slice();
-        this.products = arr;
-        this.closeProductDeleteConfirmDialog();
+        _.remove(this.products, (item) => { return item.id == this.product.id })
+        const arr = this.products.slice()
+        this.products = arr
+        this.closeProductDeleteConfirmDialog()
       }).catch(e => {
-        this.closeProductDeleteConfirmDialog();
+        this.closeProductDeleteConfirmDialog()
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },

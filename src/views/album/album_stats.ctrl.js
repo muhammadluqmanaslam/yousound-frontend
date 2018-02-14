@@ -1,10 +1,8 @@
 import ProductService from '@/services/product'
 import AlbumService from '@/services/album'
-import productItem from '@/components/productitem'
 
 export default {
   components: {
-    productItem
   },
 
   data () {

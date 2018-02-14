@@ -4,7 +4,7 @@
 
     <v-dialog v-model="product_delete_confirm_dialog">
       <v-card>
-        <v-card-title class="headline">Delete an Product</v-card-title>
+        <v-card-title class="headline">Delete a Product</v-card-title>
         <v-card-text>If you click OK, the album will no longer be available to users. Click OK to delete &lt;{{ product.name }}&gt;, or click Cancel.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -169,7 +169,11 @@
                       <v-icon>add</v-icon>Add Product
                     </v-btn>
                   </v-flex>
-                  <product-item :product="product" :index="index" v-for="(product, index) in published_products" :key="index"></product-item>
+                  <product-item v-for="(product, index) in published_products"
+                    :index="index"
+                    :key="index"
+                    :product="product"
+                    :deleteItem="openProductDeleteConfirmDialog"></product-item>
                 </v-layout>
               </v-card>
             </v-tabs-content>

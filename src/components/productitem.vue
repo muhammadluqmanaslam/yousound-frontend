@@ -24,7 +24,7 @@
           <label class="product-price">${{ product.price|formatNumber }}</label>
 
           <template v-if="$store.state.auth.user.id==product.merchant.id">
-            <v-btn class="text-btn pr-1" @click.native.stop="dialog = true">Delete</v-btn>
+            <v-btn class="text-btn pr-1" @click.native.stop="deleteItem(product)">Delete</v-btn>
             <label class="btn-divider"></label>
             <v-btn class="text-btn" @click.native="showPromoteModal()" v-if="showPromoteButton">Promote</v-btn>
             <label class="btn-divider" v-if="showPromoteButton"></label>
@@ -44,24 +44,11 @@
         </v-flex>
       </div>
     </v-flex>
-
-    <v-dialog v-model="dialog" persistent>
-      <v-card>
-        <v-card-title class="headline">Delete Product</v-card-title>
-        <v-card-text>Are you sure you want to delete product {{ product.name }}?</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteProduct()">Yes</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="dialog = false">No</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
   </v-flex>
 </template>
 <script type="text/javascript">
   /* global $:true */
-  import ProductService from '@/services/product'
+  // import ProductService from '@/services/product'
   import promoteModal from '@/components/promotemodal'
 
   export default {
@@ -73,18 +60,27 @@
       product: {
         type: Object
       },
+
       index: {
         type: Number
       },
+
       acceptItem: {
         type: Function
       },
+
       denyItem: {
         type: Function
       },
+
+      deleteItem: {
+        type: Function
+      },
+
       status: {
         type: String
       },
+
       showPromoteButton: {
         type: Boolean,
         default: true
@@ -130,23 +126,6 @@
       saveAndFinish (users) {
         $('body').css('overflow', 'scroll')
         this.showPromoteMessage = false
-      },
-
-      deleteProduct () {
-        this.dialog = false
-        this.$store.dispatch('error/showLoadingActivity', true)
-        ProductService.deleteProduct(this.product.id).then(response => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          // this.$store.dispatch('product/removeProduct', this.index)
-        })
-        .catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
-        })
       }
     },
 
