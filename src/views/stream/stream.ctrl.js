@@ -40,7 +40,7 @@ export default {
       ],
       page_index: 1,
       total_pages: 1,
-      items_per_page: 3,
+      items_per_page: 1,
       users: [],
       isPageReady: false
     }
@@ -55,7 +55,6 @@ export default {
 
   methods: {
     loadFeeds (filter) {
-      this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
         filter: filter,
@@ -90,6 +89,7 @@ export default {
         return
       }
 
+      this.isPageReady = false
       this.users = []
       this.page_index = 1
       this.activeTab = tab
