@@ -5,6 +5,7 @@ const state = {
   current: {
     page: '',
     tab: '',
+    action: '',
     params: {}
   },
   history: []
@@ -14,7 +15,7 @@ const getters = {
   last: (state) => {
     const lastState = state.history[state.history.length - 1]
     if (_.isEmpty(lastState)) {
-      return {page: '', tab: ''}
+      return {page: '', tab: '', action: ''}
     }
     return lastState
   }
@@ -43,7 +44,7 @@ const actions = {
 
 const mutations = {
   setCurrentState (state, current) {
-    state.current = current
+    state.current = _.assignIn({page: '', tab: '', action: ''}, current)
   },
 
   setParams (state, params) {

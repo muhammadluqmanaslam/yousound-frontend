@@ -20,6 +20,7 @@ export default {
   data () {
     return {
       tab: 'orders',
+      show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
       shipping_id: null,
@@ -60,8 +61,24 @@ export default {
   },
 
   created () {
-    this.tab = this.$store.state.order.tab || 'orders'
-    this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: this.tab})
+    // this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'products', action: 'add_product'})
+    // this.$store.dispatch('navigator/setParams', {product_id: 'dd189b7b-e79c-46ef-8fbf-73a1f5f48de0'})
+    this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: 'orders'})
+
+    const lastState = this.$store.getters['navigator/last']
+    if (lastState.page === 'sell' && lastState.tab === 'products') {
+      this.tab = 'products'
+      this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'products'})
+      if (_.get(lastState, 'params.product_id')) {
+        ProductService.getProduct(lastState.params.product_id).then(response => {
+          this.tab = 'pendings'
+          this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'pendings'})
+          this.product = response.body
+          this.openProductFinishModal()
+        })
+      }
+    }
+
     if (this.$store.state.auth.user) {
       if (['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) == -1)  {
         this.$router.push({ path: '/'})
@@ -79,11 +96,7 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         OrderService.getReceivedOrders({ page: this.page_index, per_page: this.items_per_page }),
-        ProductService.getProducts({
-          statuses: 'published, collaborated',
-          stock_statuses: 'any',
-          user_statuses: 'accepted'
-        })
+        ProductService.getProducts()
       ]).then(values => {
         this.orderHistories = values[0].body.orders
         this.products = values[1].body
@@ -102,11 +115,20 @@ export default {
     },
 
     onTab (tab) {
-      this.$store.dispatch('order/setTab', tab)
+      this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: tab})
+      // this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: tab})
     },
 
     editProduct (product) {
       this.$router.push(`/product/edit/${product.id}`)
+    },
+
+    openProductFinishModal () {
+      this.show_product_finish_modal = true
+    },
+
+    closeProductFinishModal () {
+      this.show_product_finish_modal = false
     },
 
     openShipConfirmModal (item) {

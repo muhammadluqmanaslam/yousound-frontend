@@ -1,6 +1,30 @@
 <template>
   <div row wrap class="page sell-page" v-if="$store.state.auth.user && isPageReady">
+
     <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+
+    <v-flex xs12 sm12 class="product-finish-section" v-if="show_product_finish_modal">
+      <v-flex xs12 sm12 class="dismiss-section" @click="closeProductFinishModal()"></v-flex>
+      <v-layout row wrap class="popup-section">
+        <v-flex xs12 class="title-section">
+          <label class="title-text">This product is pending release, <router-link to="/product/add" class="link-text">upload another</router-link></label>
+        </v-flex>
+        <v-flex xs12 class="promote-product-section">
+          <v-flex xs12 class="header-section">
+            <label class="header-text">What Next?</label>
+          </v-flex>
+          <div class="content-section">
+            <div class="promote-product-image">
+              <div class="promote-image" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"></div>
+            </div>
+            <div class="promote-product-description">
+              <p>When you added collaborators accept your collaboration via Direct Message or Sell > Pending Collaborations, you will then be able to release the product.</p>
+              <p>Visit Sell > Pending Collaborations to see who accepted and/or denied your collaboration.</p>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-flex>
 
     <v-dialog v-model="product_delete_confirm_dialog">
       <v-card>
@@ -214,7 +238,8 @@
         </v-tabs>
       </div>
     </v-flex>
+
   </div>
 </template>
-<script type="text/javascript" src="./sell.ctrl.js"></script>
 
+<script type="text/javascript" src="./sell.ctrl.js"></script>

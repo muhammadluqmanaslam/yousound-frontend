@@ -76,8 +76,8 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: '' })
-    for (var i = 10; i <= 100; i+=10) {
+    this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: 'products', action: 'add_product' })
+    for (let i = 10; i <= 100; i+=10) {
       this.profit_share_types.push({
         id: i,
         name: i + '%'
@@ -213,7 +213,9 @@ export default {
 
       ProductService.addProduct(formData).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('order/setTab', 'products')
+        if (this.product.collaborators.length > 0) {
+          this.$store.dispatch('navigator/setParams', {product_id: response.body.id})
+        }
         this.$router.push({ path: '/sell' })
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -222,7 +224,6 @@ export default {
     },
 
     cancelToSaveProduct () {
-      this.$store.dispatch('order/setTab', 'products')
       this.$router.push({ path: '/sell' })
     },
 

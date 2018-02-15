@@ -63,7 +63,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: ''})
+    this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: 'products', action: 'edit_product'})
 
     if (this.$store.state.auth.user && ['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) > -1) {
       this.prod_id = this.$route.params.id
@@ -250,7 +250,6 @@ export default {
 
       ProductService.updateProduct(this.product.id, formData).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('order/setTab', 'products')
         this.$router.push({ path: '/sell' })
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -259,7 +258,6 @@ export default {
     },
 
     cancelToSaveProduct () {
-      // this.$store.dispatch('order/setTab', 'products')
       this.$router.push({ path: '/sell' })
     },
 
