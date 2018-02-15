@@ -216,13 +216,8 @@ export default {
       this.submenu = false
       AlbumService.repostAlbum(this.album.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.album.name])
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 

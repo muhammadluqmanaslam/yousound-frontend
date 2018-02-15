@@ -35,7 +35,6 @@ export default {
     submit () {
       this.$store.dispatch('error/showLoadingActivity', true)
       AuthService.login(this.user).then(response => {
-        // JSON responses are automatically parsed.
         this.$store.dispatch('error/showLoadingActivity', false)
         if (this.remember) {
           AuthService.saveCredential(this.user)
