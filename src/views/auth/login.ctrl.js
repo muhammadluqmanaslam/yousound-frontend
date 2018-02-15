@@ -1,4 +1,5 @@
 import AuthService from '@/services/auth.js'
+import PlaylistService from '@/services/playlist'
 
 export default {
   components: {
@@ -40,15 +41,14 @@ export default {
           AuthService.saveCredential(this.user)
         }
         AuthService.setTokenAndUserInfo(response.body.token, response.body)
-        this.$router.push({ path: '/discover' })
-      })
-      .catch(e => {
+
+        PlaylistService.getPlaylists().then(response => {
+          this.$store.dispatch('playlist/setPlaylists', response.body)
+          this.$router.push({ path: '/discover' })
+        })
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     }
   },

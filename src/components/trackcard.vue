@@ -441,7 +441,10 @@ export default {
             this.playlist_dialog = false
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch('error/showSuccessToast', ['Added the album to New Playlist '])
-            this.getPlaylists()
+
+            PlaylistService.getPlaylists().then(response => {
+              this.$store.dispatch('playlist/setPlaylists', response.body)
+            })
           }).catch(e => {
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -502,14 +505,6 @@ export default {
         this.selectedImage = event.target.result
       }, false)
       reader.readAsDataURL(this.playlist.image)
-    },
-
-    getPlaylists () {
-      PlaylistService.getPlaylists().then(response => {
-        this.$store.dispatch('playlist/setPlaylists', response.body)
-      }).catch(e => {
-        console.log(e)
-      })
     }
   }
 }

@@ -367,14 +367,13 @@ export default {
       PlaylistService.deletePlaylist(this.playlist.id).then(response => {
         this.playlist_dialog = false
         this.$store.dispatch('error/showSuccessToast', ['Deleted Playlist '])
-        this.$router.push({path : '/discover'})
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+
+        PlaylistService.getPlaylists().then(response => {
+          this.$store.dispatch('playlist/setPlaylists', response.body)
+          this.$router.push({ path: '/discover' })
+        })
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -394,16 +393,10 @@ export default {
         params.append('track_ids', tracks_ids.join(','))
         AlbumService.rearrangeTracks(this.playlist.id, params).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['Updated order of tracks.'])
-        })
-        .catch(e => {
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       }
-      console.log()
     }
   },
 

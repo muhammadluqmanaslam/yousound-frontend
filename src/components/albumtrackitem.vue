@@ -275,7 +275,10 @@ export default {
       PlaylistService.createPlaylist(params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showSuccessToast', ['Added the track to New Playlist '])
-        this.getPlaylists()
+
+        PlaylistService.getPlaylists().then(response => {
+          this.$store.dispatch('playlist/setPlaylists', response.body)
+        })
       })
       .catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -330,14 +333,6 @@ export default {
         this.setTab(this.$store.state.auth.tab)
         this.$root.$emit('play')
       }
-    },
-
-    getPlaylists () {
-      PlaylistService.getPlaylists().then(response => {
-        this.$store.dispatch('playlist/setPlaylists', response.body)
-      }).catch(e => {
-        console.log(e)
-      })
     },
 
     goToAlbumStats (stats) {

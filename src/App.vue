@@ -190,7 +190,11 @@ export default {
           AuthService.saveCredential(this.user)
         }
         AuthService.setTokenAndUserInfo(response.body.token, response.body)
-        this.$router.push({ path: '/discover' })
+
+        PlaylistService.getPlaylists().then(response => {
+          this.$store.dispatch('playlist/setPlaylists', response.body)
+          this.$router.push({ path: '/discover' })
+        })
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

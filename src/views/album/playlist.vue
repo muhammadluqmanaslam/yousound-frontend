@@ -22,8 +22,8 @@
             <label class="album-title">{{ playlist.album_type }}</label>
             <h4 class="album-name">{{ playlist.name }}</h4>
             <div class="py-2">
-<!--               <label class="album-description">{{ playlist.description }}</label>
- -->              <v-dialog v-model="playlist_dialog" class="album-credits-dialog" scrollable max-width="600px" v-if="$store.state.auth.user.id==playlist.user.id">
+              <!-- <label class="album-description">{{ playlist.description }}</label> -->
+              <v-dialog v-model="playlist_dialog" class="album-credits-dialog" scrollable max-width="600px" v-if="$store.state.auth.user.id==playlist.user.id">
                 <v-btn color="primary" dark slot="activator" class="text-btn">Edit playlist</v-btn>
                 <v-card class="album-dialog-body">
                   <v-card-title>Edit Playlist</v-card-title>
