@@ -346,14 +346,9 @@ export default {
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch('error/showSuccessToast', ['Updated Playlist '])
             this.getPlaylist(this.playlist.slug)
-          })
-          .catch(e => {
+          }).catch(e => {
             this.$store.dispatch('error/showLoadingActivity', false)
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         } else {
           this.$store.dispatch('error/showErrorToast', ['Please add Playlist cover.'])
@@ -361,6 +356,22 @@ export default {
       } else {
         this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
       }
+    },
+
+    removeTrack (track) {
+      if (this.playlist.tracks.length == 1) {
+        this.$store.dispatch('error/showErrorToast', ['You have only one track'])
+        return
+      }
+
+      const params = {
+        track_id: track.id
+      }
+      PlaylistService.removeTrack(this.playlist.id, params).then(response => {
+        _.remove(this.playlist.tracks, (item) => { return item.id == params.track_id })
+        const arr = this.playlist.tracks.slice()
+        this.playlist.tracks = arr
+      })
     },
 
     deletePlaylist () {

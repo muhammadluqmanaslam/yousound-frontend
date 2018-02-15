@@ -28,6 +28,12 @@
           <v-icon right>more_horiz</v-icon>
         </v-btn>
         <v-list>
+          <v-list-tile key="remove_track" @click.native="removeItem()" v-if="album.album_type == 'playlist'">
+            <v-list-tile-title class="default-menu-item">
+              <img class="track-status-icon" src="/static/images/ic_comment_delete.png" />
+              <label>Remove Track</label>
+            </v-list-tile-title>
+          </v-list-tile>
           <v-list-tile key="repost" @click.native="repostItem()">
             <v-list-tile-title class="default-menu-item">
               <img class="track-status-icon" src="/static/images/ic_repeat.png" />
@@ -148,6 +154,10 @@ export default {
       type: Number
     },
 
+    removeTrack: {
+      type: Function
+    },
+
     showStats: {
       type: Boolean,
       default: false
@@ -210,6 +220,12 @@ export default {
       setPage: 'player/setPage',
       setTab: 'player/setTab'
     }),
+
+    removeItem () {
+      this.menu = false
+      this.submenu = false
+      this.removeTrack(this.track)
+    },
 
     repostItem () {
       this.menu = false
@@ -279,32 +295,23 @@ export default {
         PlaylistService.getPlaylists().then(response => {
           this.$store.dispatch('playlist/setPlaylists', response.body)
         })
-      })
-      .catch(e => {
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
     addToPlaylist (list) {
       this.menu = false
       this.submenu = false
-      const params = new FormData()
-      params.append('assoc_id', this.track.id)
-      params.append('assoc_type', 'Track')
+      const params = {
+        assoc_id: this.track.id,
+        assoc_type: 'Track'
+      }
       PlaylistService.updatePlaylist(list.id, params).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['Added the track to <' + list.name + '>'])
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 

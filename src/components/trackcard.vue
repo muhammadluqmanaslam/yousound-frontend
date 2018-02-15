@@ -460,9 +460,13 @@ export default {
     addToPlaylist (list) {
       this.menu = false
       this.submenu = false
-      const params = new FormData()
-      params.append('assoc_id', this.item.id)
-      params.append('assoc_type', 'Album')
+      // const params = new FormData()
+      // params.append('assoc_id', this.item.id)
+      // params.append('assoc_type', 'Album')
+      const params = {
+        assoc_id: this.item.tracks[0].id,
+        assoc_type: 'Track'
+      }
       PlaylistService.updatePlaylist(list.id, params).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['Added the track to <' + list.name + '>'])
       }).catch(e => {

@@ -22,5 +22,9 @@ export default {
 
   updatePlaylist (playlistId, params) {
     return Vue.http.patch(API_BASE_URL + '/' + playlistId, params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
+  removeTrack (playlistId, params) {
+    return Vue.http.post(API_BASE_URL + '/' + playlistId + '/remove_track', params, { headers: { 'Authorization': $store.state.auth.token } })
   }
 }

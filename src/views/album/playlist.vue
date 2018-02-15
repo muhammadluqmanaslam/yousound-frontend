@@ -62,18 +62,19 @@
           </div>
           <div v-if="$store.state.auth.user.id != playlist.user.id" class="album-tracks-section">
             <album-track-item v-for="(track, index) in playlist.tracks"
-                :key="index"
-                :album="playlist"
-                :trackIndex="index"></album-track-item>
+              :key="index"
+              :album="playlist"
+              :trackIndex="index"></album-track-item>
           </div>
           <div v-else class="album-tracks-section">
             <draggable v-model="playlist.tracks" class="track-items" @end="onEnd">
               <transition-group>
                 <album-track-item v-for="(track, index) in playlist.tracks"
-                    :album="playlist"
-                    :trackIndex="index"
-                    :key="index"
-                    :showStats="true"></album-track-item>
+                  :key="index"
+                  :album="playlist"
+                  :trackIndex="index"
+                  :removeTrack="removeTrack"
+                  :showStats="true"></album-track-item>
               </transition-group>
             </draggable>
           </div>
