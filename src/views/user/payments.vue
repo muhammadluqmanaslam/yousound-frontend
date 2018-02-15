@@ -1,5 +1,9 @@
 <template>
   <div class="page payments-page">
+    <send-message v-if="send_message_dialog"
+      :receiver="messaging_user"
+      :dismiss="hideSendMessageDialog"></send-message>
+
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative>
       <div class="wallet-section" v-if="user">
         <label class="">Available</label>
@@ -89,7 +93,14 @@
                     </td>
                     <td class="text-xs-center">${{ history.sent_amount|formatNumber }}</td>
                     <td class="text-xs-center">${{ history.received_amount|formatNumber }}</td>
-                    <td class="text-xs-center" style="text-transform: capitalize;">{{ history.description || history.payment_type }}</td>
+                    <td class="text-xs-center" style="text-transform: capitalize;">
+                      <template v-if="history.payment_type == 'buy'">
+                        <router-link :to="`/sell/order/${history.order_id}`">Buy</router-link>
+                      </template>
+                      <template v-else>
+                        {{ history.description || history.payment_type }}
+                      </template>
+                    </td>
                     <td class="text-xs-center">Jan 1, 2016</td>
                     <td class="text-xs-center">
                       <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
@@ -103,9 +114,7 @@
       </div>
     </v-flex>
 
-    <send-message v-if="send_message_dialog"
-      :receiver="messaging_user"
-      :dismiss="hideSendMessageDialog"></send-message>
   </div>
 </template>
+
 <script type="text/javascript" src="./payments.ctrl.js"></script>
