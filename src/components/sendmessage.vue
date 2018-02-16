@@ -2,8 +2,14 @@
   <v-flex xs12 sm12 class="direct-message-section">
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
     <v-layout row class="popup-section">
+
+      <payment-modal v-if="show_payment_modal"
+        :type="''"
+        :amount="current_repost_price"
+        :dismiss="closePaymentDialog"
+        :finish="sendMessage"></payment-modal>
+
       <v-flex xs12 class="content-section" :class="{'sm7':$store.state.auth.user.user_type=='artist', 'sm12':$store.state.auth.user.user_type!='artist'}">
-        <!-- <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div> -->
         <div class="avatar-image" :style="{'background-image': 'url(' + receiver.avatar.thumb.url + ')'}"></div>
         <p class="user-name">{{ receiver.display_name }} <v-icon class="user-status" v-bind:class="{'online': receiver.status == 'active'}" v-if="receiver.user_type == 'artist'">fa-check-circle</v-icon></p>
         <label class="repost-price" v-if="$store.state.auth.user.user_type=='artist'">Repost Price: ${{ receiver.repost_price }}</label>
@@ -25,7 +31,7 @@
             @click.native="showEmojiPicker=!showEmojiPicker">
             <v-icon>tag_faces</v-icon>
           </v-btn>
-          <v-btn class ="send-message-btn" @click.native="sendMessage()">Send</v-btn>
+          <v-btn class ="send-message-btn" @click.native="checkMessage()" :disabled="!message">Send</v-btn>
         </div>
         <!--<p class="followed-count-text">
           This user is followed by 
@@ -85,6 +91,7 @@
   import { Picker } from 'emoji-mart-vue'
   import AlbumService from '@/services/album'
   import ProductService from '@/services/product'
+  import paymentModal from '@/components/paymentmodal'
 
   export default {
     props: {
@@ -100,12 +107,14 @@
     },
 
     components: {
-      Picker
+      Picker,
+      paymentModal
     },
 
     data () {
       return {
         showEmojiPicker: false,
+        show_payment_modal: false,
         tab: 'album',
         item_index: -1,
         albums: [],
@@ -115,6 +124,9 @@
     },
 
     computed: {
+      current_repost_price () {
+        return this.receiver.repost_price
+      }
     },
 
     created () {
@@ -138,12 +150,41 @@
     },
 
     methods: {
-      sendMessage () {
+      openPaymentDialog () {
+        this.show_payment_modal = true
+      },
+
+      closePaymentDialog () {
+        this.show_payment_modal = false
+      },
+
+      checkMessage () {
+        if (this.item_index > -1) {
+          this.openPaymentDialog()
+        } else {
+          this.sendMessage()
+        }
+      },
+
+      sendMessage (token) {
         this.dismiss()
-        const params = new FormData()
-        params.append('body', this.message)
+        let params = {
+          body: this.message
+        }
         this.message = ''
-        params.append('receiver_id', this.receiver.id)
+        params['receiver_id'] = this.receiver.id
+        if (this.item_index > -1) {
+          if (this.tab === 'album') {
+            params['attachable_type'] = 'Album'
+            params['attachable_id'] = this.albums[this.item_index].id
+          } else {
+            params['attachable_type'] = 'ShopProduct'
+            params['attachable_id'] = this.products[this.item_index].id
+          }
+        }
+        if (token) {
+          params['payment_token'] = token.id
+        }
         MessageService.addMessage(params).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['Sent message successfully.'])
         }).catch(e => {

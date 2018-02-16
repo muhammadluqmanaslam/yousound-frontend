@@ -246,8 +246,8 @@ export default {
     },
 
     setVisitedTime () {
-      this.show_stopPopup=false
-      this.$refs.message.focus()
+      this.show_stopPopup = false
+      if (this.$refs.message) this.$refs.message.focus()
       const params = new FormData()
       params.append('user[message_visited]', 1)
       UserService.updateUserInfo(this.$store.state.auth.user.id, params).then(response => {

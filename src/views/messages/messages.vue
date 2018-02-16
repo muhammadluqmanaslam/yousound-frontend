@@ -1,6 +1,12 @@
 <template>
   <v-layout row wrap class="page messages-page">
 
+    <payment-modal v-if="showPaymentModal"
+      :type="''"
+      :amount="current_repost_price"
+      :dismiss="hidePaymentDialog"
+      :finish="sendMessage"></payment-modal>
+
     <v-flex xs12 sm12 class="messages-stop-music-section" v-if="show_stopPopup">
       <div class="popup-section">
         <img class="popup-image" src="/static/images/earphone.png"/>
@@ -376,11 +382,6 @@
       </v-layout>
     </v-flex>
 
-    <payment-modal v-if="showPaymentModal"
-      :type="''"
-      :amount="current_repost_price"
-      :dismiss="hidePaymentDialog"
-      :finish="sendMessage"></payment-modal>
   </v-layout>
 </template>
 <script type="text/javascript" src="./messages.ctrl.js"></script>
