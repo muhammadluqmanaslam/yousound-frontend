@@ -66,24 +66,24 @@
               <v-tabs-item
                 key="approved_labels"
                 href="#approved_labels"
-                ripple
-                @click.native="onTab('approved_labels')">Labels</v-tabs-item>
+                @click.native="onTab('approved_labels')"
+                ripple>Labels</v-tabs-item>
               <v-tabs-item
                 key="approved_albums"
                 href="#approved_albums"
-                ripple
-                @click.native="onTab('approved_albums')">Approved albums</v-tabs-item>
+                @click.native="onTab('approved_albums')"
+                ripple>Approved albums</v-tabs-item>
               <v-tabs-item
                 key="pending_labels"
                 href="#pending_labels"
-                ripple
-                @click.native="onTab('pending_labels')">Pending labels</v-tabs-item>
+                @click.native="onTab('pending_labels')"
+                ripple>Pending labels</v-tabs-item>
               <v-tabs-slider color="black"></v-tabs-slider>
               <v-tabs-item
                 key="pending_albums"
                 href="#pending_albums"
-                ripple
-                @click.native="onTab('pending_albums')">Pending albums</v-tabs-item>
+                @click.native="onTab('pending_albums')"
+                ripple>Pending albums</v-tabs-item>
             </v-tabs-bar>
             <v-tabs-items>
               <v-tabs-content key="approved_labels" id="approved_labels">
@@ -158,23 +158,23 @@
               <v-tabs-item
                 key="approved_labels"
                 href="#approved_labels"
-                ripple
-                @click.native="onTab('approved_labels')">Roster</v-tabs-item>
+                @click.native="onTab('approved_labels')"
+                ripple>Roster</v-tabs-item>
               <v-tabs-item
                 key="approved_albums"
                 href="#approved_albums"
-                ripple
-                @click.native="onTab('approved_albums')">Albums</v-tabs-item>
+                @click.native="onTab('approved_albums')"
+                ripple>Albums</v-tabs-item>
               <v-tabs-item
                 key="pending_labels"
                 href="#pending_labels"
-                ripple
-                @click.native="onTab('pending_labels')">Pending Labels</v-tabs-item>
+                @click.native="onTab('pending_labels')"
+                ripple>Pending Artists</v-tabs-item>
               <v-tabs-item
                 key="pending_albums"
                 href="#pending_albums"
-                ripple
-                @click.native="onTab('pending_albums')">Pending Albums</v-tabs-item>
+                @click.native="onTab('pending_albums')"
+                ripple>Pending Albums</v-tabs-item>
               <v-tabs-slider color="black"></v-tabs-slider>
             </v-tabs-bar>
             <v-tabs-items>
