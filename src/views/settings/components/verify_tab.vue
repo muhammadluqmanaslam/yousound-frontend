@@ -46,7 +46,7 @@
             </v-flex>
             <v-flex xs12 text-xs-left>
               <input v-model="user.basecamp_url" v-validate="'required|max:1023'"
-                type="text" name="basecamp_url" placeholder="Basecamp URL" :disabled="!enabledForm">
+                type="text" name="basecamp_url" placeholder="Bandcamp URL" :disabled="!enabledForm">
             </v-flex>
             <v-flex xs12 text-xs-left>
               <input v-model="user.website_url" v-validate="'required|max:1023'"
