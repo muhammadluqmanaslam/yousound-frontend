@@ -247,7 +247,7 @@
                 ripple>{{ tab.title }}</v-tabs-item>
               <v-tabs-slider color="black"></v-tabs-slider>
               <v-spacer></v-spacer>
-              <v-btn dark class="more-btn" @click.native="setGridView(false)">
+              <v-btn dark class="more-btn" @click.native="setGridView(false)" v-if="tab!='followings'">
                 <!-- <v-icon>slideshow</v-icon> -->
                 <svg width="40px" height="30px" viewBox="0 0 40 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
