@@ -44,7 +44,7 @@ export default {
             this.$store.dispatch('error/showLoadingActivity', false)
             if (e.status === 500) {
               this.$store.dispatch('error/showErrorToast', ['Failed in seding confirmation email'])
-              this.$router.push({ path: `/confirm/being?email=${this.user.email}` })
+              this.$router.push({ path: `/confirm/being?email=${this.user.email}&type=0` })
             } else {
               this.$store.dispatch('error/showErrorToast', e.body.errors)
             }

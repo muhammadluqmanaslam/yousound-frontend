@@ -5,6 +5,7 @@ export default {
     return {
       token: '',
       email: '',
+      user_type: 0,
       message: '',
       isActivated: false,
       isLoading: false,
@@ -22,6 +23,7 @@ export default {
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
     this.token = this.$route.params.token
     this.email = this.$route.query['email']
+    this.user_type = this.$route.query['type'] || 1
     if (this.token == 'being') {
       if (!this.email) {
         this.$router.push('/')
