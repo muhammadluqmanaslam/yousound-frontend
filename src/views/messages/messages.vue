@@ -40,7 +40,7 @@
       </v-card>
     </v-dialog>
 
-    <!-- <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="messages-page-header">
+    <!-- <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="messages-page-header">
       <v-flex xs12>
         <v-layout row wrap>
           <h2 class="page-title">Messages</h2>
@@ -53,7 +53,7 @@
       </v-flex>
     </v-flex> -->
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="messages-page-content" v-if="$store.state.auth.user">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="messages-page-content" v-if="$store.state.auth.user">
       <v-layout row>
         <v-flex xs12 pa-0 v-if="!conversations || conversations.length == 0" class="message-rooms-section empty-section">
           <p class="empty-title">No messages</p>
@@ -241,9 +241,12 @@
                                 <v-btn class="status-btn" :class="message.attachment.status">{{ message.attachment.status }}</v-btn>
                               </div>
                               <div v-else>
+                                <v-btn class="status-btn" @click.native="viewPendingCollaboration(message)">View Pending Collaboration</v-btn>
+                              </div>
+                              <!-- <div v-else>
                                 <v-btn class="status-btn" @click.native="acceptCollaboration(message)">Accept</v-btn>
                                 <v-btn class="status-btn" @click.native="denyCollaboration(message)">Deny</v-btn>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
                         </div>
@@ -350,9 +353,9 @@
               <p class="section-title">Request repost</p>
               <div class="option-area">
                 <v-btn v-if="['artist', 'label'].indexOf($store.state.auth.user.user_type)!=-1"
-                    class="request-option-btn" :class="{'selected':tab=='album'}" @click.native="onTab('album')">Album</v-btn>
+                  class="request-option-btn" :class="{'selected':tab=='album'}" @click.native="onTab('album')">Album</v-btn>
                 <v-btn v-if="['artist', 'brand', 'label'].indexOf($store.state.auth.user.user_type)!=-1"
-                    class="request-option-btn" :class="{'selected':tab=='merch'}" @click.native="onTab('merch')">Merch</v-btn>
+                  class="request-option-btn" :class="{'selected':tab=='merch'}" @click.native="onTab('merch')">Merch</v-btn>
               </div>
             </div>
             <div class="content-section" v-if="tab=='album'">
@@ -384,5 +387,5 @@
 
   </v-layout>
 </template>
-<script type="text/javascript" src="./messages.ctrl.js"></script>
 
+<script type="text/javascript" src="./messages.ctrl.js"></script>

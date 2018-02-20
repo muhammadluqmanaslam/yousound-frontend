@@ -327,6 +327,16 @@ export default {
       })
     },
 
+    viewPendingCollaboration (message) {
+      if (message.attachment.attachable_type == 'Album') {
+        this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
+        this.$router.push({ path: '/albums' })
+      } else if (message.attachment.attachable_type == 'ShopProduct') {
+        this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
+        this.$router.push({ path: '/sell' })
+      }
+    },
+
     acceptCollaboration (message) {
       if (message.attachment.attachable_type == 'Album') {
         AlbumService.acceptCollaboration(message.attachment.assoc.id).then(response => {

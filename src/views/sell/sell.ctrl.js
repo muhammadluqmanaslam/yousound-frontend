@@ -67,7 +67,7 @@ export default {
 
     if (this.$store.state.auth.user) {
       if (['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) == -1)  {
-        this.$router.push({ path: '/'})
+        this.$router.push({ path: '/' })
       } else {
         const lastState = this.$store.getters['navigator/last']
         if (lastState.page === 'sell' && lastState.tab === 'products') {
@@ -81,6 +81,9 @@ export default {
               this.openProductFinishModal()
             })
           }
+        } else if (lastState.page === 'messages' && lastState.action === 'view_pending_collaboration') {
+          this.tab = 'pendings'
+          this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'pendings'})
         }
 
         this.loadData()
