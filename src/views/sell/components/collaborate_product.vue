@@ -54,7 +54,8 @@
                 <div class="status-overview">
                   <div>
                     <div class="accepted-title">Collaborators</div>
-                    <div v-for="c in usersByStatus.accepted">{{ c.user.display_name }}</div>
+                    <div>{{ product.merchant.display_name }} (owner) - {{ ownerShare }}%</div>
+                    <div v-for="c in usersByStatus.accepted">{{ c.user.display_name }} - {{ c.user_share }}%</div>
                   </div>
                 </div>
               </div>
@@ -66,7 +67,8 @@
       
       <v-flex xs12 class="product-detail" pa-0>
         <p class="product-name">{{ product.name }}</p>
-        <p class="product-posted-date">2 months</p>
+        <p class="product-user-name">{{ product.merchant.display_name }}</p>
+        <!-- <p class="product-posted-date">2 months</p> -->
       </v-flex> 
     </v-flex>
     <promote-modal v-if="isShowPromoteModal"
@@ -133,6 +135,10 @@
 
       usersByStatus () {
         return _.groupBy(this.product.collaborators, 'status')
+      },
+
+      ownerShare () {
+        return 100 - _.sumBy(this.product.collaborators, 'user_share')
       }
     },
 

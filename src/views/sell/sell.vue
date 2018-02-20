@@ -1,5 +1,5 @@
 <template>
-  <div row wrap class="page sell-page" v-if="$store.state.auth.user && isPageReady">
+  <div row wrap class="page sell-page">
 
     <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
 
@@ -66,7 +66,7 @@
       <h2 class="page-title">Sell</h2>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="$store.state.auth.user && isPageReady">
       <div class="normal-tab">
         <v-tabs black v-model="tab">
           <v-tabs-bar class="transparent">

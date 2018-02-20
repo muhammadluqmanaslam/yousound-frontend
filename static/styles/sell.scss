@@ -321,7 +321,6 @@
 
   .product-card {
     width: 100%;
-
     .product-info {
       position: relative;
       .product-user {
@@ -471,7 +470,7 @@
             }
 
             .status-overview {
-              margin: 16px 0 0 24px;
+              margin: 16px 10px 0 15px;
               line-height: 17px;
               font-size: 14px;
 
@@ -897,6 +896,15 @@
           }
         }
       }
+    }
+  }
+
+  .product-card .product-info .product-detail {
+    .product-name {
+      color: #000 !important;
+    }
+    .product-user-name {
+      color: #000 !important;
     }
   }
 }

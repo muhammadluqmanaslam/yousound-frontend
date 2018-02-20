@@ -1,4 +1,4 @@
-.application.application.theme--light.primary {
+.application.theme--light.primary {
   .page.discover-page {
     .page-title {
       color: #FFFFFF;
@@ -57,7 +57,8 @@
     }
   }
 }
-.application.application.theme--light.gray {
+
+.application.theme--light.gray {
   .page.discover-page {
     .page-title {
       color: #000000;
@@ -82,7 +83,6 @@
         border: none;
       }
     }
-
     .tabs__item {
       padding: 0 !important;
       text-transform: none;
@@ -106,4 +106,3 @@
     }
   }
 }
-

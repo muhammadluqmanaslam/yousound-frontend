@@ -113,6 +113,7 @@ body {
     vertical-align: baseline;
   }
 }
+
 .footer {
   background-color: transparent !important;
 }
@@ -120,6 +121,7 @@ body {
 .transparent {
   background-color: transparent !important;
 }
+
 #content-view {
   padding-top: 112.5px;
 }
@@ -344,6 +346,7 @@ a {
     top: 0px;
   }
 }
+
 .vertical-middle-div {
   display: table-cell;
   vertical-align: middle;
@@ -351,7 +354,6 @@ a {
 
 .control-label {
   display: block;
-  /* Description: */
   font-family: Avenir-Roman;
   font-size: 16px;
   color: #B0B0B0;
@@ -373,22 +375,6 @@ a {
   height: 100%;
 }
 
-input[type=text],
-input[type=email],
-input[type=password] {
-  /* Rectangle: */
-  background: #FFFFFF;
-  border: 0.75px solid #D2D2D2;
-  border-radius: 3.75px;
-  /* Supreme X Snapback: */
-  font-family: Avenir-Medium;
-  font-size: 15px;
-  color: #000000;
-  letter-spacing: 0;
-}
-
-
-/* Required */
 img.colorify:not(.visible) {
   opacity: 0;
   filter: blur(3px);
@@ -402,24 +388,27 @@ img.colorify:not(.all-loaded).all-not-loaded {
   image-rendering: pixelated;
 }
 
-.primary-input {
-  /* Rectangle: */
+.primary-input,
+input[type=text],
+input[type=email],
+input[type=password] {
   background: #FFFFFF;
   border: 0.75px solid #D2D2D2;
   border-radius: 3.75px;
-  /* Supreme X Snapback: */
   font-family: Avenir-Medium;
   font-size: 15px;
   color: #000000;
-  letter-spacing: 0;  
+  letter-spacing: 0;
 }
 
 .border-top-none {
   border-top: none !important;
 }
+
 .required {
   color: #E72A41;
 }
+
 .input-group__details {
   &:before {
     display: none;
@@ -428,6 +417,7 @@ img.colorify:not(.all-loaded).all-not-loaded {
     display: none;
   }
 }
+
 .input-group--select {
   label {
     padding-left: 7.5px;
@@ -449,7 +439,6 @@ img.colorify:not(.all-loaded).all-not-loaded {
 }
 
 .user-status {
-  /* Oval 11: */
   &.online {
     color: #7ED321;
     font-size: 14px;
@@ -457,10 +446,8 @@ img.colorify:not(.all-loaded).all-not-loaded {
     margin-left: -4px;
   }
   &.away {
-
   }
   &.offline {
-
   }
 }
 
@@ -471,6 +458,7 @@ img.colorify:not(.all-loaded).all-not-loaded {
 .overlay {
   z-index: 11 !important;
 }
+
 .dialog__content {
   z-index: 11 !important;
 }
@@ -485,7 +473,6 @@ img.colorify:not(.all-loaded).all-not-loaded {
   }
   label {
     vertical-align: middle;
-    /* Repost Download Shar: */
     font-family: Avenir-Roman;
     font-size: 13.5px;
     color: #000000;
@@ -539,7 +526,6 @@ img.colorify:not(.all-loaded).all-not-loaded {
     display: none;
   }
   .empty-title {
-    /* Your Cart is Empty L: */
     margin-top: 100px;
     margin-bottom: 0;
     font-family: Avenir-Medium;
@@ -549,7 +535,6 @@ img.colorify:not(.all-loaded).all-not-loaded {
     line-height: 40px;
   }
   .empty-description {
-    /* Your Cart is Empty L: */
     margin-bottom: 20px;
     font-family: Avenir-Medium;
     font-size: 16px;
