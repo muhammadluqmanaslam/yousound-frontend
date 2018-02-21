@@ -27,7 +27,7 @@
               <div v-if="!cartItems || cartItems.length == 0" class="empty-section">
                 <p class="empty-title">Your Cart is Empty</p>
                 <p class="empty-description">Looking for something new?</p>
-                <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
+                <router-link to="/discover#merch" class="empty-discover-btn">Discover</router-link>
               </div>
               <v-card flat v-else>
                 <div class="orders-status-section">

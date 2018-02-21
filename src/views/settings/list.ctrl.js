@@ -116,6 +116,14 @@ export default {
     }
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      console.log('list watch')
+      console.log(toPath)
+      console.log(fromPath)
+    }
+  },
+
   created () {
     if (this.$store.state.auth.user) {
       this.getUserInfo()

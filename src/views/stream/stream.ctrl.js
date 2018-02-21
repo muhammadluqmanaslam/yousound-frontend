@@ -49,8 +49,23 @@ export default {
   computed: {
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.setTab(tab)
+    }
+  },
+
   created () {
-    this.onTab('any')
+    if (this.$store.state.auth.user) {
+      const tab = this.$route.hash.substr(1)
+      this.setTab(tab)
+    } else {
+      this.$store.dispatch('navigator/goNextState', { page: 'stream', tab: 'any' })
+      this.$nextTick(() => {
+        this.$root.$emit('showLoginModal')
+      })
+    }
   },
 
   methods: {
@@ -85,9 +100,15 @@ export default {
     },
 
     onTab (tab) {
-      if (this.activeTab == tab) {
-        return
-      }
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab
+      })
+    },
+
+    setTab (tab) {
+      if (!tab)
+        tab = 'any'
 
       this.isPageReady = false
       this.users = []

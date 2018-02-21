@@ -11,7 +11,7 @@
           <v-tabs-bar class="transparent">
             <v-tabs-item v-for="tab in tabs"
               :key="tab.id"
-              :href="'#' + tab.id"
+              :href="`#${tab.id}`"
               @click.native="onTab(tab.id)"
               ripple>{{ tab.title }}</v-tabs-item>
             <v-tabs-slider color="white"></v-tabs-slider>
@@ -42,7 +42,7 @@
           </v-tabs-items>
         </v-tabs>
 
-        <v-menu offset-y id="genre_selector" class="genre_menu">
+        <v-menu offset-y id="genre_selector" class="genre_menu" v-show="activeTab!='merch'">
           <v-btn dark slot="activator">Any genre
             <v-icon dark right>keyboard_arrow_down</v-icon>
           </v-btn>

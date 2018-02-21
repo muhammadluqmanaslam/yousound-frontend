@@ -3,6 +3,7 @@
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Settings</h2>
     </v-flex>
+
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative content-page v-if="$store.state.auth.user">
       <v-navigation-drawer permanent absolute height="400px">
         <v-list>
@@ -17,6 +18,7 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
+
       <div class="main-section" v-if="tab=='info'">
         <div class="content-section">
           <v-flex xs12 profile-section pa-0>

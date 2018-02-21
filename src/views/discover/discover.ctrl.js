@@ -51,15 +51,26 @@ export default {
     }
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.setTab(tab)
+    }
+  },
+
   created () {
     if (this.$store.state.auth.user) {
-      this.onTab('new')
+      const tab = this.$route.hash.substr(1)
+      this.setTab(tab)
     } else {
       this.$store.dispatch('navigator/goNextState', { page: 'discover', tab: 'new' })
-      const vm = this
-      setTimeout(() => {
-        vm.$root.$emit('showLoginModal')
-      }, 100)
+      // const vm = this
+      // setTimeout(() => {
+      //   vm.$root.$emit('showLoginModal')
+      // }, 100)
+      this.$nextTick(() => {
+        this.$root.$emit('showLoginModal')
+      })
     }
   },
 
@@ -129,17 +140,23 @@ export default {
       this.loadFeeds(this.$store.state.auth.tab)
     },
 
-    onTab(tab) {
-      if (tab == this.activeTab) {
-        return
-      }
+    onTab (tab) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab
+      })
+    },
 
+    setTab (tab) {
+      if (!tab)
+        tab = 'new'
+
+      // console.log(tab, this.activeTab)
       this.activeTab = tab
       this.page_index = 1
       this.total_pages = 1
       this.products = []
       this.feeds = []
-      // this.genre_index = 0
       this.selected_genre = null
       this.genres = [
         {
@@ -152,11 +169,9 @@ export default {
         },
       ]
       if (tab === 'merch') {
-        $('#genre_selector').hide()
         this.$store.dispatch('navigator/goNextState', { page: 'merch', tab: tab })
       } else {
         this.$store.dispatch('navigator/goNextState', { page: 'discover', tab: tab })
-        $('#genre_selector').show()
         $('#genre_selector .btn__content').html('Any genre' + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
       }
       // const vm = this
