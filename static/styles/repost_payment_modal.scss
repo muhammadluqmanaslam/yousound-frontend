@@ -1,0 +1,134 @@
+.repost-payment-modal {
+  /* Rectangle: */
+  background: rgba(255, 255, 255, 0.95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  z-index: 15;
+  .dismiss-section {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .popup-section {
+    z-index: 20;
+    position: relative;
+    max-width: 760px;
+    margin-top: calc(50vh - 320px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 30px;
+    background: #FFFFFF;
+    box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+    border-radius: 7.5px;
+    .modal__header {
+      padding-bottom: 10px;
+      border-bottom: 0.75px solid #D2D2D2;
+      p {
+        padding-top: 15px;
+        margin: 0;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: Avenir-Roman;
+        font-size: 24px;
+        color: #000000;
+        letter-spacing: -0.4px;
+        span {
+          color: #3A92FF;
+        }
+      }
+    }
+    .modal__content {
+      background-color: #FFF;
+      padding: 15px 0;
+      .repost-item {
+        width: 240px;
+        height: 240px;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        background: #eeeeee; /* Old browsers */
+        background: -moz-linear-gradient(top, #eeeeee 0%, #eeeeee 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #eeeeee 0%,#eeeeee 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #eeeeee 0%,#eeeeee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=0 ); /* IE6-9 */
+        .repost-item-image {
+          // position: absolute;
+          // top: 0;
+          // left: 0;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          overflow: hidden;
+          background-position: center;
+        }
+        .repost-item-title {
+          margin: 10px 0 0 0;
+          overflow: hidden;
+          color: #000000;
+          text-align: center;
+          text-overflow: ellipsis;
+          font-family: Avenir-Roman;
+          font-size: 15px;
+          letter-spacing: -0.6px;
+          white-space: nowrap;
+        }
+        .repost-item-owner {
+          margin: 0;
+          opacity: 0.5;
+          color: #000000;
+          font-family: Avenir-Roman;
+          font-size: 16px;
+          text-align: center;
+          letter-spacing: -0.6px;
+        }
+      }
+      .payment {
+        width: calc(100% - 250px);
+        padding: 5px 22.5px 0;
+        font-size: 15px;
+        display: inline-block;
+        vertical-align: top;
+        .payment-section {
+          margin: 5px 10px 15px 10px;
+          padding: 20px 10px;
+          border-top: 0.75px solid #D2D2D2;
+          border-bottom: 0.75px solid #D2D2D2;
+          .input-group {
+            padding: 0;
+          }
+        }
+        .action-section {
+          .pay-btn {
+            width: 200px;
+            color: #FFFFFF;
+            border: 0px solid #FFFFFF;
+            background: #3A92FF !important;
+            border-radius: 75px;
+          }
+        }
+      }
+    }
+    .modal__footer {
+      padding: 10px 0 0 0;
+      border-top: 0.75px solid #D2D2D2;
+      p {
+        padding-top: 7.5px;
+        margin: 0;
+        display: inline-block;
+        vertical-align: middle;
+        font-family: Avenir-Roman;
+        font-size: 16px;
+        line-height: 40px;
+        color: #666666;
+        letter-spacing: -0.4px;
+        span {
+          color: #3A92FF;
+        }
+      }
+    }
+  }
+}

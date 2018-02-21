@@ -1,11 +1,18 @@
 <template>
   <v-layout row wrap class="page messages-page">
 
-    <payment-modal v-if="showPaymentModal"
+    <!-- <payment-modal v-if="showPaymentModal"
       :type="''"
       :amount="current_repost_price"
       :dismiss="hidePaymentDialog"
-      :finish="sendMessage"></payment-modal>
+      :finish="sendMessage"></payment-modal> -->
+
+    <repost-payment-modal v-if="show_repost_payment_modal"
+      :item="item"
+      :itemType="tab"
+      :user="conversation.other"
+      :dismiss="closeRepostPaymentModal"
+      :finish="sendMessage"></repost-payment-modal>
 
     <v-flex xs12 sm12 class="messages-stop-music-section" v-if="show_stopPopup">
       <div class="popup-section">
@@ -345,7 +352,7 @@
                 @click.native="showEmojiDialog()">
                 <v-icon>tag_faces</v-icon>
               </v-btn>
-              <v-btn class="send-message-btn" @click.native="checkMessage()">Send</v-btn>
+              <v-btn class="send-message-btn" @click.native="checkMessage()" :disabled="!message.body">Send</v-btn>
             </div>
           </v-flex>
           <v-flex xs12 sm3 pa-0 class="requests-section" v-if="['artist', 'brand', 'label'].indexOf($store.state.auth.user.user_type)!=-1">

@@ -9,6 +9,7 @@ import ProductService from '@/services/product'
 import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
 import paymentModal from '@/components/paymentmodal'
+import repostPaymentModal from '@/components/repost_payment_modal'
 import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
 
@@ -18,7 +19,8 @@ export default {
     Picker,
     activityAlbumCard,
     activityProductCard,
-    paymentModal
+    paymentModal,
+    repostPaymentModal
   },
 
   mixins: [onClickOutside],
@@ -30,6 +32,7 @@ export default {
       show_stopPopup: false,
       show_conversation_delete_confirm_dialog: false,
       show_block_user_confirm_dialog: false,
+      show_repost_payment_modal: false,
       showEmojiPicker: false,
       showPaymentModal: false,
       page_index: 0,
@@ -50,6 +53,14 @@ export default {
   },
 
   computed: {
+    item () {
+      if (this.tab === 'album') {
+        return this.albums[this.item_index]
+      }
+
+      return this.products[this.item_index]
+    },
+
     other_name () {
       return _.get(this.conversation, 'other.display_name', '')
     },
@@ -206,14 +217,16 @@ export default {
 
     checkMessage () {
       if (this.item_index > -1) {
-        this.showPaymentDialog()
+        // this.showPaymentDialog()
+        this.openRepostPaymentModal()
       } else {
         this.sendMessage()
       }
     },
 
     sendMessage (token) {
-      this.hidePaymentDialog()
+      this.closeRepostPaymentModal()
+      // this.hidePaymentDialog()
       // const message = this.message.body.replace(' ', '')
       // if(message.length > 0) {
       const params = new FormData()
@@ -293,12 +306,20 @@ export default {
       // }
     },
 
+    showPaymentDialog () {
+      this.showPaymentModal = true
+    },
+
     hidePaymentDialog () {
       this.showPaymentModal = false
     },
 
-    showPaymentDialog () {
-      this.showPaymentModal = true
+    openRepostPaymentModal () {
+      this.show_repost_payment_modal = true
+    },
+
+    closeRepostPaymentModal () {
+      this.show_repost_payment_modal = false
     },
 
     selectItemIndex (index) {
