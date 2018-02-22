@@ -5,9 +5,9 @@
       :dismiss="hideSendMessageDialog"></send-message>
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative>
-      <div class="wallet-section" v-if="user">
+      <div class="wallet-section" v-if="currentUser">
         <label class="">Available</label>
-        <label class="available-money-amount">${{ user.balance_amount|formatNumber }} <label class="currency">USD</label></label>
+        <label class="available-money-amount">${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label>
         <div class="action-section">
           <v-dialog v-model="withdraw_dialog" max-width="500px">
             <v-card>
@@ -15,7 +15,7 @@
                 <h2>Transfer Money</h2>
               </v-card-title>
               <v-card-text class="withdraw-dialog">
-                <label>Available<label class="available-money-amount"> ${{ user.balance_amount|formatNumber }} <label class="currency">USD</label></label></label>
+                <label>Available<label class="available-money-amount"> ${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label></label>
                 <v-radio-group v-model="withdarw_option" :mandatory="true">
                   <v-radio label="All" value="all"></v-radio>
                   <v-radio label="Partial" value="partial"></v-radio>
@@ -25,11 +25,11 @@
                     v-model="withdraw_amount"
                     :disabled="withdarw_option=='all'"
                     placeholder="Amount"></v-text-field>
-                  <label v-if="user.balance_amount < withdraw_amount" class="pl-4 pr-2 error-text">Amount should be less than Avaialble Balance.</label>
+                  <label v-if="currentUser.balance_amount < withdraw_amount" class="pl-4 pr-2 error-text">Amount should be less than Avaialble Balance.</label>
                 </v-radio-group>
               </v-card-text>
             <v-card-actions class="pa-3">
-              <v-btn color="primary" :disabled="user.balance_amount < withdraw_amount">Withdraw</v-btn>
+              <v-btn color="primary" :disabled="currentUser.balance_amount < withdraw_amount">Withdraw</v-btn>
               <v-btn color="primary" flat @click.stop="withdraw_dialog=false">Close</v-btn>
               </v-card-actions>
             </v-card>
@@ -40,19 +40,26 @@
       </div>
       <h2 class="page-title">Payments</h2>
       <div class="payments-tab">
-        <v-tabs dark v-model="active">
+        <v-tabs dark v-model="activeTab">
           <v-tabs-bar class="transparent">
             <v-tabs-item v-for="tab in tabs"
               :key="tab.id"
               :href="'#' + tab.id"
-              @click.native="loadPayments(tab.id)"
+              @click.native="onTab(tab.id)"
               ripple>{{ tab.title }}</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content v-for="tab in tabs" :key="tab.id" :id="tab.id">
-            <!-- <div v-if="active == tab.id" v-for="(history, index) in histories" :key="index"> -->
-              <table class="payment-table">
+              <template v-if="!histories || histories.length == 0">
+                <div class="empty-section" v-if="tab.id == 'received'">
+                  <p class="empty-title">You have not received any payments</p>
+                </div>
+                <div class="empty-section" v-else-if="tab.id == 'sent'">
+                  <p class="empty-title">You have not sent any payments</p>
+                </div>
+              </template>
+              <table class="payment-table" v-else>
                 <thead>
                   <tr>
                     <th width="50%" class="text-xs-left">Sender</th>
@@ -65,7 +72,7 @@
                 </thead>
                 <tbody>
                   <tr v-for="(history, index) in histories" :key="index">
-                    <td v-if="active=='received'">
+                    <td v-if="activeTab == 'received'">
                       <div class="profile-section">
                         <div class="user-avatar-image" :style="`background-image: url(${history.sender.avatar.thumb.url})`"></div>
                         <div class="user-info-section">
@@ -78,7 +85,7 @@
                         </div>
                       </div>
                     </td>
-                    <td v-if="active=='sent'">
+                    <td v-if="activeTab == 'sent'">
                       <div class="profile-section">
                         <div class="user-avatar-image" :style="`background-image: url(${history.receiver.avatar.thumb.url})`"></div>
                         <div class="user-info-section">

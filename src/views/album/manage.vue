@@ -80,7 +80,11 @@
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content key="published" id="published">
-              <v-card flat>
+              <div v-if="!published_albums || published_albums.length == 0" class="empty-section">
+                <p class="empty-title">Your have not uploaded any albums yet</p>
+                <router-link to="/upload/album" class="empty-discover-btn">Upload</router-link>
+              </div>
+              <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in published_albums" :key="index">
                     <album-card
@@ -93,7 +97,10 @@
               </v-card>
             </v-tabs-content>
             <v-tabs-content key="private" id="private">
-              <v-card flat>
+              <div v-if="!private_albums || private_albums.length == 0" class="empty-section">
+                <p class="empty-title">Your have no private albums</p>
+              </div>
+              <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in private_albums" :key="index">
                     <album-card
@@ -107,7 +114,10 @@
               </v-card>
             </v-tabs-content>
             <v-tabs-content key="collaborated" id="collaborated">
-              <v-card flat>
+              <div v-if="!collaborated_albums || collaborated_albums.length == 0" class="empty-section">
+                <p class="empty-title">Your have no album collaborations</p>
+              </div>
+              <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in collaborated_albums" :key="index">
                     <album-card
@@ -119,7 +129,10 @@
               </v-card>
             </v-tabs-content>
             <v-tabs-content key="pending" id="pending">
-              <v-card flat>
+              <div v-if="!pending_albums || pending_albums.length == 0" class="empty-section">
+                <p class="empty-title">Your have no pending album collaborations</p>
+              </div>
+              <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="(album, index) in pending_albums" :key="index">
                     <album-card v-if="album.user.id==$store.state.auth.user.id"

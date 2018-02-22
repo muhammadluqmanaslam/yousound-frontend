@@ -141,7 +141,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: ''})
+    this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: '' })
     this.slug = this.$route.params.slug
     this.init()
   },
