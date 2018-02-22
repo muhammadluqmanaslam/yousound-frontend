@@ -54,7 +54,7 @@
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="$store.state.auth.user && isPageReady">
       <div class="manage-tab">
-        <v-tabs dark v-model="tab">
+        <v-tabs dark v-model="activeTab">
           <v-tabs-bar class="transparent">
             <v-tabs-item
               key="published"

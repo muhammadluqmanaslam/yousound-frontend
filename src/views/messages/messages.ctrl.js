@@ -105,7 +105,7 @@ export default {
         this.conversations = response.body
         if (this.conversations.length) {
           this.selected_index = 0
-          this.loadMessages(this.conversations[this.selected_index].id, false)
+          this.loadMessages(this.conversations[this.selected_index].id, false, true)
         }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -117,7 +117,7 @@ export default {
       })
     },
 
-    loadMessages(id, loadMore) {
+    loadMessages(id, loadMore, scrollMove) {
       MessageService.getMessages(id).then(response => {
         if (loadMore) {
           // this.conversation.messages = this.conversation.messages.concat(response.body.messages)
@@ -125,10 +125,12 @@ export default {
         } else {
           this.conversation = response.body
           _.reverse(this.conversation.messages)
-          this.$nextTick(() => {
-            // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
-            $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
-          })
+          if (scrollMove) {
+            this.$nextTick(() => {
+              // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
+              $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
+            })
+          }
         }
         // this.$forceUpdate()
       }).catch(e => {
@@ -139,7 +141,7 @@ export default {
 
     refreshMessages () {
       if(this.conversation && this.conversation.id !== undefined) {
-        this.loadMessages(this.conversation.id, false)
+        this.loadMessages(this.conversation.id, false, false)
       }
     },
 
@@ -246,7 +248,7 @@ export default {
         params.append('payment_token', token.id)
       }
       MessageService.addMessage(params).then(response => {
-        this.loadMessages(this.conversation.id, false)
+        this.loadMessages(this.conversation.id, false, true)
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
@@ -348,39 +350,39 @@ export default {
       })
     },
 
-    viewPendingCollaboration (message) {
-      if (message.attachment.attachable_type == 'Album') {
-        this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
-        this.$router.push({ path: '/albums' })
-      } else if (message.attachment.attachable_type == 'ShopProduct') {
-        this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
-        this.$router.push({ path: '/sell' })
-      }
-    },
+    // viewPendingCollaboration (message) {
+    //   if (message.attachment.attachable_type == 'Album') {
+    //     this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
+    //     this.$router.push({ path: '/albums' })
+    //   } else if (message.attachment.attachable_type == 'ShopProduct') {
+    //     this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
+    //     this.$router.push({ path: '/sell' })
+    //   }
+    // },
 
-    acceptCollaboration (message) {
-      if (message.attachment.attachable_type == 'Album') {
-        AlbumService.acceptCollaboration(message.attachment.assoc.id).then(response => {
-          this.refreshMessages()
-        })
-      } else if (message.attachment.attachable_type == 'ShopProduct') {
-        ProductService.acceptCollaboration(message.attachment.assoc.id).then(response => {
-          this.refreshMessages()
-        })
-      }
-    },
+    // acceptCollaboration (message) {
+    //   if (message.attachment.attachable_type == 'Album') {
+    //     AlbumService.acceptCollaboration(message.attachment.assoc.id).then(response => {
+    //       this.refreshMessages()
+    //     })
+    //   } else if (message.attachment.attachable_type == 'ShopProduct') {
+    //     ProductService.acceptCollaboration(message.attachment.assoc.id).then(response => {
+    //       this.refreshMessages()
+    //     })
+    //   }
+    // },
 
-    denyCollaboration (message) {
-      if (message.attachment.attachable_type == 'Album') {
-        AlbumService.denyCollaboration(message.attachment.assoc.id).then(response => {
-          this.refreshMessages()
-        })
-      } else if (message.attachment.attachable_type == 'ShopProduct') {
-        ProductService.denyCollaboration(message.attachment.assoc.id).then(response => {
-          this.refreshMessages()
-        })
-      }
-    },
+    // denyCollaboration (message) {
+    //   if (message.attachment.attachable_type == 'Album') {
+    //     AlbumService.denyCollaboration(message.attachment.assoc.id).then(response => {
+    //       this.refreshMessages()
+    //     })
+    //   } else if (message.attachment.attachable_type == 'ShopProduct') {
+    //     ProductService.denyCollaboration(message.attachment.assoc.id).then(response => {
+    //       this.refreshMessages()
+    //     })
+    //   }
+    // },
 
     acceptLabelUser (message) {
       UserService.acceptLabelRequest(message.sender.id).then(response => {

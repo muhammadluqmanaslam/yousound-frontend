@@ -9,7 +9,7 @@ export default {
 
   data () {
     return {
-      tab: null,
+      activeTab: null,
       albums: [],
       album: {},
       album_delete_confirm_dialog: false,
@@ -55,12 +55,18 @@ export default {
     },
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.setTab(tab)
+    }
+  },
+
   created () {
     // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
     // this.$store.dispatch('navigator/setParams', { album_id: '61c5dfee-4011-49b6-97d6-54da6e6eab57' })
-    this.$store.dispatch('navigator/goNextState', { page: 'manage', tab: 'published' })
-    // console.log('current', this.$store.state.navigator.current)
-    // console.log('last', this.$store.getters['navigator/last'])
+    const tab = this.$route.hash.substr(1)
+    this.setTab(tab)
 
     if (this.$store.state.auth.user) {
       if (this.$store.state.auth.user.user_type !== 'artist') {
@@ -68,15 +74,12 @@ export default {
       } else {
         const lastState = this.$store.getters['navigator/last']
         if (lastState.page === 'upload') {
-          this.tab = 'pending'
+          this.activeTab = 'pending'
           this.$store.dispatch('navigator/setCurrentState', { page: 'manage', tab: 'pending' })
           AlbumService.getAlbum(lastState.params.album_id).then(response => {
             this.album = response.body
             this.openAlbumFinishModal()
           })
-        } else if (lastState.page === 'messages' && lastState.action === 'view_pending_collaboration') {
-          this.tab = 'pending'
-          this.$store.dispatch('navigator/setCurrentState', { page: 'manage', tab: 'pending' })
         }
 
         this.loadAlbums()
@@ -202,13 +205,25 @@ export default {
 
     releaseAlbum (album) {
       AlbumService.releaseAlbum(album.id).then(response => {
-        this.tab = 'collaborated'
+        this.activeTab = 'collaborated'
         this.loadAlbums()
       })
     },
 
     onTab (tab) {
-      this.$store.dispatch('navigator/setCurrentState', { page: 'manage', tab: tab })
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab
+      })
+    },
+
+    setTab (tab) {
+      if (!tab)
+        tab = 'published'
+
+      this.activeTab = tab
+      // this.$store.dispatch('navigator/setCurrentState', { page: 'manage', tab: tab })
+      this.$store.dispatch('navigator/goNextState', { page: 'manage', tab: tab })
     }
   },
 

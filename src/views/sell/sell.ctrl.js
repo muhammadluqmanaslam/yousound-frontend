@@ -19,7 +19,7 @@ export default {
 
   data () {
     return {
-      tab: 'orders',
+      activeTab: 'orders',
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
@@ -60,10 +60,18 @@ export default {
     },
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.setTab(tab)
+    }
+  },
+
   created () {
-    // this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'products', action: 'add_product'})
-    // this.$store.dispatch('navigator/setParams', {product_id: 'dd189b7b-e79c-46ef-8fbf-73a1f5f48de0'})
-    this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: 'orders'})
+    // this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: 'products', action: 'add_product' })
+    // this.$store.dispatch('navigator/setParams', { product_id: 'dd189b7b-e79c-46ef-8fbf-73a1f5f48de0' })
+    const tab = this.$route.hash.substr(1)
+    this.setTab(tab)
 
     if (this.$store.state.auth.user) {
       if (['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) == -1)  {
@@ -71,19 +79,16 @@ export default {
       } else {
         const lastState = this.$store.getters['navigator/last']
         if (lastState.page === 'sell' && lastState.tab === 'products') {
-          this.tab = 'products'
-          this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'products'})
+          this.activeTab = 'products'
+          this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: 'products' })
           if (_.get(lastState, 'params.product_id')) {
             ProductService.getProduct(lastState.params.product_id).then(response => {
-              this.tab = 'pendings'
-              this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'pendings'})
+              this.activeTab = 'pendings'
+              this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: 'pendings' })
               this.product = response.body
               this.openProductFinishModal()
             })
           }
-        } else if (lastState.page === 'messages' && lastState.action === 'view_pending_collaboration') {
-          this.tab = 'pendings'
-          this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: 'pendings'})
         }
 
         this.loadData()
@@ -118,8 +123,19 @@ export default {
     },
 
     onTab (tab) {
-      this.$store.dispatch('navigator/setCurrentState', {page: 'sell', tab: tab})
-      // this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: tab})
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab
+      })
+    },
+
+    setTab (tab) {
+      if (!tab)
+        tab = 'orders'
+
+      this.activeTab = tab
+      // this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: tab })
+      this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: tab })
     },
 
     editProduct (product) {
@@ -223,7 +239,7 @@ export default {
 
     releaseProduct (product) {
       ProductService.releaseProduct(product.id).then(response => {
-        this.tab = 'collaborations'
+        this.activeTab = 'collaborations'
         this.loadData()
       })
     },

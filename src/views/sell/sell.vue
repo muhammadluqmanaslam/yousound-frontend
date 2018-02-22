@@ -68,7 +68,7 @@
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="$store.state.auth.user && isPageReady">
       <div class="normal-tab">
-        <v-tabs black v-model="tab">
+        <v-tabs black v-model="activeTab">
           <v-tabs-bar class="transparent">
             <v-tabs-item
                 key="orders"
@@ -94,7 +94,10 @@
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content key="orders" id="orders">
-              <v-card flat>
+              <div v-if="!orderHistories || orderHistories.length == 0" class="empty-section">
+                <p class="empty-title">Your have no new orders</p>
+              </div>
+              <v-card flat v-else>
                 <v-flex xs12 class="order-item" v-for="(order, index) in orderHistories" :key="index">
                   <template v-if="$store.state.auth.user.id == order.merchant.id">
                     <div class="profile-section">
@@ -202,7 +205,10 @@
               </v-card>
             </v-tabs-content>
             <v-tabs-content key="collaborations" id="collaborations">
-              <v-card flat>
+              <div v-if="!collaborated_products || collaborated_products.length == 0" class="empty-section">
+                <p class="empty-title">Your have no merch collaborations</p>
+              </div>
+              <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="product in collaborated_products" :key="product.id">
                     <collaborate-product
@@ -213,7 +219,10 @@
               </v-card>
             </v-tabs-content>
             <v-tabs-content key="pendings" id="pendings">
-              <v-card flat>
+              <div v-if="!pending_products || pending_products.length == 0" class="empty-section">
+                <p class="empty-title">Your have no pending merch collaborations</p>
+              </div>
+              <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="product in pending_products" :key="product.id">
                     <collaborate-product v-if="product.merchant.id==$store.state.auth.user.id"

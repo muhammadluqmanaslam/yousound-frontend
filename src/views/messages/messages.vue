@@ -248,7 +248,8 @@
                                 <v-btn class="status-btn" :class="message.attachment.status">{{ message.attachment.status }}</v-btn>
                               </div>
                               <div v-else>
-                                <v-btn class="status-btn" @click.native="viewPendingCollaboration(message)">View Pending Collaboration</v-btn>
+                                <v-btn to="/albums#pending" class="status-btn" v-if="message.attachment.attachable_type=='Album'">View Pending Collaboration</v-btn>
+                                <v-btn to="/sell#pendings" class="status-btn" v-else-if="message.attachment.attachable_type=='ShopProduct'">View Pending Collaboration</v-btn>
                               </div>
                               <!-- <div v-else>
                                 <v-btn class="status-btn" @click.native="acceptCollaboration(message)">Accept</v-btn>
