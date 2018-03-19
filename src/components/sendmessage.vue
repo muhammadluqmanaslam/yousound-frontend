@@ -3,11 +3,18 @@
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
     <v-layout row class="popup-section">
 
-      <payment-modal v-if="show_payment_modal"
+      <!-- <payment-modal v-if="show_payment_modal"
         :type="''"
         :amount="current_repost_price"
         :dismiss="closePaymentDialog"
-        :finish="sendMessage"></payment-modal>
+        :finish="sendMessage"></payment-modal> -->
+
+      <repost-payment-modal v-if="show_repost_payment_modal"
+        :item="item"
+        :itemType="tab"
+        :user="receiver"
+        :dismiss="closeRepostPaymentModal"
+        :finish="sendMessage"></repost-payment-modal>
 
       <v-flex xs12 class="content-section" :class="{'sm7':$store.state.auth.user.user_type=='artist', 'sm12':$store.state.auth.user.user_type!='artist'}">
         <div class="avatar-image" :style="{'background-image': 'url(' + receiver.avatar.thumb.url + ')'}"></div>
@@ -33,12 +40,6 @@
           </v-btn>
           <v-btn class ="send-message-btn" @click.native="checkMessage()" :disabled="!message">Send</v-btn>
         </div>
-        <!--<p class="followed-count-text">
-          This user is followed by 
-          <a class="followed-user">Ruckazoid</a>, 
-          <a class="followed-user">Teeko</a>, 
-          <a class="followed-user">DJ Soda</a> 
-          and 28 others artists.</p>-->
       </v-flex>
       <v-flex xs12 pa-0 class="requests-section" v-if="$store.state.auth.user.user_type=='artist'" :class="{'sm5': $store.state.auth.user.user_type=='artist', 'sm12': $store.state.auth.user.user_type!='artist'}">
         <div class="header-section">
@@ -70,17 +71,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="content-section">
-          <div class="request-item">
-            <div class="avatar-area">
-              <div class="avatar-image" style="background-image: url('/static/images/post1.jpg');"></div>
-            </div>
-            <div class="detail-area">
-              <label class="item-name">I'll Take You There</label>
-              <a class="user-name">Ruckazoid</a>
-            </div>
-          </div>
-        </div> -->
       </v-flex>
     </v-layout>
   </v-flex>
@@ -92,6 +82,7 @@
   import AlbumService from '@/services/album'
   import ProductService from '@/services/product'
   import paymentModal from '@/components/paymentmodal'
+  import repostPaymentModal from '@/components/repost_payment_modal'
 
   export default {
     props: {
@@ -108,13 +99,15 @@
 
     components: {
       Picker,
-      paymentModal
+      paymentModal,
+      repostPaymentModal
     },
 
     data () {
       return {
         showEmojiPicker: false,
         show_payment_modal: false,
+        show_repost_payment_modal: false,
         tab: 'album',
         item_index: -1,
         albums: [],
@@ -124,6 +117,14 @@
     },
 
     computed: {
+      item () {
+        if (this.tab === 'album') {
+          return this.albums[this.item_index]
+        }
+
+        return this.products[this.item_index]
+      },
+
       current_repost_price () {
         return this.receiver.repost_price
       }
@@ -158,9 +159,17 @@
         this.show_payment_modal = false
       },
 
+      openRepostPaymentModal () {
+        this.show_repost_payment_modal = true
+      },
+
+      closeRepostPaymentModal () {
+        this.show_repost_payment_modal = false
+      },
+
       checkMessage () {
         if (this.item_index > -1) {
-          this.openPaymentDialog()
+          this.openRepostPaymentModal()
         } else {
           this.sendMessage()
         }
