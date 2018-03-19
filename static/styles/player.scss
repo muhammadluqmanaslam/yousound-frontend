@@ -6,7 +6,6 @@
   left: 0;
   z-index: 29;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  /* Rectangle 5: */
   background-color: rgba(250, 250, 250, 0.95);
   .track-detail-section {
     .track-cover-image {
@@ -17,7 +16,6 @@
       background-size: cover;
       vertical-align: middle;
       overflow: hidden;
-      /* Rectangle 3 Copy 2: */
       /* Sketch doesnt export pattern fills at this point */
       border-radius: 7.5px;
     }
@@ -37,7 +35,6 @@
         }
         .track-name {
           padding-left: 3.75px;
-          /* 1 of 12 Poly – Lose: */
           font-family: Avenir-Heavy;
           font-size: 13.5px;
           letter-spacing: -0.54px;
@@ -56,9 +53,7 @@
           text-transform: none;
           box-shadow: none;
           height: 22.5px;
-          /* Rectangle 64: */
           border-radius: 37.5px;
-          /* Follow: */
           font-family: Avenir-Book;
           font-size: 13.5px;
           letter-spacing: 0;
@@ -104,7 +99,6 @@
         text-transform: none;
         box-shadow: none;
         margin-bottom: 0px;
-        /* Oval 3 Copy 3: */
         background: transparent !important;
         .btn__content {
           padding: 0;

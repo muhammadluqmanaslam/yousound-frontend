@@ -27,7 +27,6 @@
     margin-right: auto;
     position: relative;
     z-index: 20;
-    /* Rectangle 2: */
     background: #FFFFFF;
     box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
     border-radius: 7.5px;
@@ -48,7 +47,6 @@
                 .tabs__item {
                   padding: 0;
                   text-transform: none;
-                  /* Recommended New Rele: */
                   font-family: Avenir-Heavy;
                   font-size: 15px;
                   color: #8E8E8E;
@@ -101,10 +99,8 @@
         width: 100%;
         box-shadow: none;
         text-transform: none;
-        /* Rectangle: */
         background: #3A92FF !important;
         border-radius: 75px;
-        /* Send: */
         font-family: Avenir-Roman;
         font-size: 15px;
         color: #FFFFFF;
@@ -147,10 +143,8 @@
           display: block;
           padding: 15px;
           padding-bottom: 60px;
-          /* Rectangle 13: */
           border: 0.75px solid #E1E1E1;
           resize: none;
-          /* Yoooooo!: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -181,10 +175,8 @@
           margin: 0;
           box-shadow: none;
           text-transform: none;
-          /* Rectangle: */
           background: #3A92FF !important;
           border-radius: 75px;
-          /* Send: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #FFFFFF;
@@ -194,7 +186,6 @@
       .followed-count-text {
         padding-top: 75px;
         margin: 0;
-        /* This user is followe: */
         font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #9F9F9F;
@@ -220,13 +211,11 @@
         height: 75px;
         border-bottom: 0.75px solid #E1E1E1;
         border-top-right-radius: 3.75px;
-        /* Rectangle 13 Copy: */
         background: #FAFAFA;
         text-align: center;
         .section-title {
           margin: 0;
           padding-top: 11.25px;
-          /* Request repost: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -238,7 +227,6 @@
             text-transform: none;
             box-shadow: none;
             background-color: transparent;
-            /* Merch: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
@@ -246,7 +234,6 @@
             &.selected {
               /* Rectangle 4: */
               background: #3A92FF;
-              /* Album: */
               color: #FFFFFF;
             }
           }
@@ -284,7 +271,6 @@
               display: block;
               text-align: left;
               cursor: pointer;
-              /* I'll Take You There: */
               font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
@@ -294,7 +280,6 @@
               display: block;
               text-align: left;
               cursor: pointer;
-              /* Ruckazoid: */
               opacity: 0.5;
               font-family: Avenir-Roman;
               font-size: 15px;
@@ -408,10 +393,8 @@
       box-shadow: none;
       text-transform: none;
       min-width: 140px;
-      /* Rectangle: */
       background: #3A92FF !important;
       border-radius: 3.75px;
-      /* Send: */
       font-family: Avenir-Roman;
       font-size: 16px;
       color: #FFFFFF;

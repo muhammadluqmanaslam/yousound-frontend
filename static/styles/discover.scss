@@ -26,14 +26,11 @@
         .menu__activator .btn {
           margin: 0;
           height: 41.25px;
-          /* Rectangle 2: */
           background: rgba(255,255,255,0.10) !important;
           border: 1.1px solid rgba(255, 255, 255, 0.3) !important;
           border-radius: 4.125px;
-          /* Line: */
           // transform: rotate(-180deg);
           // border: 2.475px solid #FFFFFF;
-          /* Any genre: */
           font-family: Avenir-Roman;
           font-size: 16.5px;
           color: #FFFFFF;
@@ -48,7 +45,6 @@
     .tabs__item {
       padding: 0 !important;
       text-transform: none;
-      /* Recommended New Rele: */
       font-family: Avenir;
       font-size: 18px;
       color: #FFFFFF !important;
@@ -86,7 +82,6 @@
     .tabs__item {
       padding: 0 !important;
       text-transform: none;
-      /* Recommended New Rele: */
       font-family: Avenir;
       font-size: 18px;
       font-weight: 500;

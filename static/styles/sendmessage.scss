@@ -27,7 +27,6 @@
     margin-right: auto;
     position: relative;
     z-index: 20;
-    /* Rectangle 2: */
     background: #FFFFFF;
     box-shadow: 0 30px 56px 0 rgba(0,0,0,0.30);
     border-radius: 8px;
@@ -47,7 +46,6 @@
         padding-top: 0;
         margin-top: 6px;
         margin-bottom: 0;
-        /* Kris Boy: */
         font-family: Avenir-Medium;
         font-size: 18px;
         color: #000000;
@@ -68,10 +66,8 @@
           display: block;
           padding: 15px;
           padding-bottom: 60px;
-          /* Rectangle 13: */
           border: 1px solid #E1E1E1;
           resize: none;
-          /* Yoooooo!: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -104,11 +100,9 @@
           margin: 0;
           text-transform: none;
           box-shadow: none;
-          /* Rectangle: */
           background: #FFFFFF;
           border: 0.75px solid #DDDDDD;
           border-radius: 75px;
-          /* Send: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
@@ -128,10 +122,8 @@
           margin: 0;
           box-shadow: none;
           text-transform: none;
-          /* Rectangle: */
           background: #3A92FF;
           border-radius: 75px;
-          /* Send: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #FFFFFF;
@@ -146,7 +138,6 @@
       .followed-count-text {
         padding-top: 75px;
         margin: 0;
-        /* This user is followe: */
         font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #9F9F9F;
@@ -172,13 +163,11 @@
         height: 90px;
         border-bottom: 1px solid #E1E1E1;
         border-top-right-radius: 3.75px;
-        /* Rectangle 13 Copy: */
         background: #FAFAFA;
         text-align: center;
         .section-title {
           margin: 0 0 2px 0;
           padding-top: 12px;
-          /* Request repost: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -190,7 +179,6 @@
             text-transform: none;
             box-shadow: none;
             background-color: transparent;
-            /* Merch: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
@@ -198,7 +186,6 @@
             &.selected {
               /* Rectangle 4: */
               background: #3A92FF;
-              /* Album: */
               color: #FFFFFF;
             }
           }

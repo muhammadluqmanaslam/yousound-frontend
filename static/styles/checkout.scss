@@ -8,7 +8,6 @@
       top: 0;
       right: 0;
       width: 262.5px;
-      /* Rectangle 3: */
       background: #F6F6F6;
       .status-row {
         padding-bottom: 18.75px;
@@ -56,10 +55,8 @@
           box-shadow: none;
           text-transform: none;
           margin: 0px;
-          /* Rectangle: */
           background: #5BAD00 !important;
           border-radius: 75px;
-          /* Proceed to Checkout: */
           font-family: Avenir-Medium;
           font-size: 15px;
           color: #FFFFFF;
@@ -150,7 +147,6 @@
             background: #D5D5D5;
             border-radius: 7.5px;
             margin: 7.5px;
-            /* Bitmap: */
           }
           .product-content {
             position: absolute;
@@ -169,7 +165,6 @@
               .product-count {
                 float: right;
                 padding: 0 11.25px;
-                /* Quantity: 2: */
                 font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #000000;
@@ -182,7 +177,6 @@
                 width: 19.5px;
                 height: 19.5px;
                 min-width: 0px;
-                /* Rectangle 17 Copy: */
                 background: #FFFFFF !important;
                 border: 0.75px solid #D1D1D1 !important;
                 border-radius: 3.75px;
@@ -199,7 +193,6 @@
                     i {
                       color: #3A92FF;
                       font-size: 18px;
-                      /* Rectangle 17 Copy: */
                     }
                   }
                 }
@@ -222,7 +215,6 @@
                 float: right;
                 padding-right: 11.25px;
                 margin-top: 11.25px;
-                /* View Order Details M: */
                 font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #3A92FF;
@@ -233,12 +225,10 @@
                 float: right;
                 padding-left: 11.25px;
                 margin-top: 11.25px;
-                /* View Order Details M: */
                 font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #3A92FF;
                 letter-spacing: 0;
-                /* Line 4: */
               }
             }
           }

@@ -10,7 +10,6 @@
     top: 0;
     right: 0;
     width: 262.5px;
-    /* Rectangle 3: */
     background: #F6F6F6;
     .status-row {
       padding-bottom: 18.75px;
@@ -58,10 +57,8 @@
         box-shadow: none;
         text-transform: none;
         margin: 0px;
-        /* Rectangle: */
         background: #3A92FF !important;
         border-radius: 75px;
-        /* Proceed to Checkout: */
         font-family: Avenir-Medium;
         font-size: 15px;
         color: #FFFFFF;
@@ -224,7 +221,6 @@
           .order-detail-btn {
             padding-right: 11.25px;
             margin-top: 3.75px;
-            /* View Order Details M: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #3A92FF;
@@ -235,12 +231,10 @@
           .message-buyer-btn {
             padding-left: 11.25px;
             margin-top: 3.75px;
-            /* View Order Details M: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #3A92FF;
             letter-spacing: 0;
-            /* Line 4: */
             cursor: pointer;
           }
 
@@ -262,7 +256,6 @@
 
       .order-content-section {
         width: calc(100% - 262.5px);
-        /* Rectangle 3 Copy: */
         background: #FFFFFF;
         border: 0.75px solid #B8B8B8;
         margin-right: 30px;
@@ -276,7 +269,6 @@
           margin: 7.5px;
           background-position: center;
           background-size: cover;
-          /* Bitmap: */
         }
 
         .product-content {
@@ -296,7 +288,6 @@
             }
             .product-count {
               float: right;
-              /* Quantity: 2: */
               font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
@@ -326,7 +317,6 @@
           // margin: 12.75px 0 4.5px;
           margin: 0;
           padding-top: calc(20% - 16px);
-          /* Pending Approval: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -337,11 +327,9 @@
           width: 112.5px;
           height: 37.5px;
           text-transform: none;
-          /* Rectangle: */
           border: none !important;
           box-shadow: none !important;
           border-radius: 75px;
-          /* Ship: */
           font-family: Avenir-Medium;
           font-size: 15px;
           color: #FFFFFF;

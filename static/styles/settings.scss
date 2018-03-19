@@ -4,7 +4,6 @@
     .navigation-drawer {
       width: 165px !important;
       height: 450px !important;
-      /* Rectangle 4: */
       border: 0.75px solid #D1D1D1;
       padding: 0 0;
       &:after {
@@ -24,7 +23,6 @@
           &.active {
             .list__tile {
               color: #000000;
-              /* Line: */
               border-left: 2.25px solid #000000;
             }
           }
@@ -92,10 +90,8 @@
           text-transform: none;
           float: right;
           margin: 0;
-          /* Rectangle: */
           background: #3A92FF !important;
           border-radius: 75px;
-          /* Update: */
           font-family: Avenir-Medium;
           font-size: 15px;
           color: #FFFFFF;
@@ -129,7 +125,6 @@
               position: absolute;
               top: 0px;
               left: 0px;
-              /* Oval: */
               background: #FFFFFF;
               border: 0.75px solid #D2D2D2;
               width: 100%;
@@ -155,7 +150,6 @@
               .add-profile-image-file + label {
                 width: 100%;
                 height: 100%;
-                /* Add Image: */
                 font-family: Avenir-Medium;
                 font-size: 15px;
                 color: #FFFFFF;
@@ -183,7 +177,6 @@
               height: 100%;
               text-align: center;
               opacity: 0;
-              /* Oval Copy: */
               background-color: rgba(58, 146, 255, 0.8);
               border-radius: 100%;
               .change-profile-image-file {
@@ -197,7 +190,6 @@
               .change-profile-image-file + label {
                 width: 100%;
                 height: 100%;
-                /* Add Image: */
                 font-family: Avenir-Medium;
                 font-size: 15px;
                 color: #FFFFFF;
@@ -222,7 +214,6 @@
             text-transform: none;
             box-shadow: none;
             margin: 0;
-            /* Cancel my account: */
             font-family: Avenir-Heavy;
             font-size: 13.5px;
             color: #3A92FF;
@@ -293,7 +284,6 @@
           }
           .blocked-user-name {
             vertical-align: middle;
-            /* DJ Soda: */
             font-family: Avenir-Medium;
             font-size: 15px;
             color: #000000;
@@ -304,10 +294,8 @@
             box-shadow: none;
             text-transform: none;
             vertical-align: middle;
-            /* Rectangle: */
             background: #3A92FF !important;
             border-radius: 75px;
-            /* Unblock: */
             font-family: Avenir-Medium;
             font-size: 15px;
             color: #FFFFFF;
@@ -330,7 +318,6 @@
         top: 0;
         right: 0;
         padding: 37.5px;
-        /* Rectangle 3: */
         background: #FAFAFA;
         p {
           /* Change your password: */
@@ -344,7 +331,6 @@
         }
         label {
           display: block;
-          /* Change your password: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -473,7 +459,6 @@
             height: 45px;
             width: 300px;
             margin-top: 22.5px;
-            /* hello@jardsonalmeida: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #4A4A4A;
@@ -489,13 +474,11 @@
 
           .btn {
             margin-top: 15px;
-            /* Rectangle: */
             background: #3A92FF !important;
             border-radius: 75px;
             height: 37.5px;
             width: 300px;
             box-shadow: none;
-            /* Sign in: */
             font-family: Avenir-Medium;
             font-size: 15px;
             color: #FFFFFF;

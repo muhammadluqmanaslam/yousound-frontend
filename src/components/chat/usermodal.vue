@@ -28,11 +28,10 @@ export default {
     }
   }
 }
-
 </script>
-<style>
+
+<style scoped>
 .modal-trigger {
-  font-family: Avenir-Medium;
   font-size: 18px;
   color: #3A92FF;
   letter-spacing: 0;
@@ -59,15 +58,12 @@ export default {
 }
 
 .user-modal-name {
-  font-family: Avenir-Black;
   font-size: 20px;
   color: #000000;
   letter-spacing: 0;
 }
 
 .user-modal-detail {
-  /* 2.8k Followers: */
-  font-family: Avenir-Book;
   font-size: 20px;
   color: #000000;
   letter-spacing: 0;
@@ -77,8 +73,6 @@ export default {
   background: #FFFFFF;
   border: 2px solid #3A92FF;
   border-radius: 100px;
-  /* Send: */
-  font-family: Avenir-Roman;
   font-size: 18px;
   padding: 3px 30px 3px 30px;
   color: #3A92FF;
@@ -95,7 +89,6 @@ export default {
   height: 20px;
   background: white;
   box-shadow: 3px 3px 10px -4px grey;
-
   transform: rotate(225deg);
 }
 
@@ -122,5 +115,4 @@ export default {
   margin: 0;
   background-color: #B1B1B1
 }
-
 </style>

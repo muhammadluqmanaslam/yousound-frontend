@@ -14,7 +14,6 @@
     background-color: #FFF;
     .album-info-title {
       margin-bottom: 3px;
-      /* Album Info: */
       font-family: Avenir-Roman;
       font-size: 22.5px;
       color: #000000;
@@ -41,7 +40,6 @@
           position: absolute;
           top: 0px;
           left: 0px;
-          /* Oval: */
           background: #FFFFFF;
           border: 0.75px solid #D2D2D2;
           width: 100%;
@@ -67,7 +65,6 @@
           .add-album-image-file + label {
             width: 100%;
             height: 100%;
-            /* Add Image: */
             font-family: Avenir-Medium;
             font-size: 15px;
             color: #FFFFFF;
@@ -120,7 +117,6 @@
       .album-description {
         height: 129px;
         padding: 7.5px 11.25px;
-        /* Rectangle: */
         background: #FFFFFF;
         border: 0.75px solid #D2D2D2;
         border-radius: 3.75px;
@@ -177,11 +173,9 @@
         height: 40px;
         margin: 0;
         text-transform: none;
-        /* Rectangle: */
         background: #ffffff !important;
         border: 1px solid #3A92FF;
         border-radius: 75px;
-        /* Release Now: */
         font-family: Avenir-Medium;
         font-size: 14px;
         color: #3A92FF;
@@ -196,7 +190,6 @@
           display: inline-block;
           vertical-align: middle;
           padding-right: 12px;
-          /* Promote this album: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -248,7 +241,6 @@
         min-width: 24px;
         height: 40px;
         min-width: 0px;
-        /* Rectangle 17 Copy: */
         background: #FFFFFF !important;
         color: #3A92FF;
         text-transform: none;
@@ -273,7 +265,6 @@
         margin-right: 15px;
         float: right;
         cursor: pointer;
-        /* Cancel: */
         font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #3A92FF;
@@ -298,7 +289,6 @@
         min-width: 24px;
         height: 40px;
         min-width: 0px;
-        /* Rectangle 17 Copy: */
         background: #FFFFFF !important;
         color: #3A92FF;
         text-transform: none;
@@ -323,7 +313,6 @@
         margin-right: 15px;
         float: right;
         cursor: pointer;
-        /* Cancel: */
         font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #3A92FF;
@@ -335,11 +324,9 @@
     .album-action-section {
       margin-top: 20px;
       padding-top: 15px;
-      /* Line 5: */
       // border-top: 0.75px solid #979797;
       .delete-album-btn {
         padding-top: 9px;
-        /* Remove Album: */
         font-family: Avenir-Roman;
         font-size: 15px;
         color: #D0021B;
@@ -351,10 +338,8 @@
         height: 37.5px;
         margin: 0;
         text-transform: none;
-        /* Rectangle: */
         background: #3A92FF !important;
         border-radius: 75px;
-        /* Release Now: */
         font-family: Avenir-Medium;
         font-size: 15px;
         color: #FFFFFF;
@@ -365,11 +350,9 @@
         height: 37.5px;
         margin: 0 7.5px 0 0;
         text-transform: none;
-        /* Rectangle: */
         background: #FFFFFF;
         border: 0.75px solid #3A92FF;
         border-radius: 75px;
-        /* Save for later: */
         font-family: Avenir-Medium;
         font-size: 15px;
         color: #3A92FF;
@@ -577,7 +560,6 @@
             box-shadow: none;
             margin-left: 0;
             margin-right: 4px;
-            /* Rectangle 10: */
             background-color: transparent !important;
             border: 0.75px solid rgba(255, 255, 255, 0.3) !important;
             border-radius: 3.75px;
@@ -601,7 +583,6 @@
 
           .album-title {
             text-transform: uppercase;
-            /* ALBUM: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: rgba(255, 255, 255, 0.5);
@@ -710,10 +691,8 @@
               box-shadow: none;
               text-transform: none;
               margin: 8px 0px 8px 0px;
-              /* Rectangle 64: */
               background-color: transparent !important;
               border-radius: 82px;
-              /* Send love: */
               font-family: Avenir-Roman;
               font-size: 16px;
               letter-spacing: 0;
@@ -739,12 +718,10 @@
               box-shadow: none;
               margin: 8px 8px 8px 0px;
               padding: 0px;
-              /* Rectangle 64: */
               background-color: transparent !important;
               // border: 1px solid #A7A7A7 !important;
               border-radius: 82px;
               color: #FFFFFF;
-              /* ic_more: */
               .btn__content {
                 padding: 0;
               }
@@ -851,7 +828,6 @@
               .track-length {
                 display: inline-block;
                 vertical-align: middle;
-                /* 6:13: */
                 font-family: Avenir-Roman;
                 font-size: 15px;
                 color: rgba(255, 255, 255, 0.5);
@@ -912,17 +888,14 @@
           padding: 0 12px;
           .comment-tab {
             padding-bottom: 15px;
-            /* Line: */
             border-bottom: 1px solid #C3C3C3;
             .comment-count {
               padding-right: 22px;
               padding-bottom: 14px;
-              /* 231 Comments: */
               font-family: Avenir-Roman;
               font-size: 18px;
               color: #000000;
               letter-spacing: 0;
-              /* Line: */
               border-bottom: 3px solid #3A92FF;
             }            
           }
@@ -942,12 +915,10 @@
           .comment-input {
             margin-left: 15px;
             width: calc(100% - 80px);
-            /* Rectangle 11: */
             background: #FFFFFF;
             border: 1.5px solid #E5E5E5;
             border-radius: 3.75px;
             padding: 15px;
-            /* Join the discussion.: */
             font-family: Avenir-Roman;
             font-size: 18.75px;
             // color: #A2A2A2;
@@ -963,11 +934,9 @@
             margin: 0;
             text-transform: none;
             box-shadow: none;
-            /* Rectangle: */
             background: #FFFFFF;
             border: 0.75px solid #DDDDDD;
             border-radius: 75px;
-            /* Send: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #9B9B9B;

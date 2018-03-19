@@ -22,7 +22,6 @@
     margin-right: auto;
     position: relative;
     z-index: 20;
-    /* Rectangle 2: */
     background: #FFFFFF;
     box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
     border-radius: 7.5px;
@@ -90,7 +89,6 @@
           .user-name {
             margin: 0;
             cursor: pointer;
-            /* Ruckazoid: */
             font-family: Avenir-Roman;
             font-size: 16px;
             line-height: 20px;
@@ -113,7 +111,6 @@
         .item-price {
           text-align: left;
           margin: 0;
-          /* $35: */
           font-family: Avenir-Heavy;
           font-size: 20px;
           color: #000000;
@@ -135,10 +132,8 @@
           height: 50px;
           width: 100%;
           margin: 18px 0 0;
-          /* Rectangle: */
           background: #3A92FF !important;
           border-radius: 75px;
-          /* Download: */
           font-family: Avenir-Medium;
           font-size: 15px;
           color: #FFFFFF;

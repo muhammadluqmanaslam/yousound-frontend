@@ -52,8 +52,8 @@ export default {
     })
   }
 }
-
 </script>
+
 <style scoped>
 .msg {
   font-size: 16px;
@@ -65,7 +65,6 @@ export default {
   letter-spacing: 0px;
   margin-bottom: 0px;
   margin-top: 0px;
-  font-family: Avenir-Roman;
   letter-spacing: 0;
   display: inline-block;
 }
@@ -74,7 +73,6 @@ export default {
   padding-left: 15px;
   padding-right: 15px;
   margin-top: 10px;
-  font-family: Avenir-Medium;
   font-size: 18px;
   color: #3A92FF;
   letter-spacing: 0;

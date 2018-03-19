@@ -13,7 +13,6 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              /* Recommended New Rele: */
               font-family: Avenir;
               font-size: 18px;
               font-weight: 500;
@@ -41,14 +40,11 @@
         // width: 132px;
         margin: 0;
         height: 41.25px;
-        /* Rectangle 2: */
         background: rgba(255, 255, 255, 0.10) !important;
         border: 1px solid rgba(0,0,0, 0.30) !important;
         border-radius: 4.125px;
-        /* Line: */
         // transform: rotate(-180deg);
         // border: 2.475px solid #FFFFFF;
-        /* Any genre: */
         font-family: Avenir-Roman;
         font-size: 16.5px;
         color: rgba(0,0,0, 0.50) !important;
@@ -62,7 +58,6 @@
   .tabs__item {
     padding: 0 !important;
     text-transform: none;
-    /* Recommended New Rele: */
     font-family: Avenir-Heavy;
     font-size: 16.5px;
     // color: #000000 !important;

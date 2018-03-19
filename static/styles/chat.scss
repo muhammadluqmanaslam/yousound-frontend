@@ -54,13 +54,11 @@
             border-bottom: 0.75px solid #E1E1E1;
             border-top-left-radius: 7.5px;
             border-top-right-radius: 7.5px;
-            /* Rectangle 13 Copy: */
             background: #FAFAFA;
             text-align: center;
             .section-title {
               margin: 0;
               padding-top: 3px;
-              /* Request repost: */
               font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
@@ -72,7 +70,6 @@
                 text-transform: none;
                 box-shadow: none;
                 background-color: transparent;
-                /* Merch: */
                 font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #000000;
@@ -80,7 +77,6 @@
                 &.selected {
                   /* Rectangle 4: */
                   background: #3A92FF;
-                  /* Album: */
                   color: #FFFFFF;
                 }
               }
@@ -117,7 +113,6 @@
                 .item-name {
                   display: block;
                   cursor: pointer;
-                  /* I'll Take You There: */
                   font-family: Avenir-Roman;
                   font-size: 15px;
                   color: #000000;
@@ -129,7 +124,6 @@
                 .user-name {
                   display: block;
                   cursor: pointer;
-                  /* Ruckazoid: */
                   opacity: 0.5;
                   font-family: Avenir-Roman;
                   font-size: 15px;
@@ -149,7 +143,6 @@
       margin-top: calc(50vh - 285px);
       margin-left: auto;
       margin-right: auto;
-      /* Rectangle 2: */
       background: #FFFFFF;
       box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
       border-radius: 7.5px;
@@ -158,7 +151,6 @@
       .popup-title {
         padding: 45px 15px 0;
         margin: 0;
-        /* The music will stop: */
         font-family: Avenir-Roman;
         font-size: 22.5px;
         color: #000000;
@@ -166,7 +158,6 @@
       }
       .popup-text {
         padding: 7.5px 30px 45px;
-        /* Messages is where ar: */
         font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
@@ -178,10 +169,8 @@
         margin: 0;
         box-shadow: none;
         text-transform: none;
-        /* Rectangle: */
         background: #3A92FF !important;
         border-radius: 75px;
-        /* Ok. Got it!: */
         font-family: Avenir-Medium;
         font-size: 15px;
         color: #FFFFFF;
@@ -210,7 +199,6 @@
         .user-name {
           padding-top: 15.75px;
           margin: 0;
-          /* Kris Boy: */
           font-family: Avenir-Medium;
           font-size: 15px;
           color: #000000;
@@ -220,7 +208,6 @@
         .messaged-time {
           // padding-top: 3.75px;
           margin: 0;
-          /* Today, 9:13 AM: */
           font-family: Avenir-Roman;
           font-size: 13.5px;
           color: #9F9F9F;
@@ -245,7 +232,6 @@
             border: 1px solid #FFF !important;
             border-radius: 75px;
             color: #696969;
-            /* ic_more: */
             .btn__content {
               padding: 0;
               i {
@@ -278,7 +264,6 @@
         width: 100%;
         height: 60px;
         padding: 0 1px;
-        /* Rectangle 13: */
         border-top: 0.75px solid #E1E1E1;
         // border-right: 0.75px solid #E1E1E1;
         .chat-input-box {
@@ -286,7 +271,6 @@
           width: 100%;
           padding: 17px 26.25px;
           padding-right: 150.5px;
-          /* Write a message...: */
           font-family: Avenir-Roman;
           font-size: 16px;
           letter-spacing: -0.2px;
@@ -317,11 +301,9 @@
           margin: 0;
           text-transform: none;
           box-shadow: none;
-          /* Rectangle: */
           background: #FFFFFF;
           border: 0.75px solid #DDDDDD;
           border-radius: 75px;
-          /* Send: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
@@ -341,11 +323,9 @@
           margin: 0;
           text-transform: none;
           box-shadow: none;
-          /* Rectangle: */
           background: #FFFFFF;
           border: 0.75px solid #B1B1B1;
           border-radius: 75px;
-          /* Send: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
@@ -370,14 +350,12 @@
         height: 85px;
         border-top: 0.75px solid #E1E1E1;
         border-bottom: 0.75px solid #E1E1E1;
-        /* Rectangle 13 Copy: */
         background: #FAFAFA;
         text-align: center;
         padding: 0 1px;
         .section-title {
           margin: 0;
           padding-top: 11.25px;
-          /* Request repost: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
@@ -389,7 +367,6 @@
             text-transform: none;
             box-shadow: none;
             background-color: transparent;
-            /* Merch: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
@@ -397,7 +374,6 @@
             &.selected {
               /* Rectangle 4: */
               background: #3A92FF;
-              /* Album: */
               color: #FFFFFF;
             }
             .fa.icon {
@@ -418,7 +394,6 @@
         .member-group {
           display: block;
           cursor: pointer;
-          /* Ruckazoid: */
           opacity: 0.5;
           font-family: Avenir-Roman;
           font-size: 15px;
@@ -468,7 +443,6 @@
             .item-name {
               display: block;
               cursor: pointer;
-              /* I'll Take You There: */
               font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
@@ -477,7 +451,6 @@
             .user-name {
               display: block;
               cursor: pointer;
-              /* Ruckazoid: */
               font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
@@ -514,7 +487,6 @@
       }
       .messaged-time {
         text-align: center;
-        /* Today 9:13 AM: */
         font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #9F9F9F;

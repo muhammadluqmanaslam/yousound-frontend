@@ -31,7 +31,6 @@
   }
   .uploaderBox__file + label {
     display: inline-block;
-    /* Click or Drag & Drop: */
     font-family: Avenir-Roman;
     font-size: 22.5px;
     color: #000000;
@@ -68,7 +67,6 @@
     }
     .uploaderBox__filetype {
       display: block;
-      /* MP3 audio files only: */
       font-family: Avenir-Roman;
       font-size: 15px;
       color: #969696;
@@ -98,7 +96,6 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        /* 1 2: */
         font-family: Avenir-Roman;
         font-size: 22.5px;
         color: #B0B0B0;
@@ -110,7 +107,6 @@
         height: 40px;
         margin-left: 30px;
         margin-right: 26.25px;
-        /* Rectangle: */
         background: #FFFFFF;
         border: 0.75px solid #D6D6D6;
         border-radius: 3.75px;
@@ -139,7 +135,6 @@
         .item-progress {
           height: 30px;
           position: absolute;
-          /* Rectangle: */
           background: #F6FAFF;
           border: 0.75px solid #3A92FF;
           border-radius: 3.75px;
@@ -147,7 +142,6 @@
         .item-progress-value {
           position: absolute;
           right: 12.75px;
-          /* 28%: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #8C8C8C;
@@ -180,7 +174,6 @@
         right: -5px;
         width: 22.5px;
         height: 22.5px;
-        /* Line 3: */
         color: #C1C1C1;
       }
     }  

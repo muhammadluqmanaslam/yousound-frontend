@@ -59,11 +59,10 @@ export default {
     })
   }
 }
-
 </script>
+
 <style scoped>
 .msg-input {
-  font-family: Avenir-Roman;
   margin-top: 5px;
 }
 
@@ -76,12 +75,9 @@ export default {
 }
 
 .msg-send-btn {
-  /* Rectangle: */
   background: #FFFFFF;
   border: 1px solid #B1B1B1;
   border-radius: 100px;
-  /* Send: */
-  font-family: Avenir-Roman;
   font-size: 18px;
   padding: 3px 15px 3px 15px;
   color: #9B9B9B;
@@ -113,5 +109,4 @@ export default {
 button:focus {
   outline: 0;
 }
-
 </style>

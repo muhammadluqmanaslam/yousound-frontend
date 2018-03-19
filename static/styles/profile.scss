@@ -52,12 +52,10 @@
           margin: 0px;
           font-size: 14px;
           background-color: #9D9D9D;
-          /* Line: */
           border-left: 1px solid #9D9D9D;
         }
         .user-role {
           text-transform: capitalize;
-          /* Artist: */
           font-family: Avenir-Book;
           font-size: 14x;
           color: #000000;
@@ -76,10 +74,8 @@
           box-shadow: none;
           text-transform: none;
           margin: 8px 0px 8px 0px;
-          /* Rectangle 64: */
           background-color: #3A92FF !important;
           border-radius: 82px;
-          /* Play: */
           font-family: Avenir-Roman;
           font-size: 16px;
           color: #FFFFFF;
@@ -95,11 +91,9 @@
           box-shadow: none;
           text-transform: none;
           margin: 8px 0px 8px 0px;
-          /* Rectangle 64: */
           background-color: rgba(255, 255, 255, 0.5) !important;
           border: 1px solid #3A92FF !important;
           border-radius: 82px;
-          /* Send love: */
           font-family: Avenir-Roman;
           font-size: 16px;
           color: #3A92FF;
@@ -111,10 +105,8 @@
           box-shadow: none;
           text-transform: none;
           margin: 8px 0px 8px 0px;
-          /* Rectangle 64: */
           background-color: rgba(255, 255, 255, 0.5) !important;
           border-radius: 82px;
-          /* Send love: */
           font-family: Avenir-Roman;
           font-size: 16px;
           letter-spacing: 0;
@@ -139,12 +131,10 @@
           box-shadow: none;
           margin: 8px 8px 8px 0px;
           padding: 0px;
-          /* Rectangle 64: */
           background-color: rgba(255, 255, 255, 0.5) !important;
           border: 1px solid #A7A7A7 !important;
           border-radius: 82px;
           color: #696969;
-          /* ic_more: */
           .btn__content {
             padding: 0;
           }
@@ -197,16 +187,13 @@
     .more-btn {
       margin: 0;
       height: 40px;
-      /* Rectangle 2: */
       // background: rgba(255,255,255,0.10) !important;
       background: rgba(255,255,255,0.10) !important;
       border: 0px solid #E1E1E1 !important;
       border-radius: 4.125px;
       min-width: 40px;
-      /* Line: */
       // transform: rotate(-180deg);
       // border: 2.475px solid #FFFFFF;
-      /* Any genre: */
       font-family: Avenir-Roman;
       font-size: 16px;
       // color: #000000;

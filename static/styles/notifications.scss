@@ -1,20 +1,18 @@
 .page.notifications-page {
-	.notifications-page-header {
-		margin-bottom: 26.25px;
+  .notifications-page-header {
+    margin-bottom: 26.25px;
     .menu {
       padding-top: 20px;
       i {
-      	color: #c5c5c5;
+        color: #c5c5c5;
       }
       .menu__activator .btn {
         width: 127.5px;
         height: 37.5px;
         margin: 0;
-        /* Rectangle 2: */
-				background: #FFFFFF !important;
-				border: 1px solid #E1E1E1 !important;
-				border-radius: 3.75px;        
-				/* Line: */
+        background: #FFFFFF !important;
+        border: 1px solid #E1E1E1 !important;
+        border-radius: 3.75px;
         // transform: rotate(-180deg);
         // border: 2.25px solid #FFFFFF;
         font-family: Avenir-Roman;
@@ -25,12 +23,12 @@
         text-transform: none;
       }
     }
-	}
-	.notifications-page-content {
-		border-top: 0.75px solid #e1e1e1;
+  }
+  .notifications-page-content {
+    border-top: 0.75px solid #e1e1e1;
     padding-bottom: 150px;
     .btn.loadmore-btn {
       margin-top: 30px;
     }
-	}
+  }
 }

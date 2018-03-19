@@ -50,7 +50,6 @@
       width: 315px;
       height: 172.5px;
       // margin-top: 7.5px;
-      /* Combined Shape: */
       background: #FAFAFA;
       border: 1.5px solid #EBEBEB;
       box-shadow: 0 1.5px 7.5px 0 rgba(0,0,0,0.10);
@@ -81,7 +80,6 @@
           }
           .user-followers {
             display: block;
-            /* 2.8k Followers: */
             font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
@@ -99,10 +97,8 @@
           margin: 0 4.5px 0 0;
           background: transparent !important;
           box-shadow: none;
-          /* Rectangle 64: */
           border: 1.5px solid #3A92FF;
           border-radius: 75px;
-          /* Follow: */
           font-family: Avenir-Roman;
           font-size: 15px;
           color: #3A92FF;
@@ -115,9 +111,7 @@
           margin: 0 4.5px 0 0;
           background: transparent !important;
           box-shadow: none;
-          /* Rectangle 64: */
           border-radius: 75px;
-          /* Follow: */
           font-family: Avenir-Roman;
           font-size: 15px;
           letter-spacing: 0;
@@ -153,7 +147,6 @@
             border: 1.5px solid #A7A7A7 !important;
             border-radius: 75px;
             color: #696969;
-            /* ic_more: */
             .btn__content {
               padding: 0;
               i {
