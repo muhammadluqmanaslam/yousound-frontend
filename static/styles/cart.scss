@@ -15,8 +15,6 @@
       padding-bottom: 18.75px;
       // display: block;
       .status-title {
-        /* Subtotal Shipping Fe: */
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: 0;
@@ -27,20 +25,15 @@
       }
     }
     .total-row {
-      /* Line 2: */
       border-top: 0.75px solid #E4E4E4;
       padding-top: 15px;
       display: flow-root;
       .status-title {
-        /* Total: */
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: 0;
         float: left;
         &.value {
-          /* $113.00: */
-          font-family: Avenir-Black;
           font-size: 22.5px;
           color: #000000;
           letter-spacing: 0;
@@ -59,7 +52,7 @@
         margin: 0px;
         background: #3A92FF !important;
         border-radius: 75px;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: 0;
@@ -93,7 +86,6 @@
           padding-right: 22.5px;
           .product-content-row {
             .product-name {
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -101,7 +93,6 @@
             .product-count {
               float: right;
               padding: 0 11.25px;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: 0;
@@ -135,13 +126,12 @@
               }
             }
             .user-name {
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #8E8E8E;
               letter-spacing: -0.6px;
             }
             .product-price {
-              font-family: Avenir-Heavy;
+              font-weight: 700;
               font-size: 22.5px;
               color: #000000;
               letter-spacing: -1.1.5px;
@@ -150,7 +140,6 @@
               float: right;
               padding-right: 11.25px;
               margin-top: 11.25px;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #3A92FF;
               letter-spacing: 0;
@@ -160,7 +149,6 @@
               float: right;
               padding-left: 11.25px;
               margin-top: 11.25px;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #3A92FF;
               letter-spacing: 0;
@@ -183,8 +171,6 @@
           height: 37.5px;
           display: inline-block;
           .order-item-profile-avatar {
-            /* Oval 12 Copy: */
-            /* Sketch doesnt export pattern fills at this point */
             border: 0.75px solid #CACACA;
             width: 37.5px;
             height: 37.5px;
@@ -199,15 +185,11 @@
           top: 10px;
           left: 50px;
           .user-name {
-            /* Tara Bromwell purcha: */
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
             letter-spacing: 0;
           }
           .order-detail-text {
-            /* Tara Bromwell purcha: */
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
             letter-spacing: 0;
@@ -221,7 +203,6 @@
           .order-detail-btn {
             padding-right: 11.25px;
             margin-top: 3.75px;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #3A92FF;
             letter-spacing: 0;
@@ -231,7 +212,6 @@
           .message-buyer-btn {
             padding-left: 11.25px;
             margin-top: 3.75px;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #3A92FF;
             letter-spacing: 0;
@@ -240,7 +220,6 @@
 
           .order-date {
             padding-left: 11.25px;
-            font-family: Avenir-Roman;
             font-size: 13.5px;
             color: #9F9F9F;
             letter-spacing: 0;
@@ -260,7 +239,6 @@
         border: 0.75px solid #B8B8B8;
         margin-right: 30px;
         .product-cover-image {
-          /* Rectangle 2: */
           width: 75px;
           height: 75px;
           background: #D5D5D5;
@@ -280,22 +258,18 @@
 
           .product-content-row {
             .product-name {
-              /* Supreme X Snapback: */
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
             }
             .product-count {
               float: right;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: 0;
             }
             .product-price {
-              /* $35: */
-              font-family: Avenir-Heavy;
+              font-weight: 700;
               font-size: 20.5px;
               color: #000000;
               letter-spacing: -1.1.5px;
@@ -304,7 +278,6 @@
         }
       }
       .order-status-section {
-        /* Rectangle 3: */
         background: #F6F6F6;
         width: 262.5px;
         &.shipped {
@@ -317,7 +290,6 @@
           // margin: 12.75px 0 4.5px;
           margin: 0;
           padding-top: calc(20% - 16px);
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -330,7 +302,7 @@
           border: none !important;
           box-shadow: none !important;
           border-radius: 75px;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -338,7 +310,6 @@
             background: #3A92FF !important;
           }
           &.shipped {
-            /* Rectangle: */
             background: #5BAD00 !important;
           }
         }

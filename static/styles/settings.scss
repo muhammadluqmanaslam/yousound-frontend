@@ -14,11 +14,9 @@
         li {
           .list__tile {
             padding-left: 22.5px;
-            font-family: Avenir;
             font-size: 16px;
             color: #8E8E8E;
             letter-spacing: -0.5px;
-            font-family: 500;
           }
           &.active {
             .list__tile {
@@ -53,7 +51,7 @@
               label {
                 font-size: 15px;
                 text-decoration: underline;
-                font-family: Avenir-Heavy;
+                font-weight: 700;
               }
             }
           }
@@ -72,8 +70,6 @@
           margin-right: 22.5px;
         }
         .normal-text {
-          /* Repost Price: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -92,7 +88,7 @@
           margin: 0;
           background: #3A92FF !important;
           border-radius: 75px;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -106,7 +102,6 @@
         }
         .profile-section {
           .profile-image-section {
-            /* Rectangle: */
             background-color: #3A92FF;
             border: 0.75px solid #D2D2D2;
             width: 112.5px;
@@ -150,12 +145,11 @@
               .add-profile-image-file + label {
                 width: 100%;
                 height: 100%;
-                font-family: Avenir-Medium;
+                font-weight: 600;
                 font-size: 15px;
                 color: #FFFFFF;
                 letter-spacing: 0;
                 .camera {
-                  /* ic_camera_profile: */
                   color: #FFFFFF;
                   font-size: 28.5px;
                   display: block;
@@ -166,7 +160,6 @@
               .add-profile-image-file + label:hover {
                 color: rgba(255, 255, 255, 0.50);
                 .camera {
-                  /* ic_camera_profile: */
                   color: rgba(255, 255, 255, 0.50);
                 }
               }
@@ -190,12 +183,11 @@
               .change-profile-image-file + label {
                 width: 100%;
                 height: 100%;
-                font-family: Avenir-Medium;
+                font-weight: 600;
                 font-size: 15px;
                 color: #FFFFFF;
                 letter-spacing: 0;
                 .camera {
-                  /* ic_camera_profile: */
                   color: #FFFFFF;
                   font-size: 28.5px;
                   display: block;
@@ -214,7 +206,7 @@
             text-transform: none;
             box-shadow: none;
             margin: 0;
-            font-family: Avenir-Heavy;
+            font-weight: 700;
             font-size: 13.5px;
             color: #3A92FF;
             letter-spacing: 0;
@@ -284,7 +276,7 @@
           }
           .blocked-user-name {
             vertical-align: middle;
-            font-family: Avenir-Medium;
+            font-weight: 600;
             font-size: 15px;
             color: #000000;
             letter-spacing: 0;
@@ -296,7 +288,7 @@
             vertical-align: middle;
             background: #3A92FF !important;
             border-radius: 75px;
-            font-family: Avenir-Medium;
+            font-weight: 600;
             font-size: 15px;
             color: #FFFFFF;
             letter-spacing: 0;
@@ -320,8 +312,6 @@
         padding: 37.5px;
         background: #FAFAFA;
         p {
-          /* Change your password: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -331,7 +321,6 @@
         }
         label {
           display: block;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -348,7 +337,6 @@
       }
       
       .verification-section {
-        /* Rectangle: */
         background: rgba(255, 255, 255, 0.95);
         width: 100vw;
         height: 100vh;
@@ -379,7 +367,7 @@
               vertical-align: middle;
               .user-name {
                 display: block;
-                font-family: Avenir-Heavy;
+                font-weight: 700;
                 font-size: 25px;
                 color: #262626;
                 letter-spacing: 0;
@@ -387,7 +375,6 @@
               }
               .main-genre {
                 display: block;
-                font-family: Avenir-Roman;
                 font-size: 16px;
                 color: #262626;
                 letter-spacing: 0;
@@ -425,7 +412,6 @@
           margin: 20px 20px 0;
         }
         .link-title {
-          font-family: Avenir-Roman;
           font-size: 16px;
           // color: #262626;
           color: black;
@@ -452,14 +438,12 @@
           input[type=text],
           input[type=email],
           textarea {
-            /* Rectangle: */
             background: #FFFFFF;
             border: 0.75px solid #D2D2D2;
             border-radius: 3.75px;
             height: 45px;
             width: 300px;
             margin-top: 22.5px;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #4A4A4A;
             letter-spacing: 0;
@@ -479,7 +463,7 @@
             height: 37.5px;
             width: 300px;
             box-shadow: none;
-            font-family: Avenir-Medium;
+            font-weight: 600;
             font-size: 15px;
             color: #FFFFFF;
             letter-spacing: 0;
@@ -487,17 +471,15 @@
           }
         }
         .link-link {
-          font-family: Avenir-Roman;
           font-size: 16px;
           letter-spacing: 0;
         }
         .about-title {
-          font-family: Avenir-Heavy;
+          font-weight: 700;
           font-size: 20px;
           letter-spacing: 0;      
         }
         .description-text {
-          font-family: Avenir-Roman;
           font-size: 16px;
           color: #B8B8B8;
           letter-spacing: 0;      

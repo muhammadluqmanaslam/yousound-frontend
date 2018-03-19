@@ -1,5 +1,4 @@
 .direct-message-section {
-  /* Rectangle: */
   background: rgba(255, 255, 255, 0.95);
   position: fixed;
   top: 0;
@@ -46,14 +45,12 @@
         padding-top: 0;
         margin-top: 6px;
         margin-bottom: 0;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 18px;
         color: #000000;
         letter-spacing: 0;
       }
       .repost-price {
-        /* Repost Price: $1,000: */
-        font-family: Avenir-Roman;
         font-size: 14px;
         color: #848484;
         letter-spacing: 0;
@@ -68,7 +65,6 @@
           padding-bottom: 60px;
           border: 1px solid #E1E1E1;
           resize: none;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -103,7 +99,6 @@
           background: #FFFFFF;
           border: 0.75px solid #DDDDDD;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
           letter-spacing: -0.6px;
@@ -124,7 +119,6 @@
           text-transform: none;
           background: #3A92FF;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: -0.6px;
@@ -138,7 +132,6 @@
       .followed-count-text {
         padding-top: 75px;
         margin: 0;
-        font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #9F9F9F;
         letter-spacing: 0;
@@ -149,7 +142,6 @@
       }
     }
     .requests-section {
-      /* Rectangle 12 Copy 3: */
       // background: #FFFFFF;
       // height: calc(100vh - 201.75px);
       // height: 400px;
@@ -168,7 +160,6 @@
         .section-title {
           margin: 0 0 2px 0;
           padding-top: 12px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -179,12 +170,10 @@
             text-transform: none;
             box-shadow: none;
             background-color: transparent;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
             letter-spacing: -0.6px;
             &.selected {
-              /* Rectangle 4: */
               background: #3A92FF;
               color: #FFFFFF;
             }
@@ -226,7 +215,6 @@
               display: block;
               text-align: left;
               cursor: pointer;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -236,7 +224,6 @@
               text-align: left;
               cursor: pointer;
               opacity: 0.5;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;

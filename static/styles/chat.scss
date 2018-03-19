@@ -1,6 +1,5 @@
 .page.chat-page {
   .chat-popup {
-    /* Rectangle: */
     background: rgba(255, 255, 255, 0.95);
     position: absolute;
     top: 0;
@@ -23,7 +22,7 @@
             overflow: hidden;
           }
           .user-name {
-            font-family: Avenir-Heavy;
+            font-weight: 700;
             font-size: 20px;
             color: #000000;
             letter-spacing: -0.6px;
@@ -38,7 +37,6 @@
         padding-top: 0;
         padding-bottom: 0;
         .requests-section {
-          /* Rectangle 12 Copy 3: */
           // background: #FFFFFF;
           height: 600px;
           // height: 100vh;
@@ -59,7 +57,6 @@
             .section-title {
               margin: 0;
               padding-top: 3px;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -70,12 +67,10 @@
                 text-transform: none;
                 box-shadow: none;
                 background-color: transparent;
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #000000;
                 letter-spacing: -0.6px;
                 &.selected {
-                  /* Rectangle 4: */
                   background: #3A92FF;
                   color: #FFFFFF;
                 }
@@ -113,7 +108,6 @@
                 .item-name {
                   display: block;
                   cursor: pointer;
-                  font-family: Avenir-Roman;
                   font-size: 15px;
                   color: #000000;
                   letter-spacing: -0.6px;
@@ -125,7 +119,6 @@
                   display: block;
                   cursor: pointer;
                   opacity: 0.5;
-                  font-family: Avenir-Roman;
                   font-size: 15px;
                   color: #000000;
                   letter-spacing: -0.6px;
@@ -151,14 +144,12 @@
       .popup-title {
         padding: 45px 15px 0;
         margin: 0;
-        font-family: Avenir-Roman;
         font-size: 22.5px;
         color: #000000;
         letter-spacing: 0;
       }
       .popup-text {
         padding: 7.5px 30px 45px;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: 0;
@@ -171,7 +162,7 @@
         text-transform: none;
         background: #3A92FF !important;
         border-radius: 75px;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: 0;
@@ -185,7 +176,6 @@
   .chat-page-content {
     // border-top: 0.75px solid #e1e1e1;
     .chat-content-section {
-      /* Rectangle 12 Copy: */
       // background: #FFFFFF;
       height: calc(100vh - 265.75px);
       border: 0.75px solid #E1E1E1;
@@ -199,7 +189,7 @@
         .user-name {
           padding-top: 15.75px;
           margin: 0;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -208,7 +198,6 @@
         .messaged-time {
           // padding-top: 3.75px;
           margin: 0;
-          font-family: Avenir-Roman;
           font-size: 13.5px;
           color: #9F9F9F;
           letter-spacing: 0;
@@ -241,8 +230,6 @@
             }
           }
           .img {
-            /* Repost Download Shar: */
-            font-family: Avenir-Roman;
             font-size: 13.5px;
             color: #000000;
             letter-spacing: 0;
@@ -271,7 +258,6 @@
           width: 100%;
           padding: 17px 26.25px;
           padding-right: 150.5px;
-          font-family: Avenir-Roman;
           font-size: 16px;
           letter-spacing: -0.2px;
           &:focus, &:hover, &:active {
@@ -304,7 +290,6 @@
           background: #FFFFFF;
           border: 0.75px solid #DDDDDD;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
           letter-spacing: -0.6px;
@@ -326,7 +311,6 @@
           background: #FFFFFF;
           border: 0.75px solid #B1B1B1;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
           letter-spacing: -0.6px;
@@ -339,7 +323,6 @@
       }
     }
     .requests-section {
-      /* Rectangle 12 Copy 3: */
       // background: #FFFFFF;
       height: calc(100vh - 265.75px);
       border: 0.75px solid #E1E1E1;
@@ -356,7 +339,6 @@
         .section-title {
           margin: 0;
           padding-top: 11.25px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -367,12 +349,10 @@
             text-transform: none;
             box-shadow: none;
             background-color: transparent;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
             letter-spacing: -0.6px;
             &.selected {
-              /* Rectangle 4: */
               background: #3A92FF;
               color: #FFFFFF;
             }
@@ -395,7 +375,6 @@
           display: block;
           cursor: pointer;
           opacity: 0.5;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -443,7 +422,6 @@
             .item-name {
               display: block;
               cursor: pointer;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -451,7 +429,6 @@
             .user-name {
               display: block;
               cursor: pointer;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -479,7 +456,7 @@
     .info-section {
       // vertical-align: middle;
       .item-user {
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
@@ -487,7 +464,6 @@
       }
       .messaged-time {
         text-align: center;
-        font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #9F9F9F;
         letter-spacing: 0;
@@ -502,8 +478,6 @@
       // max-width: calc(100% - 82.5px);
       &.text {
         .text-message {
-          /* Yo can you repost my: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           letter-spacing: -0.6px;
         }

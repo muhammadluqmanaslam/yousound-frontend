@@ -1,5 +1,4 @@
 .approve-section {
-  /* Rectangle: */
   background: rgba(255, 255, 255, 0.95);
   position: fixed;
   top: 0;
@@ -50,7 +49,7 @@
           vertical-align: middle;
           .user-name {
             display: block;
-            font-family: Avenir-Heavy;
+            font-weight: 700;
             font-size: 25px;
             color: #262626;
             letter-spacing: 0;
@@ -58,7 +57,6 @@
           }
           .main-genre {
             display: block;
-            font-family: Avenir-Roman;
             font-size: 16px;
             color: #262626;
             letter-spacing: 0;
@@ -96,7 +94,6 @@
       margin: 20px 20px 0;
     }
     .link-title {
-      font-family: Avenir-Roman;
       font-size: 16px;
       // color: #262626;
       color: black;
@@ -107,17 +104,15 @@
       padding: 20px;
     }
     .link-link {
-      font-family: Avenir-Roman;
       font-size: 16px;
       letter-spacing: 0;
     }
     .about-title {
-      font-family: Avenir-Heavy;
+      font-weight: 700;
       font-size: 20px;
       letter-spacing: 0;      
     }
     .description-text {
-      font-family: Avenir-Roman;
       font-size: 16px;
       color: #B8B8B8;
       letter-spacing: 0;      

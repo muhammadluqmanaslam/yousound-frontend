@@ -26,7 +26,6 @@
       display: inline-block;
       vertical-align: top;
       .user-name-section {
-        font-family: Avenir;
         font-size: 32px;
         color: #000000;
         letter-spacing: 0;
@@ -39,8 +38,7 @@
         margin-bottom: -4px;
         margin-left: 1px;
         .follower-count {
-          /* 2.8k Followers: */
-          font-family: Avenir-Heavy;
+          font-weight: 700;
           font-size: 14px;
           color: #000000;
           letter-spacing: 0;
@@ -56,7 +54,6 @@
         }
         .user-role {
           text-transform: capitalize;
-          font-family: Avenir-Book;
           font-size: 14x;
           color: #000000;
           letter-spacing: 1px;
@@ -76,7 +73,6 @@
           margin: 8px 0px 8px 0px;
           background-color: #3A92FF !important;
           border-radius: 82px;
-          font-family: Avenir-Roman;
           font-size: 16px;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -94,7 +90,6 @@
           background-color: rgba(255, 255, 255, 0.5) !important;
           border: 1px solid #3A92FF !important;
           border-radius: 82px;
-          font-family: Avenir-Roman;
           font-size: 16px;
           color: #3A92FF;
           letter-spacing: 0;
@@ -107,7 +102,6 @@
           margin: 8px 0px 8px 0px;
           background-color: rgba(255, 255, 255, 0.5) !important;
           border-radius: 82px;
-          font-family: Avenir-Roman;
           font-size: 16px;
           letter-spacing: 0;
           &.follow {
@@ -115,7 +109,6 @@
             border: 1px solid #3A92FF;
           }
           &.following {
-            /* Rectangle: */
             color: #5BAD00 !important;
             border: 1px solid #5BAD00;
             &:hover {
@@ -158,7 +151,6 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-family: Avenir;
               font-size: 18px;
               font-weight: 500;
               color: #8E8E8E;
@@ -194,7 +186,6 @@
       min-width: 40px;
       // transform: rotate(-180deg);
       // border: 2.475px solid #FFFFFF;
-      font-family: Avenir-Roman;
       font-size: 16px;
       // color: #000000;
       color: white !important;
@@ -220,7 +211,6 @@
         background-color: #FFF !important;
         border: 1px solid #E1E1E1 !important;
         border-radius: 3.75px;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000;
         letter-spacing: -0.6px;

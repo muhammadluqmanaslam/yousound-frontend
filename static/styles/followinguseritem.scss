@@ -8,7 +8,6 @@
       border: none;
     }
     .user-item-section {
-      /* Line Copy: */
       border-right: 0.75px solid #E1E1E1;
       &.no-reposts {
         border: none;
@@ -90,8 +89,6 @@
                   margin-top: 15px;
                   margin-right: 15px;
                   .user-name {
-                    /* Kris Boy: */
-                    font-family: Avenir-Black;
                     font-size: 18.75px;
                     color: #000000;
                     letter-spacing: 0;
@@ -99,7 +96,6 @@
                   }
                   .user-followers {
                     display: block;
-                    font-family: Avenir-Roman;
                     font-size: 15px;
                     color: #000000;
                     letter-spacing: 0;
@@ -118,7 +114,6 @@
                   box-shadow: none;
                   border: 1.5px solid #3A92FF;
                   border-radius: 75px;
-                  font-family: Avenir-Roman;
                   font-size: 15px;
                   color: #3A92FF;
                   letter-spacing: 0;
@@ -148,8 +143,6 @@
                     }
                   }
                   .img {
-                    /* Repost Download Shar: */
-                    font-family: Avenir-Roman;
                     font-size: 13.5px;
                     color: #000000;
                     letter-spacing: 0;
@@ -166,20 +159,16 @@
           .user-item-content {
             line-height: 13.5px;
             .user-name {
-              /* Kris Boy: */
-              font-family: Avenir-Medium;
+              font-weight: 600;
               font-size: 15px;
               color: #3A92FF;
               letter-spacing: 0;
               text-decoration: none;
             }
             .item-status {
-              /* ic_inbox: */
               color: #959595;
             }
             .follower-count {
-              /* 2.8k Followers: */
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: 0;
@@ -196,7 +185,6 @@
               margin: 7.5px 5.25px 7.5px 0px;
               background-color: rgba(255, 255, 255, 0.5) !important;
               border-radius: 75px;
-              font-family: Avenir-Roman;
               font-size: 12px;
               letter-spacing: 0;
               min-width: 100px;
@@ -205,7 +193,6 @@
                 border: 1.5px solid #3A92FF;
               }
               &.following {
-                /* Rectangle: */
                 color: #5BAD00 !important;
                 border: 1.5px solid #5BAD00;
                 &:hover {
@@ -242,16 +229,12 @@
       padding-top: 22.5px;
       padding-bottom: 22.5px;
       .recent-posts-section-title {
-        /* Recent reposts: */
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #959595;
         letter-spacing: 0;
         margin-bottom: 3.75px;
       }
       .recent-post-item {
-        /* Rectangle 3 Copy 4: */
-        /* Sketch doesnt export pattern fills at this point */
         width: 60px;
         height: 60px;
         margin-right: 6px;
@@ -270,7 +253,6 @@
       position: absolute;
       top: 9.75px;
       right: 0;
-      font-family: Avenir-Book;
       font-size: 13.5px;
       color: #BCBCBC;
       letter-spacing: 0;

@@ -13,7 +13,6 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-family: Avenir;
               font-size: 18px;
               font-weight: 500;
               color: #8E8E8E;
@@ -46,7 +45,6 @@
         border-radius: 3.75px;
         // transform: rotate(-180deg);
         // border: 2.25px solid #FFFFFF;
-        font-family: Avenir-Roman;
         font-size: 15px;
         // color: #000000 !important;
         letter-spacing: -0.6px;
@@ -62,12 +60,11 @@
       text-transform: none;
       box-shadow: none !important;
       background: #EAF3FF !important;
-      font-family: Avenir-Heavy;
+      font-weight: 700;
       font-size: 15px;
       color: #3A92FF;
       letter-spacing: 0;
       i {
-        /* Rectangle 17 Copy: */
         border: 1.5px solid #3A92FF;
         border-radius: 3.27px;
         color: #3A92FF;
@@ -86,7 +83,6 @@
       display: block;
       // width: 45px;
       min-width: 45px;
-      font-family: Avenir-Roman;
       font-size: 15px;
       color: #3A92FF;
       letter-spacing: 0;
@@ -144,7 +140,7 @@
   .tabs__item {
     padding: 0 !important;
     text-transform: none;
-    font-family: Avenir-Heavy;
+    font-weight: 700;
     font-size: 15px;
     // color: #000000 !important;
     letter-spacing: -0.6px;

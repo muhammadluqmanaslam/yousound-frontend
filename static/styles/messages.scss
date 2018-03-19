@@ -1,6 +1,5 @@
 .page.messages-page {
   .messages-stop-music-section {
-    /* Rectangle: */
     background: rgba(255, 255, 255, 0.95);
     position: absolute;
     top: 0;
@@ -24,14 +23,12 @@
       .popup-title {
         padding: 45px 15px 0;
         margin: 0;
-        font-family: Avenir-Roman;
         font-size: 22.5px;
         color: #000000;
         letter-spacing: 0;
       }
       .popup-text {
         padding: 7.5px 30px 45px;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: 0;
@@ -44,7 +41,7 @@
         text-transform: none;
         background: #3A92FF !important;
         border-radius: 75px;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: 0;
@@ -67,7 +64,6 @@
 				/* Line: */
         // transform: rotate(-180deg);
         // border: 2.25px solid #FFFFFF;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000;
         letter-spacing: -0.6px;
@@ -80,20 +76,17 @@
     }
     .settings-text {
       cursor: pointer;
-      font-family: Avenir-Roman;
       font-size: 15px;
       color: #000000;
       letter-spacing: 0;
     }
     .settings-icon {
-      /* Shape: */
       color: #3A92FF;
     }
 	}
 	.messages-page-content {
 		// border-top: 0.75px solid #e1e1e1;
     .message-rooms-section {
-      /* Rectangle 12: */
       // background: #FFFFFF;
       height: calc(100vh - 201.75px);
       border: 0.75px solid #E1E1E1;
@@ -131,7 +124,6 @@
               -webkit-border-radius: 75px;
               -moz-border-radius: 75px;
               border-radius: 75px;
-              font-family: Avenir-Roman;
               font-size: 15px;
               // color: #ABABAB;
               text-align: center;
@@ -188,8 +180,6 @@
             }
           }
           .img {
-            /* Repost Download Shar: */
-            font-family: Avenir-Roman;
             font-size: 13.5px;
             color: #000000;
             letter-spacing: 0;
@@ -231,7 +221,7 @@
             margin-left: 4.5px;
             .user-name {
               // display: block;
-              font-family: Avenir-Medium;
+              font-weight: 600;
               font-size: 13px;
               color: #000000;
               letter-spacing: 0;
@@ -242,7 +232,6 @@
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #9F9F9F;
               letter-spacing: 0;
@@ -255,37 +244,31 @@
             right: 11.25px;
             width: 80px;
             text-align: right;
-            font-family: Avenir-Roman;
             font-size: 13.5px;
             color: #9F9F9F;
             letter-spacing: 0;
             cursor: pointer;
           }
           &.new {
-            /* Rectangle 12 Copy 2: */
             background: #F6FAFF;
             .detail-area {
               .short-message {
-                /* Yep! I will do that…: */
-                font-family: Avenir-Heavy;
+                font-weight: 700;
                 color: #000000;
               }
             }
             .messaged-time {
-              /* 10:15 am: */
-              font-family: Avenir-Heavy;
+              font-weight: 700;
               color: #3A92FF;
             }
           }
           &.selected {
-            /* Rectangle 12: */
             background: #F8F8F8;
           }
         }
       }
     }
     .message-content-section {
-      /* Rectangle 12 Copy: */
       // background: #FFFFFF;
       height: calc(100vh - 201.75px);
       border: 0.75px solid #E1E1E1;
@@ -300,7 +283,7 @@
         .user-name {
           padding-top: 15.75px;
           margin: 0;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -309,7 +292,6 @@
         .messaged-time {
           // padding-top: 3.75px;
           margin: 0;
-          font-family: Avenir-Roman;
           font-size: 13.5px;
           color: #9F9F9F;
           letter-spacing: 0;
@@ -342,8 +324,6 @@
             }
           }
           .img {
-            /* Repost Download Shar: */
-            font-family: Avenir-Roman;
             font-size: 13.5px;
             color: #000000;
             letter-spacing: 0;
@@ -377,7 +357,6 @@
           width: 100%;
           padding: 17px 26.25px;
           padding-right: 150.5px;
-          font-family: Avenir-Roman;
           font-size: 16px;
           letter-spacing: -0.2px;
           &:focus, &:hover, &:active {
@@ -410,7 +389,6 @@
           background: #FFFFFF;
           border: 0.75px solid #DDDDDD;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
           letter-spacing: -0.6px;
@@ -432,7 +410,6 @@
           background: #FFFFFF;
           border: 0.75px solid #B1B1B1;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #9B9B9B;
           letter-spacing: -0.6px;
@@ -445,7 +422,6 @@
       }
     }
     .requests-section {
-      /* Rectangle 12 Copy 3: */
       // background: #FFFFFF;
       height: calc(100vh - 201.75px);
       border: 0.75px solid #E1E1E1;
@@ -460,7 +436,6 @@
         .section-title {
           margin: 0;
           padding-top: 3px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -471,13 +446,11 @@
             text-transform: none;
             box-shadow: none;
             background-color: transparent;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
             letter-spacing: -0.6px;
             height: 30px;
             &.selected {
-              /* Rectangle 4: */
               background: #3A92FF;
               color: #FFFFFF;
             }
@@ -515,7 +488,6 @@
             .item-name {
               display: block;
               cursor: pointer;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -527,7 +499,6 @@
               display: block;
               cursor: pointer;
               opacity: 0.5;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -543,7 +514,6 @@
   padding: 3.75px 15px 0px;
   .messaged-time {
     text-align: center;
-    font-family: Avenir-Roman;
     font-size: 13.5px;
     color: #9F9F9F;
     letter-spacing: 0;
@@ -573,7 +543,6 @@
         .text-message {
           width: 100%;
           word-break: break-all;
-          font-family: Avenir-Roman;
           font-size: 15px;
           letter-spacing: -0.5px;
         }
@@ -582,8 +551,6 @@
         padding: 11.25px 18.75px 22.5px;
         .repost-status-section {
           .status-title {
-            /* Repost request:: */
-            font-family: Avenir-Roman;
             font-size: 15px;
             margin-right: 3px;
             letter-spacing: -0.6px;
@@ -594,7 +561,6 @@
             box-shadow: none;
             background: #3A92FF !important;
             border-radius: 75px;
-            font-family: Avenir-Roman;
             font-size: 14px;
             letter-spacing: -0.6px;
             margin-right: 0;
@@ -620,7 +586,6 @@
             padding-bottom: 15px;
             .label-message {
               max-width: 200px;
-              font-family: Avenir-Roman;
               font-size: 15px;
               margin-right: 3px;
               letter-spacing: -0.6px;
@@ -664,14 +629,13 @@
               text-overflow: ellipsis;
               overflow: hidden;
               white-space: nowrap;
-              font-family: Avenir-Heavy;
+              font-weight: 700;
               font-size: 15px;
               letter-spacing: -0.6px;
             }
             .item-user {
               display: block;
               opacity: 0.5;
-              font-family: Avenir-Roman;
               font-size: 15px;
               letter-spacing: -0.6px;
             }
@@ -681,7 +645,6 @@
             margin-top: 10px;
 
             .artist {
-              font-family: Avenir-Roman;
               font-size: 15px;
               letter-spacing: -0.6px;
 

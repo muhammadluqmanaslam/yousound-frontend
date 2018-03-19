@@ -15,7 +15,6 @@
     text-align: center;
 
     .uploaderBox_image {
-      /*width: 100%;*/
       height: calc(50vh - 50px);
       border: 1px solid rgb(241, 241, 241);
       border-radius: 500px;
@@ -31,7 +30,6 @@
   }
   .uploaderBox__file + label {
     display: inline-block;
-    font-family: Avenir-Roman;
     font-size: 22.5px;
     color: #000000;
     letter-spacing: 0;
@@ -59,15 +57,12 @@
     margin-top: 15px;
     margin-bottom: 30px;
     .uploaderBox__dragndrop {
-      /* Click or Drag & Drop: */
-      font-family: Avenir-Roman;
       font-size: 22.5px;
       color: #000000;
       letter-spacing: 0;
     }
     .uploaderBox__filetype {
       display: block;
-      font-family: Avenir-Roman;
       font-size: 15px;
       color: #969696;
       letter-spacing: 0;
@@ -80,8 +75,6 @@
   background-color: #FFF;
   text-align: left;
   .track-list-title {
-    /* Track List: */
-    font-family: Avenir-Roman;
     font-size: 22.5px;
     color: #000000;
     letter-spacing: -1.1.5px;
@@ -96,7 +89,6 @@
         position: absolute;
         top: 0px;
         left: 0px;
-        font-family: Avenir-Roman;
         font-size: 22.5px;
         color: #B0B0B0;
         letter-spacing: 0;
@@ -114,14 +106,14 @@
           // position: absolute;
           // left: 18.75px;
           // /* World Without Sound: */
-          // font-family: Avenir-Medium;
+          // font-weight: 600;
           // font-size: 15px;
           // color: #000000;
           // letter-spacing: 0;
           // line-height: 30px;
           position: absolute;
           left: 4.5px;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 14px;
           color: #000000;
           letter-spacing: 0;
@@ -142,7 +134,6 @@
         .item-progress-value {
           position: absolute;
           right: 12.75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #8C8C8C;
           letter-spacing: 0;

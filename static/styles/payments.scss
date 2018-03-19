@@ -10,12 +10,10 @@
     right: 0;
     top: 0;
     padding: 10px 15px;
-    font-family: Avenir-Roman;
     z-index: 2;
     border-radius: 8px;
     .available-money-amount {
       display: block;
-      font-family: Avenir;
       font-weight: 500;
       font-size: 26px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.18);
@@ -25,7 +23,6 @@
       .currency {
         font-weight: 900;
         font-size: 18px;
-        font-family: sans-serif;
       }
     }
     .action-section{
@@ -46,7 +43,6 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-family: Avenir;
               font-size: 18px;
               color: #8E8E8E;
               letter-spacing: -0.5px;
@@ -79,7 +75,6 @@
         border-radius: 4.125px;
         // transform: rotate(-180deg);
         // border: 2.475px solid #FFFFFF;
-        font-family: Avenir-Roman;
         font-size: 16.5px;
         // color: #000000 !important;
         letter-spacing: -0.66px;
@@ -90,7 +85,6 @@
     }
     .payment-table {
       width: 100%;
-      font-family: Avenir-Roman;
       font-size: 14px;
       border-collapse: collapse;
       tr {
@@ -124,7 +118,7 @@
           vertical-align: middle;
           .user-name {
             display: block;
-            font-family: Avenir-Heavy;
+            font-weight: 700;
           }
           .user-type {
             display: block;
@@ -150,7 +144,7 @@
   .tabs__item {
     padding: 0 !important;
     text-transform: none;
-    font-family: Avenir-Heavy;
+    font-weight: 700;
     font-size: 16.5px;
     // color: #000000 !important;
     letter-spacing: -0.66px;

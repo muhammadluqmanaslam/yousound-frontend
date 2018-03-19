@@ -2,7 +2,6 @@
   .order-details {
     margin-bottom: 150px;
     .order-id {
-      font-family: Avenir;
       font-size: 16px;
       color: #000000;
       letter-spacing: -0.6px;
@@ -13,7 +12,7 @@
       padding-top: 15px;
       border-bottom: 0.75px solid #B8B8B8;
       .user-name {
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 18px;
         color: #000000;
         letter-spacing: -0.6px;
@@ -22,8 +21,7 @@
     .shipping-address-section {
       padding-bottom: 30px;
       .shipping-address-header {
-        /* Default Shipping Add: */
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
@@ -43,9 +41,7 @@
           margin-right: 11.25px;
           }
         .shipping-address-content {
-          /* 123 Main Street San: */
           padding-top: 7.5px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -82,7 +78,6 @@
       border-bottom: 0.75px solid #B8B8B8;
       .product-table {
         width: 100%;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
@@ -104,7 +99,6 @@
         padding: 22.5px 0;
         border-bottom: 0.75px solid #B8B8B8;
         div {
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #8E8E8E;
           letter-spacing: 0;
@@ -113,7 +107,7 @@
       .total-section {
         padding: 22.5px 0;
         div {
-          font-family: Avenir-Heavy;
+          font-weight: 700;
           font-size: 18px;
           color: #000000;
           letter-spacing: 0;

@@ -8,7 +8,6 @@
       border: none;
     }
     .activity-item-section {
-      /* Line Copy: */
       border-right: 0.75px solid #E1E1E1;
       &.no-reposts {
         border: none;
@@ -36,28 +35,24 @@
           .activity-item-content {
             line-height: 13.5px;
             .user-name {
-              /* Kris Boy: */
-              font-family: Avenir-Medium;
+              font-weight: 600;
               font-size: 18px;
               color: #3A92FF;
               letter-spacing: 0;
               text-decoration: none;
             }
             .item-status {
-              /* ic_inbox: */
               color: #959595;
 
             }
             .description-text {
-              /* commented on Darkest: */
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #959595;
               letter-spacing: 0;
               display: block;
               padding-top: 3.75px;
               .items-title {
-                font-family: Avenir-Heavy;
+                font-weight: 700;
                 color: #000000;
                 text-decoration: none;
                 cursor: pointer;
@@ -91,8 +86,6 @@
           .details {
             margin-top: 20px;
             .detailed-description {
-              /* “Oh man, this track: */
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: 0;
@@ -120,16 +113,12 @@
       padding-top: 22.5px;
       padding-bottom: 22.5px;
       .recent-posts-section-title {
-        /* Recent reposts: */
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #959595;
         letter-spacing: 0;
         margin-bottom: 3.75px;
       }
       .recent-post-item {
-        /* Rectangle 3 Copy 4: */
-        /* Sketch doesnt export pattern fills at this point */
         width: 100px;
         height: 100px;
         margin-right: 6px;
@@ -148,7 +137,6 @@
       position: absolute;
       top: 9.75px;
       right: 0;
-      font-family: Avenir-Book;
       font-size: 13.5px;
       color: #BCBCBC;
       letter-spacing: 0;

@@ -65,7 +65,6 @@
         margin: 0;
         top: 15px;
         left: 15px;
-        font-family: Avenir-Roman;
         font-size: 20px;
         color: #FFFFFF;
         letter-spacing: 0;
@@ -100,7 +99,7 @@
           padding: 10px 25px;
           border-radius: 20px;
           background: #3A92FF !important;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -128,8 +127,6 @@
             }
           }
           .img {
-            /* Repost Download Shar: */
-            font-family: Avenir-Roman;
             font-size: 13.5px;
             color: #000000;
             letter-spacing: 0;
@@ -150,7 +147,6 @@
   }
   label {
     vertical-align: middle;
-    font-family: Avenir-Roman;
     font-size: 13.5px;
     color: #000000;
     letter-spacing: 0;

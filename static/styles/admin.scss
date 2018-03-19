@@ -13,7 +13,6 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-family: Avenir-Roman;
               font-size: 16.5px;
               // color: #8E8E8E;
               letter-spacing: -0.66px;
@@ -41,7 +40,6 @@
         border-radius: 4.125px;
         // transform: rotate(-180deg);
         // border: 2.475px solid #FFFFFF;
-        font-family: Avenir-Roman;
         font-size: 16.5px;
         // color: #000000 !important;
         letter-spacing: -0.66px;
@@ -57,7 +55,7 @@
   .tabs__item {
     padding: 0 !important;
     text-transform: none;
-    font-family: Avenir-Heavy;
+    font-weight: 700;
     font-size: 16.5px;
     // color: #000000 !important;
     letter-spacing: -0.66px;
@@ -150,7 +148,6 @@
     padding: 10px 20px;
     border-bottom: 1px solid #B8B8B8;
     .setting-cell-text {
-      font-family: Avenir-Roman;
       font-size: 15px;
       // color: #000000 !important;
       letter-spacing: -0.66px;

@@ -14,7 +14,6 @@
     background-color: #FFF;
     .album-info-title {
       margin-bottom: 3px;
-      font-family: Avenir-Roman;
       font-size: 22.5px;
       color: #000000;
       letter-spacing: -1.1.5px;
@@ -22,7 +21,6 @@
     .album-image-section {
       width: 300px;
       .image-section {
-        /* Rectangle: */
         background: #3A92FF;
         border: 0.75px solid #D2D2D2;
         border-radius: 3.75px;
@@ -65,12 +63,11 @@
           .add-album-image-file + label {
             width: 100%;
             height: 100%;
-            font-family: Avenir-Medium;
+            font-weight: 600;
             font-size: 15px;
             color: #FFFFFF;
             letter-spacing: 0;
             .camera {
-              /* ic_camera_profile: */
               color: #FFFFFF;
               font-size: 28.5px;
               display: block;
@@ -81,7 +78,6 @@
           .add-album-image-file + label:hover {
             color: rgba(255, 255, 255, 0.50);
             .camera {
-              /* ic_camera_profile: */
               color: rgba(255, 255, 255, 0.50);
             }
           }
@@ -99,8 +95,6 @@
           z-index: -1;
         }
         .change-album-image-file + label {
-          /* Change: */
-          font-family: Avenir-Roman;
           font-size: 13.5px;
           color: #3A92FF;
           letter-spacing: 0;
@@ -176,7 +170,7 @@
         background: #ffffff !important;
         border: 1px solid #3A92FF;
         border-radius: 75px;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 14px;
         color: #3A92FF;
         letter-spacing: 0;
@@ -190,7 +184,6 @@
           display: inline-block;
           vertical-align: middle;
           padding-right: 12px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -265,7 +258,6 @@
         margin-right: 15px;
         float: right;
         cursor: pointer;
-        font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #3A92FF;
         letter-spacing: 0;
@@ -313,7 +305,6 @@
         margin-right: 15px;
         float: right;
         cursor: pointer;
-        font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #3A92FF;
         letter-spacing: 0;
@@ -327,7 +318,6 @@
       // border-top: 0.75px solid #979797;
       .delete-album-btn {
         padding-top: 9px;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #D0021B;
         letter-spacing: 0;
@@ -340,7 +330,7 @@
         text-transform: none;
         background: #3A92FF !important;
         border-radius: 75px;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: 0;
@@ -353,7 +343,7 @@
         background: #FFFFFF;
         border: 0.75px solid #3A92FF;
         border-radius: 75px;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 15px;
         color: #3A92FF;
         letter-spacing: 0;
@@ -498,7 +488,6 @@
           cursor: pointer;
           .title {
             color: white;
-            font-family: Avenir;
             font-weight: 300;
             font-size: 24px !important;
             letter-spacing: -0.6px !important;
@@ -529,7 +518,6 @@
               .merch-name {
                 display: block;
                 color: white;
-                font-family: Avenir-Roman;
                 font-weight: 900;
                 font-size: 20px;
                 letter-spacing: -0.6px;
@@ -538,7 +526,6 @@
               .merch-price {
                 display: block;
                 color: white;
-                font-family: Avenir-Roman;
                 font-size: 20px;
                 letter-spacing: -0.6px;
                 cursor: pointer;
@@ -546,7 +533,6 @@
               .link-btn {
                 display: block;
                 color: rgba(255, 255, 255, 0.52);
-                font-family: Avenir-Roman;
                 font-size: 16px;
                 letter-spacing: -0.6px;
                 cursor: pointer;
@@ -583,29 +569,22 @@
 
           .album-title {
             text-transform: uppercase;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: rgba(255, 255, 255, 0.5);
             letter-spacing: 0.6px;
           }
           .album-name {
-            /* World Without Sound: */
-            font-family: Avenir-Black;
             font-size: 36px;
             color: #FFFFFF;
             letter-spacing: 0;
             line-height: 41.25px;
           }
           .album-description {
-            /* Emerging in 1993, wh: */
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #FFFFFF;
             letter-spacing: 0;
           }
           .album-detail {
-            /* by Ruckazoid • 2017: */
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: rgba(255, 255, 255, 0.5);
             letter-spacing: 0.6px;
@@ -671,7 +650,6 @@
                 background-color: transparent !important;
                 border-radius: 82px;
                 border: 1px solid #FFFFFF;
-                font-family: Avenir-Roman;
                 font-size: 16px;
                 letter-spacing: 0;
 
@@ -693,7 +671,6 @@
               margin: 8px 0px 8px 0px;
               background-color: transparent !important;
               border-radius: 82px;
-              font-family: Avenir-Roman;
               font-size: 16px;
               letter-spacing: 0;
               &.follow {
@@ -701,7 +678,6 @@
                 border: 1px solid #FFFFFF;
               }
               &.following {
-                /* Rectangle: */
                 color: #FFFFFF !important;
                 border: 1px solid #FFFFFF;
                 &:hover {
@@ -741,10 +717,8 @@
             padding: 6px 11.25px;
 
             .track-name {
-              /* M-A-X: */
               line-height: 36px;
               padding-left: 3.75px;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #FFFFFF;
               letter-spacing: 0;
@@ -756,7 +730,6 @@
               max-width: 375px;
               min-width: 75px;
               .track-index {
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: rgba(255, 255, 255, 0.5);
                 letter-spacing: 0;
@@ -828,7 +801,6 @@
               .track-length {
                 display: inline-block;
                 vertical-align: middle;
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: rgba(255, 255, 255, 0.5);
                 letter-spacing: 0;
@@ -863,8 +835,7 @@
     .album-comment-page {
       padding-top: 200px;
       .comment-title {
-        /* Talk to Ruckazoid: */
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 28px;
         color: #000000;
         letter-spacing: -1.3px;
@@ -873,8 +844,6 @@
         margin-bottom: 10px;
       }
       .description {
-        /* Comments are only se: */
-        font-family: Avenir-Roman;
         font-size: 16px;
         padding: 0 12px;
         color: #676767;
@@ -892,7 +861,6 @@
             .comment-count {
               padding-right: 22px;
               padding-bottom: 14px;
-              font-family: Avenir-Roman;
               font-size: 18px;
               color: #000000;
               letter-spacing: 0;
@@ -919,7 +887,6 @@
             border: 1.5px solid #E5E5E5;
             border-radius: 3.75px;
             padding: 15px;
-            font-family: Avenir-Roman;
             font-size: 18.75px;
             // color: #A2A2A2;
             letter-spacing: 0;
@@ -937,7 +904,6 @@
             background: #FFFFFF;
             border: 0.75px solid #DDDDDD;
             border-radius: 75px;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #9B9B9B;
             letter-spacing: -0.6px;
@@ -989,16 +955,13 @@
               // margin-top: 7.5px;
               width: calc(100% - 210px);
               .user-name {
-                /* Kris Boy: */
-                font-family: Avenir-Medium;
+                font-weight: 600;
                 font-size: 15px;
                 color: #3A92FF;
                 letter-spacing: 0;
                 cursor: pointer;
               }
               .comment-text {
-                /* Yooooo!!! This is so: */
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #000000;
                 letter-spacing: 0;
@@ -1037,15 +1000,12 @@
                 }
               }
               .comment-time {
-                /* Now: */
-                font-family: Avenir-Book;
                 font-size: 15px;
                 color: #BCBCBC;
                 letter-spacing: 0;
               }
             }
             &:hover {
-              /* Rectangle 2: */
               background: #E4E4E4;
               background: rgba(228, 228, 228, 0.6);
               // opacity: 0.6;
@@ -1073,15 +1033,12 @@
                 display: inline-block;
                 vertical-align: middle;
                 .user-name {
-                  /* Ruckazoid: */
-                  font-family: Avenir-Medium;
+                  font-weight: 600;
                   font-size: 15px;
                   color: #3A92FF;
                   letter-spacing: 0;
                 }
                 .comment-text {
-                  /* Yeah, I want that to: */
-                  font-family: Avenir-Roman;
                   font-size: 15px;
                   color: #000000;
                   letter-spacing: 0;
@@ -1117,15 +1074,12 @@
                   }
                 }
                 .comment-time {
-                  /* Now: */
-                  font-family: Avenir-Book;
                   font-size: 15px;
                   color: #BCBCBC;
                   letter-spacing: 0;
                 }
               }
               &:hover {
-                /* Rectangle 2: */
                 background: #E4E4E4;
                 opacity: 0.6;
                 border-radius: 7.5px;
@@ -1170,7 +1124,6 @@
   padding-bottom: 10px;
 
   .card__title {
-    font-family: Avenir;
     font-size: 28px;
     font-weight: 900;
     // color: rgba(0, 0, 0, 0.5);
@@ -1183,13 +1136,12 @@
   .card__text {
     .album-info-label {
       // margin-top: 20px;
-      font-family: Avenir-Heavy;
+      font-weight: 700;
       font-size: 15px;
       // color: rgba(0, 0, 0, 0.5);
       letter-spacing: 0.6px;
     }
     .album-info-text {
-      font-family: Avenir-Roman;
       font-size: 14px;
       // color: rgba(255, 255, 255, 0.5);
       letter-spacing: 0.6px;

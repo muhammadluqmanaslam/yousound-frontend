@@ -13,7 +13,6 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-family: Avenir;
               font-size: 18px;
               color: #8E8E8E;
               letter-spacing: -0.5px;
@@ -46,7 +45,6 @@
         border-radius: 3.75px;
         // transform: rotate(-180deg);
         // border: 2.25px solid #FFFFFF;
-        font-family: Avenir-Roman;
         font-size: 15px;
         // color: #000000 !important;
         letter-spacing: -0.6px;
@@ -60,7 +58,7 @@
   .tabs__item {
     padding: 0 !important;
     text-transform: none;
-    font-family: Avenir-Heavy;
+    font-weight: 700;
     font-size: 15px;
     // color: #000000 !important;
     letter-spacing: -0.6px;

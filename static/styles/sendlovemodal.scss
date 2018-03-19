@@ -1,5 +1,4 @@
 .send-love-section {
-  /* Rectangle: */
   background: rgba(255, 255, 255, 0.95);
   position: fixed;
   top: 0;
@@ -33,7 +32,6 @@
       .title-label {
         width: 100%;
         margin-bottom: 3.75px;
-        font-family: Avenir-Roman;
         font-size: 16px;
         color: #000000;
         letter-spacing: -0.8px;
@@ -58,7 +56,7 @@
         display: inline-block;
         vertical-align: middle;
         cursor: pointer;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 20px;
         color: #000000;
         letter-spacing: 0;
@@ -72,7 +70,6 @@
         box-shadow: none;
         background: transparent !important;
         border-radius: 37.5px;
-        font-family: Avenir-Book;
         font-size: 13.5px;
         letter-spacing: 0;
         &.follow {
@@ -80,7 +77,6 @@
           border: 0.75px solid #3A92FF;
         }
         &.following {
-          /* Rectangle: */
           color: #5BAD00 !important;
           border: 0.75px solid #5BAD00;
           &:hover {
@@ -103,7 +99,6 @@
         margin: 3.75px;
         border: 1.5px solid #E1E1E1;
         border-radius: 3.75px;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
@@ -118,7 +113,6 @@
         border-radius: 0;
         text-align: center;
         border-bottom: 0.75px solid #CECECE;
-        font-family: Avenir-Roman;
         font-size: 22.5px;
         // color: #CECECE;
         letter-spacing: -1.1.5px;
@@ -147,7 +141,7 @@
         margin: 18.75px 0 0;
         background: #3A92FF !important;
         border-radius: 75px;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: 0;

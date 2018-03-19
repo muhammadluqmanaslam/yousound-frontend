@@ -1,5 +1,4 @@
 .promote-modal-section {
-  /* Rectangle: */
   background: rgba(255, 255, 255, 0.95);
   position: fixed;
   top: 0;
@@ -47,7 +46,7 @@
                 .tabs__item {
                   padding: 0;
                   text-transform: none;
-                  font-family: Avenir-Heavy;
+                  font-weight: 700;
                   font-size: 15px;
                   color: #8E8E8E;
                   letter-spacing: -0.6px;
@@ -101,7 +100,6 @@
         text-transform: none;
         background: #3A92FF !important;
         border-radius: 75px;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: -0.6px;
@@ -123,14 +121,12 @@
       .user-name {
         padding-top: 6px;
         margin: 0;
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 18px;
         color: #000000;
         letter-spacing: 0;
       }
       .repost-price {
-        /* Repost Price: $1,000: */
-        font-family: Avenir-Roman;
         font-size: 14px;
         color: #8B8B8B;
         letter-spacing: 0;
@@ -145,7 +141,6 @@
           padding-bottom: 60px;
           border: 0.75px solid #E1E1E1;
           resize: none;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -177,7 +172,6 @@
           text-transform: none;
           background: #3A92FF !important;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: -0.6px;
@@ -186,7 +180,6 @@
       .followed-count-text {
         padding-top: 75px;
         margin: 0;
-        font-family: Avenir-Roman;
         font-size: 13.5px;
         color: #9F9F9F;
         letter-spacing: 0;
@@ -197,7 +190,6 @@
       }
     }
     .requests-section {
-      /* Rectangle 12 Copy 3: */
       // background: #FFFFFF;
       // height: calc(100vh - 201.75px);
       // height: 400.5px;
@@ -216,7 +208,6 @@
         .section-title {
           margin: 0;
           padding-top: 11.25px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -227,12 +218,10 @@
             text-transform: none;
             box-shadow: none;
             background-color: transparent;
-            font-family: Avenir-Roman;
             font-size: 15px;
             color: #000000;
             letter-spacing: -0.6px;
             &.selected {
-              /* Rectangle 4: */
               background: #3A92FF;
               color: #FFFFFF;
             }
@@ -271,7 +260,6 @@
               display: block;
               text-align: left;
               cursor: pointer;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -281,7 +269,6 @@
               text-align: left;
               cursor: pointer;
               opacity: 0.5;
-              font-family: Avenir-Roman;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
@@ -292,7 +279,6 @@
     }
   }
   .header-title {
-    font-family: Avenir;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.58);
     letter-spacing: 0;
@@ -321,7 +307,7 @@
         overflow: hidden;
       }
       .user-name {
-        font-family: Avenir-Medium;
+        font-weight: 600;
         font-size: 15px;
         color: #000000;
         letter-spacing: 0;
@@ -329,14 +315,12 @@
         margin-top: 18.75px;
       }
       .user-followers {
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: 0;
         margin-top: 18.75px;
       }
       .repost-price {
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #000000;
         letter-spacing: 0;
@@ -344,8 +328,6 @@
       }
       .recent-posts {
         .recent-post-item {
-          /* Rectangle 3 Copy 4: */
-          /* Sketch doesnt export pattern fills at this point */
           width: 45px;
           height: 45px;
           margin-top: 7.5px;
@@ -395,7 +377,6 @@
       min-width: 140px;
       background: #3A92FF !important;
       border-radius: 3.75px;
-      font-family: Avenir-Roman;
       font-size: 16px;
       color: #FFFFFF;
       letter-spacing: -0.6px;
@@ -412,13 +393,13 @@
       margin-right: 30px;
       float: left;
       .title {
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 18px !important;
         color: #AAAAAA;
         letter-spacing: 0;
       }
       .value {
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 18px !important;
         color: #000000;
         letter-spacing: 0;
@@ -432,13 +413,13 @@
       margin-right: 30px;
       float: left;
       .title {
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 18px !important;
         color: #AAAAAA;
         letter-spacing: 0;
       }
       .value {
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 18px !important;
         color: #000000;
         letter-spacing: 0;

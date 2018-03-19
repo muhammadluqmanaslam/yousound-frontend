@@ -13,8 +13,6 @@
         padding-bottom: 18.75px;
         // display: flow-root;
         .status-title {
-          /* Subtotal Shipping Fe: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -25,20 +23,15 @@
         }
       }
       .total-row {
-        /* Line 2: */
         border-top: 0.75px solid #E4E4E4;
         padding-top: 15px;
         display: flow-root;
         .status-title {
-          /* Total: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
           float: left;
           &.value {
-            /* $113.00: */
-            font-family: Avenir-Black;
             font-size: 22.5px;
             color: #000000;
             letter-spacing: 0;
@@ -57,7 +50,7 @@
           margin: 0px;
           background: #5BAD00 !important;
           border-radius: 75px;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -67,8 +60,7 @@
     .shipping-address-section {
       padding-bottom: 30px;
       .shipping-address-header {
-        /* Default Shipping Add: */
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
@@ -88,9 +80,7 @@
           margin-right: 11.25px;
           }
         .shipping-address-content {
-          /* 123 Main Street San: */
           padding-top: 7.5px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -119,13 +109,12 @@
         }
       }
       .update-shipping-address {
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
         padding-left: 0;
         .settings-icon {
-          /* Shape: */
           color: #3A92FF;
           padding-left: 8px;
         }
@@ -136,12 +125,10 @@
       width: calc(100% - 262.5px);
       .order-section {
         .order-content-section {
-          /* Rectangle 3 Copy: */
           background: #FFFFFF;
           border: 0.75px solid #B8B8B8;
           margin-right: 30px;
           .product-cover-image {
-            /* Rectangle 2: */
             width: 97.5px;
             height: 97.5px;
             background: #D5D5D5;
@@ -156,8 +143,6 @@
             padding-right: 22.5px;
             .product-content-row {
               .product-name {
-                /* Supreme X Snapback: */
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #000000;
                 letter-spacing: -0.6px;
@@ -165,7 +150,6 @@
               .product-count {
                 float: right;
                 padding: 0 11.25px;
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #000000;
                 letter-spacing: 0;
@@ -198,15 +182,12 @@
                 }
               }
               .user-name {
-                /* Supreme X Snapback b: */
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #8E8E8E;
                 letter-spacing: -0.6px;
               }
               .product-price {
-                /* $35: */
-                font-family: Avenir-Heavy;
+                font-weight: 700;
                 font-size: 22.5px;
                 color: #000000;
                 letter-spacing: -1.1.5px;
@@ -215,7 +196,6 @@
                 float: right;
                 padding-right: 11.25px;
                 margin-top: 11.25px;
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #3A92FF;
                 letter-spacing: 0;
@@ -225,7 +205,6 @@
                 float: right;
                 padding-left: 11.25px;
                 margin-top: 11.25px;
-                font-family: Avenir-Roman;
                 font-size: 15px;
                 color: #3A92FF;
                 letter-spacing: 0;

@@ -19,7 +19,6 @@
       }
 
       .artist-name {
-        font-family: Avenir;
         text-align: center;
         font-size: 18px;
         font-weight: 500;
@@ -42,7 +41,6 @@
           margin: 7.5px 5.25px 7.5px 0px;
           background-color: #FFFFFF !important;
           border-radius: 75px;
-          font-family: Avenir-Roman;
           font-size: 16px;
           letter-spacing: 0;
           min-width: 100px;
@@ -51,7 +49,6 @@
             border: 1.5px solid #3A92FF;
           }
           &.following {
-            /* Rectangle: */
             color: #5BAD00 !important;
             border: 1.5px solid #5BAD00;
             &:hover {
@@ -112,7 +109,6 @@
           text-transform: none;
           box-shadow: none;
           height: 30px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           letter-spacing: 0;
           .btn__content {
@@ -192,7 +188,7 @@
       .label-username {
         padding: 0 10px;
         text-align: center;
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 20px;
         color: #FFFFFF;
         letter-spacing: -0.6px;
@@ -209,7 +205,6 @@
       .label-description {
         padding: 0 10px;
         text-align: center;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: -0.6px;
@@ -288,7 +283,6 @@
       margin-top: 15px;
       .album-name {
         margin: 0;
-        font-family: Avenir-Roman;
         font-size: 15px;
         letter-spacing: -0.6px;
       }
@@ -296,7 +290,6 @@
         margin: 0;
         // text-align: center;
         opacity: 0.5;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #8E8E8E;
         letter-spacing: -0.6px;

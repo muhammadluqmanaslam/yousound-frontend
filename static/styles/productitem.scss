@@ -1,11 +1,9 @@
 .product-item {
   margin-bottom: 22.5px;
   .product-content-section {
-    /* Rectangle 3 Copy: */
     background: #FFFFFF;
     border: 0.75px solid #B8B8B8;
     .product-image {
-      /* Rectangle 2: */
       width: 75px;
       height: 75px;
       background: #D5D5D5;
@@ -24,8 +22,6 @@
       padding-right: 22.5px;
       .product-content-row {
         .product-name {
-          /* Supreme X Snapback: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: -0.6px;
@@ -33,29 +29,24 @@
         .product-count {
           padding-left: 22.5px;
           float: right;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
         }
         .product-status {
-          /* Active: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #5BAD00;
           letter-spacing: 0;
           text-transform: capitalize;
           i {
             &.active {
-              /* ic_check: */
               color: #7ED321;
               font-size: 18px;
             }
           }
         }
         .product-price {
-          /* $35: */
-          font-family: Avenir-Heavy;
+          font-weight: 700;
           font-size: 22.5px;
           color: #000000;
           letter-spacing: -1.1.5px;
@@ -64,7 +55,6 @@
           float: right;
           padding: 0 11.25px;
           margin-top: 3.75px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #A0A0A0;
           letter-spacing: 0;
@@ -88,7 +78,6 @@
           display: block;
           // width: 45px;
           min-width: 45px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #3A92FF;
           letter-spacing: 0;

@@ -85,7 +85,6 @@
           margin: 0;
           bottom: 10.5px;
           left: 20.25px;
-          font-family: Avenir-Roman;
           font-size: 13.5px;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -99,7 +98,6 @@
           text-transform: none;
           box-shadow: none;
           height: 30px;
-          font-family: Avenir-Roman;
           font-size: 15px;
           letter-spacing: 0;
 
@@ -266,7 +264,7 @@
       .label-username {
         padding: 0 10px;
         text-align: center;
-        font-family: Avenir-Heavy;
+        font-weight: 700;
         font-size: 20px;
         color: #FFFFFF;
         letter-spacing: -0.6px;
@@ -283,7 +281,6 @@
       .label-description {
         padding: 0 10px;
         text-align: center;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #FFFFFF;
         letter-spacing: -0.6px;
@@ -363,7 +360,6 @@
       .album-name {
         margin: 0;
         color: #444;
-        font-family: Avenir-Roman;
         font-size: 15px;
         letter-spacing: -0.6px;
       }
@@ -371,7 +367,6 @@
         margin: 0;
         // text-align: center;
         opacity: 0.5;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #8E8E8E;
         letter-spacing: -0.6px;
@@ -389,7 +384,6 @@
   }
   label {
     vertical-align: middle;
-    font-family: Avenir-Roman;
     font-size: 13.5px;
     color: #000000;
     letter-spacing: 0;

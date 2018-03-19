@@ -1,5 +1,4 @@
 .merch-section {
-  /* Rectangle: */
   background: rgba(255, 255, 255, 0.95);
   position: fixed;
   top: 0;
@@ -89,7 +88,6 @@
           .user-name {
             margin: 0;
             cursor: pointer;
-            font-family: Avenir-Roman;
             font-size: 16px;
             line-height: 20px;
             color: #000000;
@@ -103,7 +101,6 @@
         .item-name {
           text-align: left;
           margin: 0;
-          font-family: Avenir-Roman;
           font-size: 18px;
           color: #000000;
           letter-spacing: -.5px;
@@ -111,7 +108,7 @@
         .item-price {
           text-align: left;
           margin: 0;
-          font-family: Avenir-Heavy;
+          font-weight: 700;
           font-size: 20px;
           color: #000000;
           letter-spacing: -1px;
@@ -121,7 +118,6 @@
           text-align: left;
           padding-top: 5.25px;
           margin-bottom: 22.5px;
-          font-family: Avenir-Roman;
           font-size: 14px;
           color: #838383;
           letter-spacing: 0;
@@ -134,7 +130,7 @@
           margin: 18px 0 0;
           background: #3A92FF !important;
           border-radius: 75px;
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: 0;
@@ -176,16 +172,13 @@
       border-top: 1px solid #e7e7e7;
       padding-top: 20px;
       .action-btn {
-        /* Return policy: */
         vertical-align: middle;
         padding: 0 22.5px;
         cursor: pointer;
-        font-family: Avenir-Roman;
         font-size: 15px;
         color: #3A92FF;
         letter-spacing: 0;
         &.right-border {
-          /* Line 4 Copy: */
           border-right: 0.75px solid #DBDBDB;
         }
       }

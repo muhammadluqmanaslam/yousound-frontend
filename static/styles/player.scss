@@ -27,15 +27,13 @@
       // vertical-align: middle;
       .track-info {
         .track-index {
-          /* 1 of 12 Poly – Lose: */
-          font-family: Avenir-Roman;
           font-size: 13.5px;
           color: #8A8A8A;
           letter-spacing: -0.54px;
         }
         .track-name {
           padding-left: 3.75px;
-          font-family: Avenir-Heavy;
+          font-weight: 700;
           font-size: 13.5px;
           letter-spacing: -0.54px;
         }
@@ -43,8 +41,6 @@
       .user-info {
         padding-top: 5px;
         .user-name {
-          /* Ruckazoid: */
-          font-family: Avenir-Roman;
           font-size: 13.5px;
           color: #8A8A8A;
           letter-spacing: -0.39px;
@@ -54,7 +50,6 @@
           box-shadow: none;
           height: 22.5px;
           border-radius: 37.5px;
-          font-family: Avenir-Book;
           font-size: 13.5px;
           letter-spacing: 0;
           min-width: 100px;
@@ -63,7 +58,6 @@
             border: 0.75px solid #3A92FF;
           }
           &.following {
-            /* Rectangle: */
             color: #5BAD00 !important;
             border: 0.75px solid #5BAD00;
             &:hover {
@@ -132,8 +126,6 @@
     .bar-section {
       display: flex;
       .duration-time {
-        /* 0:34: */
-        font-family: Avenir-Roman;
         font-size: 13.5px;
         line-height: 23.25px;
         color: #8A8A8A;

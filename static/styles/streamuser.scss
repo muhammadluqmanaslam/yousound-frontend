@@ -27,27 +27,23 @@
         display: inline-block;
         vertical-align: middle;
         .user-name {
-          /* Kris Boy: */
-          font-family: Avenir-Medium;
+          font-weight: 600;
           font-size: 18px;
           color: #3A92FF;
           letter-spacing: 0;
           text-decoration: none;
         }
         .item-status {
-          /* ic_inbox: */
           color: #959595;
         }
         .description-text {
-          /* commented on Darkest: */
-          font-family: Avenir-Roman;
           font-size: 15px;
           color: #959595;
           letter-spacing: 0;
           display: block;
           padding-top: 4px;
           .items-title {
-            font-family: Avenir-Heavy;
+            font-weight: 700;
             color: #000000;
             text-decoration: none;
             cursor: pointer;

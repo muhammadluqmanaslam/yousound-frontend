@@ -30,7 +30,6 @@
       border: none;
     }
     .btn.active {
-      /* Oval 4: */
       background: #EBF4FF;
       svg g {
         stroke: #3A92FF;
@@ -97,7 +96,6 @@
         -webkit-border-radius: 75px;
         -moz-border-radius: 75px;
         border-radius: 75px;
-        font-family: Avenir Next;
         font-size: 15px;
         // color: #ABABAB;
         text-align: center;
@@ -195,7 +193,6 @@
     border-radius: 100%;
     margin-right: 0px !important;
     .profile-image {
-      /* Sketch doesnt export pattern fills at this point */
       width: 34.5px;
       height: 34.5px;
       border-radius: 100%;
