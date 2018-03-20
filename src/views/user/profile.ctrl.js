@@ -216,7 +216,8 @@ export default {
       if (tab == 'followings') {
         tab = this.followings_selector
       }
-      var params = new FormData()
+      var params = {}
+      this.$store.dispatch('error/showLoadingActivity', true)
       ProfileService.getItems(this.user.id, tab, params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         switch (tab) {

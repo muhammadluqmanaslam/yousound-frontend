@@ -29,7 +29,7 @@
     <v-dialog v-model="product_delete_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Delete a Product</v-card-title>
-        <v-card-text>If you click OK, the album will no longer be available to users. Click OK to delete &lt;{{ product.name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-text>If you click OK, the product will no longer be available to users. Click OK to delete &lt;{{ product.name }}&gt;, or click Cancel.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteProduct()">Ok</v-btn>

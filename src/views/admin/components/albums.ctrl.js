@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import AdminService from '@/services/admin'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
@@ -41,6 +43,10 @@ export default {
       ],
       searchValue: '',
       per_page_options: [5, 15, 25],
+      album: {},
+      show_album_delete_confirm_modal: false,
+      product: {},
+      show_product_delete_confirm_modal: false,
       published_albums: [],
       privated_albums: [],
       products: [],
@@ -116,6 +122,95 @@ export default {
           console.log('onTab', tab)
           break
       }
+    },
+
+    openAlbumDeleteConfirmModal (album) {
+      this.album = album
+      this.show_album_delete_confirm_modal = true
+    },
+
+    closeAlbumDeleteConfirmModal () {
+      this.show_album_delete_confirm_modal = false
+    },
+
+    deleteAlbum (album) {
+      this.closeAlbumDeleteConfirmModal()
+      AlbumService.deleteAlbum(album.id).then(res => {
+        let arr
+        switch (this.albums_tab) {
+          case 'published':
+            _.remove(this.published_albums, (item) => { return item.id == album.id })
+            arr = this.published_albums.slice()
+            this.published_albums = arr
+            break
+          case 'privated':
+            _.remove(this.privated_albums, (item) => { return item.id == album.id })
+            arr = this.privated_albums.slice()
+            this.privated_albums = arr
+            break
+        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    recommendAlbum (album) {
+      AlbumService.recommendAlbum(album.id).then(response => {
+        let arr
+        switch (this.albums_tab) {
+          case 'published':
+            _.each(this.published_albums, (item) => { if (item.id == album.id) item.recommended = true })
+            arr = this.published_albums.slice()
+            this.published_albums = arr
+            break
+          case 'privated':
+            _.remove(this.privated_albums, (item) => { if (item.id == album.id) item.recommended = true })
+            arr = this.privated_albums.slice()
+            this.privated_albums = arr
+            break
+        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    unrecommendAlbum (album) {
+      AlbumService.unrecommendAlbum(album.id).then(response => {
+        switch (this.albums_tab) {
+          case 'published':
+            _.each(this.published_albums, (item) => { if (item.id == album.id) item.recommended = false })
+            arr = this.published_albums.slice()
+            this.published_albums = arr
+            break
+          case 'privated':
+            _.remove(this.privated_albums, (item) => { if (item.id == album.id) item.recommended = false })
+            arr = this.privated_albums.slice()
+            this.privated_albums = arr
+            break
+        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    openProductDeleteConfirmModal (product) {
+      this.product = product
+      this.show_product_delete_confirm_modal = true
+    },
+
+    closeProductDeleteConfirmModal () {
+      this.show_product_delete_confirm_modal = false
+    },
+
+    deleteProduct (product) {
+      this.closeProductDeleteConfirmModal()
+      ProductService.deleteProduct(this.product.id).then(response => {
+        _.remove(this.products, (item) => { return item.id == product.id })
+        const arr = this.products.slice()
+        this.products = arr
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     }
   },
 

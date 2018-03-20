@@ -8,8 +8,7 @@
           class="normal-input ml-4"
           item-text="name"
           item-value="id"
-          autocomplete
-        ></v-select>
+          autocomplete></v-select>
       </v-flex>
       <v-flex xs12 sm6 class="text-xs-right pr-4">
         <v-text-field
@@ -17,8 +16,7 @@
           label="Add New Genre"
           id="genre_search"
           class="normal-input search-input"
-          v-model="genre_search"
-        ></v-text-field>
+          v-model="genre_search"></v-text-field>
         <v-btn color="primary" @click.native="addGenre()">SUBMIT</v-btn>
       </v-flex>
     </v-layout>
@@ -26,21 +24,19 @@
       v-bind:headers="genre_headers"
       v-bind:items="filtered_genres"
       v-bind:search="genre_search"
-      class="genre-table"
-      >
+      class="genre-table">
       <template slot="items" slot-scope="props">
         <td>
           <v-edit-dialog
             @save="updateGenre(props.item)"
-            lazy
-          > {{ props.item.name }}
+            lazy>
+            {{ props.item.name }}
             <v-text-field
               slot="input"
               label="Edit"
               v-model="props.item.name"
               single-line
-              counter
-            ></v-text-field>
+              counter></v-text-field>
           </v-edit-dialog>
         </td>
         <td class="text-xs-right">
@@ -69,4 +65,5 @@
     </v-data-table>
   </v-card>
 </template>
+
 <script type="text/javascript" src="./genres.ctrl.js"></script>

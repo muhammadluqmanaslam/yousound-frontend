@@ -1,5 +1,30 @@
 <template>
   <v-card flat v-if="isPageReady">
+
+    <v-dialog v-model="show_album_delete_confirm_modal">
+      <v-card>
+        <v-card-title class="headline">Delete an Album</v-card-title>
+        <v-card-text>If you click OK, the album will no longer be available to users. Click OK to delete &lt;{{ album.name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteAlbum(album)">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeAlbumDeleteConfirmModal()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_product_delete_confirm_modal">
+      <v-card>
+        <v-card-title class="headline">Delete a Product</v-card-title>
+        <v-card-text>If you click OK, the product will no longer be available to users. Click OK to delete &lt;{{ product.name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteProduct(product)">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeProductDeleteConfirmModal()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="normal-tab">
       <v-tabs dark v-model="albums_tab">
         <v-tabs-bar class="transparent pl-4 pt-4">
@@ -47,7 +72,7 @@
                         <v-icon>settings</v-icon>
                       </v-btn>
                       <v-list>
-                        <v-list-tile key="delete" class="default-menu-item" @click.native="deleteAlbum(props.item)">
+                        <v-list-tile key="delete" class="default-menu-item" @click.native="openAlbumDeleteConfirmModal(props.item)">
                           <v-list-tile-title>
                             <label>Delete</label>
                           </v-list-tile-title>
@@ -100,7 +125,7 @@
                         <v-icon>settings</v-icon>
                       </v-btn>
                       <v-list>
-                        <v-list-tile key="delete" class="default-menu-item" @click.native="deleteAlbum(props.item)">
+                        <v-list-tile key="delete" class="default-menu-item" @click.native="openAlbumDeleteConfirmModal(props.item)">
                           <v-list-tile-title>
                             <label>Delete</label>
                           </v-list-tile-title>
@@ -153,12 +178,12 @@
                         <v-icon>settings</v-icon>
                       </v-btn>
                       <v-list>
-                        <v-list-tile key="delete" class="default-menu-item" @click.native="deleteProduct(props.item)">
+                        <v-list-tile key="delete" class="default-menu-item" @click.native="openProductDeleteConfirmModal(props.item)">
                           <v-list-tile-title>
                             <label>Delete</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="unrecommended" class="default-menu-item" v-if="props.item.recommended">
+                        <!-- <v-list-tile key="unrecommended" class="default-menu-item" v-if="props.item.recommended">
                           <v-list-tile-title>
                             <label>Unrecommend</label>
                           </v-list-tile-title>
@@ -167,7 +192,7 @@
                           <v-list-tile-title>
                             <label>Recommend</label>
                           </v-list-tile-title>
-                        </v-list-tile>
+                        </v-list-tile> -->
                       </v-list>
                     </v-menu>
                   </td>
