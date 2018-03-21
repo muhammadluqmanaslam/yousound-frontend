@@ -4,7 +4,7 @@
     <v-layout row wrap class="setting-row">
       <v-flex xs12 sm6><label class="setting-cell-text">Disable Sign Ups</label></v-flex>
       <v-flex xs12 sm6 class="text-xs-right">
-        <v-switch hide-details class="setting-cell-switch" :input-value="settings.disable_sign_up" @change="updateSetting('disable_sign_up', settings.disable_sign_up)"></v-switch>
+        <v-switch hide-details class="setting-cell-switch" :input-value="settings.disable_sign_up" @change="updateSetting('disable_sign_up')"></v-switch>
       </v-flex>
     </v-layout>
     <v-layout row wrap class="setting-row">

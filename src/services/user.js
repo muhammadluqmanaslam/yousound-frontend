@@ -20,6 +20,10 @@ export default {
     return Vue.http.patch(API_BASE_URL + '/' + userId, params, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  deleteUser (userId) {
+    return Vue.http.delete(API_BASE_URL + '/' + userId, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   changePassword (userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/change_password', params, { headers: { 'Authorization': $store.state.auth.token } })
   },

@@ -40,7 +40,7 @@ export default {
     updateSetting (key) {
       const params = {
         key: key,
-        value: !this.settings[key]
+        value: (!this.settings[key]).toString()
       }
       SettingService.updateSetting(params).then(response => {
         this.settings[key] = !this.settings[key]

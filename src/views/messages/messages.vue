@@ -26,7 +26,7 @@
     <v-dialog v-model="show_block_user_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Block a User</v-card-title>
-        <v-card-text>Are you sure you want to block this?</v-card-text>
+        <v-card-text>Are you sure you want to block &lt;{{ conversation.other.display_name }}&gt;?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>

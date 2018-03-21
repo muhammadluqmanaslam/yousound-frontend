@@ -116,13 +116,13 @@ export default {
     }
   },
 
-  watch: {
-    '$route' (toPath, fromPath) {
-      console.log('list watch')
-      console.log(toPath)
-      console.log(fromPath)
-    }
-  },
+  // watch: {
+  //   '$route' (toPath, fromPath) {
+  //     console.log('list watch')
+  //     console.log(toPath)
+  //     console.log(fromPath)
+  //   }
+  // },
 
   created () {
     if (this.$store.state.auth.user) {
@@ -199,12 +199,12 @@ export default {
       }
     },
 
-    showDialog () {
-      this.dialog = true
-    },
-
     cancelAccount () {
       this.dialog = false
+      UserService.deleteUser(this.user.id).then(response => {
+        AuthService.logout()
+        this.$router.push({ path: '/login' })
+      })
     },
 
     updateAccount () {
