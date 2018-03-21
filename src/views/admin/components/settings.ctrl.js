@@ -1,4 +1,5 @@
-import UserService from '@/services/user'
+import _ from 'lodash'
+import SettingService from '@/services/setting'
 
 export default {
   components: {
@@ -6,7 +7,11 @@ export default {
 
   data () {
     return {
-      settings: {},
+      settings: {
+        disable_sign_up: false,
+        disable_merch_upload: false
+      },
+      isPageReady: false
     }
   },
 
@@ -20,25 +25,27 @@ export default {
 
   methods: {
     loadSettings () {
-    //   this.$store.dispatch('error/showLoadingActivity', true)
-    //   const params = {
-    //     page: this.pagination.current_page,
-    //     per_page: this.pagination.per_page
-    //   }
-    //   UserService.searchUsers(params).then(response => {
-    //     this.$store.dispatch('error/showLoadingActivity', false)
-    //     this.isPageReady = true
-    //     this.users = response.body.users
-    //     this.pagination = response.body.pagination
-    //   }).catch(e => {
-    //     this.$store.dispatch('error/showLoadingActivity', false)
-    //     this.isPageReady = true
-    //     if (e.body.errors) {
-    //       this.$store.dispatch('error/showErrorToast', e.body.errors)
-    //     } else {
-    //       this.$store.dispatch('error/showErrorToast', [e.body])
-    //     }
-    //   })
+      this.isPageReady = false
+      this.$store.dispatch('error/showLoadingActivity', true)
+      SettingService.getSettings().then(response => {
+        this.isPageReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+        _.assignIn(this.settings, response.body)
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    updateSetting (key) {
+      const params = {
+        key: key,
+        value: !this.settings[key]
+      }
+      SettingService.updateSetting(params).then(response => {
+        this.settings[key] = !this.settings[key]
+        // console.log(key, this.settings.disable_sign_up, this.settings[key])
+      })
     }
   },
 

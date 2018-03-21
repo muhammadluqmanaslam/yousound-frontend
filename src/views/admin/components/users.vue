@@ -29,8 +29,10 @@
                 class="user-table">
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">
-                    <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
-                    {{ props.item.username }}
+                    <div class="avatar-image-wrapper">
+                      <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
+                      <div class="avatar-title">{{ props.item.username }}</div>
+                    </div>
                   </td>
                   <td class="text-xs-left">{{ props.item.email }}</td>
                   <td class="text-xs-left">
@@ -71,7 +73,7 @@
                         <v-list-tile v-if="props.item.user_type=='listener' && props.item.status=='active'"
                           key="convert"
                           class="default-menu-item"
-                          @click.native="convertAccount(props.item)">
+                          @click.native="convertToArtist(props.item)">
                           <v-list-tile-title>
                             <label>Convert to artist</label>
                           </v-list-tile-title>

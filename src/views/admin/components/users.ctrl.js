@@ -132,7 +132,7 @@ export default {
       })
     },
 
-    convertAccount(user) {
+    convertToArtist(user) {
       const params = {
         role: 'artist'
         // role: 'moderator'

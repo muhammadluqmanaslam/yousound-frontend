@@ -4,7 +4,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import 'jquery'
 import App from './App'
-import router from './router'
+import { createRouter } from './router'
 import store from './store'
 import Vuetify from 'vuetify'
 import VueNumeric from 'vue-numeric'
@@ -13,6 +13,9 @@ import VueClipboard from 'vue-clipboard2'
 import SocialSharing from 'vue-social-sharing'
 import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
+
+import SettingService from './services/setting'
+// import ActivityService from './services/activity'
 
 import '@/../static/styles/app.scss'
 
@@ -36,20 +39,50 @@ Vue.filter('formatNumber', Filter.formatNumber)
 Vue.filter('formatFullUrl', Filter.formatFullUrl)
 Vue.filter('capitalize', Filter.capitalize)
 
-router.beforeEach((to, frm, next) => {
-  // console.log('to', store.state.auth.secret_code, ',', to.path)
-  if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
-    next()
-  } else {
-    next('/protect')
-  }
-})
-
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  template: '<App/>',
-  components: { App }
+// new Vue({
+//   el: '#app',
+//   router,
+//   store,
+//   template: '<App/>',
+//   components: { App }
+// })
+
+// function createApp () {
+//   const router = createRouter()
+//   router.beforeEach((to, frm, next) => {
+//     // console.log('to', store.state.auth.secret_code, ',', to.path)
+//     if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
+//       next()
+//     } else {
+//       next('/protect')
+//     }
+//   })
+//   const app = new Vue({
+//     // el: '#app',
+//     router,
+//     store,
+//     template: '<App/>',
+//     components: { App }
+//   })
+//   return { app, router }
+// }
+
+SettingService.getSettings().then(response => {
+  const settings = response.body
+  const router = createRouter(settings)
+  router.beforeEach((to, frm, next) => {
+    if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
+      next()
+    } else {
+      next('/protect')
+    }
+  })
+  const app = new Vue({
+    router,
+    store,
+    template: '<App/>',
+    components: { App }
+  })
+  app.$mount('#app')
 })

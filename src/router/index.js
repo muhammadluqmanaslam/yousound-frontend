@@ -46,22 +46,16 @@ import StripeConnectPage from '@/views/user/stripe_connect'
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  routes: [
+export function createRouter (settings) {
+  let routes = [
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/login', name: 'Login', component: Login },
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword },
     { path: '/reset_password/:token', name: 'ResetPassword', component: ResetPassword },
-    { path: '/register', name: 'RegisterAs', component: RegisterAs },
     { path: '/terms', name: 'TermsPage', component: TermsPage },
     { path: '/_oauth/verification', name: 'SocialVerification', component: SocialVerification },
     { path: '/_oauth/stripe_connect_callback', name: 'StripeConnectPage', component: StripeConnectPage },
     { path: '/_oauth/twitter_callback', name: 'TwitterCallbackPage', component: TwitterCallbackPage },
-    { path: '/register/listener', name: 'ListenerRegister', component: ListenerRegister },
-    { path: '/register/artist', name: 'ArtistRegister', component: ArtistRegister },
-    { path: '/register/label', name: 'LabelRegister', component: LabelRegister },
-    { path: '/register/brand', name: 'BrandRegister', component: BrandRegister },
     { path: '/confirm/:token', name: 'Confirmation', component: Confirmation },
     { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/empty', name: 'EmptyPage', component: EmptyPage },
@@ -87,8 +81,23 @@ export default new Router({
     { path: '/verified', name: 'UserGetVerified', component: UserGetVerified },
     { path: '/payments', name: 'UserPayments', component: UserPayments },
     { path: '/settings', name: 'UserSettings', component: UserSettings },
-    { path: '/:slug', name: 'UserProfile', component: UserProfile },
+    { path: '/:slug(!register)', name: 'UserProfile', component: UserProfile },
     { path: '/user/:user/chat', name: 'Chat', component: Chat },
     { path: '*', redirect: '/login' }
   ]
-})
+
+  if (!settings.disable_sign_up) {
+    routes = routes.concat([
+      { path: '/register', name: 'RegisterAs', component: RegisterAs },
+      { path: '/register/listener', name: 'ListenerRegister', component: ListenerRegister },
+      { path: '/register/artist', name: 'ArtistRegister', component: ArtistRegister },
+      { path: '/register/label', name: 'LabelRegister', component: LabelRegister },
+      { path: '/register/brand', name: 'BrandRegister', component: BrandRegister }
+    ])
+  }
+
+  return new Router({
+    mode: 'history',
+    routes: routes
+  })
+}

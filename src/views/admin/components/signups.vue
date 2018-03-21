@@ -37,8 +37,10 @@
                 class="user-table">
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">
-                    <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
-                    {{ props.item.display_name }}
+                    <div class="avatar-image-wrapper">
+                      <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
+                      <div class="avatar-title">{{ props.item.username }}</div>
+                    </div>
                   </td>
                   <td class="text-xs-left">{{ props.item.request_role | capitalize }}</td>
                   <td class="text-xs-left">{{ props.item.created_at | formatDate }}</td>
@@ -57,13 +59,15 @@
                 class="user-table">
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">
-                    <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
-                    {{ props.item.display_name }}
+                    <div class="avatar-image-wrapper">
+                      <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
+                      <div class="avatar-title">{{ props.item.username }}</div>
+                    </div>
                   </td>
                   <td class="text-xs-left">{{ props.item.request_role | capitalize }}</td>
                   <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>
                   <td class="text-xs-center">{{ props.item.approved_at | formatDate }}</td>
-                  <td class="text-xs-left">{{ props.item.approver.display_name }}</td>
+                  <td class="text-xs-left">{{ props.item.approver ? props.item.approver.display_name : '' }}</td>
                   <td class="text-xs-left"><v-btn color="primary" class="signups-btn">Click to view</v-btn></td>
                 </template>
                 <template slot="pageText" slot-scope="{ pageStart, pageStop }">
@@ -77,13 +81,15 @@
                 class="user-table">
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">
-                    <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
-                    {{ props.item.display_name }}
+                    <div class="avatar-image-wrapper">
+                      <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
+                      <div class="avatar-title">{{ props.item.username }}</div>
+                    </div>
                   </td>
                   <td class="text-xs-left">{{ props.item.request_role | capitalize }}</td>
                   <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>
                   <td class="text-xs-center">{{ props.item.approved_at | formatDate }}</td>
-                  <td class="text-xs-left">{{ props.item.approver.display_name }}</td>
+                  <td class="text-xs-left">{{ props.item.approver ? props.item.approver.display_name : '' }}</td>
                   <td class="text-xs-left"><v-btn color="primary" class="signups-btn">Click to view</v-btn></td>
                 </template>
                 <template slot="pageText" slot-scope="{ pageStart, pageStop }">

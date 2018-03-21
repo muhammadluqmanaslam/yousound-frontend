@@ -61,17 +61,25 @@
     letter-spacing: -0.66px;
   }
   .user-table {
-    .avatar-image {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      vertical-align: middle;
-      background-size: cover;
-      background-position: center;
-      overflow: hidden;
-      margin-right: 10px;
-      border-radius: 100%;
-      background-color: rgba(0,0,0,.12);
+    .avatar-image-wrapper {
+      display: flex;
+      flex-direction: row;
+      .avatar-image {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        margin-right: 10px;
+        border-radius: 100%;
+        background-color: rgba(0,0,0,.12);
+      }
+      .avatar-title {
+        display: flex;
+        align-items: center;
+      }
     }
   }
   .product-table,

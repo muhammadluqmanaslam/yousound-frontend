@@ -214,7 +214,7 @@ export default {
         this.$store.dispatch('playlist/setPlaylists', values[2].body)
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(reason => {
-        console.log(reason)
+        // console.log(reason)
         this.$store.dispatch('error/showLoadingActivity', false)
       })
     },
