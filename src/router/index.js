@@ -56,7 +56,28 @@ export function createRouter (settings) {
     { path: '/_oauth/verification', name: 'SocialVerification', component: SocialVerification },
     { path: '/_oauth/stripe_connect_callback', name: 'StripeConnectPage', component: StripeConnectPage },
     { path: '/_oauth/twitter_callback', name: 'TwitterCallbackPage', component: TwitterCallbackPage },
-    { path: '/confirm/:token', name: 'Confirmation', component: Confirmation },
+    { path: '/confirm/:token', name: 'Confirmation', component: Confirmation }
+  ]
+
+  if (!settings.disable_sign_up) {
+    routes = routes.concat([
+      { path: '/register', name: 'RegisterAs', component: RegisterAs },
+      { path: '/register/listener', name: 'ListenerRegister', component: ListenerRegister },
+      { path: '/register/artist', name: 'ArtistRegister', component: ArtistRegister },
+      { path: '/register/label', name: 'LabelRegister', component: LabelRegister },
+      { path: '/register/brand', name: 'BrandRegister', component: BrandRegister }
+    ])
+  } else {
+    routes = routes.concat([
+      { path: '/register', name: 'RegisterAs', redirect: '/login' },
+      { path: '/register/listener', name: 'ListenerRegister', redirect: '/login' },
+      { path: '/register/artist', name: 'ArtistRegister', redirect: '/login' },
+      { path: '/register/label', name: 'LabelRegister', redirect: '/login' },
+      { path: '/register/brand', name: 'BrandRegister', redirect: '/login' }
+    ])
+  }
+
+  routes = routes.concat([
     { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/empty', name: 'EmptyPage', component: EmptyPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
@@ -81,20 +102,10 @@ export function createRouter (settings) {
     { path: '/verified', name: 'UserGetVerified', component: UserGetVerified },
     { path: '/payments', name: 'UserPayments', component: UserPayments },
     { path: '/settings', name: 'UserSettings', component: UserSettings },
-    { path: '/:slug(!register)', name: 'UserProfile', component: UserProfile },
+    { path: '/:slug', name: 'UserProfile', component: UserProfile },
     { path: '/user/:user/chat', name: 'Chat', component: Chat },
     { path: '*', redirect: '/login' }
-  ]
-
-  if (!settings.disable_sign_up) {
-    routes = routes.concat([
-      { path: '/register', name: 'RegisterAs', component: RegisterAs },
-      { path: '/register/listener', name: 'ListenerRegister', component: ListenerRegister },
-      { path: '/register/artist', name: 'ArtistRegister', component: ArtistRegister },
-      { path: '/register/label', name: 'LabelRegister', component: LabelRegister },
-      { path: '/register/brand', name: 'BrandRegister', component: BrandRegister }
-    ])
-  }
+  ])
 
   return new Router({
     mode: 'history',

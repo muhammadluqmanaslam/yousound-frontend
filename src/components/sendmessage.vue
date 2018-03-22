@@ -19,7 +19,7 @@
       <v-flex xs12 class="content-section" :class="{'sm7':$store.state.auth.user.user_type=='artist', 'sm12':$store.state.auth.user.user_type!='artist'}">
         <div class="avatar-image" :style="{'background-image': 'url(' + receiver.avatar.thumb.url + ')'}"></div>
         <p class="user-name">{{ receiver.display_name }} <v-icon class="user-status" v-bind:class="{'online': receiver.status == 'active'}" v-if="receiver.user_type == 'artist'">fa-check-circle</v-icon></p>
-        <label class="repost-price" v-if="$store.state.auth.user.user_type=='artist'">Repost Price: ${{ receiver.repost_price }}</label>
+        <label class="repost-price" v-if="$store.state.auth.user.user_type=='artist'">Repost Price: ${{ receiver.repost_price | formatNumber }}</label>
         <div class="send-message-section relative">
           <textarea v-model="message"
             maxlength="500"
