@@ -138,22 +138,15 @@
           <v-flex xs12 bank-details-section pa-0>
             <v-flex xs12 sm12 form-group>
               <img class="stripe" src="/static/images/stripe.jpg" />
-              <a 
-                :href="stripeLink" 
-                target="_self" 
-                v-if="!$store.state.auth.user.is_stripe_connected"
-              >
-                <v-btn 
-                  class="update-btn top-btn" 
-                  dark 
-                >Connect Stripe</v-btn>
+              <a v-if="!$store.state.auth.user.is_stripe_connected"
+                :href="stripeLink"
+                target="_self">
+                <v-btn class="update-btn top-btn" dark>Connect Stripe</v-btn>
               </a>
-              <!-- <v-btn @click.native="viewStripeAccount()" class="update-btn top-btn" v-if="$store.state.auth.user.is_stripe_connected">View Stripe Account</v-btn> -->
-              <v-btn 
+              <v-btn v-if="$store.state.auth.user.is_stripe_connected"
                 @click.native="disconnetAccount()" 
-                class="update-btn top-btn" 
-                v-if="$store.state.auth.user.is_stripe_connected"
-              >Disconnect Stripe</v-btn>
+                class="update-btn top-btn">Disconnect Stripe</v-btn>
+              <!-- <v-btn @click.native="viewStripeAccount()" class="update-btn top-btn" v-if="$store.state.auth.user.is_stripe_connected">View Stripe Account</v-btn> -->
             </v-flex>
           </v-flex>
         </div>
@@ -163,91 +156,8 @@
           <p></p>
         </div>
       </div>
-      <div class="main-section" v-else-if="tab=='repost-price'">
-        <div class="content-section">
-          <v-flex xs12 repost-price-section pa-0>
-            <v-flex xs12 sm12 form-group>
-              <label class="normal-text">repost price</label>
-              <div class="repost-price-select">
-                <v-select
-                  v-bind:items="repost_prices"
-                  v-model="repost_price"
-                  item-text="name"
-                  item-value="value"
-                  label="Price"
-                  single-line
-                  auto
-                  dirty
-                  text-field
-                ></v-select>
-              </div>
-              <v-btn @click.native="setRepostPrice()" class="update-btn top-btn">Set</v-btn>
-            </v-flex>
-          </v-flex>
-        </div>
-        <div class="description-section">
-          <p>Set Repost Price here.</p>
-        </div>
-      </div>
-      <div class="main-section" v-else-if="tab=='shipping-address'">
-        <div class="content-section">
-          <v-layout row wrap shipping-address-section ma-0>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">First Name</label>
-              <input type="text" class="form-control" v-model="shipping_address.first_name">
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Last Name</label>
-              <input type="text" class="form-control" v-model="shipping_address.last_name">
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Street Address</label>
-              <input type="text" class="form-control" v-model="shipping_address.street_address">
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Apt., Floor, Unit etc. (Optional)</label>
-              <input type="text" class="form-control" v-model="shipping_address.address_line">
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <div class="shipping-address-city-section">
-                <label class="control-label">City</label>
-                <input type="text" class="form-control" v-model="shipping_address.city">
-              </div>
-              <div class="shipping-address-state-section">
-                <label class="control-label">State</label>
-                <div class="shipping-address-state">
-                  <input type="text" class="form-control" v-model="shipping_address.state">
-                </div>
-              </div>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Zipcode</label>
-              <input type="text" class="form-control" v-model="shipping_address.postcode">
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Country</label>
-                <v-select
-                  v-bind:items="countries"
-                  v-model="shipping_address.country"
-                  item-text="name"
-                  item-value="name"
-                  single-line
-                  autocomplete
-                ></v-select>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <v-btn class="update-btn" @click.native="saveShippingAddress()">Save</v-btn>
-            </v-flex>
-          </v-layout>
-        </div>
-        <div class="description-section">
-          <p>Add or change your default shipping address for all of the physical orders you place.</p>
-        </div>
-      </div>
+      <price-tab v-else-if="tab=='repost-price'"></price-tab>
+      <address-tab v-else-if="tab=='shipping-address'"></address-tab>
       <genre-tab v-else-if="tab=='genre-filter'"></genre-tab>
       <div class="main-section" v-else-if="tab=='blocked'">
         <div class="content-section">
@@ -258,11 +168,6 @@
               <label class="blocked-user-name">{{ blockedUser.display_name }}</label>
               <v-btn class="unblock-btn" @click.native="unblockUser(blockedUser)">Unblock</v-btn>
             </v-flex>
-            <!-- <v-flex xs12 sm12 form-group>
-              <img class="blocked-user-profile-image" src="/static/images/user2.jpg" />
-              <label class="blocked-user-name">Kris Boy</label>
-              <v-btn class="unblock-btn" @click.native="unblockUser('user')">Unblock</v-btn>
-            </v-flex> -->
           </v-layout>
         </div>
         <div class="description-section">

@@ -281,25 +281,6 @@ a {
   }
 }
 
-/* global error box */
-.snack__content .btn {
-  margin: 0;
-  min-width: 40px;
-
-  .btn__content {
-    padding: 0;
-  }
-}
-
-.menu__content {
-  z-index: 30 !important;
-  border-radius: 3.75px;
-}
-.menu__content ul {
-  margin-bottom: 0;
-  background-color: #F0F0F0 !important;
-}
-
 .normal-tab {
   position: relative;
   // margin-top: 16.5px;
@@ -324,13 +305,6 @@ a {
     font-size: 18px;
     letter-spacing: -0.5px;
   }
-}
-.tabs__items {
-  overflow: visible;
-  margin-bottom: 150px;
-}
-.tabs.tabs--scroll-bars {
-  // overflow: visible;
 }
 
 .application--light .normal-tab .tabs .tabs__item {

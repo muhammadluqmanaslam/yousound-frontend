@@ -25,4 +25,5 @@
     </div>
   </div>
 </template>
+
 <script type="text/javascript" src="./genre_tab.ctrl.js"></script>

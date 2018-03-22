@@ -5,14 +5,18 @@ import UserService from '@/services/user'
 import trackCard from '@/components/trackcard'
 import profileItem from '@/components/profileitem'
 
+import addressTab from './components/address_tab'
 import genreTab from './components/genre_tab'
+import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
 
 export default {
   components: {
     trackCard,
     profileItem,
+    addressTab,
     genreTab,
+    priceTab,
     verifyTab
   },
 
@@ -58,27 +62,6 @@ export default {
         }
       ],
       tab: 'info',
-      repost_prices: [
-        {name: '$1', value: 100},
-        {name: '$5', value: 500},
-        {name: '$10 Upgrade', value: 1000},
-        {name: '$20 Upgrade', value: 2000},
-        {name: '$50 Upgrade', value: 5000},
-        {name: '$100 Upgrade', value: 10000},
-        {name: '$250 Upgrade', value: 25000},
-        {name: '$500 Upgrade', value: 50000},
-        {name: '$1000 Upgrade', value: 100000}
-      ],
-      countries: [
-        'Australia',
-        'Canada',
-        'China',
-        'France',
-        'Germeny',
-        'Russia',
-        'United Kingdom',
-        'United States'
-      ],
       profile: {
         image: null,
         username: '',
@@ -92,19 +75,7 @@ export default {
         new_password: '',
         confirmed_password: ''
       },
-      repost_price: 0,
       stripeDialog: false,
-      shipping_address: {
-        id: '',
-        first_name: '',
-        last_name: '',
-        street_address: '',
-        address_line: '',
-        city: '',
-        state: '',
-        postcode: '',
-        country: ''
-      },
       user: {},
       isPageReady: false
     }
@@ -145,12 +116,12 @@ export default {
         case 'password':
           this.resetPassword()
           break
-        case 'repost-price':
-          this.resetRepostPrice()
-          break
-        case 'shipping-address':
-          this.resetShippingAddress()
-          break
+        // case 'repost-price':
+        //   this.resetRepostPrice()
+        //   break
+        // case 'shipping-address':
+        //   this.resetShippingAddress()
+        //   break
         // case 'genre-filter':
         //   this.resetGenres()
         //   break
@@ -182,21 +153,6 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
-    },
-
-    resetShippingAddress () {
-      const address = this.$store.state.auth.user.default_address;
-      if(address) {
-        this.shipping_address.id = address.id
-        this.shipping_address.first_name = address.first_name
-        this.shipping_address.last_name = address.last_name
-        this.shipping_address.street_address = address.street_1
-        this.shipping_address.address_line = address.street_2
-        this.shipping_address.city = address.city
-        this.shipping_address.state = address.state
-        this.shipping_address.postcode = address.postcode
-        this.shipping_address.country = address.country
-      }
     },
 
     cancelAccount () {
@@ -259,53 +215,6 @@ export default {
       })
     },
 
-    setRepostPrice () {
-      const params = new FormData()
-      params.append('user[repost_price]', this.repost_price)
-      this.updateUser(params)
-    },
-
-    saveShippingAddress () {
-      this.$store.dispatch('error/showLoadingActivity', true)
-      const params = new FormData()
-      params.append('shop_address[first_name]', this.shipping_address.first_name)
-      params.append('shop_address[last_name]', this.shipping_address.last_name)
-      params.append('shop_address[street_1]', this.shipping_address.street_address)
-      params.append('shop_address[street_2]', this.shipping_address.address_line)
-      params.append('shop_address[city]', this.shipping_address.city)
-      params.append('shop_address[state]', this.shipping_address.state)
-      params.append('shop_address[country]', this.shipping_address.country)
-      params.append('shop_address[postcode]', this.shipping_address.postcode)
-      params.append('shop_address[set_default]', 1)
-      if(this.shipping_address.id === '') {
-        AddressService.addAddress(params).then(response => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Saved'])
-          this.getUserInfo()
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          if (e.status === 401) {
-            this.$root.$emit('showLoginModal')
-          } else {
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          }
-        })
-      } else {
-        AddressService.updateAddress(this.shipping_address.id, params).then(response => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Saved'])
-          this.getUserInfo()
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          if (e.status === 401) {
-            this.$root.$emit('showLoginModal')
-          } else {
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          }
-        })
-      }
-    },
-
     unblockUser (user) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const userId = user.id
@@ -324,7 +233,7 @@ export default {
     updateUser (params) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const userId = this.$store.state.auth.user.id
-      UserService.updateUserInfo(userId, params).then(response =>  {
+      UserService.updateUserInfo(userId, params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showSuccessToast', ['Saved'])
         AuthService.setUser(response.body)
@@ -345,10 +254,6 @@ export default {
       this.profile.email = this.$store.state.auth.user.email
       this.profile.contact_url = this.$store.state.auth.user.contact_url
       this.profile.enable_alert = this.$store.state.auth.user.enable_alert
-    },
-
-    resetRepostPrice() {
-      this.repost_price = this.$store.state.auth.user.repost_price
     },
 
     saveReturnPolicy () {

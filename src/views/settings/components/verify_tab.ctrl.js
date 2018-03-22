@@ -28,8 +28,10 @@ export default {
       UserService.getUserInfo(this.$store.state.auth.user.id)
     ]).then(values => {
       this.main_genres = values[0].body
-      // AuthService.setUser(values[1].body)
       this.user = values[1].body
+      if (!this.user.genre) {
+        this.user.genre = {}
+      }
 
       this.isPageReady = true
       this.$store.dispatch('error/showLoadingActivity', false)
