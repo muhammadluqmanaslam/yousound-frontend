@@ -26,7 +26,7 @@
     <v-dialog v-model="show_block_user_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Block a User</v-card-title>
-        <v-card-text>Are you sure you want to block &lt;{{ conversation.other.display_name }}&gt;?</v-card-text>
+        <v-card-text>Are you sure you want to block &lt;{{ other_name }}&gt;?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
@@ -160,10 +160,18 @@
             <div class="message-list-section" v-if="conversation.messages && conversation.messages.length > 0">
               <div class="message-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
                 <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
-                <div class="message-section">
-                  <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
+                <template v-if="message.attachment">
+                  <div class="message-section">
+                    <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
+                    <div class="message-content text">
+                      <label class="text-message">{{ message.body }}</label>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
 
-                  <template v-if="message.attachment">
+                  <div class="message-section">
+                    <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
+
                     <template v-if="message.attachment.attachment_type=='repost'">
                       <div class="message-content text request no-top-corner">
                         <div>
@@ -321,15 +329,19 @@
                         <label class="text-message" v-if="false"></label>
                       </div>
                     </template>
-                  </template>
-                  <template v-else>
+
+                    <div class="clear"></div>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="message-section">
+                    <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
                     <div class="message-content text">
                       <label class="text-message">{{ message.body }}</label>
                     </div>
-                  </template>
-
-                  <div class="clear"></div>
-                </div>
+                    <div class="clear"></div>
+                  </div>
+                </template>
               </div>
             </div>
             <div class="send-message-section">

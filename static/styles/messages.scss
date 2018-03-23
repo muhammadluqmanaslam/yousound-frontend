@@ -517,7 +517,7 @@
     font-size: 13.5px;
     color: #9F9F9F;
     letter-spacing: 0;
-    margin-bottom: 22.5px;
+    margin-bottom: 17.5px;
   }
   .message-section {
     .user-avatar-image {
@@ -656,6 +656,10 @@
         }
       }
     }
+  }
+
+  .message-section + .message-section {
+    margin-top: 10px;
   }
 }
 

@@ -257,7 +257,7 @@ export default {
     selectedConversation(index) {
       this.selected_index = index
       this.conversations[this.selected_index].last_message.is_read = true
-      this.loadMessages(this.conversations[this.selected_index].id, false)
+      this.loadMessages(this.conversations[this.selected_index].id, false, true)
     },
 
     setVisitedTime () {
