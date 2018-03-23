@@ -43,6 +43,34 @@
                 <label class="control-label">Album Title<label class="required">*</label></label>
                 <input type="text" class="form-control" v-model="album.name">
               </v-flex>
+              <v-flex xs-12 form-group>
+                <label class="control-label">Released Date<label class="required">*</label></label>
+                <v-menu
+                  class="released-at-picker"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  full-width
+                  :nudge-right="40"
+                  max-width="290px"
+                  min-width="290px"
+                  lazy>
+                  <v-text-field
+                    slot="activator"
+                    v-model="album.released_at"
+                    prepend-icon="event"
+                    readonly></v-text-field>
+                  <v-date-picker v-model="album.released_at" no-title scrollable actions>
+                    <template slot-scope="{ save, cancel }">
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                        <v-btn flat color="primary" @click="save">OK</v-btn>
+                      </v-card-actions>
+                    </template>
+                  </v-date-picker>
+                </v-menu>
+              </v-flex>
               <v-flex xs12 form-group>
                 <label class="control-label">Genre<label class="required">*</label></label>
                 <v-select

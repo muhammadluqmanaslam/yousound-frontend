@@ -1,3 +1,4 @@
+import moment from 'moment'
 import trackUploader from '@/components/trackuploader'
 import UserService from '@/services/user'
 import GenreService from '@/services/genre'
@@ -19,6 +20,7 @@ export default {
       selected_products: null,
       album: {
         name: '',
+        released_at: null,
         genre: '',
         description: '',
         image: null,
@@ -53,6 +55,7 @@ export default {
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })
     if (this.$store.state.auth.user && this.$store.state.auth.user.user_type === 'artist') {
+      this.album.released_at = moment().format('YYYY-MM-DD')
       const params = {
         filter: 'artist',
         page: this.page_index,
@@ -180,6 +183,7 @@ export default {
       const formData = new FormData()
       formData.append('album[name]', this.album.name)
       formData.append('album[description]', this.album.description)
+      formData.append('album[released_at]', this.album.released_at)
       formData.append('album[cover]', this.album.image)
       formData.append('album[track_ids]', track_ids)
       formData.append('album[genre_ids]', genre_ids)

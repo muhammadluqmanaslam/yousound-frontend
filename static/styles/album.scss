@@ -122,6 +122,16 @@
         margin-bottom: 18.75px;
         // margin-bottom: 22.5px;
       }
+      .released-at-picker {
+        .input-group__input {
+          input {
+            padding-left: 10px;
+          }
+        }
+        .input-group__details {
+          display: none;
+        }
+      }
     }
     .promote-album-section {
       background-color: #FFF;
@@ -1101,12 +1111,12 @@
 }
 
 .theme--light .card {
-    background: linear-gradient(to top, #ece9e6, #ffffff);
-  }
+  background: linear-gradient(to top, #ece9e6, #ffffff);
+}
 
 .list__tile {
   font-size: 14px;
-  }
+}
 
 .chip__content {
   border-radius: 200px;
@@ -1116,7 +1126,7 @@
   min-width: 0;
 }
 
-.dialog--scrollable>.card>.card__text{
+.dialog--scrollable > .card > .card__text{
   margin-left: 12px;
   padding-right: 36px;
 }

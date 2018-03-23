@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import moment from 'moment'
 import promoteModal from '@/components/promotemodal'
 import trackUploader from '@/components/trackuploader'
 import AlbumService from '@/services/album'
@@ -79,6 +80,11 @@ export default {
 
           this.album = values[2].body
           this.album_image_url = this.album.cover.url
+          if (this.album.released_at) {
+            this.album.released_at = moment(this.album.released_at).format('YYYY-MM-DD')
+          } else {
+            this.album.released_at = moment().format('YYYY-MM-DD')
+          }
           if (this.album.genres.length > 0) {
             this.genre = this.album.genres[0].id
           }
@@ -199,6 +205,7 @@ export default {
       const formData = new FormData()
       formData.append('album[name]', this.album.name)
       formData.append('album[description]', this.album.description)
+      formData.append('album[released_at]', this.album.released_at)
       if (this.album_image) {
         formData.append('album[cover]', this.album_image)
       }
