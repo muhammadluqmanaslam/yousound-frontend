@@ -118,6 +118,9 @@ export default {
     },
 
     loadMessages(id, loadMore, scrollMove) {
+      if (scrollMove) {
+        this.$store.dispatch('error/showLoadingActivity', true)
+      }
       MessageService.getMessages(id).then(response => {
         if (loadMore) {
           // this.conversation.messages = this.conversation.messages.concat(response.body.messages)
@@ -133,9 +136,11 @@ export default {
           }
         }
         // this.$forceUpdate()
+        this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(e => {
-        console.log(e)
+        // console.log(e)
         // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        this.$store.dispatch('error/showLoadingActivity', false)
       })
     },
 
