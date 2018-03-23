@@ -97,13 +97,13 @@ export default {
       if (this.shippingAddress.length > 0) {
         // console.log(token)
         this.$store.dispatch('error/showLoadingActivity', true)
-        const params = new FormData()
-        params.append('shipping_address_id', this.shippingAddress[0].id)
+        let params = {
+          shipping_address_id: this.shippingAddress[0].id
+        }
         if(token) {
-          params.append('payment_token', token.id)
+          params['payment_token'] = token.id
         }
         ItemService.orderItems(params).then(response => {
-          this.hidePaymentDialog()
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
           this.$store.dispatch('activity/setCartCount', 0)
@@ -118,16 +118,16 @@ export default {
       }
     },
 
-    hidePaymentDialog () {
-      this.showPaymentModal = false
-    },
-
-    showPaymentDialog () {
+    openPaymentDialog () {
       if (this.shippingAddress.length == 0) {
         this.$store.dispatch('error/showErrorToast', ['Please add Shipping Address.'])
       } else {
         this.showPaymentModal = true  
       }
+    },
+
+    closePaymentDialog () {
+      this.showPaymentModal = false
     },
 
     hideShippingAddress () {

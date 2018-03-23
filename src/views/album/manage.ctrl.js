@@ -73,7 +73,7 @@ export default {
         this.$router.push({ path: '/'})
       } else {
         const lastState = this.$store.getters['navigator/last']
-        if (lastState.page === 'upload') {
+        if (lastState.page === 'upload' && lastState.params && lastState.params.album_id) {
           this.activeTab = 'pending'
           this.$store.dispatch('navigator/setCurrentState', { page: 'manage', tab: 'pending' })
           AlbumService.getAlbum(lastState.params.album_id).then(response => {

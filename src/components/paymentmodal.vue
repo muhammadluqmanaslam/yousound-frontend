@@ -91,6 +91,7 @@
 
     methods: {
       sendPayment () {
+        this.dismiss()
         this.sent_payment = true
         if (this.payment_method === 'stripe') {
           createToken().then(data => {

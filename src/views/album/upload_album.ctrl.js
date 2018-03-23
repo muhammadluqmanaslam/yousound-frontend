@@ -3,6 +3,7 @@ import UserService from '@/services/user'
 import GenreService from '@/services/genre'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
+import ProfileService from '@/services/profile'
 import { CollaboratorRoleTypes } from '@/helper'
 
 export default {
@@ -29,7 +30,7 @@ export default {
       contributors: [],
       page_index: 1,
       total_pages: 1,
-      items_per_page: 20 * 5,
+      items_per_page: 30,
       collaborators_confirm_dialog: false,
       isPageReady: false
     }
@@ -53,14 +54,16 @@ export default {
     this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })
     if (this.$store.state.auth.user && this.$store.state.auth.user.user_type === 'artist') {
       const params = {
-        'page': this.page_index,
-        'per_page': this.items_per_page
+        filter: 'artist',
+        page: this.page_index,
+        per_page: this.items_per_page
       }
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         GenreService.getGenres2(),
-        UserService.searchUsers(params),
+        // UserService.searchUsers(params),
+        ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params),
         ProductService.getProducts({
           statuses: 'published, collaborated',
           stock_statuses: 'active',
@@ -78,7 +81,7 @@ export default {
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(reason => {
-        console.log(reason)
+        // console.log(reason)
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', reason)
       })

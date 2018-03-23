@@ -201,7 +201,7 @@
               <v-flex xs12 sm6>
                 <label class="control-label">Collaborators<label class="required">*</label></label>
                 <v-select
-                  :items="artists"
+                  :items="users"
                   v-model="collaborator.user_id"
                   item-text="username"
                   item-value="id"

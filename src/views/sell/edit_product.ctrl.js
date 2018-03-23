@@ -1,5 +1,6 @@
 import CategoryService from '@/services/category'
 import ProductService from '@/services/product'
+import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
 import { CollaboratorProfitShareTypes } from '@/helper'
 
@@ -68,14 +69,16 @@ export default {
     if (this.$store.state.auth.user && ['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) > -1) {
       this.prod_id = this.$route.params.id
       const params = {
-        'page': 1,
-        'per_page': 30
+        filter: 'artist',
+        page: 1,
+        per_page: 30
       }
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         CategoryService.getCategories(),
-        UserService.searchUsers(params),
+        // UserService.searchUsers(params),
+        ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params),
         ProductService.getProduct(this.prod_id)
       ]).then(values => {
         for(let index in values[0].body) {

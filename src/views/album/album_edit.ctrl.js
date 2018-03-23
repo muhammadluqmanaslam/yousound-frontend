@@ -4,6 +4,7 @@ import trackUploader from '@/components/trackuploader'
 import AlbumService from '@/services/album'
 import GenreService from '@/services/genre'
 import ProductService from '@/services/product'
+import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
 import { CollaboratorRoleTypes } from '@/helper'
 
@@ -69,7 +70,8 @@ export default {
             user_statuses: 'accepted'
           }),
           AlbumService.getAlbum(this.slug),
-          UserService.searchUsers(params)
+          // UserService.searchUsers(params)
+          ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params)
         ]).then(values => {
           this.genres = _.flatMap(values[0].body, 'children')
           this.products = values[1].body

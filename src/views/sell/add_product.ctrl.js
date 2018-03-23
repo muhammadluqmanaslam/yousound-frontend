@@ -1,5 +1,6 @@
 import CategoryService from '@/services/category'
 import ProductService from '@/services/product'
+import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
 import { CollaboratorProfitShareTypes } from '@/helper'
 
@@ -92,7 +93,8 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         CategoryService.getCategories(),
-        UserService.searchUsers(params)
+        // UserService.searchUsers(params)
+        ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params)
       ]).then(values => {
         for(let index in values[0].body) {
           const item = values[0].body[index]

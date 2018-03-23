@@ -1,5 +1,11 @@
 <template>
   <div class="page cart-page">
+    <payment-modal v-if="showPaymentModal"
+      :type="''"
+      :amount="cartCost.total_cost"
+      :dismiss="closePaymentDialog"
+      :finish="orderItems"></payment-modal>
+
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Checkout</h2>
     </v-flex>
@@ -22,19 +28,13 @@
           <label class="status-title value">${{ cartCost.total_cost|formatNumber }}</label>
         </div>
         <div class="action-row">
-          <v-btn class="place-order-btn" @click.native="showPaymentDialog()">Place Order</v-btn>
+          <v-btn class="place-order-btn" @click.native="openPaymentDialog()">Place Order</v-btn>
         </div>
       </div>
       <v-flex xs12 class="shipping-address-section">
         <a class="shipping-address-header" :class="{'open': showAddress}" @click.self="showAddress = !showAddress">
           <div class="arrow"></div> Default Shipping Address
           <div class="shipping-address-content" v-if="shippingAddress.length">
-            <!-- <label>123 Main Street</label>
-            <label>San Francisco, CA</label>
-            <label>United States</label> -->
-            <!-- <label>{{ shippingAddress[shippingAddress.length-1].street_1 }} {{ shippingAddress[shippingAddress.length-1].street_2 }}</label>
-            <label>{{ shippingAddress[shippingAddress.length-1].city }}, {{ shippingAddress[shippingAddress.length-1].state }} {{ shippingAddress[shippingAddress.length-1].postcode }}</label>
-            <label>{{ shippingAddress[shippingAddress.length-1].country }}</label> -->
             <label>{{ shippingAddress[0].street_1 }} {{ shippingAddress[0].street_2 }}</label>
             <label>{{ shippingAddress[0].city }}, {{ shippingAddress[0].state }} {{ shippingAddress[0].postcode }}</label>
             <label>{{ shippingAddress[0].country }}</label>
@@ -69,16 +69,16 @@
                   <v-flex sm12 class="product-content-row">
                     <label class="product-name">{{ item.product.name }}</label>
                     <v-btn
-                        class="product-count-adjust-btn active"
-                        @click.native="addQuantity(item)">
+                      class="product-count-adjust-btn active"
+                      @click.native="addQuantity(item)">
                       <v-icon>add</v-icon>
                     </v-btn>
                     <label class="product-count">{{ item.quantity }}</label>
                     <v-btn
-                        class="product-count-adjust-btn"
-                        :class="{'active': item.quantity > 1}"
-                        :disabled="item.quantity <= 1"
-                        @click.native="removeQuantity(item)">
+                      class="product-count-adjust-btn"
+                      :class="{'active': item.quantity > 1}"
+                      :disabled="item.quantity <= 1"
+                      @click.native="removeQuantity(item)">
                       <v-icon>remove</v-icon>
                     </v-btn>
                   </v-flex>
@@ -96,11 +96,6 @@
           </div>
         </v-flex>
     </v-flex>
-    <payment-modal v-if="showPaymentModal"
-        :type="''"
-        :amount="cartCost.total_cost"
-        :dismiss="hidePaymentDialog"
-        :finish="orderItems"></payment-modal>
   </div>
 </template>
 <script type="text/javascript" src="./checkout.ctrl.js"></script>
