@@ -49,13 +49,13 @@
                     </v-flex>
                     <v-flex xs12 sm12>
                       <label class="album-info-label">Release Date: </label>
-                      <label class="album-info-text">{{ album.created_at | formatDate }}</label>
+                      <label class="album-info-text">{{ album.released_at | formatDate }}</label>
                     </v-flex>
                     <v-flex xs12 sm12>
                       <label class="album-info-label">Genre: </label>
                       <label class="album-info-text">{{ genres }}</label>
                     </v-flex>
-                    <v-flex xs12 sm12>
+                    <v-flex xs12 sm12 v-if="album.collaborators && album.collaborators.length > 0">
                       <label class="album-info-label">Collaborators: </label>
                       <label class="album-info-text">
                         <template v-for="c in album.collaborators">
@@ -65,7 +65,7 @@
                         </template>
                       </label>
                     </v-flex>
-                    <v-flex xs12 sm12>
+                    <v-flex xs12 sm12 v-if="album.contributors && album.contributors.length > 0">
                       <label class="album-info-label">Contributors: </label>
                       <label class="album-info-text">
                         <template v-for="c in album.contributors">
