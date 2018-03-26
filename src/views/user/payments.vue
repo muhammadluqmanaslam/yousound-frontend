@@ -62,10 +62,11 @@
               <table class="payment-table" v-else>
                 <thead>
                   <tr>
-                    <th width="50%" class="text-xs-left">Sender</th>
+                    <th width="40%" class="text-xs-left">Sender</th>
                     <th width="10%">Sent</th>
                     <th width="10%">Received</th>
                     <th width="10%">Type</th>
+                    <th width="10%">Status</th>
                     <th width="10%">Date</th>
                     <th width="10%">Message</th>
                   </tr>
@@ -108,7 +109,8 @@
                         {{ history.description || history.payment_type }}
                       </template>
                     </td>
-                    <td class="text-xs-center">Jan 1, 2016</td>
+                    <td class="text-xs-center" :class="{'error--text': history.status == 'pending'}">{{ history.status | capitalize }}</td>
+                    <td class="text-xs-center">{{ history.created_at | formatDate }}</td>
                     <td class="text-xs-center">
                       <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
                     </td>

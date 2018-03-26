@@ -134,17 +134,11 @@ export default {
           ActivityService.makeRead(type).then(response => {
             ActivityService.getUnread().then(response => {
               this.$store.dispatch('activity/setCount', response.body)
-            }).catch(e => {
-              console.log(e)
             })
-          }).catch(e => {
-            console.log(e)
           })
         } else {
           ActivityService.getUnread().then(response => {
             this.$store.dispatch('activity/setCount', response.body)
-          }).catch(e => {
-            console.log(e)
           })
         }
       }

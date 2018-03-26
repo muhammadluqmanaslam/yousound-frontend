@@ -24,6 +24,10 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + id + '/deny_repost', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  acceptRepostOnFree (id) {
+    return Vue.http.get(API_BASE_URL + '/' + id + '/accept_repost_on_free', { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   getMessages (id) {
     return Vue.http.get(API_BASE_URL + '?conversation_id=' + id, { headers: { 'Authorization': $store.state.auth.token } })
   },

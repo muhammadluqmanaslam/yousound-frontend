@@ -184,7 +184,7 @@
                               <label class="status-title">Repost request: </label>
                               <v-btn class="status-btn" @click.native="acceptRepostRequest(message)">Accept</v-btn>
                               <v-btn class="status-btn" @click.native="denyRepostRequest(message)">Deny</v-btn>
-                              <v-btn class="status-btn">Repost free</v-btn>
+                              <v-btn class="status-btn" @click.native="acceptRepostRequestOnFree(message)">Repost free</v-btn>
                             </div>
                           </div>
 

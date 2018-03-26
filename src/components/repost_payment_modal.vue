@@ -13,7 +13,7 @@
           <div class="repost-item-owner">{{ itemOwner }}</div>
         </div>
         <div class="payment">
-          <p>This user charge <strong>$1.00</strong> for repost requests.</p>
+          <p>This user charge <strong>${{ user.repost_price | formatNumber }}</strong> for repost requests.</p>
           <p>You card isn't charged unless this user choose to repost your content. Users can accept, deny, or repost for free. If the user doesn't respond in 3 days, the request is automatically denied</p>
 
           <v-flex xs12 class="payment-section">

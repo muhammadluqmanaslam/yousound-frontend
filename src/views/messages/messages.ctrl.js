@@ -338,7 +338,7 @@ export default {
     },
 
     acceptRepostRequest (message) {
-      MessageService.acceptRepost(message.id).then( response => {
+      MessageService.acceptRepost(message.id).then(response => {
         this.refreshMessages()
         this.$store.dispatch('error/showSuccessToast', ["Accepted a repost request!"])
       }).catch(e => {
@@ -347,9 +347,18 @@ export default {
     },
 
     denyRepostRequest (message) {
-      MessageService.denyRepost(message.id).then( response => {
+      MessageService.denyRepost(message.id).then(response => {
         this.refreshMessages()
         this.$store.dispatch('error/showErrorToast', ["Denied a repost request!"])
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    acceptRepostRequestOnFree (message) {
+      MessageService.acceptRepostOnFree(message.id).then(response => {
+        this.refreshMessages()
+        this.$store.dispatch('error/showSuccessToast', ["Accepted a repost request on free!"])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
