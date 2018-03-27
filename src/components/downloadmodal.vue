@@ -48,7 +48,7 @@
   import AlbumService from '@/services/album'
   import UserService from '@/services/user'
   import paymentModal from '@/components/paymentmodal'
-  import { Utils } from '@/helper'
+  // import { Utils } from '@/helper'
 
   export default {
     components: {
@@ -143,14 +143,14 @@
         if (this.track) {
           // console.log(this.track)
           // AlbumService.downloadAlbum(this.item.id)
-          // window.open(this.track.audio.url, '_blank')
-          var filePath = this.track.audio.url
+          // window.open(this.track.audio_download_url, '_blank')
+
           var a = document.createElement('A')
-          a.href = filePath
-          a.download = Utils.getFilenameWithExtension(this.track.name)
+          a.href = this.track.audio_download_url
           document.body.appendChild(a)
           a.click()
           document.body.removeChild(a)
+
           // window.download(this.track.audio.url, Utils.getFilenameWithExtension(this.track.name)
           // const filename = Utils.getFilenameWithExtension(this.track.name)
           // window.jQuery.ajax({
@@ -160,7 +160,12 @@
           // })
         } else {
           AlbumService.downloadAlbum(this.item.id).then(response => {
-            this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
+            // this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
+            var a = document.createElement('A')
+            a.href = response.body.url
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })

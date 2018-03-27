@@ -8,7 +8,7 @@
     <album-finish-modal :item="album" :promote="showPromoteModal" :dismiss="dismissFinishDialog" v-if="isShowFinishModal"></album-finish-modal>
     <share-modal v-if="showShareModal" :item="album" :dismiss="closeShareModal"></share-modal>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages">
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
           <div class="album-image" :style="`background-image: url(${coverImageURL})`"> </div>
@@ -88,7 +88,6 @@
               <template v-for="collaborator in album.collaborators">
                 , <router-link :to="'/' + collaborator.user.slug" class="album-detail">{{ collaborator.user.display_name }}</router-link>
               </template> •  2017 <label class="album-stats-btn" @click="goToAlbumStats('playedby')" v-if="showStats">View Stats</label>
-
               <!-- <div class="album-stats" v-if="showStats">
                 <v-btn class="action-btn" @click.native="goToAlbumStats('playedby')">
                   <v-icon>play_arrow</v-icon>{{ album.played }}</v-btn>
@@ -131,7 +130,7 @@
                       </v-list-tile-action>
                     </v-list-tile>
                     <v-list-tile v-for="collaborator in album.collaborators"
-                        :key="collaborator.user.id" class="GLOBAL-album-collaborators-follow-item" avatar>
+                      :key="collaborator.user.id" class="GLOBAL-album-collaborators-follow-item" avatar>
                       <v-list-tile-avatar>
                         <img :src="collaborator.user.avatar.thumb.url"/>
                       </v-list-tile-avatar>
@@ -188,7 +187,7 @@
         </div>
       </div>
 
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="$store.state.auth.user">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="$store.state.auth.user">
         <h4 class="comment-title">Talk to {{ album.user.display_name }}</h4>
         <label class="description">Comments are only seen by the artist and people you @mention, unless artist makes your comment public.</label>
         <div class="comments-section">
@@ -209,20 +208,16 @@
                 v-model="commentString" 
                 @keyup.enter="addComments()"
                 @blur="blurMessage()"
-                ref="comment"
-              />
-              <picker
+                ref="comment"/>
+              <picker v-if="showEmojiPicker"
                 title="Pick your emoji…"
                 emoji="point_up"
                 class="emoji-picker"
-                @click="addEmoji"
-                v-if="showEmojiPicker"
-              ></picker>
+                @click="addEmoji"></picker>
               <v-btn 
                 class="show-emoji-box-btn" 
                 :class="{'selected': showEmojiPicker}"
-                @click.native="showEmojiDialog()"
-              >
+                @click.native="showEmojiDialog()">
                 <v-icon>tag_faces</v-icon>
               </v-btn>
             </div>
@@ -269,8 +264,8 @@
                   <div class="comment-child-item">
                     <img class="profile-image" src="/static/images/sample_user.png" />
                     <div class="comment-content relative">
-                      <!-- <label class="user-name">Ruckazoid <v-icon class="user-status online">fa-check-circle</v-icon></label> -->
-                      <p class="comment-text">🙌🏿 You da man! Thanks bro.</p>
+                      <label class="user-name">Ruckazoid <v-icon class="user-status online">fa-check-circle</v-icon></label>
+                      <p class="comment-text">You da man! Thanks bro.</p>
                     </div>
                     <div class="right-section">
                       <v-menu offset-y class="comment-more-action">
