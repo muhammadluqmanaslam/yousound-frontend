@@ -11,32 +11,18 @@
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages">
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
-          <div class="album-image" :style="`background-image: url(${coverImageURL})`"> </div>
-          <div class="play-button-section">
-            <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
-              <v-icon class="play">play_arrow</v-icon>
-            </v-btn>
-            <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
-              <v-icon class="pause">pause</v-icon>
-            </v-btn>
-          </div>
-          <div class="album-merch-section" v-if="album.products.length">
-            <h3 class="title">Artist Merch</h3>
-            <div class="merch-detail-section" @click.self="showMerchDialog()">
-              <div class="merch-avatar" :style="`background-image: url(${album.products[0].covers[0].cover.thumb.url})`" @click.self="showMerchDialog()"></div>
-              <div class="info-section" @click.self="showMerchDialog()">
-                <label class="merch-name" @click.self="showMerchDialog()">{{ album.products[0].name }}</label>
-                <label class="merch-price" @click.self="showMerchDialog()">${{ album.products[0].price | formatNumber }}</label>
-                <label class="link-btn" @click="goToArtistProfile()">View all artists merch</label>
-              </div>
+          <div class="album-image" :style="`background-image: url(${coverImageURL})`"></div>
+          <div class="album-hover-section">
+            <div class="play-button-section">
+              <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
+                <v-icon class="play">play_arrow</v-icon>
+              </v-btn>
+              <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
+                <v-icon class="pause">pause</v-icon>
+              </v-btn>
             </div>
-          </div> 
-        </div> 
-        <div class="album-detail-section">
-          <div class="album-info-section">
-            <label class="album-title">{{ album.album_type }}</label>
-            <h4 class="album-name">{{ album.name }}</h4>
-            <div>
+            <!-- <v-btn class="credit-button">View album credits</v-btn> -->
+            <div class="credits-dialog-wrapper">
               <v-dialog v-model="dialog" class="album-credits-dialog" scrollable max-width="600px">
                 <v-btn color="primary" dark slot="activator" class="text-btn">View album credits</v-btn>
                 <v-card class="album-dialog-body">
@@ -87,6 +73,74 @@
                 </v-card>
               </v-dialog>
             </div>
+          </div>
+          <div class="album-merch-section" v-if="album.products.length">
+            <h3 class="title">Artist Merch</h3>
+            <div class="merch-detail-section" @click.self="showMerchDialog()">
+              <div class="merch-avatar" :style="`background-image: url(${album.products[0].covers[0].cover.thumb.url})`" @click.self="showMerchDialog()"></div>
+              <div class="info-section" @click.self="showMerchDialog()">
+                <label class="merch-name" @click.self="showMerchDialog()">{{ album.products[0].name }}</label>
+                <label class="merch-price" @click.self="showMerchDialog()">${{ album.products[0].price | formatNumber }}</label>
+                <label class="link-btn" @click="goToArtistProfile()">View all artists merch</label>
+              </div>
+            </div>
+          </div> 
+        </div> 
+        <div class="album-detail-section">
+          <div class="album-info-section">
+            <label class="album-title">{{ album.album_type }}</label>
+            <h4 class="album-name">{{ album.name }}</h4>
+            <!-- <div>
+              <v-dialog v-model="dialog" class="album-credits-dialog" scrollable max-width="600px">
+                <v-btn color="primary" dark slot="activator" class="text-btn">View album credits</v-btn>
+                <v-card class="album-dialog-body">
+                  <v-card-title>Album Credits</v-card-title>
+                  <v-btn class="dialog-close-btn" @click.native="dialog=false"><v-icon>highlight_off</v-icon></v-btn>
+                  <v-card-text style="height: 300px;">
+                    <v-flex xs12 sm12>
+                      <label class="album-info-label">Album Name: </label>
+                      <label class="album-info-text">{{ album.name }}</label>
+                    </v-flex>
+                    <v-flex xs12 sm12>
+                      <label class="album-info-label">Release Date: </label>
+                      <label class="album-info-text">{{ album.released_at | formatDate }}</label>
+                    </v-flex>
+                    <v-flex xs12 sm12>
+                      <label class="album-info-label">Genre: </label>
+                      <label class="album-info-text">{{ genres }}</label>
+                    </v-flex>
+                    <v-flex xs12 sm12 v-if="album.collaborators && album.collaborators.length > 0">
+                      <label class="album-info-label">Collaborators: </label>
+                      <label class="album-info-text">
+                        <template v-for="c in album.collaborators">
+                          <div class="collaborator-info">
+                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
+                        </template>
+                      </label>
+                    </v-flex>
+                    <v-flex xs12 sm12 v-if="album.contributors && album.contributors.length > 0">
+                      <label class="album-info-label">Contributors: </label>
+                      <label class="album-info-text">
+                        <template v-for="c in album.contributors">
+                          <div class="contributor-info">
+                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
+                        </template>
+                      </label>
+                    </v-flex>
+                    <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
+                      <label class="album-info-label">Label: </label>
+                      <label class="album-info-text">
+                        <router-link class="user-name" :to="`/${album.labels[0].user.slug}`">{{ album.labels[0].user.display_name }}</router-link>
+                      </label>
+                    </v-flex>
+                    <v-flex xs12 sm12>
+                      <div class="album-info-label">About the album: </div>
+                      <label class="album-info-text">{{ album.description }}</label>
+                    </v-flex>
+                  </v-card-text>
+                </v-card>
+              </v-dialog>
+            </div> -->
             <div class="album-detail">
               by <router-link :to="'/' + album.user.slug" class="album-detail">{{ album.user.display_name }}</router-link>
               <template v-for="collaborator in album.collaborators">

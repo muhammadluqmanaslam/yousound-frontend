@@ -51,7 +51,7 @@ const getters = {
   },
 
   isSliderProfileTheme: (state) => {
-    if (state.page === 'profile') {
+    if (state.page === 'profile' && state.tab !== 'merch') {
       return true
     } else {
       return false
