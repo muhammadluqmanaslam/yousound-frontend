@@ -1,6 +1,4 @@
-
 const state = {
-  tab: null,
   stripe: null
 }
 
@@ -8,20 +6,12 @@ const getters = {
 }
 
 const actions = {
-  setTab ({ commit }, tab) {
-    commit('setTab', tab)
-  },
-
   setStripe ({ commit }, stripe) {
     commit('setStripe', stripe)
   }
 }
 
 const mutations = {
-  setTab (state, tab) {
-    state.tab = tab
-  },
-
   setStripe (state, stripe) {
     state.stripe = stripe
   }

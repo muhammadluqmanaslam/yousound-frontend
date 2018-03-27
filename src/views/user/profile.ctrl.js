@@ -87,16 +87,12 @@ export default {
       showSendMessage: false,
       showShareModal: false,
       showSendLoveModal: false,
-      grid_show: false,
+      grid_show: true,
       startIndex: 0,
       page_index: 1,
       total_pages: 1,
       items_per_page: 6 * 1,
-      genres: [{
-        id: 'any',
-        name: 'Any genre',
-        slug: 'any'
-      }],
+      genres: null,
       genre_index: 0,
       followings_selector: 'followings',
       products:[],
@@ -145,7 +141,7 @@ export default {
       const paths = toPath.path.split('/')
       this.slug = paths[1]
       const tab = toPath.hash.substr(1)
-      const grid_view = toPath.query.grid_view
+      const grid_view = toPath.query.grid_view === undefined ? true : (toPath.query.grid_view === 'true' || toPath.query.grid_view === true)
       this.init(tab, grid_view)
     }
   },
@@ -153,7 +149,9 @@ export default {
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: '' })
     this.slug = this.$route.params.slug
-    this.init(null, true)
+    const tab = this.$route.hash.substr(1)
+    const grid_view = this.$route.query.grid_view === undefined ? true : (this.$route.query.grid_view === 'true' || this.$route.query.grid_view === true)
+    this.init(tab, grid_view)
   },
 
   methods: {
@@ -188,6 +186,11 @@ export default {
     init (tab, grid_view) {
       this.showSendMessage = false
       this.startIndex = 0
+      this.genres = [{
+        id: 'any',
+        name: 'Any genre',
+        slug: 'any'
+      }]
 
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.slug).then(response => {
@@ -197,12 +200,6 @@ export default {
           this.slide_tab = tab
         } else {
           if (this.user.user_type === 'artist') {
-          //   if (this.$store.state.user.tab) {
-          //     this.currentTab = this.$store.state.user.tab
-          //     this.slide_tab = this.$store.state.user.tab
-          //     this.$store.dispatch('user/setTab', null)
-          //     this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: this.currentTab})
-          //   }
             this.currentTab = 'songs'
             this.slide_tab = 'songs'
           } else if (this.user.user_type === 'label') {
@@ -219,19 +216,20 @@ export default {
         if (grid_view) {
           this.currentTab = this.slide_tab
         } else {
-          switch (this.currentTab) {
-            case 'artists':
-              this.slide_tab = 'catalog'
-              this.onTab(this.slide_tab) 
-              break
-            case 'followings':
-              this.slide_tab = 'downloaded'
-              this.onTab(this.slide_tab) 
-              break
-            default:
-              this.slide_tab = this.currentTab
-              break
-          }
+          // switch (this.currentTab) {
+          //   case 'artists':
+          //     this.slide_tab = 'catalog'
+          //     this.onTab(this.slide_tab) 
+          //     break
+          //   case 'followings':
+          //     this.slide_tab = 'downloaded'
+          //     this.onTab(this.slide_tab) 
+          //     break
+          //   default:
+          //     this.slide_tab = this.currentTab
+          //     break
+          // }
+          this.slide_tab = this.currentTab
         }
 
         this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.currentTab })
@@ -264,6 +262,9 @@ export default {
             for (let index in response.body.products) {
               this.isShowModal.push(false)
             }
+            ProfileService.getItems(this.user.id, 'songs', params).then(res => {
+              this.fillAlbums(res.body.albums)
+            })
             break
           case 'followers':
           case 'followings':
@@ -271,7 +272,7 @@ export default {
             this.users = this.users.concat(response.body.users)
             break
           default:
-            var albums = []
+            let albums = []
             if (tab === 'reposted') {
               for(let index in response.body.feeds) {
                 if (response.body.feeds[index].assoc_type === 'Album') {
@@ -281,38 +282,8 @@ export default {
             } else {
               albums = response.body.albums
             }
-            for (let album_index in albums) {
-              const album = albums[album_index]
-              var genre_ids = []
-              for (let new_index in album.genres) {
-                let add_flag = true
-                const genre_id = album.genres[new_index].id
-                genre_ids.push(genre_id)
-                for (let genre_index in this.genres) {
-                  if (genre_id === this.genres[genre_index].id) {
-                    add_flag = false
-                    break
-                  }
-                }
-                if (add_flag) {
-                  this.genres.push(album.genres[new_index])
-                }
-              }
-              album.genre_ids = genre_ids.join(',')
-              this.albums.push(album)
-              if (this.$store.state.player.isPlaying && !this.grid_show) {
-                const currentItem = this.$store.state.player.list[this.$store.state.player.listIndex]
-                if (currentItem.assoc_type) {
-                  if (currentItem.assoc.id === album.id) {
-                    this.startIndex = album_index
-                  }
-                } else {
-                  if (currentItem.id === album.id) {
-                    this.startIndex = album_index
-                  }
-                }
-              }
-            }
+            this.fillAlbums(albums)
+
             if(!this.grid_show) {
               this.changeBackground()
             }
@@ -325,6 +296,31 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
+    },
+
+    fillAlbums (albums) {
+      let genres = this.genres.slice()
+      for (let album_index in albums) {
+        const album = albums[album_index]
+        genres = genres.concat(album.genres)
+        album.genre_ids = _.map(album.genres, 'id').join(',')
+        this.albums.push(album)
+
+        /* focus the album on playing in slider view */
+        if (this.$store.state.player.isPlaying && !this.grid_show) {
+          const currentItem = this.$store.state.player.list[this.$store.state.player.listIndex]
+          if (currentItem.assoc_type) {
+            if (currentItem.assoc.id === album.id) {
+              this.startIndex = album_index
+            }
+          } else {
+            if (currentItem.id === album.id) {
+              this.startIndex = album_index
+            }
+          }
+        }
+      }
+      this.genres = _.uniqBy(genres, 'id')
     },
 
     setFollowingsSelector (value, name) {
@@ -479,7 +475,7 @@ export default {
     },
 
     playSong () {
-      if(this.albums.length) {
+      if (this.albums.length) {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
         this.setPlaying(true)

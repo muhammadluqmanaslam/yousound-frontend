@@ -60,8 +60,7 @@
                       <label class="album-info-text">
                         <template v-for="c in album.collaborators">
                           <div class="collaborator-info">
-                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}
-                          </div>
+                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
                         </template>
                       </label>
                     </v-flex>
@@ -70,9 +69,14 @@
                       <label class="album-info-text">
                         <template v-for="c in album.contributors">
                           <div class="contributor-info">
-                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}
-                          </div>
+                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
                         </template>
+                      </label>
+                    </v-flex>
+                    <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
+                      <label class="album-info-label">Label: </label>
+                      <label class="album-info-text">
+                        <router-link class="user-name" :to="`/${album.labels[0].user.slug}`">{{ album.labels[0].user.display_name }}</router-link>
                       </label>
                     </v-flex>
                     <v-flex xs12 sm12>

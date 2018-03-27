@@ -435,8 +435,10 @@ export default {
     },
 
     goToArtistProfile() {
-      this.$store.dispatch('user/setTab', 'merch')
-      this.$router.push({ path: '/' + this.album.user.slug })
+      this.$router.push({
+        path: '/' + this.album.user.slug,
+        hash: 'merch'
+      })
     },
 
     showMerchDialog () {

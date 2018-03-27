@@ -35,7 +35,7 @@ const getters = {
   },
 
   isGrayTheme: (state) => {
-    if (state.page === 'upload' || state.page === 'merch' || state.page === 'profile_merch') {
+    if (state.page === 'upload' || state.page === 'merch' || (state.page === 'profile' && state.tab === 'merch')) {
       return true
     } else {
       return false
