@@ -220,7 +220,7 @@
         </v-btn>
         <span>Chat</span>
       </v-tooltip>
-      <download-modal :item="item" :dismiss="dismissDownloadDialog" v-if="showDownloadModal"></download-modal>
+      <download-modal :item="item" :track="track" :dismiss="dismissDownloadDialog" v-if="showDownloadModal"></download-modal>
       <share-modal :item="item" :dismiss="dismissShareDialog" v-if="showShareModal"></share-modal>
     </v-flex>
   </v-layout>
