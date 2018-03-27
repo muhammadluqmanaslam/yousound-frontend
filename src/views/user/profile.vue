@@ -17,7 +17,7 @@
       </v-card>
     </v-dialog>
 
-    <div class="page profile-slider-page image-container" v-show="!grid_show">
+    <div class="page profile-slider-page image-container" v-if="!grid_show">
       <canvas id="canvas" class="background-image" v-if="slide_tab!='merch'"></canvas>
       <div id="back_image" class="background-overlay" v-if="slide_tab!='merch'"></div>
 
@@ -91,7 +91,7 @@
           </div>
           <div class="profile-slider-tab">
             <v-tabs dark v-model="slide_tab">
-              <v-tabs-bar class="transparent" id="tabs_section">
+              <v-tabs-bar class="transparent">
                 <v-spacer></v-spacer>
                 <v-tabs-item v-for="tab in tabs"
                   v-if="isAvailableForSlideView(tab)"
@@ -168,7 +168,7 @@
         :dismiss="closePageShareModal"></share-modal>
     </div>
 
-    <div class="page profile-grid-page" v-show="grid_show">
+    <div class="page profile-grid-page" v-if="grid_show">
       <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 id="no_id" style="height:inherit !important;">
         <div class="user-profile-section" v-if="user">
           <div class="user-profile-image-section">
@@ -236,7 +236,7 @@
       </v-flex>
       <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
         <div class="profile-grid-tab">
-          <v-tabs dark v-model="tab">
+          <v-tabs dark v-model="currentTab">
             <v-tabs-bar class="transparent">
               <v-tabs-item v-for="tab in tabs"
                 v-if="isAvailableForGridView(tab)"
@@ -246,7 +246,7 @@
                 ripple>{{ tab.title }}</v-tabs-item>
               <v-tabs-slider color="black"></v-tabs-slider>
               <v-spacer></v-spacer>
-              <v-btn dark class="more-btn" @click.native="setGridView(false)" v-if="tab!='followings'">
+              <v-btn dark class="more-btn" @click.native="setGridView(false)" v-if="currentTab!='followings'">
                 <!-- <v-icon>slideshow</v-icon> -->
                 <svg width="40px" height="30px" viewBox="0 0 40 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
@@ -260,7 +260,7 @@
                   </g>
                 </svg>
               </v-btn>
-              <v-menu offset-y id="followings_selector" class="filter_menu" v-if="tab=='followings'">
+              <v-menu offset-y id="followings_selector" class="filter_menu" v-if="currentTab=='followings'">
                 <v-btn dark slot="activator">Following<v-icon dark right>keyboard_arrow_down</v-icon></v-btn>
                 <v-list>
                   <v-list-tile @click.native="setFollowingsSelector('followings', 'Following')">

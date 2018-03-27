@@ -34,7 +34,7 @@ export default {
 
   data () {
     return {
-      tab: 'songs',
+      currentTab: 'songs',
       slide_tab: 'songs',
       tabs: [
         {
@@ -140,18 +140,20 @@ export default {
     }
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      const paths = toPath.path.split('/')
+      this.slug = paths[1]
+      const tab = toPath.hash.substr(1)
+      const grid_view = toPath.query.grid_view
+      this.init(tab, grid_view)
+    }
+  },
+
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: '' })
     this.slug = this.$route.params.slug
-    this.init()
-  },
-
-  watch: {
-    '$route' (to, from) {
-      const toPath = to.path.split('/')
-      this.slug = toPath[1]
-      this.init()
-    }
+    this.init(null, true)
   },
 
   methods: {
@@ -163,41 +165,77 @@ export default {
       setTab: 'player/setTab'
     }),
 
-    init () {
-      this.showSendMessage = false
-      // this.grid_show = false
-      this.grid_show = true
-      this.setGridView(this.grid_show)
-      this.startIndex = 0
-      this.getUserInfo(this.slug)
+    onTab (tab) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab,
+        query: {
+          grid_view: this.grid_show
+        }
+      })
     },
 
-    getUserInfo (slug) {
-      this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.getUserInfo(slug).then(response => {
-        this.user = response.body
-        if (this.user.user_type === 'artist') {
-          if (this.$store.state.user.tab) {
-            this.tab = this.$store.state.user.tab
-            this.slide_tab = this.$store.state.user.tab
-            this.$store.dispatch('user/setTab', null)
-            this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: this.tab})
-            // this.$store.dispatch('navigator/goNextState', {page: 'profile_merch', tab: this.tab})
-          } else {
-            this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: 'songs'})
-            this.tab = 'songs'
-            this.slide_tab = 'songs'
-          }
-        } else if (this.user.user_type === 'label') {
-          this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: 'artists'})
-          this.tab = 'artists'
-          this.slide_tab = 'artists'
-        } else {
-          this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: 'downloaded'})
-          this.tab = 'downloaded'
-          this.slide_tab = 'downloaded'
+    setGridView (flag) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: this.currentTab,
+        query: {
+          grid_view: flag
         }
-        this.getItems(this.slide_tab, false)
+      })
+    },
+
+    init (tab, grid_view) {
+      this.showSendMessage = false
+      this.startIndex = 0
+
+      this.$store.dispatch('error/showLoadingActivity', true)
+      UserService.getUserInfo(this.slug).then(response => {
+        this.user = response.body
+        if (tab) {
+          this.currentTab = tab
+          this.slide_tab = tab
+        } else {
+          if (this.user.user_type === 'artist') {
+          //   if (this.$store.state.user.tab) {
+          //     this.currentTab = this.$store.state.user.tab
+          //     this.slide_tab = this.$store.state.user.tab
+          //     this.$store.dispatch('user/setTab', null)
+          //     this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: this.currentTab})
+          //   }
+            this.currentTab = 'songs'
+            this.slide_tab = 'songs'
+          } else if (this.user.user_type === 'label') {
+            this.currentTab = 'artists'
+            this.slide_tab = 'artists'
+          } else {
+            this.currentTab = 'downloaded'
+            this.slide_tab = 'downloaded'
+          }
+        }
+
+        this.grid_show = grid_view
+        this.$store.dispatch('player/setGridShow', grid_view)
+        if (grid_view) {
+          this.currentTab = this.slide_tab
+        } else {
+          switch (this.currentTab) {
+            case 'artists':
+              this.slide_tab = 'catalog'
+              this.onTab(this.slide_tab) 
+              break
+            case 'followings':
+              this.slide_tab = 'downloaded'
+              this.onTab(this.slide_tab) 
+              break
+            default:
+              this.slide_tab = this.currentTab
+              break
+          }
+        }
+
+        this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.currentTab })
+        this.getItems(this.currentTab, false)
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -293,42 +331,19 @@ export default {
       if (this.followings_selector !== value) {
         this.followings_selector = value
         $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-        this.getItems(this.tab, false)
+        this.getItems(this.currentTab, false)
       }
     },
 
     followersClickHandler () {
       this.grid_show = true
-      this.tab = 'followings'
+      this.currentTab = 'followings'
       const value = 'followers', name = 'Follower'
       this.followings_selector = value
       this.getItems('followings', false)
       this.$nextTick(() => {
         $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
       })
-    },
-
-    setGridView (flag) {
-      this.grid_show = flag
-      this.$store.dispatch('player/setGridShow', flag)
-      if (flag) {
-        this.tab = this.slide_tab
-      } else {
-        switch (this.tab) {
-          case 'artists':
-            this.slide_tab = 'catalog'
-            this.onTab(this.slide_tab) 
-            break
-          case 'followings':
-            this.slide_tab = 'downloaded'
-            this.onTab(this.slide_tab) 
-            break
-          default:
-            this.slide_tab = this.tab
-            break
-        }
-        this.changeBackground()
-      }
     },
 
     onAfterAlbumSlideChange (index) {
@@ -463,16 +478,7 @@ export default {
       }
     },
 
-    onTab(tab) {
-      if (tab === 'merch') {
-        this.$store.dispatch('navigator/goNextState', {page: 'profile_merch', tab: ''})
-      } else {
-        this.$store.dispatch('navigator/goNextState', {page: 'profile', tab: tab})
-      }
-      this.getItems(tab, false)
-    },
-
-    playSong() {
+    playSong () {
       if(this.albums.length) {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
