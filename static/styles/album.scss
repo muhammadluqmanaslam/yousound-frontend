@@ -653,19 +653,19 @@
             }
           }
 
-          // .album-credits-dialog {
-          //   .text-btn {
-          //     position: relative;
-          //     box-shadow: none;
-          //     background: transparent !important;
-          //     margin: 0;
-          //     padding: 0 2px;
-          //     height: inherit;
-          //     .btn__content {
-          //       padding: 0;
-          //     }
-          //   }
-          // }
+          .album-credits-dialog {
+            .text-btn {
+              position: relative;
+              box-shadow: none;
+              background: transparent !important;
+              margin: 0;
+              padding: 0 2px;
+              height: inherit;
+              .btn__content {
+                padding: 0;
+              }
+            }
+          }
 
           .album-action-section {
             position: absolute;

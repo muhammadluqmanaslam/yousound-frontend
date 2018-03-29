@@ -151,12 +151,12 @@
       },
 
       choosePage (path) {
-        console.log(path)
+        // console.log(path)
         this.$router.push({ path: '/' + path })
       },
 
       goToAlbum () {
-        this.choosePage('album/' + this.item.slug)
+        this.choosePage(`${this.item.album_type}/${this.item.slug}`)
       }
     }
   }

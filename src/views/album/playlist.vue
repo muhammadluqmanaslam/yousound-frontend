@@ -6,13 +6,15 @@
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
           <div class="album-image" :style="{'background-image': 'url(' + coverImageURL + ')'}"> </div>
-          <div class="play-button-section">
-            <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
-              <v-icon class="play">play_arrow</v-icon>
-            </v-btn>
-            <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
-              <v-icon class="pause">pause</v-icon>
-            </v-btn>
+          <div class="album-hover-section">
+            <div class="play-button-section">
+              <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
+                <v-icon class="play">play_arrow</v-icon>
+              </v-btn>
+              <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
+                <v-icon class="pause">pause</v-icon>
+              </v-btn>
+            </div>
           </div>
           <div class="action-section">
           </div> 
