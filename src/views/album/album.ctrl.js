@@ -39,7 +39,8 @@ export default {
       trackIndex: 0,
       comments: [],
       commentString: '',
-      buttonHover: [],
+      buttonHover: false,
+      // buttonHover: [],
       dialog: false,
       roles: [],
       isPageReady: false
@@ -146,9 +147,9 @@ export default {
         AlbumService.myRole(this.slug)
       ]).then(values => {
         this.album = values[0].body
-        for (let index in this.album.tracks) {
-          this.buttonHover.push(false)
-        }
+        // for (let index in this.album.tracks) {
+        //   this.buttonHover.push(false)
+        // }
         if (this.$store.getters['navigator/last'].page === 'upload') {
           this.showFinishDialog()
         }
@@ -429,10 +430,10 @@ export default {
       })
     },
 
-    hoverTrackItem (index, status) {
-      this.buttonHover[index] = status
-      this.buttonHover = this.buttonHover.slice()
-    },
+    // hoverTrackItem (index, status) {
+    //   this.buttonHover[index] = status
+    //   this.buttonHover = this.buttonHover.slice()
+    // },
 
     goToArtistProfile() {
       this.$router.push({
