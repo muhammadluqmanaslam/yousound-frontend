@@ -37,7 +37,6 @@
         </v-flex>
       </v-flex>
     </v-flex>
-    <!-- <merch-modal :item="item" :dismiss="dimissMerchDialog" v-if="showMerchModal"></merch-modal> -->
   </v-flex>  
 </template>
 

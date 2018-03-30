@@ -1,91 +1,100 @@
-import ProductService from '@/services/product'
+import ActivityService from '@/services/activity'
 import AlbumService from '@/services/album'
+import activityItem from '@/components/activityitem'
 
 export default {
   components: {
+    activityItem
   },
 
   data () {
     return {
       tabs: [
         {
-          id: 'repostedby',
+          id: 'reposted_by',
           title: 'Reposted By'
         },
         {
-          id: 'downloadedby',
+          id: 'downloaded_by',
           title: 'Downloaded By'
         },
         {
-          id: 'playedby',
+          id: 'played_by',
           title: 'Played By'
         }
       ],
-      products: [],
-      active: null,
+      currentTab: null,
       slug: null,
-      order_detail: null,
-      album: null
+      album: null,
+      activities: [],
+      isPageReady: false
     }
   },
 
   computed: {
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      const slug = toPath.params.slug
+      this.init(slug, tab)
+    }
+  },
+
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'album_stats', tab: ''})
-    this.slug = this.$route.params.slug
-    this.active = this.$store.state.album.stats
-    this.getAlbum(this.slug)
+    this.$store.dispatch('navigator/goNextState', { page: 'album_stats', tab: this.currentTab })
+    const slug = this.$route.params.slug
+    const tab = this.$route.hash.substr(1)
+    this.init(slug, tab)
   },
 
   methods: {
-    getAlbum (slug) {
+    init (slug, tab) {
+      this.currentTab = tab || 'reposted_by'
+      let apis = null
+      switch (this.currentTab) {
+        case 'reposted_by':
+          apis = [
+            AlbumService.getAlbum(slug),
+            ActivityService.repostedBy(slug)
+          ]
+          break
+        case 'downloaded_by':
+          apis = [
+            AlbumService.getAlbum(slug),
+            ActivityService.downloadedBy(slug)
+          ]
+          break
+        case 'played_by':
+          apis = [
+            AlbumService.getAlbum(slug),
+            ActivityService.playedBy(slug)
+          ]
+          break
+      }
+      this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
-      const vm = this
-      AlbumService.getAlbum(slug).then(response => {
-        this.album = response.body
-        this.loadData(this.active)
-      }).catch(e => {
+      Promise.all(apis).then(values => {
+        this.album = values[0].body
+        this.activities = values[1].body.activities
+        this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      }).catch(reason => {
+        this.$store.dispatch('error/showLoadingActivity', false)
       })
     },
 
-    loadData (filter) {
-      ProductService.getProducts({
-        statuses: 'published, collaborated',
-        stock_statuses: 'active',
-        user_statuses: 'accepted'
-      }).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.products = response.body
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    loadProducts () {
-    },
-
-    followUser (user) {
-      UserService.followUser(user.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just followed ' + user.display_name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    onTab (tab) {
+      if (tab != this.currentTab) {
+        this.$router.push({
+          path: this.$route.path,
+          hash: tab
+        })
+      }
     }
   },
 
   mounted () {
-    const vm = this;
-    $('.tabs__wrapper ul li').click(function () {
-      var c = $(this).find('a:first').attr('href')
-      console.log(c, vm.active)
-      setTimeout(function(){
-        vm.loadData(c)
-      }, 200);
-    })
   }
 }
