@@ -51,31 +51,59 @@ export default {
 
   methods: {
     init (slug, tab) {
+      // this.currentTab = tab || 'reposted_by'
+      // let apis = null
+      // switch (this.currentTab) {
+      //   case 'reposted_by':
+      //     apis = [
+      //       AlbumService.getAlbum(slug),
+      //       ActivityService.repostedBy(slug)
+      //     ]
+      //     break
+      //   case 'downloaded_by':
+      //     apis = [
+      //       AlbumService.getAlbum(slug),
+      //       ActivityService.downloadedBy(slug)
+      //     ]
+      //     break
+      //   case 'played_by':
+      //     apis = [
+      //       AlbumService.getAlbum(slug),
+      //       ActivityService.playedBy(slug)
+      //     ]
+      //     break
+      // }
+      // this.isPageReady = false
+      // this.$store.dispatch('error/showLoadingActivity', true)
+      // Promise.all(apis).then(values => {
+      //   this.album = values[0].body
+      //   this.activities = values[1].body.activities
+      //   this.isPageReady = true
+      //   this.$store.dispatch('error/showLoadingActivity', false)
+      // }).catch(reason => {
+      //   this.$store.dispatch('error/showLoadingActivity', false)
+      // })
+
       this.currentTab = tab || 'reposted_by'
-      let apis = null
+      const params = { action_type: 'repost'}
       switch (this.currentTab) {
         case 'reposted_by':
-          apis = [
-            AlbumService.getAlbum(slug),
-            ActivityService.repostedBy(slug)
-          ]
+          params['action_type'] = 'repost'
           break
         case 'downloaded_by':
-          apis = [
-            AlbumService.getAlbum(slug),
-            ActivityService.downloadedBy(slug)
-          ]
+          params['action_type'] = 'download'
           break
         case 'played_by':
-          apis = [
-            AlbumService.getAlbum(slug),
-            ActivityService.playedBy(slug)
-          ]
+          params['action_type'] = 'play'
           break
       }
+
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all(apis).then(values => {
+      Promise.all([
+        AlbumService.getAlbum(slug),
+        ActivityService.getAlbumActivities(slug, params)
+      ]).then(values => {
         this.album = values[0].body
         this.activities = values[1].body.activities
         this.isPageReady = true
