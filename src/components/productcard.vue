@@ -46,8 +46,14 @@
       </v-flex>
       <v-flex xs12 class="product-detail" pa-0>
         <p class="product-name">{{ item.name }}</p>
-        <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0"><p class="product-user-name">{{ owner.display_name }}</p></router-link>
-        <router-link :to="'/' + owner.slug" v-else><p class="product-user-name">Multiple Collaborators</p></router-link>
+        <p class="product-user-name">
+          <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.display_name }}</router-link>
+          <template v-else-if="item.collaborators_count == 1">
+            <router-link :to="'/' + owner.slug">{{ owner.display_name }}</router-link>,&nbsp;
+            <router-link :to="'/' + item.collaborators[0].user.slug" v-if="item.collaborators[0]"">{{ item.collaborators[0].user.display_name }}</router-link>
+          </template>
+          <router-link :to="'/' + owner.slug" v-else>Multiple Collaborators</router-link>
+        </p>
       </v-flex>
     </v-flex>
 
