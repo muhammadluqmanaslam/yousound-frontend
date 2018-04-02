@@ -1,3 +1,4 @@
+import ActivityService from '@/services/activity.js'
 import AuthService from '@/services/auth.js'
 import PlaylistService from '@/services/playlist'
 
@@ -41,6 +42,16 @@ export default {
           AuthService.saveCredential(this.user)
         }
         AuthService.setTokenAndUserInfo(response.body.token, response.body)
+
+        const params = {
+          action_type: 'signin',
+          include_own: true
+        }
+        ActivityService.getActivities(params).then(response => {
+          if (response.body.pagination.total_count <= 1) {
+            this.$store.dispatch('auth/setFirstVisit', true)
+          }
+        })
 
         PlaylistService.getPlaylists().then(response => {
           this.$store.dispatch('playlist/setPlaylists', response.body)

@@ -1,6 +1,8 @@
 <template>
   <v-app id="app" standalone v-bind:class="{'primary': $store.getters['auth/isPrimaryTheme'], 'gray': $store.getters['auth/isGrayTheme'], 'normal': $store.getters['auth/isNormalTheme'], 'sliderprofile': !$store.state.player.gridShow && $store.getters['auth/isSliderProfileTheme']}">
 
+    <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
+
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
         <v-card-title>
@@ -84,17 +86,20 @@
 <script>
 /* global $:true */
 
-import efmHeader from '@/components/header'
-import Player from '@/components/player'
-import AuthService from '@/services/auth'
-import UserService from '@/services/user'
 import ActivityService from '@/services/activity'
+import AuthService from '@/services/auth'
 import PlaylistService from '@/services/playlist'
+import UserService from '@/services/user'
+
+import efmHeader from '@/components/header'
+import earnMoneySticker from '@/components/earn_money'
+import Player from '@/components/player'
 
 export default {
   name: 'app',
   components: {
     efmHeader,
+    earnMoneySticker,
     Player
   },
 
@@ -184,6 +189,16 @@ export default {
           AuthService.saveCredential(this.user)
         }
         AuthService.setTokenAndUserInfo(response.body.token, response.body)
+
+        const params = {
+          action_type: 'signin',
+          include_own: true
+        }
+        ActivityService.getActivities(params).then(response => {
+          if (response.body.pagination.total_count <= 1) {
+            this.$store.dispatch('auth/setFirstVisit', true)
+          }
+        })
 
         PlaylistService.getPlaylists().then(response => {
           this.$store.dispatch('playlist/setPlaylists', response.body)

@@ -95,7 +95,7 @@ export default {
         'page': this.page_index,
         'per_page': this.items_per_page
       }
-      ActivityService.getActivities(this.page_index + 1, this.items_per_page).then(response => {
+      ActivityService.getActivities(params).then(response => {
         this.activities = this.activities.concat(response.body.activities)
         this.page_index = response.body.pagination.current_page
         this.total_pages = response.body.pagination.total_pages

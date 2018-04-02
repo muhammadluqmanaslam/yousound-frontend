@@ -10,7 +10,8 @@ const state = {
   register_role: null,
   token: null,
   pendingUser: null,
-  user: null
+  user: null,
+  firstVisit: false
 }
 
 const getters = {
@@ -98,6 +99,10 @@ const actions = {
 
   setSecretCode ({ commit }, code) {
     commit('setSecretCode', code)
+  },
+
+  setFirstVisit ({ commit }, firstVisit) {
+    commit('setFirstVisit', firstVisit)
   }
 }
 
@@ -145,6 +150,10 @@ const mutations = {
 
   setSecretCode (state, code) {
     state.secret_code = code
+  },
+
+  setFirstVisit (state, firstVisit) {
+    state.firstVisit = firstVisit
   }
 }
 

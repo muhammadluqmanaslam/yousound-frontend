@@ -53,6 +53,7 @@ export default {
     localStorage.removeItem(USER_INFO)
     $store.dispatch('auth/setToken', null)
     $store.dispatch('auth/setUser', null)
+    $store.dispatch('auth/setFirstVisit', false)
     // this.$router.push({ path: '/login' })
   },
 
