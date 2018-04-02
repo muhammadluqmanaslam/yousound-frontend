@@ -19,6 +19,18 @@ const state = {
 const getters = {
   isPlaying: (state) => {
     return state.isPlaying
+  },
+
+  currentAlbum: (state) => {
+    if (state.listIndex < 0 || !state.list[state.listIndex]) {
+      return null
+    }
+
+    if (state.list[state.listIndex].assoc_type) {
+      return state.list[state.listIndex].assoc_type
+    } else {
+      return state.list[state.listIndex]
+    }
   }
 }
 

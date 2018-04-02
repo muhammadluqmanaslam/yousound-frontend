@@ -397,7 +397,9 @@ export default {
     },
 
     playSong () {
-      if (this.$store.state.player.isPaused) {
+      if (this.$store.state.player.isPaused &&
+        this.$store.getters['player/currentAlbum'] &&
+        this.$store.getters['player/currentAlbum'].id == this.album.id) {
         this.$root.$emit('replay')
       } else {
         this.setPlaylist([_.cloneDeep(this.album)])
