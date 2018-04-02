@@ -24,7 +24,10 @@
                   v-if="tab.id!='merch'"
                   :key="index"
                   class="card-container">
-                  <track-card :objects="filtered_feeds" :objectIndex="index"></track-card>
+                  <track-card
+                    :objects="filtered_feeds"
+                    :objectIndex="index"
+                    :hideButtonAction="hideAlbum"></track-card>
                   <!-- <track-card :dataObject="feed"></track-card> -->
                 </div>
                 <div v-for="(feed, index) in products"
@@ -57,4 +60,5 @@
     </v-flex>
   </div>
 </template>
+
 <script type="text/javascript" src="./discover.ctrl.js"></script>

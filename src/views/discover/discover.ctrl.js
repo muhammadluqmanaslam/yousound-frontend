@@ -140,6 +140,14 @@ export default {
       this.loadFeeds(this.$store.state.auth.tab)
     },
 
+    hideAlbum (album) {
+      _.remove(this.feeds, (item) => {
+        return item.id === album.id
+      })
+      const arr = this.feeds.slice()
+      this.feeds = arr
+    },
+
     onTab (tab) {
       this.$router.push({
         path: this.$route.path,
