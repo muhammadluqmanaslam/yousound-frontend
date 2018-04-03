@@ -1,21 +1,25 @@
-import trackCard from '@/components/trackcard'
-import profileItem from '@/components/profileitem'
-import sendMessage from '@/components/sendmessage'
+import _ from 'lodash'
+
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
+
 import activityProductCard from '@/components/activityproductcard'
+import profileItem from '@/components/profileitem'
+import sendMessage from '@/components/sendmessage'
+import trackCard from '@/components/trackcard'
+
 
 export default {
   components: {
-    trackCard,
+    activityProductCard,
     profileItem,
     sendMessage,
-    activityProductCard
+    trackCard
   },
 
   data () {
     return {
-      tab: 'cart',
+      current_tab: 'cart',
       showSendMessage: false,
       order_detail: null,
       cartItems: [],
@@ -31,51 +35,82 @@ export default {
   computed: {
     user () {
       return this.order_detail.merchant
-    },
+    }
+  },
+
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.init(tab)
+    }
   },
 
   created () {
-    // this.$store.dispatch('navigator/setCurrentState', { page: 'checkout', tab: '' })
-    this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: this.tab })
-    // console.log('current', this.$store.state.navigator.current)
-    // console.log('last', this.$store.getters['navigator/last'])
-
-    if (this.$store.getters['navigator/last'].page === 'checkout') {
-      this.tab = 'history'
-    }
-
-    if (this.$store.state.auth.user) {
-      let params = {}
-      if (this.$store.state.auth.user.default_address) {
-        params.country = this.$store.state.auth.user.default_address.country
-      }
-
-      this.isPageReady = false
-      this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([
-        ItemService.getShoppingCartItems(),
-        ItemService.calculateCost(params),
-        OrderService.getSentOrders({ page: this.page_index, per_page: this.items_per_page })
-      ]).then(values => {
-        this.cartItems = values[0].body
-        this.cartCost = values[1].body
-        this.orderHistories = values[2].body.orders
-
-        this.isPageReady = true
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(reason => {
-        console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', reason)
-      })
-    } else {
-      this.$root.$emit('showLoginModal')
-    }
+    this.init()
   },
 
   methods: {
+    init (tab) {
+      if (!this.$store.state.auth.user) {
+        this.$root.$emit('showLoginModal')
+        return
+      }
+
+      this.current_tab = tab || 'cart'
+      this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: this.current_tab })
+
+      let params
+      switch (this.current_tab) {
+        case 'cart':
+          params = {}
+          if (this.$store.state.auth.user.default_address) {
+            params.country = this.$store.state.auth.user.default_address.country
+          }
+          this.isPageReady = false
+          this.$store.dispatch('error/showLoadingActivity', true)
+          Promise.all([
+            ItemService.getShoppingCartItems(),
+            ItemService.calculateCost(params),
+          ]).then(values => {
+            this.cartItems = values[0].body
+            this.cartCost = values[1].body
+            this.isPageReady = true
+            this.$store.dispatch('error/showLoadingActivity', false)
+          }).catch(reason => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showErrorToast', reason)
+          })
+          break
+        case 'history':
+          params = {
+            page: this.page_index,
+            per_page: this.items_per_page
+          }
+          this.isPageReady = false
+          this.$store.dispatch('error/showLoadingActivity', true)
+          Promise.all([
+            OrderService.getSentOrders(params)
+          ]).then(values => {
+            this.orderHistories = values[0].body.orders
+
+            this.isPageReady = true
+            this.$store.dispatch('error/showLoadingActivity', false)
+          }).catch(reason => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showErrorToast', reason)
+          })
+          break
+      }
+    },
+
     onTab (tab) {
-      this.tab = tab
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab,
+        query: {
+          grid_view: this.grid_show
+        }
+      })
     },
 
     submit () {
@@ -89,6 +124,33 @@ export default {
 
     dismissMessageModal () {
       this.showSendMessage = false
+    },
+
+    productStatus (item) {
+      if (['published', 'collaborated'].indexOf(item.product.status) === -1 || item.product.stock_status !== 'active') {
+        return {
+          text: 'out of stock',
+          style: 'error'
+        }
+      } else if (item.quantity > item.product_variant.quantity) {
+        return {
+          text: 'lack of stock',
+          style: 'warning'
+        }
+      } else {
+        return {
+          text: 'in stock',
+          style: 'success'
+        }
+      }
+    },
+
+    productStatusStyle (item) {
+      return this.productStatus(item).style
+    },
+
+    productStatusText (item) {
+      return this.productStatus(item).text
     },
 
     addQuantity (item) {

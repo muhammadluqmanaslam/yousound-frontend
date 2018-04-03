@@ -242,9 +242,10 @@
         if (this.option === '' || this.option === null) {
           this.$store.dispatch('error/showErrorToast', ['Please select valid variant.'])
         } else {
-          const params = new FormData()
-          params.append('product_variant_id', this.option)
-          params.append('quantity', 1)
+          const params = {
+            product_variant_id: this.option,
+            quantity: 1
+          }
           ItemService.addToCart(params).then(response => {
             if (response.body.errors) {
               this.$store.dispatch('error/showErrorToast', response.body.errors)
@@ -266,13 +267,8 @@
           } else {
             this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
           }
-        })
-        .catch(e => {
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       },
 

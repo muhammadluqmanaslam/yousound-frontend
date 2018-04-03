@@ -8,7 +8,7 @@
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
       <div class="normal-tab">
-        <v-tabs black v-model="tab">
+        <v-tabs black v-model="current_tab">
           <v-tabs-bar class="transparent">
             <v-tabs-item
               key="cart"
@@ -55,14 +55,13 @@
                   <div class="order-section">
                     <v-layout row>
                       <v-flex sm12 class="order-content-section pa-0 relative" :class="{'border-top-none': index!=0}">
-                        <!-- <img class="product-cover-image" src="/static/images/product1.png"/> -->
-                        <!-- <div class="product-cover-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div> -->
                         <div class="product-cover-image">
                           <activity-product-card :object="item.product" :priceShow="false"></activity-product-card>
                         </div>
                         <div class="product-content">
                           <v-flex sm12 class="product-content-row">
-                            <label class="product-name">{{ item.product.name }}</label>
+                            <label class="product-name">{{ item.product.name }} | {{ item.product_variant.name }}</label>
+                            <label class="product-status" :class="productStatusStyle(item)">{{ productStatusText(item) }}</label>
                             <v-btn
                               class="product-count-adjust-btn active"
                               @click.native="addQuantity(item)">
@@ -78,7 +77,7 @@
                             </v-btn>
                           </v-flex>
                           <v-flex sm12 class="product-content-row">
-                            <a class="user-name" href="#">By {{ item.product.merchant.display_name }}</a>
+                            By <router-link :to="`/${item.product.merchant.slug}`" class="user-name" href="#">{{ item.product.merchant.display_name }}</router-link>
                           </v-flex>
                           <v-flex sm12 class="product-content-row" pt-1>
                             <label class="product-price">${{ item.price|formatNumber }}</label>
@@ -104,7 +103,6 @@
                       <div class="profile-content-section relative">
                         <div class="profile-avatar">
                           <profile-item :user="$store.state.auth.user" :className="'order-item-profile-avatar'"></profile-item>
-                          <!-- <img class="order-item-profile-avatar" src="/static/images/user4.png"/> -->
                         </div>
                         <div class="profile-content">
                           <a href="#" class="user-name"><b>You</b></a>
@@ -122,7 +120,6 @@
                   <div class="order-section" v-for="item in order.items">
                     <v-layout row>
                       <div class="order-content-section relative">
-                        <!-- <img class="product-image" src="/static/images/product1.png"/> -->
                         <div class="product-cover-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div>
                         <div class="product-content">
                           <v-flex sm12 class="product-content-row">
@@ -152,4 +149,5 @@
     </v-flex>
   </div>
 </template>
+
 <script type="text/javascript" src="./cart.ctrl.js"></script>

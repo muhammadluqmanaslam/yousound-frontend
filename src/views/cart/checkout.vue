@@ -67,7 +67,8 @@
                 </div>
                 <div class="product-content">
                   <v-flex sm12 class="product-content-row">
-                    <label class="product-name">{{ item.product.name }}</label>
+                    <label class="product-name">{{ item.product.name }} | {{ item.product_variant.name }}</label>
+                    <label class="product-status" :class="productStatusStyle(item)">{{ productStatusText(item) }}</label>
                     <v-btn
                       class="product-count-adjust-btn active"
                       @click.native="addQuantity(item)">
@@ -83,7 +84,7 @@
                     </v-btn>
                   </v-flex>
                   <v-flex sm12 class="product-content-row">
-                    <a class="user-name" href="#">By {{ item.product.merchant.display_name }}</a>
+                    By <router-link :to="`/${item.product.merchant.slug}`" class="user-name" href="#">{{ item.product.merchant.display_name }}</router-link>
                   </v-flex>
                   <v-flex sm12 class="product-content-row" pt-1>
                     <label class="product-price">${{ item.price|formatNumber }}</label>

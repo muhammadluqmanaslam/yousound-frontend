@@ -59,6 +59,33 @@ export default {
   },
 
   methods: {
+    productStatus (item) {
+      if (['published', 'collaborated'].indexOf(item.product.status) === -1 || item.product.stock_status !== 'active') {
+        return {
+          text: 'out of stock',
+          style: 'error'
+        }
+      } else if (item.quantity > item.product_variant.quantity) {
+        return {
+          text: 'lack of stock',
+          style: 'warning'
+        }
+      } else {
+        return {
+          text: 'in stock',
+          style: 'success'
+        }
+      }
+    },
+
+    productStatusStyle (item) {
+      return this.productStatus(item).style
+    },
+
+    productStatusText (item) {
+      return this.productStatus(item).text
+    },
+
     addQuantity (item) {
       ItemService.updateCartItem(item.id, { quantity: item.quantity + 1 }).then(response => {
         item.quantity += 1
