@@ -104,15 +104,15 @@
                 <v-btn dark class="more-btn" @click.native="setGridView(true)">
                   <!-- <v-icon>widgets</v-icon> -->
                   <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
-                      <title>ic-grid2</title>
-                      <desc>Created with Sketch.</desc>
-                      <defs></defs>
-                      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <g id="Icons" transform="translate(-591.000000, -56.000000)" fill="#FFFFFF">
-                              <path d="M591,56 L596,56 L596,61 L591,61 L591,56 Z M591,63.5 L596,63.5 L596,68.5 L591,68.5 L591,63.5 Z M591,71 L596,71 L596,76 L591,76 L591,71 Z M598.5,56 L603.5,56 L603.5,61 L598.5,61 L598.5,56 Z M598.5,63.5 L603.5,63.5 L603.5,68.5 L598.5,68.5 L598.5,63.5 Z M598.5,71 L603.5,71 L603.5,76 L598.5,76 L598.5,71 Z M606,56 L611,56 L611,61 L606,61 L606,56 Z M606,63.5 L611,63.5 L611,68.5 L606,68.5 L606,63.5 Z M606,71 L611,71 L611,76 L606,76 L606,71 Z" id="ic-grid2"></path>
-                          </g>
+                    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
+                    <title>ic-grid2</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Icons" transform="translate(-591.000000, -56.000000)" fill="#FFFFFF">
+                        <path d="M591,56 L596,56 L596,61 L591,61 L591,56 Z M591,63.5 L596,63.5 L596,68.5 L591,68.5 L591,63.5 Z M591,71 L596,71 L596,76 L591,76 L591,71 Z M598.5,56 L603.5,56 L603.5,61 L598.5,61 L598.5,56 Z M598.5,63.5 L603.5,63.5 L603.5,68.5 L598.5,68.5 L598.5,63.5 Z M598.5,71 L603.5,71 L603.5,76 L598.5,76 L598.5,71 Z M606,56 L611,56 L611,61 L606,61 L606,56 Z M606,63.5 L611,63.5 L611,68.5 L606,68.5 L606,63.5 Z M606,71 L611,71 L611,76 L606,76 L606,71 Z" id="ic-grid2"></path>
                       </g>
+                    </g>
                   </svg>
                 </v-btn>
                 <v-spacer></v-spacer>

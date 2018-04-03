@@ -7,7 +7,7 @@
         <div class="user-info-section">
           <div class="info-section">
             <label class="user-name">{{ item.display_name }}</label>
-            <label class="main-genre">Main Genre: {{ item.genre.name }}</label>
+            <label class="main-genre">Main Genre: {{ mainGenreName }}</label>
           </div>
           <div class="action-section">
             <v-btn color="success" class="approve-btn" @click.native="approveButtonAction(item)">Approve</v-btn>
@@ -47,6 +47,7 @@
 </template>
 
 <script type="text/javascript">
+  import _ from 'lodash'
   import profileItem from '@/components/profileitem'
   export default {
     components: {
@@ -81,6 +82,9 @@
     },
 
     computed: {
+      mainGenreName () {
+        return _.get(this.item, 'genre.name')
+      }
     },
 
     created () {

@@ -4,16 +4,17 @@
       <v-flex xs12 class="artist-info-section">
         <div class="artist-cover" :style="{'background-image': 'url(' + artist.avatar.url + ')'}"></div>
         <v-flex xs12 class="artist-actions">
-          <router-link :to="`/${artist.slug}`"><v-flex xs12 class="touch-flex"></v-flex></router-link>
-          <div class="avatar-cover">
-            <div class="hover-title">View Profile</div>
-          </div>
+          <router-link :to="`/${artist.slug}`">
+            <div class="avatar-cover">
+              <div class="hover-title">View Profile</div>
+            </div>
+          </router-link>
           <div class="follow-section">
             <v-btn
-                :class="{ 'follow-btn': true, 'follow': !artist.is_following, 'following': artist.is_following }"
-                @click.native="followUser()"
-                @mouseenter="buttonHover = true"
-                @mouseleave="buttonHover = false">{{ followButtonText }}</v-btn>
+              :class="{ 'follow-btn': true, 'follow': !artist.is_following, 'following': artist.is_following }"
+              @click.native="followUser()"
+              @mouseenter="buttonHover = true"
+              @mouseleave="buttonHover = false">{{ followButtonText }}</v-btn>
           </div>
         </v-flex>
         <div class="artist-name">{{ artist.display_name }}</div>
@@ -80,13 +81,8 @@
             this.artist.is_following = false
             this.$store.dispatch('player/setUpdatedUser', this.artist)
             this.$root.$emit('unfollow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         } else {
           UserService.followUser(this.artist.id).then(response => {
@@ -94,13 +90,8 @@
             this.artist.is_following = true
             this.$store.dispatch('player/setUpdatedUser', this.artist)
             this.$root.$emit('follow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         }
       }
