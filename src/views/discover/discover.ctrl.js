@@ -15,7 +15,7 @@ export default {
       tabs: [
         {
           id: 'new',
-          title: 'New Releases'
+          title: 'New Albums'
         },
         {
           id: 'recommended',
