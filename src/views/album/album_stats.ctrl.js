@@ -85,16 +85,16 @@ export default {
       // })
 
       this.currentTab = tab || 'reposted_by'
-      const params = { action_type: 'repost'}
+      const params = { action_types: 'repost'}
       switch (this.currentTab) {
         case 'reposted_by':
-          params['action_type'] = 'repost'
+          params['action_types'] = 'repost'
           break
         case 'downloaded_by':
-          params['action_type'] = 'download'
+          params['action_types'] = 'download'
           break
         case 'played_by':
-          params['action_type'] = 'play'
+          params['action_types'] = 'play'
           break
       }
 

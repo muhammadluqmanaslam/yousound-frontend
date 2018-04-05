@@ -44,7 +44,7 @@ export default {
         AuthService.setTokenAndUserInfo(response.body.token, response.body)
 
         const params = {
-          action_type: 'signin',
+          action_types: 'signin',
           include_own: true
         }
         ActivityService.getActivities(params).then(response => {

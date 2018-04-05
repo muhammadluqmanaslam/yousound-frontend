@@ -23,7 +23,7 @@
                   <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
                 </div>
                 <div v-else-if="activeTab == tab.id" v-for="(user, user_index) in users" :key="user_index">
-                  <v-layout row wrap class="covers-content">
+                  <v-layout row wrap class="covers-content" v-if="user.recent_items">
                     <stream-user :user="user"></stream-user>
                   </v-layout>
                 </div>
