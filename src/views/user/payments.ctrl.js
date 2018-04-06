@@ -1,3 +1,4 @@
+import { PaymentTypes } from '@/helper'
 import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
 import UserService from '@/services/user'
@@ -36,6 +37,10 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    PaymentTypes () {
+      return PaymentTypes
     }
   },
 

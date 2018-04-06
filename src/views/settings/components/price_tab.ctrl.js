@@ -1,7 +1,13 @@
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
 
+import paymentModal from '@/components/paymentmodal'
+
 export default {
+  components: {
+    paymentModal
+  },
+
   data () {
     return {
       repost_prices: [
@@ -17,6 +23,7 @@ export default {
       ],
       repost_price: 100,
       show_repost_price_confirm_modal: false,
+      show_payment_modal: false,
       isPageReady: false
     }
   },
@@ -38,16 +45,25 @@ export default {
       this.show_repost_price_confirm_modal = false
     },
 
-    setRepostPrice () {
+    openPaymentModal () {
       this.closeRepostPriceConfirmModal()
+      this.show_payment_modal = true
+    },
+
+    closePaymentModal () {
+      this.show_payment_modal = false
+    },
+
+    setRepostPrice (token) {
       const userId = this.$store.state.auth.user.id
       const params = {
-        user: {
-          repost_price: this.repost_price
-        }
+        repost_price: this.repost_price
+      }
+      if (token) {
+        params['payment_token'] = token.id
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.updateUserInfo(userId, params).then(response => {
+      UserService.setRepostPrice(userId, params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showSuccessToast', ['Saved'])
         AuthService.setUser(response.body)

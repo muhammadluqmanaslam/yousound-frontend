@@ -1,17 +1,25 @@
 <template>
   <div class="main-section">
     <div class="content-section">
+
       <v-dialog v-model="show_repost_price_confirm_modal">
         <v-card>
           <v-card-title class="headline">About Repost Price</v-card-title>
           <v-card-text>Repost price higher than $1 is charged for an year.</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class="blue--text darken-1" flat="flat" @click.native="setRepostPrice()">Ok</v-btn>
+            <v-btn class="blue--text darken-1" flat="flat" @click.native="openPaymentModal()">Ok</v-btn>
             <v-btn class="blue--text darken-1" flat="flat" @click.native="closeRepostPriceConfirmModal()">Cancel</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <payment-modal v-if="show_payment_modal"
+        :type="''"
+        :amount="repost_price"
+        :dismiss="closePaymentModal"
+        :finish="setRepostPrice"></payment-modal>
+
       <v-flex xs12 repost-price-section pa-0>
         <v-flex xs12 sm12 form-group>
           <label class="normal-text">repost price</label>

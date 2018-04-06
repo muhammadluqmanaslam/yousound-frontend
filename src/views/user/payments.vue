@@ -106,7 +106,7 @@
                         <router-link :to="`/sell/order/${history.order_id}`">Buy</router-link>
                       </template>
                       <template v-else>
-                        {{ history.description || history.payment_type }}
+                        {{ history.description || PaymentTypes[history.payment_type] || history.payment_type }}
                       </template>
                     </td>
                     <td class="text-xs-center" :class="{'error--text': history.status == 'pending'}">{{ history.status | capitalize }}</td>

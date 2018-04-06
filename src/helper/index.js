@@ -1,6 +1,8 @@
 import moment from 'moment'
 import numeral from 'numeral'
 
+export * from './constants'
+
 export const Utils = {
   isEmpty (val) {
     if (val === null || val === void (0) || val === '') {
