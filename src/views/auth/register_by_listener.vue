@@ -8,9 +8,9 @@
         <v-flex xs12 text-xs-center>
           <h4>Sign Up as Listener</h4>
         </v-flex>
-        <v-flex xs12 text-xs-center pt-2 pb-3>
+        <!-- <v-flex xs12 text-xs-center pt-2 pb-3>
           <label for="terms">Are you an Artist, Label, or Brand? <router-link class="forgot-password" to="/register">Sign Up Here</router-link></label>
-        </v-flex>
+        </v-flex> -->
       </div>
       <div class="page auth-page auth-register-page">
         <form v-on:submit.prevent="submit()">

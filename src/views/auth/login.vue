@@ -50,7 +50,7 @@
           </v-layout>
         </v-flex>
         <v-flex xs12 text-xs-center>
-          <router-link class="create-account" to="/register/listener">Create an account</router-link>
+          <router-link class="create-account" to="/register">Create an account</router-link>
         </v-flex>
       </div>
     </v-flex>

@@ -12,6 +12,12 @@
       <div class="page auth-page auth-register-as-page">
         <v-flex xs12 text-xs-center pa-0>
           <div class="artist-area">
+            <router-link class="create-account" to="/register/listener">
+              <img class="avatar" src="/static/images/listener.png" />
+              <div class="pt-2">Listener</div>
+            </router-link>
+          </div>
+          <div class="artist-area">
             <a @click="submit('artist')">
               <img class="avatar" src="/static/images/artist.png" />
               <div class="pt-2">Aritst</div>
