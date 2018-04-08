@@ -216,11 +216,11 @@
                         <div>
                           <!-- <div class="content-section" v-if="message.attachment.attachable_type=='User'"> -->
                           <div class="content-section">
-                            <div class="label-message-section">
-                              <div class="label-message">{{ message.body }}</div>
-                            </div>
-
                             <template v-if="message.attachment.attachable_type=='Album'">
+                              <div class="label-message-section">
+                                <!-- <div class="label-message">{{ message.body }}</div> -->
+                                <div class="label-message">{{ message.attachment.assoc.user.display_name }} wants to upload this album collaboration</div>
+                              </div>
                               <div class="repost-item-image">
                                 <activity-album-card :object="message.attachment.assoc"></activity-album-card>
                               </div>
@@ -236,6 +236,10 @@
                               </div>
                             </template>
                             <template v-else-if="message.attachment.attachable_type=='ShopProduct'">
+                              <div class="label-message-section">
+                                <!-- <div class="label-message">{{ message.body }}</div> -->
+                                <div class="label-message">{{ message.attachment.assoc.merchant.display_name }} wants to upload this product collaboration</div>
+                              </div>
                               <div class="repost-item-image">
                                 <activity-product-card :object="message.attachment.assoc" :price-show="false"></activity-product-card>
                               </div>

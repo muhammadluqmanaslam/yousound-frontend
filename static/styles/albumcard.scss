@@ -92,14 +92,15 @@
 
         .action-btn {
           display: block;
+          height: 30px;
+          margin: 10px 0 0 0;
           border: none;
           border-radius: 15px;
           background: none !important;
-          text-transform: none;
           box-shadow: none;
-          height: 30px;
           font-size: 15px;
           letter-spacing: 0;
+          text-transform: none;
 
           .btn__content {
           float: left;
