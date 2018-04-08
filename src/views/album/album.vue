@@ -286,11 +286,12 @@
                   <profile-item :user="comment.user" :className="'comment-user-avatar'"></profile-item>
                   <div class="comment-content relative">
                     <router-link :to="'/' + comment.user.slug"><label class="user-name">{{ comment.user.display_name }} <v-icon class="user-status online" v-if="comment.user.user_type=='artist'">fa-check-circle</v-icon></label></router-link>
+                    <i class="fa fa-wifi" v-if="comment.status=='published'"></i>
                     <!-- <p class="comment-text">{{ comment.body }}</p> -->
                     <p class="comment-text" v-html="convertedHTML(comment.body)"></p>
                   </div>
                   <div class="right-section">
-                    <v-menu offset-y class="comment-more-action">
+                    <v-menu offset-y class="comment-more-action" v-if="$store.state.auth.user.id==album.user.id || $store.state.auth.user.id==comment.user.id">
                       <v-btn dark class="more-btn" slot="activator">
                         <v-icon right>more_horiz</v-icon>
                       </v-btn>

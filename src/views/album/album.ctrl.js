@@ -344,13 +344,8 @@ export default {
     makePublicComment (comment) {
       CommentService.makePublicComment(comment.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You made public comment!'])
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
