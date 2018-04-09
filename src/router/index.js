@@ -37,11 +37,11 @@ import AlbumsManage from '@/views/album/manage'
 import LabelsManage from '@/views/label/manage'
 import UploadAlbum from '@/views/album/upload_album'
 import AlbumEdit from '@/views/album/album_edit'
+import PaymentIndex from '@/views/payments/index'
+import StripeConnectPage from '@/views/user/stripe_connect'
 import UserProfile from '@/views/user/profile'
 import UserGetVerified from '@/views/user/get_verified'
-import UserPayments from '@/views/user/payments'
 import UserSettings from '@/views/settings/list'
-import StripeConnectPage from '@/views/user/stripe_connect'
 
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
@@ -100,7 +100,7 @@ export function createRouter (settings) {
     { path: '/upload/album', name: 'UploadAlbum', component: UploadAlbum },
     { path: '/album/:slug/edit', name: 'AlbumEdit', component: AlbumEdit },
     { path: '/verified', name: 'UserGetVerified', component: UserGetVerified },
-    { path: '/payments', name: 'UserPayments', component: UserPayments },
+    { path: '/payments', name: 'PaymentIndex', component: PaymentIndex },
     { path: '/settings', name: 'UserSettings', component: UserSettings },
     { path: '/:slug', name: 'UserProfile', component: UserProfile },
     { path: '/user/:user/chat', name: 'Chat', component: Chat },

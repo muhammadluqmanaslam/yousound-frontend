@@ -1,12 +1,20 @@
 import { PaymentTypes } from '@/helper'
+
 import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
 import UserService from '@/services/user'
+
 import sendMessage from '@/components/sendmessage'
+import shareModal from '@/components/sharemodal'
+
+import productModal from './components/product'
+
 
 export default {
   components: {
-    sendMessage
+    sendMessage,
+    shareModal,
+    productModal
   },
 
   data () {
@@ -25,6 +33,9 @@ export default {
       withdraw_dialog: false,
       withdarw_option: 'all',
       histories: [],
+      payment: {},
+      show_product_modal: false,
+      show_share_modal: false,
       withdraw_amount: null,
       send_message_dialog: false,
       messaging_user: {},
@@ -74,6 +85,28 @@ export default {
     hideSendMessageDialog () {
       this.send_message_dialog = false
     },
+
+    openProductModal (payment) {
+      this.payment = payment
+      this.show_product_modal = true
+    },
+
+    closeProductModal () {
+      this.show_product_modal = false
+    },
+
+    shareProduct () {
+      this.closeProductModal()
+      this.openShareModal()
+    },
+
+    openShareModal () {
+      this.show_share_modal = true
+    },
+
+    closeShareModal () {
+      this.show_share_modal = false
+    },    
 
     onTab (tab) {
       this.$router.push({
