@@ -4,5 +4,5 @@
     </v-flex>
   </div>
 </template>
-<script type="text/javascript" src="./stripe_connect.ctrl.js"></script>
 
+<script type="text/javascript" src="./stripe_connect.ctrl.js"></script>
