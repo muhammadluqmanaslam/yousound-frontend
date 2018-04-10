@@ -13,38 +13,54 @@
       :item="payment.assoc"
       :dismiss="closeShareModal"></share-modal>
 
-    <v-dialog v-model="withdraw_dialog" max-width="500px">
+    <v-dialog v-model="show_withdraw_confirm_modal">
+      <v-card>
+        <v-card-title class="headline">Withdraw Confirmation</v-card-title>
+        <v-card-text>Are you sure you want to withdraw ${{ withdrawAmount | formatNumber }}?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="withdrawMoney()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeWithdrawConfirmModal()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_withdraw_dialog" max-width="500px">
       <v-card>
         <v-card-title>
           <h2>Transfer Money</h2>
         </v-card-title>
         <v-card-text class="withdraw-dialog">
-          <label>Available<label class="available-money-amount"> ${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label></label>
-          <v-radio-group v-model="withdarw_option" :mandatory="true">
+          <label>Available</label>
+          <label class="available-money-amount">${{ currentUser.available_amount|formatNumber }}</label>
+          <label>out of&nbsp;</label>
+          <label>${{ currentUser.balance_amount|formatNumber }}</label>
+          <v-radio-group v-model="withdraw_option" :mandatory="true">
             <v-radio label="All" value="all"></v-radio>
             <v-radio label="Partial" value="partial"></v-radio>
-            <input 
-              type="text"
-              class="pl-2 pr-2 pt-1 pb-1 ma-1 ml-4"
-              v-model="withdraw_amount"
-              :disabled="withdarw_option=='all'"
-              placeholder="Amount"></v-text-field>
+            <vue-numeric v-model="withdraw_amount"
+              class="withdraw-amount pl-2 pr-2 pt-1 pb-1 ma-1 ml-4"
+              currency="$"
+              separator=","
+              :precision="2"
+              :min="1"
+              :disabled="withdraw_option=='all'"></vue-numeric>
             <label v-if="currentUser.balance_amount < withdraw_amount" class="pl-4 pr-2 error-text">Amount should be less than Avaialble Balance.</label>
           </v-radio-group>
         </v-card-text>
       <v-card-actions class="pa-3">
-        <v-btn color="primary" :disabled="currentUser.balance_amount < withdraw_amount">Withdraw</v-btn>
-        <v-btn color="primary" flat @click.stop="withdraw_dialog=false">Close</v-btn>
+        <v-btn color="primary" :disabled="disableWithdrawButton" @click.stop="openWithdrawConfirmModal()">Withdraw</v-btn>
+        <v-btn color="primary" flat @click.stop="closeWithdrawModal()">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative>
       <div class="wallet-section" v-if="currentUser">
-        <label class="">Available</label>
+        <label class="">Total</label>
         <label class="available-money-amount">${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label>
         <div class="action-section">
-          <a class="link-btn" @click.self="withdraw_dialog=true">Withdraw Funds</a>
+          <a class="link-btn" @click.self="openWithdrawModal()">Withdraw Funds</a>
           <a class="link-btn pl-3">View Stripe Account</a>
         </div>
       </div>
