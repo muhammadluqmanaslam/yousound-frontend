@@ -8,9 +8,6 @@
   border-radius: 10px;
   padding: 6px 24px 16px 24px;
   background-color: #F8F8F8;
-  &--play {
-    bottom: 110px;
-  }
   h3 {
     margin: 10px 0px -10px 0px;
     font-size: 22px;
@@ -23,4 +20,12 @@
   .btn__content {
     text-transform: capitalize;
   }
+}
+
+.earn-money-sticker {
+  display: none;
+}
+
+.earn-money-sticker--play {
+  bottom: 110px;
 }

@@ -43,15 +43,9 @@ export default {
         }
         AuthService.setTokenAndUserInfo(response.body.token, response.body)
 
-        const params = {
-          action_types: 'signin',
-          include_own: true
+        if (response.body.sign_in_count <= 1) {
+          this.$store.dispatch('auth/setFirstVisit', true)
         }
-        ActivityService.getActivities(params).then(response => {
-          if (response.body.pagination.total_count <= 1) {
-            this.$store.dispatch('auth/setFirstVisit', true)
-          }
-        })
 
         PlaylistService.getPlaylists().then(response => {
           this.$store.dispatch('playlist/setPlaylists', response.body)
