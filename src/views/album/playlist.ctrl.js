@@ -90,7 +90,6 @@ export default {
     this.getPlaylist(this.slug)
     this.setTrackIndex(0)
     // if (!this.$store.state.player.isPlaying && !this.$store.state.player.isPaused) {
-
     // }
   },
 
@@ -140,14 +139,9 @@ export default {
           canvas.height = height
           // $('#back_image').css("cssText", "height: " + height + "px !important;")
         }, 200)
-      })
-      .catch(e => {
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -191,42 +185,32 @@ export default {
       this.commentString = ''
       CommentService.sendComment(params).then(response => {
         this.getComments()
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
     getComments () {
       CommentService.getComments('Album', this.playlist.id).then(response => {
         this.comments = response.body
-        
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          console.log(e)
-          // this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          // this.$store.dispatch('error/showErrorToast', [e.body])
-          console.log(e)
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
     makePublicComment (comment) {
       CommentService.makePublicComment(comment.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You made public comment!'])
+        this.$store.dispatch('error/showSuccessToast', ['You made a comment public!'])
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+    },
+
+    makePrivateComment (comment) {
+      CommentService.makePrivateComment(comment.id).then(response => {
+        this.$store.dispatch('error/showSuccessToast', ['You made a comment private!'])
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -235,17 +219,12 @@ export default {
         _.remove(this.comments, (item) => { return item.user.id == comment.user.id });
         const arr = this.comments.slice();
         this.comments = arr;
-      })
-      .catch(e => {
+      }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
           this.$root.$emit('showLoginModal')
         } else {
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }
       })
     },
@@ -255,13 +234,8 @@ export default {
         _.remove(this.comments, (item) => { return item.id == comment.id });
         const arr = this.comments.slice();
         this.comments = arr;
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -278,7 +252,6 @@ export default {
         this.setPage(this.$store.state.auth.page)
         this.setTab(this.$store.state.auth.tab)
         this.$root.$emit('play')
-
       }
     },
 
@@ -307,13 +280,8 @@ export default {
       AlbumService.repostAlbum(this.playlist.id).then(response => {
         console.log(response)
         this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.playlist.name])
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 

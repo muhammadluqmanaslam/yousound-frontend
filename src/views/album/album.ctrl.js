@@ -343,7 +343,15 @@ export default {
 
     makePublicComment (comment) {
       CommentService.makePublicComment(comment.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You made public comment!'])
+        this.$store.dispatch('error/showSuccessToast', ['You made a comment public!'])
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    makePrivateComment (comment) {
+      CommentService.makePrivateComment(comment.id).then(response => {
+        this.$store.dispatch('error/showSuccessToast', ['You made a comment private!'])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
@@ -387,7 +395,6 @@ export default {
         this.setPage(this.$store.state.auth.page)
         this.setTab(this.$store.state.auth.tab)
         this.$root.$emit('play')
-
       }
     },
 
@@ -417,13 +424,8 @@ export default {
     repostItem () {
       AlbumService.repostAlbum(this.album.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.album.name])
-      })
-      .catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 

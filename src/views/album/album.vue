@@ -296,19 +296,27 @@
                         <v-icon right>more_horiz</v-icon>
                       </v-btn>
                       <v-list>
-                        <v-list-tile key="public" v-if="$store.state.auth.user.id==album.user.id" @click.native="makePublicComment(comment)">
+                        <v-list-tile key="public" v-if="$store.state.auth.user.id == album.user.id && comment.status == 'privated'" @click.native="makePublicComment(comment)">
                           <v-list-tile-title class="default-menu-item">
-                            <img class="track-status-icon" src="/static/images/ic_comment_public.png" />
+                            <!-- <img class="track-status-icon" src="/static/images/ic_comment_public.png" /> -->
+                            <i class="fa fa-eye"></i>
                             <label>Make Public</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="block" v-if="$store.state.auth.user.id==album.user.id && $store.state.auth.user.id!=comment.user.id" @click.native="blockUser(comment)">
+                        <v-list-tile key="private" v-if="$store.state.auth.user.id == album.user.id && comment.status == 'published'" @click.native="makePrivateComment(comment)">
+                          <v-list-tile-title class="default-menu-item">
+                            <!-- <img class="track-status-icon" src="/static/images/ic_comment_private.png" /> -->
+                            <i class="fa fa-eye-slash"></i>
+                            <label>Make Private</label>
+                          </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile key="block" v-if="$store.state.auth.user.id == album.user.id && $store.state.auth.user.id!=comment.user.id" @click.native="blockUser(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <img class="track-status-icon" src="/static/images/ic_comment_flag.png" />
                             <label>Block User</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="delete" v-if="$store.state.auth.user.id==album.user.id || $store.state.auth.user.id==comment.user.id" @click.native="deleteComment(comment)">
+                        <v-list-tile key="delete" v-if="$store.state.auth.user.id == album.user.id || $store.state.auth.user.id==comment.user.id" @click.native="deleteComment(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <img class="track-status-icon" src="/static/images/ic_comment_delete.png" />
                             <label>Delete Comment</label>

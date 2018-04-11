@@ -16,6 +16,10 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + commentId + '/make_public', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  makePrivateComment (commentId) {
+    return Vue.http.get(API_BASE_URL + '/' + commentId + '/make_private', { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   deleteComment (commentId) {
     return Vue.http.delete(API_BASE_URL + '/' + commentId, { headers: { 'Authorization': $store.state.auth.token } })
   },
