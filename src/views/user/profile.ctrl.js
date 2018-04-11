@@ -448,7 +448,10 @@ export default {
 
     blockUser () {
       UserService.blockUser(this.user.id).then(response => {
-      }).catch(e => this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body]))
+        this.$store.dispatch('error/showSuccessToast', ['You blocked ' + this.user.display_name + ', go to settings page to unblock'])
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
       this.closeBlockUserConfirmDialog()
     },
 

@@ -88,56 +88,88 @@
             <v-tabs-items>
               <v-tabs-content key="approved_labels" id="approved_labels">
                 <v-card flat>
-                  <v-layout row wrap>
-                    <template v-for="(relation, index) in approved_labels">
-                      <label-user-item
+                  <template v-if="!approved_labels || approved_labels.length == 0">
+                    <div class="empty-section">
+                      <p class="empty-title">Empty</p>
+                      <p class="empty-description">You have no approved labels</p>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <v-layout row wrap>
+                      <template v-for="(relation, index) in approved_labels">
+                        <label-user-item
                           :user="relation.host"
                           :deleteFunc="showLabelDeleteConfirmDialog"
                           :deleteButtonText="'remove label'"></label-user-item>
-                    </template>
-                  </v-layout>
+                      </template>
+                    </v-layout>
+                  </template>
                 </v-card>
               </v-tabs-content>
               <v-tabs-content key="approved_albums" id="approved_albums">
                 <v-card flat>
-                  <v-layout row wrap class="covers-content">
-                    <div class="card-container" v-for="(user_album, index) in approved_albums" :key="index">
-                      <label-album-item
+                  <template v-if="!approved_albums || approved_albums.length == 0">
+                    <div class="empty-section">
+                      <p class="empty-title">Empty</p>
+                      <p class="empty-description">You have no approved albums</p>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <v-layout row wrap class="covers-content">
+                      <div class="card-container" v-for="(user_album, index) in approved_albums" :key="index">
+                        <label-album-item
                           :album="user_album.album"
                           :user="user_album.user"
                           :type="'label'"
                           :deleteButtonFunc="showAlbumDeleteConfirmDialog"
                           :deleteButtonText="`Remove <br>from Record Label`"
                           :deleteButtonClass="`height text-xs-left`"></label-album-item>
-                    </div>
-                  </v-layout>
+                      </div>
+                    </v-layout>
+                  </template>
                 </v-card>
               </v-tabs-content>
               <v-tabs-content key="pending_labels" id="pending_labels">
                 <v-card flat>
-                  <v-layout row wrap>
-                    <template v-for="(relation, index) in pending_labels">
-                      <label-user-item
+                  <template v-if="!pending_labels || pending_labels.length == 0">
+                    <div class="empty-section">
+                      <p class="empty-title">Empty</p>
+                      <p class="empty-description">You have no pending labels</p>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <v-layout row wrap>
+                      <template v-for="(relation, index) in pending_labels">
+                        <label-user-item
                           :user="relation.host"
                           :acceptFunc="acceptLabelUserRequest"
                           :denyFunc="denyLabelUserRequest"></label-user-item>
-                    </template>
-                  </v-layout>
+                      </template>
+                    </v-layout>
+                  </template>
                 </v-card>
               </v-tabs-content>
               <v-tabs-content key="pending_albums" id="pending_albums">
                 <v-card flat>
-                  <v-layout row wrap class="covers-content">
-                    <div class="card-container" v-for="(user_album, index) in pending_albums" :key="index">
-                      <label-album-item
+                  <template v-if="!pending_albums || pending_albums.length == 0">
+                    <div class="empty-section">
+                      <p class="empty-title">Empty</p>
+                      <p class="empty-description">You have no pending albums</p>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <v-layout row wrap class="covers-content">
+                      <div class="card-container" v-for="(user_album, index) in pending_albums" :key="index">
+                        <label-album-item
                           :album="user_album.album"
                           :user="user_album.user"
                           :type="'label'"
                           :showPromoteButton="false"
                           :acceptButtonFunc="acceptLabelAlbumRequest"
                           :denyButtonFunc="denyLabelAlbumRequest"></label-album-item>
-                    </div>
-                  </v-layout>
+                      </div>
+                    </v-layout>
+                  </template>
                 </v-card>
               </v-tabs-content>
             </v-tabs-items>

@@ -45,10 +45,12 @@
 </template>
 
 <script type="text/javascript">
+  import AuthService from '@/services/auth'
   import AlbumService from '@/services/album'
   import UserService from '@/services/user'
   import paymentModal from '@/components/paymentmodal'
   // import { Utils } from '@/helper'
+  import { Filter } from '@/helper'
 
   export default {
     components: {
@@ -181,7 +183,8 @@
           params['payment_token'] = token.id
         }
         UserService.donateMoney(this.item.user.slug, params).then(response => {
-          // this.$store.dispatch('error/showSuccessToast', [`You just donated ${this.donate_amount}.`])
+          this.$store.dispatch('error/showSuccessToast', [`You sent user $${Filter.formatNumber(this.donate_amount_by_cent)}`])
+          AuthService.setUser(response.body)
           this.downloadItem()
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
