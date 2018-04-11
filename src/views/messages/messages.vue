@@ -257,7 +257,15 @@
 
                             <div class="repost-status-section label">
                               <div v-if="message.sender.id==$store.state.auth.user.id || message.attachment.status!='pending'">
-                                <v-btn class="status-btn" :class="message.attachment.status">{{ message.attachment.status }}</v-btn>
+                                <!-- <v-btn class="status-btn" :class="message.attachment.status">{{ message.attachment.status }}</v-btn> -->
+                                <v-btn v-if="message.attachment.attachable_type=='Album'"
+                                  to="/albums#pending"
+                                  class="status-btn"
+                                  :class="message.attachment.status">View Collaboration</v-btn>
+                                <v-btn v-else-if="message.attachment.attachable_type=='ShopProduct'"
+                                  to="/sell#pendings"
+                                  class="status-btn"
+                                  :class="message.attachment.status">View Collaboration</v-btn>
                               </div>
                               <div v-else>
                                 <v-btn to="/albums#pending" class="status-btn" v-if="message.attachment.attachable_type=='Album'">View Pending Collaboration</v-btn>

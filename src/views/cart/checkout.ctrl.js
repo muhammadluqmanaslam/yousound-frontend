@@ -139,6 +139,10 @@ export default {
         }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+
+          ItemService.getShoppingCartItems().then(response => {
+            this.cartItems = response.body
+          })
         })
       } else {
         this.$store.dispatch('error/showErrorToast', ['Please add Shipping Address.'])

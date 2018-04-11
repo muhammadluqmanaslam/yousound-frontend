@@ -61,7 +61,11 @@
         <label class="available-money-amount">${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label>
         <div class="action-section">
           <a class="link-btn" @click.self="openWithdrawModal()">Withdraw Funds</a>
-          <a class="link-btn pl-3">View Stripe Account</a>
+          <label>|</label>
+          <a v-if="!$store.state.auth.user.is_stripe_connected" :href="stripeLink" target="_self">
+            Connect Stripe Account
+          </a>
+          <a v-else class="link-btn pl-3">View Stripe Account</a>
         </div>
       </div>
       <h2 class="page-title">Payments</h2>

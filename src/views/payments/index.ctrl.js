@@ -60,6 +60,10 @@ export default {
         (!this.withdraw_amount || this.withdraw_amount < 1 || this.currentUser.available_amount < this.withdraw_amount)
     },
 
+    stripeLink () {
+      return `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.STRIPE_CONNECT_CLIENT_ID}&scope=read_write&state=${this.$store.state.auth.secret_code}`
+    },
+
     withdrawAmount () {
       if (this.withdraw_option == 'all') {
         return this.currentUser.available_amount
