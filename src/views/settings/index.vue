@@ -12,7 +12,7 @@
             :href="`#${t.id}`"
             :class="{active: t.id == tab}"
             @click.native="onTab(t.id)"
-            v-if="!(t.id == 'verify-status' && !$store.state.auth.user.request_status)"
+            v-if="availableTab(t)"
             ripple>
             <v-list-tile-title>{{ t.title }}</v-list-tile-title>
           </v-list-tile>
@@ -215,6 +215,7 @@
         </div>
         <div class="description-section"></div>
       </div>
+      <cosign-tab v-else-if="tab=='co-sign'"></cosign-tab>
       <verify-tab v-else-if="tab=='verify-status'"></verify-tab>
     </v-flex>
   </div>

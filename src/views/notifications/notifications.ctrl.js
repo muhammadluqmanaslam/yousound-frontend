@@ -105,7 +105,6 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.isPageReady = true
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }

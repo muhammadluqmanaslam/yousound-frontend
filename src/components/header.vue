@@ -259,8 +259,7 @@
 
       goToSearch () {
         const keyword = this.keyword
-        // this.$router.push({name: 'Search', params: { keyword: keyword }})
-        this.$router.push({path: '/search', query: { q: keyword }})
+        this.$router.push({ path: '/search', query: { q: keyword } })
       },
 
       signOut () {

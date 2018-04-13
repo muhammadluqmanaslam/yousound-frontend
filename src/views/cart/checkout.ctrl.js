@@ -28,34 +28,36 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'checkout', tab: '' })
-    if (this.$store.state.auth.user) {
-      let params = {}
-      if (this.$store.state.auth.user.default_address) {
-        this.shippingAddress.push(this.$store.state.auth.user.default_address)
-        params.country = this.$store.state.auth.user.default_address.country
-      }
-
-      this.isPageReady = false
-      this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([
-        ItemService.getShoppingCartItems(),
-        ItemService.calculateCost(params),
-        AddressService.getAddresses(),
-      ]).then(values => {
-        this.cartItems = values[0].body
-        this.cartCost = values[1].body
-        // this.shippingAddress = values[2].body
-        this.isPageReady = true
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(reason => {
-        console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', reason)
-      })
-    } else {
-      this.$root.$emit('showLoginModal')
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
     }
+
+    this.$store.dispatch('navigator/goNextState', { page: 'checkout', tab: '' })
+    let params = {}
+    if (this.$store.state.auth.user.default_address) {
+      this.shippingAddress.push(this.$store.state.auth.user.default_address)
+      params.country = this.$store.state.auth.user.default_address.country
+    }
+
+    this.isPageReady = false
+    this.$store.dispatch('error/showLoadingActivity', true)
+    Promise.all([
+      ItemService.getShoppingCartItems(),
+      ItemService.calculateCost(params),
+      AddressService.getAddresses(),
+    ]).then(values => {
+      this.cartItems = values[0].body
+      this.cartCost = values[1].body
+      // this.shippingAddress = values[2].body
+      this.isPageReady = true
+      this.$store.dispatch('error/showLoadingActivity', false)
+    }).catch(reason => {
+      console.log(reason)
+      this.$store.dispatch('error/showLoadingActivity', false)
+      this.$store.dispatch('error/showErrorToast', reason)
+    })
   },
 
   methods: {

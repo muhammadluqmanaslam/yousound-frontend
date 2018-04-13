@@ -6,6 +6,7 @@ import trackCard from '@/components/trackcard'
 import profileItem from '@/components/profileitem'
 
 import addressTab from './components/address_tab'
+import cosignTab from './components/cosign_tab'
 import genreTab from './components/genre_tab'
 import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
@@ -15,6 +16,7 @@ export default {
     trackCard,
     profileItem,
     addressTab,
+    cosignTab,
     genreTab,
     priceTab,
     verifyTab
@@ -24,42 +26,16 @@ export default {
     return {
       dialog: false,
       tabs: [
-        {
-          id: 'info',
-          title: 'Profile'
-        },
-        {
-          id: 'password',
-          title: 'Password'
-        },
-        {
-          id: 'bank-details',
-          title: 'Bank Details'
-        },
-        {
-          id: 'repost-price',
-          title: 'Repost Price'
-        },
-        {
-          id: 'shipping-address',
-          title: 'Shipping Address'
-        },
-        {
-          id: 'genre-filter',
-          title: 'Genre Filter'
-        },
-        {
-          id: 'blocked',
-          title: 'Blocked'
-        },
-        {
-          id: 'seller-policies',
-          title: 'Seller Policies'
-        },
-        {
-          id: 'verify-status',
-          title: 'Verification Status'
-        }
+        { id: 'info', title: 'Profile' },
+        { id: 'password', title: 'Password' },
+        { id: 'bank-details', title: 'Bank Details' },
+        { id: 'repost-price', title: 'Repost Price' },
+        { id: 'shipping-address', title: 'Shipping Address' },
+        { id: 'genre-filter', title: 'Genre Filter' },
+        { id: 'blocked', title: 'Blocked' },
+        { id: 'seller-policies', title: 'Seller Policies' },
+        { id: 'co-sign', title: 'Pending Users' },
+        { id: 'verify-status', title: 'Verification Status' }
       ],
       tab: 'info',
       profile: {
@@ -96,17 +72,26 @@ export default {
   // },
 
   created () {
-    if (this.$store.state.auth.user) {
-      this.getUserInfo()
-      const tab = this.$route.hash.substr(1) || 'info'
-      this.$store.dispatch('navigator/goNextState', { page: 'settings', tab: tab })
-      this.onTab(tab)
-    } else {
-      this.$root.$emit('showLoginModal')
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
     }
+
+    this.getUserInfo()
+    const tab = this.$route.hash.substr(1) || 'info'
+    this.$store.dispatch('navigator/goNextState', { page: 'settings', tab: tab })
+    this.onTab(tab)
   },
 
   methods: {
+    availableTab (tab) {
+      return !(
+        (tab.id == 'verify-status' && (this.$store.state.auth.user.user_type != 'listener' || !this.$store.state.auth.user.request_status)) ||
+        (tab.id == 'co-sign' && this.$store.state.auth.user.user_type == 'listener')
+      )
+    },
+
     onTab (tab) {
       this.tab = tab
       switch (this.tab) {
@@ -196,7 +181,6 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }
@@ -223,7 +207,6 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }
@@ -240,7 +223,6 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }

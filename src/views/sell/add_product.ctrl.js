@@ -216,9 +216,12 @@ export default {
       ProductService.addProduct(formData).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (this.product.collaborators.length > 0) {
-          this.$store.dispatch('navigator/setParams', {product_id: response.body.id})
+          this.$store.dispatch('navigator/setParams', { product_id: response.body.id })
+          this.$router.push({ path: '/sell#pendings' })
+        } else {
+          this.$router.push({ path: '/sell#products' })
         }
-        this.$router.push({ path: '/sell' })
+        
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

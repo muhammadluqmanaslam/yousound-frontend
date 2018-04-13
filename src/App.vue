@@ -144,6 +144,10 @@ export default {
         } else {
           ActivityService.getUnread().then(response => {
             this.$store.dispatch('activity/setCount', response.body)
+          }).catch(e => {
+            // this.$root.$emit('showLoginModal')
+            AuthService.clearTokenAndUserInfo()
+            this.$router.push({ path: '/login' })
           })
         }
       }

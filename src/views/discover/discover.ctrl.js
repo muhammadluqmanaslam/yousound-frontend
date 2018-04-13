@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
 import productCard from '@/components/productcard'
 import trackCard from '@/components/trackcard'
@@ -59,19 +60,14 @@ export default {
   },
 
   created () {
-    if (this.$store.state.auth.user) {
-      const tab = this.$route.hash.substr(1)
-      this.setTab(tab)
-    } else {
-      this.$store.dispatch('navigator/goNextState', { page: 'discover', tab: 'new' })
-      // const vm = this
-      // setTimeout(() => {
-      //   vm.$root.$emit('showLoginModal')
-      // }, 100)
-      this.$nextTick(() => {
-        this.$root.$emit('showLoginModal')
-      })
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
     }
+
+    const tab = this.$route.hash.substr(1)
+    this.setTab(tab)
   },
 
   methods: {
@@ -114,7 +110,6 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }

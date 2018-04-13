@@ -1,3 +1,4 @@
+import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
@@ -57,15 +58,14 @@ export default {
   },
 
   created () {
-    if (this.$store.state.auth.user) {
-      const tab = this.$route.hash.substr(1)
-      this.setTab(tab)
-    } else {
-      this.$store.dispatch('navigator/goNextState', { page: 'stream', tab: 'any' })
-      this.$nextTick(() => {
-        this.$root.$emit('showLoginModal')
-      })
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
     }
+
+    const tab = this.$route.hash.substr(1)
+    this.setTab(tab)
   },
 
   methods: {
@@ -78,7 +78,6 @@ export default {
       }
       SearchService.searchStreamV2(params).then(response => {
         this.users = this.users.concat(response.body.users)
-        // this.users = response.body.users
         this.page_index = response.body.pagination.current_page
         this.total_pages = response.body.pagination.total_pages
 
@@ -87,7 +86,8 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
+          AuthService.clearTokenAndUserInfo()
+          this.$router.push({ path: '/login' })
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }

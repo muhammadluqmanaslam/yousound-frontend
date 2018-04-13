@@ -52,7 +52,8 @@ export default {
   methods: {
     init (tab) {
       if (!this.$store.state.auth.user) {
-        this.$root.$emit('showLoginModal')
+        AuthService.clearTokenAndUserInfo()
+        this.$router.push({ path: '/login' })
         return
       }
 

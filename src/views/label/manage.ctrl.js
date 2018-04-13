@@ -86,22 +86,24 @@ export default {
   },
 
   created () {
-    this.navigatorState.page = 'label'
-    if (this.$store.state.auth.user) {
-      if (this.$store.state.auth.user.user_type === 'artist') {
-        this.loadData()
-        this.navigatorState.tab = 'approved_labels'
-      } else if (this.$store.state.auth.user.user_type === 'label') {
-        this.loadData()
-        this.navigatorState.tab = 'approved_labels'
-      } else {
-        this.$router.push({ path: '/'})
-      }
-      // console.log('calling navigator/setCurrentState', this.navigatorState)
-      this.$store.dispatch('navigator/setCurrentState', _.cloneDeep(this.navigatorState))
-    } else {
-      this.$root.$emit('showLoginModal')
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
     }
+
+    this.navigatorState.page = 'label'
+    if (this.$store.state.auth.user.user_type === 'artist') {
+      this.loadData()
+      this.navigatorState.tab = 'approved_labels'
+    } else if (this.$store.state.auth.user.user_type === 'label') {
+      this.loadData()
+      this.navigatorState.tab = 'approved_labels'
+    } else {
+      this.$router.push({ path: '/'})
+    }
+    // console.log('calling navigator/setCurrentState', this.navigatorState)
+    this.$store.dispatch('navigator/setCurrentState', _.cloneDeep(this.navigatorState))
   },
 
   methods: {

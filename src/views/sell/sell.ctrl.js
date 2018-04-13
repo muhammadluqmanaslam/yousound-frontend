@@ -68,34 +68,28 @@ export default {
   },
 
   created () {
-    // this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: 'products', action: 'add_product' })
-    // this.$store.dispatch('navigator/setParams', { product_id: 'dd189b7b-e79c-46ef-8fbf-73a1f5f48de0' })
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
+    }
+
+    if (['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) == -1)  {
+      this.$router.push({ path: '/' })
+      return
+    }
+
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
 
-    if (this.$store.state.auth.user) {
-      if (['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) == -1)  {
-        this.$router.push({ path: '/' })
-      } else {
-        const lastState = this.$store.getters['navigator/last']
-        if (lastState.page === 'sell' && lastState.tab === 'products') {
-          this.activeTab = 'products'
-          this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: 'products' })
-          if (_.get(lastState, 'params.product_id')) {
-            ProductService.getProduct(lastState.params.product_id).then(response => {
-              this.activeTab = 'pendings'
-              this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: 'pendings' })
-              this.product = response.body
-              this.openProductFinishModal()
-            })
-          }
-        }
-
-        this.loadData()
-      }
-    } else {
-      this.$root.$emit('showLoginModal')
+    const lastState = this.$store.getters['navigator/last']
+    if (_.get(lastState, 'params.product_id')) {
+      ProductService.getProduct(lastState.params.product_id).then(response => {
+        this.product = response.body
+        this.openProductFinishModal()
+      })
     }
+    this.loadData()
   },
 
   methods: {

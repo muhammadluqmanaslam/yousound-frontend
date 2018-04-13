@@ -56,26 +56,28 @@ export default {
   },
 
   created () {
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
+    }
+
     this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: ''})
-    if (this.$store.state.auth.user) {
-      this.order_id = this.$route.params.slug
-      if (this.order_id) {
-        this.isPageReady = false
-        this.$store.dispatch('error/showLoadingActivity', true)
-        Promise.all([
-          OrderService.getOrder(this.order_id)
-        ]).then(values => {
-          this.order_detail = values[0].body
-          this.isPageReady = true
-          this.$store.dispatch('error/showLoadingActivity', false)
-        }).catch(reason => {
-          console.log(reason)
-          this.$store.dispatch('error/showLoadingActivity', false)
-          // this.$store.dispatch('error/showErrorToast', [reason])
-        })
-      }
-    } else {
-      this.$root.$emit('showLoginModal')
+    this.order_id = this.$route.params.slug
+    if (this.order_id) {
+      this.isPageReady = false
+      this.$store.dispatch('error/showLoadingActivity', true)
+      Promise.all([
+        OrderService.getOrder(this.order_id)
+      ]).then(values => {
+        this.order_detail = values[0].body
+        this.isPageReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(reason => {
+        console.log(reason)
+        this.$store.dispatch('error/showLoadingActivity', false)
+        // this.$store.dispatch('error/showErrorToast', [reason])
+      })
     }
   },
 

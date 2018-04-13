@@ -198,8 +198,12 @@ export default {
           this.releaseAlbum(response.body.id)
         } else {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('navigator/setParams', { album_id: response.body.id })
-          this.$router.push({ path: '/albums' })
+          if (this.collaborators.length > 0) {
+            this.$store.dispatch('navigator/setParams', { album_id: response.body.id })
+            this.$router.push({ path: '/albums#pending' })
+          } else {
+            this.$router.push({ path: '/albums' })
+          }
         }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)

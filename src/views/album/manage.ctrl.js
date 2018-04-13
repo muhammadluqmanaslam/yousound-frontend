@@ -63,30 +63,28 @@ export default {
   },
 
   created () {
-    // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
-    // this.$store.dispatch('navigator/setParams', { album_id: '61c5dfee-4011-49b6-97d6-54da6e6eab57' })
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
+    }
+
+    if (this.$store.state.auth.user.user_type !== 'artist') {
+      this.$router.push({ path: '/'})
+      return
+    }
+
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
 
-    if (this.$store.state.auth.user) {
-      if (this.$store.state.auth.user.user_type !== 'artist') {
-        this.$router.push({ path: '/'})
-      } else {
-        const lastState = this.$store.getters['navigator/last']
-        if (lastState.page === 'upload' && lastState.params && lastState.params.album_id) {
-          this.activeTab = 'pending'
-          this.$store.dispatch('navigator/setCurrentState', { page: 'manage', tab: 'pending' })
-          AlbumService.getAlbum(lastState.params.album_id).then(response => {
-            this.album = response.body
-            this.openAlbumFinishModal()
-          })
-        }
-
-        this.loadAlbums()
-      }
-    } else {
-      this.$root.$emit('showLoginModal')
+    const lastState = this.$store.getters['navigator/last']
+    if (_.get(lastState, 'params.album_id')) {
+      AlbumService.getAlbum(lastState.params.album_id).then(response => {
+        this.album = response.body
+        this.openAlbumFinishModal()
+      })
     }
+    this.loadAlbums()
   },
 
   methods: {
@@ -101,7 +99,6 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.isPageReady = true
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }

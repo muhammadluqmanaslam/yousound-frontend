@@ -75,7 +75,6 @@ export default {
         }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
           if (e.status === 401) {
-            this.$root.$emit('showLoginModal')
           } else {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           }
@@ -88,7 +87,6 @@ export default {
         }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
           if (e.status === 401) {
-            this.$root.$emit('showLoginModal')
           } else {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           }

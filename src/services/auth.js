@@ -49,12 +49,15 @@ export default {
 
   logout () {
     Vue.http.post(API_BASE_URL + '/sign_out', null, { headers: { 'Authorization': $store.state.auth.token } })
+    this.clearTokenAndUserInfo()
+  },
+
+  clearTokenAndUserInfo () {
     localStorage.removeItem(ACCESS_TOKEN_KEY)
     localStorage.removeItem(USER_INFO)
     $store.dispatch('auth/setToken', null)
     $store.dispatch('auth/setUser', null)
     $store.dispatch('auth/setFirstVisit', false)
-    // this.$router.push({ path: '/login' })
   },
 
   isAuthenticated () {

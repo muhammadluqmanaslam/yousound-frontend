@@ -79,20 +79,23 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'messages', tab: ''})
-    if (this.$store.state.auth.user) {
-      if (!this.$store.state.auth.user.message_first_visited_time) {
-        this.show_stopPopup = true
-      }
-      if (['brand'].indexOf(this.$store.state.auth.user.user_type) != -1) {
-        this.tab = 'merch'
-      }
-      this.loadConversations()
-      this.loadAlbums()
-      this.loadProducts()
-    } else {
-      this.$root.$emit('showLoginModal')      
+    if (!this.$store.state.auth.user) {
+      AuthService.clearTokenAndUserInfo()
+      this.$router.push({ path: '/login' })
+      return
     }
+
+    this.$store.dispatch('navigator/goNextState', { page: 'messages', tab: '' })
+    if (!this.$store.state.auth.user.message_first_visited_time) {
+      this.show_stopPopup = true
+    }
+    if (['brand'].indexOf(this.$store.state.auth.user.user_type) != -1) {
+      this.tab = 'merch'
+    }
+    this.loadConversations()
+    this.loadAlbums()
+    this.loadProducts()
+
     const vm = this
     this.timer = setInterval(function(){ vm.refreshMessages() }, 10000)
   },
@@ -110,7 +113,6 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
-          this.$root.$emit('showLoginModal')
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         }
