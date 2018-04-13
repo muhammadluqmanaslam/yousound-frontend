@@ -220,4 +220,4 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./list.ctrl.js"></script>
+<script type="text/javascript" src="./index.ctrl.js"></script>

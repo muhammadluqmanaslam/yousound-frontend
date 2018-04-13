@@ -6,11 +6,17 @@ import UserService from '@/services/user'
 export default {
   data () {
     return {
-      genres: []
+      genres: [],
+      parent: null,
+      parent_index: 0,
+      show_selector_view: true,
+      isPageRedy: false
     }
   },
 
   created () {
+    this.isPageReady = false
+    this.$store.dispatch('error/showLoadingActivity', true)
     GenreService.getGenres2().then(response => {
       this.genres = response.body
       let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
@@ -31,27 +37,44 @@ export default {
           genre.value = true
         }
       })
+      this.isPageReady = true
+      this.$store.dispatch('error/showLoadingActivity', false)
+      this.$forceUpdate()
+    }).catch(e => {
+      this.$store.dispatch('error/showLoadingActivity', false)
     })
   },
 
   methods: {
     checkParentGenre (parent) {
       _.each(parent.children, (g) => { g.value = !parent.value })
-      this.genres = this.genres.slice()
+      // this.genres = this.genres.slice()
+      this.$forceUpdate()
     },
 
     checkChildGenre (parent, child) {
       if (child.value) {
         if (parent.value) {
           parent.value = false
-          this.genres = this.genres.slice()
+          // this.genres = this.genres.slice()
         }
       } else {
         if (_.countBy(parent.children, 'value')['false'] == 1) {
           parent.value = true
-          this.genres = this.genres.slice()
+          // this.genres = this.genres.slice()
         }
       }
+      this.$forceUpdate()
+    },
+
+    getSelectedChildrenCount (parent) {
+      return _.countBy(parent.children, 'value')['true']
+    },
+
+    selectParent (parent, index) {
+      this.show_selector_view = false
+      this.parent = parent
+      this.parent_index = index
     },
 
     saveGenreFilters () {

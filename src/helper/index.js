@@ -90,8 +90,16 @@ export const Filter = {
 
   capitalize (value) {
     if (!value) return ''
-    value = value.toString()
+    value = value.toString().toLowerCase()
     return value.charAt(0).toUpperCase() + value.slice(1)
+  },
+
+  titleize (value) {
+    let stringArr = value.split(' ')
+    stringArr = stringArr.map(function (str) {
+      return Filter.capitalize(str)
+    })
+    return stringArr.join(' ')
   }
 }
 

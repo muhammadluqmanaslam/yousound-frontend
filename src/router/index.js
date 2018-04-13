@@ -41,7 +41,7 @@ import PaymentIndex from '@/views/payments/index'
 import StripeConnectPage from '@/views/user/stripe_connect'
 import UserProfile from '@/views/user/profile'
 import UserGetVerified from '@/views/user/get_verified'
-import UserSettings from '@/views/settings/list'
+import UserSettings from '@/views/settings/index'
 
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
