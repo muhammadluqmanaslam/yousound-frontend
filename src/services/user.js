@@ -44,6 +44,10 @@ export default {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/donate', params, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  cosignUser (userId) {
+    return Vue.http.get(API_BASE_URL + '/' + userId + '/cosign', { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   followUser (userId) {
     return Vue.http.get(API_BASE_URL + '/' + userId + '/follow', { headers: { 'Authorization': $store.state.auth.token } })
   },

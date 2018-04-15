@@ -1,6 +1,5 @@
 <template>
   <div class="page landing-page">
-
     <div class="section section-intro">
       <div class="section-content">
         <v-layout wrap>
@@ -16,13 +15,11 @@
       </div>
     </div>
 
-
     <div class="section section-design">
       <div class="section-content">
-
-                <v-layout row>
-            <div class="keyline">&nbsp;</div>
-          </v-layout>
+        <v-layout row>
+          <div class="keyline">&nbsp;</div>
+        </v-layout>
 
         <div class="hero-copy">
           <v-layout row wrap justify-center>
@@ -32,14 +29,11 @@
           </v-layout>
         </div>
 
+        <v-layout row>
+          <div class="lockline">&nbsp;</div>
+        </v-layout>
 
-                <v-layout row>
-            <div class="lockline">&nbsp;</div>
-          </v-layout>
-
-
-
-                <div class="hero-2">
+        <div class="hero-2">
           <v-layout row wrap justify-center>
             <v-flex xs12 sm12 md10 lg10 text-xs-center>
               <p>As artists ourselves, we've identified problems we've struggled with and built the tools needed to sustain our creative careers. <br> You are the first wave of Verified Artists.</p>
@@ -49,9 +43,10 @@
             <div class="keyline">&nbsp;</div>
           </v-layout>
         </div>
+      </div>
+    </div>
 
-
-   <div class="section section-thoughtful section-background-white">
+    <div class="section section-thoughtful section-background-white">
       <div class="section-content">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm12 md10 text-xs-center>
@@ -60,7 +55,6 @@
               <p>Artists have unprecedented control of their content. Clear user roles let the community enjoy engaging experiences with your content.</p>
             </div>
           </v-flex>
-
 
           <v-flex xs12 text-xs-center class="large-hide small-show">
           </v-flex>
@@ -104,7 +98,7 @@
           </v-layout>
 
 
-                    <v-layout row wrap>
+          <v-layout row wrap>
             <v-flex xs12 sm4 lg6 md5 offset-sm2 offset-md2 offset-lg2 class="copy-left river-content river-right">
               <h3>Content Control</h3>
               <p>Labels must request to add an artist or their albums to their profile via Direct Message. Artists can remove themselves and their content from a label at any time.</p>
@@ -115,16 +109,9 @@
               </figure>
             </v-flex>
           </v-layout>
-
-
         </div>
-
       </div>
     </div>
-
-  </div>
-</div>
-
 
     <div class="section section-thoughtful section-background-white">
       <div class="section-content">
@@ -177,8 +164,7 @@
             </v-flex>
           </v-layout>
 
-
-                    <v-layout row wrap>
+          <v-layout row wrap>
             <v-flex xs12 sm4 lg6 md5 offset-sm2 offset-md2 offset-lg2 class="copy-left river-content river-right">
               <h3>Repost Everything</h3>
               <p>From Albums, Videos, Merch, and Playlists, all content can be reposted. All of your content can circulate together.</p>
@@ -189,13 +175,9 @@
               </figure>
             </v-flex>
           </v-layout>
-
-
         </div>
-
       </div>
     </div>
-
 
     <div class="section section-thoughtful section-background-white">
       <div class="section-content">
@@ -248,7 +230,7 @@
           </v-layout>
 
 
-                    <v-layout row wrap>
+          <v-layout row wrap>
             <v-flex xs12 sm4 lg6 md5 offset-sm2 offset-md2 offset-lg2 class="copy-left river-content river-right">
               <h3>Send Love</h3>
               <p>Verified Artists & Labels can use the Send Love button to accept contributions from any user for any reason. Get creative with how they incentivize users to support. </p>
@@ -259,14 +241,11 @@
               </figure>
             </v-flex>
           </v-layout>
-
-
         </div>
-
       </div>
     </div>
 
-  <div class="section section-thoughtful section-background-white">
+    <div class="section section-thoughtful section-background-white">
       <div class="section-content">
         <v-layout row wrap justify-center>
           <v-flex xs12 sm12 md10 text-xs-center>
@@ -317,8 +296,7 @@
             </v-flex>
           </v-layout>
 
-
-                    <v-layout row wrap>
+          <v-layout row wrap>
             <v-flex xs12 sm4 lg6 md5 offset-sm2 offset-md2 offset-lg2 class="copy-left river-content river-right">
               <h3>Labels & Brands</h3>
               <p>Labels can invite artists to their roster, and request to artist albums via Direct Message. Labels can promote any album on their roster & sell merch. Brand accounts are listener accounts with the ability to sell merch.</p>
@@ -329,15 +307,10 @@
               </figure>
             </v-flex>
           </v-layout>
-
-
         </div>
-
       </div>
     </div>
-
-
-
   </div>
 </template>
+
 <script type="text/javascript" src="./landing.ctrl.js"></script>

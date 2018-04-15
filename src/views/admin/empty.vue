@@ -36,5 +36,5 @@
     </v-flex>
   </div>
 </template>
-<script type="text/javascript" src="./empty.ctrl.js"></script>
 
+<script type="text/javascript" src="./empty.ctrl.js"></script>

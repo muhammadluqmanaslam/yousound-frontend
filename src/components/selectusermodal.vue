@@ -111,13 +111,8 @@
         }
         UserService.searchUsers(params).then(response => {
           this.users = response.body.users
-        })
-        .catch(e => {
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       },
 

@@ -87,7 +87,7 @@ export default {
   methods: {
     availableTab (tab) {
       return !(
-        (tab.id == 'verify-status' && (this.$store.state.auth.user.user_type != 'listener' || !this.$store.state.auth.user.request_status)) ||
+        (tab.id == 'verify-status' && (this.$store.state.auth.user.user_type != 'listener' || ['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.request_role) > -1)) ||
         (tab.id == 'co-sign' && this.$store.state.auth.user.user_type == 'listener')
       )
     },

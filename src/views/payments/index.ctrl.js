@@ -1,4 +1,4 @@
-import { PaymentTypes } from '@/helper'
+import { PaymentTypes, Filter } from '@/helper'
 
 import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
@@ -194,7 +194,7 @@ export default {
       PaymentService.withdrawMoney(params).then(response => {
         AuthService.setUser(response.body)
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', [`Withdrew $${this.withdrawAmount} successfully.`])
+        this.$store.dispatch('error/showSuccessToast', [`Withdrew $${Filter.formatNumber(this.withdrawAmount)} successfully.`])
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
