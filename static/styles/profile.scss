@@ -59,51 +59,51 @@
           letter-spacing: 1px;
           margin-left: 10px;
         }
+        .user-inviter-name {
+          text-transform: capitalize;
+          font-size: 14x;
+          color: #000000;
+          letter-spacing: 1px;
+          margin-left: 10px;
+        }
         .user-status {
           padding-left: 14px;
           font-size: 24px;
         }
       }
       .user-action-section {
-        .play-btn {
+        & > .btn {
           width: 130px;
           height: 40px;
-          box-shadow: none;
-          text-transform: none;
           margin: 8px 0px 8px 0px;
-          background-color: #3A92FF !important;
-          border-radius: 82px;
+          box-shadow: none;
+          border-radius: 20px;
+          text-transform: none;
           font-size: 16px;
+          letter-spacing: 0;
+          .icon {
+            font-size: 24px;
+          }
+        }
+        .play-btn {
+          background-color: #3A92FF !important;
           color: #FFFFFF;
           letter-spacing: 0;
           .icon {
             color: #FFFFFF;
-            font-size: 24px;
           }
         }
+        .invite-btn {
+          background-color: #14c45b !important;
+          color: #FFFFFF;
+        }
         .send-love-btn {
-          width: 130px;
-          height: 40px;
-          box-shadow: none;
-          text-transform: none;
-          margin: 8px 0px 8px 0px;
           background-color: rgba(255, 255, 255, 0.5) !important;
           border: 1px solid #3A92FF !important;
-          border-radius: 82px;
-          font-size: 16px;
           color: #3A92FF;
-          letter-spacing: 0;
         }
         .follow-btn {
-          width: 130px;
-          height: 40px;
-          box-shadow: none;
-          text-transform: none;
-          margin: 8px 0px 8px 0px;
           background-color: rgba(255, 255, 255, 0.5) !important;
-          border-radius: 82px;
-          font-size: 16px;
-          letter-spacing: 0;
           &.follow {
             color: #3A92FF !important;
             border: 1px solid #3A92FF;

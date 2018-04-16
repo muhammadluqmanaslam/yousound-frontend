@@ -54,7 +54,7 @@ export default {
       })
     },
 
-    coSign () {
+    coSign (user) {
       console.log('co-signed sumit')
     }
   }

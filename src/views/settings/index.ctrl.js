@@ -6,7 +6,6 @@ import trackCard from '@/components/trackcard'
 import profileItem from '@/components/profileitem'
 
 import addressTab from './components/address_tab'
-import cosignTab from './components/cosign_tab'
 import genreTab from './components/genre_tab'
 import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
@@ -16,7 +15,6 @@ export default {
     trackCard,
     profileItem,
     addressTab,
-    cosignTab,
     genreTab,
     priceTab,
     verifyTab
@@ -34,7 +32,6 @@ export default {
         { id: 'genre-filter', title: 'Genre Filter' },
         { id: 'blocked', title: 'Blocked' },
         { id: 'seller-policies', title: 'Seller Policies' },
-        { id: 'co-sign', title: 'Pending Users' },
         { id: 'verify-status', title: 'Verification Status' }
       ],
       tab: 'info',
@@ -87,8 +84,8 @@ export default {
   methods: {
     availableTab (tab) {
       return !(
-        (tab.id == 'verify-status' && (this.$store.state.auth.user.user_type != 'listener' || ['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.request_role) > -1)) ||
-        (tab.id == 'co-sign' && this.$store.state.auth.user.user_type == 'listener')
+        (tab.id == 'verify-status' && (this.$store.state.auth.user.user_type != 'listener' || ['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.request_role) > -1))
+        // || (tab.id == 'co-sign' && this.$store.state.auth.user.user_type == 'listener')
       )
     },
 

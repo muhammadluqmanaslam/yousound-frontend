@@ -91,45 +91,35 @@
       }
     }
     .user-action-section {
-      .play-btn {
+      & > .btn {
         width: 100px;
         height: 36px;
-        box-shadow: none;
-        text-transform: none;
         margin: 8px 0px 8px 0px;
-        background-color: #3A92FF !important;
-        border-radius: 82px;
-        font-size: 14px;
+        box-shadow: none;
+        border-radius: 20px;
         color: #FFFFFF;
+        text-transform: none;
+        font-size: 14px;
         letter-spacing: 0;
         .icon {
-          color: #FFFFFF;
           font-size: 24px;
         }
       }
+      .play-btn {
+        background-color: #3A92FF !important;
+        .icon {
+          color: #FFFFFF;
+        }
+      }
+      .invite-btn {
+        background-color: #14c45b !important;
+      }
       .send-love-btn {
-        width: 100px;
-        height: 36px;
-        box-shadow: none;
-        text-transform: none;
-        margin: 8px 0px 8px 0px;
         background-color: rgba(255, 255, 255, 0) !important;
         border: 1px solid #FFF !important;
-        border-radius: 82px;
-        font-size: 14px;
-        color: #FFF;
-        letter-spacing: 0;
       }
       .follow-btn {
-        width: 100px;
-        height: 36px;
-        box-shadow: none;
-        text-transform: none;
-        margin: 8px 0px 8px 0px;
         background-color: rgba(255, 255, 255, 0) !important;
-        border-radius: 82px;
-        font-size: 14px;
-        letter-spacing: 0;
         &.follow {
           color: #FFF;
           border: 1px solid #FFF !important;

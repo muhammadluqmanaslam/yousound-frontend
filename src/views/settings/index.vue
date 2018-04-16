@@ -215,7 +215,6 @@
         </div>
         <div class="description-section"></div>
       </div>
-      <cosign-tab v-else-if="tab=='co-sign'"></cosign-tab>
       <verify-tab v-else-if="tab=='verify-status'"></verify-tab>
     </v-flex>
   </div>

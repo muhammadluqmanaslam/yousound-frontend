@@ -37,50 +37,20 @@ export default {
       currentTab: 'songs',
       slide_tab: 'songs',
       tabs: [
-        {
-          id: 'artists',
-          title: 'Artists',
-          roles: ['label']
-        },
-        {
-          id: 'catalog',
-          title: 'Catalog',
-          roles: ['label']
-        },
-        {
-          id: 'songs',
-          title: 'Albums',
-          roles: ['artist']
-        },
-        {
-          id: 'downloaded',
-          title: 'Downloaded'
-        },
-        {
-          id: 'reposted',
-          title: 'Reposted'
-        },
-        {
-          id: 'playlists',
-          title: 'Playlists'
-        },
-        {
-          id: 'followings',
-          title: 'Following'
-        },
-        // {
-        //   id: 'followers',
-        //   title: 'Followers'
-        // },
-        {
-          id: 'merch',
-          title: 'Merch',
-          roles: ['artist', 'brand', 'label']
-        }
+        { id: 'artists', title: 'Artists', roles: ['label'] },
+        { id: 'catalog', title: 'Catalog', roles: ['label'] },
+        { id: 'songs', title: 'Albums', roles: ['artist'] },
+        { id: 'downloaded', title: 'Downloaded' },
+        { id: 'reposted', title: 'Reposted' },
+        { id: 'playlists', title: 'Playlists' },
+        { id: 'followings', title: 'Following' },
+        // { id: 'followers', title: 'Followers' },
+        { id: 'merch', title: 'Merch', roles: ['artist', 'brand', 'label'] }
       ],
       slug: null,
       user: null,
       show_block_user_confirm_dialog: false,
+      show_invite_confirm_dialog: false,
       showPageMerchModal: false,
       selectedProduct: {},
       showPageShareModal: false,
@@ -477,6 +447,22 @@ export default {
       }
     },
 
+    openInviteConfirmDialog () {
+      this.show_invite_confirm_dialog = true
+    },
+
+    closeInviteConfirmDialog () {
+      this.show_invite_confirm_dialog = false
+    },
+
+    inviteUser () {
+      this.closeInviteConfirmDialog()
+      UserService.inviteUser(this.user.id).then(response => {
+        this.user = response.body
+        this.$store.dispatch('error/showSuccessToast', ['Invited'])
+      })
+    },
+
     playSong () {
       if (this.albums.length) {
         this.setPlaylist(this.albums)
@@ -520,7 +506,7 @@ export default {
   mounted () {
     const vm = this;
     this.$root.$on('index_change', this.moveSlide)
-    $( window ).resize(function() {
+    $(window).resize(function() {
       var height = $('#user_info_page').height() + 230
       var screen_height = $( window ).height()
       if (height > screen_height ) {

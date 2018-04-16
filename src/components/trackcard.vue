@@ -65,26 +65,20 @@
                   key="hide"
                   class="default-menu-item track-menu-item"
                   @click.native="showHideAlbumDialog()">
-                  <v-dialog v-model="hide_dialog" class="album-hide-dialog" max-width="500px">
+                  <v-dialog v-model="hide_dialog" content-class="my-dialog-1">
                     <v-list-tile-title slot="activator">
                       <v-icon>visibility_off</v-icon>
                       <label>Hide</label>
                     </v-list-tile-title>
-                    <v-card class="album-hide-dialog-body">
+                    <v-card>
+                      <v-card-media :src="item.cover.url" height="125px" contain></v-card-media>
                       <v-card-text>
-                        <div class="album-hide-avatar" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
-                        <v-flex xs12 sm12>
-                          <label class="album-hide-title">Are you sure you want to hide this {{item.album_type}}?</label>
-                        </v-flex>
-                        <v-flex xs12 sm12>
-                          <label class="album-hide-text">You won't be able to see it anymore, unless you visit the artists profile or download the song.</label>
-                        </v-flex>
+                        <div class="headline">Are you sure you want to hide this {{item.album_type}}?</div>
+                        <div>You won't be able to see it anymore, unless you visit the artists profile or download the song.</div>
                       </v-card-text>
                       <v-card-actions>
-                        <v-flex xs12 sm12>
-                          <v-btn class="hide-cancel-btn" flat @click.native="hide_dialog = false">No, cancel please!</v-btn>
-                          <v-btn class="hide-ok-btn" flat @click.native="hideAlbum()">Yes, hide it!</v-btn>
-                        </v-flex>
+                        <v-btn dark color="grey" @click.native="hide_dialog = false">No, cancel please!</v-btn>
+                        <v-btn dark color="red" @click.native="hideAlbum()">Yes, hide it!</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-dialog>

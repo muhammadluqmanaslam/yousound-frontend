@@ -17,6 +17,20 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="show_invite_confirm_dialog" content-class="my-dialog-1">
+      <v-card>
+        <v-card-media :src="user.avatar.url" height="125px" contain></v-card-media>
+        <v-card-text>
+          <div class="headline">Do you want to invite this user?</div>
+          <div>This user's account is pending verification. Only verified users can invite pending accounts. Inviting this user will expedite their verification process</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="red" dark @click.native="closeInviteConfirmDialog()">No, cancel!</v-btn>
+          <v-btn success @click.native="inviteUser()">Yes, Invite!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="page profile-slider-page image-container" v-if="!grid_show">
       <canvas id="canvas" class="background-image" v-if="slide_tab!='merch'"></canvas>
       <div id="back_image" class="background-overlay" v-if="slide_tab!='merch'"></div>
@@ -40,11 +54,16 @@
                 <label class="follower-count"><strong>{{ user.followers }}</strong> Followers</label>
                 <label class="vertical-divider"></label>
                 <label class="user-role">{{ user.user_type }}</label>
+                <template v-if="user.user_type === 'listener' && user.inviter">
+                  <label class="vertical-divider"></label>
+                  <label class="user-inviter-name">Invited by <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link></label>
+                </template>
               </div>
               <div class="user-action-section">
-                <v-btn class="play-btn" @click.native="playSong()">
-                  <v-icon>play_arrow</v-icon>Play
-                </v-btn>
+                <template v-if="user.user_type === 'listener'">
+                  <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
+                <v-btn v-else class="play-btn" @click.native="playSong()">
+                  <v-icon>play_arrow</v-icon>Play</v-btn>
                 <v-btn class="send-love-btn" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id" @click.native="showLoveDialog()">Send love</v-btn>
                 <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
                   :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
@@ -182,11 +201,16 @@
               <label class="follower-count" @click="followersClickHandler()"><strong>{{ user.followers }}</strong> Followers</label>
               <label class="vertical-divider"></label>
               <label class="user-role">{{ user.user_type }}</label>
+              <template v-if="user.user_type === 'listener' && user.inviter">
+                <label class="vertical-divider"></label>
+                <label class="user-inviter-name">Invited by <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link></label>
+              </template>
             </div>
             <div class="user-action-section">
-              <v-btn class="play-btn" @click.native="playSong()">
-                <v-icon>play_arrow</v-icon>Play
-              </v-btn>
+              <template v-if="user.user_type === 'listener'">
+                <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
+              <v-btn v-else class="play-btn" @click.native="playSong()">
+                <v-icon>play_arrow</v-icon>Play</v-btn>
               <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
                 class="send-love-btn"
                 @click.native="showLoveDialog()">Send love</v-btn>
