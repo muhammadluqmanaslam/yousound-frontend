@@ -93,7 +93,7 @@
         .action-btn {
           display: block;
           height: 30px;
-          margin: 10px 0 0 0;
+          margin: 0 0 5px 10px;
           border: none;
           border-radius: 15px;
           background: none !important;
@@ -103,7 +103,7 @@
           text-transform: none;
 
           .btn__content {
-          float: left;
+            float: left;
           }
 
           &.height {
@@ -154,7 +154,7 @@
           }
 
           .status-overview {
-            margin: 16px 0 0 24px;
+            margin: 10px 10px 0 15px;
             line-height: 17px;
             font-size: 14px;
 

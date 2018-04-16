@@ -48,7 +48,7 @@
                 </div>
               </div>
 
-              <v-btn v-if="deleteButtonAction"
+              <v-btn v-if="deleteButtonAction && this.$store.state.auth.user.id === album.user.id"
                 dark class="action-btn" @click.native="deleteButtonAction(album)">Delete</v-btn>
 
               <div v-if="album.status == 'collaborated'" class="collaboration-status">

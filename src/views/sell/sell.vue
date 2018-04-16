@@ -213,7 +213,8 @@
                   <div class="card-container" v-for="product in collaborated_products" :key="product.id">
                     <collaborate-product
                       :product="product"
-                      :editButtonAction="editProduct"></collaborate-product>
+                      :editButtonAction="editProduct"
+                      :deleteButtonAction="openProductDeleteConfirmDialog"></collaborate-product>
                   </div>
                 </v-layout>
               </v-card>
