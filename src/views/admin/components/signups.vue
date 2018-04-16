@@ -30,7 +30,7 @@
         <v-tabs-items style="border:none;">
           <v-tabs-content v-for="tab in signups_tabs" :key="tab.id" :id="tab.id">
             <v-card flat>
-              <v-data-table v-if="tab.id=='waiting'"
+              <v-data-table v-if="tab.id == 'waiting'"
                 v-bind:headers="waiting_headers"
                 v-bind:items="filtered_items"
                 v-bind:search="signups_search"
@@ -52,7 +52,35 @@
                   From {{ pageStart }} to {{ pageStop }}
                 </template>
               </v-data-table>
-              <v-data-table v-if="tab.id=='approved'"
+              <v-data-table v-if="tab.id == 'co-signed'"
+                v-bind:headers="invited_headers"
+                v-bind:items="filtered_items"
+                v-bind:search="signups_search"
+                class="user-table">
+                <template slot="items" slot-scope="props">
+                  <td class="text-xs-left">
+                    <div class="avatar-image-wrapper">
+                      <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
+                      <div class="avatar-title">{{ props.item.username }}</div>
+                    </div>
+                  </td>
+                  <td class="text-xs-left">{{ props.item.request_role | capitalize }}</td>
+                  <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>
+                  <td class="text-xs-left">
+                    <label :class="{'status-accepted':  props.item.status=='Accepted', 'status-expired': props.item.status=='Expired', 'status-pending': props.item.status=='Pending'}">{{ props.item.status }}</label>
+                  </td>
+                  <td class="text-xs-left">
+                    <router-link v-if="props.item.inviter" :to="`/${props.item.inviter.slug}`">{{ props.item.inviter.display_name }}</router-link>
+                  </td>
+                  <td class="text-xs-right">
+                    <v-btn color="primary" class="signups-btn" @click.native="openApproveModal(props.item)">Verify User</v-btn>
+                  </td>
+                </template>
+                <template slot="pageText" slot-scope="{ pageStart, pageStop }">
+                  From {{ pageStart }} to {{ pageStop }}
+                </template>
+              </v-data-table>
+              <v-data-table v-if="tab.id == 'approved'"
                 v-bind:headers="approved_headers"
                 v-bind:items="filtered_items"
                 v-bind:search="signups_search"
@@ -74,7 +102,7 @@
                   From {{ pageStart }} to {{ pageStop }}
                 </template>
               </v-data-table>
-              <v-data-table v-if="tab.id=='denied'"
+              <v-data-table v-if="tab.id == 'denied'"
                 v-bind:headers="denied_headers"
                 v-bind:items="filtered_items"
                 v-bind:search="signups_search"
@@ -91,28 +119,6 @@
                   <td class="text-xs-center">{{ props.item.approved_at | formatDate }}</td>
                   <td class="text-xs-left">{{ props.item.approver ? props.item.approver.display_name : '' }}</td>
                   <td class="text-xs-left"><v-btn color="primary" class="signups-btn">Click to view</v-btn></td>
-                </template>
-                <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-                  From {{ pageStart }} to {{ pageStop }}
-                </template>
-              </v-data-table>
-              <v-data-table v-if="tab.id=='invite'"
-                v-bind:headers="invite_headers"
-                v-bind:items="filtered_items"
-                v-bind:search="signups_search"
-                class="user-table">
-                <template slot="items" slot-scope="props">
-                  <td class="text-xs-left">
-                    <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
-                    {{ props.item.display_name }}
-                  </td>
-                  <td class="text-xs-left">{{ props.item.request_role | capitalize }}</td>
-                  <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>
-                  <td class="text-xs-left">
-                    <label :class="{'status-accepted':  props.item.status=='Accepted', 'status-expired': props.item.status=='Expired', 'status-pending': props.item.status=='Pending'}">{{ props.item.status }}</label>
-                  </td>
-                  <td class="text-xs-left">{{ props.item.invited_by }}</td>
-                  <td class="text-xs-left"><v-btn color="primary" class="signups-btn profile">View profile</v-btn></td>
                 </template>
                 <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                   From {{ pageStart }} to {{ pageStop }}

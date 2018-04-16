@@ -14,27 +14,23 @@ export default {
     return {
       signups_tab: 'waiting',
       signups_tabs: [
-        {
-          id: 'waiting',
-          title: 'Waiting For Approval'
-        },
-        {
-          id: 'approved',
-          title: 'Approved'
-        },
-        {
-          id: 'denied',
-          title: 'Denied'
-        },
-        {
-          id: 'invite',
-          title: 'Invite Artist'
-        }
+        { id: 'waiting', title: 'Waiting For Approval' },
+        { id: 'co-signed', title: 'Co-Signed' },
+        { id: 'approved', title: 'Approved' },
+        { id: 'denied', title: 'Denied' }
       ],
       waiting_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
         { text: 'User Type', value: 'request_role', align: 'left' },
         { text: 'Date Signed Up', value: 'created_at', align: 'left' }
+      ],
+      invited_headers: [
+        { text: 'User', value: 'display_name', align: 'left' },
+        { text: 'User Type', value: 'user_type', align: 'left' },
+        { text: 'Date', value: 'joined_date', align: 'left' },
+        { text: 'Status', value: 'status', align: 'left' },
+        { text: 'Invited By', value: 'invited_by', align: 'left' },
+        { text: 'Profile', value:'facebook', align: 'left'}
       ],
       approved_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
@@ -52,14 +48,6 @@ export default {
         { text: 'Verified By', value: 'verified_by', align: 'left' },
         { text: 'View Submission', value:'facebook', align: 'left'}
       ],
-      invite_headers: [
-        { text: 'User', value: 'display_name', align: 'left' },
-        { text: 'User Type', value: 'user_type', align: 'left' },
-        { text: 'Date', value: 'joined_date', align: 'left' },
-        { text: 'Status', value: 'status', align: 'left' },
-        { text: 'Invited By', value: 'invited_by', align: 'left' },
-        { text: 'Profile', value:'facebook', align: 'left'}
-      ],
       signups_search: '',
       signups: [],
       show_approve_modal: false,
@@ -73,7 +61,9 @@ export default {
     filtered_items () {
       switch (this.signups_tab) {
         case 'waiting':
-          return _.filter(this.signups, (user) => { return user.request_status === 'pending' })
+          return _.filter(this.signups, (user) => { return user.request_status === 'pending' && !user.inviter })
+        case 'co-signed':
+          return _.filter(this.signups, (user) => { return user.request_status === 'pending' && user.inviter })
         case 'approved':
           return _.filter(this.signups, (user) => { return user.request_status === 'accepted' })
         case 'denied':
