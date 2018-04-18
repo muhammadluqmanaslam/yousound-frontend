@@ -248,6 +248,14 @@
                                 <a class="item-user">{{ message.sender.display_name }}</a>
                               </div>
                               <div class="artist-list">
+                                <div class="artist">
+                                  <span>{{ message.attachment.assoc.merchant.display_name }}( Owner )</span>
+                                  <span>${{ message.attachment.assoc.creator_recoup_cost | formatNumber }}</span>
+                                </div>
+                                <div class="artist">
+                                  <span>&nbsp;</span>
+                                  <span>{{ message.attachment.assoc.creator_share }} %</span>
+                                </div>
                                 <div class="artist" v-for="collaborator in message.attachment.assoc.collaborators">
                                   <span>{{ collaborator.user.display_name }}</span>
                                   <span>{{ collaborator.user_share }} %</span>

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import CategoryService from '@/services/category'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
@@ -58,6 +59,10 @@ export default {
       return _.filter(this.users, (item) => { return item.user_type === 'artist' })
     },
 
+    creator_share () {
+      return 100 - _.sumBy(this.product.collaborators, 'user_share')
+    },
+
     profit_share_types () {
       return CollaboratorProfitShareTypes
     }
@@ -94,6 +99,7 @@ export default {
         this.users = values[1].body.users
 
         this.product = values[2].body
+        this.product.creator_recoup_cost /= 100
         this.product_image1_url = this.product.covers[0].cover.url
         this.product_image2_url = this.product.covers[1].cover.url
         this.product_image3_url = this.product.covers[2].cover.url
@@ -250,6 +256,7 @@ export default {
         }
       }
       formData.append('shop_product[collaborators]', JSON.stringify(this.product.collaborators))
+      formData.append('shop_product[creator_recoup_cost]', Math.round(this.product.creator_recoup_cost * 100))
 
       ProductService.updateProduct(this.product.id, formData).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)

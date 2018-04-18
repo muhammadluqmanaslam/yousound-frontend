@@ -183,21 +183,29 @@
         </v-flex>
         <v-flex xs12 class="collaborator-section">
           <v-flex xs12>
-            <v-layout>
-              <v-flex xs12 sm6 pa-0>
-                <h4 class="option-title">Collaborators</h4>
-              </v-flex>
-            </v-layout>
+            <h4 class="option-title">Collaborators</h4>
           </v-flex>
           <v-flex xs12 v-if="product.collaborators.length < 3">
-            <v-flex xs12 sm6 pa-0>
-              <v-btn class="add-option-btn ma-0" @click.native="addCollaborator()">
-                <v-icon>add</v-icon> Add another collaborator
-              </v-btn>
-            </v-flex>
+            <v-btn class="add-option-btn ma-0" @click.native="addCollaborator()">
+              <v-icon>add</v-icon> Add another collaborator
+            </v-btn>
           </v-flex>
           <v-flex xs12 sm6 pa-0>
-            <v-layout row product-option-content v-for="(collaborator, index) in product.collaborators" :key="index">
+            <v-layout row creator-wrapper v-if="product.collaborators && product.collaborators.length > 0">
+              <v-flex xs12 sm6>
+                <label class="control-label">Creator<label class="required">*</label></label>
+                <label class="creator-name">{{ $store.state.auth.user.display_name }}</label>
+              </v-flex>
+              <v-flex xs6 sm3>
+                <label class="control-label">Profit Share<label class="required">*</label></label>
+                <label class="creator-share">{{ creator_share }}</label>
+              </v-flex>
+              <v-flex xs6 sm3>
+                <label class="control-label">Recoup Cost</label>
+                <input type="text" class="form-control" v-model="product.creator_recoup_cost">
+              </v-flex>
+            </v-layout>
+            <v-layout row collaborator-wrapper v-for="(collaborator, index) in product.collaborators" :key="index">
               <v-flex xs12 sm6>
                 <label class="control-label">Collaborators<label class="required">*</label></label>
                 <v-select
