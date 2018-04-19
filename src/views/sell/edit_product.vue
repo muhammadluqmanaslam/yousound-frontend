@@ -183,7 +183,7 @@
           <v-flex xs12>
             <h4 class="option-title">Collaborators</h4>
           </v-flex>
-          <v-flex xs12 v-if="product.collaborators.length < 3">
+          <v-flex xs12 v-if="product.status == 'pending' && product.collaborators.length < 3">
             <v-btn class="add-option-btn ma-0" @click.native="addCollaborator()">
               <v-icon>add</v-icon> Add another collaborator
             </v-btn>
@@ -200,7 +200,7 @@
               </v-flex>
               <v-flex xs6 sm3>
                 <label class="control-label">Recoup Cost</label>
-                <input type="text" class="form-control" v-model="product.creator_recoup_cost">
+                <input type="text" class="form-control" v-model="product.creator_recoup_cost" :disabled="product.status != 'pending'">
               </v-flex>
             </v-layout>
             <v-layout row product-option-content v-for="(collaborator, index) in product.collaborators" :key="index">

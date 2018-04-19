@@ -36,36 +36,14 @@
             <tbody>
               <tr v-for="(item, index) in order_detail.items" :key="index">
                 <td class="text-xs-center">
-                  <!-- <div class="recent-post-item" :style="{'background-image': 'url(' + imageURL(activityItem.assoc) + ')'}"></div> -->
                   <div class="product-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div>
                 </td>
                 <td class="text-xs-left">{{ item.product.name }}</td>
-                <td class="text-xs-center">${{ item.price|formatNumber }}</td>
+                <td class="text-xs-center">${{ item.price | formatNumber }}</td>
                 <td class="text-xs-center">{{ item.quantity }}</td>
-                <td class="text-xs-center">${{ item.shipping_cost|formatNumber }}</td>
-                <td class="text-xs-center">${{ item.fee|formatNumber }}</td>
+                <td class="text-xs-center">${{ item.shipping_cost | formatNumber }}</td>
+                <td class="text-xs-center red--text">${{ item.fee | formatNumber }}</td>
               </tr>
-              <!-- <tr>
-                <td class="text-xs-center">
-                  <div class="product-image" :style="{'background-image': 'url(/static/images/post1.jpg)'}"></div>
-                </td>
-                <td class="text-xs-left">Another One Slippers</td>
-                <td class="text-xs-center">$39.99</td>
-                <td class="text-xs-center">$2.00</td>
-                <td class="text-xs-center">$4.00</td>
-                <td class="text-xs-center">1</td>
-              </tr>
-              <tr>
-                <td class="text-xs-center">
-                  <div class="product-image" :style="{'background-image': 'url(/static/images/post2.jpg)'}"></div>
-                </td>
-                <td class="text-xs-left">
-                  Supreme x Ruckazoid Snapback</td>
-                <td class="text-xs-center">$39.99</td>
-                <td class="text-xs-center">$2.00</td>
-                <td class="text-xs-center">$4.00</td>
-                <td class="text-xs-center">2</td>
-              </tr> -->
             </tbody>
           </table>
         </div>
@@ -73,11 +51,9 @@
           <div class="sub-total-section">
             <v-layout row wrap>
               <v-flex xs6 text-xs-left pb-2>SubTotal</v-flex>
-              <v-flex xs6 text-xs-right pb-2>${{ subTotal|formatNumber }}</v-flex>
+              <v-flex xs6 text-xs-right pb-2>${{ subTotal | formatNumber }}</v-flex>
               <v-flex xs6 text-xs-left pb-2>Shipping</v-flex>
-              <v-flex xs6 text-xs-right pb-2>${{ shippingTotal|formatNumber }}</v-flex>
-              <v-flex xs6 text-xs-left>Fee</v-flex>
-              <v-flex xs6 text-xs-right>${{ feeTotal|formatNumber }}</v-flex>
+              <v-flex xs6 text-xs-right pb-2>${{ shippingTotal | formatNumber }}</v-flex>
             </v-layout>
           </div>
           <div class="total-section">

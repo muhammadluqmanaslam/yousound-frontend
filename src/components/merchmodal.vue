@@ -154,6 +154,7 @@
 </style>
 
 <script type="text/javascript">
+  import _ from 'lodash'
   import profileItem from '@/components/profileitem'
   import ItemService from '@/services/item'
   import ProductService from '@/services/product'
@@ -234,7 +235,7 @@
     },
 
     created () {
-      this.option = this.item.variants[0].id
+      this.option = _.get(_.find(this.item.variants, (v) => (v.quantity > 0)), 'id', null)
     },
 
     methods: {

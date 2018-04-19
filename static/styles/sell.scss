@@ -463,16 +463,16 @@
 
           .collaboration-actions {
             padding: 0 4px;
-
             .action-btn.accept {
               float: left;
+              margin: 0;
               .btn__content {
                 float: none;
               }
             }
-
             .action-btn.deny {
               float: right;
+              margin: 0;
               .btn__content {
                 float: none;
               }

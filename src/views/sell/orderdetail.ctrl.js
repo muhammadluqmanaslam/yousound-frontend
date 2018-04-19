@@ -33,25 +33,14 @@ export default {
       for (let index in this.order_detail.items) {
         const item = this.order_detail.items[index]
         if (item.shipping_cost) {
-          sum += item.shipping_cost
-        }
-      }
-      return sum
-    },
-
-    feeTotal () {
-      var sum = 0
-      for (let index in this.order_detail.items) {
-        const item = this.order_detail.items[index]
-        if (item.fee) {
-          sum += item.fee
+          sum += item.shipping_cost * item.quantity
         }
       }
       return sum
     },
 
     total () {
-      return this.subTotal + this.shippingTotal + this.feeTotal
+      return this.subTotal + this.shippingTotal
     }
   },
 
