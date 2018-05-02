@@ -146,6 +146,11 @@
                 <label>Chat</label>
               </v-list-tile-title>
             </v-list-tile>
+            <v-list-tile key="video" :to="'/user/' + $store.state.auth.user.slug + '/video'">
+              <v-list-tile-title class="profile-menu-item">
+                <label>Live Video</label>
+              </v-list-tile-title>
+            </v-list-tile>
             <v-list-tile key="manage" to="/albums" v-if="$store.state.auth.user.user_type=='artist'">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-music</v-icon> -->

@@ -228,7 +228,6 @@ export default {
         } else {
           this.$router.push({ path: '/sell#products' })
         }
-        
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

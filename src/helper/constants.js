@@ -3,3 +3,16 @@ export const PaymentTypes = {
 }
 
 // export const RepostPrices = [5, 10, 15]
+
+// export const MediaLiveInputTypes = {
+//   UDP_PUSH: 'UDP_PUSH',
+//   RTP_PUSH: 'RTP_PUSH',
+//   RTMP_PUSH: 'RTMP_PUSH',
+//   RTMP_PULL: 'RTMP_PULL',
+//   URL_PULL: 'URL_PULL'
+// }
+
+export const MediaLiveInputTypes = ['UDP_PUSH', 'RTP_PUSH', 'RTMP_PUSH', 'RTMP_PULL', 'URL_PULL']
+export const MediaLiveInputCodecs = ['MPEG2', 'AVC', 'HEVC']
+export const MediaLiveInputResolutions = ['SD', 'HD', 'UHD']
+export const MediaLiveInputMaximumBitrates = ['MAX_10_MBPS', 'MAX_20_MBPS', 'MAX_50_MBPS']

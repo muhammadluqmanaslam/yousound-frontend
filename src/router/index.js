@@ -42,6 +42,9 @@ import StripeConnectPage from '@/views/user/stripe_connect'
 import UserProfile from '@/views/user/profile'
 import UserGetVerified from '@/views/user/get_verified'
 import UserSettings from '@/views/settings/index'
+import VideoIndex from '@/views/video/index'
+// import VideoShow from '@/views/video/show'
+import VideoCreate from '@/views/video/create'
 
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
@@ -103,7 +106,22 @@ export function createRouter (settings) {
     { path: '/payments', name: 'PaymentIndex', component: PaymentIndex },
     { path: '/settings', name: 'UserSettings', component: UserSettings },
     { path: '/:slug', name: 'UserProfile', component: UserProfile },
-    { path: '/user/:user/chat', name: 'Chat', component: Chat },
+    { path: '/user/:user/chat', name: 'Chat', component: Chat }
+  ])
+
+  if (!settings.disable_live_video) {
+    routes = routes.concat([
+      { path: '/user/:user/video', name: 'VideoIndex', component: VideoIndex },
+      { path: '/user/:user/video/create', name: 'VideoCreate', component: VideoCreate }
+    ])
+  } else {
+    routes = routes.concat([
+      { path: '/user/:user/video', name: 'VideoIndex', redirect: '/' },
+      { path: '/user/:user/video/create', name: 'VideoCreate', redirect: '/' }
+    ])
+  }
+
+  routes = routes.concat([
     { path: '*', redirect: '/login' }
   ])
 

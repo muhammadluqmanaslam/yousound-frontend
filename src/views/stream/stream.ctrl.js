@@ -3,6 +3,7 @@ import SearchService from '@/services/search'
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
 import streamUser from '@/components/streamuser'
+
 export default {
   components: {
     trackCard,

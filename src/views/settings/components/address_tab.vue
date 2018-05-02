@@ -38,13 +38,13 @@
         </v-flex>
         <v-flex xs12 sm6 form-group>
           <label class="control-label">Country</label>
-            <v-select
-              v-bind:items="countries"
-              v-model="shipping_address.country"
-              item-text="name"
-              item-value="name"
-              single-line
-              autocomplete></v-select>
+          <v-select
+            v-bind:items="countries"
+            v-model="shipping_address.country"
+            item-text="name"
+            item-value="name"
+            single-line
+            autocomplete></v-select>
         </v-flex>
         <v-flex xs12 sm6 form-group>
         </v-flex>

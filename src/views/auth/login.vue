@@ -9,14 +9,12 @@
           <h4>Sign in</h4>
         </v-flex>
       </div>
-      <!-- <v-flex xs12 text-xs-center part-loading-section v-if="isLoading">
-        <v-progress-circular indeterminate v-bind:size="50" class="primary--text part-loading-activity"></v-progress-circular>
-      </v-flex> -->
+
       <div class="page auth-page auth-login-page">
         <form v-on:submit.prevent="submit()">
           <v-flex xs12 text-xs-center>
             <div class="form-group" :class="{'has-error': errors.has('email') }" >
-              <input class="email"  v-model="user.email" v-validate="'required|email'" :class="{'input': true, 'text-danger': errors.has('email') }" name="email" type="email" placeholder="Email">
+              <input class="email" v-model="user.email" v-validate="'required|email'" :class="{'input': true, 'text-danger': errors.has('email') }" name="email" type="email" placeholder="Email">
               <p class="text-danger text-xs-left" v-if="errors.has('email')">{{ errors.first('email') }}</p>
             </div>
           </v-flex>
