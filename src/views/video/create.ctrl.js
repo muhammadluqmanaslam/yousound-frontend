@@ -58,6 +58,7 @@ export default {
           }
           StreamService.createStream(params).then(response => {
             this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('auth/setStream', response.body)
             this.$router.push({ path: `/user/${this.$store.state.auth.user.slug}/video` })
           }).catch(e => {
             this.$store.dispatch('error/showLoadingActivity', false)

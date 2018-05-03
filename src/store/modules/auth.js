@@ -85,6 +85,10 @@ const actions = {
     commit('setPendingUser', user)
   },
 
+  setStream ({ commit }, stream) {
+    commit('setStream', stream)
+  },
+
   addFavoriteUser ({ commit }, user) {
     commit('addFavoriteUser', user)
   },
@@ -121,6 +125,10 @@ const mutations = {
 
   setPendingUser (state, user) {
     state.pendingUser = user
+  },
+
+  setStream (state, stream) {
+    state.user.stream = stream
   },
 
   setStripeStatus (state, status) {

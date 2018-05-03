@@ -5,7 +5,7 @@
       <form v-on:submit.prevent="submit()" class="container grid-list-md">
         <v-layout row justify-space-between wrap>
           <v-flex xs12 sm6 form-group>
-            <label class="control-label">Title</label>
+            <label class="control-label">Title<label class="required">*</label></label>
             <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
           </v-flex>
           <v-flex xs12 sm6 form-group>
@@ -45,7 +45,7 @@
               autocomplete></v-select>
           </v-flex>
           <v-flex xs12 sm6 form-group>
-            <v-btn round primary type="submit">Create stream</v-btn>
+            <v-btn round color="primary" dark type="submit">Create stream</v-btn>
           </v-flex>
         </v-layout>
       </form>
