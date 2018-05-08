@@ -1,5 +1,6 @@
 <template>
   <div v-if="user">
+    <video-player></video-player>
 
     <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
 
@@ -471,7 +472,6 @@
         </div>
       </v-flex>
     </div>
-
   </div>
 </template>
 

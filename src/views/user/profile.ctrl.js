@@ -15,6 +15,7 @@ import slide from '@/components/slider/Slide'
 import trackCard from '@/components/trackcard'
 import userItem from '@/components/useritem'
 import artistItem from '@/components/artistitem'
+import videoPlayer from '@/components/video_player'
 
 export default {
   components: {
@@ -29,7 +30,8 @@ export default {
     sendMessage,
     sendLoveModal,
     carousel3d,
-    slide
+    slide,
+    videoPlayer
   },
 
   data () {
