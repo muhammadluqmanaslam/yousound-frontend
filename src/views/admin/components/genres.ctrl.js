@@ -81,11 +81,7 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.isPageReady = true
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -104,11 +100,7 @@ export default {
         this.genre_search = ''
         this.loadGenres(true)
       }).catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -122,11 +114,7 @@ export default {
       GenreService.updateGenre2(genre.id, params).then(response => {
         console.log(response)
       }).catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
@@ -140,11 +128,7 @@ export default {
           this.loadGenres(true)
         }
       }).catch(e => {
-        if (e.body.errors) {
-          this.$store.dispatch('error/showErrorToast', e.body.errors)
-        } else {
-          this.$store.dispatch('error/showErrorToast', [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     }
   },

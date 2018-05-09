@@ -129,13 +129,8 @@
             this.userItem.is_following = false
             this.$store.dispatch('player/setUpdatedUser', this.userItem)
             this.$root.$emit('unfollow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         } else {
           UserService.followUser(this.userItem.id).then(response => {
@@ -143,13 +138,8 @@
             this.userItem.is_following = true
             this.$store.dispatch('player/setUpdatedUser', this.userItem)
             this.$root.$emit('follow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         }
       }

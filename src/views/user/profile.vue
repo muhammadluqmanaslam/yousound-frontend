@@ -1,7 +1,5 @@
 <template>
   <div v-if="user">
-    <video-player></video-player>
-
     <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
 
     <send-love-modal :item="user" :dismiss="dismissLoveDialog" v-if="showSendLoveModal"></send-love-modal>
@@ -27,7 +25,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn color="red" dark @click.native="closeInviteConfirmDialog()">No, cancel!</v-btn>
-          <v-btn success @click.native="inviteUser()">Yes, Invite!</v-btn>
+          <v-btn color="green" dark @click.native="inviteUser()">Yes, Invite!</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

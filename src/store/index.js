@@ -1,19 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import navigator from './modules/navigator'
-import auth from './modules/auth'
-import genre from './modules/genre'
+import activity from './modules/activity'
 import album from './modules/album'
-import track from './modules/track'
-import stream from './modules/stream'
+import auth from './modules/auth'
 import discover from './modules/discover'
 import error from './modules/error'
-import product from './modules/product'
+import genre from './modules/genre'
+import navigator from './modules/navigator'
 import order from './modules/order'
 import player from './modules/player'
-import activity from './modules/activity'
 import playlist from './modules/playlist'
+import product from './modules/product'
+import stream from './modules/stream'
+import track from './modules/track'
 import user from './modules/user'
+import videoPlayer from './modules/video_player'
 
 Vue.use(Vuex)
 
@@ -22,20 +23,21 @@ export default new Vuex.Store({
   actions: {},
   getters: {},
   modules: {
-    navigator,
-    auth,
-    genre,
+    activity,
     album,
-    track,
-    stream,
+    auth,
     discover,
+    genre,
     error,
-    product,
+    navigator,
     order,
     player,
-    activity,
     playlist,
-    user
+    product,
+    stream,
+    track,
+    user,
+    videoPlayer
   },
   plugins: []
 })

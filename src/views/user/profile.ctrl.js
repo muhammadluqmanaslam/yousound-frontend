@@ -3,6 +3,8 @@ import { mapActions } from 'vuex'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
 
+import { MyEvents } from '@/helper'
+
 import albumSlideCard from '@/components/albumslidecard'
 import carousel3d from '@/components/slider/Carousel3d'
 import merchModal from '@/components/merchmodal'
@@ -15,7 +17,7 @@ import slide from '@/components/slider/Slide'
 import trackCard from '@/components/trackcard'
 import userItem from '@/components/useritem'
 import artistItem from '@/components/artistitem'
-import videoPlayer from '@/components/video_player'
+// import videoPlayer from '@/components/video_player'
 
 export default {
   components: {
@@ -30,8 +32,8 @@ export default {
     sendMessage,
     sendLoveModal,
     carousel3d,
-    slide,
-    videoPlayer
+    slide
+    // videoPlayer
   },
 
   data () {
@@ -76,6 +78,10 @@ export default {
   },
 
   computed: {
+    isStreaming () {
+      return true
+    },
+
     coverImageURL () {
       const imageUrl = _.get(this.albums, `[${this.startIndex}].cover.thumb.url`, '')
       if (imageUrl) {
@@ -124,6 +130,11 @@ export default {
     const tab = this.$route.hash.substr(1)
     const grid_view = this.$route.query.grid_view === undefined ? true : (this.$route.query.grid_view === 'true' || this.$route.query.grid_view === true)
     this.init(tab, grid_view)
+
+    if (this.isStreaming) {
+      console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
+      this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+    }
   },
 
   methods: {

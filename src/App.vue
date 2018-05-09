@@ -62,6 +62,8 @@
       </v-card>
     </v-dialog>
 
+    <video-player></video-player>
+
     <efm-header v-if="$store.getters['auth/hasHeader']"></efm-header>
 
     <v-snackbar
@@ -79,7 +81,6 @@
     <router-view id="content-view"></router-view>
 
     <player ref="player"></player>
-
   </v-app>
 </template>
 
@@ -94,13 +95,15 @@ import UserService from '@/services/user'
 import efmHeader from '@/components/header'
 import earnMoneySticker from '@/components/earn_money'
 import Player from '@/components/player'
+import videoPlayer from '@/components/video_player'
 
 export default {
   name: 'app',
   components: {
-    efmHeader,
     earnMoneySticker,
-    Player
+    efmHeader,
+    Player,
+    videoPlayer
   },
 
   data () {
@@ -176,6 +179,21 @@ export default {
     //   js.src = '//connect.facebook.net/en_US/sdk.js'
     //   fjs.parentNode.insertBefore(js, fjs)
     // }(document, 'script', 'facebook-jssdk'))
+
+    // ### if we move this code to mounted, load event is not caught
+    window.flowplayer(function (api, root) {
+      const fsbutton = root.querySelector('.fp-fullscreen')
+      // append fullscreen button after HD menu is added on ready
+      api.on('ready', function () {
+        console.log('flowplayer ready')
+        root.querySelector('.fp-controls').appendChild(fsbutton)
+      })
+      // instant fullscreen
+      api.on('load', function (e, api) {
+        console.log('flowplayer load')
+        api.fullscreen()
+      })
+    })
   },
 
   methods: {

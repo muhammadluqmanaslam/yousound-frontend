@@ -16,3 +16,7 @@ export const MediaLiveInputTypes = ['UDP_PUSH', 'RTP_PUSH', 'RTMP_PUSH', 'RTMP_P
 export const MediaLiveInputCodecs = ['MPEG2', 'AVC', 'HEVC']
 export const MediaLiveInputResolutions = ['SD', 'HD', 'UHD']
 export const MediaLiveInputMaximumBitrates = ['MAX_10_MBPS', 'MAX_20_MBPS', 'MAX_50_MBPS']
+
+export const MyEvents = {
+  VIDEO_PLAYER_INIT: 'video_player_init'
+}

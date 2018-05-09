@@ -43,6 +43,7 @@ export default {
         online: [],
         idle: []
       },
+      idleInterval: null,
       rules: {
         number: (value) => {
           const pattern = /^(0|[1-9][0-9]*)$/
@@ -157,6 +158,7 @@ export default {
       }
     }
   },
+
   created() {
     this.$store.dispatch('navigator/goNextState', {page: 'chat', tab: ''})
     this.$store.dispatch('error/showLoadingActivity', true)
@@ -169,35 +171,41 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', false)
     })
   },
-  mounted() {
-    var app = this;
-    var idleTime = 0;
-    $(document).ready(function() {
-      // increment the idle time counter every minute.
-      var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
 
-      // zero the idle timer on mouse movement.
-      $(this).mousemove(function(e) {
-        if (idleTime >= idleTimeout) sm.online(); // back online after being idle
-        idleTime = 0;
-      });
-      $(this).keypress(function(e) {
-        if (idleTime >= idleTimeout) sm.online(); // back online after being idle
-        idleTime = 0;
-      });
-    });
+  beforeDestory () {
+    if (this.idleInterval) {
+      clearInterval(this.idleInterval)
+    }
+  },
+
+  mounted() {
+    // const vm = this;
+    // var idleTime = 0;
+    // $(document).ready(function() {
+    //   // increment the idle time counter every minute.
+    //   vm.idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+    //   // zero the idle timer on mouse movement.
+    //   $(this).mousemove(function(e) {
+    //     if (idleTime >= idleTimeout) sm.online(); // back online after being idle
+    //     idleTime = 0;
+    //   })
+    //   $(this).keypress(function(e) {
+    //     if (idleTime >= idleTimeout) sm.online(); // back online after being idle
+    //     idleTime = 0;
+    //   })
+    // })
 
     // var requestInProgress = false;
     // var oldHeight = $("#msg-container").height();
     // var oldScroll = $("#msg-container").scrollTop();
 
     // $("#msg-container").scroll(() => {
-    //   if ($("#msg-container").scrollTop() < 50 && !app.last) {
+    //   if ($("#msg-container").scrollTop() < 50 && !vm.last) {
     //     if (!requestInProgress) {
     //       oldHeight = $("#msg-container")[0].scrollHeight;
     //       oldScroll = $("#msg-container").scrollTop();
     //       requestInProgress = true;
-    //       sm.moreMessages(app.nextChunk);
+    //       sm.moreMessages(vm.nextChunk);
     //     }
     //   }
     // });
@@ -218,33 +226,33 @@ export default {
     scrollDown(true);
     // sm.onMessage = function(message) {
     //   // Remove the message from sendingMessages
-    //   app.sendingMessages = $.grep(app.sendingMessages, function(e) {
+    //   vm.sendingMessages = $.grep(vm.sendingMessages, function(e) {
     //     return e.localId != message.localId
     //   });
     //   // look up the username in message.from to get image, etc.
-    //   if (message.from === app.user.username) {
+    //   if (message.from === vm.user.username) {
     //     message.me = true;
     //   }
-    //   app.messages.unshift(message);
+    //   vm.messages.unshift(message);
     //   setTimeout(function() {
     //     scrollDown(false);
     //   }, 1);
     // };
 
     // sm.onMessageSending = function(text) {
-    //   app.sendingMessages.push(text);
+    //   vm.sendingMessages.push(text);
     //   setTimeout(function() {
     //     scrollDown(false);
     //   }, 1);
     // };
 
     // sm.onUserInfo = function(user) {
-    //   app.user = user;
+    //   vm.user = user;
     // };
 
     // sm.onRoomInfo = function(room) {
-    //   app.room = room;
-    //   app.admin = (room.admins.filter((u) => { return u == app.user.username }).length == 1);
+    //   vm.room = room;
+    //   vm.admin = (room.admins.filter((u) => { return u == vm.user.username }).length == 1);
     // };
 
     // sm.onLoadMessages = function(loadMessageObj) {
@@ -253,15 +261,15 @@ export default {
     //   for (var i = loadMessageObj.chunk * 500; i < (loadMessageObj.chunk + 1) * 500; i++) {
     //     var nextMessage = loadMessageObj.data[i - (loadMessageObj.chunk * 500)];
     //     if (nextMessage) {
-    //       app.messages[i] = nextMessage
+    //       vm.messages[i] = nextMessage
     //     }
     //   }
-    //   app.last = loadMessageObj.last;
-    //   app.nextChunk = loadMessageObj.chunk + 1
+    //   vm.last = loadMessageObj.last;
+    //   vm.nextChunk = loadMessageObj.chunk + 1
     //   requestInProgress = false;
-    //   app.messages = app.messages.map((message) => {
+    //   vm.messages = vm.messages.map((message) => {
     //     if (message) {
-    //       if (message.from === app.user.username) {
+    //       if (message.from === vm.user.username) {
     //         message.me = true;
     //       };
     //       return message;
@@ -274,7 +282,7 @@ export default {
     //     }
     //   }, 1);
 
-    //   app.artist = sm.room;
+    //   vm.artist = sm.room;
     // };
   }
 }

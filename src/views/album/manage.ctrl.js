@@ -159,11 +159,7 @@ export default {
           this.hideAlbumStatusConfirmDialog();
         }).catch(e => {
           this.hideAlbumStatusConfirmDialog();
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       } else if (this.album.status !== 'published') {
         AlbumService.makePublicAlbum(this.album.id).then(response => {
@@ -171,11 +167,7 @@ export default {
           this.hideAlbumStatusConfirmDialog();
         }).catch(e => {
           this.hideAlbumStatusConfirmDialog();
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       }
     },

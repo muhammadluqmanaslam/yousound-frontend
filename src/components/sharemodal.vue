@@ -143,13 +143,8 @@
             this.item.user.is_following = true
             this.$store.dispatch('player/setUpdatedUser', this.item.user)
             this.$root.$emit('follow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         }
       },
@@ -158,13 +153,8 @@
         this.dismiss()
         AlbumService.downloadAlbum(this.item.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
-        })
-        .catch(e => {
-          if (e.body.errors) {
-            this.$store.dispatch('error/showErrorToast', e.body.errors)
-          } else {
-            this.$store.dispatch('error/showErrorToast', [e.body])
-          }
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       },
 
