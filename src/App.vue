@@ -191,9 +191,11 @@ export default {
       // instant fullscreen
       api.on('load', function (e, api) {
         console.log('flowplayer load')
-        api.fullscreen()
+        // api.fullscreen()
       })
     })
+
+    console.log('Fullscreen Support', window.flowplayer.support.fullscreen)
   },
 
   methods: {

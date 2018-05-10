@@ -1,12 +1,15 @@
 <template>
   <!-- <div class="video-player-wrapper" :class="{'is-hide': !$store.getters['videoPlayer/hasFrame']}"> -->
-  <div class="video-player-wrapper">
+  <div class="video-player-wrapper is-init">
     <div id="my_video" ref="my_video">
       <div class="my_overlay">
         <efm-header></efm-header>
         <div class="stream-control-warpper"></div>
       </div>
-     </div>
+      <div class="my_splash">
+        <p>Do you want to play streamming?</p>
+        <v-btn @click="onClick">Play</v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -33,54 +36,65 @@
     },
 
     created () {
+      this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
     },
 
     beforeDestroy () {
       console.log('video-player beforeDestroy')
-      this.player.unload()
+      this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
+      // if (this.player) {
+      //   this.player.unload()
+      // }
     },
 
     methods: {
       init () {
         console.log('video-player initializing...')
-        // console.log(window.flowplayer)
-        // console.log(this.$refs.my_video)
-        // console.log(this.player)
-        this.player.load('https://edge.flowplayer.org/functional.m3u8')
-        // this.player.play()
-        // this.player.fullscreen()
-        // this.player.trigger('fullscreen', this.player)
+        // this.player.load('https://edge.flowplayer.org/functional.m3u8')
+        this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
+      },
+
+      initPlayer (url) {
+        const vm = this
+        if (vm.player) {
+          // vm.player.unload()
+          vm.player.shutdown()
+        }
+        vm.player = window.flowplayer('#my_video', {
+          // splash: 'https://flowplayer.com/media/img/demos/functional@x2.jpg',
+          // splash: true,
+          // autoplay: true,
+          poster: false,
+          live: true,
+          share: false,
+          keyboard: false,
+          // fullscreen: true,
+          // native_fullscreen: true,
+          clip: {
+            hlsQualities: [-1, 1, 3, 6, 7],
+            sources: [
+              // { type: 'application/x-mpegurl', src: 'https://edge.flowplayer.org/functional.m3u8' }
+              { type: 'application/x-mpegurl', src: url }
+            ]
+          }
+        }).on('fullscreen', function (e, api) {
+          // playerFrame.addClass('is-fullscreen')
+          vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
+        }).on('fullscreen-exit', function (e, api) {
+          // playerFrame.removeClass('is-fullscreen')
+          vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
+        })
+      },
+
+      onClick: function (e) {
+        this.player.fullscreen()
+        this.player.play()
       }
     },
 
     mounted () {
       console.log('video-player mounted')
-      const vm = this
-      vm.player = window.flowplayer('#my_video', {
-        // splash: 'https://flowplayer.com/media/img/demos/functional@x2.jpg',
-        splash: true,
-        poster: false,
-        live: true,
-        share: false,
-        // keyboard: false,
-        // fullscreen: true,
-        // native_fullscreen: true,
-        clip: {
-          hlsQualities: [-1, 1, 3, 6, 7],
-          sources: [
-            { type: 'application/x-mpegurl', src: 'https://edge.flowplayer.org/functional.m3u8' }
-            // { type: 'application/x-mpegurl', src: 'https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8' }
-          ]
-        }
-      }).on('fullscreen', function (e, api) {
-        // playerFrame.addClass('is-fullscreen')
-        vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
-      }).on('fullscreen-exit', function (e, api) {
-        // playerFrame.removeClass('is-fullscreen')
-        vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-      })
-      vm.$root.$on(MyEvents.VIDEO_PLAYER_INIT, vm.init)
-
+      // this.initPlayer('https://video-dev.github.io/streams/x36xhzz/x36xhzz.m3u8')
       /*
       const vm = this
       if (!vm.$store.getters['videoPlayer/isInitalized']) {
@@ -132,8 +146,6 @@
         vm.player = player
 
         vm.$store.dispatch('videoPlayer/setPlayer', player)
-
-        vm.$root.$on(MyEvents.VIDEO_PLAYER_INIT, vm.init)
       }
       */
     }

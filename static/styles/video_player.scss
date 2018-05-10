@@ -34,8 +34,10 @@
       }
     }
 
-    &.is-splash .fp-ui > .fp-header, &.is-poster .fp-ui > .fp-header {
-      display: block !important;
+    &.is-splash {
+      .fp-ui > .fp-header, &.is-poster .fp-ui > .fp-header {
+        display: block !important;
+      }
     }
 
     &.is-fullscreen {
@@ -58,5 +60,20 @@
 
   &.is-hide {
     display: none;
+  }
+
+  &.is-init {
+    #my_video {
+      .my_splash {
+        z-index: 999999 !important;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 400px;
+        height: 300px;
+        background-color: #000033;
+        color: #FFFFFF;
+      }
+    }
   }
 }
