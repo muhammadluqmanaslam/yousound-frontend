@@ -232,6 +232,8 @@
 
 <script type="text/javascript">
   import AuthService from '@/services/auth'
+  import { MyEvents } from '@/helper'
+
   export default {
     data () {
       return {
@@ -246,7 +248,8 @@
     },
 
     watch: {
-      '$route' (to, from) {
+      '$route' (toPath, fromPath) {
+        console.log('header', toPath.path, fromPath.path)
         const keyword = this.$route.query.q
         if (keyword === undefined) {
           this.keyword = ''
@@ -270,7 +273,7 @@
       signOut () {
         AuthService.logout()
         this.$router.push({ path: '/login' })
-        this.$root.$emit('signout')
+        this.$root.$emit(MyEvents.AUTH_SIGNOUT)
       }
     }
   }

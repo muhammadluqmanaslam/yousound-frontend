@@ -1,16 +1,19 @@
 import _ from 'lodash'
 
-const state = {
-  player: null,
-  user: {},
-  play_mode: 'stopped', // 'stopped', 'playing', 'paused'
-  frame_mode: 'minimized', // 'full', 'normal', 'minimized'
-  status: 'active'
+function initialState () {
+  return {
+    user: {},
+    play_mode: 'stopped', // 'stopped', 'playing', 'paused'
+    frame_mode: 'minimized', // 'full', 'normal', 'minimized'
+    status: 'active'
+  }
 }
+
+const state = initialState
 
 const getters = {
   isInitialized: (state) => {
-    return !state.player
+    return false
   },
 
   profilePath: (state) => {
@@ -31,10 +34,6 @@ const getters = {
 }
 
 const actions = {
-  setPlayer ({ commit }, player) {
-    commit('setPlayer', player)
-  },
-
   setUser ({ commit }, user) {
     commit('setUser', user)
   },
@@ -53,10 +52,6 @@ const actions = {
 }
 
 const mutations = {
-  setPlayer (state, player) {
-    state.player = _.cloneDeep(player)
-  },
-
   setUser (state, user) {
     state.user = _.cloneDeep(user)
   },
@@ -72,6 +67,14 @@ const mutations = {
 
   setStatus (state, status) {
     state.status = status
+  },
+
+  reset (state) {
+    console.log('reset')
+    const s = initialState()
+    Object.keys(s).forEach(key => {
+      state[key] = s[key]
+    })
   }
 }
 

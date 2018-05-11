@@ -1,5 +1,11 @@
 <template>
-  <v-app id="app" standalone v-bind:class="{'primary': $store.getters['auth/isPrimaryTheme'], 'gray': $store.getters['auth/isGrayTheme'], 'normal': $store.getters['auth/isNormalTheme'], 'sliderprofile': !$store.state.player.gridShow && $store.getters['auth/isSliderProfileTheme']}">
+  <v-app id="app" standalone :class="{
+    'primary': $store.getters['auth/isPrimaryTheme'],
+    'gray': $store.getters['auth/isGrayTheme'],
+    'normal': $store.getters['auth/isNormalTheme'],
+    'sliderprofile': !$store.state.player.gridShow && $store.getters['auth/isSliderProfileTheme'],
+    'app-audio': $store.state.player.isPlaying
+  }">
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
 
@@ -181,6 +187,7 @@ export default {
     // }(document, 'script', 'facebook-jssdk'))
 
     // ### if we move this code to mounted, load event is not caught
+    const vm = this
     window.flowplayer(function (api, root) {
       const fsbutton = root.querySelector('.fp-fullscreen')
       // append fullscreen button after HD menu is added on ready
@@ -192,10 +199,14 @@ export default {
       api.on('load', function (e, api) {
         console.log('flowplayer load')
         // api.fullscreen()
+      }).on('unload', function (e, api) {
+        console.log('flowplayer unload')
+      }).on('shutdown', function (e, api) {
+        console.log('flowplayer shutdown')
+        vm.$store.commit('videoPlayer/reset')
       })
     })
-
-    console.log('Fullscreen Support', window.flowplayer.support.fullscreen)
+    // console.log('Fullscreen Support', window.flowplayer.support.fullscreen)
   },
 
   methods: {

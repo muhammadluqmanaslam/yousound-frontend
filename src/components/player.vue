@@ -229,8 +229,9 @@
 <script type="text/javascript">
 import { mapActions } from 'vuex'
 import { Howl } from 'howler'
-import UserService from '@/services/user'
 import AlbumService from '@/services/album'
+import UserService from '@/services/user'
+import { MyEvents } from '@/helper'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
 
@@ -660,7 +661,7 @@ export default {
     this.$root.$on('replay', this.play)
     this.$root.$on('pause', this.pause)
     this.$root.$on('skipTo', this.skipTrack)
-    this.$root.$on('signout', this.resetPlayer)
+    this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
     this.$root.$on('follow', this.setFollowStatus)
   }
 }

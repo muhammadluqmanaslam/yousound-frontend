@@ -78,10 +78,6 @@ export default {
   },
 
   computed: {
-    isStreaming () {
-      return true
-    },
-
     coverImageURL () {
       const imageUrl = _.get(this.albums, `[${this.startIndex}].cover.thumb.url`, '')
       if (imageUrl) {
@@ -120,7 +116,7 @@ export default {
       this.slug = paths[1]
       const tab = toPath.hash.substr(1)
       const grid_view = toPath.query.grid_view === undefined ? true : (toPath.query.grid_view === 'true' || toPath.query.grid_view === true)
-      this.init(tab, grid_view)
+      this.init(tab, grid_view, false)
     }
   },
 
@@ -129,12 +125,7 @@ export default {
     this.slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
     const grid_view = this.$route.query.grid_view === undefined ? true : (this.$route.query.grid_view === 'true' || this.$route.query.grid_view === true)
-    this.init(tab, grid_view)
-
-    if (this.isStreaming) {
-      console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
-      this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
-    }
+    this.init(tab, grid_view, true)
   },
 
   methods: {
@@ -166,7 +157,15 @@ export default {
       })
     },
 
-    init (tab, grid_view) {
+    isStreaming () {
+      // console.log(_.get(this.user.stream, 'status', ''))
+      console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug)
+      return _.get(this.user.stream, 'status', '') === 'started' &&
+        _.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.user.slug
+      // return true
+    },
+
+    init (tab, grid_view, first_visit) {
       this.showSendMessage = false
       this.startIndex = 0
       this.genres = [{
@@ -178,6 +177,13 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.slug).then(response => {
         this.user = response.body
+
+        if (first_visit && this.isStreaming()) {
+          // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
+          this.$store.dispatch('videoPlayer/setUser', this.user)
+          this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+        }
+
         if (tab) {
           this.currentTab = tab
           this.slide_tab = tab
@@ -199,19 +205,6 @@ export default {
         if (grid_view) {
           this.currentTab = this.slide_tab
         } else {
-          // switch (this.currentTab) {
-          //   case 'artists':
-          //     this.slide_tab = 'catalog'
-          //     this.onTab(this.slide_tab) 
-          //     break
-          //   case 'followings':
-          //     this.slide_tab = 'downloaded'
-          //     this.onTab(this.slide_tab) 
-          //     break
-          //   default:
-          //     this.slide_tab = this.currentTab
-          //     break
-          // }
           this.slide_tab = this.currentTab
         }
 

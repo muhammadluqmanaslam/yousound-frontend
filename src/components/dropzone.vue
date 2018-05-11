@@ -231,7 +231,7 @@
       },
       errorIcon: function () {
         if (this.useFontAwesome) {
-          return '<i class="fa fa-close"></i>';
+          return '<i class="fa fa-times"></i>';
         } else {
           return ' <i class="material-icons">error</i>';
         }
