@@ -119,7 +119,7 @@
         <v-menu offset-y class="profile-menu" v-if="$store.state.auth.user">
           <v-btn icon slot="activator">
             <!-- <img class="profile-image" src="/static/images/sample_user.png"> -->
-            <div class="profile-image"  :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}" v-if="$store.state.auth.user"></div>
+            <div class="profile-image" :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}" v-if="$store.state.auth.user"></div>
           </v-btn>
           <v-list>
             <v-list-tile key="moderator" v-if="false">
@@ -249,7 +249,7 @@
 
     watch: {
       '$route' (toPath, fromPath) {
-        console.log('header', toPath.path, fromPath.path)
+        // console.log('header', toPath.path, fromPath.path)
         const keyword = this.$route.query.q
         if (keyword === undefined) {
           this.keyword = ''

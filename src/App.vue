@@ -189,12 +189,19 @@ export default {
     // ### if we move this code to mounted, load event is not caught
     const vm = this
     window.flowplayer(function (api, root) {
+      $('.fp-ui', root).click(function (e) {
+        if ($(e.target).hasClass('fp-ui')) {
+          e.stopPropagation()
+        }
+      })
+
       const fsbutton = root.querySelector('.fp-fullscreen')
       // append fullscreen button after HD menu is added on ready
       api.on('ready', function () {
         console.log('flowplayer ready')
         root.querySelector('.fp-controls').appendChild(fsbutton)
       })
+
       // instant fullscreen
       api.on('load', function (e, api) {
         console.log('flowplayer load')

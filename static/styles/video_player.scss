@@ -3,7 +3,7 @@
   position: fixed;
   bottom: 10px;
   right: 10px;
-  width: 240px;
+  width: 320px;
   height: 180px;
 
   #my_video {
@@ -15,7 +15,13 @@
       // margin-top: 100px;
       .layout.efm-header {
         z-index: 9999 !important;
+        .toolbar__title {
+          cursor: pointer;
+        }
         .profile-menu button {
+          cursor: default;
+        }
+        .menu__activator {
           cursor: default;
         }
       }
@@ -23,23 +29,19 @@
 
     .close-btn {
       display: none;
+      z-index: 9999 !important;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      padding: 4px;
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
     }
 
     &.flowplayer {
-
-      .close-btn {
-        z-index: 1;
-        display: block;
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        padding: 4px;
-        font-size: 18px;
-        color: #fff;
-        cursor: pointer;
-      }
-
       .fp-ui {
+        cursor: default;
         background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.25)), color-stop(15%, transparent));
         background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.25), transparent 15%);
         background-image: linear-gradient(to top, rgba(0, 0, 0, 0.25), transparent 15%);
@@ -52,24 +54,28 @@
         }
       }
 
+      &.is-mouseover, &.is-paused {
+        .close-btn {
+          display: block;
+        }
+      }
+
       &.is-fullscreen {
         .close-btn {
           display: none;
         }
-
         &.is-mouseover, &.is-paused {
           .my_overlay {
             display: block;
           }
         }
-
-        &.is-ready .fp-ui {
-          cursor: default;
-        }
-
-        &.is-ready .fp-controls,
-        &.is-ready .fp-header > * {
-          cursor: pointer;
+        &.is-ready {
+          .fp-controls {
+            display: none;
+          }
+          .fp-header > * {
+            cursor: pointer;
+          }
         }
       }
     }
