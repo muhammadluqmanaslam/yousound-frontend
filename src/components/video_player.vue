@@ -17,7 +17,6 @@
 
     <div id="my_video" ref="my_video">
       <div class="my_overlay">
-        <!-- <efm-header></efm-header> -->
         <v-layout row wrap class="efm-header">
           <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
             <v-toolbar class="header">
@@ -143,7 +142,36 @@
           </v-flex>
         </v-layout>
 
-        <div class="stream-control-warpper"></div>
+        <div class="stream-sector">
+          <div class="stream-sector__header">
+            <div class="stream-sector__header__left">
+              <div class="avatar" :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}"></div>
+              <div class="name">{{ $store.state.auth.user.display_name }}</div>
+            </div>
+            <div class="stream-sector__header__right">
+              <div class="time">{{ time | timeInHours }}</div>
+              <v-btn v-if="$store.getters['videoPlayer/isPlaying']"
+                @click.native="player.pause()"
+                dark color="red" class="pause-btn">Stop</v-btn>
+              <v-btn v-else
+                @click.native="player.play()"
+                dark color="green" class="play-btn">Start</v-btn>
+            </div>
+          </div>
+          <div class="separator"></div>
+          <div class="stream-sector__content">
+            <div class="stream-sector__content__left">
+              <div class="user-info">
+                <label><strong>354</strong><span>views</span></label>
+                <label><strong>29</strong><span>added to cart</span></label>
+                <label><strong>124</strong><span>followed</span></label>
+              </div>
+            </div>
+            <div class="stream-sector__content__right">
+              <v-btn dark color="blue" class="display-btn">Display Merch / Album</v-btn>
+            </div>
+          </div>
+        </div>
       </div>
       <i class="fa fa-close close-btn" @click="closePlayer()"></i>
     </div>
@@ -165,6 +193,7 @@
     data () {
       return {
         player: null,
+        time: 0,
         show_streaming_confirm_dialog: false
       }
     },
@@ -218,8 +247,20 @@
           vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
         }).on('fullscreen-exit', function (e, api) {
           vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-        }).on('play', function (e, api) {
-          console.log('flowplayer play...')
+        }).on('progress', function (e, api, time) {
+          // console.log('flowplayer progress...', api.paused, api.playing, time)
+          vm.time = parseInt(time)
+          if (!vm.$store.getters['videoPlayer/isPlaying']) {
+            if (api.playing) {
+              vm.$store.dispatch('videoPlayer/setPlayMode', 'playing')
+            }
+          }
+        // }).on('play', function (e, api) {
+        //   console.log('flowplayer play...')
+        // }).on('resume', function (e, api) {
+        //   // console.log('flowplayer resume...')
+        }).on('pause', function (e, api) {
+          vm.$store.dispatch('videoPlayer/setPlayMode', 'paused')
         })
       },
 

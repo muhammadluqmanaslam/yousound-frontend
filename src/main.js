@@ -37,6 +37,7 @@ Vue.directive('on-click-outside', onClickOutside)
 Vue.filter('formatDate', Filter.formatDate)
 Vue.filter('formatNumber', Filter.formatNumber)
 Vue.filter('formatFullUrl', Filter.formatFullUrl)
+Vue.filter('timeInHours', Filter.timeInHours)
 Vue.filter('capitalize', Filter.capitalize)
 
 /* eslint-disable no-new */

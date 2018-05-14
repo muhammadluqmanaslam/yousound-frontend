@@ -204,12 +204,12 @@ export default {
 
       // instant fullscreen
       api.on('load', function (e, api) {
-        console.log('flowplayer load')
+        // console.log('flowplayer load')
         // api.fullscreen()
       }).on('unload', function (e, api) {
-        console.log('flowplayer unload')
+        // console.log('flowplayer unload')
       }).on('shutdown', function (e, api) {
-        console.log('flowplayer shutdown')
+        // console.log('flowplayer shutdown')
         vm.$store.commit('videoPlayer/reset')
       })
     })
