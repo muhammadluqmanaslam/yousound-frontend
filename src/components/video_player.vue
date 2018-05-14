@@ -168,137 +168,50 @@
               </div>
             </div>
             <div class="stream-sector__content__right">
-              <v-btn dark color="blue" class="display-btn">Display Merch / Album</v-btn>
+              <v-btn dark color="blue" class="display-btn" @click.native="openAlbumMerchPopup()">Display Merch / Album</v-btn>
             </div>
           </div>
         </div>
+
+        <v-flex xs12 sm12 class="album-merch-popup requests" v-if="show_album_merch_popup">
+          <div class="popup-section">
+            <div class="requests-section">
+              <div class="header-section">
+                <p class="section-title">Attach content to live video</p>
+                <div class="option-area">
+                  <v-btn class="request-option-btn" :class="{'selected':request_tab=='Album'}" @click.native="onRequestTab('Album')">Album</v-btn>
+                  <v-btn class="request-option-btn" :class="{'selected':request_tab=='ShopProduct'}" @click.native="onRequestTab('ShopProduct')">Merch</v-btn>
+                </div>
+              </div>
+              <div class="content-section" v-if="request_tab=='Album'">
+                <div class="request-item" :class="{'selected':assoc.id==album.id}" v-for="album in albums" @click="selectItem('Album', album)">
+                  <div class="avatar-area">
+                    <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div>
+                  </div>
+                  <div class="detail-area">
+                    <label class="item-name">{{ album.name }}</label>
+                    <label class="user-name">{{ album.user.display_name }}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="content-section" v-if="request_tab=='ShopProduct'">
+                <div class="request-item" :class="{'selected':assoc.id==product.id}" v-for="product in products" @click="selectItem('ShopProduct', product)">
+                  <div class="avatar-area">
+                    <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div>
+                  </div>
+                  <div class="detail-area">
+                    <label class="item-name">{{ product.name }}</label>
+                    <label class="user-name">{{ product.merchant.display_name }}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </v-flex>
       </div>
       <i class="fa fa-close close-btn" @click="closePlayer()"></i>
     </div>
   </div>
 </template>
 
-<script type="text/javascript">
-  // import _ from 'lodash'
-  // import Hls from 'hls.js'
-  import efmHeader from '@/components/header'
-
-  import { MyEvents } from '@/helper'
-
-  export default {
-    components: {
-      efmHeader
-    },
-
-    data () {
-      return {
-        player: null,
-        time: 0,
-        show_streaming_confirm_dialog: false
-      }
-    },
-
-    computed: {
-    },
-
-    created () {
-      this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
-    },
-
-    beforeDestroy () {
-      console.log('video-player beforeDestroy')
-      this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
-      if (this.player) {
-        this.player.shutdown()
-      }
-    },
-
-    methods: {
-      init () {
-        console.log('video-player initializing...')
-        // this.player.load('https://edge.flowplayer.org/functional.m3u8')
-        // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
-        this.openStreamingConfirmDialog()
-      },
-
-      initPlayer (url) {
-        const vm = this
-        if (vm.player) {
-          // vm.player.unload()
-          vm.player.shutdown()
-        }
-        vm.player = window.flowplayer('#my_video', {
-          autoplay: false,
-          splash: false,
-          poster: false,
-          live: true,
-          share: false,
-          keyboard: false,
-          // fullscreen: true,
-          // native_fullscreen: true,
-          clip: {
-            hlsQualities: [-1, 1, 3, 6, 7],
-            sources: [
-              // { type: 'application/x-mpegurl', src: 'https://edge.flowplayer.org/functional.m3u8' }
-              { type: 'application/x-mpegurl', src: url }
-            ]
-          }
-        }).on('fullscreen', function (e, api) {
-          vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
-        }).on('fullscreen-exit', function (e, api) {
-          vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-        }).on('progress', function (e, api, time) {
-          // console.log('flowplayer progress...', api.paused, api.playing, time)
-          vm.time = parseInt(time)
-          if (!vm.$store.getters['videoPlayer/isPlaying']) {
-            if (api.playing) {
-              vm.$store.dispatch('videoPlayer/setPlayMode', 'playing')
-            }
-          }
-        // }).on('play', function (e, api) {
-        //   console.log('flowplayer play...')
-        // }).on('resume', function (e, api) {
-        //   // console.log('flowplayer resume...')
-        }).on('pause', function (e, api) {
-          vm.$store.dispatch('videoPlayer/setPlayMode', 'paused')
-        })
-      },
-
-      choosePage (path) {
-        this.player.fullscreen()
-        this.$router.push({ path: '/' + path })
-      },
-
-      openStreamingConfirmDialog () {
-        this.show_streaming_confirm_dialog = true
-      },
-
-      closeStreamingConfirmDialog () {
-        this.show_streaming_confirm_dialog = false
-      },
-
-      closePlayer () {
-        if (this.player) {
-          this.player.shutdown()
-        }
-      },
-
-      onClick: function (e) {
-        this.closeStreamingConfirmDialog()
-        // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
-        this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
-        this.player.fullscreen()
-        // this.$nextTick(() => {
-        //   this.player.play()
-        // })
-        const vm = this
-        setTimeout(function () {
-          vm.player.play()
-        }, 300)
-      }
-    },
-
-    mounted () {
-    }
-  }
-</script>
+<script type="text/javascript" src="./video_player.ctrl.js"></script>

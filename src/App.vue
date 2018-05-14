@@ -68,7 +68,7 @@
       </v-card>
     </v-dialog>
 
-    <video-player></video-player>
+    <video-player v-if="$store.state.auth.user"></video-player>
 
     <efm-header v-if="$store.getters['auth/hasHeader']"></efm-header>
 
