@@ -197,7 +197,8 @@ export default {
     onClick: function (e) {
       this.closeStreamingConfirmDialog()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
-      this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
+      // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
+      this.initPlayer(this.user.mp_channel_1_ep_1_url)
       this.player.fullscreen()
       // this.$nextTick(() => {
       //   this.player.play()
