@@ -144,7 +144,7 @@ export default {
           }
         }
         StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
-          this.$store.dispatch('videoPlayer/setStream', response.body)
+          // this.$store.dispatch('videoPlayer/setUser', response.body)
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
