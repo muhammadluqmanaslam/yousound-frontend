@@ -15,7 +15,7 @@
       </v-card>
     </v-dialog>
 
-    <div id="my_video" ref="my_video">
+    <div id="my_video" ref="my_video" v-if="user">
       <div class="my_overlay">
         <v-layout row wrap class="efm-header">
           <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
@@ -135,18 +135,18 @@
               </v-badge>
               <v-menu offset-y class="profile-menu" v-if="$store.state.auth.user">
                 <v-btn icon slot="activator">
-                  <div class="profile-image" :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}" v-if="$store.state.auth.user"></div>
+                  <div class="profile-image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}" v-if="$store.state.auth.user"></div>
                 </v-btn>
               </v-menu>
             </v-toolbar>
           </v-flex>
         </v-layout>
 
-        <div class="stream-sector">
+        <div class="stream-sector" v-if="user.id == currentUser.id">
           <div class="stream-sector__header">
             <div class="stream-sector__header__left">
-              <div class="avatar" :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}"></div>
-              <div class="name">{{ $store.state.auth.user.display_name }}</div>
+              <div class="avatar" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
+              <div class="name">{{ user.display_name }}</div>
             </div>
             <div class="stream-sector__header__right">
               <div class="time">{{ time | timeInHours }}</div>
@@ -172,6 +172,51 @@
             </div>
           </div>
         </div>
+        <div class="stream-sector" v-else>
+          <div class="stream-sector__header">
+            <div class="stream-sector__header__left">
+              <div class="avatar" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
+              <div class="user-info">
+                <div class="name">{{ user.display_name }}</div>
+                <div>
+                  <v-btn dark color="blue" small>Follow</v-btn>
+                  <v-btn dark color="blue" small>Repost Stream</v-btn>
+                </div>
+              </div>
+            </div>
+            <div class="stream-sector__header__right">
+            </div>
+          </div>
+          <div class="separator"></div>
+          <div class="stream-sector__content" v-if="user.stream.assoc_type=='Album'">
+            <div class="stream-sector__content__left">
+              <div class="media__image" :style="`background-image: url(${user.stream.assoc.cover.thumb.url})`"></div>
+              <div class="media__content">
+                <div class="media__title">{{ user.stream.assoc.name }}</div>
+                <div class="media__description">{{ user.stream.assoc.tracks.length }} tracks</div>
+              </div>
+            </div>
+            <div class="stream-sector__content__right">
+              <v-btn dark color="blue" @click.native="openDownloadModal()">Download</v-btn>
+            </div>
+          </div>
+          <div class="stream-sector__content" v-if="user.stream.assoc_type=='ShopProduct'">
+            <div class="stream-sector__content__left">
+              <div class="media__image" :style="`background-image: url(${user.stream.assoc.covers[0].cover.thumb.url})`"></div>
+              <div class="media__content">
+                <div class="media__title">{{ user.stream.assoc.name }}</div>
+                <div class="media__description">${{ user.stream.assoc.price | formatNumber }}</div>
+              </div>
+            </div>
+            <div class="stream-sector__content__right">
+              <v-btn dark color="blue" @click.native="openMerchModal()">Add to Cart</v-btn>
+            </div>
+          </div>
+        </div>
+
+        <download-modal :item="user.stream.assoc" :dismiss="closeDownloadModal" v-if="show_download_modal"></download-modal>
+
+        <merch-modal :item="user.stream.assoc" :dismiss="closeMerchModal" v-if="show_merch_modal"></merch-modal>
 
         <v-flex xs12 sm12 class="album-merch-popup requests" v-if="show_album_merch_popup">
           <div class="popup-section">

@@ -5,12 +5,16 @@ import ProductService from '@/services/product'
 import StreamService from '@/services/stream'
 
 import efmHeader from '@/components/header'
+import downloadModal from '@/components/downloadmodal'
+import merchModal from '@/components/merchmodal'
 
 import { MyEvents } from '@/helper'
 
 export default {
   components: {
-    efmHeader
+    efmHeader,
+    downloadModal,
+    merchModal
   },
 
   data () {
@@ -19,6 +23,8 @@ export default {
       time: 0,
       show_streaming_confirm_dialog: false,
       show_album_merch_popup: false,
+      show_download_modal: false,
+      show_merch_modal: false,
       request_tab: 'Album',
       assoc: {},
       albums: [],
@@ -30,6 +36,11 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    user () {
+      // console.log('video-player user', this.$store.state.videoPlayer.user)
+      return this.$store.state.videoPlayer.user
     }
   },
 
@@ -121,15 +132,6 @@ export default {
       this.item_index = -1
     },
 
-    selectItemIndex (index) {
-      this.show_album_merch_popup = false
-      if (this.item_index != index) {
-        this.item_index = index
-      } else {
-        this.item_index = -1
-      }
-    },
-
     selectItem (assoc_type, assoc) {
       // console.log(assoc_type, assoc)
       this.show_album_merch_popup = false
@@ -142,7 +144,7 @@ export default {
           }
         }
         StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
-          this.$store.dispatch('auth/setStream', response.body)
+          this.$store.dispatch('videoPlayer/setStream', response.body)
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
@@ -152,6 +154,22 @@ export default {
     choosePage (path) {
       this.player.fullscreen()
       this.$router.push({ path: '/' + path })
+    },
+
+    openDownloadModal () {
+      this.show_download_modal = true
+    },
+
+    closeDownloadModal () {
+      this.show_download_modal = false
+    },
+
+    openMerchModal () {
+      this.show_merch_modal = true
+    },
+
+    closeMerchModal () {
+      this.show_merch_modal = false
     },
 
     openAlbumMerchPopup () {

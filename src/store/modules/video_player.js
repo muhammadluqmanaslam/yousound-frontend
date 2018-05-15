@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 function initialState () {
   return {
-    user: {},
+    user: null,
     play_mode: 'stopped', // 'stopped', 'playing', 'paused'
     frame_mode: 'minimized', // 'full', 'normal', 'minimized'
     status: 'active'

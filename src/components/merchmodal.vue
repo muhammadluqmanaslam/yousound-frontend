@@ -44,7 +44,7 @@
               single-line
               bottom
               hide-details></v-select>
-            <v-btn class ="add-to-cart-btn" @click.native="addToCart()" :disabled="option=='' || option==null">
+            <v-btn class="add-to-cart-btn" @click.native="addToCart()" :disabled="option=='' || option==null">
               <svg width="29px" height="22px" viewBox="0 0 29 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
                   <desc>Created with Sketch.</desc>

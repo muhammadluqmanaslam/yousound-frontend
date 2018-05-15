@@ -55,7 +55,7 @@
           .avatar {
             width: 50px;
             height: 50px;
-            margin-left: 20px;
+            margin-left: 15px;
             background-size: contain;
           }
           .name {
@@ -78,7 +78,8 @@
           &__right {
             display: flex;
             align-items: center;
-          }
+            margin-right: 10px;
+          }          
           .user-info {
             margin-left: 15px;
             color: #FFFFFF;
@@ -89,6 +90,32 @@
               }
             }
           }
+          .media__image {
+            width: 50px;
+            height: 50px;
+            margin-left: 15px;
+            background-size: contain;
+          }
+          .media__content {
+            margin-left: 10px;
+            color: #FFFFFF;
+            .media__title {}
+            .media__description {}
+          }
+        }
+      }
+
+      .download-section {
+        z-index: 9999 !important;
+        background-color: transparent;
+        .top-section {
+          // display: none;
+        }
+        .dismiss-section {
+          // z-index: 9999 !important;
+        }
+        .popup-section {
+          z-index: 9999 !important;
         }
       }
 
