@@ -1,5 +1,6 @@
 .video-player-wrapper {
   z-index: 9;
+  display: none;
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -405,6 +406,12 @@
 
   &.is-hide {
     display: none;
+  }
+}
+
+.application.app-video {
+  .video-player-wrapper {
+    display: block;
   }
 }
 

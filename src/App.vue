@@ -4,7 +4,8 @@
     'gray': $store.getters['auth/isGrayTheme'],
     'normal': $store.getters['auth/isNormalTheme'],
     'sliderprofile': !$store.state.player.gridShow && $store.getters['auth/isSliderProfileTheme'],
-    'app-audio': $store.state.player.isPlaying
+    'app-audio': $store.state.player.isPlaying,
+    'app-video': $store.getters['videoPlayer/hasFrame']
   }">
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
@@ -200,6 +201,8 @@ export default {
       api.on('ready', function () {
         // console.log('flowplayer ready')
         root.querySelector('.fp-controls').appendChild(fsbutton)
+        api.play()
+        // if (api.isFullscreen) api.play()
       })
 
       // instant fullscreen

@@ -85,20 +85,22 @@ export default {
     },
 
     initPlayer (url) {
+      console.log('rtmp url', url)
       const vm = this
       if (vm.player) {
         // vm.player.unload()
         vm.player.shutdown()
       }
       vm.player = window.flowplayer('#my_video', {
+        // debug: true,
         autoplay: false,
         splash: false,
         poster: false,
         live: true,
         share: false,
         keyboard: false,
-        // fullscreen: true,
-        // native_fullscreen: true,
+        fullscreen: true,
+        native_fullscreen: true,
         clip: {
           hlsQualities: [-1, 1, 3, 6, 7],
           sources: [
@@ -198,15 +200,15 @@ export default {
       this.closeStreamingConfirmDialog()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
-      this.initPlayer(this.user.mp_channel_1_ep_1_url)
+      this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
       this.player.fullscreen()
       // this.$nextTick(() => {
       //   this.player.play()
       // })
-      const vm = this
-      setTimeout(function () {
-        vm.player.play()
-      }, 300)
+      // const vm = this
+      // setTimeout(function () {
+      //   vm.player.play()
+      // }, 300)
     }
   },
 
