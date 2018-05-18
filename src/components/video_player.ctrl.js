@@ -196,6 +196,18 @@ export default {
       this.show_stream_delete_confirm_dialog = false
     },
 
+    downloadAlbum () {
+      AlbumService.downloadAlbum(this.user.stream.assoc.id).then(response => {
+        var a = document.createElement('A')
+        a.href = response.body.url
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
     deleteStream () {
       this.closeStreamDeleteConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)

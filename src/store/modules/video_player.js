@@ -62,7 +62,7 @@ const mutations = {
   },
 
   setFrameMode (state, frameMode) {
-    console.log('setFrameMode', frameMode)
+    // console.log('setFrameMode', frameMode)
     state.frame_mode = frameMode
   },
 

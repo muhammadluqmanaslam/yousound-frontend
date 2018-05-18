@@ -219,7 +219,7 @@
               </div>
             </div>
             <div class="stream-sector__content__right">
-              <v-btn dark color="blue" @click.native="openDownloadModal()">Download</v-btn>
+              <v-btn dark color="blue" @click.native="downloadAlbum()">Download</v-btn>
             </div>
           </div>
           <div class="stream-sector__content" v-if="user.stream.assoc_type=='ShopProduct'">
@@ -273,8 +273,6 @@
             </div>
           </div>
         </div>
-
-        <download-modal :item="user.stream.assoc" :dismiss="closeDownloadModal" v-if="show_download_modal"></download-modal>
 
         <merch-modal :item="user.stream.assoc" :dismiss="closeMerchModal" v-if="show_merch_modal"></merch-modal>
 
