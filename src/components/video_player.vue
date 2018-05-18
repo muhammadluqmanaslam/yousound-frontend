@@ -29,7 +29,7 @@
     </v-dialog>
 
     <div id="my_video" ref="my_video" v-if="user">
-      <!-- <div class="my_overlay" v-show="$store.getters['videoPlayer/hasFrame']"> -->
+      <!-- <div class="my_splash"></div> -->
       <div class="my_overlay">
         <v-layout row wrap class="efm-header">
           <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
@@ -164,7 +164,7 @@
             </div>
             <div class="stream-sector__header__right">
               <div class="time">{{ time | timeInHours }}</div>
-              <button @click.native="deleteStream()" class="stop-btn">
+              <button class="stop-btn">
                 <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
                   <desc>Created with Sketch.</desc>

@@ -29,7 +29,8 @@ const getters = {
   },
 
   hasFrame: (state) => {
-    return state.status !== 'inactive' && state.frame_mode !== 'minimized'
+    // return state.status !== 'inactive' && state.frame_mode !== 'minimized'
+    return state.frame_mode !== 'minimized'
   }
 }
 

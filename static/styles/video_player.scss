@@ -11,6 +11,17 @@
     width: 100%;
     height: 100%;
 
+    .my_splash {
+      display: none;
+      z-index: 9999 !important;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0000FF;
+    }
+
     .my_overlay {
       // z-index: 9999 !important;
       display: none;
@@ -393,19 +404,22 @@
       }
 
       &.is-fullscreen {
-        // .fp-waiting {
-        //   // display: none;
-        //   // background: url(/media/img/loading.gif) no-repeat center center;
-        //   background-color: #0000FF;
-        //   height: 100%;
+        // .my_splash {
+        //   display: block;
         // }
+        .fp-waiting {
+          background: url('//demos.flowplayer.com/media/img/interruption.png') no-repeat center center;
+          background-size: cover;
+          height: 100%;
+        }
         .close-btn {
           display: none;
         }
         .fp-header .fp-fullscreen {
           display: none !important;
         }
-        &.is-mouseover, &.is-paused {
+        &.is-mouseover:not(.is-seeking):not(.is-splash),
+        &.is-paused:not(.is-seeking):not(.is-splash) {
           .my_overlay {
             display: block;
           }
