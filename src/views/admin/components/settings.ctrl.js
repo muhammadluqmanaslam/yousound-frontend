@@ -9,7 +9,7 @@ export default {
     return {
       settings: {
         disable_sign_up: false,
-        disalbe_video_live: false,
+        disable_live_video: false,
         disable_merch_upload: false
       },
       isPageReady: false
@@ -43,6 +43,7 @@ export default {
         key: key,
         value: (!this.settings[key]).toString()
       }
+      console.log(params)
       SettingService.updateSetting(params).then(response => {
         this.settings[key] = !this.settings[key]
         // console.log(key, this.settings.disable_sign_up, this.settings[key])

@@ -34,6 +34,7 @@
                       <div class="avatar-title">{{ props.item.username }}</div>
                     </div>
                   </td>
+                  <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video" @change="toggleLiveVideo(props.item)"></v-switch></td>
                   <td class="text-xs-left">{{ props.item.email }}</td>
                   <td class="text-xs-left">
                     <a v-if="props.item.social_user_id"

@@ -146,7 +146,14 @@
                 <label>Chat</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="video" :to="'/user/' + $store.state.auth.user.slug + '/video'">
+            <v-list-tile v-if="currentUser.enabled_live_video"
+              key="video" :to="'/user/' + $store.state.auth.user.slug + '/video'">
+              <v-list-tile-title class="profile-menu-item">
+                <label>Live Video</label>
+              </v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile v-else
+              key="video" to="/">
               <v-list-tile-title class="profile-menu-item">
                 <label>Live Video</label>
               </v-list-tile-title>
@@ -242,6 +249,10 @@
     },
 
     computed: {
+      currentUser () {
+        return this.$store.state.auth.user
+      },
+
       isMenuActive () {
         return this.$store.state.auth.page
       }

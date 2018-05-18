@@ -12,30 +12,16 @@ export default {
   data () {
     return {
       users_tabs: [
-        {
-          id: 'all',
-          title: 'All Users'
-        },
-        {
-          id: 'artists',
-          title: 'Artists'
-        },
-        {
-          id: 'listeners',
-          title: 'Listeners'
-        },
-        {
-          id: 'moderators',
-          title: 'Moderators'
-        },
-        {
-          id: 'suspended',
-          title: 'Suspended'
-        }
+        { id: 'all', title: 'All Users' },
+        { id: 'artists', title: 'Artists' },
+        { id: 'listeners', title: 'Listeners' },
+        { id: 'moderators', title: 'Moderators' },
+        { id: 'suspended', title: 'Suspended' }
       ],
       user_tab:'all',
       user_headers: [
         { text: 'Username', value: 'username', align: 'left' },
+        { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
         { text: 'Email', value: 'email', align: 'left' },
         { text: 'Twitter Link', value: 'social_user_id', align: 'left' },
         { text: 'Date Joined', value: 'created_at', align: 'left' },
@@ -110,7 +96,15 @@ export default {
       })
     },
 
-    suspendAccount(user) {
+    toggleLiveVideo (user) {
+      const params = {
+        user_id: user.id
+      }
+      console.log(params)
+      AdminService.toggleLiveVideo(params)
+    },
+
+    suspendAccount (user) {
       const params = {
         status: 'suspended'
       }
@@ -121,7 +115,7 @@ export default {
       })
     },
 
-    activateAccount(user) {
+    activateAccount (user) {
       const params = {
         status: 'active'
       }
@@ -132,7 +126,7 @@ export default {
       })
     },
 
-    convertToArtist(user) {
+    convertToArtist (user) {
       const params = {
         role: 'artist'
         // role: 'moderator'
