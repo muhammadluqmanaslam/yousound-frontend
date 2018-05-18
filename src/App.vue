@@ -199,7 +199,7 @@ export default {
       const fsbutton = root.querySelector('.fp-fullscreen')
       // append fullscreen button after HD menu is added on ready
       api.on('ready', function () {
-        // console.log('flowplayer ready')
+        console.log('flowplayer ready')
         root.querySelector('.fp-controls').appendChild(fsbutton)
         api.play()
         // if (api.isFullscreen) api.play()
@@ -207,12 +207,12 @@ export default {
 
       // instant fullscreen
       api.on('load', function (e, api) {
-        // console.log('flowplayer load')
+        console.log('flowplayer load')
         // api.fullscreen()
       }).on('unload', function (e, api) {
-        // console.log('flowplayer unload')
+        console.log('flowplayer unload')
       }).on('shutdown', function (e, api) {
-        // console.log('flowplayer shutdown')
+        console.log('flowplayer shutdown')
         vm.$store.commit('videoPlayer/reset')
       })
     })

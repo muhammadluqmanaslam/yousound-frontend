@@ -9,6 +9,7 @@ export default {
     return {
       settings: {
         disable_sign_up: false,
+        disalbe_video_live: false,
         disable_merch_upload: false
       },
       isPageReady: false

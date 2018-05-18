@@ -51,9 +51,10 @@
             <span>$0.00</span>
           </v-flex>
           <v-flex xs12>
-            <v-btn color="yellow darken-3" dark @click="stopStream()" v-if="currentUser.stream.status == 'started'">Stop Stream</v-btn>
+            <v-btn color="yellow darken-3" dark @click="openStreamDeleteConfirmDialog()">Stop Stream</v-btn>
+            <!-- <v-btn color="yellow darken-3" dark @click="stopStream()" v-if="currentUser.stream.status == 'started'">Stop Stream</v-btn>
             <v-btn color="green" dark @click="startStream()" v-else>Start Stream</v-btn>
-            <v-btn color="red" dark @click="openStreamDeleteConfirmDialog()">Delete Stream</v-btn>
+            <v-btn color="red" dark @click="openStreamDeleteConfirmDialog()">Delete Stream</v-btn> -->
           </v-flex>
         </v-layout>
       </v-container>

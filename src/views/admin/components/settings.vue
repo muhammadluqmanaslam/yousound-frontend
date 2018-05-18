@@ -14,6 +14,12 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap class="setting-row">
+      <v-flex xs12 sm6><label class="setting-cell-text">Disable Video Live</label></v-flex>
+      <v-flex xs12 sm6 class="text-xs-right">
+        <v-switch hide-details class="setting-cell-switch" label="" v-model="settings.disalbe_video_live"></v-switch>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap class="setting-row">
       <v-flex xs12 sm6><label class="setting-cell-text">Disable Uploads</label></v-flex>
       <v-flex xs12 sm6 class="text-xs-right">
         <v-switch hide-details class="setting-cell-switch" label="" v-model="settings.uploads"></v-switch>

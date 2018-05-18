@@ -74,6 +74,7 @@ export default {
     if (this.player) {
       this.player.shutdown()
     }
+    console.log(window.flowplayer)
   },
 
   methods: {
