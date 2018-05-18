@@ -68,6 +68,9 @@
             font-size: 24px;
             color: #FFFFFF;
           }
+          .stop-btn {
+            margin: 0px 15px;
+          }
         }
         &__content {
           display: flex;
@@ -355,7 +358,7 @@
       z-index: 9999 !important;
       position: absolute;
       top: 4px;
-      right: 4px;
+      left: 4px;
       padding: 4px;
       font-size: 18px;
       color: #fff;
@@ -374,6 +377,9 @@
           background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.25)), to(transparent));
           background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.25), transparent);
           background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), transparent);
+          .fp-fullscreen {
+            display: none;
+          }
         }
       }
 
@@ -381,11 +387,23 @@
         .close-btn {
           display: block;
         }
+        .fp-header .fp-fullscreen {
+          display: block;
+        }
       }
 
       &.is-fullscreen {
+        // .fp-waiting {
+        //   // display: none;
+        //   // background: url(/media/img/loading.gif) no-repeat center center;
+        //   background-color: #0000FF;
+        //   height: 100%;
+        // }
         .close-btn {
           display: none;
+        }
+        .fp-header .fp-fullscreen {
+          display: none !important;
         }
         &.is-mouseover, &.is-paused {
           .my_overlay {

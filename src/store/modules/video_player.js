@@ -5,7 +5,7 @@ function initialState () {
     user: null,
     play_mode: 'stopped', // 'stopped', 'playing', 'paused'
     frame_mode: 'minimized', // 'full', 'normal', 'minimized'
-    status: 'active'
+    status: 'inactive'
   }
 }
 
@@ -13,7 +13,7 @@ const state = initialState
 
 const getters = {
   isInitialized: (state) => {
-    return false
+    return state.status !== 'inactive'
   },
 
   profilePath: (state) => {
@@ -29,7 +29,7 @@ const getters = {
   },
 
   hasFrame: (state) => {
-    return state.frame_mode !== 'minimized'
+    return state.status !== 'inactive' && state.frame_mode !== 'minimized'
   }
 }
 

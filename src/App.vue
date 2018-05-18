@@ -196,24 +196,26 @@ export default {
         }
       })
 
-      const fsbutton = root.querySelector('.fp-fullscreen')
+      // const fsbutton = root.querySelector('.fp-fullscreen')
       // append fullscreen button after HD menu is added on ready
       api.on('ready', function () {
         console.log('flowplayer ready')
-        root.querySelector('.fp-controls').appendChild(fsbutton)
-        api.play()
-        // if (api.isFullscreen) api.play()
-      })
-
-      // instant fullscreen
-      api.on('load', function (e, api) {
-        console.log('flowplayer load')
-        // api.fullscreen()
-      }).on('unload', function (e, api) {
-        console.log('flowplayer unload')
+        vm.$store.dispatch('videoPlayer/setStatus', 'active')
+      //   // root.querySelector('.fp-controls').appendChild(fsbutton)
+      //   // api.play()
+      //   // if (api.isFullscreen) api.play()
+      // }).on('load', function (e, api) {
+      //   console.log('flowplayer load')
+      //   // api.fullscreen()
+      // }).on('unload', function (e, api) {
+      //   console.log('flowplayer unload')
       }).on('shutdown', function (e, api) {
         console.log('flowplayer shutdown')
         vm.$store.commit('videoPlayer/reset')
+      }).on('fullscreen', function (e, api) {
+        vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
+      }).on('fullscreen-exit', function (e, api) {
+        vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
       })
     })
     // console.log('Fullscreen Support', window.flowplayer.support.fullscreen)

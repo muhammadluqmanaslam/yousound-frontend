@@ -22,6 +22,7 @@ export default {
       player: null,
       time: 0,
       show_streaming_confirm_dialog: false,
+      show_stream_delete_confirm_dialog: false,
       show_album_merch_popup: false,
       show_download_modal: false,
       show_merch_modal: false,
@@ -71,10 +72,7 @@ export default {
   beforeDestroy () {
     console.log('video-player beforeDestroy')
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
-    if (this.player) {
-      this.player.shutdown()
-    }
-    console.log(window.flowplayer)
+    this.closePlayer()
   },
 
   methods: {
@@ -88,14 +86,15 @@ export default {
     initPlayer (url) {
       console.log('rtmp url', url)
       const vm = this
-      if (vm.player) {
-        // vm.player.unload()
-        vm.player.shutdown()
-      }
+      // if (vm.player) {
+      //   // vm.player.unload()
+      //   vm.player.shutdown()
+      // }
+
       vm.player = window.flowplayer('#my_video', {
         // debug: true,
-        autoplay: false,
-        splash: false,
+        autoplay: true,
+        splash: true,
         poster: false,
         live: true,
         share: false,
@@ -109,10 +108,6 @@ export default {
             { type: 'application/x-mpegurl', src: url }
           ]
         }
-      }).on('fullscreen', function (e, api) {
-        vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
-      }).on('fullscreen-exit', function (e, api) {
-        vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
       }).on('progress', function (e, api, time) {
         // console.log('flowplayer progress...', api.paused, api.playing, time)
         vm.time = parseInt(time)
@@ -126,6 +121,7 @@ export default {
       // }).on('resume', function (e, api) {
       //   // console.log('flowplayer resume...')
       }).on('pause', function (e, api) {
+        // console.log('flowplayer pause...')
         vm.$store.dispatch('videoPlayer/setPlayMode', 'paused')
       })
     },
@@ -191,6 +187,27 @@ export default {
       this.show_streaming_confirm_dialog = false
     },
 
+    openStreamDeleteConfirmDialog () {
+      this.show_stream_delete_confirm_dialog = true
+    },
+
+    closeStreamDeleteConfirmDialog () {
+      this.show_stream_delete_confirm_dialog = false
+    },
+
+    deleteStream () {
+      this.closeStreamDeleteConfirmDialog()
+      this.$store.dispatch('error/showLoadingActivity', true)
+      StreamService.deleteStream(this.currentUser.stream.id).then(response => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('auth/setStream', response.body)
+        this.$router.push({ path: `/user/${this.$store.state.auth.user.slug}/video` })
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
     closePlayer () {
       if (this.player) {
         this.player.shutdown()
@@ -202,14 +219,8 @@ export default {
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
       this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
+      this.player.load()
       this.player.fullscreen()
-      // this.$nextTick(() => {
-      //   this.player.play()
-      // })
-      // const vm = this
-      // setTimeout(function () {
-      //   vm.player.play()
-      // }, 300)
     }
   },
 

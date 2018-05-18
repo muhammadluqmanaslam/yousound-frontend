@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="video-player-wrapper" :class="{'is-hide': !$store.getters['videoPlayer/hasFrame']}"> -->
-  <div class="video-player-wrapper is-init">
+  <div class="video-player-wrapper">
     <v-dialog v-model="show_streaming_confirm_dialog" content-class="my-dialog-1">
       <v-card>
         <!-- <v-card-media :src="item.cover.url" height="125px" contain></v-card-media> -->
@@ -15,7 +15,21 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="show_stream_delete_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Delete a Stream</v-card-title>
+        <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
+          <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div id="my_video" ref="my_video" v-if="user">
+      <!-- <div class="my_overlay" v-show="$store.getters['videoPlayer/hasFrame']"> -->
       <div class="my_overlay">
         <v-layout row wrap class="efm-header">
           <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
@@ -150,12 +164,20 @@
             </div>
             <div class="stream-sector__header__right">
               <div class="time">{{ time | timeInHours }}</div>
-              <v-btn v-if="$store.getters['videoPlayer/isPlaying']"
-                @click.native="player.pause()"
-                dark color="red" class="pause-btn">Stop</v-btn>
-              <v-btn v-else
-                @click.native="player.play()"
-                dark color="green" class="play-btn">Start</v-btn>
+              <button @click.native="deleteStream()" class="stop-btn">
+                <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Broadcaster-view" transform="translate(-1728.000000, -736.000000)" fill="#FF0000" stroke="#FFFFFF" stroke-width="3">
+                      <g id="Group-15" transform="translate(1120.000000, 687.000000)">
+                        <circle id="Oval-3" cx="635" cy="76" r="25"></circle>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </button>
             </div>
           </div>
           <div class="separator"></div>
