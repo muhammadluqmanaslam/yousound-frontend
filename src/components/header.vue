@@ -238,6 +238,7 @@
 </template>
 
 <script type="text/javascript">
+  import _ from 'lodash'
   import AuthService from '@/services/auth'
   import { MyEvents } from '@/helper'
 
@@ -282,9 +283,10 @@
       },
 
       signOut () {
+        const _user = _.cloneDeep(this.$store.state.auth.user)
         AuthService.logout()
         this.$router.push({ path: '/login' })
-        this.$root.$emit(MyEvents.AUTH_SIGNOUT)
+        this.$root.$emit(MyEvents.AUTH_SIGNOUT, _user)
       }
     }
   }

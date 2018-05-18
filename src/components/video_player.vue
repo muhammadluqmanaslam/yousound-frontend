@@ -164,7 +164,7 @@
             </div>
             <div class="stream-sector__header__right">
               <div class="time">{{ time | timeInHours }}</div>
-              <button class="stop-btn">
+              <button class="stop-btn" @click="deleteStream()">
                 <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
                   <desc>Created with Sketch.</desc>

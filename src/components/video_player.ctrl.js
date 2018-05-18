@@ -39,6 +39,7 @@ export default {
       return this.$store.state.auth.user
     },
 
+    //#TODO change user -> streammingUser
     user () {
       // console.log('video-player user', this.$store.state.videoPlayer.user)
       return this.$store.state.videoPlayer.user
@@ -209,14 +210,11 @@ export default {
     },
 
     deleteStream () {
-      this.closeStreamDeleteConfirmDialog()
-      this.$store.dispatch('error/showLoadingActivity', true)
+      // this.closeStreamDeleteConfirmDialog()
+      this.closePlayer()
       StreamService.deleteStream(this.currentUser.stream.id).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('auth/setStream', response.body)
-        this.$router.push({ path: `/user/${this.$store.state.auth.user.slug}/video` })
       }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
