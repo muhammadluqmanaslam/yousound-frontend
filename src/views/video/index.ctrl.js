@@ -1,10 +1,14 @@
 import _ from 'lodash'
 import { MediaLiveInputTypes, MediaLiveInputCodecs, MediaLiveInputResolutions, MediaLiveInputMaximumBitrates } from '@/helper'
 
+import PaymentService from  '@/services/payment'
 import StreamService from  '@/services/stream'
+import paymentModal from '@/components/paymentmodal'
+import { StreamHourlyPrice } from '@/helper'
 
 export default {
   components: {
+    paymentModal
   },
 
   data () {
@@ -17,6 +21,8 @@ export default {
         ml_input_resolution: 'HD',
         ml_input_maximum_bitrate: 'MAX_10_MBPS'
       },
+      show_payment_dialog: false,
+      show_deposit_dialog: false,
       show_stream_delete_confirm_dialog: false,
       isPageReady: false
     }
@@ -25,6 +31,10 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    StreamHourlyPrice () {
+      return StreamHourlyPrice
     },
 
     MediaLiveInputTypes () {
@@ -54,12 +64,46 @@ export default {
   },
 
   methods: {
+    openPaymentDialog () {
+      this.closeDepositDialog()
+      this.show_payment_dialog = true
+    },
+
+    closePaymentDialog () {
+      this.show_payment_dialog = false
+    },
+
+    openDepositDialog () {
+      if (this.currentUser.enabled_live_vide_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
+        this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+      } else {
+        this.show_deposit_dialog = true
+      }
+    },
+
+    closeDepositDialog () {
+      this.show_deposit_dialog = false
+    },
+
     openStreamDeleteConfirmDialog () {
       this.show_stream_delete_confirm_dialog = true
     },
 
     closeStreamDeleteConfirmDialog () {
       this.show_stream_delete_confirm_dialog = false
+    },
+
+    deposit (token) {
+      const params = {
+        payment_token: token.id,
+        amount: StreamHourlyPrice
+      }
+      PaymentService.makeDeposit(params).then(response => {
+        AuthService.setUser(response.body)
+        this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     },
 
     deleteStream () {

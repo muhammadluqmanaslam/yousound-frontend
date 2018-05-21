@@ -22,6 +22,7 @@ export default {
       user_headers: [
         { text: 'Username', value: 'username', align: 'left' },
         { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
+        { text: 'Free Streaming', value: 'enabled_live_video_free', align: 'left' },
         { text: 'Email', value: 'email', align: 'left' },
         { text: 'Twitter Link', value: 'social_user_id', align: 'left' },
         { text: 'Date Joined', value: 'created_at', align: 'left' },
@@ -100,8 +101,14 @@ export default {
       const params = {
         user_id: user.id
       }
-      console.log(params)
       AdminService.toggleLiveVideo(params)
+    },
+
+    toggleLiveVideoFree (user) {
+      const params = {
+        user_id: user.id
+      }
+      AdminService.toggleLiveVideoFree(params)
     },
 
     suspendAccount (user) {

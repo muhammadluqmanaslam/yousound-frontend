@@ -158,11 +158,10 @@ export default {
     },
 
     isStreaming () {
-      // console.log(_.get(this.user.stream, 'status', ''))
-      console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
-      return _.get(this.user.stream, 'status', '') === 'started' &&
-        (_.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.user.slug || !this.$store.getters['videoPlayer/hasFrame'])
-      // return true
+      // console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
+      // return _.get(this.user.stream, 'status', '') === 'started' &&
+      //   (_.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.user.slug || !this.$store.getters['videoPlayer/hasFrame'])
+      return true
     },
 
     init (tab, grid_view, first_visit) {

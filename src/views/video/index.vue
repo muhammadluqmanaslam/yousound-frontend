@@ -3,6 +3,25 @@
     <v-flex xs12 sm10 offset-sm1>
       <h3>Live Video Settings</h3>
 
+      <payment-modal v-if="show_payment_dialog"
+        :type="'deposit'"
+        :amount="StreamHourlyPrice"
+        :dismiss="closePaymentDialog"
+        :finish="deposit"></payment-modal>
+
+      <v-dialog v-model="show_deposit_dialog">
+        <v-card>
+          <v-card-title class="headline">Deposite for Streaming</v-card-title>
+          <v-card-text>You have not enough balance. Please deposit the money into your balance.</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="green" dark @click.native="openPaymentDialog()">Ok</v-btn>
+            <v-btn class="grey" dark @click.native="closeDepositDialog()">Cancel</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-dialog v-model="show_stream_delete_confirm_dialog">
         <v-card>
           <v-card-title class="headline">Delete a Stream</v-card-title>
@@ -19,7 +38,8 @@
       <v-container fluid grid-list-md v-if="!currentUser.stream || currentUser.stream.status == 'deleted'">
         <v-layout row justify-space-between wrap>
           <v-flex xs12>
-            <v-btn color="blue" dark :to="`/user/${currentUser.slug}/video/create`">Create Stream</v-btn>
+            <!-- <v-btn color="blue" dark :to="`/user/${currentUser.slug}/video/create`">Create Stream</v-btn> -->
+            <v-btn color="blue" dark @click.native="openDepositDialog()">Create Stream</v-btn>
           </v-flex>
         </v-layout>
       </v-container>

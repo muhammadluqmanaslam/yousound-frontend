@@ -48,7 +48,7 @@ export default {
 
   created () {
     console.log('video-player created')
-
+    this.$root.$on(MyEvents.AUTH_SIGNOUT, this.init)
     this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
 
     Promise.all([
@@ -209,14 +209,14 @@ export default {
       })
     },
 
-    deleteStream () {
-      // this.closeStreamDeleteConfirmDialog()
+    deleteStream (user) {
+      console.log('deleteStream')
       this.closePlayer()
-      StreamService.deleteStream(this.currentUser.stream.id).then(response => {
-        this.$store.dispatch('auth/setStream', response.body)
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      // StreamService.deleteStream(this.currentUser.stream.id).then(response => {
+      //   this.$store.dispatch('auth/setStream', response.body)
+      // }).catch(e => {
+      //   this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      // })
     },
 
     closePlayer () {
@@ -228,8 +228,8 @@ export default {
     onClick: function (e) {
       this.closeStreamingConfirmDialog()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
-      // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
-      this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
+      this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
+      // this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
       this.player.load()
       this.player.fullscreen()
     }

@@ -11,7 +11,7 @@
           <v-radio 
             :label="`Balance (Available: $${Filter.formatNumber($store.state.auth.user.balance_amount)})`"
             value="balance"
-            :disabled="$store.state.auth.user.balance_amount < amount"></v-radio>
+            :disabled="$store.state.auth.user.balance_amount < amount || type == 'deposit'"></v-radio>
           <v-radio label="Credit Card" value="stripe"></v-radio>
           <card
             class="stripe-card pa-2"
@@ -84,7 +84,7 @@
     created () {
       const total = (this.amount + 30) / 0.971
       this.fee = ((total - this.amount) / 100).toFixed(2)
-      if (this.$store.state.auth.user.balance_amount < this.amount) {
+      if (this.$store.state.auth.user.balance_amount < this.amount || this.type === 'deposit') {
         this.payment_method = 'stripe'
       }
     },
