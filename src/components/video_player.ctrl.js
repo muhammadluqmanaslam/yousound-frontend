@@ -48,7 +48,7 @@ export default {
 
   created () {
     console.log('video-player created')
-    this.$root.$on(MyEvents.AUTH_SIGNOUT, this.init)
+    this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
 
     Promise.all([
@@ -72,6 +72,7 @@ export default {
 
   beforeDestroy () {
     console.log('video-player beforeDestroy')
+    this.$root.$off(MyEvents.AUTH_SIGNOUT, this.closePlayer)
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
     this.closePlayer()
   },
@@ -85,7 +86,6 @@ export default {
     },
 
     initPlayer (url) {
-      console.log('rtmp url', url)
       const vm = this
       // if (vm.player) {
       //   // vm.player.unload()
@@ -210,9 +210,9 @@ export default {
     },
 
     deleteStream (user) {
-      console.log('deleteStream')
+      // console.log('deleteStream', user)
       this.closePlayer()
-      // StreamService.deleteStream(this.currentUser.stream.id).then(response => {
+      // StreamService.deleteStream(user.stream.id).then(response => {
       //   this.$store.dispatch('auth/setStream', response.body)
       // }).catch(e => {
       //   this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

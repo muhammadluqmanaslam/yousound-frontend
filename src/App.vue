@@ -171,7 +171,6 @@ export default {
     }
 
     SettingService.getSettings().then(response => {
-      console.log('settings', response.body)
       this.$store.dispatch('app/setSettings', response.body)
     })
 
