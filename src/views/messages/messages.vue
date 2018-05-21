@@ -18,7 +18,7 @@
       <div class="popup-section">
         <img class="popup-image" src="/static/images/earphone.png"/>
         <p class="popup-title">Direct Messages</p>
-        <p class="popup-text">Messages is where artists submit music for you to listen to and potentially repost.</p>
+        <p class="popup-text">Direct messages is where you can share music + merch directly, view repost requests & approve collaborations.</p>
         <v-btn class="gotta-btn" @click.native="setVisitedTime()">Ok. Got it!</v-btn>
       </div>
     </v-flex>
