@@ -146,14 +146,8 @@
                 <label>Chat</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile v-if="currentUser.enabled_live_video"
+            <v-list-tile v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video"
               key="video" :to="'/user/' + $store.state.auth.user.slug + '/video'">
-              <v-list-tile-title class="profile-menu-item">
-                <label>Live Video</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile v-else
-              key="video" to="/">
               <v-list-tile-title class="profile-menu-item">
                 <label>Live Video</label>
               </v-list-tile-title>

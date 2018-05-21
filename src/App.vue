@@ -97,6 +97,7 @@
 import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
 import PlaylistService from '@/services/playlist'
+import SettingService from '@/services/setting'
 import UserService from '@/services/user'
 
 import efmHeader from '@/components/header'
@@ -168,6 +169,11 @@ export default {
     if (AuthService.isAuthenticated()) {
       this.getUserInfo()
     }
+
+    SettingService.getSettings().then(response => {
+      console.log('settings', response.body)
+      this.$store.dispatch('app/setSettings', response.body)
+    })
 
     // if (this.$store.state.auth.page !== 'forgot' && this.$store.state.auth.page !== 'register') {
     //   if (!AuthService.isAuthenticated()) {

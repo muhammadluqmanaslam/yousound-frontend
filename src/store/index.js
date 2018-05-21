@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import activity from './modules/activity'
 import album from './modules/album'
+import app from './modules/app'
 import auth from './modules/auth'
 import discover from './modules/discover'
 import error from './modules/error'
@@ -25,6 +26,7 @@ export default new Vuex.Store({
   modules: {
     activity,
     album,
+    app,
     auth,
     discover,
     genre,
