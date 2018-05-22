@@ -4,7 +4,7 @@ import { MediaLiveInputTypes, MediaLiveInputCodecs, MediaLiveInputResolutions, M
 import PaymentService from  '@/services/payment'
 import StreamService from  '@/services/stream'
 import paymentModal from '@/components/paymentmodal'
-import { StreamHourlyPrice } from '@/helper'
+import { MyEvents, StreamHourlyPrice } from '@/helper'
 
 export default {
   components: {
@@ -124,6 +124,18 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
+    },
+
+    isStreaming () {
+      // return _.get(this.currentUser.stream, 'status', '') === 'started' &&
+      return (_.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.currentUser.slug || !this.$store.getters['videoPlayer/hasFrame'])
+    },
+
+    viewStream () {
+      if (this.isStreaming()) {
+        this.$store.dispatch('videoPlayer/setUser', this.currentUser)
+        this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+      }
     },
 
     deleteStream () {

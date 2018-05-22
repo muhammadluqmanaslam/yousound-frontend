@@ -164,6 +164,13 @@ export default {
       // return true
     },
 
+    viewStream () {
+      if (this.isStreaming()) {
+        this.$store.dispatch('videoPlayer/setUser', this.user)
+        this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+      }
+    },
+
     init (tab, grid_view, first_visit) {
       this.showSendMessage = false
       this.startIndex = 0

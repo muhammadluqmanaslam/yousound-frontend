@@ -73,7 +73,7 @@
       }
       .user-action-section {
         & > .btn {
-          width: 130px;
+          min-width: 130px;
           height: 40px;
           margin: 8px 0px 8px 0px;
           box-shadow: none;

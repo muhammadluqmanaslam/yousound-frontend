@@ -29,7 +29,7 @@
     // background-color: rgba(0, 0, 0, 0.2);
   }
   #profile_section {
-    width: 400px;
+    width: 600px;
     height: 123px;
     margin: auto;
     .user-profile-section {
@@ -57,7 +57,7 @@
   }
   .user-follow-section {
     height: 123px;
-    width: 400px;
+    width: 600px;
     position: relative;
     text-align: center;
     margin: 0 auto;
@@ -92,7 +92,7 @@
     }
     .user-action-section {
       & > .btn {
-        width: 100px;
+        min-width: 100px;
         height: 36px;
         margin: 8px 0px 8px 0px;
         box-shadow: none;
