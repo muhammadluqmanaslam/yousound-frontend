@@ -49,6 +49,8 @@ export default {
   created () {
     console.log('video-player created')
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
+    this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
+    this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
 
     Promise.all([
@@ -73,6 +75,8 @@ export default {
   beforeDestroy () {
     console.log('video-player beforeDestroy')
     this.$root.$off(MyEvents.AUTH_SIGNOUT, this.closePlayer)
+    this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
+    this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
     this.closePlayer()
   },
@@ -225,11 +229,17 @@ export default {
       }
     },
 
+    mutePlayer () {
+      if (this.player) {
+        this.player.mute(true)
+      }
+    },
+
     onClick: function (e) {
       this.closeStreamingConfirmDialog()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
-      this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
-      // this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
+      // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
+      this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
       this.player.load()
       this.player.fullscreen()
     }
