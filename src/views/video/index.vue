@@ -55,8 +55,12 @@
             <span>{{ currentUser.stream.description }}</span>
           </v-flex>
           <v-flex xs12>
-            <label>Input Url:</label>
-            <span>{{ currentUser.stream.ml_input_dest_1_url }}</span>
+            <label>Input Stream Url:</label>
+            <span>{{ streamUrl }}</span>
+          </v-flex>
+          <v-flex xs12>
+            <label>Input Stream Key:</label>
+            <span>{{ streamKey }}</span>
           </v-flex>
           <v-flex xs12>
             <label>Started Time:</label>

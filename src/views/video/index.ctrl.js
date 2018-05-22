@@ -33,6 +33,26 @@ export default {
       return this.$store.state.auth.user
     },
 
+    streamUrl () {
+      const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
+      const pos = url.lastIndexOf('/')
+      if (pos == -1) {
+        return url
+      } else {
+        return url.substr(0, pos)
+      }
+    },
+
+    streamKey () {
+      const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
+      const pos = url.lastIndexOf('/')
+      if (pos == -1) {
+        return url
+      } else {
+        return url.substr(pos + 1)
+      }
+    },
+
     StreamHourlyPrice () {
       return StreamHourlyPrice
     },
