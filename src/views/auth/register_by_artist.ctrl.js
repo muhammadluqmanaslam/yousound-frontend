@@ -1,12 +1,17 @@
 import _ from 'lodash'
 import AuthService from '@/services/auth.js'
+import UserService from '@/services/user.js'
+
+import genreDialog from '@/components/genre_dialog'
 
 export default {
   components: {
+    genreDialog
   },
 
   data () {
     return {
+      show_genre_selector_dialog: false,
       terms: false,
       user: {
         email: '',
@@ -25,7 +30,7 @@ export default {
   created () {
     this.$store.dispatch('navigator/goNextState', {page: 'register', tab: ''})
     const pendingUser = this.$store.state.auth.pendingUser
-    if(!pendingUser) {
+    if (!pendingUser) {
       this.$router.push({ path: '/register' })
     } else {
       _.assignIn(this.user, pendingUser)
@@ -34,6 +39,25 @@ export default {
   },
 
   methods: {
+    openGenreSelectorDialog () {
+      this.$validator.validateAll().then(response => {
+        if (response === true) {
+          this.show_genre_selector_dialog = true
+        } else {
+          this.$store.dispatch('error/showErrorToast', [this.errors.items[0].msg])
+        }
+      }).catch(e => {
+        console.log('error', e)
+      })
+    },
+
+    closeGenreSelectorDialog () {
+      this.show_genre_selector_dialog = false
+      if (this.$store.state.auth.genreIds !== '') {
+        this.submit()
+      }
+    },
+
     submit () {
       this.$validator.validateAll().then(response => {
         if (response === true) {
@@ -56,6 +80,11 @@ export default {
           formData.append('user[history]', this.user.history)
 
           AuthService.registerAsListener(formData).then(response => {
+            const userId = response.body.id
+            const params = {
+              genre_ids: this.$store.state.auth.genreIds
+            }
+            UserService.hiddenUserGenres(userId, params)
             // JSON responses are automatically parsed.
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$router.push({ path: `/confirm/being?email=${this.user.email}` })

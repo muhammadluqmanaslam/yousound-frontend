@@ -96,7 +96,7 @@
 
 import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
-import GenreService from '@/services/genre'
+// import GenreService from '@/services/genre'
 import PlaylistService from '@/services/playlist'
 import SettingService from '@/services/setting'
 import UserService from '@/services/user'
@@ -175,9 +175,9 @@ export default {
       this.$store.dispatch('app/setSettings', response.body)
     })
 
-    GenreService.getGenres2().then(response => {
-      this.$store.dispatch('app/setGenres', response.body)
-    })
+    // GenreService.getGenres2().then(response => {
+    //   this.$store.dispatch('app/setGenres', response.body)
+    // })
 
     // if (this.$store.state.auth.page !== 'forgot' && this.$store.state.auth.page !== 'register') {
     //   if (!AuthService.isAuthenticated()) {
