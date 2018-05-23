@@ -11,6 +11,7 @@ const state = {
   token: null,
   pendingUser: null,
   user: null,
+  genreIds: '',
   firstVisit: false
 }
 
@@ -105,6 +106,10 @@ const actions = {
     commit('setSecretCode', code)
   },
 
+  setGenreIds ({ commit }, genreIds) {
+    commit('setGenreIds', genreIds)
+  },
+
   setFirstVisit ({ commit }, firstVisit) {
     commit('setFirstVisit', firstVisit)
   }
@@ -158,6 +163,10 @@ const mutations = {
 
   setSecretCode (state, code) {
     state.secret_code = code
+  },
+
+  setGenreIds ({ commit }, genreIds) {
+    state.genreIds = genreIds
   },
 
   setFirstVisit (state, firstVisit) {

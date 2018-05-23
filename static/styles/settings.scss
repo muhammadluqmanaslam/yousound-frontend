@@ -513,22 +513,33 @@
         position: relative;
         padding-bottom: 100%;
         box-shadow: 2px 10px 13px 0px #B0B0B0;
-        cursor: pointer;
+        // cursor: pointer;
         .pgs-inner-wrapper {
           position: absolute;
           width: 100%;
           height: 100%;
           padding: 15px 10px;
           color: #FFFFFF;
-          filter: brightness(1.2);
+          // filter: brightness(1.2);
           .pgs-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            .pgs__header {
-              font-size: 18px;
+            .pgs__title {
+              font-size: 16px;
               font-weight: 900;
               word-break: break-word;
+            }
+            .pgs__description {
+              span {
+                font-size: 14px;
+                font-weight: 300;
+                word-break: break-word;
+                cursor: pointer;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
             }
             .pgs__content {
               font-size: 32px;
@@ -554,34 +565,24 @@
                   font-size: 12px;
                   font-weight: 900;
                   line-height: 32px;
-                  &.color-0 { color: #c62828; }
-                  &.color-1 { color: #e53935; }
-                  &.color-2 { color: #ad1457; }
-                  &.color-3 { color: #d81b60; }
-                  &.color-4 { color: #6a1b9a; }
-                  &.color-5 { color: #8e24aa; }
-                  &.color-6 { color: #4527a0; }
-                  &.color-7 { color: #5e35b1; }
-                  &.color-8 { color: #283593; }
-                  &.color-9 { color: #3949ab; }
-                  &.color-10 { color: #1565c0; }
-                  &.color-11 { color: #1e88e5; }
-                  &.color-12 { color: #0277bd; }
-                  &.color-13 { color: #039be5; }
-                  &.color-14 { color: #00838f; }
-                  &.color-15 { color: #00acc1; }
-                  &.color-16 { color: #00695c; }
-                  &.color-17 { color: #00897b; }
-                  &.color-18 { color: #2e7d32; }
-                  &.color-19 { color: #43a047; }
-                  &.color-20 { color: #558b2f; }
-                  &.color-21 { color: #7cb342; }
-                  &.color-22 { color: #ff6f00; }
-                  &.color-23 { color: #ffb300; }
-                  &.color-24 { color: #ef6c00; }
-                  &.color-25 { color: #fb8c00; }
-                  &.color-26 { color: #d84315; }
-                  &.color-27 { color: #f4511e; }
+                  &.color-0 { color: #F43374; }
+                  &.color-1 { color: #E12D84; }
+                  &.color-2 { color: #CE2894; }
+                  &.color-3 { color: #B823A4; }
+                  &.color-4 { color: #9F21B4; }
+                  &.color-5 { color: #8021C4; }
+                  &.color-6 { color: #55C6D5; }
+                  &.color-7 { color: #54B8DE; }
+                  &.color-8 { color: #4FAAE7; }
+                  &.color-9 { color: #469CF0; }
+                  &.color-10 { color: #388EF8; }
+                  &.color-11 { color: #5622D4; }
+                  &.color-12 { color: #54D5CC; }
+                  &.color-13 { color: #63BACF; }
+                  &.color-14 { color: #699ED0; }
+                  &.color-15 { color: #6B83D2; }
+                  &.color-16 { color: #6867D3; }
+                  &.color-17 { color: #6148D4; }
                 }
                 i {
                   color: #4caf50;
@@ -589,57 +590,47 @@
               }
             }
           }
-          &.bg-color-0 { background-color: #c62828; }
-          &.bg-color-1 { background-color: #e53935; }
-          &.bg-color-2 { background-color: #ad1457; }
-          &.bg-color-3 { background-color: #d81b60; }
-          &.bg-color-4 { background-color: #6a1b9a; }
-          &.bg-color-5 { background-color: #8e24aa; }
-          &.bg-color-6 { background-color: #4527a0; }
-          &.bg-color-7 { background-color: #5e35b1; }
-          &.bg-color-8 { background-color: #283593; }
-          &.bg-color-9 { background-color: #3949ab; }
-          &.bg-color-10 { background-color: #1565c0; }
-          &.bg-color-11 { background-color: #1e88e5; }
-          &.bg-color-12 { background-color: #0277bd; }
-          &.bg-color-13 { background-color: #039be5; }
-          &.bg-color-14 { background-color: #00838f; }
-          &.bg-color-15 { background-color: #00acc1; }
-          &.bg-color-16 { background-color: #00695c; }
-          &.bg-color-17 { background-color: #00897b; }
-          &.bg-color-18 { background-color: #2e7d32; }
-          &.bg-color-19 { background-color: #43a047; }
-          &.bg-color-20 { background-color: #558b2f; }
-          &.bg-color-21 { background-color: #7cb342; }
-          &.bg-color-22 { background-color: #ff6f00; }
-          &.bg-color-23 { background-color: #ffb300; }
-          &.bg-color-24 { background-color: #ef6c00; }
-          &.bg-color-25 { background-color: #fb8c00; }
-          &.bg-color-26 { background-color: #d84315; }
-          &.bg-color-27 { background-color: #f4511e; }        
+          &.bg-color-0 { background-color: #F43374; }
+          &.bg-color-1 { background-color: #E12D84; }
+          &.bg-color-2 { background-color: #CE2894; }
+          &.bg-color-3 { background-color: #B823A4; }
+          &.bg-color-4 { background-color: #9F21B4; }
+          &.bg-color-5 { background-color: #8021C4; }
+          &.bg-color-6 { background-color: #55C6D5; }
+          &.bg-color-7 { background-color: #54B8DE; }
+          &.bg-color-8 { background-color: #4FAAE7; }
+          &.bg-color-9 { background-color: #469CF0; }
+          &.bg-color-10 { background-color: #388EF8; }
+          &.bg-color-11 { background-color: #5622D4; }
+          &.bg-color-12 { background-color: #54D5CC; }
+          &.bg-color-13 { background-color: #63BACF; }
+          &.bg-color-14 { background-color: #699ED0; }
+          &.bg-color-15 { background-color: #6B83D2; }
+          &.bg-color-16 { background-color: #6867D3; }
+          &.bg-color-17 { background-color: #6148D4; }
         }
       }
     }
 
-    @media (max-width: 1160px) {
+    @media (max-width: 1248px) {
       .pgs-wrapper {
         width: 20%;
       }
     }
 
-    @media (max-width: 968px) {
+    @media (max-width: 1070px) {
       .pgs-wrapper {
         width: 25%;
       }
     }
 
-    @media (max-width: 810px) {
+    @media (max-width: 900px) {
       .pgs-wrapper {
         width: 33.33333333333333%;
       }
     }
 
-    @media (max-width: 568px) {
+    @media (max-width: 620px) {
       .pgs-wrapper {
         width: 50%;
       }

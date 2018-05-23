@@ -1,11 +1,16 @@
 import AuthService from '@/services/auth.js'
+import UserService from '@/services/user.js'
+
+import genreDialog from '@/components/genre_dialog'
 
 export default {
   components: {
+    genreDialog
   },
 
   data () {
     return {
+      show_genre_selector_dialog: false,
       terms: false,
       user: {
         email: '',
@@ -25,6 +30,26 @@ export default {
   },
 
   methods: {
+    openGenreSelectorDialog () {
+      // this.show_genre_selector_dialog = true
+      this.$validator.validateAll().then(response => {
+        if (response === true) {
+          this.show_genre_selector_dialog = true
+        } else {
+          this.$store.dispatch('error/showErrorToast', [this.errors.items[0].msg])
+        }
+      }).catch(e => {
+        console.log('error', e)
+      })
+    },
+
+    closeGenreSelectorDialog () {
+      this.show_genre_selector_dialog = false
+      if (this.$store.state.auth.genreIds !== '') {
+        this.submit()
+      }
+    },
+
     submit () {
       this.$validator.validateAll().then(response => {
         if (response === true) {
@@ -36,7 +61,11 @@ export default {
           formData.append('user[display_name]', this.user.display_name)
           formData.append('user[avatar]', this.user.avatar_file)
           AuthService.registerAsListener(formData).then(response => {
-            // JSON responses are automatically parsed.
+            const userId = response.body.id
+            const params = {
+              genre_ids: this.$store.state.auth.genreIds
+            }
+            UserService.hiddenUserGenres(userId, params)
             this.$store.dispatch('error/showLoadingActivity', false)
             // AuthService.setTokenAndUserInfo(response.body.token, response.body)
             this.$router.push({ path: `/confirm/being?email=${this.user.email}` })

@@ -2,13 +2,16 @@ import ActivityService from '@/services/activity.js'
 import AuthService from '@/services/auth.js'
 import PlaylistService from '@/services/playlist'
 
+import genreDialog from '@/components/genre_dialog'
+
 export default {
   components: {
+    genreDialog
   },
 
   data () {
     return {
-      eye: false,
+      show_genre_selector_dialog: false,
       remember: false,
       user: {
         email: '',
@@ -21,6 +24,7 @@ export default {
   },
 
   created () {
+    console.log('login created')
     if (AuthService.isAuthenticated()) {
       this.$router.push({ path: '/discover' })
     } else {
@@ -29,11 +33,19 @@ export default {
         this.user.email = user.email
         this.user.password = user.password
       }
-      this.$store.dispatch('navigator/goNextState', {page: 'login', tab: ''})
+      this.$store.dispatch('navigator/goNextState', { page: 'login', tab: '' })
     }
   },
 
   methods: {
+    openGenreSelectorDialog () {
+      this.show_genre_selector_dialog = true
+    },
+
+    closeGenreSelectorDialog () {
+      this.show_genre_selector_dialog = false
+    },
+
     submit () {
       this.$store.dispatch('error/showLoadingActivity', true)
       AuthService.login(this.user).then(response => {

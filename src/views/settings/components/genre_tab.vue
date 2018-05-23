@@ -8,12 +8,14 @@
     <v-container grid-list-lg pa-0 class="content-section genre" v-if="isPageReady">
       <v-layout row wrap ma-0 class="pgs_area" v-if="show_selector_view">
         <div class="pgs-wrapper" v-for="(parent, index) in genres">
-          <div class="pgs" :key="parent.id" @click="selectParent(parent, index)">
+          <div class="pgs" :key="parent.id">
             <div class="pgs-inner-wrapper" :class="`bg-color-${index}`">
               <div class="pgs-inner">
-                <div class="pgs__header">{{ parent.name }}</div>
+                <div class="pgs__title">{{ parent.name }}</div>
+                <div class="pgs__description">
+                  <span @click="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
                 <div class="pgs__content">
-                  <div class="pgs__image"><i class="fa fa-signal"></i></div>
+                  <!-- <div class="pgs__image"><i class="fa fa-signal"></i></div> -->
                   <div class="pgs__badge" v-if="parent.value"><i class="fa fa-check-circle"></i></div>
                   <div class="pgs__badge" v-else-if="getSelectedChildrenCount(parent) > 0"><span :class="`color-${index}`">+{{ getSelectedChildrenCount(parent) }}</span></div>
                 </div>
@@ -53,9 +55,10 @@
               <div class="pgs" :key="parent.id">
                 <div class="pgs-inner-wrapper" :class="`bg-color-${parent_index}`">
                   <div class="pgs-inner">
-                    <div class="pgs__header">{{ parent.name }}</div>
+                    <div class="pgs__title">{{ parent.name }}</div>
+                    <div class="pgs__description">+{{ getSelectedChildrenCount(parent) }} Subgenres</div>
                     <div class="pgs__content">
-                      <div class="pgs__image"><i class="fa fa-signal"></i></div>
+                      <!-- <div class="pgs__image"><i class="fa fa-signal"></i></div> -->
                       <div class="pgs__badge" v-if="parent.value"><i class="fa fa-check-circle"></i></div>
                       <div class="pgs__badge" v-else-if="getSelectedChildrenCount(parent) > 0"><span :class="`color-${parent_index}`">+{{ getSelectedChildrenCount(parent) }}</span></div>
                     </div>

@@ -1,6 +1,10 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 sm6 offset-sm3  md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2>
+      <v-dialog v-model="show_genre_selector_dialog" content-class="my-genre-dialog ma-0 pa-2">
+        <genre-dialog :dismiss="closeGenreSelectorDialog"></genre-dialog>
+      </v-dialog>
+
       <div class="page auth-page auth-login-header">
         <v-flex xs12 text-xs-center>
           <img class="logo" src="/static/images/nav_logo_primary.png">

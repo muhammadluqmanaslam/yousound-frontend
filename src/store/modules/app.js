@@ -1,7 +1,8 @@
 import _ from 'lodash'
 
 const state = {
-  settings: {}
+  settings: {},
+  genres: []
 }
 
 const getters = {
@@ -13,12 +14,20 @@ const getters = {
 const actions = {
   setSettings ({ commit }, settings) {
     commit('setSettings', settings)
+  },
+
+  setGenres ({ commit }, genres) {
+    commit('setGenres', genres)
   }
 }
 
 const mutations = {
   setSettings (state, settings) {
     state.settings = settings
+  },
+
+  setGenres (state, genres) {
+    state.genres = genres
   }
 }
 
