@@ -100,7 +100,6 @@ export default {
         // debug: true,
         autoplay: true,
         splash: true,
-        // splash: 'https://demos.flowplayer.com/media/img/interruption.png',
         poster: false,
         live: true,
         share: false,

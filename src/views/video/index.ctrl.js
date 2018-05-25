@@ -33,6 +33,11 @@ export default {
       return this.$store.state.auth.user
     },
 
+    isRunning () {
+      return _.get(this.currentUser, 'stream.status', '') === 'running'
+      // return false
+    },
+
     streamUrl () {
       const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
       const pos = url.lastIndexOf('/')
@@ -51,6 +56,10 @@ export default {
       } else {
         return url.substr(pos + 1)
       }
+    },
+
+    profileUrl () {
+      return `${window.location.origin}/${this.currentUser.slug}`
     },
 
     StreamHourlyPrice () {
@@ -80,6 +89,9 @@ export default {
   // },
 
   created () {
+    if (_.get(this.currentUser, 'stream.status', 'deleted') === 'deleted') {
+      this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+    }
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
   },
 
@@ -94,11 +106,12 @@ export default {
     },
 
     openDepositDialog () {
-      if (this.currentUser.enabled_live_vide_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
-        this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
-      } else {
-        this.show_deposit_dialog = true
-      }
+      this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+      // if (this.currentUser.enabled_live_vide_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
+      //   this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+      // } else {
+      //   this.show_deposit_dialog = true
+      // }
     },
 
     closeDepositDialog () {

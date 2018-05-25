@@ -1,5 +1,57 @@
 <template>
-  <div class="page video-page">
+  <div class="page video-page index-page">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
+      <h2 class="page-title">Live Video</h2>
+      <p class="page-subtitle mt-5 mb-4">You will get stream info as soon as stream has started</p>
+    </v-flex>
+
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
+      <v-dialog v-model="show_stream_delete_confirm_dialog">
+        <v-card>
+          <v-card-title class="headline">Delete a Stream</v-card-title>
+          <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
+            <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-layout row>
+        <v-flex sm6 mr-4>
+          <div class="stream-info">
+            <div class="loading" v-if="!isRunning"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
+            <p class="mb-3">Add the URL and Stream Key to your Video Broadcast Software’s “Stream Settings”</p>
+            <p class="ma-0">URL: {{ isRunning ? streamUrl :  'xxxxxxx' }}</p>
+            <p class="ma-0">Stream Key: {{ isRunning ? streamKey :  'xxxxxxx' }}</p>
+          </div>
+        </v-flex>
+        <v-flex sm6>
+          <div class="time-info">
+            <label>Remaining time to broadcast</label>
+            <p>3 hours</p>
+          </div>
+        </v-flex>
+      </v-layout>
+
+      <div class="divider mt-5 mb-5"></div>
+
+      <div class="share-view">
+        <h3 class="mt-0 mb-4">Share</h3>
+        <p><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i>{{ profileUrl }}</p>
+      </div>
+
+      <div class="divider mt-5 mb-5"></div>
+
+      <div class="share-view">
+        <h3 class="mt-0 mb-4">Broadcast</h3>
+        <v-btn dark color="red" class="px-4 cancel-btn" @click.native="openStreamDeleteConfirmDialog()">Cancel Stream</v-btn>
+        <v-btn dark color="green" class="px-4 view-btn" @click.native="viewStream()" v-if="isRunning">View Stream</v-btn>
+      </div>
+    </v-flex>
+  <!--
     <v-flex xs12 sm10 offset-sm1>
       <h3>Live Video Settings</h3>
 
@@ -22,23 +74,9 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="show_stream_delete_confirm_dialog">
-        <v-card>
-          <v-card-title class="headline">Delete a Stream</v-card-title>
-          <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
-            <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
       <v-container fluid grid-list-md v-if="!currentUser.stream || currentUser.stream.status == 'deleted'">
         <v-layout row justify-space-between wrap>
           <v-flex xs12>
-            <!-- <v-btn color="blue" dark :to="`/user/${currentUser.slug}/video/create`">Create Stream</v-btn> -->
             <v-btn color="blue" dark @click.native="openDepositDialog()">Create Stream</v-btn>
           </v-flex>
         </v-layout>
@@ -76,15 +114,12 @@
           </v-flex>
           <v-flex xs12>
             <v-btn color="yellow darken-3" dark @click="openStreamDeleteConfirmDialog()">Stop Stream</v-btn>
-            <!-- <v-btn color="yellow darken-3" dark @click="stopStream()" v-if="currentUser.stream.status == 'started'">Stop Stream</v-btn>
-            <v-btn color="green" dark @click="startStream()" v-else>Start Stream</v-btn>
-            <v-btn color="red" dark @click="openStreamDeleteConfirmDialog()">Delete Stream</v-btn> -->
             <v-btn color="green" dark @click.native="viewStream()">View Stream</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
-
     </v-flex>
+  -->
   </div>
 </template>
 

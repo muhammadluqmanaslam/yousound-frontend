@@ -9,6 +9,9 @@ export default {
 
   data () {
     return {
+      hours: [],
+      hour: 1,
+      terms: false,
       stream: {
         name: '',
         description: '',
@@ -46,16 +49,23 @@ export default {
 
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
+    for (let i = 1; i <= 12; i++) {
+      this.hours.push({
+        id: i,
+        name: `${i}hours / $${i * 5}`
+      })
+    }
   },
 
   methods: {
     submit () {
       this.$validator.validateAll().then(response => {
         if (response === true) {
-          this.$store.dispatch('error/showLoadingActivity', true)
           let params = {
             stream: this.stream
           }
+          params.stream.valid_period = this.hour * 3600
+          this.$store.dispatch('error/showLoadingActivity', true)
           StreamService.createStream(params).then(response => {
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch('auth/setStream', response.body)

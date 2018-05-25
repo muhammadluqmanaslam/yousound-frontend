@@ -1,5 +1,80 @@
 <template>
-  <div class="page video-page">
+  <div class="page video-page create-page">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
+      <h2 class="page-title">Live Video</h2>
+    </v-flex>
+
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
+      <form v-on:submit.prevent="submit()">
+        <v-layout row>
+          <v-flex sm4>
+            <div class="my-card">
+              <div class="o-out blue0"><div class="o-in"></div></div>
+              <div class="my-card__title">Step 1:</div>
+              <div class="my-card__subtitle">Download Video Broadcast Software</div>
+              <div class="my-card__text">Download video streaming software like a free version of <a>OBS</a>. Here are <a>links to more</a></div>
+            </div>
+          </v-flex>
+          <v-flex sm4>
+            <div class="my-card">
+              <div class="o-out red0"><div class="o-in"></div></div>
+              <div class="my-card__title">Step 2:</div>
+              <div class="my-card__subtitle">Prepare your live stream</div>
+              <div class="my-card__text">Make sure your live video stream looks good on your computer before proceeding to Step 3.</div>
+            </div>
+          </v-flex>
+          <v-flex sm4>
+            <div class="my-card">
+              <div class="o-out green0"><div class="o-in"></div></div>
+              <div class="my-card__title">Step 3:</div>
+              <div class="my-card__subtitle">Pay for what you use</div>
+              <div class="my-card__text">Pay $5 per hour.  After payment, you will receive your stream key.</div>
+            </div>
+          </v-flex>
+        </v-layout>
+
+        <div class="divider mt-3 mb-5"></div>
+
+        <v-layout row>
+          <v-flex sm8 form-group mr-4>
+            <label class="control-label">What is the name of your stream?</label>
+            <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
+          </v-flex>
+          <v-flex sm4>
+            <label class="control-label">How long do you want to stream?</label>
+            <v-select
+              v-bind:items="hours"
+              v-model="hour"
+              item-text="name"
+              item-value="id"
+              class="pt-0"></v-select>
+          </v-flex>
+        </v-layout>
+
+        <div class="divider mt-3 mb-5"></div>
+
+        <v-layout row>
+          <v-flex sm8 form-group mr-4>
+            <div class="comment-box">
+              After you click <b>“Create Channel”</b>, you should wait up to <b>10 minutes</b> to start streaming live.<br/>
+              You won't charged of waiting for starting streaming.<br/>
+              Any unused time is rolled over to your next broadcast.
+            </div>
+          </v-flex>
+          <v-flex sm4>
+            <div class="button-wrapper text-center">
+              <v-btn round dark color="blue" class="px-5" type="submit">Create Channel</v-btn>
+              <p class="regular-checkbox ma-0">
+                <input id="terms" type="checkbox" name="terms" v-model="terms" v-validate="'required'"/>
+                <label for="terms">I have read & agree to the <router-link class="forgot-password" to="#">Terms & Conditions</router-link></label>
+              </p>
+            </div>
+          </v-flex>
+        </v-layout>
+      </form>
+    </v-flex>
+
+  <!--
     <v-flex xs12 sm10 offset-sm1>
       <h3>Live Video Settings</h3>
       <form v-on:submit.prevent="submit()" class="container grid-list-md">
@@ -50,6 +125,7 @@
         </v-layout>
       </form>
     </v-flex>
+  -->
   </div>
 </template>
 
