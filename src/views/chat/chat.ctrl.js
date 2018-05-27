@@ -8,6 +8,7 @@ import Message from '@/components/chat/message'
 import MessageInput from '@/components/chat/messageinput'
 import ChatSidebar from '@/components/chat/chatsidebar'
 import { Picker } from 'emoji-mart-vue'
+import Vue from 'vue'
 
 var sm
 
@@ -90,7 +91,6 @@ export default {
       }
       sm.updateSettings(parsed)
     }
-
   },
   methods: {
     startBroadcasting() {
@@ -102,7 +102,6 @@ export default {
     },
 
     sendMessage(messageText) {
-      console.log(messageText)
       if (this.room.settings.charLimitBool && this.msgInput.length > this.room.settings.charLimit) return false
       if (!this.room.settings.links && linkRegex.test(this.msgInput)) return // TODO error instead of returning
       sm.sendMessage(messageText, this.user.username)
@@ -167,7 +166,7 @@ export default {
     this.$store.dispatch('error/showLoadingActivity', true)
     UserService.getUserInfo(this.$route.params.user).then(response => {
       this.$store.dispatch('error/showLoadingActivity', false)
-      this.user = response
+      this.user = response.body
       this.loadAlbums()
       sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
         sm.onMessage = function (message) {
@@ -175,14 +174,18 @@ export default {
           app.sendingMessages = $.grep(app.sendingMessages, function (e) {
             return e.localId != message.localId
           })
+
           // look up the username in message.from to get image, etc.
           if (message.from === app.user.username) {
             message.me = true
           }
           UserService.getUserInfo(message.from).then(response => {
-            message.fromUser = response
-            app.messages.unshift(message)
-            console.log(app.messages)
+            message.fromUser = response.body
+            if (app.messages[0].localId != message.localId) {
+              // This block of code runs twice for some reason
+              // So just make sure that we didn't already add this message
+              app.messages.unshift(message)
+            }
             setTimeout(function () {
               scrollDown(false)
             }, 1)
@@ -190,7 +193,6 @@ export default {
         }
 
         sm.onMessageSending = function (text) {
-          console.log('sending', text)
           app.sendingMessages.push(text);
           setTimeout(function () {
             scrollDown(false);
@@ -209,25 +211,25 @@ export default {
         };
 
         sm.onLoadMessages = function (loadMessageObj) {
+          var tempMessages = app.messages
           scrollDown(true)
-          console.log(loadMessageObj)
           // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
           for (var i = loadMessageObj.chunk * 500; i < (loadMessageObj.chunk + 1) * 500; i++) {
             var nextMessage = loadMessageObj.data[i - (loadMessageObj.chunk * 500)];
             if (nextMessage) {
-              app.messages[i] = nextMessage
+              Vue.set(app.messages, i, nextMessage)
             }
           }
           app.last = loadMessageObj.last;
           app.nextChunk = loadMessageObj.chunk + 1
           requestInProgress = false;
-          app.messages = app.messages.map((message) => {
+          app.messages.map((message) => {
             if (message) {
               if (message.from === app.user.username) {
                 message.me = true;
               }
               UserService.getUserInfo(message.from).then(response => {
-                message.fromUser = response;
+                Vue.set(message, "fromUser", response.body);
               })
               return message;
             }
@@ -254,6 +256,7 @@ export default {
     if (this.idleInterval) {
       clearInterval(this.idleInterval)
     }
+    sm.close()
   },
   mounted() {
     var app = this

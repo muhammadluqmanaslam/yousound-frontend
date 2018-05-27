@@ -79,8 +79,8 @@
                 <!--<div class="clear"></div>-->
               <!--</div>-->
             <!--</div>-->
-            <div class="chat-item other" v-for="message in reverseMessages">
-              <div class="user-avatar-image" :style="'background-image: url('+ message.fromUser.avatar.url +');'" ></div>
+            <div class="chat-item other" v-for="message in reverseMessages" v-bind:key="message.id">
+              <div class="user-avatar-image" :style="'background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
               <div class="chat-section">
                 <div class="info-section">
                   <a class="item-user">{{message.from}}</a>

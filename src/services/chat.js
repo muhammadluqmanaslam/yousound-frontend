@@ -76,6 +76,10 @@ var SocketManager = (socketHost, roomName, token, callback) => {
     socket.emit('loadMessages', sm.room)
   }
 
+  sm.close = () => {
+    socket.close()
+  }
+
   sm.onUserInfo = (user) => {
     // Override
   }
