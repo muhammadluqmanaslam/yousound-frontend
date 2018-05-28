@@ -9,6 +9,7 @@ import MessageInput from '@/components/chat/messageinput'
 import ChatSidebar from '@/components/chat/chatsidebar'
 import { Picker } from 'emoji-mart-vue'
 import Vue from 'vue'
+import { EHOSTUNREACH } from 'constants';
 
 var sm
 
@@ -27,7 +28,7 @@ export default {
       showEmojiPicker: false,
       show_broadcastPopup: false,
       show_confirmPopup: false,
-      show_requestPopup: true,
+      show_requestPopup: false,
       moment: moment,
       artist: this.$route.params.user,
       msgInput: '',
@@ -68,7 +69,8 @@ export default {
       request_tab: 'album',
       item_index: -1,
       albums: [],
-      products: []
+      products: [],
+      connected: false
     }
   },
   computed: {
@@ -80,6 +82,9 @@ export default {
     },
     reverseMessages() {
       return this.messages.slice().reverse()
+    },
+    disconnected() {
+      return !this.connected
     }
   },
   watch: {
@@ -154,12 +159,15 @@ export default {
     },
 
     selectItemIndex(index) {
+      const itemType = this.request_tab
+      const itemId = (this.request_tab === "album" ? this.albums : this.products)[index].id
       this.show_requestPopup = false
       if (this.item_index != index) {
         this.item_index = index
       } else {
         this.item_index = -1
       }
+      this.sendMessage("/"+itemType+"/"+itemId)
     }
   },
 
@@ -173,6 +181,12 @@ export default {
       this.user = response.body
       this.loadAlbums()
       sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
+        app.connected = true;
+
+        sm.onDisconnect = () => {
+          app.connected = false;
+          
+        } 
         sm.onMessage = function (message) {
           // Remove the message from sendingMessages
           app.sendingMessages = $.grep(app.sendingMessages, function (e) {

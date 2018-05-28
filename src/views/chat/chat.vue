@@ -26,41 +26,52 @@
       <!--</div>-->
     <!--</v-flex>-->
 
-    <!--<v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">-->
-      <!--<div class="popup-section">-->
-        <!--<div class="requests-section">-->
-          <!--<div class="header-section">-->
-            <!--<p class="section-title">Attach content to chat</p>-->
-            <!--<div class="option-area">-->
-              <!--<v-btn class="request-option-btn" :class="{'selected':request_tab=='album'}" @click.native="onRequestTab('album')">Album</v-btn>-->
-              <!--<v-btn class="request-option-btn" :class="{'selected':request_tab=='merch'}" @click.native="onRequestTab('merch')">Merch</v-btn>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="content-section" v-if="request_tab=='album'">-->
-            <!--<div class="request-item" :class="{'selected':item_index==index}" v-for="(album, index) in albums" :key="index" @click="selectItemIndex(index)">-->
-              <!--<div class="avatar-area">-->
-                <!--<div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div> -->
-              <!--</div>-->
-              <!--<div class="detail-area">-->
-                <!--<label class="item-name">{{ album.name }}</label>-->
-                <!--<label class="user-name">{{ album.user.display_name }}</label>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="content-section" v-if="request_tab=='merch'">-->
-            <!--<div class="request-item" :class="{'selected':item_index==index}" v-for="(product, index) in products" :key="index" @click="selectItemIndex(index)">-->
-              <!--<div class="avatar-area">-->
-                <!--<div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div> -->
-              <!--</div>-->
-              <!--<div class="detail-area">-->
-                <!--<label class="item-name">{{ product.name }}</label>-->
-                <!--<label class="user-name">{{ product.merchant.display_name }}</label>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</v-flex>-->
+    <v-snackbar
+      :timeout="0"
+      :bottom="true"
+      :right="true"
+      :multi-line="false"
+      :vertical="false"
+      v-model="disconnected"
+    >
+     Connecting...
+    </v-snackbar>
+
+    <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">-->
+      <div class="popup-section">
+        <div class="requests-section">
+          <div class="header-section">
+            <p class="section-title">Attach content to chat</p>
+            <div class="option-area">
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='album'}" @click.native="onRequestTab('album')">Album</v-btn>
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='merch'}" @click.native="onRequestTab('merch')">Merch</v-btn>
+            </div>
+          </div>
+          <div class="content-section" v-if="request_tab=='album'">
+            <div class="request-item" :class="{'selected':item_index==index}" v-for="(album, index) in albums" :key="index" @click="selectItemIndex(index)">
+              <div class="avatar-area">
+                <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div> 
+              </div>
+              <div class="detail-area">
+                <label class="item-name">{{ album.name }}</label>
+                <label class="user-name">{{ album.user.display_name }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="content-section" v-if="request_tab=='merch'">
+            <div class="request-item" :class="{'selected':item_index==index}" v-for="(product, index) in products" :key="index" @click="selectItemIndex(index)">
+              <div class="avatar-area">
+                <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div> 
+              </div>
+              <div class="detail-area">
+                <label class="item-name">{{ product.name }}</label>
+                <label class="user-name">{{ product.merchant.display_name }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </v-flex>
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="user">
       <h2 class="page-title">{{ user.display_name }}</h2><label class="chat-room">CHAT ROOM</label>
@@ -79,6 +90,10 @@
                 <!--<div class="clear"></div>-->
               <!--</div>-->
             <!--</div>-->
+            <center>
+            <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
+            </center>
+
             <div class="chat-item other" v-for="message in reverseMessages" v-bind:key="message.id">
               <div class="user-avatar-image" :style="'background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
               <div class="chat-section">
@@ -118,20 +133,25 @@
             >
               <v-icon>tag_faces</v-icon>
             </v-btn>
+            <v-btn v-if="connected" class="show-attachment-box-btn" @click.native="show_requestPopup = true" :class="{'selected': show_broadcastPopup}"><v-icon>attachment</v-icon></v-btn>
             <v-btn class="send-chat-btn" @click.native="sendMessage()">Send</v-btn>
           </div>
         </v-flex>
 
         <v-flex xs12 sm3 pa-0 class="requests-section">
           <div class="header-section">
-            <p class="section-title">38 Members</p>
+            <!-- <p class="section-title">38 Members</p> -->
             <div class="option-area">
-              <v-btn class="request-option-btn" @click.native="meberList=true" :class="{'selected': meberList}"><v-icon>supervisor_account</v-icon>Member List</v-btn>
-              <v-btn class="request-option-btn" @click.native="meberList=false" :class="{'selected': !meberList}"><v-icon>fa-at</v-icon>Mentions</v-btn>
+              <v-btn class="request-option-btn" @click.native="meberList=true" :class="{'selected': meberList}"><v-icon>supervisor_account</v-icon></v-btn>
+              <v-btn class="request-option-btn" @click.native="meberList=false" :class="{'selected': !meberList}"><v-icon>fa-at</v-icon></v-btn>
             </div>
           </div>
           <div class="content-section" v-if="meberList">
-            <div class="member-group">MODERATOR</div>
+            <center>
+            <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
+            </center>
+
+            <div v-if="connected" class="member-group">MODERATOR</div>
             <div class="member-item" v-for="adminUser in adminUsers" v-bind:key="adminUser.username">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
@@ -185,19 +205,8 @@
   </div>
 </template>
 <script type="text/javascript" src="./chat.ctrl.js"></script>
-<style>
-/*#msg-container {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: calc(100% - 200px);
-}
+<style scoped>
+.progress-circular {
 
-body {
-  overflow-y: hidden;
-  overflow-x: hidden;
 }
-
-.full-height {
-  height: 100%;
-}*/
 </style>

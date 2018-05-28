@@ -299,6 +299,28 @@
             color: #FFFFFF;
           }
         }
+        .show-attachment-box-btn {
+          position: absolute;
+          width: 30px;
+          min-width: 30px;
+          height: 30px;
+          right: 145px;
+          bottom: 13.5px;
+          margin: 0;
+          text-transform: none;
+          box-shadow: none;
+          background: #FFFFFF;
+          border: 0.75px solid #DDDDDD;
+          border-radius: 75px;
+          font-size: 15px;
+          color: #9B9B9B;
+          letter-spacing: -0.6px;
+          &.selected {
+            background: #3A92FF;
+            border: none;
+            color: #FFFFFF;
+          }
+        }
         .send-chat-btn {
           position: absolute;
           width: 72.75px;
