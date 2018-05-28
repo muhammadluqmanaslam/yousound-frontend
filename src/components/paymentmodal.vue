@@ -1,36 +1,62 @@
 <template>
-  <v-flex xs12 sm12 class="payment-modal">
-    <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
-    <v-layout row wrap class="popup-section">
-      <v-layout row wrap class="top-section">
-        <p class="title-label">Make Payment : ${{ amount|formatNumber }}</p>
-        <label v-if="$store.state.auth.user.balance_amount<amount">Not available payment through Balance.</label>
-      </v-layout>
-      <v-flex xs12 class="payment-section">
-        <v-radio-group v-model="payment_method" :mandatory="false" hide-details>
-          <v-radio 
-            :label="`Balance (Available: $${Filter.formatNumber($store.state.auth.user.balance_amount)})`"
-            value="balance"
-            :disabled="$store.state.auth.user.balance_amount < amount || type == 'deposit'"></v-radio>
-          <v-radio label="Credit Card" value="stripe"></v-radio>
-          <card
+  <div class="payment-modal">
+    <div class="dismiss-section" @click="dismiss()"></div>
+    <v-layout class="popup-section d-flex">
+      <div class="left-section">
+        <div class="payment-icon"></div>
+        <h4>You're almost done.</h4>
+        <p>Choose your payment method<br>to complete your order.</p>
+        <div class="payment-info">
+          <label>Make Payment</label>
+          <span>${{ amount | formatNumber }}</span>
+        </div>
+        <div class="divider"></div>
+        <div class="available-info">
+          <label>Available</label>
+          <span>${{ currentUser.balance_amount | formatNumber }}</span>
+        </div>
+        <div class="fee-info">
+          <label>Fee</label>
+          <span v-if="payment_method == 'stripe'">${{ fee }}</span>
+          <span v-else>$0</span>
+        </div>
+        <div class="stripe-info">
+          <label>Powered by</label>
+          <span>stripe</span>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="payment-section">
+          <v-radio-group v-model="payment_method" hide-details row>
+            <v-radio label="Balance" value="balance" :disabled="currentUser.balance_amount < amount || type == 'deposit'"></v-radio>
+            <v-radio label="Credit Card" value="stripe"></v-radio>
+          </v-radio-group>
+          <card v-show="payment_method == 'stripe'"
             class="stripe-card pa-2"
             :class="{ complete }"
             :stripe="stripe_publishable_key"
             :options="stripeOptions"
-            @change="complete = $event.complete"
-            v-show="payment_method == 'stripe'"/>
-        </v-radio-group>
-        <div class="fee-section pl-2 pr-2" v-if="payment_method == 'stripe'">
-          <label class="fee-amount">fee: ${{ fee }}</label>
+            @change="complete = $event.complete"/>
+          <div class="user-info">
+            <h4>Hi, {{ currentUser.display_name }}</h4>
+            <p>Here’s a quick look at your account.<br>
+            Use to pay your purchase.</p>
+          </div>
+          <div class="balance-info">
+            <h4><span>$</span>{{ currentUser.balance_amount | formatNumber }}</h4>
+            <p>Available Balance</p>
+          </div>
         </div>
-      </v-flex>
-      <v-flex xs12 class="action-section">
-        <!-- <input type="text" class="donate-amount form-control" placeholder="$0.00"> -->
-        <v-btn class ="pay-btn" @click.native="sendPayment()" :disabled="sent_payment || (payment_method=='stripe' && !complete)">Submit</v-btn>
-      </v-flex>
+        <div class="action-section">
+          <!-- <input type="text" class="donate-amount form-control" placeholder="$0.00"> -->
+          <v-btn
+            class="pay-btn"
+            @click.native="sendPayment()"
+            :disabled="sent_payment || (payment_method=='stripe' && !complete)">Pay ${{ amount | formatNumber }}</v-btn>
+        </div>
+      </div>
     </v-layout>
-  </v-flex>
+  </div>
 </template>
 
 <script type="text/javascript">
@@ -78,15 +104,23 @@
     computed: {
       Filter () {
         return Filter
+      },
+
+      currentUser () {
+        return this.$store.state.auth.user
       }
     },
 
     created () {
       const total = (this.amount + 30) / 0.971
       this.fee = ((total - this.amount) / 100).toFixed(2)
-      if (this.$store.state.auth.user.balance_amount < this.amount || this.type === 'deposit') {
+      if (this.currentUser.balance_amount < this.amount || this.type === 'deposit') {
         this.payment_method = 'stripe'
       }
+      // console.log(this.payment_method, this.currentUser.balance_amount, this.amount, this.type)
+    },
+
+    beforeDestroy () {
     },
 
     methods: {

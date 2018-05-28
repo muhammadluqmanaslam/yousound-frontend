@@ -4,6 +4,10 @@ import $store from '@/store'
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/streams'
 
 export default {
+  getStream (streamId) {
+    return Vue.http.get(`${API_BASE_URL}/${streamId}`, { headers: { 'Authorization': $store.state.auth.token }, params: {} })
+  },
+
   createStream (params) {
     return Vue.http.post(API_BASE_URL, params, { headers: { 'Authorization': $store.state.auth.token } })
   },
