@@ -43,6 +43,9 @@ export default {
         online: [],
         idle: []
       },
+      onlineUsers: [],
+      idleUsers: [],
+      adminUsers: [],
       idleInterval: null,
       rules: {
         number: (value) => {
@@ -69,7 +72,7 @@ export default {
     }
   },
   computed: {
-    settingsChange: function () {
+    settingsChange() {
       if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '' && this.rules.number(this.room.settings.charLimit) !== 'string') {
         // this.room.settings.charLimit = parseInt(this.room.settings.charLimit);
       }
@@ -112,6 +115,7 @@ export default {
     getMessages(a, b) {
       return (a, b)
     },
+
 
     addEmoji(emoji, event) {
       this.showEmojiPicker = false
@@ -203,12 +207,32 @@ export default {
           app.user = user;
         };
 
-        sm.onRoomInfo = function (room) {
-          app.room = room;
+        sm.onRoomInfo = async room => {
+          Vue.set(app, "room", room);
+          // Fetch user data (avatar image, etc)
+          app.onlineUsers = await Promise.all(room.online.map(async username => { 
+            const res = await UserService.getUserInfo(username)
+            return res.body
+          }))
+          app.idleUsers = await Promise.all(room.idle.map(async username => { 
+            const res = await UserService.getUserInfo(username)
+            return res.body
+          }))
+          app.adminUsers = await Promise.all(room.admins.map(async username => { 
+            const res = await UserService.getUserInfo(username)
+            return res.body
+          }))
+          // Remove admin users from online/idle list because they are displayed separately
+          Vue.set(app, "onlineUsers", app.onlineUsers.filter(u => {
+            return room.admins.indexOf(u.username) < 0
+          }));
+          Vue.set(app, "idleUsers", app.idleUsers.filter(u => {
+            return room.admins.indexOf(u.username) < 0
+          }));
           app.admin = (room.admins.filter((u) => {
             return u == app.user.username
           }).length == 1);
-        };
+        }
 
         sm.onLoadMessages = function (loadMessageObj) {
           var tempMessages = app.messages

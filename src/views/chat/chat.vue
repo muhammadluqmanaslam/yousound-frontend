@@ -63,7 +63,7 @@
     <!--</v-flex>-->
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="user">
-      <h2 class="page-title">{{ user.username }}</h2><label class="chat-room">CHAT ROOM</label>
+      <h2 class="page-title">{{ user.display_name }}</h2><label class="chat-room">CHAT ROOM</label>
     </v-flex>
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="chat-page-content" v-if="user">
       <v-layout row>
@@ -83,7 +83,7 @@
               <div class="user-avatar-image" :style="'background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
               <div class="chat-section">
                 <div class="info-section">
-                  <a class="item-user">{{message.from}}</a>
+                  <a class="item-user">{{message.fromUser.display_name}}</a>
                   <label class="messaged-time">{{moment(message.time).calendar()}}</label>
                 </div>
                 <div class="chat-content text">
@@ -132,159 +132,34 @@
           </div>
           <div class="content-section" v-if="meberList">
             <div class="member-group">MODERATOR</div>
-            <div class="member-item">
+            <div class="member-item" v-for="adminUser in adminUsers" v-bind:key="adminUser.username">
               <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
+                <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
                 <div class="memeber-status online"></div>
               </div>
               <div class="detail-area">
-                <a class="user-name">Ruckazoid</a>
+                <a class="user-name">{{ adminUser.display_name }}</a>
               </div>
             </div>
-            <div class="member-group mt-3">Broadcasting: 6</div>
-            <div class="member-item">
+
+            <div v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
+            <div v-if="onlineUsers.length" class="member-item" v-for="onlineUser in onlineUsers" v-bind:key="onlineUser.username">
               <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
-                <div class="memeber-status normal"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Julia219</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
-                <div class="memeber-status normal"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">BOOM_BA</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user4.png');"></div>
-                <div class="memeber-status normal"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Good_Fellas</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/sample_user.png');"></div>
-                <div class="memeber-status normal"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">BoogaBoom</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user3.jpg');"></div>
-                <div class="memeber-status normal"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Megatrix</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status normal"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">HellYas</a>
-              </div>
-            </div>
-            <div class="member-group mt-3">Online: 10</div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user2.jpg');"></div>
+                <div class="avatar-image" :style="'background-image: url(' + onlineUser.avatar.url + ');'"></div>
                 <div class="memeber-status online"></div>
               </div>
               <div class="detail-area">
-                <a class="user-name">ManoChaus</a>
+                <a v-if="onlineUser" class="user-name">{{ onlineUser.display_name }}</a>
               </div>
             </div>
-            <div class="member-item">
+            <div v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
+            <div v-if="idleUsers.length" class="member-item" v-for="idleUser in idleUsers" v-bind:key="idleUser.username">
               <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user4.png');"></div>
-                <div class="memeber-status online"></div>
+                <div class="avatar-image" :style="'background-image: url(' + idleUser.avatar.url + ');'"></div>
+                <div class="memeber-status idle"></div>
               </div>
               <div class="detail-area">
-                <a class="user-name">GoodMorgan</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">BrokenLights</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/sample_user.png');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">12345Six</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">BoxerBeats</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Lola_</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Man0Chaus</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Brooh</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Good_Fellas</a>
-              </div>
-            </div>
-            <div class="member-item">
-              <div class="avatar-area">
-                <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <a class="user-name">Buddahh!</a>
+                <a v-if="idleUser" class="user-name">{{ idleUser.display_name }}</a>
               </div>
             </div>
           </div>

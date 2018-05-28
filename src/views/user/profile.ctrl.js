@@ -417,7 +417,7 @@ export default {
     },
 
     goToChat () {
-      this.$router.push({ path: '/' + this.user.id + '/chat' })
+      this.$router.push({ path: '/user/' + this.user.id + '/chat' })
     },
 
     openBlockUserConfirmDialog () {

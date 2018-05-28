@@ -23,7 +23,7 @@ var SocketManager = (socketHost, roomName, token, callback) => {
     })
     socket.on('newMessage', (a) => { sm.onMessage(a) })
     socket.on('loadMessages', (a) => { sm.onLoadMessages(a) })
-    socket.on('roomInfo', sm.onRoomInfo)
+    socket.on('roomInfo', (a) => { sm.onRoomInfo(a) })
     socket.on('userInfo', sm.onUserInfo)
     socket.on('disconnect', sm.onDisconnect)
     socket.on('reconnect', sm.onReconnect)
