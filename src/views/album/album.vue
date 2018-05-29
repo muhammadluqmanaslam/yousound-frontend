@@ -49,9 +49,13 @@
                         </template>
                       </label>
                     </v-flex>
-                    <v-flex xs12 sm12 v-if="album.contributors && album.contributors.length > 0">
+                    <v-flex xs12 sm12>
                       <label class="album-info-label">Contributors: </label>
                       <label class="album-info-text">
+                        <div class="contributor-info">
+                          <router-link class="user-name" :to="`/${album.user.slug}`">{{ album.user.display_name }}</router-link> - Uploader</div>
+                      </label>
+                      <label class="album-info-text" v-if="album.contributors && album.contributors.length > 0">
                         <template v-for="c in album.contributors">
                           <div class="contributor-info">
                             <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
