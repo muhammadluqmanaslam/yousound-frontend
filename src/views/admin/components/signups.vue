@@ -5,6 +5,7 @@
       :dismiss="closeApproveModal"
       :approveButtonAction="approveUser"
       :denyButtonAction="denyUser"></approve-modal>
+
     <deny-modal v-if="show_deny_modal"
       :item="user"
       :dismiss="closeDenyModal"
@@ -34,6 +35,8 @@
                 v-bind:headers="waiting_headers"
                 v-bind:items="filtered_items"
                 v-bind:search="signups_search"
+                :pagination.syc="pagination"
+                :rows-per-page-items="per_page_options"
                 class="user-table">
                 <template slot="items" slot-scope="props">
                   <td class="text-xs-left">
@@ -99,7 +102,7 @@
                   <td class="text-xs-left"><v-btn color="primary" class="signups-btn">Click to view</v-btn></td>
                 </template>
                 <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-                  From {{ pageStart }} to {{ pageStop }}
+                  From {{ pageStart }} to {{ pageStop }} out of {{ filtered_items.length }}
                 </template>
               </v-data-table>
               <v-data-table v-if="tab.id == 'denied'"

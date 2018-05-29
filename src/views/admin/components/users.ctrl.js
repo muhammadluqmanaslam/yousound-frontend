@@ -32,22 +32,14 @@ export default {
       user_search: '',
       users: [],
       user: {},
-      // pagination: {
-      //   per_page: 25,
-      //   current_page: 1,
-      //   total_pages: 1,
-      //   count: 0,
-      //   total_count: 0,
-      // },
-      // per_page_options: [5, 15, 25, { text: "All", value: -1 }],
       pagination: {
         sortBy: 'created_at',
-        page: 1,
-        rowsPerPage: 25,
         descending: true,
-        totalItems: 0
+        rowsPerPage: 100,
+        // page: 1,
+        // totalItems: 0
       },
-      per_page_options: [5, 15, 25],
+      per_page_options: [50, 100, 150],
       isPageReady: false
     }
   },
@@ -82,14 +74,14 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       this.isPageReady = false
       const params = {
-        page: this.pagination.current_page,
-        per_page: this.pagination.per_page
+        page: this.pagination.page,
+        per_page: this.pagination.rowsPerPage
       }
       UserService.getUsers(params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.isPageReady = true
         this.users = response.body.users
-        this.pagination = response.body.pagination
+        // this.pagination = response.body.pagination
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         // this.isPageReady = true

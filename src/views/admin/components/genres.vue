@@ -21,9 +21,10 @@
       </v-flex>
     </v-layout>
     <v-data-table
-      v-bind:headers="genre_headers"
-      v-bind:items="filtered_genres"
-      v-bind:search="genre_search"
+      :headers="genre_headers"
+      :items="filtered_genres"
+      :search="genre_search"
+      :rows-per-page-items="per_page_options"
       class="genre-table">
       <template slot="items" slot-scope="props">
         <td>
@@ -60,7 +61,7 @@
         </td>
       </template>
       <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-        From {{ pageStart }} to {{ pageStop }}
+        From {{ pageStart }} to {{ pageStop }} out of {{ filtered_genres.length }}
       </template>
     </v-data-table>
   </v-card>

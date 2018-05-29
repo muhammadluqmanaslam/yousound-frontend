@@ -18,12 +18,13 @@ export default {
       genre: {},
       genre_search: '',
       pagination: {
-        per_page: 100,
-        current_page: 1,
-        total_pages: 1,
-        count: 0,
-        total_count: 0,
+        sortBy: 'name',
+        descending: false,
+        rowsPerPage: 100,
+        // page: 1,
+        // totalItems: 0
       },
+      per_page_options: [100],
       isPageReady: false
     }
   },

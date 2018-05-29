@@ -24,7 +24,7 @@
                 :headers="user_headers"
                 :items="filtered_users"
                 :search="user_search"
-                :pagination.syc="pagination"
+                :pagination.sync="pagination"
                 :rows-per-page-items="per_page_options"
                 class="user-table">
                 <template slot="items" slot-scope="props">

@@ -42,7 +42,7 @@ export default {
         { text: 'Recommended?', value: 'recommended', align: 'center' },
       ],
       searchValue: '',
-      per_page_options: [5, 15, 25],
+      per_page_options: [50, 100, 150],
       album: {},
       show_album_delete_confirm_modal: false,
       product: {},
@@ -52,19 +52,22 @@ export default {
       products: [],
       published_pagination: {
         page: 1,
-        rowsPerPage: 5
+        rowsPerPage: 100
       },
       privated_pagination: {
         page: 1,
-        rowsPerPage: 5
+        rowsPerPage: 100
       },
       product_pagination: {
         page: 1,
-        rowsPerPage: 5
+        rowsPerPage: 100
       },
       total_published_albums: 0,
       total_privated_albums: 0,
       total_products: 0,
+      published_loading: false,
+      privated_loading: false,
+      product_loading: false,
       isPageReady: true
     }
   },

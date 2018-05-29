@@ -53,6 +53,14 @@ export default {
       show_approve_modal: false,
       show_deny_modal: false,
       user: {},
+      pagination: {
+        sortBy: 'created_at',
+        page: 1,
+        rowsPerPage: 100,
+        descending: true,
+        totalItems: 0
+      },
+      per_page_options: [50, 100, 150],
       isPageReady: true
     }
   },
