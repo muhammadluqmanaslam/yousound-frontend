@@ -5,7 +5,13 @@
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
-      <form v-on:submit.prevent="submit()">
+      <payment-modal v-if="show_payment_dialog"
+        :type="'deposit'"
+        :amount="streamCost"
+        :dismiss="closePaymentDialog"
+        :finish="deposit"></payment-modal>
+
+      <form v-on:submit.prevent="openPaymentDialog()">
         <v-layout row>
           <v-flex sm4>
             <div class="my-card">

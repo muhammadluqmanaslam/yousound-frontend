@@ -1,10 +1,19 @@
 import _ from 'lodash'
-import { MediaLiveInputTypes, MediaLiveInputCodecs, MediaLiveInputResolutions, MediaLiveInputMaximumBitrates } from '@/helper'
-
+import AuthService from  '@/services/auth'
 import StreamService from  '@/services/stream'
+
+import paymentModal from '@/components/paymentmodal'
+
+import {
+  MediaLiveInputTypes,
+  MediaLiveInputCodecs,
+  MediaLiveInputResolutions,
+  MediaLiveInputMaximumBitrates,
+  StreamHourlyPrice} from '@/helper'
 
 export default {
   components: {
+    paymentModal
   },
 
   data () {
@@ -20,6 +29,7 @@ export default {
         ml_input_resolution: 'HD',
         ml_input_maximum_bitrate: 'MAX_10_MBPS'
       },
+      show_payment_dialog: false,
       isPageReady: false
     }
   },
@@ -39,6 +49,14 @@ export default {
 
     MediaLiveInputMaximumBitrates () {
       return MediaLiveInputMaximumBitrates
+    },
+
+    streamCost () {
+      return this.hour * StreamHourlyPrice
+    },
+
+    currentUser () {
+      return this.$store.state.auth.user
     }
   },
 
@@ -52,12 +70,45 @@ export default {
     for (let i = 1; i <= 12; i++) {
       this.hours.push({
         id: i,
-        name: `${i}hours / $${i * 5}`
+        name: `${i}hours / $${i * StreamHourlyPrice / 100}`
       })
     }
   },
 
   methods: {
+    openPaymentDialog () {
+      this.$validator.validateAll().then(response => {
+        if (response === true) {
+          if (this.currentUser.enabled_live_video_free || this.currentUser.balance_amount >= this.streamCost) {
+            this.submit()
+          } else {
+            this.show_payment_dialog = true
+          }
+        } else {
+          this.$store.dispatch('error/showErrorToast', [this.errors.items[0].msg])
+        }
+      }).catch(e => {
+        console.log('error', e)
+      })
+    },
+
+    closePaymentDialog () {
+      this.show_payment_dialog = false
+    },
+
+    deposit (token) {
+      const params = {
+        payment_token: token.id,
+        amount: StreamHourlyPrice
+      }
+      PaymentService.makeDeposit(params).then(response => {
+        AuthService.setUser(response.body)
+        this.submit()
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
     submit () {
       this.$validator.validateAll().then(response => {
         if (response === true) {

@@ -1,10 +1,16 @@
 import _ from 'lodash'
-import { MediaLiveInputTypes, MediaLiveInputCodecs, MediaLiveInputResolutions, MediaLiveInputMaximumBitrates } from '@/helper'
-
 import PaymentService from  '@/services/payment'
 import StreamService from  '@/services/stream'
+
 import paymentModal from '@/components/paymentmodal'
-import { MyEvents, StreamHourlyPrice } from '@/helper'
+
+import {
+  MediaLiveInputTypes,
+  MediaLiveInputCodecs,
+  MediaLiveInputResolutions,
+  MediaLiveInputMaximumBitrates,
+  MyEvents,
+  StreamHourlyPrice} from '@/helper'
 
 export default {
   components: {
@@ -21,8 +27,8 @@ export default {
       //   ml_input_resolution: 'HD',
       //   ml_input_maximum_bitrate: 'MAX_10_MBPS'
       // },
-      show_payment_dialog: false,
-      show_deposit_dialog: false,
+      // show_payment_dialog: false,
+      // show_deposit_dialog: false,
       show_stream_delete_confirm_dialog: false,
       timer: null,
       isPageReady: false
@@ -109,27 +115,26 @@ export default {
   },
 
   methods: {
-    openPaymentDialog () {
-      this.closeDepositDialog()
-      this.show_payment_dialog = true
-    },
+    // openPaymentDialog () {
+    //   this.closeDepositDialog()
+    //   this.show_payment_dialog = true
+    // },
 
-    closePaymentDialog () {
-      this.show_payment_dialog = false
-    },
+    // closePaymentDialog () {
+    //   this.show_payment_dialog = false
+    // },
 
-    openDepositDialog () {
-      this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
-      // if (this.currentUser.enabled_live_vide_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
-      //   this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
-      // } else {
-      //   this.show_deposit_dialog = true
-      // }
-    },
+    // openDepositDialog () {
+    //   if (this.currentUser.enabled_live_video_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
+    //     this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+    //   } else {
+    //     this.show_deposit_dialog = true
+    //   }
+    // },
 
-    closeDepositDialog () {
-      this.show_deposit_dialog = false
-    },
+    // closeDepositDialog () {
+    //   this.show_deposit_dialog = false
+    // },
 
     openStreamDeleteConfirmDialog () {
       this.show_stream_delete_confirm_dialog = true
