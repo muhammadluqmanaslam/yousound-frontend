@@ -115,9 +115,11 @@
           margin-top: -4px;
         }
         .item-description {
-          text-align: left;
-          padding-top: 5.25px;
+          max-height: 200px;
+          overflow-y: scroll;
           margin-bottom: 22.5px;
+          padding-top: 5.25px;
+          text-align: left;
           font-size: 14px;
           color: #838383;
           letter-spacing: 0;
