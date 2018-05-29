@@ -1,7 +1,7 @@
 <template>
   <v-flex class="track-card">
     <v-flex xs12 class="track-info" pa-0 v-if="!_.isEmpty(item)">
-      <v-flex xs12 class="track-user" v-if="false" pa-0>
+      <!-- <v-flex xs12 class="track-user" pa-0>
         <profile-item :user="publisher" :className="'track-user-avatar'"></profile-item>
         <div class="track-user-content-section">
           <router-link :to="'/' + publisher.slug"><p class="track-user-name">{{ publisher.display_name }}</p></router-link>
@@ -9,7 +9,7 @@
             <img class="track-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
           </div>
         </div>
-      </v-flex>
+      </v-flex> -->
       <v-flex xs12 class="track-cover">
         <div class="playlist-icon" v-if="item.album_type=='playlist'">
           <img src="/static/images/playlist.png" />

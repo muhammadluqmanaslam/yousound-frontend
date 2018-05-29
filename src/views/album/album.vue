@@ -21,7 +21,6 @@
                 <v-icon class="pause">pause</v-icon>
               </v-btn>
             </div>
-            <!-- <v-btn class="credit-button">View album credits</v-btn> -->
             <div class="credits-dialog-wrapper">
               <v-dialog v-model="dialog" class="album-credits-dialog" scrollable max-width="600px">
                 <v-btn color="primary" dark slot="activator" class="text-btn">View album credits</v-btn>
@@ -282,12 +281,10 @@
             <div class="comment-items">
               <div class="comment-item" v-for="(comment, index) in comments" :key="index">
                 <div class="comment-parent-item">
-                  <!-- <img class="profile-image" src="/static/images/user1.jpg" /> -->
                   <profile-item :user="comment.user" :className="'comment-user-avatar'"></profile-item>
                   <div class="comment-content relative">
                     <router-link :to="'/' + comment.user.slug"><label class="user-name">{{ comment.user.display_name }} <v-icon class="user-status online" v-if="comment.user.user_type=='artist'">fa-check-circle</v-icon></label></router-link>
                     <i class="fa fa-eye" v-if="comment.status=='published'"></i>
-                    <!-- <p class="comment-text">{{ comment.body }}</p> -->
                     <p class="comment-text" v-html="convertedHTML(comment.body)"></p>
                   </div>
                   <div class="right-section">
@@ -380,5 +377,5 @@
     </v-footer>
   </v-layout>
 </template>
-<script type="text/javascript" src="./album.ctrl.js"></script>
 
+<script type="text/javascript" src="./album.ctrl.js"></script>

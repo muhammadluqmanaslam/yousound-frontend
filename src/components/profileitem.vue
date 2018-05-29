@@ -2,18 +2,14 @@
   <div :class="className" class="profile-item-section">
     <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
     <router-link :to="'/' + user.slug">
-      <!-- <div class="activity-item-profile-avatar" :style="{'background-image': 'url(/static/images/user1.jpg)'}"></div> -->
-      <!-- <img class="activity-item-profile-avatar" src="/static/images/user1.jpg"/> -->
       <div class="activity-item-profile-avatar" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
     </router-link>
-    <div class="activity-item-profile-cover" v-if="user.id!=$store.state.auth.user.id">
-    <!-- <div class="activity-item-profile-cover"> -->
+    <div v-if="false && user.id!=$store.state.auth.user.id" class="activity-item-profile-cover">
       <div class="profile-cover-arrow"><div></div></div>
       <div class="profile-cover">
         <div class="profile-cover-body">
           <div class="profile-cover-avatar">
             <router-link :to="'/' + user.slug">
-              <!-- <img class="activity-item-profile-avatar" src="/static/images/user1.jpg"/> -->
               <div class="activity-item-profile-avatar" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
             </router-link>
           </div>

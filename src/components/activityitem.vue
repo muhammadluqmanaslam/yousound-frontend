@@ -6,9 +6,6 @@
         <v-flex xs12 sm6 class="activity-item-section"  v-bind:class="{'sm6': activityItem.sender.recent_reposts, 'no-reposts': !activityItem.sender.recent_reposts}">
           <v-flex xs12 class="activity-item-section-body">
             <profile-item :user="activityItem.sender" :className="'activity-item-profile-avatar-area'"></profile-item>
-            <!-- <router-link class="user-name" :to="'/' + activityItem.sender.slug">
-              <div class="activity-item-profile-avatar-area" :style="{'background-image': 'url(' + activityItem.sender.avatar.thumb.url + ')'}"></div>
-            </router-link> -->
             <div class="activity-item-content-area">
               <div class="activity-item-content">
                 <router-link class="user-name" :to="'/' + activityItem.sender.slug">{{ activityItem.sender.display_name }}</router-link>&nbsp;
@@ -27,7 +24,6 @@
                 </label>
               </div>
               <div class="details">
-                <!-- <p class="detailed-description" v-if="activityItem.action_type=='comment'">"Oh man, this track is really done."</p> -->
                 <p class="detailed-description" v-if="activityItem.action_type=='comment'">"{{ activityItem.assoc.body }}"</p>
                 <!-- <div class="actioned-item" :style="{'background-image': 'url(' + activityItem.assoc.covers[0].cover.thumb.url + ')'}" v-if="activityItem.assoc && activityItem.assoc_type=='ShopProduct'">
                   <router-link to="/" v-if="activityItem.assoc.assoc_type=='ShopProduct'"></router-link>

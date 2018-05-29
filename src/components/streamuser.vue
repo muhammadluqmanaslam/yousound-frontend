@@ -3,9 +3,6 @@
     <v-flex xs12 class="track-info" pa-0>
       <v-flex xs12 class="track-user" pa-0>
         <profile-item :user="user" :className="'track-user-avatar'"></profile-item>
-        <!-- <router-link class="user-name" :to="'/' + user.slug">
-          <div class="track-user-avatar" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
-        </router-link> -->
         <div class="activity-section">
           <router-link class="user-name" :to="'/' + user.slug">{{ user.display_name }}</router-link>&nbsp;
           <v-icon class="user-status" v-bind:class="{'online': user.status == 'active'}" v-if="user.user_type == 'artist'">fa-check-circle</v-icon>&nbsp;

@@ -99,7 +99,7 @@
               overflow: hidden;
               background-position: center;
               display: inline-block;
-              a {
+              & > a {
                 padding-right: 100%;
                 padding-bottom: 100%;
               }

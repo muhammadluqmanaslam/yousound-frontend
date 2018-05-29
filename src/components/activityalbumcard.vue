@@ -23,12 +23,10 @@
   import { mapActions } from 'vuex'
   import AlbumService from '@/services/album'
   import downloadModal from '@/components/downloadmodal'
-  import profileItem from '@/components/profileitem'
 
   export default {
     components: {
-      downloadModal,
-      profileItem
+      downloadModal
     },
 
     props: {

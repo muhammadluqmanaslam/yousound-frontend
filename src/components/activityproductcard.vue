@@ -1,13 +1,13 @@
 <template>
   <v-flex class="activity-product-card">
     <v-flex xs12 class="product-info" pa-0>
-      <v-flex xs12 class="product-user" v-if="false" pa-0>
+      <!-- <v-flex xs12 class="product-user" pa-0>
         <profile-item :user="publisher" :className="'product-user-avatar'"></profile-item>
         <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.display_name }}</p></router-link>
         <div class="product-posted-at">
           <img class="product-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
         </div>
-      </v-flex>
+      </v-flex> -->
       <v-flex xs12 class="product-cover">
         <p class="product-price" v-if="priceShow">${{ item.price|formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.thumb.url + ')'}"/></div>

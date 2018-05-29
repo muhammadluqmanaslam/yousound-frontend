@@ -122,11 +122,9 @@
             <div class="comment-items">
               <div class="comment-item" v-for="(comment, index) in comments" :key="index">
                 <div class="comment-parent-item">
-                  <!-- <img class="profile-image" src="/static/images/user1.jpg" /> -->
                   <profile-item :user="comment.user" :className="'comment-user-avatar'"></profile-item>
                   <div class="comment-content relative">
                     <router-link :to="'/' + comment.user.slug"><label class="user-name">{{ comment.user.display_name }} <v-icon class="user-status online" v-if="comment.user.user_type=='artist'">fa-check-circle</v-icon></label></router-link>
-                    <!-- <p class="commnet-text">{{ comment.body }}</p> -->
                     <p class="commnet-text" v-html="convertedHTML(comment.body)"></p>
                   </div>
                   <div class="right-section">
@@ -220,5 +218,5 @@
     </v-footer>
   </v-layout>
 </template>
-<script type="text/javascript" src="./playlist.ctrl.js"></script>
 
+<script type="text/javascript" src="./playlist.ctrl.js"></script>
