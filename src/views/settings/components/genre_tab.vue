@@ -15,9 +15,8 @@
                 <div class="pgs__description">
                   <span @click="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
                 <div class="pgs__content">
-                  <!-- <div class="pgs__image"><i class="fa fa-signal"></i></div> -->
-                  <div class="pgs__badge" v-if="parent.value"><i class="fa fa-check-circle"></i></div>
-                  <div class="pgs__badge" v-else-if="getSelectedChildrenCount(parent) > 0"><span :class="`color-${index}`">+{{ getSelectedChildrenCount(parent) }}</span></div>
+                  <div v-if="parent.value" class="pgs__badge check-o" @click="checkParentGenre(parent, false)"></div>
+                  <div v-else class="pgs__badge check" @click="checkParentGenre(parent, true)"></div>
                 </div>
               </div>
             </div>
@@ -58,9 +57,8 @@
                     <div class="pgs__title">{{ parent.name }}</div>
                     <div class="pgs__description">+{{ getSelectedChildrenCount(parent) }} Subgenres</div>
                     <div class="pgs__content">
-                      <!-- <div class="pgs__image"><i class="fa fa-signal"></i></div> -->
-                      <div class="pgs__badge" v-if="parent.value"><i class="fa fa-check-circle"></i></div>
-                      <div class="pgs__badge" v-else-if="getSelectedChildrenCount(parent) > 0"><span :class="`color-${parent_index}`">+{{ getSelectedChildrenCount(parent) }}</span></div>
+                      <div class="pgs__badge check-o" v-if="parent.value"></div>
+                      <div class="pgs__badge check" v-else></div>
                     </div>
                   </div>
                 </div>

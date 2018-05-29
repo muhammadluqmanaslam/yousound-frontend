@@ -46,9 +46,12 @@ export default {
   },
 
   methods: {
-    checkParentGenre (parent) {
+    checkParentGenre (parent, value) {
       _.each(parent.children, (g) => { g.value = !parent.value })
       // this.genres = this.genres.slice()
+      if (!(value == null || value == undefined)) {
+        parent.value = !parent.value
+      }
       this.$forceUpdate()
     },
 
@@ -68,7 +71,8 @@ export default {
     },
 
     getSelectedChildrenCount (parent) {
-      return _.countBy(parent.children, 'value')['true']
+      const c = _.countBy(parent.children, 'value')['true']
+      return c > 0 ? c : 0
     },
 
     selectParent (parent, index) {

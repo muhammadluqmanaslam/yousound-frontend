@@ -559,33 +559,16 @@
                 width: 32px;
                 height: 32px;
                 border-radius: 16px;
-                background-color: #FFFFFF;
-                span {
-                  display: block;
-                  font-size: 12px;
-                  font-weight: 900;
-                  line-height: 32px;
-                  &.color-0 { color: #F43374; }
-                  &.color-1 { color: #E12D84; }
-                  &.color-2 { color: #CE2894; }
-                  &.color-3 { color: #B823A4; }
-                  &.color-4 { color: #9F21B4; }
-                  &.color-5 { color: #8021C4; }
-                  &.color-6 { color: #55C6D5; }
-                  &.color-7 { color: #54B8DE; }
-                  &.color-8 { color: #4FAAE7; }
-                  &.color-9 { color: #469CF0; }
-                  &.color-10 { color: #388EF8; }
-                  &.color-11 { color: #5622D4; }
-                  &.color-12 { color: #54D5CC; }
-                  &.color-13 { color: #63BACF; }
-                  &.color-14 { color: #699ED0; }
-                  &.color-15 { color: #6B83D2; }
-                  &.color-16 { color: #6867D3; }
-                  &.color-17 { color: #6148D4; }
+                cursor: pointer;
+
+                &.check-o {
+                  background: url('/static/images/ic_check_o.png') no-repeat center center;
+                  background-size: contain;
                 }
-                i {
-                  color: #4caf50;
+
+                &.check {
+                  background: url('/static/images/ic_check.png') no-repeat center center;
+                  background-size: contain;
                 }
               }
             }
