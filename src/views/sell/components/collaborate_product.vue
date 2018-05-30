@@ -7,8 +7,8 @@
           <v-flex xs12 class="touch-flex"></v-flex>
           <v-flex xs12 class="touch-flex" @click.self="editButtonAction(product)" v-if="this.$store.state.auth.user.id === product.merchant.id && editButtonAction"></v-flex>
           <v-flex xs12 pt-2>
-            <v-btn v-if="showPromoteButton"
-              dark class="action-btn" @click.native="showPromoteDialog()">Promote</v-btn>
+            <!-- <v-btn v-if="showPromoteButton"
+              dark class="action-btn" @click.native="showPromoteDialog()">Promote</v-btn> -->
 
             <template v-if="product.collaborators_count === 0">
               <v-btn v-if="deleteButtonAction"

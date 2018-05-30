@@ -25,8 +25,8 @@
 
           <template v-if="$store.state.auth.user.id==product.merchant.id">
             <v-btn class="text-btn pr-1" @click.native.stop="deleteItem(product)">Delete</v-btn>
-            <label class="btn-divider"></label>
-            <v-btn class="text-btn" @click.native="showPromoteModal()" v-if="showPromoteButton">Promote</v-btn>
+            <!-- <label class="btn-divider"></label>
+            <v-btn class="text-btn" @click.native="showPromoteModal()" v-if="showPromoteButton">Promote</v-btn> -->
             <label class="btn-divider" v-if="showPromoteButton"></label>
             <v-btn class="text-btn" @click.native="editProduct()">Edit</v-btn>
             <label class="btn-divider"></label>

@@ -17,7 +17,7 @@
             </template>
             <template v-else>
               <v-btn dark class="action-btn" v-if="status && status != ''">{{ status }}</v-btn>
-              <v-btn dark class="action-btn" @click.native="showPromoteDialog()" v-if="showPromoteButton">Promote</v-btn>
+              <!-- <v-btn dark class="action-btn" @click.native="showPromoteDialog()" v-if="showPromoteButton">Promote</v-btn> -->
               <v-btn dark class="action-btn" :class="deleteButtonClass" @click.native="deleteButtonFunc(album, user)" v-if="deleteButtonFunc"><span v-html="deleteButtonText"></span></v-btn>  
             </template>
           </v-flex>
