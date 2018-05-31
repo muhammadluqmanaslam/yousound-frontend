@@ -3,7 +3,7 @@
 
     <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
 
-    <v-flex xs12 sm12 class="product-finish-section" v-if="show_product_finish_modal">
+    <div class="product-finish-section" v-if="show_product_finish_modal">
       <v-flex xs12 sm12 class="dismiss-section" @click="closeProductFinishModal()"></v-flex>
       <v-layout row wrap class="popup-section">
         <v-flex xs12 class="title-section">
@@ -24,7 +24,7 @@
           </div>
         </v-flex>
       </v-layout>
-    </v-flex>
+    </div>
 
     <v-dialog v-model="product_delete_confirm_dialog">
       <v-card>
@@ -71,25 +71,25 @@
         <v-tabs black v-model="activeTab">
           <v-tabs-bar class="transparent">
             <v-tabs-item
-                key="orders"
-                href="#orders"
-                @click.native="onTab('orders')"
-                ripple>Orders</v-tabs-item>
+              key="orders"
+              href="#orders"
+              @click.native="onTab('orders')"
+              ripple>Orders</v-tabs-item>
             <v-tabs-item
-                key="products"
-                href="#products"
-                @click.native="onTab('products')"
-                ripple>Products</v-tabs-item>
+              key="products"
+              href="#products"
+              @click.native="onTab('products')"
+              ripple>Products</v-tabs-item>
             <v-tabs-item
-                key="collaborations"
-                href="#collaborations"
-                @click.native="onTab('collaborations')"
-                ripple>Merch Collaborations</v-tabs-item>
+              key="collaborations"
+              href="#collaborations"
+              @click.native="onTab('collaborations')"
+              ripple>Merch Collaborations</v-tabs-item>
             <v-tabs-item
-                key="pendings"
-                href="#pendings"
-                @click.native="onTab('pendings')"
-                ripple>Pending Merch Collaborations</v-tabs-item>
+              key="pendings"
+              href="#pendings"
+              @click.native="onTab('pendings')"
+              ripple>Pending Merch Collaborations</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
@@ -156,6 +156,8 @@
                             <label class="order-detail-text"> purchased <b>${{ order.amount|formatNumber }}</b></label>
                           </div>
                           <div class="profile-actions">
+                            <router-link :to="`/sell/order/${order.id}`" class="order-detail-btn">View Order Details</router-link>
+                            <a class="message-buyer-btn" @click="showMessageDialog(order)">Message Buyer</a>
                             <label class="order-date">{{ order.created_at|formatDate }}</label>
                           </div>
                         </div>
