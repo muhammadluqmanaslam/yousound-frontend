@@ -16,6 +16,8 @@
           <!-- <v-btn dark class="play-button">
             <img src="/static/images/btn_play.png"/>
           </v-btn> -->
+          <div class="product-label">${{ item.price | formatNumber }}</div>
+          <v-btn dark round color="black" class="view-details-btn">View Details</v-btn>
           <v-flex xs12 class="touch-flex" @click="showMerchModal=true"></v-flex>
           <v-menu offset-y class="product-menu">
             <v-btn dark slot="activator">
