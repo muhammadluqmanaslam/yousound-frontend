@@ -1,33 +1,6 @@
 <template>
   <!-- <div class="video-player-wrapper" :class="{'is-hide': !$store.getters['videoPlayer/hasFrame']}"> -->
   <div class="video-player-wrapper">
-    <v-dialog v-model="show_streaming_confirm_dialog" content-class="my-dialog-1">
-      <v-card>
-        <!-- <v-card-media :src="item.cover.url" height="125px" contain></v-card-media> -->
-        <v-card-text>
-          <div class="headline">Are you sure you want to play the stream?</div>
-          <div>This user hosts streamming. It goes full screen mode when you play this stream. You can minimized it later.</div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn dark color="green" @click="onClick">Yes</v-btn>
-          <v-btn dark color="grey" @click.native="closeStreamingConfirmDialog()">No</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="show_stream_delete_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Delete a Stream</v-card-title>
-        <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="red--text darken-1" flat @click.native="deleteStream(currentUser)">Ok</v-btn>
-          <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <div id="my_video" ref="my_video" v-if="user">
       <!-- <div class="my_splash"></div> -->
       <div class="my_overlay">
@@ -201,8 +174,8 @@
               <div class="user-info">
                 <div class="name">{{ user.display_name }}</div>
                 <div>
-                  <v-btn dark color="blue" small>Follow</v-btn>
-                  <v-btn dark color="blue" small>Repost Stream</v-btn>
+                  <v-btn round dark color="blue" small mr-0 px-2>Follow</v-btn>
+                  <v-btn round dark color="blue" small ml-1 px-2>Repost Stream</v-btn>
                 </div>
               </div>
             </div>
@@ -274,9 +247,15 @@
           </div>
         </div>
 
-        <merch-modal :item="user.stream.assoc" :dismiss="closeMerchModal" v-if="show_merch_modal"></merch-modal>
+        <merch-modal v-if="show_merch_modal"
+          :item="product"
+          :dismiss="closeMerchModal"/>
 
-        <v-flex xs12 sm12 class="album-merch-popup requests" v-if="show_album_merch_popup">
+        <share-modal v-if="show_share_dialog"
+          :item="album"
+          :dismiss="closeShareDialog"/>
+
+        <div class="album-merch-popup requests" v-if="show_album_merch_popup">
           <div class="popup-section">
             <div class="requests-section">
               <div class="header-section">
@@ -310,10 +289,37 @@
               </div>
             </div>
           </div>
-        </v-flex>
+        </div>
       </div>
       <i class="fa fa-close close-btn" @click="closePlayer()"></i>
     </div>
+
+    <v-dialog v-model="show_streaming_confirm_dialog" content-class="my-dialog-1">
+      <v-card>
+        <!-- <v-card-media :src="item.cover.url" height="125px" contain></v-card-media> -->
+        <v-card-text>
+          <div class="headline">Are you sure you want to play the stream?</div>
+          <div>This user hosts streamming. It goes full screen mode when you play this stream. You can minimized it later.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark color="green" @click="onClick">Yes</v-btn>
+          <v-btn dark color="grey" @click.native="closeStreamingConfirmDialog()">No</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_stream_delete_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Delete a Stream</v-card-title>
+        <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="red--text darken-1" flat @click.native="deleteStream(currentUser)">Ok</v-btn>
+          <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 

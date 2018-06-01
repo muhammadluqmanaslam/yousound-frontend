@@ -98,8 +98,8 @@
       </v-flex>
 
       <v-flex xs12 sm12 class="actions-section">
-        <a class="action-btn right-border" @click.self="togglePolicy()">{{ policyButtonText }}</a>
-        <a class="action-btn right-border" @click.self="repostProduct()">
+        <a class="action-btn" @click.self="togglePolicy()">{{ policyButtonText }}</a>
+        <a class="action-btn left-border" @click.self="repostProduct()">
           <svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="padding-top:3px;">
               <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
               <desc>Created with Sketch.</desc>
@@ -116,7 +116,9 @@
           </svg>
           Repost this product
         </a>
-        <a class="action-btn" @click.self="shareProduct()">
+        <a v-if="shareProduct"
+          @click.self="shareProduct()"
+          class="action-btn left-border">
           <svg width="15px" height="20px" viewBox="0 0 19 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="padding-top:3px;">
               <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
               <desc>Created with Sketch.</desc>

@@ -7,6 +7,7 @@ import StreamService from '@/services/stream'
 import efmHeader from '@/components/header'
 import downloadModal from '@/components/downloadmodal'
 import merchModal from '@/components/merchmodal'
+import shareModal from '@/components/sharemodal'
 
 import { MyEvents } from '@/helper'
 
@@ -14,7 +15,8 @@ export default {
   components: {
     efmHeader,
     downloadModal,
-    merchModal
+    merchModal,
+    shareModal
   },
 
   data () {
@@ -26,6 +28,7 @@ export default {
       show_album_merch_popup: false,
       show_download_modal: false,
       show_merch_modal: false,
+      show_share_dialog: false,
       request_tab: 'Album',
       assoc: {},
       albums: [],
@@ -35,6 +38,16 @@ export default {
   },
 
   computed: {
+    album () {
+      // return this.albums[0]
+      return _.get(this.currentUser, 'stream.assoc')
+    },
+
+    product () {
+      // return this.products[0]
+      return _.get(this.currentUser, 'stream.assoc')
+    },
+
     currentUser () {
       return this.$store.state.auth.user
     },
@@ -200,7 +213,16 @@ export default {
       this.show_stream_delete_confirm_dialog = false
     },
 
+    openShareDialog () {
+      this.show_share_dialog = true
+    },
+
+    closeShareDialog () {
+      this.show_share_dialog = false
+    },
+
     downloadAlbum () {
+      this.openShareDialog()
       AlbumService.downloadAlbum(this.user.stream.assoc.id).then(response => {
         var a = document.createElement('A')
         a.href = response.body.url

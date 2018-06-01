@@ -159,7 +159,7 @@
         }
         .tabs__items {
           height: 290px;
-          overflow: scroll;
+          overflow-y: auto;
 
           .card {
             background: transparent;
@@ -182,6 +182,9 @@
         letter-spacing: 0;
         &.right-border {
           border-right: 0.75px solid #DBDBDB;
+        }
+        &.left-border {
+          border-left: 0.75px solid #DBDBDB;
         }
       }
     }

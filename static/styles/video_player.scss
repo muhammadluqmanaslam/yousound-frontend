@@ -13,7 +13,7 @@
 
     .my_splash {
       display: none;
-      z-index: 9999 !important;
+      z-index: 10;
       position: absolute;
       top: 0;
       left: 0;
@@ -23,11 +23,11 @@
     }
 
     .my_overlay {
-      // z-index: 9999 !important;
+      // z-index: 10;
       display: none;
       // margin-top: 100px;
       .layout.efm-header {
-        z-index: 9999 !important;
+        z-index: 10;
         .toolbar__title {
           cursor: pointer;
         }
@@ -40,7 +40,7 @@
       }
 
       .stream-sector {
-        z-index: 9999 !important;
+        z-index: 10;
         position: absolute;
         width: 500px;
         height: 200px;
@@ -121,7 +121,7 @@
       }
 
       .chat-sector {
-        z-index: 9999 !important;
+        z-index: 10;
         position: absolute;
         width: 500px;
         left: 50px;
@@ -179,21 +179,21 @@
       }
 
       .download-section {
-        z-index: 9999 !important;
+        z-index: 10;
         background-color: transparent;
         .top-section {
           // display: none;
         }
         .dismiss-section {
-          // z-index: 9999 !important;
+          // z-index: 10;
         }
         .popup-section {
-          z-index: 9999 !important;
+          z-index: 10;
         }
       }
 
       .album-merch-popup {
-        z-index: 9999 !important;
+        z-index: 10;
         position: absolute;
         top: 0;
         width: 100vw;
@@ -362,11 +362,19 @@
           }
         }
       }
+
+      .merch-section {
+        background-color: transparent;
+      }
+
+      .share-section {
+        background-color: transparent;
+      }
     }
 
     .close-btn {
       display: none;
-      z-index: 9999 !important;
+      z-index: 10;
       position: absolute;
       top: 4px;
       left: 4px;
