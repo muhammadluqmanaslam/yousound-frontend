@@ -45,6 +45,7 @@ import UserSettings from '@/views/settings/index'
 import VideoIndex from '@/views/video/index'
 // import VideoShow from '@/views/video/show'
 import VideoCreate from '@/views/video/create'
+import VideoDelete from '@/views/video/delete'
 
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
@@ -112,12 +113,14 @@ export function createRouter (settings) {
   if (!settings.disable_live_video) {
     routes = routes.concat([
       { path: '/user/:user/video', name: 'VideoIndex', component: VideoIndex },
-      { path: '/user/:user/video/create', name: 'VideoCreate', component: VideoCreate }
+      { path: '/user/:user/video/create', name: 'VideoCreate', component: VideoCreate },
+      { path: '/user/:user/video/delete', name: 'VideoDelete', component: VideoDelete }
     ])
   } else {
     routes = routes.concat([
       { path: '/user/:user/video', name: 'VideoIndex', redirect: '/' },
-      { path: '/user/:user/video/create', name: 'VideoCreate', redirect: '/' }
+      { path: '/user/:user/video/create', name: 'VideoCreate', redirect: '/' },
+      { path: '/user/:user/video/delete', name: 'VideoDelete', redirect: '/' }
     ])
   }
 

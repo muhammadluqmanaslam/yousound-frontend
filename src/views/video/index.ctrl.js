@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import PaymentService from  '@/services/payment'
 import StreamService from  '@/services/stream'
+import UserService from '@/services/user'
 
 import paymentModal from '@/components/paymentmodal'
 
@@ -96,16 +97,22 @@ export default {
   // },
 
   created () {
-    if (_.get(this.currentUser, 'stream.status', 'deleted') === 'deleted') {
-      this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
-    }
+    UserService.getUserInfo(this.currentUser.id).then(response => {
+      this.$store.dispatch('auth/setStream', response.body.stream)
+      const stream_status = _.get(response.body, 'stream.status', '')
 
-    const vm = this
-    if (!this.isRunning) {
-      this.timer = setInterval(function(){ vm.getStream() }, 10000)
-    }
-
-    this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
+      if (stream_status === '') {
+        this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+      } else if (stream_status === 'deleted') {
+        this.$router.push({ path: `/user/${this.currentUser.slug}/video/delete` })
+      } else {
+        const vm = this
+        if (!this.isRunning) {
+          this.timer = setInterval(function(){ vm.getStream() }, 10000)
+        }
+        this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
+      }
+    })
   },
 
   beforeDestroy () {
