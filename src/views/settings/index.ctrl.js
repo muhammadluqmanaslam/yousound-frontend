@@ -11,7 +11,7 @@ import genreTab from './components/genre_tab'
 import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
 
-import { MyEvents } from '@/helper'
+// import { MyEvents } from '@/helper'
 
 export default {
   components: {
@@ -142,11 +142,11 @@ export default {
 
     cancelAccount () {
       this.dialog = false
-      const _user = _.cloneDeep(this.$store.state.auth.user)
+      // const _user = _.cloneDeep(this.$store.state.auth.user)
       UserService.deleteUser(this.user.id).then(response => {
         AuthService.logout()
         this.$router.push({ path: '/login' })
-        this.$root.$emit(MyEvents.AUTH_SIGNOUT, _user)
+        // this.$root.$emit(MyEvents.AUTH_SIGNOUT, _user)
       })
     },
 

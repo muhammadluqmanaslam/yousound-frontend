@@ -31,7 +31,7 @@
         <v-flex sm6>
           <div class="time-info">
             <label>Remaining time to broadcast</label>
-            <p>{{ currentUser.stream.valid_period / 3600 }} hours</p>
+            <p>{{ remainingSeconds | timeInHours }}</p>
           </div>
         </v-flex>
       </v-layout>

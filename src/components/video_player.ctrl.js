@@ -222,7 +222,7 @@ export default {
     },
 
     downloadAlbum () {
-      this.openShareDialog()
+      // this.openShareDialog()
       AlbumService.downloadAlbum(this.user.stream.assoc.id).then(response => {
         var a = document.createElement('A')
         a.href = response.body.url
@@ -237,11 +237,11 @@ export default {
     deleteStream (user) {
       // console.log('deleteStream', user)
       this.closePlayer()
-      // StreamService.deleteStream(user.stream.id).then(response => {
-      //   this.$store.dispatch('auth/setStream', response.body)
-      // }).catch(e => {
-      //   this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      // })
+      StreamService.deleteStream(user.stream.id).then(response => {
+        this.$store.dispatch('auth/setStream', response.body)
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     },
 
     closePlayer () {

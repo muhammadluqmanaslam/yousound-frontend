@@ -31,7 +31,9 @@ export default {
       // show_payment_dialog: false,
       // show_deposit_dialog: false,
       show_stream_delete_confirm_dialog: false,
-      timer: null,
+      creatingInterval: null,
+      remainingInterval: null,
+      remainingSeconds: 0,
       isPageReady: false
     }
   },
@@ -108,7 +110,10 @@ export default {
       } else {
         const vm = this
         if (!this.isRunning) {
-          this.timer = setInterval(function(){ vm.getStream() }, 10000)
+          this.creatingInterval = setInterval(function () { vm.getStream() }, 10000)
+        } else {
+          this.remainingSeconds = response.body.stream.remaining_seconds
+          this.remainingInterval = setInterval(function () { vm.refresh() }, 1000)
         }
         this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
       }
@@ -116,8 +121,12 @@ export default {
   },
 
   beforeDestroy () {
-    if (this.timer) {
-      clearInterval(this.timer)
+    if (this.creatingInterval) {
+      clearInterval(this.creatingInterval)
+    }
+
+    if (this.remainingInterval) {
+      clearInterval(this.remainingInterval)
     }
   },
 
@@ -164,6 +173,15 @@ export default {
       })
     },
 
+    refresh () {
+      this.remainingSeconds -= 1
+      if (this.remainingSeconds === 0) {
+        if (this.remainingInterval) {
+          clearInterval(this.remainingInterval)
+        }
+      }
+    },
+
     isStreaming () {
       // return _.get(this.currentUser.stream, 'status', '') === 'started' &&
       return (_.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.currentUser.slug || !this.$store.getters['videoPlayer/hasFrame'])
@@ -177,11 +195,14 @@ export default {
     },
 
     getStream () {
+      const vm = this
       StreamService.getStream(this.currentUser.stream.id).then(response => {
         if (response.body.status === 'running') {
           this.$store.dispatch('auth/setStream', response.body)
-          if (this.timer) {
-            clearInterval(this.timer)
+          if (this.creatingInterval) {
+            clearInterval(this.creatingInterval)
+            this.remainingSeconds = response.body.remaining_seconds
+            this.remainingInterval = setInterval(function () { vm.refresh() }, 1000)
           }
         }
       }).catch(e => {
