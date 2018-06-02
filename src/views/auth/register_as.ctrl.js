@@ -9,6 +9,8 @@ export default {
 
   data () {
     return {
+      user_type: 'artist',
+      show_twitter_confirm_dialog: false
     }
   },
 
@@ -30,14 +32,24 @@ export default {
   },
 
   methods: {
-    submit (register_by) {
-      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${register_by}&code=${this.$store.state.auth.secret_code}` }).then(response => {
+    openTwitterConfirmDialog (user_type) {
+      this.show_twitter_confirm_dialog = true
+      this.user_type = user_type
+    },
+
+    closeTwitterConfirmDialog () {
+      this.show_twitter_confirm_dialog = false
+    },
+
+    submit () {
+      // this.closeTwitterConfirmDialog()
+      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${this.user_type}&code=${this.$store.state.auth.secret_code}` }).then(response => {
         Storage.set('twitter_info', JSON.stringify(response.body))
         location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${response.body.oauth_token}`
       })
-      // this.$router.push({ path: '/register/' + register_by })
+      // this.$router.push({ path: '/register/' + this.user_type })
       // const vm = this;
-      // this.$store.dispatch('auth/setRegisterRole', register_by)
+      // this.$store.dispatch('auth/setRegisterRole', this.user_type)
       // FB.login(function(response) {
       //   if (response.authResponse) {
       //     const access_token = response.authResponse.accessToken
@@ -58,7 +70,7 @@ export default {
       //           vm.$router.push({ path: '/_oauth/verification' })
       //         } else if(response.body.status === 'verified') {
       //           vm.$store.dispatch('auth/setPendingUser', response.body)
-      //           vm.$router.push({ path: `/register/${register_by}` })
+      //           vm.$router.push({ path: `/register/${this.user_type}` })
       //         } else if(response.body.status === 'inactive') {
       //           vm.$router.push({ path: `/confirm/being?email=${response.email}` })
       //         } else if(response.body.status === 'active') {

@@ -1,5 +1,11 @@
+.dialog__content {
+  z-index: 11 !important;
+}
+
 .dialog {
-  max-width: 500px;
+  &:not(.dialog--fullscreen) {
+    width : 500px;
+  }
   .page.auth-page.auth-login-header {
     margin-top: 30px;
     .logo {
@@ -46,6 +52,24 @@
       .btn {
         text-transform: initial;
         font-weight: 700;
+      }
+    }
+  }
+}
+
+.twitter-confirm-dialog.dialog {
+  .card {
+    padding-top: 200px !important;
+    text-align: center;
+    background: #FFFFFF;
+    &__title {
+      display: block;
+      font-size: 32px !important;
+      font-weight: 700;
+    }
+    &__actions {
+      .btn {
+        padding: 6px 18px;
       }
     }
   }
