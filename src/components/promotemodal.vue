@@ -10,18 +10,12 @@
               <v-tabs-item
                 key="suggested"
                 href="#suggested"
-                ripple
-              >
-                Suggested Reposters
-              </v-tabs-item>
+                ripple>Suggested Reposters</v-tabs-item>
               <v-tabs-item
                 key="current"
                 href="#current"
-                ripple
                 @click.native="getCurrentReposters()"
-              >
-                Current Reposters
-              </v-tabs-item>
+                ripple>Current Reposters</v-tabs-item>
               <v-tabs-slider color="black"></v-tabs-slider>
             </v-tabs-bar>
             <v-layout row wrap class="search-section" v-if="tab=='suggested'">
@@ -33,8 +27,7 @@
                   v-model="repost_price"
                   single-line
                   bottom
-                  hide-details
-                ></v-select>
+                  hide-details></v-select>
               </v-flex>
               <v-flex sm2 mx-1>
                 <v-select
@@ -44,8 +37,7 @@
                   v-model="amount"
                   single-line
                   bottom
-                  hide-details
-                ></v-select>
+                  hide-details></v-select>
               </v-flex>
               <v-flex sm2 mx-1>
                 <v-select
@@ -56,8 +48,7 @@
                   label="Category"
                   single-line
                   bottom
-                  hide-details
-                ></v-select>
+                  hide-details></v-select>
               </v-flex>
               <v-flex sm2 mx-1>
                 <input 
@@ -65,18 +56,14 @@
                   class="form-control search-box" 
                   v-model="keyword" 
                   placeholder="Search Username"
-                  @keyup.enter="searchUsers()"
-                >
+                  @keyup.enter="searchUsers()">
               </v-flex>
               <v-flex sm2 mx-1>
                 <v-btn class="search-btn" @click.native="searchUsers()">Search</v-btn>
               </v-flex>
             </v-layout> 
             <v-tabs-items>
-              <v-tabs-content
-                key="suggested"
-                id="suggested"
-              >
+              <v-tabs-content key="suggested" id="suggested">
                 <v-card flat>
                   <v-layout row wrap>
                     <v-flex sm1 class="header-title"></v-flex>
@@ -87,11 +74,10 @@
                     <v-flex sm2 class="header-title"></v-flex>
                   </v-layout>
                   <div class="user-list-section">
-                    <v-layout row wrap 
-                      class="suggested-reposter-item" 
-                      v-for="(user, index) in users" 
-                      :key="index"
-                    >
+                    <v-layout v-for="(user, index) in users"
+                      row wrap
+                      class="suggested-reposter-item"
+                      :key="index">
                       <v-flex sm1>
                         <!-- <div class="user-avatar" :style="{'background-image': 'url(/static/images/user1.jpg)'}"></div> -->
                         <div class="user-avatar" :style="`background-image: url(${user.avatar.thumb.url})`"></div>
@@ -107,45 +93,34 @@
                       </v-flex>
                       <v-flex sm3>
                         <div class="recent-posts text-xs-left px-2">
-                          <!-- <div 
-                            class="recent-post-item" 
-                            :style="`background-image: url(${imageURL(recent_item)})`" 
+                          <!-- <div
+                            class="recent-post-item"
+                            :style="`background-image: url(${imageURL(recent_item)})`"
                             v-for="(recent_item, index) in user.recent_items"
-                            :key="index"
-                          > -->
-                          <div 
-                            class="recent-post-item" 
-                            v-for="(recent_item, index) in user.recent_items"
-                            :key="index"
-                          >
-                            <activity-album-card 
+                            :key="index"> -->
+                          <div v-for="(recent_item, index) in user.recent_items"
+                            class="recent-post-item"
+                            :key="index">
+                            <activity-album-card v-if="recent_item.assoc_type=='Album'"
+                              :object="recent_item.assoc"></activity-album-card>
+                            <activity-product-card v-if="recent_item.assoc_type=='ShopProduct'"
                               :object="recent_item.assoc" 
-                              v-if="recent_item.assoc_type=='Album'"
-                            ></activity-album-card>
-                            <activity-product-card 
-                              :object="recent_item.assoc" 
-                              :price-show="false" 
-                              v-if="recent_item.assoc_type=='ShopProduct'"
-                            ></activity-product-card>
+                              :price-show="false"></activity-product-card>
                           </div>
-                          <!-- <div 
-                            class="recent-post-item" 
-                            v-for="(product, index) in products"
-                            :key="index"
-                          >
+                          <!-- <div v-for="(product, index) in products"
+                            class="recent-post-item"
+                            :key="index">
                             <activity-product-card 
-                              :object="product" 
-                              :price-show="false" 
-                            ></activity-product-card>
+                              :object="product"
+                              :price-show="false"></activity-product-card>
                           </div> -->
                         </div>
                       </v-flex>
                       <v-flex sm2>
-                        <v-btn 
-                          class="select-btn" 
+                        <v-btn
+                          class="select-btn"
                           @click.native="selectUser(user)"
-                          :class="{'selected':user_ids.indexOf(user.id)>-1}"
-                        >Select User</v-btn>
+                          :class="{'selected':user_ids.indexOf(user.id)>-1}">Select User</v-btn>
                       </v-flex>
                     </v-layout>
                   </div>
@@ -162,10 +137,7 @@
                   </div>
                 </v-card>
               </v-tabs-content>
-              <v-tabs-content
-                key="current"
-                id="current"
-              >
+              <v-tabs-content key="current" id="current">
                 <v-card flat>
                   <v-layout row wrap>
                     <v-flex sm1 class="header-title"></v-flex>
@@ -176,11 +148,10 @@
                     <v-flex sm2 class="header-title">Add to favorites</v-flex>
                   </v-layout>
                   <div class="user-list-section current">
-                    <v-layout row wrap 
-                      class="suggested-reposter-item" 
-                      v-for="(user, index) in reposters" 
-                      :key="index"
-                    >
+                    <v-layout v-for="(user, index) in reposters"
+                      row wrap
+                      class="suggested-reposter-item"
+                      :key="index">
                       <v-flex sm1>
                         <!-- <div class="user-avatar" :style="{'background-image': 'url(/static/images/user1.jpg)'}"></div> -->
                         <div class="user-avatar" :style="`background-image: url(${user.avatar.thumb.url})`"></div>
@@ -198,18 +169,14 @@
                         <!-- <p class="user-followers">{{ user.followings }}</p> -->
                       </v-flex>
                       <v-flex sm2>
-                        <v-btn 
+                        <v-btn v-if="favorite_ids.indexOf(user.id)>-1"
                           class="favorite-btn"
-                          v-if="favorite_ids.indexOf(user.id)>-1"
-                          @click.native="addUserToFavorite(user)"
-                        >
+                          @click.native="addUserToFavorite(user)">
                           <v-icon>favorite</v-icon>
                         </v-btn>
-                        <v-btn 
-                          class="favorite-btn" 
-                          v-if="favorite_ids.indexOf(user.id)<0"
-                          @click.native="addUserToFavorite(user)"
-                        >
+                        <v-btn v-if="favorite_ids.indexOf(user.id)<0"
+                          class="favorite-btn"
+                          @click.native="addUserToFavorite(user)">
                           <v-icon>favorite_border</v-icon>
                         </v-btn>
                       </v-flex>
@@ -274,110 +241,35 @@
     data () {
       return {
         repost_prices: [
-          {
-            title: 'Any Amount',
-            value: 'any'
-          },
-          {
-            title: '$1',
-            value: '100'
-          },
-          {
-            title: '$5',
-            value: '500'
-          },
-          {
-            title: '$10',
-            value: '1000'
-          },
-          {
-            title: '$20',
-            value: '2000'
-          },
-          {
-            title: '$50',
-            value: '5000'
-          },
-          {
-            title: '$100',
-            value: '10000'
-          },
-          {
-            title: '$250',
-            value: '25000'
-          },
-          {
-            title: '$500',
-            value: '50000'
-          },
-          {
-            title: '$1000',
-            value: '100000'
-          }
+          { title: 'Any Amount', value: 'any' },
+          { title: '$1', value: '100' },
+          { title: '$5', value: '500' },
+          { title: '$10', value: '1000' },
+          { title: '$20', value: '2000' },
+          { title: '$50', value: '5000' },
+          { title: '$100', value: '10000' },
+          { title: '$250', value: '25000' },
+          { title: '$500', value: '50000' },
+          { title: '$1000', value: '100000' }
         ],
         amounts: [
-          {
-            title: 'Any Follower #',
-            value: 'any'
-          },
-          {
-            title: 'less than 1K',
-            value: '0'
-          },
-          {
-            title: '1K+',
-            value: '1000'
-          },
-          {
-            title: '5K+',
-            value: '5000'
-          },
-          {
-            title: '10K+',
-            value: '10000'
-          },
-          {
-            title: '25K+',
-            value: '25000'
-          },
-          {
-            title: '50K+',
-            value: '50000'
-          },
-          {
-            title: '100K+',
-            value: '100000'
-          }
+          { title: 'Any Follower #', value: 'any' },
+          { title: 'less than 1K', value: '0' },
+          { title: '1K+', value: '1000' },
+          { title: '5K+', value: '5000' },
+          { title: '10K+', value: '10000' },
+          { title: '25K+', value: '25000' },
+          { title: '50K+', value: '50000' },
+          { title: '100K+', value: '100000' }
         ],
         filters: [
-          {
-            title: 'All User Types',
-            value: 'any'
-          },
-          {
-            title: 'Favorite Reposters',
-            value: 'favorite'
-          },
-          {
-            title: 'Your Followers',
-            value: 'follower'
-          },
-          {
-            title: 'New Users',
-            value: 'new'
-          },
-          {
-            title: 'Artists',
-            value: 'artist'
-          },
-          {
-            title: 'Listeners',
-            value: 'listener'
-          },
-          {
-            title: 'Brands',
-            value: 'brand'
-          }
+          { title: 'All User Types', value: 'any' },
+          { title: 'Favorite Reposters', value: 'favorite' },
+          { title: 'Your Followers', value: 'follower' },
+          { title: 'New Users', value: 'new' },
+          { title: 'Artists', value: 'artist' },
+          { title: 'Listeners', value: 'listener' },
+          { title: 'Brands', value: 'brand' }
         ],
         tab: 'suggested',
         repost_price: 'any',

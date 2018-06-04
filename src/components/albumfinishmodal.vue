@@ -5,7 +5,7 @@
       <v-flex xs12 class="title-section">
         <label class="title-text">Your album has been released, <router-link to="/upload/album" class="link-text">upload another</router-link></label>
       </v-flex>
-      <v-flex xs12 class="promote-album-section">
+      <v-flex xs12 class="promote-album-section" v-if="false">
         <v-flex xs12 class="header-section">
           <label class="header-text">Promote your album</label>
         </v-flex>

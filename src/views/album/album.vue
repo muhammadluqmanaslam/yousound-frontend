@@ -2,11 +2,28 @@
   <v-layout row wrap class="page album-detail-page" v-if="isPageReady">
     <canvas id="canvas" class="background-image"></canvas>
     <div id="back_image" class="background-overlay"></div>
-    <merch-modal :item="album.products[0]" :dismiss="dimissMerchDialog" v-if="showMerchModal"></merch-modal>
-    <download-modal :item="album" :dismiss="dismissDownloadModal" v-if="showDownloadModal"></download-modal>
-    <promote-modal :item="album" :dismiss="dismissPromoteModal" :success="saveAndFinish" v-if="showPromoteMessage"></promote-modal>
-    <album-finish-modal :item="album" :promote="showPromoteModal" :dismiss="dismissFinishDialog" v-if="isShowFinishModal"></album-finish-modal>
-    <share-modal v-if="showShareModal" :item="album" :dismiss="closeShareModal"></share-modal>
+
+    <merch-modal v-if="showMerchModal"
+      :item="album.products[0]"
+      :dismiss="dimissMerchDialog"/>
+
+    <download-modal v-if="showDownloadModal"
+      :item="album"
+      :dismiss="dismissDownloadModal"/>
+
+    <promote-modal v-if="showPromoteMessage"
+      :item="album"
+      :dismiss="dismissPromoteModal"
+      :success="saveAndFinish"/>
+
+    <album-finish-modal v-if="isShowFinishModal"
+      :item="album"
+      :promote="showPromoteModal"
+      :dismiss="dismissFinishDialog"/>
+
+    <share-modal v-if="showShareModal"
+      :item="album"
+      :dismiss="closeShareModal"/>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages">
       <div class="album-info-page" id="album_info_page">

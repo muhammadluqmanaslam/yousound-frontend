@@ -1,12 +1,9 @@
 <template>
   <v-flex xs12 class="product-item">
-
-    <promote-modal 
-      :item="product" 
-      :dismiss="dismissPromoteModal" 
-      :success="saveAndFinish" 
-      v-if="showPromoteMessage"
-    ></promote-modal>
+    <promote-modal v-if="showPromoteMessage"
+      :item="product"
+      :dismiss="dismissPromoteModal"
+      :success="saveAndFinish"></promote-modal>
 
     <v-flex sm12 product-content-section pa-0 relative>
       <div class="product-image" :style="{'background-image': 'url(' + product.covers[0].cover.thumb.url + ')'}"/></div>
@@ -46,6 +43,7 @@
     </v-flex>
   </v-flex>
 </template>
+
 <script type="text/javascript">
   /* global $:true */
   // import ProductService from '@/services/product'

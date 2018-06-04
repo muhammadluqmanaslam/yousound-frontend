@@ -1,5 +1,10 @@
 <template>
   <v-flex class="album-card">
+    <promote-modal v-if="isShowPromoteModal"
+      :item="album"
+      :dismiss="dismissPromoteDialog"
+      :success="saveAndFinish"/>
+
     <v-flex xs12 class="album-info" pa-0>
       <v-flex xs12 class="album-cover">
         <div class="album-image" :style="{'background-image': 'url(' + album.cover.url + ')'}"></div>
@@ -8,8 +13,8 @@
           <v-flex xs12 class="touch-flex" @click.self="editButtonAction(album)" v-if="this.$store.state.auth.user.id === album.user.id && editButtonAction"></v-flex>
           <v-flex xs12 pt-2>
             <!-- <v-btn dark class="action-btn" @click.native="editButtonAction(album)">Edit</v-btn> -->
-            <!-- <v-btn v-if="showPromoteButton" dark class="action-btn" @click.native="showPromoteDialog()">Promote</v-btn> -->
-
+            <!-- <v-btn v-if="showPromoteButton"
+              dark class="action-btn" @click.native="showPromoteDialog()">Promote</v-btn> -->
             <template v-if="album.collaborators_count === 0">
               <v-btn v-if="deleteButtonAction"
                 dark class="action-btn" @click.native="deleteButtonAction(album)">Delete</v-btn>
@@ -68,10 +73,6 @@
         <p class="album-posted-date">2 months</p>
       </v-flex>
     </v-flex>
-    <promote-modal v-if="isShowPromoteModal"
-      :item="album"
-      :dismiss="dismissPromoteDialog"
-      :success="saveAndFinish"></promote-modal>
   </v-flex>  
 </template>
 
