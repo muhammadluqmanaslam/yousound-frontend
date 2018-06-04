@@ -122,9 +122,7 @@ export default {
         keyboard: false,
         fullscreen: true,
         native_fullscreen: true,
-        commerical: {
-          key: '$512206430871778'
-        },
+        key: '$512206430871778',
         clip: {
           hlsjs: {
             // xhrSetup: function (xhr, url) {
