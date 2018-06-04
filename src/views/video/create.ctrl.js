@@ -67,11 +67,18 @@ export default {
 
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
-    for (let i = 1; i <= 12; i++) {
+    if (this.currentUser.enabled_live_video_free) {
       this.hours.push({
-        id: i,
-        name: `${i}hours / $${i * StreamHourlyPrice / 100}`
+        id: 1,
+        name: '1hour / FREE'
       })
+    } else {
+      for (let i = 1; i <= 12; i++) {
+        this.hours.push({
+          id: i,
+          name: `${i}hours / $${i * StreamHourlyPrice / 100}`
+        })
+      }
     }
   },
 

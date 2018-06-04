@@ -1,3 +1,5 @@
+/* global $:true */
+
 // import _ from 'lodash'
 // import Hls from 'hls.js'
 import AlbumService from '@/services/album'
@@ -109,6 +111,7 @@ export default {
       //   vm.player.shutdown()
       // }
 
+      // console.log('bean', window.flowplayer.bean)
       vm.player = window.flowplayer('#my_video', {
         // debug: true,
         autoplay: true,
@@ -119,12 +122,64 @@ export default {
         keyboard: false,
         fullscreen: true,
         native_fullscreen: true,
+        commerical: {
+          key: '$512206430871778'
+        },
         clip: {
+          hlsjs: {
+            // xhrSetup: function (xhr, url) {
+            //   xhr.addEventListener('readystatechange', function (e) {
+            //     console.log('xhrSetup', e)
+            //     let xstatus = e.currentTarget.status
+            //     // xstatus returns 0
+            //     if (xhr.readyState === 4 && xstatus >= 400 && xstatus < 499) {
+            //       vm.player.trigger('error', [vm.player, {code: 14}]);
+            //     }
+            //   })
+            // }
+          },
+          flashls: {
+            manifestloadmaxretry: 3
+          },
           hlsQualities: [-1, 1, 3, 6, 7],
           sources: [
-            // { type: 'application/x-mpegurl', src: 'https://edge.flowplayer.org/functional.m3u8' }
             { type: 'application/x-mpegurl', src: url }
           ]
+        }
+      }).on('error', function (e, api, err) {
+        // console.log('fp error', err)
+        // var delay = initialDelay;
+        // clearInterval(timer);
+
+        if (err.code === 2 || err.code === 4) {
+          // // it unloads the engine, so api.load() is not working
+          // console.log('fp error', err.code, api)
+          // api.error = api.loading = false
+          // api.load()
+          // api.fullscreen()
+          // container.className += " is-offline";
+          // if (flowplayer.support.flashVideo) {
+          //   api.one("flashdisabled", function () {
+          //     container.querySelector(".fp-flash-disabled").style.display = "none";
+          //   });
+          // }
+          // timer = setInterval(function () {
+          //   var messageElement = container.querySelector(".fp-ui .fp-message");
+          //   delay -= 1;
+          //   if (delay && messageElement) {
+          //     messageElement.querySelector("span").innerHTML = delay;
+          //     // only for disconnected user:
+          //     messageElement.style.backgroundImage = "url(" + errImage.src + ")";
+          //   } else {
+          //     clearInterval(timer);
+          //     api.error = api.loading = false;
+          //     if (messageElement) {
+          //       container.querySelector(".fp-ui").removeChild(messageElement);
+          //     }
+          //     container.className = container.className.replace(/\bis-(error|offline)\b/g, "")
+          //     api.load()
+          //   }
+          // }, 1000)
         }
       }).on('progress', function (e, api, time) {
         // console.log('flowplayer progress...', api.paused, api.playing, time)
@@ -239,6 +294,7 @@ export default {
       this.closePlayer()
       StreamService.deleteStream(user.stream.id).then(response => {
         this.$store.dispatch('auth/setStream', response.body)
+        this.$router.push({ path: '/' })
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })

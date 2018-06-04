@@ -217,13 +217,15 @@ export default {
       // }).on('load', function (e, api) {
       //   console.log('flowplayer load')
       //   // api.fullscreen()
-      // }).on('unload', function (e, api) {
-      //   console.log('flowplayer unload')
+      }).on('unload', function (e, api) {
+        console.log('flowplayer unload')
       }).on('shutdown', function (e, api) {
         console.log('flowplayer shutdown')
         vm.$store.commit('videoPlayer/reset')
       }).on('fullscreen', function (e, api) {
         vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
+        api.mute(false)
+        api.volume(1.0)
       }).on('fullscreen-exit', function (e, api) {
         vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
       })
