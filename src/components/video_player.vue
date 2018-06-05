@@ -121,8 +121,8 @@
                 </v-tooltip>
               </v-badge>
               <v-menu offset-y class="profile-menu" v-if="$store.state.auth.user">
-                <v-btn icon slot="activator">
-                  <div class="profile-image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}" v-if="$store.state.auth.user"></div>
+                <v-btn icon slot="activator" @click.native="player.fullscreen()">
+                  <div class="profile-image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"></div>
                 </v-btn>
               </v-menu>
             </v-toolbar>

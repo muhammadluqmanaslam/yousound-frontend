@@ -177,7 +177,7 @@ export default {
         this.isPageReady = true
       }).catch(reason => { 
         console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
+        // this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', reason)
       });
       // this.setTrackIndex(0)
@@ -363,7 +363,7 @@ export default {
         const arr = this.comments.slice();
         this.comments = arr;
       }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
+        // this.$store.dispatch('error/showLoadingActivity', false)
         if (e.status === 401) {
         } else {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

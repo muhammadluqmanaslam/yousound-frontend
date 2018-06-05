@@ -5,7 +5,7 @@
       <p class="page-subtitle mt-5 mb-4">You will get stream info as soon as stream has started</p>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 v-if="isPageReady">
       <v-dialog v-model="show_stream_delete_confirm_dialog">
         <v-card>
           <v-card-title class="headline">Delete a Stream</v-card-title>
@@ -48,7 +48,7 @@
       <div class="share-view">
         <h3 class="mt-0 mb-4">Broadcast</h3>
         <v-btn dark color="red" class="px-4 cancel-btn" @click.native="openStreamDeleteConfirmDialog()">Cancel Stream</v-btn>
-        <v-btn dark color="green" class="px-4 view-btn" @click.native="viewStream()" v-if="isRunning">View Stream</v-btn>
+        <v-btn dark color="green" class="px-4 view-btn" @click.native="viewStream()" v-if="show_view_stream_button">View Stream</v-btn>
       </div>
     </v-flex>
   <!--

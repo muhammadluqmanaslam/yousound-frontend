@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Vue from 'vue'
 import PaymentService from  '@/services/payment'
 import StreamService from  '@/services/stream'
 import UserService from '@/services/user'
@@ -31,6 +32,7 @@ export default {
       // show_payment_dialog: false,
       // show_deposit_dialog: false,
       show_stream_delete_confirm_dialog: false,
+      show_view_stream_button: false,
       creatingInterval: null,
       remainingInterval: null,
       remainingSeconds: 0,
@@ -99,10 +101,14 @@ export default {
   // },
 
   created () {
+    this.isPageReady = false
+    this.$store.dispatch('error/showLoadingActivity', true)
     UserService.getUserInfo(this.currentUser.id).then(response => {
+      this.isPageReady = true
+      this.$store.dispatch('error/showLoadingActivity', false)
+
       this.$store.dispatch('auth/setStream', response.body.stream)
       const stream_status = _.get(response.body, 'stream.status', '')
-
       if (stream_status === '') {
         this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
       } else if (stream_status === 'deleted') {
@@ -117,6 +123,8 @@ export default {
         }
         this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
       }
+    }).catch(e => {
+      this.$store.dispatch('error/showLoadingActivity', false)
     })
   },
 
@@ -180,6 +188,12 @@ export default {
           clearInterval(this.remainingInterval)
         }
         this.deleteStream()
+      } else {
+        if (!this.show_view_stream_button) {
+          Vue.http.get(this.currentUser.stream.mp_channel_1_ep_1_url).then(response => {
+            this.show_view_stream_button = true
+          })
+        }
       }
     },
 

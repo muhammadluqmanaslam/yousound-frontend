@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Vue from 'vue'
 import { mapActions } from 'vuex'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
@@ -61,6 +62,7 @@ export default {
       showSendMessage: false,
       showShareModal: false,
       showSendLoveModal: false,
+      show_stream_live_button: false,
       grid_show: true,
       startIndex: 0,
       page_index: 1,
@@ -159,7 +161,7 @@ export default {
 
     isStreaming () {
       // console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
-      return _.get(this.user.stream, 'status', '') === 'started' &&
+      return _.get(this.user.stream, 'status', '') === 'running' &&
         (_.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.user.slug || !this.$store.getters['videoPlayer/hasFrame'])
       // return true
     },
@@ -172,6 +174,7 @@ export default {
     },
 
     init (tab, grid_view, first_visit) {
+      this.show_stream_live_button = false
       this.showSendMessage = false
       this.startIndex = 0
       this.genres = [{
@@ -185,9 +188,12 @@ export default {
         this.user = response.body
 
         if (first_visit && this.isStreaming()) {
-          // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
-          this.$store.dispatch('videoPlayer/setUser', this.user)
-          this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+          Vue.http.get(this.user.stream.mp_channel_1_ep_1_url).then(response => {
+            this.show_stream_live_button = true
+            // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
+            this.$store.dispatch('videoPlayer/setUser', this.user)
+            this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+          })
         }
 
         if (tab) {

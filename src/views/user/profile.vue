@@ -62,7 +62,7 @@
                 <template v-if="user.user_type === 'listener'">
                   <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
                 <v-btn v-else class="play-btn" @click.native="playSong()"><v-icon>play_arrow</v-icon>Play</v-btn>
-                <v-btn v-if="user.stream && user.stream.status == 'started'" class="green px-2" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
+                <v-btn v-if="show_stream_live_button" class="green px-2" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
                 <v-btn class="send-love-btn" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id" @click.native="showLoveDialog()">Send love</v-btn>
                 <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
                   :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
@@ -210,7 +210,7 @@
                 <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
               <v-btn v-else class="play-btn" @click.native="playSong()">
                 <v-icon>play_arrow</v-icon>Play</v-btn>
-              <v-btn v-if="user.stream && user.stream.status == 'started'" class="green px-3" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
+              <v-btn v-if="show_stream_live_button" class="green px-3" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
               <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
                 class="send-love-btn"
                 @click.native="showLoveDialog()">Send love</v-btn>
