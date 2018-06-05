@@ -175,10 +175,11 @@ export default {
 
     refresh () {
       this.remainingSeconds -= 1
-      if (this.remainingSeconds === 0) {
+      if (this.remainingSeconds <= 0) {
         if (this.remainingInterval) {
           clearInterval(this.remainingInterval)
         }
+        this.deleteStream()
       }
     },
 
