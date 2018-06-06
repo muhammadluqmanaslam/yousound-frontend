@@ -415,6 +415,9 @@ export default {
      * Pause the currently playing track.
      */
     pause () {
+      // player is not initialized yet.
+      if (!this.$store.state.player.isPlaying) return
+
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl
 
@@ -663,6 +666,7 @@ export default {
     this.$root.$on('skipTo', this.skipTrack)
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
     this.$root.$on('follow', this.setFollowStatus)
+    this.$root.$on(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER, this.pause)
   }
 }
 </script>

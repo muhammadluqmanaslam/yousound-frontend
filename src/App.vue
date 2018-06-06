@@ -106,6 +106,8 @@ import earnMoneySticker from '@/components/earn_money'
 import Player from '@/components/player'
 import videoPlayer from '@/components/video_player'
 
+import { MyEvents } from '@/helper'
+
 export default {
   name: 'app',
   components: {
@@ -224,6 +226,7 @@ export default {
         vm.$store.commit('videoPlayer/reset')
       }).on('fullscreen', function (e, api) {
         vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
+        vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
         api.mute(false)
         api.volume(1.0)
       }).on('fullscreen-exit', function (e, api) {

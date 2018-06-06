@@ -24,5 +24,6 @@ export const MyEvents = {
   AUTH_SIGNOUT: 'auth_signout',
   AUDIO_PLAYER_PLAY: 'play',
   AUDIO_PLAYER_REPLAY: 'replay',
-  VIDEO_PLAYER_INIT: 'video_player_init'
+  VIDEO_PLAYER_INIT: 'video_player_init',
+  VIDEO_PLAYER_FULLSCREEN_ENTER: 'video_player_fullscreen_enter'
 }
