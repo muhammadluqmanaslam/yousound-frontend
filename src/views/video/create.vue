@@ -6,7 +6,7 @@
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
       <payment-modal v-if="show_payment_dialog"
-        :type="'deposit'"
+        :type="''"
         :amount="streamCost"
         :dismiss="closePaymentDialog"
         :finish="deposit"></payment-modal>

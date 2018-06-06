@@ -86,7 +86,7 @@ export default {
     openPaymentDialog () {
       this.$validator.validateAll().then(response => {
         if (response === true) {
-          if (this.currentUser.enabled_live_video_free || this.currentUser.balance_amount >= this.streamCost) {
+          if (this.currentUser.enabled_live_video_free) {
             this.submit()
           } else {
             this.show_payment_dialog = true
@@ -104,16 +104,20 @@ export default {
     },
 
     deposit (token) {
-      const params = {
-        payment_token: token.id,
-        amount: StreamHourlyPrice
-      }
-      PaymentService.makeDeposit(params).then(response => {
-        AuthService.setUser(response.body)
+      if (token) {
+        const params = {
+          payment_token: token.id,
+          amount: StreamHourlyPrice
+        }
+        PaymentService.makeDeposit(params).then(response => {
+          AuthService.setUser(response.body)
+          this.submit()
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        })
+      } else {
         this.submit()
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      }
     },
 
     submit () {
