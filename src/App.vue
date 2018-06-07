@@ -213,6 +213,8 @@ export default {
       api.on('ready', function () {
         console.log('flowplayer ready')
         vm.$store.dispatch('videoPlayer/setStatus', 'active')
+        api.mute(false)
+        api.volume(1.0)
       //   // root.querySelector('.fp-controls').appendChild(fsbutton)
       //   // api.play()
       //   // if (api.isFullscreen) api.play()
@@ -225,12 +227,17 @@ export default {
         console.log('flowplayer shutdown')
         vm.$store.commit('videoPlayer/reset')
       }).on('fullscreen', function (e, api) {
+        console.log('flowplayer fullscreen')
         vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
         vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
         api.mute(false)
         api.volume(1.0)
       }).on('fullscreen-exit', function (e, api) {
+        console.log('flowplayer fullscreen-exit')
         vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
+        if (vm.$store.state.player.isPlaying) {
+          api.mute(true)
+        }
       })
     })
     // console.log('Fullscreen Support', window.flowplayer.support.fullscreen)

@@ -125,16 +125,21 @@ export default {
         key: '$512206430871778',
         clip: {
           hlsjs: {
-            // xhrSetup: function (xhr, url) {
-            //   xhr.addEventListener('readystatechange', function (e) {
-            //     console.log('xhrSetup', e)
-            //     let xstatus = e.currentTarget.status
-            //     // xstatus returns 0
-            //     if (xhr.readyState === 4 && xstatus >= 400 && xstatus < 499) {
-            //       vm.player.trigger('error', [vm.player, {code: 14}]);
-            //     }
-            //   })
-            // }
+            xhrSetup: function (xhr, url) {
+              // xhr.addEventListener('error', function (e) {
+              //   console.log('xhr error', e)
+              //   vm.player.trigger('error', [vm.player, {code: 2}]);
+              // })
+              // console.log(xhr, url)
+              xhr.addEventListener('readystatechange', function (e) {
+                let xstatus = e.currentTarget.status
+                // console.log('xhr readystatechange', xhr, e)
+                // xstatus returns 0
+                if (xhr.readyState === 4 && xstatus >= 400 && xstatus < 499) {
+                  vm.player.trigger('error', [vm.player, {code: 4}]);
+                }
+              })
+            }
           },
           flashls: {
             manifestloadmaxretry: 3
@@ -145,11 +150,12 @@ export default {
           ]
         }
       }).on('error', function (e, api, err) {
-        // console.log('fp error', err)
+        console.log('fp error', err)
         // var delay = initialDelay;
         // clearInterval(timer);
 
         if (err.code === 2 || err.code === 4) {
+          api.shutdown()
           // // it unloads the engine, so api.load() is not working
           // console.log('fp error', err.code, api)
           // api.error = api.loading = false
