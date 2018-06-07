@@ -49,8 +49,8 @@
           <v-flex sm4>
             <label class="control-label">How long do you want to stream?</label>
             <v-select
-              v-bind:items="hours"
-              v-model="hour"
+              v-bind:items="periods"
+              v-model="period"
               item-text="name"
               item-value="id"
               class="pt-0"></v-select>

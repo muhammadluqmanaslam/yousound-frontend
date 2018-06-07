@@ -194,9 +194,9 @@ export default {
             this.$store.dispatch('videoPlayer/setUser', this.user)
             this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
           })
+          // this.$store.dispatch('videoPlayer/setUser', this.user)
+          // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
         }
-        // this.$store.dispatch('videoPlayer/setUser', this.user)
-        // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
 
         if (tab) {
           this.currentTab = tab

@@ -9,7 +9,9 @@ import {
   MediaLiveInputCodecs,
   MediaLiveInputResolutions,
   MediaLiveInputMaximumBitrates,
-  StreamHourlyPrice} from '@/helper'
+  Filter,
+  StreamHourlyPrice
+} from '@/helper'
 
 export default {
   components: {
@@ -18,8 +20,8 @@ export default {
 
   data () {
     return {
-      hours: [],
-      hour: 1,
+      periods: [],
+      period: 3600,
       terms: false,
       stream: {
         name: '',
@@ -52,7 +54,11 @@ export default {
     },
 
     streamCost () {
-      return this.hour * StreamHourlyPrice
+      return Math.round(this.period * StreamHourlyPrice / 3600)
+    },
+
+    profileUrl () {
+      return window.location.origin + '/' + this.currentUser.slug
     },
 
     currentUser () {
@@ -68,14 +74,21 @@ export default {
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
     if (this.currentUser.enabled_live_video_free) {
-      this.hours.push({
+      this.periods.push({
         id: 1,
         name: '1hour / FREE'
       })
     } else {
+      if (this.currentUser.stream_rolled_time > 0) {
+        this.periods.push({
+          id: this.currentUser.stream_rolled_time,
+          name: `${Filter.timeInHours(this.currentUser.stream_rolled_time)} / Rolled Over Time`
+        })
+        this.period = this.currentUser.stream_rolled_time
+      }
       for (let i = 1; i <= 12; i++) {
-        this.hours.push({
-          id: i,
+        this.periods.push({
+          id: i * 3600,
           name: `${i}hours / $${i * StreamHourlyPrice / 100}`
         })
       }
@@ -126,7 +139,7 @@ export default {
           let params = {
             stream: this.stream
           }
-          params.stream.valid_period = this.hour * 3600
+          params.stream.valid_period = this.period
           this.$store.dispatch('error/showLoadingActivity', true)
           StreamService.createStream(params).then(response => {
             this.$store.dispatch('error/showLoadingActivity', false)

@@ -36,7 +36,7 @@ export default {
           if (this.deletingInterval) {
             clearInterval(this.deletingInterval)
             this.$store.dispatch('auth/setStream', null)
-            this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+            this.$router.push({ path: `/user/${this.currentUser.slug}/video` })
           }
         } else {
           console.log('getStream', e)
