@@ -237,7 +237,7 @@ export default {
       }).on('fullscreen-exit', function (e, api) {
         console.log('flowplayer fullscreen-exit')
         vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-        if (vm.$store.state.player.isPlaying) {
+        if (vm.$store.state.player.isPlaying && !vm.$store.state.player.isPaused) {
           api.mute(true)
         }
       })
