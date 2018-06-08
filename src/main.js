@@ -5,6 +5,8 @@ import VueResource from 'vue-resource'
 import 'jquery'
 import App from './App'
 import { createRouter } from './router'
+// import { createMobileRouter } from './router/mobile'
+import EmptyPage from '@/views/admin/empty'
 import store from './store'
 import Vuetify from 'vuetify'
 import VueNumeric from 'vue-numeric'
@@ -69,21 +71,31 @@ Vue.filter('capitalize', Filter.capitalize)
 //   return { app, router }
 // }
 
-SettingService.getSettings().then(response => {
-  const settings = response.body
-  const router = createRouter(settings)
-  router.beforeEach((to, frm, next) => {
-    if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
-      next()
-    } else {
-      next('/protect')
-    }
-  })
+const isMobileBrowser = navigator.userAgent.match(/android|blackberry|iphone|ipad|ipod|iemobile|mobile|webos/i) !== null
+
+if (isMobileBrowser) {
   const app = new Vue({
-    router,
-    store,
-    template: '<App/>',
-    components: { App }
+    template: '<EmptyPage/>',
+    components: { EmptyPage }
   })
   app.$mount('#app')
-})
+} else {
+  SettingService.getSettings().then(response => {
+    const settings = response.body
+    const router = createRouter(settings)
+    router.beforeEach((to, frm, next) => {
+      if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
+        next()
+      } else {
+        next('/protect')
+      }
+    })
+    const app = new Vue({
+      router,
+      store,
+      template: '<App/>',
+      components: { App }
+    })
+    app.$mount('#app')
+  })
+}

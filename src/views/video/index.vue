@@ -40,7 +40,31 @@
 
       <div class="share-view">
         <h3 class="mt-0 mb-4">Share</h3>
-        <p><i class="fa fa-facebook"></i><i class="fa fa-twitter"></i>{{ profileUrl }}</p>
+        <v-flex x12>
+          <div class="share-social-section d-inline-block">
+            <v-btn class ="social-share-btn"><v-icon>fa-envelope</v-icon></v-btn>
+            <social-sharing v-bind:url="profileUrl" inline-template>
+              <div class="social-section">
+                <network network="facebook">
+                  <!-- <i class="fa fa-fw fa-facebook"></i> Facebook -->
+                  <v-btn class ="social-share-btn"><v-icon>fa-facebook</v-icon></v-btn>
+                </network>
+                <network network="twitter">
+                  <!-- <i class="fa fa-fw fa-twitter"></i> Twitter -->
+                  <v-btn class ="social-share-btn"><v-icon>fa-twitter</v-icon></v-btn>
+                </network>
+              </div>
+            </social-sharing>
+          </div>
+          <div class="input-section d-inline-block">
+            <input type="text" class="form-control" v-model="profileUrl" readonly />
+            <v-btn
+              class="clipboard-btn"
+              v-clipboard:copy="profileUrl">
+              <v-icon>fa-clipboard</v-icon>
+            </v-btn>
+          </div>
+        </v-flex>
       </div>
 
       <div class="divider mt-5 mb-5"></div>
@@ -49,6 +73,7 @@
         <h3 class="mt-0 mb-4">Broadcast</h3>
         <v-btn dark color="red" class="px-4 cancel-btn" @click.native="openStreamDeleteConfirmDialog()">Cancel Stream</v-btn>
         <v-btn dark color="green" class="px-4 view-btn" @click.native="viewStream()" v-if="show_view_stream_button">View Stream</v-btn>
+        <v-btn color="grey lighten-2" class="px-4 view-btn" v-else>Waiting for Connection...</v-btn>
       </div>
     </v-flex>
   <!--
