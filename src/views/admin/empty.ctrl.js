@@ -12,7 +12,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('navigator/goNextState', {page: 'stream', tab: 'new'})
+    // this.$store.dispatch('navigator/goNextState', {page: 'stream', tab: 'new'})
   },
 
   methods: {
