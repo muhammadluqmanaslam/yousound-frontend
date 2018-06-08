@@ -256,6 +256,7 @@
           :dismiss="closeShareDialog"/>
 
         <div class="album-merch-popup requests" v-if="show_album_merch_popup">
+          <div class="dismiss-section" @click="closeAlbumMerchPopup()"></div>
           <div class="popup-section">
             <div class="requests-section">
               <div class="header-section">
