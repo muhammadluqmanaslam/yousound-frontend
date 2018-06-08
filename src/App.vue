@@ -94,6 +94,8 @@
 <script>
 /* global $:true */
 
+import debounce from 'lodash/debounce'
+
 import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
 // import GenreService from '@/services/genre'
@@ -318,9 +320,18 @@ export default {
   },
 
   mounted () {
-    var _top = $(window).scrollTop()
     const vm = this
     var _direction = 'none'
+    var _top = $(window).scrollTop()
+
+    var toggleBottomPlayer = debounce(function (show) {
+      if (show) {
+        $('.bottom-player').animate({ bottom: 0 }, 500)
+      } else {
+        $('.bottom-player').animate({ bottom: -150 }, 500)
+      }
+    }, 250)
+
     $(window).scroll(function (event) {
       var _curTop = $(window).scrollTop()
       if (_top < _curTop) {
@@ -339,15 +350,17 @@ export default {
         }
       }
       _top = _curTop
+
       if (vm.direction === 'up' && _direction === 'up') {
-        $('.bottom-player').animate({ bottom: 0 }, 600)
+        toggleBottomPlayer(true)
       } else if (vm.direction === 'down' && _direction === 'down') {
-        $('.bottom-player').animate({ bottom: -150 }, 600)
+        toggleBottomPlayer(false)
       }
     })
 
     this.$root.$on('showLoginModal', this.showLoginDialog)
     this.$root.$on('hideLoginModal', this.hideLoginDialog)
+
     // $(document).on('keypress', function (e) {
     //   if (e.which === 32) {
     //     if (['album', 'messages'].indexOf(vm.$store.state.auth.page) === -1) {
