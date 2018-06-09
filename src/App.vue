@@ -76,7 +76,7 @@
     <v-snackbar
       :timeout="$store.state.error.timeout" multi-line top
       :color="$store.state.error.color"
-      v-model="showError">      
+      v-model="showError">
       <label>{{ $store.state.error.errors[0] }}</label>
       <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"><v-icon>clear</v-icon></v-btn>
     </v-snackbar>

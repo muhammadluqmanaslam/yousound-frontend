@@ -89,7 +89,7 @@ export default {
 
   beforeDestroy () {
     console.log('video-player beforeDestroy')
-    this.$root.$off(MyEvents.AUTH_SIGNOUT, this.closePlayer)
+    this.$root.$off(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
@@ -294,14 +294,16 @@ export default {
     },
 
     deleteStream (user) {
-      // console.log('deleteStream', user)
+      console.log('deleteStream', user)
       this.closePlayer()
-      StreamService.deleteStream(user.stream.id).then(response => {
-        this.$store.dispatch('auth/setStream', response.body)
-        this.$router.push({ path: '/' })
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      if (user && user.stream) {
+        StreamService.deleteStream(user.stream.id).then(response => {
+          this.$store.dispatch('auth/setStream', response.body)
+          this.$router.push({ path: '/' })
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        })
+      }
     },
 
     closePlayer () {
