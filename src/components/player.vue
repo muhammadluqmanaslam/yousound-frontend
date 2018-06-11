@@ -316,14 +316,14 @@ export default {
         this.$store.dispatch('player/setPlaylist', [])
         this.$store.dispatch('player/setListIndex', -1)
         this.$store.dispatch('player/setTrackIndex', -1)
-        // for (let index in this.playlist) {
-        //   let item = this.playlist[index]
-        //   if (item) {
-        //     if (item.howl) {
-        //       item.howl.unload()
-        //     }
-        //   }
-        // }
+        for (let index in this.playlist) {
+          let item = this.playlist[index]
+          if (item) {
+            if (item.howl) {
+              item.howl.unload()
+            }
+          }
+        }
         this.playlist = []
         this.index = 0
         this.isLoaded = false

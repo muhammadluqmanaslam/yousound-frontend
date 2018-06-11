@@ -76,7 +76,7 @@
     <v-snackbar
       :timeout="$store.state.error.timeout" multi-line top
       :color="$store.state.error.color"
-      v-model="showError">      
+      v-model="showError">
       <label>{{ $store.state.error.errors[0] }}</label>
       <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"><v-icon>clear</v-icon></v-btn>
     </v-snackbar>
@@ -237,7 +237,7 @@ export default {
       }).on('fullscreen-exit', function (e, api) {
         console.log('flowplayer fullscreen-exit')
         vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-        if (vm.$store.state.player.isPlaying) {
+        if (vm.$store.state.player.isPlaying && !vm.$store.state.player.isPaused) {
           api.mute(true)
         }
       })
