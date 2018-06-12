@@ -36,6 +36,7 @@
     >
      Connecting...
     </v-snackbar>
+    
     <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">
       <div class="dismiss-section" @click="show_requestPopup = false"></div>
       <div class="popup-section">
@@ -98,7 +99,7 @@
               <div class="user-avatar-image" :style="'background-color: gray; background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
               <div class="chat-section">
                 <div class="info-section">
-                  <a class="item-user" >{{message.fromUser ? message.fromUser.display_name : message.from}}</a>
+                  <router-link :to="'/'+message.from" class="item-user" >{{message.fromUser ? message.fromUser.display_name : message.from}}</router-link>
                   <label class="messaged-time">{{moment(message.time).calendar()}}</label>
                 </div>
                 <div class="chat-content text">
@@ -202,7 +203,7 @@
                 <div class="memeber-status" :class="room.online.indexOf(adminUser.slug) > -1 ? 'online' : (room.idle.indexOf(adminUser.slug) > -1 ? 'idle' : 'offline')"></div>
               </div>
               <div class="detail-area">
-                <a class="user-name">{{ adminUser.display_name }}</a>
+                <router-link :to="'/'+adminUser.slug" class="user-name">{{ adminUser.display_name }}</router-link>
               </div>
             </div>
 
@@ -213,7 +214,7 @@
                 <div class="memeber-status online"></div>
               </div>
               <div class="detail-area">
-                <a v-if="onlineUser" class="user-name">{{ onlineUser.display_name }}</a>
+                <router-link v-if="onlineUser" :to="'/'+onlineUser.slug" class="user-name">{{ onlineUser.display_name }}</router-link>
               </div>
             </div>
             <div v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
@@ -223,7 +224,7 @@
                 <div class="memeber-status idle"></div>
               </div>
               <div class="detail-area">
-                <a v-if="idleUser" class="user-name">{{ idleUser.display_name }}</a>
+                <router-link v-if="idleUser" :to="'/'+idleUser.slug" class="user-name">{{ idleUser.display_name }}</router-link>
               </div>
             </div>
           </div>

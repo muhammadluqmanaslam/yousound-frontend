@@ -232,6 +232,7 @@ export default {
           
         } 
         sm.onMessage = function (message) {
+          if (!message) return;
           // Remove the message from sendingMessages
           app.sendingMessages = $.grep(app.sendingMessages, function (e) {
             return e.localId != message.localId
@@ -243,10 +244,12 @@ export default {
           }
           UserService.getUserInfo(message.from).then(response => {
             message.fromUser = response.body
-            if (app.messages[0].localId != message.localId) {
-              // This block of code runs twice for some reason
-              // So just make sure that we didn't already add this message
-              app.messages.unshift(message)
+            if (app.messages.length != 0) {
+              if (app.messages[0].localId != message.localId) {
+                // This block of code runs twice for some reason
+                // So just make sure that we didn't already add this message
+                app.messages.unshift(message)
+              }
             }
           })
 
