@@ -252,13 +252,16 @@
         height: 60px;
         padding: 0 1px;
         border-top: 0.75px solid #E1E1E1;
+        border-right: 0.75px solid #E1E1E1;
         // border-right: 0.75px solid #E1E1E1;
         .chat-input-box {
           border: none;
           width: 100%;
+          position: relative;
           padding: 17px 26.25px;
           padding-right: 150.5px;
           font-size: 16px;
+          left: 60px;
           letter-spacing: -0.2px;
           &:focus, &:hover, &:active {
             outline: none;
@@ -301,19 +304,18 @@
         }
         .show-attachment-box-btn {
           position: absolute;
-          width: 30px;
-          min-width: 30px;
-          height: 30px;
-          right: 145px;
-          bottom: 13.5px;
+          width: 60px;
+          min-width: 50px;
+          height: 60px;
+          border-right: 0.75px solid #E1E1E1;
+          border-bottom: 0.75px solid #E1E1E1;
+          top: 0;
           margin: 0;
-          text-transform: none;
+          padding-left: 20px;
+          padding-right: 10px;
           box-shadow: none;
           background: #FFFFFF;
-          border: 0.75px solid #DDDDDD;
-          border-radius: 75px;
           font-size: 15px;
-          color: #9B9B9B;
           letter-spacing: -0.6px;
           &.selected {
             background: #3A92FF;
