@@ -34,6 +34,7 @@
     &.requests {
       text-align: left;
       .popup-section {
+        z-index: 99999;
         padding-top: 0;
         padding-bottom: 0;
         .requests-section {
@@ -591,4 +592,5 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: -999;
 }
