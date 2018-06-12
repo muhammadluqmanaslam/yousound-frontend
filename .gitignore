@@ -10,3 +10,5 @@ package-lock.json
 fixed/*
 
 README.local.md
+
+.idea/
