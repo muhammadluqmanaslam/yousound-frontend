@@ -10,8 +10,11 @@ import ChatSidebar from '@/components/chat/chatsidebar'
 import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
 import { Picker } from 'emoji-mart-vue'
+import VueChatScroll from 'vue-chat-scroll'
 import Vue from 'vue'
 import { EHOSTUNREACH } from 'constants';
+
+Vue.use(VueChatScroll)
 
 var sm
 
@@ -120,6 +123,7 @@ export default {
       if (!this.room.settings.links && linkRegex.test(this.msgInput)) return // TODO error instead of returning
       sm.sendMessage(messageText, this.user.username)
       this.message = '' // clear textbox
+      $('#msg-container').scrollTop = $('#msg-container').scrollHeight
       return false
     },
 
@@ -244,9 +248,6 @@ export default {
               // So just make sure that we didn't already add this message
               app.messages.unshift(message)
             }
-            setTimeout(function () {
-              scrollDown(false)
-            }, 1)
           })
 
           if (app.isAlbumLink(message.text)) {
@@ -260,9 +261,6 @@ export default {
 
         sm.onMessageSending = function (text) {
           app.sendingMessages.push(text);
-          setTimeout(function () {
-            scrollDown(false);
-          }, 1);
         };
 
         sm.onUserInfo = function (user) {
@@ -297,7 +295,6 @@ export default {
         }
 
         sm.onLoadMessages = function (loadMessageObj) {
-          scrollDown(true)
           // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
           for (var i = loadMessageObj.chunk * 500; i < (loadMessageObj.chunk + 1) * 500; i++) {
             var nextMessage = loadMessageObj.data[i - (loadMessageObj.chunk * 500)];
@@ -326,6 +323,7 @@ export default {
             }
           });
           app.connected = true;
+          $('#msg-container')[0].scrollTop = $('#msg-container')[0].scrollHeight
 
           // setTimeout(function () {
           //   scrollDown(loadMessageObj.chunk === 0);
@@ -354,8 +352,8 @@ export default {
     var app = this
     var idleTime = 0
     $(document).ready(function () {
-      // increment the idle time counter every minute.
-      var idleInterval = setInterval(timerIncrement, 60000) // 1 minute
+      // increment the idle time counter every 0.1 minutes.
+      var idleInterval = setInterval(timerIncrement, 6000) // 1 minute
 
       // zero the idle timer on mouse movement.
       $(this).mousemove(function (e) {
@@ -384,13 +382,11 @@ export default {
     });
 
     function timerIncrement() {
-      idleTime = idleTime + 1
+      idleTime = idleTime + 0.1
       if (idleTime >= idleTimeout) { // 20 minutes
         sm.idle()
       }
     }
-
-    scrollDown(true)
   }
 }
 

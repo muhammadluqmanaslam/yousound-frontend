@@ -36,8 +36,8 @@
     >
      Connecting...
     </v-snackbar>
-
-    <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">-->
+    <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">
+      <div class="dismiss-section" @click="show_requestPopup = false"></div>
       <div class="popup-section">
         <div class="requests-section">
           <div class="header-section">
@@ -79,7 +79,7 @@
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="chat-page-content" v-if="user">
       <v-layout row>
         <v-flex xs12 sm9 pa-0 class="chat-content-section">
-          <div class="chat-list-section" id="msg-container">
+          <div class="chat-list-section" v-chat-scroll="{always: false, smooth: false}" id="msg-container">
             <!--<div class="chat-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">-->
               <!--<div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>-->
               <!--<div class="message-section">-->
@@ -199,7 +199,7 @@
             <div class="member-item" v-for="adminUser in adminUsers" v-bind:key="adminUser.username">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
-                <div class="memeber-status online"></div>
+                <div class="memeber-status" :class="room.online.indexOf(adminUser.slug) > -1 ? 'online' : (room.idle.indexOf(adminUser.slug) > -1 ? 'idle' : 'offline')"></div>
               </div>
               <div class="detail-area">
                 <a class="user-name">{{ adminUser.display_name }}</a>
