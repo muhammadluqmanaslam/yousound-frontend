@@ -174,8 +174,8 @@
               <div class="user-info">
                 <div class="name">{{ user.display_name }}</div>
                 <div>
-                  <v-btn round dark color="blue" small mr-0 px-2>Follow</v-btn>
-                  <v-btn round dark color="blue" small ml-1 px-2>Repost Stream</v-btn>
+                  <v-btn round dark color="blue mr-0 px-2" small>Follow</v-btn>
+                  <v-btn round dark color="blue ml-1 px-2" small @click.native="repostStream()">Repost Stream</v-btn>
                 </div>
               </div>
             </div>

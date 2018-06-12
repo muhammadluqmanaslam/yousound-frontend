@@ -15,30 +15,13 @@ export default {
     return {
       activeTab: '',
       tabs: [
-        {
-          id: 'any',
-          title: 'Everything'
-        },
-        {
-          id: 'uploaded',
-          title: 'Albums'
-        },
-        {
-          id: 'reposted',
-          title: 'Reposts'
-        },
-        {
-          id: 'downloaded',
-          title: 'Downloaded'
-        },
-        {
-          id: 'playlist',
-          title: 'Playlists'
-        },
-        {
-          id: 'merch',
-          title: 'Merch'
-        }
+        { id: 'any', title: 'Everything' },
+        { id: 'uploaded', title: 'Albums' },
+        { id: 'reposted', title: 'Reposts' },
+        { id: 'downloaded', title: 'Downloaded' },
+        { id: 'playlist', title: 'Playlists' },
+        { id: 'merch', title: 'Merch' },
+        { id: 'video', title: 'Live Video' },
       ],
       page_index: 1,
       total_pages: 1,

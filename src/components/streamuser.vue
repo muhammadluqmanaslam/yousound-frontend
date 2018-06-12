@@ -13,9 +13,13 @@
       </v-flex>
     </v-flex>
     <v-layout row wrap class="covers-content">
-      <div class="card-container" v-for="(feed, index) in user.recent_items" :key="index" v-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
-        <track-card :objects="user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"></track-card>
-        <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"></product-card>
+      <div v-for="(feed, index) in user.recent_items"
+        v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
+        class="card-container"
+        :key="index">
+        <track-card :objects="user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"/>
+        <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"/>
+        <video-card :dataObject="feed" v-if="feed.assoc_type=='Stream'"/>
       </div>
     </v-layout>
     <merch-modal :item="user.recent_items[0].assoc" :dismiss="dimissMerchModal" v-if="showMerchModal && user.recent_items[0].assoc_type === 'ShopProduct'"></merch-modal>
@@ -23,17 +27,19 @@
 </template>
 
 <script type="text/javascript">
+  import merchModal from '@/components/merchmodal'
+  import productCard from '@/components/productcard'
   import profileItem from '@/components/profileitem'
   import trackCard from '@/components/trackcard'
-  import productCard from '@/components/productcard'
-  import merchModal from '@/components/merchmodal'
+  import videoCard from '@/components/videocard'
 
   export default {
     components: {
+      merchModal,
+      productCard,
       profileItem,
       trackCard,
-      productCard,
-      merchModal
+      videoCard
     },
 
     props: {
