@@ -95,14 +95,31 @@
             </center>
 
             <div class="chat-item other" v-for="message in reverseMessages" v-bind:key="message.id">
-              <div class="user-avatar-image" :style="'background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
+              <div class="user-avatar-image" :style="'background-color: gray; background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
               <div class="chat-section">
                 <div class="info-section">
-                  <a class="item-user">{{message.fromUser.display_name}}</a>
+                  <a class="item-user" >{{message.fromUser ? message.fromUser.display_name : message.from}}</a>
                   <label class="messaged-time">{{moment(message.time).calendar()}}</label>
                 </div>
                 <div class="chat-content text">
-                  <label class="text-message">{{message.text}}</label>
+                  <label v-if="!isAttachmentLink(message.text)" class="text-message">{{message.text}}</label>
+                  <div v-if="isAttachmentLink(message.text) && (!albumLinks[message.text] && !merchLinks[message.text])">Loading...</div>
+                  <div class="album-embed-wrapper" v-if="isAlbumLink(message.text) && albumLinks[message.text]">
+                    <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"></activity-album-card>
+                    <div class="info-section">
+                      <label class="item-title">{{ albumLinks[message.text].name }}</label>
+                      <br>
+                      <router-link :to="'/'+albumLinks[message.text].user.slug" class="item-user">{{ albumLinks[message.text].user.display_name }}</router-link>
+                    </div>
+                  </div>
+                  <div class="album-embed-wrapper" v-if="isMerchLink(message.text) && merchLinks[message.text]">
+                    <activity-product-card :object="merchLinks[message.text]" class="chat-album-embed"></activity-product-card>
+                    <div class="info-section">
+                      <label class="item-title">{{ merchLinks[message.text].name }}</label>
+                      <br>
+                      <router-link :to="'/'+merchLinks[message.text].merchant.slug" class="item-user">{{ merchLinks[message.text].merchant.display_name }}</router-link>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="clear"></div>

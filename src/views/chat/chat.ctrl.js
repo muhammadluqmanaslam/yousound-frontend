@@ -7,6 +7,8 @@ import moment from 'moment'
 import Message from '@/components/chat/message'
 import MessageInput from '@/components/chat/messageinput'
 import ChatSidebar from '@/components/chat/chatsidebar'
+import activityAlbumCard from '@/components/activityalbumcard'
+import activityProductCard from '@/components/activityproductcard'
 import { Picker } from 'emoji-mart-vue'
 import Vue from 'vue'
 import { EHOSTUNREACH } from 'constants';
@@ -21,7 +23,9 @@ export default {
     Message,
     MessageInput,
     ChatSidebar,
-    Picker
+    Picker,
+    activityAlbumCard,
+    activityProductCard
   },
   data() {
     return {
@@ -70,7 +74,9 @@ export default {
       item_index: -1,
       albums: [],
       products: [],
-      connected: false
+      connected: false,
+      albumLinks: {},
+      merchLinks: {}
     }
   },
   computed: {
@@ -158,6 +164,10 @@ export default {
       }
     },
 
+    choosePage(path) {
+      this.$router.push({ path: '/' + path })
+    },
+
     selectItemIndex(index) {
       const itemType = this.request_tab
       const itemId = (this.request_tab === "album" ? this.albums : this.products)[index].id
@@ -168,6 +178,37 @@ export default {
         this.item_index = -1
       }
       this.sendMessage("/"+itemType+"/"+itemId)
+    },
+
+    isAttachmentLink(string) {
+      const attachmentRegex = /\/(album)|(merch)\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      return attachmentRegex.test(string)
+    },
+
+    isAlbumLink(string) {
+      const albumLinkRegex = /\/album\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      return albumLinkRegex.test(string)
+    },
+
+    isMerchLink(string) {
+      const merchLinkRegex = /\/merch\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      return merchLinkRegex.test(string)
+    },
+
+    getAlbumFromLink(string) {
+      const albumId = string.split("/")[2]
+      AlbumService.getAlbum(albumId)
+        .then(res => {
+          Vue.set(this.albumLinks, string, res.body)
+        })
+    },
+
+    getMerchFromLink(string) {
+      const merchId = string.split("/")[2]
+      ProductService.getProduct(merchId)
+        .then(res => {
+          Vue.set(this.merchLinks, string, res.body)
+        })
     }
   },
 
@@ -181,7 +222,6 @@ export default {
       this.user = response.body
       this.loadAlbums()
       sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
-        app.connected = true;
 
         sm.onDisconnect = () => {
           app.connected = false;
@@ -208,6 +248,14 @@ export default {
               scrollDown(false)
             }, 1)
           })
+
+          if (app.isAlbumLink(message.text)) {
+            app.getAlbumFromLink(message.text)
+          }
+
+          if (app.isMerchLink(message.text)) {
+            app.getMerchFromLink(message.text)
+          }
         }
 
         sm.onMessageSending = function (text) {
@@ -249,7 +297,6 @@ export default {
         }
 
         sm.onLoadMessages = function (loadMessageObj) {
-          var tempMessages = app.messages
           scrollDown(true)
           // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
           for (var i = loadMessageObj.chunk * 500; i < (loadMessageObj.chunk + 1) * 500; i++) {
@@ -263,6 +310,12 @@ export default {
           requestInProgress = false;
           app.messages.map((message) => {
             if (message) {
+              if (app.isAlbumLink(message.text)) {
+                app.getAlbumFromLink(message.text)
+              }
+              if (app.isMerchLink(message.text)) {
+                app.getMerchFromLink(message.text)
+              }
               if (message.from === app.user.username) {
                 message.me = true;
               }
@@ -272,6 +325,7 @@ export default {
               return message;
             }
           });
+          app.connected = true;
 
           // setTimeout(function () {
           //   scrollDown(loadMessageObj.chunk === 0);
