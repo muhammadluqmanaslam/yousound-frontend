@@ -2,11 +2,12 @@
 
 // import _ from 'lodash'
 // import Hls from 'hls.js'
+import ActivityService from '@/services/activity'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import StreamService from '@/services/stream'
+import UserService from '@/services/user'
 
-import efmHeader from '@/components/header'
 import downloadModal from '@/components/downloadmodal'
 import merchModal from '@/components/merchmodal'
 import shareModal from '@/components/sharemodal'
@@ -15,7 +16,6 @@ import { MyEvents } from '@/helper'
 
 export default {
   components: {
-    efmHeader,
     downloadModal,
     merchModal,
     shareModal
@@ -35,6 +35,8 @@ export default {
       assoc: {},
       albums: [],
       products: [],
+      metrics: {},
+      buttonHover: false,
       isPageReady: false
     }
   },
@@ -58,12 +60,19 @@ export default {
     user () {
       // console.log('video-player user', this.$store.state.videoPlayer.user)
       return this.$store.state.videoPlayer.user
+    },
+
+    followButtonText () {
+      if (this.user.is_following) {
+        return this.buttonHover ? 'Unfollow' : 'Following'
+      }
+      return 'Follow'
     }
   },
 
   created () {
     console.log('video-player created')
-    this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
+    // this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
@@ -203,6 +212,23 @@ export default {
       })
     },
 
+    getMetrics () {
+      this.metrics = {}
+      if (this.user.id !== this.currentUser.id) {
+        return
+      }
+
+      const params = {
+        page_track: `Stream: ${this.user.stream.id}`
+      }
+      ActivityService.getMetrics(params).then(response => {
+        console.log('getMetrics', response.body)
+        this.metrics = response.body
+      }).catch(e => {
+        console.log('getMetrics', e.body.errors || [e.body])
+      })
+    },
+
     onRequestTab (tab) {
       this.request_tab = tab
       this.item_index = -1
@@ -282,8 +308,12 @@ export default {
 
     downloadAlbum () {
       // this.openShareDialog()
-      AlbumService.downloadAlbum(this.user.stream.assoc.id).then(response => {
+      const params = {
+        page_track: `Stream: ${this.user.stream.id}`
+      }
+      AlbumService.downloadAlbum(this.user.stream.assoc.id, params).then(response => {
         var a = document.createElement('A')
+        a.target = '_blank'
         a.href = response.body.url
         document.body.appendChild(a)
         a.click()
@@ -314,6 +344,34 @@ export default {
       })
     },
 
+    viewStream () {
+      StreamService.viewStream(this.user.stream.id)
+    },
+
+    followUser () {
+      if (this.user.is_following) {
+        UserService.unfollowUser(this.user.id).then(response => {
+          // this.user.is_following = false
+          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+          // this.$root.$emit('unfollow')
+        }).catch(e => {
+          // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
+        })
+      } else {
+        const params = {
+          page_track: `Stream: ${this.user.stream.id}`
+        }
+        UserService.followUser(this.user.id, params).then(response => {
+          // this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
+          // this.user.is_following = true
+          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+          // this.$root.$emit('follow')
+        }).catch(e => {
+          // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
+        })
+      }
+    },
+
     closePlayer () {
       if (this.player) {
         this.player.shutdown()
@@ -330,6 +388,8 @@ export default {
       this.closeStreamingConfirmDialog()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
+      this.getMetrics()
+      this.viewStream()
       this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
       this.player.load()
       this.player.fullscreen()

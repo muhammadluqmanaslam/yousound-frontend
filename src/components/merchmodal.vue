@@ -245,9 +245,17 @@
         if (this.option === '' || this.option === null) {
           this.$store.dispatch('error/showErrorToast', ['Please select valid variant.'])
         } else {
+          let pageTrack = ''
+          if (this.$store.state.videoPlayer.frame_mode === 'full') {
+            const streamId = _.get(this.$store.state.videoPlayer.user, 'stream.id', '')
+            if (streamId !== '') {
+              pageTrack = 'Stream: ' + streamId
+            }
+          }
           const params = {
             product_variant_id: this.option,
-            quantity: 1
+            quantity: 1,
+            page_track: pageTrack
           }
           ItemService.addToCart(params).then(response => {
             if (response.body.errors) {

@@ -157,9 +157,10 @@
           <div class="stream-sector__content">
             <div class="stream-sector__content__left">
               <div class="user-info">
-                <label><strong>354</strong><span>views</span></label>
-                <label><strong>29</strong><span>added to cart</span></label>
-                <label><strong>124</strong><span>followed</span></label>
+                <label><strong>{{ metrics.views_size }}</strong><span>views</span></label>
+                <label v-if="user.stream.assoc_type === 'Album'"><strong>{{ metrics.downloads_size }}</strong><span>downloaded</span></label>
+                <label v-if="user.stream.assoc_type === 'ShopProduct'"><strong>{{ metrics.carts_size }}</strong><span>added to cart</span></label>
+                <label><strong>{{ metrics.followed_size }}</strong><span>followed</span></label>
               </div>
             </div>
             <div class="stream-sector__content__right">
@@ -174,8 +175,12 @@
               <div class="user-info">
                 <div class="name">{{ user.display_name }}</div>
                 <div>
-                  <v-btn round dark color="blue mr-0 px-2" small>Follow</v-btn>
-                  <v-btn round dark color="blue ml-1 px-2" small @click.native="repostStream()">Repost Stream</v-btn>
+                  <v-btn round dark color="white" class="follow-btn mr-0 px-2" small
+                    :class="{'follow': !user.is_following, 'following': user.is_following }"
+                    @mouseenter="buttonHover = true"
+                    @mouseleave="buttonHover = false"
+                    @click.native="followUser()">{{ followButtonText }}</v-btn>
+                  <v-btn round dark color="blue" class="ml-1 px-2" small @click.native="repostStream()">Repost Stream</v-btn>
                 </div>
               </div>
             </div>

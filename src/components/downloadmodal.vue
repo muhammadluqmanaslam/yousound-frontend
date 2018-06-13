@@ -148,6 +148,7 @@
           // window.open(this.track.audio_download_url, '_blank')
 
           var a = document.createElement('A')
+          a.target = '_blank'
           a.href = this.track.audio_download_url
           document.body.appendChild(a)
           a.click()
@@ -164,6 +165,7 @@
           AlbumService.downloadAlbum(this.item.id).then(response => {
             // this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
             var a = document.createElement('A')
+            a.target = '_blank'
             a.href = response.body.url
             document.body.appendChild(a)
             a.click()
