@@ -19,6 +19,7 @@ export const MediaLiveInputCodecs = ['MPEG2', 'AVC', 'HEVC']
 export const MediaLiveInputResolutions = ['SD', 'HD', 'UHD']
 export const MediaLiveInputMaximumBitrates = ['MAX_10_MBPS', 'MAX_20_MBPS', 'MAX_50_MBPS']
 
+// #TODO - combile audio_player_play and replay
 export const MyEvents = {
   AUTH_SIGNIN: 'auth_signin',
   AUTH_SIGNOUT: 'auth_signout',
