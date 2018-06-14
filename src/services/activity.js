@@ -8,6 +8,10 @@ export default {
     return Vue.http.get(API_BASE_URL, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
+  getMetrics (params) {
+    return Vue.http.get(API_BASE_URL + '/metrics', { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  },
+
   getUnread () {
     return Vue.http.get(API_BASE_URL + '/unread', { headers: { 'Authorization': $store.state.auth.token } })
   },

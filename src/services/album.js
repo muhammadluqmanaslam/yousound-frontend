@@ -72,8 +72,8 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + albumId + '/hide', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
-  downloadAlbum (albumId) {
-    return Vue.http.get(API_BASE_URL + '/' + albumId + '/download', { headers: { 'Authorization': $store.state.auth.token } })
+  downloadAlbum (albumId, params) {
+    return Vue.http.get(API_BASE_URL + '/' + albumId + '/download', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
   playAlbum (albumId) {

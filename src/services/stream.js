@@ -30,5 +30,9 @@ export default {
 
   repostStream (streamId) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}/repost`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
+  viewStream (streamId) {
+    return Vue.http.get(`${API_BASE_URL}/${streamId}/view`, { headers: { 'Authorization': $store.state.auth.token } })
   }
 }

@@ -48,8 +48,8 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + userId + '/invite', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
-  followUser (userId) {
-    return Vue.http.get(API_BASE_URL + '/' + userId + '/follow', { headers: { 'Authorization': $store.state.auth.token } })
+  followUser (userId, params) {
+    return Vue.http.get(API_BASE_URL + '/' + userId + '/follow', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
   unfollowUser (userId) {
