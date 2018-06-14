@@ -77,7 +77,7 @@
                 </g>
             </svg>
           </v-btn>
-          <v-btn class="player-control-btn play" @click.native="play()" id="play" v-if="!isPlaying">
+          <v-btn class="player-control-btn play" @click.native="$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)" id="play" v-if="!isPlaying">
             <v-icon>play_arrow</v-icon>
           </v-btn>
           <v-btn class="player-control-btn pause" id="pause" v-if="isPlaying" @click.native="pause()">
@@ -261,6 +261,10 @@ export default {
   },
 
   computed: {
+    MyEvents () {
+      return MyEvents
+    },
+
     item () {
       const item = this.$store.state.player.list[this.$store.state.player.listIndex]
       if (item !== null && item !== undefined) {
@@ -660,8 +664,8 @@ export default {
   },
 
   mounted () {
-    this.$root.$on('play', this.startPlaying)
-    this.$root.$on('replay', this.play)
+    this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.startPlaying)
+    this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.play)
     this.$root.$on('pause', this.pause)
     this.$root.$on('skipTo', this.skipTrack)
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
