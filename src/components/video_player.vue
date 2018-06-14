@@ -242,7 +242,7 @@
           <div class="chat-sector__footer">
             <div class="media">
               <div class="media__image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"></div>
-              <div class="media__content" @click="choosePage(`user/${currentUser.slug}/chat`)">
+              <div class="media__content" @click="choosePage(`user/${user.slug}/chat`)">
                 <div class="media__title">
                   <i class="fa fa-chat"></i>
                   Leave a comment
