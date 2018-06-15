@@ -319,8 +319,8 @@ export default {
       }
       AlbumService.downloadAlbum(this.stream.assoc.id, params).then(response => {
         var a = document.createElement('A')
-        a.target = '_blank'
         a.href = response.body.url
+        a.download = ''
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)
