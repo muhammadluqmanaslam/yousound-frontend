@@ -12,6 +12,7 @@ import promoteModal from '@/components/promotemodal'
 import albumFinishModal from '@/components/albumfinishmodal'
 import shareModal from '@/components/sharemodal'
 import { Picker } from 'emoji-mart-vue'
+import { MyEvents } from '@/helper'
 
 export default {
   components: {
@@ -235,7 +236,7 @@ export default {
           this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + user.display_name])
           user.is_following = false
           // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-          this.$root.$emit('follow', false)
+          this.$root.$emit(MyEvents.USER_FOLLOW, user.id, false)
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
         })
@@ -244,7 +245,7 @@ export default {
           this.$store.dispatch('error/showSuccessToast', ['You just followed ' + user.display_name])
           user.is_following = true
           // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-          this.$root.$emit('follow', true)
+          this.$root.$emit(MyEvents.USER_FOLLOW, user.id, true)
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
         })

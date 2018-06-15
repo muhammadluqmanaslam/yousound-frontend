@@ -137,7 +137,7 @@
             </div>
             <div class="stream-sector__header__right">
               <div class="time">{{ time | timeInHours }}</div>
-              <button class="stop-btn" @click="deleteStream(currentUser)">
+              <button class="stop-btn" @click="deleteStream()">
                 <svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
                   <desc>Created with Sketch.</desc>
@@ -158,8 +158,8 @@
             <div class="stream-sector__content__left">
               <div class="user-info">
                 <label><strong>{{ metrics.views_size }}</strong><span>views</span></label>
-                <label v-if="user.stream.assoc_type === 'Album'"><strong>{{ metrics.downloads_size }}</strong><span>downloaded</span></label>
-                <label v-if="user.stream.assoc_type === 'ShopProduct'"><strong>{{ metrics.carts_size }}</strong><span>added to cart</span></label>
+                <label v-if="stream.assoc_type === 'Album'"><strong>{{ metrics.downloads_size }}</strong><span>downloaded</span></label>
+                <label v-if="stream.assoc_type === 'ShopProduct'"><strong>{{ metrics.carts_size }}</strong><span>added to cart</span></label>
                 <label><strong>{{ metrics.followed_size }}</strong><span>followed</span></label>
               </div>
             </div>
@@ -188,24 +188,24 @@
             </div>
           </div>
           <div class="separator"></div>
-          <div class="stream-sector__content" v-if="user.stream && user.stream.assoc_type=='Album'">
+          <div class="stream-sector__content" v-if="stream && stream.assoc_type=='Album'">
             <div class="stream-sector__content__left">
-              <div class="media__image" :style="`background-image: url(${user.stream.assoc.cover.thumb.url})`"></div>
+              <div class="media__image" :style="`background-image: url(${stream.assoc.cover.thumb.url})`"></div>
               <div class="media__content">
-                <div class="media__title">{{ user.stream.assoc.name }}</div>
-                <div class="media__description">{{ user.stream.assoc.tracks.length }} tracks</div>
+                <div class="media__title">{{ stream.assoc.name }}</div>
+                <div class="media__description">{{ stream.assoc.tracks.length }} tracks</div>
               </div>
             </div>
             <div class="stream-sector__content__right">
               <v-btn dark color="blue" @click.native="downloadAlbum()">Download</v-btn>
             </div>
           </div>
-          <div class="stream-sector__content" v-else-if="user.stream && user.stream.assoc_type=='ShopProduct'">
+          <div class="stream-sector__content" v-else-if="stream && stream.assoc_type=='ShopProduct'">
             <div class="stream-sector__content__left">
-              <div class="media__image" :style="`background-image: url(${user.stream.assoc.covers[0].cover.thumb.url})`"></div>
+              <div class="media__image" :style="`background-image: url(${stream.assoc.covers[0].cover.thumb.url})`"></div>
               <div class="media__content">
-                <div class="media__title">{{ user.stream.assoc.name }}</div>
-                <div class="media__description">${{ user.stream.assoc.price | formatNumber }}</div>
+                <div class="media__title">{{ stream.assoc.name }}</div>
+                <div class="media__description">${{ stream.assoc.price | formatNumber }}</div>
               </div>
             </div>
             <div class="stream-sector__content__right">
@@ -320,7 +320,7 @@
         <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="red--text darken-1" flat @click.native="deleteStream(currentUser)">Ok</v-btn>
+          <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
           <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>

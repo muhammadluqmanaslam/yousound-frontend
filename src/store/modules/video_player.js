@@ -3,6 +3,7 @@ import _ from 'lodash'
 function initialState () {
   return {
     user: null,
+    stream: null,
     play_mode: 'stopped', // 'stopped', 'playing', 'paused'
     frame_mode: 'minimized', // 'full', 'normal', 'minimized'
     status: 'inactive'
@@ -39,6 +40,14 @@ const actions = {
     commit('setUser', user)
   },
 
+  updateFollowingStatus ({ commit }, status) {
+    commit('updateFollowingStatus', status)
+  },
+
+  setStream ({ commit }, stream) {
+    commit('setStream', stream)
+  },
+
   setPlayMode ({ commit }, playMode) {
     commit('setPlayMode', playMode)
   },
@@ -55,6 +64,16 @@ const actions = {
 const mutations = {
   setUser (state, user) {
     state.user = _.cloneDeep(user)
+  },
+
+  updateFollowingStatus (state, status) {
+    if (state.stream.user) {
+      state.stream.user.is_following = status
+    }
+  },
+
+  setStream (state, stream) {
+    state.stream = _.cloneDeep(stream)
   },
 
   setPlayMode (state, playMode) {

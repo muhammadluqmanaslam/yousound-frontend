@@ -51,6 +51,7 @@
 <script type="text/javascript">
   import UserService from '@/services/user'
   import sendMessage from '@/components/sendmessage'
+  import { MyEvents } from '@/helper'
 
   export default {
     components: {
@@ -102,29 +103,19 @@
           UserService.unfollowUser(this.user.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.user.display_name])
             this.user.is_following = false
-            this.$store.dispatch('player/setUpdatedUser', this.user)
-            this.$root.$emit('unfollow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+            // this.$store.dispatch('player/setUpdatedUser', this.user)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         } else {
           UserService.followUser(this.user.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
             this.user.is_following = true
-            this.$store.dispatch('player/setUpdatedUser', this.user)
-            this.$root.$emit('follow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+            // this.$store.dispatch('player/setUpdatedUser', this.user)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         }
       }

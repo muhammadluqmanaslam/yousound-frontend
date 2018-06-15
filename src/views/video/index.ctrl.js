@@ -204,7 +204,7 @@ export default {
 
     viewStream () {
       if (this.isStreaming()) {
-        this.$store.dispatch('videoPlayer/setUser', this.currentUser)
+        this.$store.dispatch('videoPlayer/setStream', this.currentUser.stream)
         this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
       }
     },

@@ -48,9 +48,9 @@
 </template>
 
 <script type="text/javascript">
-
   import AlbumService from '@/services/album'
   import UserService from '@/services/user'
+  import { MyEvents } from '@/helper'
 
   export default {
     props: {
@@ -127,22 +127,17 @@
           UserService.unfollowUser(this.item.user.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.item.user.display_name])
             this.item.user.is_following = false
-            this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit('unfollow')
-          })
-          .catch(e => {
-            if (e.body.errors) {
-              this.$store.dispatch('error/showErrorToast', e.body.errors)
-            } else {
-              this.$store.dispatch('error/showErrorToast', [e.body])
-            }
+            // this.$store.dispatch('player/setUpdatedUser', this.item.user)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, false)
+          }).catch(e => {
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
         } else {
           UserService.followUser(this.item.user.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.item.user.display_name])
             this.item.user.is_following = true
-            this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit('follow')
+            // this.$store.dispatch('player/setUpdatedUser', this.item.user)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, true)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
