@@ -23,6 +23,7 @@ export const MediaLiveInputMaximumBitrates = ['MAX_10_MBPS', 'MAX_20_MBPS', 'MAX
 export const MyEvents = {
   AUTH_SIGNIN: 'auth_signin',
   AUTH_SIGNOUT: 'auth_signout',
+  USER_FOLLOW: 'follow',
   AUDIO_PLAYER_PLAY: 'play',
   AUDIO_PLAYER_REPLAY: 'replay',
   VIDEO_PLAYER_INIT: 'video_player_init',

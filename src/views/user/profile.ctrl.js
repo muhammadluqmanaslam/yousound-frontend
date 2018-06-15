@@ -3,9 +3,7 @@ import Vue from 'vue'
 import { mapActions } from 'vuex'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
-
 import { MyEvents } from '@/helper'
-
 import albumSlideCard from '@/components/albumslidecard'
 import carousel3d from '@/components/slider/Carousel3d'
 import merchModal from '@/components/merchmodal'
@@ -128,6 +126,12 @@ export default {
     const tab = this.$route.hash.substr(1)
     const grid_view = this.$route.query.grid_view === undefined ? true : (this.$route.query.grid_view === 'true' || this.$route.query.grid_view === true)
     this.init(tab, grid_view, true)
+
+    this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
+  },
+
+  beforeDestroy () {
+    this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
   },
 
   methods: {
@@ -168,7 +172,7 @@ export default {
 
     viewStream () {
       if (this.isStreaming()) {
-        this.$store.dispatch('videoPlayer/setUser', this.user)
+        this.$store.dispatch('videoPlayer/setStream', this.user.stream)
         this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
       }
     },
@@ -192,11 +196,11 @@ export default {
             this.show_stream_live_button = true
             if (first_visit) {
               // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
-              this.$store.dispatch('videoPlayer/setUser', this.user)
+              this.$store.dispatch('videoPlayer/setStream', this.user.stream)
               this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
             }
           })
-          // this.$store.dispatch('videoPlayer/setUser', this.user)
+          // this.$store.dispatch('videoPlayer/setStream', this.user.stream)
           // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
         }
 
@@ -451,21 +455,27 @@ export default {
       if (this.user.is_following) {
         UserService.unfollowUser(this.user.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.user.display_name])
-          this.user.is_following = false
-          this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          this.$root.$emit('unfollow')
+          // this.user.is_following = false
+          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
         })
       } else {
         UserService.followUser(this.user.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
-          this.user.is_following = true
-          this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          this.$root.$emit('follow')
+          // this.user.is_following = true
+          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
         })
+      }
+    },
+
+    setFollowingStatus (userId, isFollowing) {
+      if (this.user && this.user.id === userId) {
+        this.user.is_following = isFollowing
       }
     },
 

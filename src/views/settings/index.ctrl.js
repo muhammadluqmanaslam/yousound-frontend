@@ -146,7 +146,7 @@ export default {
       UserService.deleteUser(this.user.id).then(response => {
         AuthService.logout()
         this.$router.push({ path: '/login' })
-        // this.$root.$emit(MyEvents.AUTH_SIGNOUT, _user)
+        // this.$root.$emit(MyEvents.AUTH_SIGNOUT, _user.stream)
       })
     },
 

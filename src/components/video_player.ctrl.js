@@ -56,10 +56,15 @@ export default {
       return this.$store.state.auth.user
     },
 
-    //#TODO change user -> streammingUser
+    //#TODO change user -> streamingUser
     user () {
       // console.log('video-player user', this.$store.state.videoPlayer.user)
-      return this.$store.state.videoPlayer.user
+      return _.get(this.$store.state.videoPlayer.stream, 'user', null)
+    },
+
+    stream () {
+      // console.log('video-player user', this.$store.state.videoPlayer.user)
+      return this.$store.state.videoPlayer.stream
     },
 
     followButtonText () {
@@ -76,6 +81,7 @@ export default {
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
+    this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
 
     Promise.all([
       AlbumService.getAlbums({
@@ -98,10 +104,11 @@ export default {
 
   beforeDestroy () {
     console.log('video-player beforeDestroy')
-    this.$root.$off(MyEvents.AUTH_SIGNOUT, this.deleteStream)
+    // this.$root.$off(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
+    this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.closePlayer()
   },
 
@@ -219,7 +226,7 @@ export default {
       }
 
       const params = {
-        page_track: `Stream: ${this.user.stream.id}`
+        page_track: `Stream: ${this.stream.id}`
       }
       ActivityService.getMetrics(params).then(response => {
         console.log('getMetrics', response.body)
@@ -245,8 +252,7 @@ export default {
             assoc_id: assoc.id
           }
         }
-        StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
-          // this.$store.dispatch('videoPlayer/setUser', response.body)
+        StreamService.updateStream(this.stream.id, params).then(response => {
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
@@ -309,12 +315,12 @@ export default {
     downloadAlbum () {
       // this.openShareDialog()
       const params = {
-        page_track: `Stream: ${this.user.stream.id}`
+        page_track: `Stream: ${this.stream.id}`
       }
-      AlbumService.downloadAlbum(this.user.stream.assoc.id, params).then(response => {
+      AlbumService.downloadAlbum(this.stream.assoc.id, params).then(response => {
         var a = document.createElement('A')
-        a.target = '_blank'
         a.href = response.body.url
+        a.download = ''
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)
@@ -323,12 +329,12 @@ export default {
       })
     },
 
-    deleteStream (user) {
+    deleteStream () {
       console.log('deleteStream', user)
       this.closePlayer()
-      if (user && user.stream) {
-        StreamService.deleteStream(user.stream.id).then(response => {
-          this.$store.dispatch('auth/setStream', response.body)
+      if (this.stream) {
+        StreamService.deleteStream(this.stream.id).then(response => {
+          this.$store.dispatch('auth/setStream', null)
           this.$router.push({ path: '/' })
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -337,7 +343,7 @@ export default {
     },
 
     repostStream () {
-      StreamService.repostStream(this.user.stream.id).then(response => {
+      StreamService.repostStream(this.stream.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You just reposted this live stream'])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -345,7 +351,7 @@ export default {
     },
 
     viewStream () {
-      StreamService.viewStream(this.user.stream.id)
+      StreamService.viewStream(this.stream.id)
     },
 
     followUser () {
@@ -353,22 +359,28 @@ export default {
         UserService.unfollowUser(this.user.id).then(response => {
           // this.user.is_following = false
           // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          // this.$root.$emit('unfollow')
+          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
         }).catch(e => {
           // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
         })
       } else {
         const params = {
-          page_track: `Stream: ${this.user.stream.id}`
+          page_track: `Stream: ${this.stream.id}`
         }
         UserService.followUser(this.user.id, params).then(response => {
           // this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
           // this.user.is_following = true
           // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          // this.$root.$emit('follow')
+          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
         }).catch(e => {
           // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
         })
+      }
+    },
+
+    setFollowingStatus (userId, isFollowing) {
+      if (this.user && this.user.id === userId) {
+        this.$store.dispatch('videoPlayer/updateFollowingStatus', isFollowing)
       }
     },
 
@@ -390,7 +402,7 @@ export default {
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
       this.getMetrics()
       this.viewStream()
-      this.initPlayer(this.user.stream.mp_channel_1_ep_1_url)
+      this.initPlayer(this.stream.mp_channel_1_ep_1_url)
       this.player.load()
       this.player.fullscreen()
     }

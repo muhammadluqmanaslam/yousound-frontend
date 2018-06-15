@@ -25,6 +25,7 @@
 
 <script type="text/javascript">
   import UserService from '@/services/user'
+  import { MyEvents } from '@/helper'
 
   export default {
     components: {
@@ -79,8 +80,9 @@
           UserService.unfollowUser(this.artist.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.artist.display_name])
             this.artist.is_following = false
-            this.$store.dispatch('player/setUpdatedUser', this.artist)
-            this.$root.$emit('unfollow')
+            // this.$store.dispatch('player/setUpdatedUser', this.artist)
+            // this.$root.$emit(MyEvents.USER_FOLLOW, { id: this.artist.id, is_following: false })
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, false)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
@@ -88,8 +90,8 @@
           UserService.followUser(this.artist.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.artist.display_name])
             this.artist.is_following = true
-            this.$store.dispatch('player/setUpdatedUser', this.artist)
-            this.$root.$emit('follow')
+            // this.$store.dispatch('player/setUpdatedUser', this.artist)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, true)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })

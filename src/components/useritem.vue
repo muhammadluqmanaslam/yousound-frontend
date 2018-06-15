@@ -66,6 +66,7 @@
 <script type="text/javascript">
   import UserService from '@/services/user'
   import sendMessage from '@/components/sendmessage'
+  import { MyEvents } from '@/helper'
 
   export default {
     components: {
@@ -125,8 +126,8 @@
           UserService.unfollowUser(this.userItem.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.userItem.display_name])
             this.userItem.is_following = false
-            this.$store.dispatch('player/setUpdatedUser', this.userItem)
-            this.$root.$emit('unfollow')
+            // this.$store.dispatch('player/setUpdatedUser', this.userItem)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.userItem.id, false)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
@@ -134,8 +135,8 @@
           UserService.followUser(this.userItem.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.userItem.display_name])
             this.userItem.is_following = true
-            this.$store.dispatch('player/setUpdatedUser', this.userItem)
-            this.$root.$emit('follow')
+            // this.$store.dispatch('player/setUpdatedUser', this.userItem)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.userItem.id, true)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })

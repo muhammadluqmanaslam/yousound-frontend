@@ -43,6 +43,7 @@
   import AuthService from '@/services/auth'
   import UserService from '@/services/user'
   import paymentModal from '@/components/paymentmodal'
+  import { MyEvents } from '@/helper'
 
   export default {
     components: {
@@ -112,8 +113,8 @@
           UserService.unfollowUser(this.item.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.item.display_name])
             this.item.is_following = false
-            this.$store.dispatch('player/setUpdatedUser', this.item)
-            this.$root.$emit('unfollow')
+            // this.$store.dispatch('player/setUpdatedUser', this.item)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.id, false)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
@@ -121,8 +122,8 @@
           UserService.followUser(this.item.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.item.display_name])
             this.item.is_following = true
-            this.$store.dispatch('player/setUpdatedUser', this.item)
-            this.$root.$emit('follow')
+            // this.$store.dispatch('player/setUpdatedUser', this.item)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.id, true)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })

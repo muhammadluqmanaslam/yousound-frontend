@@ -645,13 +645,11 @@ export default {
       })
     },
 
-    setFollowStatus (status) {
-      // console.log('player setFollowStatus', status)
+    setFollowingStatus (userId, isFollowing) {
+      // console.log('player setFollowingStatus', status)
       // console.log(this.user)
-      if (this.user !== null && this.$store.state.player.user !== null) {
-        if (this.user.id === this.$store.state.player.user.id) {
-          this.$store.dispatch('player/updateFollowingStatus', status)
-        }
+      if (this.user && this.user.id === userId) {
+        this.$store.dispatch('player/updateFollowingStatus', isFollowing)
       }
     },
 
@@ -669,7 +667,7 @@ export default {
     this.$root.$on('pause', this.pause)
     this.$root.$on('skipTo', this.skipTrack)
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
-    this.$root.$on('follow', this.setFollowStatus)
+    this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.$root.$on(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER, this.pause)
   }
 }

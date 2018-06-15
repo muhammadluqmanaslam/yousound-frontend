@@ -50,7 +50,7 @@
   import UserService from '@/services/user'
   import paymentModal from '@/components/paymentmodal'
   // import { Utils } from '@/helper'
-  import { Filter } from '@/helper'
+  import { Filter, MyEvents } from '@/helper'
 
   export default {
     components: {
@@ -111,8 +111,8 @@
           UserService.unfollowUser(this.item.user.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.item.user.display_name])
             this.item.user.is_following = false
-            this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit('unfollow')
+            // this.$store.dispatch('player/setUpdatedUser', this.item.user)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, false)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
@@ -120,8 +120,8 @@
           UserService.followUser(this.item.user.id).then(response => {
             this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.item.user.display_name])
             this.item.user.is_following = true
-            this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit('follow')
+            // this.$store.dispatch('player/setUpdatedUser', this.item.user)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, true)
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
@@ -148,8 +148,8 @@
           // window.open(this.track.audio_download_url, '_blank')
 
           var a = document.createElement('A')
-          a.target = '_blank'
           a.href = this.track.audio_download_url
+          a.download = ''
           document.body.appendChild(a)
           a.click()
           document.body.removeChild(a)
@@ -165,8 +165,8 @@
           AlbumService.downloadAlbum(this.item.id).then(response => {
             // this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
             var a = document.createElement('A')
-            a.target = '_blank'
             a.href = response.body.url
+            a.download = ''
             document.body.appendChild(a)
             a.click()
             document.body.removeChild(a)
