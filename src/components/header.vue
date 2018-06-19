@@ -170,6 +170,12 @@
                 <label>Get Verified</label>
               </v-list-tile-title>
             </v-list-tile> -->
+            <v-list-tile key="landing" to="/home">
+              <v-list-tile-title class="profile-menu-item">
+                <!-- <v-icon right>fa-gear</v-icon> -->
+                <label>Landing</label>
+              </v-list-tile-title>
+            </v-list-tile>
             <v-list-tile key="support">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-question</v-icon> -->
