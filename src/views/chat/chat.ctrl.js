@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import SocketManager from '@/services/chat'
 import UserService from '@/services/user'
 import AuthService from '@/services/auth'
@@ -13,6 +14,7 @@ import { Picker } from 'emoji-mart-vue'
 import VueChatScroll from 'vue-chat-scroll'
 import Vue from 'vue'
 import { EHOSTUNREACH } from 'constants';
+import { MyEvents } from '@/helper';
 
 Vue.use(VueChatScroll)
 
@@ -36,6 +38,7 @@ export default {
       show_broadcastPopup: false,
       show_confirmPopup: false,
       show_requestPopup: false,
+      show_stream_live_button: false,
       moment: moment,
       artist: this.$route.params.user,
       msgInput: '',
@@ -113,6 +116,19 @@ export default {
   },
 
   methods: {
+    isStreaming () {
+      return _.get(this.user.stream, 'status', '') === 'running' &&
+        (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !== this.user.slug || !this.$store.getters['videoPlayer/hasFrame'])
+      // return true
+    },
+
+    viewStream () {
+      if (this.isStreaming()) {
+        this.$store.dispatch('videoPlayer/setStream', this.user.stream)
+        this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+      }
+    },
+
     startBroadcasting() {
       this.show_broadcastPopup = false
     },
@@ -219,6 +235,7 @@ export default {
   },
 
   created() {
+    this.show_stream_live_button = false
     let app = this
     let requestInProgress = false;
     this.$store.dispatch('navigator/goNextState', {page: 'chat', tab: ''})
@@ -227,8 +244,12 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', false)
       this.user = response.body
       this.loadAlbums()
+      if (_.get(this.user.stream, 'status', '') === 'running') {
+        Vue.http.get(this.user.stream.mp_channel_1_ep_1_url).then(response => {
+          this.show_stream_live_button = true
+        })
+      }
       sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
-
         sm.onDisconnect = () => {
           app.connected = false
         } 
@@ -335,16 +356,14 @@ export default {
           //     $("#msg-container").scrollTop($("#msg-container")[0].scrollHeight - oldHeight + oldScroll);
           //   }
           // }, 1);
-
           //   app.artist = sm.room;
           // };
         }
       })
+    }).catch(e => {
+      this.$store.dispatch('error/showLoadingActivity', false)
+      console.log(e)
     })
-      .catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        console.log(e)
-      })
   },
 
   beforeDestroy () {

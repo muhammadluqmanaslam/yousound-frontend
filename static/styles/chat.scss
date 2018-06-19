@@ -361,6 +361,9 @@
         background: #FAFAFA;
         text-align: center;
         padding: 0 1px;
+        &.streaming {
+          background: #FF9DBE;
+        }
         .section-title {
           margin: 0;
           padding-top: 11.25px;
