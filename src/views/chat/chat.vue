@@ -75,7 +75,9 @@
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="user">
-      <h2 class="page-title">{{ user.display_name }}</h2><label class="chat-room">CHAT ROOM</label>
+      <h2 class="page-title">{{ user.display_name }}</h2>
+      <label class="chat-room">CHAT ROOM</label>
+      <v-btn v-if="show_stream_live_button" class="green px-2" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
     </v-flex>
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="chat-page-content" v-if="user">
       <v-layout row>
@@ -128,7 +130,7 @@
           </div>
 
           <div class="send-chat-section">
-             <v-btn v-if="connected" class="show-attachment-box-btn" @click.native="show_requestPopup = true" :class="{'selected': show_broadcastPopup}">
+            <v-btn v-if="connected" class="show-attachment-box-btn" @click.native="show_requestPopup = true" :class="{'selected': show_broadcastPopup}">
               
             <svg width="33px" height="39px" viewBox="0 0 33 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
@@ -181,7 +183,7 @@
         </v-flex>
 
         <v-flex xs12 sm3 pa-0 class="requests-section">
-          <div class="header-section">
+          <div class="header-section" :class="{'streaming': show_stream_live_button}">
             <!-- <p class="section-title">38 Members</p> -->
             <div class="option-area">
               <v-btn class="request-option-btn" @click.native="meberList=true" :class="{'selected': meberList}"><v-icon>supervisor_account</v-icon></v-btn>

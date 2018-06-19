@@ -166,7 +166,7 @@ export default {
     isStreaming () {
       // console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
       return _.get(this.user.stream, 'status', '') === 'running' &&
-        (_.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.user.slug || !this.$store.getters['videoPlayer/hasFrame'])
+        (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !== this.user.slug || !this.$store.getters['videoPlayer/hasFrame'])
       // return true
     },
 
