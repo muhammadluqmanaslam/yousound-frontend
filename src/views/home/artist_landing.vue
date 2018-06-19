@@ -313,4 +313,4 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./landing.ctrl.js"></script>
+<script type="text/javascript" src="./artist_landing.ctrl.js"></script>

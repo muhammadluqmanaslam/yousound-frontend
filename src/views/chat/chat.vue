@@ -92,7 +92,7 @@
               <!--</div>-->
             <!--</div>-->
             <center>
-            <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
+              <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
             </center>
 
             <div class="chat-item other" v-for="message in reverseMessages" v-bind:key="message.id">
@@ -126,7 +126,6 @@
               <div class="clear"></div>
             </div>
           </div>
-
 
           <div class="send-chat-section">
              <v-btn v-if="connected" class="show-attachment-box-btn" @click.native="show_requestPopup = true" :class="{'selected': show_broadcastPopup}">
@@ -177,8 +176,6 @@
             >
               <v-icon>tag_faces</v-icon>
             </v-btn>
-
-
             <v-btn class="send-chat-btn" @click.native="sendMessage()">Send</v-btn>
           </div>
         </v-flex>
@@ -197,7 +194,7 @@
             </center>
 
             <div v-if="connected" class="member-group">MODERATOR</div>
-            <div class="member-item" v-for="adminUser in adminUsers" v-bind:key="adminUser.username">
+            <div class="member-item" v-for="adminUser in adminUsers" :key="`admin-${adminUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
                 <div class="memeber-status" :class="room.online.indexOf(adminUser.slug) > -1 ? 'online' : (room.idle.indexOf(adminUser.slug) > -1 ? 'idle' : 'offline')"></div>
@@ -208,7 +205,7 @@
             </div>
 
             <div v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
-            <div v-if="onlineUsers.length" class="member-item" v-for="onlineUser in onlineUsers" v-bind:key="onlineUser.username">
+            <div v-if="onlineUsers.length" class="member-item" v-for="onlineUser in onlineUsers" :key="`online-${onlineUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + onlineUser.avatar.url + ');'"></div>
                 <div class="memeber-status online"></div>
@@ -218,7 +215,7 @@
               </div>
             </div>
             <div v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
-            <div v-if="idleUsers.length" class="member-item" v-for="idleUser in idleUsers" v-bind:key="idleUser.username">
+            <div v-if="idleUsers.length" class="member-item" v-for="idleUser in idleUsers" :key="`idle-${idleUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + idleUser.avatar.url + ');'"></div>
                 <div class="memeber-status idle"></div>
@@ -249,9 +246,10 @@
     </v-flex>
   </div>
 </template>
+
 <script type="text/javascript" src="./chat.ctrl.js"></script>
+
 <style scoped>
 .progress-circular {
-
 }
 </style>

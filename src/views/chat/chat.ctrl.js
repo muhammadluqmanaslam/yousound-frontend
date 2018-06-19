@@ -17,7 +17,6 @@ import { EHOSTUNREACH } from 'constants';
 Vue.use(VueChatScroll)
 
 var sm
-
 var idleTimeout = 3 // 3 minutes
 const linkRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
 
@@ -30,6 +29,7 @@ export default {
     activityAlbumCard,
     activityProductCard
   },
+
   data() {
     return {
       showEmojiPicker: false,
@@ -82,6 +82,7 @@ export default {
       merchLinks: {}
     }
   },
+
   computed: {
     settingsChange() {
       if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '' && this.rules.number(this.room.settings.charLimit) !== 'string') {
@@ -96,6 +97,7 @@ export default {
       return !this.connected
     }
   },
+
   watch: {
     settingsChange: function (newSettings) {
       // check settings
@@ -109,6 +111,7 @@ export default {
       sm.updateSettings(parsed)
     }
   },
+
   methods: {
     startBroadcasting() {
       this.show_broadcastPopup = false
@@ -130,7 +133,6 @@ export default {
     getMessages(a, b) {
       return (a, b)
     },
-
 
     addEmoji(emoji, event) {
       this.showEmojiPicker = false
@@ -228,8 +230,7 @@ export default {
       sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
 
         sm.onDisconnect = () => {
-          app.connected = false;
-          
+          app.connected = false
         } 
         sm.onMessage = function (message) {
           if (!message) return;
@@ -263,12 +264,12 @@ export default {
         }
 
         sm.onMessageSending = function (text) {
-          app.sendingMessages.push(text);
-        };
+          app.sendingMessages.push(text)
+        }
 
         sm.onUserInfo = function (user) {
-          app.user = user;
-        };
+          app.user = user
+        }
 
         sm.onRoomInfo = async room => {
           Vue.set(app, "room", room);
@@ -345,12 +346,14 @@ export default {
         console.log(e)
       })
   },
+
   beforeDestroy () {
     if (this.idleInterval) {
       clearInterval(this.idleInterval)
     }
     sm.close()
   },
+
   mounted() {
     var app = this
     var idleTime = 0
