@@ -1,5 +1,6 @@
 import AdminService from '@/services/admin'
 import UserService from '@/services/user'
+import StreamService from '@/services/stream'
 import approveModal from '@/components/approvemodal'
 import denyModal from '@/components/denymodal'
 
@@ -23,6 +24,7 @@ export default {
         { text: 'Username', value: 'username', align: 'left' },
         { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
         { text: 'Free Streaming', value: 'enabled_live_video_free', align: 'left' },
+        { text: 'Stop Streaming' },
         { text: 'Email', value: 'email', align: 'left' },
         { text: 'Twitter Link', value: 'social_user_id', align: 'left' },
         { text: 'Date Joined', value: 'created_at', align: 'left' },
@@ -31,7 +33,7 @@ export default {
       ],
       user_search: '',
       users: [],
-      user: {},
+      user: null,
       pagination: {
         sortBy: 'created_at',
         descending: true,
@@ -40,6 +42,7 @@ export default {
         // totalItems: 0
       },
       per_page_options: [50, 100, 150],
+      show_stream_delete_confirm_dialog: false,
       isPageReady: false
     }
   },
@@ -86,6 +89,29 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         // this.isPageReady = true
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    openStreamDeleteConfirmDialog (user) {
+      this.user = user
+      this.show_stream_delete_confirm_dialog = true
+    },
+
+    closeStreamDeleteConfirmDialog () {
+      this.show_stream_delete_confirm_dialog = false
+    },
+
+    deleteStream () {
+      this.closeStreamDeleteConfirmDialog()
+      this.$store.dispatch('error/showLoadingActivity', true)
+      StreamService.deleteStream(this.user.stream.id).then(response => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.user.stream.status = 'deleted'
+        this.user = null
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        this.user = null
       })
     },
 

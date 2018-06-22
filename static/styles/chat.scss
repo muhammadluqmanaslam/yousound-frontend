@@ -253,14 +253,14 @@
         height: 60px;
         padding: 0 1px;
         border-top: 0.75px solid #E1E1E1;
-        border-right: 0.75px solid #E1E1E1;
+        // border-right: 0.75px solid #E1E1E1;
         // border-right: 0.75px solid #E1E1E1;
         .chat-input-box {
           border: none;
-          width: 100%;
+          width: calc(100% - 80px);
           position: relative;
           padding: 17px 26.25px;
-          padding-right: 150.5px;
+          padding-right: 90px;
           font-size: 16px;
           left: 60px;
           letter-spacing: -0.2px;
@@ -421,7 +421,7 @@
             .avatar-image {
               width: 35px;
               height: 35px;
-              border-radius: 3.75px;
+              border-radius: 100px;
               background-size: cover;
               background-position: center;
             }
@@ -489,6 +489,11 @@
       .item-user {
         font-weight: 700;
         font-size: 15px;
+        color: #000000;
+        letter-spacing: -0.6px;
+        cursor: pointer;
+      }
+      .item-title {
         color: #000000;
         letter-spacing: -0.6px;
         cursor: pointer;

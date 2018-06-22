@@ -81,6 +81,13 @@
         align-items: center;
       }
     }
+    .stop-stream-btn {
+      width: 24px;
+      height: 24px;
+      .icon {
+        font-size: 18px;
+      }
+    }
   }
   .product-table,
   .album-table {
