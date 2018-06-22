@@ -76,7 +76,7 @@
 
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="user">
       <h2 class="page-title">{{ user.display_name }}</h2>
-      <label class="chat-room">CHAT ROOM</label>
+      <label class="chat-room">CHAT ROOM ({{room.online.length}})</label>
       <v-btn v-if="show_stream_live_button" class="green px-2" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
     </v-flex>
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="chat-page-content" v-if="user">
@@ -110,7 +110,7 @@
                   <div class="album-embed-wrapper" v-if="isAlbumLink(message.text) && albumLinks[message.text]">
                     <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"></activity-album-card>
                     <div class="info-section">
-                      <label class="item-title">{{ albumLinks[message.text].name }}</label>
+                      <router-link :to="'/album/'+albumLinks[message.text].slug"><label class="item-title">{{ albumLinks[message.text].name }}</label></router-link>
                       <br>
                       <router-link :to="'/'+albumLinks[message.text].user.slug" class="item-user">{{ albumLinks[message.text].user.display_name }}</router-link>
                     </div>

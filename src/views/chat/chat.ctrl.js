@@ -295,11 +295,11 @@ export default {
         sm.onRoomInfo = async room => {
           Vue.set(app, "room", room);
           // Fetch user data (avatar image, etc)
-          app.onlineUsers = await Promise.all(room.online.map(async username => { 
+                    let temponlineUsers = await Promise.all(room.online.map(async username => {
             const res = await UserService.getUserInfo(username)
             return res.body
           }))
-          app.idleUsers = await Promise.all(room.idle.map(async username => { 
+                    let tempidleUsers = await Promise.all(room.idle.map(async username => {
             const res = await UserService.getUserInfo(username)
             return res.body
           }))
@@ -308,10 +308,10 @@ export default {
             return res.body
           }))
           // Remove admin users from online/idle list because they are displayed separately
-          Vue.set(app, "onlineUsers", app.onlineUsers.filter(u => {
+                    Vue.set(app, "onlineUsers", temponlineUsers.filter(u => {
             return room.admins.indexOf(u.username) < 0
           }));
-          Vue.set(app, "idleUsers", app.idleUsers.filter(u => {
+                    Vue.set(app, "idleUsers", tempidleUsers.filter(u => {
             return room.admins.indexOf(u.username) < 0
           }));
           app.admin = (room.admins.filter((u) => {
