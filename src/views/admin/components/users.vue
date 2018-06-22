@@ -1,5 +1,18 @@
 <template> 
   <v-card flat v-if="isPageReady">
+    <v-dialog v-model="show_stream_delete_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Delete a Stream</v-card-title>
+        <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
+          <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="normal-tab">
       <v-tabs dark v-model="user_tab">
         <v-tabs-bar class="transparent pl-4 pt-4">
@@ -36,6 +49,7 @@
                   </td>
                   <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video" @change="toggleLiveVideo(props.item)"></v-switch></td>
                   <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video_free" @change="toggleLiveVideoFree(props.item)"></v-switch></td>
+                  <td class="text-xs-left"><v-btn v-if="props.item.stream && props.item.stream.status === 'running'" fab dark color="pink" class="stop-stream-btn" @click.natvie="openStreamDeleteConfirmDialog(props.item)"><v-icon>stop</v-icon></v-btn></td>
                   <td class="text-xs-left">{{ props.item.email }}</td>
                   <td class="text-xs-left">
                     <a v-if="props.item.social_user_id"
