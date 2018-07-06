@@ -92,7 +92,7 @@
               <table class="payment-table" v-else>
                 <thead>
                   <tr>
-                    <th width="40%" class="text-xs-left">Sender</th>
+                    <th width="40%" class="text-xs-left">{{ activeTab == 'received' ? 'Sender' : 'Receiver' }}</th>
                     <th width="10%">Sent</th>
                     <th width="10%">Received</th>
                     <th width="10%">Type</th>
