@@ -18,7 +18,7 @@
               <div class="o-out blue0"><div class="o-in"></div></div>
               <div class="my-card__title">Step 1:</div>
               <div class="my-card__subtitle">Download Video Broadcast Software</div>
-              <div class="my-card__text">Download video streaming software like a free version of <a>OBS</a>. Here are <a>links to more</a></div>
+              <div class="my-card__text">Download video streaming software like a free version of <a href="https://obsproject.com/">OBS</a>. Here are <a href="https://support.yousound.com/article/271-how-do-i-setup-a-live-video-broadcast">links to more</a></div>
             </div>
           </v-flex>
           <v-flex sm4>
@@ -62,8 +62,8 @@
         <v-layout row>
           <v-flex sm8 form-group mr-4>
             <div class="comment-box">
-              After you click <b>“Create Channel”</b>, you should wait up to <b>10 minutes</b> to start streaming live.<br/>
-              You won't charged of waiting for starting streaming.<br/>
+              After you click <b>“Create Channel”</b>, it can take up to <b>5 minutes</b> to generate your Stream Key to broadcast live.<br/>
+              It costs $5 per hour to stream, and you can buy up to 24 hours of time.<br/>
               Any unused time is rolled over to your next broadcast.
             </div>
           </v-flex>
