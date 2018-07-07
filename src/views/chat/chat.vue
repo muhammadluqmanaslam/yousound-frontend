@@ -183,13 +183,12 @@
         </v-flex>
 
         <v-flex xs12 sm3 pa-0 class="requests-section">
-          <div class="header-section" :class="{'streaming': show_stream_live_button}">
-            <!-- <p class="section-title">38 Members</p> -->
+          <!-- <div class="header-section" :class="{'streaming': show_stream_live_button}">
             <div class="option-area">
               <v-btn class="request-option-btn" @click.native="meberList=true" :class="{'selected': meberList}"><v-icon>supervisor_account</v-icon></v-btn>
               <v-btn class="request-option-btn" @click.native="meberList=false" :class="{'selected': !meberList}"><v-icon>fa-at</v-icon></v-btn>
             </div>
-          </div>
+          </div> -->
           <div class="content-section" v-if="meberList">
             <center>
             <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>

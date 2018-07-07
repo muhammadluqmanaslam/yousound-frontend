@@ -68,11 +68,11 @@
         <template v-else>
           <v-flex xs12 sm3 pa-0 class="message-rooms-section">
             <div class="header-section">
-              <div class="search-box">
+              <v-icon>mail_outline</v-icon>
+              <!-- <div class="search-box">
                 <div class="search-container">
                   <span class="icon">
                     <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                       <title>Group 22</title>
                       <desc>Created with Sketch.</desc>
                       <defs></defs>
@@ -93,24 +93,23 @@
               </div>
               <v-menu offset-y class="more-menu">
                 <v-btn dark slot="activator">
-                  <!-- <img src="/static/images/ic_more.png"/></v-icon> -->
                   <v-icon right>more_horiz</v-icon>
                 </v-btn>
                 <v-list>
                   <v-list-tile key="all" class="default-menu-item" @click.native="showAllMesssages()">
                     <v-list-tile-title>
-                      <!-- <img class="track-status-icon" src="/static/images/ic_repeat.png" /> -->
+                      <img class="track-status-icon" src="/static/images/ic_repeat.png" />
                       <label>All Messages</label>
                     </v-list-tile-title>
                   </v-list-tile>
                   <v-list-tile key="request" class="default-menu-item" @click.native="showRepostRequests()">
                     <v-list-tile-title>
-                      <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
+                      <img class="track-status-icon" src="/static/images/ic_download.png" />
                       <label>Repost Requests Only</label>
                     </v-list-tile-title>
                   </v-list-tile>
                 </v-list>
-              </v-menu>
+              </v-menu> -->
             </div>
             <div class="content-section">
               <div class="message-room-item " v-for="(conv, index) in conversations" :key="index" :class="{'new': !conv.last_message.is_read, 'selected': index==selected_index}" @click="selectedConversation(index)">
