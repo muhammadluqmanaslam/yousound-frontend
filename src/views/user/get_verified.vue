@@ -47,7 +47,7 @@
           </v-layout>
         </v-flex>
       </div>
-<div class="verified-page" v-if="false">
+      <div class="verified-page" v-if="false">
         <v-flex xs12 text-xs-center class="logo-section">
           <img class="logo" src="/static/images/logo.png">
         </v-flex>
@@ -64,16 +64,8 @@
         </v-flex>
       </div>
     </v-flex>
-    <v-flex xs12>
-      <v-footer>
-        <a href="#">FAQ</a>
-        <a href="#">Blog</a>
-        <a href="#">Help</a>
-        <a href="#">Terms</a>
-        <a href="#">Contact</a>
-        <div class="copyright">© {{ new Date().getFullYear() }} YouSound, Inc.</div>
-      </v-footer>
-    </v-flex>
+
+    <app-footer></app-footer>
   </v-layout>
 </template>
 

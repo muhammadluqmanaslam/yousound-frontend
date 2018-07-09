@@ -2,10 +2,12 @@ import _ from 'lodash'
 import AuthService from '@/services/auth.js'
 import UserService from '@/services/user.js'
 
+import appFooter from '@/components/footer'
 import genreDialog from '@/components/genre_dialog'
 
 export default {
   components: {
+    appFooter,
     genreDialog
   },
 
