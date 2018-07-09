@@ -185,11 +185,12 @@ body {
 
 .page-title {
   font-size: 44px;
-  font-weight: 300;
+  font-weight: 600;
   color: #000;
-  letter-spacing: -0.7px;
+  letter-spacing: -2.7px;
   margin: 0 0 -8px 0;
   text-transform: capitalize;
+  font-family: 'Work Sans';
 }
 
 .covers-content {
@@ -274,7 +275,7 @@ a {
     padding: 0 !important;
     text-transform: none;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: -0.5px;
   }
 }
