@@ -218,6 +218,7 @@ export default {
     releaseAlbum (album_id) {
       AlbumService.releaseAlbum(album_id).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('navigator/setParams', { album_id: album_id })
         this.$router.push({ path: '/album/' + album_id })
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)

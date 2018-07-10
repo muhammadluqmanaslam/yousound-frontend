@@ -159,7 +159,12 @@ export default {
         // for (let index in this.album.tracks) {
         //   this.buttonHover.push(false)
         // }
-        if (this.$store.getters['navigator/last'].page === 'upload') {
+        const lastState = this.$store.getters['navigator/last']
+        if (_.get(lastState, 'params.album_id') == this.album.id) {
+          // AlbumService.getAlbum(lastState.params.album_id).then(response => {
+          //   this.album = response.body
+          //   this.showFinishDialog()
+          // })
           this.showFinishDialog()
         }
 
