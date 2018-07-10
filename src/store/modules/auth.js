@@ -21,7 +21,7 @@ const getters = {
   },
 
   hasHeader: (state) => {
-    if (['login', 'register', 'register_by_listener', 'landing'].indexOf(state.page) > -1) {
+    if (['login', 'register', 'register_by_listener', 'landing', 'terms'].indexOf(state.page) > -1) {
       return false
     } else {
       return true

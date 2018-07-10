@@ -1,10 +1,13 @@
 import AuthService from '@/services/auth.js'
 import TwitterService from '@/services/twitter.js'
+
+import appFooter from '@/components/footer'
+
 import { Storage } from '@/helper'
 
 export default {
-
   components: {
+    appFooter
   },
 
   data () {

@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap class="efm-header">
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <v-toolbar class="header">
         <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
         <!-- <v-toolbar-title></v-toolbar-title> -->

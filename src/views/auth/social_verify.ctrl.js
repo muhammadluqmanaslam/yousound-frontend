@@ -1,6 +1,12 @@
 import AuthService from '@/services/auth.js'
 
+import appFooter from '@/components/footer'
+
 export default {
+  components: {
+    appFooter
+  },
+
   data () {
     return {
       isLoading: false,
@@ -9,9 +15,6 @@ export default {
       timeout: 3000,
       query_string: []
     }
-  },
-
-  components: {
   },
 
   computed: {

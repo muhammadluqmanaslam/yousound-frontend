@@ -1,6 +1,12 @@
 import AuthService from '@/services/auth.js'
 
+import appFooter from '@/components/footer'
+
 export default {
+  components: {
+    appFooter
+  },
+
   data () {
     return {
       token: '',
@@ -11,9 +17,6 @@ export default {
       isLoading: false,
       isPageReady: false
     }
-  },
-
-  components: {
   },
 
   computed: {

@@ -38,14 +38,8 @@
         </v-flex>
       </div>
     </v-flex>
-    <v-footer>
-      <a href="#">FAQ</a>
-      <a href="#">Blog</a>
-      <a href="#">Help</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-      <div class="copyright">© {{ new Date().getFullYear() }} YouSound, Inc.</div>
-    </v-footer>
+
+    <app-footer></app-footer>
 
     <v-dialog v-model="show_twitter_confirm_dialog" fullscreen content-class="twitter-confirm-dialog">
       <v-card mt-5>

@@ -260,7 +260,7 @@ export default {
 
       ProductService.updateProduct(this.product.id, formData).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$router.push({ path: '/sell' })
+        this.$router.push({ path: '/sell#products' })
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -268,7 +268,7 @@ export default {
     },
 
     cancelToSaveProduct () {
-      this.$router.push({ path: '/sell' })
+      this.$router.push({ path: '/sell#products' })
     },
 
     deleteProductImage (index) {
