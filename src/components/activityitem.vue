@@ -57,13 +57,14 @@
           </div>
         </v-flex>
       </v-layout>
-      <label class="activity-time">Now</label>
+      <label class="activity-time">{{ toLocalTimeString(activityItem.created_at) }}</label>
     </v-flex>
     <merch-modal :item="activityItem.assoc" :dismiss="dimissMerchModal" v-if="showMerchModal && activityItem.assoc_type === 'ShopProduct'"></merch-modal>
   </v-layout>
 </template>
 
 <script type="text/javascript">
+  import { Utils } from '@/helper'
   import profileItem from '@/components/profileitem'
   import merchModal from '@/components/merchmodal'
   import activityAlbumCard from '@/components/activityalbumcard'
@@ -91,6 +92,10 @@
     },
 
     computed: {
+      toLocalTimeString () {
+        return Utils.toLocalTimeString
+      },
+
       actionText () {
         if (this.activityItem.action_type === 'release') {
           return 'released'

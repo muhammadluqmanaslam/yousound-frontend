@@ -15,7 +15,7 @@ import albumFinishModal from '@/components/albumfinishmodal'
 import shareModal from '@/components/sharemodal'
 
 import { Picker } from 'emoji-mart-vue'
-import { MyEvents } from '@/helper'
+import { MyEvents, Utils } from '@/helper'
 
 export default {
   components: {
@@ -53,6 +53,10 @@ export default {
   },
 
   computed: {
+    toLocalTimeString () {
+      return Utils.toLocalTimeString
+    },
+
     showStats () {
       return !_.isEmpty(_.find(this.roles, (user_album) => { return ['creator', 'label', 'collaborator'].indexOf(user_album.user_type) > -1 }))
     },

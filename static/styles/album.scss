@@ -1013,10 +1013,10 @@
               }
             }
             .right-section {
+              display: inline-flex;
+              justify-content: flex-end;
+              align-items: center;
               width: 135px;
-              text-align: right;
-              vertical-align: middle;
-              display: inline-block;
               .comment-more-action {
                 opacity: 0;
                 .more-btn {
@@ -1041,9 +1041,12 @@
                 }
               }
               .comment-time {
-                font-size: 15px;
+                max-width: 85px;
+                margin-left: 10px;
+                font-size: 14px;
                 color: #BCBCBC;
                 letter-spacing: 0;
+                text-align: right;
               }
             }
             &:hover {
