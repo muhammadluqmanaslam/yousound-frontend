@@ -23,7 +23,7 @@
     }
 
     &__media {
-      height: 300px !important;
+      height: 420px !important;
       &__background {
         background-size: auto 100% !important;
       }
@@ -179,6 +179,7 @@
     padding: 30px 0 300px 0;
     background: url("/static/images/bg_landing_header.jpg") center center / cover no-repeat;
     color: #FFFFFF;
+    padding-top: 90px;
     h3 {
       margin: 50px 0 10px 0;
       font-size: 40px;

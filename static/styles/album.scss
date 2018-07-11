@@ -13,10 +13,12 @@
     padding: 37.5px 123.75px 161.25px;
     background-color: #FFF;
     .album-info-title {
-      margin-bottom: 3px;
-      font-size: 22.5px;
+      margin-bottom: 14px;
+      font-size: 28px;
       color: #000000;
-      letter-spacing: -1.1.5px;
+      letter-spacing: -1px;
+      font-family: 'Work Sans';
+      font-weight: 700;
     }
     .album-image-section {
       width: 300px;
@@ -238,6 +240,9 @@
           padding: 0 7.5px;
         }
       }
+    .theme--light .chip {
+      background: #ffffff;
+      }
       .add-option-btn {
         margin: 0px;
         box-shadow: none !important;
@@ -422,7 +427,7 @@
     width: 100vw !important;
     height: 100% !important;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.3);
   }
   .album-pages {
     z-index: 9;
@@ -1169,30 +1174,33 @@
 
   .card__title {
     font-size: 28px;
-    font-weight: 900;
+    font-weight: 700;
     // color: rgba(0, 0, 0, 0.5);
-    letter-spacing: -0.6px;
+    letter-spacing: -1px;
     padding-left: 28px;
     padding-bottom: 8px;
     padding-top: 10px; 
-    border-bottom: 1px solid rgba(195, 195, 195, 0.25);  
+    border-bottom: 1px solid rgba(195, 195, 195, 0.25);
+    font-family: 'Work Sans';  
   }
   .card__text {
     .album-info-label {
       // margin-top: 20px;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 15px;
+      font-family: 'Work Sans';
+      letter-spacing: -.1px;
       // color: rgba(0, 0, 0, 0.5);
-      letter-spacing: 0.6px;
     }
     .album-info-text {
       font-size: 14px;
       // color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 0.6px;
       white-space: pre-wrap;
+      font-family: 'Work Sans';
+      letter-spacing: -.2px;
 
       .collaborator-info, .contributor-info {
-        padding-left: 20px;
+        padding-left: 0;
       }
     }
   }

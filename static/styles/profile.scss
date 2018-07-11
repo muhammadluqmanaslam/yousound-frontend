@@ -148,7 +148,7 @@
   }
   .profile-grid-tab {
     position: relative;
-    margin-top: 14px;
+    margin-top: 0;
     .tabs {
       .tabs__bar {
         .tabs__wrapper.tabs__wrapper--scrollable {
@@ -171,7 +171,7 @@
       }
       .tabs__items {
         border: none;
-        margin-top: 12px;
+        margin-top: 24px;
       }
     }
     .card.card--flat {

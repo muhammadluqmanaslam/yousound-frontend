@@ -137,7 +137,7 @@
         <div class="content-section">
           <v-flex xs12 bank-details-section pa-0>
             <v-flex xs12 sm12 form-group>
-              <img class="stripe" src="/static/images/stripe.jpg" />
+              <img class="stripe" src="/static/images/stripe-logo-blue.png" />
               <a v-if="!$store.state.auth.user.is_stripe_connected"
                 :href="stripeLink"
                 target="_self">

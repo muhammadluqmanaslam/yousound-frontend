@@ -4,8 +4,8 @@
 
       <v-dialog v-model="show_repost_price_confirm_modal">
         <v-card>
-          <v-card-title class="headline">About Repost Price</v-card-title>
-          <v-card-text>Repost price higher than $1 is charged for an year.</v-card-text>
+          <v-card-title class="headline">Upgrade Repost Price</v-card-title>
+          <v-card-text>In order to upgrade your Repost Price you need to pay an annual fee equal to the price you want to upgrade to.  ie. To increase your Repost Price to $20, you must pay $20 annually.</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn class="blue--text darken-1" flat="flat" @click.native="openPaymentModal()">Ok</v-btn>
