@@ -14,19 +14,24 @@
         margin-left: 1px;
         li {
           .list__tile {
-            padding-left: 22.5px;
+            padding-left: 18px;
             font-size: 16px;
             color: #8E8E8E;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            margin-left: -1px;
+            font-family: 'Work Sans';
           }
           &.active {
             .list__tile {
               color: #000000;
-              border-left: 2.25px solid #000000;
+              border-left: 4px solid #000000;
             }
           }
         }
       }
+    }
+    .list__tile--link:hover {
+      width: 164px!important;
     }
     .navigation-drawer__border {
       background-color: rgba(0, 0, 0, 0);
@@ -46,16 +51,19 @@
         padding-bottom: 30px;
         .flex.xs12.sm3.form-group {
           padding: 0 11.25px;
-          margin-bottom: 7.5px;
+          margin-bottom: 24px;
         }
         .flex.xs12.sm6.form-group,
         .flex.xs12.sm12.form-group {
-          padding: 0 11.25px;
-          margin-bottom: 22.5px;
+          margin-bottom: 12px;
+          margin-top: 0px;
+          padding-right: 24px;
         }
         .stripe {
           vertical-align: top;
           margin-right: 22.5px;
+          height: 68px;
+          margin-top: -18px;
         }
         .normal-text {
           font-size: 15px;
@@ -80,6 +88,7 @@
           font-size: 15px;
           color: #FFFFFF;
           letter-spacing: 0;
+          margin-top: -2px;
           .btn__content {
             padding: 0 22.5px;
           }
@@ -328,8 +337,8 @@
         position: absolute;
         top: 0;
         right: 0;
-        padding: 37.5px;
-        background: #FAFAFA;
+        padding: 0px 0px 26px 5px;
+        background: #FFF;
         p {
           font-size: 15px;
           color: #000000;
@@ -512,7 +521,7 @@
       .pgs {
         position: relative;
         padding-bottom: 100%;
-        box-shadow: 2px 10px 13px 0px #B0B0B0;
+        // box-shadow: 2px 10px 13px 0px #B0B0B0;
         // cursor: pointer;
         .pgs-inner-wrapper {
           position: absolute;
@@ -529,6 +538,7 @@
               font-size: 16px;
               font-weight: 900;
               word-break: break-word;
+              font-family: 'Work Sans';
             }
             .pgs__description {
               span {

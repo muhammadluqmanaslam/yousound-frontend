@@ -137,7 +137,7 @@
                   :class="{'online': conversations[selected_index].other.status == 'active'}">fa-check-circle</v-icon>
               </p>
               <!-- <p class="messaged-time">{{ toLocalTimeString(conversations[selected_index].last_message.created_at) }}</p> -->
-              <p class="messaged-time">RepostPrice: ${{ conversations[selected_index].other.repost_price|formatNumber }}</p>
+              <p class="messaged-time">Repost Price: ${{ conversations[selected_index].other.repost_price|formatNumber }}</p>
               <v-menu offset-y class="more-menu">
                 <v-btn dark slot="activator">
                   <v-icon right>more_horiz</v-icon>

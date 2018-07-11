@@ -6,7 +6,7 @@
   &.is-dragover {
     .uploaderBox__input {    
       .uploaderBox_image {
-        opacity: 0.5;
+        opacity: 0.8;
       }
     }
   }
@@ -16,7 +16,7 @@
 
     .uploaderBox_image {
       height: calc(50vh - 50px);
-      border: 1px solid rgb(241, 241, 241);
+      border: 1px solid #e7e7e7;
       border-radius: 500px;
 
       &:hover {
@@ -75,11 +75,13 @@
   background-color: #FFF;
   text-align: left;
   .track-list-title {
-    font-size: 22.5px;
+    font-size: 28px;
     color: #000000;
-    letter-spacing: -1.1.5px;
+    letter-spacing: -1px;
     margin: 0;
-    padding-bottom: 12px;
+    padding-bottom: 0;
+    font-family: 'Work Sans';
+    font-weight: 700;
   }
   .track-items {
     .track-item {

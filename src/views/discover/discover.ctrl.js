@@ -21,17 +21,17 @@ export default {
         },
         {
           id: 'new',
-          title: 'New Albums'
+          title: 'Albums'
         },
         {
 
           id: 'merch',
           title: 'Merch'
-        },
-        {
+        }
+        /* Uncomment this when there's more users, also add "Live Video" tab
           id: 'playlist',
           title: 'Playlists'
-        }
+        } */
       ],
       page_index: 1,
       total_pages: 1,

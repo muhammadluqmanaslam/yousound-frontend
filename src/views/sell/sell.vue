@@ -84,12 +84,12 @@
               key="collaborations"
               href="#collaborations"
               @click.native="onTab('collaborations')"
-              ripple>Merch Collaborations</v-tabs-item>
+              ripple>Merch collaborations</v-tabs-item>
             <v-tabs-item
               key="pendings"
               href="#pendings"
               @click.native="onTab('pendings')"
-              ripple>Pending Merch Collaborations</v-tabs-item>
+              ripple>Pending merch collaborations</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>

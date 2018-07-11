@@ -131,15 +131,42 @@
     .my-card__title {
       font-size: 20px;
       font-weight: 700;
+      font-family: 'Work Sans';
+      letter-spacing: -.3px;
     }
 
     .my-card__subtitle {
       font-size: 18px;
       font-weight: 600;
+      font-family: 'Work Sans';
+      letter-spacing: -.5px;
     }
 
     .my-card__text {
       margin-top: 10px;
+      margin-bottom: 36px;
+      font-family: 'Work Sans';
+      letter-spacing: -.4px;
+    }
+
+    .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
+    box-shadow: none;
+    }
+
+    .layout.row {
+    padding-bottom: 18px;
+    }
+
+    .mb-5 {
+    margin-bottom: 40px!important;
+    }
+
+     .mt-3 {
+      margin-top: 12px!important;
+    } 
+
+    .divider {
+    border: .5px dotted #ededed;
     }
 
     .o-out {
@@ -210,7 +237,7 @@
   }
 
   .mb-5 {
-    margin-bottom: 36px!important;
+    margin-bottom: 32px!important;
   }
 
   button {

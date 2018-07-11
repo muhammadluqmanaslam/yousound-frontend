@@ -6,7 +6,22 @@
       <div class="intro">
       </div>
 
-      <p>Thank you for using YouSound! We're happy you're here. Please read this Terms of Service agreement carefully before accessing or using YouSound.com. Because it is such an important contract between us and our users, we have tried to make it as clear as possible. For your convenience, we have presented these terms in a short non-binding summary followed by the full legal terms.</p>
+      <p>YouSound, Inc. (YouSound.com), is a platform created for independent creatives to sustain their careers.  YouSound is a permissive based platform where all business dealings, ownership, and anything related to the success of our creatives, is in favor of our verified creators.  We believe respect and logic can balance the relationship between creatives, content owners, and listeners, so that all users can maximize their experience and profit.
+      <br>  
+<br>
+Terms of Use are important, we also believe in building features that mandate each user to act with consideration of others, and rewarding users for doing so.  YouSound was designed to maximize respect, and in return, monetize your individuality.  We've allowed creatives to reach Listeners, and for Listeners to consume content (stream, download, and purchase products) legally and easily. We've created a feedback loop that rewards creatives when people enjoy their content.  We've eliminated platform fragmentation and have allowed for a seamless experience that lets every user recognize that they're a valuable part of the music communities they choose to partake in on YouSound.   
+<br>
+<br>
+Our Terms of Use address the legal specifics of how everything works, but it's our features that encourage 99.9% of our users to find it pointless to act against our Terms of Use.  Most Terms of Use violations don't happen because people are inherently disruptive, they happen because the system usually hasn't been built in respect of how culture functions.
+<br>
+<br>
+It's important as a user, wether a Listener or a Verified Artist, Brand, or Label, to realize that there's nothing to scam.  We've opened leveled the playing field for you to maximize your traction and your sales conversations, and have allowed every user to generate revenue.  There's nothing to take, everything is free, simply support the creatives you love.
+<br>
+<br>
+<strong>Please read these Terms of Use ("Agreement" or "Terms of Use") carefully before using the services offered by YouSound, Inc. ("Company," “we,” “us,” or “our”). This agreement sets forth the legally binding terms and conditions for you ("You" “your,” “User,” "Listener," "Customer," "Buyer," "Seller," "Verified Artist," "Verified Brand," "Verified Label," or "Verified User”) use of the Website at https://www.yousound.com (the "Site") and the service owned and operated by company, including any mobile software applications offered or published by Company (collectively with the Site, the "Service"). By using the Site or Service in any manner, including but not limited to visiting or browsing the Site, you agree to be bound by these Terms of Use. These Terms of Use apply to all users of the Site or Service, including users who are also contributors of content, information, and other materials or services on the Site. </strong>
+
+<br>
+</p>
 
       <h3>
         <a id="summary" class="anchor" href="#summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Summary
@@ -21,15 +36,93 @@
         </thead>
         <tbody>
           <tr>
-            <td><a href="#a-definitions">A. Definitions</a></td>
-            <td>Some basic terms, defined in a way that will help you understand this agreement. Refer back up to this section for clarification.</td>
+            <td><a href="#1-introduction">1. Introduction</a></td>
+            <td>This is an introduction to our Terms of Services, and outlines how we operate our Service.</td>
           </tr>
           <tr>
-            <td><a href="#b-account-terms">B. Account Terms</a></td>
-            <td>These are the basic requirements of having an account on YouSound.com.</td>
+            <td><a href="#2-account-terms">2. Acceptance of Terms.</a></td>
+            <td>These section covers the requirements of having an account on YouSound.com.</td>
           </tr>
           <tr>
-            <td><a href="#c-acceptable-use">C. Acceptable Use</a></td>
+            <td><a href="#3-modification">3. Modification of Terms of Use.</a></td>
+            <td>These are the basic rules you must follow when using your YouSound.com account.</td>
+          </tr>
+          <tr>
+            <td><a href="#d-user-generated-content">D. User-Generated Content</a></td>
+            <td>You own the content you post on YouSound.com. However, you have some responsibilities regarding it, and we ask you to grant us some rights so we can provide services to you.</td>
+          </tr>
+          <tr>
+            <td><a href="#e-private-repositories">E. Private Repositories</a></td>
+            <td>This section talks about how YouSound.com will treat content you post in private repositories.</td>
+          </tr>
+          <tr>
+            <td><a href="#f-copyright-infringement-and-dmca-policy">F. Copyright &amp; DMCA Policy</a></td>
+            <td>This section talks about how YouSound.com will respond if you believe someone is infringing your copyrights on YouSound.com.</td>
+          </tr>
+          <tr>
+            <td><a href="#g-intellectual-property-notice">G. Intellectual Property Notice</a></td>
+            <td>This describes YouSound.com's rights in the website and service.</td>
+          </tr>
+          <tr>
+            <td><a href="#h-api-terms">H. API Terms</a></td>
+            <td>These are the rules for using YouSound.com's APIs, whether you are using the API for development or data collection.</td>
+          </tr>
+          <tr>
+            <td><a href="#i-additional-terms-for-YouSound.com-pages">I. Additional Terms for YouSound.com Pages</a></td>
+            <td>We have a few specific rules for content hosted using YouSound.com Pages.</td>
+          </tr>
+          <tr>
+            <td><a href="#j-additional-terms-for-YouSound.com-marketplace">J. Additional Terms for YouSound.com Marketplace</a></td>
+            <td>We have another set of terms for YouSound.com Marketplace.</td>
+          </tr>
+          <tr>
+            <td><a href="#k-advertising-on-YouSound.com">K. Advertising on YouSound.com</a></td>
+            <td>If you want to promote your content on YouSound.com, this section lays out some rules you must follow.</td>
+          </tr>
+          <tr>
+            <td><a href="#l-payment">L. Payment</a></td>
+            <td>You are responsible for payment. We are responsible for billing you accurately.</td>
+          </tr>
+          <tr>
+            <td><a href="#m-cancellation-and-termination">M. Cancellation and Termination</a></td>
+            <td>You may cancel this agreement and close your account at any time.</td>
+          </tr>
+          <tr>
+            <td><a href="#n-communications-with-YouSound.com">N. Communications with YouSound.com</a></td>
+            <td>We only use email and other electronic means to stay in touch with our users. We do not provide phone support.</td>
+          </tr>
+          <tr>
+            <td><a href="#o-disclaimer-of-warranties">O. Disclaimer of Warranties</a></td>
+            <td>We provide our service as is, and we make no promises or guarantees about this service. <strong>Please read this section carefully; you should understand what to expect.</strong>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="#p-limitation-of-liability">P. Limitation of Liability</a></td>
+            <td>We will not be liable for damages or losses arising from your use or inability to use the service or otherwise arising under this agreement. <strong>Please read this section carefully; it limits our obligations to you.</strong>
+            </td>
+          </tr>
+          <tr>
+            <td><a href="#q-release-and-indemnification">Q. Release and Indemnification</a></td>
+            <td>You are fully responsible for your use of the service.</td>
+          </tr>
+          <tr>
+            <td><a href="#r-changes-to-these-terms">R. Changes to these Terms of Service</a></td>
+            <td>We may modify this agreement, but we will give you 30 days' notice of changes that affect your rights.</td>
+          </tr>
+          <tr>
+            <td><a href="#s-miscellaneous">S. Miscellaneous</a></td>
+            <td>Please see this section for legal details including our choice of law.</td>
+          </tr>
+           <tr>
+            <td><a href="#1-introduction">1. Introduction</a></td>
+            <td>This is an introduction to our Terms of Services, and outlines how we operate our Service.</td>
+          </tr>
+          <tr>
+            <td><a href="#2-account-terms">2. Acceptance of Terms.</a></td>
+            <td>These section covers the requirements of having an account on YouSound.com.</td>
+          </tr>
+          <tr>
+            <td><a href="#3-modification">3. Modification of Terms of Use.</a></td>
             <td>These are the basic rules you must follow when using your YouSound.com account.</td>
           </tr>
           <tr>
@@ -107,10 +200,10 @@
         </a>The YouSound.com Terms of Service
       </h3>
 
-      <p>Effective date: October 11, 2017</p>
+      <p>Effective date: July 4, 2018</p>
 
       <h3>
-        <a id="a-definitions" class="anchor" href="#a-definitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A. Definitions
+        <a id="1-introduction" class="anchor" href="#a-definitions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. Acceptance of Terms
       </h3>
 
       <p><strong>Short version:</strong> <em>We use these basic terms throughout the agreement, and they have specific meanings. You should know what we mean when we use each of the terms. There's not going to be a test on it, but it's still useful information.</em></p>
@@ -125,7 +218,7 @@
       </ol>
 
       <h3>
-        <a id="b-account-terms" class="anchor" href="#b-account-terms" aria-hidden="true">
+        <a id="2-account-terms" class="anchor" href="#b-account-terms" aria-hidden="true">
         <span aria-hidden="true" class="octicon octicon-link"></span>
         </a>B. Account Terms
       </h3>
