@@ -68,7 +68,10 @@
         <template v-else>
           <v-flex xs12 sm3 pa-0 class="message-rooms-section">
             <div class="header-section">
-              <v-icon>mail_outline</v-icon>
+              <div class="header-title">
+                <label>Inbox</label>
+                <span>{{ conversations.length }} messages</span>
+              </div>
               <!-- <div class="search-box">
                 <div class="search-container">
                   <span class="icon">
