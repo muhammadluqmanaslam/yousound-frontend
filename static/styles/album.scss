@@ -555,9 +555,10 @@
               .merch-name {
                 display: block;
                 color: white;
-                font-weight: 900;
+                font-family: 'Work Sans';
+                font-weight: 600;
                 font-size: 20px;
-                letter-spacing: -0.6px;
+                letter-spacing: -0.7px;
                 cursor: pointer;
               }
               .merch-price {
@@ -721,8 +722,9 @@
                 color: #FFFFFF !important;
                 border: 1px solid #FFFFFF;
                 &:hover {
-                  color: #dc3545 !important;
-                  border: 1px solid #dc3545;
+                  color: #fff !important;
+                  border: 1px solid #ff3121;
+                  background-color: rgba(255, 42, 26, 0.7) !important;
                 }
               }
             }
@@ -1000,7 +1002,7 @@
               width: calc(100% - 210px);
               .user-name {
                 font-weight: 600;
-                font-size: 15px;
+                font-size: 18px;
                 color: #3A92FF;
                 letter-spacing: -0.5px;
                 cursor: pointer;
@@ -1088,7 +1090,7 @@
                   letter-spacing: 0;
                 }
                 .comment-text {
-                  font-size: 15px;
+                  font-size: 16px;
                   color: #000000;
                   letter-spacing: 0;
                   margin: 0 0 0 10px;

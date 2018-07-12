@@ -20,7 +20,7 @@
           <div class="artist-area">
             <a @click="openTwitterConfirmDialog('artist')">
               <img class="avatar" src="/static/images/artist.png" />
-              <div class="pt-2">Aritst</div>
+              <div class="pt-2">Artist</div>
             </a>
           </div>
           <div class="artist-area">

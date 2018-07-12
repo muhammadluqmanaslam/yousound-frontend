@@ -76,6 +76,8 @@
         <v-btn color="grey lighten-2" class="px-4 view-btn" v-else>Waiting for Connection...</v-btn>
       </div>
     </v-flex>
+
+
   <!--
     <v-flex xs12 sm10 offset-sm1>
       <h3>Live Video Settings</h3>

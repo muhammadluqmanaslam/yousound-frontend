@@ -304,8 +304,8 @@
       <v-card>
         <!-- <v-card-media :src="item.cover.url" height="125px" contain></v-card-media> -->
         <v-card-text>
-          <div class="headline">Are you sure you want to play the stream?</div>
-          <div>This user hosts streamming. It goes full screen mode when you play this stream. You can minimized it later.</div>
+          <div class="headline">This user is streaming live, do you want to watch?</div>
+          <div>Video enters full screen mode when you watch this stream, press ESC to minimize to browse the site.</div>
         </v-card-text>
         <v-card-actions>
           <v-btn dark color="green" @click="onClick">Yes</v-btn>
