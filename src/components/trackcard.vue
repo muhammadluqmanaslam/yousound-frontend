@@ -83,14 +83,16 @@
                     </v-card>
                   </v-dialog>
                 </v-list-tile>
-                <v-list-tile
+
+               <!-- <v-list-tile
                   key="flag"
                   class="default-menu-item track-menu-item"
                   @click.native="flagItem()">
                   <v-list-tile-title>
                     <img class="track-status-icon" src="/static/images/ic_flag.png" />
                     <label>Flag</label>
-                  </v-list-tile-title>
+                  </v-list-tile-title>  -->
+
                 </v-list-tile>
                 <v-list-tile v-if="$store.state.auth.user.user_type == 'label'"
                   key="add_to_my_label"
