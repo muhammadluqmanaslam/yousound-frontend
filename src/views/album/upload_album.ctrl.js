@@ -1,6 +1,5 @@
 import moment from 'moment'
 
-import appFooter from '@/components/footer'
 import trackUploader from '@/components/trackuploader'
 
 import UserService from '@/services/user'
@@ -12,7 +11,6 @@ import { CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
-    appFooter,
     trackUploader
   },
 

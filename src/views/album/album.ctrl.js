@@ -4,7 +4,6 @@ import AlbumService from '@/services/album'
 import CommentService from '@/services/comment'
 import UserService from '@/services/user'
 
-import appFooter from '@/components/footer'
 import activityItem from '@/components/activityitem'
 import profileItem from '@/components/profileitem'
 import albumTrackItem from '@/components/albumtrackitem'
@@ -19,7 +18,6 @@ import { MyEvents, Utils } from '@/helper'
 
 export default {
   components: {
-    appFooter,
     Picker,
     downloadModal,
     merchModal,

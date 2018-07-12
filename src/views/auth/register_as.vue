@@ -39,8 +39,6 @@
       </div>
     </v-flex>
 
-    <app-footer></app-footer>
-
     <v-dialog v-model="show_twitter_confirm_dialog" fullscreen content-class="twitter-confirm-dialog">
       <v-card mt-5>
         <!-- <div class="card__image"><v-icon>twitter</v-icon></div> -->

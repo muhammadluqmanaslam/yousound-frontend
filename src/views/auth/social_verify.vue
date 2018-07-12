@@ -13,8 +13,6 @@
       	<h4>Your account is being verified.</h4>
       </div>
     </v-flex>
-
-    <app-footer></app-footer>
   </v-layout>
 </template>
 

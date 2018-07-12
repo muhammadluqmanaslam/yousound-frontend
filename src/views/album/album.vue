@@ -392,8 +392,6 @@
         </div>
       </v-flex>
     </v-flex>
-
-    <app-footer></app-footer>
   </v-layout>
 </template>
 

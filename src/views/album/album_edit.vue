@@ -288,8 +288,6 @@
           </v-layout>
         </v-flex>
       </v-flex>
-
-      <app-footer></app-footer>
     </v-flex>
   </v-layout>
 </template>

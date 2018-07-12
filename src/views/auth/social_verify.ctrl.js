@@ -1,10 +1,7 @@
 import AuthService from '@/services/auth.js'
 
-import appFooter from '@/components/footer'
-
 export default {
   components: {
-    appFooter
   },
 
   data () {

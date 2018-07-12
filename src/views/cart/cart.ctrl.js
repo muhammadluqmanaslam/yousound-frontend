@@ -8,7 +8,6 @@ import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
 import trackCard from '@/components/trackcard'
 
-
 export default {
   components: {
     activityProductCard,

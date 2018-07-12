@@ -99,5 +99,5 @@
     </v-flex>
   </div>
 </template>
-<script type="text/javascript" src="./checkout.ctrl.js"></script>
 
+<script type="text/javascript" src="./checkout.ctrl.js"></script>

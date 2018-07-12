@@ -1,5 +1,5 @@
 <template>
-  <v-footer>
+  <v-footer class="my-footer">
     <a href="#">FAQ</a>
     <a href="#">Blog</a>
     <a href="#">Help</a>

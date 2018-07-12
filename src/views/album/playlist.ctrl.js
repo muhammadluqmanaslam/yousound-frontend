@@ -6,7 +6,6 @@ import UserService from '@/services/user'
 
 import activityItem from '@/components/activityitem'
 import albumTrackItem from '@/components/albumtrackitem'
-import appFooter from '@/components/footer'
 import downloadModal from '@/components/downloadmodal'
 import profileItem from '@/components/profileitem'
 
@@ -17,7 +16,6 @@ export default {
   components: {
     activityItem,
     albumTrackItem,
-    appFooter,
     downloadModal,
     profileItem,
     Picker,

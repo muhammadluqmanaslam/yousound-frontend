@@ -47,8 +47,6 @@
         </form>
       </div>
     </v-flex>
-
-    <app-footer></app-footer>
   </v-layout>
 </template>
 

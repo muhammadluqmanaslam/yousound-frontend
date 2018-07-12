@@ -71,7 +71,7 @@
 
     <video-player v-if="$store.state.auth.user"></video-player>
 
-    <efm-header v-if="$store.getters['auth/hasHeader']"></efm-header>
+    <app-header v-if="$store.getters['auth/hasHeader']"></app-header>
 
     <v-snackbar
       :timeout="$store.state.error.timeout" multi-line top
@@ -86,6 +86,8 @@
     </v-flex>
 
     <router-view id="content-view"></router-view>
+
+    <app-footer></app-footer>
 
     <player ref="player"></player>
   </v-app>
@@ -103,7 +105,8 @@ import PlaylistService from '@/services/playlist'
 import SettingService from '@/services/setting'
 import UserService from '@/services/user'
 
-import efmHeader from '@/components/header'
+import appHeader from '@/components/header'
+import appFooter from '@/components/footer'
 import earnMoneySticker from '@/components/earn_money'
 import Player from '@/components/player'
 import videoPlayer from '@/components/video_player'
@@ -113,8 +116,9 @@ import { MyEvents } from '@/helper'
 export default {
   name: 'app',
   components: {
+    appHeader,
+    appFooter,
     earnMoneySticker,
-    efmHeader,
     Player,
     videoPlayer
   },

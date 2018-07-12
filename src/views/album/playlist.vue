@@ -209,8 +209,6 @@
       </v-flex>
       <download-modal :item="playlist" :dismiss="dismissDownloadModal" v-if="showDownloadModal"></download-modal>
     </v-flex>
-
-    <app-footer></app-footer>
   </v-layout>
 </template>
 

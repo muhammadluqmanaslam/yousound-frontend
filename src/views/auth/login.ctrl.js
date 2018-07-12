@@ -4,12 +4,10 @@ import PlaylistService from '@/services/playlist'
 
 import { MyEvents } from '@/helper'
 
-import appFooter from '@/components/footer'
 import genreDialog from '@/components/genre_dialog'
 
 export default {
   components: {
-    appFooter,
     genreDialog
   },
 

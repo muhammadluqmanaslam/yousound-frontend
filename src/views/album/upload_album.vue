@@ -287,10 +287,8 @@
           </v-layout>
         </v-flex>
       </v-flex>
-
-      <app-footer></app-footer>
     </v-flex>
   </v-layout>
 </template>
-<script type="text/javascript" src="./upload_album.ctrl.js"></script>
 
+<script type="text/javascript" src="./upload_album.ctrl.js"></script>
