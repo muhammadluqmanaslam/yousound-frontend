@@ -20,6 +20,7 @@ var SocketManager = (socketHost, roomName, token, callback) => {
     })
     socket.on('unauthorized', (err) => {
       alert('There was an error with the authentication: ' + err.message) // TODO: don't use alert
+      sm.close()
     })
     socket.on('newMessage', (a) => { sm.onMessage(a) })
     socket.on('loadMessages', (a) => { sm.onLoadMessages(a) })
