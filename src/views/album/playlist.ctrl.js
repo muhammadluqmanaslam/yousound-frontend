@@ -3,20 +3,24 @@ import AlbumService from '@/services/album'
 import PlaylistService from '@/services/playlist'
 import CommentService from '@/services/comment'
 import UserService from '@/services/user'
+
 import activityItem from '@/components/activityitem'
-import profileItem from '@/components/profileitem'
 import albumTrackItem from '@/components/albumtrackitem'
+import appFooter from '@/components/footer'
 import downloadModal from '@/components/downloadmodal'
+import profileItem from '@/components/profileitem'
+
 import { Picker } from 'emoji-mart-vue'
 import draggable from 'vuedraggable'
 
 export default {
   components: {
-    Picker,
-    downloadModal,
     activityItem,
     albumTrackItem,
+    appFooter,
+    downloadModal,
     profileItem,
+    Picker,
     draggable
   },
 

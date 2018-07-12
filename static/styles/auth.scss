@@ -31,14 +31,15 @@
   margin: 90px auto 0;
   .logo {
     // width: 200.25px;
-    height: 40.25px;
+    height: 37px;
   }
   h4 {
     font-weight: 300;
-    font-size: 40.25px;
+    font-size: 40px;
     color: #2D2D2D;
     letter-spacing: -3.18px;
-    margin-top: 63.75px;
+    margin-top: 80px;
+    padding-bottom: 20px;
   }
 }
 
@@ -150,11 +151,12 @@
     left: 210px;
   }
   a {
-    font-weight: 600;
-    font-size: 26.25px;
-    color: #3A92FF;
-    letter-spacing: 0;
+    font-weight: 300;
+    font-size: 28px;
+    color: #333;
+    letter-spacing: -1.5px;
     text-decoration: none;
+    font-family: 'Work Sans';
   }
 }
 

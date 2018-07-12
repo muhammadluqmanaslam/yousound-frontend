@@ -60,11 +60,12 @@
     .shipping-address-section {
       padding-bottom: 30px;
       .shipping-address-header {
-        font-weight: 700;
+        font-weight: 600;
         font-size: 15px;
         color: #000000;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.3px;
         cursor: pointer;
+        font-family: 'Work Sans';
         .arrow {
           width: 0;
           height: 0;
@@ -87,7 +88,9 @@
           display: none;
           label {
             display: block;
-            margin-left: 0;
+            margin-left: 26px;
+            font-family: 'Work Sans';
+            font-weight: 400;
           }
         }
         &.open {
@@ -109,11 +112,12 @@
         }
       }
       .update-shipping-address {
-        font-weight: 700;
+        font-weight: 500;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
         padding-left: 0;
+        font-family: 'Work Sans';
         .settings-icon {
           color: #3A92FF;
           padding-left: 8px;

@@ -1,14 +1,13 @@
 .page.protect-page {
   .page-header {
-    width: 640px;
     margin: 90px auto 0;
     .logo {
       // width: 200.25px;
-      height: 80.25px;
+      height: 44px;
     }
     h4 {
       font-weight: 300;
-      font-size: 30.25px;
+      font-size: 18px;
       color: #2D2D2D;
       letter-spacing: 1.18px;
       margin-top: 63.75px;
@@ -36,13 +35,14 @@
     .btn {
       display: inline-block;
       margin-top: 15px;
+      margin-left: -6px;
       background: #3A92FF !important;
       border-radius: 5px;
-      height: 37.5px;
-      width: 200px;
+      height: 41px;
+      width: 300px;
       box-shadow: none;
       font-weight: 600;
-      font-size: 15px;
+      font-size: 16px;
       color: #FFFFFF;
       letter-spacing: 0;
       text-transform: none;

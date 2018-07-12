@@ -1,7 +1,8 @@
 <template>
   <v-layout row wrap class="page album-detail-page" v-if="playlist">
-      <canvas id="canvas" class="background-image"></canvas>
-      <div id="back_image" class="background-overlay"></div>
+    <canvas id="canvas" class="background-image"></canvas>
+    <div id="back_image" class="background-overlay"></div>
+
     <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages">
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
@@ -208,14 +209,8 @@
       </v-flex>
       <download-modal :item="playlist" :dismiss="dismissDownloadModal" v-if="showDownloadModal"></download-modal>
     </v-flex>
-    <v-footer>
-      <a href="#">FAQ</a>
-      <a href="#">Blog</a>
-      <a href="#">Help</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-      <div class="copyright">© {{ new Date().getFullYear() }} YouSound, Inc.</div>
-    </v-footer>
+
+    <app-footer></app-footer>
   </v-layout>
 </template>
 

@@ -1,7 +1,7 @@
 import _ from 'lodash'
+// import { mapGetters } from 'vuex'
 import ActivityService from '@/services/activity'
 import activityItem from '@/components/activityitem'
-import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -15,26 +15,11 @@ export default {
       items_per_page: 8 * 1,
       filter: 'all',
       filters: [
-        {
-          id: 'all',
-          name: 'All Activity'
-        },
-        {
-          id: 'reposts',
-          name: 'Reposts'
-        },
-        {
-          id: 'commented',
-          name: 'Commented'
-        },
-        {
-          id: 'followed',
-          name: 'Followed'
-        },
-        {
-          id: 'played',
-          name: 'Played'
-        }
+        { id: 'all', name: 'All Activity' },
+        { id: 'reposts', name: 'Reposts' },
+        { id: 'commented', name: 'Commented' },
+        { id: 'followed', name: 'Followed' },
+        { id: 'played', name: 'Played' }
       ],
       activities: [],
       isPageReady: false,

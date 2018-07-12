@@ -76,6 +76,7 @@
             <v-tabs-item key="size_chart" href="#size_chart">Size Chart</v-tabs-item>
             <v-tabs-item key="shipping_policy" href="#shipping_policy">Shipping Policy</v-tabs-item>
             <v-tabs-item key="return_policy" href="#return_policy">Return Policy</v-tabs-item>
+            <v-tabs-item key="privacy_policy" href="#privacy_policy">Privacy Policy</v-tabs-item>
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content key="size_chart" id="size_chart">
@@ -91,6 +92,11 @@
             <v-tabs-content key="return_policy" id="return_policy">
               <v-card flat>
                 <v-card-text>{{ item.merchant.return_policy }}</v-card-text>
+              </v-card>
+            </v-tabs-content>
+            <v-tabs-content key="prviacy_policy" id="privacy_policy">
+              <v-card flat>
+                <v-card-text>{{ item.merchant.privacy_policy }}</v-card-text>
               </v-card>
             </v-tabs-content>
           </v-tabs-items>

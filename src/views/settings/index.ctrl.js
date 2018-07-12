@@ -8,6 +8,7 @@ import profileItem from '@/components/profileitem'
 
 import addressTab from './components/address_tab'
 import genreTab from './components/genre_tab'
+import policyTab from './components/policy_tab'
 import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
 
@@ -19,6 +20,7 @@ export default {
     profileItem,
     addressTab,
     genreTab,
+    policyTab,
     priceTab,
     verifyTab
   },
@@ -238,33 +240,6 @@ export default {
       this.profile.email = this.$store.state.auth.user.email
       this.profile.contact_url = this.$store.state.auth.user.contact_url
       this.profile.enable_alert = this.$store.state.auth.user.enable_alert
-    },
-
-    saveReturnPolicy () {
-      const params = {
-        user: {
-          return_policy: this.user.return_policy
-        }
-      }
-      this.updateUser(params)
-    },
-
-    saveShippingPolicy () {
-      const params = {
-        user: {
-          shipping_policy: this.user.shipping_policy
-        }
-      }
-      this.updateUser(params)
-    },
-
-    saveSizeChart () {
-      const params = {
-        user: {
-          size_chart: this.user.size_chart
-        }
-      }
-      this.updateUser(params)
     }
   },
 

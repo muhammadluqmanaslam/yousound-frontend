@@ -1,5 +1,8 @@
 import moment from 'moment'
+
+import appFooter from '@/components/footer'
 import trackUploader from '@/components/trackuploader'
+
 import UserService from '@/services/user'
 import GenreService from '@/services/genre'
 import AlbumService from '@/services/album'
@@ -9,6 +12,7 @@ import { CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
+    appFooter,
     trackUploader
   },
 
@@ -214,6 +218,7 @@ export default {
     releaseAlbum (album_id) {
       AlbumService.releaseAlbum(album_id).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('navigator/setParams', { album_id: album_id })
         this.$router.push({ path: '/album/' + album_id })
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)

@@ -28,23 +28,27 @@
       .user-name-section {
         font-size: 32px;
         color: #000000;
-        letter-spacing: 0;
         font-weight: 400;
         margin-top: -4px;
         margin-bottom: -14px;
+        font-family: 'Work Sans';
+        letter-spacing: -1.7px;
+        font-weight: 600;
       }
       .user-status-section {
         line-height: 24px;
         margin-bottom: -4px;
         margin-left: 1px;
         .follower-count {
-          font-weight: 700;
+          font-weight: 400;
           font-size: 14px;
           color: #000000;
-          letter-spacing: 0;
           margin-right: 10px;
           line-height: 36px;
           cursor: pointer;
+          font-family: 'Work Sans';
+          letter-spacing: .5px;
+
         }
         .vertical-divider {
           margin: 0px;
@@ -56,8 +60,11 @@
           text-transform: capitalize;
           font-size: 14x;
           color: #000000;
-          letter-spacing: 1px;
-          margin-left: 10px;
+          letter-spacing: .5px;
+          margin-left: 12px;
+          font-family: 'Work Sans';
+          font-weight: 600;
+          color: #535353;
         }
         .user-inviter-name {
           text-transform: capitalize;
@@ -112,8 +119,9 @@
             color: #5BAD00 !important;
             border: 1px solid #5BAD00;
             &:hover {
-              color: #dc3545 !important;
-              border: 1px solid #dc3545;
+              color: #fff !important;
+              border: 1px solid #ff3121;
+              background-color: rgba(255, 42, 26, 0.7) !important;
             }
           }
         }
@@ -151,7 +159,7 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-size: 18px;
+              font-size: 20px;
               font-weight: 500;
               color: #8E8E8E;
               letter-spacing: -0.5px;
@@ -164,7 +172,7 @@
       }
       .tabs__items {
         border: none;
-        margin-top: 12px;
+        margin-top: 24px;
       }
     }
     .card.card--flat {

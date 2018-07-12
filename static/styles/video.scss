@@ -1,6 +1,6 @@
 .page.video-page.index-page {
   .page-subtitle {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .stream-info {
@@ -8,7 +8,7 @@
     padding: 15px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
-    background-color: #FFFFEE;
+    background-color: #F9F9F9;
 
     .loading {
       position: absolute;
@@ -26,15 +26,34 @@
     }
   }
 
+  .ma-0 {
+    font-weight: 600;
+    font-family: 'Work Sans';
+    letter-spacing: -.2px;
+    color: #3c3c3c;
+    }
+
+  .btn:not(.btn--depressed) {
+    border-radius: 30px!important;
+    margin-left: 0;
+  }
+
+  .btn--active .btn__content:before, .btn:focus .btn__content:before, .btn:hover .btn__content:before {
+  background-color: transparent!important;
+  }
+
+
   .time-info {
-    padding: 16px 25px 25px 25px;
+    padding: 16px 25px 6px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #F9F9F9;
 
     label {
       font-size: 24px;
-      font-weight: 700;
+      font-weight: 600;
+      font-family: 'Work Sans';
+      letter-spacing: -1.3px;
     }
 
     p {
@@ -44,8 +63,10 @@
 
   .share-view {
     h3 {
-      font-size: 24px;
+      font-size: 28px;
       margin-bottom: 300px;
+      font-family: 'Work Sans';
+      letter-spacing: -1px;
     }
 
     p {
@@ -72,7 +93,7 @@
         min-width: 52.5px;
         width: 37.5px;
         margin: 3.75px;
-        border: 0.75px solid #D2D2D2;
+        border: 0.75px solid #FFF;
         border-radius: 3.75px;
         font-size: 15px;
         color: #000000;
@@ -94,6 +115,7 @@
       width: 500px;
       // margin: 15px 7.5px 0;
       text-align: center;
+      padding-left: 24px;
       .clipboard-btn {
         position: absolute;
         top: 0;
@@ -131,15 +153,46 @@
     .my-card__title {
       font-size: 20px;
       font-weight: 700;
+      font-family: 'Work Sans';
+      letter-spacing: -.3px;
     }
 
     .my-card__subtitle {
       font-size: 18px;
       font-weight: 600;
+      font-family: 'Work Sans';
+      letter-spacing: -.5px;
     }
 
     .my-card__text {
       margin-top: 10px;
+      margin-bottom: 36px;
+      font-family: 'Work Sans';
+      letter-spacing: -.4px;
+    }
+
+    .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
+    box-shadow: none;
+    }
+
+    .share-view {
+      padding-bottom: 100px;
+    }
+
+    .layout.row {
+      padding-bottom: 18px;
+    }
+
+    .mb-5 {
+      margin-bottom: 32px!important;
+    }
+
+     .mt-3 {
+      margin-top: 12px!important;
+    } 
+
+    .divider {
+    border: .5px dotted #ededed;
     }
 
     .o-out {
@@ -210,7 +263,7 @@
   }
 
   .mb-5 {
-    margin-bottom: 36px!important;
+    margin-bottom: 32px!important;
   }
 
   button {

@@ -1,7 +1,10 @@
 import _ from 'lodash'
 import moment from 'moment'
+
+import appFooter from '@/components/footer'
 import promoteModal from '@/components/promotemodal'
 import trackUploader from '@/components/trackuploader'
+
 import AlbumService from '@/services/album'
 import GenreService from '@/services/genre'
 import ProductService from '@/services/product'
@@ -11,8 +14,9 @@ import { CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
-    trackUploader,
-    promoteModal
+    appFooter,
+    promoteModal,
+    trackUploader
   },
 
   data () {

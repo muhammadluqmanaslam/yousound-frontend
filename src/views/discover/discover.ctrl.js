@@ -15,18 +15,16 @@ export default {
       activeTab: '',
       tabs: [
         {
-          id: 'new',
-          title: 'New Albums'
-        },
-        {
+          
           id: 'recommended',
           title: 'Recommended'
         },
         {
-          id: 'playlist',
-          title: 'Playlists'
+          id: 'new',
+          title: 'Albums'
         },
         {
+
           id: 'merch',
           title: 'Merch'
         }
@@ -152,7 +150,7 @@ export default {
 
     setTab (tab) {
       if (!tab)
-        tab = 'new'
+        tab = 'recommended'
 
       // console.log(tab, this.activeTab)
       this.activeTab = tab

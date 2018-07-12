@@ -260,7 +260,8 @@
               :key="index"
               :album="album"
               :trackIndex="index"
-              :showStats="showStats"></album-track-item>
+              :showStats="showStats"
+            ></album-track-item>
           </div>
         </div>
       </div>
@@ -286,16 +287,19 @@
                 v-model="commentString" 
                 @keyup.enter="addComments()"
                 @blur="blurMessage()"
-                ref="comment"/>
+                ref="comment"
+              />
               <picker v-if="showEmojiPicker"
                 title="Pick your emoji…"
                 emoji="point_up"
                 class="emoji-picker"
-                @click="addEmoji"></picker>
+                @click="addEmoji"
+              ></picker>
               <v-btn 
                 class="show-emoji-box-btn" 
                 :class="{'selected': showEmojiPicker}"
-                @click.native="showEmojiDialog()">
+                @click.native="showEmojiDialog()"
+              >
                 <v-icon>tag_faces</v-icon>
               </v-btn>
             </div>
@@ -342,7 +346,7 @@
                         </v-list-tile>
                       </v-list>
                     </v-menu>
-                    <label class="comment-time">Now</label>
+                    <label class="comment-time">{{ toLocalTimeString(comment.created_at) }}</label>
                   </div>
                 </div>
                 <div class="child-items" v-if="false">
@@ -388,14 +392,8 @@
         </div>
       </v-flex>
     </v-flex>
-    <v-footer>
-      <a href="#">FAQ</a>
-      <a href="#">Blog</a>
-      <a href="#">Help</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-      <div class="copyright">© {{ new Date().getFullYear() }} YouSound, Inc.</div>
-    </v-footer>
+
+    <app-footer></app-footer>
   </v-layout>
 </template>
 

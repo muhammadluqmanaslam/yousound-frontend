@@ -21,7 +21,7 @@
   }
   .popup-section {
     max-width: 907.5px;
-    margin-top: calc(50vh - 228.75px);
+    margin-top: calc(50vh - 250px);
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -32,6 +32,9 @@
     .content-section {
       text-align: center;
       padding: 38px 8px 23px;
+      border-top: 1px solid #e1e1e1;
+      border-bottom: 1px solid #e1e1e1;
+      border-left: 1px solid #e1e1e1;
       .avatar-image {
         width: 70px;
         height: 70px;
@@ -186,6 +189,9 @@
         border-bottom-right-radius: 4px;
         overflow-x: hidden;
         overflow-y: scroll;
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
         .request-item {
           padding: 5px 0px 5px 6px;
           // cursor: pointer;

@@ -1,9 +1,13 @@
 import { Storage } from '@/helper'
+
 import GenreService from '@/services/genre'
 import TwitterService from '@/services/twitter'
 
+import appFooter from '@/components/footer'
+
 export default {
   components: {
+    appFooter
   },
 
   data () {

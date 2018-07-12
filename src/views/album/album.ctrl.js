@@ -3,6 +3,8 @@ import { mapActions } from 'vuex'
 import AlbumService from '@/services/album'
 import CommentService from '@/services/comment'
 import UserService from '@/services/user'
+
+import appFooter from '@/components/footer'
 import activityItem from '@/components/activityitem'
 import profileItem from '@/components/profileitem'
 import albumTrackItem from '@/components/albumtrackitem'
@@ -11,11 +13,13 @@ import merchModal from '@/components/merchmodal'
 import promoteModal from '@/components/promotemodal'
 import albumFinishModal from '@/components/albumfinishmodal'
 import shareModal from '@/components/sharemodal'
+
 import { Picker } from 'emoji-mart-vue'
-import { MyEvents } from '@/helper'
+import { MyEvents, Utils } from '@/helper'
 
 export default {
   components: {
+    appFooter,
     Picker,
     downloadModal,
     merchModal,
@@ -49,6 +53,10 @@ export default {
   },
 
   computed: {
+    toLocalTimeString () {
+      return Utils.toLocalTimeString
+    },
+
     showStats () {
       return !_.isEmpty(_.find(this.roles, (user_album) => { return ['creator', 'label', 'collaborator'].indexOf(user_album.user_type) > -1 }))
     },
@@ -151,7 +159,12 @@ export default {
         // for (let index in this.album.tracks) {
         //   this.buttonHover.push(false)
         // }
-        if (this.$store.getters['navigator/last'].page === 'upload') {
+        const lastState = this.$store.getters['navigator/last']
+        if (_.get(lastState, 'params.album_id') == this.album.id) {
+          // AlbumService.getAlbum(lastState.params.album_id).then(response => {
+          //   this.album = response.body
+          //   this.showFinishDialog()
+          // })
           this.showFinishDialog()
         }
 

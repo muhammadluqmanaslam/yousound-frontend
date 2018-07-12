@@ -27,10 +27,11 @@
         display: inline-block;
         vertical-align: middle;
         .user-name {
+          font-family: 'Work Sans';
           font-weight: 600;
-          font-size: 18px;
+          font-size: 20px;
           color: #3A92FF;
-          letter-spacing: 0;
+          letter-spacing: -1px;
           text-decoration: none;
         }
         .item-status {
@@ -41,12 +42,15 @@
           color: #959595;
           letter-spacing: 0;
           display: block;
-          padding-top: 4px;
+          padding-top: 5px;
           .items-title {
             font-weight: 700;
-            color: #000000;
+            color: #333;
             text-decoration: none;
             cursor: pointer;
+            font-family: 'Work Sans';
+            letter-spacing: -.5px;
+            padding-left: 2px;
           }
         }
       }

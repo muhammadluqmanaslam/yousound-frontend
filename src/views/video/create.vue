@@ -18,7 +18,7 @@
               <div class="o-out blue0"><div class="o-in"></div></div>
               <div class="my-card__title">Step 1:</div>
               <div class="my-card__subtitle">Download Video Broadcast Software</div>
-              <div class="my-card__text">Download video streaming software like a free version of <a href="https://obsproject.com/">OBS</a>. Here are <a href="https://support.yousound.com/article/271-how-do-i-setup-a-live-video-broadcast">links to more</a></div>
+              <div class="my-card__text">Download video streaming software like a free version of <a href="https://obsproject.com/" target="_blank">OBS</a>. Here are <a href="https://support.yousound.com/article/271-how-do-i-setup-a-live-video-broadcast" target="_blank">links to more</a></div>
             </div>
           </v-flex>
           <v-flex sm4>
@@ -62,8 +62,8 @@
         <v-layout row>
           <v-flex sm8 form-group mr-4>
             <div class="comment-box">
-              After you click <b>“Create Channel”</b>, it can take up to <b>5 minutes</b> to generate your Stream Key to broadcast live.<br/>
-              It costs $5 per hour to stream, and you can buy up to 24 hours of time.<br/>
+              After clicking <b>“Create Channel”</b>, it can take up to <b>5 minutes</b> to generate your Stream Key.<br/>
+              It costs $10 per hour to live video broadcast & you can purchase up to 24 hours.<br/>
               Any unused time is rolled over to your next broadcast.
             </div>
           </v-flex>
@@ -72,7 +72,7 @@
               <v-btn round dark color="blue" class="px-5" type="submit">Create Channel</v-btn>
               <p class="regular-checkbox ma-0">
                 <input id="terms" type="checkbox" name="terms" v-model="terms" v-validate="'required'"/>
-                <label for="terms">I have read & agree to the <router-link class="forgot-password" to="#">Terms & Conditions</router-link></label>
+                <label for="terms">I have read & agree to the <router-link class="forgot-password" to="/terms" target="_blank">Terms & Conditions</router-link></label>
               </p>
             </div>
           </v-flex>
