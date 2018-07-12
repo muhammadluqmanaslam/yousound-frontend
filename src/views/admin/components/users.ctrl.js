@@ -25,6 +25,8 @@ export default {
         { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
         { text: 'Free Streaming', value: 'enabled_live_video_free', align: 'left' },
         { text: 'Stop Streaming' },
+        { text: 'Free Stream Hours', value: 'free_stream_seconds' },
+        { text: 'Demand Stream Hours', value: 'demand_stream_seconds' },
         { text: 'Email', value: 'email', align: 'left' },
         { text: 'Twitter Link', value: 'social_user_id', align: 'left' },
         { text: 'Date Joined', value: 'created_at', align: 'left' },

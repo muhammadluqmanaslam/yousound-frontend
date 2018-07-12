@@ -49,7 +49,13 @@
                   </td>
                   <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video" @change="toggleLiveVideo(props.item)"></v-switch></td>
                   <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video_free" @change="toggleLiveVideoFree(props.item)"></v-switch></td>
-                  <td class="text-xs-left"><v-btn v-if="props.item.stream && props.item.stream.status === 'running'" fab dark color="pink" class="stop-stream-btn" @click.natvie="openStreamDeleteConfirmDialog(props.item)"><v-icon>stop</v-icon></v-btn></td>
+                  <td class="text-xs-left">
+                    <v-btn v-if="props.item.stream && props.item.stream.status === 'running'" fab dark color="pink" class="stop-stream-btn" @click.natvie="openStreamDeleteConfirmDialog(props.item)">
+                      <v-icon>stop</v-icon>
+                    </v-btn>
+                  </td>
+                  <td>{{ props.item.free_stream_seconds | timeInHours }}</td>
+                  <td>{{ props.item.demand_stream_seconds | timeInHours }}</td>
                   <td class="text-xs-left">{{ props.item.email }}</td>
                   <td class="text-xs-left">
                     <a v-if="props.item.social_user_id"
