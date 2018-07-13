@@ -42,29 +42,27 @@ export default {
   },
 
   computed: {
-    album () {
-      // return this.albums[0]
-      return _.get(this.currentUser, 'stream.assoc')
-    },
-
-    product () {
-      // return this.products[0]
-      return _.get(this.currentUser, 'stream.assoc')
-    },
-
     currentUser () {
       return this.$store.state.auth.user
     },
 
-    //#TODO change user -> streamingUser
-    user () {
-      // console.log('video-player user', this.$store.state.videoPlayer.user)
-      return _.get(this.$store.state.videoPlayer.stream, 'user', null)
+    stream () {
+      return this.$store.state.videoPlayer.stream
     },
 
-    stream () {
-      // console.log('video-player user', this.$store.state.videoPlayer.user)
-      return this.$store.state.videoPlayer.stream
+    //#TODO change user -> streamingUser
+    user () {
+      return _.get(this.stream, 'user', null)
+    },
+
+    album () {
+      // return this.albums[0]
+      return _.get(this.stream, 'assoc')
+    },
+
+    product () {
+      // return this.products[0]
+      return _.get(this.stream, 'assoc')
     },
 
     followButtonText () {
