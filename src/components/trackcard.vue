@@ -211,6 +211,7 @@
 <script type="text/javascript">
   import _ from 'lodash'
   import { mapActions } from 'vuex'
+  import { MyEvents } from '@/helper'
   import AlbumService from '@/services/album'
   import PlaylistService from '@/services/playlist'
   import downloadModal from '@/components/downloadmodal'
@@ -333,20 +334,20 @@
 
       playSong () {
         if (this.isPlaying && this.$store.state.player.isPaused) {
-          this.$root.$emit('replay')
+          this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
         } else {
-          this.setPlaylist(this.objects)
-          this.setPlaylistIndex(this.objectIndex)
-          this.setTrackIndex(0)
-          this.setPlaying(true)
           this.setPage(this.$store.state.auth.page)
           this.setTab(this.$store.state.auth.tab)
-          this.$root.$emit('play')
+
+          this.setPlaylist(this.objects)
+          this.setPlaylistIndex(this.objectIndex)
+          this.setPlaying(true)
+          this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, 0)
         }
       },
 
       pauseSong () {
-        this.$root.$emit('pause')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
       },
 
       repostItem () {

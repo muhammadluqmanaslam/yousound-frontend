@@ -24,8 +24,10 @@ export const MyEvents = {
   AUTH_SIGNIN: 'auth_signin',
   AUTH_SIGNOUT: 'auth_signout',
   USER_FOLLOW: 'follow',
+  AUDIO_PLAYER_PAUSE: 'pause',
   AUDIO_PLAYER_PLAY: 'play',
   AUDIO_PLAYER_REPLAY: 'replay',
+  AUDIO_PLAYER_SKIPTO: 'skipTo',
   VIDEO_PLAYER_INIT: 'video_player_init',
   VIDEO_PLAYER_FULLSCREEN_ENTER: 'video_player_fullscreen_enter'
 }

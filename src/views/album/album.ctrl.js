@@ -1,32 +1,32 @@
 import _ from 'lodash'
 import { mapActions } from 'vuex'
+import { Picker } from 'emoji-mart-vue'
+import { MyEvents, Utils } from '@/helper'
+
 import AlbumService from '@/services/album'
 import CommentService from '@/services/comment'
 import UserService from '@/services/user'
 
 import activityItem from '@/components/activityitem'
-import profileItem from '@/components/profileitem'
 import albumTrackItem from '@/components/albumtrackitem'
+import albumFinishModal from '@/components/albumfinishmodal'
 import downloadModal from '@/components/downloadmodal'
 import merchModal from '@/components/merchmodal'
+import profileItem from '@/components/profileitem'
 import promoteModal from '@/components/promotemodal'
-import albumFinishModal from '@/components/albumfinishmodal'
 import shareModal from '@/components/sharemodal'
-
-import { Picker } from 'emoji-mart-vue'
-import { MyEvents, Utils } from '@/helper'
 
 export default {
   components: {
     Picker,
+    activityItem,
+    albumFinishModal,
+    albumTrackItem,
     downloadModal,
     merchModal,
+    profileItem,
     promoteModal,
-    albumFinishModal,
-    shareModal,
-    activityItem,
-    albumTrackItem,
-    profileItem
+    shareModal
   },
 
   data () {
@@ -84,13 +84,8 @@ export default {
     },
 
     isPlaying () {
-      if (this.$store.state.player.isPlaying) {
-        const current_album = this.$store.state.player.list[this.$store.state.player.listIndex]
-        if (current_album.id === this.album.id) {
-          return true
-        }
-      }
-      return false
+      return this.$store.state.player.isPlaying &&
+        _.get(this.$store.state.player.list[this.$store.state.player.listIndex], 'id') === this.album.id
     },
 
     ellipsisString () {
@@ -191,10 +186,7 @@ export default {
         console.log(reason)
         // this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', reason)
-      });
-      // this.setTrackIndex(0)
-      // if (!this.$store.state.player.isPlaying && !this.$store.state.player.isPaused) {
-      // }
+      })
     },
 
     convertedHTML(text) {
@@ -396,16 +388,15 @@ export default {
     selectTrack (index) {
       this.trackIndex = index
       if (this.isPlaying) {
-        this.setTrackIndex(index)
-        this.$root.$emit('skipTo')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, index)
       } else {
+        this.setPage(this.$store.state.auth.page)
+        this.setTab(this.$store.state.auth.tab)
+
         this.setPlaylist([this.album])
         this.setPlaylistIndex(0)
         this.setPlaying(true)
-        this.setTrackIndex(index)
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-        this.$root.$emit('play')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, index)
       }
     },
 
@@ -413,19 +404,20 @@ export default {
       if (this.$store.state.player.isPaused &&
         this.$store.getters['player/currentAlbum'] &&
         this.$store.getters['player/currentAlbum'].id == this.album.id) {
-        this.$root.$emit('replay')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
       } else {
+        this.setPage(this.$store.state.auth.page)
+        this.setTab(this.$store.state.auth.tab)
+
         this.setPlaylist([_.cloneDeep(this.album)])
         this.setPlaylistIndex(0)
         this.setPlaying(true)
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-        this.$root.$emit('play')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
       }
     },
 
     pauseSong () {
-      this.$root.$emit('pause')
+      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     },
 
     dismissDownloadModal () {

@@ -1,4 +1,9 @@
+import _ from 'lodash'
 import { mapActions } from 'vuex'
+import { Picker } from 'emoji-mart-vue'
+import draggable from 'vuedraggable'
+import { MyEvents } from '@/helper'
+
 import AlbumService from '@/services/album'
 import PlaylistService from '@/services/playlist'
 import CommentService from '@/services/comment'
@@ -8,9 +13,6 @@ import activityItem from '@/components/activityitem'
 import albumTrackItem from '@/components/albumtrackitem'
 import downloadModal from '@/components/downloadmodal'
 import profileItem from '@/components/profileitem'
-
-import { Picker } from 'emoji-mart-vue'
-import draggable from 'vuedraggable'
 
 export default {
   components: {
@@ -63,13 +65,8 @@ export default {
     },
 
     isPlaying () {
-      if (this.$store.state.player.isPlaying) {
-        const current_playlist = this.$store.state.player.list[this.$store.state.player.listIndex]
-        if (current_playlist.id === this.playlist.id) {
-          return true
-        }
-      }
-      return false
+      return this.$store.state.player.isPlaying &&
+        _.get(this.$store.state.player.list[this.$store.state.player.listIndex], 'id') === this.playlist.id
     },
 
     input_id () {
@@ -90,9 +87,6 @@ export default {
     this.$store.dispatch('navigator/goNextState', {page: 'playlist', tab: ''})
     this.slug = this.$route.params.slug
     this.getPlaylist(this.slug)
-    this.setTrackIndex(0)
-    // if (!this.$store.state.player.isPlaying && !this.$store.state.player.isPaused) {
-    // }
   },
 
   methods: {
@@ -243,34 +237,34 @@ export default {
     selectTrack (index) {
       this.trackIndex = index
       if (this.isPlaying) {
-        this.setTrackIndex(index)
-        this.$root.$emit('skipTo')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, index)
       } else {
+        this.setPage(this.$store.state.auth.page)
+        this.setTab(this.$store.state.auth.tab)
+
         this.setPlaylist([this.playlist])
         this.setPlaylistIndex(0)
         this.setPlaying(true)
-        this.setTrackIndex(index)
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-        this.$root.$emit('play')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, index)
       }
     },
 
     playSong () {
       if (this.$store.state.player.isPaused) {
-        this.$root.$emit('replay')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
       } else {
+        this.setPage(this.$store.state.auth.page)
+        this.setTab(this.$store.state.auth.tab)
+
         this.setPlaylist([this.playlist])
         this.setPlaylistIndex(0)
         this.setPlaying(true)
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-        this.$root.$emit('play')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
       }
     },
 
     pauseSong () {
-      this.$root.$emit('pause')
+      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     },
 
     dismissDownloadModal () {

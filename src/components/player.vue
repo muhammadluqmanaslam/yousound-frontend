@@ -306,9 +306,9 @@ export default {
       setPauseStatus: 'player/setPauseStatus'
     }),
 
-    startPlaying () {
+    startPlaying (index) {
       this.setPlaylist('next')
-      this.play()
+      this.play(index)
       this.$forceUpdate()
     },
 
@@ -345,6 +345,7 @@ export default {
     },
 
     play (index) {
+      console.log('player', index, this.index, this.playlist)
       var self = this
       var sound
       index = typeof index === 'number' ? index : this.index
@@ -399,8 +400,8 @@ export default {
 
       // Update the track display.
       // track.innerHTML = (index + 1) + '. ' + data.title
-      this.trackIndex = (index + 1) + ' of ' + this.playlist.length
       // this.trackName = this.playlist[index].track.name
+      this.trackIndex = (index + 1) + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
 
       // Show the pause button.
@@ -413,6 +414,7 @@ export default {
 
       // Keep track of the index we are currently playing.
       this.index = index
+      this.$store.dispatch('player/setTrackIndex', index)
     },
 
     /**
@@ -653,8 +655,8 @@ export default {
       }
     },
 
-    skipTrack () {
-      this.skipTo(this.$store.state.player.trackIndex)
+    skipTrack (index) {
+      this.skipTo(index)
     },
 
     randomPlay () {
@@ -664,8 +666,8 @@ export default {
   mounted () {
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.startPlaying)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.play)
-    this.$root.$on('pause', this.pause)
-    this.$root.$on('skipTo', this.skipTrack)
+    this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.pause)
+    this.$root.$on(MyEvents.AUDIO_PLAYER_SKIPTO, this.skipTrack)
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.$root.$on(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER, this.pause)
