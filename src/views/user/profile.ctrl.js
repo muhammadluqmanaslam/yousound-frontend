@@ -243,12 +243,18 @@ export default {
         this.isShowModal = []
         this.users = []
         this.startIndex = 0
+        this.page_index = 1
+
+      } else {
+        this.page_index += 1
       }
 
       if (tab == 'followings') {
         tab = this.followings_selector
       }
-      var params = {}
+      var params = {
+        page: this.page_index
+      }
       this.$store.dispatch('error/showLoadingActivity', true)
       ProfileService.getItems(this.user.id, tab, params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
