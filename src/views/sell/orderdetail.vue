@@ -12,7 +12,10 @@
           <v-flex xs12 class="shipping-address-section">
             <a class="shipping-address-header open">
               <div class="arrow"></div> Shipping Address
-              <div class="shipping-address-content">
+              <div v-if="this.order_detail.shipping_address"
+                class="shipping-address-content"
+                :class="{'error--text': !this.order_detail.enabled_address}"
+              >
                 <label>{{ order_detail.shipping_address.street_1 }} {{ order_detail.shipping_address.street_2 }}</label>
                 <label>{{ order_detail.shipping_address.city }}, {{ order_detail.shipping_address.state }} {{ order_detail.shipping_address.postcode }}</label>
                 <label>{{ order_detail.shipping_address.country }}</label>

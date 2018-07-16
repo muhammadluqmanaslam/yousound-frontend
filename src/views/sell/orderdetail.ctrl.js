@@ -15,6 +15,10 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     user () {
       return this.order_detail.customer
     },
@@ -45,13 +49,13 @@ export default {
   },
 
   created () {
-    if (!this.$store.state.auth.user) {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
     }
 
-    this.$store.dispatch('navigator/goNextState', {page: 'sell', tab: ''})
+    this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: '' })
     this.order_id = this.$route.params.slug
     if (this.order_id) {
       this.isPageReady = false

@@ -20,6 +20,7 @@ export default {
     return {
       current_tab: 'cart',
       showSendMessage: false,
+      show_address_confirm_dialog: false,
       order_detail: null,
       cartItems: [],
       orderHistories: [],
@@ -45,7 +46,8 @@ export default {
   },
 
   created () {
-    this.init()
+    const tab = this.$route.hash.substr(1)
+    this.init(tab)
   },
 
   methods: {
@@ -124,6 +126,22 @@ export default {
 
     dismissMessageModal () {
       this.showSendMessage = false
+    },
+
+    openAddressConfimDialog (order) {
+      this.order_detail = order
+      this.show_address_confirm_dialog = true
+    },
+
+    closeAddressConfimDialog () {
+      this.show_address_confirm_dialog = false
+    },
+
+    removeMyAddress () {
+      this.closeAddressConfimDialog()
+      OrderService.hideMyAddress(this.order_detail.id).then(response => {
+        this.init(this.current_tab)
+      })
     },
 
     productStatus (item) {

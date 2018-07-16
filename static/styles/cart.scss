@@ -1,5 +1,4 @@
 .page.cart-page {
-
   .card {
     min-height: 375px;
   }
@@ -245,6 +244,7 @@
         background: #FFFFFF;
         border: 1px solid #D5D5D5;
         margin-right: 30px;
+
         .product-cover-image {
           width: 75px;
           height: 75px;
@@ -281,6 +281,30 @@
               color: #000000;
               letter-spacing: -1.1.5px;
             }
+          }
+        }
+
+        .menu {
+          position: absolute;
+          right: 50px;
+          bottom: 5px;
+          .btn {
+            background: none !important;
+            border: none !important;
+            width: 37.5px;
+            min-width: 37.5px;
+            .btn__content {
+              padding: 0;
+            }
+            i {
+              margin: 0;
+            }
+          }
+          .img {
+            font-size: 13.5px;
+            color: #000000;
+            letter-spacing: 0;
+            line-height: 30px;
           }
         }
       }

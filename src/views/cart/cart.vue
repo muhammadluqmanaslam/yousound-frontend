@@ -1,12 +1,10 @@
 <template>
   <div row wrap class="page cart-page" if="isPageReady">
-    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
-
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Cart</h2>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
       <div class="normal-tab">
         <v-tabs black v-model="current_tab">
           <v-tabs-bar class="transparent">
@@ -133,6 +131,22 @@
                             <label class="product-price">${{ order.items[0].price|formatNumber }}</label>
                           </v-flex>
                         </div>
+                        <v-menu v-if="order.status == 'order_shipped' && order.enabled_address"
+                          down
+                          offset-y
+                          :nudge-top="-5"
+                        >
+                          <v-btn round slot="activator">
+                            <v-icon dark right>more_horiz</v-icon>
+                          </v-btn>
+                          <v-list>
+                            <v-list-tile @click.native="openAddressConfimDialog(order)">
+                              <v-list-tile-content>
+                                Remove my personal info
+                              </v-list-tile-content>
+                            </v-list-tile>
+                          </v-list>
+                        </v-menu>
                       </div>
                       <div class="order-status-section text-xs-center" :class="{'pending': item.status == 'item_ordered', 'shipped': item.status == 'item_shipped'}">
                         <p class="order-status-text" v-if="item.status=='item_ordered'">Pending Order</p>
@@ -147,6 +161,21 @@
         </v-tabs>
       </div>
     </v-flex>
+
+    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+
+    <v-dialog v-model="show_address_confirm_dialog" content-class="my-dialog-1">
+      <v-card>
+        <v-card-text>
+          <div class="headline">Remove your shipping address?</div>
+          <div>This will remove your shipping address from this user, and user might not be able to ship your items</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark color="green" @click.native="removeMyAddress()">Yes</v-btn>
+          <v-btn dark color="grey" @click.native="closeAddressConfimDialog()">No</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
