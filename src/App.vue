@@ -8,6 +8,37 @@
     'app-video': $store.getters['videoPlayer/hasFrame']
   }">
 
+    <app-header v-if="$store.getters['auth/hasHeader']"></app-header>
+
+    <v-flex xs12 text-xs-center loading-section v-if="$store.state.error.isLoading">
+      <v-progress-circular
+        indeterminate
+        v-bind:size="50"
+        class="loading-activity"
+        v-bind:class="{
+          'primary--text': !$store.getters['auth/isPrimaryTheme'],
+          'white-activity': $store.getters['auth/isPrimaryTheme']
+        }"
+      ></v-progress-circular>
+    </v-flex>
+
+    <router-view id="content-view"></router-view>
+
+    <app-footer v-if="$store.getters['auth/hasFooter']"></app-footer>
+
+    <video-player v-if="$store.state.auth.user"></video-player>
+
+    <player ref="player"></player>
+
+    <v-snackbar v-model="showError"
+      multi-line top
+      :timeout="$store.state.error.timeout"
+      :color="$store.state.error.color"
+    >
+      <label>{{ $store.state.error.errors[0] }}</label>
+      <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"><v-icon>clear</v-icon></v-btn>
+    </v-snackbar>
+
     <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
 
     <v-dialog v-model="dialog" max-width="500px">
@@ -68,28 +99,6 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
-    <video-player v-if="$store.state.auth.user"></video-player>
-
-    <app-header v-if="$store.getters['auth/hasHeader']"></app-header>
-
-    <v-snackbar
-      :timeout="$store.state.error.timeout" multi-line top
-      :color="$store.state.error.color"
-      v-model="showError">
-      <label>{{ $store.state.error.errors[0] }}</label>
-      <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"><v-icon>clear</v-icon></v-btn>
-    </v-snackbar>
-
-    <v-flex xs12 text-xs-center loading-section v-if="$store.state.error.isLoading">
-      <v-progress-circular indeterminate v-bind:size="50" class="loading-activity" v-bind:class="{'primary--text': !$store.getters['auth/isPrimaryTheme'], 'white-activity': $store.getters['auth/isPrimaryTheme']}"></v-progress-circular>
-    </v-flex>
-
-    <router-view id="content-view"></router-view>
-
-    <app-footer></app-footer>
-
-    <player ref="player"></player>
   </v-app>
 </template>
 

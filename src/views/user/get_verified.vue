@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap class="page verify-page">
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <div class="verifying-page" v-if="true">
         <v-flex xs12 class="logo-section">
           <img class="logo" src="/static/images/logo.png">
@@ -11,7 +11,7 @@
               <div class="body-section">
                 <h4>Thank you for signing up with YouSound!</h4>
                 <p>We’ve built powerful tools that allow you to maximize your reach and generate revenue from your music.</p>
-                <p>Before artists can upload any content, we verify each artist to ensure that the tools we offer are used responsibly.   Each artist is verified by individuals that specialize in the genre you list your music under.</p>
+                <p>Before artists can upload any content, we verify each artist to ensure that the tools we offer are used responsibly. Each artist is verified by individuals that specialize in the genre you list your music under.</p>
                 <p>Please complete the questionnaire, and allow 3 days for a response.</p>
               </div>
               <div class="divider-section"></div>

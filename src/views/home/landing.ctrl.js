@@ -17,7 +17,7 @@ export default {
 
   created () {
     if (this.$store) {
-      this.$store.dispatch('navigator/goNextState', {page: 'landing', tab: ''})
+      this.$store.dispatch('navigator/goNextState', { page: 'landing', tab: '' })
     }
   },
 

@@ -6,10 +6,10 @@
       :dismiss="closePaymentDialog"
       :finish="orderItems"></payment-modal>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Checkout</h2>
     </v-flex>
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative checkout-page>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative checkout-page>
       <div class="order-status-section" v-if="isPageReady && cartItems.length">
         <div class="status-row">
           <label class="status-title">Subtotal</label>

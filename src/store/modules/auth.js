@@ -28,6 +28,10 @@ const getters = {
     }
   },
 
+  hasFooter: (state) => {
+    return ['landing'].indexOf(state.page) === -1
+  },
+
   isPrimaryTheme: (state) => {
     if (state.page === 'discover') {
       return true

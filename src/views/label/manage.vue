@@ -55,11 +55,11 @@
     </v-dialog>
 
     <template v-if="$store.state.auth.user.user_type == 'artist'">
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
         <h2 class="page-title">My Labels</h2>
       </v-flex>
 
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
         <div class="manage-tab">
           <v-tabs dark v-model="navigatorState.tab">
             <v-tabs-bar class="transparent">
@@ -179,11 +179,11 @@
     </template>
 
     <template v-else-if="$store.state.auth.user.user_type == 'label'">
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
         <h2 class="page-title">Record Label</h2>
       </v-flex>
 
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
         <div class="manage-tab">
           <v-tabs dark v-model="navigatorState.tab">
             <v-tabs-bar class="transparent">
@@ -276,8 +276,7 @@
         </div>
       </v-flex>
     </template>
-
   </div>
 </template>
-<script type="text/javascript" src="./manage.ctrl.js"></script>
 
+<script type="text/javascript" src="./manage.ctrl.js"></script>

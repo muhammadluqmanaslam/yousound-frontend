@@ -171,7 +171,7 @@
         <h3>You sound like you're ready</h3>
         <v-btn to="/register" round dark color="blue" class="px-1">Sign Up</v-btn>
       </div>
-      <!-- <app-footer></app-footer> -->
+      <app-footer></app-footer>
     </div>
   </div>
 </template>

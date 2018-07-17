@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="page album-detail-page" v-if="isPageReady">
+  <v-layout row wrap class="page album-detail-page">
     <canvas id="canvas" class="background-image"></canvas>
     <div id="back_image" class="background-overlay"></div>
 
@@ -25,7 +25,7 @@
       :item="album"
       :dismiss="closeShareModal"/>
 
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages" v-if="isPageReady">
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
           <div class="album-image" :style="`background-image: url(${coverImageURL})`"></div>

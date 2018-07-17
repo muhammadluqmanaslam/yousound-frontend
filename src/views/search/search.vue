@@ -1,10 +1,10 @@
 <template>
   <div class="page search-page">
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Search</h2>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <div class="search-tab">
 
         <v-tabs dark v-model="tab">
@@ -64,4 +64,5 @@
     </v-flex>
   </div>
 </template>
+
 <script type="text/javascript" src="./search.ctrl.js"></script>

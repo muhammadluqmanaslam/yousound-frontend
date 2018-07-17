@@ -1,6 +1,6 @@
 <template>
-  <div class="page notifications-page" v-if="isPageReady">
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="notifications-page-header">
+  <div class="page notifications-page">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="notifications-page-header">
       <v-flex xs12>
         <v-layout row wrap>
           <h2 class="page-title">Activity</h2>
@@ -11,7 +11,7 @@
             </v-btn>
             <v-list>
               <v-list-tile v-for="(filter, index) in filters" :key="filter.id" @click.native="filterSelected(index)">
-              <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
+                <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
               </v-list-tile>
             </v-list>
           </v-menu>
@@ -19,7 +19,7 @@
       </v-flex>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="notifications-page-content">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="notifications-page-content" v-if="isPageReady">
       <div v-if="!filtered_activities || filtered_activities.length == 0" class="empty-section">
         <p class="empty-title">No Activity</p>
         <p class="empty-description">This is where you'll see who followed, commented, and other activity.</p>

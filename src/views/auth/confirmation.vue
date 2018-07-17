@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap class="page auth-page social-verify-page">
-    <v-flex xs12 sm6 offset-sm3  md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2>
+    <v-flex xs12 sm6 offset-sm3 md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2>
       <template v-if="token == 'being'">
         <div class="page-header">
           <v-flex xs12 text-xs-center>

@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="page upload-album-page" v-if="isPageReady">
+  <v-layout row wrap class="page upload-album-page">
     <v-dialog v-model="collaborators_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Confirm Collaborators</v-card-title>
@@ -12,7 +12,7 @@
       </v-card>
     </v-dialog>
 
-    <v-flex xs12 relative>
+    <v-flex xs12 relative v-if="isPageReady">
       <v-flex xs12 pa-0>
         <track-uploader accept=".mp3" :autoUpload="true" :album="album"></track-uploader>
       </v-flex>

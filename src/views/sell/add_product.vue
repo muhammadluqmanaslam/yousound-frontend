@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="page sell-page product-page" v-if="isPageReady">
+  <v-layout row wrap class="page sell-page product-page">
     <v-dialog v-model="collaborators_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Confirm Collaborators</v-card-title>
@@ -12,10 +12,10 @@
       </v-card>
     </v-dialog>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Sell</h2>
     </v-flex>
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="isPageReady">
       <v-layout row wrap content-section>
         <v-flex xs12 sm6>
           <v-flex xs12 section-title>
@@ -269,4 +269,5 @@
     </v-flex>
   </v-layout>
 </template>
+
 <script type="text/javascript" src="./add_product.ctrl.js"></script>

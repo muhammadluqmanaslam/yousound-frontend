@@ -63,8 +63,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'notifications', tab: ''})
-    this.isPageReady = false
+    this.$store.dispatch('navigator/goNextState', { page: 'notifications', tab: '' })
     this.loadActivities()
   },
 
@@ -75,6 +74,7 @@ export default {
     },
 
     loadActivities() {
+      console.log('loadActivities')
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
         'page': this.page_index,

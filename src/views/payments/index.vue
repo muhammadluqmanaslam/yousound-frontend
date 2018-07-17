@@ -55,7 +55,7 @@
       </v-card>
     </v-dialog>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative>
       <div class="wallet-section" v-if="currentUser">
         <label class="">Total</label>
         <label class="available-money-amount">${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label>
@@ -155,7 +155,6 @@
         </v-tabs>
       </div>
     </v-flex>
-
   </div>
 </template>
 

@@ -35,7 +35,7 @@
       <div id="back_image" class="background-overlay" v-if="slide_tab!='merch'"></div>
 
       <div id="slider_profile_container" class="relative">
-        <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 id="user_info_page">
+        <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 id="user_info_page">
           <div id="profile_section">
             <div class="user-profile-section" id="profile_section">
               <div class="user-profile-image-section">
@@ -187,7 +187,7 @@
     </div>
 
     <div class="page profile-grid-page" v-if="grid_show">
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 id="no_id" style="height:inherit !important;">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 id="no_id" style="height:inherit !important;">
         <div class="user-profile-section" v-if="user">
           <div class="user-profile-image-section">
             <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
@@ -258,7 +258,7 @@
           </div>
         </div>
       </v-flex>
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
         <div class="profile-grid-tab">
           <v-tabs dark v-model="currentTab">
             <v-tabs-bar class="transparent">

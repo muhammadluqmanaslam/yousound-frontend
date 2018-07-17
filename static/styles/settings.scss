@@ -37,10 +37,7 @@
       background-color: rgba(0, 0, 0, 0);
     }
     .main-section {
-      position: absolute;
-      // display: none;
-      left: 191.25px;
-      width: calc(100% - 191.25px);
+      margin-left: 191.25px;
       &.active {
         display: block;
       }

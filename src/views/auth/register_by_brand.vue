@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg19 offset-lg1 xl10 offset-xl1 transition="slide-x-reverse-transition">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg19 offset-lg1 xl10 offset-xl1 transition="slide-x-reverse-transition">
       <v-dialog v-model="show_genre_selector_dialog" content-class="my-genre-dialog ma-0 pa-2">
         <genre-dialog :dismiss="closeGenreSelectorDialog"></genre-dialog>
       </v-dialog>

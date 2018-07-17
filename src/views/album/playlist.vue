@@ -1,9 +1,9 @@
 <template>
-  <v-layout row wrap class="page album-detail-page" v-if="playlist">
+  <v-layout row wrap class="page album-detail-page">
     <canvas id="canvas" class="background-image"></canvas>
     <div id="back_image" class="background-overlay"></div>
 
-    <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages" v-if="playlist">
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
           <div class="album-image" :style="{'background-image': 'url(' + coverImageURL + ')'}"> </div>
@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-      <v-flex xs12 sm10 offset-sm1  md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="$store.state.auth.user">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="$store.state.auth.user">
         <h4 class="comment-title">Talk to {{ playlist.user.display_name }}</h4>
         <label class="description">Comments are only seen by the artist and people you @mention, unless artist makes your comment public.</label>
         <div class="comments-section">

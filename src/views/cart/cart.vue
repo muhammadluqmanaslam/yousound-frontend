@@ -1,5 +1,5 @@
 <template>
-  <div row wrap class="page cart-page" if="isPageReady">
+  <div row wrap class="page cart-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Cart</h2>
     </v-flex>

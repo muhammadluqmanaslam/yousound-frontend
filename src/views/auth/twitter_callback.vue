@@ -1,6 +1,6 @@
 <template>
-  <v-layout row wrap class="page auth-page auth-twitter-page" v-if="isPageReady">
-    <v-flex xs12 sm6 offset-sm3  md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2 transition="slide-x-reverse-transition">
+  <v-layout row wrap class="page auth-page auth-twitter-page">
+    <v-flex xs12 sm6 offset-sm3 md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2 transition="slide-x-reverse-transition">
       <div class="page-header">
         <v-flex xs12 text-xs-center>
           <img class="logo" src="/static/images/nav_logo_primary.png">
@@ -9,7 +9,7 @@
           <h4>Additional Information</h4>
         </v-flex>
       </div>
-      <div class="page-content">
+      <div class="page-content" v-if="isPageReady">
         <form v-on:submit.prevent="submit()">
           <v-flex xs12 text-xs-center v-if="user.request_role!='brand'">
             <v-select v-validate="'required'"
