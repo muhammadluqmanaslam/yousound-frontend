@@ -29,6 +29,22 @@ export default {
     shareModal
   },
 
+  head: {
+    title () {
+      this.loadData()
+      return {
+        inner: this.album.user.display_name + " - " + this.album.name + " | YouSound"
+      }
+    },
+    meta () {
+      this.loadData()
+      return [
+        { name: 'twitter:title', content: this.album.user.display_name + " - " + this.album.name},
+        { p: 'og:image', c: this.album.cover.large.url },
+      ]
+    }
+  },
+
   data () {
     return {
       showDownloadModal: false,
