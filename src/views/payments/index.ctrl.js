@@ -21,19 +21,18 @@ export default {
     return {
       activeTab: 'received',
       tabs: [
-        {
-          id: 'received',
-          title: 'Received'
-        },
-        {
-          id: 'sent',
-          title: 'Sent'
-        }
+        { id: 'received', title: 'Received' },
+        { id: 'sent', title: 'Sent' }
       ],
       show_withdraw_dialog: false,
       show_withdraw_confirm_modal: false,
       withdraw_option: 'all',
       withdraw_amount: 1.00,
+      show_refund_confirm_dialog: false,
+      show_refund_dialog: false,
+      refund_option: 'all',
+      refund_amount: 1.00,
+      refund_description: '',
       histories: [],
       payment: {},
       show_product_modal: false,
@@ -69,6 +68,14 @@ export default {
         return this.currentUser.available_amount
       } else {
         return parseInt(this.withdraw_amount * 100)
+      }
+    },
+
+    refundAmount () {
+      if (this.refund_option == 'all') {
+        return this.payment.received_amount
+      } else {
+        return parseInt(this.refund_amount * 100)
       }
     }
   },
@@ -142,6 +149,43 @@ export default {
     closeWithdrawConfirmModal () {
       this.openWithdrawModal()
       this.show_withdraw_confirm_modal = false
+    },
+
+    openRefundDialog (payment) {
+      this.payment = payment
+      this.show_refund_dialog = true
+    },
+
+    closeRefundDialog () {
+      this.show_refund_dialog = false
+    },
+
+    openRefundConfirmDialog () {
+      this.closeRefundDialog()
+      this.show_refund_confirm_dialog = true
+    },
+
+    closeRefundConfirmDialog () {
+      this.show_refund_dialog = true
+      this.show_refund_confirm_dialog = false
+    },
+
+    refundMoney () {
+      this.show_refund_confirm_dialog = false
+      // console.log('refundMoney', this.refundAmount, this.refund_description, this.payment)
+      this.$store.dispatch('error/showLoadingActivity', true)
+      const params = {
+        amount: this.refundAmount,
+        description: this.refund_description
+      }
+      PaymentService.refundMoney(this.payment.id, params).then(response => {
+        AuthService.setUser(response.body)
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showSuccessToast', [`Refunded $${Filter.formatNumber(this.refundAmount)} successfully.`])
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     },
 
     onTab (tab) {

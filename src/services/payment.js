@@ -4,6 +4,10 @@ import $store from '@/store'
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/payments'
 
 export default {
+  refundMoney (paymentId, params) {
+    return Vue.http.post(`${process.env.API_BASE_URL}/v1/payments/${paymentId}/refund`, params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   makeDeposit (params) {
     return Vue.http.post(API_BASE_URL + '/deposit', params, { headers: { 'Authorization': $store.state.auth.token } })
   },

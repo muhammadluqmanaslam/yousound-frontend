@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import ProductService from '@/services/product'
 import OrderService from '@/services/order'
 
@@ -43,8 +44,12 @@ export default {
       return sum
     },
 
+    refundAmount () {
+      return _.get(this.order_detail, 'refund_amount', 0)
+    },
+
     total () {
-      return this.subTotal + this.shippingTotal
+      return this.subTotal + this.shippingTotal - this.refundAmount
     }
   },
 
