@@ -108,7 +108,7 @@
             color: #212121;
           }
           span {
-            font-size: 18px;
+            font-size: 16px;
             color: #B0B0B0;
           }
         }
@@ -569,8 +569,9 @@
         .text-message {
           width: 100%;
           word-break: break-all;
-          font-size: 15px;
+          font-size: 14px;
           letter-spacing: -0.5px;
+          font-family: 'Work Sans'
         }
       }
       &.request {
@@ -657,7 +658,8 @@
               white-space: nowrap;
               font-weight: 700;
               font-size: 15px;
-              letter-spacing: -0.6px;
+              letter-spacing: -.8px;
+              font-family: 'Work Sans';
             }
             .item-user {
               display: block;

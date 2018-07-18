@@ -190,6 +190,7 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.slug).then(response => {
         this.user = response.body
+        this.$emit('updateHead')
 
         if (this.isStreaming()) {
           Vue.http.get(this.user.stream.mp_channel_1_ep_1_url).then(response => {
@@ -558,5 +559,13 @@ export default {
       }
       $('#back_image').css("cssText", "height: " + height + "px !important;")
     }).trigger('resize')
+  },
+
+  head: {
+    title () {
+      return {
+        inner: this.user.display_name
+      }
+    }
   }
 }

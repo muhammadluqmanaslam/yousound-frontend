@@ -254,6 +254,7 @@ export default {
           app.connected = false
         } 
         sm.onMessage = function (message) {
+    
           if (!message) return;
           // Remove the message from sendingMessages
           app.sendingMessages = $.grep(app.sendingMessages, function (e) {
@@ -270,7 +271,9 @@ export default {
               if (app.messages[0].localId != message.localId) {
                 // This block of code runs twice for some reason
                 // So just make sure that we didn't already add this message
-                app.messages.unshift(message)
+                if (!(app.messages.length == 1)) {
+                  app.messages.unshift(message)
+                }
               }
             }
           })
@@ -410,6 +413,7 @@ export default {
       idleTime = idleTime + 0.1
       if (idleTime >= idleTimeout) { // 20 minutes
         sm.idle()
+        clearInterval(idleInterval)
       }
     }
   }

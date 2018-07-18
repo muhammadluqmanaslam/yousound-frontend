@@ -2,6 +2,10 @@ body {
   font-family: 'Nunito', 'Avenir', 'Arial';
 }
 
+.application.theme--light {
+  background: #fff;
+}
+
 // div#app {
 .application {
   background-color: #FFFFFF;
@@ -224,7 +228,7 @@ a {
     padding: 0 !important;
     text-transform: none;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: -1px;
     font-family: 'Work Sans'
   }
