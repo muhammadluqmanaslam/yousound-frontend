@@ -15,6 +15,7 @@ import merchModal from '@/components/merchmodal'
 import profileItem from '@/components/profileitem'
 import promoteModal from '@/components/promotemodal'
 import shareModal from '@/components/sharemodal'
+import Vue from 'vue'
 
 export default {
   components: {
@@ -38,7 +39,15 @@ export default {
       isShowFinishModal: false,
       showEmojiPicker: false,
       slug: null,
-      album: null,
+      album: {
+        name: "",
+        user: {
+          display_name: ""
+        },
+        cover: {
+          large: ""
+        }
+      },
       trackIndex: 0,
       comments: [],
       commentString: '',
@@ -148,7 +157,7 @@ export default {
         AlbumService.getAlbum(this.slug),
         AlbumService.myRole(this.slug)
       ]).then(values => {
-        this.album = values[0].body
+        Vue.set(this, "album", values[0].body)
         // for (let index in this.album.tracks) {
         //   this.buttonHover.push(false)
         // }
@@ -166,8 +175,10 @@ export default {
         if (this.$store.state.auth.user) {
           this.getComments()
         }
-
+        this.$emit('updateHead')
+        
         setTimeout(function () {
+          
           vm.changeBackground()
           var height = $('#album_info_page').height() + 230
           var screen_height = $( window ).height()
@@ -472,5 +483,19 @@ export default {
   },
 
   updated () {
-  }
+  },
+
+  head: {
+    title () {
+      return {
+        inner: this.album.user.display_name + " - " + this.album.name
+      }
+    },
+    meta () {
+      return [
+        { p: 'twitter:title', content: this.album.user.display_name + " - " + this.album.name},
+        { p: 'twitter:image', c: this.album.cover.large.url },
+      ]
+    }
+  },
 }
