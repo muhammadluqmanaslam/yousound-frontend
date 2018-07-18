@@ -271,7 +271,7 @@ export default {
               if (app.messages[0].localId != message.localId) {
                 // This block of code runs twice for some reason
                 // So just make sure that we didn't already add this message
-                if (!(messages.length == 1)) {
+                if (!(app.messages.length == 1)) {
                   app.messages.unshift(message)
                 }
               }
