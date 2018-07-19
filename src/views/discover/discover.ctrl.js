@@ -14,26 +14,17 @@ export default {
     return {
       activeTab: '',
       tabs: [
-        {
-          
-          id: 'recommended',
-          title: 'Recommended'
-        },
-        {
-          id: 'new',
-          title: 'Albums'
-        },
-        {
-
-          id: 'merch',
-          title: 'Merch'
-        }
+        { id: 'recommended', title: 'Recommended' },
+        { id: 'new', title: 'Albums' },
+        { id: 'merch', title: 'Merch' }
       ],
       page_index: 1,
       total_pages: 1,
       items_per_page: 5 * 5,
       genres: [],
       selected_genre: null,
+      categories: [],
+      selected_category: null,
       products:[],
       feeds: [],
       isPageReady: false
@@ -43,9 +34,21 @@ export default {
   computed: {
     filtered_feeds () {
       if (this.selected_genre) {
-        return _.filter(this.feeds, (feed) => (feed.genre_ids.indexOf(this.selected_genre.id) > -1))
+        return _.filter(this.feeds, (feed) => (
+          _.find(feed.genres, (genre) => (genre.id == this.selected_genre.id))
+        ))
       } else {
         return this.feeds
+      }
+    },
+
+    filtered_products () {
+      if (this.selected_category) {
+        return _.filter(this.products, (product) => (
+          product.category.id == this.selected_category.id
+        ))
+      } else {
+        return this.products
       }
     }
   },
@@ -80,41 +83,27 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (tab === 'merch') {
           this.products = this.products.concat(response.body.products)
+          const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+          this.categories = [
+            { id: 'any', name: 'Any category' },
+          ].concat(categories)
         } else {
-          const feeds = response.body.albums
-          for (let album_index in feeds) {
-            const feed = feeds[album_index]
-            var genre_ids = []
-            for (let new_index in feed.genres) {
-              let add_flag = true
-              const genre_id = feed.genres[new_index].id
-              genre_ids.push(genre_id)
-              for (let genre_index in this.genres) {
-                if (genre_id === this.genres[genre_index].id) {
-                  add_flag = false
-                  break
-                }
-              }
-              if (add_flag) {
-                this.genres.push(feed.genres[new_index])
-              }
-            }
-            feed.genre_ids = genre_ids.join(',')
-            this.feeds.push(feed)
-          }
+          this.feeds = this.feeds.concat(response.body.albums)
+          const genres = _.chain(this.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+          this.genres = [
+            { id: 'go_to_filters', name: 'Set Genre Filters' },
+            { id: 'any', name: 'Any genre' },
+          ].concat(genres)
         }
         this.page_index = response.body.pagination.current_page
         this.total_pages = response.body.pagination.total_pages
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.status === 401) {
-        } else {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
-    filterByGenres(genre) {
+    filterByGenres (genre) {
       $('#genre_selector .btn__content').html(genre.name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
       switch (genre.id) {
         case 'go_to_filters':
@@ -128,7 +117,18 @@ export default {
       }
     },
 
-    loadMore() {
+    filterByCategory (category) {
+      $('#category_selector .btn__content').html(category.name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+      switch (category.id) {
+        case 'any':
+          this.selected_category = null
+          break
+        default:
+          this.selected_category = category
+      }
+    },
+
+    loadMore () {
       this.page_index += 1
       this.loadFeeds(this.$store.state.auth.tab)
     },
@@ -160,14 +160,8 @@ export default {
       this.feeds = []
       this.selected_genre = null
       this.genres = [
-        {
-          id: 'go_to_filters',
-          name: 'Set Genre Filters'
-        },
-        {
-          id: 'any',
-          name: 'Any genre'
-        },
+        { id: 'go_to_filters', name: 'Set Genre Filters' },
+        { id: 'any', name: 'Any genre' },
       ]
       if (tab === 'merch') {
         this.$store.dispatch('navigator/goNextState', { page: 'merch', tab: tab })

@@ -189,6 +189,7 @@ export default {
 
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.slug).then(response => {
+        // console.log('profile init')
         this.user = response.body
         this.$emit('updateHead')
 
@@ -564,7 +565,7 @@ export default {
   head: {
     title () {
       return {
-        inner: this.user.display_name
+        inner: _.get(this.user, 'display_name', '')
       }
     }
   }

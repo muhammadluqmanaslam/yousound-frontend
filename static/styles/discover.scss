@@ -1,94 +1,19 @@
-.application.theme--light.primary {
-  .page.discover-page {
-    .page-title {
-      color: #FFFFFF;
-    }
-    .discover-tab {
-      position: relative;
-      .tabs__wrapper.tabs__wrapper--scrollable {
-        margin: 0 !important;
-      }
-      .tabs__li {
-        margin-right: 33px !important;
-      }    
-      .tabs__items {
-        border: none !important;
-        margin-top: 30px;
-      }
-      .tabs__bar {
-        margin-left: 3px;
-    }
-      .card.card--flat {
-        background: none;
-        border: none;
-      }
-      .menu.genre_menu {
-        position: absolute;
-        top: 5.5px;
-        right: 0;
-        .menu__activator .btn {
-          margin: 0;
-          height: 41.25px;
-          background: rgba(255,255,255,0.10) !important;
-          border: 1.1px solid rgba(255, 255, 255, 0.3) !important;
-          border-radius: 4.125px;
-          // transform: rotate(-180deg);
-          // border: 2.475px solid #FFFFFF;
-          font-size: 16px;
-          color: #FFFFFF;
-          letter-spacing: -0.2px;
-          box-shadow: none;
-          text-transform: none;
-          font-family: 'Work Sans';
-          // width: 132px;
-        }
-      }
-    }
-
-    .tabs__item {
-      padding: 0 !important;
-      text-transform: none;
-      font-size: 18px;
-      color: #FFFFFF !important;
-      letter-spacing: -1px;
-      font-weight: 500;
-      height: 55px;
-      font-family: 'Work Sans'
-    }
+.page.discover-page {
+  .page-title {
+    color: #000000;
   }
-}
-
-.application.theme--light.gray {
-  .page.discover-page {
-    .page-title {
-      color: #000000;
+  .tabs {
+    .tabs__wrapper.tabs__wrapper--scrollable {
+      margin: 0 !important;
     }
-    .discover-tab {
-      position: relative;
-      .tabs__wrapper.tabs__wrapper--scrollable {
-        margin: 0 !important;
-      }
-      .tabs__li {
-        margin-right: 33px !important;
-      }
-      .tabs__slider.white {
-        background-color: #000 !important;
-      }
-      .tabs__items {
-        border: none !important;
-        margin-top: 24px;
-      }
-      .card.card--flat {
-        background: none;
-        border: none;
-      }
+    .tabs__li {
+      margin-right: 33px !important;
     }
-
-    .tabs__slider black {
-    height: 4px;
+    .tabs__slider.white {
+      background-color: #000 !important;
     }
-
     .tabs__item {
+      height: 55px;
       padding: 0 !important;
       text-transform: none;
       font-size: 20px;
@@ -101,13 +26,71 @@
         color: #000000;
       }
     }
-  }
-  .product-detail {
-    .product-name {
-      color: #000 !important;
+    .tabs__items {
+      border: none !important;
+      margin-top: 24px;
     }
-    .product-user-name {
-      color: #000 !important;
+    .card.card--flat {
+      background: none;
+      border: none;
+    }
+  }
+  .menu.filter_menu {
+    position: absolute;
+    top: 5.5px;
+    right: 0;
+    .menu__activator .btn {
+      margin: 0;
+      height: 41.25px;
+      border-radius: 4.125px;
+      // transform: rotate(-180deg);
+      // border: 2.475px solid #FFFFFF;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+      box-shadow: none;
+      text-transform: none;
+      background: rgba(255,255,255,0.10) !important;
+      border: 1.1px solid rgba(0, 0, 0, 0.3) !important;
+      color: #000;
+    }
+  }
+}
+
+.application.theme--light.primary {
+  .page.discover-page {
+    .page-title {
+      color: #FFFFFF;
+    }
+    .tabs {
+      .tabs__slider.white {
+        background-color: #FFFFFF !important;
+      }
+      .tabs__item {
+        color: #FFFFFF !important;
+        &.tabs__item--active {
+          color: #FFFFFF !important;
+        }
+      }
+    }
+    .menu.filter_menu {
+      .menu__activator .btn {
+        background: rgba(255,255,255,0.10) !important;
+        border: 1.1px solid rgba(255, 255, 255, 0.3) !important;
+        color: #FFFFFF;
+      }
+    }
+  }
+}
+
+.application.theme--light.gray {
+  .page.discover-page {
+    .product-detail {
+      .product-name {
+        color: #000 !important;
+      }
+      .product-user-name {
+        color: #000 !important;
+      }
     }
   }
 }
