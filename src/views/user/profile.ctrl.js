@@ -51,7 +51,9 @@ export default {
         { id: 'merch', title: 'Merch', roles: ['artist', 'brand', 'label'] }
       ],
       slug: null,
-      user: null,
+      user: {
+        display_name: ''
+      },
       show_block_user_confirm_dialog: false,
       show_invite_confirm_dialog: false,
       showPageMerchModal: false,
