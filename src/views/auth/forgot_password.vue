@@ -31,7 +31,7 @@
           </v-layout>
         </v-flex>
         <v-flex xs12 text-xs-center>
-          <a class="sign-in" href="/login">Sign in</a>
+          <router-link to="/login">Sign in</router-link>
         </v-flex>
       </div>
     </v-flex>

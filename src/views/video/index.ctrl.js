@@ -107,6 +107,7 @@ export default {
       this.isPageReady = true
       this.$store.dispatch('error/showLoadingActivity', false)
 
+      AuthService.setUser(response.body)
       this.$store.dispatch('auth/setStream', response.body.stream)
       const stream_status = _.get(response.body, 'stream.status', '')
       if (stream_status === '') {

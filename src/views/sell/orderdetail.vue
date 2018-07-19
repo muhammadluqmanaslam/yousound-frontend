@@ -57,6 +57,10 @@
               <v-flex xs6 text-xs-right pb-2>${{ subTotal | formatNumber }}</v-flex>
               <v-flex xs6 text-xs-left pb-2>Shipping</v-flex>
               <v-flex xs6 text-xs-right pb-2>${{ shippingTotal | formatNumber }}</v-flex>
+              <template v-if="refundAmount > 0">
+                <v-flex xs6 text-xs-left pb-2 class="error--text">Refund</v-flex>
+                <v-flex xs6 text-xs-right pb-2 class="error--text">${{ refundAmount | formatNumber }}</v-flex>
+              </template>
             </v-layout>
           </div>
           <div class="total-section">
