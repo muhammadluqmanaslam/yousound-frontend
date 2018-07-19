@@ -49,7 +49,8 @@ export default {
         settings: {
           links: false,
           charLimitBool: false,
-          charLimit: 100
+          charLimit: 100,
+          attachments: true
         },
         online: [],
         idle: []
@@ -82,7 +83,8 @@ export default {
       products: [],
       connected: false,
       albumLinks: {},
-      merchLinks: {}
+      merchLinks: {},
+      idleInterval: null
     }
   },
 
@@ -381,7 +383,7 @@ export default {
     var idleTime = 0
     $(document).ready(function () {
       // increment the idle time counter every 0.1 minutes.
-      var idleInterval = setInterval(timerIncrement, 6000) // 1 minute
+      app.idleInterval = setInterval(timerIncrement, 6000) // 1 minute
 
       // zero the idle timer on mouse movement.
       $(this).mousemove(function (e) {
@@ -413,7 +415,7 @@ export default {
       idleTime = idleTime + 0.1
       if (idleTime >= idleTimeout) { // 20 minutes
         sm.idle()
-        clearInterval(idleInterval)
+        clearInterval(app.idleInterval)
       }
     }
   }

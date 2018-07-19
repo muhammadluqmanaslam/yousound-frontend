@@ -178,7 +178,7 @@
             >
               <v-icon>tag_faces</v-icon>
             </v-btn>
-            <v-btn class="send-chat-btn" @click.native="sendMessage()">Send</v-btn>
+            <v-btn class="send-chat-btn" @click.native="sendMessage(message)">Send</v-btn>
           </div>
         </v-flex>
 
@@ -190,10 +190,45 @@
             </div>
           </div> -->
           <div class="content-section" v-if="meberList">
+                        
+            <v-menu class="settings-menu" v-if="admin"
+              down
+              offset-y
+              :nudge-top="-5"
+              :close-on-content-click="false">
+              <v-btn round class="settings-btn" slot="activator">
+                <v-icon dark right>more_horiz</v-icon>
+              </v-btn>
+              <v-list>
+                <v-list-tile class="settings-list-tile">
+                  <v-list-tile-content class="default-menu-item">
+                      Allow users to attach content
+                      <br>
+                      <v-switch v-model="room.settings.attachments"></v-switch>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile class="settings-list-tile">
+                  <v-list-tile-content class="default-menu-item">
+                      Allow users to send links
+                      <br>
+                      <v-switch v-model="room.settings.links"></v-switch>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile class="settings-list-tile">
+                  <v-list-tile-content class="default-menu-item">
+                      Enable a character limit
+                      <br>
+                      <v-switch v-model="room.settings.charLimitBool"></v-switch>
+                      <!-- <v-text-field v-if="room.settings.charLimitBool" placeholder="# of characters" v-model="room.settings.charLimit" :rules="[rules.number]"></v-text-field> -->
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
             <center>
             <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
             </center>
-
             <div v-if="connected" class="member-group">MODERATOR</div>
             <div class="member-item" v-for="adminUser in adminUsers" :key="`admin-${adminUser.username}`">
               <div class="avatar-area">
@@ -253,4 +288,17 @@
 <style scoped>
 .progress-circular {
 }
+
+.default-menu-item {
+  display: block;
+  /* position: relative; */
+  /* left: -10px; */
+
+}
+
+.settings-list-tile {
+padding-bottom: 10px;
+  padding-top: 10px;
+}
+
 </style>
