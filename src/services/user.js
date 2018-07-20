@@ -1,9 +1,34 @@
 import Vue from 'vue'
 import $store from '@/store'
+import Cache from '@/services/cache'
 
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/users'
 
+let cache = new Cache({expiration: 300})
+
 export default {
+  initCache () {
+    Vue.http.interceptors.push((req) => {
+      if (req.fresh) cache.del(req.url)
+      if (req.url.startsWith(API_BASE_URL) && req.method === 'GET') {
+        var valid = cache.get(req.url)
+        if (valid) {
+          return req.respondWith(valid, {
+            status: 200,
+            statusText: 'OK'
+          })
+        } // if nothing is returned, continue
+      }
+
+      return (res) => {
+        if (res && res.status === 200 && res.url.startsWith(API_BASE_URL)) {
+          cache.set(res.url, res.body)
+        }
+        return res
+      }
+    })
+  },
+
   getUsers (params) {
     return Vue.http.get(API_BASE_URL, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
