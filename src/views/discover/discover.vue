@@ -5,7 +5,7 @@
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
-      <div class="discover-tab">
+      <div class="discover-tab relative">
 
         <v-tabs dark v-model="activeTab">
           <v-tabs-bar class="transparent">
@@ -30,7 +30,7 @@
                     :hideButtonAction="hideAlbum"></track-card>
                   <!-- <track-card :dataObject="feed"></track-card> -->
                 </div>
-                <div v-for="(feed, index) in products"
+                <div v-for="(feed, index) in filtered_products"
                   v-if="tab.id=='merch'"
                   :key="index"
                   class="card-container">
@@ -45,7 +45,7 @@
           </v-tabs-items>
         </v-tabs>
 
-        <v-menu offset-y id="genre_selector" class="genre_menu" v-show="activeTab!='merch'">
+        <v-menu offset-y id="genre_selector" class="filter_menu" v-show="activeTab!='merch'">
           <v-btn dark slot="activator">Any genre
             <v-icon dark right>keyboard_arrow_down</v-icon>
           </v-btn>
@@ -56,6 +56,16 @@
           </v-list>
         </v-menu>
 
+        <v-menu offset-y id="category_selector" class="filter_menu" v-show="activeTab=='merch'">
+          <v-btn dark slot="activator">Any category
+            <v-icon dark right>keyboard_arrow_down</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="category in categories" :key="category.id" @click.native="filterByCategory(category)">
+              <v-list-tile-title>{{ category.name }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </div>
     </v-flex>
   </div>
