@@ -36,7 +36,7 @@
     >
      Connecting...
     </v-snackbar>
-    
+    <transition name="fade">
     <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">
       <div class="dismiss-section" @click="show_requestPopup = false"></div>
       <div class="popup-section">
@@ -73,6 +73,7 @@
         </div>
       </div>
     </v-flex>
+    </transition>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="user">
       <h2 class="page-title">{{ user.display_name }}</h2>
@@ -94,9 +95,11 @@
               <!--</div>-->
             <!--</div>-->
             <center>
+              <transition name="fade">
               <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
+              </transition>
             </center>
-
+            <!-- <transition-group name="fade"> -->
             <div class="chat-item other" v-for="message in reverseMessages" v-bind:key="message.id">
               <div class="user-avatar-image" :style="'background-color: gray; background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
               <div class="chat-section">
@@ -127,6 +130,7 @@
               </div>
               <div class="clear"></div>
             </div>
+            <!-- </transition-group> -->
           </div>
 
           <div class="send-chat-section">
@@ -230,6 +234,7 @@
             <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
             </center>
             <div v-if="connected" class="member-group">MODERATOR</div>
+            <transition-group name="fade">
             <div class="member-item" v-for="adminUser in adminUsers" :key="`admin-${adminUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
@@ -239,7 +244,8 @@
                 <router-link :to="'/'+adminUser.slug" class="user-name">{{ adminUser.display_name }}</router-link>
               </div>
             </div>
-
+            </transition-group>
+            <transition-group name="fade">
             <div v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
             <div v-if="onlineUsers.length" class="member-item" v-for="onlineUser in onlineUsers" :key="`online-${onlineUser.username}`">
               <div class="avatar-area">
@@ -260,6 +266,7 @@
                 <router-link v-if="idleUser" :to="'/'+idleUser.slug" class="user-name">{{ idleUser.display_name }}</router-link>
               </div>
             </div>
+            </transition-group>
           </div>
         </v-flex>
       </v-layout>
