@@ -18,6 +18,11 @@ import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
 
 import SettingService from './services/setting'
+import UserService from '@/services/user'
+import AlbumService from '@/services/album'
+import ProductService from '@/services/product'
+import ProfileService from '@/services/profile'
+
 // import ActivityService from './services/activity'
 
 import '@/../static/styles/app.scss'
@@ -100,5 +105,9 @@ if (isMobileBrowser) {
       components: { App }
     })
     app.$mount('#app')
+    UserService.initCache()
+    AlbumService.initCache()
+    ProductService.initCache()
+    ProfileService.initCache()
   })
 }

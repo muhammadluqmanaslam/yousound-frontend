@@ -4,7 +4,7 @@ import Cache from '@/services/cache'
 
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/users'
 
-let cache = new Cache({expiration: 300})
+let cache = new Cache('users', {expiration: 150})
 
 export default {
   initCache () {

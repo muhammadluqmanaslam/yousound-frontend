@@ -242,7 +242,6 @@ export default {
     let requestInProgress = false;
     this.$store.dispatch('navigator/goNextState', {page: 'chat', tab: ''})
     this.$store.dispatch('error/showLoadingActivity', true)
-    UserService.initCache()
     UserService.getUserInfo(this.$route.params.user).then(response => {
       this.$store.dispatch('error/showLoadingActivity', false)
       this.user = response.body
@@ -377,7 +376,7 @@ export default {
       clearInterval(this.idleInterval)
     }
     if (sm) {
-    sm.close()
+      sm.close()
     }
   },
 

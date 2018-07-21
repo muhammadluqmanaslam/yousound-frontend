@@ -1,6 +1,7 @@
 class Cache {
-  constructor (options) {
-    this._cache = {}
+  constructor (id, options) {
+    this._cache = JSON.parse(localStorage.getItem(id) || '{}')
+    this.id = id
     this.expiration = 300 // seconds
     if (options.expiration) {
       this.expiration = options.expiration
@@ -25,11 +26,17 @@ class Cache {
       time: new Date().getTime() / 1000,
       val: val
     }
+    this.save()
   }
 
   del (key) {
     this._cache[key].val = null
     this._cache[key].time = null
+  }
+
+  save () {
+    // save into localstorage
+    localStorage.setItem(this.id, JSON.stringify(this._cache))
   }
 }
 export default Cache
