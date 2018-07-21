@@ -1,4 +1,4 @@
-class Cache {
+class VueCache {
   constructor (id, options) {
     this._cache = JSON.parse(localStorage.getItem(id) || '{}')
     this.id = id
@@ -39,4 +39,4 @@ class Cache {
     localStorage.setItem(this.id, JSON.stringify(this._cache))
   }
 }
-export default Cache
+export default VueCache

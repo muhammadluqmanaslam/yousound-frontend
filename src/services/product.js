@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import $store from '@/store'
-import Cache from '@/services/cache'
+import VueCache from '@/services/cache'
 
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/shopping/products'
 
-let cache = new Cache('products', {expiration: 150})
+let cache = new VueCache('products', {expiration: 150})
 
 export default {
   initCache () {
