@@ -376,7 +376,9 @@ export default {
     if (this.idleInterval) {
       clearInterval(this.idleInterval)
     }
+    if (sm) {
     sm.close()
+    }
   },
 
   mounted() {
