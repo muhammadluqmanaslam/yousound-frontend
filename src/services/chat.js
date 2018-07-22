@@ -28,6 +28,7 @@ var SocketManager = (socketHost, roomName, token, callback) => {
     socket.on('userInfo', sm.onUserInfo)
     socket.on('disconnect', () => { sm.onDisconnect() })
     socket.on('reconnect', sm.onReconnect)
+    socket.on('messageError', a => sm.onError(a))
   })
 
   /**
@@ -98,6 +99,10 @@ var SocketManager = (socketHost, roomName, token, callback) => {
   }
 
   sm.onLoadMessages = (message) => {
+    // Override
+  }
+
+  sm.onError = () => {
     // Override
   }
 

@@ -36,6 +36,13 @@
     >
      Connecting...
     </v-snackbar>
+    <v-snackbar
+      v-model="isMessageErr"
+      :color="'error'"
+      :timeout="5000"
+    >
+    {{messageError}}
+    </v-snackbar>
     <transition name="fade">
     <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">
       <div class="dismiss-section" @click="show_requestPopup = false"></div>
@@ -46,6 +53,7 @@
             <div class="option-area">
               <v-btn class="request-option-btn" :class="{'selected':request_tab=='album'}" @click.native="onRequestTab('album')">Album</v-btn>
               <v-btn class="request-option-btn" :class="{'selected':request_tab=='merch'}" @click.native="onRequestTab('merch')">Merch</v-btn>
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='users'}" @click.native="onRequestTab('users')">Users</v-btn>
             </div>
           </div>
           <div class="content-section" v-if="request_tab=='album'">
@@ -69,6 +77,58 @@
                 <label class="user-name">{{ product.merchant.display_name }}</label>
               </div>
             </div>
+          </div>
+          <div class="content-section" v-if="request_tab=='users'">
+            <v-layout row wrap class="popup-section">
+      <v-flex xs12 class="title-section">
+        <h2 class="text-xs-center">{{ title }}</h2>
+        <v-flex xs12 class="search-section">
+          <div class="search-box">
+            <div class="search-container">
+              <span class="icon">-
+                <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+                  <title>Group 22</title>
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="searchIcon" transform="translate(-732.000000, -61.000000)" stroke="#FFFFFF" stroke-width="1.5999999">
+                      <g id="Group-29" transform="translate(710.000000, 50.000000)">
+                        <g id="Group-22" transform="translate(23.000000, 12.000000)">
+                          <circle id="Oval-2" cx="11.375" cy="11.375" r="11.375"></circle>
+                          <path d="M19.5,19.5 L25.59375,25.59375" id="Line" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+              <input
+                  class="search-field"
+                  v-model="keyword"
+                  type="search"
+                  id="search"
+                  placeholder="Search"
+                  @keyup.enter="loadUsers()"/>
+            </div>
+          </div>
+        </v-flex>
+      </v-flex>
+      <v-flex xs12 class="list-section">
+        <v-flex v-for="(user, index) in filtered_users"
+            xs12 class="user-item"
+            :key="index"
+            @click.self="onSelectUser(user)">
+          <router-link :to="'/' + user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div></router-link>
+          <label class="user-name" @click="onSelectUser(user)">
+            {{ user.display_name }}
+            <v-icon v-if="user.user_type == 'artist'"
+              class="user-status"
+              :class="{'online': user.status == 'active'}">fa-check-circle</v-icon>
+          </label>
+        </v-flex>
+      </v-flex>
+    </v-layout>
           </div>
         </div>
       </div>

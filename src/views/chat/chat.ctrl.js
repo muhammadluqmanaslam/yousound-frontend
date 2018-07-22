@@ -84,7 +84,8 @@ export default {
       connected: false,
       albumLinks: {},
       merchLinks: {},
-      idleInterval: null
+      idleInterval: null,
+      messageError: ""
     }
   },
 
@@ -100,6 +101,9 @@ export default {
     },
     disconnected() {
       return !this.connected
+    },
+    isMessageErr() {
+      return !!this.messageError
     }
   },
 
@@ -255,6 +259,9 @@ export default {
         sm.onDisconnect = () => {
           app.connected = false
         } 
+        sm.onError = error => {
+          app.messageError = error
+        }
         sm.onMessage = function (message) {
     
           if (!message) return;
