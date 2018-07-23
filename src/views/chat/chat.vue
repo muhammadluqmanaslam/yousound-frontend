@@ -81,7 +81,7 @@
           <div class="content-section" v-if="request_tab=='users'">
             <v-layout row wrap class="popup-section">
       <v-flex xs12 class="title-section">
-        <h2 class="text-xs-center">{{ title }}</h2>
+        <!-- <h2 class="text-xs-center">hi</h2> -->
         <v-flex xs12 class="search-section">
           <div class="search-box">
             <div class="search-container">
@@ -105,7 +105,7 @@
               </span>
               <input
                   class="search-field"
-                  v-model="keyword"
+                  v-model="userSearchKeyword"
                   type="search"
                   id="search"
                   placeholder="Search"
@@ -115,7 +115,7 @@
         </v-flex>
       </v-flex>
       <v-flex xs12 class="list-section">
-        <v-flex v-for="(user, index) in filtered_users"
+        <v-flex v-for="(user, index) in users"
             xs12 class="user-item"
             :key="index"
             @click.self="onSelectUser(user)">
@@ -169,7 +169,7 @@
                 </div>
                 <div class="chat-content text">
                   <label v-if="!isAttachmentLink(message.text)" class="text-message">{{message.text}}</label>
-                  <div v-if="isAttachmentLink(message.text) && (!albumLinks[message.text] && !merchLinks[message.text])">Loading...</div>
+                  <!-- <div v-if="isAttachmentLink(message.text) && (!albumLinks[message.text] && !merchLinks[message.text])">Loading...</div> -->
                   <div class="album-embed-wrapper" v-if="isAlbumLink(message.text) && albumLinks[message.text]">
                     <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"></activity-album-card>
                     <div class="info-section">
@@ -184,6 +184,14 @@
                       <label class="item-title">{{ merchLinks[message.text].name }}</label>
                       <br>
                       <router-link :to="'/'+merchLinks[message.text].merchant.slug" class="item-user">{{ merchLinks[message.text].merchant.display_name }}</router-link>
+                    </div>
+                  </div>
+                  <div class="album-embed-wrapper" v-if="isUserLink(message.text) && userLinks[message.text]">
+                    <activity-user-card :object="userLinks[message.text]" class="chat-album-embed"></activity-user-card>
+                    <div class="info-section" v-if="!!userLinks[message.text]">
+                      <label class="item-title">{{ userLinks[message.text].display_name }}</label>
+                      <br>
+                      <router-link :to="'/'+userLinks[message.text].slug" class="item-user">{{ formatLargeNumber(userLinks[message.text].followers) }} followers</router-link>
                     </div>
                   </div>
                 </div>
@@ -306,7 +314,7 @@
             </div>
             </transition-group>
             <transition-group name="fade">
-            <div v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
+            <div :key="'onlineHeader'" v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
             <div v-if="onlineUsers.length" class="member-item" v-for="onlineUser in onlineUsers" :key="`online-${onlineUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + onlineUser.avatar.url + ');'"></div>
@@ -316,7 +324,7 @@
                 <router-link v-if="onlineUser" :to="'/'+onlineUser.slug" class="user-name">{{ onlineUser.display_name }}</router-link>
               </div>
             </div>
-            <div v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
+            <div :key="'idleHeader'" v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
             <div v-if="idleUsers.length" class="member-item" v-for="idleUser in idleUsers" :key="`idle-${idleUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + idleUser.avatar.url + ');'"></div>
