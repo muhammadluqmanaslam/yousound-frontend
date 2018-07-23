@@ -79,13 +79,13 @@
             </div>
           </div>
           <div class="content-section" v-if="request_tab=='users'">
-            <v-layout row wrap class="popup-section">
+            <!-- <v-layout row wrap class="popup-section"> -->
       <v-flex xs12 class="title-section">
         <!-- <h2 class="text-xs-center">hi</h2> -->
         <v-flex xs12 class="search-section">
           <div class="search-box">
             <div class="search-container">
-              <span class="icon">-
+              <span class="icon">
                 <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                   <title>Group 22</title>
@@ -119,7 +119,7 @@
             xs12 class="user-item"
             :key="index"
             @click.self="onSelectUser(user)">
-          <router-link :to="'/' + user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div></router-link>
+          <div class="avatar-image" @click="onSelectUser(user)" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
           <label class="user-name" @click="onSelectUser(user)">
             {{ user.display_name }}
             <v-icon v-if="user.user_type == 'artist'"
@@ -128,7 +128,7 @@
           </label>
         </v-flex>
       </v-flex>
-    </v-layout>
+    <!-- </v-layout> -->
           </div>
         </div>
       </div>
