@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import Vue from 'vue'
-import PaymentService from  '@/services/payment'
-import StreamService from  '@/services/stream'
+import AuthService from '@/services/auth'
+import PaymentService from '@/services/payment'
+import StreamService from '@/services/stream'
 import UserService from '@/services/user'
 
 import paymentModal from '@/components/paymentmodal'
@@ -125,6 +126,7 @@ export default {
         this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
       }
     }).catch(e => {
+      // console.log(e)
       this.$store.dispatch('error/showLoadingActivity', false)
     })
   },

@@ -77,7 +77,6 @@
       </div>
     </v-flex>
 
-
   <!--
     <v-flex xs12 sm10 offset-sm1>
       <h3>Live Video Settings</h3>
