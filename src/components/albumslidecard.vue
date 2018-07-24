@@ -24,6 +24,7 @@
 
 <script type="text/javascript">
   import { mapActions } from 'vuex'
+  import { MyEvents } from '@/helper'
   import AlbumService from '@/services/album'
   import downloadModal from '@/components/downloadmodal'
   import profileItem from '@/components/profileitem'
@@ -139,17 +140,17 @@
 
       playSong () {
         if (this.$store.state.player.isPaused) {
-          this.$root.$emit('replay')
+          this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
         } else {
           this.setPlaylist(this.objects)
           this.setPlaylistIndex(this.objectIndex)
           this.setPlaying(true)
-          this.$root.$emit('play')
+          this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
         }
       },
 
       pauseSong () {
-        this.$root.$emit('pause')
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
       },
 
       shareItem () {

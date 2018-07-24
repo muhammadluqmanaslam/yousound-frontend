@@ -42,63 +42,8 @@
       <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"><v-icon>clear</v-icon></v-btn>
     </v-snackbar>
 
-    <v-dialog v-model="dialog" max-width="500px">
-      <v-card>
-        <v-card-title>
-        <div class="page auth-page auth-login-header">
-          <v-flex xs12 text-xs-center>
-            <img class="logo" src="/static/images/nav_logo_primary.png">
-          </v-flex>
-          <v-flex xs12 text-xs-center>
-            <h4>Sign in</h4>
-          </v-flex>
-        </div>
-        <v-btn class="dialog-close-btn" @click.native="dialog=false"><v-icon>highlight_off</v-icon></v-btn>
-        </v-card-title>
-        <v-card-text>
-          <div class="page auth-page auth-login-page">
-            <form v-on:submit.prevent="submit()">
-              <v-flex xs12 text-xs-center>
-                <div class="form-group" :class="{'has-error': errors.has('email') }" >
-                  <input class="email"  v-model="user.email" v-validate="'required|email'" :class="{'input': true, 'text-danger': errors.has('email') }" name="email" type="email" placeholder="Email">
-                  <p class="text-danger text-xs-left" v-if="errors.has('email')">{{ errors.first('email') }}</p>
-                </div>
-              </v-flex>
-                <v-flex xs12 text-xs-center>
-                <input class="password" type="password" v-model="user.password" placeholder="Password">
-              </v-flex>
-              <v-flex xs12>
-                <v-flex xs12>
-                  <v-flex xs12>
-                    <v-layout row wrap>
-                      <v-flex sm6 xs12>
-                        <p class="regular-checkbox">
-                          <input id="remember" type="checkbox" v-model="remember"/>
-                          <label for="remember">Remember me</label>
-                        </p>
-                      </v-flex>
-                      <v-flex sm6 xs12 text-xs-right text-sm-right>
-                        <a class="forgot-password" @click="choosePage('forgot')">Forgot password?</a>
-                      </v-flex>
-                    </v-layout>
-                  </v-flex>
-                </v-flex>
-              </v-flex>
-              <v-flex xs12 text-xs-center>
-                <v-btn block round dark type="submit" class="login-button">Sign in</v-btn>  
-              </v-flex>
-            </form>
-            <v-flex xs12 text-xs-center>
-              <v-layout row class="or-divider">
-                <v-flex xs5><hr class="divider"></v-flex><v-flex xs2><p class="or">OR</p></v-flex><v-flex xs5><hr class="divider"></v-flex>
-              </v-layout>
-            </v-flex>
-            <v-flex xs12 text-xs-center>
-              <a class="create-account mb-4" @click="choosePage('register')">Create an account</a>
-            </v-flex>
-          </div>
-        </v-card-text>
-      </v-card>
+    <v-dialog v-model="show_login_dialog" max-width="500px">
+      <login-dialog :dismiss="closeLoginDialog"></login-dialog>
     </v-dialog>
   </v-app>
 </template>
@@ -120,6 +65,7 @@ import appFooter from '@/components/footer'
 import earnMoneySticker from '@/components/earn_money'
 import Player from '@/components/player'
 import videoPlayer from '@/components/video_player'
+import loginDialog from '@/components/login_dialog'
 
 import { MyEvents } from '@/helper'
 
@@ -129,6 +75,7 @@ export default {
     appHeader,
     appFooter,
     earnMoneySticker,
+    loginDialog,
     Player,
     videoPlayer
   },
@@ -136,12 +83,7 @@ export default {
   data () {
     return {
       direction: 'none',
-      dialog: false,
-      remember: false,
-      user: {
-        email: '',
-        password: ''
-      }
+      show_login_dialog: false
     }
   },
 
@@ -262,35 +204,6 @@ export default {
   },
 
   methods: {
-    choosePage (path) {
-      this.dialog = false
-      this.$router.push({ path: '/' + path })
-    },
-
-    submit () {
-      this.$store.dispatch('error/showLoadingActivity', true)
-      AuthService.login(this.user).then(response => {
-        this.dialog = false
-        this.$store.dispatch('error/showLoadingActivity', false)
-        if (this.remember) {
-          AuthService.saveCredential(this.user)
-        }
-        AuthService.setTokenAndUserInfo(response.body.token, response.body)
-
-        if (response.body.sign_in_count <= 1) {
-          this.$store.dispatch('auth/setFirstVisit', true)
-        }
-
-        PlaylistService.getPlaylists().then(response => {
-          this.$store.dispatch('playlist/setPlaylists', response.body)
-          this.$router.push({ path: '/discover' })
-        })
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
     getUserInfo () {
       const userId = this.$store.state.auth.user.id
       this.$store.dispatch('error/showLoadingActivity', true)
@@ -309,29 +222,12 @@ export default {
       })
     },
 
-    showLoginDialog () {
-      const user = AuthService.loadCredential()
-      if (user !== null) {
-        this.user = user
-      } else {
-        this.user = {
-          email: '',
-          password: ''
-        }
-      }
-      this.dialog = true
+    openLoginDialog () {
+      this.show_login_dialog = true
     },
 
-    hideLoginDialog () {
-      this.dialog = false
-    },
-
-    play () {
-      this.$refs.player.play()
-    },
-
-    pause () {
-      this.$refs.player.pause()
+    closeLoginDialog () {
+      this.show_login_dialog = false
     }
   },
 
@@ -382,9 +278,9 @@ export default {
     //     if (['album', 'messages'].indexOf(vm.$store.state.navigator.current.page) === -1) {
     //       if (vm.$store.state.player.isPlaying) {
     //         if (vm.$store.state.player.isPaused) {
-    //           vm.play()
+    //           vm.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
     //         } else {
-    //           vm.pause()
+    //           vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     //         }
     //         return false
     //       }
