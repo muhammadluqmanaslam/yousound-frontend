@@ -38,10 +38,6 @@ const getters = {
 
   isNormalTheme: (state) => {
     return ['album', 'playlist'].indexOf(state.current.page) > -1
-  },
-
-  isSliderProfileTheme: (state) => {
-    return ['profile', 'merch'].indexOf(state.current.page) > -1
   }
 }
 

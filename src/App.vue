@@ -3,7 +3,6 @@
     'primary': $store.getters['navigator/isPrimaryTheme'],
     'gray': $store.getters['navigator/isGrayTheme'],
     'normal': $store.getters['navigator/isNormalTheme'],
-    'sliderprofile': !$store.state.player.gridShow && $store.getters['navigator/isSliderProfileTheme'],
     'app-audio': $store.state.player.isPlaying,
     'app-video': $store.getters['videoPlayer/hasFrame']
   }">
