@@ -20,7 +20,6 @@ export default {
   },
 
   created () {
-    // this.$store.dispatch('auth/setTab', 'users')
     this.loadSettings()
   },
 

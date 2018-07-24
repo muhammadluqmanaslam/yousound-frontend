@@ -11,8 +11,6 @@ const state = {
   trackIndex: -1,
   gridShow: false,
   isPaused: false,
-  page: '',
-  tab: '',
   user: null
 }
 
@@ -64,16 +62,8 @@ const actions = {
     commit('setTrackIndex', trackIndex)
   },
 
-  setPage ({ commit }, page) {
-    commit('setPage', page)
-  },
-
   setGridShow ({ commit }, gridShow) {
     commit('setGridShow', gridShow)
-  },
-
-  setTab ({ commit }, tab) {
-    commit('setTab', tab)
   },
 
   setUpdatedUser ({ commit }, user) {
@@ -126,14 +116,6 @@ const mutations = {
 
   setGridShow (state, gridShow) {
     state.gridShow = gridShow
-  },
-
-  setPage (state, page) {
-    state.page = page
-  },
-
-  setTab (state, tab) {
-    state.tab = tab
   },
 
   setUpdatedUser (state, user) {

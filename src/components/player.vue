@@ -345,7 +345,7 @@ export default {
     },
 
     play (index) {
-      console.log('player', index, this.index, this.playlist)
+      // console.log('player', index, this.index, this.playlist)
       var self = this
       var sound
       index = typeof index === 'number' ? index : this.index
@@ -592,8 +592,6 @@ export default {
         this.track = this.playlist[this.index].track
       } else {
         this.$store.dispatch('player/setListIndex', -1)
-        this.$store.dispatch('player/setPage', '')
-        this.$store.dispatch('player/setTab', '')
         this.$store.dispatch('player/setPlayingStatus', false)
       }
     },

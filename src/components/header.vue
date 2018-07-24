@@ -255,7 +255,7 @@
       },
 
       isMenuActive () {
-        return this.$store.state.auth.page
+        return this.$store.state.navigator.current.page
       }
     },
 

@@ -82,9 +82,7 @@ export default {
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus',
-      setPage: 'player/setPage',
-      setTab: 'player/setTab'
+      setPlaying: 'player/setPlayingStatus'
     }),
 
     removeItem () {
@@ -195,9 +193,6 @@ export default {
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, this.trackIndex)
       } else {
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-
         this.setPlaylist([this.album])
         this.setPlaylistIndex(0)
         this.setPlaying(true)

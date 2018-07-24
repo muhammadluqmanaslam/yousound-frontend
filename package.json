@@ -11,6 +11,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "actioncable": "^5.2.0",
     "auth0-js": "^8.8.0",
     "colorify.js": "^1.0.3",
     "emoji-mart-vue": "^1.0.2",

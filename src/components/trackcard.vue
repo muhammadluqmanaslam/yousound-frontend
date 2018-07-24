@@ -262,7 +262,7 @@
       },
 
       isShowUserInfo () {
-        if (this.$store.state.auth.page === 'stream') {
+        if (this.$store.state.navigator.current.page === 'stream') {
           return true
         } else {
           return false
@@ -327,18 +327,13 @@
         setPlaylist: 'player/setPlaylist',
         setPlaylistIndex: 'player/setListIndex',
         setTrackIndex: 'player/setTrackIndex',
-        setPlaying: 'player/setPlayingStatus',
-        setPage: 'player/setPage',
-        setTab: 'player/setTab'
+        setPlaying: 'player/setPlayingStatus'
       }),
 
       playSong () {
         if (this.isPlaying && this.$store.state.player.isPaused) {
           this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
         } else {
-          this.setPage(this.$store.state.auth.page)
-          this.setTab(this.$store.state.auth.tab)
-
           this.setPlaylist(this.objects)
           this.setPlaylistIndex(this.objectIndex)
           this.setPlaying(true)

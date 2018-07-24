@@ -13,6 +13,7 @@ import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
 
 // import { MyEvents } from '@/helper'
+// const ActionCable = require('actioncable')
 
 export default {
   components: {
@@ -55,11 +56,17 @@ export default {
       },
       stripeDialog: false,
       user: {},
+      cable: null,
+      notification_subscription: null,
       isPageReady: false
     }
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     stripeLink () {
       return `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.STRIPE_CONNECT_CLIENT_ID}&scope=read_write&state=${this.$store.state.auth.secret_code}`
     }
@@ -74,7 +81,7 @@ export default {
   // },
 
   created () {
-    if (!this.$store.state.auth.user) {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
@@ -84,6 +91,31 @@ export default {
     const tab = this.$route.hash.substr(1) || 'info'
     this.$store.dispatch('navigator/goNextState', { page: 'settings', tab: tab })
     this.onTab(tab)
+
+    // this.cable = ActionCable.createConsumer(`ws://192.168.0.170:3000/cable?token=${this.$store.state.auth.token}`)
+    // this.notification_subscription = this.cable.subscriptions.create(
+    //   {
+    //     channel: 'NotificationsChannel'
+    //   },
+    //   {
+    //     connected: () => {
+    //       console.log('connected to rails actioncable!')
+    //     },
+    //     received: (data) => {
+    //       console.log(data)
+    //     },
+    //     disconnected: () => {
+    //       console.log('disconnected to rails actioncable :(')
+    //     }
+    //   }
+    // )
+    // console.log(this.notification_subscription)
+    // console.log(this.cable)
+  },
+
+  beforeDestroy () {
+    // if (this.notification_subscription)
+    //   this.notification_subscription.unsubscribe();
   },
 
   methods: {

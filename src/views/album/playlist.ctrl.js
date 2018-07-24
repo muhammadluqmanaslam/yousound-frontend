@@ -94,9 +94,7 @@ export default {
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus',
-      setPage: 'player/setPage',
-      setTab: 'player/setTab'
+      setPlaying: 'player/setPlayingStatus'
     }),
 
     convertedHTML(text) {
@@ -239,9 +237,6 @@ export default {
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, index)
       } else {
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-
         this.setPlaylist([this.playlist])
         this.setPlaylistIndex(0)
         this.setPlaying(true)
@@ -253,9 +248,6 @@ export default {
       if (this.$store.state.player.isPaused) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
       } else {
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-
         this.setPlaylist([this.playlist])
         this.setPlaylistIndex(0)
         this.setPlaying(true)

@@ -52,7 +52,8 @@ export default {
       ],
       slug: null,
       user: {
-        display_name: ''
+        display_name: '',
+        avatar: {}
       },
       show_block_user_confirm_dialog: false,
       show_invite_confirm_dialog: false,
@@ -140,9 +141,7 @@ export default {
     ...mapActions({
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
-      setPlaying: 'player/setPlayingStatus',
-      setPage: 'player/setPage',
-      setTab: 'player/setTab'
+      setPlaying: 'player/setPlayingStatus'
     }),
 
     onTab (tab) {
@@ -510,15 +509,14 @@ export default {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
         this.setPlaying(true)
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
         this.$root.$emit('play')        
       }
     },
 
     moveSlide () {
       if (this.$refs.albumCarousel !== undefined) {
-        if(this.$store.state.player.page === 'profile') {
+        const lastState = this.$store.getters['navigator/last']
+        if (lastState.page === 'profile') {
           this.$refs.albumCarousel.goSlide(this.$store.state.player.listIndex)
         } else {
           var playingIndex = -1

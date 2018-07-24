@@ -18,14 +18,36 @@ const getters = {
       return {page: '', tab: '', action: ''}
     }
     return lastState
+  },
+
+  hasHeader: (state) => {
+    return ['login', 'register', 'register_by_listener', 'landing', 'terms'].indexOf(state.current.page) === -1
+  },
+
+  hasFooter: (state) => {
+    return ['landing'].indexOf(state.current.page) === -1
+  },
+
+  isPrimaryTheme: (state) => {
+    return ['discover'].indexOf(state.current.page) > -1
+  },
+
+  isGrayTheme: (state) => {
+    return ['upload', 'merch', 'profile', 'merch'].indexOf(state.current.page) > -1
+  },
+
+  isNormalTheme: (state) => {
+    return ['album', 'playlist'].indexOf(state.current.page) > -1
+  },
+
+  isSliderProfileTheme: (state) => {
+    return ['profile', 'merch'].indexOf(state.current.page) > -1
   }
 }
 
 const actions = {
   setCurrentState ({commit}, current) {
     commit('setCurrentState', current)
-    commit('auth/setPage', current.page, {root: true})
-    commit('auth/setTab', current.tab, {root: true})
   },
 
   setParams ({commit}, params) {
@@ -36,8 +58,6 @@ const actions = {
     if (_.isEqual(state.current, next) === false) {
       commit('pushToHistory')
       commit('setCurrentState', next)
-      commit('auth/setPage', next.page, {root: true})
-      commit('auth/setTab', next.tab, {root: true})
     }
   }
 }

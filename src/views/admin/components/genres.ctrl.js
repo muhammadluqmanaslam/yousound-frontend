@@ -63,7 +63,6 @@ export default {
 
   created () {
     // console.log('admin / users created')
-    // this.$store.dispatch('auth/setTab', 'genres')
     this.loadGenres(false)
   },
 

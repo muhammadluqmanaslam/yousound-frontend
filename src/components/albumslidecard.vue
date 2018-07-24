@@ -53,7 +53,7 @@
 
     computed: {
       isShowUserInfo () {
-        if (this.$store.state.auth.page === 'stream') {
+        if (this.$store.state.navigator.current.page === 'stream') {
           return true
         } else {
           return false
@@ -122,9 +122,7 @@
       ...mapActions({
         setPlaylist: 'player/setPlaylist',
         setPlaylistIndex: 'player/setListIndex',
-        setPlaying: 'player/setPlayingStatus',
-        setPage: 'player/setPage',
-        setTab: 'player/setTab'
+        setPlaying: 'player/setPlayingStatus'
       }),
 
       dismissDownloadModal () {
@@ -134,8 +132,7 @@
       repostItem () {
         AlbumService.repostAlbum(this.item.id).then(response => {
           console.log(response)
-        })
-        .catch(e => {
+        }).catch(e => {
           console.log(e)
         })
       },
@@ -147,8 +144,6 @@
           this.setPlaylist(this.objects)
           this.setPlaylistIndex(this.objectIndex)
           this.setPlaying(true)
-          this.setPage(this.$store.state.auth.page)
-          this.setTab(this.$store.state.auth.tab)
           this.$root.$emit('play')
         }
       },

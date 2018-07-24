@@ -90,6 +90,7 @@ if (isMobileBrowser) {
       if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
         next()
       } else {
+        console.log('go to /protect')
         next('/protect')
       }
     })

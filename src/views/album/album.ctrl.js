@@ -144,9 +144,7 @@ export default {
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus',
-      setPage: 'player/setPage',
-      setTab: 'player/setTab'
+      setPlaying: 'player/setPlayingStatus'
     }),
 
     loadData () {
@@ -401,9 +399,6 @@ export default {
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, index)
       } else {
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-
         this.setPlaylist([this.album])
         this.setPlaylistIndex(0)
         this.setPlaying(true)
@@ -417,9 +412,6 @@ export default {
         this.$store.getters['player/currentAlbum'].id == this.album.id) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
       } else {
-        this.setPage(this.$store.state.auth.page)
-        this.setTab(this.$store.state.auth.tab)
-
         this.setPlaylist([_.cloneDeep(this.album)])
         this.setPlaylistIndex(0)
         this.setPlaying(true)

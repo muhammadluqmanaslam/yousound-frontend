@@ -4,8 +4,6 @@ import AuthService from '@/services/auth'
 
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
-  page: '',
-  tab: '',
   secret_code: '',
   register_role: null,
   token: null,
@@ -18,62 +16,10 @@ const state = {
 const getters = {
   isAuthenticated: (state) => {
     return AuthService.isAuthenticated()
-  },
-
-  hasHeader: (state) => {
-    if (['login', 'register', 'register_by_listener', 'landing', 'terms'].indexOf(state.page) > -1) {
-      return false
-    } else {
-      return true
-    }
-  },
-
-  hasFooter: (state) => {
-    return ['landing'].indexOf(state.page) === -1
-  },
-
-  isPrimaryTheme: (state) => {
-    if (state.page === 'discover') {
-      return true
-    } else {
-      return false
-    }
-  },
-
-  isGrayTheme: (state) => {
-    if (state.page === 'upload' || state.page === 'merch' || (state.page === 'profile' && state.tab === 'merch')) {
-      return true
-    } else {
-      return false
-    }
-  },
-
-  isNormalTheme: (state) => {
-    if (state.page === 'album' || state.page === 'playlist') {
-      return true
-    } else {
-      return false
-    }
-  },
-
-  isSliderProfileTheme: (state) => {
-    if (state.page === 'profile' && state.tab !== 'merch') {
-      return true
-    } else {
-      return false
-    }
   }
 }
 
 const actions = {
-  setPage ({ commit }, page) {
-    commit('setPage', page)
-  },
-
-  setTab ({ commit }, tab) {
-    commit('setTab', tab)
-  },
-
   setToken ({ commit }, token) {
     commit('setToken', token)
   },
@@ -120,10 +66,6 @@ const actions = {
 }
 
 const mutations = {
-  setPage (state, page) {
-    state.page = page
-  },
-
   setToken (state, token) {
     state.token = token
   },
@@ -155,10 +97,6 @@ const mutations = {
         break
       }
     }
-  },
-
-  setTab (state, tab) {
-    state.tab = tab
   },
 
   setRegisterRole (state, role) {

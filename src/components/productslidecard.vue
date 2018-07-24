@@ -70,7 +70,7 @@
 
     computed: {
       isShowUserInfo () {
-        if (this.$store.state.auth.page === 'stream') {
+        if (this.$store.state.navigator.current.page === 'stream') {
           return true
         } else {
           return false

@@ -17,22 +17,22 @@
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content key="users" id="users">
-              <user-tab v-if="$store.state.auth.tab == 'users'"></user-tab>
+              <user-tab v-if="$store.state.navigator.current.tab == 'users'"></user-tab>
             </v-tabs-content>
             <v-tabs-content key="albums" id="albums">
-              <album-tab v-if="$store.state.auth.tab == 'albums'"></album-tab>
+              <album-tab v-if="$store.state.navigator.current.tab == 'albums'"></album-tab>
             </v-tabs-content>
             <v-tabs-content key="signups" id="signups">
-              <signup-tab v-if="$store.state.auth.tab == 'signups'"></signup-tab>
+              <signup-tab v-if="$store.state.navigator.current.tab == 'signups'"></signup-tab>
             </v-tabs-content>
             <v-tabs-content key="genres" id="genres">
-              <genre-tab v-if="$store.state.auth.tab == 'genres'"></genre-tab>
+              <genre-tab v-if="$store.state.navigator.current.tab == 'genres'"></genre-tab>
             </v-tabs-content>
             <v-tabs-content key="settings" id="settings">
-              <setting-tab v-if="$store.state.auth.tab == 'settings'"></setting-tab>
+              <setting-tab v-if="$store.state.navigator.current.tab == 'settings'"></setting-tab>
             </v-tabs-content>
             <v-tabs-content key="globalstats" id="globalstats">
-              <globalstats-tab v-if="$store.state.auth.tab == 'globalstats'"></globalstats-tab>
+              <globalstats-tab v-if="$store.state.navigator.current.tab == 'globalstats'"></globalstats-tab>
             </v-tabs-content>
           </v-tabs-items>
         </v-tabs>

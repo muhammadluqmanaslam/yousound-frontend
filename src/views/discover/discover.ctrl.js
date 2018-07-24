@@ -130,7 +130,7 @@ export default {
 
     loadMore () {
       this.page_index += 1
-      this.loadFeeds(this.$store.state.auth.tab)
+      this.loadFeeds(this.$store.state.navigator.current.tab)
     },
 
     hideAlbum (album) {

@@ -45,7 +45,7 @@
 
     computed: {
       isShowUserInfo () {
-        if (this.$store.state.auth.page === 'stream') {
+        if (this.$store.state.navigator.current.page === 'stream') {
           return true
         } else {
           return false
@@ -102,9 +102,7 @@
       ...mapActions({
         setPlaylist: 'player/setPlaylist',
         setPlaylistIndex: 'player/setListIndex',
-        setPlaying: 'player/setPlayingStatus',
-        setPage: 'player/setPage',
-        setTab: 'player/setTab'
+        setPlaying: 'player/setPlayingStatus'
       }),
 
       dismissDownloadModal () {
@@ -127,8 +125,6 @@
           this.setPlaylist([this.object])
           this.setPlaylistIndex(0)
           this.setPlaying(true)
-          this.setPage(this.$store.state.auth.page)
-          this.setTab(this.$store.state.auth.tab)
           this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
         }
       },

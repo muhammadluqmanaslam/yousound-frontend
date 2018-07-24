@@ -1,14 +1,24 @@
 <template>
   <v-app id="app" standalone :class="{
-    'primary': $store.getters['auth/isPrimaryTheme'],
-    'gray': $store.getters['auth/isGrayTheme'],
-    'normal': $store.getters['auth/isNormalTheme'],
-    'sliderprofile': !$store.state.player.gridShow && $store.getters['auth/isSliderProfileTheme'],
+    'primary': $store.getters['navigator/isPrimaryTheme'],
+    'gray': $store.getters['navigator/isGrayTheme'],
+    'normal': $store.getters['navigator/isNormalTheme'],
+    'sliderprofile': !$store.state.player.gridShow && $store.getters['navigator/isSliderProfileTheme'],
     'app-audio': $store.state.player.isPlaying,
     'app-video': $store.getters['videoPlayer/hasFrame']
   }">
 
-    <app-header v-if="$store.getters['auth/hasHeader']"></app-header>
+    <app-header v-if="$store.getters['navigator/hasHeader']"></app-header>
+
+    <router-view id="content-view"></router-view>
+
+    <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
+
+    <video-player v-if="$store.state.auth.user"></video-player>
+
+    <player ref="player"></player>
+
+    <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
 
     <v-flex xs12 text-xs-center loading-section v-if="$store.state.error.isLoading">
       <v-progress-circular
@@ -16,21 +26,14 @@
         v-bind:size="50"
         class="loading-activity"
         v-bind:class="{
-          'primary--text': !$store.getters['auth/isPrimaryTheme'],
-          'white-activity': $store.getters['auth/isPrimaryTheme']
+          'primary--text': !$store.getters['navigator/isPrimaryTheme'],
+          'white-activity': $store.getters['navigator/isPrimaryTheme']
         }"
       ></v-progress-circular>
     </v-flex>
 
-    <router-view id="content-view"></router-view>
-
-    <app-footer v-if="$store.getters['auth/hasFooter']"></app-footer>
-
-    <video-player v-if="$store.state.auth.user"></video-player>
-
-    <player ref="player"></player>
-
-    <v-snackbar v-model="showError"
+    <v-snackbar
+      v-model="showError"
       multi-line top
       :timeout="$store.state.error.timeout"
       :color="$store.state.error.color"
@@ -38,8 +41,6 @@
       <label>{{ $store.state.error.errors[0] }}</label>
       <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"><v-icon>clear</v-icon></v-btn>
     </v-snackbar>
-
-    <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
 
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
@@ -145,6 +146,10 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     showError: {
       get: function () {
         return this.$store.state.error.showError
@@ -174,7 +179,6 @@ export default {
           ActivityService.getUnread().then(response => {
             this.$store.dispatch('activity/setCount', response.body)
           }).catch(e => {
-            // this.$root.$emit('showLoginModal')
             AuthService.clearTokenAndUserInfo()
             this.$router.push({ path: '/login' })
           })
@@ -184,9 +188,15 @@ export default {
   },
 
   created () {
-    if (AuthService.isAuthenticated()) {
-      this.getUserInfo()
-    }
+    AuthService.checkTokenValidation().then(response => {
+      if (response.body === true) {
+        AuthService.getToken()
+        this.getUserInfo()
+      } else {
+        AuthService.clearTokenAndUserInfo()
+        this.$router.push({ path: '/login' })
+      }
+    })
 
     SettingService.getSettings().then(response => {
       this.$store.dispatch('app/setSettings', response.body)
@@ -195,12 +205,6 @@ export default {
     // GenreService.getGenres2().then(response => {
     //   this.$store.dispatch('app/setGenres', response.body)
     // })
-
-    // if (this.$store.state.auth.page !== 'forgot' && this.$store.state.auth.page !== 'register') {
-    //   if (!AuthService.isAuthenticated()) {
-    //     this.$router.push({ path: '/login' })
-    //   }
-    // }
 
     // (function (d, s, id) {
     //   var js = d.getElementsByTagName(s)[0]
@@ -255,7 +259,6 @@ export default {
         }
       })
     })
-    // console.log('Fullscreen Support', window.flowplayer.support.fullscreen)
   },
 
   methods: {
@@ -376,7 +379,7 @@ export default {
 
     // $(document).on('keypress', function (e) {
     //   if (e.which === 32) {
-    //     if (['album', 'messages'].indexOf(vm.$store.state.auth.page) === -1) {
+    //     if (['album', 'messages'].indexOf(vm.$store.state.navigator.current.page) === -1) {
     //       if (vm.$store.state.player.isPlaying) {
     //         if (vm.$store.state.player.isPaused) {
     //           vm.play()
