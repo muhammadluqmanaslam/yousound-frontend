@@ -18,6 +18,11 @@ import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
 
 import SettingService from './services/setting'
+import UserService from '@/services/user'
+import AlbumService from '@/services/album'
+import ProductService from '@/services/product'
+import ProfileService from '@/services/profile'
+
 // import ActivityService from './services/activity'
 
 import '@/../static/styles/app.scss'
@@ -73,6 +78,22 @@ Vue.filter('capitalize', Filter.capitalize)
 //   return { app, router }
 // }
 
+Vue.mixin({
+  methods: {
+    formatLargeNumber: num => { // taken from https://stackoverflow.com/questions/10599933/convert-long-number-into-abbreviated-string-in-javascript-with-a-special-shortn
+      if (num === null) { return null } // terminate early
+      if (num === 0) { return '0' } // terminate early
+      const fixed = 0 // number of decimal places to show
+      let b = (num).toPrecision(2).split('e') // get power
+      let k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3) // floor at decimals, ceiling at trillions
+      let c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3)).toFixed(1 + fixed) // divide by power
+      let d = c < 0 ? c : Math.abs(c) // enforce -0 is 0
+      let e = d + ['', 'k', 'M', 'b', 't'][k] // append power
+      return e
+    }
+  }
+})
+
 const isMobileBrowser = navigator.userAgent.match(/android|blackberry|iphone|ipad|ipod|iemobile|mobile|webos/i) !== null
 // const isBot = navigator.userAgent.match(/(googlebot\/|Googlebot-Mobile|Googlebot-Image|Google favicon|Mediapartners-Google|bingbot|slurp|java|wget|curl|Commons-HttpClient|Python-urllib|libwww|httpunit|nutch|phpcrawl|msnbot|jyxobot|FAST-WebCrawler|FAST Enterprise Crawler|biglotron|teoma|convera|seekbot|gigablast|exabot|ngbot|ia_archiver|GingerCrawler|webmon |httrack|webcrawler|grub.org|UsineNouvelleCrawler|antibot|netresearchserver|speedy|fluffy|bibnum.bnf|findlink|msrbot|panscient|yacybot|AISearchBot|IOI|ips-agent|tagoobot|MJ12bot|dotbot|woriobot|yanga|buzzbot|mlbot|yandexbot|purebot|Linguee Bot|Voyager|CyberPatrol|voilabot|baiduspider|citeseerxbot|spbot|twengabot|postrank|turnitinbot|scribdbot|page2rss|sitebot|linkdex|Adidxbot|blekkobot|ezooms|dotbot|Mail.RU_Bot|discobot|heritrix|findthatfile|europarchive.org|NerdByNature.Bot|sistrix crawler|ahrefsbot|Aboundex|domaincrawler|wbsearchbot|summify|ccbot|edisterbot|seznambot|ec2linkfinder|gslfbot|aihitbot|intelium_bot|facebookexternalhit|yeti|RetrevoPageAnalyzer|lb-spider|sogou|lssbot|careerbot|wotbox|wocbot|ichiro|DuckDuckBot|lssrocketcrawler|drupact|webcompanycrawler|acoonbot|openindexspider|gnam gnam spider|web-archive-net.com.bot|backlinkcrawler|coccoc|integromedb|content crawler spider|toplistbot|seokicks-robot|it2media-domain-crawler|ip-web-crawler.com|siteexplorer.info|elisabot|proximic|changedetection|blexbot|arabot|WeSEE:Search|niki-bot|CrystalSemanticsBot|rogerbot|360Spider|psbot|InterfaxScanBot|Lipperhey SEO Service|CC Metadata Scaper|g00g1e.net|GrapeshotCrawler|urlappendbot|brainobot|fr-crawler|binlar|SimpleCrawler|Livelapbot|Twitterbot|cXensebot|smtbot|bnf.fr_bot|A6-Indexer|ADmantX|Facebot|Twitterbot|OrangeBot|memorybot|AdvBot|MegaIndex|SemanticScholarBot|ltx71|nerdybot|xovibot|BUbiNG|Qwantify|archive.org_bot|Applebot|TweetmemeBot|crawler4j|findxbot|SemrushBot|yoozBot|lipperhey|y!j-asr|Domain Re-Animator Bot|AddThis)/i) !== null
 
@@ -101,5 +122,9 @@ if (isMobileBrowser) {
       components: { App }
     })
     app.$mount('#app')
+    UserService.initCache()
+    AlbumService.initCache()
+    ProductService.initCache()
+    ProfileService.initCache()
   })
 }

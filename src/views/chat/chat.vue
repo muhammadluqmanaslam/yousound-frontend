@@ -36,7 +36,14 @@
     >
      Connecting...
     </v-snackbar>
-    
+    <v-snackbar
+      v-model="isMessageErr"
+      :color="'error'"
+      :timeout="5000"
+    >
+    {{messageError}}
+    </v-snackbar>
+    <transition name="fade">
     <v-flex xs12 sm12 class="chat-popup requests" v-if="show_requestPopup">
       <div class="dismiss-section" @click="show_requestPopup = false"></div>
       <div class="popup-section">
@@ -46,6 +53,7 @@
             <div class="option-area">
               <v-btn class="request-option-btn" :class="{'selected':request_tab=='album'}" @click.native="onRequestTab('album')">Album</v-btn>
               <v-btn class="request-option-btn" :class="{'selected':request_tab=='merch'}" @click.native="onRequestTab('merch')">Merch</v-btn>
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='users'}" @click.native="onRequestTab('users')">Users</v-btn>
             </div>
           </div>
           <div class="content-section" v-if="request_tab=='album'">
@@ -70,9 +78,62 @@
               </div>
             </div>
           </div>
+          <div class="content-section" v-if="request_tab=='users'">
+            <!-- <v-layout row wrap class="popup-section"> -->
+      <v-flex xs12 class="title-section">
+        <!-- <h2 class="text-xs-center">hi</h2> -->
+        <v-flex xs12 class="search-section">
+          <div class="search-box">
+            <div class="search-container">
+              <span class="icon">
+                <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+                  <title>Group 22</title>
+                  <desc>Created with Sketch.</desc>
+                  <defs></defs>
+                  <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="searchIcon" transform="translate(-732.000000, -61.000000)" stroke="#FFFFFF" stroke-width="1.5999999">
+                      <g id="Group-29" transform="translate(710.000000, 50.000000)">
+                        <g id="Group-22" transform="translate(23.000000, 12.000000)">
+                          <circle id="Oval-2" cx="11.375" cy="11.375" r="11.375"></circle>
+                          <path d="M19.5,19.5 L25.59375,25.59375" id="Line" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+              <input
+                  class="search-field"
+                  v-model="userSearchKeyword"
+                  type="search"
+                  id="search"
+                  placeholder="Search"
+                  @keyup.enter="loadUsers()"/>
+            </div>
+          </div>
+        </v-flex>
+      </v-flex>
+      <v-flex xs12 class="list-section">
+        <v-flex v-for="(user, index) in users"
+            xs12 class="user-item"
+            :key="index"
+            @click.self="onSelectUser(user)">
+          <div class="avatar-image" @click="onSelectUser(user)" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
+          <label class="user-name" @click="onSelectUser(user)">
+            {{ user.display_name }}
+            <v-icon v-if="user.user_type == 'artist'"
+              class="user-status"
+              :class="{'online': user.status == 'active'}">fa-check-circle</v-icon>
+          </label>
+        </v-flex>
+      </v-flex>
+    <!-- </v-layout> -->
+          </div>
         </div>
       </div>
     </v-flex>
+    </transition>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="user">
       <h2 class="page-title">{{ user.display_name }}</h2>
@@ -94,9 +155,11 @@
               <!--</div>-->
             <!--</div>-->
             <center>
+              <transition name="fade">
               <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
+              </transition>
             </center>
-
+            <!-- <transition-group name="fade"> -->
             <div class="chat-item other" v-for="message in reverseMessages" v-bind:key="message.id">
               <div class="user-avatar-image" :style="'background-color: gray; background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'" ></div>
               <div class="chat-section">
@@ -106,7 +169,7 @@
                 </div>
                 <div class="chat-content text">
                   <label v-if="!isAttachmentLink(message.text)" class="text-message">{{message.text}}</label>
-                  <div v-if="isAttachmentLink(message.text) && (!albumLinks[message.text] && !merchLinks[message.text])">Loading...</div>
+                  <!-- <div v-if="isAttachmentLink(message.text) && (!albumLinks[message.text] && !merchLinks[message.text])">Loading...</div> -->
                   <div class="album-embed-wrapper" v-if="isAlbumLink(message.text) && albumLinks[message.text]">
                     <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"></activity-album-card>
                     <div class="info-section">
@@ -123,10 +186,19 @@
                       <router-link :to="'/'+merchLinks[message.text].merchant.slug" class="item-user">{{ merchLinks[message.text].merchant.display_name }}</router-link>
                     </div>
                   </div>
+                  <div class="album-embed-wrapper" v-if="isUserLink(message.text) && userLinks[message.text]">
+                    <activity-user-card :object="userLinks[message.text]" class="chat-album-embed"></activity-user-card>
+                    <div class="info-section" v-if="!!userLinks[message.text]">
+                      <label class="item-title">{{ userLinks[message.text].display_name }}</label>
+                      <br>
+                      <router-link :to="'/'+userLinks[message.text].slug" class="item-user">{{ formatLargeNumber(userLinks[message.text].followers) }} followers</router-link>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="clear"></div>
             </div>
+            <!-- </transition-group> -->
           </div>
 
           <div class="send-chat-section">
@@ -230,6 +302,7 @@
             <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
             </center>
             <div v-if="connected" class="member-group">MODERATOR</div>
+            <transition-group name="fade">
             <div class="member-item" v-for="adminUser in adminUsers" :key="`admin-${adminUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
@@ -239,8 +312,9 @@
                 <router-link :to="'/'+adminUser.slug" class="user-name">{{ adminUser.display_name }}</router-link>
               </div>
             </div>
-
-            <div v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
+            </transition-group>
+            <transition-group name="fade">
+            <div :key="'onlineHeader'" v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
             <div v-if="onlineUsers.length" class="member-item" v-for="onlineUser in onlineUsers" :key="`online-${onlineUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + onlineUser.avatar.url + ');'"></div>
@@ -250,7 +324,7 @@
                 <router-link v-if="onlineUser" :to="'/'+onlineUser.slug" class="user-name">{{ onlineUser.display_name }}</router-link>
               </div>
             </div>
-            <div v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
+            <div :key="'idleHeader'" v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
             <div v-if="idleUsers.length" class="member-item" v-for="idleUser in idleUsers" :key="`idle-${idleUser.username}`">
               <div class="avatar-area">
                 <div class="avatar-image" :style="'background-image: url(' + idleUser.avatar.url + ');'"></div>
@@ -260,6 +334,7 @@
                 <router-link v-if="idleUser" :to="'/'+idleUser.slug" class="user-name">{{ idleUser.display_name }}</router-link>
               </div>
             </div>
+            </transition-group>
           </div>
         </v-flex>
       </v-layout>

@@ -10,6 +10,7 @@ import MessageInput from '@/components/chat/messageinput'
 import ChatSidebar from '@/components/chat/chatsidebar'
 import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
+import activityUserCard from '@/components/activityusercard'
 import { Picker } from 'emoji-mart-vue'
 import VueChatScroll from 'vue-chat-scroll'
 import Vue from 'vue'
@@ -29,7 +30,8 @@ export default {
     ChatSidebar,
     Picker,
     activityAlbumCard,
-    activityProductCard
+    activityProductCard,
+    activityUserCard
   },
 
   data() {
@@ -44,6 +46,7 @@ export default {
       msgInput: '',
       messages: [],
       sendingMessages: [],
+      me: this.$store.state.auth.user,
       user: null,
       room: {
         settings: {
@@ -81,10 +84,17 @@ export default {
       item_index: -1,
       albums: [],
       products: [],
+      users: [],
       connected: false,
       albumLinks: {},
       merchLinks: {},
-      idleInterval: null
+      userLinks: {},
+      idleInterval: null,
+      messageError: "",
+      notAttachments: [],
+      userSearchKeyword: "",
+      user_page_index: 1,
+      user_items_per_page: 50
     }
   },
 
@@ -100,6 +110,9 @@ export default {
     },
     disconnected() {
       return !this.connected
+    },
+    isMessageErr() {
+      return !!this.messageError
     }
   },
 
@@ -142,7 +155,7 @@ export default {
     sendMessage(messageText) {
       if (this.room.settings.charLimitBool && this.msgInput.length > this.room.settings.charLimit) return false
       if (!this.room.settings.links && linkRegex.test(this.msgInput)) return // TODO error instead of returning
-      sm.sendMessage(messageText, this.user.username)
+      sm.sendMessage(messageText, this.me.username)
       this.message = '' // clear textbox
       $('#msg-container').scrollTop = $('#msg-container').scrollHeight
       return false
@@ -178,6 +191,21 @@ export default {
       })
     },
 
+    loadUsers () {
+      var params = {
+        'page': this.user_page_index,
+        'per_page': this.user_items_per_page
+      }
+      if (this.userSearchKeyword.length) {
+        params['q'] = this.userSearchKeyword
+      }
+      UserService.searchUsers(params).then(response => {
+        this.users = response.body.users
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
     onRequestTab(tab) {
       this.request_tab = tab
       this.item_index = -1
@@ -204,9 +232,14 @@ export default {
       this.sendMessage("/"+itemType+"/"+itemId)
     },
 
+    onSelectUser(a) {
+      this.show_requestPopup = false
+      this.sendMessage("/user/"+a.slug)
+    },
+
     isAttachmentLink(string) {
-      const attachmentRegex = /\/(album)|(merch)\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
-      return attachmentRegex.test(string)
+      const attachmentRegex = /\/((album)|(merch)\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12})|user\/\w+/g
+      return this.notAttachments.indexOf(string) < 0 && attachmentRegex.test(string)
     },
 
     isAlbumLink(string) {
@@ -219,11 +252,23 @@ export default {
       return merchLinkRegex.test(string)
     },
 
+    isUserLink(string) {
+      const userLinkRegex = /\/user\/\w+/g
+      return this.isAttachmentLink(string) && userLinkRegex.test(string)
+    },
+
     getAlbumFromLink(string) {
       const albumId = string.split("/")[2]
       AlbumService.getAlbum(albumId)
         .then(res => {
-          Vue.set(this.albumLinks, string, res.body)
+          if (res.ok) {
+            Vue.set(this.albumLinks, string, res.body)
+          } else {
+            this.notAttachments.push(string)
+          }
+        })
+        .catch(err => {
+          this.notAttachments.push(string)
         })
     },
 
@@ -231,7 +276,29 @@ export default {
       const merchId = string.split("/")[2]
       ProductService.getProduct(merchId)
         .then(res => {
-          Vue.set(this.merchLinks, string, res.body)
+          if (res.ok) {
+            Vue.set(this.merchLinks, string, res.body)
+          } else {
+            this.notAttachments.push(string)
+          }
+        })
+        .catch(err => {
+          this.notAttachments.push(string)
+        })
+    },
+
+    getUserFromLink(string) {
+      const userId = string.split("/")[2]
+      UserService.getUserInfo(userId)
+        .then(res => {
+          if (res && res.ok) {
+            Vue.set(this.userLinks, string, res.body)
+          } else {
+            this.notAttachments.push(string)
+          }
+        })
+        .catch(err => {
+          this.notAttachments.push(string)
         })
     }
   },
@@ -255,8 +322,10 @@ export default {
         sm.onDisconnect = () => {
           app.connected = false
         } 
+        sm.onError = error => {
+          app.messageError = error
+        }
         sm.onMessage = function (message) {
-    
           if (!message) return;
           // Remove the message from sendingMessages
           app.sendingMessages = $.grep(app.sendingMessages, function (e) {
@@ -264,7 +333,7 @@ export default {
           })
 
           // look up the username in message.from to get image, etc.
-          if (message.from === app.user.username) {
+          if (message.from === app.me.username) {
             message.me = true
           }
           UserService.getUserInfo(message.from).then(response => {
@@ -286,6 +355,10 @@ export default {
 
           if (app.isMerchLink(message.text)) {
             app.getMerchFromLink(message.text)
+          }
+
+          if (app.isUserLink(message.text)) {
+            app.getUserFromLink(message.text)
           }
         }
 
@@ -320,7 +393,7 @@ export default {
             return room.admins.indexOf(u.username) < 0
           }));
           app.admin = (room.admins.filter((u) => {
-            return u == app.user.username
+            return u == app.me.username
           }).length == 1);
         }
 
@@ -343,7 +416,10 @@ export default {
               if (app.isMerchLink(message.text)) {
                 app.getMerchFromLink(message.text)
               }
-              if (message.from === app.user.username) {
+              if (app.isUserLink(message.text)) {
+                app.getUserFromLink(message.text)
+              }
+              if (message.from === app.me.username) {
                 message.me = true;
               }
               UserService.getUserInfo(message.from).then(response => {
@@ -375,7 +451,9 @@ export default {
     if (this.idleInterval) {
       clearInterval(this.idleInterval)
     }
-    sm.close()
+    if (sm) {
+      sm.close()
+    }
   },
 
   mounted() {
