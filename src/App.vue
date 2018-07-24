@@ -7,13 +7,13 @@
     'app-video': $store.getters['videoPlayer/hasFrame']
   }">
 
-    <app-header v-if="$store.getters['navigator/hasHeader']"></app-header>
+    <app-header v-if="currentUser" v-show="$store.getters['navigator/hasHeader']"></app-header>
 
     <router-view id="content-view"></router-view>
 
     <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
 
-    <video-player v-if="$store.state.auth.user"></video-player>
+    <video-player v-if="currentUser"></video-player>
 
     <player ref="player"></player>
 
@@ -113,12 +113,12 @@ export default {
         if (type === 'activity' || type === 'stream') {
           ActivityService.makeRead(type).then(response => {
             ActivityService.getUnread().then(response => {
-              this.$store.dispatch('activity/setCount', response.body)
+              this.$store.dispatch('activity/setBadge', response.body)
             })
           })
         } else {
           ActivityService.getUnread().then(response => {
-            this.$store.dispatch('activity/setCount', response.body)
+            this.$store.dispatch('activity/setBadge', response.body)
           }).catch(e => {
             AuthService.clearTokenAndUserInfo()
             this.$router.push({ path: '/login' })
@@ -204,15 +204,14 @@ export default {
 
   methods: {
     getUserInfo () {
-      const userId = this.$store.state.auth.user.id
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
-        UserService.getUserInfo(userId),
+        UserService.getUserInfo(this.currentUser.id),
         ActivityService.getUnread(),
         PlaylistService.getPlaylists()
       ]).then(values => {
         AuthService.setUser(values[0].body)
-        this.$store.dispatch('activity/setCount', values[1].body)
+        this.$store.dispatch('activity/setBadge', values[1].body)
         this.$store.dispatch('playlist/setPlaylists', values[2].body)
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(reason => {

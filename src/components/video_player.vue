@@ -26,7 +26,7 @@
                 <span>Discover</span>
               </v-tooltip>
               <v-badge color="red">
-                <span slot="badge" v-if="$store.state.activity.count.stream>0">{{ $store.state.activity.count.stream }}</span>
+                <span slot="badge" v-if="$store.state.activity.badge.stream>0">{{ $store.state.activity.badge.stream }}</span>
                 <v-tooltip bottom>
                   <v-btn icon slot="activator" @click.native="choosePage('stream')">
                     <svg width="23px" height="22px" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -45,7 +45,7 @@
                 </v-tooltip>
               </v-badge>
               <v-badge color="red">
-                <span slot="badge" v-if="$store.state.activity.count.activity>0">{{ $store.state.activity.count.activity }}</span>
+                <span slot="badge" v-if="$store.state.activity.badge.activity>0">{{ $store.state.activity.badge.activity }}</span>
                 <v-tooltip bottom>
                   <v-btn icon slot="activator" @click.native="choosePage('notifications')">
                     <svg width="20px" height="22px" viewBox="0 0 26 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -64,7 +64,7 @@
                 </v-tooltip>
               </v-badge>
               <v-badge color="red">
-                <span slot="badge" v-if="$store.state.activity.count.message>0">{{ $store.state.activity.count.message }}</span>
+                <span slot="badge" v-if="$store.state.activity.badge.message>0">{{ $store.state.activity.badge.message }}</span>
                 <v-tooltip bottom>
                   <v-btn icon slot="activator" @click.native="choosePage('messages')">
                     <svg width="19px" height="18px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -83,7 +83,7 @@
                 </v-tooltip>
               </v-badge>
               <v-badge color="red">
-                <span slot="badge" v-if="$store.state.activity.count.cart>0">{{ $store.state.activity.count.cart }}</span>
+                <span slot="badge" v-if="$store.state.activity.badge.cart>0">{{ $store.state.activity.badge.cart }}</span>
                 <v-tooltip bottom>
                   <v-btn icon slot="activator" @click.native="choosePage('cart')">
                     <svg width="22px" height="18px" viewBox="0 0 29 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -102,7 +102,7 @@
                 </v-tooltip>
               </v-badge>
               <v-badge color="red">
-                <span slot="badge" v-if="$store.state.activity.count.sell>0">{{ $store.state.activity.count.sell }}</span>
+                <span slot="badge" v-if="$store.state.activity.badge.sell>0">{{ $store.state.activity.badge.sell }}</span>
                 <v-tooltip bottom>
                   <v-btn icon slot="activator" @click.native="choosePage('sell')" v-if="$store.state.auth.user && ['artist', 'brand', 'label'].indexOf($store.state.auth.user.user_type) > -1">
                     <svg width="20px" height="22px" viewBox="0 0 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

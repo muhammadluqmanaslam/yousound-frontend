@@ -1,37 +1,58 @@
 // import { Utils } from '@/helper'
 // import * as types from '@/store/mutation-types'
 
-const state = {
-  // user: Utils.parseJSON(Storage.get('user')),
-  count: {
-    activity: 0,
-    stream: 0,
-    message: 0,
-    cart: 0,
-    sell: 0
+function initialState () {
+  return {
+    badge: {
+      activity: 0,
+      stream: 0,
+      message: 0,
+      cart: 0,
+      sell: 0
+    }
   }
 }
+
+const state = initialState
 
 const getters = {
 }
 
 const actions = {
-  setCount ({ commit }, count) {
-    commit('setCount', count)
+  setBadge ({ commit }, badge) {
+    commit('setBadge', badge)
   },
 
-  setCartCount ({ commit }, count) {
-    commit('setCartCount', count)
+  addBadge ({ commit }, badge) {
+    commit('addBadge', badge)
+  },
+
+  setCartBadge ({ commit }, badge) {
+    commit('setCartBadge', badge)
   }
 }
 
 const mutations = {
-  setCount (state, count) {
-    state.count = count
+  setBadge (state, badge) {
+    state.badge = badge
   },
 
-  setCartCount (state, count) {
-    state.count.cart = count
+  addBadge (state, badge) {
+    Object.keys(badge).forEach(key => {
+      state.badge[key] += badge[key]
+    })
+  },
+
+  setCartBadge (state, badge) {
+    state.badge.cart = badge
+  },
+
+  reset (state) {
+    console.log('video_player reset state')
+    const s = initialState()
+    Object.keys(s).forEach(key => {
+      state[key] = s[key]
+    })
   }
 }
 
