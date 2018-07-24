@@ -29,7 +29,7 @@ const getters = {
   },
 
   isPrimaryTheme: (state) => {
-    return ['discover'].indexOf(state.current.page) > -1
+    return ['discover', 'profile-slider'].indexOf(state.current.page) > -1
   },
 
   isGrayTheme: (state) => {

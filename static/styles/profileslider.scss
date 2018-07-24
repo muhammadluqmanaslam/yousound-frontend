@@ -212,7 +212,7 @@
               color: white !important;
               letter-spacing: -0.5px;
               &.tabs__item--active {
-                color: white !important;
+                color: #FFFFFF !important;
               }
             }
           }
@@ -275,103 +275,6 @@
   }
   .product-posted-at label {
     color: #8E8E8E !important;
-  }
-}
-
-.application.application.theme--light.gray {
-  .page.profile-slider-page {
-    .user-follow-section {
-      .user-status-section {
-        .follower-count {
-          color: #000000;
-        }
-        .user-role {
-          color: #000000;
-        }
-      }
-      .user-action-section {
-        .send-love-btn {
-          border: 1px solid #3A92FF !important;
-          color: #3A92FF;
-          letter-spacing: 0;
-        }
-        .follow-btn {
-          &.follow {
-            color: #3A92FF;
-            border: 1px solid #3A92FF !important;
-          }
-          &.following {
-            color: #5BAD00 !important;
-            border: 1px solid #5BAD00;
-            &:hover {
-              color: #dc3545 !important;
-              border: 1px solid #dc3545;
-            }
-          }
-        }
-        .more-btn {
-          border: 1px solid #3A92FF !important;
-          color: #3A92FF;
-          .icon {
-            color: #3A92FF;
-          }
-        }
-      }
-    }
-    .user-profile-section {
-      .user-info-section {
-        .user-name-section {
-          color: #000000;
-        }
-      }
-    }
-    .profile-slider-tab {
-      .tabs__slider.white {
-        background-color: #000 !important;
-      }
-      .tabs__item {
-        color: #000000;
-      }
-      .tabs {
-        .tabs__bar {
-          .tabs__wrapper.tabs__wrapper--scrollable {
-            .tabs__li {
-              .tabs__item {
-                color: #8E8E8E !important;
-                &.tabs__item--active {
-                  color: #000000 !important;
-                }
-              }
-            }
-          }
-        }
-      }
-      .more-btn {
-        border: 0px solid #E1E1E1 !important;
-        color: black !important;
-        svg {
-          g {
-            g {
-              fill: #000000;
-            }
-          }
-        }
-        .icon {
-          color: #E1E1E1;
-        }
-      }
-    }
-    .product-detail {
-      .product-name {
-        color: #000 !important;
-      }
-      .product-user-name {
-        color: #000 !important;
-      }
-      .product-posted-at label {
-        // color: #000 !important;
-      }
-    }
   }
 }
 

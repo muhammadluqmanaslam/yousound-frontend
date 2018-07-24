@@ -124,7 +124,6 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: '' })
     this.slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
     const grid_view = this.$route.query.grid_view === undefined ? true : (this.$route.query.grid_view === 'true' || this.$route.query.grid_view === true)
@@ -227,11 +226,12 @@ export default {
         this.$store.dispatch('player/setGridShow', grid_view)
         if (grid_view) {
           this.currentTab = this.slide_tab
+          this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.currentTab })
         } else {
           this.slide_tab = this.currentTab
+          this.$store.dispatch('navigator/goNextState', { page: 'profile-slider', tab: this.currentTab })
         }
 
-        this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.currentTab })
         this.getItems(this.currentTab, false)
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
