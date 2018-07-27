@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 function initialState () {
   return {
-    user: null,
+    // user: null,
     stream: null,
     play_mode: 'stopped', // 'stopped', 'playing', 'paused'
     frame_mode: 'minimized', // 'full', 'normal', 'minimized'
@@ -36,9 +36,9 @@ const getters = {
 }
 
 const actions = {
-  setUser ({ commit }, user) {
-    commit('setUser', user)
-  },
+  // setUser ({ commit }, user) {
+  //   commit('setUser', user)
+  // },
 
   updateFollowingStatus ({ commit }, status) {
     commit('updateFollowingStatus', status)
@@ -46,6 +46,10 @@ const actions = {
 
   setStream ({ commit }, stream) {
     commit('setStream', stream)
+  },
+
+  updateStreamAssoc ({ commit }, info) {
+    commit('updateStreamAssoc', info)
   },
 
   setPlayMode ({ commit }, playMode) {
@@ -62,9 +66,9 @@ const actions = {
 }
 
 const mutations = {
-  setUser (state, user) {
-    state.user = _.cloneDeep(user)
-  },
+  // setUser (state, user) {
+  //   state.user = _.cloneDeep(user)
+  // },
 
   updateFollowingStatus (state, status) {
     if (state.stream.user) {
@@ -74,6 +78,11 @@ const mutations = {
 
   setStream (state, stream) {
     state.stream = _.cloneDeep(stream)
+  },
+
+  updateStreamAssoc (state, info) {
+    state.stream.assoc_type = info.assoc_type
+    state.stream.assoc = info.assoc
   },
 
   setPlayMode (state, playMode) {

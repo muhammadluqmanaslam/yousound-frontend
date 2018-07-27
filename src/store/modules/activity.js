@@ -25,10 +25,6 @@ const actions = {
 
   addBadge ({ commit }, badge) {
     commit('addBadge', badge)
-  },
-
-  setCartBadge ({ commit }, badge) {
-    commit('setCartBadge', badge)
   }
 }
 
@@ -41,10 +37,6 @@ const mutations = {
     Object.keys(badge).forEach(key => {
       state.badge[key] += badge[key]
     })
-  },
-
-  setCartBadge (state, badge) {
-    state.badge.cart = badge
   },
 
   reset (state) {

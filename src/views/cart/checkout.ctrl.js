@@ -116,7 +116,6 @@ export default {
         _.remove(this.cartItems, (item) => { return item.id == cartItem.id })
         const arr = this.cartItems.slice()
         this.cartItems = arr
-        this.$store.dispatch('activity/setCartBadge', this.$store.state.activity.badge.cart - 1)
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
@@ -135,7 +134,6 @@ export default {
         ItemService.orderItems(params).then(response => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
-          this.$store.dispatch('activity/setCartBadge', 0)
           this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
           this.$router.push({path : '/cart'})
         }).catch(e => {

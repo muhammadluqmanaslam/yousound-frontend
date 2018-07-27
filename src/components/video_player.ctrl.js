@@ -14,6 +14,8 @@ import shareModal from '@/components/sharemodal'
 
 import { MyEvents } from '@/helper'
 
+const ActionCable = require('actioncable')
+
 export default {
   components: {
     downloadModal,
@@ -37,6 +39,8 @@ export default {
       products: [],
       metrics: {},
       buttonHover: false,
+      cable: null,
+      stream_subscription: null,
       isPageReady: false
     }
   },
@@ -98,6 +102,8 @@ export default {
       console.log(reason)
       // this.$store.dispatch('error/showErrorToast', [reason])
     })
+
+    this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
   },
 
   beforeDestroy () {
@@ -108,6 +114,11 @@ export default {
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.closePlayer()
+
+    if (this.stream_subscription) {
+      this.stream_subscription.unsubscribe()
+      this.stream_subscription = null
+    }
   },
 
   methods: {
@@ -215,6 +226,26 @@ export default {
         // console.log('flowplayer pause...')
         vm.$store.dispatch('videoPlayer/setPlayMode', 'paused')
       })
+
+      this.stream_subscription = this.cable.subscriptions.create(
+        {
+          channel: 'StreamsChannel',
+          stream_id: vm.$store.state.videoPlayer.stream.id
+        },
+        {
+          connected: () => {
+            console.log('connected to StreamsChannel')
+          },
+          received: (data) => {
+            console.log('stream_subscription')
+            console.log(data)
+            vm.$store.dispatch('videoPlayer/updateStreamAssoc', data)
+          },
+          disconnected: () => {
+            console.log('disconnected to StreamsChannel :(')
+          }
+        }
+      )
     },
 
     getMetrics () {
@@ -385,6 +416,11 @@ export default {
     closePlayer () {
       if (this.player) {
         this.player.shutdown()
+      }
+
+      if (this.stream_subscription) {
+        this.stream_subscription.unsubscribe()
+        this.stream_subscription = null
       }
     },
 

@@ -269,7 +269,6 @@
             } else {
               this.dismiss()
               this.$store.dispatch('error/showSuccessToast', ['Added successfully to Cart.'])
-              this.$store.dispatch('activity/setCartBadge', this.$store.state.activity.badge.cart + 1)
             }
           }).catch(e => {
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

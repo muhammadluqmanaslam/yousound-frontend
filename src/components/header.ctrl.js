@@ -42,14 +42,15 @@ export default {
       },
       {
         connected: () => {
-          console.log('connected to rails actioncable!')
+          console.log('connected to NotificationsChannel')
         },
         received: (data) => {
+          console.log('notification_subscription')
           console.log(data)
           vm.$store.dispatch('activity/addBadge', data)
         },
         disconnected: () => {
-          console.log('disconnected to rails actioncable :(')
+          console.log('disconnected to NotificationsChannel :(')
         }
       }
     )
@@ -57,7 +58,7 @@ export default {
 
   beforeDestroy () {
     if (this.notification_subscription) {
-      this.notification_subscription.unsubscribe();
+      this.notification_subscription.unsubscribe()
     }
   },
 
