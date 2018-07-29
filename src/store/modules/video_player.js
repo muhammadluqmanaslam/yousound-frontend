@@ -52,6 +52,15 @@ const actions = {
     commit('updateStreamAssoc', info)
   },
 
+  setStats ({ commit }, stats) {
+    console.log('setStats', stats)
+    commit('setStats', stats)
+  },
+
+  addStats ({ commit }, stats) {
+    commit('addStats', stats)
+  },
+
   setPlayMode ({ commit }, playMode) {
     commit('setPlayMode', playMode)
   },
@@ -77,12 +86,30 @@ const mutations = {
   },
 
   setStream (state, stream) {
-    state.stream = _.cloneDeep(stream)
+    // state.stream = _.cloneDeep(stream)
+    state.stream = _.assignIn({
+      stats: {
+        views_size: 0,
+        downloads_size: 0,
+        carts_size: 0,
+        followed_size: 0
+      }
+    }, stream)
   },
 
   updateStreamAssoc (state, info) {
     state.stream.assoc_type = info.assoc_type
     state.stream.assoc = info.assoc
+  },
+
+  setStats (state, stats) {
+    state.stream.stats = stats
+  },
+
+  addStats (state, stats) {
+    Object.keys(stats).forEach(key => {
+      state.stream.stats[key] += stats[key]
+    })
   },
 
   setPlayMode (state, playMode) {

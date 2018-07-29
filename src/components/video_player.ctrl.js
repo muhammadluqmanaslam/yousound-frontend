@@ -37,7 +37,6 @@ export default {
       assoc: {},
       albums: [],
       products: [],
-      metrics: {},
       buttonHover: false,
       cable: null,
       stream_subscription: null,
@@ -239,7 +238,11 @@ export default {
           received: (data) => {
             console.log('stream_subscription')
             console.log(data)
-            vm.$store.dispatch('videoPlayer/updateStreamAssoc', data)
+            if (data.assoc_type == undefined) {
+              vm.$store.dispatch('videoPlayer/addStats', data)
+            } else {
+              vm.$store.dispatch('videoPlayer/updateStreamAssoc', data)
+            }
           },
           disconnected: () => {
             console.log('disconnected to StreamsChannel :(')
@@ -249,7 +252,6 @@ export default {
     },
 
     getMetrics () {
-      this.metrics = {}
       if (this.user.id !== this.currentUser.id) {
         return
       }
@@ -258,8 +260,8 @@ export default {
         page_track: `Stream: ${this.stream.id}`
       }
       ActivityService.getMetrics(params).then(response => {
-        console.log('getMetrics', response.body)
-        this.metrics = response.body
+        // console.log('getMetrics', response.body)
+        this.$store.dispatch('videoPlayer/setStats', response.body)
       }).catch(e => {
         console.log('getMetrics', e.body.errors || [e.body])
       })
@@ -380,7 +382,9 @@ export default {
     },
 
     viewStream () {
-      StreamService.viewStream(this.stream.id)
+      StreamService.viewStream(this.stream.id).then(response => {
+        this.getMetrics()
+      })
     },
 
     followUser () {
@@ -434,7 +438,7 @@ export default {
       this.closeStreamingConfirmDialog()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
-      this.getMetrics()
+      // this.getMetrics()
       this.viewStream()
       this.initPlayer(this.stream.mp_channel_1_ep_1_url)
       this.player.load()

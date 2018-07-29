@@ -157,10 +157,10 @@
           <div class="stream-sector__content">
             <div class="stream-sector__content__left">
               <div class="user-info">
-                <label><strong>{{ metrics.views_size }}</strong><span>views</span></label>
-                <label v-if="stream.assoc_type === 'Album'"><strong>{{ metrics.downloads_size }}</strong><span>downloaded</span></label>
-                <label v-if="stream.assoc_type === 'ShopProduct'"><strong>{{ metrics.carts_size }}</strong><span>added to cart</span></label>
-                <label><strong>{{ metrics.followed_size }}</strong><span>followed</span></label>
+                <label><strong>{{ stream.stats.views_size }}</strong><span>views</span></label>
+                <label v-if="stream.assoc_type === 'Album'"><strong>{{ stream.stats.downloads_size }}</strong><span>downloaded</span></label>
+                <label v-if="stream.assoc_type === 'ShopProduct'"><strong>{{ stream.stats.carts_size }}</strong><span>added to cart</span></label>
+                <label><strong>{{ stream.stats.followed_size }}</strong><span>followed</span></label>
               </div>
             </div>
             <div class="stream-sector__content__right">
