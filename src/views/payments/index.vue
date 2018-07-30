@@ -79,7 +79,12 @@
                     <td class="text-xs-center">${{ history.received_amount|formatNumber }}</td>
                     <td class="text-xs-center" style="text-transform: capitalize;">
                       <template v-if="history.payment_type == 'buy'">
-                        <router-link :to="`/sell/order/${history.order_id}`">Buy</router-link>
+                        <router-link v-if="history.sent_amount == history.refund_amount"
+                          :to="`/sell/order/${history.order_id}`">Full Refund</router-link>
+                        <router-link v-else-if="history.refund_amount > 0"
+                          :to="`/sell/order/${history.order_id}`">Partial Refund</router-link>
+                        <router-link v-else
+                          :to="`/sell/order/${history.order_id}`">Buy</router-link>
                       </template>
                       <template v-else-if="history.payment_type == 'refund'">
                         <router-link :to="`/sell/order/${history.order_id}`">Refund</router-link>
@@ -97,7 +102,7 @@
                       <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
                     </td>
                     <td v-if="tab.id == 'received'">
-                      <v-btn v-if="history.payment_type=='buy'"
+                      <v-btn v-if="history.payment_type == 'buy' && history.sent_amount > history.refund_amount"
                         round dark
                         color="red"
                         class="send-refund-btn"
@@ -188,9 +193,8 @@
         <v-card-text class="refund-dialog">
           <div>
             <label>Recevied Amount: </label>
-            <label>${{ payment.received_amount | formatNumber }}</label>
+            <label>${{ (payment.sent_amount - payment.refund_amount) | formatNumber }}</label>
           </div>
-
           <v-radio-group v-model="refund_option" :mandatory="true">
             <v-radio label="All" value="all"></v-radio>
             <v-radio label="Partial" value="partial"></v-radio>

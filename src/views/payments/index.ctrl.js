@@ -73,7 +73,7 @@ export default {
 
     refundAmount () {
       if (this.refund_option == 'all') {
-        return this.payment.received_amount
+        return this.payment.sent_amount - this.payment.refund_amount
       } else {
         return parseInt(this.refund_amount * 100)
       }
@@ -171,8 +171,8 @@ export default {
     },
 
     refundMoney () {
-      this.show_refund_confirm_dialog = false
       // console.log('refundMoney', this.refundAmount, this.refund_description, this.payment)
+      this.show_refund_confirm_dialog = false
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
         amount: this.refundAmount,
@@ -182,6 +182,10 @@ export default {
         AuthService.setUser(response.body)
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showSuccessToast', [`Refunded $${Filter.formatNumber(this.refundAmount)} successfully.`])
+
+        this.payment.refund_amount += this.refundAmount
+        const arr = this.histories.slice();
+        this.histories = arr;
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
