@@ -55,24 +55,46 @@
     },
 
     computed: {
+      recentItem () {
+        return this.user.recent_items[0] || {}
+      },
+
       actionText () {
-        if (this.user.recent_items[0].feed_type === 'release') {
-          return 'released'
-        } else if (this.user.recent_items[0].feed_type === 'repost') {
-          return 'reposted'
-        } else if (this.user.recent_items[0].feed_type === 'unrepost') {
-          return 'unreposted'
-        } else if (this.user.recent_items[0].feed_type === 'follow') {
-          return 'followed'
-        } else if (this.user.recent_items[0].feed_type === 'unfollow') {
-          return 'unfollowed'
-        } else if (this.user.recent_items[0].feed_type === 'play') {
-          return 'played'
-        } else if (this.user.recent_items[0].feed_type === 'download') {
-          return 'downloaded'
-        } else {
-          return 'commented'
+        let _text = ''
+        switch (this.recentItem.feed_type) {
+          case 'release':
+            switch (this.recentItem.assoc_type) {
+              case 'Stream':
+                _text = 'broadcasted'
+                break
+              default:
+                _text = 'released'
+                break
+            }
+            break
+          case 'repost':
+            _text = 'reposted'
+            break
+          case 'unrepost':
+            _text = 'unreposted'
+            break
+          case 'follow':
+            _text = 'followed'
+            break
+          case 'unfollow':
+            _text = 'unfollowed'
+            break
+          case 'download':
+            _text = 'downloaded'
+            break
+          // case 'play':
+          //   _text = 'played'
+          //   break
+          default:
+            _text = this.recentItem.feed_type
+            break
         }
+        return _text
       }
     },
 
@@ -81,10 +103,13 @@
 
     methods: {
       doAction () {
-        if (this.user.recent_items[0].assoc_type === 'ShopProduct') {
-          this.showMerchModal = true
-        } else {
-          this.$router.push({ path: 'album/' + this.user.recent_items[0].assoc.slug })
+        switch (this.recentItem.assoc_type) {
+          case 'ShopProduct':
+            this.showMerchModal = true
+            break
+          case 'Album':
+            this.$router.push({ path: 'album/' + this.recentItem.assoc.slug })
+            break
         }
       },
 
