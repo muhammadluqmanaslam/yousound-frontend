@@ -12,11 +12,11 @@
     <label class="track-name" @click.self="selectTrack()">
       <label class="track-index">{{ trackIndex + 1 }}. </label>{{ track.name }}</label>
     <!-- <div class="track-actions" v-if="showStats">
-      <v-btn class="action-btn" @click.native="goToAlbumStats('playedby')">
+      <v-btn class="action-btn" @click.native="goToAlbumStats('played_by')">
         <v-icon>play_arrow</v-icon>3k</v-btn>
-      <v-btn class="action-btn" @click.native="goToAlbumStats('downloadedby')">
+      <v-btn class="action-btn" @click.native="goToAlbumStats('downloaded_by')">
         <img src="/static/images/ic_repost_trans.png" />1.3k</v-btn>
-      <v-btn class="action-btn" @click.native="goToAlbumStats('repostedby')">
+      <v-btn class="action-btn" @click.native="goToAlbumStats('reposted_by')">
         <img src="/static/images/ic_repeat_trans.png" />975</v-btn>
     </div> -->
     <div class="right-section">

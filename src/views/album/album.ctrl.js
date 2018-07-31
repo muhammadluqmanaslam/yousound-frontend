@@ -265,8 +265,7 @@ export default {
     },
 
     goToAlbumStats (stats) {
-      this.$store.dispatch('album/setAlbumStats', stats)
-      this.$router.push({ path: '/album/' + this.album.slug + '/stats' })
+      this.$router.push({ path: `/album/${this.album.slug}/stats#${stats}` })
     },
 
     showPromoteModal () {

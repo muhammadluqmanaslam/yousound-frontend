@@ -10,18 +10,9 @@ export default {
   data () {
     return {
       tabs: [
-        {
-          id: 'reposted_by',
-          title: 'Reposted By'
-        },
-        {
-          id: 'downloaded_by',
-          title: 'Downloaded By'
-        },
-        {
-          id: 'played_by',
-          title: 'Played By'
-        }
+        { id: 'reposted_by', title: 'Reposted By' },
+        { id: 'downloaded_by', title: 'Downloaded By' },
+        { id: 'played_by', title: 'Played By' }
       ],
       currentTab: null,
       slug: null,
@@ -85,16 +76,16 @@ export default {
       // })
 
       this.currentTab = tab || 'reposted_by'
-      const params = { action_types: 'repost'}
+      const params = { action_type: 'repost'}
       switch (this.currentTab) {
         case 'reposted_by':
-          params['action_types'] = 'repost'
+          params['action_type'] = 'repost'
           break
         case 'downloaded_by':
-          params['action_types'] = 'download'
+          params['action_type'] = 'download'
           break
         case 'played_by':
-          params['action_types'] = 'play'
+          params['action_type'] = 'play'
           break
       }
 
@@ -102,10 +93,12 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         AlbumService.getAlbum(slug),
-        ActivityService.getAlbumActivities(slug, params)
+        ActivityService.getAlbumActivities(slug, params),
+        ActivityService.getAlbumStats(slug),
       ]).then(values => {
         this.album = values[0].body
         this.activities = values[1].body.activities
+        this.album.stats = values[2].body
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(reason => {

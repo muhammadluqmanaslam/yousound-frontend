@@ -3,7 +3,6 @@
 
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
-  stats: null,
   albums: []
 }
 
@@ -13,20 +12,12 @@ const getters = {
 const actions = {
   setAlbums ({ commit }, albums) {
     commit('setAlbums', albums)
-  },
-
-  setAlbumStats ({ commit }, stats) {
-    commit('setAlbumStats', stats)
   }
 }
 
 const mutations = {
   setAlbums (state, albums) {
     state.albums = albums
-  },
-
-  setAlbumStats (state, stats) {
-    state.stats = stats
   }
 }
 

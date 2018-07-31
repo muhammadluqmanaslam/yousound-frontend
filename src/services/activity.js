@@ -25,6 +25,10 @@ export default {
     return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
+  getAlbumStats (albumId) {
+    return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/stats`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   repostedBy (albumId, params) {
     return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/reposted_by`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
