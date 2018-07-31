@@ -70,7 +70,7 @@
     <div class="section">
       <div class="section__header">
         <h3><label>Circulate Content</label><span class="bg-color-2"></span></h3>
-        <p>YouSound was built to get your content to the people who want it.<br>Each feature incentivizes deep listening & engagement with all of your content.</p>
+        <p>YouSound was built to get your content to people who want it.<br>Each feature incentivizes deep listening & engagement</p>
       </div>
 
       <landing-card
@@ -102,7 +102,7 @@
       <div class="section__header">
         <h3><label>Generate Revenue</label><span class="bg-color-3"></span></h3>
         <p>YouSound lets every user send & receive payments.<br>
-        Giving all users the ability to earn revenue allows the community to support each other.</p>
+       Giving all users the ability to earn revenue allows the community to support each other</p>
       </div>
 
       <landing-card
@@ -132,7 +132,7 @@
       <div class="section__header">
         <h3><label>Community</label><span class="bg-color-4"></span></h3>
         <p>YouSound allows you to connect & collaborate with likeminded people so your<br>
-        content can be experienced in a meaningful way.</p>
+        content can be experienced in a meaningful way</p>
       </div>
 
       <landing-card
