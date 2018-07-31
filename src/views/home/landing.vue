@@ -4,7 +4,7 @@
       <div class="text-xs-center">
         <img src="/static/images/nav_logo_white.png" height="30">
         <h3>You've been invited</h3>
-        <p>YouSound is a music platform for Artists, Brands & Labels to create without compromise.<br>
+        <p>YouSound is a music platform for Artists, Brands & Labels.<br>
         As an invitee, you are part of the first wave of Verified Users.</p>
         <v-btn to="/register" round dark color="blue" class="px-1">Sign Up</v-btn>
       </div>
