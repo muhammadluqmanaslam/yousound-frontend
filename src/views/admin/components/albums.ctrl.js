@@ -11,18 +11,9 @@ export default {
   data () {
     return {
       albums_tabs: [
-        {
-          id: 'published',
-          title: 'Published Albums'
-        },
-        {
-          id: 'privated',
-          title: 'Privated Albums'
-        },
-        {
-          id: 'product',
-          title: 'Merch'
-        }
+        { id: 'published', title: 'Published Albums' },
+        { id: 'privated', title: 'Privated Albums' },
+        { id: 'product', title: 'Merch' }
       ],
       albums_tab: 'published',
       album_headers: [
@@ -82,9 +73,13 @@ export default {
         page: this.published_pagination.page,
         per_page: this.published_pagination.rowsPerPage
       }
+      this.$store.dispatch('error/showLoadingActivity', true)
       AdminService.getAlbums(params).then(response => {
         this.published_albums = response.body.albums
         this.total_published_albums = response.body.pagination.total_count
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
       })
     },
 
@@ -94,9 +89,13 @@ export default {
         page: this.privated_pagination.page,
         per_page: this.privated_pagination.rowsPerPage
       }
+      this.$store.dispatch('error/showLoadingActivity', true)
       AdminService.getAlbums(params).then(response => {
         this.privated_albums = response.body.albums
         this.total_privated_albums = response.body.pagination.total_count
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
       })
     },
 
@@ -106,9 +105,13 @@ export default {
         page: this.product_pagination.page,
         per_page: this.product_pagination.rowsPerPage
       }
+      this.$store.dispatch('error/showLoadingActivity', true)
       AdminService.getProducts(params).then(response => {
         this.products = response.body.products
         this.total_products = response.body.pagination.total_count
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
       })
     },
 

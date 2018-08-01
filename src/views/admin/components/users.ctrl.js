@@ -152,14 +152,12 @@ export default {
       })
     },
 
-    convertToArtist (user) {
+    updateUserRole (user, role) {
       const params = {
-        role: 'artist'
-        // role: 'moderator'
+        role: role
       }
       UserService.updateUserRole(user.id, params).then(response => {
-        user.user_type = 'artist'
-        // user.user_type = 'moderator'
+        user.user_type = role
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })

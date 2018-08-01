@@ -6,7 +6,7 @@
         <!-- <v-toolbar-title></v-toolbar-title> -->
         <v-spacer></v-spacer>
         <v-tooltip bottom>
-          <v-btn icon slot="activator" :class="{ active: isMenuActive == 'discover' || isMenuActive == 'merch' }" @click.native="choosePage('discover')">
+          <v-btn icon slot="activator" :class="{ active: ['discover', 'merch'].indexOf(currentPage) > -1 }" @click.native="choosePage('discover')">
             <svg width="20px" height="22px" viewBox="0 0 20 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
               <title>ic_discover</title>
@@ -22,9 +22,9 @@
           <span>Discover</span>
         </v-tooltip>
         <v-badge color="red">
-          <span slot="badge" v-if="$store.state.activity.badge.stream>0">{{ $store.state.activity.badge.stream }}</span>
+          <span slot="badge" v-if="$store.state.activity.badge.stream > 0">{{ $store.state.activity.badge.stream }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: isMenuActive == 'stream' }" @click.native="choosePage('stream')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'stream' }" @click.native="choosePage('stream')">
               <svg width="23px" height="22px" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_stream</title>
@@ -41,9 +41,9 @@
           </v-tooltip>
         </v-badge>
         <v-badge color="red">
-          <span slot="badge" v-if="$store.state.activity.badge.activity>0">{{ $store.state.activity.badge.activity }}</span>
+          <span slot="badge" v-if="$store.state.activity.badge.activity > 0">{{ $store.state.activity.badge.activity }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: isMenuActive == 'notifications' }" @click.native="choosePage('notifications')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'notifications' }" @click.native="choosePage('notifications')">
               <svg width="20px" height="22px" viewBox="0 0 26 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_notifications</title>
@@ -60,9 +60,9 @@
           </v-tooltip>
         </v-badge>
         <v-badge color="red">
-          <span slot="badge" v-if="$store.state.activity.badge.message>0">{{ $store.state.activity.badge.message }}</span>
+          <span slot="badge" v-if="$store.state.activity.badge.message > 0">{{ $store.state.activity.badge.message }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: isMenuActive == 'messages' }" @click.native="choosePage('messages')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'messages' }" @click.native="choosePage('messages')">
               <svg width="19px" height="18px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_inbox</title>
@@ -79,9 +79,9 @@
           </v-tooltip>
         </v-badge>
         <v-badge color="red">
-          <span slot="badge" v-if="$store.state.activity.badge.cart>0">{{ $store.state.activity.badge.cart }}</span>
+          <span slot="badge" v-if="$store.state.activity.badge.cart > 0">{{ $store.state.activity.badge.cart }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: isMenuActive == 'cart' }" @click.native="choosePage('cart')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'cart' }" @click.native="choosePage('cart')">
               <svg width="22px" height="18px" viewBox="0 0 29 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_cart</title>
@@ -98,9 +98,9 @@
           </v-tooltip>
         </v-badge>
         <v-badge color="red">
-          <span slot="badge" v-if="$store.state.activity.badge.sell>0">{{ $store.state.activity.badge.sell }}</span>
+          <span slot="badge" v-if="$store.state.activity.badge.sell > 0">{{ $store.state.activity.badge.sell }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: isMenuActive == 'sell' }" @click.native="choosePage('sell')" v-if="$store.state.auth.user && ['artist', 'brand', 'label'].indexOf($store.state.auth.user.user_type) > -1">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'sell' }" @click.native="choosePage('sell')" v-if="currentUser && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1">
               <svg width="20px" height="22px" viewBox="0 0 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_delivery</title>
@@ -116,10 +116,10 @@
             <span>Sell</span>
           </v-tooltip>
         </v-badge>
-        <v-menu offset-y class="profile-menu" v-if="$store.state.auth.user">
+        <v-menu offset-y class="profile-menu" v-if="currentUser">
           <v-btn icon slot="activator">
             <!-- <img class="profile-image" src="/static/images/sample_user.png"> -->
-            <div class="profile-image" :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}" v-if="$store.state.auth.user"></div>
+            <div class="profile-image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}" v-if="currentUser"></div>
           </v-btn>
           <v-list>
             <v-list-tile key="moderator" v-if="false">
@@ -128,31 +128,31 @@
                 <label>Moderator</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="profile" :to="'/' + $store.state.auth.user.slug">
+            <v-list-tile key="profile" :to="'/' + currentUser.slug">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-folder-open</v-icon> -->
                 <label>Profile</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="upload" to="/upload/album" v-if="$store.state.auth.user.user_type=='artist'">
+            <v-list-tile key="upload" to="/upload/album" v-if="currentUser.user_type=='artist'">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-upload</v-icon> -->
                 <label>Upload</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="chat" :to="'/user/' + $store.state.auth.user.slug + '/chat'">
+            <v-list-tile key="chat" :to="'/user/' + currentUser.slug + '/chat'">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-upload</v-icon> -->
                 <label>Chat</label>
               </v-list-tile-title>
             </v-list-tile>
             <v-list-tile v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video"
-              key="video" :to="'/user/' + $store.state.auth.user.slug + '/video'">
+              key="video" :to="'/user/' + currentUser.slug + '/video'">
               <v-list-tile-title class="profile-menu-item">
                 <label>Live Video</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="manage" to="/albums" v-if="$store.state.auth.user.user_type=='artist'">
+            <v-list-tile key="manage" to="/albums" v-if="currentUser.user_type=='artist'">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-music</v-icon> -->
                 <label>Manage</label>
@@ -164,7 +164,7 @@
                 <label>Settings</label>
               </v-list-tile-title>
             </v-list-tile>
-            <!-- <v-list-tile key="getverified" to="/verified" v-if="$store.state.auth.user.user_type=='artist'">
+            <!-- <v-list-tile key="getverified" to="/verified" v-if="currentUser.user_type=='artist'">
               <v-list-tile-title class="profile-menu-item">
                 <v-icon right>fa-gear</v-icon>
                 <label>Get Verified</label>
@@ -182,20 +182,20 @@
                 <label>Support</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="admin" to="/admin" v-if="$store.state.auth.user.user_type=='admin' || $store.state.auth.user.user_type=='moderator'">
+            <v-list-tile key="admin" to="/admin" v-if="['admin', 'moderator'].indexOf(currentUser.user_type) > -1">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-question</v-icon> -->
                 <label>Admin</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="admin" to="/labels" v-if="$store.state.auth.user.user_type=='artist' || $store.state.auth.user.user_type=='label'">
+            <v-list-tile key="labels" to="/labels" v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-question</v-icon> -->
-                <label v-if="$store.state.auth.user.user_type=='artist'">My Labels</label>
-                <label v-if="$store.state.auth.user.user_type=='label'">Record Label</label>
+                <label v-if="currentUser.user_type=='artist'">My Labels</label>
+                <label v-if="currentUser.user_type=='label'">Record Label</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="payments" to="/payments" v-if="['listener', 'artist', 'label'].indexOf($store.state.auth.user.user_type) > -1">
+            <v-list-tile key="payments" to="/payments" v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-question</v-icon> -->
                 <label>Payments</label>

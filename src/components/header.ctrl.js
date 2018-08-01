@@ -18,7 +18,7 @@ export default {
       return this.$store.state.auth.user
     },
 
-    isMenuActive () {
+    currentPage () {
       return this.$store.state.navigator.current.page
     }
   },

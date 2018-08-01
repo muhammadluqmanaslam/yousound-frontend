@@ -1143,26 +1143,11 @@
   }
 }
 
-.theme--light .card {
-  background: linear-gradient(to top, #ece9e6, #ffffff);
-}
-
-.list__tile {
-  font-size: 14px;
-}
-
-.chip__content {
-  border-radius: 200px;
-}
-
-.list__tile .avatar {
-  min-width: 0;
-}
-
-.dialog--scrollable > .card > .card__text{
+.dialog--scrollable > .card > .card__text {
   margin-left: 12px;
   padding-right: 36px;
 }
+
 .album-dialog-body.card {
   padding-bottom: 10px;
 

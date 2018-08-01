@@ -8,7 +8,8 @@
           class="normal-input ml-4"
           item-text="name"
           item-value="id"
-          autocomplete></v-select>
+          autocomplete
+        />
       </v-flex>
       <v-flex xs12 sm6 class="text-xs-right pr-4">
         <v-text-field
@@ -16,10 +17,12 @@
           label="Add New Genre"
           id="genre_search"
           class="normal-input search-input"
-          v-model="genre_search"></v-text-field>
+          v-model="genre_search"
+        />
         <v-btn color="primary" @click.native="addGenre()">SUBMIT</v-btn>
       </v-flex>
     </v-layout>
+
     <v-data-table
       :headers="genre_headers"
       :items="filtered_genres"

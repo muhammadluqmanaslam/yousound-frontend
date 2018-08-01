@@ -83,12 +83,15 @@ export default {
   },
 
   created () {
+    this.$store.dispatch('error/showLoadingActivity', true)
     Promise.all([
       AdminService.getSignupUsers()
     ]).then(values => {
       this.signups = values[0].body.users
+      this.$store.dispatch('error/showLoadingActivity', false)
     }).catch(reason => {
       console.log(reason)
+      this.$store.dispatch('error/showLoadingActivity', false)
     })
   },
 

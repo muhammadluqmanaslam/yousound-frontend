@@ -22,5 +22,18 @@
 /* v-tabs */
 .tabs__items {
   overflow: visible;
-  margin-bottom: 150px;
+  // margin-bottom: 150px;
+}
+
+/* unknown */
+.list__tile {
+  font-size: 14px;
+}
+
+.chip__content {
+  border-radius: 200px;
+}
+
+.list__tile .avatar {
+  min-width: 0;
 }

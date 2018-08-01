@@ -112,10 +112,7 @@ export default {
         }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.status === 401) {
-        } else {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 

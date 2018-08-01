@@ -6,9 +6,11 @@
           :items="globalstats_categories"
           v-model="globalstats_category"
           class="normal-input ml-4"
-          autocomplete></v-select>
+          autocomplete
+        />
       </v-flex>
     </v-layout>
+
     <v-data-table
       :items="globalstats"
       class="globalstats-table"

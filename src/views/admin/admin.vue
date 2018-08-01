@@ -8,7 +8,7 @@
         <v-tabs dark>
           <v-tabs-bar class="pl-4 indigo" dark>
             <v-tabs-item v-for="tab in tabs"
-              v-if="$store.state.auth.user.user_type=='admin' || ($store.state.auth.user.user_type=='moderator' && tab.id=='users')"
+              v-if="availableTab(tab)"
               :key="tab.id"
               :href="'#' + tab.id"
               @click.native="onTab(tab.id)"

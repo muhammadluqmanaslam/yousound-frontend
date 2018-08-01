@@ -25,33 +25,14 @@ export default {
   data () {
     return {
       tabs: [
-        {
-          id: 'users',
-          title: 'USERS'
-        },
-        {
-          id: 'albums',
-          title: 'ALBUMS'
-        },
-        {
-          id: 'signups',
-          title: 'SIGN UPS'
-        },
-        {
-          id: 'genres',
-          title: 'GENRES'
-        },
-        {
-          id: 'settings',
-          title: 'SETTINGS'
-        },
-        {
-          id: 'globalstats',
-          title: 'GLOBAL STATS'
-        }
+        { id: 'users', title: 'USERS' },
+        { id: 'albums', title: 'ALBUMS' },
+        { id: 'signups', title: 'SIGN UPS' },
+        { id: 'genres', title: 'GENRES' },
+        { id: 'settings', title: 'SETTINGS' },
+        { id: 'globalstats', title: 'GLOBAL STATS' }
       ],
       item: null,
-      user_tab:'all',
       page_index: 0,
       total_pages: 1,
       items_per_page: 7 * 5,
@@ -79,7 +60,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'admin', tab: 'users'})
+    this.$store.dispatch('navigator/goNextState', { page: 'admin', tab: 'users' })
   },
 
   methods: {
@@ -92,7 +73,7 @@ export default {
       // var params = {
       //   filter: filter
       // }
-      SearchService.searchStream(params).then( response=> {
+      SearchService.searchStream(params).then(response=> {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.feeds = this.feeds.concat(response.body.feeds)
         this.page_index = response.body.pagination.current_page
@@ -103,8 +84,13 @@ export default {
       })
     },
 
+    availableTab (tab) {
+      return this.$store.state.auth.user.user_type === 'admin' ||
+        (this.$store.state.auth.user.user_type=='moderator' && ['users', 'albums', 'signups'].indexOf(tab.id) > -1)
+    },
+
     onTab(tab) {
-      this.$store.dispatch('auth/setTab', tab)
+      this.$store.dispatch('navigator/goNextState', { page: 'admin', tab: tab })
     }
   },
 

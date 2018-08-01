@@ -91,39 +91,16 @@ export default {
     const tab = this.$route.hash.substr(1) || 'info'
     this.$store.dispatch('navigator/goNextState', { page: 'settings', tab: tab })
     this.onTab(tab)
-
-    // this.cable = ActionCable.createConsumer(`ws://192.168.0.170:3000/cable?token=${this.$store.state.auth.token}`)
-    // this.notification_subscription = this.cable.subscriptions.create(
-    //   {
-    //     channel: 'NotificationsChannel'
-    //   },
-    //   {
-    //     connected: () => {
-    //       console.log('connected to rails actioncable!')
-    //     },
-    //     received: (data) => {
-    //       console.log(data)
-    //     },
-    //     disconnected: () => {
-    //       console.log('disconnected to rails actioncable :(')
-    //     }
-    //   }
-    // )
-    // console.log(this.notification_subscription)
-    // console.log(this.cable)
   },
 
   beforeDestroy () {
-    // if (this.notification_subscription)
-    //   this.notification_subscription.unsubscribe();
   },
 
   methods: {
     availableTab (tab) {
-      return !(
-        (tab.id == 'verify-status' && (this.$store.state.auth.user.user_type != 'listener' || ['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.request_role) > -1))
-        // || (tab.id == 'co-sign' && this.$store.state.auth.user.user_type == 'listener')
-      )
+      return tab.id !== 'verify-status' ||
+        (this.currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1)
+        // || (tab.id == 'co-sign' && this.currentUser.user_type == 'listener')
     },
 
     onTab (tab) {
@@ -159,9 +136,8 @@ export default {
     },
 
     getUserInfo () {
-      const userId = this.$store.state.auth.user.id
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.getUserInfo(userId).then(response => {
+      UserService.getUserInfo(this.currentUser.id).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         AuthService.setUser(response.body)
         this.user = _.cloneDeep(response.body)
@@ -176,7 +152,7 @@ export default {
 
     cancelAccount () {
       this.dialog = false
-      // const _user = _.cloneDeep(this.$store.state.auth.user)
+      // const _user = _.cloneDeep(this.currentUser)
       UserService.deleteUser(this.user.id).then(response => {
         AuthService.logout()
         this.$router.push({ path: '/login' })
@@ -205,7 +181,7 @@ export default {
 
     updatePassword () {
       this.$store.dispatch('error/showLoadingActivity', true)
-      const userId = this.$store.state.auth.user.id;
+      const userId = this.currentUser.id;
       const params = new FormData()
       // console.log(this.password)
       params.append('old_password', this.password.current_password)
@@ -227,7 +203,7 @@ export default {
     },
 
     disconnetAccount () {
-      UserService.disconnectStripe(this.$store.state.auth.user.id).then(response => {
+      UserService.disconnectStripe(this.currentUser.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['Stripe Disconected!'])
         this.$store.dispatch('auth/setStripeStatus', false)
       }).catch(e => {
@@ -251,8 +227,7 @@ export default {
 
     updateUser (params) {
       this.$store.dispatch('error/showLoadingActivity', true)
-      const userId = this.$store.state.auth.user.id
-      UserService.updateUserInfo(userId, params).then(response => {
+      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showSuccessToast', ['Saved'])
         AuthService.setUser(response.body)
@@ -266,12 +241,12 @@ export default {
     },
 
     resetProfile() {
-      this.profile.image = this.$store.state.auth.user.avatar.url
-      this.profile.username = this.$store.state.auth.user.username
-      this.profile.display_name = this.$store.state.auth.user.display_name
-      this.profile.email = this.$store.state.auth.user.email
-      this.profile.contact_url = this.$store.state.auth.user.contact_url
-      this.profile.enable_alert = this.$store.state.auth.user.enable_alert
+      this.profile.image = this.currentUser.avatar.url
+      this.profile.username = this.currentUser.username
+      this.profile.display_name = this.currentUser.display_name
+      this.profile.email = this.currentUser.email
+      this.profile.contact_url = this.currentUser.contact_url
+      this.profile.enable_alert = this.currentUser.enable_alert
     }
   },
 

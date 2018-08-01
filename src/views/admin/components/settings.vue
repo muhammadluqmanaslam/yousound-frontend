@@ -49,10 +49,11 @@
           class="normal-input"
           full-width
           style="max-width:100%;"
-        ></v-text-field>
+        />
       </v-flex>
     </v-layout>
     <v-layout row wrap><v-btn color="primary">SEND MESSAGE TO USERS</v-btn></v-layout>
   </v-card>
 </template>
+
 <script type="text/javascript" src="./settings.ctrl.js"></script>
