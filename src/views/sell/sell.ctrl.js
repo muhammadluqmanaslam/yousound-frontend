@@ -1,4 +1,7 @@
 import _ from 'lodash'
+import moment from 'moment'
+
+import { Utils } from '@/helper'
 
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
@@ -23,6 +26,7 @@ export default {
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
+      show_ship_all_confirm_dialog: false,
       shipping_id: null,
       order_detail: null,
       orderHistories: [],
@@ -142,6 +146,40 @@ export default {
 
     closeProductFinishModal () {
       this.show_product_finish_modal = false
+    },
+
+    openShipAllConfirmDialog () {
+      this.show_ship_all_confirm_dialog = true
+    },
+
+    closeShipAllConfirmDialog () {
+      this.show_ship_all_confirm_dialog = false
+    },
+
+    shipAll () {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      ItemService.markAllShipped().then(response => {
+        _.each(this.orderHistories, (order) => {
+          _.each(order.items, (item) => {
+            item.status = 'item_shipped'
+          })
+        })
+        const arr = this.orderHistories.slice()
+        this.orderHistories = arr
+        this.closeShipAllConfirmDialog()
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.closeShipAllConfirmDialog()
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+    },
+
+    csvExport () {
+      OrderService.receivedExport().then(response => {
+        const csvData = 'data:text/csv;charset=utf-8,' + encodeURIComponent(response.body);
+        const filename = `order-items-${moment().format('YYYYMMDD')}.csv`
+        Utils.downloadFile(csvData, filename)
+      })
     },
 
     openShipConfirmModal (item) {

@@ -40,6 +40,15 @@ export const Utils = {
     } else {
       return filename + '.mp3'
     }
+  },
+
+  downloadFile (url, name = '') {
+    var a = document.createElement('A')
+    a.href = url
+    a.download = name
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
   }
 }
 

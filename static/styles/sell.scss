@@ -1,8 +1,12 @@
 .page.sell-page {
+  .orders-actions {
+    position: absolute;
+    right: 0;
+    top: -90px;
+  }
   .order-item {
     margin-bottom: 40px;
     .profile-section {
-
       .profile-content-section {
         margin-right: 30px;
         width: calc(100% - 262.5px);
@@ -73,7 +77,6 @@
     }
     .order-section {
       padding-top: 5px;
-
       .order-content-section {
         width: calc(100% - 262.5px);
         background: #FFFFFF;

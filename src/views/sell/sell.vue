@@ -1,67 +1,5 @@
 <template>
   <div row wrap class="page sell-page">
-
-    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
-
-    <div class="product-finish-section" v-if="show_product_finish_modal">
-      <v-flex xs12 sm12 class="dismiss-section" @click="closeProductFinishModal()"></v-flex>
-      <v-layout row wrap class="popup-section">
-        <v-flex xs12 class="title-section">
-          <label class="title-text">This product is pending release, <router-link to="/product/add" class="link-text">upload another</router-link></label>
-        </v-flex>
-        <v-flex xs12 class="promote-product-section">
-          <v-flex xs12 class="header-section">
-            <label class="header-text">What Next?</label>
-          </v-flex>
-          <div class="content-section">
-            <div class="promote-product-image">
-              <div class="promote-image" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"></div>
-            </div>
-            <div class="promote-product-description">
-              <p>When you added collaborators accept your collaboration via Direct Message or Sell > Pending Collaborations, you will then be able to release the product.</p>
-              <p>Visit Sell > Pending Collaborations to see who accepted and/or denied your collaboration.</p>
-            </div>
-          </div>
-        </v-flex>
-      </v-layout>
-    </div>
-
-    <v-dialog v-model="product_delete_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Delete a Product</v-card-title>
-        <v-card-text>If you click OK, the product will no longer be available to users. Click OK to delete &lt;{{ product.name }}&gt;, or click Cancel.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteProduct()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeProductDeleteConfirmDialog()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="show_ship_confirm_modal" persistent>
-      <v-card>
-        <v-card-title class="headline">Ship Product</v-card-title>
-        <v-card-text>If you click OK, the buyer will see that the item has been shipped.  Click OK to mark the item as shipped, or click Cancel.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="shipItem()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeShipConfirmModal()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="show_unship_confirm_modal" persistent>
-      <v-card>
-        <v-card-title class="headline">Unship Product</v-card-title>
-        <v-card-text>If you click OK, the buyer will see the item has not been shipped" Click OK to mark the itme as unshipped, or click Cancel.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="unshipItem()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeUnshipConfirmModal()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Sell</h2>
     </v-flex>
@@ -97,7 +35,11 @@
               <div v-if="!orderHistories || orderHistories.length == 0" class="empty-section">
                 <p class="empty-title">Your have no new orders</p>
               </div>
-              <v-card flat v-else>
+              <v-card flat v-else class="relative">
+                <div class="orders-actions">
+                  <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">Mark All as Shipped</v-btn>
+                  <v-btn dark color="green" @click.native="csvExport()">Export</v-btn>
+                </div>
                 <v-flex xs12 class="order-item" v-for="(order, index) in orderHistories" :key="index">
                   <template v-if="$store.state.auth.user.id == order.merchant.id">
                     <div class="profile-section">
@@ -251,6 +193,78 @@
       </div>
     </v-flex>
 
+    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+
+    <div class="product-finish-section" v-if="show_product_finish_modal">
+      <v-flex xs12 sm12 class="dismiss-section" @click="closeProductFinishModal()"></v-flex>
+      <v-layout row wrap class="popup-section">
+        <v-flex xs12 class="title-section">
+          <label class="title-text">This product is pending release, <router-link to="/product/add" class="link-text">upload another</router-link></label>
+        </v-flex>
+        <v-flex xs12 class="promote-product-section">
+          <v-flex xs12 class="header-section">
+            <label class="header-text">What Next?</label>
+          </v-flex>
+          <div class="content-section">
+            <div class="promote-product-image">
+              <div class="promote-image" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"></div>
+            </div>
+            <div class="promote-product-description">
+              <p>When you added collaborators accept your collaboration via Direct Message or Sell > Pending Collaborations, you will then be able to release the product.</p>
+              <p>Visit Sell > Pending Collaborations to see who accepted and/or denied your collaboration.</p>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </div>
+
+    <v-dialog v-model="product_delete_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Delete a Product</v-card-title>
+        <v-card-text>If you click OK, the product will no longer be available to users. Click OK to delete &lt;{{ product.name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteProduct()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeProductDeleteConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_ship_all_confirm_dialog" persistent>
+      <v-card>
+        <v-card-title class="headline">Ship all products</v-card-title>
+        <v-card-text>If you click OK, the buyer will see that the items have been shipped. Click OK to mark all items as shipped, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="shipAll()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeShipAllConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_ship_confirm_modal" persistent>
+      <v-card>
+        <v-card-title class="headline">Ship Product</v-card-title>
+        <v-card-text>If you click OK, the buyer will see that the item has been shipped. Click OK to mark the item as shipped, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="shipItem()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeShipConfirmModal()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_unship_confirm_modal" persistent>
+      <v-card>
+        <v-card-title class="headline">Unship Product</v-card-title>
+        <v-card-text>If you click OK, the buyer will see the item has not been shipped. Click OK to mark the itme as unshipped, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="unshipItem()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeUnshipConfirmModal()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
