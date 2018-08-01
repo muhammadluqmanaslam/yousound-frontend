@@ -237,7 +237,6 @@
                 <div class="media__description">DAAAMN BOY!</div>
               </div>
             </div>
-            <div class="gradient"></div>
           </div>
           <div class="chat-sector__footer">
             <div class="media">
