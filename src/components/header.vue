@@ -97,10 +97,10 @@
             <span>Cart</span>
           </v-tooltip>
         </v-badge>
-        <v-badge color="red">
+        <v-badge color="red" v-if="currentUser && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1">
           <span slot="badge" v-if="$store.state.activity.badge.sell > 0">{{ $store.state.activity.badge.sell }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: currentPage == 'sell' }" @click.native="choosePage('sell')" v-if="currentUser && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'sell' }" @click.native="choosePage('sell')">
               <svg width="20px" height="22px" viewBox="0 0 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_delivery</title>
