@@ -92,7 +92,9 @@ if (isMobileBrowser) {
     const settings = response.body
     const router = createRouter(settings)
     router.beforeEach((to, frm, next) => {
-      if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
+      if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) ||
+        /^\/(playlist)$/.test(to.path) ||
+        store.state.auth.secret_code === process.env.SECRET_CODE) {
         next()
       } else {
         next('/protect')

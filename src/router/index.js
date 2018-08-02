@@ -19,6 +19,7 @@ import AdminPage from '@/views/admin/admin'
 import LandingPage from '@/views/home/landing'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import EmptyPage from '@/views/home/empty'
+import Playlist from '@/views/home/playlist'
 import Discover from '@/views/discover/discover'
 import SearchPage from '@/views/search/search'
 import Stream from '@/views/stream/stream'
@@ -98,6 +99,7 @@ export function createRouter (settings) {
     { path: '/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
     { path: '/album/:slug', name: 'AlbumDetail', component: AlbumDetail },
+    { path: '/playlist', name: 'Playlist', component: Playlist },
     { path: '/playlist/:slug', name: 'PlaylistDetail', component: PlaylistDetail },
     { path: '/album/:slug/stats', name: 'AlbumStats', component: AlbumStats },
     { path: '/albums', name: 'AlbumsManage', component: AlbumsManage },

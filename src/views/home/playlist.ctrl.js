@@ -4,22 +4,10 @@ export default {
 
   data() {
     return {
-      type: 'stream'
     }
-  },
-
-  computed: {
   },
 
   created() {
     this.$store.dispatch('navigator/goNextState', { page: '', tab: '' })
-  },
-
-  methods: {
-    onTab(tab) {
-    }
-  },
-
-  mounted() {
   }
 }
