@@ -154,7 +154,7 @@ export default {
       this.dialog = false
       // const _user = _.cloneDeep(this.currentUser)
       UserService.deleteUser(this.user.id).then(response => {
-        AuthService.logout()
+        AuthService.signout()
         this.$router.push({ path: '/login' })
         // this.$root.$emit(MyEvents.AUTH_SIGNOUT, _user.stream)
       })

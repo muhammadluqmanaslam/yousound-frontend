@@ -129,15 +129,18 @@ export default {
   },
 
   created () {
-    AuthService.checkTokenValidation().then(response => {
-      if (response.body === true) {
-        AuthService.getToken()
-        this.getUserInfo()
-      } else {
-        AuthService.clearTokenAndUserInfo()
-        this.$router.push({ path: '/login' })
-      }
-    })
+    if (AuthService.isAuthenticated()) {
+      AuthService.checkTokenValidation().then(response => {
+        console.log('checkTokenValidation', response.body)
+        if (response.body !== false) {
+          // this.getUserInfo()
+          AuthService.setUser(response.body)
+        } else {
+          AuthService.clearTokenAndUserInfo()
+          this.$router.push({ path: '/login' })
+        }
+      })
+    }
 
     SettingService.getSettings().then(response => {
       this.$store.dispatch('app/setSettings', response.body)

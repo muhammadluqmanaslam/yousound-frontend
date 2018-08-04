@@ -190,6 +190,17 @@
             </v-tabs-content>
           </v-tabs-items>
         </v-tabs>
+
+        <v-menu offset-y class="filter_menu" v-if="false" v-show="activeTab == 'orders'">
+          <v-btn dark slot="activator">All
+            <v-icon dark right>keyboard_arrow_down</v-icon>
+          </v-btn>
+          <v-list>
+            <v-list-tile v-for="filter in filters" :key="filter.id" @click.native="filterItems(filter.id)">
+              <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </div>
     </v-flex>
 

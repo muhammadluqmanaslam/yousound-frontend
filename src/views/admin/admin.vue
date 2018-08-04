@@ -34,6 +34,9 @@
             <v-tabs-content key="globalstats" id="globalstats">
               <globalstats-tab v-if="$store.state.navigator.current.tab == 'globalstats'"></globalstats-tab>
             </v-tabs-content>
+            <v-tabs-content key="attendees" id="attendees">
+              <attendee-tab v-if="$store.state.navigator.current.tab == 'attendees'"></attendee-tab>
+            </v-tabs-content>
           </v-tabs-items>
         </v-tabs>
       </div>

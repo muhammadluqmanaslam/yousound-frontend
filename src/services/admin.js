@@ -34,5 +34,9 @@ export default {
 
   getGlobalStats (params) {
     return Vue.http.get(API_BASE_URL + '/global_stats', { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  },
+
+  getAttendees () {
+    return Vue.http.get(`${API_BASE_URL}/attendees`, { headers: { 'Authorization': $store.state.auth.token } })
   }
 }

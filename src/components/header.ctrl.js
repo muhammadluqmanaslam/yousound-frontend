@@ -74,7 +74,7 @@ export default {
 
     signOut () {
       // const _user = _.cloneDeep(this.$store.state.auth.user)
-      AuthService.logout()
+      AuthService.signout()
       this.$router.push({ path: '/login' })
       this.$root.$emit(MyEvents.AUTH_SIGNOUT)
     }

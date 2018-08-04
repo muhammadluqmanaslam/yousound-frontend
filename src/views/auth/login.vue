@@ -22,7 +22,7 @@
               <p class="text-danger text-xs-left" v-if="errors.has('email')">{{ errors.first('email') }}</p>
             </div>
           </v-flex>
-            <v-flex xs12 text-xs-center>
+          <v-flex xs12 text-xs-center>
             <input class="password" type="password" v-model="user.password" placeholder="Password">
           </v-flex>
           <v-flex xs12>

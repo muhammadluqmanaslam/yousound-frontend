@@ -35,6 +35,10 @@ export default {
     return Vue.http.post(API_BASE_URL + '/signin_with_social', params)
   },
 
+  addAttendee (params) {
+    return Vue.http.post(`${API_BASE_URL}/add_attendee`, params)
+  },
+
   checkTokenValidation () {
     const params = {
       auth_token: localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -50,7 +54,7 @@ export default {
     return Vue.http.post(API_BASE_URL + '/set_password', params)
   },
 
-  logout () {
+  signout () {
     Vue.http.post(API_BASE_URL + '/sign_out', null, { headers: { 'Authorization': $store.state.auth.token } })
     this.clearTokenAndUserInfo()
   },
