@@ -335,19 +335,23 @@ export default {
           // look up the username in message.from to get image, etc.
           if (message.from === app.me.username) {
             message.me = true
-          }
-          UserService.getUserInfo(message.from).then(response => {
-            message.fromUser = response.body
-            if (app.messages.length != 0) {
-              if (app.messages[0].localId != message.localId) {
-                // This block of code runs twice for some reason
-                // So just make sure that we didn't already add this message
-                if (!(app.messages.length == 1)) {
-                  app.messages.unshift(message)
+            message.fromUser = app.me
+            app.messages.unshift(message)
+          } else {
+            UserService.getUserInfo(message.from).then(response => {
+              message.fromUser = response.body
+              if (app.messages.length != 0) {
+                if (app.messages[0].localId != message.localId) {
+                  // This block of code runs twice for some reason
+                  // So just make sure that we didn't already add this message
+                  // if (!(app.messages.length == 1)) {
+                    app.messages.unshift(message)
+                  // }
                 }
               }
-            }
-          })
+            })
+          }
+          
 
           if (app.isAlbumLink(message.text)) {
             app.getAlbumFromLink(message.text)
@@ -429,6 +433,7 @@ export default {
             }
           });
           app.connected = true;
+          app.messageError = "";
           $('#msg-container')[0].scrollTop = $('#msg-container')[0].scrollHeight
 
           // setTimeout(function () {
