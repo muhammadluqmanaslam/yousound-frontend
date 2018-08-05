@@ -9,6 +9,7 @@ import settingTab from './components/settings'
 import userTab from './components/users'
 import signupTab from './components/signups'
 import globalstatsTab from './components/global_stats'
+import attendeeTab from './components/attendees'
 
 export default {
   components: {
@@ -19,7 +20,8 @@ export default {
     signupTab,
     genreTab,
     settingTab,
-    globalstatsTab
+    globalstatsTab,
+    attendeeTab
   },
 
   data () {
@@ -30,7 +32,8 @@ export default {
         { id: 'signups', title: 'SIGN UPS' },
         { id: 'genres', title: 'GENRES' },
         { id: 'settings', title: 'SETTINGS' },
-        { id: 'globalstats', title: 'GLOBAL STATS' }
+        { id: 'globalstats', title: 'GLOBAL STATS' },
+        { id: 'attendees', title: 'SEED INVITES' }
       ],
       item: null,
       page_index: 0,

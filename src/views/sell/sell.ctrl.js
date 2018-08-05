@@ -23,6 +23,12 @@ export default {
   data () {
     return {
       activeTab: 'orders',
+      filters: [
+        { id: 'creator_unshipped', name: 'Unshipped' },
+        { id: 'creator_shipped', name: 'Shipped' },
+        { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
+        { id: 'collaborator_shipped', name: 'Collaborated Shipped' }
+      ],
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
@@ -295,6 +301,9 @@ export default {
         this.loadData()
       })
     },
+
+    filterItems (filter_id) {
+    }
   },
 
   mounted () {

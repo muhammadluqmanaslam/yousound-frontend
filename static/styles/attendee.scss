@@ -1,0 +1,43 @@
+.page.attendee-page {
+  img.site-logo {
+    width: 200px;
+  }
+
+  img.page-logo {
+    width: 200px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  input[type=text],
+  input[type=email],
+  input[type=password] {
+    width: 100%;
+    background: #FFFFFF;
+    border: 0.75px solid #D2D2D2;
+    border-radius: 3.75px;
+    height: 40px;
+    font-size: 15px;
+    color: #4A4A4A;
+    letter-spacing: 0;
+    padding: 0 15px;
+  }
+
+  .input-group--select .input-group__input {
+    min-height: 40px;
+  }
+
+  .input-group {
+    label {
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+
+  button {
+    width: 100%;
+    height: 40px;
+  }
+}

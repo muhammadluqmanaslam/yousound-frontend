@@ -30,7 +30,7 @@ export default {
         { text: 'Date', value: 'joined_date', align: 'left' },
         { text: 'Status', value: 'status', align: 'left' },
         { text: 'Invited By', value: 'invited_by', align: 'left' },
-        { text: 'Profile', value:'facebook', align: 'left'}
+        { text: 'Profile', value: 'facebook', align: 'left'}
       ],
       approved_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
