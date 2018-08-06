@@ -25,12 +25,11 @@
     .my_overlay {
       // z-index: 10;
       display: none;
-      position: relative;
-      // margin-top: 100px;
-      height: 100%;
-      background-image: linear-gradient(to bottom, transparent 1px, rgba(255, 255, 255, 0.9) 15px, rgba(0, 0, 0, 0.8) 200px, rgba(0,0,0,1));
-      background-size: 100% 370px;
-      background-position: bottom left;
+      // position: relative;
+      // height: 100%;
+      // background-image: linear-gradient(to bottom, transparent 1px, rgba(255, 255, 255, 0.9) 15px, rgba(0, 0, 0, 0.8) 200px, rgba(0,0,0,1));
+      // background-size: 100% 370px;
+      // background-position: bottom left;
       .layout.my-header {
         z-index: 10;
         .toolbar__title {
@@ -56,7 +55,7 @@
         border-bottom-right-radius: 10px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px; 
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 0, 0, 0.6);
         .separator {
           display: flex;
           width: 100%;
