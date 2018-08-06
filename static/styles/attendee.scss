@@ -38,3 +38,23 @@
     height: 40px;
   }
 }
+
+.dialog.attendee-confirm-dialog {
+  background-color: #FFFFFF;
+
+  img.site-logo {
+    width: 200px;
+  }
+
+  img.page-logo {
+    width: 100px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}

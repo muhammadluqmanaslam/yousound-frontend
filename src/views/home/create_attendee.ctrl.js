@@ -16,7 +16,8 @@ export default {
         display_name: '',
         email: '',
         account_type: ''
-      }
+      },
+      show_attendee_confirm_dialog: false
     }
   },
 
@@ -34,7 +35,8 @@ export default {
           this.$store.dispatch('error/showLoadingActivity', true)
           AuthService.addAttendee(params).then(response => {
             this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showSuccessToast', ['You reserved your account'])
+            // this.$store.dispatch('error/showSuccessToast', ['You reserved your account'])
+            this.show_attendee_confirm_dialog = true
           }).catch(e => {
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
