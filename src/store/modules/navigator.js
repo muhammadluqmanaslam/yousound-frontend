@@ -29,7 +29,7 @@ const getters = {
   },
 
   isPrimaryTheme: (state) => {
-    return ['discover', 'profile-slider'].indexOf(state.current.page) > -1
+    return ['discover', 'profile-slider'].indexOf(state.current.page) > -1 && state.current.tab !== 'merch'
   },
 
   isGrayTheme: (state) => {

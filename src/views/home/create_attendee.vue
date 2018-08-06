@@ -52,7 +52,15 @@
         </v-flex>
       </v-layout>
     </form>
+
+    <!-- <v-dialog v-model="show_attendee_confirm_dialog" fullscreen content-class="attendee-confirm-dialog">
+      <v-card mt-5>
+        <v-card-media contain src="/static/images/ic_twitter.png" height="50px"></v-card-media>
+        <v-card-title class="headline">We're launching soon!</v-card-title>
+        <v-card-text>You will receive an e-mail with a sign up <br>link to your pre-verifed account.</v-card-text>
+      </v-card>
+    </v-dialog> -->
   </div>
 </template>
 
-<script type="text/javascript" src="./playlist.ctrl.js"></script>
+<script type="text/javascript" src="./create_attendee.ctrl.js"></script>

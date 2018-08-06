@@ -428,11 +428,12 @@ input[type=password] {
 }
 
 .loadmore-btn {
+  display: block;
   width: 220px;
   height: 48px;
+  margin: 0px auto;
   box-shadow: none;
   text-transform: none;
-  margin: 0px;
   background: #0ba0f7 !important;
   border-radius: 100px;
   font-weight: 600;
