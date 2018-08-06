@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import EmptyPage from '@/views/home/empty'
+import ProtectPage from '@/views/auth/protect_page'
 import CreateAttendee from '@/views/home/create_attendee'
 
 Vue.use(Router)
 
 export function createMobileRouter () {
   let routes = [
-    { path: '/empty', name: 'EmptyPage', component: EmptyPage },
+    { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/playlist', name: 'Playlist', component: CreateAttendee },
-    { path: '*', redirect: '/empty' }
+    { path: '*', redirect: '/protect' }
   ]
 
   return new Router({

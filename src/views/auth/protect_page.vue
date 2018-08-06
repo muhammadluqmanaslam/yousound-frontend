@@ -1,27 +1,24 @@
 <template>
-  <v-layout row wrap class="page protect-page">
-    <v-flex xs12 sm6 offset-sm3 md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2 transition="slide-x-reverse-transition">
-      <div class="page-header">
-        <v-flex xs12 text-xs-center>
-          <img class="logo" src="/static/images/nav_logo_primary.png">
-        </v-flex>
-        <v-flex xs12 text-xs-center>
-          <h4 class="forgot-title">Please enter the code word to continue...</h4>
-        </v-flex>
-      </div>
-      <div class="page-content">
+  <div class="page protect-page" style="padding-top: 0px; min-height: 100%;">
+    <v-layout column wrap align-center>
+      <v-flex xs12 sm4 pa-3 class="text-xs-center">
+        <div class="mt-5"><img class="site-logo" src="/static/images/nav_logo_primary.png"></div>
+        <v-divider style="width: 50px; margin: 30px auto 30px auto;"></v-divider>
         <form @submit.prevent="submit()">
-          <v-flex xs12 text-xs-left>
-            <label class="field-title"></label>
-            <input type="password" name="secret_code" autocomplete="off" placeholder="Code Word" v-model="secret_code">
-          </v-flex>
-          <v-flex xs12 text-xs-center>
-            <v-btn block round dark type="submit" class="reset-btn">Go</v-btn>  
-          </v-flex>
+          <label class="mb-3">Please enter the code word to continue...</label>
+          <input
+            type="password"
+            class="mt-4 mb-2"
+            autocomplete="off"
+            placeholder="Code Word"
+            name="secret_code"
+            v-model="secret_code"
+          />
+          <v-btn block round dark color="blue" class="reset-btn" type="submit">Go</v-btn>
         </form>
-      </div>
-    </v-flex>
-  </v-layout>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 
 <script type="text/javascript">
@@ -35,7 +32,8 @@
     },
 
     created () {
-      this.$store.dispatch('navigator/goNextState', { page: 'register', tab: 'protect' })
+      // this.$store.dispatch('navigator/goNextState', { page: 'register', tab: 'protect' })
+      this.$store.dispatch('navigator/goNextState', { page: '', tab: '' })
     },
 
     methods: {

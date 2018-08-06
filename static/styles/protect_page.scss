@@ -1,51 +1,22 @@
 .page.protect-page {
-  .page-header {
-    margin: 90px auto 0;
-    .logo {
-      // width: 200.25px;
-      height: 44px;
-    }
-    h4 {
-      font-weight: 300;
-      font-size: 18px;
-      color: #2D2D2D;
-      letter-spacing: 1.18px;
-      margin-top: 63.75px;
-    }
+  img.site-logo {
+    width: 200px;
   }
 
-  .page-content {
-    width: 306px;
-    margin: 0 auto;
+  label {
+    font-size: 16px;
+  }
 
-    input[type=text],
-    input[type=password] {
-      background: #FFFFFF;
-      border: 0.75px solid #D2D2D2;
-      border-radius: 3.75px;
-      height: 45px;
-      width: 300px;
-      margin-top: 22.5px;
-      font-size: 15px;
-      color: #4A4A4A;
-      letter-spacing: 0;
-      padding: 0 15px;
-    }
+  input[type=text],
+  input[type=email],
+  input[type=password] {
+    width: 100%;
+    height: 40px;
+    padding: 0 15px;
+  }
 
-    .btn {
-      display: inline-block;
-      margin-top: 15px;
-      margin-left: -6px;
-      background: #3A92FF !important;
-      border-radius: 5px;
-      height: 41px;
-      width: 300px;
-      box-shadow: none;
-      font-weight: 600;
-      font-size: 16px;
-      color: #FFFFFF;
-      letter-spacing: 0;
-      text-transform: none;
-    }
+  button {
+    width: 100%;
+    height: 40px;
   }
 }

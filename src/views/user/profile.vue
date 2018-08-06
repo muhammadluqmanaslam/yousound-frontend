@@ -120,7 +120,7 @@
                   :href="'#' + tab.id"
                   @click.native="onTab(tab.id)"
                   ripple>{{ tab.title }}</v-tabs-item>
-                <v-tabs-slider color="white"></v-tabs-slider>
+                <v-tabs-slider color="black"></v-tabs-slider>
                 <v-btn dark class="more-btn" @click.native="setGridView(true)">
                   <!-- <v-icon>widgets</v-icon> -->
                   <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

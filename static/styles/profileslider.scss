@@ -67,7 +67,7 @@
       .follower-count {
         font-weight: 700;
         font-size: 14px;
-        color: #FFFFFF;
+        color: #000000;
         letter-spacing: 0;
         margin-right: 10px;
         line-height: 36px;
@@ -75,13 +75,13 @@
       .vertical-divider {
         margin: 0px;
         font-size: 14px;
-        background-color: #FFFFFF;
-        border-left: 1px solid #FFFFFF;
+        background-color: #000000;
+        border-left: 1px solid #000000;
       }
       .user-role {
         text-transform: capitalize;
         font-size: 14x;
-        color: #FFFFFF;
+        color: #000000;
         letter-spacing: 1px;
         margin-left: 10px;
       }
@@ -116,7 +116,8 @@
       }
       .send-love-btn {
         background-color: rgba(255, 255, 255, 0) !important;
-        border: 1px solid #FFF !important;
+        border: 1px solid #8E8E8E !important;
+        color: #8E8E8E;
       }
       .follow-btn {
         background-color: rgba(255, 255, 255, 0) !important;
@@ -184,20 +185,15 @@
     .user-info-section {
       .user-name-section {
         font-size: 34px;
-        // color: #000000;
-        color: rgba(255, 255, 255, 0.9);
+        color: rgba(0, 0, 0, 0.9);
         letter-spacing: -2.5px;
         font-weight: 600;
         font-family: 'Work Sans'
-        // margin-top: 10px;
-        // margin-bottom: -44px;
       }
     }
   }
   .profile-slider-tab {
     position: relative;
-    // margin-top: 41.25px;
-    // margin-bottom: -24px;
     .tabs {
       .tabs__bar {
         .tabs__wrapper.tabs__wrapper--scrollable {
@@ -209,10 +205,10 @@
               text-transform: none;
               font-size: 20px;
               font-weight: 500;
-              color: white !important;
+              color: #000000 !important;
               letter-spacing: -0.5px;
               &.tabs__item--active {
-                color: #FFFFFF !important;
+                color: #000000 !important;
               }
             }
           }
@@ -220,7 +216,7 @@
       }
       .tabs__items {
         border: none;
-        margin-top: 45.37500000000001px;
+        margin-top: 45.5px;
         margin-bottom: 0;
       }
     }
@@ -244,17 +240,18 @@
       // transform: rotate(-180deg);
       // border: 2.475px solid #FFFFFF;
       font-size: 16px;
-      // color: #000000;
-      color: white !important;
+      color: #000000;
       letter-spacing: -0.66px;
       box-shadow: none;
       text-transform: none;
-      // width: 132px;
-      .icon {
-        color: #E1E1E1;
-      }
+      // .icon {
+      //   color: #E1E1E1;
+      // }
       .btn__content {
         padding: 0 10px;
+        svg g {
+          fill: #000000;
+        }
       }
     }
   }
@@ -275,6 +272,75 @@
   }
   .product-posted-at label {
     color: #8E8E8E !important;
+  }
+}
+
+.application.theme--light.primary {
+  .page.profile-slider-page {
+    .user-follow-section {
+      .user-status-section {
+        .follower-count {
+          color: #FFFFFF;
+        }
+        .vertical-divider {
+          background-color: #FFFFFF;
+          border-left: 1px solid #FFFFFF;
+        }
+        .user-role {
+          color: #FFFFFF;
+        }
+      }
+      .user-action-section {
+        .send-love-btn {
+          background-color: rgba(255, 255, 255, 0) !important;
+          border: 1px solid #FFF !important;
+          color: #FFFFFF;
+        }
+      }
+    }
+    .user-profile-section {
+      .user-profile-image-section {
+        .user-profile-image {
+          background-color: #FAFAFA;
+        }
+      }
+      .user-info-section {
+        .user-name-section {
+          color: rgba(255, 255, 255, 0.9);
+        }
+      }
+    }
+    .profile-slider-tab {
+      .tabs {
+        .tabs__bar {
+          .tabs__wrapper.tabs__wrapper--scrollable {
+            .tabs__li {
+              .tabs__item {
+                color: #FFFFFF !important;
+                &.tabs__item--active {
+                  color: #FFFFFF !important;
+                }
+              }
+            }
+            .tabs__slider.black {
+              background-color: #FFFFFF !important;
+              border-color: #FFFFFF !important;
+            }
+          }
+        }
+      }
+      .more-btn {
+        background: transparent !important;
+        border: 0px solid #E1E1E1 !important;
+        color: #FFFFFF !important;
+        .btn__content {
+          padding: 0 10px;
+          svg g {
+            fill: #FFFFFF;
+          }
+        }
+      }
+    }
   }
 }
 
