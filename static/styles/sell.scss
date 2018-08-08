@@ -862,6 +862,22 @@
       color: #000 !important;
     }
   }
+
+  .menu.filter_menu {
+    .menu__activator .btn {
+      height: 40px;
+      margin: 0;
+      box-shadow: none;
+      border: 1.1px solid rgba(0, 0, 0, 0.3) !important;
+      border-radius: 4.125px;
+      background: rgba(255,255,255,0.10) !important;
+      color: #000;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      text-transform: none;
+    }
+  }
 }
 
 .page.sell-page.product-page {

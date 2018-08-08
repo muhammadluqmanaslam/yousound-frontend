@@ -24,11 +24,13 @@ export default {
     return {
       activeTab: 'orders',
       filters: [
+        { id: '', name: 'All' },
         { id: 'creator_unshipped', name: 'Unshipped' },
         { id: 'creator_shipped', name: 'Shipped' },
         { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
         { id: 'collaborator_shipped', name: 'Collaborated Shipped' }
       ],
+      filter_status: '',
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
@@ -302,7 +304,33 @@ export default {
       })
     },
 
-    filterItems (filter_id) {
+    filterItems (filter) {
+      const status = filter.id.split('_')[1] || ''
+      $('#filter_selector .btn__content').html(filter.name + '<i class="material-icons icon icon--right">keyboard_arrow_down</i>')
+      const params = {
+        page: this.page_index,
+        per_page: this.items_per_page,
+        status: filter.id
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      OrderService.getReceivedOrders(params).then(response => {
+        this.orderHistories = response.body.orders
+        switch (status) {
+          case 'shipped':
+            this.filter_status = 'item_shipped'
+            break
+          case 'unshipped':
+            this.filter_status = 'item_ordered'
+            break
+          default:
+            this.filter_status = ''
+            break
+        }
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
     }
   },
 

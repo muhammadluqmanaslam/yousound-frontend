@@ -37,7 +37,17 @@
               </div>
               <v-card flat v-else class="relative">
                 <div class="orders-actions">
-                  <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">Mark All as Shipped</v-btn>
+                  <v-menu offset-y id="filter_selector" class="filter_menu" v-show="activeTab == 'orders'">
+                    <v-btn slot="activator">All
+                      <v-icon right>keyboard_arrow_down</v-icon>
+                    </v-btn>
+                    <v-list>
+                      <v-list-tile v-for="filter in filters" :key="filter.id" @click.native="filterItems(filter)">
+                        <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                  <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">All Shipped</v-btn>
                   <v-btn dark color="green" @click.native="csvExport()">Export</v-btn>
                 </div>
                 <v-flex xs12 class="order-item" v-for="(order, index) in orderHistories" :key="index">
@@ -61,7 +71,7 @@
                         <div class="status-section text-xs-center"></div>
                       </v-layout>
                     </div>
-                    <div class="order-section" v-for="item in order.items">
+                    <div class="order-section" v-for="item in order.items" v-if="filter_status == '' || item.status == filter_status">
                       <v-layout row>
                         <div class="order-content-section relative">
                           <div class="product-cover-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div>
@@ -106,7 +116,7 @@
                         <div class="status-section text-xs-center"></div>
                       </v-layout>
                     </div>
-                    <div class="order-section" v-for="item in order.items">
+                    <div class="order-section" v-for="item in order.items" v-if="filter_status == '' || item.status == filter_status">
                       <v-layout row>
                         <div class="order-content-section relative">
                           <div class="product-cover-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div>
@@ -190,17 +200,6 @@
             </v-tabs-content>
           </v-tabs-items>
         </v-tabs>
-
-        <v-menu offset-y class="filter_menu" v-if="false" v-show="activeTab == 'orders'">
-          <v-btn dark slot="activator">All
-            <v-icon dark right>keyboard_arrow_down</v-icon>
-          </v-btn>
-          <v-list>
-            <v-list-tile v-for="filter in filters" :key="filter.id" @click.native="filterItems(filter.id)">
-              <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
       </div>
     </v-flex>
 
