@@ -191,7 +191,7 @@
                     <div class="info-section" v-if="!!userLinks[message.text]">
                       <label class="item-title">{{ userLinks[message.text].display_name }}</label>
                       <br>
-                      <router-link :to="'/'+userLinks[message.text].slug" class="item-user">{{ formatLargeNumber(userLinks[message.text].followers) }} followers</router-link>
+                      <router-link :to="'/'+userLinks[message.text].slug" class="item-user">{{ userLinks[message.text].followers | formatLargeNumber }} followers</router-link>
                     </div>
                   </div>
                 </div>
