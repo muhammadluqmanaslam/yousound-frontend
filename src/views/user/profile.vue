@@ -2,36 +2,6 @@
   <div>
     <div>&nbsp;</div>
 
-    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
-
-    <send-love-modal :item="user" :dismiss="dismissLoveDialog" v-if="showSendLoveModal"></send-love-modal>
-
-    <v-dialog v-model="show_block_user_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Block a User</v-card-title>
-        <v-card-text>Are you sure you want to block this?</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeBlockUserConfirmDialog()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="show_invite_confirm_dialog" content-class="my-dialog-1">
-      <v-card>
-        <v-card-media :src="user.avatar.url" height="125px" contain></v-card-media>
-        <v-card-text>
-          <div class="headline">Do you want to invite this user?</div>
-          <div>This user's account is pending verification. Only verified users can invite pending accounts. Inviting this user will expedite their verification process</div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="red" dark @click.native="closeInviteConfirmDialog()">No, cancel!</v-btn>
-          <v-btn color="green" dark @click.native="inviteUser()">Yes, Invite!</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <div class="page profile-slider-page image-container" v-if="!grid_show">
       <canvas id="canvas" class="background-image" v-if="slide_tab!='merch'"></canvas>
       <div id="back_image" class="background-overlay" v-if="slide_tab!='merch'"></div>
@@ -473,6 +443,36 @@
         </div>
       </v-flex>
     </div>
+
+    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+
+    <send-love-modal :item="user" :dismiss="dismissLoveDialog" v-if="showSendLoveModal"></send-love-modal>
+
+    <v-dialog v-model="show_block_user_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Block a User</v-card-title>
+        <v-card-text>Are you sure you want to block this?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeBlockUserConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_invite_confirm_dialog" content-class="my-dialog-1">
+      <v-card>
+        <v-card-media :src="user.avatar.url" height="125px" contain></v-card-media>
+        <v-card-text>
+          <div class="headline">Do you want to invite this user?</div>
+          <div>This user's account is pending verification. Only verified users can invite pending accounts. Inviting this user will expedite their verification process</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="red" dark @click.native="closeInviteConfirmDialog()">No, cancel!</v-btn>
+          <v-btn color="green" dark @click.native="inviteUser()">Yes, Invite!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 

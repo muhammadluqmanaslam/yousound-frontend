@@ -2,20 +2,6 @@
   <v-flex xs12 sm12 class="direct-message-section">
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
     <v-layout row class="popup-section">
-
-      <!-- <payment-modal v-if="show_payment_modal"
-        :type="''"
-        :amount="current_repost_price"
-        :dismiss="closePaymentDialog"
-        :finish="sendMessage"></payment-modal> -->
-
-      <repost-payment-modal v-if="show_repost_payment_modal"
-        :item="item"
-        :itemType="tab"
-        :user="receiver"
-        :dismiss="closeRepostPaymentModal"
-        :finish="sendMessage"></repost-payment-modal>
-
       <v-flex xs12 class="content-section" :class="{'sm7':$store.state.auth.user.user_type=='artist', 'sm12':$store.state.auth.user.user_type!='artist'}">
         <div class="avatar-image" :style="{'background-image': 'url(' + receiver.avatar.thumb.url + ')'}"></div>
         <p class="user-name">{{ receiver.display_name }} <v-icon class="user-status" v-bind:class="{'online': receiver.status == 'active'}" v-if="receiver.user_type == 'artist'">fa-check-circle</v-icon></p>
@@ -50,7 +36,13 @@
           </div>
         </div>
         <div class="content-section" v-if="tab=='album'">
-          <div class="request-item" :class="{'selected':item_index==index}" v-for="(album, index) in albums" :key="index" @click="selectItemIndex(index)">
+          <div
+            v-for="album in albums"
+            :key="album.id"
+            @click="InHiddenGenres(album) ? null : selectItem(album)"
+            class="request-item"
+            :class="{'selected': item == album, 'banned': InHiddenGenres(album)}"
+          >
             <div class="avatar-area">
               <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div> 
             </div>
@@ -61,7 +53,13 @@
           </div>
         </div>
         <div class="content-section" v-if="tab=='merch'">
-          <div class="request-item" :class="{'selected':item_index==index}" v-for="(product, index) in products" :key="index" @click="selectItemIndex(index)">
+          <div
+            v-for="product in products"
+            :key="product.id"
+            @click="selectItem(product)"
+            class="request-item"
+            :class="{'selected':item == product}"
+          >
             <div class="avatar-area">
               <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div> 
             </div>
@@ -72,16 +70,24 @@
           </div>
         </div>
       </v-flex>
+
+      <repost-payment-modal v-if="show_repost_payment_modal"
+        :item="item"
+        :itemType="tab"
+        :user="receiver"
+        :dismiss="closeRepostPaymentModal"
+        :finish="sendMessage"
+      />
     </v-layout>
   </v-flex>
 </template>
 
 <script type="text/javascript">
+  import _ from 'lodash'
   import MessageService from '@/services/message'
   import { Picker } from 'emoji-mart-vue'
   import AlbumService from '@/services/album'
   import ProductService from '@/services/product'
-  import paymentModal from '@/components/paymentmodal'
   import repostPaymentModal from '@/components/repost_payment_modal'
 
   export default {
@@ -99,17 +105,15 @@
 
     components: {
       Picker,
-      paymentModal,
       repostPaymentModal
     },
 
     data () {
       return {
         showEmojiPicker: false,
-        show_payment_modal: false,
         show_repost_payment_modal: false,
         tab: 'album',
-        item_index: -1,
+        item: null,
         albums: [],
         products: [],
         message: ''
@@ -117,20 +121,13 @@
     },
 
     computed: {
-      item () {
-        if (this.tab === 'album') {
-          return this.albums[this.item_index]
-        }
-
-        return this.products[this.item_index]
-      },
-
       current_repost_price () {
         return this.receiver.repost_price
       }
     },
 
     created () {
+      // console.log(this.receiver)
       Promise.all([
         AlbumService.getAlbums({
           statuses: 'published, collaborated',
@@ -151,15 +148,15 @@
     },
 
     methods: {
-      openPaymentDialog () {
-        this.show_payment_modal = true
-      },
-
-      closePaymentDialog () {
-        this.show_payment_modal = false
+      // true : in hidden genres
+      InHiddenGenres (album) {
+        const genreId = _.get(album.genres, '[0].id', '')
+        const genre = _.find(this.receiver.hidden_genres, (genre) => { return genre.id === genreId })
+        return !(genre === undefined || genre === null)
       },
 
       openRepostPaymentModal () {
+        // console.log(this.item)
         this.show_repost_payment_modal = true
       },
 
@@ -168,7 +165,7 @@
       },
 
       checkMessage () {
-        if (this.item_index > -1) {
+        if (this.item) {
           this.openRepostPaymentModal()
         } else {
           this.sendMessage()
@@ -182,13 +179,13 @@
         }
         this.message = ''
         params['receiver_id'] = this.receiver.id
-        if (this.item_index > -1) {
+        if (this.item) {
           if (this.tab === 'album') {
             params['attachable_type'] = 'Album'
-            params['attachable_id'] = this.albums[this.item_index].id
+            params['attachable_id'] = this.item.id
           } else {
             params['attachable_type'] = 'ShopProduct'
-            params['attachable_id'] = this.products[this.item_index].id
+            params['attachable_id'] = this.item.id
           }
         }
         if (token) {
@@ -203,14 +200,15 @@
 
       onTab (tab) {
         this.tab = tab
-        this.item_index = -1
+        this.item = null
       },
 
-      selectItemIndex (index) {
-        if (this.item_index !== index) {
-          this.item_index = index
+      selectItem (item) {
+        // console.log(this.item === item, this.item, item)
+        if (this.item === item) {
+          this.item = null
         } else {
-          this.item_index = -1
+          this.item = item
         }
       },
 

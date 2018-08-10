@@ -1,18 +1,5 @@
 <template>
   <v-layout row wrap class="page messages-page">
-    <!-- <payment-modal v-if="showPaymentModal"
-      :type="''"
-      :amount="current_repost_price"
-      :dismiss="hidePaymentDialog"
-      :finish="sendMessage"></payment-modal> -->
-
-    <repost-payment-modal v-if="show_repost_payment_modal"
-      :item="item"
-      :itemType="tab"
-      :user="conversation.other"
-      :dismiss="closeRepostPaymentModal"
-      :finish="sendMessage"></repost-payment-modal>
-
     <v-flex xs12 sm12 class="messages-stop-music-section" v-if="show_stopPopup">
       <div class="popup-section">
         <img class="popup-image" src="/static/images/earphone.png"/>
@@ -21,30 +8,6 @@
         <v-btn class="gotta-btn" @click.native="setVisitedTime()">Ok. Got it!</v-btn>
       </div>
     </v-flex>
-
-    <v-dialog v-model="show_block_user_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Block a User</v-card-title>
-        <v-card-text>Are you sure you want to block &lt;{{ other_name }}&gt;?</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeBlockUserConfirmDialog()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="show_conversation_delete_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Delete a Conversation</v-card-title>
-        <v-card-text>If you click OK, all messages under the conversation will be deleted. Click OK to delete a conversation with &lt;{{ other_name }}&gt;, or click Cancel.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteEntireMessage()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeConversationDeleteConfirmDialog()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <!-- <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="messages-page-header">
       <v-flex xs12>
@@ -358,7 +321,7 @@
                   <div class="message-section">
                     <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
                     <div class="message-content text">
-                      <label class="text-message">{{ message.body }}</label>
+                      <label class="text-message" v-html="message.body"></label>
                     </div>
                     <div class="clear"></div>
                   </div>
@@ -400,7 +363,13 @@
               </div>
             </div>
             <div class="content-section" v-if="tab=='album'">
-              <div class="request-item" :class="{'selected':item_index==index}" v-for="(album, index) in albums" :key="index" @click="selectItemIndex(index)">
+              <div
+                v-for="album in albums"
+                :key="album.id"
+                @click="InHiddenGenres(album) ? null : selectItem(album)"
+                class="request-item"
+                :class="{'selected': item == album, 'banned': InHiddenGenres(album)}"
+              >
                 <div class="avatar-area">
                   <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div> 
                 </div>
@@ -411,7 +380,13 @@
               </div>
             </div>
             <div class="content-section" v-if="tab=='merch'">
-              <div class="request-item" :class="{'selected':item_index==index}" v-for="(product, index) in products" :key="index" @click="selectItemIndex(index)">
+              <div
+                v-for="product in products"
+                :key="product.id"
+                @click="selectItem(product)"
+                class="request-item"
+                :class="{'selected': item == product}"
+              >
                 <div class="avatar-area">
                   <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div> 
                 </div>
@@ -426,6 +401,37 @@
       </v-layout>
     </v-flex>
 
+    <repost-payment-modal v-if="show_repost_payment_modal"
+      :item="item"
+      :itemType="tab"
+      :user="conversation.other"
+      :dismiss="closeRepostPaymentModal"
+      :finish="sendMessage"
+    />
+
+    <v-dialog v-model="show_block_user_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Block a User</v-card-title>
+        <v-card-text>Are you sure you want to block &lt;{{ other_name }}&gt;?</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeBlockUserConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_conversation_delete_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Delete a Conversation</v-card-title>
+        <v-card-text>If you click OK, all messages under the conversation will be deleted. Click OK to delete a conversation with &lt;{{ other_name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteEntireMessage()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeConversationDeleteConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
