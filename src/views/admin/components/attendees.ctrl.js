@@ -14,7 +14,8 @@ export default {
         { text: 'Full Name', value: 'full_name', align: 'left' },
         { text: 'Artist / Brand / Label Name', value: 'display_name', align: 'left' },
         { text: 'Email', value: 'email', align: 'left'},
-        { text: 'Account Type', value: 'account_type', align: 'left' }
+        { text: 'Account Type', value: 'account_type', align: 'left' },
+        { text: 'Referred By', value: 'referred_by', align: 'left' }
       ],
       search_keyword: '',
       attendees: [],
