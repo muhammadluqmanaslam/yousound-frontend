@@ -33,6 +33,7 @@ export default {
       // show_payment_dialog: false,
       // show_deposit_dialog: false,
       show_stream_delete_confirm_dialog: false,
+      show_create_failed_dialog: false,
       show_view_stream_button: false,
       creatingInterval: null,
       remainingInterval: null,
@@ -171,6 +172,15 @@ export default {
       this.show_stream_delete_confirm_dialog = false
     },
 
+    openCreateFailedDialog () {
+      this.show_create_failed_dialog = true
+    },
+
+    closeCreateFailedDialog () {
+      this.show_create_failed_dialog = false
+      this.$router.push({ path: '/' })
+    },
+
     deposit (token) {
       const params = {
         payment_token: token.id,
@@ -215,16 +225,28 @@ export default {
     getStream () {
       const vm = this
       StreamService.getStream(this.currentUser.stream.id).then(response => {
-        if (response.body.status === 'running') {
-          this.$store.dispatch('auth/setStream', response.body)
-          if (this.creatingInterval) {
-            clearInterval(this.creatingInterval)
-            this.remainingSeconds = response.body.remaining_seconds
-            this.remainingInterval = setInterval(function () { vm.refresh() }, 1000)
-          }
+        switch (response.body.status) {
+          case 'running':
+            this.$store.dispatch('auth/setStream', response.body)
+            if (this.creatingInterval) {
+              clearInterval(this.creatingInterval)
+              this.remainingSeconds = response.body.remaining_seconds
+              this.remainingInterval = setInterval(function () { vm.refresh() }, 1000)
+            }
+            break
+          case 'deleted':
+            if (this.creatingInterval) {
+              clearInterval(this.creatingInterval)
+            }
+            this.openCreateFailedDialog()
+            break
         }
       }).catch(e => {
         console.log('getStream', e)
+        if (this.creatingInterval) {
+          clearInterval(this.creatingInterval)
+        }
+        this.openCreateFailedDialog()
       })
     },
 
