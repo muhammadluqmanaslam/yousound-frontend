@@ -71,8 +71,18 @@
 
       <div class="share-view">
         <h3 class="mt-0 mb-4">Broadcast</h3>
-        <v-btn dark color="red" class="px-4 cancel-btn" @click.native="openStreamDeleteConfirmDialog()">Cancel Stream</v-btn>
-        <v-btn dark color="green" class="px-4 view-btn" @click.native="viewStream()" v-if="show_view_stream_button">View Stream</v-btn>
+        <v-btn
+          :color="isRunning ? 'theme--dark red' : 'grey lighten-2'"
+          class="px-4 cancel-btn"
+          @click.native="isRunning && openStreamDeleteConfirmDialog()"
+        >Cancel Stream</v-btn>
+        <v-btn
+          v-if="show_view_stream_button"
+          dark
+          color="green"
+          class="px-4 view-btn"
+          @click.native="viewStream()"
+        >View Stream</v-btn>
         <v-btn color="grey lighten-2" class="px-4 view-btn" v-else>Waiting for Connection...</v-btn>
       </div>
     </v-flex>
