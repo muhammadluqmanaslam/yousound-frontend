@@ -8,7 +8,6 @@ import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
-import paymentModal from '@/components/paymentmodal'
 import repostPaymentModal from '@/components/repost_payment_modal'
 import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
@@ -19,7 +18,6 @@ export default {
     Picker,
     activityAlbumCard,
     activityProductCard,
-    paymentModal,
     repostPaymentModal
   },
 
@@ -28,13 +26,12 @@ export default {
   data () {
     return {
       tab: 'album',
-      item_index: -1,
+      item: null,
       show_stopPopup: false,
       show_conversation_delete_confirm_dialog: false,
       show_block_user_confirm_dialog: false,
       show_repost_payment_modal: false,
       showEmojiPicker: false,
-      showPaymentModal: false,
       page_index: 0,
       total_pages: 1,
       items_per_page: 5 * 5,
@@ -53,14 +50,6 @@ export default {
   },
 
   computed: {
-    item () {
-      if (this.tab === 'album') {
-        return this.albums[this.item_index]
-      }
-
-      return this.products[this.item_index]
-    },
-
     other_name () {
       return _.get(this.conversation, 'other.display_name', '')
     },
@@ -221,9 +210,19 @@ export default {
       }
     },
 
+    // true : in hidden genres
+    InHiddenGenres (album) {
+      if (this.conversation.other) {
+        const genreId = _.get(album.genres, '[0].id', '')
+        const genre = _.find(this.conversation.other.hidden_genres, (genre) => { return genre.id === genreId })
+        return !(genre === undefined || genre === null)
+      } else {
+        return false
+      }
+    },
+
     checkMessage () {
-      if (this.item_index > -1) {
-        // this.showPaymentDialog()
+      if (this.item) {
         this.openRepostPaymentModal()
       } else {
         this.sendMessage()
@@ -234,22 +233,23 @@ export default {
       this.closeRepostPaymentModal()
       // this.hidePaymentDialog()
       // const message = this.message.body.replace(' ', '')
-      // if(message.length > 0) {
-      const params = new FormData()
-      params.append('body', this.message.body)
+      // if (message.length > 0) {
+      let params = {
+        body: this.message.body
+      }
       this.message.body = ''
-      params.append('receiver_id', this.conversation.other.id)
-      if (this.item_index > -1) {
+      params['receiver_id'] = this.conversation.other.id
+      if (this.item) {
         if (this.tab === 'album') {
-          params.append('attachable_type', 'Album')
-          params.append('attachable_id', this.albums[this.item_index].id)
+          params['attachable_type'] = 'Album'
+          params['attachable_id'] = this.item.id
         } else {
-          params.append('attachable_type', 'ShopProduct')
-          params.append('attachable_id', this.products[this.item_index].id)
+          params['attachable_type'] = 'ShopProduct'
+          params['attachable_id'] = this.item.id
         }
       }
       if (token) {
-        params.append('payment_token', token.id)
+        params['payment_token'] = token.id
       }
       MessageService.addMessage(params).then(response => {
         this.loadMessages(this.conversation.id, false, true)
@@ -259,6 +259,11 @@ export default {
     },
 
     selectedConversation(index) {
+      if (this.selected_index === index) {
+        return
+      }
+
+      this.item = null
       this.selected_index = index
       this.conversations[this.selected_index].last_message.is_read = true
       this.loadMessages(this.conversations[this.selected_index].id, false, true)
@@ -304,20 +309,7 @@ export default {
 
     onTab (tab) {
       this.tab = tab
-      // this.item_index = -1
-      // if (tab === 'album') {
-      //   this.loadAlbums()
-      // } else {
-      //   this.loadProducts()
-      // }
-    },
-
-    showPaymentDialog () {
-      this.showPaymentModal = true
-    },
-
-    hidePaymentDialog () {
-      this.showPaymentModal = false
+      this.item = null
     },
 
     openRepostPaymentModal () {
@@ -328,11 +320,12 @@ export default {
       this.show_repost_payment_modal = false
     },
 
-    selectItemIndex (index) {
-      if (this.item_index !== index) {
-        this.item_index = index
+    selectItem (item) {
+      // console.log(this.item === item, this.item, item)
+      if (this.item === item) {
+        this.item = null
       } else {
-        this.item_index = -1
+        this.item = item
       }
     },
 

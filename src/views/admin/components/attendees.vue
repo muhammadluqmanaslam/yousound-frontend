@@ -33,6 +33,7 @@
                 <td class="text-xs-left">{{ props.item.display_name }}</td>
                 <td class="text-xs-left">{{ props.item.email }}</td>
                 <td class="text-xs-left">{{ props.item.account_type }}</td>
+                <td class="text-xs-left">{{ props.item.referred_by }}</td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }}

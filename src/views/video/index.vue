@@ -6,19 +6,6 @@
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 v-if="isPageReady">
-      <v-dialog v-model="show_stream_delete_confirm_dialog">
-        <v-card>
-          <v-card-title class="headline">Delete a Stream</v-card-title>
-          <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
-            <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
       <v-layout row>
         <v-flex sm6 mr-4>
           <div class="stream-info">
@@ -71,10 +58,45 @@
 
       <div class="share-view">
         <h3 class="mt-0 mb-4">Broadcast</h3>
-        <v-btn dark color="red" class="px-4 cancel-btn" @click.native="openStreamDeleteConfirmDialog()">Cancel Stream</v-btn>
-        <v-btn dark color="green" class="px-4 view-btn" @click.native="viewStream()" v-if="show_view_stream_button">View Stream</v-btn>
+        <v-btn
+          :color="isRunning ? 'theme--dark red' : 'grey lighten-2'"
+          class="px-4 cancel-btn"
+          @click.native="isRunning && openStreamDeleteConfirmDialog()"
+        >Cancel Stream</v-btn>
+        <v-btn
+          v-if="show_view_stream_button"
+          dark
+          color="green"
+          class="px-4 view-btn"
+          @click.native="viewStream()"
+        >View Stream</v-btn>
         <v-btn color="grey lighten-2" class="px-4 view-btn" v-else>Waiting for Connection...</v-btn>
       </div>
+
+      <v-dialog v-model="show_stream_delete_confirm_dialog">
+        <v-card>
+          <v-card-title class="headline">Delete a Stream</v-card-title>
+          <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
+            <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog v-model="show_create_failed_dialog">
+        <v-card>
+          <v-card-title class="headline">Failed in Creating a Stream</v-card-title>
+          <v-card-text>Channel failed to start, you have not been charged. Please try again.</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="red--text darken-1" flat @click.native="closeCreateFailedDialog()">Ok</v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-flex>
 
   <!--

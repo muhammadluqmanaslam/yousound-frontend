@@ -453,7 +453,7 @@
       border: 0.75px solid #E1E1E1;
       border-left: none;
       .header-section {
-        width: 100%;
+        width: calc(100% - 1px);
         height: 75px;
         border-top: 0.75px solid #E1E1E1;
         border-bottom: 0.75px solid #E1E1E1;
@@ -490,9 +490,21 @@
         overflow-y: scroll;
         .request-item {
           padding: 4px 12px;
-          // cursor: pointer;
+          cursor: pointer;
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+          }
           &.selected {
-            background-color: rgb(241, 241, 241);
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+          &.banned {
+            cursor: default;
+            &:hover {
+              background-color: rgba(255, 0, 0, 0.05);
+              background-image: url('/static/images/ic_ban.png');
+              background-position: 260px 10px;
+              background-size: 15px 15px;
+            }
           }
           .avatar-area {
             width: 60px;
@@ -513,21 +525,21 @@
             vertical-align: middle;
             .item-name {
               display: block;
-              cursor: pointer;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
               overflow: hidden;
               white-space: nowrap;
               text-overflow: ellipsis;
+              cursor: inherit;
             }
             .user-name {
               display: block;
-              cursor: pointer;
               opacity: 0.5;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
+              cursor: inherit;
             }
           }
         }

@@ -15,7 +15,8 @@ export default {
         full_name: '',
         display_name: '',
         email: '',
-        account_type: ''
+        account_type: '',
+        referred_by: ''
       },
       show_attendee_confirm_dialog: false
     }

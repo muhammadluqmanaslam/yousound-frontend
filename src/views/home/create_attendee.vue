@@ -48,6 +48,13 @@
             hide-details
             class="my-2"
           />
+          <input
+            type="text"
+            class="my-2"
+            placeholder="Referred By"
+            name="referred_by"
+            v-model="attendee.referred_by"
+          >
           <v-btn dark round color="blue" class="ma-0 mt-2" type="submit">Reserve My Account</v-btn>
         </v-flex>
       </v-layout>

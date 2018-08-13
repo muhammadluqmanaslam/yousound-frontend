@@ -194,9 +194,21 @@
         border-bottom: none;
         .request-item {
           padding: 5px 0px 5px 6px;
-          // cursor: pointer;
+          cursor: pointer;
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+          }
           &.selected {
             background-color: rgba(0, 0, 0, 0.1);
+          }
+          &.banned {
+            cursor: default;
+            &:hover {
+              background-color: rgba(255, 0, 0, 0.05);
+              background-image: url('/static/images/ic_ban.png');
+              background-position: 335px 10px;
+              background-size: 15px 15px;
+            }
           }
           .avatar-area {
             width: 60px;
@@ -220,19 +232,19 @@
             .item-name {
               display: block;
               text-align: left;
-              cursor: pointer;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
+              cursor: inherit;
             }
             .user-name {
               display: block;
               text-align: left;
-              cursor: pointer;
               opacity: 0.5;
               font-size: 15px;
               color: #000000;
               letter-spacing: -0.6px;
+              cursor: inherit;
             }
           }
         }
