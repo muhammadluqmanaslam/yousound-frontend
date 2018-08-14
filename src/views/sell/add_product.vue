@@ -30,7 +30,7 @@
               <label class="control-label">Description</label>
               <textarea v-model="product.description" class="product-description form-control non-resizable" maxlength="250"></textarea>
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs12 form-group>
               <v-radio-group v-model="product.stock_status" row>
                 <v-radio value="active" label="Active" light></v-radio>
                 <v-radio value="hidden" label="Hidden" light></v-radio>
@@ -38,7 +38,7 @@
                 <v-radio value="coming_soon" label="Coming Soon" light></v-radio> -->
               </v-radio-group>
             </v-flex>
-            <v-flex xs12>
+            <v-flex xs12 form-group>
               <label class="control-label">Category</label>
               <v-select
                 v-bind:items="product_categories"
@@ -47,7 +47,14 @@
                 v-model="product.category"
                 class="pt-0"
                 no-data-text="No destination available"
-                autocomplete></v-select>
+                autocomplete
+              />
+            </v-flex>
+            <v-flex xs12 form-group>
+              <v-radio-group v-model="product.show_status" row>
+                <v-radio value="show_all" label="Show All" light></v-radio>
+                <v-radio value="show_only_stream" label="Only For Live Stream" light></v-radio>
+              </v-radio-group>
             </v-flex>
           </v-flex>
         </v-flex>

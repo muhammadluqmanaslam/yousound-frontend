@@ -925,12 +925,12 @@
       color: #000000;
       letter-spacing: 0;
     }
-    .input-group.radio.input-group--selection-controls {
+    .input-group {
       padding: 0px;
     }
-    // .input-group__details {
-    //   min-height: 0px;
-    // }
+    .input-group__details {
+      display: none;
+    }
     .add-option-btn {
       margin: 0px;
       box-shadow: none !important;

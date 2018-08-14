@@ -17,6 +17,7 @@ export default {
         name: '',
         description: '',
         stock_status: 'active',
+        show_status: 'show_all',
         category: '',
         price: null,
         variants: [
@@ -203,6 +204,7 @@ export default {
       formData.append('shop_product[name]', this.product.name)
       formData.append('shop_product[description]', this.product.description)
       formData.append('shop_product[stock_status]', this.product.stock_status)
+      formData.append('shop_product[show_status]', this.product.show_status)
       formData.append('shop_product[category_id]', this.product.category)
       formData.append('shop_product[price]', Math.round(this.product.price * 100))
       for (let index in this.product.variants) {
@@ -235,7 +237,7 @@ export default {
     },
 
     cancelToSaveProduct () {
-      this.$router.push({ path: '/sell' })
+      this.$router.push({ path: '/sell#products' })
     },
 
     deleteProductImage (index) {

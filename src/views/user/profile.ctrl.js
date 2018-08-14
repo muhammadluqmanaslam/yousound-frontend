@@ -98,7 +98,7 @@ export default {
     },
 
     merchDisplayCount () {
-      if(this.products.length > 7) {
+      if (this.products.length > 7) {
         return 7
       } else {
         return this.products.length
