@@ -11,6 +11,7 @@
             <span>{{ album.stats.reposts_size | formatLargeNumber }}</span><label>Reposts</label>
             <span>{{ album.stats.downloads_size | formatLargeNumber }}</span><label>Downloads</label>
             <span>{{ album.stats.plays_size | formatLargeNumber }}</span><label>Plays</label>
+            <span>{{ album.stats.hides_size | formatLargeNumber }}</span><label>Hides</label>
           </p>
         </div>
       </div>

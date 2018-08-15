@@ -37,8 +37,10 @@ export default {
 
   data () {
     return {
-      currentTab: 'songs',
-      slide_tab: 'songs',
+      // currentTab: 'songs',
+      // slide_tab: 'songs',
+      currentTab: '',
+      slide_tab: '',
       tabs: [
         { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
