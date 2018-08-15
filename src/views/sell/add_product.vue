@@ -50,11 +50,9 @@
                 autocomplete
               />
             </v-flex>
-            <v-flex xs12 form-group>
-              <v-radio-group v-model="product.show_status" row>
-                <v-radio value="show_all" label="Show All" light></v-radio>
-                <v-radio value="show_only_stream" label="Only For Live Stream" light></v-radio>
-              </v-radio-group>
+            <v-flex xs12 mt-5>
+              <v-checkbox value="show_only_stream" label="Only For Live Stream" v-model="product.show_status"></v-checkbox>
+              <span class="grey--text lighten-2">(product will not appear on user profile if checked)</span>
             </v-flex>
           </v-flex>
         </v-flex>

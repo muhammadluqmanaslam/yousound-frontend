@@ -219,7 +219,11 @@ export default {
       formData.append('shop_product[name]', this.product.name)
       formData.append('shop_product[description]', this.product.description)
       formData.append('shop_product[stock_status]', this.product.stock_status)
-      formData.append('shop_product[show_status]', this.product.show_status)
+      if (this.product.show_status === 'show_only_stream') {
+        formData.append('shop_product[show_status]', this.product.show_status)
+      } else {
+        formData.append('shop_product[show_status]', 'show_all')
+      }
       if (this.product.category.id) {
         formData.append('shop_product[category_id]', this.product.category.id)
       } else {
