@@ -125,7 +125,8 @@
         :inverseScaling="100"
         @after-slide-change="onAfterAlbumSlideChange"
         :startIndex="startIndex"
-        ref="albumCarousel">
+        ref="albumCarousel"
+      >
         <slide :index="index" v-for="(album, index) in albums" :key="index">
           <album-slide-card :objects="albums" :objectIndex="index"></album-slide-card>
         </slide>
@@ -139,7 +140,8 @@
         :inverseScaling="100"
         @after-slide-change="onAfterMerchSlideChange"
         :startIndex="startIndex"
-        ref="merchCarousel">
+        ref="merchCarousel"
+      >
         <slide v-for="(product, index) in products" :key="index" :index="index">
           <product-slide-card
             :dataObject="product"
@@ -151,11 +153,14 @@
         key="PAGE-merch-modal"
         :item="selectedProduct"
         :dismiss="closePageMerchModal"
-        :shareProduct="openPageShareModal"></merch-modal>
+        :shareProduct="openPageShareModal"
+      />
+
       <share-modal v-if="showPageShareModal"
         key="PAGE-share-modal"
         :item="selectedProduct"
-        :dismiss="closePageShareModal"></share-modal>
+        :dismiss="closePageShareModal"
+      />
     </div>
 
     <div class="page profile-grid-page" v-if="grid_show">
@@ -444,9 +449,15 @@
       </v-flex>
     </div>
 
-    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+    <send-message v-if="showSendMessage"
+      :receiver="user"
+      :dismiss="dismissMessageModal"
+    />
 
-    <send-love-modal :item="user" :dismiss="dismissLoveDialog" v-if="showSendLoveModal"></send-love-modal>
+    <send-love-modal v-if="showSendLoveModal"
+      :item="user"
+      :dismiss="dismissLoveDialog"
+    />
 
     <v-dialog v-model="show_block_user_confirm_dialog">
       <v-card>

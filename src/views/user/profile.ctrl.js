@@ -49,7 +49,6 @@ export default {
         { id: 'reposted', title: 'Reposted' },
         { id: 'playlists', title: 'Playlists' },
         { id: 'followings', title: 'Following' },
-        // { id: 'followers', title: 'Followers' },
         { id: 'merch', title: 'Merch', roles: ['artist', 'brand', 'label'] }
       ],
       slug: null,
@@ -208,19 +207,42 @@ export default {
           // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
         }
 
+        // put 'merch' tab first for brand
+        if (this.user.user_type == 'brand') {
+          if (this.tabs[7].id === 'merch') {
+            this.tabs.unshift(this.tabs.pop())
+            // const arr = this.tabs.slice()
+            // this.tabs = arr
+            // console.log(this.tabs[0].id, this.tabs[7].id)
+          }
+        } else {
+          if (this.tabs[7].id !== 'merch') {
+            this.tabs.push(this.tabs.shift())
+            // console.log(this.tabs[0].id, this.tabs[7].id)
+          }
+        }
+
         if (tab) {
           this.currentTab = tab
           this.slide_tab = tab
         } else {
-          if (this.user.user_type === 'artist') {
-            this.currentTab = 'songs'
-            this.slide_tab = 'songs'
-          } else if (this.user.user_type === 'label') {
-            this.currentTab = 'artists'
-            this.slide_tab = 'artists'
-          } else {
-            this.currentTab = 'downloaded'
-            this.slide_tab = 'downloaded'
+          switch (this.user.user_type) {
+            case 'artist':
+              this.currentTab = 'songs'
+              this.slide_tab = 'songs'
+              break
+            case 'label':
+              this.currentTab = 'artists'
+              this.slide_tab = 'artists'
+              break
+            case 'brand':
+              this.currentTab = 'merch'
+              this.slide_tab = 'merch'
+              break
+            default:
+              this.currentTab = 'downloaded'
+              this.slide_tab = 'downloaded'
+              break
           }
         }
 
