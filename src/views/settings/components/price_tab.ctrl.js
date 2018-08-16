@@ -22,9 +22,28 @@ export default {
         { name: '$1000 Upgrade', value: 100000 }
       ],
       repost_price: 100,
+      proration: {
+        sent_amount: 0,
+        remaining_amount: 0
+      },
       show_repost_price_confirm_modal: false,
       show_payment_modal: false,
       isPageReady: false
+    }
+  },
+
+  computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
+    additionalAmount () {
+      let amount = 0
+      if (this.repost_price > 100 && this.repost_price > this.proration.remaining_amount) {
+        amount = this.repost_price - this.proration.remaining_amount
+      }
+      // console.log('additionalAmount', amount)
+      return amount
     }
   },
 
@@ -34,11 +53,23 @@ export default {
 
   methods: {
     resetRepostPrice() {
-      this.repost_price = this.$store.state.auth.user.repost_price
+      this.repost_price = this.currentUser.repost_price
     },
 
     openRepostPriceConfirmModal () {
-      this.show_repost_price_confirm_modal = true
+      if (this.currentUser.repost_price == this.repost_price) {
+        return
+      }
+
+      this.$store.dispatch('error/showLoadingActivity', true)
+      UserService.getRepostPriceProration(this.currentUser.id).then(response => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.proration = response.body
+        // console.log(this.proration)
+        this.show_repost_price_confirm_modal = true
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
     },
 
     closeRepostPriceConfirmModal () {
@@ -47,7 +78,11 @@ export default {
 
     openPaymentModal () {
       this.closeRepostPriceConfirmModal()
-      this.show_payment_modal = true
+      if (this.additionalAmount > 0) {
+        this.show_payment_modal = true
+      } else {
+        this.setRepostPrice(null)
+      }
     },
 
     closePaymentModal () {
@@ -55,15 +90,16 @@ export default {
     },
 
     setRepostPrice (token) {
-      const userId = this.$store.state.auth.user.id
       const params = {
-        repost_price: this.repost_price
+        repost_price: this.repost_price,
+        payment_amount: this.additionalAmount
       }
+      // console.log('setRepostPrice', params)
       if (token) {
         params['payment_token'] = token.id
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.setRepostPrice(userId, params).then(response => {
+      UserService.setRepostPrice(this.currentUser.id, params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showSuccessToast', ['Saved'])
         AuthService.setUser(response.body)
