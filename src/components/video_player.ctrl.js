@@ -34,9 +34,11 @@ export default {
       show_merch_modal: false,
       show_share_dialog: false,
       request_tab: 'Album',
+      userSearchKeyword: '',
       assoc: {},
       albums: [],
       products: [],
+      users: [],
       buttonHover: false,
       cable: null,
       stream_subscription: null,
@@ -268,8 +270,30 @@ export default {
     },
 
     onRequestTab (tab) {
+      if (this.request_tab === tab) {
+        return
+      }
+
       this.request_tab = tab
-      this.item_index = -1
+      if (this.request_tab === 'User') {
+        this.loadUsers()
+      }
+    },
+
+    loadUsers () {
+      var params = {
+        'page': 1,
+        'per_page': 10
+      }
+      if (this.userSearchKeyword.length) {
+        params['q'] = this.userSearchKeyword
+      }
+      UserService.searchUsers(params).then(response => {
+        this.users = response.body.users
+        console.log('loadUser', this.assoc)
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     },
 
     selectItem (assoc_type, assoc) {
@@ -358,6 +382,11 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
+    },
+
+    visitProfile () {
+      this.player.fullscreen()
+      this.$router.push({ path: `/${this.stream.assoc.slug}` })
     },
 
     deleteStream () {
