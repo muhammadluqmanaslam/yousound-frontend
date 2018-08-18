@@ -24,6 +24,7 @@ export default {
         { text: 'Username', value: 'username', align: 'left' },
         { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
         { text: 'Free Streaming', value: 'enabled_live_video_free', align: 'left' },
+        { text: 'Current Free Stream Hours', value: 'free_streamed_time' },
         { text: 'Stop Streaming' },
         { text: 'Free Stream Hours', value: 'free_stream_seconds' },
         { text: 'Demand Stream Hours', value: 'demand_stream_seconds' },
@@ -45,6 +46,7 @@ export default {
       },
       per_page_options: [50, 100, 150],
       show_stream_delete_confirm_dialog: false,
+      show_free_stream_toggle_confirm_dialog: false,
       isPageReady: false
     }
   },
@@ -123,7 +125,21 @@ export default {
       AdminService.toggleLiveVideo(params)
     },
 
+    openFreeStreamToggleConfirmDialog () {
+      this.show_free_stream_toggle_confirm_dialog = true
+    },
+
+    closeFreeStreamToggleConfirmDialog () {
+      this.show_free_stream_toggle_confirm_dialog = false
+    },
+
     toggleLiveVideoFree (user) {
+      if (user.stream && user.stream.status == 'running') {
+        this.openFreeStreamToggleConfirmDialog()
+        user.enabled_live_video_free = !user.enabled_live_video_free
+        return
+      }
+
       const params = {
         user_id: user.id
       }

@@ -37,6 +37,7 @@
                 </td>
                 <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video" @change="toggleLiveVideo(props.item)"></v-switch></td>
                 <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video_free" @change="toggleLiveVideoFree(props.item)"></v-switch></td>
+                <td>{{ props.item.free_streamed_time | timeInHours }}</td>
                 <td class="text-xs-left">
                   <v-btn v-if="props.item.stream && props.item.stream.status === 'running'" fab dark color="pink" class="stop-stream-btn" @click.natvie="openStreamDeleteConfirmDialog(props.item)">
                     <v-icon>stop</v-icon>
@@ -126,6 +127,18 @@
           <v-spacer></v-spacer>
           <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
           <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_free_stream_toggle_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Stream Running</v-card-title>
+        <v-card-text>Stream is running for now. Please stop the stream before toggle free stream option</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="red--text darken-1" flat @click.native="closeFreeStreamToggleConfirmDialog()">Ok</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
