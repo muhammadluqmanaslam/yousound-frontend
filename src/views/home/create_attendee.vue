@@ -5,9 +5,7 @@
         <v-flex xs12 sm4 pa-3 class="text-xs-center">
           <div class="mt-5"><img class="site-logo" src="/static/images/nav_logo_primary.png"></div>
           <v-divider style="width: 50px; margin: 30px auto 30px auto;"></v-divider>
-          <div class="mb-3"><img class="page-logo" src="/static/images/img_playlist.png"></div>
           <p>
-            Playlist Retreat attendees!</br>
             Reserve & pre-verifiy your accounts.
           </p>
           <v-divider style="width: 50px; margin: 30px auto 30px auto;"></v-divider>
