@@ -131,7 +131,7 @@ export default {
   created () {
     if (AuthService.isAuthenticated()) {
       AuthService.checkTokenValidation().then(response => {
-        console.log('checkTokenValidation', response.body)
+        // console.log('checkTokenValidation', response.body)
         if (response.body !== false) {
           // this.getUserInfo()
           AuthService.setUser(response.body)
