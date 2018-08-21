@@ -11,7 +11,7 @@
           <div class="pgs" :key="parent.id">
             <div class="pgs-inner-wrapper" :class="`bg-color-${index}`">
               <div class="pgs-inner">
-                <div class="pgs__title">{{ parent.name }}</div>
+                <div class="pgs__title"><label>{{ parent.name }}</label><span>({{ parent.users_size }})</span></div>
                 <div class="pgs__description">
                   <span @click="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
                 <div class="pgs__content">
@@ -77,6 +77,7 @@
                 <p class="regular-checkbox settings">
                   <input :id="child.id" type="checkbox" v-model="child.value" @click="checkChildGenre(parent, child)"/>
                   <label :for="child.id">{{ child.name }}</label>
+                  <span>({{ child.users_size }})</span>
                 </p>
               </v-flex>
               <v-flex xs12 sm12 form-group>
