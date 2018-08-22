@@ -32,24 +32,24 @@
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content key="orders" id="orders">
+              <div class="orders-actions">
+                <v-menu offset-y id="filter_selector" class="filter_menu" v-show="activeTab == 'orders'">
+                  <v-btn slot="activator">All
+                    <v-icon right>keyboard_arrow_down</v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile v-for="filter in filters" :key="filter.id" @click.native="filterItems(filter)">
+                      <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
+                <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">All Shipped</v-btn>
+                <v-btn dark color="green" @click.native="csvExport()">Export</v-btn>
+              </div>
               <div v-if="!orderHistories || orderHistories.length == 0" class="empty-section">
                 <p class="empty-title">Your have no new orders</p>
               </div>
               <v-card flat v-else class="relative">
-                <div class="orders-actions">
-                  <v-menu offset-y id="filter_selector" class="filter_menu" v-show="activeTab == 'orders'">
-                    <v-btn slot="activator">All
-                      <v-icon right>keyboard_arrow_down</v-icon>
-                    </v-btn>
-                    <v-list>
-                      <v-list-tile v-for="filter in filters" :key="filter.id" @click.native="filterItems(filter)">
-                        <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
-                      </v-list-tile>
-                    </v-list>
-                  </v-menu>
-                  <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">All Shipped</v-btn>
-                  <v-btn dark color="green" @click.native="csvExport()">Export</v-btn>
-                </div>
                 <v-flex xs12 class="order-item" v-for="(order, index) in orderHistories" :key="index">
                   <template v-if="$store.state.auth.user.id == order.merchant.id">
                     <div class="profile-section">

@@ -20,7 +20,7 @@ export default {
       ],
       page_index: 1,
       total_pages: 1,
-      items_per_page: 5 * 5,
+      items_per_page: 5 * 20,
       genres: [],
       selected_genre: null,
       categories: [],

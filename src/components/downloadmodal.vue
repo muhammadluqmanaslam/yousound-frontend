@@ -179,7 +179,8 @@
       sendLove (token) {
         this.dismiss()
         const params = {
-          amount: this.donate_amount_by_cent
+          amount: this.donate_amount_by_cent,
+          description: 'Donation'
         }
         if (token) {
           params['payment_token'] = token.id
