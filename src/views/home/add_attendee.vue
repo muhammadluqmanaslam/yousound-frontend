@@ -1,16 +1,10 @@
 <template>
-  <div class="page attendee-page" style="padding-top: 0px; min-height: 100%;">
+  <div class="page attendee-page attendee-add-page" style="padding-top: 0px; min-height: 100%;">
+    
     <v-layout column wrap align-center>
       <v-flex xs12 sm4 pa-0 class="text-xs-center">
-        <div class="mt-5"><img class="site-logo" src="/static/images/nav_logo_primary.png"></div>
-        <v-divider style="width: 50px; margin: 30px auto 30px auto;"></v-divider>
-        <div class="mb-3"><img class="page-logo" src="/static/images/img_playlist.png"></div>
-        <p>
-          Playlist Retreat attendees!</br>
-          Reserve & pre-verifiy your accounts.
-        </p>
-        <v-divider style="width: 50px; margin: 30px auto 30px auto;"></v-divider>
-        <form v-on:submit.prevent="submit()" class="px-3">
+        <div class="page-header"><img class="site-logo" src="/static/images/nav_logo_white.png"></div>
+        <form v-on:submit.prevent="submit()" class="mx-2 pa-3">
           <input
             type="text"
             class="my-2"
@@ -77,4 +71,4 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./create_attendee.ctrl.js"></script>
+<script type="text/javascript" src="./add_attendee.ctrl.js"></script>
