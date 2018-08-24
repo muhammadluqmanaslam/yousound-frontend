@@ -12,6 +12,8 @@ import repostPaymentModal from '@/components/repost_payment_modal'
 import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
 
+const ActionCable = require('actioncable')
+
 export default {
   components: {
     profileItem,
@@ -23,7 +25,7 @@ export default {
 
   mixins: [onClickOutside],
 
-  data () {
+  data() {
     return {
       tab: 'album',
       item: null,
@@ -44,21 +46,27 @@ export default {
       },
       isPageReady: false,
       timer: null,
+      cable: null,
+      message_subscription: null,
       albums: [],
       products: []
     }
   },
 
   computed: {
-    other_name () {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+
+    other_name() {
       return _.get(this.conversation, 'other.display_name', '')
     },
 
-    toLocalTimeString () {
+    toLocalTimeString() {
       return Utils.toLocalTimeString
     },
 
-    current_repost_price () {
+    current_repost_price() {
       if (this.conversations[this.selected_index].other.length) {
         return this.conversations[this.selected_index].other[0].repost_price
       } else {
@@ -67,8 +75,8 @@ export default {
     }
   },
 
-  created () {
-    if (!this.$store.state.auth.user) {
+  created() {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
@@ -86,7 +94,51 @@ export default {
     this.loadProducts()
 
     const vm = this
-    this.timer = setInterval(function(){ vm.refreshMessages() }, 10000)
+    // this.timer = setInterval(function(){ vm.refreshMessages() }, 10000)
+
+    this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
+    this.message_subscription = this.cable.subscriptions.create(
+      {
+        channel: 'MessagesChannel'
+      },
+      {
+        connected: () => {
+          console.log('connected to MessagesChannel')
+        },
+        received: (data) => {
+          console.log('message_subscription')
+          const other_id = _.get(vm.conversation, 'other.id', '')
+          // console.log(data, data.sender.id, other_id)
+          if (data.sender.id == other_id || data.sender.id == vm.currentUser.id) {
+            const messageIndex = _.findIndex(vm.conversation.messages, (message) => (message.id == data.id))
+            if (messageIndex === -1) {
+              vm.conversation.messages.push(data)
+            } else {
+              vm.conversation.messages[messageIndex] = data
+              // console.log(messageIndex, vm.conversation.messages[messageIndex])
+            }
+            const arr = vm.conversation.messages.slice()
+            vm.conversation.messages = arr
+            vm.$nextTick(() => {
+              $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
+            })
+          }
+        },
+        disconnected: () => {
+          console.log('disconnected to MessagesChannel :(')
+        }
+      }
+    )
+  },
+
+  beforeDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+
+    if (this.message_subscription) {
+      this.message_subscription.unsubscribe()
+    }
   },
 
   methods: {
@@ -252,7 +304,7 @@ export default {
         params['payment_token'] = token.id
       }
       MessageService.addMessage(params).then(response => {
-        this.loadMessages(this.conversation.id, false, true)
+        // this.loadMessages(this.conversation.id, false, true)
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
@@ -331,7 +383,6 @@ export default {
 
     acceptRepostRequest (message) {
       MessageService.acceptRepost(message.id).then(response => {
-        this.refreshMessages()
         this.$store.dispatch('error/showSuccessToast', ["Accepted a repost request!"])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -340,7 +391,6 @@ export default {
 
     denyRepostRequest (message) {
       MessageService.denyRepost(message.id).then(response => {
-        this.refreshMessages()
         this.$store.dispatch('error/showErrorToast', ["Denied a repost request!"])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -349,7 +399,6 @@ export default {
 
     acceptRepostRequestOnFree (message) {
       MessageService.acceptRepostOnFree(message.id).then(response => {
-        this.refreshMessages()
         this.$store.dispatch('error/showSuccessToast', ["Accepted a repost request on free!"])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -391,42 +440,28 @@ export default {
     // },
 
     acceptLabelUser (message) {
-      UserService.acceptLabelRequest(message.sender.id).then(response => {
-        this.refreshMessages()
-      })
+      UserService.acceptLabelRequest(message.sender.id)
     },
 
     denyLabelUser (message) {
-      UserService.denyLabelRequest(message.sender.id).then(response => {
-        this.refreshMessages()
-      })
+      UserService.denyLabelRequest(message.sender.id)
     },
 
     acceptLabelAlbum (message) {
       const params = {
         label_id: message.sender.id
       }
-      AlbumService.acceptLabelRequest(message.attachment.assoc.id, params).then(response => {
-        this.refreshMessages()
-      })
+      AlbumService.acceptLabelRequest(message.attachment.assoc.id, params)
     },
 
     denyLabelAlbum (message) {
       const params = {
         label_id: message.sender.id
       }
-      AlbumService.denyLabelRequest(message.attachment.assoc.id, params).then(response => {
-        this.refreshMessages()
-      })
+      AlbumService.denyLabelRequest(message.attachment.assoc.id, params)
     }
   },
 
-  mounted () {
-    // this.loadConversations()
-    // this.loadAlbums()
-  },
-
-  beforeDestroy () {
-    clearInterval(this.timer)
+  mounted() {
   }
 }
