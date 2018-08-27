@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Vue from 'vue'
 import { mapActions } from 'vuex'
 import { Picker } from 'emoji-mart-vue'
 import { MyEvents, Utils } from '@/helper'
@@ -15,7 +16,8 @@ import merchModal from '@/components/merchmodal'
 import profileItem from '@/components/profileitem'
 import promoteModal from '@/components/promotemodal'
 import shareModal from '@/components/sharemodal'
-import Vue from 'vue'
+
+const ActionCable = require('actioncable')
 
 export default {
   components: {
@@ -30,7 +32,7 @@ export default {
     shareModal
   },
 
-  data () {
+  data() {
     return {
       showDownloadModal: false,
       showMerchModal: false,
@@ -39,6 +41,8 @@ export default {
       isShowFinishModal: false,
       showEmojiPicker: false,
       slug: null,
+      cable: null,
+      comments_subscription: null,
       album: {
         name: "",
         user: {
@@ -60,15 +64,19 @@ export default {
   },
 
   computed: {
-    toLocalTimeString () {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+
+    toLocalTimeString() {
       return Utils.toLocalTimeString
     },
 
-    showStats () {
+    showStats() {
       return !_.isEmpty(_.find(this.roles, (user_album) => { return ['creator', 'label', 'collaborator'].indexOf(user_album.user_type) > -1 }))
     },
 
-    coverImageURL () {
+    coverImageURL() {
       if (this.album.cover) {
         return this.album.cover.large.url
       } else {
@@ -76,7 +84,7 @@ export default {
       }
     },
 
-    coverThumbImageURL () {
+    coverThumbImageURL() {
       if (this.album.cover) {
         return this.album.cover.thumb.url + '?' + new Date()
       } else {
@@ -92,12 +100,12 @@ export default {
       }
     },
 
-    isPlaying () {
+    isPlaying() {
       return this.$store.state.player.isPlaying &&
         _.get(this.$store.state.player.list[this.$store.state.player.listIndex], 'id') === this.album.id
     },
 
-    ellipsisString () {
+    ellipsisString() {
       if (this.album) {
         if (this.album.description.length >= 200) {
           return this.album.description.substr(200) + '...' 
@@ -109,14 +117,14 @@ export default {
       }
     },
 
-    followButtonText () {
+    followButtonText() {
       if (this.album.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
       }
       return 'Follow'
     },
 
-    genres () {
+    genres() {
       return _.map(this.album.genres, 'name').join(', ')
     }
   },
@@ -130,13 +138,19 @@ export default {
     }
   },
 
-  created () {
+  created() {
     // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
     this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
     // console.log('current', this.$store.state.navigator.current)
     // console.log('last', this.$store.getters['navigator/last'])
 
     this.loadData()
+  },
+
+  beforeDestroy() {
+    if (this.comments_subscription) {
+      this.comments_subscription.unsubscribe()
+    }
   },
 
   methods: {
@@ -147,10 +161,10 @@ export default {
       setPlaying: 'player/setPlayingStatus'
     }),
 
-    loadData () {
+    loadData() {
       const vm = this
-      this.isPageReady = false
       this.slug = this.$route.params.slug
+      this.isPageReady = false
       Promise.all([
         AlbumService.getAlbum(this.slug),
         AlbumService.myRole(this.slug)
@@ -170,13 +184,12 @@ export default {
 
         this.roles = values[1].body
 
-        if (this.$store.state.auth.user) {
+        if (this.currentUser) {
           this.getComments()
         }
         this.$emit('updateHead')
         
         setTimeout(function () {
-          
           vm.changeBackground()
           var height = $('#album_info_page').height() + 230
           var screen_height = $( window ).height()
@@ -189,6 +202,50 @@ export default {
           canvas.height = height
           // $('#back_image').css("cssText", "height: " + height + "px !important;")
         }, 200)
+
+        if (this.comments_subscription) {
+          this.comments_subscription.unsubscribe()
+        }
+        this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
+        this.comments_subscription = this.cable.subscriptions.create(
+          {
+            channel: 'CommentsChannel',
+            album_id: vm.album.id
+          },
+          {
+            connected: () => {
+              console.log('connected to CommentsChannel')
+            },
+            received: (data) => {
+              console.log('comments_subscription')
+              console.log(data)
+              switch (data.action) {
+                case 'create':
+                case 'update':
+                  if (data.comment.status == 'published' || data.comment.readable_user_ids.indexOf(vm.currentUser.id) > -1) {
+                    const commentIndex = _.findIndex(vm.comments, (comment) => (comment.id == data.comment.id))
+                    if (commentIndex === -1) {
+                      vm.comments.push(data.comment)
+                    } else {
+                      vm.comments[commentIndex] = data.comment
+                    }
+                  } else {
+                    _.remove(vm.comments, (item) => { return item.id == data.comment.id })
+                  }
+                  break
+                case 'delete':
+                  _.remove(vm.comments, (item) => { return item.id == data.comment_id })
+                  break
+              }
+              vm.comments = _.orderBy(vm.comments, ['created_at'], ['desc'])
+              // const arr = vm.comments.slice()
+              // vm.comments = arr
+            },
+            disconnected: () => {
+              console.log('disconnected to CommentsChannel :(')
+            }
+          }
+        )
 
         this.isPageReady = true
       }).catch(reason => { 
@@ -210,7 +267,7 @@ export default {
       return text
     },
 
-    changeBackground () {
+    changeBackground() {
       var canvas = document.getElementById("canvas")
       var cctx = canvas.getContext("2d")
       var buff = document.createElement("canvas")
@@ -242,7 +299,7 @@ export default {
       }
     },
 
-    followUser (user) {
+    followUser(user) {
       if (user.is_following) {
         UserService.unfollowUser(user.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + user.display_name])
@@ -264,16 +321,16 @@ export default {
       }
     },
 
-    goToAlbumStats (stats) {
+    goToAlbumStats(stats) {
       this.$router.push({ path: `/album/${this.album.slug}/stats#${stats}` })
     },
 
-    showPromoteModal () {
+    showPromoteModal() {
       this.isShowFinishModal = false
       this.showPromoteMessage = true
     },
 
-    dismissPromoteModal () {
+    dismissPromoteModal() {
       this.showPromoteMessage = false
       this.isShowFinishModal = true
     },
@@ -294,17 +351,17 @@ export default {
       this.showShareModal = false
     },
 
-    dismissFinishDialog () {
+    dismissFinishDialog() {
       this.isShowFinishModal = false
       $('html').css('overflow', 'scroll')
     },
 
-    showFinishDialog () {
+    showFinishDialog() {
       this.isShowFinishModal = true
       $('html').css('overflow', 'hidden')
     },
 
-    saveAndFinish (users) {
+    saveAndFinish(users) {
       $('html').css('overflow', 'scroll')
       this.showPromoteMessage = false
       this.isShowFinishModal = false
@@ -317,12 +374,12 @@ export default {
       this.$refs.comment.focus()
     },
 
-    showEmojiDialog () {
+    showEmojiDialog() {
       this.showEmojiPicker = !this.showEmojiPicker
       this.$refs.comment.focus()
     },
 
-    blurMessage () {
+    blurMessage() {
       const vm = this
       if (vm.showEmojiPicker) {
         setTimeout(function() {
@@ -332,20 +389,7 @@ export default {
       }
     },
 
-    addComments () {
-      const params = new FormData()
-      params.append('comment[commentable_type]', 'Album')
-      params.append('comment[commentable_id]', this.album.id)
-      params.append('comment[body]', this.commentString)
-      this.commentString = ''
-      CommentService.sendComment(params).then(response => {
-        this.getComments()
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    getComments () {
+    getComments() {
       CommentService.getComments('Album', this.album.id).then(response => {
         this.comments = response.body
       }).catch(e => {
@@ -353,7 +397,20 @@ export default {
       })
     },
 
-    makePublicComment (comment) {
+    addComment() {
+      const params = new FormData()
+      params.append('comment[commentable_type]', 'Album')
+      params.append('comment[commentable_id]', this.album.id)
+      params.append('comment[body]', this.commentString)
+      this.commentString = ''
+      CommentService.sendComment(params).then(response => {
+        // this.getComments()
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    makePublicComment(comment) {
       CommentService.makePublicComment(comment.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You made a comment public!'])
       }).catch(e => {
@@ -361,7 +418,7 @@ export default {
       })
     },
 
-    makePrivateComment (comment) {
+    makePrivateComment(comment) {
       CommentService.makePrivateComment(comment.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You made a comment private!'])
       }).catch(e => {
@@ -369,19 +426,19 @@ export default {
       })
     },
 
-    blockUser (comment) {
-      UserService.blockUser(comment.user.id).then(response =>  {
-        _.remove(this.comments, (item) => { return item.user.id == comment.user.id });
-        const arr = this.comments.slice();
-        this.comments = arr;
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    deleteComment (comment) {
+    deleteComment(comment) {
       CommentService.deleteComment(comment.id).then(response => {
-        _.remove(this.comments, (item) => { return item.id == comment.id });
+        // _.remove(this.comments, (item) => { return item.id == comment.id });
+        // const arr = this.comments.slice();
+        // this.comments = arr;
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    blockUser(comment) {
+      UserService.blockUser(comment.user.id).then(response =>  {
+        _.remove(this.comments, (item) => { return item.user.id == comment.user.id })
         const arr = this.comments.slice();
         this.comments = arr;
       }).catch(e => {
@@ -389,7 +446,7 @@ export default {
       })
     },
 
-    selectTrack (index) {
+    selectTrack(index) {
       this.trackIndex = index
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, index)
@@ -401,7 +458,7 @@ export default {
       }
     },
 
-    playSong () {
+    playSong() {
       if (this.$store.state.player.isPaused &&
         this.$store.getters['player/currentAlbum'] &&
         this.$store.getters['player/currentAlbum'].id == this.album.id) {
@@ -414,15 +471,15 @@ export default {
       }
     },
 
-    pauseSong () {
+    pauseSong() {
       this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     },
 
-    dismissDownloadModal () {
+    dismissDownloadModal() {
       this.showDownloadModal = false
     },
 
-    repostItem () {
+    repostItem() {
       AlbumService.repostAlbum(this.album.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.album.name])
       }).catch(e => {
@@ -442,18 +499,18 @@ export default {
       })
     },
 
-    showMerchDialog () {
+    showMerchDialog() {
       this.showMerchModal = true
     },
 
-    dimissMerchDialog () {
+    dimissMerchDialog() {
       this.showMerchModal = false
     }
   },
 
-  mounted () {
+  mounted() {
     const vm = this
-    $( window ).resize(function() {
+    $(window).resize(function () {
       var height = $('#album_info_page').height() + 230
       var screen_height = $( window ).height()
       if (height > screen_height ) {
@@ -462,23 +519,23 @@ export default {
         height = screen_height
       }
       var canvas = document.getElementById("canvas")
-      if(canvas) {
+      if (canvas) {
         $('#canvas').css("cssText", "height: " + height + "px !important;")
       }
       $('#back_image').css("cssText", "height: " + height + "px !important;")
     }).trigger('resize')
   },
 
-  updated () {
+  updated() {
   },
 
   head: {
-    title () {
+    title() {
       return {
         inner: this.album.user.display_name + " - " + this.album.name
       }
     },
-    meta () {
+    meta() {
       return [
         { p: 'twitter:title', content: this.album.user.display_name + " - " + this.album.name},
         { p: 'twitter:image', c: this.album.cover.large.url },

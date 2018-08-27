@@ -204,7 +204,7 @@
                 name="comment_input" 
                 placeholder="Spark a conversation..." 
                 v-model="commentString" 
-                @keyup.enter="addComments()"
+                @keyup.enter="addComment()"
                 @blur="blurMessage()"
                 ref="comment"
               />
@@ -223,7 +223,7 @@
               </v-btn>
             </div>
             <div class="comment-items">
-              <div class="comment-item" v-for="(comment, index) in comments" :key="index">
+              <div class="comment-item" v-for="comment in comments" :key="comment.id">
                 <div class="comment-parent-item">
                   <profile-item :user="comment.user" :className="'comment-user-avatar'"></profile-item>
                   <div class="comment-content relative">
@@ -232,7 +232,7 @@
                     <p class="comment-text" v-html="convertedHTML(comment.body)"></p>
                   </div>
                   <div class="right-section">
-                    <v-menu offset-y class="comment-more-action" v-if="$store.state.auth.user.id==album.user.id || $store.state.auth.user.id==comment.user.id">
+                    <v-menu offset-y class="comment-more-action" v-if="currentUser.id==album.user.id || currentUser.id==comment.user.id">
                       <v-btn dark class="more-btn" slot="activator">
                         <v-icon right>more_horiz</v-icon>
                       </v-btn>
@@ -266,43 +266,6 @@
                       </v-list>
                     </v-menu>
                     <label class="comment-time">{{ toLocalTimeString(comment.created_at) }}</label>
-                  </div>
-                </div>
-                <div class="child-items" v-if="false">
-                  <div class="comment-child-item">
-                    <img class="profile-image" src="/static/images/sample_user.png" />
-                    <div class="comment-content relative">
-                      <label class="user-name">Ruckazoid <v-icon class="user-status online">fa-check-circle</v-icon></label>
-                      <p class="comment-text">You da man! Thanks bro.</p>
-                    </div>
-                    <div class="right-section">
-                      <v-menu offset-y class="comment-more-action">
-                        <v-btn dark class="more-btn" slot="activator">
-                          <v-icon right>more_horiz</v-icon>
-                        </v-btn>
-                        <v-list>
-                          <v-list-tile key="repost">
-                            <v-list-tile-title class="default-menu-item">
-                              <img class="track-status-icon" src="/static/images/ic_comment_public.png" />
-                              <label>Make Public</label>
-                            </v-list-tile-title>
-                          </v-list-tile>
-                          <v-list-tile key="download">
-                            <v-list-tile-title class="default-menu-item">
-                              <img class="track-status-icon" src="/static/images/ic_comment_flag.png" />
-                              <label>Flag Comment</label>
-                            </v-list-tile-title>
-                          </v-list-tile>
-                          <v-list-tile key="share" class="default-menu-item">
-                            <v-list-tile-title>
-                              <img class="track-status-icon" src="/static/images/ic_comment_delete.png" />
-                              <label>Delete Comment</label>
-                            </v-list-tile-title>
-                          </v-list-tile>
-                        </v-list>
-                      </v-menu>
-                      <label class="comment-time">5 min ago</label>
-                    </div>
                   </div>
                 </div>
               </div>
