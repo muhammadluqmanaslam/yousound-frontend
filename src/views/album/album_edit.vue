@@ -38,12 +38,12 @@
                 <label for="album_image_file" v-if="album_image_url">Change</label>
               </div>
             </div>
-            <div class="album-content-section">
-              <v-flex xs-12 form-group>
+            <div class="album-content-section layout row wrap">
+              <v-flex xs12 form-group>
                 <label class="control-label">Album Title<label class="required">*</label></label>
                 <input type="text" class="form-control" v-model="album.name">
               </v-flex>
-              <v-flex xs-12 form-group>
+              <v-flex xs12 sm6 form-group pr-3>
                 <label class="control-label">Released Date<label class="required">*</label></label>
                 <v-menu
                   class="released-at-picker"
@@ -54,12 +54,14 @@
                   :nudge-right="40"
                   max-width="290px"
                   min-width="290px"
-                  lazy>
+                  lazy
+                >
                   <v-text-field
                     slot="activator"
                     v-model="album.released_at"
                     prepend-icon="event"
-                    readonly></v-text-field>
+                    readonly
+                  />
                   <v-date-picker v-model="album.released_at" no-title scrollable actions>
                     <template slot-scope="{ save, cancel }">
                       <v-card-actions>
@@ -71,6 +73,17 @@
                   </v-date-picker>
                 </v-menu>
               </v-flex>
+              <v-flex xs12 sm6 form-group>
+                <label class="control-label">Location this album represents</label>
+                <v-select
+                  :items="countries"
+                  v-model="album.location"
+                  item-text="name"
+                  item-value="name"
+                  single-line
+                  autocomplete
+                />
+              </v-flex>
               <v-flex xs12 form-group>
                 <label class="control-label">Genre<label class="required">*</label></label>
                 <v-select
@@ -78,9 +91,11 @@
                   v-model="genre"
                   item-text="name"
                   item-value="id"
-                  autocomplete></v-select>
+                  class="pt-0"
+                  autocomplete
+                />
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 form-group>
                 <label class="control-label">Merch</label>
                 <v-select
                   :items="products"
@@ -91,7 +106,8 @@
                   max-height="auto"
                   class="pt-0"
                   autocomplete
-                  clearable>
+                  clearable
+                >
                   <template slot="selection" slot-scope="data">
                     <v-chip
                       @input="data.parent.selectItem(data.item)"

@@ -31,6 +31,10 @@
                       <label class="album-info-label">Release Date: </label>
                       <label class="album-info-text">{{ album.released_at | formatDate }}</label>
                     </v-flex>
+                    <v-flex xs12 sm12 v-if="album.location && album.location!=''">
+                      <label class="album-info-label">Location: </label>
+                      <label class="album-info-text">{{ album.location }}</label>
+                    </v-flex>
                     <v-flex xs12 sm12>
                       <label class="album-info-label">Genre: </label>
                       <label class="album-info-text">{{ genres }}</label>

@@ -7,7 +7,7 @@ import GenreService from '@/services/genre'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
-import { CollaboratorRoleTypes } from '@/helper'
+import { Countries, CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
@@ -23,6 +23,7 @@ export default {
       album: {
         name: '',
         released_at: null,
+        location: '',
         genre: '',
         description: '',
         image: null,
@@ -47,6 +48,10 @@ export default {
 
     artists() {
       return _.filter(this.users, (item) => { return item.user_type === 'artist' })
+    },
+
+    countries() {
+      return Countries
     },
 
     role_types() {
@@ -186,6 +191,7 @@ export default {
       formData.append('album[name]', this.album.name)
       formData.append('album[description]', this.album.description)
       formData.append('album[released_at]', this.album.released_at)
+      formData.append('album[location]', this.album.location || '')
       formData.append('album[cover]', this.album.image)
       formData.append('album[track_ids]', track_ids)
       formData.append('album[genre_ids]', genre_ids)

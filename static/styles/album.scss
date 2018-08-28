@@ -9,6 +9,9 @@
 }
 
 .page.upload-album-page {
+  .input-group__details {
+    display: none;
+  }
   .album-info-section {
     padding: 37.5px 123.75px 161.25px;
     background-color: #FFF;
@@ -125,13 +128,14 @@
         // margin-bottom: 22.5px;
       }
       .released-at-picker {
+        .input-group {
+          padding: 0;
+        }
         .input-group__input {
           input {
+            height: 44px;
             padding-left: 10px;
           }
-        }
-        .input-group__details {
-          display: none;
         }
       }
     }

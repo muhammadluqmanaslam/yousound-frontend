@@ -39,12 +39,12 @@
                 <label for="album_image_file" v-if="album_image_url">Change</label>
               </div>
             </div>
-            <div class="album-content-section">
-              <v-flex xs-12 form-group>
+            <div class="album-content-section layout row wrap">
+              <v-flex xs12 form-group>
                 <label class="control-label">Album Title<label class="required">*</label></label>
                 <input type="text" class="form-control" v-model="album.name">
               </v-flex>
-              <v-flex xs-12 form-group>
+              <v-flex xs12 sm6 form-group pr-3>
                 <label class="control-label">Released Date<label class="required">*</label></label>
                 <v-menu
                   class="released-at-picker"
@@ -72,7 +72,18 @@
                   </v-date-picker>
                 </v-menu>
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 sm6 form-group>
+                <label class="control-label">Location this album represents</label>
+                <v-select
+                  :items="countries"
+                  v-model="album.location"
+                  item-text="name"
+                  item-value="name"
+                  single-line
+                  autocomplete
+                />
+              </v-flex>
+              <v-flex xs12 form-group>
                 <label class="control-label">Genre<label class="required">*</label></label>
                 <v-select
                   v-bind:items="genres"
@@ -81,9 +92,10 @@
                   item-value="id"
                   autocomplete
                   class="pt-0"
-                  no-data-text="No genres found"></v-select>
+                  no-data-text="No genres found"
+                />
               </v-flex>
-              <v-flex xs12>
+              <v-flex xs12 form-group>
                 <label class="control-label">Merch</label>
                 <v-select
                   v-bind:items="products"
@@ -123,7 +135,7 @@
                   </template>
                 </v-select>
               </v-flex>
-              <v-flex xs12 pb-3>
+              <v-flex xs12 form-group pb-3>
                 <label class="control-label">Album Description</label>
                 <textarea v-model="album.description" class="album-description form-control non-resizable"></textarea>
               </v-flex>

@@ -9,7 +9,7 @@ import GenreService from '@/services/genre'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
-import { CollaboratorRoleTypes } from '@/helper'
+import { Countries, CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
@@ -17,7 +17,7 @@ export default {
     trackUploader
   },
 
-  data () {
+  data() {
     return {
       isNeededToRelease: false,
       showPromoteMessage: false,
@@ -47,12 +47,16 @@ export default {
       return _.filter(this.users, (item) => { return item.user_type === 'artist' })
     },
 
+    countries() {
+      return Countries
+    },
+
     role_types() {
       return CollaboratorRoleTypes
     }
   },
 
-  created () {
+  created() {
     this.$store.dispatch('navigator/goNextState', { page: 'album_edit', tab: '' })
     if (this.$store.state.auth.user) {
       if (this.$store.state.auth.user.user_type !== 'artist') {
@@ -119,7 +123,7 @@ export default {
   },
 
   methods: {
-    imageChanged (e) {
+    imageChanged(e) {
       this.album_image = e.target.files[0]
       var reader = new FileReader()
       reader.addEventListener('load', (event) => {
@@ -129,10 +133,10 @@ export default {
       this.$forceUpdate()
     },
 
-    learnMore () {
+    learnMore() {
     },
 
-    addCollaborator () {
+    addCollaborator() {
       this.collaborators.push({
         user_id: '',
         user_role: '',
@@ -140,22 +144,22 @@ export default {
       })
     },
 
-    deleteCollaborator (index) {
+    deleteCollaborator(index) {
       this.collaborators.splice(index, 1)
     },
 
-    addContributor () {
+    addContributor() {
       this.contributors.push({
         user_id: '',
         user_role: ''
       })
     },
 
-    deleteContributor (index) {
+    deleteContributor(index) {
       this.contributors.splice(index, 1)
     },
 
-    deleteAlbum () {
+    deleteAlbum() {
       const id = ''
       this.isLoading = true
       AlbumService.deleteAlbum(id).then(res => {
@@ -169,15 +173,15 @@ export default {
       })
     },
 
-    showCollaboratorsConfirmDialog () {
+    showCollaboratorsConfirmDialog() {
       this.collaborators_confirm_dialog = true
     },
 
-    hideCollaboratorsConfirmDialog () {
+    hideCollaboratorsConfirmDialog() {
       this.collaborators_confirm_dialog = false
     },
 
-    beforeReleaseNow () {
+    beforeReleaseNow() {
       if (this.album.status == 'pending') {
         this.showCollaboratorsConfirmDialog()
       } else {
@@ -185,13 +189,13 @@ export default {
       }
     },
 
-    releaseNow () {
+    releaseNow() {
       this.hideCollaboratorsConfirmDialog()
       this.isNeededToRelease = true
       this.uploadAlbum()
     },
 
-    uploadAlbum () {
+    uploadAlbum() {
       this.$store.dispatch('error/showLoadingActivity', true)
       var tracks = []
       for(let index in this.album.tracks) {
@@ -208,6 +212,7 @@ export default {
       formData.append('album[name]', this.album.name)
       formData.append('album[description]', this.album.description)
       formData.append('album[released_at]', this.album.released_at)
+      formData.append('album[location]', this.album.location || '')
       if (this.album_image) {
         formData.append('album[cover]', this.album_image)
       }
@@ -246,7 +251,7 @@ export default {
       })
     },
 
-    releaseAlbum (id) {
+    releaseAlbum(id) {
       AlbumService.releaseAlbum(id).then(res => {
         if(this.album.promote) {
           this.repostAlbum(id)
@@ -266,6 +271,6 @@ export default {
     },
   },
 
-  mounted () {
+  mounted() {
   }
 }
