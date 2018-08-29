@@ -4,6 +4,8 @@ import SearchService from '@/services/search'
 import productCard from '@/components/productcard'
 import trackCard from '@/components/trackcard'
 
+const filterArrowDownString = '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
+
 export default {
   components: {
     productCard,
@@ -32,7 +34,7 @@ export default {
   },
 
   computed: {
-    filtered_feeds () {
+    filtered_feeds() {
       if (this.selected_genre) {
         return _.filter(this.feeds, (feed) => (
           _.find(feed.genres, (genre) => (genre.id == this.selected_genre.id))
@@ -40,17 +42,16 @@ export default {
       } else {
         return this.feeds
       }
-    },
-
-    filtered_products () {
-      if (this.selected_category) {
-        return _.filter(this.products, (product) => (
-          product.category.id == this.selected_category.id
-        ))
-      } else {
-        return this.products
-      }
     }
+    // filtered_products() {
+    //   if (this.selected_category) {
+    //     return _.filter(this.products, (product) => (
+    //       product.category.id == this.selected_category.id
+    //     ))
+    //   } else {
+    //     return this.products
+    //   }
+    // }
   },
 
   watch: {
@@ -60,7 +61,7 @@ export default {
     }
   },
 
-  created () {
+  created() {
     if (!this.$store.state.auth.user) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
@@ -74,16 +75,21 @@ export default {
   methods: {
     loadFeeds(tab) {
       this.$store.dispatch('error/showLoadingActivity', true)
-      const params = new FormData()
-      params.append('filter', tab)
-      params.append('genre', 'any')
-      params.append('page', this.page_index)
-      params.append('per_page', this.items_per_page)
+      const genre = _.get(this.selected_genre, 'id', 'any')
+      const category = _.get(this.selected_category, 'id', 'any')
+      const params = {
+        filter: tab,
+        genre: genre,
+        category: category,
+        page: this.page_index,
+        'per_page': this.items_per_page
+      }
       SearchService.searchDiscover(params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         if (tab === 'merch') {
           this.products = this.products.concat(response.body.products)
-          const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+          // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+          const categories = response.body.categories.map((c) => ({id: c, name: c}))
           this.categories = [
             { id: 'any', name: 'Any category' },
           ].concat(categories)
@@ -103,8 +109,8 @@ export default {
       })
     },
 
-    filterByGenres (genre) {
-      $('#genre_selector .btn__content').html(genre.name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+    filterByGenre(genre) {
+      $('#genre_selector .btn__content').html(genre.name + filterArrowDownString)
       switch (genre.id) {
         case 'go_to_filters':
           this.$router.push({ path: '/settings#genre-filter' })
@@ -117,8 +123,10 @@ export default {
       }
     },
 
-    filterByCategory (category) {
-      $('#category_selector .btn__content').html(category.name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+    filterByCategory(category) {
+      if (this.selected_category == category) return
+
+      $('#category_selector .btn__content').html(category.name + filterArrowDownString)
       switch (category.id) {
         case 'any':
           this.selected_category = null
@@ -126,14 +134,19 @@ export default {
         default:
           this.selected_category = category
       }
+
+      this.page_index = 1
+      this.total_pages = 1
+      this.products = []
+      this.loadFeeds(this.activeTab)
     },
 
-    loadMore () {
+    loadMore() {
       this.page_index += 1
-      this.loadFeeds(this.$store.state.navigator.current.tab)
+      this.loadFeeds(this.activeTab)
     },
 
-    hideAlbum (album) {
+    hideAlbum(album) {
       _.remove(this.feeds, (item) => {
         return item.id === album.id
       })
@@ -141,14 +154,14 @@ export default {
       this.feeds = arr
     },
 
-    onTab (tab) {
+    onTab(tab) {
       this.$router.push({
         path: this.$route.path,
         hash: tab
       })
     },
 
-    setTab (tab) {
+    setTab(tab) {
       if (!tab)
         tab = 'recommended'
 
@@ -159,22 +172,16 @@ export default {
       this.products = []
       this.feeds = []
       this.selected_genre = null
-      this.genres = [
-        { id: 'go_to_filters', name: 'Set Genre Filters' },
-        { id: 'any', name: 'Any genre' },
-      ]
+      this.selected_category = null
       if (tab === 'merch') {
         this.$store.dispatch('navigator/goNextState', { page: 'merch', tab: tab })
+        $('#category_selector .btn__content').html('Any category' + filterArrowDownString)
       } else {
         this.$store.dispatch('navigator/goNextState', { page: 'discover', tab: tab })
-        $('#genre_selector .btn__content').html('Any genre' + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+        $('#genre_selector .btn__content').html('Any genre' + filterArrowDownString)
       }
-      // const vm = this
-      // setTimeout(function(){
-      //   vm.loadFeeds(tab)
-      // }, 200)
       this.$nextTick(() => {
-        this.loadFeeds(tab)
+        this.loadFeeds(this.activeTab)
       })
     }
   },

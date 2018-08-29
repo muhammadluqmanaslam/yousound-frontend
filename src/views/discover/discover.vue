@@ -30,9 +30,9 @@
                     :hideButtonAction="hideAlbum"></track-card>
                   <!-- <track-card :dataObject="feed"></track-card> -->
                 </div>
-                <div v-for="(feed, index) in filtered_products"
+                <div v-for="feed in products"
                   v-if="tab.id=='merch'"
-                  :key="index"
+                  :key="feed.id"
                   class="card-container">
                   <product-card :dataObject="feed"></product-card>
                 </div>
@@ -50,7 +50,7 @@
             <v-icon dark right>keyboard_arrow_down</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="genre in genres" :key="genre.id" @click.native="filterByGenres(genre)">
+            <v-list-tile v-for="genre in genres" :key="genre.id" @click.native="filterByGenre(genre)">
               <v-list-tile-title>{{ genre.name }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
