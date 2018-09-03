@@ -1,10 +1,11 @@
+import _ from 'lodash'
 import AdminService from '@/services/admin'
 
 export default {
   components: {
   },
 
-  data () {
+  data() {
     return {
       current_tab: 'all',
       tabs: [
@@ -15,7 +16,8 @@ export default {
         { text: 'Artist / Brand / Label Name', value: 'display_name', align: 'left' },
         { text: 'Email', value: 'email', align: 'left'},
         { text: 'Account Type', value: 'account_type', align: 'left' },
-        { text: 'Referred By', value: 'referred_by', align: 'left' }
+        { text: 'Referred By', value: 'referred_by', align: 'left' },
+        { text: 'Status', value: 'status', align: 'center' }
       ],
       search_keyword: '',
       attendees: [],
@@ -30,7 +32,7 @@ export default {
     }
   },
 
-  created () {
+  created() {
     this.$store.dispatch('error/showLoadingActivity', true)
     Promise.all([
       AdminService.getAttendees()
@@ -42,4 +44,19 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', false)
     })
   },
+
+  methods: {
+    inviteAttendee(attendee) {
+      const attendee_id = attendee.id
+      const params = {
+        attendee_id: attendee_id
+      }
+      AdminService.inviteAttendee(params).then(response => {
+        const attendeeIndex = _.findIndex(this.attendees, (attendee) => (attendee.id == attendee_id))
+        this.attendees[attendeeIndex].status = 'invited'
+        const arr = this.attendees.slice()
+        this.attendees = arr
+      })
+    }
+  }
 }

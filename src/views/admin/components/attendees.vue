@@ -34,6 +34,14 @@
                 <td class="text-xs-left">{{ props.item.email }}</td>
                 <td class="text-xs-left">{{ props.item.account_type }}</td>
                 <td class="text-xs-left">{{ props.item.referred_by }}</td>
+                <td class="text-xs-center">
+                  <template v-if="props.item.status == 'created'">
+                    <v-btn color="primary" @click.native="inviteAttendee(props.item)">Invite</v-btn>
+                  </template>
+                  <template v-else>
+                    {{ props.item.status | capitalize }}
+                  </template>
+                </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }}

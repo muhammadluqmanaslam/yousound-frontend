@@ -38,5 +38,9 @@ export default {
 
   getAttendees () {
     return Vue.http.get(`${API_BASE_URL}/attendees`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
+  inviteAttendee (params) {
+    return Vue.http.get(`${API_BASE_URL}/invite_attendee`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   }
 }
