@@ -76,7 +76,7 @@
               <v-flex xs12 sm6 form-group>
                 <label class="control-label">Location this album represents</label>
                 <v-select
-                  :items="countries"
+                  :items="locations"
                   v-model="album.location"
                   item-text="name"
                   item-value="name"

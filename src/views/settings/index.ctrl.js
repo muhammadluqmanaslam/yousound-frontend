@@ -251,17 +251,17 @@ export default {
   },
 
   mounted () {
-    const vm = this;
+    const vm = this
     $.getJSON('../../static/countries.json', function (json) {
-        const countries = json.countries
-        vm.countries = []
-        for(let index in countries) {
-          const country = {
-            iso: countries[index]['iso_2'],
-            name: countries[index]['name']
-          }
-          vm.countries.push(country)
+      const countries = json.countries
+      vm.countries = []
+      for(let index in countries) {
+        const country = {
+          iso: countries[index]['iso_2'],
+          name: countries[index]['name']
         }
-    });
+        vm.countries.push(country)
+      }
+    })
   }
 }

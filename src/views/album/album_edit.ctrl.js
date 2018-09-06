@@ -21,6 +21,7 @@ export default {
     return {
       isNeededToRelease: false,
       showPromoteMessage: false,
+      locations: [],
       users: [],
       genres: [],
       products: [],
@@ -45,10 +46,6 @@ export default {
 
     artists() {
       return _.filter(this.users, (item) => { return item.user_type === 'artist' })
-    },
-
-    countries() {
-      return Countries
     },
 
     role_types() {
@@ -271,6 +268,10 @@ export default {
     },
   },
 
-  mounted() {
+  mounted () {
+    const vm = this
+    $.getJSON('../../static/cities.json', function (data) {
+      vm.locations = data
+    })
   }
 }

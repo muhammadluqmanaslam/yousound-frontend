@@ -30,6 +30,7 @@ export default {
         tracks: []
       },
       album_image_url: null,
+      locations: [],
       users: [],
       collaborators: [],
       contributors: [],
@@ -48,10 +49,6 @@ export default {
 
     artists() {
       return _.filter(this.users, (item) => { return item.user_type === 'artist' })
-    },
-
-    countries() {
-      return Countries
     },
 
     role_types() {
@@ -242,5 +239,9 @@ export default {
   },
 
   mounted () {
+    const vm = this
+    $.getJSON('../../static/cities.json', function (data) {
+      vm.locations = data
+    })
   }
 }
