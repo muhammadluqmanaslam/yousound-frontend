@@ -1,5 +1,6 @@
 <template>
   <div class="page browser-page">
+    <img class="logo" src="/static/images/nav_logo_primary.png">
     <h2>Update Your Browser</h2>
     <p>We only support the latest browsers, and there’s plently to choose from.</p>
     <ul>
