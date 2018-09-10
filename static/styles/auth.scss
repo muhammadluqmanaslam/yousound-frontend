@@ -506,7 +506,7 @@
     margin: 46.25px auto 0;
     .logo {
       // width: 200.25px;
-      height: 80.25px;
+      height: 37px;
     }
     h4 {
       font-weight: 300;
@@ -569,5 +569,25 @@
       letter-spacing: 0;
       text-transform: none;
     }
+  }
+}
+
+.dialog.attendee-confirm-dialog {
+  background-color: #FFFFFF;
+
+  img.site-logo {
+    width: 200px;
+  }
+
+  img.page-logo {
+    width: 100px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 16px;
   }
 }

@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import AdminService from '@/services/admin'
+import AttendeeService from '@/services/attendee'
 
 export default {
   components: {
@@ -35,7 +35,7 @@ export default {
   created() {
     this.$store.dispatch('error/showLoadingActivity', true)
     Promise.all([
-      AdminService.getAttendees()
+      AttendeeService.getAttendees()
     ]).then(values => {
       this.attendees = values[0].body
       this.$store.dispatch('error/showLoadingActivity', false)
@@ -48,10 +48,7 @@ export default {
   methods: {
     inviteAttendee(attendee) {
       const attendee_id = attendee.id
-      const params = {
-        attendee_id: attendee_id
-      }
-      AdminService.inviteAttendee(params).then(response => {
+      AttendeeService.inviteAttendee(attendee_id).then(response => {
         const attendeeIndex = _.findIndex(this.attendees, (attendee) => (attendee.id == attendee_id))
         this.attendees[attendeeIndex].status = 'invited'
         const arr = this.attendees.slice()

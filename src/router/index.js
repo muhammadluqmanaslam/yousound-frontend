@@ -9,6 +9,7 @@ import ResetPassword from '@/views/auth/reset_password'
 import RegisterAs from '@/views/auth/register_as'
 import Confirmation from '@/views/auth/confirmation'
 import SocialVerification from '@/views/auth/social_verify'
+import AttendeeRegister from '@/views/auth/register_by_attendee'
 import ListenerRegister from '@/views/auth/register_by_listener'
 import ArtistRegister from '@/views/auth/register_by_artist'
 import LabelRegister from '@/views/auth/register_by_label'
@@ -69,6 +70,7 @@ export function createRouter (settings) {
   if (!settings.disable_sign_up) {
     routes = routes.concat([
       { path: '/register', name: 'RegisterAs', component: RegisterAs },
+      { path: '/register/attendee/:token', name: 'AttendeeRegister', component: AttendeeRegister },
       { path: '/register/listener', name: 'ListenerRegister', component: ListenerRegister },
       { path: '/register/artist', name: 'ArtistRegister', component: ArtistRegister },
       { path: '/register/label', name: 'LabelRegister', component: LabelRegister },

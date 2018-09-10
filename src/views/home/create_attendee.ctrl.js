@@ -1,4 +1,4 @@
-import AuthService from '@/services/auth.js'
+import AttendeeService from '@/services/attendee.js'
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
             attendee: this.attendee
           }
           this.$store.dispatch('error/showLoadingActivity', true)
-          AuthService.addAttendee(params).then(response => {
+          AttendeeService.createAttendee(params).then(response => {
             this.$store.dispatch('error/showLoadingActivity', false)
             // this.$store.dispatch('error/showSuccessToast', ['You reserved your account'])
             this.show_attendee_confirm_dialog = true

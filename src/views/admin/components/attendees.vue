@@ -35,7 +35,7 @@
                 <td class="text-xs-left">{{ props.item.account_type }}</td>
                 <td class="text-xs-left">{{ props.item.referred_by }}</td>
                 <td class="text-xs-center">
-                  <template v-if="props.item.status == 'created'">
+                  <template v-if="['created', 'expired'].indexOf(props.item.status) > -1">
                     <v-btn color="primary" @click.native="inviteAttendee(props.item)">Invite</v-btn>
                   </template>
                   <template v-else>
