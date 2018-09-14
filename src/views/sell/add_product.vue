@@ -91,7 +91,7 @@
         </v-flex>
         <v-flex xs12 sm6>
           <v-flex xs12 section-title>
-            <h4>Shipping</h4>
+            <h4>Shipping & Tax</h4>
           </v-flex>
           <v-flex xs12 product-section>
             <v-flex xs12 price-option-section form-group>
@@ -110,7 +110,8 @@
                   item-text="name"
                   item-value="name"
                   class="pt-0"
-                  autocomplete></v-select>
+                  autocomplete
+                />
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">Shipped Alone</label>
@@ -122,6 +123,56 @@
               </v-flex>
               <v-icon class="clear-btn" @click="deleteShipment(index)">clear</v-icon>
             </v-layout>
+
+            <v-flex xs12 pa-0 mt-4>
+              <h4 class="option-title">Tax</h4>
+            </v-flex>
+            <v-layout row>
+              <v-flex xs12 sm4 v-if="product.is_vat">
+                <label class="control-label">Sellers Country</label>
+                <v-select
+                  :items="countries"
+                  v-model="product.seller_location"
+                  item-text="name"
+                  item-value="name"
+                  @change="changeTaxPercent"
+                  class="pt-0"
+                  autocomplete
+                />
+              </v-flex>
+              <v-flex xs12 sm4 v-else>
+                <label class="control-label">Sellers State</label>
+                <v-select
+                  :items="states"
+                  v-model="product.seller_location"
+                  item-text="name"
+                  item-value="name"
+                  @change="changeTaxPercent"
+                  class="pt-0"
+                  autocomplete
+                />
+              </v-flex>
+              <v-flex xs12 sm4>
+                <label class="control-label">State Tax</label>
+                <vue-numeric
+                  currency="%"
+                  currency-symbol-position="suffix"
+                  separator=","
+                  :precision="3"
+                  :min="0"
+                  :max="100"
+                  v-model="product.tax_percent"
+                  class="form-control primary-input"
+                />
+              </v-flex>
+            </v-layout>
+            <v-flex xs12 mt-2>
+              <v-checkbox
+                label="International seller click for VAT tax"
+                v-model="product.is_vat"
+                @change="resetTaxPercent"
+              />
+            </v-flex>
           </v-flex>
         </v-flex>
         <v-flex xs12 sm6>

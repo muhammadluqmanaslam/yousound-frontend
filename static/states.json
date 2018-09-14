@@ -1,0 +1,289 @@
+[
+    {
+        "name": "Alabama",
+        "abbr": "AL",
+        "rate": 4.00
+    },
+    {
+        "name": "Alaska",
+        "abbr": "AK",
+        "rate": 0.00
+    },
+    {
+        "name": "American Samoa",
+        "abbr": "AS"
+    },
+    {
+        "name": "Arizona",
+        "abbr": "AZ",
+        "rate": 5.60
+    },
+    {
+        "name": "Arkansas",
+        "abbr": "AR",
+        "rate": 6.50
+    },
+    {
+        "name": "California",
+        "abbr": "CA",
+        "rate": 7.25
+    },
+    {
+        "name": "Colorado",
+        "abbr": "CO",
+        "rate": 2.90
+    },
+    {
+        "name": "Connecticut",
+        "abbr": "CT",
+        "rate": 6.35
+    },
+    {
+        "name": "Delaware",
+        "abbr": "DE",
+        "rate": 0.00
+    },
+    {
+        "name": "District Of Columbia",
+        "abbr": "DC",
+        "rate": 5.75
+    },
+    {
+        "name": "Federated States Of Micronesia",
+        "abbr": "FM"
+    },
+    {
+        "name": "Florida",
+        "abbr": "FL",
+        "rate": 6.00
+    },
+    {
+        "name": "Georgia",
+        "abbr": "GA",
+        "rate": 4.00
+    },
+    {
+        "name": "Guam Gu",
+        "abbr": "GU"
+    },
+    {
+        "name": "Hawaii",
+        "abbr": "HI",
+        "rate": 4.00
+    },
+    {
+        "name": "Idaho",
+        "abbr": "ID",
+        "rate": 6.00
+    },
+    {
+        "name": "Illinois",
+        "abbr": "IL",
+        "rate": 6.25
+    },
+    {
+        "name": "Indiana",
+        "abbr": "IN",
+        "rate": 7.00
+    },
+    {
+        "name": "Iowa",
+        "abbr": "IA",
+        "rate": 6.00
+    },
+    {
+        "name": "Kansas",
+        "abbr": "KS",
+        "rate": 6.50
+    },
+    {
+        "name": "Kentucky",
+        "abbr": "KY",
+        "rate": 6.00
+    },
+    {
+        "name": "Louisiana",
+        "abbr": "LA",
+        "rate": 5.00
+    },
+    {
+        "name": "Maine",
+        "abbr": "ME",
+        "rate": 5.50
+    },
+    {
+        "name": "Marshall Islands",
+        "abbr": "MH"
+    },
+    {
+        "name": "Maryland",
+        "abbr": "MD",
+        "rate": 6.00
+    },
+    {
+        "name": "Massachusetts",
+        "abbr": "MA",
+        "rate": 6.25
+    },
+    {
+        "name": "Michigan",
+        "abbr": "MI",
+        "rate": 6.00
+    },
+    {
+        "name": "Minnesota",
+        "abbr": "MN",
+        "rate": 6.875
+    },
+    {
+        "name": "Mississippi",
+        "abbr": "MS",
+        "rate": 7.00
+    },
+    {
+        "name": "Missouri",
+        "abbr": "MO",
+        "rate": 4.225
+    },
+    {
+        "name": "Montana",
+        "abbr": "MT",
+        "rate": 0.00
+    },
+    {
+        "name": "Nebraska",
+        "abbr": "NE",
+        "rate": 5.50
+    },
+    {
+        "name": "Nevada",
+        "abbr": "NV",
+        "rate": 6.85
+    },
+    {
+        "name": "New Hampshire",
+        "abbr": "NH",
+        "rate": 0.00
+    },
+    {
+        "name": "New Jersey",
+        "abbr": "NJ",
+        "rate": 6.625
+    },
+    {
+        "name": "New Mexico",
+        "abbr": "NM",
+        "rate": 5.125
+    },
+    {
+        "name": "New York",
+        "abbr": "NY",
+        "rate": 4.00
+    },
+    {
+        "name": "North Carolina",
+        "abbr": "NC",
+        "rate": 4.75
+    },
+    {
+        "name": "North Dakota",
+        "abbr": "ND",
+        "rate": 5.00
+    },
+    {
+        "name": "Northern Mariana Islands",
+        "abbr": "MP"
+    },
+    {
+        "name": "Ohio",
+        "abbr": "OH",
+        "rate": 5.75
+    },
+    {
+        "name": "Oklahoma",
+        "abbr": "OK",
+        "rate": 4.50
+    },
+    {
+        "name": "Oregon",
+        "abbr": "OR",
+        "rate": 0.00
+    },
+    {
+        "name": "Palau",
+        "abbr": "PW"
+    },
+    {
+        "name": "Pennsylvania",
+        "abbr": "PA",
+        "rate": 6.00
+    },
+    {
+        "name": "Puerto Rico",
+        "abbr": "PR"
+    },
+    {
+        "name": "Rhode Island",
+        "abbr": "RI",
+        "rate": 7.00
+    },
+    {
+        "name": "South Carolina",
+        "abbr": "SC",
+        "rate": 6.00
+    },
+    {
+        "name": "South Dakota",
+        "abbr": "SD",
+        "rate": 4.50
+    },
+    {
+        "name": "Tennessee",
+        "abbr": "TN",
+        "rate": 7.00
+    },
+    {
+        "name": "Texas",
+        "abbr": "TX",
+        "rate": 6.25
+    },
+    {
+        "name": "Utah",
+        "abbr": "UT",
+        "rate": 5.95
+    },
+    {
+        "name": "Vermont",
+        "abbr": "VT",
+        "rate": 6.00
+    },
+    {
+        "name": "Virgin Islands",
+        "abbr": "VI"
+    },
+    {
+        "name": "Virginia",
+        "abbr": "VA",
+        "rate": 5.30
+    },
+    {
+        "name": "Washington",
+        "abbr": "WA",
+        "rate": 6.50
+    },
+    {
+        "name": "West Virginia",
+        "abbr": "WV",
+        "rate": 6.00
+    },
+    {
+        "name": "Wisconsin",
+        "abbr": "WI",
+        "rate": 5.00
+    },
+    {
+        "name": "Wyoming",
+        "abbr": "WY",
+        "rate": 4.00
+    }
+]

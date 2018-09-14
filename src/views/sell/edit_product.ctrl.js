@@ -13,6 +13,8 @@ export default {
     return {
       product_categories: [],
       destinations: [],
+      countries: [],
+      states: [],
       prod_id: '',
       product_image1: null,
       product_image1_url: null,
@@ -176,6 +178,22 @@ export default {
       }
     },
 
+    changeTaxPercent(locationName) {
+      this.product.tax_percent = 0
+      if (this.product.is_vat) {
+        const country = _.find(this.countries, (c) => (c.name == locationName))
+        this.product.tax_percent = _.get(country, 'rate', 0)
+      } else {
+        const state = _.find(this.states, (s) => (s.name == locationName))
+        this.product.tax_percent = _.get(state, 'rate', 0)
+      }
+    },
+
+    resetTaxPercent(value) {
+      this.product.tax_percent = 0
+      this.product.seller_location = ''
+    },
+
     learnMore () {
     },
 
@@ -263,6 +281,10 @@ export default {
       formData.append('shop_product[collaborators]', JSON.stringify(this.product.collaborators))
       formData.append('shop_product[creator_recoup_cost]', Math.round(this.product.creator_recoup_cost * 100))
 
+      formData.append('shop_product[tax_percent]', _.get(this.product, 'tax_percent', 0))
+      formData.append('shop_product[is_vat]', _.get(this.product, 'is_vat', false))
+      formData.append('shop_product[seller_location]', _.get(this.product, 'seller_location', ''))
+
       ProductService.updateProduct(this.product.id, formData).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$router.push({ path: '/sell#products' })
@@ -290,9 +312,9 @@ export default {
     }
   },
 
-
   mounted () {
-    const vm = this;
+    const vm = this
+
     $.getJSON('../../static/countries.json', function (json) {
         const countries = json.countries
         for(let index in countries) {
@@ -302,6 +324,11 @@ export default {
           }
           vm.destinations.push(country)
         }
-    });
+        vm.countries = countries
+    })
+
+    $.getJSON('../../static/states.json', function (data) {
+        vm.states = data
+    })
   }
 }

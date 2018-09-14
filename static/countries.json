@@ -54,7 +54,8 @@
       },
       {
          "iso_2": "AT",
-         "name": "Austria"
+         "name": "Austria",
+         "rate": 20.00
       },
       {
          "iso_2": "AZ",
@@ -82,7 +83,8 @@
       },
       {
          "iso_2": "BE",
-         "name": "Belgium"
+         "name": "Belgium",
+         "rate": 21.00
       },
       {
          "iso_2": "BZ",
@@ -130,7 +132,8 @@
       },
       {
          "iso_2": "BG",
-         "name": "Bulgaria"
+         "name": "Bulgaria",
+         "rate": 20.00
       },
       {
          "iso_2": "BF",
@@ -214,7 +217,8 @@
       },
       {
          "iso_2": "HR",
-         "name": "Croatia"
+         "name": "Croatia",
+         "rate": 25.00
       },
       {
          "iso_2": "CU",
@@ -222,15 +226,18 @@
       },
       {
          "iso_2": "CY",
-         "name": "Cyprus"
+         "name": "Cyprus",
+         "rate": 19.00
       },
       {
          "iso_2": "CZ",
-         "name": "Czech Republic"
+         "name": "Czech Republic",
+         "rate": 21.00
       },
       {
          "iso_2": "DK",
-         "name": "Denmark"
+         "name": "Denmark",
+         "rate": 25.00
       },
       {
          "iso_2": "DJ",
@@ -270,7 +277,8 @@
       },
       {
          "iso_2": "EE",
-         "name": "Estonia"
+         "name": "Estonia",
+         "rate": 20.00
       },
       {
          "iso_2": "ET",
@@ -290,11 +298,13 @@
       },
       {
          "iso_2": "FI",
-         "name": "Finland"
+         "name": "Finland",
+         "rate": 24.00
       },
       {
          "iso_2": "FR",
-         "name": "France"
+         "name": "France",
+         "rate": 20.00
       },
       {
          "iso_2": "GF",
@@ -322,7 +332,8 @@
       },
       {
          "iso_2": "DE",
-         "name": "Germany"
+         "name": "Germany",
+         "rate": 19.00
       },
       {
          "iso_2": "GH",
@@ -334,7 +345,8 @@
       },
       {
          "iso_2": "GR",
-         "name": "Greece"
+         "name": "Greece",
+         "rate": 23.00
       },
       {
          "iso_2": "GL",
@@ -390,7 +402,8 @@
       },
       {
          "iso_2": "HU",
-         "name": "Hungary"
+         "name": "Hungary",
+         "rate": 27.00
       },
       {
          "iso_2": "IS",
@@ -414,7 +427,8 @@
       },
       {
          "iso_2": "IE",
-         "name": "Ireland"
+         "name": "Ireland",
+         "rate": 23.00
       },
       {
          "iso_2": "IL",
@@ -422,7 +436,8 @@
       },
       {
          "iso_2": "IT",
-         "name": "Italy"
+         "name": "Italy",
+         "rate": 22.00
       },
       {
          "iso_2": "JM",
@@ -474,7 +489,8 @@
       },
       {
          "iso_2": "LV",
-         "name": "Latvia"
+         "name": "Latvia",
+         "rate": 21.00
       },
       {
          "iso_2": "LB",
@@ -498,11 +514,13 @@
       },
       {
          "iso_2": "LT",
-         "name": "Lithuania"
+         "name": "Lithuania",
+         "rate": 21.00
       },
       {
          "iso_2": "LU",
-         "name": "Luxembourg"
+         "name": "Luxembourg",
+         "rate": 17.00
       },
       {
          "iso_2": "MO",
@@ -534,7 +552,8 @@
       },
       {
          "iso_2": "MT",
-         "name": "Malta"
+         "name": "Malta",
+         "rate": 18.00
       },
       {
          "iso_2": "MH",
@@ -610,7 +629,8 @@
       },
       {
          "iso_2": "NL",
-         "name": "Netherlands"
+         "name": "Netherlands",
+         "rate": 21.00
       },
       {
          "iso_2": "AN",
@@ -694,11 +714,13 @@
       },
       {
          "iso_2": "PL",
-         "name": "Poland"
+         "name": "Poland",
+         "rate": 23.00
       },
       {
          "iso_2": "PT",
-         "name": "Portugal"
+         "name": "Portugal",
+         "rate": 23.00
       },
       {
          "iso_2": "PR",
@@ -714,7 +736,8 @@
       },
       {
          "iso_2": "RO",
-         "name": "Romania"
+         "name": "Romania",
+         "rate": 20.00
       },
       {
          "iso_2": "RU",
@@ -782,11 +805,13 @@
       },
       {
          "iso_2": "SK",
-         "name": "Slovakia"
+         "name": "Slovakia",
+         "rate": 20.00
       },
       {
          "iso_2": "SI",
-         "name": "Slovenia"
+         "name": "Slovenia",
+         "rate": 22.00
       },
       {
          "iso_2": "SB",
@@ -806,7 +831,8 @@
       },
       {
          "iso_2": "ES",
-         "name": "Spain"
+         "name": "Spain",
+         "rate": 21.00
       },
       {
          "iso_2": "LK",
@@ -830,7 +856,8 @@
       },
       {
          "iso_2": "SE",
-         "name": "Sweden"
+         "name": "Sweden",
+         "rate": 25.00
       },
       {
          "iso_2": "CH",
@@ -906,7 +933,8 @@
       },
       {
          "iso_2": "GB",
-         "name": "United Kingdom"
+         "name": "United Kingdom",
+         "rate": 20.00
       },
       {
          "iso_2": "US",
