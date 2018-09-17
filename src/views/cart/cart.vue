@@ -37,10 +37,10 @@
                     <label class="status-title">Shipping</label>
                     <label class="status-title value">${{ cartCost.shipping_cost|formatNumber }}</label>
                   </div>
-                  <!-- <div class="status-row">
-                    <label class="status-title">Fees</label>
-                    <label class="status-title value">${{ cartCost.fee_cost|formatNumber }}</label>
-                  </div> -->
+                  <div class="status-row">
+                    <label class="status-title">Sales Tax</label>
+                    <label class="status-title value">${{ cartCost.tax_cost|formatNumber }}</label>
+                  </div>
                   <div class="total-row">
                     <label class="status-title">Total</label>
                     <label class="status-title value">${{ cartCost.total_cost|formatNumber }}</label>

@@ -67,6 +67,7 @@ export default {
           params = {}
           if (this.$store.state.auth.user.default_address) {
             params.country = this.$store.state.auth.user.default_address.country
+            params.state = this.$store.state.auth.user.default_address.state
           }
           this.isPageReady = false
           this.$store.dispatch('error/showLoadingActivity', true)

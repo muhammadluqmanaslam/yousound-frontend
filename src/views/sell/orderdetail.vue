@@ -33,6 +33,7 @@
                 <th width="15%">Price</th>
                 <th width="15%">Quantity</th>
                 <th width="15%">Shipping</th>
+                <th width="15%">Tax</th>
                 <th width="15%">Fee</th>
               </tr>
             </thead>
@@ -45,6 +46,7 @@
                 <td class="text-xs-center">${{ item.price | formatNumber }}</td>
                 <td class="text-xs-center">{{ item.quantity }}</td>
                 <td class="text-xs-center">${{ item.shipping_cost | formatNumber }}</td>
+                <td class="text-xs-center">{{ item.tax_percent }}%</td>
                 <td class="text-xs-center red--text">${{ item.fee | formatNumber }}</td>
               </tr>
             </tbody>
@@ -57,6 +59,8 @@
               <v-flex xs6 text-xs-right pb-2>${{ subTotal | formatNumber }}</v-flex>
               <v-flex xs6 text-xs-left pb-2>Shipping</v-flex>
               <v-flex xs6 text-xs-right pb-2>${{ shippingTotal | formatNumber }}</v-flex>
+              <v-flex xs6 text-xs-left pb-2>Tax</v-flex>
+              <v-flex xs6 text-xs-right pb-2>${{ taxTotal | formatNumber }}</v-flex>
               <template v-if="refundAmount > 0">
                 <v-flex xs6 text-xs-left pb-2 class="error--text">Refund</v-flex>
                 <v-flex xs6 text-xs-right pb-2 class="error--text">${{ refundAmount | formatNumber }}</v-flex>
@@ -66,7 +70,7 @@
           <div class="total-section">
             <v-layout row wrap>
               <v-flex xs6 text-xs-left>Total</v-flex>
-              <v-flex xs6 text-xs-right>${{ total|formatNumber }}</v-flex>
+              <v-flex xs6 text-xs-right>${{ total | formatNumber }}</v-flex>
             </v-layout>
           </div>
         </div>

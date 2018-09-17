@@ -39,6 +39,7 @@ export default {
     if (this.$store.state.auth.user.default_address) {
       this.shippingAddress.push(this.$store.state.auth.user.default_address)
       params.country = this.$store.state.auth.user.default_address.country
+      params.state = this.$store.state.auth.user.default_address.state
     }
 
     this.isPageReady = false

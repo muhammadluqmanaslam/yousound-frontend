@@ -44,12 +44,23 @@ export default {
       return sum
     },
 
+    taxTotal () {
+      var sum = 0
+      for (let index in this.order_detail.items) {
+        const item = this.order_detail.items[index]
+        if (item.tax) {
+          sum += item.tax
+        }
+      }
+      return sum
+    },
+
     refundAmount () {
       return _.get(this.order_detail, 'refund_amount', 0)
     },
 
     total () {
-      return this.subTotal + this.shippingTotal - this.refundAmount
+      return this.subTotal + this.shippingTotal + this.taxTotal - this.refundAmount
     }
   },
 
