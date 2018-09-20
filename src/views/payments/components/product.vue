@@ -9,11 +9,13 @@
             :src="cover.cover.large.url"
             transition="fade"
             reverseTransition="fade"
-            @onmouseout="zoomOut()"></v-carousel-item>
+            @onmouseout="zoomOut()"
+          ></v-carousel-item>
         </v-carousel>
         <div v-if="covers.length == 1"
           class="product-cover-image"
-          :style="{'background-image': 'url(' + item.covers[0].cover.url + ')', 'background-repeat': 'no-repeat', 'background-size': 'contain'}"></div>
+          :style="{'background-image': 'url(' + covers[0].cover.url + ')', 'background-repeat': 'no-repeat', 'background-size': 'contain'}"
+        ></div>
         <div class="product-cover-image" v-if="!covers.length"></div>
       </v-flex>
       <v-flex xs12 sm5 class="info-section" v-if="!showPolicySection">

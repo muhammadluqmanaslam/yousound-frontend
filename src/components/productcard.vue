@@ -26,17 +26,19 @@
             </v-btn>
             <v-list>
               <v-list-tile v-if="item.merchant.id != $store.state.auth.user.id"
-                  key="repost"
-                  @click.native="repostProduct()">
+                key="repost"
+                @click.native="repostProduct()"
+              >
                 <v-list-tile-title class="product-menu-item">
                   <img class="product-status-icon" src="/static/images/ic_repeat.png" />
                   <label>Repost</label>
                 </v-list-tile-title>
               </v-list-tile>
               <v-list-tile
-                  key="share"
-                  class="product-menu-item"
-                  @click.native="showShareDialog()">
+                key="share"
+                class="product-menu-item"
+                @click.native="showShareDialog()"
+              >
                 <v-list-tile-title>
                   <img class="product-status-icon" src="/static/images/ic_share.png" />
                   <label>Share</label>
@@ -62,10 +64,12 @@
     <merch-modal v-if="showMerchModal"
       :item="item"
       :dismiss="dimissMerchDialog"
-      :shareProduct="showShareDialog"></merch-modal>
+      :shareProduct="showShareDialog"
+    />
     <share-modal v-if="showShareModal"
       :item="item"
-      :dismiss="dismissShareDialog"></share-modal>
+      :dismiss="dismissShareDialog"
+    />
   </v-flex>  
 </template>
 
