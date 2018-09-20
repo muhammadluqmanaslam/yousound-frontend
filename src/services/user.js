@@ -49,8 +49,8 @@ export default {
     return Vue.http.delete(API_BASE_URL + '/' + userId, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
-  getRepostPriceProration (userId) {
-    return Vue.http.get(`${API_BASE_URL}/${userId}/repost_price_proration`, { headers: { 'Authorization': $store.state.auth.token } })
+  getRepostPriceProration (userId, params) {
+    return Vue.http.get(`${API_BASE_URL}/${userId}/repost_price_proration`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
   setRepostPrice (userId, params) {

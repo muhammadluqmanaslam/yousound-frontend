@@ -23,8 +23,8 @@ export default {
       ],
       repost_price: 100,
       proration: {
-        sent_amount: 0,
-        remaining_amount: 0
+        add_amount: 0,
+        expire_at: null
       },
       show_repost_price_confirm_modal: false,
       show_payment_modal: false,
@@ -35,15 +35,6 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
-    },
-
-    additionalAmount () {
-      let amount = 0
-      if (this.repost_price > 100 && this.repost_price > this.proration.remaining_amount) {
-        amount = this.repost_price - this.proration.remaining_amount
-      }
-      // console.log('additionalAmount', amount)
-      return amount
     }
   },
 
@@ -61,8 +52,11 @@ export default {
         return
       }
 
+      const params = {
+        new_repost_price: this.repost_price
+      }
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.getRepostPriceProration(this.currentUser.id).then(response => {
+      UserService.getRepostPriceProration(this.currentUser.id, params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.proration = response.body
         // console.log(this.proration)
@@ -78,7 +72,7 @@ export default {
 
     openPaymentModal () {
       this.closeRepostPriceConfirmModal()
-      if (this.additionalAmount > 0) {
+      if (this.proration.add_amount > 0) {
         this.show_payment_modal = true
       } else {
         this.setRepostPrice(null)
@@ -92,7 +86,7 @@ export default {
     setRepostPrice (token) {
       const params = {
         repost_price: this.repost_price,
-        payment_amount: this.additionalAmount
+        payment_amount: this.proration.add_amount
       }
       // console.log('setRepostPrice', params)
       if (token) {

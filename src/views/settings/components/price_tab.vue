@@ -6,7 +6,7 @@
           <label class="normal-text">repost price</label>
           <div class="repost-price-select">
             <v-select
-              v-bind:items="repost_prices"
+              :items="repost_prices"
               v-model="repost_price"
               item-text="name"
               item-value="value"
@@ -31,10 +31,7 @@
         <v-card-title class="headline">Upgrade Repost Price</v-card-title>
         <v-card-text>
           In order to upgrade your Repost Price you need to pay an annual fee equal to the price you want to upgrade to.<br/>
-          <template v-if="repost_price > 100">
-            <template v-if="additionalAmount == 0">You have enough remaining amount.</template>
-            <template v-else>You have ${{ proration.remaining_amount | formatNumber }} left. You have to pay additional ${{ additionalAmount | formatNumber }}</template>
-          </template>
+          <template v-if="proration.add_amount > 0">You have to pay additional ${{ proration.add_amount | formatNumber }}</template>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -46,7 +43,7 @@
 
     <payment-modal v-if="show_payment_modal"
       :type="''"
-      :amount="additionalAmount"
+      :amount="proration.add_amount"
       :dismiss="closePaymentModal"
       :finish="setRepostPrice"
     />
