@@ -18,8 +18,7 @@ export default {
         { id: 'all', name: 'All Activity' },
         { id: 'reposts', name: 'Reposts' },
         { id: 'commented', name: 'Commented' },
-        { id: 'followed', name: 'Followed' },
-        { id: 'played', name: 'Played' }
+        { id: 'followed', name: 'Followed' }
       ],
       activities: [],
       isPageReady: false,
