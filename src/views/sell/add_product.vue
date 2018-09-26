@@ -153,7 +153,8 @@
                 />
               </v-flex>
               <v-flex xs12 sm4>
-                <label class="control-label">State Tax</label>
+                <label class="control-label" v-if="product.is_vat">Tax</label>
+                <label class="control-label" v-else>State Tax</label>
                 <vue-numeric
                   currency="%"
                   currency-symbol-position="suffix"

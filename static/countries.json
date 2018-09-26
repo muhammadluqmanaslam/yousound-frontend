@@ -6,7 +6,8 @@
       },
       {
          "iso_2": "AL",
-         "name": "Albania"
+         "name": "Albania",
+         "rate": 20.00
       },
       {
          "iso_2": "DZ",
@@ -38,7 +39,8 @@
       },
       {
          "iso_2": "AR",
-         "name": "Argentina"
+         "name": "Argentina",
+         "rate": 21.00
       },
       {
          "iso_2": "AM",
@@ -50,7 +52,8 @@
       },
       {
          "iso_2": "AU",
-         "name": "Australia"
+         "name": "Australia",
+         "rate": 10.00
       },
       {
          "iso_2": "AT",
@@ -59,15 +62,18 @@
       },
       {
          "iso_2": "AZ",
-         "name": "Azerbaijan"
+         "name": "Azerbaijan",
+         "rate": 18.00
       },
       {
          "iso_2": "BS",
-         "name": "Bahamas"
+         "name": "Bahamas",
+         "rate": 7.50
       },
       {
          "iso_2": "BH",
-         "name": "Bahrain"
+         "name": "Bahrain",
+         "rate": 5.00
       },
       {
          "iso_2": "BD",
@@ -75,11 +81,13 @@
       },
       {
          "iso_2": "BB",
-         "name": "Barbados"
+         "name": "Barbados",
+         "rate": 17.50
       },
       {
          "iso_2": "BY",
-         "name": "Belarus"
+         "name": "Belarus",
+         "rate": 20.00
       },
       {
          "iso_2": "BE",
@@ -104,7 +112,8 @@
       },
       {
          "iso_2": "BO",
-         "name": "Bolivia"
+         "name": "Bolivia",
+         "rate": 13.00
       },
       {
          "iso_2": "BA",
@@ -112,7 +121,8 @@
       },
       {
          "iso_2": "BW",
-         "name": "Botswana"
+         "name": "Botswana",
+         "rate": 12.00
       },
       {
          "iso_2": "BV",
@@ -153,7 +163,8 @@
       },
       {
          "iso_2": "CA",
-         "name": "Canada"
+         "name": "Canada",
+         "rate": 5.00
       },
       {
          "iso_2": "CV",
@@ -173,11 +184,13 @@
       },
       {
          "iso_2": "CL",
-         "name": "Chile"
+         "name": "Chile",
+         "rate": 19.00
       },
       {
          "iso_2": "CN",
-         "name": "China"
+         "name": "China",
+         "rate": 6.00
       },
       {
          "iso_2": "CX",
@@ -189,7 +202,8 @@
       },
       {
          "iso_2": "CO",
-         "name": "Colombia"
+         "name": "Colombia",
+         "rate": 19.00
       },
       {
          "iso_2": "KM",
@@ -209,7 +223,8 @@
       },
       {
          "iso_2": "CR",
-         "name": "Costa Rica"
+         "name": "Costa Rica",
+         "rate": 13.00
       },
       {
          "iso_2": "CI",
@@ -249,7 +264,8 @@
       },
       {
          "iso_2": "DO",
-         "name": "Dominican Republic"
+         "name": "Dominican Republic",
+         "rate": 18.00
       },
       {
          "iso_2": "TP",
@@ -257,15 +273,18 @@
       },
       {
          "iso_2": "EC",
-         "name": "Ecuador"
+         "name": "Ecuador",
+         "rate": 12.00
       },
       {
          "iso_2": "EG",
-         "name": "Egypt"
+         "name": "Egypt",
+         "rate": 14.00
       },
       {
          "iso_2": "SV",
-         "name": "El Salvador"
+         "name": "El Salvador",
+         "rate": 13.00
       },
       {
          "iso_2": "GQ",
@@ -328,7 +347,8 @@
       },
       {
          "iso_2": "GE",
-         "name": "Georgia"
+         "name": "Georgia",
+         "rate": 18.00
       },
       {
          "iso_2": "DE",
@@ -337,7 +357,8 @@
       },
       {
          "iso_2": "GH",
-         "name": "Ghana"
+         "name": "Ghana",
+         "rate": 15.00
       },
       {
          "iso_2": "GI",
@@ -346,7 +367,7 @@
       {
          "iso_2": "GR",
          "name": "Greece",
-         "rate": 23.00
+         "rate": 24.00
       },
       {
          "iso_2": "GL",
@@ -366,7 +387,8 @@
       },
       {
          "iso_2": "GT",
-         "name": "Guatemala"
+         "name": "Guatemala",
+         "rate": 12.00
       },
       {
          "iso_2": "GN",
@@ -394,7 +416,8 @@
       },
       {
          "iso_2": "HN",
-         "name": "Honduras"
+         "name": "Honduras",
+         "rate": 15.00
       },
       {
          "iso_2": "HK",
@@ -407,15 +430,18 @@
       },
       {
          "iso_2": "IS",
-         "name": "Iceland"
+         "name": "Iceland",
+         "rate": 24.00
       },
       {
          "iso_2": "IN",
-         "name": "India"
+         "name": "India",
+         "rate": 5.00
       },
       {
          "iso_2": "ID",
-         "name": "Indonesia"
+         "name": "Indonesia",
+         "rate": 10.00
       },
       {
          "iso_2": "IR",
@@ -432,7 +458,8 @@
       },
       {
          "iso_2": "IL",
-         "name": "Israel"
+         "name": "Israel",
+         "rate": 17.00
       },
       {
          "iso_2": "IT",
@@ -445,19 +472,23 @@
       },
       {
          "iso_2": "JP",
-         "name": "Japan"
+         "name": "Japan",
+         "rate": 8.00
       },
       {
          "iso_2": "JO",
-         "name": "Jordan"
+         "name": "Jordan",
+         "rate": 16.00
       },
       {
          "iso_2": "KZ",
-         "name": "Kazakstan"
+         "name": "Kazakstan",
+         "rate": 12.00
       },
       {
          "iso_2": "KE",
-         "name": "Kenya"
+         "name": "Kenya",
+         "rate": 16.00
       },
       {
          "iso_2": "KI",
@@ -469,15 +500,18 @@
       },
       {
          "iso_2": "KR",
-         "name": "Korea, Republic Of"
+         "name": "Korea, Republic Of",
+         "rate": 10.00
       },
       {
          "iso_2": "KV",
-         "name": "Kosovo"
+         "name": "Kosovo",
+         "rate": 18.00
       },
       {
          "iso_2": "KW",
-         "name": "Kuwait"
+         "name": "Kuwait",
+         "rate": 5.00
       },
       {
          "iso_2": "KG",
@@ -494,7 +528,8 @@
       },
       {
          "iso_2": "LB",
-         "name": "Lebanon"
+         "name": "Lebanon",
+         "rate": 11.00
       },
       {
          "iso_2": "LS",
@@ -528,11 +563,13 @@
       },
       {
          "iso_2": "MK",
-         "name": "Macedonia, The Former Yugoslav Republic Of"
+         "name": "Macedonia, The Former Yugoslav Republic Of",
+         "rate": 18.00
       },
       {
          "iso_2": "MG",
-         "name": "Madagascar"
+         "name": "Madagascar",
+         "rate": 20.00
       },
       {
          "iso_2": "MW",
@@ -540,11 +577,13 @@
       },
       {
          "iso_2": "MY",
-         "name": "Malaysia"
+         "name": "Malaysia",
+         "rate": 6.00
       },
       {
          "iso_2": "MV",
-         "name": "Maldives"
+         "name": "Maldives",
+         "rate": 6.00
       },
       {
          "iso_2": "ML",
@@ -569,7 +608,8 @@
       },
       {
          "iso_2": "MU",
-         "name": "Mauritius"
+         "name": "Mauritius",
+         "rate": 15.00
       },
       {
          "iso_2": "YT",
@@ -577,7 +617,8 @@
       },
       {
          "iso_2": "MX",
-         "name": "Mexico"
+         "name": "Mexico",
+         "rate": 16.00
       },
       {
          "iso_2": "FM",
@@ -585,7 +626,8 @@
       },
       {
          "iso_2": "MD",
-         "name": "Moldova, Republic Of"
+         "name": "Moldova, Republic Of",
+         "rate": 20.00
       },
       {
          "iso_2": "MC",
@@ -593,7 +635,8 @@
       },
       {
          "iso_2": "MN",
-         "name": "Mongolia"
+         "name": "Mongolia",
+         "rate": 10.00
       },
       {
          "iso_2": "MS",
@@ -605,7 +648,8 @@
       },
       {
          "iso_2": "MA",
-         "name": "Morocco"
+         "name": "Morocco",
+         "rate": 20.00
       },
       {
          "iso_2": "MZ",
@@ -613,11 +657,13 @@
       },
       {
          "iso_2": "MM",
-         "name": "Myanmar"
+         "name": "Myanmar",
+         "rate": 5.00
       },
       {
          "iso_2": "NA",
-         "name": "Namibia"
+         "name": "Namibia",
+         "rate": 15.00
       },
       {
          "iso_2": "NR",
@@ -642,11 +688,13 @@
       },
       {
          "iso_2": "NZ",
-         "name": "New Zealand"
+         "name": "New Zealand",
+         "rate": 15.00
       },
       {
          "iso_2": "NI",
-         "name": "Nicaragua"
+         "name": "Nicaragua",
+         "rate": 15.00
       },
       {
          "iso_2": "NE",
@@ -654,7 +702,8 @@
       },
       {
          "iso_2": "NG",
-         "name": "Nigeria"
+         "name": "Nigeria",
+         "rate": 5.00
       },
       {
          "iso_2": "NU",
@@ -670,15 +719,18 @@
       },
       {
          "iso_2": "NO",
-         "name": "Norway"
+         "name": "Norway",
+         "rate": 25.00
       },
       {
          "iso_2": "OM",
-         "name": "Oman"
+         "name": "Oman",
+         "rate": 5.00
       },
       {
          "iso_2": "PK",
-         "name": "Pakistan"
+         "name": "Pakistan",
+         "rate": 17.00
       },
       {
          "iso_2": "PW",
@@ -690,23 +742,28 @@
       },
       {
          "iso_2": "PA",
-         "name": "Panama"
+         "name": "Panama",
+         "rate": 7.00
       },
       {
          "iso_2": "PG",
-         "name": "Papua New Guinea"
+         "name": "Papua New Guinea",
+         "rate": 10.00
       },
       {
          "iso_2": "PY",
-         "name": "Paraguay"
+         "name": "Paraguay",
+         "rate": 10.00
       },
       {
          "iso_2": "PE",
-         "name": "Peru"
+         "name": "Peru",
+         "rate": 18.00
       },
       {
          "iso_2": "PH",
-         "name": "Philippines"
+         "name": "Philippines",
+         "rate": 12.00
       },
       {
          "iso_2": "PN",
@@ -724,11 +781,13 @@
       },
       {
          "iso_2": "PR",
-         "name": "Puerto Rico"
+         "name": "Puerto Rico",
+         "rate": 10.50
       },
       {
          "iso_2": "QA",
-         "name": "Qatar"
+         "name": "Qatar",
+         "rate": 5.00
       },
       {
          "iso_2": "RE",
@@ -737,15 +796,17 @@
       {
          "iso_2": "RO",
          "name": "Romania",
-         "rate": 20.00
+         "rate": 19.00
       },
       {
          "iso_2": "RU",
-         "name": "Russian Federation"
+         "name": "Russian Federation",
+         "rate": 18.00
       },
       {
          "iso_2": "RW",
-         "name": "Rwanda"
+         "name": "Rwanda",
+         "rate": 18.00
       },
       {
          "iso_2": "SH",
@@ -757,7 +818,8 @@
       },
       {
          "iso_2": "LC",
-         "name": "Saint Lucia"
+         "name": "Saint Lucia",
+         "rate": 12.50
       },
       {
          "iso_2": "PM",
@@ -781,7 +843,8 @@
       },
       {
          "iso_2": "SA",
-         "name": "Saudi Arabia"
+         "name": "Saudi Arabia",
+         "rate": 5.00
       },
       {
          "iso_2": "SN",
@@ -789,11 +852,13 @@
       },
       {
          "iso_2": "RS",
-         "name": "Serbia"
+         "name": "Serbia",
+         "rate": 20.00
       },
       {
          "iso_2": "SC",
-         "name": "Seychelles"
+         "name": "Seychelles",
+         "rate": 15.00
       },
       {
          "iso_2": "SL",
@@ -801,7 +866,8 @@
       },
       {
          "iso_2": "SG",
-         "name": "Singapore"
+         "name": "Singapore",
+         "rate": 7.00
       },
       {
          "iso_2": "SK",
@@ -823,7 +889,8 @@
       },
       {
          "iso_2": "ZA",
-         "name": "South Africa"
+         "name": "South Africa",
+         "rate": 14.00
       },
       {
          "iso_2": "GS",
@@ -844,7 +911,8 @@
       },
       {
          "iso_2": "SR",
-         "name": "Suriname"
+         "name": "Suriname",
+         "rate": 10.00
       },
       {
          "iso_2": "SJ",
@@ -861,7 +929,8 @@
       },
       {
          "iso_2": "CH",
-         "name": "Switzerland"
+         "name": "Switzerland",
+         "rate": 7.70
       },
       {
          "iso_2": "SY",
@@ -869,7 +938,8 @@
       },
       {
          "iso_2": "TW",
-         "name": "Taiwan, Province Of China"
+         "name": "Taiwan, Province Of China",
+         "rate": 5.00
       },
       {
          "iso_2": "TJ",
@@ -877,11 +947,13 @@
       },
       {
          "iso_2": "TZ",
-         "name": "Tanzania, United Republic Of"
+         "name": "Tanzania, United Republic Of",
+         "rate": 18.00
       },
       {
          "iso_2": "TH",
-         "name": "Thailand"
+         "name": "Thailand",
+         "rate": 7.00
       },
       {
          "iso_2": "TG",
@@ -897,15 +969,18 @@
       },
       {
          "iso_2": "TT",
-         "name": "Trinidad And Tobago"
+         "name": "Trinidad And Tobago",
+         "rate": 12.50
       },
       {
          "iso_2": "TN",
-         "name": "Tunisia"
+         "name": "Tunisia",
+         "rate": 19.00
       },
       {
          "iso_2": "TR",
-         "name": "Turkey"
+         "name": "Turkey",
+         "rate": 18.00
       },
       {
          "iso_2": "TM",
@@ -921,15 +996,18 @@
       },
       {
          "iso_2": "UG",
-         "name": "Uganda"
+         "name": "Uganda",
+         "rate": 18.00
       },
       {
          "iso_2": "UA",
-         "name": "Ukraine"
+         "name": "Ukraine",
+         "rate": 20.00
       },
       {
          "iso_2": "AE",
-         "name": "United Arab Emirates"
+         "name": "United Arab Emirates",
+         "rate": 5.00
       },
       {
          "iso_2": "GB",
@@ -938,15 +1016,18 @@
       },
       {
          "iso_2": "US",
-         "name": "United States"
+         "name": "United States",
+         "rate": false
       },
       {
          "iso_2": "UM",
-         "name": "United States Minor Outlying Islands"
+         "name": "United States Minor Outlying Islands",
+         "rate": false
       },
       {
          "iso_2": "UY",
-         "name": "Uruguay"
+         "name": "Uruguay",
+         "rate": 22.00
       },
       {
          "iso_2": "UZ",
@@ -958,11 +1039,13 @@
       },
       {
          "iso_2": "VE",
-         "name": "Venezuela"
+         "name": "Venezuela",
+         "rate": 12.00
       },
       {
          "iso_2": "VN",
-         "name": "Viet Nam"
+         "name": "Viet Nam",
+         "rate": 10.00
       },
       {
          "iso_2": "VG",
@@ -986,11 +1069,13 @@
       },
       {
          "iso_2": "ZM",
-         "name": "Zambia"
+         "name": "Zambia",
+         "rate": 16.00
       },
       {
          "iso_2": "ZW",
-         "name": "Zimbabwe"
+         "name": "Zimbabwe",
+         "rate": 15.00
       }
    ]
 }
