@@ -1,5 +1,6 @@
 <template>
   <div class="main-section">
+    <!-- <div class="description-section"></div> -->
     <div class="content-section">
       <v-layout row wrap return-policy-section ma-0>
         <v-flex xs12 sm12 form-group>
@@ -50,7 +51,6 @@
         </v-flex>
       </v-layout>
     </div>
-    <div class="description-section"></div>
   </div>
 </template>
 

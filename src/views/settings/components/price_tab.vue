@@ -1,5 +1,9 @@
 <template>
   <div class="main-section">
+    <div class="description-section">
+      <p>Set Repost Price here.</p>
+    </div>
+
     <div class="content-section">
       <v-flex xs12 repost-price-section pa-0>
         <v-flex xs12 sm12 form-group>
@@ -21,9 +25,6 @@
           <v-btn @click.native="openRepostPriceConfirmModal()" class="update-btn top-btn">Set</v-btn>
         </v-flex>
       </v-flex>
-    </div>
-    <div class="description-section">
-      <p>Set Repost Price here.</p>
     </div>
 
     <v-dialog v-model="show_repost_price_confirm_modal">

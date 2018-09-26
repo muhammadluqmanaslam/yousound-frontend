@@ -20,6 +20,9 @@
       </v-navigation-drawer>
 
       <div class="main-section" v-if="tab=='info'">
+        <div class="description-section">
+          <p>Update your profile here.</p>
+        </div>
         <div class="content-section">
           <v-flex xs12 profile-section pa-0>
             <v-flex xs12 pa-0>
@@ -89,11 +92,11 @@
             </v-layout>
           </v-flex>
         </div>
-        <div class="description-section">
-          <p>Update your profile here.</p>
-        </div>
       </div>
       <div class="main-section" v-else-if="tab=='password'">
+        <div class="description-section">
+          <p>Change your password here.</p>
+        </div>
         <div class="content-section">
           <v-layout row wrap ma-0 password-section>
             <v-flex xs12 sm6 form-group>
@@ -129,11 +132,13 @@
             </v-flex>
           </v-layout>
         </div>
-        <div class="description-section">
-          <p>Change your password here.</p>
-        </div>
       </div>
       <div class="main-section" v-else-if="tab=='bank-details'">
+        <div class="description-section">
+          <p>In order to accept payments, you must sign up for a <a href="https://stripe.com/" target="_blank">Stripe.com</a> account.</p>
+          <p>Stripe will handle all of your banking information, report transaction details, refunds and/or disputes on their site.</p>
+          <p></p>
+        </div>
         <div class="content-section">
           <v-flex xs12 bank-details-section pa-0>
             <v-flex xs12 sm12 form-group>
@@ -150,16 +155,14 @@
             </v-flex>
           </v-flex>
         </div>
-        <div class="description-section">
-          <p>In order to accept payments, you must sign up for a <a href="https://stripe.com/" target="_blank">Stripe.com</a> account.</p>
-          <p>Stripe will handle all of your banking information, report transaction details, refunds and/or disputes on their site.</p>
-          <p></p>
-        </div>
       </div>
-      <price-tab v-else-if="tab=='repost-price'"></price-tab>
-      <address-tab v-else-if="tab=='shipping-address'"></address-tab>
-      <genre-tab v-else-if="tab=='genre-filter'"></genre-tab>
+      <price-tab v-else-if="tab=='repost-price'"/>
+      <address-tab v-else-if="tab=='shipping-address'"/>
+      <genre-tab v-else-if="tab=='genre-filter'"/>
       <div class="main-section" v-else-if="tab=='blocked'">
+        <div class="description-section">
+          <p>You can unblock users here.</p>
+        </div>
         <div class="content-section">
           <v-layout row wrap bocked-user-section ma-0>
             <v-flex xs12 sm12 form-group v-for="(blockedUser, index) in $store.state.auth.user.blocked_users" :key="index">
@@ -170,15 +173,12 @@
             </v-flex>
           </v-layout>
         </div>
-        <div class="description-section">
-          <p>You can unblock users here.</p>
-        </div>
       </div>
       <policy-tab v-else-if="tab=='seller-policies'"
         :user="user"
         :updateUser="updateUser"
-      ></policy-tab>
-      <verify-tab v-else-if="tab=='verify-status'"></verify-tab>
+      />
+      <verify-tab v-else-if="tab=='verify-status'"/>
     </v-flex>
   </div>
 </template>

@@ -1,5 +1,9 @@
 <template>
   <div class="main-section">
+    <div class="description-section">
+      <p>Add or change your default shipping address for all of the physical orders you place.</p>
+    </div>
+
     <div class="content-section">
       <v-layout row wrap shipping-address-section ma-0>
         <v-flex xs12 sm6 form-group>
@@ -52,9 +56,6 @@
           <v-btn class="update-btn" @click.native="saveShippingAddress()">Save</v-btn>
         </v-flex>
       </v-layout>
-    </div>
-    <div class="description-section">
-      <p>Add or change your default shipping address for all of the physical orders you place.</p>
     </div>
   </div>
 </template>

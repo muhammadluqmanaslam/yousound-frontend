@@ -43,9 +43,11 @@
       }
 
       .content-section {
-        width: calc(100% - 262.5px);
-        padding-right: 93.75px;
-        padding-bottom: 30px;
+        // width: calc(100% - 262.5px);
+        // padding-right: 93.75px;
+        // padding-bottom: 30px;
+        width: 100%;
+        padding-right: 0;
         .flex.xs12.sm3.form-group {
           padding: 0 11.25px;
           margin-bottom: 24px;
@@ -329,13 +331,17 @@
       }
 
       .description-section {
-        width: 262.5px;
-        height: 450px;
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 0px 0px 26px 5px;
-        background: #FFF;
+        // width: 262.5px;
+        // height: 450px;
+        // position: absolute;
+        // top: 0;
+        // right: 0;
+        // padding: 0px 0px 26px 5px;
+        position: relative;
+        width: 100%;
+        height: inherit;
+        padding: 20px 37.5px;
+        background: #FFFFFF;
         p {
           font-size: 15px;
           color: #000000;
@@ -357,7 +363,7 @@
           position: relative;
           width: 100%;
           height: inherit;
-          padding: 2regular-checkbox0px 37.5px;
+          padding: 20px 37.5px;
         }
       }
       
