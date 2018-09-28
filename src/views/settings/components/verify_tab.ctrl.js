@@ -1,6 +1,5 @@
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
-import GenreService from '@/services/genre'
 
 export default {
   components: {
@@ -24,11 +23,10 @@ export default {
     this.isPageReady = false
     this.$store.dispatch('error/showLoadingActivity', true)
     Promise.all([
-      GenreService.getGenres2(),
       UserService.getUserInfo(this.$store.state.auth.user.id)
     ]).then(values => {
-      this.main_genres = values[0].body
-      this.user = values[1].body
+      this.main_genres = this.$store.state.app.genres
+      this.user = values[0].body
       if (!this.user.genre) {
         this.user.genre = {}
       }

@@ -3,7 +3,6 @@ import moment from 'moment'
 import trackUploader from '@/components/trackuploader'
 
 import UserService from '@/services/user'
-import GenreService from '@/services/genre'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
@@ -68,7 +67,6 @@ export default {
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
-        GenreService.getGenres2(),
         // UserService.searchUsers(params),
         ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params),
         ProductService.getProducts({
@@ -77,13 +75,9 @@ export default {
           user_statuses: 'accepted'
         })
       ]).then(values => {
-        for (let index in values[0].body) {
-          const main_category = values[0].body[index]
-          this.genres = this.genres.concat(main_category.children)
-        }
-
-        this.users = values[1].body.users
-        this.products = values[2].body
+        this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+        this.users = values[0].body.users
+        this.products = values[1].body
 
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)

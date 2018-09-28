@@ -5,12 +5,6 @@
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
-      <payment-modal v-if="show_payment_dialog"
-        :type="''"
-        :amount="streamCost"
-        :dismiss="closePaymentDialog"
-        :finish="deposit"></payment-modal>
-
       <form v-on:submit.prevent="openPaymentDialog()">
         <v-layout row>
           <v-flex sm4>
@@ -42,18 +36,44 @@
         <div class="divider mt-3 mb-5"></div>
 
         <v-layout row>
-          <v-flex sm8 form-group mr-4>
-            <label class="control-label">What is the name of your stream?</label>
+          <v-flex sm3 form-group mr-4>
+            <label class="control-label">Name of your stream?</label>
             <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
           </v-flex>
-          <v-flex sm4>
+
+          <v-flex sm3>
+            <label class="control-label">Genre</label>
+            <v-select
+              :items="periods"
+              v-model="stream.genre_id"
+              v-validate="'required'"
+              item-text="name"
+              item-value="id"
+              class="pt-0"
+            />
+          </v-flex>
+
+          <v-flex sm3>
+            <label class="control-label">Pay Per View?</label>
+            <v-select
+              :items="periods"
+              v-model="stream.view_price"
+              v-validate="'required'"
+              item-text="name"
+              item-value="id"
+              class="pt-0"
+            />
+          </v-flex>
+
+          <v-flex sm3>
             <label class="control-label">How long do you want to stream?</label>
             <v-select
               v-bind:items="periods"
               v-model="period"
               item-text="name"
               item-value="id"
-              class="pt-0"></v-select>
+              class="pt-0"
+            />
           </v-flex>
         </v-layout>
 
@@ -80,6 +100,12 @@
       </form>
     </v-flex>
 
+    <payment-modal v-if="show_payment_dialog"
+      :type="''"
+      :amount="streamCost"
+      :dismiss="closePaymentDialog"
+      :finish="deposit"
+    />
   <!--
     <v-flex xs12 sm10 offset-sm1>
       <h3>Live Video Settings</h3>

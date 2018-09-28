@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import AttendeeService from '@/services/attendee.js'
 import AuthService from '@/services/auth.js'
-import GenreService from '@/services/genre'
 import UserService from '@/services/user.js'
 
 import genreDialog from '@/components/genre_dialog'
@@ -42,11 +41,10 @@ export default {
       token: this.token
     }
     Promise.all([
-      GenreService.getGenres2(),
       AttendeeService.findByToken(params)
     ]).then(values => {
-      this.main_genres = values[0].body
-      this.attendee = values[1].body
+      this.main_genres = this.$store.state.app.genres
+      this.attendee = values[0].body
       this.user.display_name = this.attendee.display_name
       this.user.email = this.attendee.email
       this.user.request_role = this.attendee.account_type

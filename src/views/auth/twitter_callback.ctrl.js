@@ -1,6 +1,6 @@
 import { Storage } from '@/helper'
 
-import GenreService from '@/services/genre'
+// import GenreService from '@/services/genre'
 import TwitterService from '@/services/twitter'
 
 export default {
@@ -48,19 +48,19 @@ export default {
         // console.log(this.$route.query['code'])
         this.$store.dispatch('auth/setSecretCode', this.$route.query['code'])
 
-        this.isPageReady = false
-        this.$store.dispatch('error/showLoadingActivity', true)
-        Promise.all([
-          GenreService.getGenres2()
-        ]).then(values => {
-          this.main_genres = values[0].body
-
-          this.isPageReady = true
-          this.$store.dispatch('error/showLoadingActivity', false)
-        }).catch(reason => {
-          // console.log('reason', reason)
-          this.$store.dispatch('error/showLoadingActivity', false)
-        })
+        this.main_genres = this.$store.state.app.genres
+        this.isPageReady = true
+        // this.isPageReady = false
+        // this.$store.dispatch('error/showLoadingActivity', true)
+        // Promise.all([
+        //   GenreService.getGenres2()
+        // ]).then(values => {
+        //   this.main_genres = values[0].body
+        //   this.isPageReady = true
+        //   this.$store.dispatch('error/showLoadingActivity', false)
+        // }).catch(reason => {
+        //   this.$store.dispatch('error/showLoadingActivity', false)
+        // })
       })
     } else {
       Storage.remove('twitter_info')

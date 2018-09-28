@@ -54,7 +54,7 @@ import debounce from 'lodash/debounce'
 
 import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
-// import GenreService from '@/services/genre'
+import GenreService from '@/services/genre'
 import PlaylistService from '@/services/playlist'
 import SettingService from '@/services/setting'
 import UserService from '@/services/user'
@@ -129,26 +129,28 @@ export default {
   },
 
   created () {
-    if (AuthService.isAuthenticated()) {
-      AuthService.checkTokenValidation().then(response => {
-        // console.log('checkTokenValidation', response.body)
-        if (response.body !== false) {
-          // this.getUserInfo()
-          AuthService.setUser(response.body)
-        } else {
-          AuthService.clearTokenAndUserInfo()
-          this.$router.push({ path: '/login' })
-        }
-      })
-    }
+    Promise.all([
+      SettingService.getSettings(),
+      GenreService.getGenres2()
+    ]).then(values => {
+      this.$store.dispatch('app/setSettings', values[0].body)
+      this.$store.dispatch('app/setGenres', values[1].body)
 
-    SettingService.getSettings().then(response => {
-      this.$store.dispatch('app/setSettings', response.body)
+      if (AuthService.isAuthenticated()) {
+        AuthService.checkTokenValidation().then(response => {
+          // console.log('checkTokenValidation', response.body)
+          if (response.body !== false) {
+            // this.getUserInfo()
+            AuthService.setUser(response.body)
+          } else {
+            AuthService.clearTokenAndUserInfo()
+            this.$router.push({ path: '/login' })
+          }
+        })
+      }
+    }).catch(reason => {
+      console.log('app created error', reason)
     })
-
-    // GenreService.getGenres2().then(response => {
-    //   this.$store.dispatch('app/setGenres', response.body)
-    // })
 
     // (function (d, s, id) {
     //   var js = d.getElementsByTagName(s)[0]

@@ -5,7 +5,6 @@ import promoteModal from '@/components/promotemodal'
 import trackUploader from '@/components/trackuploader'
 
 import AlbumService from '@/services/album'
-import GenreService from '@/services/genre'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
@@ -67,21 +66,20 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', true)
         this.slug = this.$route.params.slug
         Promise.all([
-          GenreService.getGenres2(),
+          // UserService.searchUsers(params)
           ProductService.getProducts({
             statuses: 'published, collaborated',
             stock_statuses: 'active',
             user_statuses: 'accepted'
           }),
           AlbumService.getAlbum(this.slug),
-          // UserService.searchUsers(params)
           ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params)
         ]).then(values => {
-          this.genres = _.flatMap(values[0].body, 'children')
-          this.products = values[1].body
-          this.users = values[3].body.users
+          this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+          this.products = values[0].body
+          this.users = values[2].body.users
 
-          this.album = values[2].body
+          this.album = values[1].body
           this.album_image_url = this.album.cover.url
           if (this.album.released_at) {
             this.album.released_at = moment(this.album.released_at).format('YYYY-MM-DD')
