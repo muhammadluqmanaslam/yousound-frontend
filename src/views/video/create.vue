@@ -41,11 +41,12 @@
             <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
           </v-flex>
 
-          <v-flex sm3>
+          <v-flex sm3 mr-4>
             <label class="control-label">Genre</label>
             <v-select
-              :items="periods"
+              :items="genres"
               v-model="stream.genre_id"
+              name="genre"
               v-validate="'required'"
               item-text="name"
               item-value="id"
@@ -53,10 +54,10 @@
             />
           </v-flex>
 
-          <v-flex sm3>
+          <v-flex sm3 mr-4>
             <label class="control-label">Pay Per View?</label>
             <v-select
-              :items="periods"
+              :items="view_prices"
               v-model="stream.view_price"
               v-validate="'required'"
               item-text="name"

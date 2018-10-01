@@ -35,6 +35,18 @@ export default {
       show_stream_delete_confirm_dialog: false,
       show_create_failed_dialog: false,
       show_view_stream_button: false,
+      viewers_limits: [
+        { id: 0, name: 'Unlimited' },
+        { id: 1, name: '1' },
+        { id: 5, name: '5' },
+        { id: 10, name: '10' },
+        { id: 50, name: '50' },
+        { id: 100, name: '100' },
+      ],
+      viewers_limit: 0,
+      searchGuests: null,
+      guests: [],
+      selected_guests: [],
       creatingInterval: null,
       remainingInterval: null,
       remainingSeconds: 0,
@@ -97,10 +109,11 @@ export default {
     }
   },
 
-  // watch: {
-  //   '$route' (toPath, fromPath) {
-  //   }
-  // },
+  watch: {
+    searchGuests (val) {
+      val && this.querySelections(val)
+    }
+  },
 
   created () {
     this.isPageReady = false
@@ -143,15 +156,33 @@ export default {
   },
 
   methods: {
+    querySelections (v) {
+      var params = {
+        'page': 1,
+        'per_page': 10
+      }
+      if (v.length) {
+        params['q'] = v
+      }
+      UserService.searchUsers(params).then(response => {
+        this.guests = _.map(response.body.users, (u) => ({id: u.id, name: u.username}))
+      }).catch(e => {
+        console.log('querySelections error', e.body.errors || [e.body])
+      })
+    },
+
+    saveGuests (values) {
+      // console.log('saveGuests')
+      // console.log(values)
+      // console.log(this.selected_guests)
+    },
     // openPaymentDialog () {
     //   this.closeDepositDialog()
     //   this.show_payment_dialog = true
     // },
-
     // closePaymentDialog () {
     //   this.show_payment_dialog = false
     // },
-
     // openDepositDialog () {
     //   if (this.currentUser.enabled_live_video_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
     //     this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
@@ -159,7 +190,6 @@ export default {
     //     this.show_deposit_dialog = true
     //   }
     // },
-
     // closeDepositDialog () {
     //   this.show_deposit_dialog = false
     // },

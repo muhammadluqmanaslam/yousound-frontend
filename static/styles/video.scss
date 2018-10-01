@@ -39,12 +39,12 @@
   }
 
   .btn--active .btn__content:before, .btn:focus .btn__content:before, .btn:hover .btn__content:before {
-  background-color: transparent!important;
+    background-color: transparent!important;
   }
 
   .mb-5 {
     margin-bottom: 10px!important;
-   }
+  }
 
 
   .time-info {
@@ -71,6 +71,14 @@
       margin-bottom: 300px;
       font-family: 'Work Sans';
       letter-spacing: -1px;
+    }
+
+    .form-control {
+      height: 40px;
+    }
+
+    .input-group__details {
+      display: none;
     }
 
     p {
@@ -122,8 +130,8 @@
       padding-left: 24px;
       .clipboard-btn {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 5px;
+        right: 5px;
         text-transform: none;
         box-shadow: none;
         height: 30px;
@@ -176,7 +184,7 @@
     }
 
     .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
-    box-shadow: none;
+      box-shadow: none;
     }
 
     .share-view {
@@ -191,12 +199,12 @@
       margin-bottom: 32px!important;
     }
 
-     .mt-3 {
+    .mt-3 {
       margin-top: 12px!important;
     } 
 
     .divider {
-    border: .5px dotted #ededed;
+      border: .5px dotted #ededed;
     }
 
     .o-out {

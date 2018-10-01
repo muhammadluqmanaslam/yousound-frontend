@@ -26,6 +26,42 @@
       <div class="divider mt-5 mb-5"></div>
 
       <div class="share-view">
+        <h3 class="mt-0 mb-4">Options</h3>
+        <v-flex sm4>
+          <label class="control-label">Limit broadcast to how many viewers?</label>
+          <v-select
+            :items="viewers_limits"
+            v-model="viewers_limit"
+            item-text="name"
+            item-value="id"
+            class="pt-0"
+          />
+        </v-flex>
+      </div>
+
+      <div class="divider mt-5 mb-5"></div>
+
+      <div class="share-view">
+        <h3 class="mt-0 mb-4">Guest List</h3>
+        <v-flex xs12 form-group>
+          <v-select
+            :items="guests"
+            v-model="selected_guests"
+            multiple
+            cache-items
+            chips
+            item-text="name"
+            item-value="id"
+            :search-input.sync="searchGuests"
+            @change="saveGuests"
+            autocomplete
+          ></v-select>
+        </v-flex>
+      </div>
+
+      <div class="divider mt-5 mb-5"></div>
+
+      <div class="share-view">
         <h3 class="mt-0 mb-4">Share</h3>
         <v-flex x12>
           <div class="share-social-section d-inline-block">

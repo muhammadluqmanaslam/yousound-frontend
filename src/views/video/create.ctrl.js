@@ -23,9 +23,26 @@ export default {
       periods: [],
       period: 3600,
       terms: false,
+      view_prices: [
+        { id: 0, name: 'No, viewers can watch freely' },
+        { id: 100, name: '$1' },
+        { id: 500, name: '$5' },
+        { id: 1000, name: '$10' },
+        { id: 2000, name: '$20' },
+        { id: 5000, name: '$50' },
+        { id: 10000, name: '$100' },
+        { id: 25000, name: '$250' },
+        { id: 50000, name: '$500' },
+        { id: 100000, name: '$1,000' },
+        { id: 250000, name: '$2,500' },
+        { id: 500000, name: '$5,000' },
+        { id: 1000000, name: '$10,000' },
+      ],
+      genres: [],
       stream: {
         name: '',
         description: '',
+        view_price: 0,
         ml_input_type: 'RTMP_PUSH',
         ml_input_codec: 'AVC',
         ml_input_resolution: 'HD',
@@ -73,6 +90,7 @@ export default {
 
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
+    this.genres = _.flatMap(this.$store.state.app.genres, 'children')
     if (this.currentUser.enabled_live_video_free) {
       this.periods.push({
         id: 1,
