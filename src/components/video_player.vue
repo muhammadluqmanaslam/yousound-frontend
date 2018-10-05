@@ -367,6 +367,15 @@
       <i class="fa fa-close close-btn" @click="closePlayer()"></i>
     </div>
 
+    <v-dialog v-model="show_payment_dialog">
+      <payment-modal v-if="show_payment_dialog"
+        :type="''"
+        :amount="stream.view_price"
+        :dismiss="closePaymentDialog"
+        :finish="payViewStream"
+      ></payment-modal>
+    </v-dialog>
+
     <v-dialog v-model="show_streaming_confirm_dialog" content-class="my-dialog-1">
       <v-card>
         <!-- <v-card-media :src="item.cover.url" height="125px" contain></v-card-media> -->

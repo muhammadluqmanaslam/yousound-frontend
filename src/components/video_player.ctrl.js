@@ -10,6 +10,7 @@ import UserService from '@/services/user'
 
 import downloadModal from '@/components/downloadmodal'
 import merchModal from '@/components/merchmodal'
+import paymentModal from '@/components/paymentmodal'
 import shareModal from '@/components/sharemodal'
 
 import { MyEvents } from '@/helper'
@@ -20,6 +21,7 @@ export default {
   components: {
     downloadModal,
     merchModal,
+    paymentModal,
     shareModal
   },
 
@@ -27,6 +29,7 @@ export default {
     return {
       player: null,
       time: 0,
+      show_payment_dialog: false,
       show_streaming_confirm_dialog: false,
       show_stream_delete_confirm_dialog: false,
       show_album_merch_popup: false,
@@ -127,7 +130,19 @@ export default {
       console.log('video-player initializing...')
       // this.player.load('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
-      this.openStreamingConfirmDialog()
+      // this.openStreamingConfirmDialog()
+      StreamService.canViewStream(this.stream.id).then(response => {
+        if (response.body.code) {
+          console.log(1, response.body.code)
+          this.openStreamingConfirmDialog()
+        } else if (response.body.amount > 0) {
+          console.log(2, response.body.amount)
+          this.openPaymentDialog()
+        } else {
+          console.log(3, response.body.message)
+          this.$store.dispatch('error/showErrorToast', [response.body.message])
+        }
+      })
     },
 
     initPlayer (url) {
@@ -319,6 +334,14 @@ export default {
       this.$router.push({ path: '/' + path })
     },
 
+    openPaymentDialog () {
+      this.show_payment_dialog = true
+    },
+
+    closePaymentDialog () {
+      this.show_payment_dialog = false
+    },
+
     openDownloadModal () {
       this.show_download_modal = true
     },
@@ -410,6 +433,21 @@ export default {
       })
     },
 
+    payViewStream (token) {
+      let params = {
+        'amount': this.stream.view_price
+      }
+      if (token) {
+        params['payment_token'] = token.id
+      }
+      StreamService.payViewStream(this.stream.id, params).then(response => {
+        this.closePaymentDialog()
+        this.openStreamingConfirmDialog()
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
     viewStream () {
       StreamService.viewStream(this.stream.id).then(response => {
         this.getMetrics()
@@ -472,6 +510,17 @@ export default {
       this.initPlayer(this.stream.mp_channel_1_ep_1_url)
       this.player.load()
       this.player.fullscreen()
+
+      // setTimeout(() => {
+      //   console.log('videoPlayer onClick setTimeout')
+      //   // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
+      //   // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
+      //   // this.getMetrics()
+      //   this.viewStream()
+      //   this.initPlayer(this.stream.mp_channel_1_ep_1_url)
+      //   this.player.load()
+      //   this.player.fullscreen()
+      // }, 3000)
     }
   },
 

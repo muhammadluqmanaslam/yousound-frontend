@@ -34,6 +34,7 @@
             v-model="viewers_limit"
             item-text="name"
             item-value="id"
+            @change="saveViewersLimit"
             class="pt-0"
           />
         </v-flex>

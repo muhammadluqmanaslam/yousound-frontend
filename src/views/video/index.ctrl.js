@@ -124,6 +124,13 @@ export default {
 
       AuthService.setUser(response.body)
       this.$store.dispatch('auth/setStream', response.body.stream)
+
+      this.viewers_limit = this.currentUser.stream.viewers_limit
+      // this.selected_guests = ['e0e54729-a1d6-4d8c-8a76-6fc207e6c210']
+      // this.guests = _.cloneDeep(this.currentUser.stream.guests)
+      this.guests = _.map(this.currentUser.stream.guests, (u) => ({id: u.id, name: u.username}))
+      this.selected_guests = _.map(this.currentUser.stream.guests, 'id')
+
       const stream_status = _.get(response.body, 'stream.status', '')
       if (stream_status === '') {
         this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
@@ -171,11 +178,38 @@ export default {
       })
     },
 
+    saveViewersLimit (value) {
+      // console.log('saveViewersLimit')
+      // console.log(value)
+      // console.log(this.viewers_limit)
+      if (value == this.viewers_limit) return
+
+      const params = {
+        stream: {
+          viewers_limit: value
+        }
+      }
+      StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
+      }).catch(e => {
+        console.log('saveViewersLimit', e.body.errors || [e.body])
+      })
+    },
+
     saveGuests (values) {
       // console.log('saveGuests')
       // console.log(values)
       // console.log(this.selected_guests)
+      const params = {
+        stream: {
+          guests_ids: values.join(',')
+        }
+      }
+      StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
+      }).catch(e => {
+        console.log('saveGuests', e.body.errors || [e.body])
+      })
     },
+
     // openPaymentDialog () {
     //   this.closeDepositDialog()
     //   this.show_payment_dialog = true

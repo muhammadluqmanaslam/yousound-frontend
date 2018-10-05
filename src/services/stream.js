@@ -32,6 +32,14 @@ export default {
     return Vue.http.get(`${API_BASE_URL}/${streamId}/repost`, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  canViewStream (streamId) {
+    return Vue.http.get(`${API_BASE_URL}/${streamId}/can_view`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
+  payViewStream (streamId, params) {
+    return Vue.http.post(`${API_BASE_URL}/${streamId}/pay_view`, params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   viewStream (streamId) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}/view`, { headers: { 'Authorization': $store.state.auth.token } })
   }
