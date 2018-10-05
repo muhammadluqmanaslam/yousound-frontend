@@ -42,14 +42,14 @@ export default {
       currentTab: '',
       slide_tab: '',
       tabs: [
-        { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
+        { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'songs', title: 'Albums', roles: ['artist'] },
-        { id: 'downloaded', title: 'Downloaded' },
-        { id: 'reposted', title: 'Reposted' },
+        { id: 'merch', title: 'Merch', roles: ['artist', 'brand', 'label'] },
         { id: 'playlists', title: 'Playlists' },
-        { id: 'followings', title: 'Following' },
-        { id: 'merch', title: 'Merch', roles: ['artist', 'brand', 'label'] }
+        { id: 'reposted', title: 'Reposted' },
+        { id: 'downloaded', title: 'Downloaded' },
+        { id: 'followings', title: 'Following' }
       ],
       slug: null,
       user: {
@@ -208,19 +208,19 @@ export default {
         }
 
         // put 'merch' tab first for brand
-        if (this.user.user_type == 'brand') {
-          if (this.tabs[7].id === 'merch') {
-            this.tabs.unshift(this.tabs.pop())
-            // const arr = this.tabs.slice()
-            // this.tabs = arr
-            // console.log(this.tabs[0].id, this.tabs[7].id)
-          }
-        } else {
-          if (this.tabs[7].id !== 'merch') {
-            this.tabs.push(this.tabs.shift())
-            // console.log(this.tabs[0].id, this.tabs[7].id)
-          }
-        }
+        // if (this.user.user_type == 'brand') {
+        //   if (this.tabs[7].id === 'merch') {
+        //     this.tabs.unshift(this.tabs.pop())
+        //     // const arr = this.tabs.slice()
+        //     // this.tabs = arr
+        //     // console.log(this.tabs[0].id, this.tabs[7].id)
+        //   }
+        // } else {
+        //   if (this.tabs[7].id !== 'merch') {
+        //     this.tabs.push(this.tabs.shift())
+        //     // console.log(this.tabs[0].id, this.tabs[7].id)
+        //   }
+        // }
 
         if (tab) {
           this.currentTab = tab
