@@ -67,16 +67,16 @@
         donate_amount: 0,
         description: 'Donation',
         descriptions: [
-          'Donation',
-          'Remix',
-          'Vocalist',
-          'Production',
-          'Vocal Production',
-          'Mixing',
-          'Mastering',
-          'Artwork',
-          'Writer',
-          'Session Musician'
+          'Donation'
+          // 'Remix',
+          // 'Vocalist',
+          // 'Production',
+          // 'Vocal Production',
+          // 'Mixing',
+          // 'Mastering',
+          // 'Artwork',
+          // 'Writer',
+          // 'Session Musician'
         ],
         showPaymentModal: false,
         buttonHover: false
