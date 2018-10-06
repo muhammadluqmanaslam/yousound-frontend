@@ -89,8 +89,8 @@ export default {
     deep: true
   }
 }
-
 </script>
+
 <style>
 .bubble {
   width: 17px;
@@ -116,5 +116,4 @@ export default {
   margin: 0;
   background-color: #B1B1B1
 }
-
 </style>

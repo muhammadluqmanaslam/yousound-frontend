@@ -81,6 +81,14 @@ export default {
     }
   },
 
+  watch: {
+    '$route' (toPath, fromPath) {
+      // console.log('video-player', toPath.path, fromPath.path)
+      this.show_payment_dialog = false
+      this.show_streaming_confirm_dialog = false
+    }
+  },
+
   created () {
     console.log('video-player created')
     // this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
@@ -133,13 +141,13 @@ export default {
       // this.openStreamingConfirmDialog()
       StreamService.canViewStream(this.stream.id).then(response => {
         if (response.body.code) {
-          console.log(1, response.body.code)
+          // console.log(1, response.body.code)
           this.openStreamingConfirmDialog()
         } else if (response.body.amount > 0) {
-          console.log(2, response.body.amount)
+          // console.log(2, response.body.amount)
           this.openPaymentDialog()
         } else {
-          console.log(3, response.body.message)
+          // console.log(3, response.body.message)
           this.$store.dispatch('error/showErrorToast', [response.body.message])
         }
       })
