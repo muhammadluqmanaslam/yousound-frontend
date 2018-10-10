@@ -169,7 +169,7 @@
             </v-layout>
             <v-flex xs12 mt-2>
               <v-checkbox
-                label="International seller click for VAT tax"
+                label="International sellers check for VAT/GST"
                 v-model="product.is_vat"
                 @change="resetTaxPercent"
               />

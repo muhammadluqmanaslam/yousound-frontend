@@ -24,7 +24,7 @@ export default {
       period: 3600,
       terms: false,
       view_prices: [
-        { id: 0, name: 'No, viewers can watch freely' },
+        { id: 0, name: 'No' },
         { id: 100, name: '$1' },
         { id: 500, name: '$5' },
         { id: 1000, name: '$10' },

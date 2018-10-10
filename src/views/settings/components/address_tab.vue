@@ -1,7 +1,7 @@
 <template>
   <div class="main-section">
     <div class="description-section">
-      <p>Add or change your default shipping address for all of the physical orders you place.</p>
+      <p>Add or change your default shipping address for all of the physical orders you place</p>
     </div>
 
     <div class="content-section">

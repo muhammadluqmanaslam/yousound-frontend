@@ -21,7 +21,7 @@
 
       <div class="main-section" v-if="tab=='info'">
         <div class="description-section">
-          <p>Update your profile here.</p>
+          <p>Update your profile information</p>
         </div>
         <div class="content-section">
           <v-flex xs12 profile-section pa-0>
@@ -95,7 +95,7 @@
       </div>
       <div class="main-section" v-else-if="tab=='password'">
         <div class="description-section">
-          <p>Change your password here.</p>
+          <p>Change your password</p>
         </div>
         <div class="content-section">
           <v-layout row wrap ma-0 password-section>
@@ -135,8 +135,7 @@
       </div>
       <div class="main-section" v-else-if="tab=='bank-details'">
         <div class="description-section">
-          <p>In order to accept payments, you must sign up for a <a href="https://stripe.com/" target="_blank">Stripe.com</a> account.</p>
-          <p>Stripe will handle all of your banking information, report transaction details, refunds and/or disputes on their site.</p>
+          <p>In order to withdrawal funds, you must sign up for a <a href="https://stripe.com/" target="_blank">Stripe.com</a> account. <br>Stripe will handles your banking information, refunds and/or disputes.</p>
           <p></p>
         </div>
         <div class="content-section">
@@ -161,7 +160,7 @@
       <genre-tab v-else-if="tab=='genre-filter'"/>
       <div class="main-section" v-else-if="tab=='blocked'">
         <div class="description-section">
-          <p>You can unblock users here.</p>
+          <p>You can unblock users here</p>
         </div>
         <div class="content-section">
           <v-layout row wrap bocked-user-section ma-0>

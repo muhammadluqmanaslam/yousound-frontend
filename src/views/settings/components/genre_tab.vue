@@ -2,7 +2,7 @@
   <div class="main-section">
     <div class="description-section genre">
       <label>Tailor your experience by removing music genres you don't like.</label>
-      <label>You will no longer see the selected genres on the site, unless you visit a specific profile, or unhide the genre.</label>
+      <label>You will no longer see the selected genres unless you visit a specific profile, or unhide the genre.</label>
     </div>
 
     <v-container grid-list-lg pa-0 class="content-section genre" v-if="isPageReady">

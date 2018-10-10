@@ -2,7 +2,7 @@
   <div class="page video-page index-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
       <h2 class="page-title">Live Video</h2>
-      <p class="page-subtitle mt-5 mb-4">You will get stream info as soon as stream has started</p>
+      <p class="page-subtitle mt-5 mb-4">It can take up to 5 mins to get your stream keys, get ready to broadcast!</p>
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 v-if="isPageReady">

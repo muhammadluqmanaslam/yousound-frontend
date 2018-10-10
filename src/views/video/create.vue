@@ -28,7 +28,7 @@
               <div class="o-out green0"><div class="o-in"></div></div>
               <div class="my-card__title">Step 3:</div>
               <div class="my-card__subtitle">Pay for what you use</div>
-              <div class="my-card__text">Pay $5 per hour.  After payment, you will receive your stream key.</div>
+              <div class="my-card__text">Pay per hour.  After payment, you will receive your stream key.</div>
             </div>
           </v-flex>
         </v-layout>
@@ -37,7 +37,7 @@
 
         <v-layout row>
           <v-flex sm3 form-group mr-4>
-            <label class="control-label">Name of your stream?</label>
+            <label class="control-label">Title of stream?</label>
             <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
           </v-flex>
 
@@ -67,7 +67,7 @@
           </v-flex>
 
           <v-flex sm3>
-            <label class="control-label">How long do you want to stream?</label>
+            <label class="control-label">Duration</label>
             <v-select
               v-bind:items="periods"
               v-model="period"

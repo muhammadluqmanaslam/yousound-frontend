@@ -153,7 +153,7 @@ export default {
         }
       } else if (item.quantity > item.product_variant.quantity) {
         return {
-          text: 'lack of stock',
+          text: 'low quantity',
           style: 'warning'
         }
       } else {
