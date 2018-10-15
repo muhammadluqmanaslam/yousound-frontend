@@ -43,8 +43,9 @@
                     <th width="10%">Type</th>
                     <th width="10%">Status</th>
                     <th width="10%">Date</th>
-                    <th width="10%">Message</th>
                     <th width="10%" v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && tab.id == 'received'">Refund</th>
+                                        <th width="10%">Message</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -98,9 +99,6 @@
                     </td>
                     <td class="text-xs-center" :class="{'error--text': history.status == 'pending'}">{{ history.status | capitalize }}</td>
                     <td class="text-xs-center">{{ history.created_at | formatDate }}</td>
-                    <td class="text-xs-center">
-                      <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
-                    </td>
                     <td v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && tab.id == 'received'">
                       <v-btn v-if="history.payment_type == 'buy' && history.sent_amount > history.refund_amount"
                         round dark
@@ -108,6 +106,9 @@
                         class="send-refund-btn"
                         @click.native="openRefundDialog(history)"
                       >Refund</v-btn>
+                    </td>
+                    <td class="text-xs-center">
+                      <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
                     </td>
                   </tr>
                 </tbody>

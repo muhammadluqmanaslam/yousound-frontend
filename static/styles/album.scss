@@ -560,6 +560,10 @@
                 font-size: 20px;
                 letter-spacing: -0.7px;
                 cursor: pointer;
+                width: 250px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
               .merch-price {
                 display: block;
