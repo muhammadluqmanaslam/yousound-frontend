@@ -1,17 +1,5 @@
 <template>
   <v-layout row wrap class="page sell-page product-page">
-    <v-dialog v-model="collaborators_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Confirm Collaborators</v-card-title>
-        <v-card-text>Make sure to add any collaborators to your product, once it's uploaded you won't be able to add collaborators</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProduct()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideCollaboratorsConfirmDialog()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Sell</h2>
     </v-flex>
@@ -46,7 +34,8 @@
                 item-value="id"
                 v-model="product.category"
                 class="pt-0"
-                autocomplete></v-select>
+                autocomplete
+              ></v-select>
             </v-flex>
             <v-flex xs12 mt-5>
               <v-checkbox value="show_only_stream" label="Only For Live Stream" v-model="product.show_status"></v-checkbox>
@@ -54,6 +43,7 @@
             </v-flex>
           </v-flex>
         </v-flex>
+
         <v-flex xs12 sm6>
           <v-flex xs12 section-title>
             <h4>Pricing & Options</h4>
@@ -65,7 +55,7 @@
             </v-flex> -->
             <v-flex xs12 price-option-section>
               <h4 class="option-title">Price & Options({{ product.variants.length }})
-                <v-btn class="add-option-btn" @click.native="addVariant()">
+                <v-btn class="add-option-btn" @click.native="addVariant()" v-if="!isDigitalProduct">
                   <v-icon>add</v-icon>
                 </v-btn>
               </h4>
@@ -75,7 +65,7 @@
                 <label class="control-label">Name</label>
                 <input type="text" class="form-control" v-model="variant.name">              
               </v-flex>
-              <v-flex xs12 sm4>
+              <v-flex xs12 sm4 v-if="!isDigitalProduct">
                 <label class="control-label">In Stock</label>
                 <input type="text" class="form-control" v-model="variant.quantity">              
               </v-flex>
@@ -88,7 +78,8 @@
             </v-layout>
           </v-flex>
         </v-flex>
-        <v-flex xs12 sm6>
+
+        <v-flex xs12 sm6 v-if="!isDigitalProduct">
           <v-flex xs12 section-title>
             <h4>Shipping & Tax</h4>
           </v-flex>
@@ -176,6 +167,16 @@
             </v-flex>
           </v-flex>
         </v-flex>
+        <v-flex xs12 sm6 v-else>
+          <v-flex xs12 section-title>
+            <h4>Digital Product Upload</h4>
+          </v-flex>
+          <v-flex xs12 product-section>
+            <h4 class="option-title">.Zip file only, 2GB max upload</h4>
+            <digital-uploader :digitalContent = "digital_content" />
+          </v-flex>
+        </v-flex>
+
         <v-flex xs12 sm6>
           <v-flex xs12 section-title>
             <h4>Images</h4>
@@ -326,6 +327,18 @@
         </v-flex>
       </v-layout>
     </v-flex>
+
+    <v-dialog v-model="collaborators_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Confirm Collaborators</v-card-title>
+        <v-card-text>Make sure to add any collaborators to your product, once it's uploaded you won't be able to add collaborators</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="saveProduct()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideCollaboratorsConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 

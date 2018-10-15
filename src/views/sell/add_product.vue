@@ -56,6 +56,7 @@
             </v-flex>
           </v-flex>
         </v-flex>
+
         <v-flex xs12 sm6>
           <v-flex xs12 section-title>
             <h4>Pricing & Options</h4>
@@ -67,7 +68,7 @@
             </v-flex> -->
             <v-flex xs12 price-option-section>
               <h4 class="option-title">Price & Options ({{ product.variants.length }})
-                <v-btn class="add-option-btn" @click.native="addVariant()">
+                <v-btn class="add-option-btn" @click.native="addVariant()" v-if="product.category != digital_content_category_id">
                   <v-icon>add</v-icon>
                 </v-btn>
               </h4>
@@ -77,7 +78,7 @@
                 <label class="control-label">Option Name</label>
                 <input type="text" class="form-control" v-model="variant.name">              
               </v-flex>
-              <v-flex xs12 sm4>
+              <v-flex xs12 sm4 v-if="product.category != digital_content_category_id">
                 <label class="control-label">In Stock</label>
                 <input type="text" class="form-control" v-model="variant.quantity">              
               </v-flex>
@@ -89,7 +90,8 @@
             </v-layout>
           </v-flex>
         </v-flex>
-        <v-flex xs12 sm6>
+
+        <v-flex xs12 sm6 v-if="product.category != digital_content_category_id">
           <v-flex xs12 section-title>
             <h4>Shipping & Tax</h4>
           </v-flex>
@@ -176,6 +178,16 @@
             </v-flex>
           </v-flex>
         </v-flex>
+        <v-flex xs12 sm6 v-else>
+          <v-flex xs12 section-title>
+            <h4>Digital Product Upload</h4>
+          </v-flex>
+          <v-flex xs12 product-section>
+            <h4 class="option-title">.Zip file only, 2GB max upload</h4>
+            <digital-uploader :digitalContent = "digital_content" />
+          </v-flex>
+        </v-flex>
+
         <v-flex xs12 sm6>
           <v-flex xs12 section-title>
             <h4>Images</h4>

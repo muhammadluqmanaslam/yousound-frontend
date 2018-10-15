@@ -1045,6 +1045,26 @@
         cursor: pointer;
       }
     }
+    /* zip uploader */
+    .uploaderBox {
+      padding-top: 0px;
+      .uploaderBox__input {
+        text-align: left;
+      }
+      .uploaderBox__file + label {
+        display: inline-flex;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .uploaderBox__desc {
+        margin: 10px 0 0 0;
+        // align-self: center;
+        input[type="text"] {
+          width: calc(100% - 30px);
+          padding: 4px 8px;
+        }
+      }
+    }
   }
   .collaborator-section {
     margin: 7.5px;
@@ -1117,13 +1137,13 @@
     line-height: 37.5px;
   }
   .chip {
-  background: #ffffff;
+    background: #ffffff;
   }
   .input-group--select .input-group__input {
     min-height: 30px;
   }
   .list__tile {
-  height: 40px;
+    height: 40px;
   }
   .input-group--select .input-group__selections__comma {
     font-size: 15px;

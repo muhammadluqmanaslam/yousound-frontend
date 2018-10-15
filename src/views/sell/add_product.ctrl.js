@@ -4,9 +4,11 @@ import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
 import { CollaboratorProfitShareTypes } from '@/helper'
+import digitalUploader from './components/digital_uploader'
 
 export default {
   components: {
+    digitalUploader
   },
 
   data () {
@@ -15,6 +17,10 @@ export default {
       destinations: [],
       countries: [],
       states: [],
+      digital_content_category_id: '',
+      digital_content: {
+        file: null
+      },
       product: {
         name: '',
         description: '',
@@ -59,15 +65,23 @@ export default {
       if (this.product.variants.length) {
         for (let index in this.product.variants) {
           const variant = this.product.variants[index]
-          isAvailable = isAvailable && (variant.name.length && (parseFloat(variant.quantity) > 0) && (parseFloat(variant.price) > 0))
+          isAvailable = isAvailable && (
+            variant.name.length &&
+            (this.product.category == this.digital_content_category_id || parseFloat(variant.quantity) > 0) &&
+            (parseFloat(variant.price) > 0)
+          )
         }
-        if (this.product.shipments.length) {
-          for (let index in this.product.shipments) {
-            const shipment = this.product.shipments[index]
-            isAvailable = isAvailable && (shipment.country.length && (parseFloat(shipment.shipment_alone_price) > 0) && (parseFloat(shipment.shipment_with_price) > 0))
-          }
+        if (this.product.category == this.digital_content_category_id) {
+          isAvailable = isAvailable && this.digital_content.file
         } else {
-          isAvailable = false
+          if (this.product.shipments.length) {
+            for (let index in this.product.shipments) {
+              const shipment = this.product.shipments[index]
+              isAvailable = isAvailable && (shipment.country.length && (parseFloat(shipment.shipment_alone_price) > 0) && (parseFloat(shipment.shipment_with_price) > 0))
+            }
+          } else {
+            isAvailable = false
+          }
         }
       } else {
         isAvailable = false
@@ -108,15 +122,17 @@ export default {
         // UserService.searchUsers(params)
         ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params)
       ]).then(values => {
-        for(let index in values[0].body) {
-          const item = values[0].body[index]
-          const category = {
-            id: item.id,
-            name: item.name,
-            description: item.description
-          }
-          this.product_categories.push(category)
-        }
+        // for(let index in values[0].body) {
+        //   const item = values[0].body[index]
+        //   const category = {
+        //     id: item.id,
+        //     name: item.name,
+        //     description: item.description
+        //   }
+        //   this.product_categories.push(category)
+        // }
+        this.product_categories = values[0].body
+        this.digital_content_category_id = _.chain(this.product_categories).find((pc) => (pc.name == 'Digital Product')).get('id').value()
 
         this.users = values[1].body.users
 
@@ -250,6 +266,10 @@ export default {
       formData.append('shop_product[tax_percent]', _.get(this.product, 'tax_percent', 0))
       formData.append('shop_product[is_vat]', _.get(this.product, 'is_vat', false))
       formData.append('shop_product[seller_location]', _.get(this.product, 'seller_location', ''))
+
+      if (this.product.category == this.digital_content_category_id) {
+        formData.append('shop_product[digital_content]', this.digital_content.file)
+      }
 
       ProductService.addProduct(formData).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
