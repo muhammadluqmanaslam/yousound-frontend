@@ -78,7 +78,8 @@
                           <div class="product-content">
                             <v-flex sm12 class="product-content-row">
                               <label class="product-name">{{ item.product.name }}</label>
-                              <label class="product-count">Quantity: <b>{{ item.quantity }}</b></label>
+                              <label class="product-count" v-if="item.product.category.id == digital_content_category_id"><b>Digital Product</b></label>
+                              <label class="product-count" v-else>Quantity: <b>{{ item.quantity }}</b></label>
                             </v-flex>
                             <v-flex sm12 class="product-content-row" pt-1>
                               <label class="product-price">${{ item.price|formatNumber }}</label>

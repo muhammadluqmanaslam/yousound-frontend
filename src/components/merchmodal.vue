@@ -37,13 +37,15 @@
           <v-flex xs12 sm10>
             <v-select
               :items="options"
-              label="Options"
+              label="Out of Stock"
               item-text="name"
               item-value="id"
               v-model="option"
+              class="large"
               single-line
               bottom
-              hide-details></v-select>
+              hide-details
+            ></v-select>
             <v-btn class="add-to-cart-btn" @click.native="addToCart()" :disabled="option=='' || option==null">
               <svg width="29px" height="22px" viewBox="0 0 29 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
@@ -198,6 +200,10 @@
         return this.showPolicySection ? 'Close Policy' : 'Return Policy'
       },
 
+      isDigitalProduct () {
+        return _.get(this.item, 'category.id', '') === this.$store.getters['app/digitalCategoryId']
+      },
+
       options () {
         var options = []
         // const defaultOption = {
@@ -207,7 +213,7 @@
         // options.push(defaultOption)
         for (let index in this.item.variants) {
           const variant = this.item.variants[index]
-          if (variant.quantity > 0) {
+          if (this.isDigitalProduct || variant.quantity > 0) {
             const option = {
               id: variant.id,
               name: variant.name
@@ -243,7 +249,8 @@
     },
 
     created () {
-      this.option = _.get(_.find(this.item.variants, (v) => (v.quantity > 0)), 'id', null)
+      // this.option = _.get(_.find(this.item.variants, (v) => (v.quantity > 0)), 'id', null)
+      this.option = _.get(this.options, '[0].id', null)
     },
 
     methods: {

@@ -118,23 +118,14 @@ export default {
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
-        CategoryService.getCategories(),
+        // CategoryService.getCategories(),
         // UserService.searchUsers(params)
         ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params)
       ]).then(values => {
-        // for(let index in values[0].body) {
-        //   const item = values[0].body[index]
-        //   const category = {
-        //     id: item.id,
-        //     name: item.name,
-        //     description: item.description
-        //   }
-        //   this.product_categories.push(category)
-        // }
-        this.product_categories = values[0].body
-        this.digital_content_category_id = _.chain(this.product_categories).find((pc) => (pc.name == 'Digital Product')).get('id').value()
+        this.product_categories = this.$store.state.app.product_categories
+        this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
 
-        this.users = values[1].body.users
+        this.users = values[0].body.users
 
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)

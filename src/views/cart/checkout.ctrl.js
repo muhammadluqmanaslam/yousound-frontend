@@ -13,6 +13,7 @@ export default {
     return {
       cartItems: [],
       shippingAddress: [],
+      digital_content_category_id: '',
       showAddress: true,
       showPaymentModal: false,
       cartCost: {
@@ -52,6 +53,8 @@ export default {
       this.cartItems = values[0].body
       this.cartCost = values[1].body
       // this.shippingAddress = values[2].body
+      this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
+
       this.isPageReady = true
       this.$store.dispatch('error/showLoadingActivity', false)
     }).catch(reason => {
@@ -63,7 +66,12 @@ export default {
 
   methods: {
     productStatus (item) {
-      if (['published', 'collaborated'].indexOf(item.product.status) === -1 || item.product.stock_status !== 'active') {
+      if (item.product.category.id == this.digital_content_category_id) {
+        return {
+          text: 'digital content',
+          style: 'success'
+        }
+      } else if (['published', 'collaborated'].indexOf(item.product.status) === -1 || item.product.stock_status !== 'active') {
         return {
           text: 'out of stock',
           style: 'error'

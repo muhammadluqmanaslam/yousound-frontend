@@ -31,6 +31,7 @@ export default {
         { id: 'collaborator_shipped', name: 'Collaborated Shipped' }
       ],
       filter_status: '',
+      digital_content_category_id: '',
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
@@ -114,6 +115,7 @@ export default {
       ]).then(values => {
         this.orderHistories = values[0].body.orders
         this.products = values[1].body
+        this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
 
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)

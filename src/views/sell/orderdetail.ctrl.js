@@ -9,6 +9,7 @@ export default {
   data () {
     return {
       active: 'none',
+      digital_content_category_id: '',
       order_id: null,
       order_detail: null,
       isPageReady: false
@@ -28,7 +29,11 @@ export default {
       var sum = 0
       for (let index in this.order_detail.items) {
         const item = this.order_detail.items[index]
-        sum += item.price * item.quantity
+        if (item.product.category.id == this.digital_content_category_id) {
+          sum += item.price
+        } else {
+          sum += item.price * item.quantity
+        }
       }
       return sum
     },
@@ -80,6 +85,8 @@ export default {
         OrderService.getOrder(this.order_id)
       ]).then(values => {
         this.order_detail = values[0].body
+        this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
+
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(reason => {

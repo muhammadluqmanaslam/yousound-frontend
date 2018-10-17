@@ -60,19 +60,23 @@
                           <v-flex sm12 class="product-content-row">
                             <label class="product-name">{{ item.product.name }} | {{ item.product_variant.name }}</label>
                             <label class="product-status" :class="productStatusStyle(item)">{{ productStatusText(item) }}</label>
-                            <v-btn
-                              class="product-count-adjust-btn active"
-                              @click.native="addQuantity(item)">
-                              <v-icon>add</v-icon>
-                            </v-btn>
-                            <label class="product-count">{{ item.quantity }}</label>
-                            <v-btn 
-                              class="product-count-adjust-btn"
-                              :class="{'active': item.quantity > 1}"
-                              :disabled="item.quantity <= 1"
-                              @click.native="removeQuantity(item)">
-                              <v-icon>remove</v-icon>
-                            </v-btn>
+                            <template v-if="item.product.category.id != digital_content_category_id">
+                              <v-btn
+                                class="product-count-adjust-btn active"
+                                @click.native="addQuantity(item)"
+                              >
+                                <v-icon>add</v-icon>
+                              </v-btn>
+                              <label class="product-count">{{ item.quantity }}</label>
+                              <v-btn 
+                                class="product-count-adjust-btn"
+                                :class="{'active': item.quantity > 1}"
+                                :disabled="item.quantity <= 1"
+                                @click.native="removeQuantity(item)"
+                              >
+                                <v-icon>remove</v-icon>
+                              </v-btn>
+                            </template>
                           </v-flex>
                           <v-flex sm12 class="product-content-row">
                             By <router-link :to="`/${item.product.merchant.slug}`" class="user-name" href="#">{{ item.product.merchant.display_name }}</router-link>
@@ -122,13 +126,19 @@
                         <div class="product-content">
                           <v-flex sm12 class="product-content-row">
                             <label class="product-name">{{ item.product.name }}</label>
-                            <label class="product-count">Quantity: <b>{{ item.quantity }}</b></label>
+                            <label class="product-count" v-if="item.product.category.id == digital_content_category_id"><b>Digital Product</b></label>
+                            <label class="product-count" v-else>Quantity: <b>{{ item.quantity }}</b></label>
                           </v-flex>
                           <v-flex sm12 class="product-content-row">
                             <router-link class="user-name" :to = "'/' + item.product.merchant.slug">{{ item.product.merchant.display_name }}</router-link>
                           </v-flex>
                           <v-flex sm12 class="product-content-row">
-                            <label class="product-price">${{ order.items[0].price|formatNumber }}</label>
+                            <label class="product-price">${{ item.product_variant.price | formatNumber }}</label>
+                            <a v-if="item.product.category.id == digital_content_category_id && item.status == 'item_shipped'"
+                              :href="item.product.digital_content.url"
+                              class="product-link"
+                              target="_blank"
+                            >Download</a>
                           </v-flex>
                         </div>
                         <v-menu v-if="order.status == 'order_shipped' && order.enabled_address"

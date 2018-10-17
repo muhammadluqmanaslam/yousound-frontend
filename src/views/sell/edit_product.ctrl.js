@@ -45,11 +45,11 @@ export default {
           const variant = this.product.variants[index]
           isAvailable = isAvailable && (
             variant.name.length &&
-            (this.product.category.id == this.digital_content_category_id || parseFloat(variant.quantity) > 0) &&
+            (this.product.category == this.digital_content_category_id || parseFloat(variant.quantity) > 0) &&
             (parseFloat(variant.price) > 0)
           )
         }
-        if (this.product.category.id == this.digital_content_category_id) {
+        if (this.product.category == this.digital_content_category_id) {
           isAvailable = isAvailable && this.digital_content.file
         } else {
           if (this.product.shipments.length) {
@@ -72,7 +72,8 @@ export default {
     },
 
     isDigitalProduct () {
-      return _.get(this.product, 'category.id') == this.digital_content_category_id
+      console.log('isDigitalProduct', this.digital_content_category_id, this.product.category)
+      return this.product.category == this.digital_content_category_id
     },
 
     artists() {
@@ -101,26 +102,18 @@ export default {
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
-        CategoryService.getCategories(),
+        // CategoryService.getCategories(),
         // UserService.searchUsers(params),
         ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params),
         ProductService.getProduct(this.prod_id)
       ]).then(values => {
-        // for(let index in values[0].body) {
-        //   const item = values[0].body[index]
-        //   const category = {
-        //     id: item.id,
-        //     name: item.name,
-        //     description: item.description
-        //   }
-        //   this.product_categories.push(category)
-        // }
-        this.product_categories = values[0].body
-        this.digital_content_category_id = _.chain(this.product_categories).find((pc) => (pc.name == 'Digital Product')).get('id').value()
+        this.product_categories = this.$store.state.app.product_categories
+        this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
 
-        this.users = values[1].body.users
+        this.users = values[0].body.users
 
-        this.product = values[2].body
+        this.product = values[1].body
+        this.product.category = _.get(this.product, 'category.id', '')
         this.product.creator_recoup_cost /= 100
         this.product_image1_url = this.product.covers[0].cover.url
         this.product_image2_url = this.product.covers[1].cover.url
@@ -268,11 +261,12 @@ export default {
       } else {
         formData.append('shop_product[show_status]', 'show_all')
       }
-      if (this.product.category.id) {
-        formData.append('shop_product[category_id]', this.product.category.id)
-      } else {
-        formData.append('shop_product[category_id]', this.product.category)
-      }
+      // if (this.product.category.id) {
+      //   formData.append('shop_product[category_id]', this.product.category.id)
+      // } else {
+      //   formData.append('shop_product[category_id]', this.product.category)
+      // }
+      formData.append('shop_product[category_id]', this.product.category)
       formData.append('shop_product[price]', Math.round(this.product.price * 100))
       for (let index in this.product.variants) {
         this.product.variants[index].price = Math.round(this.product.variants[index].price * 100)

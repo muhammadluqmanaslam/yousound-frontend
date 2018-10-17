@@ -1,11 +1,5 @@
 <template>
   <div class="page cart-page">
-    <payment-modal v-if="showPaymentModal"
-      :type="''"
-      :amount="cartCost.total_cost"
-      :dismiss="closePaymentDialog"
-      :finish="orderItems"></payment-modal>
-
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Checkout</h2>
     </v-flex>
@@ -69,19 +63,23 @@
                   <v-flex sm12 class="product-content-row">
                     <label class="product-name">{{ item.product.name }} | {{ item.product_variant.name }}</label>
                     <label class="product-status" :class="productStatusStyle(item)">{{ productStatusText(item) }}</label>
-                    <v-btn
-                      class="product-count-adjust-btn active"
-                      @click.native="addQuantity(item)">
-                      <v-icon>add</v-icon>
-                    </v-btn>
-                    <label class="product-count">{{ item.quantity }}</label>
-                    <v-btn
-                      class="product-count-adjust-btn"
-                      :class="{'active': item.quantity > 1}"
-                      :disabled="item.quantity <= 1"
-                      @click.native="removeQuantity(item)">
-                      <v-icon>remove</v-icon>
-                    </v-btn>
+                    <template v-if="item.product.category.id != digital_content_category_id">
+                      <v-btn
+                        class="product-count-adjust-btn active"
+                        @click.native="addQuantity(item)"
+                      >
+                        <v-icon>add</v-icon>
+                      </v-btn>
+                      <label class="product-count">{{ item.quantity }}</label>
+                      <v-btn
+                        class="product-count-adjust-btn"
+                        :class="{'active': item.quantity > 1}"
+                        :disabled="item.quantity <= 1"
+                        @click.native="removeQuantity(item)"
+                      >
+                        <v-icon>remove</v-icon>
+                      </v-btn>
+                    </template>
                   </v-flex>
                   <v-flex sm12 class="product-content-row">
                     By <router-link :to="`/${item.product.merchant.slug}`" class="user-name" href="#">{{ item.product.merchant.display_name }}</router-link>
@@ -97,6 +95,13 @@
           </div>
         </v-flex>
     </v-flex>
+
+    <payment-modal v-if="showPaymentModal"
+      :type="''"
+      :amount="cartCost.total_cost"
+      :dismiss="closePaymentDialog"
+      :finish="orderItems"
+    ></payment-modal>
   </div>
 </template>
 

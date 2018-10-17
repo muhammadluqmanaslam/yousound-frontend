@@ -344,30 +344,6 @@ input[type=password] {
   color: #E72A41;
 }
 
-.input-group__details {
-  &:before {
-    display: none;
-  }
-  &:after {
-    display: none;
-  }
-}
-
-.input-group--select {
-  label {
-    padding-left: 7.5px;
-    line-height: 30px;
-  }
-  .input-group__input {
-    min-height: 44px;
-    border: 0.75px solid #D2D2D2;
-    border-radius: 3.75px;
-    .input-group__selections {
-      padding-left: 11.25px;      
-    }
-  }
-}
-
 [disabled] {
   background-color: #FAFAFA !important;
 }

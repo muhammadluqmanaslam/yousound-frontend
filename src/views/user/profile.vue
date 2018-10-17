@@ -145,7 +145,8 @@
         <slide v-for="(product, index) in products" :key="index" :index="index">
           <product-slide-card
             :dataObject="product"
-            :showButtonAction="openPageMerchModal"></product-slide-card>
+            :showButtonAction="openPageMerchModal"
+          ></product-slide-card>
         </slide>
       </carousel-3d>
 

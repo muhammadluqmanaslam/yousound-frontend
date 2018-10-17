@@ -54,6 +54,7 @@ import debounce from 'lodash/debounce'
 
 import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
+import CategoryService from '@/services/category'
 import GenreService from '@/services/genre'
 import PlaylistService from '@/services/playlist'
 import SettingService from '@/services/setting'
@@ -131,10 +132,12 @@ export default {
   created () {
     Promise.all([
       SettingService.getSettings(),
-      GenreService.getGenres2()
+      GenreService.getGenres2(),
+      CategoryService.getCategories()
     ]).then(values => {
       this.$store.dispatch('app/setSettings', values[0].body)
       this.$store.dispatch('app/setGenres', values[1].body)
+      this.$store.dispatch('app/setProductCategories', values[2].body)
 
       if (AuthService.isAuthenticated()) {
         AuthService.checkTokenValidation().then(response => {
