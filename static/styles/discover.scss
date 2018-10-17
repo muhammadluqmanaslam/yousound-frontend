@@ -45,12 +45,12 @@
       border-radius: 4.125px;
       // transform: rotate(-180deg);
       // border: 2.475px solid #FFFFFF;
-      font-size: 18px;
+      font-size: 16px;
       letter-spacing: -0.2px;
       box-shadow: none;
       text-transform: none;
-      background: rgba(255,255,255,0) !important;
-      border: 1px solid rgba(0, 0, 0, 0.0) !important;
+      background: rgba(255,255,255,0.10) !important;
+      border: 1px solid rgba(0, 0, 0, 0.3) !important;
       color: #000;
     }
   }
@@ -74,8 +74,8 @@
     }
     .menu.filter_menu {
       .menu__activator .btn {
-        background: rgba(255,255,255,0) !important;
-        border: 1.1px solid rgba(255, 255, 255, 0) !important;
+        background: rgba(255,255,255,0.10) !important;
+        border: 1.1px solid rgba(255, 255, 255, 0.3) !important;
         color: #FFFFFF;
       }
     }
