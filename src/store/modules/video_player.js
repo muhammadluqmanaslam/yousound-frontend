@@ -2,7 +2,6 @@ import _ from 'lodash'
 
 function initialState () {
   return {
-    // user: null,
     stream: null,
     play_mode: 'stopped', // 'stopped', 'playing', 'paused'
     frame_mode: 'minimized', // 'full', 'normal', 'minimized'
@@ -15,14 +14,6 @@ const state = initialState
 const getters = {
   isInitialized: (state) => {
     return state.status !== 'inactive'
-  },
-
-  profilePath: (state) => {
-    return _.get(state.user, 'slug', '')
-  },
-
-  streamUrl: (state) => {
-    return _.get(state.user, 'stream.mp_channel_1_ep_1_url', '')
   },
 
   isPlaying: (state) => {

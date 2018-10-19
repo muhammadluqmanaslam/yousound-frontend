@@ -281,8 +281,12 @@ export default {
 
     viewStream () {
       if (this.isStreaming()) {
-        this.$store.dispatch('videoPlayer/setStream', this.currentUser.stream)
-        this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+        UserService.getUserInfo(this.currentUser.id).then(response => {
+          AuthService.setUser(response.body)
+
+          this.$store.dispatch('videoPlayer/setStream', this.currentUser.stream)
+          this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+        })
       }
     },
 

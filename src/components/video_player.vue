@@ -163,7 +163,39 @@
                 <label><strong>{{ stream.stats.followed_size }}</strong><span>followed</span></label>
               </div>
             </div>
-            <div class="stream-sector__content__right">
+
+            <div
+              class="stream-sector__content__right"
+              @mouseenter="showAttachButton = true"
+              v-if="!showAttachButton"
+            >
+              <div class="media d-flex" v-if="stream && stream.assoc_type=='Album'">
+                <div class="media__image" :style="`background-image: url(${stream.assoc.cover.thumb.url})`"></div>
+                <div class="media__content">
+                  <div class="media__title">{{ stream.assoc.name }}</div>
+                  <div class="media__description">{{ stream.assoc.tracks.length }} tracks</div>
+                </div>
+              </div>
+              <div class="media d-flex" v-else-if="stream && stream.assoc_type=='ShopProduct'">
+                <div class="media__image" :style="`background-image: url(${stream.assoc.covers[0].cover.thumb.url})`"></div>
+                <div class="media__content">
+                  <div class="media__title">{{ stream.assoc.name }}</div>
+                  <div class="media__description">${{ stream.assoc.price | formatNumber }}</div>
+                </div>
+              </div>
+              <div class="media d-flex" v-else-if="stream && stream.assoc_type=='User'">
+                <div class="media__image round" :style="`background-image: url(${stream.assoc.avatar.thumb.url})`"></div>
+                <div class="media__content">
+                  <div class="media__title">{{ stream.assoc.display_name }}</div>
+                  <div class="media__description">{{ stream.assoc.followers }} followers</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="stream-sector__content__right"
+              @mouseleave="['Album', 'ShopProduct', 'User'].indexOf(stream.assoc_type) > -1 ? showAttachButton = false : showAttachButton = true"
+              v-else
+            >
               <v-btn dark color="blue" class="display-btn" @click.native="openAlbumMerchPopup()">Display Merch / Album</v-btn>
             </div>
           </div>

@@ -42,6 +42,7 @@ export default {
       albums: [],
       products: [],
       users: [],
+      showAttachButton: false,
       buttonHover: false,
       cable: null,
       stream_subscription: null,
@@ -514,6 +515,10 @@ export default {
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
       // this.getMetrics()
+      console.log('this.stream.assoc_type', this.stream.assoc_type)
+      if (this.stream && ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1) {
+        this.showAttachButton = true
+      }
       this.viewStream()
       this.initPlayer(this.stream.mp_channel_1_ep_1_url)
       this.player.load()

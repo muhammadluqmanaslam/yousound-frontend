@@ -172,10 +172,14 @@ export default {
     },
 
     viewStream () {
-      if (this.isStreaming()) {
-        this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-        this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
-      }
+      UserService.getUserInfo(this.slug).then(response => {
+        this.user = response.body
+
+        if (this.isStreaming()) {
+          this.$store.dispatch('videoPlayer/setStream', this.user.stream)
+          this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+        }
+      })
     },
 
     init (tab, grid_view, first_visit) {
