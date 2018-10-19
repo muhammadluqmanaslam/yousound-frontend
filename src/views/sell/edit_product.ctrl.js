@@ -72,7 +72,7 @@ export default {
     },
 
     isDigitalProduct () {
-      console.log('isDigitalProduct', this.digital_content_category_id, this.product.category)
+      // console.log('isDigitalProduct', this.digital_content_category_id, this.product.category)
       return this.product.category == this.digital_content_category_id
     },
 

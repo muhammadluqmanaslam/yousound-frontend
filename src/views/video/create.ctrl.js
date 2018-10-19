@@ -90,7 +90,8 @@ export default {
 
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
-    this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+    // this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+    this.genres = this.$store.state.app.genres
     if (this.currentUser.enabled_live_video_free) {
       this.periods.push({
         id: 1,
