@@ -10,39 +10,55 @@ export default {
       parent: null,
       parent_index: 0,
       show_selector_view: true,
-      isPageRedy: false
+      isPageReady: true
     }
   },
 
+  // created () {
+  //   this.isPageReady = false
+  //   this.$store.dispatch('error/showLoadingActivity', true)
+  //   GenreService.getGenres2().then(response => {
+  //     this.genres = response.body
+  //     let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
+  //     _.each(this.genres, (genre) => {
+  //       // genre.value = !!hiddenGenres[genre.id]
+  //       // if (genre.value) {
+  //       //   _.each(genre.children, (g) => { g.value = true })
+  //       // } else {
+  //       //   _.each(genre.children, (g) => { g.value = !!hiddenGenres[g.id] })
+  //       // }
+  //       _.each(genre.children, (g) => { g.value = !hiddenGenres[g.id] })
+  //     })
+  //     // it stores only child genres statuses
+  //     _.each(this.genres, (genre) => {
+  //       if (!_.countBy(genre.children, 'value')['false']) {
+  //         genre.value = true
+  //       }
+  //     })
+  //     this.isPageReady = true
+  //     this.$store.dispatch('error/showLoadingActivity', false)
+  //     this.$forceUpdate()
+  //   }).catch(e => {
+  //     this.$store.dispatch('error/showLoadingActivity', false)
+  //   })
+  // },
+
   created () {
-    this.isPageReady = false
-    this.$store.dispatch('error/showLoadingActivity', true)
-    GenreService.getGenres2().then(response => {
-      this.genres = response.body
-      let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
+    this.genres = _.cloneDeep(this.$store.state.app.genres)
+    let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
 
-      _.each(this.genres, (genre) => {
-        // genre.value = !!hiddenGenres[genre.id]
-        // if (genre.value) {
-        //   _.each(genre.children, (g) => { g.value = true })
-        // } else {
-        //   _.each(genre.children, (g) => { g.value = !!hiddenGenres[g.id] })
-        // }
-        _.each(genre.children, (g) => { g.value = !hiddenGenres[g.id] })
-      })
-
-      // it stores only child genres statuses
-      _.each(this.genres, (genre) => {
-        if (!_.countBy(genre.children, 'value')['false']) {
-          genre.value = true
-        }
-      })
-      this.isPageReady = true
-      this.$store.dispatch('error/showLoadingActivity', false)
-      this.$forceUpdate()
-    }).catch(e => {
-      this.$store.dispatch('error/showLoadingActivity', false)
+    _.each(this.genres, (genre) => {
+      _.each(genre.children, (g) => { g.value = !hiddenGenres[g.id] })
     })
+
+    // it stores only child genres statuses
+    _.each(this.genres, (genre) => {
+      if (!_.countBy(genre.children, 'value')['false']) {
+        genre.value = true
+      }
+    })
+
+    this.$forceUpdate()
   },
 
   methods: {
