@@ -925,6 +925,13 @@
       color: #000000;
       letter-spacing: 0;
     }
+    .tax-description {
+      label {
+        float: left;
+        padding: 0 10px 0 10px;
+        font-size: 20px;
+      }
+    }
     .input-group {
       padding: 0px;
     }

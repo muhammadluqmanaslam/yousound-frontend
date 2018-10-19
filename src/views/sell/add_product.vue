@@ -175,6 +175,13 @@
                 v-model="product.is_vat"
                 @change="resetTaxPercent"
               />
+              <div class="tax-description">
+                <label>*</label>
+                <p class="d-inline-flex grey--text lighten-2">
+                  Some countries might not have the accurate tax rate.<br/>
+                  You can manually type the tax rate in the textbox.
+                </p>
+              </div>
             </v-flex>
           </v-flex>
         </v-flex>
