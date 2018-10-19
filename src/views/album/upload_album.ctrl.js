@@ -30,6 +30,7 @@ export default {
       },
       album_image_url: null,
       locations: [],
+      followings: [],
       users: [],
       collaborators: [],
       contributors: [],
@@ -42,12 +43,12 @@ export default {
   },
 
   computed: {
-    isAvailableToUploadAlbum () {
-      return this.album.tracks.length && this.album.name.length && this.album.image && this.album.genre.length
+    currentUser () {
+      return this.$store.state.auth.user
     },
 
-    artists() {
-      return _.filter(this.users, (item) => { return item.user_type === 'artist' })
+    isAvailableToUploadAlbum () {
+      return this.album.tracks.length && this.album.name.length && this.album.image && this.album.genre.length
     },
 
     role_types() {
@@ -57,7 +58,7 @@ export default {
 
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })
-    if (this.$store.state.auth.user && this.$store.state.auth.user.user_type === 'artist') {
+    if (this.currentUser && this.currentUser.user_type === 'artist') {
       this.album.released_at = moment().format('YYYY-MM-DD')
       const params = {
         filter: 'artist',
@@ -68,7 +69,7 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         // UserService.searchUsers(params),
-        ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params),
+        ProfileService.getItems(this.currentUser.id, 'followings', params),
         ProductService.getProducts({
           statuses: 'published, collaborated',
           stock_statuses: 'active',
@@ -76,7 +77,9 @@ export default {
         })
       ]).then(values => {
         this.genres = _.flatMap(this.$store.state.app.genres, 'children')
-        this.users = values[0].body.users
+        this.followings = _.cloneDeep(values[0].body.users)
+        this.users = _.cloneDeep(values[0].body.users)
+        this.users.unshift(this.currentUser)
         this.products = values[1].body
 
         this.isPageReady = true

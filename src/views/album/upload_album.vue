@@ -55,12 +55,14 @@
                   :nudge-right="40"
                   max-width="290px"
                   min-width="290px"
-                  lazy>
+                  lazy
+                >
                   <v-text-field
                     slot="activator"
                     v-model="album.released_at"
                     prepend-icon="event"
-                    readonly></v-text-field>
+                    readonly
+                  ></v-text-field>
                   <v-date-picker v-model="album.released_at" no-title scrollable actions>
                     <template slot-scope="{ save, cancel }">
                       <v-card-actions>
@@ -107,13 +109,15 @@
                   class="pt-0"
                   no-data-text="No merch found"
                   autocomplete
-                  clearable>
+                  clearable
+                >
                   <template slot="selection" slot-scope="data">
                     <v-chip
                       :key="JSON.stringify(data.item)"
                       @input="data.parent.selectItem(data.item)"
                       :selected="data.selected"
-                      class="chip--select-multi">
+                      class="chip--select-multi"
+                    >
                       <v-avatar>
                         <img :src="data.item.covers[0].cover.thumb.url">
                       </v-avatar>
@@ -164,7 +168,7 @@
                 <label class="control-label">Collaborators<label class="required">*</label></label>
                 <!-- <input type="text" class="form-control" v-model="collaborator.user_id"> -->
                 <v-select
-                  v-bind:items="users"
+                  :items="followings"
                   v-model="collaborator.user_id"
                   item-text="username"
                   item-value="id"
@@ -172,13 +176,15 @@
                   max-height="auto"
                   class="pt-0"
                   no-data-text="No artist found"
-                  autocomplete>
+                  autocomplete
+                >
                   <template slot="selection" slot-scope="data">
                     <v-chip
                       :key="JSON.stringify(data.item)"
                       @input="data.parent.selectItem(data.item)"
                       :selected="data.selected"
-                      class="chip--select-multi">
+                      class="chip--select-multi"
+                    >
                       <v-avatar>
                         <img :src="data.item.avatar.thumb.url">
                       </v-avatar>
@@ -208,7 +214,8 @@
                   item-text="name"
                   item-value="name"
                   class="pt-0"
-                  autocomplete></v-select>
+                  autocomplete
+                ></v-select>
               </v-flex>
               <v-icon class="clear-btn" @click="deleteCollaborator(index)">clear</v-icon>
             </v-layout>
@@ -244,13 +251,15 @@
                   class="pt-0"
                   no-data-text="No user found"
                   autocomplete
-                  clearable>
+                  clearable
+                >
                   <template slot="selection" slot-scope="data">
                     <v-chip
                       :key="JSON.stringify(data.item)"
                       @input="data.parent.selectItem(data.item)"
                       :selected="data.selected"
-                      class="chip--select-multi">
+                      class="chip--select-multi"
+                    >
                       <v-avatar>
                         <img :src="data.item.avatar.thumb.url">
                       </v-avatar>
@@ -280,7 +289,8 @@
                   item-text="name"
                   item-value="name"
                   class="pt-0"
-                  autocomplete></v-select>
+                  autocomplete
+                ></v-select>
               </v-flex>
               <v-icon class="clear-btn" @click="deleteContributor(index)">clear</v-icon>
             </v-layout>

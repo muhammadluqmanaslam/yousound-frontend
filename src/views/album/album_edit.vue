@@ -165,7 +165,7 @@
               <v-flex xs12 sm6>
                 <label class="control-label">Collaborators<label class="required">*</label></label>
                 <v-select
-                  :items="users"
+                  :items="followings"
                   v-model="collaborator.user_id"
                   item-text="username"
                   item-value="id"
@@ -174,13 +174,15 @@
                   class="pt-0"
                   no-data-text="No artist found"
                   autocomplete
-                  :disabled="album.status != 'pending'">
+                  :disabled="album.status != 'pending'"
+                >
                   <template slot="selection" slot-scope="data">
                     <v-chip
                       @input="data.parent.selectItem(data.item)"
                       :selected="data.selected"
                       class="chip--select-multi"
-                      :key="JSON.stringify(data.item)">
+                      :key="JSON.stringify(data.item)"
+                    >
                       <v-avatar>
                         <img :src="data.item.avatar.thumb.url">
                       </v-avatar>
@@ -209,7 +211,8 @@
                   v-model="collaborator.user_role"
                   autocomplete
                   class="pt-0"
-                  :disabled="album.status != 'pending'"></v-select>
+                  :disabled="album.status != 'pending'"
+                ></v-select>
               </v-flex>
               <v-flex xs12 sm3>
                 <label class="control-label">Status</label>
@@ -249,13 +252,15 @@
                   class="pt-0"
                   no-data-text="No user found"
                   autocomplete
-                  clearable>
+                  clearable
+                >
                   <template slot="selection" slot-scope="data">
                     <v-chip
                       :key="JSON.stringify(data.item)"
                       @input="data.parent.selectItem(data.item)"
                       :selected="data.selected"
-                      class="chip--select-multi">
+                      class="chip--select-multi"
+                    >
                       <v-avatar>
                         <img :src="data.item.avatar.thumb.url">
                       </v-avatar>
@@ -285,7 +290,8 @@
                   item-text="name"
                   item-value="name"
                   autocomplete
-                  class="pt-0"></v-select>
+                  class="pt-0"
+                ></v-select>
               </v-flex>
               <v-icon class="clear-btn" @click="deleteContributor(index)">clear</v-icon>
             </v-layout>
@@ -307,4 +313,5 @@
     </v-flex>
   </v-layout>
 </template>
+
 <script type="text/javascript" src="./album_edit.ctrl.js"></script>

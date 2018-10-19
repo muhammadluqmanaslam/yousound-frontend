@@ -21,6 +21,7 @@ export default {
       isNeededToRelease: false,
       showPromoteMessage: false,
       locations: [],
+      followings: [],
       users: [],
       genres: [],
       products: [],
@@ -38,13 +39,13 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     isAvailableToEditAlbum () {
       // return this.album.tracks.length && this.album.name.length && this.album_image_url && this.selected_product
       return this.album.tracks.length && this.album.name.length && this.album_image_url && this.genre.length
-    },
-
-    artists() {
-      return _.filter(this.users, (item) => { return item.user_type === 'artist' })
     },
 
     role_types() {
@@ -54,11 +55,12 @@ export default {
 
   created() {
     this.$store.dispatch('navigator/goNextState', { page: 'album_edit', tab: '' })
-    if (this.$store.state.auth.user) {
-      if (this.$store.state.auth.user.user_type !== 'artist') {
+    if (this.currentUser) {
+      if (this.currentUser.user_type !== 'artist') {
         this.$router.push({ path: '/'})
       } else {
         const params = {
+          filter: 'artist',
           'page': 1,
           'per_page': 30
         }
@@ -73,11 +75,13 @@ export default {
             user_statuses: 'accepted'
           }),
           AlbumService.getAlbum(this.slug),
-          ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params)
+          ProfileService.getItems(this.currentUser.id, 'followings', params)
         ]).then(values => {
           this.genres = _.flatMap(this.$store.state.app.genres, 'children')
           this.products = values[0].body
-          this.users = values[2].body.users
+          this.followings = _.cloneDeep(values[2].body.users)
+          this.users = _.cloneDeep(values[2].body.users)
+          this.users.unshift(this.currentUser)
 
           this.album = values[1].body
           this.album_image_url = this.album.cover.url
