@@ -104,7 +104,7 @@ export default {
         })
         this.period = this.currentUser.stream_rolled_time
       }
-      for (let i = 1; i <= 12; i++) {
+      for (let i = 1; i <= 24; i++) {
         this.periods.push({
           id: i * 3600,
           name: `${i}hours / $${i * StreamHourlyPrice / 100}`
