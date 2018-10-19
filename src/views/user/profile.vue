@@ -35,7 +35,6 @@
                   <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
                 <v-btn v-else class="play-btn" @click.native="playSong()"><v-icon>play_arrow</v-icon>Play</v-btn>
                 <v-btn v-if="show_stream_live_button" class="green px-2" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
-                <v-btn class="send-love-btn" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id" @click.native="showLoveDialog()">Send love</v-btn>
                 <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
                   :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                   @mouseenter="buttonHover = true"
@@ -50,6 +49,11 @@
                       <v-list-tile-title class="default-menu-item">
                         <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
                         <label>Message</label>
+                      </v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile key="chat" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+                      <v-list-tile-title class="default-menu-item">
+                        <label>Send Love</label>
                       </v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile key="chat" @click.native="goToChat()">
@@ -197,9 +201,6 @@
               <v-btn v-else class="play-btn" @click.native="playSong()">
                 <v-icon>play_arrow</v-icon>Play</v-btn>
               <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
-                class="send-love-btn"
-                @click.native="showLoveDialog()">Send love</v-btn>
-              <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
                 :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                 @mouseenter="buttonHover = true"
                 @mouseleave="buttonHover = false"
@@ -213,6 +214,11 @@
                     <v-list-tile-title class="default-menu-item">
                       <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
                       <label>Message</label>
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile key="chat" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+                    <v-list-tile-title class="default-menu-item">
+                      <label>Send Love</label>
                     </v-list-tile-title>
                   </v-list-tile>
                   <v-list-tile key="chat" @click.native="goToChat()">
