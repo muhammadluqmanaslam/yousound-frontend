@@ -169,6 +169,14 @@
         <div class="user-profile-section" v-if="user">
           <div class="user-profile-image-section">
             <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
+            <div
+              v-if="show_stream_live_button"
+              @click="viewStream()"
+              class="user-profile-image--live"
+            >
+              <i class="fa fa-circle"></i>
+              <span class="live">Live</span>
+            </div>
           </div>
           <div class="user-info-section">
             <div class="user-name-section">
@@ -188,7 +196,6 @@
                 <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
               <v-btn v-else class="play-btn" @click.native="playSong()">
                 <v-icon>play_arrow</v-icon>Play</v-btn>
-              <v-btn v-if="show_stream_live_button" class="green px-3" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
               <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
                 class="send-love-btn"
                 @click.native="showLoveDialog()">Send love</v-btn>

@@ -85,6 +85,7 @@
             color: #FFFFFF;
           }
           .time {
+            margin-right: 30px;
             font-size: 24px;
             color: #FFFFFF;
           }
@@ -143,7 +144,10 @@
             margin-left: 10px;
             color: #FFFFFF;
             .media__title {
+              max-width: 160px;
               white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
             .media__description {}
           }

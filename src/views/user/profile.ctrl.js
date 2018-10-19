@@ -172,6 +172,7 @@ export default {
     },
 
     viewStream () {
+      console.log('viewStream clicked')
       UserService.getUserInfo(this.slug).then(response => {
         this.user = response.body
 

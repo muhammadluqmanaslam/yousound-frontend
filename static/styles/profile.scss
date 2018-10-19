@@ -1,8 +1,9 @@
 .page.profile-grid-page {
   .user-profile-section {
     .user-profile-image-section {
-      width: 114px;
-      height: 140px;
+      position: relative;
+      // width: 114px;
+      // height: 140px;
       overflow: hidden;
       display: inline-block;
       vertical-align: top;
@@ -18,6 +19,82 @@
         // height: 152px;
         // margin-top: -1px;
         // margin-left: -1px;
+      }
+      .user-profile-image--live {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 110px;
+        height: 110px;
+        top: 0;
+        border-radius: 100%;
+        border: 3px solid #FF0000;
+        cursor: pointer;
+        &:hover {
+          background: rgba(255, 255, 255, 0.25);
+        }
+
+        .live {
+          border-radius: 4px;
+          background-color: black;
+          display: inline-block;
+          color: #77bccc;
+          margin-left: 5px;
+          padding: 7px 7px 4px 7px;
+          font-family: sans-serif;
+          font-style: italic;
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 12px;
+          line-height: 12px;
+          letter-spacing: 1px;
+          background: rgb(0,0,0);
+          background: -moz-linear-gradient(top,  rgba(0,0,0,1) 0%, rgba(79,79,79,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
+          background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,1)), color-stop(50%,rgba(79,79,79,1)), color-stop(51%,rgba(0,0,0,1)), color-stop(60%,rgba(17,17,17,1)), color-stop(76%,rgba(43,43,43,1)), color-stop(91%,rgba(28,28,28,1)), color-stop(100%,rgba(19,19,19,1)));
+          background: -webkit-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(79,79,79,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%);
+          background: -o-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(79,79,79,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%);
+          background: -ms-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(79,79,79,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%);
+          background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(79,79,79,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#131313',GradientType=0 );
+        }
+
+        .fa-circle {
+          -webkit-animation-name: blinker;
+          -webkit-animation-duration: 2s;
+          -webkit-animation-timing-function: linear;
+          -webkit-animation-iteration-count: infinite;
+
+          -moz-animation-name: blinker;
+          -moz-animation-duration: 2s;
+          -moz-animation-timing-function: linear;
+          -moz-animation-iteration-count: infinite;
+
+          animation-name: blinker;
+          animation-duration: 2s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+
+          color: red;
+        }
+
+        @-moz-keyframes blinker {
+          0% { opacity: 1.0; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1.0; }
+        }
+
+        @-webkit-keyframes blinker {
+          0% { opacity: 1.0; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1.0; }
+        }
+
+        @keyframes blinker {
+          0% { opacity: 1.0; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1.0; }
+        }
       }
     }
     .user-info-section {
