@@ -5,32 +5,31 @@
       <label>You will no longer see the selected genres unless you visit a specific profile, or unhide the genre.</label>
     </div>
 
-    <v-container grid-list-lg pa-0 class="content-section genre" v-if="isPageReady">
-      <v-layout row wrap ma-0 class="pgs_area" v-if="show_selector_view">
-        <div class="pgs-wrapper" v-for="(parent, index) in genres">
-          <div class="pgs" :key="parent.id">
-            <div class="pgs-inner-wrapper" :class="`bg-color-${index}`">
-              <div class="pgs-inner">
-                <div class="pgs__title"><label>{{ parent.name }}</label></div>
-                <div class="pgs__description">
-                  <span @click="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
-                <div class="pgs__content">
-                  <div class="upload-info">
-                    <label>{{ parent.users_size | formatNumberWithComma }}</label>
-                    <span>Album Uploaded</span>
+    <div>
+      <v-container grid-list-lg pa-0 class="content-section genre" v-if="isPageReady">
+        <v-layout row wrap ma-0 class="pgs_area" v-if="show_selector_view">
+          <div class="pgs-wrapper" v-for="(parent, index) in genres">
+            <div class="pgs" :key="parent.id">
+              <div class="pgs-inner-wrapper" :class="`bg-color-${index}`">
+                <div class="pgs-inner">
+                  <div class="pgs__title"><label>{{ parent.name }}</label></div>
+                  <div class="pgs__description">
+                    <span @click="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
+                  <div class="pgs__content">
+                    <div class="upload-info">
+                      <label>{{ parent.users_size | formatNumberWithComma }}</label>
+                      <span>Album Uploaded</span>
+                    </div>
+                    <div v-if="parent.value" class="pgs__badge check-o" @click="checkParentGenre(parent, false)"></div>
+                    <div v-else class="pgs__badge check" @click="checkParentGenre(parent, true)"></div>
                   </div>
-                  <div v-if="parent.value" class="pgs__badge check-o" @click="checkParentGenre(parent, false)"></div>
-                  <div v-else class="pgs__badge check" @click="checkParentGenre(parent, true)"></div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <v-flex xs12 sm12 form-group>
           <v-btn class="update-btn" @click.native="saveGenreFilters()">Save</v-btn>
-        </v-flex>
-      </v-layout>
+        </v-layout>
+      </v-container>
 
       <!-- <div class="content-section genre" v-if="!show_selector_view">
         <template v-for="parent in genres">
@@ -84,14 +83,12 @@
                   <span>({{ child.users_size }})</span>
                 </p>
               </v-flex>
-              <v-flex xs12 sm12 form-group>
-                <v-btn class="update-btn" @click.native="show_selector_view = true">OK</v-btn>
-              </v-flex>
             </v-layout>
           </div>
         </div>
+        <v-btn dark color="blue" class="update-btn" @click.native="show_selector_view = true">OK</v-btn>
       </div>
-    </v-container>
+    </div>
   </div>
 </template>
 

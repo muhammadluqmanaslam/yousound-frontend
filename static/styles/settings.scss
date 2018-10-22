@@ -299,6 +299,7 @@
         }
       }
       .content-section.genre {
+        position: relative;
         width: 100%;
         padding-right: 0;
         .regular-checkbox.settings {
@@ -327,6 +328,11 @@
           .genre__content {
             width: 100%;
           }
+        }
+        .update-btn {
+          position: absolute;
+          top: -60px;
+          right: 0;
         }
       }
 
