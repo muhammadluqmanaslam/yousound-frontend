@@ -51,7 +51,7 @@
                         <label>Message</label>
                       </v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile key="chat" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+                    <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
                       <v-list-tile-title class="default-menu-item">
                         <label>Send Love</label>
                       </v-list-tile-title>

@@ -57,7 +57,7 @@
           </div>
         </v-flex>
       </v-layout>
-      <label class="activity-time">{{ toLocalTimeString(activityItem.created_at) }}</label>
+      <label class="activity-time">{{ toLocalTimeString(activityItem.updated_at) }}</label>
     </v-flex>
     <merch-modal :item="activityItem.assoc" :dismiss="dimissMerchModal" v-if="showMerchModal && activityItem.assoc_type === 'ShopProduct'"></merch-modal>
   </v-layout>
