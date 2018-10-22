@@ -90,6 +90,10 @@ export const Filter = {
     return numeral(value / 100).format('0.00') // displaying other groupings/separators is possible, look at the docs
   },
 
+  formatNumberWithComma (value) {
+    return numeral(value).format('0,0')
+  },
+
   // #REF https://stackoverflow.com/questions/10599933/convert-long-number-into-abbreviated-string-in-javascript-with-a-special-shortn
   formatLargeNumber: num => {
     if (num === null || num === undefined || num === 0) { return '0' } // terminate early

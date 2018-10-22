@@ -2,6 +2,7 @@ import _ from 'lodash'
 import AuthService from '@/services/auth'
 import GenreService from '@/services/genre'
 import UserService from '@/services/user'
+import { Filter, MyEvents } from '@/helper'
 
 export default {
   data () {

@@ -74,6 +74,26 @@
               font-size: 32px;
               line-height: 32px;
               text-align: center;
+              .upload-info {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                label {
+                  display: block;
+                  text-align: left;
+                  font-size: 16px;
+                  font-weight: 900;
+                  line-height: 20px;
+                }
+                span {
+                  display: block;
+                  text-align: left;
+                  font-size: 14px;
+                  font-weight: 700;
+                  line-height: 20px;
+                  letter-spacing: -1px;
+                }
+              }
               .pgs__image {
                 position: absolute;
                 left: 0;
@@ -83,8 +103,8 @@
               }
               .pgs__badge {
                 position: absolute;
-                right: 0;
-                bottom: 0;
+                right: -3px;
+                bottom: -3px;
                 width: 32px;
                 height: 32px;
                 border-radius: 16px;

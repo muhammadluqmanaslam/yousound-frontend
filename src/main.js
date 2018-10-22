@@ -44,6 +44,7 @@ Vue.directive('on-click-outside', onClickOutside)
 
 Vue.filter('formatDate', Filter.formatDate)
 Vue.filter('formatNumber', Filter.formatNumber)
+Vue.filter('formatNumberWithComma', Filter.formatNumberWithComma)
 Vue.filter('formatLargeNumber', Filter.formatLargeNumber)
 Vue.filter('formatFullUrl', Filter.formatFullUrl)
 Vue.filter('timeInHours', Filter.timeInHours)

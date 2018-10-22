@@ -11,10 +11,14 @@
           <div class="pgs" :key="parent.id">
             <div class="pgs-inner-wrapper" :class="`bg-color-${index}`">
               <div class="pgs-inner">
-                <div class="pgs__title"><label>{{ parent.name }}</label><span>({{ parent.users_size }})</span></div>
+                <div class="pgs__title"><label>{{ parent.name }}</label></div>
                 <div class="pgs__description">
                   <span @click="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
                 <div class="pgs__content">
+                  <div class="upload-info">
+                    <label>{{ parent.users_size | formatNumberWithComma }}</label>
+                    <span>Album Uploaded</span>
+                  </div>
                   <div v-if="parent.value" class="pgs__badge check-o" @click="checkParentGenre(parent, false)"></div>
                   <div v-else class="pgs__badge check" @click="checkParentGenre(parent, true)"></div>
                 </div>
