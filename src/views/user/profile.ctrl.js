@@ -91,7 +91,7 @@ export default {
     },
 
     albumDisplayCount () {
-      if(this.albums.length > 7) {
+      if (this.albums.length > 7) {
         return 7
       } else {
         return this.albums.length
@@ -104,6 +104,10 @@ export default {
       } else {
         return this.products.length
       }
+    },
+
+    streamViewPrice () {
+      return _.get(this.user, 'stream.view_price', 0)
     },
 
     followButtonText () {

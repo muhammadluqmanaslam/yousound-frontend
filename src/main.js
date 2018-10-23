@@ -43,6 +43,7 @@ Vue.directive('on-click-outside', onClickOutside)
 // })
 
 Vue.filter('formatDate', Filter.formatDate)
+Vue.filter('formatDateFromNow', Filter.formatDateFromNow)
 Vue.filter('formatNumber', Filter.formatNumber)
 Vue.filter('formatNumberWithComma', Filter.formatNumberWithComma)
 Vue.filter('formatLargeNumber', Filter.formatLargeNumber)

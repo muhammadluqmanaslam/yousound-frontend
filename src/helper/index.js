@@ -85,6 +85,13 @@ export const Filter = {
     }
   },
 
+  formatDateFromNow (value) {
+    if (value) {
+      moment.lang('en')
+      return moment(String(value)).fromNow()
+    }
+  },
+
   // #TODO rename it formatDecimal
   formatNumber (value) {
     return numeral(value / 100).format('0.00') // displaying other groupings/separators is possible, look at the docs

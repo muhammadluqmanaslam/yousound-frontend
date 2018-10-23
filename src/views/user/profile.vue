@@ -178,8 +178,14 @@
               @click="viewStream()"
               class="user-profile-image--live"
             >
-              <i class="fa fa-circle"></i>
-              <span class="live">Live</span>
+              <template v-if="streamViewPrice == 0">
+                <i class="fa fa-circle"></i>
+                <span class="live">Live</span>
+              </template>
+              <template v-else>
+                <v-btn class="green px-2 live-video-btn" dark round><v-icon>videocam</v-icon>${{ user.stream.view_price | formatNumber }}</v-btn>
+                <p>Broadcast started<br>{{ user.stream.started_at | formatDateFromNow }}</p>
+              </template>
             </div>
           </div>
           <div class="user-info-section">
@@ -216,7 +222,7 @@
                       <label>Message</label>
                     </v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile key="chat" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+                  <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
                     <v-list-tile-title class="default-menu-item">
                       <label>Send Love</label>
                     </v-list-tile-title>
