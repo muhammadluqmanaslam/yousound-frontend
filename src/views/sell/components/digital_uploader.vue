@@ -15,7 +15,6 @@
 </template>
 
 <script>
-// /* global $:true */
 import _ from 'lodash'
 
 export default {

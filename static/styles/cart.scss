@@ -281,10 +281,12 @@
               color: #000000;
               letter-spacing: -1.1.5px;
             }
-            .product-link {
-              float: right;
-              margin-top: 5px;
-            }
+            // .product-link {
+            //   float: right;
+            //   margin-top: 5px;
+            //   color: #3A92FF;
+            //   cursor: pointer;
+            // }
           }
         }
 
@@ -323,6 +325,44 @@
           background: #0ea958;
           .order-status-text {
             color: #FFFFFF;
+          }
+        }
+        &.digital {
+          background-color: transparent;
+          border: 1px solid #D5D5D5;
+          // .file_name {
+          //   position: relative;
+          //   width: 190px;
+          //   margin: 20px 40px 0 20px;
+          //   font-size: 16px;
+          // }
+          // .file_name label {
+          //   display: block;
+          //   width: 100%;
+          //   white-space: nowrap;
+          //   text-overflow: ellipsis;
+          //   overflow: hidden;
+          // }
+          // .file_name:after {
+          //   content: attr(data-filetype);
+          //   position: absolute;
+          //   left: 100%;
+          //   top: 0;
+          // }
+
+          label {
+            display: block;
+            width: 215px;
+            height: 20px;
+            margin: 20px 20px 5px 20px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 16px;
+          }
+          span {
+            color: #3A92FF;
+            cursor: pointer;
           }
         }
         .order-status-text {

@@ -260,6 +260,7 @@ export default {
 
       if (this.product.category == this.digital_content_category_id) {
         formData.append('shop_product[digital_content]', this.digital_content.file)
+        formData.append('shop_product[digital_content_name]', this.digital_content.file.name)
       }
 
       ProductService.addProduct(formData).then(response => {

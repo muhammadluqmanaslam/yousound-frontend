@@ -107,6 +107,8 @@ export default {
 
   methods: {
     loadData () {
+      this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
+
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
@@ -115,7 +117,6 @@ export default {
       ]).then(values => {
         this.orderHistories = values[0].body.orders
         this.products = values[1].body
-        this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
 
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -144,6 +145,10 @@ export default {
       this.activeTab = tab
       // this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: tab })
       this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: tab })
+    },
+
+    isDigitalProduct (item) {
+      return _.get(item, 'product.category.id', '') == this.digital_content_category_id
     },
 
     editProduct (product) {

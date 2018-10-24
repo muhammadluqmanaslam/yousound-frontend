@@ -127,9 +127,9 @@ export default {
           this.product.shipments[index].shipment_with_price /= 100
         }
 
-        if (this.product.digital_content) {
+        if (this.product.digital_content_url) {
           this.digital_content.file = {
-            name: 'Product.zip'
+            name: this.product.digital_content_name
           }
         }
 
@@ -307,8 +307,10 @@ export default {
 
       if (_.get(this.digital_content, 'file.size', 0) > 0) {
         formData.append('shop_product[digital_content]', this.digital_content.file)
+        formData.append('shop_product[digital_content_name]', this.digital_content.file.name)
       } else if (_.get(this.digital_content, 'file.name', '') == '') {
         formData.append('shop_product[digital_content]', null)
+        formData.append('shop_product[digital_content_name]', null)
       }
 
       ProductService.updateProduct(this.product.id, formData).then(response => {

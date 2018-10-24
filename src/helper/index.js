@@ -139,6 +139,15 @@ export const Filter = {
     return value.charAt(0).toUpperCase() + value.slice(1)
   },
 
+  truncateInMiddle (str, len) {
+    console.log('truncateInMiddle', str, len)
+    if (str.length > len) {
+      return str.substr(0, len - 5) + '...' + str.substr(str.length - 5, str.length)
+    } else {
+      return str
+    }
+  },
+
   titleize (value) {
     let stringArr = value.split(' ')
     stringArr = stringArr.map(function (str) {

@@ -126,19 +126,17 @@
                         <div class="product-content">
                           <v-flex sm12 class="product-content-row">
                             <label class="product-name">{{ item.product.name }}</label>
-                            <label class="product-count" v-if="item.product.category.id == digital_content_category_id"><b>Digital Product</b></label>
-                            <label class="product-count" v-else>Quantity: <b>{{ item.quantity }}</b></label>
+                            <label class="product-count" v-if="!isDigitalProduct(item)">Quantity: <b>{{ item.quantity }}</b></label>
                           </v-flex>
                           <v-flex sm12 class="product-content-row">
                             <router-link class="user-name" :to = "'/' + item.product.merchant.slug">{{ item.product.merchant.display_name }}</router-link>
                           </v-flex>
                           <v-flex sm12 class="product-content-row">
                             <label class="product-price">${{ item.product_variant.price | formatNumber }}</label>
-                            <a v-if="item.product.category.id == digital_content_category_id && item.status == 'item_shipped'"
-                              :href="item.product.digital_content.url"
+                            <!-- <span v-if="item.product.category.id == digital_content_category_id && item.status == 'item_shipped'"
                               class="product-link"
-                              target="_blank"
-                            >Download</a>
+                              @click = "download(item)"
+                            >Download</span> -->
                           </v-flex>
                         </div>
                         <v-menu v-if="order.status == 'order_shipped' && order.enabled_address"
@@ -158,7 +156,14 @@
                           </v-list>
                         </v-menu>
                       </div>
-                      <div class="order-status-section text-xs-center" :class="{'pending': item.status == 'item_ordered', 'shipped': item.status == 'item_shipped'}">
+                      <div class="order-status-section digital text-xs-center" v-if="isDigitalProduct(item)">
+                        <!-- <div class="file_name" data-filetype="zip">
+                          <label>sample-0123456789-abcdefghikjklmnop.zip</label>
+                        </div> -->
+                        <label>{{ item.product.digital_content_name | truncateInMiddle(20) }}</label>
+                        <span class="product-link" @click = "download(item)">Download</span>
+                      </div>
+                      <div class="order-status-section text-xs-center" :class="{'pending': item.status == 'item_ordered', 'shipped': item.status == 'item_shipped'}" v-else>
                         <p class="order-status-text" v-if="item.status=='item_ordered'">Pending Order</p>
                         <p class="order-status-text" v-else>Your Item Has Shipped!</p>
                       </div>

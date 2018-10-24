@@ -78,15 +78,17 @@
                           <div class="product-content">
                             <v-flex sm12 class="product-content-row">
                               <label class="product-name">{{ item.product.name }}</label>
-                              <label class="product-count" v-if="item.product.category.id == digital_content_category_id"><b>Digital Product</b></label>
-                              <label class="product-count" v-else>Quantity: <b>{{ item.quantity }}</b></label>
+                              <label class="product-count" v-if="!isDigitalProduct(item)">Quantity: <b>{{ item.quantity }}</b></label>
                             </v-flex>
                             <v-flex sm12 class="product-content-row" pt-1>
                               <label class="product-price">${{ item.price|formatNumber }}</label>
                             </v-flex>
                           </div>
                         </div>
-                        <div class="order-status-section text-xs-center" v-if="item.status=='item_ordered'">
+                        <div class="order-status-section text-xs-center digital" v-if="isDigitalProduct(item)">
+                          <p class="order-status-text">{{ item.product.digital_content_name }}</p>
+                        </div>
+                        <div class="order-status-section text-xs-center" v-else-if="item.status=='item_ordered'">
                           <p class="order-status-text">Pending</p>
                           <v-btn class="order-status-btn ship" @click.native.stop="openShipConfirmModal(item)">Ship</v-btn>
                         </div>

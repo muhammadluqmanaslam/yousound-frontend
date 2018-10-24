@@ -122,6 +122,13 @@
       .order-status-section {
         background: #F6F6F6;
         width: 262.5px;
+        &.digital {
+          background-color: transparent;
+          border: 0.75px solid #D7D7D7;
+          .order-status-text {
+            margin-top: 32px;
+          }
+        }
         .order-status-text {
           margin: 12.75px 0 4.5px;
           font-size: 15px;

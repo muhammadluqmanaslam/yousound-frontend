@@ -1,5 +1,7 @@
 import _ from 'lodash'
 
+import { Utils } from '@/helper'
+
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
 
@@ -62,6 +64,9 @@ export default {
       this.current_tab = tab || 'cart'
       this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: this.current_tab })
 
+      this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
+      // console.log('cart/digital_content_category_id', this.digital_content_category_id)
+
       let params
       switch (this.current_tab) {
         case 'cart':
@@ -70,6 +75,7 @@ export default {
             params.country = this.$store.state.auth.user.default_address.country
             params.state = this.$store.state.auth.user.default_address.state
           }
+
           this.isPageReady = false
           this.$store.dispatch('error/showLoadingActivity', true)
           Promise.all([
@@ -78,7 +84,6 @@ export default {
           ]).then(values => {
             this.cartItems = values[0].body
             this.cartCost = values[1].body
-            this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
 
             this.isPageReady = true
             this.$store.dispatch('error/showLoadingActivity', false)
@@ -117,6 +122,15 @@ export default {
           grid_view: this.grid_show
         }
       })
+    },
+
+    isDigitalProduct (item) {
+      return _.get(item, 'product.category.id', '') == this.digital_content_category_id
+    },
+
+    download (item) {
+      console.log(item.product.digital_content_url, item.product.digital_content_name)
+      Utils.downloadFile(item.product.digital_content_url)
     },
 
     submit () {
