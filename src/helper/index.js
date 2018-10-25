@@ -87,7 +87,7 @@ export const Filter = {
 
   formatDateFromNow (value) {
     if (value) {
-      moment.lang('en')
+      moment.locale('en')
       return moment(String(value)).fromNow()
     }
   },

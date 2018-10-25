@@ -12,14 +12,20 @@ import UserService from '@/services/user'
 import activityItem from '@/components/activityitem'
 import albumTrackItem from '@/components/albumtrackitem'
 import downloadModal from '@/components/downloadmodal'
+import productCard from '@/components/productcard'
 import profileItem from '@/components/profileitem'
+import trackCard from '@/components/trackcard'
+import videoCard from '@/components/videocard'
 
 export default {
   components: {
     activityItem,
     albumTrackItem,
     downloadModal,
+    productCard,
     profileItem,
+    trackCard,
+    videoCard,
     Picker,
     draggable
   },
@@ -40,6 +46,10 @@ export default {
   },
 
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+
     coverImageURL () {
       if (this.playlist.cover) {
         return this.playlist.cover.large.url

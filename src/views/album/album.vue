@@ -99,7 +99,7 @@
               </template> •  2017 <label class="album-stats-btn" @click="goToAlbumStats('played_by')" v-if="showStats">View Stats</label>
             </div>
             <div class="album-action-section">
-              <template v-if="$store.state.auth.user && album.user.id != $store.state.auth.user.id">
+              <template v-if="currentUser && album.user.id != currentUser.id">
                 <v-btn v-if="album.collaborators_count == 0"
                   :class="{ 'follow-btn': true, 'follow': false, 'following': true }"
                   @mouseenter="buttonHover = true"
@@ -125,7 +125,7 @@
                         <template v-if="album.user.is_following">
                           <v-chip label outline color="red" @click.native="followUser(album.user)">Unfollow</v-chip>
                         </template>
-                        <template v-else-if="album.user.id != $store.state.auth.user.id">
+                        <template v-else-if="album.user.id != currentUser.id">
                           <v-chip label outline color="teal" @click.native="followUser(album.user)">Follow</v-chip>
                         </template>
                       </v-list-tile-action>
@@ -142,7 +142,7 @@
                         <template v-if="collaborator.user.is_following">
                           <v-chip label outline color="red" @click.native="followUser(collaborator.user)">Unfollow</v-chip>
                         </template>
-                        <template v-else-if="collaborator.user.id != $store.state.auth.user.id">
+                        <template v-else-if="collaborator.user.id != currentUser.id">
                           <v-chip label outline color="teal" @click.native="followUser(collaborator.user)">Follow</v-chip>
                         </template>
                       </v-list-tile-action>
@@ -200,8 +200,8 @@
           </div>
           <div class="content-section">
             <div class="add-comment-section">
-              <img class="profile-image" :src="$store.state.auth.user.avatar.thumb.url" />
-              <!-- <div class="profile-image" :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}"/></div> -->
+              <img class="profile-image" :src="currentUser.avatar.thumb.url" />
+              <!-- <div class="profile-image" :style="{'background-image': 'url(' + currentUser.user.avatar.thumb.url + ')'}"/></div> -->
               <input 
                 type="text" 
                 class="comment-input" 
@@ -241,27 +241,27 @@
                         <v-icon right>more_horiz</v-icon>
                       </v-btn>
                       <v-list>
-                        <v-list-tile key="public" v-if="$store.state.auth.user.id == album.user.id && comment.status == 'privated'" @click.native="makePublicComment(comment)">
+                        <v-list-tile key="public" v-if="currentUser.id == album.user.id && comment.status == 'privated'" @click.native="makePublicComment(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <!-- <img class="track-status-icon" src="/static/images/ic_comment_public.png" /> -->
                             <i class="fa fa-eye"></i>
                             <label>Make Public</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="private" v-if="$store.state.auth.user.id == album.user.id && comment.status == 'published'" @click.native="makePrivateComment(comment)">
+                        <v-list-tile key="private" v-if="currentUser.id == album.user.id && comment.status == 'published'" @click.native="makePrivateComment(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <!-- <img class="track-status-icon" src="/static/images/ic_comment_private.png" /> -->
                             <i class="fa fa-eye-slash"></i>
                             <label>Make Private</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="block" v-if="$store.state.auth.user.id == album.user.id && $store.state.auth.user.id!=comment.user.id" @click.native="blockUser(comment)">
+                        <v-list-tile key="block" v-if="currentUser.id == album.user.id && currentUser.id!=comment.user.id" @click.native="blockUser(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <img class="track-status-icon" src="/static/images/ic_comment_flag.png" />
                             <label>Block User</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="delete" v-if="$store.state.auth.user.id == album.user.id || $store.state.auth.user.id==comment.user.id" @click.native="deleteComment(comment)">
+                        <v-list-tile key="delete" v-if="currentUser.id == album.user.id || currentUser.id==comment.user.id" @click.native="deleteComment(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <img class="track-status-icon" src="/static/images/ic_comment_delete.png" />
                             <label>Delete Comment</label>

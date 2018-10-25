@@ -1,31 +1,27 @@
 import SearchService from '@/services/search'
+
+import artistItem from '@/components/artistitem'
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
-import artistItem from '@/components/artistitem'
+import videoCard from '@/components/videocard'
 
 export default {
   components: {
+    artistItem,
     trackCard,
     productCard,
-    artistItem
+    videoCard
   },
 
   data() {
     return {
       tab: 'albums',
       tabs: [
-        {
-          id: 'albums',
-          title: 'Albums'
-        },
-        {
-          id: 'merch',
-          title: 'Merch'
-        },
-        {
-          id: 'users',
-          title: 'Users'
-        }
+        { id: 'albums', title: 'Albums' },
+        { id: 'playlists', title: 'Playlists' },
+        { id: 'products', title: 'Merch' },
+        { id: 'live_video', title: 'Live Videos' },
+        { id: 'users', title: 'Users' }
       ],
       page_index: 1,
       total_pages: 1,
@@ -33,9 +29,13 @@ export default {
       genres: [],
       selected_genre: null,
       keyword: '',
-      users: [],
-      albums: [],
-      products:[],
+      result: {
+        users: [],
+        albums: [],
+        playlists: [],
+        products: [],
+        streams: []
+      },
       isPageReady: false
     }
   },
@@ -58,6 +58,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.tab })
     this.keyword = this.$route.query.q
     this.init()
   },
@@ -78,37 +79,48 @@ export default {
       this.search()
     },
 
+    // search () {
+    //   let tab = 'albums'
+    //   SearchService.searchGlobal({ q: this.keyword }).then(response => {
+    //     this.users = response.body.users || []
+    //     this.products = response.body.products || []
+    //     const albums = response.body.albums
+    //     for (let album_index in albums) {
+    //       const album = albums[album_index]
+    //       var genre_ids = []
+    //       for (let new_index in album.genres) {
+    //         let add_flag = true
+    //         const genre_id = album.genres[new_index].id
+    //         genre_ids.push(genre_id)
+    //         for (let genre_index in this.genres) {
+    //           if (genre_id === this.genres[genre_index].id) {
+    //             add_flag = false
+    //             break
+    //           }
+    //         }
+    //         if (add_flag) {
+    //           this.genres.push(album.genres[new_index])
+    //         }
+    //       }
+    //       album.genre_ids = genre_ids.join(',')
+    //       this.albums.push(album)
+    //     }
+    //     if (this.albums.length === 0 && this.users.length > 0) {
+    //       tab = 'users'
+    //     }
+    //     this.onTab(tab)
+    //   }).catch(e => {
+    //     this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+    //   })
+    // },
+
     search () {
-      let tab = 'albums'
+      this.$store.dispatch('error/showLoadingActivity', true)
       SearchService.searchGlobal({ q: this.keyword }).then(response => {
-        this.users = response.body.users || []
-        this.products = response.body.products || []
-        const albums = response.body.albums
-        for (let album_index in albums) {
-          const album = albums[album_index]
-          var genre_ids = []
-          for (let new_index in album.genres) {
-            let add_flag = true
-            const genre_id = album.genres[new_index].id
-            genre_ids.push(genre_id)
-            for (let genre_index in this.genres) {
-              if (genre_id === this.genres[genre_index].id) {
-                add_flag = false
-                break
-              }
-            }
-            if (add_flag) {
-              this.genres.push(album.genres[new_index])
-            }
-          }
-          album.genre_ids = genre_ids.join(',')
-          this.albums.push(album)
-        }
-        if (this.albums.length === 0 && this.users.length > 0) {
-          tab = 'users'
-        }
-        this.onTab(tab)
+        this.result = response.body
+        this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
@@ -135,11 +147,11 @@ export default {
     onTab (tab) {
       this.tab = tab
       this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.tab })
-      if (tab === 'albums') {
-        $('#genre_selector').show()
-      } else {
-        $('#genre_selector').hide()
-      }
+      // if (tab === 'albums') {
+      //   $('#genre_selector').show()
+      // } else {
+      //   $('#genre_selector').hide()
+      // }
       // console.log('onTab', this.tab, this.users)
     }
   },

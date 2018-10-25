@@ -26,7 +26,7 @@
             <h4 class="album-name">{{ playlist.name }}</h4>
             <div class="py-2">
               <!-- <label class="album-description">{{ playlist.description }}</label> -->
-              <v-dialog v-model="playlist_dialog" class="album-credits-dialog" scrollable max-width="600px" v-if="$store.state.auth.user.id==playlist.user.id">
+              <v-dialog v-model="playlist_dialog" class="album-credits-dialog" scrollable max-width="600px" v-if="currentUser.id==playlist.user.id">
                 <v-btn color="primary" dark slot="activator" class="text-btn">Edit playlist</v-btn>
                 <v-card class="album-dialog-body">
                   <v-card-title>Edit Playlist</v-card-title>
@@ -63,7 +63,7 @@
             </div>
             <p class="album-detail">by <router-link :to="'/' + playlist.user.slug" class="album-detail">{{ playlist.user.display_name }}</router-link>  •  2017 – {{ playlist.tracks.length }} Songs, 40:22 </p>
           </div>
-          <div v-if="$store.state.auth.user.id != playlist.user.id" class="album-tracks-section">
+          <div v-if="currentUser.id != playlist.user.id" class="album-tracks-section">
             <album-track-item v-for="(track, index) in playlist.tracks"
               :key="index"
               :album="playlist"
@@ -83,7 +83,8 @@
           </div>
         </div>
       </div>
-      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="$store.state.auth.user">
+
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="currentUser">
         <h4 class="comment-title">Talk to {{ playlist.user.display_name }}</h4>
         <label class="description">Comments are only seen by the artist and people you @mention, unless artist makes your comment public.</label>
         <div class="comments-section">
@@ -94,8 +95,8 @@
           </div>
           <div class="content-section">
             <div class="add-comment-section">
-              <img class="profile-image" :src="$store.state.auth.user.avatar.thumb.url" />
-              <!-- <div class="profile-image" :style="{'background-image': 'url(' + $store.state.auth.user.avatar.thumb.url + ')'}"/></div> -->
+              <img class="profile-image" :src="currentUser.avatar.thumb.url" />
+              <!-- <div class="profile-image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"/></div> -->
               <input 
                 type="text" 
                 class="comment-input" 
@@ -134,27 +135,27 @@
                         <v-icon right>more_horiz</v-icon>
                       </v-btn>
                       <v-list>
-                        <v-list-tile key="public" v-if="$store.state.auth.user.id == playlist.user.id && comment.status == 'privated'" @click.native="makePublicComment(comment)">
+                        <v-list-tile key="public" v-if="currentUser.id == playlist.user.id && comment.status == 'privated'" @click.native="makePublicComment(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <!-- <img class="track-status-icon" src="/static/images/ic_comment_public.png" /> -->
                             <i class="fa fa-eye"></i>
                             <label>Make Public</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="private" v-if="$store.state.auth.user.id == playlist.user.id && comment.status == 'published'" @click.native="makePrivateComment(comment)">
+                        <v-list-tile key="private" v-if="currentUser.id == playlist.user.id && comment.status == 'published'" @click.native="makePrivateComment(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <!-- <img class="track-status-icon" src="/static/images/ic_comment_private.png" /> -->
                             <i class="fa fa-eye-slash"></i>
                             <label>Make Private</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="block" v-if="$store.state.auth.user.id == playlist.user.id && $store.state.auth.user.id!=comment.user.id" @click.native="blockUser(comment)">
+                        <v-list-tile key="block" v-if="currentUser.id == playlist.user.id && currentUser.id!=comment.user.id" @click.native="blockUser(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <img class="track-status-icon" src="/static/images/ic_comment_flag.png" />
                             <label>Block User</label>
                           </v-list-tile-title>
                         </v-list-tile>
-                        <v-list-tile key="delete" v-if="$store.state.auth.user.id == playlist.user.id || $store.state.auth.user.id==comment.user.id" @click.native="deleteComment(comment)">
+                        <v-list-tile key="delete" v-if="currentUser.id == playlist.user.id || currentUser.id==comment.user.id" @click.native="deleteComment(comment)">
                           <v-list-tile-title class="default-menu-item">
                             <img class="track-status-icon" src="/static/images/ic_comment_delete.png" />
                             <label>Delete Comment</label>
@@ -207,7 +208,26 @@
           </div>
         </div>
       </v-flex>
-      <download-modal :item="playlist" :dismiss="dismissDownloadModal" v-if="showDownloadModal"></download-modal>
+
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-recent-page v-if="currentUser">
+        <h4 class="recent-title">{{ playlist.user.display_name }}'s recent reposts</h4>
+        <v-layout row wrap class="recent-content">
+          <div v-for="(feed, index) in playlist.user.recent_items"
+            v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
+            :key="feed.id"
+            class="card-container"
+          >
+            <track-card :objects="playlist.user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"/>
+            <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"/>
+            <video-card :dataObject="feed" v-if="feed.assoc_type=='Stream'"/>
+          </div>
+        </v-layout>
+      </v-flex>
+
+      <download-modal v-if="showDownloadModal"
+        :item="playlist"
+        :dismiss="dismissDownloadModal"
+      />
     </v-flex>
   </v-layout>
 </template>

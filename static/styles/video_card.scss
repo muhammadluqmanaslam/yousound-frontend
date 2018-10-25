@@ -2,49 +2,49 @@
   width: 100%;
   .video-info {
     position: relative;
-    .video-user {
-      .video-user-avatar {
-        width: 22.5px;
-        height: 22.5px;
-        border: 0.75px solid rgba(255,255,255,0.30);
-        border-radius: 11.25px;
-        background-size: cover;
-        overflow: hidden;
-        background-position: center;
-        // border: 0.75px solid rgba(0, 0, 0, 0.3);
-        .activity-item-profile-cover {
-          left: -18.75px;
-          top: 20.25px;
-        }
-      }
-      .video-user-name {
-        color: #FFF;
-        font-size: 10.5px;
-        position: absolute;
-        top: 0px;
-        left: 37.5px;
-      }
-      .video-posted-at {
-        width: 100%;
-        position: absolute;
-        top: 9px;
-        left: 37.5px;
-        .video-status-icon {
-          height: 9px;
-          opacity: 0.5;
-          position: absolute;
-          top: 5.25px;
-          left: 0px;
-        }
-        label {
-          position: absolute;
-          color: rgba(255, 255, 255, 0.5);
-          top: 0.75px;
-          left: 13.5px;
-          font-size: 10.5px;
-        }
-      }
-    }
+    // .video-user {
+    //   .video-user-avatar {
+    //     width: 22.5px;
+    //     height: 22.5px;
+    //     border: 0.75px solid rgba(255,255,255,0.30);
+    //     border-radius: 11.25px;
+    //     background-size: cover;
+    //     overflow: hidden;
+    //     background-position: center;
+    //     // border: 0.75px solid rgba(0, 0, 0, 0.3);
+    //     .activity-item-profile-cover {
+    //       left: -18.75px;
+    //       top: 20.25px;
+    //     }
+    //   }
+    //   .video-user-name {
+    //     color: #FFF;
+    //     font-size: 10.5px;
+    //     position: absolute;
+    //     top: 0px;
+    //     left: 37.5px;
+    //   }
+    //   .video-posted-at {
+    //     width: 100%;
+    //     position: absolute;
+    //     top: 9px;
+    //     left: 37.5px;
+    //     .video-status-icon {
+    //       height: 9px;
+    //       opacity: 0.5;
+    //       position: absolute;
+    //       top: 5.25px;
+    //       left: 0px;
+    //     }
+    //     label {
+    //       position: absolute;
+    //       color: rgba(255, 255, 255, 0.5);
+    //       top: 0.75px;
+    //       left: 13.5px;
+    //       font-size: 10.5px;
+    //     }
+    //   }
+    // }
     .video-cover {
       position: relative;
       padding: 0;
@@ -168,7 +168,7 @@
       .video-name {
         margin: 0;
         font-size: 15px;
-        color: #FFFFFF;
+        color: #000000;
         letter-spacing: -0.6px;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -188,7 +188,7 @@
         margin: 0;
         opacity: 0.5;
         font-size: 16px;
-        color: #FFFFFF;
+        color: #8E8E8E;
         letter-spacing: -0.6px;
         white-space: nowrap;
         overflow: hidden;
