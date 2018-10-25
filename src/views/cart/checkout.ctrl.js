@@ -144,7 +144,7 @@ export default {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
           this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
-          this.$router.push({path : '/cart'})
+          this.$router.push({path : '/cart#history'})
         }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

@@ -880,7 +880,7 @@
     }
     .album-comment-page {
       padding-top: 200px;
-      padding-bottom: 140px;
+      // padding-bottom: 140px;
       .comment-title {
         font-weight: 700;
         font-size: 30px;
@@ -1144,6 +1144,44 @@
                 }
               }
             }
+          }
+        }
+      }
+    }
+    .album-recent-page {
+      padding-top: 100px;
+      padding-bottom: 0px;
+      .recent-title {
+        padding: 0 11.25px 15px 11.25px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #C3C3C3;
+        font-weight: 700;
+        font-size: 30px;
+        color: #000000;
+        letter-spacing: -1.5px;
+        font-family: 'Work Sans';
+      }
+      .recent-content {
+        .card-container{
+          max-width: 25%;
+          width: 25%;
+          .track-card .track-info .track-detail .track-name {
+            color: initial;
+          }
+          .track-card .track-info .track-detail .track-user-name {
+            color: initial;
+          }
+          .video-card .video-info .video-detail .video-name {
+            color: initial;
+          }
+          .video-card .video-info .video-detail .video-user-name {
+            color: initial;
+          }
+          .product-card .product-info .product-detail .product-name {
+            color: initial;
+          }
+          .product-card .product-info .product-detail .product-user-name {
+            color: initial;
           }
         }
       }

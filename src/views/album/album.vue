@@ -189,7 +189,7 @@
         </div>
       </div>
 
-      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="$store.state.auth.user">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="currentUser">
         <h4 class="comment-title">Talk to {{ album.user.display_name }}</h4>
         <label class="description">Comments are only seen by the artist and people you @mention, unless artist makes your comment public.</label>
         <div class="comments-section">
@@ -276,6 +276,21 @@
             </div>
           </div>
         </div>
+      </v-flex>
+
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-recent-page v-if="currentUser">
+        <h4 class="recent-title">{{ album.user.display_name }}'s recent reposts</h4>
+        <v-layout row wrap class="recent-content">
+          <div v-for="(feed, index) in album.user.recent_items"
+            v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
+            :key="feed.id"
+            class="card-container"
+          >
+            <track-card :objects="album.user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"/>
+            <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"/>
+            <video-card :dataObject="feed" v-if="feed.assoc_type=='Stream'"/>
+          </div>
+        </v-layout>
       </v-flex>
     </v-flex>
 

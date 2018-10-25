@@ -13,9 +13,12 @@ import albumTrackItem from '@/components/albumtrackitem'
 import albumFinishModal from '@/components/albumfinishmodal'
 import downloadModal from '@/components/downloadmodal'
 import merchModal from '@/components/merchmodal'
+import productCard from '@/components/productcard'
 import profileItem from '@/components/profileitem'
 import promoteModal from '@/components/promotemodal'
 import shareModal from '@/components/sharemodal'
+import trackCard from '@/components/trackcard'
+import videoCard from '@/components/videocard'
 
 const ActionCable = require('actioncable')
 
@@ -27,9 +30,12 @@ export default {
     albumTrackItem,
     downloadModal,
     merchModal,
+    productCard,
     profileItem,
     promoteModal,
-    shareModal
+    shareModal,
+    trackCard,
+    videoCard
   },
 
   data() {
@@ -175,10 +181,6 @@ export default {
         // }
         const lastState = this.$store.getters['navigator/last']
         if (_.get(lastState, 'params.album_id') == this.album.id) {
-          // AlbumService.getAlbum(lastState.params.album_id).then(response => {
-          //   this.album = response.body
-          //   this.showFinishDialog()
-          // })
           this.showFinishDialog()
         }
 
