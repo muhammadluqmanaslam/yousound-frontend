@@ -28,6 +28,7 @@ import Stream from '@/views/stream/stream'
 import Notifications from '@/views/notifications/notifications'
 import Chat from '@/views/chat/chat'
 import Messages from '@/views/messages/messages'
+import DirectMessages from '@/views/user/direct_messages'
 import Cart from '@/views/cart/cart'
 import Checkout from '@/views/cart/checkout'
 import Sell from '@/views/sell/sell'
@@ -114,7 +115,8 @@ export function createRouter (settings) {
     { path: '/payments', name: 'PaymentIndex', component: PaymentIndex },
     { path: '/settings', name: 'UserSettings', component: UserSettings },
     { path: '/:slug', name: 'UserProfile', component: UserProfile },
-    { path: '/user/:user/chat', name: 'Chat', component: Chat }
+    { path: '/user/:user/chat', name: 'Chat', component: Chat },
+    { path: '/user/:user/messages', name: 'DirectMessages', component: DirectMessages }
   ])
 
   if (!settings.disable_live_video) {

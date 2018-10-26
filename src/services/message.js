@@ -4,8 +4,8 @@ import $store from '@/store'
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/messages'
 
 export default {
-  getConversations () {
-    return Vue.http.get(API_BASE_URL + '/conversations', { headers: { 'Authorization': $store.state.auth.token } })
+  getConversations (params) {
+    return Vue.http.get(API_BASE_URL + '/conversations', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
   deleteConversation (params) {
@@ -28,8 +28,8 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + id + '/accept_repost_on_free', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
-  getMessages (id) {
-    return Vue.http.get(API_BASE_URL + '?conversation_id=' + id, { headers: { 'Authorization': $store.state.auth.token } })
+  getMessages (params) {
+    return Vue.http.get(API_BASE_URL, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
   addMessage (params) {

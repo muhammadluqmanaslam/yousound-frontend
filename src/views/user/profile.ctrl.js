@@ -82,6 +82,15 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
+    enabledViewDirectMessage () {
+      return this.currentUser.user_type == 'admin' ||
+        (this.currentUser.user_type == 'moderator' && _.get(this.currentUser, 'enabled_view_direct_message') == true)
+    },
+
     coverImageURL () {
       const imageUrl = _.get(this.albums, `[${this.startIndex}].cover.thumb.url`, '')
       if (imageUrl) {
@@ -472,8 +481,12 @@ export default {
       this.showSendLoveModal = false
     },
 
+    viewDirectMessages () {
+      this.$router.push({ path: '/user/' + this.user.slug + '/messages' })
+    },
+
     goToChat () {
-      this.$router.push({ path: '/user/' + this.user.id + '/chat' })
+      this.$router.push({ path: '/user/' + this.user.slug + '/chat' })
     },
 
     openBlockUserConfirmDialog () {

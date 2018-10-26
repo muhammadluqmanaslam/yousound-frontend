@@ -35,12 +35,12 @@
                   <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
                 <v-btn v-else class="play-btn" @click.native="playSong()"><v-icon>play_arrow</v-icon>Play</v-btn>
                 <v-btn v-if="show_stream_live_button" class="green px-2" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
-                <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
+                <v-btn v-if="currentUser && user.id!=currentUser.id"
                   :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                   @mouseenter="buttonHover = true"
                   @mouseleave="buttonHover = false"
                   @click.native="followUser()">{{ followButtonText }}</v-btn>
-                <v-menu offset-y class="more-menu" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+                <v-menu offset-y class="more-menu" v-if="currentUser && user.id!=currentUser.id">
                   <v-btn dark class="more-btn" slot="activator">
                     <v-icon right>more_horiz</v-icon>
                   </v-btn>
@@ -51,7 +51,7 @@
                         <label>Message</label>
                       </v-list-tile-title>
                     </v-list-tile>
-                    <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+                    <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="currentUser && user.id!=currentUser.id">
                       <v-list-tile-title class="default-menu-item">
                         <label>Send Love</label>
                       </v-list-tile-title>
@@ -200,12 +200,12 @@
                 <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
               <v-btn v-else class="play-btn" @click.native="playSong()">
                 <v-icon>play_arrow</v-icon>Play</v-btn>
-              <v-btn v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id"
+              <v-btn v-if="currentUser && user.id!=currentUser.id"
                 :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                 @mouseenter="buttonHover = true"
                 @mouseleave="buttonHover = false"
                 @click.native="followUser()">{{ followButtonText }}</v-btn>
-              <v-menu offset-y class="more-menu" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+              <v-menu offset-y class="more-menu" v-if="currentUser && user.id!=currentUser.id">
                 <v-btn dark class="more-btn" slot="activator">
                   <v-icon right>more_horiz</v-icon>
                 </v-btn>
@@ -216,7 +216,12 @@
                       <label>Message</label>
                     </v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="$store.state.auth.user && user.id!=$store.state.auth.user.id">
+                  <v-list-tile key="view_direct_messages" @click.native="viewDirectMessages()" v-if="enabledViewDirectMessage">
+                    <v-list-tile-title class="default-menu-item">
+                      <label>View Direct Messages</label>
+                    </v-list-tile-title>
+                  </v-list-tile>
+                  <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="currentUser && user.id!=currentUser.id">
                     <v-list-tile-title class="default-menu-item">
                       <label>Send Love</label>
                     </v-list-tile-title>
@@ -293,7 +298,7 @@
                   <div v-if="!users || users.length == 0" class="empty-section">
                     <p class="empty-title">Profile is Empty</p>
                     <p class="empty-description">It’s a little lonely in here...</p>
-                    <router-link to="/discover" class="empty-discover-btn" v-if="$store.state.auth.user && user.id==$store.state.auth.user.id">Discover</router-link>
+                    <router-link to="/discover" class="empty-discover-btn" v-if="currentUser && user.id==currentUser.id">Discover</router-link>
                   </div>
                   <v-layout row wrap class="covers-content" v-else>
                     <div class="card-container" v-for="(user, index) in users" :key="index">
@@ -303,7 +308,7 @@
                 </div>
                 <div v-else-if="tab.id=='artists'">
                   <template v-if="!users || users.length == 0">
-                    <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                    <template v-if="currentUser && currentUser.id == user.id">
                       <div class="empty-section">
                         <p class="empty-title">Empty</p>
                         <p class="empty-description">You have not added any user</p>
@@ -326,7 +331,7 @@
                 </div>
                 <div v-else-if="tab.id=='merch'">
                   <template v-if="!products || products.length == 0">
-                    <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                    <template v-if="currentUser && currentUser.id == user.id">
                       <div class="empty-section">
                         <p class="empty-title">Empty</p>
                         <p class="empty-description">You have not uploaded any merch</p>
@@ -359,7 +364,7 @@
                 <div v-else>
                   <template v-if="!albums || albums.length == 0">
                     <template v-if="tab.id == 'songs'">
-                      <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                      <template v-if="currentUser && currentUser.id == user.id">
                         <div class="empty-section">
                           <p class="empty-title">Empty</p>
                           <p class="empty-description">You have no uploaded albums</p>
@@ -374,7 +379,7 @@
                       </template>
                     </template>
                     <template v-else-if="tab.id == 'downloaded'">
-                      <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                      <template v-if="currentUser && currentUser.id == user.id">
                         <div class="empty-section">
                           <p class="empty-title">Empty</p>
                           <p class="empty-description">You have no downloaded albums</p>
@@ -389,7 +394,7 @@
                       </template>
                     </template>
                     <template v-else-if="tab.id == 'reposted'">
-                      <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                      <template v-if="currentUser && currentUser.id == user.id">
                         <div class="empty-section">
                           <p class="empty-title">Empty</p>
                           <p class="empty-description">You have no reposts</p>
@@ -404,7 +409,7 @@
                       </template>
                     </template>
                     <template v-else-if="tab.id == 'playlists'">
-                      <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                      <template v-if="currentUser && currentUser.id == user.id">
                         <div class="empty-section">
                           <p class="empty-title">Empty</p>
                           <p class="empty-description">You have no playlists</p>
@@ -419,7 +424,7 @@
                       </template>
                     </template>
                     <template v-else-if="tab.id == 'playlists'">
-                      <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                      <template v-if="currentUser && currentUser.id == user.id">
                         <div class="empty-section">
                           <p class="empty-title">Empty</p>
                           <p class="empty-description">You have no playlists</p>
@@ -434,7 +439,7 @@
                       </template>
                     </template>
                     <template v-else-if="tab.id == 'catalog'">
-                      <template v-if="$store.state.auth.user && $store.state.auth.user.id == user.id">
+                      <template v-if="currentUser && currentUser.id == user.id">
                         <div class="empty-section">
                           <p class="empty-title">Empty</p>
                           <p class="empty-description">You have no catalog</p>

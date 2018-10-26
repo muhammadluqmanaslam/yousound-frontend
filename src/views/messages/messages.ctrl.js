@@ -161,7 +161,10 @@ export default {
       if (scrollMove) {
         this.$store.dispatch('error/showLoadingActivity', true)
       }
-      MessageService.getMessages(id).then(response => {
+      const params = {
+        conversation_id: id
+      }
+      MessageService.getMessages(params).then(response => {
         if (loadMore) {
           // this.conversation.messages = this.conversation.messages.concat(response.body.messages)
           this.conversation.messages = _.reverse(response.body.messages).concat(this.conversation.messages.concat)
