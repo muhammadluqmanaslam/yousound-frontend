@@ -16,6 +16,10 @@ export default {
     return Vue.http.post(API_BASE_URL + '/deny_user', params, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  toggleViewDirectMessages (params) {
+    return Vue.http.post(`${API_BASE_URL}/toggle_view_direct_messages`, params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   toggleLiveVideo (params) {
     return Vue.http.post(`${API_BASE_URL}/toggle_live_video`, params, { headers: { 'Authorization': $store.state.auth.token } })
   },

@@ -22,18 +22,22 @@
         <v-tabs-content v-for="tab in users_tabs" :key="tab.id" :id="tab.id">
           <v-card flat>
             <v-data-table
-              :headers="user_headers"
+              :headers="headers(tab.id)"
               :items="filtered_users"
               :search="user_search"
               :pagination.sync="pagination"
               :rows-per-page-items="per_page_options"
-              class="user-table">
+              class="user-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="avatar-image-wrapper">
                     <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
                     <div class="avatar-title">{{ props.item.username }}</div>
                   </div>
+                </td>
+                <td class="text-xs-left" v-if="tab.id=='moderators'">
+                  <v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_view_direct_messages" @change="toggleViewDirectMessages(props.item)"></v-switch>
                 </td>
                 <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video" @change="toggleLiveVideo(props.item)"></v-switch></td>
                 <td class="text-xs-left"><v-switch hide-details class="setting-cell-switch" label="" v-model="props.item.enabled_live_video_free" @change="toggleLiveVideoFree(props.item)"></v-switch></td>

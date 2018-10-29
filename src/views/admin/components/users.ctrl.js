@@ -22,6 +22,7 @@ export default {
       user_tab:'all',
       user_headers: [
         { text: 'Username', value: 'username', align: 'left' },
+        { text: 'View Direct Messages', value: 'enabled_view_direct_messages', align: 'left' },
         { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
         { text: 'Free Streaming', value: 'enabled_live_video_free', align: 'left' },
         { text: 'Current Free Stream Hours', value: 'free_streamed_time' },
@@ -93,6 +94,21 @@ export default {
         // this.isPageReady = true
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
+    },
+
+    headers (tab_id) {
+      if (tab_id == 'moderators') {
+        return this.user_headers
+      } else {
+        return _.filter(this.user_headers, (h) => { return h.text != 'View Direct Messages' })
+      }
+    },
+
+    toggleViewDirectMessages (user) {
+      const params = {
+        user_id: user.id
+      }
+      AdminService.toggleViewDirectMessages(params)
     },
 
     openStreamDeleteConfirmDialog (user) {
