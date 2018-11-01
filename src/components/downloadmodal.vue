@@ -47,6 +47,7 @@
 <script type="text/javascript">
   import AuthService from '@/services/auth'
   import AlbumService from '@/services/album'
+  import TrackService from '@/services/track'
   import UserService from '@/services/user'
   import paymentModal from '@/components/paymentmodal'
   // import { Utils } from '@/helper'
@@ -143,9 +144,7 @@
       downloadItem () {
         this.dismiss()
         if (this.track) {
-          // console.log(this.track)
-          // AlbumService.downloadAlbum(this.item.id)
-          // window.open(this.track.audio_download_url, '_blank')
+          TrackService.downloadTrack(this.track.id)
 
           var a = document.createElement('A')
           a.href = this.track.audio_download_url

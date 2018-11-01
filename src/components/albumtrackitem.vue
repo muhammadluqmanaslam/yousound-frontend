@@ -10,15 +10,7 @@
       <v-icon v-else-if="buttonHover || (trackIndex==0 && !isPlaying)">play_arrow</v-icon>
     </v-btn>
     <label class="track-name" @click.self="selectTrack()">
-      <label class="track-index">{{ trackIndex + 1 }}. </label>{{ track.name }}</label>
-    <!-- <div class="track-actions" v-if="showStats">
-      <v-btn class="action-btn" @click.native="goToAlbumStats('played_by')">
-        <v-icon>play_arrow</v-icon>3k</v-btn>
-      <v-btn class="action-btn" @click.native="goToAlbumStats('downloaded_by')">
-        <img src="/static/images/ic_repost_trans.png" />1.3k</v-btn>
-      <v-btn class="action-btn" @click.native="goToAlbumStats('reposted_by')">
-        <img src="/static/images/ic_repeat_trans.png" />975</v-btn>
-    </div> -->
+    <label class="track-index">{{ trackIndex + 1 }}. </label>{{ track.name }}</label>
     <div class="right-section">
       <v-menu v-model="menu"
         offset-y
@@ -80,7 +72,7 @@
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text class="create-playlist-section">
-                        <div class="playlist-image-section"> 
+                        <div class="playlist-image-section">
                           <div class="image-section">
                             <div class="playlist-image" id="playlist_image" v-if="playlist.image" :style="`background-image: url(${selectedImage})`"></div>
                             <div class="playlist-image-upload-section" v-if="!playlist.image">
@@ -124,8 +116,29 @@
       </v-menu>
       <!-- <label class="track-length" @click.self="selectTrack()">6:13</label> -->
     </div>
-    <download-modal :item="album" :track="track" :dismiss="dismissDownloadDialog" v-if="download_dialog"></download-modal>
-    <share-modal :item="album" :dismiss="dismissShareDialog" v-if="share_dialog"></share-modal>
+    <div class="track-actions" v-if="showStats">
+      <v-btn class="action-btn"><v-icon>play_arrow</v-icon>{{ track.played }}</v-btn>
+      <!-- <v-btn class="action-btn" @click.native="goToAlbumStats('played_by')">
+        <v-icon>play_arrow</v-icon>3k
+      </v-btn>
+      <v-btn class="action-btn" @click.native="goToAlbumStats('downloaded_by')">
+        <img src="/static/images/ic_repost_trans.png" />1.3k
+      </v-btn>
+      <v-btn class="action-btn" @click.native="goToAlbumStats('reposted_by')">
+        <img src="/static/images/ic_repeat_trans.png" />975
+      </v-btn> -->
+    </div>
+
+    <download-modal v-if="download_dialog"
+      :item="album"
+      :track="track"
+      :dismiss="dismissDownloadDialog"
+    />
+
+    <share-modal v-if="share_dialog"
+      :item="album"
+      :dismiss="dismissShareDialog"
+    />
   </div>
 </template>
 

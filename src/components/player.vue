@@ -230,6 +230,7 @@
 import { mapActions } from 'vuex'
 import { Howl } from 'howler'
 import AlbumService from '@/services/album'
+import TrackService from '@/services/track'
 import UserService from '@/services/user'
 import { MyEvents } from '@/helper'
 import downloadModal from '@/components/downloadmodal'
@@ -351,6 +352,12 @@ export default {
       index = typeof index === 'number' ? index : this.index
       var data = this.playlist[index]
 
+      // Update the track display.
+      // track.innerHTML = (index + 1) + '. ' + data.title
+      // this.trackName = this.playlist[index].track.name
+      this.trackIndex = (index + 1) + ' of ' + this.playlist.length
+      this.track = this.playlist[index].track
+
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
       if (data.howl) {
@@ -393,16 +400,12 @@ export default {
             // this.isPlaying = false
           }
         })
+
+        TrackService.playTrack(this.track.id).then(response => (console.log('playing - track', this.track.id)))
       }
 
       // Begin playing the sound.
       sound.play()
-
-      // Update the track display.
-      // track.innerHTML = (index + 1) + '. ' + data.title
-      // this.trackName = this.playlist[index].track.name
-      this.trackIndex = (index + 1) + ' of ' + this.playlist.length
-      this.track = this.playlist[index].track
 
       // Show the pause button.
       if (sound.state() === 'loaded') {
@@ -573,7 +576,7 @@ export default {
       if (tracks.length > 0) {
         if (this.$store.state.auth.user) {
           const album = object.assoc || object
-          AlbumService.playAlbum(album.id).then(response => (console.log('played', album.id)))
+          AlbumService.playAlbum(album.id).then(response => (console.log('playing - album', album.id)))
         }
 
         for (let track in tracks) {

@@ -14,5 +14,13 @@ export default {
 
   patchTrack (trackId, params) {
     return Vue.http.patch(API_BASE_URL + '/' + trackId, params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
+  downloadTrack (trackId, params) {
+    return Vue.http.get(`${API_BASE_URL}/${trackId}/download`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  },
+
+  playTrack (trackId) {
+    return Vue.http.get(`${API_BASE_URL}/${trackId}/play`, { headers: { 'Authorization': $store.state.auth.token } })
   }
 }
