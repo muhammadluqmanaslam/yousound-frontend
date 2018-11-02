@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import Vue from 'vue'
+import { mixin as onClickOutside } from 'vue-on-click-outside'
 import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
 import StreamService from '@/services/stream'
@@ -13,12 +14,15 @@ import {
   MediaLiveInputResolutions,
   MediaLiveInputMaximumBitrates,
   MyEvents,
-  StreamHourlyPrice} from '@/helper'
+  StreamHourlyPrice
+} from '@/helper'
 
 export default {
   components: {
     paymentModal
   },
+
+  mixins: [onClickOutside],
 
   data () {
     return {
@@ -30,10 +34,11 @@ export default {
       //   ml_input_resolution: 'HD',
       //   ml_input_maximum_bitrate: 'MAX_10_MBPS'
       // },
-      // show_payment_dialog: false,
       // show_deposit_dialog: false,
       show_stream_delete_confirm_dialog: false,
       show_create_failed_dialog: false,
+      show_add_more_time_dialog: false,
+      show_payment_dialog: false,
       show_view_stream_button: false,
       viewers_limits: [
         { id: 0, name: 'Unlimited' },
@@ -47,6 +52,8 @@ export default {
       searchGuests: null,
       guests: [],
       selected_guests: [],
+      periods: [],
+      period: 3600,
       creatingInterval: null,
       remainingInterval: null,
       remainingSeconds: 0,
@@ -88,8 +95,8 @@ export default {
       return `${window.location.origin}/${this.currentUser.slug}`
     },
 
-    StreamHourlyPrice () {
-      return StreamHourlyPrice
+    streamCost () {
+      return Math.round(this.period * StreamHourlyPrice / 3600)
     },
 
     MediaLiveInputTypes () {
@@ -116,6 +123,13 @@ export default {
   },
 
   created () {
+    for (let i = 1; i <= 24; i++) {
+      this.periods.push({
+        id: i * 3600,
+        name: `${i}hours / $${i * StreamHourlyPrice / 100}`
+      })
+    }
+
     this.isPageReady = false
     this.$store.dispatch('error/showLoadingActivity', true)
     UserService.getUserInfo(this.currentUser.id).then(response => {
@@ -210,13 +224,20 @@ export default {
       })
     },
 
-    // openPaymentDialog () {
-    //   this.closeDepositDialog()
-    //   this.show_payment_dialog = true
-    // },
-    // closePaymentDialog () {
-    //   this.show_payment_dialog = false
-    // },
+    addMoreTime () {
+      const params = {
+        stream: {
+          extend_period: this.period
+        }
+      }
+      StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
+        this.$store.dispatch('auth/setStream', response.body)
+        this.remainingSeconds = response.body.remaining_seconds
+      }).catch(e => {
+        console.log('saveViewersLimit', e.body.errors || [e.body])
+      })
+    },
+
     // openDepositDialog () {
     //   if (this.currentUser.enabled_live_video_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
     //     this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
@@ -245,17 +266,37 @@ export default {
       this.$router.push({ path: '/' })
     },
 
+    openAddMoreTimeDialog () {
+      this.show_add_more_time_dialog = true
+    },
+
+    closeAddMoreTimeDialog () {
+      this.show_add_more_time_dialog = false
+    },
+
+    openPaymentDialog () {
+      this.closeAddMoreTimeDialog()
+      this.show_payment_dialog = true
+      // this.addMoreTime()
+    },
+
+    closePaymentDialog () {
+      this.show_payment_dialog = false
+    },
+
     deposit (token) {
-      const params = {
-        payment_token: token.id,
-        amount: StreamHourlyPrice
+      if (token) {
+        const params = {
+          payment_token: token.id,
+          amount: streamCost
+        }
+        PaymentService.makeDeposit(params).then(response => {
+          AuthService.setUser(response.body)
+          this.addMoreTime()
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        })
       }
-      PaymentService.makeDeposit(params).then(response => {
-        AuthService.setUser(response.body)
-        this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
     },
 
     refresh () {

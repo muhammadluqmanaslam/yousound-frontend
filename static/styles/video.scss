@@ -288,3 +288,26 @@
     text-transform: initial;
   }
 }
+
+.dialog.add-more-time-dialog {
+  .card__title.headline {
+    display: block;
+    padding: 50px 0 10px 0;
+    text-align: center;
+  }
+  .card__text {
+    .input-group {
+      width: 300px;
+      margin: 0 auto;
+      &__details {
+        display: none;
+      }
+    }
+  }
+  .card__actions {
+    padding: 8px 0 50px 0;
+    .btn .btn__content {
+      padding: 0 32px;
+    }
+  }
+}
