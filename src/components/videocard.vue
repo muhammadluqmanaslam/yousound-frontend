@@ -3,8 +3,8 @@
     <v-flex xs12 class="video-info" pa-0>
       <v-flex xs12 class="video-cover">
         <div class="video-image" :style="{'background-image': 'url(' + owner.avatar.url + ')'}"/></div>
-        <v-flex xs12 class="video-actions" relative v-if="$store.state.auth.user">
-          <v-btn class="green px-2 live-video-btn" dark round @click.native="viewStream()">
+        <v-flex xs12 class="video-actions" relative v-if="$store.state.auth.user" @click="viewStream()">
+          <v-btn class="green px-2 live-video-btn" dark round>
             <v-icon>videocam</v-icon>
             <span v-if="item.view_price > 0">${{ item.view_price | formatNumber }}</span>
           </v-btn>
