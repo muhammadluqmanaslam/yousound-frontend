@@ -16,6 +16,7 @@ export default {
       digital_content_category_id: '',
       showAddress: true,
       showPaymentModal: false,
+      show_order_complete_dialog: false,
       cartCost: {
         total_cost: 0,
         subtotal_cost: 0,
@@ -142,9 +143,10 @@ export default {
         }
         ItemService.orderItems(params).then(response => {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
-          this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
-          this.$router.push({path : '/cart#history'})
+          // this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
+          // this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
+          // this.$router.push({path : '/cart#history'})
+          this.openOrderCompleteDialog()
         }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -158,6 +160,11 @@ export default {
       }
     },
 
+    viewOrderHistory () {
+      this.closeOrderCompleteDialog()
+      this.$router.push({path : '/cart#history'})
+    },
+
     openPaymentDialog () {
       if (this.shippingAddress.length == 0) {
         this.$store.dispatch('error/showErrorToast', ['Please add Shipping Address.'])
@@ -168,6 +175,14 @@ export default {
 
     closePaymentDialog () {
       this.showPaymentModal = false
+    },
+
+    openOrderCompleteDialog () {
+      this.show_order_complete_dialog = true
+    },
+
+    closeOrderCompleteDialog () {
+      this.show_order_complete_dialog = false
     },
 
     hideShippingAddress () {

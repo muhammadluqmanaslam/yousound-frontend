@@ -96,6 +96,20 @@
         </v-flex>
     </v-flex>
 
+    <v-dialog v-model="show_order_complete_dialog" content-class="my-dialog-1">
+      <v-card>
+        <v-card-media src="/static/images/ic_check_o_green.png" height="100px" contain></v-card-media>
+        <v-card-text>
+          <div class="headline">Your order has been processed!</div>
+          <div>View your order history to view shipping status of your items,<br/>
+          view payment invoices & download any digital products.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="blue" dark round @click.native="viewOrderHistory()">View Order History</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <payment-modal v-if="showPaymentModal"
       :type="''"
       :amount="cartCost.total_cost"
