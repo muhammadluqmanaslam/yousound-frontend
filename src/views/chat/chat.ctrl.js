@@ -377,11 +377,11 @@ export default {
         sm.onRoomInfo = async room => {
           Vue.set(app, "room", room);
           // Fetch user data (avatar image, etc)
-                    let temponlineUsers = await Promise.all(room.online.map(async username => {
+          let temponlineUsers = await Promise.all(room.online.map(async username => {
             const res = await UserService.getUserInfo(username)
             return res.body
           }))
-                    let tempidleUsers = await Promise.all(room.idle.map(async username => {
+          let tempidleUsers = await Promise.all(room.idle.map(async username => {
             const res = await UserService.getUserInfo(username)
             return res.body
           }))
@@ -390,15 +390,15 @@ export default {
             return res.body
           }))
           // Remove admin users from online/idle list because they are displayed separately
-                    Vue.set(app, "onlineUsers", temponlineUsers.filter(u => {
+          Vue.set(app, "onlineUsers", temponlineUsers.filter(u => {
             return room.admins.indexOf(u.username) < 0
-          }));
-                    Vue.set(app, "idleUsers", tempidleUsers.filter(u => {
+          }))
+          Vue.set(app, "idleUsers", tempidleUsers.filter(u => {
             return room.admins.indexOf(u.username) < 0
-          }));
+          }))
           app.admin = (room.admins.filter((u) => {
             return u == app.me.username
-          }).length == 1);
+          }).length == 1)
         }
 
         sm.onLoadMessages = function (loadMessageObj) {
@@ -427,13 +427,13 @@ export default {
                 message.me = true;
               }
               UserService.getUserInfo(message.from).then(response => {
-                Vue.set(message, "fromUser", response.body);
+                Vue.set(message, "fromUser", response.body)
               })
-              return message;
+              return message
             }
-          });
-          app.connected = true;
-          app.messageError = "";
+          })
+          app.connected = true
+          app.messageError = ""
           $('#msg-container')[0].scrollTop = $('#msg-container')[0].scrollHeight
 
           // setTimeout(function () {
