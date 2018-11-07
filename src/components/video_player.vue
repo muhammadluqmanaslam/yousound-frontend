@@ -408,14 +408,41 @@
       ></payment-modal>
     </v-dialog>
 
-    <v-dialog v-model="show_streaming_confirm_dialog" content-class="my-dialog-1">
-      <v-card>
-        <!-- <v-card-media :src="item.cover.url" height="125px" contain></v-card-media> -->
+    <v-dialog v-model="show_streaming_confirm_dialog" content-class="stream-view-confirm-dialog">
+      <v-card v-if="user">
         <v-card-text>
           <div class="headline">This user is streaming live, do you want to watch?</div>
-          <div>Video enters full screen mode when you watch this stream, press ESC to minimize to browse the site.</div>
+          <div>Video will enter full screen mode, press ESC to minimize to minimize.</div>
         </v-card-text>
+        <div class="profile-wrapper">
+          <div class="profile-header">
+            <div class="profile-avatar" :style="{'background-image': 'url(' + user.avatar.thumb.url + ')'}"></div>
+          </div>
+          <div class="profile-content">
+            <div class="user-name">
+              <label>{{ user.display_name }}</label>
+              <v-icon class="user-status" :class="{'online': user.status == 'active'}" v-if="user.user_type == 'artist'">fa-check-circle</v-icon>
+            </div>
+            <div class="user-type">{{ user.user_type }}</div>
+            <div class="stream-name">
+              <label>Event:</label>
+              <span>{{ stream.name }}</span>
+            </div>
+            <div class="stream-time-since">
+              <label>Broadcasting for:</label>
+              <span>{{ stream.started_at | formatDateFromNow }}</span>
+            </div>
+            <div class="stream-genre">
+              <label>Genre:</label>
+              <span>{{ streamGenreName }}</span>
+            </div>
+          </div>
+        </div>
         <v-card-actions>
+          <label>Cost:</label>
+          <span v-if="stream.view_price > 0">${{ stream.view_price | formatNumber }}</span>
+          <span v-else>FREE</span>
+          <v-spacer></v-spacer>
           <v-btn dark color="green" @click="onClick">Yes</v-btn>
           <v-btn dark color="grey" @click.native="closeStreamingConfirmDialog()">No</v-btn>
         </v-card-actions>

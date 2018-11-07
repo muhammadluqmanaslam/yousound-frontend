@@ -59,6 +59,10 @@ export default {
       return this.$store.state.videoPlayer.stream
     },
 
+    streamGenreName () {
+      return _.get(this.stream, 'genre.name', '')
+    },
+
     //#TODO change user -> streamingUser
     user () {
       return _.get(this.stream, 'user', null)
