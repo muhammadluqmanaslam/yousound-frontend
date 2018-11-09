@@ -42,9 +42,10 @@
               <label class="control-label">Category</label>
               <v-select
                 v-bind:items="product_categories"
+                v-model="product.category"
                 item-text="name"
                 item-value="id"
-                v-model="product.category"
+                @change="onChangeProductCategory"
                 class="pt-0"
                 no-data-text="No destination available"
                 autocomplete
@@ -68,7 +69,7 @@
             </v-flex> -->
             <v-flex xs12 price-option-section>
               <h4 class="option-title">Price & Options ({{ product.variants.length }})
-                <v-btn class="add-option-btn" @click.native="addVariant()" v-if="product.category != digital_content_category_id">
+                <v-btn class="add-option-btn" @click.native="addVariant()" v-if="!isDigitalProduct">
                   <v-icon>add</v-icon>
                 </v-btn>
               </h4>
@@ -76,9 +77,9 @@
             <v-layout row product-option-content form-group v-for="(variant, index) in product.variants" :key="index">
               <v-flex xs12 sm4>
                 <label class="control-label">Option Name</label>
-                <input type="text" class="form-control" v-model="variant.name">              
+                <input type="text" class="form-control" v-model="variant.name" :disabled="isDigitalProduct">
               </v-flex>
-              <v-flex xs12 sm4 v-if="product.category != digital_content_category_id">
+              <v-flex xs12 sm4 v-if="!isDigitalProduct">
                 <label class="control-label">In Stock</label>
                 <input type="text" class="form-control" v-model="variant.quantity">              
               </v-flex>
@@ -91,7 +92,7 @@
           </v-flex>
         </v-flex>
 
-        <v-flex xs12 sm6 v-if="product.category != digital_content_category_id">
+        <v-flex xs12 sm6 v-if="!isDigitalProduct">
           <v-flex xs12 section-title>
             <h4>Shipping & Tax</h4>
           </v-flex>

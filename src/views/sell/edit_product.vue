@@ -30,9 +30,10 @@
               <label class="control-label">Category</label>
               <v-select
                 v-bind:items="product_categories"
+                v-model="product.category"
                 item-text="name"
                 item-value="id"
-                v-model="product.category"
+                @change="onChangeProductCategory"
                 class="pt-0"
                 autocomplete
               ></v-select>
@@ -63,7 +64,7 @@
             <v-layout row mb-2 product-option-content form-group v-for="(variant, index) in product.variants" :key="index">
               <v-flex xs12 sm4>
                 <label class="control-label">Name</label>
-                <input type="text" class="form-control" v-model="variant.name">              
+                <input type="text" class="form-control" v-model="variant.name" :disabled="isDigitalProduct">
               </v-flex>
               <v-flex xs12 sm4 v-if="!isDigitalProduct">
                 <label class="control-label">In Stock</label>

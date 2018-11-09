@@ -129,7 +129,7 @@ export default {
     },
 
     download (item) {
-      console.log(item.product.digital_content_url, item.product.digital_content_name)
+      // console.log(item.product.digital_content_url, item.product.digital_content_name)
       Utils.downloadFile(item.product.digital_content_url)
     },
 

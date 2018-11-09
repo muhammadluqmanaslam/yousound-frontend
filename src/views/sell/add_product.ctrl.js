@@ -51,6 +51,11 @@ export default {
         collaborators: [],
         creator_recoup_cost: 0
       },
+      product_variants: [{
+        name: '',
+        quantity: '',
+        price: ''
+      }],
       users: [],
       collaborators_confirm_dialog: false,
       isPageReady: false
@@ -87,6 +92,10 @@ export default {
         isAvailable = false
       }
       return isAvailable
+    },
+
+    isDigitalProduct () {
+      return this.product.category == this.digital_content_category_id
     },
 
     artists () {
@@ -181,6 +190,20 @@ export default {
     deleteShipment (index) {
       if (this.product.shipments.length > 1) {
         this.product.shipments.splice(index, 1)
+      }
+    },
+
+    onChangeProductCategory(category_id) {
+      // console.log('onChangeProductCategory', category_id, this.product.category)
+      if (category_id == this.digital_content_category_id && this.product.category != this.digital_content_category_id) {
+        this.product_variants = this.product.variants
+        this.product.variants = [{
+          name: 'Zip File',
+          quantity: '',
+          price: ''
+        }]
+      } else if (category_id != this.digital_content_category_id && this.product.category == this.digital_content_category_id) {
+        this.product.variants = this.product_variants
       }
     },
 

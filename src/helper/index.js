@@ -140,7 +140,7 @@ export const Filter = {
   },
 
   truncateInMiddle (str, len) {
-    console.log('truncateInMiddle', str, len)
+    // console.log('truncateInMiddle', str, len)
     if (str.length > len) {
       return str.substr(0, len - 5) + '...' + str.substr(str.length - 5, str.length)
     } else {
