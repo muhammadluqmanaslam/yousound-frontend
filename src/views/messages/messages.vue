@@ -233,11 +233,11 @@
                                 <v-btn v-if="message.attachment.attachable_type=='Album'"
                                   to="/albums#pending"
                                   class="status-btn"
-                                  :class="message.attachment.status">View Collaboration</v-btn>
+                                  :class="message.attachment.status">View & Release</v-btn>
                                 <v-btn v-else-if="message.attachment.attachable_type=='ShopProduct'"
                                   to="/sell#pendings"
                                   class="status-btn"
-                                  :class="message.attachment.status">View Collaboration</v-btn>
+                                  :class="message.attachment.status">View & Release</v-btn>
                               </div>
                               <div v-else>
                                 <v-btn to="/albums#pending" class="status-btn" v-if="message.attachment.attachable_type=='Album'">View Pending Collaboration</v-btn>
