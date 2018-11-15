@@ -13,7 +13,12 @@
         </div>
         <div class="user-info">
           <template v-if="item.collaborators_count > 0">
-            <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link>
+            <router-link class="user-name" :to="'/' + item.user.slug">{{ item.user.display_name }}</router-link>
+            <template v-for="c in item.collaborators">
+              <span>,&nbsp;</span>
+              <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link>
+            </template>
+            <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
           </template>
           <template v-else-if="item.album_type=='album'">
             <router-link class="user-name" :to = "'/' + item.user.slug">{{ item.user.display_name }}</router-link>
@@ -268,14 +273,15 @@ export default {
 
     item () {
       const item = this.$store.state.player.list[this.$store.state.player.listIndex]
-      if (item !== null && item !== undefined) {
-        if (item.assoc_type) {
-          return item.assoc
-        } else {
-          return item
-        }
+      if (!item) {
+        return null
       }
-      return null
+
+      if (item.assoc_type) {
+        return item.assoc
+      } else {
+        return item
+      }
     },
 
     user () {

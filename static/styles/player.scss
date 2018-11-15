@@ -26,10 +26,10 @@
       // display: inline-block;
       // vertical-align: middle;
       .track-info {
-          text-overflow: ellipsis;
-          width: 340px;
-          white-space: nowrap;
-          overflow: hidden;
+        width: 340px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         .track-index {
           font-size: 13.5px;
           color: #8A8A8A;
@@ -43,7 +43,11 @@
         }
       }
       .user-info {
+        width: 340px;
         padding-top: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         .user-name {
           font-size: 13.5px;
           color: #8A8A8A;

@@ -158,7 +158,8 @@
                       <v-list-tile v-for="(list, list_index) in playlists"
                         :key="`playlist_2_${list_index}`"
                         class="default-menu-item track-menu-item"
-                        @click.native="addToPlaylist(list)">
+                        @click.native="addToPlaylist(list)"
+                      >
                         <v-list-tile-title>
                           <img class="track-status-icon" src="/static/images/ic_download.png" />
                           <label>{{ list.name }}</label>
@@ -170,7 +171,8 @@
                 <v-list-tile v-if="['admin', 'moderator'].indexOf($store.state.auth.user.user_type) > -1 && !item.recommended"
                   key="recommended"
                   class="default-menu-item track-menu-item"
-                  @click.native="recommendAlbum()">
+                  @click.native="recommendAlbum()"
+                >
                   <v-list-tile-title>
                     <v-icon>thumb_up</v-icon>
                     <label>Recommend</label>
@@ -203,8 +205,17 @@
         </p>
       </v-flex>
     </v-flex>
-    <download-modal :item="item" :dismiss="dismissDownloadDialog" v-if="showDownloadModal"></download-modal>
-    <share-modal :item="item" :dismiss="dismissShareDialog" v-if="showShareModal"></share-modal>
+
+    <download-modal
+      v-if="showDownloadModal"
+      :item="item"
+      :dismiss="dismissDownloadDialog"
+    />
+    <share-modal
+      v-if="showShareModal"
+      :item="item"
+      :dismiss="dismissShareDialog"
+    />
   </v-flex>  
 </template>
 
