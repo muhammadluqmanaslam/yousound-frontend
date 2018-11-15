@@ -17,7 +17,10 @@
               @mouseleave="buttonHover = false">{{ followButtonText }}</v-btn>
           </div>
         </v-flex>
-        <div class="artist-name">{{ artist.display_name }}</div>
+        <div class="artist-name">
+          {{ artist.display_name }}
+          <v-icon class="user-status" :class="{'online': artist.status == 'active'}" v-if="artist.user_type == 'artist'">fa-check-circle</v-icon>
+        </div>
       </v-flex>
     </v-flex>
   </v-flex>  

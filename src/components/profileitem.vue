@@ -15,7 +15,7 @@
           </div>
           <div class="profile-cover-content">
             <router-link class="user-name" :to="'/' + user.slug">{{ user.display_name }}</router-link>&nbsp;
-            <v-icon class="user-status" v-bind:class="{'online': user.status == 'active'}" v-if="user.user_type == 'artist'">fa-check-circle</v-icon>
+            <v-icon class="user-status" :class="{'online': user.status == 'active'}" v-if="user.user_type == 'artist'">fa-check-circle</v-icon>
             <label class="user-followers"><b>{{ user.followers }}</b> Followers</label>
           </div>
         </div>
@@ -27,8 +27,7 @@
             @mouseleave="buttonHover = false"
             @click.native="followUser()"
             v-if="user.id!=$store.state.auth.user.id"
-          >{{ followButtonText }}
-          </v-btn>
+          >{{ followButtonText }}</v-btn>
           <v-btn class="text-button" @click.native="showMessageDialog()">Message</v-btn>
           <v-menu offset-y class="more-menu">
             <v-btn dark class="image-button" slot="activator">

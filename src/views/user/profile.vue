@@ -423,21 +423,6 @@
                         </div>
                       </template>
                     </template>
-                    <template v-else-if="tab.id == 'playlists'">
-                      <template v-if="currentUser && currentUser.id == user.id">
-                        <div class="empty-section">
-                          <p class="empty-title">Empty</p>
-                          <p class="empty-description">You have no playlists</p>
-                          <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
-                        </div>
-                      </template>
-                      <template v-else>
-                        <div class="empty-section">
-                          <p class="empty-title">Empty</p>
-                          <p class="empty-description">This user has no playlists</p>
-                        </div>
-                      </template>
-                    </template>
                     <template v-else-if="tab.id == 'catalog'">
                       <template v-if="currentUser && currentUser.id == user.id">
                         <div class="empty-section">
