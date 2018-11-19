@@ -89,12 +89,12 @@
                 <label class="control-label">Genre<label class="required">*</label></label>
                 <v-select
                   v-bind:items="genres"
-                  v-model="album.genre"
-                  item-text="name"
                   item-value="id"
-                  autocomplete
+                  item-text="name"
+                  v-model="album.genre"
                   class="pt-0"
                   no-data-text="No genres found"
+                  autocomplete
                 />
               </v-flex>
               <v-flex xs12 form-group>

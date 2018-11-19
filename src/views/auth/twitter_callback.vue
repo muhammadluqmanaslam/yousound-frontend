@@ -6,44 +6,426 @@
           <img class="logo" src="/static/images/nav_logo_primary.png">
         </v-flex>
         <v-flex xs12 text-xs-center>
-          <h4>Additional Information</h4>
+          <h4><span>{{ user.request_role }}</span> Verification</h4>
         </v-flex>
       </div>
       <div class="page-content" v-if="isPageReady">
         <form v-on:submit.prevent="submit()">
-          <v-flex xs12 text-xs-center v-if="user.request_role!='brand'">
-            <v-select v-validate="'required'"
-              :items="main_genres"
-              v-model="user.genre_id"
-              item-value="id"
-              item-text="name"
-              name="main_genre"
-              class="main_genre"
-              placeholder="What is your main Genre?"></v-select>
-          </v-flex>
-          <v-flex xs12 text-xs-center v-if="user.request_role!='brand'">
-            <input v-model="user.release_count" v-validate="'required|numeric'"
-              type="text" name="release_count" placeholder="How many release do you have">
-          </v-flex>
-          <v-flex xs12 text-xs-center v-if="user.request_role!='brand'">
-            <input v-model="user.soundcloud_url" v-validate="'required|max:1023|url'"
-              type="text" name="soundcloud_url" placeholder="Soundcloud URL">
-          </v-flex>
-          <v-flex xs12 text-xs-center v-if="user.request_role!='brand'">
-            <input v-model="user.basecamp_url" v-validate="'required|max:1023|url'"
-              type="text" name="basecamp_url" placeholder="Bandcamp URL">
-          </v-flex>
-          <v-flex xs12 text-xs-center>
-            <input v-model="user.website_url" v-validate="'required|max:1023|url'"
-              type="text" name="website_url" placeholder="Website URL">
-          </v-flex>
-          <v-flex xs12 text-xs-center>
-            <textarea v-model="user.history" v-validate="'required|max:1023'"
-              name="history" placeholder="What artists and/or labels have you previously worked with?"></textarea>
-          </v-flex>
-          <v-flex xs12 text-xs-center>
-            <v-btn block round dark type="submit" class="reset-btn">Next</v-btn>
-          </v-flex>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <h5>Personal Info</h5>
+            </v-flex>
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <input v-model="user.first_name" v-validate="'required'"
+                type="text" name="first_name" placeholder="First Name">
+            </v-flex>
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <input v-model="user.last_name" v-validate="'required'"
+                type="text" name="last_name" placeholder="Last Name">
+            </v-flex>
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <input v-model="user.year_of_birth" v-validate="'required|numeric'"
+                type="text" name="year_of_birth" placeholder="Year of Birth">
+            </v-flex>
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <v-select v-validate="'required'"
+                :items="gender_options"
+                v-model="user.gender"
+                name="gender"
+                placeholder="Sex"
+              />
+            </v-flex>
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <v-select v-validate="'required'"
+                :items="country_options"
+                v-model="user.country"
+                name="country"
+                placeholder="Country"
+                autocomplete
+              />
+            </v-flex>
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <input v-model="user.city" v-validate="'required'"
+                type="text" name="city" placeholder="City">
+            </v-flex>
+
+            <template v-if="user.request_role=='artist'">
+              <v-flex xs12>
+                <h5 class="pt-3"><span>Artist</span> Info</h5>
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="main_genres"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.genre_id"
+                  v-validate="'required'"
+                  name="main_genre"
+                  placeholder="What is your main Genre?"
+                  autocomplete
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="artist_type_type_options"
+                  v-model="user.artist_type"
+                  v-validate="'required'"
+                  name="artist_type"
+                  placeholder="What type of artist are you?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="released_albums_count_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.released_albums_count"
+                  v-validate="'required'"
+                  name="released_albums_count"
+                  placeholder="How many albums have you released?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="years_since_first_released_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.years_since_first_released"
+                  v-validate="'required'"
+                  name="years_since_first_released"
+                  placeholder="How many years since your first release?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_run_live_video"
+                  v-validate="'required'"
+                  name="will_run_live_video"
+                  placeholder="Do you plan to run live video on YouSound?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_sell_products"
+                  v-validate="'required'"
+                  name="will_sell_products"
+                  placeholder="Do you sell merch?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_sell_physical_copies"
+                  v-validate="'required'"
+                  name="will_sell_physical_copies"
+                  placeholder="Do you sell physical copies of your music?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="annual_income_on_merch_sales_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.annual_income_on_merch_sales"
+                  v-validate="'required'"
+                  name="annual_income_on_merch_sales"
+                  placeholder="Annual income on merch sales"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="annual_performances_count_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.annual_performances_count"
+                  v-validate="'required'"
+                  name="annual_performances_count"
+                  placeholder="How many show do you perform annually?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="signed_status_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.signed_status"
+                  v-validate="'required'"
+                  name="signed_status"
+                  placeholder="Are you currently signed?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="performance_rights_organization_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.performance_rights_organization"
+                  v-validate="'required'"
+                  name="performance_rights_organization"
+                  placeholder="Performance Rights Organization (Writers)"
+                  autocomplete
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <input v-model="user.ipi_cae_number" v-validate="'required'"
+                  type="text" name="ipi_cae_number" placeholder="IPI/CAE number">
+              </v-flex>
+            </template>
+            <template v-else-if="user.request_role=='label'">
+              <v-flex xs12>
+                <h5 class="pt-3"><span>Label</span> Info</h5>
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="main_genres"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.genre_id"
+                  v-validate="'required'"
+                  name="main_genre"
+                  placeholder="What is your main Genre?"
+                  autocomplete
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="sub_genres"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.sub_genre_id"
+                  v-validate="'required'"
+                  name="sub_genre"
+                  placeholder="What sub genre do you release most?"
+                  autocomplete
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="released_albums_count_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.released_albums_count"
+                  v-validate="'required'"
+                  name="released_albums_count"
+                  placeholder="How many albums have you released?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="years_since_first_released_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.years_since_first_released"
+                  v-validate="'required'"
+                  name="years_since_first_released"
+                  placeholder="How many years since your first release?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_run_live_video"
+                  v-validate="'required'"
+                  name="will_run_live_video"
+                  placeholder="Do you plan to run live video on YouSound?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_sell_products"
+                  v-validate="'required'"
+                  name="will_sell_products"
+                  placeholder="Do you sell merch?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_sell_physical_copies"
+                  v-validate="'required'"
+                  name="will_sell_physical_copies"
+                  placeholder="Do you sell physical copies of your music?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="annual_income_on_merch_sales_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.annual_income_on_merch_sales"
+                  v-validate="'required'"
+                  name="annual_income_on_merch_sales"
+                  placeholder="Annual income on merch sales"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.is_business_registered"
+                  v-validate="'required'"
+                  name="is_business_registered"
+                  placeholder="Is your business registered?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="artists_count_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.artists_count"
+                  v-validate="'required|numeric'"
+                  name="artists_count"
+                  placeholder="How many artists are currently on your roster?"
+                />
+              </v-flex>
+            </template>
+            <template v-else-if="user.request_role=='brand'">
+              <v-flex xs12>
+                <h5 class="pt-3"><span>Brand</span> Info</h5>
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="standard_brand_type_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.standard_brand_type"
+                  v-validate="'required'"
+                  name="standard_brand_type"
+                  placeholder="What type of Brand?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <input v-model="user.customized_brand_type" v-validate="'required'"
+                  type="text" name="customized_brand_type" placeholder="If your Brand type isn't listed what kind of brand are you?">
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="employees_count_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.employees_count"
+                  v-validate="'required'"
+                  name="employees_count"
+                  placeholder="How many employees do you have?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="years_in_business_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.years_in_business"
+                  v-validate="'required'"
+                  name="years_in_business"
+                  placeholder="How many years in business?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_sell_music_related_products"
+                  v-validate="'required'"
+                  name="will_sell_music_related_products"
+                  placeholder="Do you sell music related products or services?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_run_live_video"
+                  v-validate="'required'"
+                  name="will_run_live_video"
+                  placeholder="Do you plan to run live video on YouSound?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.will_sell_products"
+                  v-validate="'required'"
+                  name="will_sell_products"
+                  placeholder="Do you sell merch?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="products_count_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.products_count"
+                  v-validate="'required'"
+                  name="products_count"
+                  placeholder="How many products / SKUs do you have?"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="annual_income_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.annual_income"
+                  v-validate="'required'"
+                  name="annual_income"
+                  placeholder="Annual income"
+                />
+              </v-flex>
+              <v-flex xs6 pt-3 px-2 text-xs-center>
+                <v-select
+                  :items="boolean_options"
+                  item-value="id"
+                  item-text="name"
+                  v-model="user.is_business_registered"
+                  v-validate="'required'"
+                  name="is_business_registered"
+                  placeholder="Is your business registered?"
+                />
+              </v-flex>
+            </template>
+
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <input v-model="user.website_1_url" v-validate="'required|max:1023|url'"
+                type="text" name="website_1_url" placeholder="Website URL">
+            </v-flex>
+            <v-flex xs6 pt-3 px-2 text-xs-center>
+              <input v-model="user.website_2_url" v-validate="'max:1023|url'"
+                type="text" name="website_2_url" placeholder="Website URL">
+            </v-flex>
+            <v-flex xs12 pt-3 px-2 text-xs-center>
+              <textarea v-model="user.history" v-validate="'required|max:1023'"
+                name="history" placeholder="What artists and/or labels have you previously worked with?"></textarea>
+            </v-flex>
+            <v-flex xs12 text-xs-center>
+              <p>
+                All of the information you share with us is secure, never sold & used to verify users.<br>
+                You agree to our terms of services by signing up.
+                <router-link class="forgot-password" to="/terms" target="_blank">View our terms.</router-link>
+              </p>
+              <v-btn block round dark type="submit" class="reset-btn">Next</v-btn>
+            </v-flex>
+          </v-layout>
         </form>
       </div>
     </v-flex>
