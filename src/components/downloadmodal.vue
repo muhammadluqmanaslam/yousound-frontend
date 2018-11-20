@@ -8,13 +8,30 @@
     <v-layout row wrap class="popup-section">
       <v-flex xs12 class="profile-section">
         <!-- <div class="avatar-image" style="background-image: url('/static/images/user1.jpg');"></div> -->
-        <router-link :to="'/' + item.user.slug"><div class="avatar-image" :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')'}"></div></router-link>
-        <router-link :to="'/' + item.user.slug"><label class="user-name">{{ item.user.display_name }} <v-icon class="user-status" v-bind:class="{'online': item.user.status == 'active'}" v-if="item.user.user_type == 'artist'">fa-check-circle</v-icon></label></router-link>
-        <v-btn v-if="item.user.id!=$store.state.auth.user.id"
-          :class="{ 'follow-btn': true, 'follow': !item.user.is_following, 'following': item.user.is_following }"
+        <router-link :to="'/' + item.user.slug">
+          <div
+            class="avatar-image"
+            :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')'}"
+          ></div>
+        </router-link>
+        <router-link :to="'/' + item.user.slug">
+          <label class="user-name">
+            {{ item.user.display_name }}
+            <v-icon
+              v-if="item.user.user_type == 'artist'"
+              class="user-status"
+              :class="{'online': item.user.status == 'active'}"
+            >fa-check-circle</v-icon>
+          </label>
+        </router-link>
+        <v-btn
+          v-if="item.user.id!=$store.state.auth.user.id"
+          class="follow-btn"
+          :class="{'follow': !item.user.is_following, 'following': item.user.is_following}"
           @mouseenter="buttonHover = true"
           @mouseleave="buttonHover = false"
-          @click.native="followUser()">{{ followButtonText }}</v-btn>
+          @click.native="followUser()"
+        >{{ followButtonText }}</v-btn>
       </v-flex>
       <v-flex xs12 class="item-section">
         <!-- <div class="item-image" style="background-image: url('/static/images/post1.jpg');"></div> -->
@@ -23,9 +40,9 @@
         <p class="item-name" v-else>{{ item.name }}</p>
       </v-flex>
       <v-flex xs12 class="donate-section">
-        <v-btn class ="donate-amount-btn" @click.native="donateAmount(0)">$0</v-btn>
         <v-btn class ="donate-amount-btn" @click.native="donateAmount(5)">$5</v-btn>
         <v-btn class ="donate-amount-btn" @click.native="donateAmount(10)">$10</v-btn>
+        <v-btn class ="donate-amount-btn" @click.native="donateAmount(20)">$20</v-btn>
         <v-btn class ="donate-amount-btn" @click.native="donateAmount(50)">$50</v-btn>
       </v-flex>
       <v-flex xs12 class="input-section">
@@ -36,11 +53,13 @@
       </v-flex>
     </v-layout>
 
-    <payment-modal v-if="showPaymentModal"
+    <payment-modal
+      v-if="showPaymentModal"
       :type="''"
       :amount="donate_amount_by_cent"
       :dismiss="hidePaymentDialog"
-      :finish="sendLove"></payment-modal>
+      :finish="sendLove"
+    />
   </v-flex>
 </template>
 
@@ -101,10 +120,6 @@
     methods: {
       donateAmount (amount) {
         this.donate_amount = amount
-      },
-
-      dismissModal () {
-        console.log('touched')
       },
 
       followUser () {
