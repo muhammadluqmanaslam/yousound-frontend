@@ -44,12 +44,17 @@ export default {
       message: {
         body: ''
       },
-      isPageReady: false,
       timer: null,
       cable: null,
       message_subscription: null,
       albums: [],
-      products: []
+      products: [],
+      itemType: {
+        'album': 'Album',
+        'merch': 'ShopProduct'
+      },
+      repostedFeeds: [],
+      isPageReady: false
     }
   },
 
@@ -171,12 +176,19 @@ export default {
         } else {
           this.conversation = response.body
           _.reverse(this.conversation.messages)
-          if (scrollMove) {
-            this.$nextTick(() => {
-              // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
-              $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
-            })
-          }
+
+          UserService.repostedFeeds(this.conversation.other.id).then(response => {
+            this.repostedFeeds = response.body
+            // console.log('repostedFeeds', this.repostedFeeds)
+            // this.$forceUpdate()
+
+            if (scrollMove) {
+              this.$nextTick(() => {
+                // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
+                $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
+              })
+            }
+          })
         }
         // this.$forceUpdate()
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -265,15 +277,27 @@ export default {
       }
     },
 
+    InBanned (album) {
+      return this.InHiddenGenres(album) || this.InReposted(album)
+    },
+
     // true : in hidden genres
     InHiddenGenres (album) {
       if (this.conversation.other) {
         const genreId = _.get(album.genres, '[0].id', '')
         const genre = _.find(this.conversation.other.hidden_genres, (genre) => { return genre.id === genreId })
-        return !(genre === undefined || genre === null)
+        // return !(genre === undefined || genre === null)
+        return !!genre
       } else {
         return false
       }
+    },
+
+    InReposted (item) {
+      const feed = _.find(this.repostedFeeds, (f) => {
+        return f.assoc_type === this.itemType[this.tab] && f.assoc_id === item.id
+      })
+      return !!feed
     },
 
     checkMessage () {

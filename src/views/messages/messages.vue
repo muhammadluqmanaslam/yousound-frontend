@@ -366,9 +366,9 @@
               <div
                 v-for="album in albums"
                 :key="album.id"
-                @click="InHiddenGenres(album) ? null : selectItem(album)"
+                @click="InBanned(album) ? null : selectItem(album)"
                 class="request-item"
-                :class="{'selected': item == album, 'banned': InHiddenGenres(album)}"
+                :class="{'selected': item == album, 'banned': InBanned(album)}"
               >
                 <div class="avatar-area">
                   <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div> 
@@ -383,9 +383,9 @@
               <div
                 v-for="product in products"
                 :key="product.id"
-                @click="selectItem(product)"
+                @click="InReposted(product) ? null : selectItem(product)"
                 class="request-item"
-                :class="{'selected': item == product}"
+                :class="{'selected': item == product, 'banned': InReposted(product)}"
               >
                 <div class="avatar-area">
                   <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div> 

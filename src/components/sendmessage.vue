@@ -31,17 +31,25 @@
         <div class="header-section">
           <p class="section-title">Request repost</p>
           <div class="option-area">
-            <v-btn class="request-option-btn" :class="{'selected':tab=='album'}" @click.native="onTab('album')">Album</v-btn>
-            <v-btn class="request-option-btn" :class="{'selected':tab=='merch'}" @click.native="onTab('merch')">Merch</v-btn>
+            <v-btn
+              class="request-option-btn"
+              :class="{'selected':tab=='album'}"
+              @click.native="onTab('album')"
+            >Album</v-btn>
+            <v-btn
+              class="request-option-btn"
+              :class="{'selected':tab=='merch'}"
+              @click.native="onTab('merch')"
+            >Merch</v-btn>
           </div>
         </div>
         <div class="content-section" v-if="tab=='album'">
           <div
             v-for="album in albums"
             :key="album.id"
-            @click="InHiddenGenres(album) ? null : selectItem(album)"
+            @click="InBanned(album) ? null : selectItem(album)"
             class="request-item"
-            :class="{'selected': item == album, 'banned': InHiddenGenres(album)}"
+            :class="{'selected': item == album, 'banned': InBanned(album)}"
           >
             <div class="avatar-area">
               <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div> 
@@ -56,9 +64,9 @@
           <div
             v-for="product in products"
             :key="product.id"
-            @click="selectItem(product)"
+            @click="InReposted(product) ? null : selectItem(product)"
             class="request-item"
-            :class="{'selected':item == product}"
+            :class="{'selected': item == product, 'banned': InReposted(product)}"
           >
             <div class="avatar-area">
               <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div> 
@@ -71,7 +79,8 @@
         </div>
       </v-flex>
 
-      <repost-payment-modal v-if="show_repost_payment_modal"
+      <repost-payment-modal
+        v-if="show_repost_payment_modal"
         :item="item"
         :itemType="tab"
         :user="receiver"
@@ -84,10 +93,13 @@
 
 <script type="text/javascript">
   import _ from 'lodash'
-  import MessageService from '@/services/message'
   import { Picker } from 'emoji-mart-vue'
+
   import AlbumService from '@/services/album'
+  import MessageService from '@/services/message'
   import ProductService from '@/services/product'
+  import UserService from '@/services/user'
+
   import repostPaymentModal from '@/components/repost_payment_modal'
 
   export default {
@@ -116,6 +128,11 @@
         item: null,
         albums: [],
         products: [],
+        itemType: {
+          'album': 'Album',
+          'merch': 'ShopProduct'
+        },
+        repostedFeeeds: [],
         message: ''
       }
     },
@@ -137,10 +154,13 @@
           statuses: 'published, collaborated',
           stock_statuses: 'active',
           user_statuses: 'accepted'
-        })
+        }),
+        UserService.repostedFeeds(this.receiver.id)
       ]).then(values => {
         this.albums = values[0].body
         this.products = values[1].body
+        this.repostedFeeds = values[2].body
+        // this.$forceUpdate()
       }).catch(reason => {
         console.log(reason)
         // this.$store.dispatch('error/showErrorToast', [reason])
@@ -148,11 +168,23 @@
     },
 
     methods: {
+      InBanned (album) {
+        return this.InHiddenGenres(album) || this.InReposted(album)
+      },
+
       // true : in hidden genres
       InHiddenGenres (album) {
         const genreId = _.get(album.genres, '[0].id', '')
         const genre = _.find(this.receiver.hidden_genres, (genre) => { return genre.id === genreId })
-        return !(genre === undefined || genre === null)
+        // return !(genre === undefined || genre === null)
+        return !!genre
+      },
+
+      InReposted (item) {
+        const feed = _.find(this.repostedFeeds, (f) => {
+          return f.assoc_type === this.itemType[this.tab] && f.assoc_id === item.id
+        })
+        return !!feed
       },
 
       openRepostPaymentModal () {

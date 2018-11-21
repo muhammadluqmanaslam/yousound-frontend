@@ -1,6 +1,5 @@
 <template>
   <v-layout row wrap class="activity-item">
-    <!-- <send-message :receiver="activityItem.sender" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message> -->
     <v-flex xs12 sm10 offset-sm1 class="activity-item-body">
       <v-layout row wrap>
         <v-flex xs12 sm6 class="activity-item-section"  v-bind:class="{'sm6': activityItem.sender.recent_reposts, 'no-reposts': !activityItem.sender.recent_reposts}">
@@ -59,7 +58,18 @@
       </v-layout>
       <label class="activity-time">{{ toLocalTimeString(activityItem.updated_at) }}</label>
     </v-flex>
-    <merch-modal :item="activityItem.assoc" :dismiss="dimissMerchModal" v-if="showMerchModal && activityItem.assoc_type === 'ShopProduct'"></merch-modal>
+
+    <!-- <send-message
+      v-if="showSendMessage"
+      :receiver="activityItem.sender"
+      :dismiss="dismissMessageModal"
+    /> -->
+
+    <merch-modal
+      v-if="showMerchModal && activityItem.assoc_type === 'ShopProduct'"
+      :item="activityItem.assoc"
+      :dismiss="dimissMerchModal"
+    />
   </v-layout>
 </template>
 
