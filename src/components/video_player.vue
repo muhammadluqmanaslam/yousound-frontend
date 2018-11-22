@@ -400,12 +400,13 @@
     </div>
 
     <v-dialog v-model="show_payment_dialog">
-      <payment-modal v-if="show_payment_dialog"
+      <payment-modal
+        v-if="show_payment_dialog"
         :type="''"
         :amount="stream.view_price"
         :dismiss="closePaymentDialog"
         :finish="payViewStream"
-      ></payment-modal>
+      />
     </v-dialog>
 
     <template v-if="user">

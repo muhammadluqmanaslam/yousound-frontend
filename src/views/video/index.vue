@@ -167,7 +167,8 @@
         </v-card>
       </v-dialog>
 
-      <payment-modal v-if="show_payment_dialog"
+      <payment-modal
+        v-if="show_payment_dialog"
         :type="'deposit'"
         :amount="streamCost"
         :dismiss="closePaymentDialog"

@@ -288,7 +288,7 @@ export default {
       if (token) {
         const params = {
           payment_token: token.id,
-          amount: streamCost
+          amount: this.streamCost
         }
         PaymentService.makeDeposit(params).then(response => {
           AuthService.setUser(response.body)

@@ -139,7 +139,7 @@ export default {
       if (token) {
         const params = {
           payment_token: token.id,
-          amount: streamCost
+          amount: this.streamCost
           // amount: StreamHourlyPrice
         }
         PaymentService.makeDeposit(params).then(response => {
