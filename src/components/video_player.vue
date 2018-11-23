@@ -210,9 +210,10 @@
                     :class="{'follow': !user.is_following, 'following': user.is_following }"
                     @mouseenter="buttonHover = true"
                     @mouseleave="buttonHover = false"
-                    @click.native="followUser()">{{ followButtonText }}</v-btn>
-                  <v-btn v-if="stream.is_repost" round dark small color="blue" class="ml-1 px-2" @click.native="repostStream()">Repost Stream</v-btn>
-                  <v-btn v-else round dark small color="green" class="ml-1 px-2">Reposted</v-btn>
+                    @click.native="followUser()"
+                  >{{ followButtonText }}</v-btn>
+                  <v-btn v-if="stream.is_reposted" round dark small color="green" class="ml-1 px-2">Reposted</v-btn>
+                  <v-btn v-else round dark small color="blue" class="ml-1 px-2" @click.native="repostStream()">Repost Stream</v-btn>
                 </div>
               </div>
             </div>

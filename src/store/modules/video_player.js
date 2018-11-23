@@ -88,6 +88,10 @@ const mutations = {
     }, stream)
   },
 
+  repostStream (state) {
+    state.stream.is_reposted = true
+  },
+
   updateStreamAssoc (state, info) {
     state.stream.assoc_type = info.assoc_type
     state.stream.assoc = info.assoc

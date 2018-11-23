@@ -440,6 +440,7 @@ export default {
 
     repostStream () {
       StreamService.repostStream(this.stream.id).then(response => {
+        this.$store.commit('videoPlayer/repostStream')
         this.$store.dispatch('error/showSuccessToast', ['You just reposted this live stream'])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
