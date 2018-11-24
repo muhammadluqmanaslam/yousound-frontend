@@ -242,7 +242,8 @@
               </div>
             </div>
             <div class="stream-sector__content__right">
-              <v-btn dark color="blue" @click.native="openMerchModal()">Add to Cart</v-btn>
+              <v-btn v-if="inCart()" dark color="green">Added to Cart</v-btn>
+              <v-btn v-else dark color="blue" @click.native="openMerchModal()">Add to Cart</v-btn>
             </div>
           </div>
           <div class="stream-sector__content" v-else-if="stream && stream.assoc_type=='User'">
@@ -296,12 +297,14 @@
           </div>
         </div>
 
-        <merch-modal v-if="show_merch_modal"
+        <merch-modal
+          v-if="show_merch_modal"
           :item="product"
           :dismiss="closeMerchModal"
         />
 
-        <share-modal v-if="show_share_dialog"
+        <share-modal
+          v-if="show_share_dialog"
           :item="album"
           :dismiss="closeShareDialog"
         />

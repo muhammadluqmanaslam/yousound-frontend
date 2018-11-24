@@ -1,15 +1,10 @@
-// import _ from 'lodash'
 import AuthService from '@/services/auth'
 import { MyEvents } from '@/helper'
-
-const ActionCable = require('actioncable')
 
 export default {
   data () {
     return {
       keyword: '',
-      cable: null,
-      notification_subscription: null
     }
   },
 
@@ -34,26 +29,6 @@ export default {
   },
 
   created () {
-    const vm = this
-    this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
-    this.notification_subscription = this.cable.subscriptions.create(
-      {
-        channel: 'NotificationsChannel'
-      },
-      {
-        connected: () => {
-          console.log('connected to NotificationsChannel')
-        },
-        received: (data) => {
-          console.log('notification_subscription')
-          console.log(data)
-          vm.$store.dispatch('activity/addBadge', data)
-        },
-        disconnected: () => {
-          console.log('disconnected to NotificationsChannel :(')
-        }
-      }
-    )
   },
 
   beforeDestroy () {

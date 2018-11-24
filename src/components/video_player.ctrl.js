@@ -297,6 +297,18 @@ export default {
       })
     },
 
+    inCart () {
+      if (this.stream.assoc_type != 'ShopProduct') {
+        return false
+      }
+
+      const item = _.find(this.$store.state.user.cartItems, (item) => {
+        return item.product_id == this.stream.assoc.id
+      })
+
+      return !!item
+    },
+
     onRequestTab (tab) {
       if (this.request_tab === tab) {
         return

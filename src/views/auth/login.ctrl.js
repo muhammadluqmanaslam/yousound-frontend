@@ -57,7 +57,6 @@ export default {
     submit () {
       this.$store.dispatch('error/showLoadingActivity', true)
       AuthService.login(this.user).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
         if (this.remember) {
           AuthService.saveCredential(this.user)
         }
@@ -67,10 +66,10 @@ export default {
           this.$store.dispatch('auth/setFirstVisit', true)
         }
 
-        PlaylistService.getPlaylists().then(response => {
-          this.$store.dispatch('playlist/setPlaylists', response.body)
-          this.$router.push({ path: '/discover' })
-        })
+        this.$root.$emit(MyEvents.AUTH_SIGNIN)
+
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$router.push({ path: '/discover' })
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

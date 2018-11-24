@@ -81,6 +81,10 @@ export default {
     return Vue.http.get(`${API_BASE_URL}/${userId}/reposted_feeds`, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  cartItems (userId) {
+    return Vue.http.get(`${API_BASE_URL}/${userId}/cart_items`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   followUser (userId, params) {
     return Vue.http.get(API_BASE_URL + '/' + userId + '/follow', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },

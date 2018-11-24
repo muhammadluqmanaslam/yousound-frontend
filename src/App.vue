@@ -69,6 +69,8 @@ import loginDialog from '@/components/login_dialog'
 
 import { MyEvents } from '@/helper'
 
+const ActionCable = require('actioncable')
+
 export default {
   name: 'app',
   components: {
@@ -83,6 +85,8 @@ export default {
   data () {
     return {
       direction: 'none',
+      cable: null,
+      notification_subscription: null,
       show_login_dialog: false
     }
   },
@@ -130,6 +134,10 @@ export default {
   },
 
   created () {
+    // this.$root.$on('showLoginModal', this.showLoginDialog)
+    // this.$root.$on('hideLoginModal', this.hideLoginDialog)
+    this.$root.$on(MyEvents.AUTH_SIGNIN, this.getUserInfo)
+
     Promise.all([
       SettingService.getSettings(),
       GenreService.getGenres2(),
@@ -145,6 +153,7 @@ export default {
           if (response.body !== false) {
             // this.getUserInfo()
             AuthService.setUser(response.body)
+            this.$root.$emit(MyEvents.AUTH_SIGNIN)
           } else {
             AuthService.clearTokenAndUserInfo()
             this.$router.push({ path: '/login' })
@@ -212,15 +221,41 @@ export default {
 
   methods: {
     getUserInfo () {
+      const vm = this
+      this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
+      this.notification_subscription = this.cable.subscriptions.create(
+        {
+          channel: 'NotificationsChannel'
+        },
+        {
+          connected: () => {
+            console.log('connected to NotificationsChannel')
+          },
+          received: (data) => {
+            console.log('notification_subscription')
+            console.log(data)
+            vm.$store.dispatch('activity/addBadge', data)
+            UserService.cartItems(vm.currentUser.id).then(response => {
+              vm.$store.dispatch('user/setCartItems', response.body)
+            })
+          },
+          disconnected: () => {
+            console.log('disconnected to NotificationsChannel :(')
+          }
+        }
+      )
+
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         UserService.getUserInfo(this.currentUser.id),
         ActivityService.getUnread(),
-        PlaylistService.getPlaylists()
+        PlaylistService.getPlaylists(),
+        UserService.cartItems(this.currentUser.id)
       ]).then(values => {
         AuthService.setUser(values[0].body)
         this.$store.dispatch('activity/setBadge', values[1].body)
         this.$store.dispatch('playlist/setPlaylists', values[2].body)
+        this.$store.dispatch('user/setCartItems', values[3].body)
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(reason => {
         // console.log(reason)
@@ -275,9 +310,6 @@ export default {
         toggleBottomPlayer(false)
       }
     })
-
-    this.$root.$on('showLoginModal', this.showLoginDialog)
-    this.$root.$on('hideLoginModal', this.hideLoginDialog)
 
     // $(document).on('keypress', function (e) {
     //   if (e.which === 32) {
