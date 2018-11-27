@@ -376,10 +376,31 @@
       .verification-section {
         background: rgba(255, 255, 255, 0.95);
         width: 100vw;
-        height: 100vh;
+        // height: 100vh;
         padding: 0;
         z-index: 15;
 
+        label {
+          font-size: 16px;
+          // color: #262626;
+          color: black;
+          letter-spacing: 0;
+        }
+        span {
+          font-size: 16px;
+          letter-spacing: 0;
+          color: #B8B8B8;
+        }
+        .about-title {
+          font-weight: 700;
+          font-size: 20px;
+          letter-spacing: 0;
+        }
+        .description-text {
+          font-size: 16px;
+          color: #B8B8B8;
+          letter-spacing: 0;
+        }
         .profile-section {
           .profile-image {
             margin-left: 20px;
@@ -443,23 +464,16 @@
           }
         }
         .link-section {
-          padding: 10px 20px 10px 0;
           border-top: 1px solid #B8B8B8;
           border-bottom: 1px solid #B8B8B8;
-          margin: 20px 20px 0;
-        }
-        .link-title {
-          font-size: 16px;
-          // color: #262626;
-          color: black;
-          letter-spacing: 0;
-
         }
         .about-section {
-          padding: 20px;
-
-          .main_genre {
+          border-bottom: 1px solid #B8B8B8;
+        }
+        .info-section {
+          .input-group {
             width: 300px;
+            padding: 0;
             .input-group--select__autocomplete {
               background-color: transparent !important;
               padding-left: 5px;
@@ -480,7 +494,7 @@
             border-radius: 3.75px;
             height: 45px;
             width: 300px;
-            margin-top: 22.5px;
+            // margin-top: 10px;
             font-size: 15px;
             color: #4A4A4A;
             letter-spacing: 0;
@@ -506,20 +520,6 @@
             letter-spacing: 0;
             text-transform: none;
           }
-        }
-        .link-link {
-          font-size: 16px;
-          letter-spacing: 0;
-        }
-        .about-title {
-          font-weight: 700;
-          font-size: 20px;
-          letter-spacing: 0;      
-        }
-        .description-text {
-          font-size: 16px;
-          color: #B8B8B8;
-          letter-spacing: 0;      
         }
       }
     }

@@ -1,12 +1,12 @@
 import _ from 'lodash'
 import AdminService from '@/services/admin'
 import UserService from '@/services/user'
-import approveModal from '@/components/approvemodal'
+import signupApproveModal from './signup_approve_modal'
 import denyModal from '@/components/denymodal'
 
 export default {
   components: {
-    approveModal,
+    signupApproveModal,
     denyModal
   },
 

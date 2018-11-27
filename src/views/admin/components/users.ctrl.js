@@ -1,14 +1,9 @@
 import AdminService from '@/services/admin'
 import UserService from '@/services/user'
 import StreamService from '@/services/stream'
-import approveModal from '@/components/approvemodal'
-import denyModal from '@/components/denymodal'
 
 export default {
-  components: {
-    approveModal,
-    denyModal
-  },
+  components: {},
 
   data () {
     return {

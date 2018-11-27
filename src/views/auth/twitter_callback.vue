@@ -67,7 +67,7 @@
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
-                  :items="artist_type_type_options"
+                  :items="artist_type_options"
                   v-model="user.artist_type"
                   v-validate="'required'"
                   name="artist_type"
@@ -303,8 +303,6 @@
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="standard_brand_type_options"
-                  item-value="id"
-                  item-text="name"
                   v-model="user.standard_brand_type"
                   v-validate="'required'"
                   name="standard_brand_type"

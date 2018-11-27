@@ -1,12 +1,7 @@
 import GenreService from '@/services/genre'
-import approveModal from '@/components/approvemodal'
-import denyModal from '@/components/denymodal'
 
 export default {
-  components: {
-    approveModal,
-    denyModal
-  },
+  components: {},
 
   data () {
     return {

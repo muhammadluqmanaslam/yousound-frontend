@@ -2,10 +2,12 @@
   <v-card flat v-if="isPageReady">
     <v-tabs dark class="white" v-model="signups_tab">
       <v-tabs-bar class="transparent pl-4 mt-4">
-        <v-tabs-item v-for="tab in signups_tabs"
+        <v-tabs-item
+          v-for="tab in signups_tabs"
           :key="tab.id"
           :href="'#' + tab.id"
-          ripple>{{ tab.title }}</v-tabs-item>
+          ripple
+        >{{ tab.title }}</v-tabs-item>
         <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -20,13 +22,15 @@
       <v-tabs-items style="border:none;">
         <v-tabs-content v-for="tab in signups_tabs" :key="tab.id" :id="tab.id">
           <v-card flat>
-            <v-data-table v-if="tab.id == 'waiting'"
+            <v-data-table
+              v-if="tab.id == 'waiting'"
               v-bind:headers="waiting_headers"
               v-bind:items="filtered_items"
               v-bind:search="signups_search"
               :pagination.syc="pagination"
               :rows-per-page-items="per_page_options"
-              class="user-table">
+              class="user-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="avatar-image-wrapper">
@@ -44,11 +48,13 @@
                 From {{ pageStart }} to {{ pageStop }}
               </template>
             </v-data-table>
-            <v-data-table v-if="tab.id == 'co-signed'"
+            <v-data-table
+              v-if="tab.id == 'co-signed'"
               v-bind:headers="invited_headers"
               v-bind:items="filtered_items"
               v-bind:search="signups_search"
-              class="user-table">
+              class="user-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="avatar-image-wrapper">
@@ -72,11 +78,13 @@
                 From {{ pageStart }} to {{ pageStop }}
               </template>
             </v-data-table>
-            <v-data-table v-if="tab.id == 'approved'"
+            <v-data-table
+              v-if="tab.id == 'approved'"
               v-bind:headers="approved_headers"
               v-bind:items="filtered_items"
               v-bind:search="signups_search"
-              class="user-table">
+              class="user-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="avatar-image-wrapper">
@@ -94,11 +102,13 @@
                 From {{ pageStart }} to {{ pageStop }} out of {{ filtered_items.length }}
               </template>
             </v-data-table>
-            <v-data-table v-if="tab.id == 'denied'"
+            <v-data-table
+              v-if="tab.id == 'denied'"
               v-bind:headers="denied_headers"
               v-bind:items="filtered_items"
               v-bind:search="signups_search"
-              class="user-table">
+              class="user-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="avatar-image-wrapper">
@@ -121,14 +131,16 @@
       </v-tabs-items>
     </v-tabs>
 
-    <approve-modal v-if="show_approve_modal"
+    <signup-approve-modal
+      v-if="show_approve_modal"
       :item="user"
       :dismiss="closeApproveModal"
       :approveButtonAction="approveUser"
       :denyButtonAction="denyUser"
     />
 
-    <deny-modal v-if="show_deny_modal"
+    <deny-modal
+      v-if="show_deny_modal"
       :item="user"
       :dismiss="closeDenyModal"
       :submission="viewSubmission"

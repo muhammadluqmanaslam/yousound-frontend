@@ -1,0 +1,99 @@
+.approve-section {
+  background: rgba(255, 255, 255, 0.95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  z-index: 15;
+  .dismiss-section {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+  .popup-section {
+    max-width: 900px;
+    margin-top: calc(50vh - 320px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 20;
+    background: #FFFFFF;
+    box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+    border-radius: 7.5px;
+    padding: 37.5px 11.25px 30px;
+    label {
+      line-height: 24px;
+      font-size: 16px;
+      color: #262626;
+      letter-spacing: 0;
+    }
+    span {
+      color: #999;
+    }
+    .description-text {
+      font-size: 16px;
+      color: #999;
+      letter-spacing: 0;
+    }
+    .profile-section {
+      .profile-image {
+        height: 100px;
+        width: 100px;
+        display: inline-block;
+        background-size: cover;
+        background-position: center;
+        vertical-align: middle;
+        overflow: hidden;
+        border-radius: 100%;
+        background-color: #B8B8B8;
+      }
+      .info-section {
+        display: inline-block;
+        width: calc(100% - 310px);
+        padding-left: 10px;
+        vertical-align: middle;
+        .user-name {
+          margin-bottom: 5px;
+          color: #262626;
+          font-weight: 700;
+          font-size: 25px;
+        }
+        .denied-status {
+          padding: 5px 12px;
+          border: 1px solid #ff5252;
+          color: #ff5252;
+        }
+      }
+      .action-section {
+        width: 200px;
+        display: inline-block;
+        vertical-align: bottom;
+        text-align: right;
+        .approve-btn {
+          border-radius: 20px;
+          color: white;
+        }
+        .deny-btn {
+          border-radius: 20px;
+          color: white;
+        }
+      }
+      // .user-info-section {
+      //   display: inline-block;
+      //   width: calc(100% - 125px);
+      //   vertical-align: middle;
+      // }
+    }
+    .link-section {
+      border-top: 1px solid #B8B8B8;
+      border-bottom: 1px solid #B8B8B8;
+    }
+    .about-section {
+      border-bottom: 1px solid #B8B8B8;
+    }
+  }
+}

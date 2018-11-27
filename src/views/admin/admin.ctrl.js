@@ -1,8 +1,5 @@
 import SearchService from '@/services/search'
 
-import approveModal from '@/components/approvemodal'
-import denyModal from '@/components/denymodal'
-
 import albumTab from './components/albums'
 import genreTab from './components/genres'
 import settingTab from './components/settings'
@@ -13,8 +10,6 @@ import attendeeTab from './components/attendees'
 
 export default {
   components: {
-    approveModal,
-    denyModal,
     userTab,
     albumTab,
     signupTab,
