@@ -139,7 +139,7 @@
       :denyButtonAction="denyUser"
     />
 
-    <deny-modal
+    <signup-deny-modal
       v-if="show_deny_modal"
       :item="user"
       :dismiss="closeDenyModal"

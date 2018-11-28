@@ -2,7 +2,7 @@
   <v-flex xs12 sm12 class="approve-section">
     <v-layout row wrap class="dismiss-section" @click="dismiss()"></v-layout>
     <v-layout row wrap class="popup-section">
-      <v-flex xs12 sm12 pa-3 class="profile-section">
+      <v-flex xs12 sm12 mx-3 py-3 class="profile-section border-bottom">
         <div class="profile-image" :style="{'background-image': 'url(' + item.avatar.url + ')'}"></div>
         <div class="info-section">
           <div class="user-name">{{ item.display_name }}</div>
@@ -28,7 +28,7 @@
           >Deny</v-btn>
         </div>
       </v-flex>
-      <v-layout row wrap mx-3 py-2 class="link-section">
+      <v-layout row wrap mx-3 py-2 class="border-bottom">
         <v-flex xs12 sm12>
           <label class="link-title">Email: </label>
           <a>{{ item.email }}</a>  
@@ -43,12 +43,12 @@
           <label class="link-title">Website: </label>
           <a v-if="item.website_1_url" :href="item.website_1_url" target="_blank">{{ item.website_1_url }}</a>
         </v-flex>
-        <v-flex xs12 sm12>
+        <v-flex xs12 sm12 v-if="item.website_2_url">
           <label class="link-title">Website: </label>
           <a v-if="item.website_2_url" :href="item.website_2_url" target="_blank">{{ item.website_2_url }}</a>
         </v-flex>
       </v-layout>
-      <v-layout v-if="item.request_role == 'artist'" row wrap mx-3 py-2 class="about-section">
+      <v-layout v-if="item.request_role == 'artist'" row wrap mx-3 py-2 class="border-bottom">
         <v-flex xs12 sm6>
           <label>Main Genre:</label>
           <span>{{ userMainGenreName }}</span>
@@ -59,27 +59,27 @@
         </v-flex>
         <v-flex xs12 sm6>
           <label>Number of release:</label>
-          <span>{{ userReleasedAlbumsCount }}</span>
+          <span :class="{'red--text text--darken-2': userReleasedAlbumsCount == '0'}">{{ userReleasedAlbumsCount }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Years since first release:</label>
-          <span>{{ userYearsSinceFirstReleased }}</span>
+          <span :class="{'red--text text--darken-2': userYearsSinceFirstReleased == '0'}">{{ userYearsSinceFirstReleased }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Plan to run live video?</label>
-          <span>{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_run_live_video}">{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Do you sell merch?</label>
-          <span>{{ getNameById(boolean_options, item.will_sell_products) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_sell_products}">{{ getNameById(boolean_options, item.will_sell_products) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Do you sell physical music?</label>
-          <span>{{ getNameById(boolean_options, item.will_sell_physical_copies) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_sell_physical_copies}">{{ getNameById(boolean_options, item.will_sell_physical_copies) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Annual income on merch sales:</label>
-          <span>{{ userAnnualIncomeOnMerchSales }}</span>
+          <span :class="{'red--text text--darken-2': userAnnualIncomeOnMerchSales == 'None'}">{{ userAnnualIncomeOnMerchSales }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>How many live shows annually?</label>
@@ -87,7 +87,7 @@
         </v-flex>
         <v-flex xs12 sm6>
           <label>Are you currently signed?</label>
-          <span>{{ item.signed_status }}</span>
+          <span :class="{'red--text text--darken-2': item.signed_status == 'No'}">{{ item.signed_status }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Performance Rights Organization:</label>
@@ -98,7 +98,7 @@
           <span>{{ item.ipi_cae_number }}</span>
         </v-flex>
       </v-layout>
-      <v-layout v-else-if="item.request_role == 'label'" row wrap mx-3 py-2 class="about-section">
+      <v-layout v-else-if="item.request_role == 'label'" row wrap mx-3 py-2 class="border-bottom">
         <v-flex xs12 sm6>
           <label>Main Genre:</label>
           <span>{{ userMainGenreName }}</span>
@@ -109,41 +109,43 @@
         </v-flex>
         <v-flex xs12 sm6>
           <label>Number of release:</label>
-          <span>{{ userReleasedAlbumsCount }}</span>
+          <span :class="{'red--text text--darken-2': userReleasedAlbumsCount == '0'}">{{ userReleasedAlbumsCount }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Years since first release:</label>
-          <span>{{ userYearsSinceFirstReleased }}</span>
+          <span :class="{'red--text text--darken-2': userYearsSinceFirstReleased == '0'}">{{ userYearsSinceFirstReleased }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Plan to run live video?</label>
-          <span>{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_run_live_video}">{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Do you sell merch?</label>
-          <span>{{ getNameById(boolean_options, item.will_sell_products) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_sell_products}">{{ getNameById(boolean_options, item.will_sell_products) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Do you sell physical music?</label>
-          <span>{{ getNameById(boolean_options, item.will_sell_physical_copies) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_sell_physical_copies}">{{ getNameById(boolean_options, item.will_sell_physical_copies) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Annual income on merch sales:</label>
-          <span>{{ userAnnualIncomeOnMerchSales }}</span>
+          <span :class="{'red--text text--darken-2': userAnnualIncomeOnMerchSales == 'None'}">{{ userAnnualIncomeOnMerchSales }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Business registered?</label>
-          <span>{{ getNameById(boolean_options, item.is_business_registered) }}</span>
+          <span :class="{'red--text text--darken-2': !item.is_business_registered}">{{ getNameById(boolean_options, item.is_business_registered) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>How many artists on your roster?</label>
-          <span>{{ userArtistsCount }}</span>
+          <span :class="{'red--text text--darken-2': userArtistsCount == 'None'}">{{ userArtistsCount }}</span>
         </v-flex>
       </v-layout>
-      <v-layout v-else-if="item.request_role == 'brand'" row wrap mx-3 py-2 class="about-section">
+      <v-layout v-else-if="item.request_role == 'brand'" row wrap mx-3 py-2 class="border-bottom">
         <v-flex xs12 sm6>
           <label>Brand Type:</label>
           <span>{{ item.standard_brand_type || item.customized_brand_type }}</span>
+        </v-flex>
+        <v-flex xs12 sm6>
         </v-flex>
         <v-flex xs12 sm6>
           <label>How many employees?</label>
@@ -151,27 +153,31 @@
         </v-flex>
         <v-flex xs12 sm6>
           <label>Years in business:</label>
-          <span>{{ userYearsInBusiness }}</span>
+          <span :class="{'red--text text--darken-2': userYearsInBusiness == '0'}">{{ userYearsInBusiness }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Do you sell music related products or services?</label>
-          <span>{{ getNameById(boolean_options, item.will_sell_music_related_products) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_sell_music_related_products}">{{ getNameById(boolean_options, item.will_sell_music_related_products) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Plan to run live video?</label>
-          <span>{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
+          <span :class="{'red--text text--darken-2': !item.will_run_live_video}">{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
+        </v-flex>
+        <v-flex xs12 sm6>
+          <label>Do you sell merch/products?</label>
+          <span :class="{'red--text text--darken-2': !item.will_sell_products}">{{ getNameById(boolean_options, item.will_sell_products) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>How many products/SKUs?</label>
-          <span>{{ userProductsCount }}</span>
+          <span :class="{'red--text text--darken-2': userProductsCount == '0'}">{{ userProductsCount }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Annual Income:</label>
-          <span>{{ userAnnualIncome }}</span>
+          <span :class="{'red--text text--darken-2': userAnnualIncome == 'None'}">{{ userAnnualIncome }}</span>
         </v-flex>
         <v-flex xs12 sm6>
           <label>Business registered?</label>
-          <span>{{ getNameById(boolean_options, item.is_business_registered) }}</span>
+          <span :class="{'red--text text--darken-2': !item.is_business_registered}">{{ getNameById(boolean_options, item.is_business_registered) }}</span>
         </v-flex>
       </v-layout>
       <v-flex xs12 sm12 mx-3 py-2>

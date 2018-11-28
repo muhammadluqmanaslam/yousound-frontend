@@ -1,10 +1,24 @@
 /* global error box */
-.snack__content .btn {
-  margin: 0;
-  min-width: 40px;
+.snack {
+  z-index: 16;
+  .snack__content {
+    label {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      // white-space: nowrap;
+      max-width: 500px;
+      max-height: 60px;
+      vertical-align: middle;
+    }
 
-  .btn__content {
-    padding: 0;
+    .btn {
+      margin: 0;
+      min-width: 40px;
+
+      .btn__content {
+        padding: 0;
+      }
+    }
   }
 }
 
