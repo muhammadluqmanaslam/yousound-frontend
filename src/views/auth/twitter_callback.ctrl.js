@@ -3,6 +3,8 @@ import {
   Storage,
   Countries,
   UserBooleanOptions,
+  UserGenderOptions,
+  UserArtistTypeOptions,
   UserReleasedAlbumsCountOptions,
   UserYearsSinceFirstReleasedOptions,
   UserAnnualIncomeOnMerchSalesOptions,
@@ -42,6 +44,14 @@ export default {
 
     boolean_options () {
       return UserBooleanOptions
+    },
+
+    gender_options () {
+      return UserGenderOptions
+    },
+
+    artist_type_options () {
+      return UserArtistTypeOptions
     },
 
     released_albums_count_options () {

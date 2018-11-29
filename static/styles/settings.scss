@@ -464,15 +464,12 @@
           }
         }
         .link-section {
-          border-top: 1px solid #B8B8B8;
-          border-bottom: 1px solid #B8B8B8;
         }
         .about-section {
-          border-bottom: 1px solid #B8B8B8;
         }
         .info-section {
           .input-group {
-            width: 300px;
+            width: 100%;
             padding: 0;
             .input-group--select__autocomplete {
               background-color: transparent !important;
@@ -493,8 +490,7 @@
             border: 0.75px solid #D2D2D2;
             border-radius: 3.75px;
             height: 45px;
-            width: 300px;
-            // margin-top: 10px;
+            width: 100%;
             font-size: 15px;
             color: #4A4A4A;
             letter-spacing: 0;
