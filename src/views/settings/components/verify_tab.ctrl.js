@@ -1,3 +1,4 @@
+import moment from 'moment'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
 import {
@@ -28,6 +29,7 @@ export default {
       user: {},
       main_genres: [],
       sub_genres: [],
+      year_of_birth_options: [],
       isPageReady: false
     }
   },
@@ -113,6 +115,11 @@ export default {
       this.main_genres = this.$store.state.app.genres
       this.sub_genres = _.flatMap(this.$store.state.app.genres, 'children')
 
+      const current_year = moment().year()
+      for (let i = 1900; i < current_year; i++) {
+        this.year_of_birth_options.push(i)
+      }
+
       this.isPageReady = true
       this.$store.dispatch('error/showLoadingActivity', false)
     }).catch(reason => {
@@ -133,7 +140,7 @@ export default {
               year_of_birth: vm.user.year_of_birth,
               gender: vm.user.gender,
               country: vm.user.country,
-              city: vm.user.first_name,
+              city: vm.user.city,
 
               genre_id: vm.user.genre_id,
               artist_type: vm.user.artist_type,
@@ -152,16 +159,16 @@ export default {
               history: vm.user.history,
 
               sub_genre_id: vm.user.sub_genre_id,
-              is_business_registered: vm.user.first_name,
-              artists_count: vm.user.first_name,
+              is_business_registered: vm.user.is_business_registered,
+              artists_count: vm.user.artists_count,
 
-              standard_brand_type: vm.user.first_name,
-              customized_brand_type: vm.user.first_name,
-              employees_count: vm.user.first_name,
-              years_in_business: vm.user.first_name,
-              will_sell_music_related_products: vm.user.first_name,
-              products_count: vm.user.first_name,
-              annual_income: vm.user.first_name,
+              standard_brand_type: vm.user.standard_brand_type,
+              customized_brand_type: vm.user.customized_brand_type,
+              employees_count: vm.user.employees_count,
+              years_in_business: vm.user.years_in_business,
+              will_sell_music_related_products: vm.user.will_sell_music_related_products,
+              products_count: vm.user.products_count,
+              annual_income: vm.user.annual_income,
 
               request_resend: true
             }

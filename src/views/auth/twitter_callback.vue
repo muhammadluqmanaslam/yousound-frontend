@@ -17,15 +17,22 @@
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <input v-model="user.first_name" v-validate="'required'"
-                type="text" name="first_name" placeholder="First Name">
+                type="text" name="first_name" autocomplete="off" placeholder="First Name">
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <input v-model="user.last_name" v-validate="'required'"
-                type="text" name="last_name" placeholder="Last Name">
+                type="text" name="last_name" autocomplete="off" placeholder="Last Name">
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <input v-model="user.year_of_birth" v-validate="'required|numeric'"
-                type="text" name="year_of_birth" placeholder="Year of Birth">
+              <!-- <input v-model="user.year_of_birth" v-validate="'required|numeric'"
+                type="text" name="year_of_birth" autocomplete="off" placeholder="Year of Birth"> -->
+              <v-select v-validate="'required'"
+                :items="year_of_birth_options"
+                v-model="user.year_of_birth"
+                name="year_of_birth"
+                placeholder="Year of Birth"
+                autocomplete
+              />
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <v-select v-validate="'required'"
@@ -46,7 +53,7 @@
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <input v-model="user.city" v-validate="'required'"
-                type="text" name="city" placeholder="City">
+                type="text" name="city" autocomplete="off" placeholder="City">
             </v-flex>
 
             <template v-if="user.request_role=='artist'">
@@ -176,7 +183,7 @@
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <input v-model="user.ipi_cae_number" v-validate="'required'"
-                  type="text" name="ipi_cae_number" placeholder="IPI/CAE number">
+                  type="text" name="ipi_cae_number" autocomplete="off" placeholder="IPI/CAE number">
               </v-flex>
             </template>
             <template v-else-if="user.request_role=='label'">
@@ -304,14 +311,13 @@
                 <v-select
                   :items="standard_brand_type_options"
                   v-model="user.standard_brand_type"
-                  v-validate="'required'"
                   name="standard_brand_type"
                   placeholder="What type of Brand?"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
-                <input v-model="user.customized_brand_type" v-validate="'required'"
-                  type="text" name="customized_brand_type" placeholder="If your Brand type isn't listed what kind of brand are you?">
+                <input v-model="user.customized_brand_type"
+                  type="text" name="customized_brand_type" autocomplete="off" placeholder="If your Brand type isn't listed what kind of brand are you?">
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
@@ -405,11 +411,11 @@
 
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <input v-model="user.website_1_url" v-validate="'required|max:1023|url'"
-                type="text" name="website_1_url" placeholder="Website URL">
+                type="text" name="website_1_url" autocomplete="off" placeholder="Website URL">
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <input v-model="user.website_2_url" v-validate="'max:1023|url'"
-                type="text" name="website_2_url" placeholder="Website URL">
+                type="text" name="website_2_url" autocomplete="off" placeholder="Website URL">
             </v-flex>
             <v-flex xs12 pt-3 px-2 text-xs-center>
               <textarea v-model="user.history" v-validate="'required|max:1023'"

@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import moment from 'moment'
 import {
   Storage,
   Countries,
@@ -33,6 +34,7 @@ export default {
       user: {},
       main_genres: [],
       sub_genres: [],
+      year_of_birth_options: [],
       isPageReady: false
     }
   },
@@ -163,6 +165,12 @@ export default {
 
         this.main_genres = this.$store.state.app.genres
         this.sub_genres = _.flatMap(this.$store.state.app.genres, 'children')
+
+        const current_year = moment().year()
+        for (let i = 1900; i < current_year; i++) {
+          this.year_of_birth_options.push(i)
+        }
+
         this.isPageReady = true
       })
     } else {
