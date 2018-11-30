@@ -96,7 +96,9 @@
                 <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>
                 <td class="text-xs-center">{{ props.item.approved_at | formatDate }}</td>
                 <td class="text-xs-left">{{ props.item.approver ? props.item.approver.display_name : '' }}</td>
-                <td class="text-xs-left"><v-btn color="primary" class="signups-btn">Click to view</v-btn></td>
+                <td class="text-xs-left">
+                  <v-btn color="primary" class="signups-btn" @click.native="openApproveModal(props.item)">Click to view</v-btn>
+                </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }} out of {{ filtered_items.length }}
@@ -120,7 +122,9 @@
                 <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>
                 <td class="text-xs-center">{{ props.item.approved_at | formatDate }}</td>
                 <td class="text-xs-left">{{ props.item.approver ? props.item.approver.display_name : '' }}</td>
-                <td class="text-xs-left"><v-btn color="primary" class="signups-btn">Click to view</v-btn></td>
+                <td class="text-xs-left">
+                  <v-btn color="primary" class="signups-btn" @click.native="openApproveModal(props.item)">Click to view</v-btn>
+                </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }}
