@@ -27,7 +27,10 @@
               </div>
             </div>
           </div>
-          <v-btn class="update-btn" @click.native="saveGenreFilters()">Save</v-btn>
+          <div class="actions-wrapper">
+            <v-btn dark round color="blue" @click.native="openLoadGenreConfirmDialog()">Load Preset</v-btn>
+            <v-btn dark round color="blue" @click.native="saveGenreFilters()">Save</v-btn>
+          </div>
         </v-layout>
       </v-container>
 
@@ -88,6 +91,62 @@
         </div>
         <v-btn dark color="blue" class="update-btn" @click.native="show_selector_view = true">OK</v-btn>
       </div>
+
+      <v-dialog v-model="show_load_genre_confirm_dialog" content-class="my-dialog-1">
+        <v-card>
+          <v-card-text>
+            <div class="headline">Save current genre setting?</div>
+            <div>You can save current genre setting and load it later</div>
+            <v-layout pt-3>
+              <v-flex xs2 class="d-flex">
+                <label class="text-xs-left">Name</label>
+              </v-flex>
+              <v-flex xs10 class="d-flex">
+                <input v-model="preset_name" type="text" class="py-1 px-2" />
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn dark color="green" @click.native="savePreset()">Yes</v-btn>
+            <v-btn dark color="grey" @click.native="closeLoadGenreConfirmDialog()">No</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog
+        v-model="show_load_genre_dialog"
+        content-class="my-dialog-1"
+        v-on-click-outside="closeLoadGenreDialog"
+      >
+        <v-card>
+          <v-card-text>
+            <div class="headline">Load Genre</div>
+            <v-list>
+              <template v-for="(preset, index) in presets">
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ preset.name }}</v-list-tile-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <div>
+                      <v-btn icon small class="mr-2" @click.native="removePreset(preset.id)">
+                        <v-icon color="red">fa-trash</v-icon>
+                      </v-btn>
+                      <v-btn icon small @click.native="loadPreset(preset.id)">
+                        <v-icon color="blue">fa-download</v-icon>
+                      </v-btn>
+                    </div>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < presets.length" :key="preset.id"></v-divider>
+              </template>
+            </v-list>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn dark color="grey" @click.native="closeLoadGenreDialog()">Cancel</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>

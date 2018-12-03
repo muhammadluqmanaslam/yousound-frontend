@@ -1,16 +1,24 @@
 import _ from 'lodash'
+import { mixin as onClickOutside } from 'vue-on-click-outside'
 import AuthService from '@/services/auth'
 import GenreService from '@/services/genre'
+import PresetService from '@/services/preset'
 import UserService from '@/services/user'
 import { Filter, MyEvents } from '@/helper'
 
 export default {
+  mixins: [onClickOutside],
+
   data () {
     return {
       genres: [],
       parent: null,
       parent_index: 0,
+      presets: [],
+      preset_name: '',
       show_selector_view: true,
+      show_load_genre_confirm_dialog: false,
+      show_load_genre_dialog: false,
       isPageReady: true
     }
   },
@@ -45,24 +53,83 @@ export default {
   // },
 
   created () {
-    this.genres = _.cloneDeep(this.$store.state.app.genres)
-    let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
-
-    _.each(this.genres, (genre) => {
-      _.each(genre.children, (g) => { g.value = !hiddenGenres[g.id] })
-    })
-
-    // it stores only child genres statuses
-    _.each(this.genres, (genre) => {
-      if (!_.countBy(genre.children, 'value')['false']) {
-        genre.value = true
-      }
-    })
-
-    this.$forceUpdate()
+    this.loadGenre()
   },
 
   methods: {
+    loadGenre () {
+      this.genres = _.cloneDeep(this.$store.state.app.genres)
+      let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
+
+      _.each(this.genres, (genre) => {
+        _.each(genre.children, (g) => { g.value = !hiddenGenres[g.id] })
+      })
+
+      // it stores only child genres statuses
+      _.each(this.genres, (genre) => {
+        if (!_.countBy(genre.children, 'value')['false']) {
+          genre.value = true
+        }
+      })
+
+      this.$forceUpdate()
+    },
+
+    openLoadGenreConfirmDialog () {
+      this.preset_name = ''
+      this.show_load_genre_confirm_dialog = true
+    },
+
+    closeLoadGenreConfirmDialog () {
+      this.show_load_genre_confirm_dialog = false
+      this.openLoadGenreDialog()
+    },
+
+    openLoadGenreDialog () {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      PresetService.getPresets().then(response => {
+        this.presets = response.body
+        this.show_load_genre_dialog = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+    },
+
+    closeLoadGenreDialog () {
+      this.show_load_genre_dialog = false
+    },
+
+    savePreset () {
+      this.preset_name = this.preset_name.trim()
+      if (this.preset_name == '') {
+        this.$store.dispatch('error/showErrorToast', ['Please enter preset name'])
+        return
+      }
+
+      this.$store.dispatch('error/showLoadingActivity', true)
+      PresetService.createPreset({
+        name: this.preset_name
+      }).then(response => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.closeLoadGenreConfirmDialog()
+      })
+    },
+
+    loadPreset (presetId) {
+      PresetService.loadPreset(presetId).then(response => {
+        AuthService.setUser(response.body)
+        this.loadGenre()
+        this.closeLoadGenreDialog()
+      })
+    },
+
+    removePreset (presetId) {
+      PresetService.deletePreset(presetId).then(response => {
+        _.remove(this.presets, (preset) => { return preset.id == presetId })
+        const arr = this.presets.slice()
+        this.presets = arr
+      })
+    },
+
     checkParentGenre (parent, value) {
       _.each(parent.children, (g) => { g.value = !parent.value })
       // this.genres = this.genres.slice()
