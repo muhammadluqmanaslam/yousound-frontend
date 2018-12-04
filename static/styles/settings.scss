@@ -527,7 +527,6 @@
         position: relative;
         padding-bottom: 100%;
         // box-shadow: 2px 10px 13px 0px #B0B0B0;
-        // cursor: pointer;
         .pgs-inner-wrapper {
           position: absolute;
           width: 100%;
@@ -535,6 +534,7 @@
           padding: 15px 10px;
           color: #FFFFFF;
           // filter: brightness(1.2);
+          cursor: pointer;
           .pgs-inner {
             position: relative;
             width: 100%;
@@ -555,12 +555,14 @@
             }
             .pgs__description {
               span {
+                padding: 0 5px;
                 font-size: 14px;
                 font-weight: 300;
                 word-break: break-word;
                 cursor: pointer;
                 &:hover {
-                  text-decoration: underline;
+                  border-radius: 10px;
+                  background: rgba(0, 0, 0, 0.2);
                 }
               }
             }

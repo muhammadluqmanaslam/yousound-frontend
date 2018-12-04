@@ -10,18 +10,18 @@
         <v-layout row wrap ma-0 class="pgs_area" v-if="show_selector_view">
           <div class="pgs-wrapper" v-for="(parent, index) in genres">
             <div class="pgs" :key="parent.id">
-              <div class="pgs-inner-wrapper" :class="`bg-color-${index}`">
+              <div class="pgs-inner-wrapper" :class="`bg-color-${index}`" @click="checkParentGenre(parent, !parent.value)">
                 <div class="pgs-inner">
                   <div class="pgs__title"><label>{{ parent.name }}</label></div>
                   <div class="pgs__description">
-                    <span @click="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
+                    <span @click.stop="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
                   <div class="pgs__content">
                     <div class="upload-info">
                       <label>{{ parent.users_size | formatNumberWithComma }}</label>
                       <span>Album Uploaded</span>
                     </div>
-                    <div v-if="parent.value" class="pgs__badge check-o" @click="checkParentGenre(parent, false)"></div>
-                    <div v-else class="pgs__badge check" @click="checkParentGenre(parent, true)"></div>
+                    <div v-if="parent.value" class="pgs__badge check-o"></div>
+                    <div v-else class="pgs__badge check"></div>
                   </div>
                 </div>
               </div>
