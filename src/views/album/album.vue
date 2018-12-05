@@ -294,29 +294,34 @@
       </v-flex>
     </v-flex>
 
-    <merch-modal v-if="showMerchModal"
+    <merch-modal
+      v-if="showMerchModal"
       :item="album.products[0]"
       :dismiss="dimissMerchDialog"
     />
 
-    <download-modal v-if="showDownloadModal"
+    <download-modal
+      v-if="showDownloadModal"
       :item="album"
       :dismiss="dismissDownloadModal"
     />
 
-    <promote-modal v-if="showPromoteMessage"
+    <promote-modal
+      v-if="showPromoteMessage"
       :item="album"
       :dismiss="dismissPromoteModal"
       :success="saveAndFinish"
     />
 
-    <album-finish-modal v-if="isShowFinishModal"
+    <album-finish-modal
+      v-if="isShowFinishModal"
       :item="album"
       :promote="showPromoteModal"
       :dismiss="dismissFinishDialog"
     />
 
-    <share-modal v-if="showShareModal"
+    <share-modal
+      v-if="showShareModal"
       :item="album"
       :dismiss="closeShareModal"
     />

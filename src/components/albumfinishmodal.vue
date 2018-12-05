@@ -28,11 +28,55 @@
           </div>
         </div>
       </v-flex>
-      <v-flex xs12 class="item-section">
+      <v-flex xs12 class="album-section">
+        <v-card>
+          <v-container pa-4 fluid>
+            <v-layout row>
+              <v-flex xs5>
+                <v-card-media
+                  :src="item.cover.url"
+                  height="270px"
+                  contain
+                ></v-card-media>
+              </v-flex>
+              <v-flex xs7>
+                <div class="card__content">
+                  <div class="album-name pt-2">{{ item.name }}</div>
+                  <div class="album-artist-name">{{ item.user.display_name }}</div>
+                  <div class="album-tracks-count">{{ item.tracks.length }} tracks</div>
+                  <div class="attachment" v-if="itemProduct">
+                    <h3 class="pt-3 pb-2">Attachment</h3>
+                    <v-card>
+                      <v-container pa-0 fluid>
+                        <v-layout row>
+                          <v-flex xs3>
+                            <v-card-media
+                              :src="itemProduct.covers[0].cover.thumb.url"
+                              height="90px"
+                              contain
+                            ></v-card-media>
+                          </v-flex>
+                          <v-flex xs9>
+                            <div class="card__content">
+                              <div class="product-name">{{ itemProduct.name }}</div>
+                              <div class="product-price">${{ itemProduct.price | formatNumber }}</div>
+                            </div>
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
+                    </v-card>
+                  </div>
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+      </v-flex>
+      <v-flex xs12 px-4 class="item-section">
         <v-flex xs12 class="header-section">
-          <label class="header-text">View & Share your album</label>
+          <label class="header-text pb-1">View & Share your album</label>
         </v-flex>
-        <div class="album-detail-section">
+        <div class="album-detail-section pt-3 pb-4">
           <router-link class="album-link" :to="albumURL">{{ albumURL }}</router-link>
           <v-flex xs12 class="share-social-section">
             <v-btn class ="social-share-btn ml-0"><v-icon>fa-envelope</v-icon></v-btn>
@@ -66,6 +110,7 @@
 </template>
 
 <script type="text/javascript">
+  import _ from 'lodash'
 
   export default {
     props: {
@@ -94,6 +139,10 @@
     },
 
     computed: {
+      itemProduct () {
+        return _.get(this.item, 'products[0]')
+      },
+
       itemCover () {
         if (this.item.slug) {
           return this.item.cover.url

@@ -175,10 +175,12 @@ export default {
         AlbumService.getAlbum(this.slug),
         AlbumService.myRole(this.slug)
       ]).then(values => {
-        Vue.set(this, "album", values[0].body)
+        this.album = values[0].body
+        // Vue.set(this, "album", values[0].body)
         // for (let index in this.album.tracks) {
         //   this.buttonHover.push(false)
         // }
+
         const lastState = this.$store.getters['navigator/last']
         if (_.get(lastState, 'params.album_id') == this.album.id) {
           this.showFinishDialog()

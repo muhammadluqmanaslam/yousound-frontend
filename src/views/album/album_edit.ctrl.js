@@ -250,13 +250,15 @@ export default {
       })
     },
 
-    releaseAlbum(id) {
+    releaseAlbum (id) {
       AlbumService.releaseAlbum(id).then(res => {
-        if(this.album.promote) {
+        if (this.album.promote) {
           this.repostAlbum(id)
         } else {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$router.push({ path: '/albums' })
+          // this.$store.dispatch('navigator/setParams', { album_id: id })
+          // this.$router.push({ path: '/album/' + id })
         }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
