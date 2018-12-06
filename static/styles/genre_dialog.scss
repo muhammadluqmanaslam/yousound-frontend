@@ -1,6 +1,6 @@
 .my-genre-dialog {
-  max-width: 800px !important;
-  width: 800px !important;
+  max-width: 1000px !important;
+  width: 1000px !important;
   // z-index: 99;
   // position: fixed;
   // top: 50%;
@@ -21,7 +21,7 @@
       // margin: 10px 0 10px 10px;
     }
     & > .pgs_area {
-      height: 400px;
+      height: 500px;
       overflow-y: scroll;
     }
 
@@ -152,7 +152,7 @@
         width: 130px !important;
       }
       .genre__content {
-        width: 640px;
+        width: 840px;
         padding: 5px 0 0 10px;
       }
     }

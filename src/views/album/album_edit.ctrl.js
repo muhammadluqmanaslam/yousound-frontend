@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 
+import genreSingleSelector from '@/components/genre_single_selector'
 import promoteModal from '@/components/promotemodal'
 import trackUploader from '@/components/trackuploader'
 
@@ -12,6 +13,7 @@ import { Countries, CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
+    genreSingleSelector,
     promoteModal,
     trackUploader
   },
@@ -33,7 +35,8 @@ export default {
       album_image_url: null,
       genre: '',
       slug: null,
-      collaborators_confirm_dialog: false,
+      show_collaborators_confirm_dialog: false,
+      show_genre_selector_dialog: false,
       isPageReady: false,
     }
   },
@@ -44,8 +47,10 @@ export default {
     },
 
     isAvailableToEditAlbum () {
-      // return this.album.tracks.length && this.album.name.length && this.album_image_url && this.selected_product
-      return this.album.tracks.length && this.album.name.length && this.album_image_url && this.genre.length
+      return this.album.tracks.length &&
+        this.album.name.length &&
+        this.album_image_url &&
+        (this.$store.state.genreSelector.genres.length > 0)
     },
 
     role_types() {
@@ -90,9 +95,12 @@ export default {
           } else {
             this.album.released_at = moment().format('YYYY-MM-DD')
           }
-          if (this.album.genres.length > 0) {
-            this.genre = this.album.genres[0].id
-          }
+          // if (this.album.genres.length > 0) {
+          //   // this.genre = this.album.genres[0].id
+          //   // this.genre = this.album.genres[0]
+          //   // this.$store.dispatch('genreSelector/setGenres', this.album.genres)
+          // }
+          this.$store.dispatch('genreSelector/setGenres', this.album.genres)
           if (this.album.products.length > 0) {
             this.selected_product = this.album.products[0].id
           }
@@ -173,11 +181,19 @@ export default {
     },
 
     showCollaboratorsConfirmDialog() {
-      this.collaborators_confirm_dialog = true
+      this.show_collaborators_confirm_dialog = true
     },
 
     hideCollaboratorsConfirmDialog() {
-      this.collaborators_confirm_dialog = false
+      this.show_collaborators_confirm_dialog = false
+    },
+
+    openGenreSelectorDialog () {
+      this.show_genre_selector_dialog = true
+    },
+
+    closeGenreSelectorDialog () {
+      this.show_genre_selector_dialog = false
     },
 
     beforeReleaseNow() {
@@ -205,7 +221,7 @@ export default {
       }
 
       const track_ids = tracks.join(',')
-      const genre_ids = this.genre
+      const genre_ids = this.$store.getters['genreSelector/genre'].id
       const product_ids = this.selected_product
       const formData = new FormData()
       formData.append('album[name]', this.album.name)

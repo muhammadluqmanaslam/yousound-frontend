@@ -1,17 +1,5 @@
 <template>
   <v-layout row wrap class="page upload-album-page">
-    <v-dialog v-model="collaborators_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Confirm Collaborators</v-card-title>
-        <v-card-text>Make sure to add any collaborators to your album, once it's uploaded you won't be able to add collaborators</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="releaseNow()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideCollaboratorsConfirmDialog()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <v-flex xs12 relative v-if="isPageReady">
       <v-flex xs12 pa-0>
         <track-uploader accept=".mp3" :autoUpload="true" :album="album"></track-uploader>
@@ -87,7 +75,14 @@
               </v-flex>
               <v-flex xs12 form-group>
                 <label class="control-label">Genre<label class="required">*</label></label>
-                <v-select
+                <input
+                  :value="$store.getters['genreSelector/genre'].name"
+                  @click="openGenreSelectorDialog()"
+                  type="text"
+                  class="form-control"
+                  readonly
+                >
+                <!-- <v-select
                   v-bind:items="genres"
                   item-value="id"
                   item-text="name"
@@ -95,7 +90,7 @@
                   class="pt-0"
                   no-data-text="No genres found"
                   autocomplete
-                />
+                /> -->
               </v-flex>
               <v-flex xs12 form-group>
                 <label class="control-label">Merch</label>
@@ -310,6 +305,24 @@
         </v-flex>
       </v-flex>
     </v-flex>
+
+    <v-dialog v-model="show_collaborators_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Confirm Collaborators</v-card-title>
+        <v-card-text>Make sure to add any collaborators to your album, once it's uploaded you won't be able to add collaborators</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="releaseNow()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideCollaboratorsConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_genre_selector_dialog" content-class="my-genre-dialog ma-0 pa-2">
+      <genre-single-selector
+        :dismiss="closeGenreSelectorDialog"
+      />
+    </v-dialog>
   </v-layout>
 </template>
 

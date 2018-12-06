@@ -1,5 +1,6 @@
 import moment from 'moment'
 
+import genreSingleSelector from '@/components/genre_single_selector'
 import trackUploader from '@/components/trackuploader'
 
 import UserService from '@/services/user'
@@ -10,6 +11,7 @@ import { Countries, CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
+    genreSingleSelector,
     trackUploader
   },
 
@@ -37,7 +39,8 @@ export default {
       page_index: 1,
       total_pages: 1,
       items_per_page: 30,
-      collaborators_confirm_dialog: false,
+      show_collaborators_confirm_dialog: false,
+      show_genre_selector_dialog: false,
       isPageReady: false
     }
   },
@@ -48,7 +51,10 @@ export default {
     },
 
     isAvailableToUploadAlbum () {
-      return this.album.tracks.length && this.album.name.length && this.album.image && this.album.genre.length
+      return this.album.tracks.length &&
+        this.album.name.length &&
+        this.album.image &&
+        (this.$store.state.genreSelector.genres.length > 0)
     },
 
     role_types() {
@@ -81,6 +87,7 @@ export default {
         this.users = _.cloneDeep(values[0].body.users)
         this.users.unshift(this.currentUser)
         this.products = values[1].body
+        this.$store.dispatch('genreSelector/setGenres', [])
 
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -151,11 +158,19 @@ export default {
     },
 
     showCollaboratorsConfirmDialog () {
-      this.collaborators_confirm_dialog = true
+      this.show_collaborators_confirm_dialog = true
     },
 
     hideCollaboratorsConfirmDialog () {
-      this.collaborators_confirm_dialog = false
+      this.show_collaborators_confirm_dialog = false
+    },
+
+    openGenreSelectorDialog () {
+      this.show_genre_selector_dialog = true
+    },
+
+    closeGenreSelectorDialog () {
+      this.show_genre_selector_dialog = false
     },
 
     beforeReleaseNow () {
@@ -180,7 +195,7 @@ export default {
       }
 
       const track_ids = tracks.join(',')
-      const genre_ids = this.album.genre
+      const genre_ids = this.$store.getters['genreSelector/genre'].id
       const formData = new FormData()
       formData.append('album[name]', this.album.name)
       formData.append('album[description]', this.album.description)

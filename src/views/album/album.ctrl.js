@@ -192,7 +192,7 @@ export default {
           this.getComments()
         }
         this.$emit('updateHead')
-        
+
         setTimeout(function () {
           vm.changeBackground()
           var height = $('#album_info_page').height() + 230
