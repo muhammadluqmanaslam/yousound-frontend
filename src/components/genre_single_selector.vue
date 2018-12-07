@@ -49,7 +49,8 @@
               ></v-radio>
             </v-flex>
             <v-flex xs12 class="text-xs-center">
-              <v-btn dark color="blue" class="update-btn" @click.native="show_selector_view = true">Back</v-btn>
+              <v-btn dark color="grey" class="update-btn" @click.native="show_selector_view = true">Back</v-btn>
+              <v-btn dark color="blue" class="update-btn" @click.native="dismiss()">Select Genre & Close</v-btn>
             </v-flex>
           </v-layout>
         </v-radio-group>
