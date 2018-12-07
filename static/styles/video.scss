@@ -250,6 +250,10 @@
     }
   }
 
+  h3 {
+    font-size: 24px;
+  }
+
   .form-control {
     height: 36px;
   }
@@ -258,11 +262,108 @@
     min-height: 36px;
   }
 
+  .input-group__details {
+    display: none;
+  }
+
   .comment-box {
     padding: 15px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #FFFFEE;
+  }
+
+  .cover-wrapper {
+    .cover-title {
+      label {
+        font-size: 16px;
+        color: #9B9B9B;
+      }
+      span {
+        display: inline-block;
+        border-radius: 5px;
+        line-height: 24px;
+        font-size: 14px;
+        color: #9B9B9B;
+        background-color: #e0e0e0;
+      }
+    }
+    .cover-actions {
+      input[type="file"] {
+        width: 0.0.75px;
+        height: 0.0.75px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+      }
+      input[type="file"] + label {
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .card.user-preview {
+    display: flex;
+    box-shadow: none;
+    .card__media {
+      flex: 0 0 auto;
+      width: 50px;
+      height: 50px !important;
+      border-radius: 25px;
+    }
+    .card__title {
+      .user-name {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .user-type {
+        font-size: 16px;
+        color: #9B9B9B;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  .card.video-preview {
+    display: flex;
+    box-shadow: none;
+    .card__media {
+      flex: 0 0 auto;
+      width: 200px;
+      height: 200px !important;
+      border-radius: 5px;
+      background-color: #e0e0e0;
+      .card__media__background {
+        background-position: 0 0 !important;
+      }
+    }
+    .card__title {
+      flex-direction: column;
+      align-items: baseline;
+      justify-content: space-between;
+      .video-name {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 24px;
+      }
+      .video-period {
+        font-size: 16px;
+        color: #9b9b9b;
+      }
+      .video-owner-name {
+        font-size: 18px;
+      }
+      .video-price {
+        label {
+          font-size: 18px;
+        }
+      }
+    }
   }
 
   .button-wrapper {

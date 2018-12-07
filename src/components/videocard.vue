@@ -2,7 +2,7 @@
   <v-flex class="video-card">
     <v-flex xs12 class="video-info" pa-0>
       <v-flex xs12 class="video-cover">
-        <div class="video-image" :style="{'background-image': 'url(' + owner.avatar.url + ')'}"/></div>
+        <div class="video-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"/></div>
         <v-flex xs12 class="video-actions" relative v-if="$store.state.auth.user" @click="viewStream()">
           <v-btn class="green px-2 live-video-btn" dark round>
             <v-icon>videocam</v-icon>

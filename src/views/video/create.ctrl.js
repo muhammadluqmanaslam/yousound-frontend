@@ -43,11 +43,13 @@ export default {
         name: '',
         description: '',
         view_price: 0,
+        cover: null,
         ml_input_type: 'RTMP_PUSH',
         ml_input_codec: 'AVC',
         ml_input_resolution: 'HD',
         ml_input_maximum_bitrate: 'MAX_10_MBPS'
       },
+      stream_cover_url: null,
       show_payment_dialog: false,
       isPageReady: false
     }
@@ -77,6 +79,10 @@ export default {
     profileUrl () {
       return window.location.origin + '/' + this.currentUser.slug
     },
+
+    // isValidate () {
+    //   return !!this.stream_cover_url
+    // },
 
     currentUser () {
       return this.$store.state.auth.user
@@ -153,15 +159,33 @@ export default {
       }
     },
 
+    imageChanged (e) {
+      if (e.target.files.length > 0) {
+        this.stream.cover = e.target.files[0]
+        var reader = new FileReader()
+        reader.addEventListener('load', (event) => {
+          this.stream_cover_url = event.target.result
+        }, false)
+        reader.readAsDataURL(this.stream.cover)
+      } else {
+        this.stream.cover = null
+        this.stream_cover_url = null
+      }
+    },
+
     submit () {
       this.$validator.validateAll().then(response => {
         if (response === true) {
-          let params = {
-            stream: this.stream
-          }
-          params.stream.valid_period = this.period
+          const formData = new FormData()
+          formData.append('stream[name]', this.stream.name)
+          formData.append('stream[description]', this.stream.description)
+          formData.append('stream[genre_id]', this.stream.genre_id)
+          formData.append('stream[view_price]', this.stream.view_price)
+          formData.append('stream[valid_period]', this.period)
+          formData.append('stream[cover]', this.stream.cover)
+
           this.$store.dispatch('error/showLoadingActivity', true)
-          StreamService.createStream(params).then(response => {
+          StreamService.createStream(formData).then(response => {
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch('auth/setStream', response.body)
             this.$router.push({ path: `/user/${this.$store.state.auth.user.slug}/video` })
