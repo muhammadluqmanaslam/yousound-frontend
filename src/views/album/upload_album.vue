@@ -13,7 +13,6 @@
           <v-layout row class="album-section">
             <div class="album-image-section"> 
               <div class="image-section">
-                <!-- <img class="album-image" id="album_image" v-if="album.image"/> -->
                 <div class="album-image" id="album_image" v-if="album_image_url" :style="`background-image: url(${album_image_url})`"></div>
                 <div class="album-image-upload-section" v-if="!album_image_url">
                   <input type="file" name="album_image_file" id="album_image_file" class="add-album-image-file" accept="image/*" @change="imageChanged($event)">
@@ -25,6 +24,10 @@
               <div class="image-change-section">
                 <input type="file" name="album_image_file" id="album_image_file" class="change-album-image-file" accept="image/*" @change="imageChanged($event)">
                 <label for="album_image_file" v-if="album_image_url">Change</label>
+              </div>
+              <div>
+                <v-checkbox label="Only For Live Stream" v-model="album.is_only_for_live_stream"></v-checkbox>
+                <span class="grey--text lighten-2">If checked, album will not appear on profile & won't be reposted when downloaded from broadcast</span>
               </div>
             </div>
             <div class="album-content-section layout row wrap">
@@ -91,6 +94,16 @@
                   no-data-text="No genres found"
                   autocomplete
                 /> -->
+              </v-flex>
+              <v-flex xs12 form-group>
+                <label class="control-label">This album includes</label>
+                <div class="album-content-wrapper">
+                  <v-checkbox v-model="album.is_content_acapella" label="Acapella"></v-checkbox>
+                  <v-checkbox v-model="album.is_content_instrumental" label="Instrumental"></v-checkbox>
+                  <v-checkbox v-model="album.is_content_stems" label="Stems"></v-checkbox>
+                  <v-checkbox v-model="album.is_content_remix" label="Remix"></v-checkbox>
+                  <v-checkbox v-model="album.is_content_dj_mix" label="DJ Mix"></v-checkbox>
+                </div>
               </v-flex>
               <v-flex xs12 form-group>
                 <label class="control-label">Merch</label>

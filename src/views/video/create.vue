@@ -126,7 +126,7 @@
               ></v-card-media>
               <v-card-title class="ml-3">
                 <div>
-                  <div class="video-name mt-1">{{ stream.name }}</div>
+                  <div class="video-name mt-1">{{ stream.name | truncateInMiddle(25) }}</div>
                   <div class="video-period mt-1">00:16:52</div>
                 </div>
                 <div class="video-owner-name">{{ currentUser.display_name }}</div>

@@ -27,6 +27,12 @@ export default {
         location: '',
         genre: '',
         description: '',
+        is_only_for_live_stream: false,
+        is_content_acapella: false,
+        is_content_instrumental: false,
+        is_content_stems: false,
+        is_content_remix: false,
+        is_content_dj_mix: false,
         image: null,
         tracks: []
       },
@@ -201,6 +207,12 @@ export default {
       formData.append('album[description]', this.album.description)
       formData.append('album[released_at]', this.album.released_at)
       formData.append('album[location]', this.album.location || '')
+      formData.append('album[is_only_for_live_stream]', this.album.is_only_for_live_stream)
+      formData.append('album[is_content_acapella]', this.album.is_content_acapella)
+      formData.append('album[is_content_instrumental]', this.album.is_content_instrumental)
+      formData.append('album[is_content_stems]', this.album.is_content_stems)
+      formData.append('album[is_content_remix]', this.album.is_content_remix)
+      formData.append('album[is_content_dj_mix]', this.album.is_content_dj_mix)
       formData.append('album[cover]', this.album.image)
       formData.append('album[track_ids]', track_ids)
       formData.append('album[genre_ids]', genre_ids)
