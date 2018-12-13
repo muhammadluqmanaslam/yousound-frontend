@@ -3,6 +3,7 @@ import moment from 'moment'
 
 import genreSingleSelector from '@/components/genre_single_selector'
 import promoteModal from '@/components/promotemodal'
+import sampleLicenseDialog from './components/sample_license_dialog'
 import trackUploader from '@/components/trackuploader'
 
 import AlbumService from '@/services/album'
@@ -15,6 +16,7 @@ export default {
   components: {
     genreSingleSelector,
     promoteModal,
+    sampleLicenseDialog,
     trackUploader
   },
 
@@ -29,6 +31,11 @@ export default {
       products: [],
       collaborators: [],
       contributors: [],
+      samplings: [],
+      // sampling: {},
+      artists: [],
+      artist_albums: [],
+      artist_album_tracks: [],
       selected_product: null,
       album: null,
       album_image: null,
@@ -37,6 +44,7 @@ export default {
       slug: null,
       show_collaborators_confirm_dialog: false,
       show_genre_selector_dialog: false,
+      show_sample_clearance_license_modal: false,
       isPageReady: false,
     }
   },
@@ -55,6 +63,16 @@ export default {
 
     role_types() {
       return CollaboratorRoleTypes
+    },
+
+    tracks () {
+      let ts = _.clone(this.album.tracks)
+      // let ts = [
+      //   { id: 'aaa', name: 'AAA' },
+      //   { id: 'bbb', name: 'BBB' },
+      // ]
+      console.log('tracks', ts)
+      return ts;
     }
   },
 
@@ -88,6 +106,8 @@ export default {
           this.users = _.cloneDeep(values[2].body.users)
           this.users.unshift(this.currentUser)
 
+          this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
+
           this.album = values[1].body
           this.album_image_url = this.album.cover.url
           if (this.album.released_at) {
@@ -95,6 +115,7 @@ export default {
           } else {
             this.album.released_at = moment().format('YYYY-MM-DD')
           }
+          this.album.enabled_sample = this.album.enabled_sample.toString()
           // if (this.album.genres.length > 0) {
           //   // this.genre = this.album.genres[0].id
           //   // this.genre = this.album.genres[0]
@@ -110,7 +131,10 @@ export default {
           if (this.album.contributors.length > 0) {
             this.contributors = this.album.contributors
           }
-          // console.log(this.isPageReady, this.genres, this.genre, this.products, this.selected_product)
+          if (this.album.samplings.length > 0) {
+            this.samplings = this.album.samplings
+          }
+          // console.log('album_edit created', this.users)
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
           const vm = this
@@ -166,6 +190,35 @@ export default {
       this.contributors.splice(index, 1)
     },
 
+    addSampling () {
+      this.samplings.push({
+        sampling_track_id: '',
+        sample_track_id: '',
+        sample_album_id: '',
+        sample_user_id: ''
+      })
+    },
+
+    deleteSampling (index) {
+      this.samplings.splice(index, 1)
+    },
+
+    onChangeSampleArtist (user_id) {
+      // console.log('onChangeSampleArtist', user_id)
+      AlbumService.getAlbums({
+        statuses: 'published, collaborated',
+        user_statuses: 'accepted',
+        user_id: user_id,
+        enabled_sample: true
+      }).then(response => {
+        this.artist_albums = response.body
+      })
+    },
+
+    onChangeSampleArtistAlbum (album_id) {
+      this.artist_album_tracks = _.find(this.artist_albums, (album) => (album.id == album_id)).tracks
+    },
+
     deleteAlbum() {
       const id = ''
       this.isLoading = true
@@ -196,6 +249,14 @@ export default {
       this.show_genre_selector_dialog = false
     },
 
+    openSampleClearanceLicenseModal () {
+      this.show_sample_clearance_license_modal = true
+    },
+
+    closeSampleClearanceLicenseModal () {
+      this.show_sample_clearance_license_modal = false
+    },
+
     beforeReleaseNow() {
       if (this.album.status == 'pending') {
         this.showCollaboratorsConfirmDialog()
@@ -215,7 +276,7 @@ export default {
       var tracks = []
       for(let index in this.album.tracks) {
         const track = this.album.tracks[index].track
-        if(track) {
+        if (track) {
           tracks.push(track.id)
         }
       }
@@ -234,6 +295,7 @@ export default {
       formData.append('album[is_content_stems]', this.album.is_content_stems)
       formData.append('album[is_content_remix]', this.album.is_content_remix)
       formData.append('album[is_content_dj_mix]', this.album.is_content_dj_mix)
+      formData.append('album[enabled_sample]', this.album.enabled_sample === 'true')
       if (this.album_image) {
         formData.append('album[cover]', this.album_image)
       }
@@ -242,6 +304,7 @@ export default {
       formData.append('album[product_ids]', product_ids)
       formData.append('album[collaborators]', JSON.stringify(this.collaborators))
       formData.append('album[contributors]', JSON.stringify(this.contributors))
+      formData.append('album[samplings]', JSON.stringify(this.samplings))
 
       AlbumService.updateAlbum(this.album.id, formData).then(res => {
         const id = res.body.id

@@ -128,7 +128,7 @@
                   <div class="message-section">
                     <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
                     <div class="message-content text">
-                      <label class="text-message">{{ message.body }}</label>
+                      <label class="text-message" v-html="message.body"></label>
                     </div>
                     <div class="clear"></div>
                   </div>
@@ -307,6 +307,23 @@
                                 <v-btn class="status-btn" @click.native="acceptLabelAlbum(message)">Accept</v-btn>
                                 <v-btn class="status-btn" @click.native="denyLabelAlbum(message)">Deny</v-btn>
                               </div>
+                            </div>
+                          </div>
+                        </div>
+                        <label class="text-message" v-if="false"></label>
+                      </div>
+                    </template>
+
+                    <template v-else-if="message.attachment.attachment_type=='sample_album'">
+                      <div class="message-content text request no-top-corner">
+                        <div>
+                          <div class="content-section" v-if="message.attachment.attachable_type=='Album'">
+                            <div class="repost-item-image">
+                              <activity-album-card :object="message.attachment.assoc"></activity-album-card>
+                            </div>
+                            <div class="info-section">
+                              <label class="item-title">{{ message.attachment.assoc.name }}</label>
+                              <a class="item-user">{{ message.sender.display_name }}</a>
                             </div>
                           </div>
                         </div>

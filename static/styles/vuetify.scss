@@ -64,6 +64,12 @@
   }
 }
 
+.menu__content.menu__content--avatar {
+  .list__tile {
+    height: 56px;
+  }
+}
+
 /* v-tabs */
 .tabs__items {
   overflow: visible;

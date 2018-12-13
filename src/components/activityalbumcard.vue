@@ -119,7 +119,7 @@
       },
 
       playSong () {
-        if (this.$store.state.player.isPaused) {
+        if (this.$store.state.player.isPaused && this.$store.getters['player/currentAlbum'].id === this.item.id) {
           this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
         } else {
           this.setPlaylist([this.object])

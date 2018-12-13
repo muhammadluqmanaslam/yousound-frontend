@@ -1,15 +1,9 @@
-.dialog__content {
-  z-index: 11 !important;
-}
-
-.btn {
-    font-size: 14px;
-    font-weight: 600;
-    font-family: 'Work Sans';
-    }
 .dialog {
   &:not(.dialog--fullscreen) {
     width : 500px;
+  }
+  .dialog__content {
+    z-index: 11 !important;
   }
   .page.auth-page.auth-login-header {
     margin-top: 30px;
@@ -36,6 +30,10 @@
       padding: 0;
     }
   }
+}
+
+.dialog.large:not(.dialog--fullscreen) {
+  width: 800px;
 }
 
 .dialog.my-dialog-1 {

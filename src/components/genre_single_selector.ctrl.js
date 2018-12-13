@@ -34,8 +34,7 @@ export default {
   },
 
   created () {
-    console.log('genreSelector', this.genre)
-
+    // console.log('genreSelector', this.genre)
     this.genres = _.cloneDeep(this.$store.state.app.genres)
 
     _.each(this.genres, (pg) => {

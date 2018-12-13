@@ -96,20 +96,29 @@
               by <router-link :to="'/' + album.user.slug" class="album-detail">{{ album.user.display_name }}</router-link>
               <template v-for="collaborator in album.collaborators">
                 , <router-link :to="'/' + collaborator.user.slug" class="album-detail">{{ collaborator.user.display_name }}</router-link>
-              </template> •  2017 <label class="album-stats-btn" @click="goToAlbumStats('played_by')" v-if="showStats">View Stats</label>
+              </template>
+              <div v-if="currentUser.user_type != 'listener'" class="album-sample-clearance mr-2">
+                • Cleared to be sampled on YouSound.
+                <span class="border-bottom" @click="openSampleClearanceLicenseModal()">More Info</span>
+              </div>
+              <label class="album-stats-btn" @click="goToAlbumStats('played_by')" v-if="showStats">View Stats</label>
             </div>
             <div class="album-action-section">
               <template v-if="currentUser && album.user.id != currentUser.id">
-                <v-btn v-if="album.collaborators_count == 0"
+                <v-btn
+                  v-if="album.collaborators_count == 0"
                   :class="{ 'follow-btn': true, 'follow': false, 'following': true }"
                   @mouseenter="buttonHover = true"
                   @mouseleave="buttonHover = false"
-                  @click.native="followUser(album.user)">{{ followButtonText }}</v-btn>
-                <v-menu v-else
+                  @click.native="followUser(album.user)"
+                >{{ followButtonText }}</v-btn>
+                <v-menu
+                  v-else
                   id="follow_selector"
                   left down
                   offset-y
-                  :nudge-top="-5">
+                  :nudge-top="-5"
+                >
                   <v-btn dark slot="activator">Follow All
                     <v-icon dark right>keyboard_arrow_down</v-icon>
                   </v-btn>
@@ -293,6 +302,12 @@
         </v-layout>
       </v-flex>
     </v-flex>
+
+    <v-dialog v-model="show_sample_clearance_license_modal" content-class="my-dialog-1 large">
+      <sample-license-dialog
+        :dismiss="closeSampleClearanceLicenseModal"
+      />
+    </v-dialog>
 
     <merch-modal
       v-if="showMerchModal"

@@ -105,6 +105,14 @@
                   <v-checkbox v-model="album.is_content_dj_mix" label="DJ Mix"></v-checkbox>
                 </div>
               </v-flex>
+              <v-flex xs12 form-group enabled-sample-wrapper>
+                <label class="control-label">Allow Verified Artists to sample/mix content from this album?</label>
+                <span class="border-bottom" @click="openSampleClearanceLicenseModal()">More Info</span>
+                <v-radio-group v-model="album.enabled_sample" row>
+                  <v-radio value="`false`" label="No" light></v-radio>
+                  <v-radio value="`true`" label="Yes" light></v-radio>
+                </v-radio-group>
+              </v-flex>
               <v-flex xs12 form-group>
                 <label class="control-label">Merch</label>
                 <v-select
@@ -155,7 +163,7 @@
           </v-layout>
         </v-flex>
 
-        <v-flex xs12 class="collaborator-section">
+        <v-flex xs12 class="additional-info-section">
           <v-flex xs12>
             <v-layout>
               <v-flex xs12 sm6 pa-0>
@@ -230,7 +238,7 @@
           </v-flex>
         </v-flex>
 
-        <v-flex xs12 class="contributor-section">
+        <v-flex xs12 class="additional-info-section">
           <v-flex xs12>
             <v-layout>
               <v-flex xs12 sm6 pa-0>
@@ -305,6 +313,131 @@
           </v-flex>
         </v-flex>
 
+        <v-flex xs12 class="additional-info-section">
+          <v-flex xs12>
+            <v-layout>
+              <v-flex xs12 sm6 pa-0>
+                <h4 class="album-info-title">Sample Used from YouSound</h4>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+          <v-flex xs12>
+            <v-flex xs12 sm6 pa-0>
+              <v-btn class="add-option-btn ma-0" @click.native="addSampling()">
+                <v-icon>add</v-icon> Add another
+              </v-btn>
+            </v-flex>
+          </v-flex>
+          <v-flex sm12 pa-0>
+            <v-layout v-for="(sampling, index) in samplings" :key="index" row option-content>
+              <v-flex xs12 sm3>
+                <label class="control-label">Sampling Track<label class="required">*</label></label>
+                <v-select
+                  v-model="sampling.sampling_track_id"
+                  :items="album.tracks"
+                  item-text="track.name"
+                  item-value="track.id"
+                  class="pt-0"
+                >
+                </v-select>
+              </v-flex>
+              <v-flex xs12 sm3>
+                <label class="control-label">Artist you sampled<label class="required">*</label></label>
+                <v-select
+                  :items="artists"
+                  v-model="sampling.sample_user_id"
+                  item-text="username"
+                  item-value="id"
+                  @change="onChangeSampleArtist"
+                  chips
+                  max-height="auto"
+                  class="pt-0"
+                  no-data-text="No user found"
+                  autocomplete
+                  clearable
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      :key="JSON.stringify(data.item)"
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      class="chip--select-multi"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.avatar.thumb.url">
+                      </v-avatar>
+                      {{ data.item.username }}
+                    </v-chip>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item == 'object'">
+                      <v-list-tile-avatar>
+                        <img :src="data.item.avatar.thumb.url"/>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title v-html="data.item.username"></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-select>
+              </v-flex>
+              <v-flex xs12 sm3>
+                <label class="control-label">Sample<label class="required">*</label></label>
+                <v-select
+                  :items="artist_albums"
+                  v-model="sampling.sample_album_id"
+                  item-text="name"
+                  item-value="id"
+                  @change="onChangeSampleArtistAlbum"
+                  chips
+                  max-height="auto"
+                  class="pt-0"
+                  content-class="menu__content--avatar"
+                  no-data-text="No album found"
+                  autocomplete
+                  clearable
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      :key="JSON.stringify(data.item)"
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      class="chip--select-multi"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.cover.thumb.url">
+                      </v-avatar>
+                      {{ data.item.name }}
+                    </v-chip>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item == 'object'">
+                      <v-list-tile-avatar>
+                        <img :src="data.item.cover.thumb.url"/>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-select>
+              </v-flex>
+              <v-flex xs12 sm3>
+                <label class="control-label">Track<label class="required">*</label></label>
+                <v-select
+                  :items="artist_album_tracks"
+                  v-model="sampling.sample_track_id"
+                  item-text="name"
+                  item-value="id"
+                  autocomplete
+                  class="pt-0"
+                ></v-select>
+              </v-flex>
+              <v-icon class="clear-btn" @click="deleteSampling(index)">clear</v-icon>
+            </v-layout>
+          </v-flex>
+        </v-flex>
+
         <v-flex xs12 album-action-section>
           <v-layout row>
             <v-flex xs12 sm-6>
@@ -318,6 +451,12 @@
         </v-flex>
       </v-flex>
     </v-flex>
+
+    <v-dialog v-model="show_sample_clearance_license_modal" content-class="my-dialog-1 large">
+      <sample-license-dialog
+        :dismiss="closeSampleClearanceLicenseModal"
+      />
+    </v-dialog>
 
     <v-dialog v-model="show_collaborators_confirm_dialog">
       <v-card>

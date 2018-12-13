@@ -1,0 +1,39 @@
+.sample-license-dialog {
+  background: #FFFFFF;
+  .my-dialog__header {
+    img {
+      height: 30px;
+    }
+    h3 {
+      display: inline-block;
+      vertical-align: text-bottom;
+      font-size: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .my-dialog__content {
+    .my-dialog__content__section {
+      h4 {
+        font-size: 24px;
+        line-height: 24px;
+      }
+      h5 {
+        font-size: 20px;
+        line-height: 20px;
+      }
+      h6 {
+        font-size: 16px;
+        line-height: 24px;
+      }
+      p {
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .my-dialog__footer {
+    text-align: center;
+  }
+}

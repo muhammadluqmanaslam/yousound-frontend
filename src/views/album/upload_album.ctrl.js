@@ -1,6 +1,7 @@
 import moment from 'moment'
 
 import genreSingleSelector from '@/components/genre_single_selector'
+import sampleLicenseDialog from './components/sample_license_dialog'
 import trackUploader from '@/components/trackuploader'
 
 import UserService from '@/services/user'
@@ -12,6 +13,7 @@ import { Countries, CollaboratorRoleTypes } from '@/helper'
 export default {
   components: {
     genreSingleSelector,
+    sampleLicenseDialog,
     trackUploader
   },
 
@@ -33,6 +35,7 @@ export default {
         is_content_stems: false,
         is_content_remix: false,
         is_content_dj_mix: false,
+        enabled_sample: 'false',
         image: null,
         tracks: []
       },
@@ -42,11 +45,16 @@ export default {
       users: [],
       collaborators: [],
       contributors: [],
+      samplings: [],
+      artists: [],
+      artist_albums: [],
+      artist_album_tracks: [],
       page_index: 1,
       total_pages: 1,
       items_per_page: 30,
       show_collaborators_confirm_dialog: false,
       show_genre_selector_dialog: false,
+      show_sample_clearance_license_modal: false,
       isPageReady: false
     }
   },
@@ -146,6 +154,35 @@ export default {
       this.contributors.splice(index, 1)
     },
 
+    addSampling () {
+      this.samplings.push({
+        sampling_track_id: '',
+        sample_track_id: '',
+        sample_album_id: '',
+        sample_user_id: ''
+      })
+    },
+
+    deleteSampling (index) {
+      this.samplings.splice(index, 1)
+    },
+
+    onChangeSampleArtist (user_id) {
+      // console.log('onChangeSampleArtist', user_id)
+      AlbumService.getAlbums({
+        statuses: 'published, collaborated',
+        user_statuses: 'accepted',
+        user_id: user_id,
+        enabled_sample: true
+      }).then(response => {
+        this.artist_albums = response.body
+      })
+    },
+
+    onChangeSampleArtistAlbum (album_id) {
+      this.artist_album_tracks = _.find(this.artist_albums, (album) => (album.id == album_id)).tracks
+    },
+
     deleteAlbum () {
       const id = ''
       this.isLoading = true
@@ -177,6 +214,14 @@ export default {
 
     closeGenreSelectorDialog () {
       this.show_genre_selector_dialog = false
+    },
+
+    openSampleClearanceLicenseModal () {
+      this.show_sample_clearance_license_modal = true
+    },
+
+    closeSampleClearanceLicenseModal () {
+      this.show_sample_clearance_license_modal = false
     },
 
     beforeReleaseNow () {
@@ -213,6 +258,7 @@ export default {
       formData.append('album[is_content_stems]', this.album.is_content_stems)
       formData.append('album[is_content_remix]', this.album.is_content_remix)
       formData.append('album[is_content_dj_mix]', this.album.is_content_dj_mix)
+      formData.append('album[enabled_sample]', this.album.enabled_sample === 'true')
       formData.append('album[cover]', this.album.image)
       formData.append('album[track_ids]', track_ids)
       formData.append('album[genre_ids]', genre_ids)
@@ -221,6 +267,7 @@ export default {
       }
       formData.append('album[collaborators]', JSON.stringify(this.collaborators))
       formData.append('album[contributors]', JSON.stringify(this.contributors))
+      formData.append('album[samplings]', JSON.stringify(this.samplings))
 
       AlbumService.createAlbum(formData).then(response => {
         if(this.isNeededToRelease) {

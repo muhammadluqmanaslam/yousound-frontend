@@ -16,6 +16,7 @@ import merchModal from '@/components/merchmodal'
 import productCard from '@/components/productcard'
 import profileItem from '@/components/profileitem'
 import promoteModal from '@/components/promotemodal'
+import sampleLicenseDialog from './components/sample_license_dialog'
 import shareModal from '@/components/sharemodal'
 import trackCard from '@/components/trackcard'
 import videoCard from '@/components/videocard'
@@ -33,6 +34,7 @@ export default {
     productCard,
     profileItem,
     promoteModal,
+    sampleLicenseDialog,
     shareModal,
     trackCard,
     videoCard
@@ -46,6 +48,7 @@ export default {
       showShareModal: false,
       isShowFinishModal: false,
       showEmojiPicker: false,
+      show_sample_clearance_license_modal: false,
       slug: null,
       cable: null,
       comments_subscription: null,
@@ -381,6 +384,14 @@ export default {
     showEmojiDialog() {
       this.showEmojiPicker = !this.showEmojiPicker
       this.$refs.comment.focus()
+    },
+
+    openSampleClearanceLicenseModal () {
+      this.show_sample_clearance_license_modal = true
+    },
+
+    closeSampleClearanceLicenseModal () {
+      this.show_sample_clearance_license_modal = false
     },
 
     blurMessage() {
