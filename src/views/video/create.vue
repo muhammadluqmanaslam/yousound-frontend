@@ -108,7 +108,7 @@
                 contain
                 :src="currentUser.avatar.thumb.url"
               ></v-card-media>
-              <v-card-title class="ml-2">
+              <v-card-title class="ml-2 pa-0">
                 <div>
                   <div class="user-name">{{ currentUser.display_name }}</div>
                   <div class="user-type">{{ currentUser.user_type }}</div>
@@ -124,7 +124,7 @@
                 cover
                 :src="stream_cover_url"
               ></v-card-media>
-              <v-card-title class="ml-3">
+              <v-card-title class="ml-3 px-0 pt-2 pb-1">
                 <div>
                   <div class="video-name mt-1">{{ stream.name | truncateInMiddle(25) }}</div>
                   <div class="video-period mt-1">00:16:52</div>
