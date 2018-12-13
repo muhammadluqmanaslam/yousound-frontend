@@ -21,19 +21,23 @@ export default {
 
   computed: {
     published_albums () {
-      return _.filter(this.albums, (item) => { return item.status === 'published' })
+      return _.filter(this.albums, (item) => { return item.status === 'published' && !item.is_only_for_live_stream })
     },
 
     private_albums () {
-      return _.filter(this.albums, (item) => { return item.status == 'privated' })
+      return _.filter(this.albums, (item) => { return item.status === 'privated' })
+    },
+
+    video_only_albums () {
+      return _.filter(this.albums, (item) => { return item.status === 'published' && item.is_only_for_live_stream })
     },
 
     pending_albums () {
-      return _.filter(this.albums, (item) => { return item.status == 'pending' })
+      return _.filter(this.albums, (item) => { return item.status === 'pending' })
     },
 
     collaborated_albums () {
-      return _.filter(this.albums, (item) => { return item.status == 'collaborated' })
+      return _.filter(this.albums, (item) => { return item.status === 'collaborated' })
     },
 
     status_dialog_title () {
