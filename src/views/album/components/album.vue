@@ -132,9 +132,10 @@
 
     computed: {
       updateButtonText () {
-        if (this.album.status === 'published') {
+        if (this.album.status === 'published' && !this.album.is_only_for_live_stream) {
           return 'Make Private'
-        } else if (this.album.status === 'privated') {
+        // } else if (this.album.status === 'privated') {
+        } else {
           return 'Make Public'
         }
       },

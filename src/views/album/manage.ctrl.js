@@ -41,9 +41,10 @@ export default {
     },
 
     status_dialog_title () {
-      if (this.album.status === 'published') {
+      if (this.album.status === 'published' && !this.album.is_only_for_live_stream) {
         return 'Make Private an Album'
-      } else if (this.album.status !== 'published') {
+      // } else if (this.album.status !== 'published') {
+      } else {
         return 'Make Public an Album'
       }
       return ''
@@ -154,7 +155,7 @@ export default {
 
     updateAlbumStatus () {
       // console.log('makePrivateAlbum', this.album)
-      if (this.album.status === 'published') {
+      if (this.album.status === 'published'&& !this.album.is_only_for_live_stream) {
         AlbumService.makePrivateAlbum(this.album.id).then(response => {
           this.album.status = 'private'
           this.hideAlbumStatusConfirmDialog();
@@ -162,9 +163,11 @@ export default {
           this.hideAlbumStatusConfirmDialog();
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
-      } else if (this.album.status !== 'published') {
+      // } else if (this.album.status !== 'published') {
+      } else {
         AlbumService.makePublicAlbum(this.album.id).then(response => {
           this.album.status = 'published'
+          this.album.is_only_for_live_stream = false
           this.hideAlbumStatusConfirmDialog();
         }).catch(e => {
           this.hideAlbumStatusConfirmDialog();
