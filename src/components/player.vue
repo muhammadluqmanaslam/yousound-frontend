@@ -363,6 +363,7 @@ export default {
       // this.trackName = this.playlist[index].track.name
       this.trackIndex = (index + 1) + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
+      console.log('player play track', this.track)
 
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
@@ -599,6 +600,7 @@ export default {
         this.trackIndex = (this.index + 1) + ' of ' + this.playlist.length
         // this.trackName = this.playlist[this.index].track.name
         this.track = this.playlist[this.index].track
+        console.log('player setPlaylist track', this.track)
       } else {
         this.$store.dispatch('player/setListIndex', -1)
         this.$store.dispatch('player/setPlayingStatus', false)
