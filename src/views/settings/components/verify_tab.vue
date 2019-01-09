@@ -352,7 +352,7 @@
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <input v-model="user.customized_brand_type" :disabled="!enabledForm"
-                  type="text" name="customized_brand_type" autocomplete="off" placeholder="If your Brand type isn't listed what kind of brand are you?">
+                  type="text" name="customized_brand_type" autocomplete="off" placeholder="If brand type not listed, what type are you?">
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select

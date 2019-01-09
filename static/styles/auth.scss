@@ -6,7 +6,7 @@
   margin: 90px auto 0;
   .logo {
     // width: 200.25px;
-    height: 37px;
+    height: 40px;
   }
   h4 {
     font-weight: 300;
@@ -303,22 +303,26 @@
     margin: 90px auto 0;
     .logo {
       // width: 200.25px;
-      height: 80.25px;
+      height: 40px;
     }
     h4 {
-      font-weight: 300;
-      font-size: 30.25px;
+      font-weight: 600;
+      font-size: 28px;
       color: #2D2D2D;
-      letter-spacing: -3.18px;
-      margin-top: 63.75px;
+      letter-spacing: -2px;
+      margin-top: 65px;
+      font-family: 'Work Sans';
     }
   }
 
   .page-content {
     padding-top: 30px;
+    width: 50%;
+    margin: 0 auto;
     p {
-      font-weight: 600;
-      font-size: 18px;
+      font-weight: 400;
+      font-size: 16px;
+      font-family: 'Work Sans';
     }
     hr {
       width: 300px;
@@ -338,6 +342,7 @@
     a {
       font-weight: 600;
       font-size: 18px;
+      font-family: 'Work Sans';
       color: #3A92FF;
       letter-spacing: 0;
       display: block;
@@ -510,7 +515,8 @@
     }
     h4 {
       font-weight: 300;
-      font-size: 30.25px;
+      font-size: 28px;
+      font-family: 'Work Sans';
       color: #2D2D2D;
       letter-spacing: -3.18px;
       margin-top: 13.75px;
@@ -528,8 +534,12 @@
 
     h5 {
       font-size: 24px;
-      font-weight: 700;
+      font-weight: 600;
       color: #2D2D2D;
+      font-family: 'Work Sans';
+      padding-left: 8px;
+      letter-spacing: -1.5px;
+      margin-top: 18px; 
       span {
         text-transform: capitalize;
       }

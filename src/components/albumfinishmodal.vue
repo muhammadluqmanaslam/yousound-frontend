@@ -44,8 +44,8 @@
                   <div class="album-name pt-2">{{ item.name }}</div>
                   <div class="album-artist-name">{{ item.user.display_name }}</div>
                   <div class="album-tracks-count">{{ item.tracks.length }} tracks</div>
-                  <div class="attachment" v-if="itemProduct">
-                    <h3 class="pt-3 pb-2">Attachment</h3>
+                  <div class="attachment" v-if="itemProduct">      
+                    <h3 class="pt-3 pb-2"><v-icon right>attach_file</v-icon> Attachment</h3>
                     <v-card>
                       <v-container pa-0 fluid>
                         <v-layout row>

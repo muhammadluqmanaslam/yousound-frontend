@@ -24,7 +24,7 @@
     z-index: 20;
     .title-section {
       text-align: left;
-      background: #F1F1F1;
+      background: #fffe9f;
       padding-bottom: 15px;
       padding: 20px 35px;
       border-top-left-radius: 7.5px;
@@ -35,27 +35,30 @@
         margin: 0;
         display: inline-block;
         vertical-align: middle;
-        font-weight: 600;
-        font-size: 26px;
+        font-weight: 300;
+        font-size: 24px;
+        font-family:'Work Sans';
         color: #000000;
-        letter-spacing: -0.4px;
+        letter-spacing: -0.6px;
       }
       .link-text {
-        color: #3A92FF;
+        color: #000000;
+        font-weight: 600;
+        letter-spacing: -1px;
       }      
     }
     .header-section {
       text-align: left;
-      border-bottom: 0.75px solid #D2D2D2;
+      border-bottom: 1px solid #DDD;
       padding-bottom: 10px;
       .header-text {
-        // padding-top: 7.5px;
         margin: 0;
         display: inline-block;
         vertical-align: middle;
-        font-size: 24px;
+        font-size: 20px;
+        font-family: 'Work Sans';
         color: #000000;
-        letter-spacing: -0.4px;
+        letter-spacing: -1.3px;
       }
     }
     .promote-album-section {
@@ -142,25 +145,41 @@
         .card__content {
           .album-name {
             font-size: 28px;
-            font-weight: 900;
+            font-weight: 600;
+            font-family: 'Work Sans';
+            letter-spacing: -1px;
           }
           .album-artist-name {
             font-size: 16px;
-            font-weight: 700;
+            font-weight: 500;
+            font-family: 'Work Sans';
+            letter-spacing: -0.5px;
+            margin-top: -4px;
           }
           .album-tracks-count {
             font-size: 14px;
-            color: #B0B0B0;
+            color: #999;
           }
           .product-name {
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 600;
+            font-family: 'Work Sans';
+            letter-spacing: -.5px;
+            padding-top: 14px;
           }
           .product-price {
             font-size: 20px;
+            font-family: 'Work Sans';
+            letter-spacing: -.5px;
+            margin-top: -4px;
           }
         }
       }
+    }
+    .attachment {
+        font-family: 'Work Sans';
+        font-weight: 300;
+        margin-bottom: 10px;
     }
     .item-section {
       // padding: 20px 35px;
@@ -180,9 +199,11 @@
         // padding: 20px 0;
         .album-link {
           font-weight: 600;
-          font-size: 20px;
+          font-size: 18px;
+          font-family: 'Work Sans';
           color: #3A92FF;
-          letter-spacing: -0.4px;
+          letter-spacing: 0;
+          display: none;
         }
       }
     }
