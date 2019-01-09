@@ -12,8 +12,10 @@ export default {
       activeTab: null,
       albums: [],
       album: {},
-      album_delete_confirm_dialog: false,
-      album_status_confirm_dialog: false,
+      show_album_delete_confirm_dialog: false,
+      show_publish_confirm_dialog: false,
+      show_private_confirm_dialog: false,
+      show_video_only_confirm_dialog: false,
       show_album_finish_modal: false,
       isPageReady: false,
     }
@@ -40,24 +42,17 @@ export default {
       return _.filter(this.albums, (item) => { return item.status === 'collaborated' })
     },
 
-    status_dialog_title () {
+    albumStatus () {
       if (this.album.status === 'published' && !this.album.is_only_for_live_stream) {
-        return 'Make Private an Album'
-      // } else if (this.album.status !== 'published') {
-      } else {
-        return 'Make Public an Album'
+        return 'published'
       }
-      return ''
-    },
 
-    status_dialog_text () {
-      if (this.album.status === 'published') {
-        return 'If you click OK, the album will be private. Click OK to make private <' + this.album.name  + '>, or click Cancel.'
-      } else if (this.album.status !== 'published') {
-        return 'If you click OK, the album will be published. Click OK to publish <' + this.album.name  + '>, or click Cancel.'
+      if (this.album.status === 'published' && this.album.is_only_for_live_stream) {
+        return 'video_only'
       }
-      return ''
-    },
+
+      return 'privated'
+    }
   },
 
   watch: {
@@ -115,14 +110,14 @@ export default {
       this.show_album_finish_modal = false
     },
 
-    showAlbumDeleteConfirmDialog (album) {
+    openAlbumDeleteConfirmDialog (album) {
       this.album = album
-      this.album_delete_confirm_dialog = true
+      this.show_album_delete_confirm_dialog = true
     },
 
-    hideAlbumDeleteConfirmDialog () {
+    closeAlbumDeleteConfirmDialog () {
       this.album = {}
-      this.album_delete_confirm_dialog = false
+      this.show_album_delete_confirm_dialog = false
     },
 
     deleteAlbum () {
@@ -131,9 +126,9 @@ export default {
         _.remove(this.albums, (item) => { return item.id == this.album.id });
         const arr = this.albums.slice();
         this.albums = arr;
-        this.hideAlbumDeleteConfirmDialog();
+        this.closeAlbumDeleteConfirmDialog();
       }).catch(e => {
-        this.hideAlbumDeleteConfirmDialog();
+        this.closeAlbumDeleteConfirmDialog();
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
@@ -143,37 +138,66 @@ export default {
       this.$router.push(`/album/${album.slug}/edit`)
     },
 
-    showAlbumStatusConfirmDialog (album) {
+    openPublishConfirmDialog (album) {
       this.album = album
-      this.album_status_confirm_dialog = true
+      this.show_publish_confirm_dialog = true
     },
 
-    hideAlbumStatusConfirmDialog () {
+    closePublishConfirmDialog () {
       this.album = {}
-      this.album_status_confirm_dialog = false
+      this.show_publish_confirm_dialog = false
     },
 
-    updateAlbumStatus () {
-      // console.log('makePrivateAlbum', this.album)
-      if (this.album.status === 'published'&& !this.album.is_only_for_live_stream) {
-        AlbumService.makePrivateAlbum(this.album.id).then(response => {
-          this.album.status = 'private'
-          this.hideAlbumStatusConfirmDialog();
-        }).catch(e => {
-          this.hideAlbumStatusConfirmDialog();
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      // } else if (this.album.status !== 'published') {
-      } else {
-        AlbumService.makePublicAlbum(this.album.id).then(response => {
-          this.album.status = 'published'
-          this.album.is_only_for_live_stream = false
-          this.hideAlbumStatusConfirmDialog();
-        }).catch(e => {
-          this.hideAlbumStatusConfirmDialog();
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      }
+    openPrivateConfirmDialog (album) {
+      this.album = album
+      this.show_private_confirm_dialog = true
+    },
+
+    closePrivateConfirmDialog () {
+      this.album = {}
+      this.show_private_confirm_dialog = false
+    },
+
+    openVideoOnlyConfirmDialog (album) {
+      this.album = album
+      this.show_video_only_confirm_dialog = true
+    },
+
+    closeVideoOnlyConfirmDialog () {
+      this.album = {}
+      this.show_video_only_confirm_dialog = false
+    },
+
+    publishAlbum () {
+      AlbumService.makePublicAlbum(this.album.id).then(response => {
+        this.hideAlbumStatusConfirmDialog()
+        this.album.status = 'published'
+        this.album.is_only_for_live_stream = false
+      }).catch(e => {
+        this.hideAlbumStatusConfirmDialog()
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    privateAlbum () {
+      AlbumService.makePrivateAlbum(this.album.id).then(response => {
+        this.hideAlbumStatusConfirmDialog()
+        this.album.status = 'private'
+      }).catch(e => {
+        this.hideAlbumStatusConfirmDialog()
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    videoOnlyAlbum () {
+      AlbumService.makeLiveVideoOnlyAlbum(this.album.id).then(response => {
+        this.hideAlbumStatusConfirmDialog()
+        this.album.status = 'published'
+        this.album.is_only_for_live_stream = true
+      }).catch(e => {
+        this.hideAlbumStatusConfirmDialog();
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     },
 
     notResponded (album) {

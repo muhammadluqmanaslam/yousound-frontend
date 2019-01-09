@@ -45,9 +45,9 @@
               ripple
             >Private</v-tabs-item>
             <v-tabs-item
-              key="video-only"
-              href="#video-only"
-              @click.native="onTab('video-only')"
+              key="video_only"
+              href="#video_only"
+              @click.native="onTab('video_only')"
               ripple
             >Live Video Only</v-tabs-item>
             <v-tabs-item
@@ -76,8 +76,9 @@
                     <album-card
                       :album="album"
                       :editButtonAction="editAlbum"
-                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
-                      :updateButtonAction="showAlbumStatusConfirmDialog"
+                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                      :videoOnlyButtonAction="openVideoOnlyConfirmDialog"
+                      :privateButtonAction="openPrivateConfirmDialog"
                     ></album-card>
                   </div>
                 </v-layout>
@@ -94,14 +95,14 @@
                       :album="album"
                       :showPromoteButton="false"
                       :editButtonAction="editAlbum"
-                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
-                      :updateButtonAction="showAlbumStatusConfirmDialog"
+                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                      :publishButtonAction="openPublishConfirmDialog"
                     ></album-card>
                   </div>
                 </v-layout>
               </v-card>
             </v-tabs-content>
-            <v-tabs-content key="video-only" id="video-only">
+            <v-tabs-content key="video_only" id="video_only">
               <div v-if="!video_only_albums || video_only_albums.length == 0" class="empty-section">
                 <p class="empty-title">Your have no albums only for live video</p>
               </div>
@@ -112,8 +113,8 @@
                       :album="album"
                       :showPromoteButton="false"
                       :editButtonAction="editAlbum"
-                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
-                      :updateButtonAction="showAlbumStatusConfirmDialog"
+                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                      :publishButtonAction="openPublishConfirmDialog"
                     ></album-card>
                   </div>
                 </v-layout>
@@ -129,7 +130,7 @@
                     <album-card
                       :album="album"
                       :editButtonAction="editAlbum"
-                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
+                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
                     ></album-card>
                   </div>
                 </v-layout>
@@ -146,7 +147,7 @@
                       :album="album"
                       :showPromoteButton="false"
                       :editButtonAction="editAlbum"
-                      :deleteButtonAction="showAlbumDeleteConfirmDialog"
+                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
                       :releaseButtonAction="releaseAlbum"
                     ></album-card>
                     <album-card v-else-if="notResponded(album)"
@@ -168,26 +169,50 @@
       </div>
     </v-flex>
 
-    <v-dialog v-model="album_delete_confirm_dialog">
+    <v-dialog v-model="show_album_delete_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Delete an Album</v-card-title>
         <v-card-text>If you click OK, your followers won't see the album any more. Click OK to delete &lt;{{ album.name }}&gt;, or click Cancel.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteAlbum()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideAlbumDeleteConfirmDialog()">Cancel</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeAlbumDeleteConfirmDialog()">Cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="album_status_confirm_dialog">
+    <v-dialog v-model="show_publish_confirm_dialog">
       <v-card>
-        <v-card-title class="headline">{{ status_dialog_title }}</v-card-title>
-        <v-card-text>{{ status_dialog_text }}</v-card-text>
+        <v-card-title class="headline">Publish an Album</v-card-title>
+        <v-card-text>If you click OK, the album will be published. Click OK to publish, or click Cancel.</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="updateAlbumStatus()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideAlbumStatusConfirmDialog()">Cancel</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="publishAlbum()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closePublishConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_private_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Private an Album</v-card-title>
+        <v-card-text>If you click OK, the album will be privated. Click OK to private, or click Cancel.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="privateAlbum()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closePrivateConfirmDialog()">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_video_only_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Make an album available only for live</v-card-title>
+        <v-card-text>If you click OK, the album will be available only for live video.</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="videoOnlyAlbum()">Ok</v-btn>
+          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeVideoOnlyConfirmDialog()">Cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

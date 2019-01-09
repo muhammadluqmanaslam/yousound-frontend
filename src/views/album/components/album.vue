@@ -16,10 +16,30 @@
             <!-- <v-btn v-if="showPromoteButton"
               dark class="action-btn" @click.native="showPromoteDialog()">Promote</v-btn> -->
             <template v-if="album.collaborators_count === 0">
-              <v-btn v-if="deleteButtonAction"
-                dark class="action-btn" @click.native="deleteButtonAction(album)">Delete</v-btn>
-              <v-btn v-if="updateButtonAction"
-                dark class="action-btn" @click.native="updateButtonAction(album)">{{ updateButtonText }}</v-btn>
+              <v-btn
+                v-if="deleteButtonAction"
+                dark
+                class="action-btn"
+                @click.native="deleteButtonAction(album)"
+              >Delete</v-btn>
+              <v-btn
+                v-if="publishButtonAction"
+                dark
+                class="action-btn"
+                @click.native="publishButtonAction(album)"
+              >Make Publish</v-btn>
+              <v-btn
+                v-if="videoOnlyButtonAction"
+                dark
+                class="action-btn"
+                @click.native="videoOnlyButtonAction(album)"
+              >Make Live Video Only</v-btn>
+              <v-btn
+                v-if="privateButtonAction"
+                dark
+                class="action-btn"
+                @click.native="privateButtonAction(album)"
+              >Make Private</v-btn>
             </template>
 
             <template v-else>
@@ -98,7 +118,15 @@
         type: Function
       },
 
-      updateButtonAction: {
+      publishButtonAction: {
+        type: Function
+      },
+
+      privateButtonAction: {
+        type: Function
+      },
+
+      videoOnlyButtonAction: {
         type: Function
       },
 
@@ -131,15 +159,6 @@
     },
 
     computed: {
-      updateButtonText () {
-        if (this.album.status === 'published' && !this.album.is_only_for_live_stream) {
-          return 'Make Private'
-        // } else if (this.album.status === 'privated') {
-        } else {
-          return 'Make Public'
-        }
-      },
-
       usersCountByStatus () {
         return _.countBy(this.album.collaborators, 'status')
       },

@@ -5,24 +5,46 @@
         <profile-item :user="user" :className="'track-user-avatar'"></profile-item>
         <div class="activity-section">
           <router-link class="user-name" :to="'/' + user.slug">{{ user.display_name }}</router-link>&nbsp;
-          <v-icon class="user-status" v-bind:class="{'online': user.status == 'active'}" v-if="user.user_type == 'artist'">fa-check-circle</v-icon>&nbsp;
+          <v-icon
+             v-if="user.user_type == 'artist'"
+            class="user-status"
+            :class="{'online': user.status == 'active'}"
+          >fa-check-circle</v-icon>&nbsp;
           <label class="description-text">{{ actionText }}
             <label class="items-title" @click="doAction()">{{ user.recent_items[0].assoc.name }}</label>
           </label>
         </div>
       </v-flex>
     </v-flex>
+
     <v-layout row wrap class="covers-content">
-      <div v-for="(feed, index) in user.recent_items"
+      <div
+        v-for="(feed, index) in user.recent_items"
         v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
+        :key="index"
         class="card-container"
-        :key="index">
-        <track-card :objects="user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"/>
-        <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"/>
-        <video-card :dataObject="feed" v-if="feed.assoc_type=='Stream'"/>
+      >
+        <track-card
+          v-if="feed.assoc_type=='Album'"
+          :objects="user.recent_items"
+          :objectIndex="index"
+        />
+        <product-card
+          v-if="feed.assoc_type=='ShopProduct'"
+          :dataObject="feed"
+        />
+        <video-card
+          v-if="feed.assoc_type=='Stream'"
+          :dataObject="feed"
+        />
       </div>
     </v-layout>
-    <merch-modal :item="user.recent_items[0].assoc" :dismiss="dimissMerchModal" v-if="showMerchModal && user.recent_items[0].assoc_type === 'ShopProduct'"></merch-modal>
+
+    <merch-modal
+      v-if="showMerchModal && user.recent_items[0].assoc_type === 'ShopProduct'"
+      :item="user.recent_items[0].assoc"
+      :dismiss="dimissMerchModal"
+    />
   </v-flex>  
 </template>
 

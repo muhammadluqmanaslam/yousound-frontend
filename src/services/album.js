@@ -85,6 +85,10 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + albumId + '/make_private', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  makeLiveVideoOnlyAlbum (albumId) {
+    return Vue.http.get(`${API_BASE_URL}/${albumId}/make_live_video_only`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   recommendAlbum (albumId) {
     return Vue.http.get(API_BASE_URL + '/' + albumId + '/recommend', { headers: { 'Authorization': $store.state.auth.token } })
   },
