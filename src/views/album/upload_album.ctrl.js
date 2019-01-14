@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import moment from 'moment'
 
 import genreSingleSelector from '@/components/genre_single_selector'
@@ -65,7 +66,11 @@ export default {
     },
 
     isAvailableToUploadAlbum () {
-      return this.album.tracks.length &&
+      // console.log('isAvailableToUploadAlbum', this.album.tracks)
+      const failed_track = _.find(this.album.tracks, (track) => (track.status != 2))
+      const has_failed_track = !!failed_track
+      return this.album.tracks.length > 0 &&
+        !has_failed_track &&
         this.album.name.length &&
         this.album.image &&
         (this.$store.state.genreSelector.genres.length > 0)

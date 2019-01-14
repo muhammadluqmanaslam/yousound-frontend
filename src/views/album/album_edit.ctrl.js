@@ -55,7 +55,11 @@ export default {
     },
 
     isAvailableToEditAlbum () {
-      return this.album.tracks.length &&
+      // console.log('isAvailableToUploadAlbum', this.album.tracks)
+      const failed_track = _.find(this.album.tracks, (track) => (track.status != 2))
+      const has_failed_track = !!failed_track
+      return this.album.tracks.length > 0 &&
+        !has_failed_track &&
         this.album.name.length &&
         this.album_image_url &&
         (this.$store.state.genreSelector.genres.length > 0)
@@ -63,16 +67,6 @@ export default {
 
     role_types() {
       return CollaboratorRoleTypes
-    },
-
-    tracks () {
-      let ts = _.clone(this.album.tracks)
-      // let ts = [
-      //   { id: 'aaa', name: 'AAA' },
-      //   { id: 'bbb', name: 'BBB' },
-      // ]
-      console.log('tracks', ts)
-      return ts;
     }
   },
 

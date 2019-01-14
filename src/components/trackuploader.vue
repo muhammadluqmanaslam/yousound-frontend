@@ -16,6 +16,7 @@
         <span class="uploaderBox__filetype"> MP3 audio files only</span>
       </div>
     </div>
+
     <div class="track-list-section" v-if="album.tracks.length">
       <h4 class="track-list-title" id="track_list">Track List</h4>
       <!-- <div class="track-items"> -->
@@ -40,11 +41,27 @@
         </draggable>
       <!-- </div> -->
     </div>
+
+    <v-dialog v-model="show_unauthorized_content_dialog" content-class="my-dialog-1">
+      <v-card>
+        <!-- <v-card-media height="125px" contain></v-card-media> -->
+        <v-card-text>
+          <div class="headline">Unauthorized audio content</div>
+          <div>The song <span class="blue--text">{{ currentFile.track_title }}</span> by <span class="blue--text">{{ currentFile.artist_name }}</span> was detected in your upload. Please delete any unauthorized tracks in your album to complete your upload. if you find this message, please contact support.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark color="grey" @click.native="show_unauthorized_content_dialog=false">Return to upload page</v-btn>
+          <v-btn dark color="red" @click.native="cancelTrack()">Cancel Upload</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 /* global $:true */
+
+import _ from 'lodash'
 
 import TrackService from '@/services/track.js'
 import draggable from 'vuedraggable'
@@ -72,6 +89,12 @@ export default {
 
   data () {
     return {
+      show_unauthorized_content_dialog: false,
+      show_duplicat_content_dialog: false,
+      currentFile: {
+        track_title: '',
+        artist_name: ''
+      },
       status: {
         uploading: 1,
         success: 2,
@@ -102,12 +125,26 @@ export default {
   methods: {
     saveTrack (file) {
       TrackService.uploadTrack(file.formData).then(response => {
-        // JSON responses are automatically parsed.
         file.status = this.status.success
         file.track = response.body
       }).catch(e => {
         file.status = this.status.failed
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        // console.log('saveTrack', e.body)
+        switch (e.body.code) {
+          case 1:
+            if (!this.show_unauthorized_content_dialog) {
+              this.currentFile = file
+              this.currentFile.track_title = e.body.track_title
+              this.currentFile.artist_name = e.body.artist_name
+              this.show_unauthorized_content_dialog = true
+            }
+            break
+          case 2:
+            break
+          default:
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+            break
+        }
       })
     },
 
@@ -117,6 +154,15 @@ export default {
       if (track) {
         TrackService.deleteTrack(track.id)
       }
+    },
+
+    cancelTrack () {
+      const idx = _.findIndex(this.album.tracks, (f) => (f === this.currentFile))
+      // console.log('cancelTrack', idx)
+      if (idx > -1) {
+        this.deleteTrack(idx)
+      }
+      this.show_unauthorized_content_dialog = false
     },
 
     filesChange (fileList) {
