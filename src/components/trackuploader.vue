@@ -55,6 +55,20 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="show_duplicate_content_dialog" content-class="my-dialog-1">
+      <v-card>
+        <!-- <v-card-media height="125px" contain></v-card-media> -->
+        <v-card-text>
+          <div class="headline">Duplicate upload</div>
+          <div>The song <span class="blue--text">{{ currentFile.track_title }}</span> by <span class="blue--text">{{ currentFile.artist_name }}</span> was detected in your upload. Only one copy of a song can exist on YouSound. If you are a collaborator on this song, contact the original uploader and request to add yourself as a collaborator then re-upload the album. Please delete any duplicate tracks in your album to complete your upload.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark color="grey" @click.native="show_duplicate_content_dialog=false">Return to upload page</v-btn>
+          <v-btn dark color="red" @click.native="cancelTrack()">Cancel Upload</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -90,7 +104,7 @@ export default {
   data () {
     return {
       show_unauthorized_content_dialog: false,
-      show_duplicat_content_dialog: false,
+      show_duplicate_content_dialog: false,
       currentFile: {
         track_title: '',
         artist_name: ''
@@ -140,6 +154,12 @@ export default {
             }
             break
           case 2:
+            if (!this.show_duplicate_content_dialog) {
+              this.currentFile = file
+              this.currentFile.track_title = e.body.track_title
+              this.currentFile.artist_name = e.body.artist_name
+              this.show_duplicate_content_dialog = true
+            }
             break
           default:
             this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -162,7 +182,14 @@ export default {
       if (idx > -1) {
         this.deleteTrack(idx)
       }
-      this.show_unauthorized_content_dialog = false
+
+      if (this.show_unauthorized_content_dialog) {
+        this.show_unauthorized_content_dialog = false
+      }
+
+      if (this.show_duplicate_content_dialog) {
+        this.show_duplicate_content_dialog = false
+      }
     },
 
     filesChange (fileList) {
