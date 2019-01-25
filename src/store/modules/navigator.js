@@ -28,6 +28,10 @@ const getters = {
     return ['landing', ''].indexOf(state.current.page) === -1
   },
 
+  isHeaderFixed: (state) => {
+    return ['main_landing'].indexOf(state.current.page) > -1
+  },
+
   isPrimaryTheme: (state) => {
     return ['discover', 'profile-slider'].indexOf(state.current.page) > -1 && state.current.tab !== 'merch'
   },

@@ -20,7 +20,7 @@ const getters = {
   },
 
   currentAlbum: (state) => {
-    if (state.listIndex < 0 || !state.list[state.listIndex]) {
+    if (!state.list || state.listIndex < 0 || !state.list[state.listIndex]) {
       return null
     }
 

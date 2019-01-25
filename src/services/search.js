@@ -23,5 +23,9 @@ export default {
 
   searchGlobal (params) {
     return Vue.http.post(API_BASE_URL_V1 + '/search_global', params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
+  searchLanding (params) {
+    return Vue.http.post(`${API_BASE_URL_V1}/search_landing`, params, { headers: { 'Authorization': $store.state.auth.token } })
   }
 }

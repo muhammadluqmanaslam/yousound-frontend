@@ -17,6 +17,7 @@ import BrandRegister from '@/views/auth/register_by_brand'
 import TwitterCallbackPage from '@/views/auth/twitter_callback'
 import TermsPage from '@/views/terms/index'
 import AdminPage from '@/views/admin/admin'
+import MainLandingPage from '@/views/home/main_landing'
 import LandingPage from '@/views/home/landing'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import EmptyPage from '@/views/home/empty'
@@ -88,6 +89,7 @@ export function createRouter (settings) {
   }
 
   routes = routes.concat([
+    { path: '/landing', name: 'MainLandingPage', component: MainLandingPage },
     { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/empty', name: 'EmptyPage', component: EmptyPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },

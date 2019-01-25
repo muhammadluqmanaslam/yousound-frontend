@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="my-header">
+  <v-layout row wrap class="my-header" :class="{'fixed': $store.getters['navigator/isHeaderFixed']}">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <v-toolbar class="header">
         <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
@@ -170,6 +170,11 @@
                 <label>Get Verified</label>
               </v-list-tile-title>
             </v-list-tile> -->
+            <v-list-tile key="main_landing" to="/landing">
+              <v-list-tile-title class="profile-menu-item">
+                <label>Main Landing</label>
+              </v-list-tile-title>
+            </v-list-tile>
             <v-list-tile key="landing" to="/home">
               <v-list-tile-title class="profile-menu-item">
                 <!-- <v-icon right>fa-gear</v-icon> -->

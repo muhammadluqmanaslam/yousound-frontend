@@ -126,6 +126,12 @@
     }
   }
 }
+.my-header.fixed {
+  z-index: 11;
+  position: fixed;
+  background-color: #FFFFFF;
+}
+
 #searchIcon {
   stroke: #929292;
 }
