@@ -252,6 +252,8 @@
 
   h3 {
     font-size: 24px;
+    font-family: 'Work Sans';
+    letter-spacing: -.5px;
   }
 
   .form-control {
@@ -332,6 +334,7 @@
   .card.video-preview {
     display: flex;
     box-shadow: none;
+    padding-bottom: 32px;
     .card__media {
       flex: 0 0 auto;
       width: 200px;
