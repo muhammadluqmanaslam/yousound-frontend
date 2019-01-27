@@ -9,7 +9,7 @@
         <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
           <v-flex xs12 class="touch-flex" @click="playSong()"></v-flex>
           <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
-            <v-icon >play_arrow</v-icon>
+            <v-icon>play_arrow</v-icon>
           </v-btn>
           <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
             <v-icon>pause</v-icon>

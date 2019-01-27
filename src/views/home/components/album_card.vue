@@ -28,7 +28,7 @@
           >
             <v-icon>pause</v-icon>
           </v-btn>
-          <p class="action-left-tag">{{ item.tracks.length }} tracks</p>
+          <p class="left-tag hover-text">{{ item.tracks.length }} tracks</p>
         </v-flex>
       </v-flex>
       <v-flex xs12 class="my-card__body" pa-0>

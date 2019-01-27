@@ -7,7 +7,10 @@
     'app-video': $store.getters['videoPlayer/hasFrame']
   }">
 
-    <app-header v-if="currentUser" v-show="$store.getters['navigator/hasHeader']"></app-header>
+    <app-header
+      v-if="currentUser || $store.state.navigator.current.page == 'main_landing'"
+      v-show="$store.getters['navigator/hasHeader']"
+    />
 
     <router-view id="content-view"></router-view>
 
