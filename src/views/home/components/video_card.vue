@@ -7,13 +7,12 @@
           :style="{'background-image': 'url(' + item.cover.url + ')'}"
         ></div>
       </v-flex>
-      <v-flex xs12 class="my-card__body with_avatar" pa-0>
-        <p class="my-card__subtitle">
-          <img class="my-card__avatar" :src="owner.avatar.url">
-          <router-link :to="'/' + owner.slug">{{ owner.display_name }}</router-link>
-        </p>
+      <v-flex xs12 class="my-card__body" pa-0>
         <p class="my-card__title">
           {{ item.name }}
+        </p>
+        <p class="my-card__subtitle">
+          <router-link :to="'/' + owner.slug">{{ owner.display_name }}</router-link>
         </p>
       </v-flex>
     </v-flex>

@@ -58,6 +58,7 @@ Vue.use(Router)
 
 export function createRouter (settings) {
   let routes = [
+    { path: '/', name: 'MainLandingPage', component: MainLandingPage },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/login', name: 'Login', component: Login },
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword },
@@ -89,7 +90,6 @@ export function createRouter (settings) {
   }
 
   routes = routes.concat([
-    { path: '/landing', name: 'MainLandingPage', component: MainLandingPage },
     { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/empty', name: 'EmptyPage', component: EmptyPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
@@ -136,7 +136,7 @@ export function createRouter (settings) {
   }
 
   routes = routes.concat([
-    { path: '*', redirect: '/login' }
+    { path: '*', redirect: '/' }
   ])
 
   return new Router({

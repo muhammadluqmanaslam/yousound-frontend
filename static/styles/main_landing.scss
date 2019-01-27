@@ -5,6 +5,7 @@
     color: #999;
     text-align: center;
     overflow: hidden;
+    transition: height 0.5s;
 
     img {
       height: 40px;
@@ -25,6 +26,11 @@
       font-weight: 700;
       font-family: 'Work Sans';
       background-color: #FFFFFF;
+
+      &.fixed {
+        position: fixed;
+        top: 80px;
+      }
     }
 
     .panel__body {
@@ -92,7 +98,7 @@
           left: 0;
           top: 0;
           opacity: 0;
-          // cursor: pointer;
+          cursor: pointer;
           -webkit-transition: opacity 0.3s ease-in-out;
           -moz-transition: opacity 0.3s ease-in-out;
           -ms-transition: opacity 0.3s ease-in-out;
@@ -100,17 +106,7 @@
           transition: opacity 0.3s ease-in-out;
 
           &:hover {
-            opacity: 1;
-          }
-
-          .action-left-tag {
-            position: absolute;
-            margin: 0;
-            bottom: 10.5px;
-            left: 20.25px;
-            font-size: 13.5px;
-            color: #FFFFFF;
-            letter-spacing: 0;
+            opacity: 0.8;
           }
 
           .play-button {
@@ -158,6 +154,28 @@
             }
           }
         }
+        .left-tag.hover-text {
+          position: absolute;
+          margin: 0;
+          bottom: 10.5px;
+          left: 20.25px;
+          font-size: 13.5px;
+          color: #FFFFFF;
+          letter-spacing: 0;
+        }
+        .right-tag {
+          position: absolute;
+          right: 20px;
+          bottom: 20px;
+          padding: 4px 8px;
+          line-height: 1;
+          font-size: 16px;
+          font-weight: 300;
+          border-radius: 20px;
+          background-color: #666;
+          color: #FFFFFF;
+          letter-spacing: -1.0px;
+        }
       }
 
       .my-card__body {
@@ -199,14 +217,14 @@
           vertical-align: middle;
         }
       }
-      .my-card__body.with_avatar {
-        .my-card__title {
-          margin-top: 5px;
-        }
-        .my-card__subtitle {
-          margin-top: 10px;
-        }
-      }
+      // .my-card__body.with_avatar {
+      //   .my-card__title {
+      //     margin-top: 5px;
+      //   }
+      //   .my-card__subtitle {
+      //     margin-top: 10px;
+      //   }
+      // }
     }
   }
 }

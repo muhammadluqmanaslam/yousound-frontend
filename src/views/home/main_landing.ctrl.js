@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import debounce from 'lodash/debounce'
+
 import SearchService from '@/services/search'
 import albumCard from './components/album_card'
 import playlistCard from './components/playlist_card'
@@ -81,30 +82,19 @@ export default {
     const mainHeader = $('.main__header')
     let panelHeader = $('.panel__header')
     // const scrollHeight = $(document).height() - $(window).height()
+
     $(window).scroll(function (event) {
       var _curTop = $(window).scrollTop()
       // console.log(scrollHeight, _curTop)
-      if (_curTop < 30) {
-        if (!showMainHeader) {
-          showMainHeader = true
-          panelHeader.css({
-              position: 'absolute',
-              width: '100%',
-              top: '0'
-            })
-          mainHeader.animate({ height: 120 }, 500)
-        }
+      if (_curTop < 120) {
+        // toggleMainHeader(true)
+        panelHeader.removeClass('fixed')
+        mainHeader.css({height: '120px'})
       } else {
-        if (showMainHeader) {
-          showMainHeader = false
-          mainHeader.animate({ height: 0 }, 500, function () {
-            panelHeader.css({
-              position: 'fixed',
-              width: mainHeader.width() + 'px',
-              top: '80px'
-            })
-          })
-        }
+        // toggleMainHeader(false)
+        panelHeader.addClass('fixed')
+        panelHeader.css({width: mainHeader.width() + 'px'})
+        mainHeader.css({height: '0px'})
       }
 
       if (_curTop > $(document).height() - $(window).height() - 30) {

@@ -1,6 +1,9 @@
 <template>
   <v-layout row wrap class="my-header" :class="{'fixed': $store.getters['navigator/isHeaderFixed']}">
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex
+      v-if="currentUser"
+      xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1
+    >
       <v-toolbar class="header">
         <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
         <!-- <v-toolbar-title></v-toolbar-title> -->
@@ -170,7 +173,7 @@
                 <label>Get Verified</label>
               </v-list-tile-title>
             </v-list-tile> -->
-            <v-list-tile key="main_landing" to="/landing">
+            <v-list-tile key="main_landing" to="/">
               <v-list-tile-title class="profile-menu-item">
                 <label>Main Landing</label>
               </v-list-tile-title>
@@ -238,6 +241,27 @@
           <input class="search-field" type="search" id="search" v-model="keyword" placeholder="Search artist, song or keyword" @keyup.enter="goToSearch()" />
         </div>
       </div>
+    </v-flex>
+    <v-flex
+      v-else
+      xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1
+    >
+      <v-toolbar class="header">
+        <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
+        <v-spacer></v-spacer>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator" @click.native="choosePage('login')">
+            <v-icon>input</v-icon>
+          </v-btn>
+          <span>Sign In</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn icon slot="activator" @click.native="choosePage('register')">
+            <v-icon>bookmark_border</v-icon>
+          </v-btn>
+          <span>Register</span>
+        </v-tooltip>
+      </v-toolbar>
     </v-flex>
   </v-layout>
 </template>
