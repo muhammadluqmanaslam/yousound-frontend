@@ -154,25 +154,32 @@
             }
           }
         }
-        .left-tag.hover-text {
+        .left-tag {
           position: absolute;
           margin: 0;
-          bottom: 10.5px;
-          left: 20.25px;
-          font-size: 13.5px;
+          bottom: 10px;
+          left: 20px;
+          padding: 4px 8px;
+          border-radius: 20px;
+          background-color: #6E6E6E;
           color: #FFFFFF;
+          line-height: 1;
+          font-size: 14px;
           letter-spacing: 0;
+          &.hover-text {
+            background-color: transparent;
+          }
         }
         .right-tag {
           position: absolute;
+          bottom: 10px;
           right: 20px;
-          bottom: 20px;
           padding: 4px 8px;
           line-height: 1;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 300;
           border-radius: 20px;
-          background-color: #666;
+          background-color: #6E6E6E;
           color: #FFFFFF;
           letter-spacing: -1.0px;
         }
