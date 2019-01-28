@@ -6,6 +6,11 @@
           class="my-card__media__body"
           :style="{'background-image': 'url(' + item.cover.url + ')'}"
         ></div>
+        <div class="left-tag">{{ item.genre.name }}</div>
+        <div class="right-tag">{{ itemPrice }}</div>
+        <v-flex xs12 class="my-card__actions" relative v-if="false">
+          <v-flex xs12 class="touch-flex"></v-flex>
+        </v-flex>
       </v-flex>
       <v-flex xs12 class="my-card__body" pa-0>
         <p class="my-card__title">
@@ -21,6 +26,7 @@
 
 <script type="text/javascript">
   // import _ from 'lodash'
+  import { Filter } from '@/helper'
 
   export default {
     components: {
@@ -40,6 +46,14 @@
     computed: {
       owner () {
         return this.item.user
+      },
+
+      itemPrice () {
+        if (this.item.price > 0) {
+          return `$${Filter.formatNumber(this.item.price)}`
+        } else {
+          return 'Free'
+        }
       }
     },
 

@@ -39,8 +39,6 @@
 
     data () {
       return {
-        showMerchModal: false,
-        showShareModal: false
       }
     },
 
