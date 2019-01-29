@@ -2,16 +2,12 @@ import _ from 'lodash'
 import AuthService from '@/services/auth.js'
 import UserService from '@/services/user.js'
 
-import genreDialog from '@/components/genre_dialog'
-
 export default {
   components: {
-    genreDialog
   },
 
   data () {
     return {
-      show_genre_selector_dialog: false,
       terms: false,
       user: {
         email: '',
@@ -39,25 +35,6 @@ export default {
   },
 
   methods: {
-    openGenreSelectorDialog () {
-      this.$validator.validateAll().then(response => {
-        if (response === true) {
-          this.show_genre_selector_dialog = true
-        } else {
-          this.$store.dispatch('error/showErrorToast', [this.errors.items[0].msg])
-        }
-      }).catch(e => {
-        console.log('error', e)
-      })
-    },
-
-    closeGenreSelectorDialog () {
-      this.show_genre_selector_dialog = false
-      if (this.$store.state.auth.genreIds !== '') {
-        this.submit()
-      }
-    },
-
     submit () {
       this.$validator.validateAll().then(response => {
         if (response === true) {

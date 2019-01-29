@@ -17,31 +17,45 @@ export default {
       parent: null,
       parent_index: 0,
       show_selector_view: true,
-      isPageReady: false
+      isPageReady: true
     }
   },
 
+  // created () {
+  //   this.isPageReady = false
+  //   this.$store.dispatch('error/showLoadingActivity', true)
+  //   GenreService.getGenres2().then(response => {
+  //     this.genres = response.body
+  //     _.each(this.genres, (genre) => {
+  //       _.each(genre.children, (g) => { g.value = false })
+  //     })
+  //     // it stores only child genres statuses
+  //     _.each(this.genres, (genre) => {
+  //       if (!_.countBy(genre.children, 'value')['false']) {
+  //         genre.value = true
+  //       }
+  //     })
+  //     this.isPageReady = true
+  //     this.$store.dispatch('error/showLoadingActivity', false)
+  //     this.$forceUpdate()
+  //   }).catch(e => {
+  //     this.$store.dispatch('error/showLoadingActivity', false)
+  //   })
+  // },
+
   created () {
-    this.isPageReady = false
-    this.$store.dispatch('error/showLoadingActivity', true)
-    GenreService.getGenres2().then(response => {
-      this.genres = response.body
+    this.genres = _.cloneDeep(this.$store.state.app.genres)
+    let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
 
-      _.each(this.genres, (genre) => {
-        _.each(genre.children, (g) => { g.value = false })
-      })
+    _.each(this.genres, (genre) => {
+      _.each(genre.children, (g) => { g.value = !hiddenGenres[g.id] })
+    })
 
-      // it stores only child genres statuses
-      _.each(this.genres, (genre) => {
-        if (!_.countBy(genre.children, 'value')['false']) {
-          genre.value = true
-        }
-      })
-      this.isPageReady = true
-      this.$store.dispatch('error/showLoadingActivity', false)
-      this.$forceUpdate()
-    }).catch(e => {
-      this.$store.dispatch('error/showLoadingActivity', false)
+    // it stores only child genres statuses
+    _.each(this.genres, (genre) => {
+      if (!_.countBy(genre.children, 'value')['false']) {
+        genre.value = true
+      }
     })
   },
 
@@ -101,21 +115,21 @@ export default {
       }
 
       this.$store.dispatch('auth/setGenreIds', genre_ids.join(','))
-      this.dismiss()
 
-      // const userId = this.$store.state.auth.user.id
-      // const params = {
-      //   genre_ids: genre_ids.join(',')
-      // }
-      // this.$store.dispatch('error/showLoadingActivity', true)
-      // UserService.hiddenUserGenres(userId, params).then(res => {
-      //   this.$store.dispatch('error/showLoadingActivity', false)
-      //   this.$store.dispatch('error/showSuccessToast', ['Saved'])
-      //   UserService.getUserInfo(userId).then(response => AuthService.setUser(response.body))
-      // }).catch(e => {
-      //   this.$store.dispatch('error/showLoadingActivity', false)
-      //   this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      // })
+      const userId = this.$store.state.auth.user.id
+      const params = {
+        genre_ids: genre_ids.join(',')
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      UserService.hiddenUserGenres(userId, params).then(res => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showSuccessToast', ['Saved'])
+        UserService.getUserInfo(userId).then(response => AuthService.setUser(response.body))
+        this.dismiss()
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     }
   }
 }

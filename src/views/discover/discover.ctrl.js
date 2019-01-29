@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
+
+import genreDialog from '@/components/genre_dialog'
 import productCard from '@/components/productcard'
 import trackCard from '@/components/trackcard'
 
@@ -8,6 +10,7 @@ const filterArrowDownString = '<i class="material-icons icon icon--right theme--
 
 export default {
   components: {
+    genreDialog,
     productCard,
     trackCard
   },
@@ -20,6 +23,7 @@ export default {
         { id: 'new', title: 'Albums' },
         { id: 'merch', title: 'Merch' }
       ],
+      show_genre_selector_dialog: false,
       page_index: 1,
       total_pages: 1,
       items_per_page: 5 * 20,
@@ -109,11 +113,21 @@ export default {
       })
     },
 
+    openGenreSelectorDialog () {
+      this.show_genre_selector_dialog = true
+    },
+
+    closeGenreSelectorDialog () {
+      this.show_genre_selector_dialog = false
+      this.setTab(this.activeTab)
+    },
+
     filterByGenre(genre) {
       $('#genre_selector .btn__content').html(genre.name + filterArrowDownString)
       switch (genre.id) {
         case 'go_to_filters':
-          this.$router.push({ path: '/settings#genre-filter' })
+          // this.$router.push({ path: '/settings#genre-filter' })
+          this.openGenreSelectorDialog()
           break
         case 'any':
           this.selected_genre = null
