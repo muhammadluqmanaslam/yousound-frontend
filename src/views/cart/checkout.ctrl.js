@@ -13,7 +13,6 @@ export default {
     return {
       cartItems: [],
       shippingAddress: [],
-      digital_content_category_id: '',
       showAddress: true,
       showPaymentModal: false,
       show_order_complete_dialog: false,
@@ -54,7 +53,6 @@ export default {
       this.cartItems = values[0].body
       this.cartCost = values[1].body
       // this.shippingAddress = values[2].body
-      this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
 
       this.isPageReady = true
       this.$store.dispatch('error/showLoadingActivity', false)
@@ -66,8 +64,12 @@ export default {
   },
 
   methods: {
+    isDigitalProduct (item) {
+      return _.get(item, 'product.category.is_digital', false)
+    },
+
     productStatus (item) {
-      if (item.product.category.id == this.digital_content_category_id) {
+      if (this.isDigitalProduct(item)) {
         return {
           text: 'digital content',
           style: 'success'

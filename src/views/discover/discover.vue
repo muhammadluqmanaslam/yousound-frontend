@@ -68,6 +68,10 @@
         </v-menu>
       </div>
     </v-flex>
+
+    <v-dialog v-model="show_genre_selector_dialog" content-class="my-genre-dialog ma-0 pa-2">
+      <genre-dialog :dismiss="closeGenreSelectorDialog"></genre-dialog>
+    </v-dialog>
   </div>
 </template>
 

@@ -60,7 +60,7 @@
                           <v-flex sm12 class="product-content-row">
                             <label class="product-name">{{ item.product.name }} | {{ item.product_variant.name }}</label>
                             <label class="product-status" :class="productStatusStyle(item)">{{ productStatusText(item) }}</label>
-                            <template v-if="item.product.category.id != digital_content_category_id">
+                            <template v-if="!isDigitalProduct(item)">
                               <v-btn
                                 class="product-count-adjust-btn active"
                                 @click.native="addQuantity(item)"
@@ -133,7 +133,7 @@
                           </v-flex>
                           <v-flex sm12 class="product-content-row">
                             <label class="product-price">${{ item.product_variant.price | formatNumber }}</label>
-                            <!-- <span v-if="item.product.category.id == digital_content_category_id && item.status == 'item_shipped'"
+                            <!-- <span v-if="isDigitalProduct(item) && item.status == 'item_shipped'"
                               class="product-link"
                               @click = "download(item)"
                             >Download</span> -->

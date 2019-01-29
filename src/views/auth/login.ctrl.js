@@ -4,16 +4,12 @@ import PlaylistService from '@/services/playlist'
 
 import { MyEvents } from '@/helper'
 
-import genreDialog from '@/components/genre_dialog'
-
 export default {
   components: {
-    genreDialog
   },
 
   data () {
     return {
-      show_genre_selector_dialog: false,
       remember: false,
       user: {
         email: '',
@@ -46,14 +42,6 @@ export default {
   },
 
   methods: {
-    openGenreSelectorDialog () {
-      this.show_genre_selector_dialog = true
-    },
-
-    closeGenreSelectorDialog () {
-      this.show_genre_selector_dialog = false
-    },
-
     submit () {
       this.$store.dispatch('error/showLoadingActivity', true)
       AuthService.login(this.user).then(response => {

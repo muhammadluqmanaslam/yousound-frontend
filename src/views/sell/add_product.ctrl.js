@@ -17,7 +17,7 @@ export default {
       destinations: [],
       countries: [],
       states: [],
-      digital_content_category_id: '',
+      digital_content_category_ids: [],
       digital_content: {
         file: null
       },
@@ -63,6 +63,10 @@ export default {
   },
 
   computed: {
+    isDigitalProduct () {
+      return this.digital_content_category_ids.indexOf(this.product.category) > -1
+    },
+
     isAvailableToAddProduct () {
       var isAvailable = this.product.name &&
                         this.product.category &&
@@ -72,11 +76,11 @@ export default {
           const variant = this.product.variants[index]
           isAvailable = isAvailable && (
             variant.name.length &&
-            (this.product.category == this.digital_content_category_id || parseFloat(variant.quantity) > 0) &&
+            (this.isDigitalProduct || parseFloat(variant.quantity) > 0) &&
             (parseFloat(variant.price) > 0)
           )
         }
-        if (this.product.category == this.digital_content_category_id) {
+        if (this.isDigitalProduct) {
           isAvailable = isAvailable && this.digital_content.file
         } else {
           if (this.product.shipments.length) {
@@ -92,10 +96,6 @@ export default {
         isAvailable = false
       }
       return isAvailable
-    },
-
-    isDigitalProduct () {
-      return this.product.category == this.digital_content_category_id
     },
 
     artists () {
@@ -132,7 +132,7 @@ export default {
         ProfileService.getItems(this.$store.state.auth.user.id, 'followings', params)
       ]).then(values => {
         this.product_categories = this.$store.state.app.product_categories
-        this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
+        this.digital_content_category_ids = this.$store.getters['app/digitalCategoryIds']
 
         this.users = values[0].body.users
 
@@ -195,14 +195,14 @@ export default {
 
     onChangeProductCategory(category_id) {
       // console.log('onChangeProductCategory', category_id, this.product.category)
-      if (category_id == this.digital_content_category_id && this.product.category != this.digital_content_category_id) {
+      if (!this.isDigitalProduct && this.digital_content_category_ids.indexOf(category_id) > -1) {
         this.product_variants = this.product.variants
         this.product.variants = [{
           name: 'Zip File',
           quantity: '',
           price: ''
         }]
-      } else if (category_id != this.digital_content_category_id && this.product.category == this.digital_content_category_id) {
+      } else if (this.isDigitalProduct && this.digital_content_category_ids.indexOf(category_id) == -1) {
         this.product.variants = this.product_variants
       }
     },
@@ -281,7 +281,7 @@ export default {
       formData.append('shop_product[is_vat]', _.get(this.product, 'is_vat', false))
       formData.append('shop_product[seller_location]', _.get(this.product, 'seller_location', ''))
 
-      if (this.product.category == this.digital_content_category_id) {
+      if (this.isDigitalProduct) {
         formData.append('shop_product[digital_content]', this.digital_content.file)
         formData.append('shop_product[digital_content_name]', this.digital_content.file.name)
       }

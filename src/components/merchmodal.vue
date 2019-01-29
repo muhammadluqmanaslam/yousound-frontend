@@ -209,7 +209,7 @@
       },
 
       isDigitalProduct () {
-        return _.get(this.item, 'category.id', '') === this.$store.getters['app/digitalCategoryId']
+        return _.get(this.item, 'category.is_digital', false)
       },
 
       options () {
