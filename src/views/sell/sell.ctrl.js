@@ -31,7 +31,6 @@ export default {
         { id: 'collaborator_shipped', name: 'Collaborated Shipped' }
       ],
       filter_status: '',
-      digital_content_category_id: '',
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
@@ -107,8 +106,6 @@ export default {
 
   methods: {
     loadData () {
-      this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
-
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
@@ -148,7 +145,7 @@ export default {
     },
 
     isDigitalProduct (item) {
-      return _.get(item, 'product.category.id', '') == this.digital_content_category_id
+      return _.get(item, 'product.category.is_digital', false)
     },
 
     editProduct (product) {

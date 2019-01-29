@@ -43,6 +43,12 @@ export default {
       this.page = 0
       this.loadMore()
     }
+
+    window.addEventListener('scroll', this.handleScroll)
+  },
+
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   },
 
   methods: {
@@ -73,33 +79,28 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
-    }
-  },
+    },
 
-  mounted () {
-    const vm = this
-    let showMainHeader = true
-    const mainHeader = $('.main__header')
-    let panelHeader = $('.panel__header')
-    // const scrollHeight = $(document).height() - $(window).height()
-
-    $(window).scroll(function (event) {
-      var _curTop = $(window).scrollTop()
-      // console.log(scrollHeight, _curTop)
+    handleScroll (event) {
+      const mainHeader = $('.main__header')
+      const panelHeader = $('.panel__header')
+      const _curTop = $(window).scrollTop()
+      // console.log('scrollTop', _curTop)
       if (_curTop < 120) {
-        // toggleMainHeader(true)
         panelHeader.removeClass('fixed')
         mainHeader.css({height: '120px'})
       } else {
-        // toggleMainHeader(false)
         panelHeader.addClass('fixed')
         panelHeader.css({width: mainHeader.width() + 'px'})
         mainHeader.css({height: '0px'})
       }
 
       if (_curTop > $(document).height() - $(window).height() - 30) {
-        vm.loadMore()
+        this.loadMore()
       }
-    })
+    }
+  },
+
+  mounted () {
   }
 }

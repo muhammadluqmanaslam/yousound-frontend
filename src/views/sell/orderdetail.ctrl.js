@@ -9,7 +9,6 @@ export default {
   data () {
     return {
       active: 'none',
-      digital_content_category_id: '',
       order_id: null,
       order_detail: null,
       isPageReady: false
@@ -29,7 +28,7 @@ export default {
       var sum = 0
       for (let index in this.order_detail.items) {
         const item = this.order_detail.items[index]
-        if (item.product.category.id == this.digital_content_category_id) {
+        if (this.isDigitalProduct(item)) {
           sum += item.price
         } else {
           sum += item.price * item.quantity
@@ -85,7 +84,6 @@ export default {
         OrderService.getOrder(this.order_id)
       ]).then(values => {
         this.order_detail = values[0].body
-        this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
 
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -98,6 +96,9 @@ export default {
   },
 
   methods: {
+    isDigitalProduct (item) {
+      return _.get(item, 'product.category.is_digital', false)
+    }
   },
 
   mounted () {

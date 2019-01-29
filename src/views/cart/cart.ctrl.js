@@ -21,7 +21,6 @@ export default {
   data () {
     return {
       current_tab: 'cart',
-      digital_content_category_id: '',
       showSendMessage: false,
       show_address_confirm_dialog: false,
       order_detail: null,
@@ -63,9 +62,6 @@ export default {
 
       this.current_tab = tab || 'cart'
       this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: this.current_tab })
-
-      this.digital_content_category_id = this.$store.getters['app/digitalCategoryId']
-      // console.log('cart/digital_content_category_id', this.digital_content_category_id)
 
       let params
       switch (this.current_tab) {
@@ -125,7 +121,7 @@ export default {
     },
 
     isDigitalProduct (item) {
-      return _.get(item, 'product.category.id', '') == this.digital_content_category_id
+      return _.get(item, 'product.category.is_digital', false)
     },
 
     download (item) {
@@ -163,7 +159,7 @@ export default {
     },
 
     productStatus (item) {
-      if (item.product.category.id == this.digital_content_category_id) {
+      if (this.isDigitalProduct(item)) {
         return {
           text: 'digital content',
           style: 'success'

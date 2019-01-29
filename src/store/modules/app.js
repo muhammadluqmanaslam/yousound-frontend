@@ -11,8 +11,9 @@ const getters = {
     return _.get(state.settings, 'disable_live_video', false)
   },
 
-  digitalCategoryId: (state) => {
-    return _.chain(state.product_categories).find((c) => (c.name === 'Digital Product')).get('id', null).value()
+  digitalCategoryIds: (state) => {
+    // return _.chain(state.product_categories).find((c) => (c.name === 'Digital Product')).get('id', null).value()
+    return _.chain(state.product_categories).filter((c) => (c.is_digital)).map('id').value()
   }
 }
 
