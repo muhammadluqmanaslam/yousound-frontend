@@ -20,10 +20,11 @@
       z-index: 10;
       position: absolute;
       width: 100%;
-      height: 120px;
-      padding: 50px 0 0 0;
+      height: 65px;
+      padding: 25px 0 0 0;
       font-size: 24px;
       font-weight: 700;
+      font-family: 'Work Sans';
       background-color: #FFFFFF;
 
       &.fixed {
@@ -33,18 +34,19 @@
     }
 
     .panel__body {
-      padding-top: 120px;
+      padding-top: 50px;
     }
   }
 
   .flip {
     height: 45px;
     overflow: hidden;
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 300;
+    font-family: 'Work Sans';
 
     & > div > div {
-      color: #fff;
+      color: #000;
       padding: 4px 12px;
       height: 45px;
       margin-bottom: 45px;
@@ -53,19 +55,19 @@
     }
 
     div div {
-      background: #42c58a;
+      background: #fff;
     }
 
     div:first-child {
-      animation: show 5s linear infinite;
+      animation: show 8s ease-out infinite;
 
       div {
-        background: #4ec7f3;
+        background: #fff;
       }
     }
 
     div:last-child div {
-      background: #DC143C;
+      background: #fff;
     }
   }
 
@@ -188,8 +190,10 @@
           margin: 10px 0 0 0;
           color: #444;
           line-height: 20px;
-          font-size: 20px;
-          font-weight: 700;
+          font-size: 18px;
+          font-weight: 600;
+          font-family: 'Work Sans';
+          text-align: center;
           letter-spacing: -0.6px;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -200,8 +204,9 @@
         }
         .my-card__subtitle {
           margin: 5px 0 0 0;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 500;
+          text-align: center;
           color: #8E8E8E;
           letter-spacing: -0.6px;
           text-overflow: ellipsis;
