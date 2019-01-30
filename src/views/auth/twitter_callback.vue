@@ -125,7 +125,7 @@
                   placeholder="Do you sell merch?"
                 />
               </v-flex>
-              <v-flex xs6 pt-3 px-2 text-xs-center>
+              <!-- <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="boolean_options"
                   item-value="id"
@@ -135,7 +135,7 @@
                   name="will_sell_physical_copies"
                   placeholder="Do you sell physical copies of your music?"
                 />
-              </v-flex>
+              </v-flex> -->
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="annual_income_on_merch_sales_options"
@@ -181,10 +181,10 @@
                   autocomplete
                 />
               </v-flex>
-              <v-flex xs6 pt-3 px-2 text-xs-center>
+              <!-- <v-flex xs6 pt-3 px-2 text-xs-center>
                 <input v-model="user.ipi_cae_number" v-validate="'required'"
                   type="text" name="ipi_cae_number" autocomplete="off" placeholder="IPI/CAE number">
-              </v-flex>
+              </v-flex> -->
             </template>
             <template v-else-if="user.request_role=='label'">
               <v-flex xs12>
@@ -258,7 +258,7 @@
                   placeholder="Do you sell merch?"
                 />
               </v-flex>
-              <v-flex xs6 pt-3 px-2 text-xs-center>
+              <!-- <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="boolean_options"
                   item-value="id"
@@ -268,7 +268,7 @@
                   name="will_sell_physical_copies"
                   placeholder="Do you sell physical copies of your music?"
                 />
-              </v-flex>
+              </v-flex> -->
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="annual_income_on_merch_sales_options"
