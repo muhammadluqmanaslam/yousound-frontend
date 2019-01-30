@@ -458,10 +458,16 @@
       />
     </v-dialog>
 
-    <v-dialog v-model="show_collaborators_confirm_dialog">
+    <v-dialog v-model="show_collaborators_confirm_dialog" content-class="collaborators-confirm-dialog">
       <v-card>
-        <v-card-title class="headline">Confirm Collaborators</v-card-title>
-        <v-card-text>Make sure to add any collaborators to your album, once it's uploaded you won't be able to add collaborators</v-card-text>
+        <v-card-title class="headline">
+          <v-icon>report_problem</v-icon>
+          Confirm Collaborators
+        </v-card-title>
+        <v-card-text>
+          Add all of your collaborators, contributors, and/or credit any samples used in your album. This allows you to avoid having to re-upload your content in case of a depute.<br><br>
+          If your collaborators don't have an account, have them sign up, then visit their profile and invite them to expedite their verification proccess. If your collaborators are unable to sign up, you must have written permission to upload their content.
+        </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="blue--text darken-1" flat="flat" @click.native="releaseNow()">Ok</v-btn>
