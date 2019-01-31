@@ -109,7 +109,8 @@ export default {
         this.total_pages = response.body.pagination.total_pages
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        console.log('discover error', e)
       })
     },
 

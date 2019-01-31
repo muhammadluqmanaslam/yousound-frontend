@@ -54,6 +54,7 @@
 /* global $:true */
 
 import debounce from 'lodash/debounce'
+import Vue from 'vue'
 
 import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
@@ -127,9 +128,6 @@ export default {
         } else {
           ActivityService.getUnread().then(response => {
             this.$store.dispatch('activity/setBadge', response.body)
-          }).catch(e => {
-            AuthService.clearTokenAndUserInfo()
-            this.$router.push({ path: '/login' })
           })
         }
       }
@@ -137,6 +135,16 @@ export default {
   },
 
   created () {
+    Vue.http.interceptors.push((req, next) => {
+      next((res) => {
+        if (res.url.startsWith(process.env.API_BASE_URL) && res.status === 401) {
+          // console.log('App interceptors', res)
+          AuthService.clearTokenAndUserInfo()
+          this.$router.push({ path: '/login' })
+        }
+      })
+    })
+
     // this.$root.$on('showLoginModal', this.showLoginDialog)
     // this.$root.$on('hideLoginModal', this.hideLoginDialog)
     this.$root.$on(MyEvents.AUTH_SIGNIN, this.getUserInfo)

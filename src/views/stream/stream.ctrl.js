@@ -69,12 +69,7 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        if (e.status === 401) {
-          AuthService.clearTokenAndUserInfo()
-          this.$router.push({ path: '/login' })
-        } else {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        }
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
