@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="actions-wrapper">
-            <v-btn dark round color="blue" @click.native="openLoadGenreConfirmDialog()">Load Preset</v-btn>
+            <!-- <v-btn dark round color="blue" @click.native="openLoadGenreConfirmDialog()">Load Preset</v-btn> -->
             <v-btn dark round color="blue" @click.native="saveGenreFilters()">Save</v-btn>
           </div>
         </v-layout>

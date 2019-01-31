@@ -97,12 +97,12 @@ export default {
           formData.append('user[display_name]', this.user.display_name)
           formData.append('user[avatar]', this.user.avatar_file)
           formData.append('user[request_role]', this.user.request_role)
-          formData.append('user[genre_id]', this.user.genre_id)
-          formData.append('user[release_count]', this.user.release_count)
-          formData.append('user[soundcloud_url]', this.user.soundcloud_url)
-          formData.append('user[basecamp_url]', this.user.basecamp_url)
-          formData.append('user[website_url]', this.user.website_url)
-          formData.append('user[history]', this.user.history)
+          // formData.append('user[genre_id]', this.user.genre_id)
+          // formData.append('user[release_count]', this.user.release_count)
+          // formData.append('user[soundcloud_url]', this.user.soundcloud_url)
+          // formData.append('user[basecamp_url]', this.user.basecamp_url)
+          // formData.append('user[website_url]', this.user.website_url)
+          // formData.append('user[history]', this.user.history)
 
           AuthService.registerAsListener(formData).then(response => {
             const userId = response.body.id

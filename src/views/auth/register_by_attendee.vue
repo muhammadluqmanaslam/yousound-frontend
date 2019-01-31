@@ -10,7 +10,7 @@
         </v-flex>
       </div>
       <div class="page auth-page auth-register-page">
-        <form v-on:submit.prevent="openGenreSelectorDialog()" data-vv-scope="main-form">
+        <form v-on:submit.prevent="submit()" data-vv-scope="main-form">
           <v-flex xs12 text-xs-center>
             <div class="avatar-area">
               <img class="avatar" src="/static/images/placeholder.png" id="avatar" ref="avatar" />
