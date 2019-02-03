@@ -122,7 +122,7 @@
                   v-model="user.will_sell_products"
                   v-validate="'required'"
                   name="will_sell_products"
-                  placeholder="Do you sell merch?"
+                  placeholder="Do you sell products?"
                 />
               </v-flex>
               <!-- <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -144,7 +144,7 @@
                   v-model="user.annual_income_on_merch_sales"
                   v-validate="'required'"
                   name="annual_income_on_merch_sales"
-                  placeholder="Annual income on merch sales"
+                  placeholder="Annual income on product sales"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -255,7 +255,7 @@
                   v-model="user.will_sell_products"
                   v-validate="'required'"
                   name="will_sell_products"
-                  placeholder="Do you sell merch?"
+                  placeholder="Do you sell products?"
                 />
               </v-flex>
               <!-- <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -277,7 +277,7 @@
                   v-model="user.annual_income_on_merch_sales"
                   v-validate="'required'"
                   name="annual_income_on_merch_sales"
-                  placeholder="Annual income on merch sales"
+                  placeholder="Annual income on product sales"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -371,7 +371,7 @@
                   v-model="user.will_sell_products"
                   v-validate="'required'"
                   name="will_sell_products"
-                  placeholder="Do you sell merch?"
+                  placeholder="Do you sell products?"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>

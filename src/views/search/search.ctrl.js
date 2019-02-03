@@ -19,7 +19,7 @@ export default {
       tabs: [
         { id: 'albums', title: 'Albums' },
         { id: 'playlists', title: 'Playlists' },
-        { id: 'products', title: 'Merch' },
+        { id: 'products', title: 'Products' },
         { id: 'live_video', title: 'Live Videos' },
         { id: 'users', title: 'Users' }
       ],

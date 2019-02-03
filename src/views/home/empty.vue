@@ -24,7 +24,7 @@
       <p class="empty-title" v-if="type=='order'">New Orders</p>
       <p class="empty-title" v-if="type=='profile'">Your Profile is Empty</p>
       <p class="empty-title" v-if="type=='search'">No Results Found</p>
-      <p class="empty-description" v-if="type=='stream'">Follow people to discover new music & merch.</p>
+      <p class="empty-description" v-if="type=='stream'">Follow people to discover new music & products.</p>
       <p class="empty-description" v-if="type=='activity'">This is where you'll see who followed, commented, and other activity.</p>
       <p class="empty-description" v-if="type=='message'">Your conversations will appear here.</p>
       <p class="empty-description" v-if="type=='cart'">Looking for something new?</p>

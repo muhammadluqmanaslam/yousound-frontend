@@ -334,14 +334,14 @@
                     <template v-if="currentUser && currentUser.id == user.id">
                       <div class="empty-section">
                         <p class="empty-title">Empty</p>
-                        <p class="empty-description">You have not uploaded any merch</p>
+                        <p class="empty-description">You have not uploaded any product</p>
                         <router-link to="/product/add" class="empty-discover-btn">Upload</router-link>
                       </div>
                     </template>
                     <template v-else>
                       <div class="empty-section">
                         <p class="empty-title">Empty</p>
-                        <p class="empty-description">This user has no merch</p>
+                        <p class="empty-description">This user has no products</p>
                       </div>
                     </template>
                   </template>

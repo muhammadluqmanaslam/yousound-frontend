@@ -31,7 +31,7 @@
               @click.native="onTab('products')"
               ripple
             >
-              Merch &nbsp;<label>({{ result.products.length }}) </label>
+              Products &nbsp;<label>({{ result.products.length }}) </label>
             </v-tabs-item>
             <v-tabs-item
               key="live_videos"

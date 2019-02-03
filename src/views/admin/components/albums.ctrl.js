@@ -13,7 +13,7 @@ export default {
       albums_tabs: [
         { id: 'published', title: 'Published Albums' },
         { id: 'privated', title: 'Privated Albums' },
-        { id: 'product', title: 'Merch' }
+        { id: 'product', title: 'Products' }
       ],
       albums_tab: 'published',
       album_headers: [

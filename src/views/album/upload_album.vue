@@ -114,7 +114,7 @@
                 </v-radio-group>
               </v-flex>
               <v-flex xs12 form-group>
-                <label class="control-label">Merch</label>
+                <label class="control-label">Product</label>
                 <v-select
                   v-bind:items="products"
                   v-model="selected_products"
@@ -123,7 +123,7 @@
                   chips
                   max-height="auto"
                   class="pt-0"
-                  no-data-text="No merch found"
+                  no-data-text="No products found"
                   autocomplete
                   clearable
                 >

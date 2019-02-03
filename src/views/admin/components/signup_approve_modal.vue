@@ -70,7 +70,7 @@
           <span :class="{'red--text text--darken-2': !item.will_run_live_video}">{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
-          <label>Do you sell merch?</label>
+          <label>Do you sell products?</label>
           <span :class="{'red--text text--darken-2': !item.will_sell_products}">{{ getNameById(boolean_options, item.will_sell_products) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
@@ -78,7 +78,7 @@
           <span :class="{'red--text text--darken-2': !item.will_sell_physical_copies}">{{ getNameById(boolean_options, item.will_sell_physical_copies) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
-          <label>Annual income on merch sales:</label>
+          <label>Annual income on product sales:</label>
           <span :class="{'red--text text--darken-2': userAnnualIncomeOnMerchSales == 'None'}">{{ userAnnualIncomeOnMerchSales }}</span>
         </v-flex>
         <v-flex xs12 sm6>
@@ -120,7 +120,7 @@
           <span :class="{'red--text text--darken-2': !item.will_run_live_video}">{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
-          <label>Do you sell merch?</label>
+          <label>Do you sell products?</label>
           <span :class="{'red--text text--darken-2': !item.will_sell_products}">{{ getNameById(boolean_options, item.will_sell_products) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
@@ -128,7 +128,7 @@
           <span :class="{'red--text text--darken-2': !item.will_sell_physical_copies}">{{ getNameById(boolean_options, item.will_sell_physical_copies) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
-          <label>Annual income on merch sales:</label>
+          <label>Annual income on product sales:</label>
           <span :class="{'red--text text--darken-2': userAnnualIncomeOnMerchSales == 'None'}">{{ userAnnualIncomeOnMerchSales }}</span>
         </v-flex>
         <v-flex xs12 sm6>
@@ -164,7 +164,7 @@
           <span :class="{'red--text text--darken-2': !item.will_run_live_video}">{{ getNameById(boolean_options, item.will_run_live_video) }}</span>
         </v-flex>
         <v-flex xs12 sm6>
-          <label>Do you sell merch/products?</label>
+          <label>Do you sell products?</label>
           <span :class="{'red--text text--darken-2': !item.will_sell_products}">{{ getNameById(boolean_options, item.will_sell_products) }}</span>
         </v-flex>
         <v-flex xs12 sm6>

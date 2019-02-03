@@ -167,7 +167,7 @@
           <v-layout row wrap>
             <v-flex xs12 sm4 lg6 md5 offset-sm2 offset-md2 offset-lg2 class="copy-left river-content river-right">
               <h3>Repost Everything</h3>
-              <p>From Albums, Videos, Merch, and Playlists, all content can be reposted. All of your content can circulate together.</p>
+              <p>From Albums, Videos, Products, and Playlists, all content can be reposted. All of your content can circulate together.</p>
             </v-flex>
             <v-flex xs12 sm3 lg3 md3 offset-sm1 offset-md1 class="river-padding padding-top">
               <figure class="image-hardware-river">
@@ -195,8 +195,8 @@
         <div class="gallery-copy">
           <v-layout row wrap>
             <v-flex xs12 sm5 md5 lg5 offset-sm1 offset-md0 class="copy-left river-content daily-stories">
-              <h3>Sell Merch & Digital Content</h3>
-              <p>Verified Artists, Labels, and Brands can sell physical and digital merch. Buyers can add items to their cart from multiple sellers, and check out at once. Sellers keep 90% of the transaction.</p>
+              <h3>Sell Product & Digital Content</h3>
+              <p>Verified Artists, Labels, and Brands can sell physical and digital products. Buyers can add items to their cart from multiple sellers, and check out at once. Sellers keep 90% of the transaction.</p>
             </v-flex>
             <v-flex xs12 sm5 md5 lg6 offset-md1 offset-lg1 class="river-padding river-hw-padding">
               <figure class="image-hardware-river">
@@ -274,8 +274,8 @@
 
           <v-layout row wrap>
             <v-flex xs12 sm4 lg6 md5 offset-sm2 offset-md2 offset-lg2 class="copy-left river-content river-right">
-              <h3>Merch Collaboration</h3>
-              <p>Verified Artists, Labels & Brands can split merch sales and view incoming orders. Collaborators can assign percentage splits & confirm it via Direct Message. </p>
+              <h3>Product Collaboration</h3>
+              <p>Verified Artists, Labels & Brands can split product sales and view incoming orders. Collaborators can assign percentage splits & confirm it via Direct Message. </p>
             </v-flex>
             <v-flex xs12 sm3 lg3 md3 offset-sm1 offset-md1 class="river-padding padding-top">
               <figure class="image-hardware-river">
@@ -287,7 +287,7 @@
           <v-layout row wrap>
             <v-flex xs12 sm5 md5 lg5 offset-sm1 offset-md0 class="copy-left river-content">
               <h3>Audio Chat</h3>
-              <p>Each user gets their own chat room, and every room allows any user in a room to broadcast what they’re currently listening to on their player. Any user can tune into anyone broadcasting. Users can also share albums and merch to chat rooms.</p>
+              <p>Each user gets their own chat room, and every room allows any user in a room to broadcast what they’re currently listening to on their player. Any user can tune into anyone broadcasting. Users can also share albums and products to chat rooms.</p>
             </v-flex>
             <v-flex xs12 sm5 md5 lg6 offset-md1 offset-lg1 class="river-padding river-hw-padding padding-top">
               <figure class="image-hardware-river">
@@ -299,7 +299,7 @@
           <v-layout row wrap>
             <v-flex xs12 sm4 lg6 md5 offset-sm2 offset-md2 offset-lg2 class="copy-left river-content river-right">
               <h3>Labels & Brands</h3>
-              <p>Labels can invite artists to their roster, and request to artist albums via Direct Message. Labels can promote any album on their roster & sell merch. Brand accounts are listener accounts with the ability to sell merch.</p>
+              <p>Labels can invite artists to their roster, and request to artist albums via Direct Message. Labels can promote any album on their roster & sell products. Brand accounts are listener accounts with the ability to sell products.</p>
             </v-flex>
             <v-flex xs12 sm3 lg3 md3 offset-sm1 offset-md1 class="river-padding padding-top">
               <figure class="image-hardware-river">

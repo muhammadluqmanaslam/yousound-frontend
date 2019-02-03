@@ -78,7 +78,7 @@
         title="Repost Everything"
         mediaSource="/static/images/img_repost_everything.jpg"
       >
-        <p>Albums, Merch, Playlists & Live Video Streams can be reposted by any user.  Maximize your reach, create sophisticated release cycles, and push previously released content back into the Stream.</p>
+        <p>Albums, Products, Playlists & Live Video Streams can be reposted by any user.  Maximize your reach, create sophisticated release cycles, and push previously released content back into the Stream.</p>
       </landing-card>
 
       <landing-card 
@@ -106,7 +106,7 @@
       </div>
 
       <landing-card
-        title="Sell Merch"
+        title="Sell Products"
         mediaSource="/static/images/img_sell_merch.jpg"
       >
         <p>Verified Artists, Brands & Labels can sell physical products.  Buyers can add items to their cart from multiple sellers and check out at once. Seller keeps 90% of each transaction.</p>
@@ -144,10 +144,10 @@
 
       <landing-card
         klass="right-content-card"
-        title="Merch Collaboration"
+        title="Product Collaboration"
         mediaSource="/static/images/img_merch_collaboration.jpg"
       >
-        <p>Merch collaboration allows Verified Users to automatically split merch sales.  Collaborators can assign percentage splits & recoup cost via Direct Message.  All collaborators can view all sales and see what’s been shipped.</p>
+        <p>Product collaboration allows Verified Users to automatically split merch sales.  Collaborators can assign percentage splits & recoup cost via Direct Message.  All collaborators can view all sales and see what’s been shipped.</p>
       </landing-card>
 
       <landing-card

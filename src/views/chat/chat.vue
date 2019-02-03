@@ -52,8 +52,8 @@
             <p class="section-title">Attach content to chat</p>
             <div class="option-area">
               <v-btn class="request-option-btn" :class="{'selected':request_tab=='album'}" @click.native="onRequestTab('album')">Album</v-btn>
-              <v-btn class="request-option-btn" :class="{'selected':request_tab=='merch'}" @click.native="onRequestTab('merch')">Merch</v-btn>
-              <v-btn class="request-option-btn" :class="{'selected':request_tab=='users'}" @click.native="onRequestTab('users')">Users</v-btn>
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='merch'}" @click.native="onRequestTab('merch')">Product</v-btn>
+              <v-btn class="request-option-btn" :class="{'selected':request_tab=='users'}" @click.native="onRequestTab('users')">User</v-btn>
             </div>
           </div>
           <div class="content-section" v-if="request_tab=='album'">

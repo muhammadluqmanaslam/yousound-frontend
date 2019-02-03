@@ -12,8 +12,8 @@
       <div class="page auth-page auth-register-page artist">
         <div class="info-section">
           <div class="info-title">Brands can</div>
-          <div class="info-description pt-3">- Sell merch</div>
-          <div class="info-description">- Promote merch</div>
+          <div class="info-description pt-3">- Sell products</div>
+          <div class="info-description">- Promote products</div>
           <div class="info-description">- Share revenue with any Artist, Brand, or Label</div>
           <div class="info-description">- Broadcast live audio & video chat</div>
         </div>

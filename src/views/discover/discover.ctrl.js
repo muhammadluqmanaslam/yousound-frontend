@@ -21,7 +21,7 @@ export default {
       tabs: [
         { id: 'recommended', title: 'Recommended' },
         { id: 'new', title: 'Albums' },
-        { id: 'merch', title: 'Merch' }
+        { id: 'merch', title: 'Products' }
       ],
       show_genre_selector_dialog: false,
       page_index: 1,

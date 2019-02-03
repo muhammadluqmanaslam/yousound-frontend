@@ -13,8 +13,8 @@
         <div class="info-section">
           <div class="info-title">Artists can</div>
           <div class="info-description pt-3">- Upload music</div>
-          <div class="info-description">- Sell merch</div>
-          <div class="info-description">- Promote albums & merch</div>
+          <div class="info-description">- Sell products</div>
+          <div class="info-description">- Promote albums & products</div>
           <div class="info-description">- Share revenue with any artist, brand, or label</div>
           <div class="info-description">- Broadcast live audio & video chat</div>
         </div>

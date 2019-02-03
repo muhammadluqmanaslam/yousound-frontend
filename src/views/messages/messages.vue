@@ -4,7 +4,7 @@
       <div class="popup-section">
         <img class="popup-image" src="/static/images/earphone.png"/>
         <p class="popup-title">Direct Messages</p>
-        <p class="popup-text">Direct messages is where you can share music + merch directly, view repost requests & approve collaborations.</p>
+        <p class="popup-text">Direct messages is where you can share music + product directly, view repost requests & approve collaborations.</p>
         <v-btn class="gotta-btn" @click.native="setVisitedTime()">Ok. Got it!</v-btn>
       </div>
     </v-flex>
@@ -376,7 +376,7 @@
                 <v-btn v-if="['artist', 'label'].indexOf(currentUser.user_type)!=-1"
                   class="request-option-btn" :class="{'selected':tab=='album'}" @click.native="onTab('album')">Album</v-btn>
                 <v-btn v-if="['artist', 'brand', 'label'].indexOf(currentUser.user_type)!=-1"
-                  class="request-option-btn" :class="{'selected':tab=='merch'}" @click.native="onTab('merch')">Merch</v-btn>
+                  class="request-option-btn" :class="{'selected':tab=='merch'}" @click.native="onTab('merch')">Product</v-btn>
               </div>
             </div>
             <div class="content-section" v-if="tab=='album'">

@@ -19,7 +19,7 @@
               <template v-if="isPageReady">
                 <div v-if="!users || users.length == 0" class="empty-section">
                   <p class="empty-title">Your stream is empty</p>
-                  <p class="empty-description">Follow people to discover new music &amp; merch.</p>
+                  <p class="empty-description">Follow people to discover new music &amp; products.</p>
                   <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
                 </div>
                 <div v-else-if="activeTab == tab.id" v-for="(user, user_index) in users" :key="user_index">

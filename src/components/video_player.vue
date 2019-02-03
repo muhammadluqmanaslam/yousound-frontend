@@ -317,7 +317,7 @@
                 <p class="section-title">Attach content to live video</p>
                 <div class="option-area">
                   <v-btn class="request-option-btn" :class="{'selected':request_tab=='Album'}" @click.native="onRequestTab('Album')">Album</v-btn>
-                  <v-btn class="request-option-btn" :class="{'selected':request_tab=='ShopProduct'}" @click.native="onRequestTab('ShopProduct')">Merch</v-btn>
+                  <v-btn class="request-option-btn" :class="{'selected':request_tab=='ShopProduct'}" @click.native="onRequestTab('ShopProduct')">Product</v-btn>
                   <v-btn class="request-option-btn" :class="{'selected':request_tab=='User'}" @click.native="onRequestTab('User')">User</v-btn>
                 </div>
               </div>

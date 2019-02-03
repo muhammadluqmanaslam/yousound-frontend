@@ -20,7 +20,7 @@ export default {
         { id: 'reposted', title: 'Reposts' },
         { id: 'downloaded', title: 'Downloaded' },
         { id: 'playlist', title: 'Playlists' },
-        { id: 'merch', title: 'Merch' },
+        { id: 'merch', title: 'Products' },
         { id: 'video', title: 'Live Video' },
       ],
       page_index: 1,

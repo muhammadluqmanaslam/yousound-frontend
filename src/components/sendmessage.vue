@@ -40,7 +40,7 @@
               class="request-option-btn"
               :class="{'selected':tab=='merch'}"
               @click.native="onTab('merch')"
-            >Merch</v-btn>
+            >Product</v-btn>
           </div>
         </div>
         <div class="content-section" v-if="tab=='album'">

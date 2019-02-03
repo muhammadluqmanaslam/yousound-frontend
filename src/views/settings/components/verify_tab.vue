@@ -147,7 +147,7 @@
                   v-validate="'required'"
                   :disabled="!enabledForm"
                   name="will_sell_products"
-                  placeholder="Do you sell merch?"
+                  placeholder="Do you sell products?"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -171,7 +171,7 @@
                   v-validate="'required'"
                   :disabled="!enabledForm"
                   name="annual_income_on_merch_sales"
-                  placeholder="Annual income on merch sales"
+                  placeholder="Annual income on product sales"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -288,7 +288,7 @@
                   v-validate="'required'"
                   :disabled="!enabledForm"
                   name="will_sell_products"
-                  placeholder="Do you sell merch?"
+                  placeholder="Do you sell products?"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -312,7 +312,7 @@
                   v-validate="'required'"
                   :disabled="!enabledForm"
                   name="annual_income_on_merch_sales"
-                  placeholder="Annual income on merch sales"
+                  placeholder="Annual income on product sales"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
@@ -411,7 +411,7 @@
                   v-validate="'required'"
                   :disabled="!enabledForm"
                   name="will_sell_products"
-                  placeholder="Do you sell merch?"
+                  placeholder="Do you sell products?"
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>

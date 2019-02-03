@@ -26,7 +26,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap class="setting-row">
-      <v-flex xs12 sm6><label class="setting-cell-text">Disable Merch Uploads</label></v-flex>
+      <v-flex xs12 sm6><label class="setting-cell-text">Disable Product Uploads</label></v-flex>
       <v-flex xs12 sm6 class="text-xs-right">
         <v-switch hide-details class="setting-cell-switch" label="" v-model="settings.merch_uploads"></v-switch>
       </v-flex>

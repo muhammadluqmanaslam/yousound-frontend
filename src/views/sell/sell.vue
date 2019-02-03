@@ -22,12 +22,12 @@
               key="collaborations"
               href="#collaborations"
               @click.native="onTab('collaborations')"
-              ripple>Merch collaborations</v-tabs-item>
+              ripple>Product collaborations</v-tabs-item>
             <v-tabs-item
               key="pendings"
               href="#pendings"
               @click.native="onTab('pendings')"
-              ripple>Pending merch collaborations</v-tabs-item>
+              ripple>Pending product collaborations</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
@@ -163,7 +163,7 @@
             </v-tabs-content>
             <v-tabs-content key="collaborations" id="collaborations">
               <div v-if="!collaborated_products || collaborated_products.length == 0" class="empty-section">
-                <p class="empty-title">Your have no merch collaborations</p>
+                <p class="empty-title">Your have no product collaborations</p>
               </div>
               <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
@@ -178,7 +178,7 @@
             </v-tabs-content>
             <v-tabs-content key="pendings" id="pendings">
               <div v-if="!pending_products || pending_products.length == 0" class="empty-section">
-                <p class="empty-title">Your have no pending merch collaborations</p>
+                <p class="empty-title">Your have no pending product collaborations</p>
               </div>
               <v-card flat v-else>
                 <v-layout row wrap class="covers-content">

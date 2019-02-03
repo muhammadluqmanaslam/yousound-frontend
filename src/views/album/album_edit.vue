@@ -113,7 +113,7 @@
                 </v-radio-group>
               </v-flex>
               <v-flex xs12 form-group>
-                <label class="control-label">Merch</label>
+                <label class="control-label">Product</label>
                 <v-select
                   :items="products"
                   v-model="selected_product"

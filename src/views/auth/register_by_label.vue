@@ -14,8 +14,8 @@
           <div class="info-title">Labels can</div>
           <div class="info-description pt-3">- Link to Verified Artists & build a roster</div>
           <div class="info-description">- Feature albums catalog</div>
-          <div class="info-description">- Sell merch</div>
-          <div class="info-description">- Promote albums & merch</div>
+          <div class="info-description">- Sell products</div>
+          <div class="info-description">- Promote albums & products</div>
           <div class="info-description">- Share revenue with any Artist, Brand, or Label</div>
           <div class="info-description">- Broadcast live audio & video chat</div>
         </div>

@@ -77,13 +77,13 @@
             </div>
           </div>
           <div class="album-merch-section" v-if="album.products.length">
-            <h3 class="title">Artist Merch</h3>
+            <h3 class="title">Artist Product</h3>
             <div class="merch-detail-section" @click.self="showMerchDialog()">
               <div class="merch-avatar" :style="`background-image: url(${album.products[0].covers[0].cover.thumb.url})`" @click.self="showMerchDialog()"></div>
               <div class="info-section" @click.self="showMerchDialog()">
                 <label class="merch-name" @click.self="showMerchDialog()">{{ album.products[0].name }}</label>
                 <label class="merch-price" @click.self="showMerchDialog()">${{ album.products[0].price | formatNumber }}</label>
-                <label class="link-btn" @click="goToArtistProfile()">View all artists merch</label>
+                <label class="link-btn" @click="goToArtistProfile()">View all artist's products</label>
               </div>
             </div>
           </div> 
