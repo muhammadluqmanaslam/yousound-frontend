@@ -14,7 +14,7 @@
           <v-flex xs3 px-3>Albums</v-flex>
           <v-flex xs3 px-3>Live</v-flex>
           <v-flex xs3 px-3>Products</v-flex>
-          <v-flex xs3 px-3>Paylists</v-flex>
+          <v-flex xs3 px-3>Playlists</v-flex>
         </v-layout>
         <v-layout row wrap class="panel__body">
           <v-flex xs3 px-3>

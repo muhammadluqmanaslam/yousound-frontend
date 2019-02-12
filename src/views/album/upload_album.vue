@@ -465,7 +465,7 @@
           Confirm Collaborators
         </v-card-title>
         <v-card-text>
-          Add all of your collaborators, contributors, and/or credit any samples used in your album. This allows you to avoid having to re-upload your content in case of a depute.<br><br>
+          Add all of your collaborators, contributors, and/or credit any samples used in your album. This allows you to avoid having to re-upload your content in case of a dispute.<br><br>
           If your collaborators don't have an account, have them sign up, then visit their profile and invite them to expedite their verification proccess. If your collaborators are unable to sign up, you must have written permission to upload their content.
         </v-card-text>
         <v-card-actions>
