@@ -2,11 +2,11 @@
   <div class="page main-landing-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <div class="main__header">
-        <img class="logo" src="/static/images/nav_logo_primary.png">
+        <!-- <img class="logo" src="/static/images/nav_logo_primary.png"> -->
         <div class="flip">
-          <div><div>is powered by Verified Artists</div></div>
-          <div><div>is powered by Verified Brands</div></div>
-          <div><div>is powered by Verified Labels</div></div>
+          <div><div><span>YouSound</span> is powered by Verified Artists</div></div>
+          <div><div><span>YouSound</span> is powered by Verified Brands</div></div>
+          <div><div><span>YouSound</span> is powered by Verified Labels</div></div>
         </div>
       </div>
       <div class="main__content">

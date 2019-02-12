@@ -19,7 +19,7 @@
     svg path {
       fill: #D5D5D5;
     }
-    .btn {
+    .btn.btn--icon {
       height: 37.5px;
       width: 37.5px;
       margin: 6px 4px;
@@ -27,7 +27,7 @@
       border-radius: 100%;
       border: none;
     }
-    .btn.active {
+    .btn.btn--icon.active {
       background: #EBF4FF;
       svg g {
         stroke: #3A92FF;

@@ -36,15 +36,19 @@ export default {
   },
 
   created () {
-    if (this.$store) {
-      this.$store.dispatch('navigator/goNextState', { page: 'main_landing', tab: '' })
-      this.no_more_results = false
-      this.seed = Math.random()
-      this.page = 0
-      this.loadMore()
-    }
-
     window.addEventListener('scroll', this.handleScroll)
+
+    if (this.$store) {
+      if (this.$store.state.auth.user) {
+        this.$router.push({ path: '/discover' })
+      } else {
+        this.$store.dispatch('navigator/goNextState', { page: 'main_landing', tab: '' })
+        this.no_more_results = false
+        this.seed = Math.random()
+        this.page = 0
+        this.loadMore()
+      }
+    }
   },
 
   destroyed () {
