@@ -139,7 +139,7 @@
                             >Download</span> -->
                           </v-flex>
                         </div>
-                        <v-menu v-if="order.status == 'order_shipped' && order.enabled_address"
+                        <v-menu v-if="isMenuAvailable(order)"
                           down
                           offset-y
                           :nudge-top="-5"
@@ -148,7 +148,12 @@
                             <v-icon dark right>more_horiz</v-icon>
                           </v-btn>
                           <v-list>
-                            <v-list-tile @click.native="openAddressConfimDialog(order)">
+                            <v-list-tile @click.native="openTicketDialog(order, item)">
+                              <v-list-tile-content>
+                                Open Case / Complaint
+                              </v-list-tile-content>
+                            </v-list-tile>
+                            <v-list-tile v-if="isAddressEnabled(order)" @click.native="openAddressConfimDialog(order)">
                               <v-list-tile-content>
                                 Remove my personal info
                               </v-list-tile-content>
@@ -177,7 +182,17 @@
       </div>
     </v-flex>
 
-    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+    <send-message
+      v-if="showSendMessage"
+      :receiver="user"
+      :dismiss="dismissMessageModal"
+    />
+
+    <ticket-new-dialog
+      v-if="show_ticket_dialog"
+      :item="active_item"
+      :dismiss="closeTicketDialog"
+    />
 
     <v-dialog v-model="show_address_confirm_dialog" content-class="my-dialog-1">
       <v-card>

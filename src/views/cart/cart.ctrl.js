@@ -8,6 +8,7 @@ import OrderService from '@/services/order'
 import activityProductCard from '@/components/activityproductcard'
 import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
+import ticketNewDialog from './components/ticket_new_dialog'
 import trackCard from '@/components/trackcard'
 
 export default {
@@ -15,6 +16,7 @@ export default {
     activityProductCard,
     profileItem,
     sendMessage,
+    ticketNewDialog,
     trackCard
   },
 
@@ -23,7 +25,9 @@ export default {
       current_tab: 'cart',
       showSendMessage: false,
       show_address_confirm_dialog: false,
-      order_detail: null,
+      show_ticket_dialog: false,
+      active_order: null,
+      active_item: null,
       cartItems: [],
       orderHistories: [],
       cartCost: {},
@@ -36,7 +40,7 @@ export default {
 
   computed: {
     user () {
-      return this.order_detail.merchant
+      return _.get(this.active_order, 'merchant', {avatar: {}})
     }
   },
 
@@ -124,6 +128,14 @@ export default {
       return _.get(item, 'product.category.is_digital', false)
     },
 
+    isMenuAvailable (order) {
+      return true
+    },
+
+    isAddressEnabled (order) {
+      return order.status == 'order_shipped' && order.enabled_address
+    },
+
     download (item) {
       // console.log(item.product.digital_content_url, item.product.digital_content_name)
       Utils.downloadFile(item.product.digital_content_url)
@@ -134,7 +146,7 @@ export default {
     },
 
     showMessageDialog (order) {
-      this.order_detail = order
+      this.active_order = order
       this.showSendMessage = true
     },
 
@@ -142,8 +154,18 @@ export default {
       this.showSendMessage = false
     },
 
+    openTicketDialog (order, item) {
+      this.active_order = order
+      this.active_item = item
+      this.show_ticket_dialog = true
+    },
+
+    closeTicketDialog () {
+      this.show_ticket_dialog = false
+    },
+
     openAddressConfimDialog (order) {
-      this.order_detail = order
+      this.active_order = order
       this.show_address_confirm_dialog = true
     },
 
@@ -153,7 +175,7 @@ export default {
 
     removeMyAddress () {
       this.closeAddressConfimDialog()
-      OrderService.hideMyAddress(this.order_detail.id).then(response => {
+      OrderService.hideMyAddress(this.active_order.id).then(response => {
         this.init(this.current_tab)
       })
     },

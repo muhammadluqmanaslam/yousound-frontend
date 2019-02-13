@@ -64,7 +64,7 @@
   }
 }
 
-.twitter-confirm-dialog.dialog {
+.dialog.twitter-confirm-dialog {
   .card {
     padding-top: 200px !important;
     text-align: center;
@@ -79,5 +79,37 @@
         padding: 6px 18px;
       }
     }
+  }
+}
+
+.ys-dialog-container {
+  z-index: 15;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.95);
+
+  .ys-dialog-dismiss {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .ys-dialog {
+    max-width: 900px;
+    margin-top: calc(50vh - 320px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 20;
+    background: #FFFFFF;
+    box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+    border-radius: 7.5px;
+    padding: 37.5px 11.25px 30px;
   }
 }
