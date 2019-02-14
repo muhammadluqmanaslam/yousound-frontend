@@ -25,7 +25,6 @@
       }
       .tabs__items {
         border: solid 1px #b8b8b8;
-        
       }
     }
     .menu {
@@ -89,6 +88,7 @@
       }
     }
   }
+
   .product-table,
   .album-table {
     .album-cover-image {
@@ -175,3 +175,24 @@
   }
 }
 
+.page.admin-page .ys-dialog {
+  width: 1000px;
+  background-color: #FFFFFF;
+
+  .product-cover {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto;
+    background-color: #FAFAFA;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}

@@ -152,6 +152,11 @@
                       <v-icon>settings</v-icon>
                     </v-btn>
                     <v-list>
+                      <v-list-tile key="detail" class="default-menu-item" @click.native="openProductDetailDialog(props.item)">
+                        <v-list-tile-title>
+                          <label>Detail</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
                       <v-list-tile key="delete" class="default-menu-item" @click.native="openProductDeleteConfirmModal(props.item)">
                         <v-list-tile-title>
                           <label>Delete</label>
@@ -179,6 +184,12 @@
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
+
+    <product-detail-dialog
+      v-if="show_product_detail_dialog"
+      :product="product"
+      :dismiss="closeProductDetailDialog"
+    />
 
     <v-dialog v-model="show_album_delete_confirm_modal">
       <v-card>

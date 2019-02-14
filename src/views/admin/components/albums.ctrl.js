@@ -4,8 +4,11 @@ import AdminService from '@/services/admin'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 
+import productDetailDialog from './product_detail_dialog'
+
 export default {
   components: {
+    productDetailDialog
   },
 
   data () {
@@ -37,6 +40,7 @@ export default {
       album: {},
       show_album_delete_confirm_modal: false,
       product: {},
+      show_product_detail_dialog: false,
       show_product_delete_confirm_modal: false,
       published_albums: [],
       privated_albums: [],
@@ -199,6 +203,15 @@ export default {
       })
     },
 
+    openProductDetailDialog (product) {
+      this.product = product
+      this.show_product_detail_dialog = true
+    },
+
+    closeProductDetailDialog () {
+      this.show_product_detail_dialog = false
+    },
+
     openProductDeleteConfirmModal (product) {
       this.product = product
       this.show_product_delete_confirm_modal = true
@@ -237,6 +250,6 @@ export default {
       handler () {
         this.loadProducts()
       }
-    },       
+    },
   }
 }
