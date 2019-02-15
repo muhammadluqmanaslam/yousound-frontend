@@ -46,6 +46,11 @@
                       <v-icon>settings</v-icon>
                     </v-btn>
                     <v-list>
+                      <v-list-tile key="detail" class="default-menu-item" @click.native="openAlbumDetailDialog(props.item)">
+                        <v-list-tile-title>
+                          <label>Detail</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
                       <v-list-tile key="delete" class="default-menu-item" @click.native="openAlbumDeleteConfirmModal(props.item)">
                         <v-list-tile-title>
                           <label>Delete</label>
@@ -99,6 +104,11 @@
                       <v-icon>settings</v-icon>
                     </v-btn>
                     <v-list>
+                      <v-list-tile key="detail" class="default-menu-item" @click.native="openAlbumDetailDialog(props.item)">
+                        <v-list-tile-title>
+                          <label>Detail</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
                       <v-list-tile key="delete" class="default-menu-item" @click.native="openAlbumDeleteConfirmModal(props.item)">
                         <v-list-tile-title>
                           <label>Delete</label>
@@ -184,6 +194,12 @@
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
+
+    <album-detail-dialog
+      v-if="show_album_detail_dialog"
+      :item="album"
+      :dismiss="closeAlbumDetailDialog"
+    />
 
     <product-detail-dialog
       v-if="show_product_detail_dialog"

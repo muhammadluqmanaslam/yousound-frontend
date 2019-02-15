@@ -175,7 +175,7 @@
   }
 }
 
-.page.admin-page .ys-dialog {
+.page.admin-page .ys-dialog.ys-product-dialog {
   width: 1000px;
   background-color: #FFFFFF;
 
@@ -194,5 +194,46 @@
     text-overflow: ellipsis;
     font-size: 20px;
     font-weight: 600;
+  }
+}
+
+.page.admin-page .ys-dialog.ys-album-dialog {
+  width: 1000px;
+  max-height: 600px;
+  background-color: #FFFFFF;
+
+  .album-cover {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #FAFAFA;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .album-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .list {
+    max-height: 240px;
+    overflow-y: auto;
+    .subheader {
+      height: 40px;
+      padding: 0 10px;
+    }
+    .list__tile {
+      height: 55px;
+      padding: 0;
+    }
+  }
+
+  .table__overflow {
+    max-height: 550px;
+    overflow-y: auto;
   }
 }

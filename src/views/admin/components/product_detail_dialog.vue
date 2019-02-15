@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm12 class="ys-dialog-container">
     <v-layout row wrap class="ys-dialog-dismiss" @click="dismiss()"></v-layout>
-    <v-layout row wrap class="ys-dialog">
+    <v-layout row wrap class="ys-dialog ys-product-dialog">
       <v-flex xs3 pr-2>
         <div class="product-cover" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"/></div>
         <v-flex x12 mt-4 mb-3 py-2 border-top border-bottom>

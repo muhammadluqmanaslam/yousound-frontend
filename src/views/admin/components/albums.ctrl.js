@@ -4,10 +4,12 @@ import AdminService from '@/services/admin'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 
+import albumDetailDialog from './album_detail_dialog'
 import productDetailDialog from './product_detail_dialog'
 
 export default {
   components: {
+    albumDetailDialog,
     productDetailDialog
   },
 
@@ -37,11 +39,12 @@ export default {
       ],
       searchValue: '',
       per_page_options: [50, 100, 150],
-      album: {},
-      show_album_delete_confirm_modal: false,
-      product: {},
+      show_album_detail_dialog: false,
       show_product_detail_dialog: false,
+      show_album_delete_confirm_modal: false,
       show_product_delete_confirm_modal: false,
+      album: {},
+      product: {},
       published_albums: [],
       privated_albums: [],
       products: [],
@@ -73,7 +76,7 @@ export default {
   methods: {
     loadPublishedAlbums() {
       const params = {
-        statuses: 'published',
+        statuses: 'published, collaborated',
         page: this.published_pagination.page,
         per_page: this.published_pagination.rowsPerPage
       }
@@ -201,6 +204,15 @@ export default {
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
+    },
+
+    openAlbumDetailDialog (album) {
+      this.album = album
+      this.show_album_detail_dialog = true
+    },
+
+    closeAlbumDetailDialog () {
+      this.show_album_detail_dialog = false
     },
 
     openProductDetailDialog (product) {
