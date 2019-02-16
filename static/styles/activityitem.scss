@@ -36,7 +36,7 @@
             line-height: 13.5px;
             .user-name {
               font-weight: 600;
-              font-size: 18px;
+              font-size: 20px;
               color: #3A92FF;
               letter-spacing: 0;
               text-decoration: none;
@@ -46,7 +46,7 @@
 
             }
             .description-text {
-              font-size: 15px;
+              font-size: 18px;
               color: #959595;
               letter-spacing: 0;
               display: block;
@@ -59,6 +59,7 @@
                 text-decoration: none;
                 cursor: pointer;
                 font-family: 'Work Sans';
+                line-height: 24px;
               }
               .share-icon {
 
@@ -89,7 +90,7 @@
           .details {
             margin-top: 20px;
             .detailed-description {
-              font-size: 15px;
+              font-size: 16px;
               color: #000000;
               letter-spacing: 0;
             }
@@ -116,10 +117,11 @@
       padding-top: 22.5px;
       padding-bottom: 22.5px;
       .recent-posts-section-title {
-        font-size: 15px;
+        font-size: 16px;
         color: #959595;
         letter-spacing: 0;
         margin-bottom: 3.75px;
+        margin-left: 0;
       }
       .recent-post-item {
         width: 100px;
@@ -138,10 +140,10 @@
     }
     .activity-time {
       position: absolute;
-      top: 9.75px;
+      top: 24px;
       right: 0;
-      font-size: 13.5px;
-      color: #BCBCBC;
+      font-size: 14px;
+      color: #AAA;
       letter-spacing: 0;
     }
   }

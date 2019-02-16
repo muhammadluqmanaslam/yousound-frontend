@@ -187,6 +187,7 @@
       margin-bottom: 36px;
       font-family: 'Work Sans';
       letter-spacing: -.4px;
+      font-size: 16px;
     }
 
     .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
@@ -269,7 +270,7 @@
   }
 
   .comment-box {
-    padding: 15px 25px;
+    padding: 20px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #FFFFEE;
@@ -356,6 +357,8 @@
         font-weight: 700;
         line-height: 24px;
         word-break: break-all;
+        font-family: 'Work Sans';
+        letter-spacing: -.5px;
       }
       .video-period {
         font-size: 16px;
@@ -363,6 +366,7 @@
       }
       .video-owner-name {
         font-size: 18px;
+        display: none;
       }
       .video-price {
         label {

@@ -14,8 +14,10 @@
     border-radius: 8px;
     .available-money-amount {
       display: block;
-      font-weight: 500;
-      font-size: 26px;
+      font-weight: 600;
+      font-size: 28px;
+      font-family: 'Work Sans';
+      letter-spacing: -1px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.18);
       margin-bottom: 5px;
       margin-top: -6px;
@@ -43,7 +45,7 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-size: 18px;
+              font-size: 20px;
               color: #8E8E8E;
               letter-spacing: -1px;
               font-weight: 500;
@@ -120,10 +122,12 @@
           .user-name {
             display: block;
             font-weight: 700;
+            font-size: 16px;
           }
           .user-type {
             display: block;
-            color: #8E8E8E;
+            color: #777;
+            font-size: 14px;
           }
         }
       }

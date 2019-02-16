@@ -16,7 +16,7 @@
       height: 55px;
       padding: 0 !important;
       text-transform: none;
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 500;
       color: #8E8E8E;
       letter-spacing: -0.5px;
@@ -45,7 +45,7 @@
       border-radius: 4.125px;
       // transform: rotate(-180deg);
       // border: 2.475px solid #FFFFFF;
-      font-size: 16px;
+      font-size: 18px;
       letter-spacing: -0.2px;
       box-shadow: none;
       text-transform: none;
@@ -54,6 +54,11 @@
       color: #000;
     }
   }
+}
+
+.tooltip__content {
+  font-size: 16px;
+  background: #222;
 }
 
 .application.theme--light.primary {

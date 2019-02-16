@@ -100,7 +100,7 @@
           padding-right: 22.5px;
           .product-content-row {
             .product-name {
-              font-size: 15px;
+              font-size: 16px;
               color: #000000;
               letter-spacing: -0.6px;
             }
@@ -111,10 +111,12 @@
               letter-spacing: 0;
             }
             .product-price {
-              font-weight: 700;
-              font-size: 22.5px;
+              font-weight: 600;
+              font-size: 24px;
               color: #000000;
-              letter-spacing: -1.1.5px;
+              letter-spacing: -1px;
+              font-family: 'Work Sans';
+
             }
           }
         }
@@ -655,8 +657,9 @@
         .product-name {
           margin: 0;
           color: #444;
-          font-size: 15px;
+          font-size: 16px;
           letter-spacing: -0.6px;
+          font-family: 'Work Sans';
         }
         .product-posted-date {
           margin: 0;
@@ -914,7 +917,8 @@
   .product-section {
     background: #f7f7f7;
     padding: 37.5px 30px 20px 30px;
-    min-height: 505px;
+    min-height: 500px;
+    height: 500px;
     margin-bottom: 22.5px;
     display: table;
     width: 100%;

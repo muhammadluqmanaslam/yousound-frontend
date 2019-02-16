@@ -234,7 +234,7 @@ a {
     padding: 0 !important;
     text-transform: none;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: -1px;
     font-family: 'Work Sans'
   }
@@ -294,10 +294,12 @@ a {
 
 .control-label {
   display: block;
-  font-size: 16px;
-  color: #9b9b9b;
-  letter-spacing: 0;
+  font-size: 18px;
+  color: #333;
+  letter-spacing: -1px;
   margin-bottom: 0;
+  font-weight: 600;
+  font-family: 'Work Sans';
 }
 
 .form-control {
@@ -335,11 +337,12 @@ input[type=password] {
   border: 0.75px solid #D2D2D2;
   border-radius: 3.75px;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   color: #000000;
   letter-spacing: 0;
   font-family: 'Work Sans';
   -webkit-appearance: none;
+  height: 42px;
 }
 
 .cursor-pointer {
@@ -405,7 +408,7 @@ input[type=password] {
   }
   label {
     vertical-align: middle;
-    font-size: 13.5px;
+    font-size: 14px;
     color: #000000;
     letter-spacing: 0;
     cursor: pointer;
@@ -460,8 +463,8 @@ input[type=password] {
   .empty-title {
     margin: 0;
     padding-top: 150px;
-    font-weight: 300;
-    font-size: 24px;
+    font-weight: 700;
+    font-size: 36px;
     color: #3C3C3C;
     letter-spacing: 0;
     line-height: 40px;

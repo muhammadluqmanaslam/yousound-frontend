@@ -614,18 +614,23 @@
   margin: 0;
   padding: 0;
   .card {
-    padding: 30px 30px 10px 30px;
+    padding: 10px 30px 10px 30px;
     .card__text {
       text-align: center;
     }
     .card__actions {
       & > label {
-        font-size: 20px;
-        font-weight: 700;
+        font-size: 28px;
+        font-weight: 400;
+        font-family: 'Work Sans';
+        letter-spacing: -1px;
+        display: none;
       }
       & > span {
-        font-size: 20px;
-        font-weight: 900;
+        font-size: 28px;
+        font-weight: 700;
+        font-family: 'Work Sans';
+        letter-spacing: -1px;
       }
     }
   }
@@ -652,20 +657,30 @@
       margin-left: 20px;
       .user-name {
         label {
-          font-size: 18.75px;
+          font-size: 24px;
           color: #000000;
           letter-spacing: 0;
           text-decoration: none;
           margin-right: 5px;
+          font-family: 'Work Sans';
+          font-weight: 600;
         }
       }
       .user-type {
         margin-bottom: 5px;
         text-transform: capitalize;
-        font-weight: 700;
+        font-weight: 400;
         line-height: 1;
-        color: #666666;
+        color: #000;
+        font-size: 16px;
+        font-family: 'Work Sans';
+        letter-spacing: -.5px;
       }
+
+      .grey {
+        background-color: #000 !important;
+      }
+
       .stream-name,
       .stream-time-since,
       .stream-genre {

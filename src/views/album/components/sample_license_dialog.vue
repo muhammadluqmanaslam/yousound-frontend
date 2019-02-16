@@ -6,22 +6,19 @@
     </div>
     <div class="my-dialog__content">
       <div class="my-dialog__content__section border-bottom py-4">
-        <p>YouSound Sample Clearance License allows Verified Artists to give other Verified Artists permission to sample or mix music submitted to YouSound by copyright owners for executive broadcast on YouSound.<br/>
-        Any song that is sampled is credited in Album Credits, which gives listeners one click discovery to profiles to all collaborators & contributors of an album.</p>
+        <p>YouSound Sample Clearance License allows Verified Artists to give other Verified Artists permission to sample or mix music submitted to YouSound by copyright owners for executive broadcast on YouSound.  Any song that is sampled is credited in Album Credits, which gives listeners one click discovery of album collaborator & contributor profiles.
+        <br>
+        <br> Read the license here</p>
       </div>
       <div class="my-dialog__content__section pt-4">
         <h4 class="mb-3">You can:</h4>
-        <h6>- Legally sample / mix cleared songs and upload them to YouSound</h6>
-        <h6>- Promote artists you sample by crediting artists</h6>
+        <h6>Legally sample / mix cleared songs and upload them to YouSound</h6>
+        <h6>Promote artists you sample by crediting artists</h6>
       </div>
       <div class="my-dialog__content__section border-bottom py-4">
         <h4 class="mb-3">You cannot:</h4>
-        <h6>- Sample content from YouSound and distribute sampled content outside of YouSound</h6>
-        <h6>- Sample content from YouSound and sell physical copies of sampled content</h6>
-      </div>
-      <div class="my-dialog__content__section pt-4">
-        <h5 class="mb-3">YouSound Sample Clearance License</h5>
-        <p>YouSound Inc.</p>
+        <h6>Sample content from YouSound and distribute sampled content outside of YouSound</h6>
+        <h6>Sample content from YouSound and sell physical copies of sampled content</h6>
       </div>
     </div>
     <div class="my-dialog__footer">

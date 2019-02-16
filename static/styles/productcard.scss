@@ -70,7 +70,7 @@
         margin: 0;
         top: 15px;
         left: 15px;
-        font-size: 13.5px;
+        font-size: 14px;
         color: #FFFFFF;
         letter-spacing: 0;
       }
@@ -96,8 +96,8 @@
         .product-label {
           height: 30px;
           margin-left: 10%;
-          margin-top: calc(50% - 25px);
-          font-size: 28px;
+          margin-top: calc(50% - 35px);
+          font-size: 32px;
           font-weight: 700;
           color: #FFFFFF;
           font-family: 'Work Sans';
@@ -106,10 +106,10 @@
         .view-details-btn {
           position: absolute;
           bottom: 10px;
-          left: 50px;
+          left: 70px;
           text-transform: initial;
           box-shadow: none;
-          background-color: #54595f!important;
+          background-color: #000!important;
           border-color: #000!important;
         }
         .product-menu.menu {
@@ -146,7 +146,7 @@
       text-align: center;
       .product-name {
         margin: 0;
-        font-size: 15px;
+        font-size: 18px;
         color: #000000;
         letter-spacing: -0.6px;
         text-overflow: ellipsis;
@@ -158,8 +158,8 @@
         width: 100%;
         margin: 0;
         opacity: 0.5;
-        font-size: 16px;
-        color: #8E8E8E;
+        font-size: 18px;
+        color: #000;
         letter-spacing: -0.6px;
         white-space: nowrap;
         overflow: hidden;
@@ -170,6 +170,18 @@
       }
     }
   }
+}
+
+headline {
+    font-size: 25px !important;
+    font-weight: 600;
+    line-height: 42px !important;
+    letter-spacing: -1px !important;
+    font-family: 'Work Sans';
+    }
+
+.card__text {
+  font-size: 16px;
 }
 
 .product-menu-item {
