@@ -197,14 +197,17 @@
             </div>
             <div class="user-action-section">
               <template v-if="user.user_type === 'listener'">
-                <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
+                <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn>
+              </template>
               <v-btn v-else class="play-btn" @click.native="playSong()">
-                <v-icon>play_arrow</v-icon>Play</v-btn>
+                <v-icon>play_arrow</v-icon>Play
+              </v-btn>
               <v-btn v-if="currentUser && user.id!=currentUser.id"
                 :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                 @mouseenter="buttonHover = true"
                 @mouseleave="buttonHover = false"
-                @click.native="followUser()">{{ followButtonText }}</v-btn>
+                @click.native="followUser()"
+              >{{ followButtonText }}</v-btn>
               <v-menu offset-y class="more-menu" v-if="currentUser && user.id!=currentUser.id">
                 <v-btn dark class="more-btn" slot="activator">
                   <v-icon right>more_horiz</v-icon>
@@ -263,34 +266,10 @@
                 :key="tab.id"
                 :href="'#' + tab.id"
                 @click.native="onTab(tab.id)"
-                ripple>{{ tab.title }}</v-tabs-item>
+                ripple
+              >{{ tab.title }}</v-tabs-item>
               <v-tabs-slider color="black"></v-tabs-slider>
               <v-spacer></v-spacer>
-              <v-btn dark class="more-btn" @click.native="setGridView(false)" v-if="currentTab!='followings'">
-                <!-- <v-icon>slideshow</v-icon> -->
-                <svg width="40px" height="30px" viewBox="0 0 40 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
-                  <title>ic-carousel1</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Icons" transform="translate(-425.000000, -49.000000)" fill-rule="nonzero" fill="#000000">
-                      <path d="M426.42968,73.858 C425.63904,73.858 425,73.21892 425,72.42832 L425,55.28472 C425,54.4972 425.63908,53.85816 426.42968,53.85816 L426.42968,73.858 Z M463.5704,73.858 L463.5704,53.85816 C464.361,53.85816 465.00008,54.4972 465.00008,55.28472 L465.00008,72.42832 C465.00008,73.21892 464.3626,73.858 463.5704,73.858 Z M430.71256,52.4284 L430.714122,75.2848 L429.287562,75.2848 C428.498482,75.2848 427.857882,74.64572 427.857882,73.85824 L427.857882,53.85824 C427.857882,53.0676 428.496962,52.42856 429.286002,52.42856 L430.71256,52.4284 Z M459.28744,52.4284 L460.713998,52.42856 C461.503038,52.42856 462.142118,53.0676 462.142118,53.85824 L462.142118,73.85824 C462.142118,74.64572 461.501518,75.2848 460.712438,75.2848 L459.285878,75.2848 L459.28744,52.4284 Z M433.5704,51 L456.429602,51.00004 C457.213962,51.00004 457.857722,51.6438 457.857722,52.42816 L457.85616,75.28456 C457.85616,76.07204 457.21396,76.71424 456.4296,76.71424 L433.5704,76.71424 C432.78448,76.71424 432.14384,76.07048 432.14384,75.28456 L432.14384,52.42656 C432.14384,51.6422 432.78448,51 433.5704,51 Z M448.45928,70.89516 C448.86864,70.89516 451.8452,70.54048 451.843793,68.3762872 L451.843793,55.4154872 C451.843793,55.1107832 451.782857,54.8826596 451.52192,54.8498472 L451.462544,54.8357844 C451.489107,54.8357844 451.500045,54.846722 451.52192,54.8498472 L440.49832,57.5795272 C440.176448,57.6685672 440.0702,57.9982712 440.0702,58.3576472 L440.0702,68.0796472 C440.0702,68.0702712 438.89676,67.9421472 437.94676,68.2733952 C436.23428,68.8671552 435.188964,70.2421552 435.58584,71.4718352 C435.86396,72.3265152 436.78272,72.8765152 437.98116,72.8765152 C438.4484,72.8765152 442.36716,72.3468352 442.36716,69.6796352 L442.36716,61.2732352 L449.66396,59.6435552 L449.66396,66.1295552 C449.66396,66.1154924 449.19832,65.777992 448.24364,66.13268 C446.55928,66.75296 445.46868,68.14048 445.88116,69.3936 C446.17492,70.3108 447.21084,70.89516 448.45928,70.89516 Z" id="Combined-Shape"></path>
-                    </g>
-                  </g>
-                </svg>
-              </v-btn>
-              <v-menu offset-y id="followings_selector" class="filter_menu" v-if="currentTab=='followings'">
-                <v-btn dark slot="activator">Following<v-icon dark right>keyboard_arrow_down</v-icon></v-btn>
-                <v-list>
-                  <v-list-tile @click.native="setFollowingsSelector('followings', 'Following')">
-                    <v-list-tile-title>Following</v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile @click.native="setFollowingsSelector('followers', 'Follower')">
-                    <v-list-tile-title>Followers</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
             </v-tabs-bar>
             <v-tabs-items>
               <v-tabs-content v-for="tab in tabs" :key="tab.id" :id="tab.id">

@@ -49,7 +49,8 @@ export default {
         { id: 'playlists', title: 'Playlists' },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
-        { id: 'followings', title: 'Following' }
+        { id: 'followings', title: 'Following' },
+        { id: 'followers', title: 'Followers' }
       ],
       slug: null,
       user: {
@@ -294,9 +295,6 @@ export default {
         this.page_index += 1
       }
 
-      if (tab == 'followings') {
-        tab = this.followings_selector
-      }
       var params = {
         page: this.page_index
       }
@@ -379,14 +377,15 @@ export default {
     },
 
     followersClickHandler () {
-      this.grid_show = true
-      this.currentTab = 'followings'
-      const value = 'followers', name = 'Follower'
-      this.followings_selector = value
-      this.getItems('followings', false)
-      this.$nextTick(() => {
-        $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-      })
+      // this.grid_show = true
+      // this.currentTab = 'followings'
+      // const value = 'followers', name = 'Follower'
+      // this.followings_selector = value
+      // this.getItems('followings', false)
+      // this.$nextTick(() => {
+      //   $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+      // })
+      this.getItems('followers', false)
     },
 
     onAfterAlbumSlideChange (index) {
