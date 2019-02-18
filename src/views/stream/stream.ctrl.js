@@ -17,11 +17,11 @@ export default {
       tabs: [
         { id: 'any', title: 'Everything' },
         { id: 'uploaded', title: 'Albums' },
-        { id: 'reposted', title: 'Reposts' },
-        { id: 'downloaded', title: 'Downloaded' },
-        { id: 'playlist', title: 'Playlists' },
         { id: 'merch', title: 'Products' },
         { id: 'video', title: 'Live Video' },
+        { id: 'reposted', title: 'Reposts' },
+        { id: 'playlist', title: 'Playlists' },
+
       ],
       page_index: 1,
       total_pages: 1,

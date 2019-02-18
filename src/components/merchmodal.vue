@@ -205,7 +205,7 @@
 
     computed: {
       policyButtonText () {
-        return this.showPolicySection ? 'Close Policy' : 'Return Policy'
+        return this.showPolicySection ? 'Close' : 'Seller Policies'
       },
 
       isDigitalProduct () {

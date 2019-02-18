@@ -236,7 +236,7 @@
   }
   .profile-grid-tab {
     position: relative;
-    margin-top: 0;
+    margin-top: 20px;
     .tabs {
       .tabs__bar {
         .tabs__wrapper.tabs__wrapper--scrollable {
@@ -246,9 +246,11 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-size: 20px;
+              font-size: 18px;
               font-weight: 500;
-              color: #8E8E8E;
+              color: #777 !important;
+              font-family: 'Lato', Sans-serif;
+              text-transform: uppercase;
               letter-spacing: -0.5px;
               &.tabs__item--active {
                 color: #000000;
@@ -259,7 +261,7 @@
       }
       .tabs__items {
         border: none;
-        margin-top: 12px;
+        margin-top: 16px;
       }
     }
     .card.card--flat {

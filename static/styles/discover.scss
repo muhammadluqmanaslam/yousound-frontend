@@ -16,10 +16,11 @@
       height: 55px;
       padding: 0 !important;
       text-transform: none;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 500;
       color: #8E8E8E;
-      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      font-family: 'Lato', sans-serif;
       margin-left: 1px;
       &.tabs__item--active {
         color: #000000;

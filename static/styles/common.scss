@@ -234,9 +234,10 @@ a {
     padding: 0 !important;
     text-transform: none;
     font-weight: 500;
-    font-size: 20px;
-    letter-spacing: -1px;
-    font-family: 'Work Sans'
+    font-size: 18px;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    color: #777 !important;
   }
 }
 
@@ -248,7 +249,7 @@ a {
   color: #fff;
 }
 .application .normal-tab .tabs .tabs__item.tabs__item--active {
-  color: #000;
+  color: #000 !important;
 }
 
 .relative {
