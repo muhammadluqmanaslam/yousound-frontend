@@ -176,10 +176,10 @@
     }
 
     .my-card__subtitle {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: 600;
       font-family: 'Work Sans';
-      letter-spacing: -.5px;
+      letter-spacing: 0;
     }
 
     .my-card__text {
@@ -252,7 +252,7 @@
   }
 
   h3 {
-    font-size: 24px;
+    font-size: 28px;
     font-family: 'Work Sans';
     letter-spacing: -.5px;
   }
@@ -274,6 +274,7 @@
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #FFFFEE;
+    font-size: 17px;
   }
 
   .cover-wrapper {
@@ -287,8 +288,7 @@
         border-radius: 5px;
         line-height: 24px;
         font-size: 14px;
-        color: #9B9B9B;
-        background-color: #e0e0e0;
+        color: #000;
       }
     }
     .cover-actions {
@@ -306,6 +306,7 @@
         font-weight: 700;
         text-transform: uppercase;
         cursor: pointer;
+        background: #000 !important;
       }
     }
   }
@@ -377,11 +378,12 @@
   }
 
   .button-wrapper {
-    padding: 9px 25px;
+    padding: 16px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #F9F9F9;
     text-align: center;
+    margin-left: -8px;
   }
 }
 

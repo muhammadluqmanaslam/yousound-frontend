@@ -10,15 +10,15 @@
           <v-flex sm4>
             <div class="my-card">
               <div class="o-out blue0"><div class="o-in"></div></div>
-              <div class="my-card__title">Step 1:</div>
-              <div class="my-card__subtitle">Download Video Broadcast Software</div>
+              <div class="my-card__title"></div>
+              <div class="my-card__subtitle">Download Software</div>
               <div class="my-card__text">Download video streaming software like a free version of <a href="https://obsproject.com/" target="_blank">OBS</a>. Here are <a href="https://support.yousound.com/article/271-how-do-i-setup-a-live-video-broadcast" target="_blank">links to more</a></div>
             </div>
           </v-flex>
           <v-flex sm4>
             <div class="my-card">
               <div class="o-out red0"><div class="o-in"></div></div>
-              <div class="my-card__title">Step 2:</div>
+              <div class="my-card__title"></div>
               <div class="my-card__subtitle">Prepare your live stream</div>
               <div class="my-card__text">Make sure your live video stream looks good on your computer before proceeding to Step 3.</div>
             </div>
@@ -26,7 +26,7 @@
           <v-flex sm4>
             <div class="my-card">
               <div class="o-out green0"><div class="o-in"></div></div>
-              <div class="my-card__title">Step 3:</div>
+              <div class="my-card__title"></div>
               <div class="my-card__subtitle">Pay for what you use</div>
               <div class="my-card__text">Pay per hour.  After payment, you will receive your stream key.</div>
             </div>
@@ -84,11 +84,9 @@
             </v-layout>
             <v-layout row wrap cover-wrapper>
               <v-flex xs12 my-3 cover-title>
-                <label>Upload Cover</label>
-                <span class="ml-2 px-1">*600x600px</span>
               </v-flex>
               <v-flex xs12 cover-actions>
-                <!-- <v-btn dark round color="red lighten-1" class="px-2">Upload</v-btn> -->
+                <!-- <v-btn dark round color="red lighten-1" class="px-2">Upload Thumbnail</v-btn> -->
                 <input
                   type="file"
                   name="stream_cover_file"
@@ -98,6 +96,7 @@
                   @change="imageChanged($event)"
                 >
                 <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload</label>
+               <span class="ml-2 px-1">*1280x720px or 640x360px | PNG, JPG, GIF</span>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -147,7 +146,7 @@
             <div class="comment-box">
               After clicking <b>“Create Channel”</b>, it can take up to <b>5 minutes</b> to generate your Stream Key.<br/>
               It costs $10 per hour to live video broadcast & you can purchase up to 24 hours.<br/>
-              Any unused time is rolled over to your next broadcast.
+              Unused time is rolled over to your next broadcast.
             </div>
           </v-flex>
           <v-flex sm4>
