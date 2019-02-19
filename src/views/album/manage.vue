@@ -49,7 +49,7 @@
               href="#video_only"
               @click.native="onTab('video_only')"
               ripple
-            >Live Video Only</v-tabs-item>
+            >Video Attachments</v-tabs-item>
             <v-tabs-item
               key="collaborated"
               href="#collaborated"

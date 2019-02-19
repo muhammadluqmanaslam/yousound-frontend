@@ -52,7 +52,6 @@
     margin-bottom: 10px!important;
   }
 
-
   .time-info {
     padding: 16px 25px 6px 25px;
     border: 1px solid #DBDBDB;
@@ -164,7 +163,7 @@
 .page.video-page.create-page {
   .my-card {
     position: relative;
-    margin: 40px 0px 20px 40px;
+    margin: 50px 0px 20px 40px;
     background: none;
     box-shadow: none;
 
@@ -178,8 +177,7 @@
     .my-card__subtitle {
       font-size: 24px;
       font-weight: 600;
-      font-family: 'Work Sans';
-      letter-spacing: 0;
+      letter-spacing: -.5px;
     }
 
     .my-card__text {
@@ -187,7 +185,7 @@
       margin-bottom: 36px;
       font-family: 'Work Sans';
       letter-spacing: -.4px;
-      font-size: 16px;
+      font-size: 17px;
     }
 
     .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
@@ -252,7 +250,7 @@
   }
 
   h3 {
-    font-size: 28px;
+    font-size: 32px;
     font-family: 'Work Sans';
     letter-spacing: -.5px;
   }

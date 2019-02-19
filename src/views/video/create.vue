@@ -95,7 +95,7 @@
                   v-validate="'required'"
                   @change="imageChanged($event)"
                 >
-                <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload</label>
+                <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload Thumbnail</label>
                <span class="ml-2 px-1">*1280x720px or 640x360px | PNG, JPG, GIF</span>
               </v-flex>
             </v-layout>

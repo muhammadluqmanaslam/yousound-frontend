@@ -13,13 +13,13 @@
             .tabs__item {
               padding: 0;
               text-transform: none;
-              font-size: 20px;
-              color: #8E8E8E;
-              letter-spacing: -1px;
+              font-size: 18px;
+              color: #777 !important;
               font-weight: 500;
-              font-family: 'Work Sans'!important;
+              font-family: 'Lato', sans-serif !important;
+              text-transform: uppercase;
               &.tabs__item--active {
-                color: #000000;
+                color: #000000 !important;
               }
             }
           }
@@ -62,7 +62,6 @@
     font-weight: 700;
     font-size: 15px;
     // color: #000000 !important;
-    letter-spacing: -0.6px;
   }
 }
 
