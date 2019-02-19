@@ -1,9 +1,11 @@
 <template>
-  <div class="album-track-item relative"
-    @click.self="selectTrack()"
+  <div
+    class="album-track-item relative"
     :class="{'selected': buttonHover || (isPlaying && trackIndex==$store.state.player.trackIndex) || (!isPlaying && trackIndex==0)}"
+    @click.self="selectTrack()"
     @mouseenter="buttonHover=true"
-    @mouseleave="buttonHover=false">
+    @mouseleave="buttonHover=false"
+  >
     <v-btn class="action-btn" v-if="false && (!$store.state.auth.user || ($store.state.auth.user && album.user.id!=$store.state.auth.user.id))">
       <!-- <v-icon v-if="(trackIndex==$store.state.player.trackIndex && !isPlaying) || (buttonHover && trackIndex!=$store.state.player.trackIndex)">play_arrow</v-icon> -->
       <v-icon v-if="trackIndex==$store.state.player.trackIndex && isPlaying">pause</v-icon>
@@ -15,12 +17,17 @@
       <v-menu v-model="menu"
         offset-y
         class="track-more-action"
-        :close-on-content-click="false">
+        :close-on-content-click="false"
+      >
         <v-btn dark class="more-btn" slot="activator">
           <v-icon right>more_horiz</v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile key="remove_track" @click.native="removeItem()" v-if="album.album_type == 'playlist'">
+          <v-list-tile
+            v-if="album.album_type == 'playlist' && $store.state.auth.user && album.user.id == $store.state.auth.user.id"
+            key="remove_track"
+            @click.native="removeItem()"
+          >
             <v-list-tile-title class="default-menu-item">
               <img class="track-status-icon" src="/static/images/ic_comment_delete.png" />
               <label>Remove Track</label>
@@ -100,10 +107,12 @@
                     </v-card>
                   </v-dialog>
                 </v-list-tile>
-                <v-list-tile v-for="(list, list_index) in playlists"
+                <v-list-tile
+                  v-for="(list, list_index) in playlists"
                   :key="`playlist_1_${list_index}`"
                   class="default-menu-item track-menu-item"
-                  @click.native="addToPlaylist(list)">
+                  @click.native="addToPlaylist(list)"
+                >
                   <v-list-tile-title>
                     <img class="track-status-icon" src="/static/images/ic_download.png"/>
                     <label>{{ list.name }}</label>
@@ -129,13 +138,15 @@
       </v-btn> -->
     </div>
 
-    <download-modal v-if="download_dialog"
+    <download-modal
+      v-if="download_dialog"
       :item="album"
       :track="track"
       :dismiss="dismissDownloadDialog"
     />
 
-    <share-modal v-if="share_dialog"
+    <share-modal
+      v-if="share_dialog"
       :item="album"
       :dismiss="dismissShareDialog"
     />

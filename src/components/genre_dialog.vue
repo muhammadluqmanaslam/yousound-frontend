@@ -31,6 +31,12 @@
       </div>
     </v-layout>
 
+    <v-btn
+      v-if="!show_selector_view"
+      dark color="blue"
+      class="update-btn"
+      @click.native="show_selector_view = true"
+    >OK</v-btn>
     <div class="genre-container" v-if="!show_selector_view">
       <div class="pgs-wrapper">
         <div class="pgs" :key="parent.id">
@@ -60,9 +66,6 @@
               <label :for="child.id">{{ child.name }}</label>
               <span>({{ child.users_size }})</span>
             </p>
-          </v-flex>
-          <v-flex xs12 class="text-xs-center">
-            <v-btn dark color="blue" class="update-btn" @click.native="show_selector_view = true">OK</v-btn>
           </v-flex>
         </v-layout>
       </div>
