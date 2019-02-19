@@ -13,6 +13,7 @@
   background-color: #FFFFFF;
 
   .genre {
+    position: relative;
     & > h3 {
       font-size: 32px;
       letter-spacing: -1px;
@@ -20,6 +21,11 @@
     }
     & > p {
       // margin: 10px 0 10px 10px;
+    }
+    & > .update-btn {
+      position: absolute;
+      top: 30px;
+      right: 0px;
     }
     & > .pgs_area {
       height: 500px;
