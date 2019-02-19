@@ -67,6 +67,7 @@ export default {
       showSendLoveModal: false,
       show_stream_live_button: false,
       grid_show: true,
+      auto_play: false,
       startIndex: 0,
       page_index: 1,
       total_pages: 1,
@@ -77,7 +78,6 @@ export default {
       products:[],
       albums: [],
       users: [],
-      isShowModal: [],
       buttonHover: false
     }
   },
@@ -134,7 +134,8 @@ export default {
       this.slug = paths[1]
       const tab = toPath.hash.substr(1)
       const grid_view = toPath.query.grid_view === undefined ? true : (toPath.query.grid_view === 'true' || toPath.query.grid_view === true)
-      this.init(tab, grid_view, false)
+      const auto_play = toPath.query.auto_play === undefined ? false : (toPath.query.auto_play === 'true' || toPath.query.auto_play === true)
+      this.init(tab, grid_view, auto_play, false)
     }
   },
 
@@ -142,7 +143,8 @@ export default {
     this.slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
     const grid_view = this.$route.query.grid_view === undefined ? true : (this.$route.query.grid_view === 'true' || this.$route.query.grid_view === true)
-    this.init(tab, grid_view, true)
+    const auto_play = this.$route.query.auto_play === undefined ? false : (this.$route.query.auto_play === 'true' || this.$route.query.auto_play === true)
+    this.init(tab, grid_view, auto_play, true)
 
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
   },
@@ -197,7 +199,7 @@ export default {
       })
     },
 
-    init (tab, grid_view, first_visit) {
+    init (tab, grid_view, auto_play, first_visit) {
       this.show_stream_live_button = false
       this.showSendMessage = false
       this.startIndex = 0
@@ -266,6 +268,7 @@ export default {
         }
 
         this.grid_show = grid_view
+        this.auto_play = auto_play
         this.$store.dispatch('player/setGridShow', grid_view)
         if (grid_view) {
           this.currentTab = this.slide_tab
@@ -286,7 +289,6 @@ export default {
       if (!loadMore) {
         this.albums = []
         this.products = []
-        this.isShowModal = []
         this.users = []
         this.startIndex = 0
         this.page_index = 1
@@ -304,12 +306,6 @@ export default {
         switch (tab) {
           case 'merch':
             this.products = this.products.concat(response.body.products)
-            for (let index in response.body.products) {
-              this.isShowModal.push(false)
-            }
-            ProfileService.getItems(this.user.id, 'songs', params).then(res => {
-              this.fillAlbums(res.body.albums)
-            })
             break
           case 'followers':
           case 'followings':
@@ -329,7 +325,12 @@ export default {
             }
             this.fillAlbums(albums)
 
-            if(!this.grid_show) {
+            if (tab === 'songs' && this.auto_play ) {
+              this.auto_play = false
+              this.playSong()
+            }
+
+            if (!this.grid_show) {
               this.changeBackground()
             }
             break
@@ -366,6 +367,8 @@ export default {
         }
       }
       this.genres = _.uniqBy(genres, 'id')
+      // console.log(this.currentTab, albums)
+      // console.log(this.albums)
     },
 
     setFollowingsSelector (value, name) {
@@ -456,14 +459,6 @@ export default {
       this.showPageShareModal = true
     },
 
-    dimissMerchModal (index) {
-      this.isShowModal[index] = false
-    },
-
-    showMerchModal (index) {
-      this.isShowModal[index] = true
-    },
-
     showMessageDialog () {
       this.showSendMessage = true
     },
@@ -550,11 +545,20 @@ export default {
     },
 
     playSong () {
-      if (this.albums.length) {
+      if (this.currentTab === 'songs' || this.albums.length) {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
         this.setPlaying(true)
         this.$root.$emit('play')        
+      } else {
+        this.$router.push({
+          path: this.$route.path,
+          hash: 'songs',
+          query: {
+            grid_view: this.grid_show,
+            auto_play: true
+          }
+        })
       }
     },
 
