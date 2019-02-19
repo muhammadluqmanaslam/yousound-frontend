@@ -1,10 +1,5 @@
 <template>
   <v-flex class="album-card">
-    <promote-modal v-if="isShowPromoteModal"
-      :item="album"
-      :dismiss="dismissPromoteDialog"
-      :success="saveAndFinish"/>
-
     <v-flex xs12 class="album-info" pa-0>
       <v-flex xs12 class="album-cover">
         <div class="album-image" :style="{'background-image': 'url(' + album.cover.url + ')'}"></div>
@@ -90,9 +85,16 @@
       </v-flex>
       <v-flex xs12 class="album-detail" pa-0>
         <router-link :to="`/${album.album_type}/${album.slug}`"><p class="album-name">{{ album.name }}</p></router-link>
-        <p class="album-posted-date">2 months</p>
+        <p class="album-posted-date">{{ album.created_at | formatDateFromNow }}</p>
       </v-flex>
     </v-flex>
+
+    <promote-modal
+      v-if="isShowPromoteModal"
+      :item="album"
+      :dismiss="dismissPromoteDialog"
+      :success="saveAndFinish"
+    />
   </v-flex>  
 </template>
 
