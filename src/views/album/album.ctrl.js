@@ -387,7 +387,8 @@ export default {
     },
 
     openSampleClearanceLicenseModal () {
-      this.show_sample_clearance_license_modal = true
+      this.$router.push({ path: '/terms' })
+      // this.show_sample_clearance_license_modal = true
     },
 
     closeSampleClearanceLicenseModal () {
