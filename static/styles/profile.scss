@@ -249,11 +249,10 @@
               font-size: 18px;
               font-weight: 500;
               color: #777 !important;
-              font-family: 'Lato', Sans-serif;
               text-transform: uppercase;
               letter-spacing: -0.5px;
               &.tabs__item--active {
-                color: #000000;
+                color: #000000 !important;
               }
             }
           }

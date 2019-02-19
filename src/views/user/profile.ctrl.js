@@ -45,7 +45,7 @@ export default {
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
         { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'songs', title: 'Albums', roles: ['artist'] },
-        { id: 'merch', title: 'Products', roles: ['artist', 'brand', 'label'] },
+        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
         { id: 'playlists', title: 'Playlists' },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
