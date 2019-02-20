@@ -16,7 +16,7 @@ export default {
     termsOfUseTab,
     gdprTab,
     trademarkPolicyTab,
-    SampleClearance
+    SampleClearanceTab
   },
 
   data () {

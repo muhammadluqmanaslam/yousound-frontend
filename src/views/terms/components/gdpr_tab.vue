@@ -12,10 +12,9 @@
 
       <p>(a) “Data Processor”, “Data Subject”, “Processor”, “Processing”, “Subprocessor”, and “Supervisory Authority” shall be interpreted in accordance with applicable Data Protection Legislation;</p>
 
-      <p>(a)  “Personal Data” means information relating to an identifiable or identified Data Subject who visits or engages in transactions through your store (a “Customer”), which YouSound Processes as a Data Processor in the course of providing you with the Services. Notwithstanding the foregoing sentence, Personal Data does not include information that YouSound processes in the context of services that it provides directly to a consumery; and</p>
+      <p>(a) “Personal Data” means information relating to an identifiable or identified Data Subject who visits or engages in transactions through your store (a “Customer”), which YouSound Processes as a Data Processor in the course of providing you with the Services. Notwithstanding the foregoing sentence, Personal Data does not include information that YouSound processes in the context of services that it provides directly to a consumery; and</p>
 
       <p>(a) All other capitalized terms shall have the same definition as in the Agreement.</p>
-
 
       <h3>2. Data Protection</h3>
 
@@ -48,9 +47,6 @@
       <li>3.2 Save as specifically modified and amended in this Addendum, all of the terms, provisions and requirements contained in the Agreement shall remain in full force and effect and govern this Addendum. If any provision of the Addendum is held illegal or unenforceable in a judicial proceeding, such provision shall be severed and shall be inoperative, and the remainder of this Addendum shall remain operative and binding on the parties.</li>
 
       <li>3.3 The terms of this Addendum shall be governed by and interpreted in accordance with the laws of the Province of Ontario and the laws of Canada applicable therein, without regard to principles of conflicts of laws. The parties irrevocably and unconditionally submit to the exclusive jurisdiction of the courts of the Province of Ontario with respect to any dispute or claim arising out of or in connection with this Addendum.</li>
-
-
-
-          </div>
+    </div>
   </div>
 </template>

@@ -20,6 +20,7 @@
       <privacy-choice-tab v-else-if="currentTab == 'privacy_choice'"></privacy-choice-tab>
       <copyright-policy-tab v-else-if="currentTab == 'copyright_policy'"></copyright-policy-tab>
       <trademark-policy-tab v-else-if="currentTab == 'trademark_policy'"></trademark-policy-tab>
+      <gdpr-tab v-else-if="currentTab == 'gdpr'"></gdpr-tab>
       <trademark-guideline-tab v-else-if="currentTab == 'trademark_guideline'"></trademark-guideline-tab>
       <cookie-policy-tab v-else-if="currentTab == 'cookie_policy'"></cookie-policy-tab>
     </div>
