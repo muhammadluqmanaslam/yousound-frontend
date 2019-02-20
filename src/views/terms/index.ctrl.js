@@ -26,7 +26,8 @@ export default {
         { id: 'copyright_policy', title: 'Copyright Policy (DMCA)' },
         { id: 'trademark_policy', title: 'Trademark Policy' },
         { id: 'trademark_guideline', title: 'Trademark Guidelines' },
-        { id: 'cookie_policy', title: 'Cookie Policy' }
+        { id: 'cookie_policy', title: 'Cookie Policy' },
+        { id: 'sample_clearance', title: 'Sample Clearance License' }
       ],
       currentTab: 'terms_of_use',
       isPageReady: false

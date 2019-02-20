@@ -1,21 +1,12 @@
 <template>
   <div class="main-section">
-    <h2>YouSound.com Terms of Service</h2>
+    <h2>YouSound Terms of Service</h2>
 
     <div class="article-body content-body wikistyle markdown-format">
       <div class="intro">
       </div>
 
-      <p>YouSound, Inc. (YouSound.com), is a platform created for independent creatives to sustain their careers.  YouSound is a permissive based platform where all business dealings, ownership, and anything related to the success of our creatives, is in favor of our verified creators.  We believe respect and logic can balance the relationship between creatives, content owners, and listeners, so that all users can maximize their experience and profit.
-      <br>  
-<br>
-Terms of Use are important, we also believe in building features that mandate each user to act with consideration of others, and rewarding users for doing so.  YouSound was designed to maximize respect, and in return, monetize your individuality.  We've allowed creatives to reach Listeners, and for Listeners to consume content (stream, download, and purchase products) legally and easily. We've created a feedback loop that rewards creatives when people enjoy their content.  We've eliminated platform fragmentation and have allowed for a seamless experience that lets every user recognize that they're a valuable part of the music communities they choose to partake in on YouSound.   
-<br>
-<br>
-Our Terms of Use address the legal specifics of how everything works, but it's our features that encourage 99.9% of our users to find it pointless to act against our Terms of Use.  Most Terms of Use violations don't happen because people are inherently disruptive, they happen because the system usually hasn't been built in respect of how culture functions.
-<br>
-<br>
-It's important as a user, wether a Listener or a Verified Artist, Brand, or Label, to realize that there's nothing to scam.  We've opened leveled the playing field for you to maximize your traction and your sales conversations, and have allowed every user to generate revenue.  There's nothing to take, everything is free, simply support the creatives you love.
+      <p>We believe respect and logic can balance the relationship between creatives, content owners, and listeners, so that all users can maximize their experience. We believe in building features that mandate each user to act with consideration of others, and rewards users for doing so. We've allowed for a seamless experience that lets every user recognize that they're a valuable part of the music communities they choose to become apart of on YouSound.  It's important that all users realize that we've leveled the playing field for you to maximize your traction and sales conversations, and have allowed every user to generate revenue by doing what they've always done for free.  There's nothing to take, all music is free to stream and download, simply support the creatives you love and everything works.
 <br>
 <br>
       <p>Effective date: July 4, 2018</p>
@@ -38,152 +29,132 @@ It's important as a user, wether a Listener or a Verified Artist, Brand, or Labe
         </thead>
         <tbody>
           <tr>
-            <td><a href="#1-introduction">Introduction</a></td>
-            <td>This is an introduction to our Terms of Services, and outlines how we operate our Service.</td>
-          </tr>
-          <tr>
-            <td><a href="#2-account-terms">Acceptance of Terms.</a></td>
-            <td>These section covers the requirements of having an account on YouSound.com.</td>
+            <td><a href="#1-introduction">Acceptance of Terms.</a></td>
+            <td>Your acceptance of all the YouSound.com Terms of Service.</td>
           </tr>
           <tr>
             <td><a href="#3-modification">Modification of Terms of Use.</a></td>
-            <td>These are the basic rules you must follow when using your YouSound.com account.</td>
+            <td>YouSound's right to modidy it's Terms of Use at any time.</td>
           </tr>
           <tr>
             <td><a href="#4-rules-and-conduct">Rules and Conduct</a></td>
-            <td>You own the content you post on YouSound.com. However, you have some responsibilities regarding it, and we ask you to grant us some rights so we can provide services to you.</td>
+            <td>All of the rules and coduct every user must abide by when using YouSound.com</td>
           </tr>
           <tr>
             <td><a href="#5-personal-information">Personal Information</a></td>
-            <td>This section talks about how YouSound.com will treat content you post in private repositories.</td>
+            <td>How the personal information you submit to YouSound.com is handled.</td>
           </tr>
           <tr>
             <td><a href="#6-verified-users-usages-of-personal-user-information">Verified Users Usages of Personal User Information</a></td>
-            <td>This section talks about how YouSound.com will respond if you believe someone is infringing your copyrights on YouSound.com.</td>
+            <td>How the personal information you submit to Verified Users on YouSound.com is handled.</td>
           </tr>
           <tr>
             <td><a href="#7-registration">Registration</a></td>
-            <td>This describes YouSound.com's rights in the website and service.</td>
+            <td>How YouSound handles user registration & sign ups.</td>
           </tr>
           <tr>
             <td><a href="#8-fees-and-payments-defined">Fees and Payments Defined</a></td>
-            <td>These are the rules for using YouSound.com's APIs, whether you are using the API for development or data collection.</td>
+            <td>How we define the terms "Fees" & "Payments" on YouSound.com.</td>
           </tr>
           <tr>
             <td><a href="#9-fees-and-payments">Fees and Payments</a></td>
-            <td>We have a few specific rules for content hosted using YouSound.com Pages.</td>
-          </tr>
-          <tr>
-            <td><a href="#10-taxes">Taxes</a></td>
-            <td>We have another set of terms for YouSound.com Marketplace.</td>
-          </tr>
-          <tr>
-            <td><a href="#11-content-availability">Content Availability</a></td>
-            <td>If you want to promote your content on YouSound.com, this section lays out some rules you must follow.</td>
-          </tr>
-          <tr>
-            <td><a href="#12-pricing">Pricing</a></td>
-            <td>You are responsible for payment. We are responsible for billing you accurately.</td>
-          </tr>
-          <tr>
-            <td><a href="#13-potential-loss-of-revenue-from-technical-difficulties">Potetnial Loss of Revenue from Technical Difficulties</a></td>
-            <td>You may cancel this agreement and close your account at any time.</td>
+            <td>All the methods of payments and fees available on YouSound.com.</td>
           </tr>
           <tr>
             <td><a href="#14-additional-fees">Additional Fees</a></td>
-            <td>We only use email and other electronic means to stay in touch with our users. We do not provide phone support.</td>
+            <td>How YouSound reserves the right to change it's pricing or surcharges.</td>
           </tr>
           <tr>
             <td><a href="#15-linking-to-third-party-sites">Linking to Third Party Sites</a></td>
-            <td>We provide our service as is, and we make no promises or guarantees about this service. <strong>Please read this section carefully; you should understand what to expect.</strong>
+            <td>How YouSound deals with Third Party Linking.
             </td>
           </tr>
           <tr>
             <td><a href="#16-content-and-license">Content and License</a></td>
-            <td>We will not be liable for damages or losses arising from your use or inability to use the service or otherwise arising under this agreement. <strong>Please read this section carefully; it limits our obligations to you.</strong>
+            <td>How content is licensed to broadcast on YouSound.com
             </td>
           </tr>
           <tr>
-            <td><a href="#17-verified-users-respect-of-ip">Verified Users Respect of Intellectual Property Rights</a></td>
-            <td>You are fully responsible for your use of the service.</td>
+            <td><a href="#17-verified-users-respect-of-ip">Verified Users & Intellectual Property Rights</a></td>
+            <td>How Verified Users are responsible for respecting Intellectual Property.</td>
           </tr>
           <tr>
             <td><a href="#18-ip">Intellectual Property Rights</a></td>
-            <td>We may modify this agreement, but we will give you 30 days' notice of changes that affect your rights.</td>
+            <td>How YouSound deals with Intellectual Property Rights.</td>
           </tr>
           <tr>
             <td><a href="#19-dmca-notice-takedown">DMCA Notice and Takedown Procedure</a></td>
-            <td>Please see this section for legal details including our choice of law.</td>
+            <td>How YouSound handles DMCA Notices.</td>
           </tr>
            <tr>
             <td><a href="#20-user-of-devices-and-services">Use of Devices and Services</a></td>
-            <td>This is an introduction to our Terms of Services, and outlines how we operate our Service.</td>
+            <td>How users are responsible for any fees incurred from their devices while accessing YouSound.com</td>
           </tr>
           <tr>
             <td><a href="#21-license">License</a></td>
-            <td>These section covers the requirements of having an account on YouSound.com.</td>
+            <td>How YouSound and all of it's Intellectual Property is owned soley by YouSound.com</td>
           </tr>
           <tr>
             <td><a href="#22-user-content">User Content</a></td>
-            <td>These are the basic rules you must follow when using your YouSound.com account.</td>
+            <td>How YouSound handles the uploading & submission of user content.</td>
           </tr>
           <tr>
             <td><a href="#23-promotions">Promotions</a></td>
-            <td>You own the content you post on YouSound.com. However, you have some responsibilities regarding it, and we ask you to grant us some rights so we can provide services to you.</td>
+            <td>How YouSound deals with user promotions & giveaways.</td>
           </tr>
           <tr>
             <td><a href="#24-endorements-testimonials">Endorsements and Testimonials</a></td>
-            <td>This section talks about how YouSound.com will treat content you post in private repositories.</td>
+            <td>How Verified Users must comply with FTC guidelines when endorsing products or services.</td>
           </tr>
           <tr>
             <td><a href="#25-prohibited-conduct">Prohibited Conduct</a></td>
-            <td>This section talks about how YouSound.com will respond if you believe someone is infringing your copyrights on YouSound.com.</td>
+            <td>All of the prohibited conduct that all users must avoid in order to use YouSound.</td>
           </tr>
           <tr>
             <td><a href="#26-third-party-content">Third Party Content</a></td>
-            <td>This describes YouSound.com's rights in the website and service.</td>
+            <td>How YouSound handles Third Party Content.</td>
           </tr>
           <tr>
             <td><a href="#27-idea-submission">Idea Submission</a></td>
-            <td>These are the rules for using YouSound.com's APIs, whether you are using the API for development or data collection.</td>
+            <td>How idea submissions are handled on YouSound.com.</td>
           </tr>
           <tr>
             <td><a href="#28-termination">Termination</a></td>
-            <td>We have a few specific rules for content hosted using YouSound.com Pages.</td>
+            <td>How your access to YouSound can be terminated.</td>
           </tr>
           <tr>
             <td><a href="#29-warranty-disclaimer">Warranty Disclaimer</a></td>
-            <td>We have another set of terms for YouSound.com Marketplace.</td>
+            <td>How YouSound provides it's service as is.</td>
           </tr>
           <tr>
             <td><a href="#30-indemnification">Indemnification</a></td>
-            <td>If you want to promote your content on YouSound.com, this section lays out some rules you must follow.</td>
+            <td>How YouSound cannot be held accountable for your actions.</td>
           </tr>
           <tr>
             <td><a href="#31-limitation-of-liability">Limitation of Liability</a></td>
-            <td>You are responsible for payment. We are responsible for billing you accurately.</td>
+            <td>How users are responsible for resolving their own disputes.</td>
           </tr>
           <tr>
             <td><a href="#32-international-non-california-user">International and Non-California Use</a></td>
-            <td>You may cancel this agreement and close your account at any time.</td>
+            <td>How if users access YouSound outside of California, they do so on their own initiative. </td>
           </tr>
           <tr>
             <td><a href="#33-dispute-ressolution">Dispute Resolution</a></td>
-            <td>We only use email and other electronic means to stay in touch with our users. We do not provide phone support.</td>
+            <td>How YouSound handles dispute resolutions.</td>
           </tr>
           <tr>
             <td><a href="#34-intergration-and-severability">Intergration and Severability</a></td>
-            <td>We provide our service as is, and we make no promises or guarantees about this service. <strong>Please read this section carefully; you should understand what to expect.</strong>
+            <td>How YouSound terms are between the user & YouSound.
             </td>
           </tr>
           <tr>
             <td><a href="#35-miscellaneous">Miscellaneous</a></td>
-            <td>We will not be liable for damages or losses arising from your use or inability to use the service or otherwise arising under this agreement. <strong>Please read this section carefully; it limits our obligations to you.</strong>
+            <td>How YouSound shall not be liable to perform it's obligations outside of it's reasonable control.
             </td>
           </tr>
           <tr>
             <td><a href="#36-contact">Contact</a></td>
-            <td>You are fully responsible for your use of the service.</td>
+            <td>E-mail address to contact YouSound regarding these terms.</td>
           </tr>
         </tbody>
       </table>
@@ -196,15 +167,11 @@ It's important as a user, wether a Listener or a Verified Artist, Brand, or Labe
         <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Acceptance of Terms.
       </h3>
 
-      <p><strong>Short version:</strong> <em>We use these basic terms throughout the agreement, and they have specific meanings. You should know what we mean when we use each of the terms. There's not going to be a test on it, but it's still useful information.</em></p>
-
       <ol>
-        <li>The “Agreement” refers, collectively, to all the terms, conditions, notices contained or referenced in this document (the “Terms of Service” or the "Terms") and all other operating rules, policies (including the YouSound.com Privacy Statement, available at <a href="https://YouSound.com.com/site/privacy">YouSound.com.com/site/privacy</a>) and procedures that we may publish from time to time on the Website. Most of our site policies are available at <a href="/categories/site-policy/">help.YouSound.com.com/categories/site-policy</a>.</li>
-        <li>The “Service” refers to the applications, software, products, and services provided by YouSound.com.</li>
-        <li>The “Website” refers to YouSound.com’s website located at <a href="https://YouSound.com.com/">YouSound.com.com</a>, and all content, services, and products provided by YouSound.com at or through the Website. It also refers to YouSound.com-owned subdomains of YouSound.com.com, such as <a href="https://education.YouSound.com.com/">education.YouSound.com.com</a> and <a href="https://pages.YouSound.com.com/">pages.YouSound.com.com</a>. These Terms also govern YouSound.com’s conference websites, such as <a href="https://YouSound.comuniverse.com/">YouSound.comuniverse.com</a>, and product websites, such as <a href="https://atom.io/">atom.io</a>. Occasionally, websites owned by YouSound.com may provide different or additional terms of service. If those additional terms conflict with this Agreement, the more specific terms apply to the relevant page or service.</li>
-        <li>“The User,” “You,” and “Your” refer to the individual person, company, or organization that has visited or is using the Website or Service; that accesses or uses any part of the account; or that directs the use of the account in the performance of its functions. A User must be at least 13 years of age. Special terms may apply for business or government accounts (See <a href="#4-additional-terms">Section B(4): Additional Terms</a>).</li>
-        <li>“YouSound.com,” “We,” and “Us” refer to YouSound.com, Inc., as well as our affiliates, directors, subsidiaries, contractors, licensors, officers, agents, and employees.</li>
-        <li>“Content” refers to content featured or displayed through the Website, including without limitation text, data, articles, images, photographs, graphics, software, applications, designs, features, and other materials that are available on the Website or otherwise available through the Service. "Content" also includes Services. “User-Generated Content” is Content, written or otherwise, created or uploaded by our Users. "Your Content" is Content that you create or own.</li>
+        <p>The Service is offered subject to acceptance without modification of all of the terms and conditions contained herein (the “Terms of Use”), which Terms of Use also incorporate the Privacy Policy available at <a href="https://yousound.com/terms#privacy_policy">HERE</a>, the Copyright Policy available at <a href="https://yousound.com/terms#copyright_policy">HERE</a>, and all other operating rules, policies and procedures that may be published from time to time on the Site by Company, each of which is incorporated by reference into these Terms of Use and each of which may be updated by Company from time to time without prior notice to you. In addition, some services offered through the Service may be subject to additional terms and conditions promoted by Company from time to time; your use of such services is subject to those additional terms and conditions, which are incorporated into these Terms of Use by this reference.<br><br>
+If you are using or opening an “Artist Account” “Brand Account” or “Label Account” (Artist Accounts, Brand Accounts, Label Accounts collectively known as, “Verified Users”) on behalf of a company, entity or organization (each an “Artist Entity” “Brand Entity” “Label Entity”), then you represent and warrant that you: (i) are an authorized representative of that Artist Entity, Brand Entity, Label Entity, and warrant that you have the authority to bind such Artist Entity, Brand Entity, Label Entity to these Terms of Use and (ii) agree to be bound by these Terms of Use on behalf of such Artist Entity, Brand Entity, Label Entity.  
+
+The Service is available only to individuals who are at least 13 years old. You represent and warrant that if you are an individual, then you are of legal age to form a binding contract, and that all registration information you submit is accurate and truthful. Company may, in its sole discretion, refuse to offer the Service to any person or entity and change its eligibility criteria at any time. This provision is void where prohibited by law and the right to access the Service is revoked in such jurisdictions.</p>
       </ol>
 
       <h3>
@@ -213,60 +180,8 @@ It's important as a user, wether a Listener or a Verified Artist, Brand, or Labe
         </a>Modification of Terms of Use.
       </h3>
 
-      <p><strong>Short version:</strong> <em>A human must create your account; you must be 13 or over; you must provide a valid email address; and you may not have more than one free account. You alone are responsible for your account and anything that happens while you are signed in to or using your account. You are responsible for keeping your account secure.</em></p>
+      <p>Company reserves the right, at its sole discretion, to modify or replace any of the terms in these Terms of Use, or change, suspend, or discontinue the Service (including without limitation, the availability of any feature, database, or content) at any time by posting a notice on the Site or by sending you an e-mail. Company may also impose limits on certain features and services or restrict your access to parts or all of the Service without notice or liability. It is your responsibility to check these Terms of Use periodically for changes. Your continued use of the Service following the posting of any changes to these Terms of Use constitutes acceptance of those changes. Notwithstanding the preceding sentences of this section, no modifications to these Terms of Use will apply to any dispute between you and Company that arose prior to the date of such modification.</p>
 
-      <h4>
-        <a id="1-required-information" class="anchor" href="#1-required-information" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>Rules and Conduct.
-      </h4>
-
-      <p>You must provide a valid email address in order to complete the signup process. Any other information requested, such as your real name, is optional, unless you are accepting these terms on behalf of a legal entity (in which case we need more information about the legal entity) or if you opt for a <a href="#l-payment">paid account</a>, in which case additional information will be necessary for billing purposes.</p>
-
-      <h4>
-        <a id="2-account-requirements" class="anchor" href="#2-account-requirements" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>2. Account Requirements
-      </h4>
-
-      <p>We have a few simple rules for accounts on YouSound.com's Service.</p>
-
-      <ul>
-        <li>You must be a human to create an account. Accounts registered by "bots" or other automated methods are not permitted. We do permit machine accounts:
-          <br>
-        </li>
-        <li>A machine account is an account set up by an individual human who accepts the Terms on behalf of the account, provides a valid email address, and is responsible for its actions. A machine account is used exclusively for performing automated tasks. Multiple users may direct the actions of a machine account, but the owner of the account is ultimately responsible for the machine's actions. You may maintain no more than one free machine account in addition to your free personal account.</li>
-        <li>One person or legal entity may maintain no more than one free account (if you choose to control a machine account as well, that's fine, but it can only be used for running a machine).</li>
-        <li>You must be age 13 or older. While we are thrilled to see brilliant young coders get excited by learning to program, we must comply with United States law. YouSound.com does not target our Service to children under 13, and we do not permit any Users under 13 on our Service. If we learn of any User under the age of 13, we will <a href="#m-cancellation-and-termination">terminate that User’s account immediately</a>. If you are a resident of a country outside the United States, your country’s minimum age may be older; in such a case, you are responsible for complying with your country’s laws.</li>
-        <li>Your login may only be used by one person — i.e., a single login may not be shared by multiple people. A paid organization account may create separate logins for as many users as its subscription allows.</li>
-        <li>Overall, the number of Users must not exceed the number of accounts you've ordered from us.</li>
-      </ul>
-
-      <h4>
-        <a id="3-user-account-security" class="anchor" href="#3-user-account-security" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>3. User Account Security
-      </h4>
-
-      <p>You are responsible for keeping your account secure while you use our Service. We offer tools such as two-factor authentication to help you maintain your account's security, but the content of your account and its security are up to you.</p>
-
-      <ul>
-        <li>You are responsible for all content posted and activity that occurs under your account (even when content is posted by others who have accounts under your account).</li>
-        <li>You are responsible for maintaining the security of your account and password. YouSound.com cannot and will not be liable for any loss or damage from your failure to comply with this security obligation.</li>
-        <li>You will promptly <a href="https://YouSound.com.com/contact">notify YouSound.com</a> if you become aware of any unauthorized use of, or access to, our Service through your account, including any unauthorized use of your password or account.</li>
-      </ul>
-
-      <h4>
-        <a id="4-additional-terms" class="anchor" href="#4-additional-terms" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>4. Additional Terms
-      </h4>
-
-      <p>In some situations, third parties' terms may apply to your use of YouSound.com. For example, you may be a member of an organization on YouSound.com with its own terms or license agreements; you may download an application that integrates with YouSound.com; or you may use YouSound.com to authenticate to another service. Please be aware that while these Terms are our full agreement with you, other parties' terms govern their relationships with you.</p>
-
-      <p>If you are a government User or otherwise accessing or using any YouSound.com Service in a government capacity, this <a href="/articles/amendment-to-YouSound.com-terms-of-service-applicable-to-u-s-federal-government-users/">Government Amendment to YouSound.com Terms of Service</a> applies to you, and you agree to its provisions.</p>
-
-      <p>If you have signed up for a Business plan, the <a href="/articles/YouSound.com-business-plan-addendum/">Business Plan Addendum</a> applies to you, and you agree to its provisions.</p>
 
       <h3>
         <a id="4-rules-and-conduct" class="anchor" href="#4-rules-and-conduct" aria-hidden="true">
@@ -274,439 +189,190 @@ It's important as a user, wether a Listener or a Verified Artist, Brand, or Labe
         </a>Rules and Conduct.
       </h3>
 
-      <p><strong>Short version:</strong> <em>YouSound.com hosts a wide variety of collaborative projects from all over the world, and that collaboration only works when our users are able to work together in good faith. While using the service, you must follow this Acceptable Use Policy, which includes some restrictions on content you can post, conduct on the service, and other limitations. In short, be excellent to each other.</em></p>
+     <p>As a condition of use, you promise not to use the Service for any purpose that is prohibited by these Terms of Use. The Service (including, without limitation, any Content) is provided only for your own personal, non-commercial use (except with respect to Artist Entity, Brand Entity and Label Entity (each, an “Artist” “Brand” “Label”) selling Services, Music, Merchandise or other Content as authorized through the Service. You are responsible for all of your activity in connection with the Service. For purposes of these Terms of Use, the term “Content” includes, without limitation, any User Submissions, videos, audio clips, written forum comments, information, data, text, photographs, software, scripts, graphics, and interactive features generated, provided, or otherwise made accessible by Company or its partners on or through the Service.
+By way of example, and not as a limitation, you shall not (and shall not permit any third party to) either (a) take any action or (b) upload, download, post, submit or otherwise distribute or facilitate distribution of any content on or through the Service, including without limitation any User Submission, that:</p>
 
-      <h4>
-        <a id="1-compliance-with-laws-and-regulations" class="anchor" href="#1-compliance-with-laws-and-regulations" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>1. Compliance with Laws and Regulations
-      </h4>
-
-      <p>Your use of the Website and Service must not violate any applicable laws, including copyright or trademark laws, export control laws, or other laws in your jurisdiction. You are responsible for making sure that your use of the Service is in compliance with laws and any applicable regulations.</p>
-
-      <h4>
-        <a id="2-content-restrictions" class="anchor" href="#2-content-restrictions" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>2. Content Restrictions
-      </h4>
-
-      <p>You agree that you will not under any circumstances upload, post, host, or transmit any content that:</p>
-
-      <ul>
-        <li>is unlawful or promotes unlawful activities;</li>
-        <li>is or contains sexually obscene content;</li>
-        <li>is libelous, defamatory, or fraudulent;</li>
-        <li>is discriminatory or abusive toward any individual or group;</li>
-        <li>contains or installs any active malware or exploits, or uses our platform for exploit delivery (such as part of a command and control system); or</li>
-        <li>infringes on any proprietary right of any party, including patent, trademark, trade secret, copyright, right of publicity, or other rights.</li>
+      <ul><strong>
+        <li>infringes any patent, trademark, trade secret, copyright, right of publicity or other right of any other person or entity or violates any law or contractual duty;</li>
+        <li>you know is false, misleading, untruthful or inaccurate;</li>
+        <li>is unlawful, threatening, abusive, harassing, defamatory, libelous, deceptive, fraudulent, invasive of another's privacy, tortious, obscene, offensive;</li>
+        <li>constitutes unauthorized or unsolicited advertising, junk or bulk e-mail ("spamming");</li>
+        <li>involves commercial activities and/or sales without Company's prior written consent such as contests, sweepstakes, barter, advertising, or pyramid schemes;</li>
+        <li>exploits people in a sexual or violent manner;</li>
+        <li>contains software viruses or any other computer codes, files, or programs that are designed or intended to disrupt, damage, limit or interfere with the proper function of any software, hardware, or telecommunications equipment or to damage or obtain unauthorized access to any system, data, password or other information of Company or any third party; or</li>
+        <li>impersonates any person or entity, including any employee or representative of Company.</li>
+        </strong>
       </ul>
 
-      <h4>
-        <a id="3-conduct-restrictions" class="anchor" href="#3-conduct-restrictions" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>3. Conduct Restrictions
-      </h4>
+      <p>Additionally, you shall not: (i) take any action that imposes or may impose (as determined by Company in its sole discretion) an unreasonable or disproportionately large load on Company’s (or its third party providers’) infrastructure; (ii) interfere or attempt to interfere with the proper working of the Service or any activities conducted on the Service; (iii) bypass any measures Company may use to prevent or restrict access to the Service (or other accounts, computer systems or networks connected to the Service); (iv) run any form of auto-responder or “spam” on the Service; or (v) use manual or automated software, devices, or other processes to “crawl” or “spider” any page of the Site.
 
-      <p>While using YouSound.com, you agree that you will not under any circumstances:</p>
+      <br><br>
+You shall not (directly or indirectly): (i) decipher, decompile, disassemble, reverse engineer or otherwise attempt to derive any source code or underlying ideas or algorithms of any part of the Service, except to the limited extent applicable laws specifically prohibit such restriction, (ii) modify, translate, or otherwise create derivative works of any part of the Service, or (iii) copy, rent, lease, distribute, or otherwise transfer any of the rights that you receive hereunder. You shall abide by all applicable local, state, national and international laws and regulations.
+      <br><br>
+      Company does not guarantee that any Content or User Submissions (as defined below) will be made available on the Site or through the Service. Company has no obligation to monitor the Site, Service, Content, or User Submissions. However, Company reserves the right to (i) remove, edit or modify any Content in its sole discretion, including without limitation any User Submissions, from the Site or Service at any time, without notice to you and for any reason (including, but not limited to, upon receipt of claims or allegations from third parties or authorities relating to such Content or if Company is concerned that you may have violated these Terms of Use), or for no reason at all and (ii) to remove or block any User Submissions from the Service.
+      <br><br>
+      Company reserves the right to investigate and take appropriate legal action against anyone who, in Company's sole discretion, violates this provision, including, without limitation, terminating your account and/or reporting such activity or Content to law enforcement authorities.
 
-      <ul>
-        <li>harass, abuse, threaten, or incite violence towards any individual or group, including YouSound.com employees, officers, and agents, or other YouSound.com Users;</li>
-        <li>use our servers for any form of excessive automated bulk activity (for example, spamming), or relay any other form of unsolicited advertising or solicitation through our servers, such as get-rich-quick schemes;</li>
-        <li>attempt to disrupt or tamper with YouSound.com's servers in ways that could harm our Website or Service, to place undue burden on YouSound.com's servers through automated means, or to access YouSound.com's Service in ways that exceed your authorization (other than those authorized by the <a href="https://bounty.YouSound.com.com/">YouSound.com Bug Bounty program</a>);</li>
-        <li>impersonate any person or entity, including any of our employees or representatives, including through false association with YouSound.com, or by fraudulently misrepresenting your identity or site's purpose; or</li>
-        <li>violate the privacy of any third party, such as by posting another person's personal information without consent.</li>
-      </ul>
-
-      <h4>
-        <a id="4-services-usage-limits" class="anchor" href="#4-services-usage-limits" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Services Usage Limits
-      </h4>
-
-      <p>You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service, use of the Service, or access to the Service without YouSound.com's express written permission.</p>
-
-      <h4>
-        <a id="5-scraping" class="anchor" href="#5-scraping" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>5. Scraping</h4>
-
-      <p>Scraping refers to extracting data from our Website via an automated process, such as a bot or webcrawler. It does not refer to the collection of information through YouSound.com's API. Please see <a href="#h-api-terms">Section H</a> for our API Terms. You may scrape the website for the following reasons:</p>
-
-      <ul>
-        <li>Researchers may scrape public, non-personal information from YouSound.com for research purposes, only if any publications resulting from that research are open access.</li>
-        <li>Archivists may scrape YouSound.com for public data for archival purposes.</li>
-      </ul>
-
-      <p>You may not scrape YouSound.com for spamming purposes, including for the purposes of selling YouSound.com users' personal information, such as to recruiters, headhunters, and job boards.</p>
-
-      <p>All use of YouSound.com data gathered through scraping must comply with the <a href="https://YouSound.com.com/site/privacy">YouSound.com Privacy Statement</a>.</p>
-
-      <h4>
-        <a id="6-privacy" class="anchor" href="#6-privacy" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>6. Privacy</h4>
-
-      <p>Misuse of YouSound.com Users' Personal Information is prohibited.</p>
-
-      <p>Any person, entity, or service collecting data from YouSound.com must comply with the <a href="https://YouSound.com.com/site/privacy">YouSound.com Privacy Statement</a>, particularly in regards to the collection of our Users' Personal Information (as defined in the YouSound.com Privacy Statement). If you collect any YouSound.com User's Personal Information from YouSound.com, you agree that you will only use the Personal Information you gather for the purpose for which our User has authorized it. You agree that you will reasonably secure any Personal Information you have gathered from YouSound.com, and you will respond promptly to complaints, removal requests, and "do not contact" requests from YouSound.com or YouSound.com Users.</p>
-
-      <h4>
-        <a id="7-excessive-bandwidth-use" class="anchor" href="#7-excessive-bandwidth-use" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>7. Excessive Bandwidth Use</h4>
-
-      <p>If we determine your bandwidth usage to be significantly excessive in relation to other YouSound.com customers, we reserve the right to suspend your account or throttle your file hosting until you can reduce your bandwidth consumption.</p>
-
-      <h4>
-        <a id="8-user-protection" class="anchor" href="#8-user-protection" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>8. User Protection</h4>
-
-      <p>You agree not to engage in activity that significantly harms our Users. We will resolve disputes in favor of protecting our Users as a whole.</p>
+      </p>
 
       <h3>
         <a id="5-personal-information" class="anchor" href="#5-personal-information" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Personal Information.</h3>
 
-      <p><strong>Short version:</strong> <em>You own content you create, but you allow us certain rights to it, so that we can display and share the content you post. You still have control over your content, and responsibility for it, and the rights you grant us are limited to those we need to provide the service. We have the right to remove content or close accounts if we need to.</em></p>
+     <p>As a condition to using certain features of the Service (including, without limitation, the free download feature, or making a purchase from Company or an Artist Entity, Brand Entity, Label Entity), you may be required to provide certain personal information to Company or relevant Artist Entity, Brand Entity, Label Entity, such as your e-mail address, country of residence and zip/postal code ("User Information").
 
-      <h4>
-        <a id="1-responsibility-for-user-generated-content" class="anchor" href="#1-responsibility-for-user-generated-content" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Responsibility for User-Generated Content</h4>
+     <br><br>
 
-      <p>You may create or upload User-Generated Content while using the Service. You are solely responsible for the content of, and for any harm resulting from, any User-Generated Content that you post, upload, link to or otherwise make available via the Service, regardless of the form of that Content. We are not responsible for any public display or misuse of your User-Generated Content.</p>
+     You may register with the Company as a Listener and create a user account (“Listener Account”), which will allow you to access features of the Service that are available through Listeners Accounts,  a Listeners profile page that along with information that you choose to share about yourself, and the ability to follow other Listeners or Artist Accounts, Brand Accounts, Label Accounts . Following an Artist Account, Brand Account, or Label Account, purchasing any content or services of Verified Users, gives Verified Users access to your email address while logged in to your Listener Account. Any information you provide for your profile page will be available to other users of the Service by default, subject to our Privacy Policy.
 
-      <h4>
-        <a id="2-YouSound.com-may-remove-content" class="anchor" href="#2-YouSound.com-may-remove-content" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. YouSound.com May Remove Content</h4>
-
-      <p>We do not pre-screen User-Generated Content, but we have the right (though not the obligation) to refuse or remove any User-Generated Content that, in our sole discretion, violates any YouSound.com terms or policies.</p>
-
-      <h4>
-        <a id="3-ownership-of-content-right-to-post-and-license-grants" class="anchor" href="#3-ownership-of-content-right-to-post-and-license-grants" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Ownership of Content, Right to Post, and License Grants</h4>
-
-      <p>You retain ownership of and responsibility for Content you create or own ("Your Content"). If you're posting anything you did not create yourself or do not own the rights to, you agree that you are responsible for any Content you post; that you will only submit Content that you have the right to post; and that you will fully comply with any third party licenses relating to Content you post.</p>
-
-      <p>Because you retain ownership of and responsibility for Your Content, we need you to grant us — and other YouSound.com Users — certain legal permissions, listed in Sections D.4 — D.7. These license grants apply to Your Content. If you upload Content that already comes with a license granting YouSound.com the permissions we need to run our Service, no additional license is required. You understand that you will not receive any payment for any of the rights granted in Sections D.4 — D.7. The licenses you grant to us will end when you remove Your Content from our servers, unless other Users have forked it.</p>
-
-      <h4>
-        <a id="4-license-grant-to-us" class="anchor" href="#4-license-grant-to-us" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. License Grant to Us</h4>
-
-      <p>We need the legal right to do things like host Your Content, publish it, and share it. You grant us and our legal successors the right to store, parse, and display Your Content, and make incidental copies as necessary to render the Website and provide the Service. This includes the right to do things like copy it to our database and make backups; show it to you and other users; parse it into a search index or otherwise analyze it on our servers; share it with other users; and perform it, in case Your Content is something like music or video.</p>
-
-      <p>This license does not grant YouSound.com the right to sell Your Content or otherwise distribute or use it outside of our provision of the Service.</p>
-
-      <h4>
-        <a id="5-license-grant-to-other-users" class="anchor" href="#5-license-grant-to-other-users" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>5. License Grant to Other Users</h4>
-
-      <p>Any User-Generated Content you post publicly, including issues, comments, and contributions to other Users' repositories, may be viewed by others. By setting your repositories to be viewed publicly, you agree to allow others to view and "fork" your repositories (this means that others may make their own copies of Content from your repositories in repositories they control).</p>
-
-      <p>If you set your pages and repositories to be viewed publicly, you grant each User of YouSound.com a nonexclusive, worldwide license to use, display, and perform Your Content through the YouSound.com Service and to reproduce Your Content solely on YouSound.com as permitted through YouSound.com's functionality (for example, through forking). You may grant further rights if you <a href="/articles/adding-a-license-to-a-repository/#including-an-open-source-license-in-your-repository">adopt a license</a>. If you are uploading Content you did not create or own, you are responsible for ensuring that the Content you upload is licensed under terms that grant these permissions to other YouSound.com Users.</p>
-
-      <h4>
-        <a id="6-contributions-under-repository-license" class="anchor" href="#6-contributions-under-repository-license" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>6. Contributions Under Repository License</h4>
-
-      <p>Whenever you make a contribution to a repository containing notice of a license, you license your contribution under the same terms, and you agree that you have the right to license your contribution under those terms. If you have a separate agreement to license your contributions under different terms, such as a contributor license agreement, that agreement will supersede.</p>
-
-      <p>Isn't this just how it works already? Yep. This is widely accepted as the norm in the open-source community; it's commonly referred to by the shorthand "inbound=outbound". We're just making it explicit.</p>
-
-      <h4>
-        <a id="7-moral-rights" class="anchor" href="#7-moral-rights" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>7. Moral Rights</h4>
-
-      <p>You retain all moral rights to Your Content that you upload, publish, or submit to any part of the Service, including the rights of integrity and attribution. However, you waive these rights and agree not to assert them against us, to enable us to reasonably exercise the rights granted in Section D.4, but not otherwise.</p>
-
-      <p>To the extent this agreement is not enforceable by applicable law, you grant YouSound.com the rights we need to use Your Content without attribution and to make reasonable adaptations of Your Content as necessary to render the Website and provide the Service.</p>
+      <br><br>
+      
+      As a condition to each such Verified User’s right to receive such User Information, Company requires each Verified User to agree to the terms set forth in the next section of this Agreement. However, you acknowledge that Company has no control over the use of the User Information by the Verified Users, and you further acknowledge and agree that YouSound shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the Verified User’s use of such User Information. </p>    
 
       <h3>
         <a id="6-verified-users-usages-of-personal-user-information" class="anchor" href="#6-verified-users-usages-of-personal-user-information" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Verified Users Usages of Personal User Information.</h3>
 
-      <p><strong>Short version:</strong> <em>You may have access to private repositories. We treat the content of private repositories as confidential, and we only access it for support reasons, with your consent, or if required to for security reasons.</em></p>
-
-      <h4>
-        <a id="1-control-of-private-repositories" class="anchor" href="#1-control-of-private-repositories" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Control of Private Repositories.</h4>
-
-      <p>Some accounts, such as paid accounts, may have private repositories, which allow the User to control access to Content.</p>
-
-      <h4>
-        <a id="2-confidentiality-of-private-repositories" class="anchor" href="#2-confidentiality-of-private-repositories" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Confidentiality of Private Repositories.</h4>
-
-      <p>YouSound.com considers the contents of private repositories to be confidential to you. YouSound.com will protect the contents of private repositories from unauthorized use, access, or disclosure in the same manner that we would use to protect our own confidential information of a similar nature and in no event with less than a reasonable degree of care.</p>
-
-      <h4>
-        <a id="3-access" class="anchor" href="#3-access" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Access.</h4>
-
-      <p>YouSound.com employees may only access the content of your private repositories in the following situations:</p>
-
-      <ul>
-        <li>With your consent and knowledge, for support reasons. If YouSound.com accesses a private repository for support reasons, we will only do so with the owner’s consent and knowledge.</li>
-        <li>When access is required for security reasons.</li>
-      </ul>
-
-      <p>You may choose to enable additional access to your private repositories. For example:</p>
-
-      <ul>
-        <li>You may enable various YouSound.com services or features that require additional rights to Your Content in private repositories. These rights may vary depending on the service or feature, but YouSound.com will continue to treat your private repository Content as confidential. If those services or features require rights in addition to those we need to provide the YouSound.com Service, we will provide an explanation of those rights.</li>
-        <li>You may also grant a third-party application authorization to use, access, and disclose the contents of your private repositories. Your use of third-party applications is at your sole risk; YouSound.com is not liable for disclosures to third parties that you authorize to access a private repository.</li>
-      </ul>
-
-      <h4>
-        <a id="4-exclusions" class="anchor" href="#4-exclusions" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Exclusions.</h4>
-
-      <p>If we have reason to believe the contents of a private repository are in violation of the law or of these Terms, we have the right to access, review, and remove them. Additionally, we may be <a href="/articles/YouSound.com-privacy-statement/#how-we-respond-to-compelled-disclosure">compelled by law</a> to disclose the contents of your private repositories.</p>
+      <p>In connection with certain features of the Service, including by requiring that Listeners provide you with their e-mail addresses and other personal information in order to ship products any user orders through the Site, you may collect certain types of User Information. As a condition to receiving such User Information, you acknowledge and agree that you will not disclose, rent, or sell any User Information to any third party, and you will use the User Information only to ship products Users purchase through the Site, and provide Users with general information and news about the Verified User, such as upcoming shows, new Music or other Content delivered in connection with your Verified User account. You further agree that any e-mail or other communication sent to the Verified User will comply with e-mail marketing laws and include a mechanism by which the recipient can unsubscribe from the mailing list, along with clear instructions on how to do so (i.e. a functioning "opt-out" mechanism). You will promptly implement a recipient’s request to opt-out of receiving e-mails from you and will not send any further e-mails to such opting-out recipient.</p>
 
       <h3>
         <a id="7-registration" class="anchor" href="#7-registration" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Registration.</h3>
 
-      <p>If you believe that content on our website violates your copyright, please contact us in accordance with our <a href="/articles/dmca-takedown-policy/">Digital Millennium Copyright Act Policy</a>. If you are a copyright owner and you believe that content on YouSound.com violates your rights, please contact us via <a href="https://YouSound.com.com/contact/dmca">our convenient DMCA form</a> or by emailing <a href="mailto:copyright@YouSound.com.com">copyright@YouSound.com.com</a>. There may be legal consequences for sending a false or frivolous takedown notice. Before sending a takedown request, you must consider legal uses such as fair use and licensed uses.</p>
-
-      <p>We will terminate the accounts of <a href="/articles/dmca-takedown-policy/#e-repeated-infringement">repeat infringers</a> of this policy.</p>
+      <p>You may browse the Site and view Content without registering, but as a condition to using certain aspects of the Service, you may be required to register with Company and select a password and screen name (“User ID”). You shall provide Company with accurate, complete, and updated registration information. Failure to do so shall constitute a breach of these Terms of Use, which may result in immediate termination of your Company account. You shall not (i) select or use as a User ID or domain a name of another person with the intent to impersonate that person; (ii) use as a User ID or domain a name subject to any rights of a person other than you without appropriate authorization; or (iii) use as a User ID or domain a name that is otherwise offensive, vulgar or obscene. Company reserves the right to refuse registration of, or cancel a User ID and domain in its sole discretion. You are solely responsible for activity that occurs on your account and shall be responsible for maintaining the confidentiality of your Company password. You shall never use another user’s account without such other user’s express permission. You will immediately notify Company in writing of any unauthorized use of your account, or other account related security breach of which you are aware.</p>
 
       <h3>
         <a id="8-fees-and-payments-defined" class="anchor" href="#8-fees-and-payments-defined" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Fees and Payments Defined.</h3>
 
-      <p><strong>Short version:</strong> <em>We own the service and all of our content. In order for you to use our content, we give you certain rights to it, but you may only use our content in the way we have allowed.</em></p>
-
-      <h4>
-        <a id="1-YouSound.coms-rights-to-content" class="anchor" href="#1-YouSound.coms-rights-to-content" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. YouSound.com's Rights to Content</h4>
-
-      <p>YouSound.com and our licensors, vendors, agents, and/or our content providers retain ownership of all intellectual property rights of any kind related to the Website and Service. We reserve all rights that are not expressly granted to you under this Agreement or by law. The look and feel of the Website and Service is copyright © YouSound.com, Inc. All rights reserved. You may not duplicate, copy, or reuse any portion of the HTML/CSS, Javascript, or visual design elements or concepts without express written permission from YouSound.com.</p>
-
-      <h4>
-        <a id="2-YouSound.com-trademarks-and-logos" class="anchor" href="#2-YouSound.com-trademarks-and-logos" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. YouSound.com Trademarks and Logos</h4>
-
-      <p>If you’d like to use YouSound.com’s trademarks, you must follow all of our trademark guidelines, including those on our logos page: <a href="https://YouSound.com.com/logos">https://YouSound.com.com/logos</a>.</p>
-
-      <h4>
-        <a id="3-license-to-YouSound.com-policies" class="anchor" href="#3-license-to-YouSound.com-policies" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. License to YouSound.com Policies</h4>
-
-      <p>This Agreement is licensed under this <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons Zero license</a>. For details, see our <a href="https://YouSound.com.com/YouSound.com/site-policy#license">site-policy repository</a>.</p>
+      <p>YouSound facilitates payments for purchases of products and services, including physical merchandise (“Merchandise”). Each such purchase is a “Transaction,” each Transaction involving Digital Content is a “Digital Transaction”, such as Repost Requests, Donations, Services.  Each Transaction involving Merchandise is a “Merchandise Transaction.” Transactions may be made using Stripe.com which are detailed here (link to getting paid FAQ)</p>
 
       <h3>
         <a id="9-fees-and-payments" class="anchor" href="#9-fees-and-payments" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Fees and Payments.</h3>
 
-      <p><strong>Short version:</strong> <em>You agree to these Terms of Service, plus this Section H, when using any of YouSound.com's APIs (Application Provider Interface), including use of the API through a third party product that accesses YouSound.com.</em></p>
+      <p>You may purchase products and/or services from a Verified User through the Site, including, without limitation, purchases of Merchandise.  All inquiries regarding Merchandise Transactions will be directed to the relevant Verified User. Company is not responsible for refunds for Merchandise, except as provided in this Agreement.
 
-      <h4>
-        <a id="no-abuse-or-overuse-of-the-api" class="anchor" href="#no-abuse-or-overuse-of-the-api" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>No Abuse or Overuse of the API</h4>
+      <br>
 
-      <p>Abuse or excessively frequent requests to YouSound.com via the API may result in the temporary or permanent suspension of your account's access to the API. YouSound.com, in our sole discretion, will determine abuse or excessive usage of the API. We will make a reasonable attempt to warn you via email prior to suspension.</p>
+      <h4>All Sales Are Final.</h4>
 
-      <p>You may not share API tokens to exceed YouSound.com's rate limitations.</p>
+      <p>All sales of Digital Content are final (except where prohibited by law), unless otherwise determined by YouSound. If you do not receive the Digital Content or Physical product or otherwise have an issue with the content delivered, please contact YouSound with your request and proof of payment, and we will notify the relevant Verified User and contact with them to resolve your issue. At YouSound’s sole discretion, you may be credited or refunded for the Digital Content. However, you understand and agree that YouSound is a platform that Verified Users use to sell their products and services, and the relevant Verified User(s) is/are solely responsible for such content being delivered to you.  In the case where a Verified User refuses to refund a sale that YouSound has deemed refundable, YouSound will connect both seller and buyer to resolve their dispute.  YouSound cannot force any sell to refund.  YouSound does track all orders to ensure sellers are actively fullfilling their orders. Sellers are able to refund buyers through the Payments section of YouSound, refunds can only be given by sellers descretion, YouSound cannot force a refund.  YouSound does track all orders processed, and keeps track of every case opened for any product sold.  If YouSound finds a trend in fraudulent activity, we will delete all products, and deleted the sellers account.  Refunds should be persued via your payment processes and/or financial services used to render such payments.  If a fradulent chargeback is made to a seller, we will delete the buyers account.</p>
 
-      <p>You may not use the API to download data or Content from YouSound.com for spamming purposes, including for the purposes of selling YouSound.com users' personal information, such as to recruiters, headhunters, and job boards.</p>
+      <br>
 
-      <p>All use of the YouSound.com API is subject to these Terms of Service and the <a href="https://YouSound.com.com/site/privacy">YouSound.com Privacy Statement</a>.</p>
+      <h4>Tax.</h4>
 
-      <p>YouSound.com may offer subscription-based access to our API for those Users who require high-throughput access or access that would result in resale of YouSound.com's Service.</p>
+      <p>Your total price for Digital & Physical Content will include the price of the product plus any applicable sales tax; such as sales tax based on your location and the sales tax rate in effect at the time you purchase the product. When Verified Users upload a product to site, Company only allows Verified Users to add the product price and shipping price. Company does not automatically add taxes to the sale.  Verified Users are responsible for including the tax in the products or services they sell, and are responsible for taking the required percentage of tax from their sales to pay the required tax in their Country, State, or Region. </p>
 
-      <h3>
-        <a id="10-taxes" class="anchor" href="#10-taxes" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Taxes.</h3>
+      <br>
 
-      <p><strong>Short version:</strong> <em>The YouSound.com Pages hosting service is subject to certain rules, in addition to the rest of the Terms.</em></p>
+      <h4>Product Availability.</h4>
 
-      <p>Each YouSound.com account comes with access to the <a href="https://pages.YouSound.com.com/">YouSound.com Pages static hosting service</a>. This hosting service is intended to host static web pages for YouSound.com users. YouSound.com Pages are subject to some specific bandwidth and usage limits, and may not be appropriate for some high-bandwidth uses. Please see our <a href="/articles/what-is-YouSound.com-pages/">YouSound.com Pages guidelines</a> for more information.</p>
+     <p>Transactions cannot be guaranteed to be available to you perpetually. For example, if we receive a notification of claimed infringement from a copyright owner or its agent with respect to specific Content, then U.S. law may require us to remove that Content from the Service and not make it available for future sale and we may also have to deny continued access to anyone who previously purchased such Content. This means that you may lose access to purchased Content previously available to you through the Service.  If we are required by law to deny access through the Service to previously purchased Content, including by removing access to Content from a user’s personal collection through any mobile application, then Company and Verified Users will not provide the user who purchased that Content with a refund, except as required by applicable law. Users bear all risk from the denial of access to any Content purchased through the Service.  Because there is a possibility that we may be required to deny you access to previously purchased Content, we encourage you to promptly download any Content you purchase through the Site to your own devices so that you will retain control and possession of such Content even if we are required to remove the Content from the Service. You warrant that if you enter into a Transaction, then you shall be able to make full and immediate payment for the requested products or services.</p>
 
-      <p>YouSound.com reserves the right at all times to reclaim any YouSound.com subdomain without liability.</p>
+      <br>
 
-      <h3>
-        <a id="11-content-availability" class="anchor" href="#11-content-availability" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Content Availability.</h3>
+      <h4>Seller Pricing & Fees</h4>
 
-      <p><strong>Short version:</strong> <em>YouSound.com Marketplace is subject to certain rules, in addition to the rest of this Agreement.</em></p>
+      <p>Verified Users will set the prices for their products and services that are charged through Transactions (the “Prices”) through the Site, and you may change the Prices at your sole discretion. 
+      Company shall be entitled to a share of the revenue you receive from Transactions (the “Revenue Share”), which shall be calculated on your gross revenue from Transactions, not including any Transactions for which you or we provide a refund. You shall be solely responsible and liable for, and Company shall have no responsibility or liability for, any Stripe fees (except for fees charged on Company’s Stripe account), credit card transaction fees (together, “Fees”), bad debts (such as credit card returns or fraud), disputed payments, and refunds, except as provided in this Agreement.  YouSound may withhold any taxes, duties, charges or levies on payments by YouSound to you pursuant to this Agreement as may be required by applicable law, rule or regulation. YouSound shall remit any such withheld taxes, duties, charges or levies to the appropriate tax authority, if required.</p>
 
-      <p><a href="https://YouSound.com.com/marketplace">YouSound.com Marketplace</a> is a platform for developers of all kinds. Through YouSound.com Marketplace, you can list Developer Products (as defined in the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a>) or buy others' Developer Products. Prior to submitting a project to be listed, you must agree to the <a href="/articles/YouSound.com-marketplace-developer-agreement/">YouSound.com Marketplace Developer Agreement</a>.</p>
+      <br>
 
-      <p>If you buy Developer Products, the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a> controls your purchase. This Agreement, as well as the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a>, will govern your use of YouSound.com Marketplace. Many of these Developer Products are used exclusively for performing automated tasks. In addition, multiple Users may direct the actions of a Developer Product. However, if you purchase and/or set up a Developer Product on your account, or you are an owner of an account with an integrated Developer Product, then you will be responsible for the Developer Product's actions that are performed on or through your account.</p>
+      <h4>Physical & Digital Products, Repost Requests, Donations & Services.</h4>
 
-      <p>Any violation of the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a> is also a violation of this Agreement.</p>
+      <p>For Merchandise Transactions, payments received from users for Merchandise shall be directed to Verified Users, minus 10% of the product price, excluding shipping costs.  For Digital Content, Donations & Services (accessed through the “Send Love” button on users profiles), payments received from users shall be directed to Verified Users, minus 10% of the product or service price.  For Repost Request (accessed through Direct Messages), payments received from users shall be directed to Verified Users, minus 20% of the price which is directed to the Company. </p>
+      
+      <br>
 
-      <h3>
-        <a id="12-pricing" class="anchor" href="#12-pricing" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Pricing.</h3>
+      <h4>Repost Price Upgrade.</h4>
 
-      <p><strong>Short version:</strong> <em>We do not generally prohibit use of YouSound.com for advertising. However, we expect our users to follow certain limitations, so YouSound.com does not become a spam haven. No one wants that.</em></p>
+      <p>To increase the amount any user wants to charge for Repost Requests (“Repost Price Upgrade”), Users are required to pay annual fee equal to the amount they want to charge.  For example, if a user wants to charge Verified Users $20 to repost Verified User’s content (Albums and/or Merchandise), user must pay Company $20.00 annually.  100% of payments received for Repost Price Upgrades shall be directed to Company. </p>
 
-      <h4>
-        <a id="1-YouSound.com-pages" class="anchor" href="#1-YouSound.com-pages" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. YouSound.com Pages</h4>
+      <br>
 
-      <p>We offer Pages sites primarily as a showcase for personal and organizational projects. Some monetization efforts are permitted on Pages, such as donation buttons and crowdfunding links.</p>
+      <h4>Live Video Streaming Cost & Fees.</h4>
 
-      <h4>
-        <a id="2-YouSound.com-repositories" class="anchor" href="#2-YouSound.com-repositories" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. YouSound.com Repositories</h4>
+      <p>For Live Video Streaming, Verified Users pay $10.00 (ten dollars) per hour to Live Video Stream to users.  Verified Users can choose to charge up to $10,000 per user ('Pay Per View') to view their Live Video Stream, payments received from users shall be directed to Verified User, minus 10% of the 'Pay Per View' price which 10% is directed to Company. </p>
 
-      <p>YouSound.com repositories are intended to host Content. You may include static images, links, and promotional text in the README documents associated with your repositories, but they must be related to the project you are hosting on YouSound.com.</p>
+      <br>
 
-      <p>You may not advertise in other Users' repositories, such as by posting monetized or excessive bulk content in issues.</p>
+      <p>Company retains the right, but does not have the obligation, to immediately halt the offering or sale of any goods or services, prevent or restrict access to the Site or the Services or take any other action in case of technical problems, objectionable material, inaccurate listings, or actions otherwise prohibited by the procedures and guidelines contained on the Site, or for any other reason in the sole and absolute discretion of Company, and to correct any inaccurate listing or technical problems on the Site. Company may immediately halt the offering or sale of any goods or services upon receipt of notifications of claimed infringement, upon acquiring knowledge of actual infringement, or becoming aware of facts or circumstances from which infringing material is apparent with respect to any goods or services.</p>
 
-      <h4>
-        <a id="3-spamming-and-inappropriate-use-of-YouSound.com" class="anchor" href="#3-spamming-and-inappropriate-use-of-YouSound.com" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Spamming and Inappropriate Use of YouSound.com</h4>
+      <br>
 
-      <p>Advertising Content, like all Content, must not violate the law or these Terms of Use, for example through excessive bulk activity such as spamming. We reserve the right to remove any advertisements that, in our sole discretion, violate any YouSound.com terms or policies.</p>
-
-      <h3>
-        <a id="13-potential-loss-of-revenue-from-technical-difficulties" class="anchor" href="#13-potential-loss-of-revenue-from-technical-difficulties" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Potential Loss of Revenue from Technical Difficulties.</h3>
-
-      <p><strong>Short version:</strong> <em>You are responsible for any fees associated with your use of YouSound.com. We are responsible for communicating those fees to you clearly and accurately, and letting you know well in advance if those prices change.</em></p>
-
-      <h4>
-        <a id="1-pricing" class="anchor" href="#1-pricing" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Pricing</h4>
-
-      <p>Our pricing and payment terms are available at <a href="https://YouSound.com.com/pricing">YouSound.com.com/pricing</a>. If you agree to a subscription price, that will remain your price for the duration of the payment term; however, prices are subject to change at the end of a payment term.</p>
-
-      <h4>
-        <a id="2-upgrades-downgrades-and-changes" class="anchor" href="#2-upgrades-downgrades-and-changes" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Upgrades, Downgrades, and Changes</h4>
-
-      <ul>
-        <li>We will immediately bill you when you upgrade from the free plan to any paying plan.</li>
-        <li>If you change from a monthly billing plan to a yearly billing plan, YouSound.com will bill you for a full year at the next monthly billing date.</li>
-        <li>If you upgrade to a higher level of service, we will bill you for the upgraded plan immediately.</li>
-        <li>You may change your level of service at any time by <a href="https://YouSound.com.com/pricing">choosing a plan option</a> or going into your <a href="https://YouSound.com.com/settings/billing">Billing settings</a>. If you choose to downgrade your account, you may lose access to Content, features, or capacity of your account. Please see our section on <a href="#m-cancellation-and-termination">Cancellation</a> for information on getting a copy of that Content.</li>
-      </ul>
-
-      <h4>
-        <a id="3-billing-schedule-no-refunds" class="anchor" href="#3-billing-schedule-no-refunds" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Billing Schedule; No Refunds</h4>
-
-      <ul>
-        <li>For monthly or yearly payment plans, the Service is billed in advance on a monthly or yearly basis respectively and is non-refundable. There will be no refunds or credits for partial months of service, downgrade refunds, or refunds for months unused with an open account; however, the service will remain active for the length of the paid billing period.</li>
-        <li>In order to treat everyone equally, no exceptions will be made.</li>
-      </ul>
-
-      <h4>
-        <a id="4-authorization" class="anchor" href="#4-authorization" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Authorization</h4>
-
-      <p>By agreeing to these Terms, you are giving us permission to charge your on-file credit card, PayPal account, or other approved methods of payment for fees that you authorize for YouSound.com.</p>
-
-      <h4>
-        <a id="5-responsibility-for-payment" class="anchor" href="#5-responsibility-for-payment" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>5. Responsibility for Payment</h4>
-
-      <p>You are responsible for all fees, including taxes, associated with your use of the Service. By using the Service, you agree to pay YouSound.com any charge incurred in connection with your use of the Service. If you dispute the matter, contact <a href="https://YouSound.com.com/contact">YouSound.com Support</a>. You are responsible for providing us with a valid means of payment for paid accounts. Free accounts are not required to provide payment information.</p>
+      <p>Unless there is an outstanding Revenue Share owed to Company in which case such payments may be directed to Company. YouSound may retain funds otherwise payable to you if YouSound is required or chooses to provide a refund on your behalf.</p>          
 
       <h3>
         <a id="14-additional-fees" class="anchor" href="#14-additional-fees" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Additional Fees.</h3>
 
-      <p><strong>Short version:</strong> <em>You may close your account at any time. If you do, we'll treat your information responsibly.</em></p>
-
-      <h4>
-        <a id="1-account-cancellation" class="anchor" href="#1-account-cancellation" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Account Cancellation</h4>
-
-      <p>It is your responsibility to properly cancel your account with YouSound.com. You can <a href="/articles/how-do-i-cancel-my-account/">cancel your account at any time</a> by going into your Settings in the global navigation bar at the top of the screen. The Account screen provides a simple, no questions asked cancellation link. We are not able to cancel accounts in response to an email or phone request.</p>
-
-      <h4>
-        <a id="2-upon-cancellation" class="anchor" href="#2-upon-cancellation" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Upon Cancellation</h4>
-
-      <p>We will retain and use your information as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements, but barring legal requirements, we will delete your full profile and the Content of your repositories within 90 days of cancellation or termination (though some information may remain in encrypted backups). This information can not be recovered once your account is cancelled.</p>
-
-      <p>We will not delete Content that you have contributed to other Users' repositories or that other Users have forked.</p>
-
-      <p>Upon request, we will make a reasonable effort to provide an account owner with a copy of your lawful, non-infringing account contents after account cancellation, termination, or downgrade. You must make this request within 90 days of cancellation, termination, or downgrade.</p>
-
-      <h4>
-        <a id="3-YouSound.com-may-terminate" class="anchor" href="#3-YouSound.com-may-terminate" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. YouSound.com May Terminate</h4>
-
-      <p>YouSound.com has the right to suspend or terminate your access to all or any part of the Website at any time, with or without cause, with or without notice, effective immediately. YouSound.com reserves the right to refuse service to anyone for any reason at any time.</p>
-
-      <h4>
-        <a id="4-survival" class="anchor" href="#4-survival" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Survival</h4>
-
-      <p>All provisions of this Agreement which by their nature should survive termination will survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+        <p>In addition to the fees set forth above,  Company reserves the right to change its price list and to institute new charges at any time, upon ten (10) days prior notice to you, which may be sent by e-mail or posted on the Site. Use of the Service by you following such notification constitutes your acceptance of any new or increased charges.</p>
 
       <h3>
         <a id="15-linking-to-third-party-sites" class="anchor" href="#15-linking-to-third-party-sites" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Linking to Third Party Sites.</h3>
 
-      <p><strong>Short version:</strong> <em>We use email and other electronic means to stay in touch with our users.</em></p>
-
-      <h4>
-        <a id="1-electronic-communication-required" class="anchor" href="#1-electronic-communication-required" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Electronic Communication Required</h4>
-
-      <p>For contractual purposes, you (1) consent to receive communications from us in an electronic form via the email address you have submitted or via the Service; and (2) agree that all Terms of Service, agreements, notices, disclosures, and other communications that we provide to you electronically satisfy any legal requirement that those communications would satisfy if they were on paper. This section does not affect your non-waivable rights.</p>
-
-      <h4>
-        <a id="2-legal-notice-to-YouSound.com-must-be-in-writing" class="anchor" href="#2-legal-notice-to-YouSound.com-must-be-in-writing" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Legal Notice to YouSound.com Must Be in Writing</h4>
-
-      <p>Communications made through email or YouSound.com Support's messaging system will not constitute legal notice to YouSound.com or any of its officers, employees, agents or representatives in any situation where notice to YouSound.com is required by contract or any law or regulation. Legal notice to YouSound.com must be in writing and <a href="/articles/guidelines-for-legal-requests-of-user-data/#submitting-requests">served on YouSound.com's legal agent</a>.</p>
-
-      <h4>
-        <a id="3-no-phone-support" class="anchor" href="#3-no-phone-support" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. No Phone Support</h4>
-
-      <p>YouSound.com only offers support via email, in-Service communications, and electronic messages. We do not offer telephone support.</p>
+      <p>The Service may permit you to link to other websites or resources on the Internet, and other websites or resources may contain links to the Site. When you access third party websites, you do so at your own risk. These other websites are not under Company's control, and you acknowledge that Company is not responsible or liable for the content, functions, accuracy, legality, appropriateness or any other aspect of such websites or resources. The inclusion of any such link does not imply endorsement by Company or any association with its operators. You further acknowledge and agree that Company shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such Content, goods or services available on or through any such website or resource.</p>
 
       <h3>
         <a id="16-content-and-license" class="anchor" href="#16-content-and-license" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Content and License.</h3>
 
-      <p><strong>Short version:</strong> <em>We provide our service as is, and we make no promises or guarantees about this service. Please read this section carefully; you should understand what to expect.</em></p>
-
-      <p>YouSound.com provides the Website and the Service “as is” and “as available,” without warranty of any kind. Without limiting this, we expressly disclaim all warranties, whether express, implied or statutory, regarding the Website and the Service including without limitation any warranty of merchantability, fitness for a particular purpose, title, security, accuracy and non-infringement.</p>
-
-      <p>YouSound.com does not warrant that the Service will meet your requirements; that the Service will be uninterrupted, timely, secure, or error-free; that the information provided through the Service is accurate, reliable or correct; that any defects or errors will be corrected; that the Service will be available at any particular time or location; or that the Service is free of viruses or other harmful components. You assume full responsibility and risk of loss resulting from your downloading and/or use of files, information, content or other material obtained from the Service.</p>
+      <p> You agree that the Service contains Content specifically provided by Company or its partners and that such Content is protected by copyrights, trademarks, service marks, patents, trade secrets or other proprietary rights and laws. You shall abide by and maintain all copyright notices, information, and restrictions contained in any Content accessed through the Service.
+      Company grants each user of the Site and/or Service a worldwide, non-exclusive, non-sublicensable and non-transferable license to use, modify and reproduce the Content, solely for personal, non-commercial use. Use, reproduction, modification, distribution or storage of any Content for other than personal, non-commercial use is expressly prohibited without prior written permission from Company, or from the copyright holder identified in such Content's copyright notice. You shall not sell, license, rent, or otherwise use or exploit any Content for commercial use or in any way that violates any third party right.</p>
 
       <h3>
-        <a id="17-verified-users-respect-of-ip" class="anchor" href="#17-verified-users-respect-of-ip" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Verified Users Respect of Intellectual Property Rights.</h3>
+        <a id="17-verified-users-respect-of-ip" class="anchor" href="#17-verified-users-respect-of-ip" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Verified Users & Intellectual Property Rights.</h3>
 
-      <p><strong>Short version:</strong> <em>We will not be liable for damages or losses arising from your use or inability to use the service or otherwise arising under this agreement. Please read this section carefully; it limits our obligations to you.</em></p>
+      <p>The Service provides Verified Artists with the ability to upload Digital Content owned or controlled by such Verified Artists to the Site, including but not limited to sound recordings (“Sound Recordings”), videos synchronized with Sound Recordings and other audiovisual works (collectively, “Music Videos”), and the musical works embodied within Sound Recordings and Music Videos (“Musical Works” and, collectively with Sound Recordings and Music Videos, the Verified Artist’s “Music”). Company will not have any ownership rights in any elements of a Verified Artist’s Music, however, Company needs the following license to perform the Service. Each Verified Artist uploading Music to the Service grants Company and its authorized sublicensees and distributors, if any, the worldwide, non-exclusive, royalty-free, right and license to:</p>
 
-      <p>You understand and agree that we will not be liable to you or any third party for any loss of profits, use, goodwill, or data, or for any incidental, indirect, special, consequential or exemplary damages, however arising, that result from</p>
+      <li>(i) reproduce, distribute, publicly perform (including on a through-to-the-audience basis and by means of a digital audio transmission), publicly display, create derivate works of, communicate to the public, synchronize and otherwise exploit (collectively, “Exploit”) (1) the Verified Artist’s Music and perform the Service on the Verified Artist’s behalf (e.g., reproduce, transcode, copy and store the Verified Artist’s Music on computer servers owned and/or operated by or on behalf of Company or its authorized sublicensees and distributors, and publicly perform, transmit, synchronize, stream, distribute, and playback the Verified Artist’s Music) using any technologies or methodologies now known or hereafter developed, and (2) Exploit all associated copyrightable works or metadata, including, without limitation, song lyrics and musical notations, album cover artwork, photographs, graphics, and descriptive text (“Artworks”) in connection with the Service); (ii) allow users of the Service to receive public performances and public displays of the Verified Artist’s Music and Artworks and to reproduce the Verified Artist’s Music and Artworks on any and all devices owned or controlled by the user for non-commercial purposes and receive performances and displays of same; and (iii) reproduce, use, and publish, and to permit others to reproduce, use and publish, the name(s), trademarks, likenesses, and personal and biographical materials of the Verified Artist, in connection with the provision of the Service.</li>
 
-      <ul>
-        <li>the use, disclosure, or display of your User-Generated Content;</li>
-        <li>your use or inability to use the Service;</li>
-        <li>any modification, price change, suspension or discontinuance of the Service;</li>
-        <li>the Service generally or the software or systems that make the Service available;</li>
-        <li>unauthorized access to or alterations of your transmissions or data;</li>
-        <li>statements or conduct of any third party on the Service;</li>
-        <li>any other user interactions that you input or receive through your use of the Service; or</li>
-        <li>any other matter relating to the Service.</li>
-      </ul>
+      <p>To enable Company to Exploit your Music pursuant to the above provisions, you hereby grant to Company the worldwide, non-exclusive, royalty-free, sublicensable, and transferable right to use, distribute, reproduce, copy, and display your trademarks, service marks, slogans, logos or similar proprietary rights (collectively, the “Trademarks”) solely in connection with the Service or in the marketing, promotion or advertising of the service, including in all forms of marketing, promotion, and advertising materials now known or hereafter created.</p>
 
-      <p>Our liability is limited whether or not we have been informed of the possibility of such damages, and even if a remedy set forth in this Agreement is found to have failed of its essential purpose. We will have no liability for any failure or delay due to matters beyond our reasonable control.</p>
+      <p>By uploading any Music or Artworks to the Site:</p>
+
+      <li><strong>Verified Artist represent and warrant, and can demonstrate to Company’s full satisfaction upon request, that (i) you own or otherwise control all rights to your Music and Artworks (or that such Music and Artworks are in the public domain or have otherwise been directly licensed to the Verified Artist in writing with a grant of rights sufficient to permit the Verified Artist to enter into this Agreement and to grant all of the rights with respect to the Verified Artist’s Music or Artworks as set forth in this Agreement (hereinafter “Direct Licensed”); (ii) you have full authority to act on behalf of any and all owners of any right, title or interest in and to any Music you upload to the Service and to the Artworks; (iii) you have permission to use the name and likeness of each identifiable individual person whose name or likeness is contained or used within the Music and/or Artworks, and to use such individual’s identifying or personal information (to the extent such information is used or contained in the Music and/or Artworks) as contemplated by these Terms of Use, and (iv) you are authorized to grant all of the aforementioned rights to the Music and/or Artworks to Company and all users of the Service.</strong></li>
+
+      <li><strong>you represent and warrant that the use or other exploitation of your Music and/or Artworks by Company and its authorized sublicensees and distributors and/or by users of the Site as contemplated by this Agreement will not infringe or violate the rights of any third party, including, without limitation, any privacy rights, publicity rights, copyrights, contract rights, or any other intellectual property or proprietary rights.</strong></li>
+
+      <li><strong>you represent and warrant that, to the extent you are the songwriter of any or all of the Musical Works embodied in your Sound Recordings or Music Videos, whether in whole or in part (e.g., as a co-writer), you have the full right, power, and authority to grant the rights set forth in this Agreement notwithstanding the provisions of any agreement you may have entered into with any performing rights organization (“PRO”), whether based in the United States (e.g., ASCAP, BMI or SESAC) or elsewhere, or any music publisher, and that you are solely responsible for taking all steps necessary to inform such PRO or music publisher of your grant of a royalty free license to Company for the public performances and communications to the public of your Musical Works, and that no fees or payments of any kind whatsoever shall be due to any PRO or music publisher for the public performance or communication to the public of your Musical Works.</strong></li>
+
+      <li><strong>you represent and warrant that no fees of any kind shall be due any third party, including, but not limited to, any union, guild, non-featured vocalist or musician, engineer or producer, for the use or re-use of your Music as authorized under this Agreement.</strong></li>
+
+      <li><strong>If any agreement you have entered into with any third party, including, but not limited to a PRO, music publisher, union or guild, whether by law or contract, prohibits you from granting company the right and license set forth in this Agreement and making the representations and warranties set forth in the four paragraphs immediately above, then you are prohibited from uploading your music to the Service and shall be responsible for indemnifying and holding company harmless from and against any and all claims arising from the exploitation of your music on the Service, including all court costs and legal fees.</strong></li>
 
       <h3>
         <a id="18-ip" class="anchor" href="#18-ip" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Intellectual Property Rights.</h3>
 
-      <p><strong>Short version:</strong> <em>You are responsible for your use of the service. If you harm someone else or get into a dispute with someone else, we will not be involved.</em></p>
+      <p>The Service provides Verified Artists with the ability to add, create, upload, submit, distribute or post (“Submitting” or “Submission”) content, videos (including Music Videos), audio clips (including Music), written forum comments, data, text, photographs, software, scripts, graphics, or other information to the Site (collectively, the “User Submissions”). By Submitting User Submissions on the Site or otherwise through the Service, you:</p>
 
-      <p>If you have a dispute with one or more Users, you agree to release YouSound.com from any and all claims, demands and damages (actual and consequential) of every kind and nature, known and unknown, arising out of or in any way connected with such disputes.</p>
+      <li><strong>acknowledge that by Submitting any User Submission to the Site, you are publishing that User Submission, and that you may be identified publicly by your User ID in association with any such User Submission;</strong></li>
 
-      <p>You agree to indemnify us, defend us, and hold us harmless from and against any and all claims, liabilities, and expenses, including attorneys’ fees, arising out of your use of the Website and the Service, including but not limited to your violation of this Agreement, provided that YouSound.com (1) promptly gives you written notice of the claim, demand, suit or proceeding; (2) gives you sole control of the defense and settlement of the claim, demand, suit or proceeding (provided that you may not settle any claim, demand, suit or proceeding unless the settlement unconditionally releases YouSound.com of all liability); and (3) provides to you all reasonable assistance, at your expense.</p>
+      <li><strong>by Submitting any User Submissions through the Site or the Service, you hereby grant Company a worldwide, non-exclusive, perpetual, irrevocable, royalty-free, fully paid, sublicensable and transferable license to use, edit, modify, reproduce, distribute, prepare derivative works of, publicly display, publicly perform (including on a through-to-the-audience basis and by means of a digital audio transmission), communicate to the public, synchronize and otherwise fully exploit the User Submissions in connection with the Site, the Service and Company’s (and its successors and assigns’) business, including without limitation for promoting and redistributing part or all of the Site (and derivative works thereof) or the Service in any media formats and through any media channels (including, without limitation, third party websites), whether now known or hereafter developed. You also hereby do and shall grant each user of the Site and/or the Service a non-exclusive license to access your User Submissions through the Site and the Service, and to use, edit, modify, reproduce (on any and all devices owned or controlled by the user), distribute, prepare derivative works of, display and perform such User Submissions solely for personal, non-commercial use. For clarity, the foregoing license grant to Company does not affect your other ownership or license rights in your User Submission(s), including the right to grant additional licenses to the material in your User Submission(s), unless otherwise agreed in writing;</strong></li>
+
+      <li><strong>represent and warrant, and can demonstrate to Company’s full satisfaction upon request that you (i) own or otherwise control all rights to all content in your User Submissions, or that the content in such User Submissions is in the public domain or Direct Licensed, (ii) you have full authority to act on behalf of any and all owners of any right, title or interest in and to any content in your User Submissions to use such content as contemplated by these Terms of Use and to grant the license rights set forth above, (iii) you have the permission to use the name and likeness of each identifiable individual person and to use such individual’s identifying or personal information as contemplated by these Terms of Use; and (iv) you are authorized to grant all of the aforementioned rights to the User Submissions to Company and all users of the Service;</strong></li>
+
+      <li><strong>you agree to pay all royalties and other amounts owed to any person or entity, including any PROs, due to your Submission of any User Submissions to the Service;</strong></li>
+
+      <li><strong>that the use or other exploitation of such User Submissions by Company and use or other exploitation by users of the Site and Service as contemplated by this Agreement will not infringe or violate the rights of any third party, including without limitation any privacy rights, publicity rights, copyrights, contract rights, or any other intellectual property or proprietary rights; and</strong></li>
+
+      <li><strong>understand that Company shall have the right to delete, edit, modify, reformat, excerpt, or translate any materials, content or information submitted by you; and that all information publicly posted or privately transmitted through the Site is the sole responsibility of the person from which such content originated and that Company will not be liable for any errors or omissions in any content; and that Company cannot guarantee the identity of any other users with whom you may interact in the course of using the Service.</strong></li>
+
+      <p>Company does not endorse and has no control over any User Submission. Company cannot guarantee the authenticity of any data which users may provide about themselves. You acknowledge that all Content accessed by you using the Service is at your own risk and you will be solely responsible for any damage or loss to any party resulting therefrom.</p>
+
 
       <h3>
         <a id="19-dmca-notice-takedown" class="anchor" href="#19-dmca-notice-takedown" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>DMCA Notice and Takedown Procedure.</h3>
 
-      <p><strong>Short version:</strong> <em>We want our users to be informed of important changes to our terms, but some changes aren't that important — we don't want to bother you every time we fix a typo. So while we may modify this agreement at any time, we will notify users of any changes that affect your rights and give you time to adjust to them.</em></p>
-
-      <p>We reserve the right, at our sole discretion, to amend these Terms of Service at any time and will update these Terms of Service in the event of any such amendments. We will notify our Users of material changes to this Agreement, such as price changes, at least 30 days prior to the change taking effect by posting a notice on our Website. For non-material modifications, your continued use of the Website constitutes agreement to our revisions of these Terms of Service.</p>
-
-      <p>We reserve the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Website (or any part of it) with or without notice.</p>
+      <p>YouSound supports the protection of intellectual property and asks all YouSound users to do the same. It’s our policy to respond to all notices of alleged copyright infringement. If someone believes that one of our Verified Users is infringing their intellectual property rights, they can send a DMCA Notice to YouSound’s designated agent using our form. Upon receiving a DMCA Notice, we may remove or disable access to the Materials claimed to be a copyright infringement. Once provided with a notice of takedown, the Verified User can reply with a counter notification using our form if they object to the complaint. The original complainant has 14 business days after we receive a counter notification to seek a court order restraining the merchant from engaging in the infringing activity, otherwise we restore the material. For more information, see our DMCA Copyright Policy <a href="https://yousound.com/terms#copyright_policy">HERE</a></p>
 
       <h3>
         <a id="20-user-of-devices-and-services" class="anchor" href="#20-user-of-devices-and-services" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Use of Devices and Services.</h3>
 
-      <h4>
-        <a id="1-governing-law" class="anchor" href="#1-governing-law" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Governing Law</h4>
-
-      <p>Except to the extent applicable law provides otherwise, this Agreement between you and YouSound.com and any access to or use of the Website or the Service are governed by the federal laws of the United States of America and the laws of the State of California, without regard to conflict of law provisions. You and YouSound.com agree to submit to the exclusive jurisdiction and venue of the courts located in the City and County of San Francisco, California.</p>
-
-      <h4>
-        <a id="2-non-assignability" class="anchor" href="#2-non-assignability" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Non-Assignability</h4>
-
-      <p>YouSound.com may assign or delegate these Terms of Service and/or the <a href="https://YouSound.com.com/site/privacy">YouSound.com Privacy Statement</a>, in whole or in part, to any person or entity at any time with or without your consent, including the license grant in Section D.4. You may not assign or delegate any rights or obligations under the Terms of Service or Privacy Statement without our prior written consent, and any unauthorized assignment and delegation by you is void.</p>
-
-      <h4>
-        <a id="3-section-headings-and-summaries" class="anchor" href="#3-section-headings-and-summaries" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Section Headings and Summaries</h4>
-
-      <p>Throughout this Agreement, each section includes titles and brief summaries of the following terms and conditions. These section titles and brief summaries are not legally binding.</p>
-
-      <h4>
-        <a id="4-severability-no-waiver-and-survival" class="anchor" href="#4-severability-no-waiver-and-survival" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Severability, No Waiver, and Survival</h4>
-
-      <p>If any part of this Agreement is held invalid or unenforceable, that portion of the Agreement will be construed to reflect the parties’ original intent. The remaining portions will remain in full force and effect. Any failure on the part of YouSound.com to enforce any provision of this Agreement will not be considered a waiver of our right to enforce such provision. Our rights under this Agreement will survive any termination of this Agreement.</p>
-
-      <h4>
-        <a id="5-amendments-complete-agreement" class="anchor" href="#5-amendments-complete-agreement" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>5. Amendments; Complete Agreement
-      </h4>
-
-      <p>This Agreement may only be modified by a written amendment signed by an authorized representative of YouSound.com, or by the posting by YouSound.com of a revised version in accordance with <a href="/articles/YouSound.com-terms-of-service/#r-changes-to-these-terms">Section R. Changes to These Terms</a>. These Terms of Service, together with the YouSound.com Privacy Statement, represent the complete and exclusive statement of the agreement between you and us. This Agreement supersedes any proposal or prior agreement oral or written, and any other communications between you and YouSound.com relating to the subject matter of these terms including any confidentiality or nondisclosure agreements.</p>
+      <p>Access to the YouSound Services may require the use of your personal computer or mobile device, as well as communications with or use of space on such devices. You are responsible for any Internet connection or mobile fees and charges that you incur when accessing the YouSound Services.</p>
 
       <h3>
         <a id="21-license" class="anchor" href="#21-license" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>License.
       </h3>
 
-      <p><strong>Short version:</strong> <em>We use these basic terms throughout the agreement, and they have specific meanings. You should know what we mean when we use each of the terms. There's not going to be a test on it, but it's still useful information.</em></p>
+      <p>The YouSound Services are owned and operated by YouSound. Unless otherwise indicated, all content, information, and other materials on the YouSound Services (excluding User Content, set out in Section 8 below), including, without limitation, YouSound's trademarks and logos, the visual interfaces, graphics, design, compilation, information, software, computer code (including source code or object code), services, text, pictures, information, data, sound files, other files and the selection and arrangement thereof (collectively, the “Materials”) are protected by relevant intellectual property and proprietary rights and laws. All Materials contained on the YouSound Services are the property of YouSound or its subsidiaries or affiliated companies and/or third-party licensors. Unless otherwise expressly stated in writing by YouSound, by agreeing to these Terms of Service you are granted a limited, non-sublicensable license (i.e. a personal and limited right) to access and use the YouSound Services for your personal use or internal business use only.</p>
 
-      <ol>
-        <li>The “Agreement” refers, collectively, to all the terms, conditions, notices contained or referenced in this document (the “Terms of Service” or the "Terms") and all other operating rules, policies (including the YouSound.com Privacy Statement, available at <a href="https://YouSound.com.com/site/privacy">YouSound.com.com/site/privacy</a>) and procedures that we may publish from time to time on the Website. Most of our site policies are available at <a href="/categories/site-policy/">help.YouSound.com.com/categories/site-policy</a>.</li>
-        <li>The “Service” refers to the applications, software, products, and services provided by YouSound.com.</li>
-        <li>The “Website” refers to YouSound.com’s website located at <a href="https://YouSound.com.com/">YouSound.com.com</a>, and all content, services, and products provided by YouSound.com at or through the Website. It also refers to YouSound.com-owned subdomains of YouSound.com.com, such as <a href="https://education.YouSound.com.com/">education.YouSound.com.com</a> and <a href="https://pages.YouSound.com.com/">pages.YouSound.com.com</a>. These Terms also govern YouSound.com’s conference websites, such as <a href="https://YouSound.comuniverse.com/">YouSound.comuniverse.com</a>, and product websites, such as <a href="https://atom.io/">atom.io</a>. Occasionally, websites owned by YouSound.com may provide different or additional terms of service. If those additional terms conflict with this Agreement, the more specific terms apply to the relevant page or service.</li>
-        <li>“The User,” “You,” and “Your” refer to the individual person, company, or organization that has visited or is using the Website or Service; that accesses or uses any part of the account; or that directs the use of the account in the performance of its functions. A User must be at least 13 years of age. Special terms may apply for business or government accounts (See <a href="#4-additional-terms">Section B(4): Additional Terms</a>).</li>
-        <li>“YouSound.com,” “We,” and “Us” refer to YouSound.com, Inc., as well as our affiliates, directors, subsidiaries, contractors, licensors, officers, agents, and employees.</li>
-        <li>“Content” refers to content featured or displayed through the Website, including without limitation text, data, articles, images, photographs, graphics, software, applications, designs, features, and other materials that are available on the Website or otherwise available through the Service. "Content" also includes Services. “User-Generated Content” is Content, written or otherwise, created or uploaded by our Users. "Your Content" is Content that you create or own.</li>
-      </ol>
+      <p>YouSound reserves all rights not expressly granted in these Terms of Service. This license is subject to these Terms of Service and does not permit you to engage in any of the following: (a) resale or commercial use of the YouSound Services or the Materials; (b) distribution, public performance or public display of any Materials; (c) modifying or otherwise making any derivative uses of the YouSound Services or the Materials, or any portion of them; (d) use of any data mining, robots or similar data gathering or extraction methods; (e) downloading (except page caching) of any portion of the YouSound Services, the Materials, or any information contained in them, except as expressly permitted on the YouSound Services; or (f) any use of the YouSound Services or the Materials except for their intended purposes. Any use of the YouSound Services or the Materials except as specifically authorized in these Terms of Service, without the prior written permission of YouSound, is strictly prohibited and may violate intellectual property rights or other laws. Unless explicitly stated in these Terms of Service, nothing in them shall be interpreted as conferring any license to intellectual property rights, whether by estoppel, implication or other legal principles. YouSound can terminate this license at any time, without notice.</p>
 
       <h3>
         <a id="22-user-content" class="anchor" href="#22-user-content" aria-hidden="true">
@@ -714,60 +380,30 @@ It's important as a user, wether a Listener or a Verified Artist, Brand, or Labe
         </a>User Content.
       </h3>
 
-      <p><strong>Short version:</strong> <em>A human must create your account; you must be 13 or over; you must provide a valid email address; and you may not have more than one free account. You alone are responsible for your account and anything that happens while you are signed in to or using your account. You are responsible for keeping your account secure.</em></p>
+      <p>YouSound allows users to distribute streaming live and pre-recorded audio-visual works, to use services, such as chat, bulletin boards, forum postings, wiki contributions, voice interactive services, and to participate in other activities in which you may create, post, transmit, perform, or store content, messages, text, sound, images, applications, code or other data or materials on the YouSound Services (“User Content”).</p>
 
-      <h4>
-        <a id="1-required-information" class="anchor" href="#1-required-information" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>Rules and Conduct.
-      </h4>
+      <h4>Licenses to YouSound.</h4>
 
-      <p>You must provide a valid email address in order to complete the signup process. Any other information requested, such as your real name, is optional, unless you are accepting these terms on behalf of a legal entity (in which case we need more information about the legal entity) or if you opt for a <a href="#l-payment">paid account</a>, in which case additional information will be necessary for billing purposes.</p>
+      <li>(i) Unless otherwise agreed to in a written agreement between you and YouSound that was signed by an authorized representative of YouSound, if you submit, transmit, display, perform, post or store User Content using the YouSound Services, you grant YouSound and its sublicensees an unrestricted, worldwide, perpetual, irrevocable, fully sub-licenseable, nonexclusive, and royalty-free right to (a) use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform and display such User Content (including without limitation for promoting and redistributing part or all of the YouSound Services (and derivative works thereof)) in any form, format, media or media channels now known or later developed or discovered; and (b) use the name, identity, likeness and voice (or other biographical information) that you submit in connection with such User Content. </li>
 
-      <h4>
-        <a id="2-account-requirements" class="anchor" href="#2-account-requirements" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>2. Account Requirements
-      </h4>
+      <li>(ii) With respect to User Content known as “add-ons”, "maps", "mods", or other types of projects submitted through CurseForge.com or related sites (“Submitted Projects”), the rights granted by you hereunder terminate once you remove or delete such Submitted Projects from the YouSound Services. You also acknowledge that YouSound may retain, but not display, distribute, or perform, server copies of Submitted Projects that have been removed or deleted.</li>
 
-      <p>We have a few simple rules for accounts on YouSound.com's Service.</p>
+      <li>(iii) With respect to streaming live and pre-recorded audio-visual works, the rights granted by you hereunder terminate once you delete such User Content from the YouSound Services, or generally by closing your account, except (a) to the extent you shared it with others as part of the YouSound Services and others copied or stored portions of the User Content (e.g., made a Clip); (b) YouSound used it for promotional purposes; and (c) for the reasonable time it takes to remove from backup and other systems.</li>
 
-      <ul>
-        <li>You must be a human to create an account. Accounts registered by "bots" or other automated methods are not permitted. We do permit machine accounts:
-          <br>
-        </li>
-        <li>A machine account is an account set up by an individual human who accepts the Terms on behalf of the account, provides a valid email address, and is responsible for its actions. A machine account is used exclusively for performing automated tasks. Multiple users may direct the actions of a machine account, but the owner of the account is ultimately responsible for the machine's actions. You may maintain no more than one free machine account in addition to your free personal account.</li>
-        <li>One person or legal entity may maintain no more than one free account (if you choose to control a machine account as well, that's fine, but it can only be used for running a machine).</li>
-        <li>You must be age 13 or older. While we are thrilled to see brilliant young coders get excited by learning to program, we must comply with United States law. YouSound.com does not target our Service to children under 13, and we do not permit any Users under 13 on our Service. If we learn of any User under the age of 13, we will <a href="#m-cancellation-and-termination">terminate that User’s account immediately</a>. If you are a resident of a country outside the United States, your country’s minimum age may be older; in such a case, you are responsible for complying with your country’s laws.</li>
-        <li>Your login may only be used by one person — i.e., a single login may not be shared by multiple people. A paid organization account may create separate logins for as many users as its subscription allows.</li>
-        <li>Overall, the number of Users must not exceed the number of accounts you've ordered from us.</li>
-      </ul>
+      <h4>User Content Representations and Warranties</h4>
 
-      <h4>
-        <a id="3-user-account-security" class="anchor" href="#3-user-account-security" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>3. User Account Security
-      </h4>
+      <p>You are solely responsible for your User Content and the consequences of posting or publishing it. By uploading and publishing your User Content, you represent, and warrant that:</p>
 
-      <p>You are responsible for keeping your account secure while you use our Service. We offer tools such as two-factor authentication to help you maintain your account's security, but the content of your account and its security are up to you.</p>
+      <li>(1) you are the creator and owner of the User Content or otherwise have sufficient rights and authority to grant the rights granted herein;</li>
 
-      <ul>
-        <li>You are responsible for all content posted and activity that occurs under your account (even when content is posted by others who have accounts under your account).</li>
-        <li>You are responsible for maintaining the security of your account and password. YouSound.com cannot and will not be liable for any loss or damage from your failure to comply with this security obligation.</li>
-        <li>You will promptly <a href="https://YouSound.com.com/contact">notify YouSound.com</a> if you become aware of any unauthorized use of, or access to, our Service through your account, including any unauthorized use of your password or account.</li>
-      </ul>
+      <li>(2) your User Content does not and will not (a) infringe, violate, or misappropriate any third-party right, including any copyright, trademark, patent, trade secret, moral right, privacy right, right of publicity, or any other intellectual property or proprietary right or (b) defame any other person;</li> 
 
-      <h4>
-        <a id="4-additional-terms" class="anchor" href="#4-additional-terms" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>4. Additional Terms
-      </h4>
+      <li>(3) your User Content does not contain any viruses, adware, spyware, worms, or other harmful or malicious code; and (4) unless you have received prior written authorization, your User Content specifically does not contain any pre-release or non-public beta software or game content or any confidential information of YouSound or third parties. YouSound reserves all rights and remedies against any users who breach these representations and warranties.</li>
 
-      <p>In some situations, third parties' terms may apply to your use of YouSound.com. For example, you may be a member of an organization on YouSound.com with its own terms or license agreements; you may download an application that integrates with YouSound.com; or you may use YouSound.com to authenticate to another service. Please be aware that while these Terms are our full agreement with you, other parties' terms govern their relationships with you.</p>
+      <h4>Content is Uploaded at Your Own Risk</h4>
 
-      <p>If you are a government User or otherwise accessing or using any YouSound.com Service in a government capacity, this <a href="/articles/amendment-to-YouSound.com-terms-of-service-applicable-to-u-s-federal-government-users/">Government Amendment to YouSound.com Terms of Service</a> applies to you, and you agree to its provisions.</p>
-
-      <p>If you have signed up for a Business plan, the <a href="/articles/YouSound.com-business-plan-addendum/">Business Plan Addendum</a> applies to you, and you agree to its provisions.</p>
+      <p>YouSound uses reasonable security measures in order to attempt to protect User Content against unauthorized copying and distribution. However, YouSound does not guarantee and is not liable for any unauthorized copying, use or distribution of User Content. You hereby release and forever waive any claims you may have against YouSound for any such unauthorized copying or usage of the User Content, under any theory. THE SECURITY MEASURES TO PROTECT CREATOR CONTENT USED BY YouSound HEREIN ARE PROVIDED AND USED "AS-IS" AND WITH NO WARRANTIES OR ASSURANCES THAT SUCH SECURITY MEASURES WILL WITHSTAND ATTEMPTS TO EVADE SECURITY MECHANISMS OR THAT THERE WILL BE NO CRACKS, DISABLEMENTS OR OTHER CIRCUMVENTION OF SUCH SECURITY MEASURES.</p>
+      
 
       <h3>
         <a id="23-promotions" class="anchor" href="#23-promotions" aria-hidden="true">
@@ -775,355 +411,131 @@ It's important as a user, wether a Listener or a Verified Artist, Brand, or Labe
         </a>Promotions.
       </h3>
 
-      <p><strong>Short version:</strong> <em>YouSound.com hosts a wide variety of collaborative projects from all over the world, and that collaboration only works when our users are able to work together in good faith. While using the service, you must follow this Acceptable Use Policy, which includes some restrictions on content you can post, conduct on the service, and other limitations. In short, be excellent to each other.</em></p>
-
-      <h4>
-        <a id="1-compliance-with-laws-and-regulations" class="anchor" href="#1-compliance-with-laws-and-regulations" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>1. Compliance with Laws and Regulations
-      </h4>
-
-      <p>Your use of the Website and Service must not violate any applicable laws, including copyright or trademark laws, export control laws, or other laws in your jurisdiction. You are responsible for making sure that your use of the Service is in compliance with laws and any applicable regulations.</p>
-
-      <h4>
-        <a id="2-content-restrictions" class="anchor" href="#2-content-restrictions" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>2. Content Restrictions
-      </h4>
-
-      <p>You agree that you will not under any circumstances upload, post, host, or transmit any content that:</p>
-
-      <ul>
-        <li>is unlawful or promotes unlawful activities;</li>
-        <li>is or contains sexually obscene content;</li>
-        <li>is libelous, defamatory, or fraudulent;</li>
-        <li>is discriminatory or abusive toward any individual or group;</li>
-        <li>contains or installs any active malware or exploits, or uses our platform for exploit delivery (such as part of a command and control system); or</li>
-        <li>infringes on any proprietary right of any party, including patent, trademark, trade secret, copyright, right of publicity, or other rights.</li>
-      </ul>
-
-      <h4>
-        <a id="3-conduct-restrictions" class="anchor" href="#3-conduct-restrictions" aria-hidden="true">
-        <span aria-hidden="true" class="link"></span>
-        </a>3. Conduct Restrictions
-      </h4>
-
-      <p>While using YouSound.com, you agree that you will not under any circumstances:</p>
-
-      <ul>
-        <li>harass, abuse, threaten, or incite violence towards any individual or group, including YouSound.com employees, officers, and agents, or other YouSound.com Users;</li>
-        <li>use our servers for any form of excessive automated bulk activity (for example, spamming), or relay any other form of unsolicited advertising or solicitation through our servers, such as get-rich-quick schemes;</li>
-        <li>attempt to disrupt or tamper with YouSound.com's servers in ways that could harm our Website or Service, to place undue burden on YouSound.com's servers through automated means, or to access YouSound.com's Service in ways that exceed your authorization (other than those authorized by the <a href="https://bounty.YouSound.com.com/">YouSound.com Bug Bounty program</a>);</li>
-        <li>impersonate any person or entity, including any of our employees or representatives, including through false association with YouSound.com, or by fraudulently misrepresenting your identity or site's purpose; or</li>
-        <li>violate the privacy of any third party, such as by posting another person's personal information without consent.</li>
-      </ul>
-
-      <h4>
-        <a id="4-services-usage-limits" class="anchor" href="#4-services-usage-limits" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Services Usage Limits
-      </h4>
-
-      <p>You agree not to reproduce, duplicate, copy, sell, resell or exploit any portion of the Service, use of the Service, or access to the Service without YouSound.com's express written permission.</p>
-
-      <h4>
-        <a id="5-scraping" class="anchor" href="#5-scraping" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>5. Scraping</h4>
-
-      <p>Scraping refers to extracting data from our Website via an automated process, such as a bot or webcrawler. It does not refer to the collection of information through YouSound.com's API. Please see <a href="#h-api-terms">Section H</a> for our API Terms. You may scrape the website for the following reasons:</p>
-
-      <ul>
-        <li>Researchers may scrape public, non-personal information from YouSound.com for research purposes, only if any publications resulting from that research are open access.</li>
-        <li>Archivists may scrape YouSound.com for public data for archival purposes.</li>
-      </ul>
-
-      <p>You may not scrape YouSound.com for spamming purposes, including for the purposes of selling YouSound.com users' personal information, such as to recruiters, headhunters, and job boards.</p>
-
-      <p>All use of YouSound.com data gathered through scraping must comply with the <a href="https://YouSound.com.com/site/privacy">YouSound.com Privacy Statement</a>.</p>
-
-      <h4>
-        <a id="6-privacy" class="anchor" href="#6-privacy" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>6. Privacy</h4>
-
-      <p>Misuse of YouSound.com Users' Personal Information is prohibited.</p>
-
-      <p>Any person, entity, or service collecting data from YouSound.com must comply with the <a href="https://YouSound.com.com/site/privacy">YouSound.com Privacy Statement</a>, particularly in regards to the collection of our Users' Personal Information (as defined in the YouSound.com Privacy Statement). If you collect any YouSound.com User's Personal Information from YouSound.com, you agree that you will only use the Personal Information you gather for the purpose for which our User has authorized it. You agree that you will reasonably secure any Personal Information you have gathered from YouSound.com, and you will respond promptly to complaints, removal requests, and "do not contact" requests from YouSound.com or YouSound.com Users.</p>
-
-      <h4>
-        <a id="7-excessive-bandwidth-use" class="anchor" href="#7-excessive-bandwidth-use" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>7. Excessive Bandwidth Use</h4>
-
-      <p>If we determine your bandwidth usage to be significantly excessive in relation to other YouSound.com customers, we reserve the right to suspend your account or throttle your file hosting until you can reduce your bandwidth consumption.</p>
-
-      <h4>
-        <a id="8-user-protection" class="anchor" href="#8-user-protection" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>8. User Protection</h4>
-
-      <p>You agree not to engage in activity that significantly harms our Users. We will resolve disputes in favor of protecting our Users as a whole.</p>
+      <p>Users may promote, administer, or conduct a promotion (a contest or sweepstakes) on, through or utilizing the YouSound Services (a “Promotion”). If you choose to promote, administer or conduct a Promotion, you must adhere to the following rules: (i) You may carry out Promotions to the extent permitted by applicable law and you are solely responsible for ensuring that any Promotions comply with any and all applicable laws, obligations, and restrictions. (ii) You will be solely responsible for all aspects of and expenses related to your Promotion, including, without limitation, the execution, administration, and operation of the Promotion; drafting and posting any official rules; selecting winners; issuing prizes; and obtaining all necessary third-party permissions and approvals, including, without limitation, filing any and all necessary registrations and bonds. YouSound has the right to remove your Promotion from the YouSound Services for any reason. (iii) YouSound is not responsible for and does not endorse or support any such Promotions. You may not indicate that YouSound is a sponsor or co-sponsor of the Promotion. (iv) All Creators should display or read out the following when a Promotion is on their channel: "This is a promotion by [Your Name]. YouSound does not sponsor or endorse [Your Name]’s promotion and is not responsible for this promotion".</p>
 
       <h3>
         <a id="24-endorements-testimonials" class="anchor" href="#24-endorements-testimonials" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Endorsements and Testimonials.</h3>
 
-      <p><strong>Short version:</strong> <em>You own content you create, but you allow us certain rights to it, so that we can display and share the content you post. You still have control over your content, and responsibility for it, and the rights you grant us are limited to those we need to provide the service. We have the right to remove content or close accounts if we need to.</em></p>
+      <p>You agree that your User Content will comply with the FTC's Guidelines Concerning the Use of Testimonials and Endorsements in Advertising , the FTC’s .com Disclosures Guide , the FTC’s Native Advertising Guidelines , and any other guidelines issued by the FTC from time to time ("FTC Guidelines”). For example, if you have been paid or provided with free products in exchange for discussing or promoting a product or service through the YouSound Services, or if you are an employee of a company and you decide to discuss or promote that company's products or services through the YouSound Services, you agree to comply with the FTC Guidelines' requirements for disclosing such relationships. You, and not YouSound, are solely responsible for any endorsements or testimonials you make regarding any product or service through the YouSound Services.</p>
 
-      <h4>
-        <a id="1-responsibility-for-user-generated-content" class="anchor" href="#1-responsibility-for-user-generated-content" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Responsibility for User-Generated Content</h4>
-
-      <p>You may create or upload User-Generated Content while using the Service. You are solely responsible for the content of, and for any harm resulting from, any User-Generated Content that you post, upload, link to or otherwise make available via the Service, regardless of the form of that Content. We are not responsible for any public display or misuse of your User-Generated Content.</p>
-
-      <h4>
-        <a id="2-YouSound.com-may-remove-content" class="anchor" href="#2-YouSound.com-may-remove-content" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. YouSound.com May Remove Content</h4>
-
-      <p>We do not pre-screen User-Generated Content, but we have the right (though not the obligation) to refuse or remove any User-Generated Content that, in our sole discretion, violates any YouSound.com terms or policies.</p>
-
-      <h4>
-        <a id="3-ownership-of-content-right-to-post-and-license-grants" class="anchor" href="#3-ownership-of-content-right-to-post-and-license-grants" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Ownership of Content, Right to Post, and License Grants</h4>
-
-      <p>You retain ownership of and responsibility for Content you create or own ("Your Content"). If you're posting anything you did not create yourself or do not own the rights to, you agree that you are responsible for any Content you post; that you will only submit Content that you have the right to post; and that you will fully comply with any third party licenses relating to Content you post.</p>
-
-      <p>Because you retain ownership of and responsibility for Your Content, we need you to grant us — and other YouSound.com Users — certain legal permissions, listed in Sections D.4 — D.7. These license grants apply to Your Content. If you upload Content that already comes with a license granting YouSound.com the permissions we need to run our Service, no additional license is required. You understand that you will not receive any payment for any of the rights granted in Sections D.4 — D.7. The licenses you grant to us will end when you remove Your Content from our servers, unless other Users have forked it.</p>
-
-      <h4>
-        <a id="4-license-grant-to-us" class="anchor" href="#4-license-grant-to-us" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. License Grant to Us</h4>
-
-      <p>We need the legal right to do things like host Your Content, publish it, and share it. You grant us and our legal successors the right to store, parse, and display Your Content, and make incidental copies as necessary to render the Website and provide the Service. This includes the right to do things like copy it to our database and make backups; show it to you and other users; parse it into a search index or otherwise analyze it on our servers; share it with other users; and perform it, in case Your Content is something like music or video.</p>
-
-      <p>This license does not grant YouSound.com the right to sell Your Content or otherwise distribute or use it outside of our provision of the Service.</p>
-
-      <h4>
-        <a id="5-license-grant-to-other-users" class="anchor" href="#5-license-grant-to-other-users" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>5. License Grant to Other Users</h4>
-
-      <p>Any User-Generated Content you post publicly, including issues, comments, and contributions to other Users' repositories, may be viewed by others. By setting your repositories to be viewed publicly, you agree to allow others to view and "fork" your repositories (this means that others may make their own copies of Content from your repositories in repositories they control).</p>
-
-      <p>If you set your pages and repositories to be viewed publicly, you grant each User of YouSound.com a nonexclusive, worldwide license to use, display, and perform Your Content through the YouSound.com Service and to reproduce Your Content solely on YouSound.com as permitted through YouSound.com's functionality (for example, through forking). You may grant further rights if you <a href="/articles/adding-a-license-to-a-repository/#including-an-open-source-license-in-your-repository">adopt a license</a>. If you are uploading Content you did not create or own, you are responsible for ensuring that the Content you upload is licensed under terms that grant these permissions to other YouSound.com Users.</p>
-
-      <h4>
-        <a id="6-contributions-under-repository-license" class="anchor" href="#6-contributions-under-repository-license" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>6. Contributions Under Repository License</h4>
-
-      <p>Whenever you make a contribution to a repository containing notice of a license, you license your contribution under the same terms, and you agree that you have the right to license your contribution under those terms. If you have a separate agreement to license your contributions under different terms, such as a contributor license agreement, that agreement will supersede.</p>
-
-      <p>Isn't this just how it works already? Yep. This is widely accepted as the norm in the open-source community; it's commonly referred to by the shorthand "inbound=outbound". We're just making it explicit.</p>
-
-      <h4>
-        <a id="7-moral-rights" class="anchor" href="#7-moral-rights" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>7. Moral Rights</h4>
-
-      <p>You retain all moral rights to Your Content that you upload, publish, or submit to any part of the Service, including the rights of integrity and attribution. However, you waive these rights and agree not to assert them against us, to enable us to reasonably exercise the rights granted in Section D.4, but not otherwise.</p>
-
-      <p>To the extent this agreement is not enforceable by applicable law, you grant YouSound.com the rights we need to use Your Content without attribution and to make reasonable adaptations of Your Content as necessary to render the Website and provide the Service.</p>
 
       <h3>
         <a id="25-prohibited-conduct" class="anchor" href="#25-prohibited-conduct" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Prohibited Conduct.</h3>
 
-      <p><strong>Short version:</strong> <em>You may have access to private repositories. We treat the content of private repositories as confidential, and we only access it for support reasons, with your consent, or if required to for security reasons.</em></p>
+      <p>BY USING THE YouSound SERVICES, YOU AGREE NOT TO violate any law, contract, intellectual property or other third-party right or commit a tort, and that you are solely responsible for your conduct while on the YouSound Services.  You agree that you will comply with these Terms of Service and YouSound’s Community Guidelines and will not:</p>
 
-      <h4>
-        <a id="1-control-of-private-repositories" class="anchor" href="#1-control-of-private-repositories" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Control of Private Repositories.</h4>
+      
 
-      <p>Some accounts, such as paid accounts, may have private repositories, which allow the User to control access to Content.</p>
+      <li><strong>create, upload, transmit, distribute, or store any content that is inaccurate, unlawful, infringing, defamatory, obscene, pornographic, invasive of privacy or publicity rights, harassing, threatening, abusive, inflammatory, or otherwise objectionable;</strong></li>
 
-      <h4>
-        <a id="2-confidentiality-of-private-repositories" class="anchor" href="#2-confidentiality-of-private-repositories" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Confidentiality of Private Repositories.</h4>
+      <li><strong>impersonate any person or entity, falsely claim an affiliation with any person or entity, or access the YouSound Services accounts of others without permission, forge another person’s digital signature, misrepresent the source, identity, or content of information transmitted via the YouSound Services, or perform any other similar fraudulent activity;</strong></li>
 
-      <p>YouSound.com considers the contents of private repositories to be confidential to you. YouSound.com will protect the contents of private repositories from unauthorized use, access, or disclosure in the same manner that we would use to protect our own confidential information of a similar nature and in no event with less than a reasonable degree of care.</p>
+      <li><strong>make unsolicited offers, advertisements, proposals, or send junk mail or spam to users of the YouSound Services, including, without limitation, unsolicited advertising, promotional materials, or other solicitation material, bulk mailing of commercial advertising, chain mail, informational announcements, charity requests, petitions for signatures, or any of the preceding things related to promotional giveaways (such as raffles and contests), and other similar activities;</strong></li>
 
-      <h4>
-        <a id="3-access" class="anchor" href="#3-access" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Access.</h4>
+      <li><strong>harvest or collect the email addresses or other contact information of other users from the YouSound Services;</strong></li>
 
-      <p>YouSound.com employees may only access the content of your private repositories in the following situations:</p>
+      <li><strong>defame, harass, abuse, threaten or defraud users of the YouSound Services, or collect, or attempt to collect, personal information about users or third parties without their consent;</strong></li>
 
-      <ul>
-        <li>With your consent and knowledge, for support reasons. If YouSound.com accesses a private repository for support reasons, we will only do so with the owner’s consent and knowledge.</li>
-        <li>When access is required for security reasons.</li>
-      </ul>
+      <li><strong>remove, circumvent, disable, damage or otherwise interfere with security-related features of the YouSound Services or User Content, features that prevent or restrict use or copying of any content accessible through the YouSound Services, features that enforce limitations on the use of the YouSound Services or User Content, or delete the copyright or other proprietary rights notices on the YouSound Services or User Content;</strong></li>
 
-      <p>You may choose to enable additional access to your private repositories. For example:</p>
+      <li><strong>reverse engineer, decompile, disassemble or otherwise attempt to discover the source code of the YouSound Services or any part thereof, except and only to the extent that this activity is expressly permitted by the law of your country of residence;</strong></li>
 
-      <ul>
-        <li>You may enable various YouSound.com services or features that require additional rights to Your Content in private repositories. These rights may vary depending on the service or feature, but YouSound.com will continue to treat your private repository Content as confidential. If those services or features require rights in addition to those we need to provide the YouSound.com Service, we will provide an explanation of those rights.</li>
-        <li>You may also grant a third-party application authorization to use, access, and disclose the contents of your private repositories. Your use of third-party applications is at your sole risk; YouSound.com is not liable for disclosures to third parties that you authorize to access a private repository.</li>
-      </ul>
+      <li><strong>modify, adapt, translate or create derivative works based upon the YouSound Services or any part thereof, except and only to the extent that such activity is expressly permitted by applicable law notwithstanding this limitation;</strong></li>
 
-      <h4>
-        <a id="4-exclusions" class="anchor" href="#4-exclusions" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Exclusions.</h4>
+      <li><strong>interfere with or damage operation of the YouSound Services or any user's enjoyment of them, by any means, including uploading or otherwise disseminating viruses, adware, spyware, worms, or other malicious code;</strong></li>
 
-      <p>If we have reason to believe the contents of a private repository are in violation of the law or of these Terms, we have the right to access, review, and remove them. Additionally, we may be <a href="/articles/YouSound.com-privacy-statement/#how-we-respond-to-compelled-disclosure">compelled by law</a> to disclose the contents of your private repositories.</p>
+      <li><strong>relay email from a third party's mail servers without the permission of that third party;</strong></li>
+
+      <li><strong>access any website, server, software application, or other computer resource owned, used and/or licensed by YouSound, including but not limited to the YouSound Services, by means of any robot, spider, scraper, crawler or other automated means for any purpose, or bypass any measures YouSound may use to prevent or restrict access to any website, server, software application, or other computer resource owned, used and/or licensed YouSound, including but not limited to the YouSound Services;</strong></li>
+
+      <li><strong>manipulate identifiers in order to disguise the origin of any User Content transmitted through the YouSound Services;</strong></li>
+
+      <li><strong>interfere with or disrupt the YouSound Services or servers or networks connected to the YouSound Services, or disobey any requirements, procedures, policies or regulations of networks connected to the YouSound Services; use the YouSound Services in any manner that could interfere with, disrupt, negatively affect or inhibit other users from fully enjoying the YouSound Services, or that could damage, disable, overburden or impair the functioning of the YouSound Services in any manner;</strong></li>
+
+      <li><strong>use or attempt to use another user's account without authorization from that user and YouSound;</strong></li>
+
+      <li><strong>attempt to circumvent any content filtering techniques we employ, or attempt to access any service or area of the YouSound Services that you are not authorized to access;</strong></li>
+
+      <li><strong>attempt to indicate in any manner that you have a relationship with us or that we have endorsed you or any products or services for any purpose; and</strong></li>
+
+      <li><strong>use the YouSound Services for any illegal purpose, or in violation of any local, state, national, or international law or regulation, including, without limitation, laws governing intellectual property and other proprietary rights, data protection and privacy.</strong></li>
+
+
+
+      <p>YouSound takes no responsibility and assumes no liability for any User Content or for any loss or damage resulting therefrom, nor is YouSound liable for any mistakes, defamation, slander, libel, omissions, falsehoods, obscenity, pornography or profanity you may encounter when using the YouSound Services. Your use of the YouSound Services is at your own risk. In addition, these rules do not create any private right of action on the part of any third party or any reasonable expectation that the YouSound Services will not contain any content that is prohibited by such rules.</p>
+
+      <p>YouSound is not liable for any statements or representations included in User Content. YouSound does not endorse any User Content, opinion, recommendation, or advice expressed therein, and YouSound expressly disclaims any and all liability in connection with User Content. Although YouSound has no obligation to screen, edit, or monitor any of the User Content, YouSound reserves the right, and has absolute discretion, to remove, screen or edit any User Content posted or stored on the YouSound Services at any time and for any reason without notice, and you are solely responsible for creating backup copies of and replacing any User Content you post or store on the YouSound Services at your sole cost and expense. Any use of the YouSound Services in violation of the foregoing violates these Terms of Service and may result in, among other things, termination or suspension of your rights to use the YouSound Services.</p>
+
+      <h4>Trademarks</h4>
+
+      <p>YouSound, the YouSound logos, CURSE, the Curse logos, and any other product or service name, logo, or slogan used by YouSound, and the look and feel of the YouSound Services, including all page headers, custom graphics, button icons and scripts, are trademarks or trade dress of YouSound, and may not be used in whole or in part in connection with any product or service that is not YouSound’s, in any manner that is likely to cause confusion among customers, or in any manner that disparages or discredits YouSound, without our prior written permission. Any use of these trademarks must be in accordance with any guidelines that YouSound may provide you from time to time.  All other trademarks referenced in the YouSound Services are the property of their respective owners. Reference on the YouSound Services to any products, services, processes or other information, by trade name, trademark, manufacturer, supplier, or otherwise does not constitute or imply endorsement, sponsorship, or recommendation thereof by us or any other affiliation.</p>
+
 
       <h3>
         <a id="26-third-party-content" class="anchor" href="#26-third-party-content" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Third Party Content.</h3>
 
-      <p>If you believe that content on our website violates your copyright, please contact us in accordance with our <a href="/articles/dmca-takedown-policy/">Digital Millennium Copyright Act Policy</a>. If you are a copyright owner and you believe that content on YouSound.com violates your rights, please contact us via <a href="https://YouSound.com.com/contact/dmca">our convenient DMCA form</a> or by emailing <a href="mailto:copyright@YouSound.com.com">copyright@YouSound.com.com</a>. There may be legal consequences for sending a false or frivolous takedown notice. Before sending a takedown request, you must consider legal uses such as fair use and licensed uses.</p>
+      <p>In addition to the User Content, YouSound may provide other third party content on the YouSound Services (collectively the “Third-Party Content”). YouSound does not control or endorse any Third-Party Content and makes no representation or warranties of any kind regarding the Third-Party Content, including without limitation regarding its accuracy or completeness. Please be aware that we do not create Third Party Content, update, or monitor it. Therefore we are not responsible for any Third Party Content on the YouSound Services.</p>
 
-      <p>We will terminate the accounts of <a href="/articles/dmca-takedown-policy/#e-repeated-infringement">repeat infringers</a> of this policy.</p>
+      <p>You are responsible for deciding if you want to access or use third party websites or applications that link from the YouSound Services (“Reference Sites”). YouSound does not control or endorse any such Reference Sites or the information, materials, products, or services contained on or accessible through Reference Sites, and makes no representations or warranties of any kind regarding the Reference Sites. In addition, your correspondence or business dealings with, or participation in promotions of, advertisers found on or through the YouSound Services are solely between you and such advertiser. Access and use of Reference Sites, including the information, materials, products, and services on or available through Reference Sites is solely at your own risk.</p>
 
       <h3>
         <a id="27-idea-submission" class="anchor" href="#27-idea-submission" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Idea Submission.</h3>
 
-      <p><strong>Short version:</strong> <em>We own the service and all of our content. In order for you to use our content, we give you certain rights to it, but you may only use our content in the way we have allowed.</em></p>
-
-      <h4>
-        <a id="1-YouSound.coms-rights-to-content" class="anchor" href="#1-YouSound.coms-rights-to-content" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. YouSound.com's Rights to Content</h4>
-
-      <p>YouSound.com and our licensors, vendors, agents, and/or our content providers retain ownership of all intellectual property rights of any kind related to the Website and Service. We reserve all rights that are not expressly granted to you under this Agreement or by law. The look and feel of the Website and Service is copyright © YouSound.com, Inc. All rights reserved. You may not duplicate, copy, or reuse any portion of the HTML/CSS, Javascript, or visual design elements or concepts without express written permission from YouSound.com.</p>
-
-      <h4>
-        <a id="2-YouSound.com-trademarks-and-logos" class="anchor" href="#2-YouSound.com-trademarks-and-logos" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. YouSound.com Trademarks and Logos</h4>
-
-      <p>If you’d like to use YouSound.com’s trademarks, you must follow all of our trademark guidelines, including those on our logos page: <a href="https://YouSound.com.com/logos">https://YouSound.com.com/logos</a>.</p>
-
-      <h4>
-        <a id="3-license-to-YouSound.com-policies" class="anchor" href="#3-license-to-YouSound.com-policies" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. License to YouSound.com Policies</h4>
-
-      <p>This Agreement is licensed under this <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons Zero license</a>. For details, see our <a href="https://YouSound.com.com/YouSound.com/site-policy#license">site-policy repository</a>.</p>
+      <p>By submitting ideas, suggestions, documents, and/or proposals (“Submissions”) to YouSound or its employees, you acknowledge and agree that YouSound shall be entitled to use or disclose such Submissions for any purpose in any way without providing compensation or credit to you.</p>
 
       <h3>
-        <a id="28-termination" class="anchor" href="#28-termination" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Warranty Disclaimer.</h3>
+        <a id="28-termination" class="anchor" href="#28-termination" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Termination.</h3>
 
-      <p><strong>Short version:</strong> <em>You agree to these Terms of Service, plus this Section H, when using any of YouSound.com's APIs (Application Provider Interface), including use of the API through a third party product that accesses YouSound.com.</em></p>
-
-      <h4>
-        <a id="no-abuse-or-overuse-of-the-api" class="anchor" href="#no-abuse-or-overuse-of-the-api" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>No Abuse or Overuse of the API</h4>
-
-      <p>Abuse or excessively frequent requests to YouSound.com via the API may result in the temporary or permanent suspension of your account's access to the API. YouSound.com, in our sole discretion, will determine abuse or excessive usage of the API. We will make a reasonable attempt to warn you via email prior to suspension.</p>
-
-      <p>You may not share API tokens to exceed YouSound.com's rate limitations.</p>
-
-      <p>You may not use the API to download data or Content from YouSound.com for spamming purposes, including for the purposes of selling YouSound.com users' personal information, such as to recruiters, headhunters, and job boards.</p>
-
-      <p>All use of the YouSound.com API is subject to these Terms of Service and the <a href="https://YouSound.com.com/site/privacy">YouSound.com Privacy Statement</a>.</p>
-
-      <p>YouSound.com may offer subscription-based access to our API for those Users who require high-throughput access or access that would result in resale of YouSound.com's Service.</p>
+      <p>Company may terminate your access to all or any part of the Service at any time, with or without cause, with or without notice, effective immediately, which may result in the forfeiture and destruction of all information associated with your membership, including, without limitation, any access to any Music you may have purchased through the Service. If you wish to terminate your account, then you may do so by following the instructions on the Site. Any fees paid hereunder are non-refundable, except as provided in this Agreement. All provisions of these Terms of Use which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.</p>
 
       <h3>
-        <a id="29-indemnification" class="anchor" href="#29-indemnification" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Indemnification.</h3>
+        <a id="29-warranty-disclaimer" class="anchor" href="#29-warranty-disclaimer" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Warranty Disclaimer.</h3>
 
-      <p><strong>Short version:</strong> <em>The YouSound.com Pages hosting service is subject to certain rules, in addition to the rest of the Terms.</em></p>
+        <p>Company has no special relationship with or fiduciary duty to you. You acknowledge that Company has no control over, and no duty to take any action regarding: which users gains access to the Site; what Content you access via the Site; what effects the Content may have on you; how you may interpret or use the Content; or what actions you may take as a result of having been exposed to the Content. You release Company from all liability for you having acquired or not acquired Content through the Site. The Site may contain, or direct you to websites containing, information that some people may find offensive or inappropriate. Company makes no representations concerning any Content contained in or accessed through the Site, and Company will not be responsible or liable for the accuracy, copyright compliance, legality or decency of material contained in or accessed through the Site or the Service.</p>
 
-      <p>Each YouSound.com account comes with access to the <a href="https://pages.YouSound.com.com/">YouSound.com Pages static hosting service</a>. This hosting service is intended to host static web pages for YouSound.com users. YouSound.com Pages are subject to some specific bandwidth and usage limits, and may not be appropriate for some high-bandwidth uses. Please see our <a href="/articles/what-is-YouSound.com-pages/">YouSound.com Pages guidelines</a> for more information.</p>
+        <p><strong>The Service is provided "as is" and "as available” and is without warranty of any kind, express or implied, including, but not limited to, the implied warranties of title, non-infringement, merchantability and fitness for a particular purpose, and any warranties implied by any course of performance or usage of trade, all of which are expressly disclaimed. Company, and its directors, employees, agents, suppliers, partners and content providers do not warrant that: (a) the service will be secure or available at any particular time or location; (b) any defects or errors will be corrected; (c) any content or software available at or through the service is free of viruses or other harmful components; or (d) the results of using the service will meet your requirements. Your use of the service is solely at your own risk.  Some states do not allow limitations on how long an implied warranty lasts, so the above limitations may not apply to you.</strong></p>
 
-      <p>YouSound.com reserves the right at all times to reclaim any YouSound.com subdomain without liability.</p>
+        <p>Electronic Communications Privacy Act Notice (18 U.S.C. §§ 2701-2711): Company makes no guaranty of confidentiality or privacy of any communication or information transmitted on the Site or any website linked to the Site. Company will not be liable for the privacy of e-mail addresses, registration and identification information, disk space, communications, confidential or trade-secret information, or any other Content stored on Company’s equipment, transmitted over networks accessed by the Site, or otherwise connected with your use of the Service.</p>
+
+
+      <h3>
+        <a id="30-indemnification" class="anchor" href="#30-indemnification" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Indemnification.</h3>
+
+      <p>You shall defend, indemnify, and hold harmless Company and its affiliates, authorized sublicensees and distributors, and each of their employees, contractors, directors, suppliers and representatives, from any and all liabilities, claims, and expenses, including reasonable attorneys' fees and court costs, that arise from or relate to your use or misuse of, or access to, the Site, Service, Content or otherwise from your User Submissions, violation of these Terms of Use, or infringement by you, or any third party using the your account, of any intellectual property or other right of any person or entity, and for breach of any of your representations and warranties in these Terms of Use. For the avoidance of doubt, you hereby agree to defend, indemnify, and hold harmless Company from any and all claims by a third party owning, controlling or claiming any right in or to your Music, including claims for performance royalties, synchronization royalties, mechanical royalties, and use or re-use fees. Company reserves the right to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, in which event you will assist and cooperate with Company in asserting any available defenses at your sole expense.</p>
 
       <h3>
         <a id="31-limitation-of-liability" class="anchor" href="#31-limitation-of-liability" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Limitation of Liability.</h3>
 
-      <p><strong>Short version:</strong> <em>YouSound.com Marketplace is subject to certain rules, in addition to the rest of this Agreement.</em></p>
+      <p><strong>In no event shall Company, nor its directors, employees, agents, partners, suppliers or content providers, be liable under contract, tort, strict liability, negligence or any other legal or equitable theory with respect to the Service (i) for any lost profits, data loss, cost of procurement of substitute goods or services, or special, indirect, incidental, punitive, or consequential damages of any kind whatsoever, substitute goods or services (however arising), (ii) for any bugs, viruses, trojan horses, or the like (regardless of the source of origination), or (iii) for any direct damages in excess of (in the aggregate) one-hundred U.S. dollars ($100.00). Some states do not allow the exclusion or limitation of incidental or consequential damages, so the above limitations and exclusions may not apply to you. </strong></p>
 
-      <p><a href="https://YouSound.com.com/marketplace">YouSound.com Marketplace</a> is a platform for developers of all kinds. Through YouSound.com Marketplace, you can list Developer Products (as defined in the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a>) or buy others' Developer Products. Prior to submitting a project to be listed, you must agree to the <a href="/articles/YouSound.com-marketplace-developer-agreement/">YouSound.com Marketplace Developer Agreement</a>.</p>
+      <p><strong>Because Company is not the buyer or seller in any Merchandise Transaction, if a dispute arises between one or more participants in a Merchandise Transaction, then you release Company (and its affiliates, agents and employees) from claims, demands and damages (actual and consequential) of every kind and nature, known and unknown, suspected and unsuspected, disclosed and undisclosed, arising out of or in any way connected with such disputes. If you are a California resident, then you waive California civil code §1542, which says: "a general release does not extend to claims which the creditor does not know or suspect to exist in his favor at the time of executing the release, which if known by him must have materially affected his settlement with the debtor." You, being aware of said code section, hereby expressly waive any rights you may have thereunder, as well as under any other statutes or common law principles of similar effect. You acknowledge and agree that this waiver is an essential and material term of this Agreement, and that without such waiver, this Agreement would not have been entered into by Company.</strong></p>
 
-      <p>If you buy Developer Products, the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a> controls your purchase. This Agreement, as well as the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a>, will govern your use of YouSound.com Marketplace. Many of these Developer Products are used exclusively for performing automated tasks. In addition, multiple Users may direct the actions of a Developer Product. However, if you purchase and/or set up a Developer Product on your account, or you are an owner of an account with an integrated Developer Product, then you will be responsible for the Developer Product's actions that are performed on or through your account.</p>
-
-      <p>Any violation of the <a href="/articles/YouSound.com-marketplace-terms-of-service/">YouSound.com Marketplace Terms of Service</a> is also a violation of this Agreement.</p>
+      <p>Because Company is not the buyer or seller in any actual Merchandise Transaction between Verified Users and Listeners and is not the agent of either for any purpose, Company does not have the duty to resolve and will not be involved in resolving any disputes between participants related to or arising out of any such Merchandise Transaction. Artists are individually responsible for compliance with all consumer rights laws applicable to their Merchandise Transactions, including EU Consumer Rights Laws.</p>
 
       <h3>
         <a id="32-international-non-california-user" class="anchor" href="#32-international-non-california-user" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>International/Non-California Use.</h3>
 
-      <p><strong>Short version:</strong> <em>We do not generally prohibit use of YouSound.com for advertising. However, we expect our users to follow certain limitations, so YouSound.com does not become a spam haven. No one wants that.</em></p>
-
-      <h4>
-        <a id="1-YouSound.com-pages" class="anchor" href="#1-YouSound.com-pages" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. YouSound.com Pages</h4>
-
-      <p>We offer Pages sites primarily as a showcase for personal and organizational projects. Some monetization efforts are permitted on Pages, such as donation buttons and crowdfunding links.</p>
-
-      <h4>
-        <a id="2-YouSound.com-repositories" class="anchor" href="#2-YouSound.com-repositories" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. YouSound.com Repositories</h4>
-
-      <p>YouSound.com repositories are intended to host Content. You may include static images, links, and promotional text in the README documents associated with your repositories, but they must be related to the project you are hosting on YouSound.com.</p>
-
-      <p>You may not advertise in other Users' repositories, such as by posting monetized or excessive bulk content in issues.</p>
-
-      <h4>
-        <a id="3-spamming-and-inappropriate-use-of-YouSound.com" class="anchor" href="#3-spamming-and-inappropriate-use-of-YouSound.com" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Spamming and Inappropriate Use of YouSound.com</h4>
-
-      <p>Advertising Content, like all Content, must not violate the law or these Terms of Use, for example through excessive bulk activity such as spamming. We reserve the right to remove any advertisements that, in our sole discretion, violate any YouSound.com terms or policies.</p>
+      <p>Company makes no representation that the Content is appropriate or available for use in locations outside of California, and accessing the Service is prohibited from territories where such Content is illegal. If you access the Service from other locations, you do so at your own initiative and are responsible for compliance with local laws.</p>
 
       <h3>
         <a id="33-dispute-ressolution" class="anchor" href="#33-dispute-ressolution" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Dispute Resolution.</h3>
 
-      <p><strong>Short version:</strong> <em>You are responsible for any fees associated with your use of YouSound.com. We are responsible for communicating those fees to you clearly and accurately, and letting you know well in advance if those prices change.</em></p>
-
-      <h4>
-        <a id="1-pricing" class="anchor" href="#1-pricing" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Pricing</h4>
-
-      <p>Our pricing and payment terms are available at <a href="https://YouSound.com.com/pricing">YouSound.com.com/pricing</a>. If you agree to a subscription price, that will remain your price for the duration of the payment term; however, prices are subject to change at the end of a payment term.</p>
-
-      <h4>
-        <a id="2-upgrades-downgrades-and-changes" class="anchor" href="#2-upgrades-downgrades-and-changes" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Upgrades, Downgrades, and Changes</h4>
-
-      <ul>
-        <li>We will immediately bill you when you upgrade from the free plan to any paying plan.</li>
-        <li>If you change from a monthly billing plan to a yearly billing plan, YouSound.com will bill you for a full year at the next monthly billing date.</li>
-        <li>If you upgrade to a higher level of service, we will bill you for the upgraded plan immediately.</li>
-        <li>You may change your level of service at any time by <a href="https://YouSound.com.com/pricing">choosing a plan option</a> or going into your <a href="https://YouSound.com.com/settings/billing">Billing settings</a>. If you choose to downgrade your account, you may lose access to Content, features, or capacity of your account. Please see our section on <a href="#m-cancellation-and-termination">Cancellation</a> for information on getting a copy of that Content.</li>
-      </ul>
-
-      <h4>
-        <a id="3-billing-schedule-no-refunds" class="anchor" href="#3-billing-schedule-no-refunds" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. Billing Schedule; No Refunds</h4>
-
-      <ul>
-        <li>For monthly or yearly payment plans, the Service is billed in advance on a monthly or yearly basis respectively and is non-refundable. There will be no refunds or credits for partial months of service, downgrade refunds, or refunds for months unused with an open account; however, the service will remain active for the length of the paid billing period.</li>
-        <li>In order to treat everyone equally, no exceptions will be made.</li>
-      </ul>
-
-      <h4>
-        <a id="4-authorization" class="anchor" href="#4-authorization" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Authorization</h4>
-
-      <p>By agreeing to these Terms, you are giving us permission to charge your on-file credit card, PayPal account, or other approved methods of payment for fees that you authorize for YouSound.com.</p>
-
-      <h4>
-        <a id="5-responsibility-for-payment" class="anchor" href="#5-responsibility-for-payment" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>5. Responsibility for Payment</h4>
-
-      <p>You are responsible for all fees, including taxes, associated with your use of the Service. By using the Service, you agree to pay YouSound.com any charge incurred in connection with your use of the Service. If you dispute the matter, contact <a href="https://YouSound.com.com/contact">YouSound.com Support</a>. You are responsible for providing us with a valid means of payment for paid accounts. Free accounts are not required to provide payment information.</p>
+      <p>A printed version of these Terms of Use and of any notice given in electronic form shall be admissible in judicial or administrative proceedings based upon or relating to these Terms of Use to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form. You and Company agree that any cause of action arising out of or related to the Service must commence within one (1) year after the cause of action arose; otherwise, such cause of action is permanently barred.  These Terms of Use shall be governed by and construed in accordance with the laws of the State of California, excluding its conflicts of law rules, and the United States of America. Any dispute arising from or relating to the subject matter of this Agreement shall be finally settled by arbitration in San Francisco County, California, using the English language in accordance with the Arbitration Rules and Procedures of Judicial Arbitration and Mediation Services, Inc. ("JAMS") then in effect, by one commercial arbitrator with substantial experience in resolving intellectual property and commercial contract disputes, who shall be selected from the appropriate list of JAMS arbitrators in accordance with the Arbitration Rules and Procedures of JAMS. The prevailing party in the arbitration shall be entitled to receive reimbursement of its reasonable expenses (including reasonable attorneys' fees, expert witness fees and all other expenses) incurred in connection therewith. Judgment upon the award so rendered may be entered in a court having jurisdiction or application may be made to such court for judicial acceptance of any award and an order of enforcement, as the case may be. Notwithstanding the foregoing, each party shall have the right to institute an action in a court of proper jurisdiction for injunctive or other equitable relief pending a final decision by the arbitrator. For all purposes of this Agreement, the parties consent to exclusive jurisdiction and venue in the United States Federal Courts or state courts located in the Northern District of California. Use of the Service is not authorized in any jurisdiction that does not give effect to all provisions of these Terms of Use, including without limitation, this section.</p>
 
       <h3>
         <a id="34-intergration-and-severability" class="anchor" href="#34-intergration-and-severability" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Integration and Severability.</h3>
 
-      <p><strong>Short version:</strong> <em>You may close your account at any time. If you do, we'll treat your information responsibly.</em></p>
-
-      <h4>
-        <a id="1-account-cancellation" class="anchor" href="#1-account-cancellation" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Account Cancellation</h4>
-
-      <p>It is your responsibility to properly cancel your account with YouSound.com. You can <a href="/articles/how-do-i-cancel-my-account/">cancel your account at any time</a> by going into your Settings in the global navigation bar at the top of the screen. The Account screen provides a simple, no questions asked cancellation link. We are not able to cancel accounts in response to an email or phone request.</p>
-
-      <h4>
-        <a id="2-upon-cancellation" class="anchor" href="#2-upon-cancellation" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Upon Cancellation</h4>
-
-      <p>We will retain and use your information as necessary to comply with our legal obligations, resolve disputes, and enforce our agreements, but barring legal requirements, we will delete your full profile and the Content of your repositories within 90 days of cancellation or termination (though some information may remain in encrypted backups). This information can not be recovered once your account is cancelled.</p>
-
-      <p>We will not delete Content that you have contributed to other Users' repositories or that other Users have forked.</p>
-
-      <p>Upon request, we will make a reasonable effort to provide an account owner with a copy of your lawful, non-infringing account contents after account cancellation, termination, or downgrade. You must make this request within 90 days of cancellation, termination, or downgrade.</p>
-
-      <h4>
-        <a id="3-YouSound.com-may-terminate" class="anchor" href="#3-YouSound.com-may-terminate" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. YouSound.com May Terminate</h4>
-
-      <p>YouSound.com has the right to suspend or terminate your access to all or any part of the Website at any time, with or without cause, with or without notice, effective immediately. YouSound.com reserves the right to refuse service to anyone for any reason at any time.</p>
-
-      <h4>
-        <a id="4-survival" class="anchor" href="#4-survival" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>4. Survival</h4>
-
-      <p>All provisions of this Agreement which by their nature should survive termination will survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.</p>
+      <p>These Terms of Use are the entire agreement between you and Company with respect to the Service and use of the Site, and supersede all prior or contemporaneous communications and proposals (whether oral, written or electronic) between you and Company with respect to the Site. If any provision of these Terms of Use is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary so that these Terms of Use will otherwise remain in full force and effect and enforceable. The failure of either party to exercise in any respect any right provided for herein shall not be deemed a waiver of any further rights hereunder.</p>
 
       <h3>
         <a id="35-miscellaneous" class="anchor" href="#35-miscellaneous" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Miscellaneous.</h3>
 
-      <p><strong>Short version:</strong> <em>We use email and other electronic means to stay in touch with our users.</em></p>
-
-      <h4>
-        <a id="1-electronic-communication-required" class="anchor" href="#1-electronic-communication-required" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>1. Electronic Communication Required</h4>
-
-      <p>For contractual purposes, you (1) consent to receive communications from us in an electronic form via the email address you have submitted or via the Service; and (2) agree that all Terms of Service, agreements, notices, disclosures, and other communications that we provide to you electronically satisfy any legal requirement that those communications would satisfy if they were on paper. This section does not affect your non-waivable rights.</p>
-
-      <h4>
-        <a id="2-legal-notice-to-YouSound.com-must-be-in-writing" class="anchor" href="#2-legal-notice-to-YouSound.com-must-be-in-writing" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>2. Legal Notice to YouSound.com Must Be in Writing</h4>
-
-      <p>Communications made through email or YouSound.com Support's messaging system will not constitute legal notice to YouSound.com or any of its officers, employees, agents or representatives in any situation where notice to YouSound.com is required by contract or any law or regulation. Legal notice to YouSound.com must be in writing and <a href="/articles/guidelines-for-legal-requests-of-user-data/#submitting-requests">served on YouSound.com's legal agent</a>.</p>
-
-      <h4>
-        <a id="3-no-phone-support" class="anchor" href="#3-no-phone-support" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>3. No Phone Support</h4>
-
-      <p>YouSound.com only offers support via email, in-Service communications, and electronic messages. We do not offer telephone support.</p>
+      <p>Company shall not be liable for any failure to perform its obligations hereunder where such failure results from any cause beyond Company’s reasonable control, including, without limitation, mechanical, electronic or communications failure or degradation (including "line-noise" interference). These Terms of Use are personal to you, and are not assignable, transferable or sublicensable by you except with Company's prior written consent. Company may assign, transfer or delegate any of its rights and obligations hereunder without consent. No agency, partnership, joint venture, or employment relationship is created as a result of these Terms of Use and neither party has any authority of any kind to bind the other in any respect. In any action or proceeding to enforce rights under these Terms of Use, the prevailing party will be entitled to recover costs and attorneys' fees. All notices under these Terms of Use will be in writing and will be deemed to have been duly given when received, if personally delivered or sent by certified or registered mail, return receipt requested; when receipt is electronically confirmed, if transmitted by facsimile or e-mail; or the day after it is sent, if sent for next day delivery by recognized overnight delivery service. The captions and headings in this Agreement are intended only for convenience, and will in no event be construed to define, limit or describe the scope or intent of this Agreement, or of any provision of this Agreement, nor in any way affect the interpretation of this Agreement.</p>
 
       <h3>
         <a id="36-contact" class="anchor" href="#36-contact" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Contact.</h3>
 
-      <p><strong>Short version:</strong> <em>We provide our service as is, and we make no promises or guarantees about this service. Please read this section carefully; you should understand what to expect.</em></p>
-
-      <p>YouSound.com provides the Website and the Service “as is” and “as available,” without warranty of any kind. Without limiting this, we expressly disclaim all warranties, whether express, implied or statutory, regarding the Website and the Service including without limitation any warranty of merchantability, fitness for a particular purpose, title, security, accuracy and non-infringement.</p>
-
-      <p>YouSound.com does not warrant that the Service will meet your requirements; that the Service will be uninterrupted, timely, secure, or error-free; that the information provided through the Service is accurate, reliable or correct; that any defects or errors will be corrected; that the Service will be available at any particular time or location; or that the Service is free of viruses or other harmful components. You assume full responsibility and risk of loss resulting from your downloading and/or use of files, information, content or other material obtained from the Service.</p>
+      <p>You may contact company at the following address: feedback@yousound.com.</p>
     </div>
   </div>
 </template>
