@@ -52,16 +52,18 @@
     margin-top: 7.5px;
   }
   .regular-checkbox {
-    margin-top: 13.5px;
-    margin-bottom: 0px;
+    margin-top: 14px;
+    margin-bottom: 0p;
+    margin-left: 0;
   }
   a {
     font-weight: 600;
-    font-size: 13.5px;
+    font-size: 14px !important;
     color: #3A92FF;
     letter-spacing: 0;
     text-decoration: none;
-    display: block;    
+    display: block;
+    margin-top: 18px;    
   }
   .forgot-password {
     margin-top: 15px;
@@ -69,7 +71,7 @@
   }
 
   .login-button {
-    margin-top: 15px;
+    margin-top: 0;
     background: #3A92FF !important;
     border-radius: 75px;
     height: 40.5px;

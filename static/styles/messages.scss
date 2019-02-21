@@ -379,7 +379,7 @@
         .message-input-box {
           border: none;
           width: 100%;
-          padding: 17px 26.25px;
+          padding: 28px 26.25px;
           padding-right: 150.5px;
           font-size: 16px;
           letter-spacing: -0.2px;
@@ -589,6 +589,7 @@
       }
       &.request {
         padding: 11.25px 18.75px 22.5px;
+        width: 350px;
         .repost-status-section {
           .status-title {
             font-size: 15px;
@@ -601,7 +602,7 @@
             box-shadow: none;
             background: #3A92FF !important;
             border-radius: 75px;
-            font-size: 14px;
+            font-size: 16px;
             letter-spacing: -0.6px;
             margin-right: 0;
             margin-left: 0;
@@ -625,15 +626,16 @@
             margin-bottom: 10px;
             padding-bottom: 15px;
             .label-message {
-              max-width: 200px;
-              font-size: 15px;
+              max-width: 400px;
+              font-size: 16px;
               margin-right: 3px;
               letter-spacing: -0.6px;
+              font-family: 'Work Sans';
             }
           }
           .repost-item-image {
-            width: 60px;
-            height: 60px;
+            width: 100px;
+            height: 100px;
             border-radius: 3.75px;
             display: inline-block;
             vertical-align: middle;
@@ -682,7 +684,7 @@
             }
           }
           .artist-list {
-            padding-top: 15px;
+            padding-top: 20px;
             margin-top: 10px;
 
             .artist {
@@ -701,6 +703,7 @@
 
   .message-section + .message-section {
     margin-top: 10px;
+    padding-bottom: 24px;
   }
 }
 
