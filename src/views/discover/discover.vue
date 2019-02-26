@@ -4,7 +4,7 @@
       <h2 class="page-title">Discover</h2>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="currentUser">
       <div class="discover-tab relative">
 
         <v-tabs dark v-model="activeTab">
@@ -69,8 +69,14 @@
       </div>
     </v-flex>
 
-    <v-dialog v-model="show_genre_selector_dialog" content-class="my-genre-dialog ma-0 pa-2">
-      <genre-dialog :dismiss="closeGenreSelectorDialog"></genre-dialog>
+    <v-dialog
+      v-if="currentUser"
+      v-model="show_genre_selector_dialog"
+      content-class="my-genre-dialog ma-0 pa-2"
+    >
+      <genre-dialog
+        :dismiss="closeGenreSelectorDialog"
+      />
     </v-dialog>
   </div>
 </template>

@@ -38,6 +38,10 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     filtered_feeds() {
       if (this.selected_genre) {
         return _.filter(this.feeds, (feed) => (
@@ -66,7 +70,7 @@ export default {
   },
 
   created() {
-    if (!this.$store.state.auth.user) {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return

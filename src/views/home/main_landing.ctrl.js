@@ -1,110 +1,92 @@
-import debounce from 'lodash/debounce'
+import Slick from 'vue-slick';
 
-import SearchService from '@/services/search'
-import albumCard from './components/album_card'
-import playlistCard from './components/playlist_card'
-import productCard from './components/product_card'
-import videoCard from './components/video_card'
+import '@/../node_modules/slick-carousel/slick/slick.css';
+import '@/../node_modules/slick-carousel/slick/slick-theme.css';
 
 export default {
   components: {
-    albumCard,
-    playlistCard,
-    productCard,
-    videoCard
+    Slick
   },
 
   data () {
     return {
-      seed: 0,
-      page: 0,
-      per_page: 5,
-      no_more_results: false,
-      result: {
-        albums: [],
-        playlists: [],
-        products: [],
-        streams: []
+      slickOptions: {
+        slidesToShow: 1,
+        arrows: false,
+        dots: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
       }
     }
   },
 
   computed: {
-    isLoading () {
-      return this.$store.state.error.isLoading
-    }
   },
 
   created () {
-    window.addEventListener('scroll', this.handleScroll)
-
     if (this.$store) {
       if (this.$store.state.auth.user) {
         this.$router.push({ path: '/discover' })
       } else {
         this.$store.dispatch('navigator/goNextState', { page: 'main_landing', tab: '' })
-        this.no_more_results = false
-        this.seed = Math.random()
-        this.page = 0
-        this.loadMore()
       }
     }
-  },
-
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll)
   },
 
   methods: {
-    loadMore () {
-      if (this.no_more_results || this.isLoading) {
-        return
-      }
-
-      this.$store.dispatch('error/showLoadingActivity', true)
-      this.page = this.page + 1
-      const params = {
-        seed: this.seed,
-        page: this.page,
-        per_page: this.per_page
-      }
-      SearchService.searchLanding(params).then(response => {
-        this.result.albums = this.result.albums.concat(response.body.albums)
-        this.result.playlists = this.result.playlists.concat(response.body.playlists)
-        this.result.products = this.result.products.concat(response.body.products)
-        this.result.streams = this.result.streams.concat(response.body.streams)
-
-        if (!response.body.albums.length && !response.body.playlists.length && !response.body.products.length && !response.body.streams.length) {
-          this.no_more_results = true
-        }
-
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    next() {
+      console.log('next')
+      this.$refs.slick.next()
     },
-
-    handleScroll (event) {
-      const mainHeader = $('.main__header')
-      const panelHeader = $('.panel__header')
-      const _curTop = $(window).scrollTop()
-      // console.log('scrollTop', _curTop)
-      if (_curTop < 120) {
-        panelHeader.removeClass('fixed')
-        mainHeader.css({height: '120px'})
-      } else {
-        panelHeader.addClass('fixed')
-        panelHeader.css({width: mainHeader.width() + 'px'})
-        mainHeader.css({height: '0px'})
+    prev() {
+      console.log('prev')
+      this.$refs.slick.prev()
+    },
+    reInit() {
+      console.log('reInit')
+      // Helpful if you have to deal with v-for to update dynamic lists
+      this.$nextTick(() => {
+        this.$refs.slick.reSlick();
+      });
+    },
+    handleAfterChange(event, slick, currentSlide) {
+      // console.log('handleAfterChange', slick, currentSlide, this.$refs.slick)
+      // console.log('handleAfterChange', currentSlide, this.$refs.slick.getOption('autoplay'))
+      if (currentSlide === 3) {
+        // console.log('autoplay pause')
+        this.slickOptions.autoplay = false
+        this.$refs.slick.setOption('autoplay', false, true)
       }
-
-      if (_curTop > $(document).height() - $(window).height() - 30) {
-        this.loadMore()
-      }
-    }
-  },
-
-  mounted () {
+    },
+    // handleBeforeChange(event, slick, currentSlide, nextSlide) {
+    //     console.log('handleBeforeChange', event, slick, currentSlide, nextSlide);
+    // },
+    // handleBreakpoint(event, slick, breakpoint) {
+    //     console.log('handleBreakpoint', event, slick, breakpoint);
+    // },
+    // handleDestroy(event, slick) {
+    //     console.log('handleDestroy', event, slick);
+    // },
+    // handleEdge(event, slick, direction) {
+    //     console.log('handleEdge', event, slick, direction);
+    // },
+    // handleInit(event, slick) {
+    //     console.log('handleInit', event, slick);
+    // },
+    // handleReInit(event, slick) {
+    //     console.log('handleReInit', event, slick);
+    // },
+    // handleSetPosition(event, slick) {
+    //     console.log('handleSetPosition', event, slick);
+    // },
+    // handleSwipe(event, slick, direction) {
+    //     console.log('handleSwipe', event, slick, direction);
+    // },
+    // handleLazyLoaded(event, slick, image, imageSource) {
+    //     console.log('handleLazyLoaded', event, slick, image, imageSource);
+    // },
+    // handleLazeLoadError(event, slick, image, imageSource) {
+    //     console.log('handleLazeLoadError', event, slick, image, imageSource);
+    // },
   }
 }
