@@ -8,9 +8,9 @@
       <div class="slide">
         <img src="/static/images/img_landing_albums.jpg"></v-flex>
         <p>
-          Free streaming,<br>
-          Free downloading,<br>
-          No ads
+          Free streaming.<br>
+          Free downloading.<br>
+          No ads.
         </p>
       </div>
 
@@ -19,12 +19,13 @@
         <p>
           Share content &<br>
           earn money.<br>
-          Shop
+          Shop.
         </p>
       </div>
 
       <div class="slide">
         <img src="/static/images/img_landing_videos.jpg">
+        
         <p>
           Live video chat<br>
           with artists &<br>
@@ -34,6 +35,7 @@
 
       <div class="slide">
         <img class="promote" src="/static/images/img_landing_promote.jpg">
+        
       </div>
     </slick>
   </div>

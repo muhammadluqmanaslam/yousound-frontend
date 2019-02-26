@@ -36,6 +36,25 @@
         fill: #3A92FF;
       }
     }
+    .my-0 {
+      font-size: 16px;
+      font-family: 'Monsterrat',sans-serif;
+      font-weight: 700;
+      }
+
+    .green {
+      background-color: #59c866 !important;
+      border-color: #59c866 !important;
+      padding-top: 24px;
+      padding-bottom: 20px;
+      border-radius: 100px;
+      }
+
+    .btn:not(.btn--depressed) {
+     box-shadow: none;
+    }
+
+
     .input-group {
       margin: 0;
     }

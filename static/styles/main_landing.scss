@@ -2,19 +2,29 @@
   .slide {
     img {
       display: inline-block;
-      width: 70%;
+      width: 60%;
+      margin-top: -20;
       vertical-align: middle;
       &.promote {
-        width: 100%;
+        
+
+        width: 1400px;
+        margin: auto;
+        display: block;
+        padding-top: 36px;
       }
     }
+
     p {
       display: inline-block;
-      width: 29%;
-      margin: 0;
-      padding-left: 15px;
-      font-size: 32px;
+      margin: 200px 22px 22px 22px;
+      padding-left: 50px;
+      font-size: 56px;
       font-weight: 900;
+      font-family: 'Monsterrat', sans-serif;
+      letter-spacing: -2px;
+      line-height: 66px;
+      margin-top: 200px;
     }
   }
 }

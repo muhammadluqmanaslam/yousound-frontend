@@ -70,7 +70,7 @@
                     <v-list-tile key="flag" class="default-menu-item">
                       <v-list-tile-title>
                         <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
-                        <label>Flag</label>
+                        <label>Report</label>
                       </v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile key="block" @click.native="openBlockUserConfirmDialog()">
