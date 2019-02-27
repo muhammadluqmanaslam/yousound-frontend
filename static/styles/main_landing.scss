@@ -1,4 +1,30 @@
 .page.main-landing-page {
+  position: relative;
+
+  ul {
+    position: absolute;
+    left: 50%;
+    margin-left: -84px;
+    transition: top 0.5s;
+    list-style: none;
+    text-align: center;
+    li {
+      display: inline-block;
+      opacity: 0.25;
+      margin: 0 10px;
+      cursor: pointer;
+      &:before {
+        content: "\2022";
+        color: #0043ff;
+        font-size: 36px;
+        line-height: 1;
+      }
+      &.active {
+        opacity: 0.9;
+      }
+    }
+  }
+
   .slides-container {
     width: 400%;
     transition-duration: 0.5s;
@@ -8,6 +34,7 @@
   .slide {
     width: 25%;
     float: left;
+    margin-bottom: 100px;
     .slide__content {
       display: table;
       width: 100%;
@@ -35,33 +62,9 @@
         line-height: 66px;
       }
     }
-
-    ul {
-      list-style: none;
-      text-align: center;
-      li {
-        display: inline-block;
-        opacity: 0.25;
-        margin: 0 10px;
-        cursor: pointer;
-        &:before {
-          content: "\2022";
-          color: #0043ff;
-          font-size: 36px;
-          line-height: 1;
-        }
-        &.active {
-          opacity: 0.9;
-        }
-      }
-    }
   }
 
-  .slide.slide-4 .slide__content > div {
-    text-align: center;
-
-    img {
-      max-width: 1560px;
-    }
+  .slide.slide-4 img {
+    width: 100%;
   }
 }

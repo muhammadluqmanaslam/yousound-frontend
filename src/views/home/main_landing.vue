@@ -12,12 +12,6 @@
             No ads.
           </p>
         </div>
-        <ul class="dots">
-          <li @click="activeSlide = 1" class="active"></li>
-          <li @click="activeSlide = 2"></li>
-          <li @click="activeSlide = 3"></li>
-          <li @click="activeSlide = 4"></li>
-        </ul>
       </div>
 
       <div class="slide slide-2">
@@ -31,12 +25,6 @@
             Shop.
           </p>
         </div>
-        <ul class="dots">
-          <li @click="activeSlide = 1"></li>
-          <li @click="activeSlide = 2" class="active"></li>
-          <li @click="activeSlide = 3"></li>
-          <li @click="activeSlide = 4"></li>
-        </ul>
       </div>
 
       <div class="slide slide-3">
@@ -50,28 +38,23 @@
             friends.
           </p>
         </div>
-        <ul class="dots">
-          <li @click="activeSlide = 1"></li>
-          <li @click="activeSlide = 2"></li>
-          <li @click="activeSlide = 3" class="active"></li>
-          <li @click="activeSlide = 4"></li>
-        </ul>
       </div>
 
       <div class="slide slide-4">
-        <div class="slide__content">
-          <div>
+        <v-layout row wrap>
+          <v-flex xs12 sm10 offset-sm1>
             <img src="/static/images/img_landing_promote.jpg">
-          </div>
-        </div>
-        <ul class="dots">
-          <li @click="activeSlide = 1"></li>
-          <li @click="activeSlide = 2"></li>
-          <li @click="activeSlide = 3"></li>
-          <li @click="activeSlide = 4" class="active"></li>
-        </ul>
+          </v-flex>
+        </v-layout>
       </div>
     </div>
+
+    <ul class="dots">
+      <li @click="setActiveSlide(1)" :class="{'active': activeSlide == 1}"></li>
+      <li @click="setActiveSlide(2)" :class="{'active': activeSlide == 2}"></li>
+      <li @click="setActiveSlide(3)" :class="{'active': activeSlide == 3}"></li>
+      <li @click="setActiveSlide(4)" :class="{'active': activeSlide == 4}"></li>
+    </ul>
   </div>
 </template>
 
