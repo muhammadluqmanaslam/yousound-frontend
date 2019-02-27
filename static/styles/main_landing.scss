@@ -1,48 +1,67 @@
 .page.main-landing-page {
+  .slides-container {
+    width: 400%;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+  }
+
   .slide {
-    display: table;
-    width: 100%;
+    width: 25%;
+    float: left;
+    .slide__content {
+      display: table;
+      width: 100%;
 
-    & > div {
-      display: table-cell;
-      vertical-align: middle;
-      img {
-        width: 100%;
-        max-width: 1000px;
-        &.promote {
-          max-width: 1400px;
-          margin: auto;
-          display: block;
+      & > div {
+        display: table-cell;
+        vertical-align: middle;
+        img {
+          width: 100%;
+          max-width: 1200px;
         }
-      }  
-    }
-
-    p {
-      display: table-cell;
-      min-width: 500px;
-      margin: 0;
-      padding-left: 30px;
-      vertical-align: middle;
-      font-size: 56px;
-      font-weight: 900;
-      font-family: 'Monsterrat', sans-serif;
-      letter-spacing: -2px;
-      line-height: 66px;
-    }
-  }
-
-  .slick-slider {
-    margin: 10px 0 50px;
-  }
-
-  .slick-dots {
-    bottom: -50px;
-    li {
-      margin: 0 10px;
-      button:before {
-        font-size: 18px;
-        color: #0043ff;
       }
+
+      p {
+        display: table-cell;
+        min-width: 500px;
+        // width: 550px;
+        margin: 0;
+        padding-left: 40px;
+        vertical-align: middle;
+        font-size: 50px;
+        font-weight: 900;
+        font-family: 'Monsterrat', sans-serif;
+        letter-spacing: -2px;
+        line-height: 66px;
+      }
+    }
+
+    ul {
+      list-style: none;
+      text-align: center;
+      li {
+        display: inline-block;
+        opacity: 0.25;
+        margin: 0 10px;
+        cursor: pointer;
+        &:before {
+          content: "\2022";
+          color: #0043ff;
+          font-size: 36px;
+          line-height: 1;
+        }
+        &.active {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  .slide.slide-4 .slide__content > div {
+    text-align: center;
+
+    img {
+      max-width: 1560px;
     }
   }
 }

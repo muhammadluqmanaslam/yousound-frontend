@@ -37,18 +37,17 @@
         fill: #3A92FF;
       }
     }
-    .my-0 {
+    .btn.my-0 {
       font-size: 16px;
       font-family: 'Monsterrat',sans-serif;
       font-weight: 700;
     }
-
-    .green {
+    .btn.green {
+      height: auto;
       background-color: #59c866 !important;
       border-color: #59c866 !important;
-      // padding-top: 24px;
-      // padding-bottom: 20px;
-      // border-radius: 100px;
+      padding: 16px 0px;
+      border-radius: 40px;
     }
 
     .btn:not(.btn--depressed) {
