@@ -250,36 +250,9 @@
       <v-toolbar class="header">
         <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
         <v-spacer></v-spacer>
-        <v-btn flat class="my-0" @click.native="choosePage('login')">
-          Login
-        </v-btn>
-        <v-btn dark round color="green" class="my-0" @click.native="choosePage('register')">
-          Sign Up
-        </v-btn>
+        <v-btn flat class="my-0" @click.native="choosePage('login')">Login</v-btn>
+        <v-btn dark round color="green" class="my-0" @click.native="choosePage('register')">Sign Up</v-btn>
       </v-toolbar>
-      <div class="search-box">
-        <div class="search-container">
-            <span class="icon">
-            <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
-                <title>Group 22</title>
-                <desc>Created with Sketch.</desc>
-                <defs></defs>
-                <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="searchIcon" transform="translate(-732.000000, -61.000000)" stroke="#FFFFFF" stroke-width="1.5999999">
-                        <g id="Group-29" transform="translate(710.000000, 50.000000)">
-                            <g id="Group-22" transform="translate(23.000000, 12.000000)">
-                                <circle id="Oval-2" cx="11.375" cy="11.375" r="11.375"></circle>
-                                <path d="M19.5,19.5 L25.59375,25.59375" id="Line" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-          </span>
-          <input class="search-field" type="search" id="search" v-model="keyword" placeholder="Search artist, song or keyword" @keyup.enter="goToSearch()" />
-        </div>
-      </div>
     </v-flex>
   </v-layout>
 </template>

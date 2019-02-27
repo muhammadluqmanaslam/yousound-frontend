@@ -4,6 +4,7 @@
   z-index: 10;
   .header {
     background-color: transparent !important;
+    box-shadow: none;
     .toolbar__title {
       width: 130px;
       height: 50px;
@@ -40,25 +41,23 @@
       font-size: 16px;
       font-family: 'Monsterrat',sans-serif;
       font-weight: 700;
-      }
+    }
 
     .green {
       background-color: #59c866 !important;
       border-color: #59c866 !important;
-      padding-top: 24px;
-      padding-bottom: 20px;
-      border-radius: 100px;
-      }
-
-    .btn:not(.btn--depressed) {
-     box-shadow: none;
+      // padding-top: 24px;
+      // padding-bottom: 20px;
+      // border-radius: 100px;
     }
 
+    .btn:not(.btn--depressed) {
+      box-shadow: none;
+    }
 
     .input-group {
       margin: 0;
     }
-    box-shadow: none;
     .toolbar__content {
       height: 112.5px !important;
     }
@@ -75,12 +74,13 @@
   }
 
   .list__tile {
-  height: 40px;
-  font-size: 15px;
+    height: 40px;
+    font-size: 15px;
   }
 
   .red {
-      border: 1px solid #fff!important;}
+    border: 1px solid #fff!important;
+  }
 
   .search-box {
     top: 37.5px;

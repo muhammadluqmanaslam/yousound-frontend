@@ -105,7 +105,7 @@ export default {
           this.feeds = this.feeds.concat(response.body.albums)
           const genres = _.chain(this.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
           this.genres = [
-            { id: 'go_to_filters', name: 'Set Genre Filters' },
+            // { id: 'go_to_filters', name: 'Set Genre Filters' },
             { id: 'any', name: 'Any genre' },
           ].concat(genres)
         }
@@ -130,10 +130,10 @@ export default {
     filterByGenre(genre) {
       $('#genre_selector .btn__content').html(genre.name + filterArrowDownString)
       switch (genre.id) {
-        case 'go_to_filters':
-          // this.$router.push({ path: '/settings#genre-filter' })
-          this.openGenreSelectorDialog()
-          break
+        // case 'go_to_filters':
+        //   // this.$router.push({ path: '/settings#genre-filter' })
+        //   this.openGenreSelectorDialog()
+        //   break
         case 'any':
           this.selected_genre = null
           break

@@ -35,10 +35,22 @@
       border: none;
     }
   }
-  .menu.filter_menu {
+
+  .filters-wrapper {
     position: absolute;
     top: 5.5px;
     right: 0;
+    .genre-dialog-selector {
+      min-width: 45px;
+      height: 40px;
+      border-radius: 5px;
+      .btn__content {
+        padding: 0;
+      }
+    }
+  }
+
+  .menu.filter_menu {
     .menu__activator .btn {
       margin: 0;
       height: 41.25px;
