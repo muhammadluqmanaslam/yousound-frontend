@@ -20,7 +20,6 @@ export default {
     window.addEventListener('resize', this.handleResize)
     this.windowWidth = window.innerWidth
     // console.log('main_landing created', this.windowWidth)
-    // this.$nextTick(() => { this.adjustDots() })
     setTimeout(() => { this.adjustDots() }, 100)
 
     if (this.$store) {
@@ -39,7 +38,7 @@ export default {
   methods: {
     adjustDots () {
       const slideHeight = $(`.slide.slide-${this.activeSlide}`).height()
-      console.log('main_landing adjustDots', this.activeSlide, slideHeight)
+      // console.log('main_landing adjustDots', this.activeSlide, slideHeight)
       $('ul.dots').css({top: (170 + slideHeight) + 'px'})
     },
 
@@ -51,6 +50,7 @@ export default {
     handleResize () {
       this.windowWidth = window.innerWidth
       // console.log('main_landing handleResize', this.windowWidth)
+      this.$nextTick(() => { this.adjustDots() })
     }
   }
 }
