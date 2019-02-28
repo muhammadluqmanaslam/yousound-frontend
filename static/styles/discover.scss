@@ -40,30 +40,76 @@
     position: absolute;
     top: 5.5px;
     right: 0;
+
     .genre-dialog-selector {
-      min-width: 45px;
-      height: 40px;
-      border-radius: 5px;
-      .btn__content {
-        padding: 0;
+      position: relative;
+      display: inline-block;
+      .btn {
+        min-width: 45px;
+        height: 40px;
+        border-radius: 5px;
+        .btn__content {
+          padding: 0;
+        }
+      }
+      .tooltip {
+        position: absolute;
+        bottom: 50px;
+        right: -5px;
+        width: 240px;
+        padding: 10px 12px;
+        border-radius: 5px;
+        background-color: rgba(0, 0, 0, 0.2);
+        text-transform: initial;
+        letter-spacing: -0.1px;
+        .tooltip-arrow {
+          position: absolute;
+          bottom: -10px;
+          right: 20px;
+          width: 0;
+          height: 0;
+          margin: -2px;
+          border-style: solid;
+          border-color: rgba(0, 0, 0, 0.2);
+          border-width: 12px 12px 0;
+          border-left-color: transparent!important;
+          border-right-color: transparent!important;
+          border-bottom-color: transparent!important;
+        }
+        .tooltip-inner {
+          position: relative;
+          padding-right: 60px;
+          color: #FFFFFF;
+          text-align: left;
+          font-size: 14px;
+          a {
+            position: absolute;
+            top: 5px;
+            right: 0px;
+            padding: 5px 7px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+          }
+        }
       }
     }
-  }
 
-  .menu.filter_menu {
-    .menu__activator .btn {
-      margin: 0;
-      height: 41.25px;
-      border-radius: 4.125px;
-      // transform: rotate(-180deg);
-      // border: 2.475px solid #FFFFFF;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-      box-shadow: none;
-      text-transform: none;
-      background: rgba(255,255,255,0.10) !important;
-      border: 1px solid rgba(0, 0, 0, 0.3) !important;
-      color: #000;
+    .menu.filter_menu {
+      .menu__activator .btn {
+        margin: 0;
+        height: 41.25px;
+        border-radius: 4.125px;
+        // transform: rotate(-180deg);
+        // border: 2.475px solid #FFFFFF;
+        font-size: 18px;
+        letter-spacing: -0.2px;
+        box-shadow: none;
+        text-transform: none;
+        background: rgba(255,255,255,0.10) !important;
+        border: 1px solid rgba(0, 0, 0, 0.3) !important;
+        color: #000;
+      }
     }
   }
 }

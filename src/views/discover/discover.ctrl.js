@@ -24,6 +24,9 @@ export default {
         { id: 'merch', title: 'Shop' }
       ],
       show_genre_selector_dialog: false,
+      got_genre_tooltip: false,
+      hover_on_genre_button: false,
+      hover_on_genre_tooltip: false,
       page_index: 1,
       total_pages: 1,
       items_per_page: 5 * 20,
@@ -40,6 +43,10 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    showGenreTooltip () {
+      return this.hover_on_genre_button || this.hover_on_genre_tooltip
     },
 
     filtered_feeds() {

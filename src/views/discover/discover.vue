@@ -52,9 +52,30 @@
         </v-tabs>
 
         <div class="filters-wrapper">
-          <v-btn flat class="genre-dialog-selector ma-0 mr-2" @click.native="openGenreSelectorDialog()">
-            <img src="/static/images/ic_filter.svg" width="20">
-          </v-btn>
+          <div class="genre-dialog-selector">
+            <v-btn
+              flat
+              class="ma-0 mr-2"
+              @mouseenter="hover_on_genre_button = true"
+              @mouseleave="hover_on_genre_button = false"
+              @click.native="openGenreSelectorDialog()"
+            >
+              <img src="/static/images/ic_filter.svg" width="20">
+            </v-btn>
+            <div
+              
+              class="tooltip"
+              @mouseenter="hover_on_genre_tooltip = true"
+              @mouseleave="hover_on_genre_tooltip = false"
+            >
+              <div class="tooltip-arrow"></div>
+              <div class="tooltip-inner">
+                Set your genre Filters<br>
+                & control your experience
+                <a >Got it!</a>
+              </div>
+            </div>
+          </div>
 
           <v-menu offset-y id="genre_selector" class="filter_menu" v-show="activeTab!='merch'">
             <v-btn dark slot="activator">Any genre
