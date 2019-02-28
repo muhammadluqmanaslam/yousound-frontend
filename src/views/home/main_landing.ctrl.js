@@ -7,6 +7,7 @@ export default {
     return {
       windowWidth: 0,
       activeSlide: 1,
+      playTimer: null
     }
   },
 
@@ -20,7 +21,6 @@ export default {
     window.addEventListener('resize', this.handleResize)
     this.windowWidth = window.innerWidth
     // console.log('main_landing created', this.windowWidth)
-    setTimeout(() => { this.adjustDots() }, 100)
 
     if (this.$store) {
       if (this.$store.state.auth.user) {
@@ -52,5 +52,23 @@ export default {
       // console.log('main_landing handleResize', this.windowWidth)
       this.$nextTick(() => { this.adjustDots() })
     }
+  },
+
+  mounted () {
+    const vm = this
+    $('.slide.slide-1 img').on('load', function() {
+      // console.log("slide-1 image loaded correctly")
+      vm.adjustDots()
+      if (!vm.playTimer) {
+        vm.playTimer = setInterval(() => {
+          if (vm.activeSlide == 4) {
+            clearInterval(vm.playTimer)
+            vm.playTimer = null
+          } else {
+            vm.setActiveSlide(vm.activeSlide + 1)
+          }
+        }, 3000)
+      }
+    })
   }
 }
