@@ -1,6 +1,6 @@
 .my-genre-dialog {
-  max-width: 1150px !important;
-  width: 1150px !important;
+  max-width: 1250px !important;
+  width: 1250px !important;
   // z-index: 99;
   // position: fixed;
   // top: 50%;
@@ -11,6 +11,11 @@
   // padding: 10px 10px;
   // border-radius: 5px;
   background-color: #FFFFFF;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  border-radius: 8px;
 
   .genre {
     position: relative;
@@ -26,6 +31,8 @@
       position: absolute;
       top: 25px;
       right: 0px;
+      border-radius: 50px;
+      box-shadow: none;
     }
     & > .pgs_area {
       height: 500px;
