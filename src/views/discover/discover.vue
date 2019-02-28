@@ -63,7 +63,7 @@
               <img src="/static/images/ic_filter.svg" width="20">
             </v-btn>
             <div
-              
+              v-show="showGenreTooltip"
               class="tooltip"
               @mouseenter="hover_on_genre_tooltip = true"
               @mouseleave="hover_on_genre_tooltip = false"
@@ -72,7 +72,7 @@
               <div class="tooltip-inner">
                 Set your genre Filters<br>
                 & control your experience
-                <a >Got it!</a>
+                <a @click.stop="got_genre_tooltip = true">Got it!</a>
               </div>
             </div>
           </div>

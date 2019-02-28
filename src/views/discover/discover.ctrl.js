@@ -46,7 +46,7 @@ export default {
     },
 
     showGenreTooltip () {
-      return this.hover_on_genre_button || this.hover_on_genre_tooltip
+      return !this.got_genre_tooltip && (this.hover_on_genre_button || this.hover_on_genre_tooltip)
     },
 
     filtered_feeds() {
