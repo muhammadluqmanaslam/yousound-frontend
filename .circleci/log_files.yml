@@ -1,0 +1,12 @@
+files:
+  - /var/log/*.log
+  - /var/log/nginx/*.log
+  - /var/log/supervisor/*.log
+  - /var/log/sidekiq.0.log
+  - /home/ubuntu/yousound/current/share/log/*.log
+destination:
+  host: logs7.papertrailapp.com
+  port: 16797
+  protocol: tls
+pid_file: /var/run/remote_syslog.pid
+hostname: <TAG>

@@ -1,0 +1,96 @@
+version: 2
+jobs:
+  build: 
+    branches: 
+      only: 
+        - integration 
+        - master
+        - circleci
+    docker:
+       - image: circleci/node:7.10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: "PREPARE ENVIRONMENT VARIABLES"
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              echo "export ENVIRONMENT=production" >> $BASH_ENV
+              echo "export EBENVIRONMENT=prod" >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "integration" ]; then
+              echo "export ENVIRONMENT=integration" >> $BASH_ENV
+              echo "export EBENVIRONMENT=int" >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "circleci" ]; then
+              echo "export ENVIRONMENT=production" >> $BASH_ENV
+              echo "export EBENVIRONMENT=prod" >> $BASH_ENV
+            fi
+
+      - run:
+          name: "INSTALL DEPLOYMENT DEPENDENCIES"
+          command: |
+            # INSTALL AWS CLI DEPENDENCIES
+            echo 'deb http://ftp.fr.debian.org/debian testing main' | sudo tee -a /etc/apt/sources.list
+            sudo apt-get update -qq && sudo apt-get install -y python3.6 python3-pip python-dev build-essential
+            sudo pip3 install --upgrade pip
+            sudo pip3 install --upgrade virtualenv
+
+            # INSTALL AWS CLI FOR S3 COPY COMMAND
+            sudo pip3 install awscli --upgrade
+
+            # INSTALL AWS EB CLI FOR BEANSTALK DEPLOYMENT
+            sudo pip3 install awsebcli --upgrade
+      
+      - run:
+          name: "COPY CONFIG"
+          command: |
+            # COPY SETTINGS FROM S3
+            aws s3 cp s3://ys-circleci/vue/$EBENVIRONMENT.env.js ./config/$EBENVIRONMENT.env.js
+      
+      - run:
+          name: "PRINT CURRENT CACHE KEY"
+          command: |
+            cat package.json > cache_key_file
+            echo "v${CACHE_ID}-dependencies-${CIRCLE_BRANCH}" >> cache_key_file
+
+      # RESTORE NPM PACKAGES CACHE IF AVAILABLE
+      - restore_cache:
+          keys:
+          - key-{{ checksum "cache_key_file" }}
+          
+      - run:
+          name: "INSTALL NPM PACKAGES"
+          command: |
+            # USING YARN INSTEAD NPM FOR SPEED
+            yarn install
+
+      # SAVE NPM PACKAGES AS CACHE
+      - save_cache:
+          paths:
+            - node_modules
+          key: key-{{ checksum "cache_key_file" }}
+
+      - run:
+          name: "BUILD APPLICATON"
+          command: |
+            # USING YARN INSTEAD NPM FOR SPEED
+            yarn run build
+
+      - run:
+          name: "PREPARE FILES"
+          command: |
+            # MOVE FILES TO ALLOW BEANSTALK TO READ THEM
+            cp .circleci/Dockerrun.aws.json Dockerrun.aws.json
+            cp .circleci/nginx/nginx.conf nginx.conf
+
+            # FIX ISSUE https://github.com/aws/aws-cli/issues/2639
+            find ./node_modules -mtime +10950 -exec touch {} \;
+
+      - deploy:
+          name: "DEPLOY TO EB"
+          command: |
+            # DEPLOY TO EB
+            eb use ys-vue-$EBENVIRONMENT
+            eb deploy ys-vue-$EBENVIRONMENT
