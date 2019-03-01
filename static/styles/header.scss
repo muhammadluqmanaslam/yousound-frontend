@@ -225,6 +225,14 @@
   }
 }
 
+.list {
+     padding: 20px 20px 20px 20px;
+      }
+
+.user-status.online {
+  margin-left: 3px !important;
+}
+
 .menu__content.profile-menu__content {
   li.profile {
     .list__tile.list__tile--avatar {
@@ -245,7 +253,7 @@
         }
         .list__tile__sub-title {
           font-size: 16px;
-          font-weight: 600; 
+          font-weight: 400; 
         }
       }
     }
@@ -254,9 +262,12 @@
     .list__tile {
       height: 30px;
       justify-content: space-between;
+      margin-top: 20px;
+      margin-bottom: 20px;
       label {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
+        font-family: 'Open Sans',sans-serif;
         cursor: pointer;
       }
     }
@@ -264,6 +275,7 @@
   .list__tile__title {
     font-size: 18px;
     font-weight: 600;
+    font-family: 'Open Sans',sans-serif;
     // i {
     //   font-size: 15px;
     //   padding: 0 7.5px;
