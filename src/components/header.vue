@@ -119,60 +119,74 @@
             <span>Sell</span>
           </v-tooltip>
         </v-badge>
-        <v-menu offset-y class="profile-menu" v-if="currentUser">
+        <v-menu
+          v-if="currentUser"
+          bottom
+          left
+          offset-y
+          nudge-top="-5"
+          nudge-left="-70"
+          class="profile-menu"
+          content-class="profile-menu__content"
+        >
           <v-btn icon slot="activator">
-            <!-- <img class="profile-image" src="/static/images/sample_user.png"> -->
             <div class="profile-image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}" v-if="currentUser"></div>
           </v-btn>
-          <v-list>
-            <v-list-tile key="moderator" v-if="false">
+          <v-list two-line>
+            <v-list-tile
+              avatar
+              :to="'/' + currentUser.slug"
+              class="profile"
+            >
+              <v-list-tile-avatar>
+                <img v-bind:src="currentUser.avatar.url">
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  {{ currentUser.display_name }}
+                  <v-icon class="user-status online" v-if="['artist', 'label', 'brand'].indexOf(currentUser.user_type) > -1">fa-check-circle</v-icon>
+                </v-list-tile-title>
+                <v-list-tile-sub-title>View Profile</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile class="chat">
+              <label
+                v-if="currentUser.user_type=='artist'"
+                @click="$router.push(`/upload/album`)"
+              >Upload</label>
+              <label
+                v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video"
+                @click="$router.push(`/user/${currentUser.slug}/video`)"
+              >Live Video</label>
+              <label
+                @click="$router.push(`/user/${currentUser.slug}/chat`)"
+              >Chat</label>
+            </v-list-tile>
+            <v-divider></v-divider>
+            <v-list-tile key="manage" to="/albums" v-if="currentUser.user_type=='artist'">
+              <v-list-tile-content>
+                <v-list-tile-title>Manage</v-list-tile-title>
+                <v-list-tile-sub-title>Edit your albums</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile key="settings" to="/settings">
+              <v-list-tile-content>
+                <v-list-tile-title>Settings</v-list-tile-title>
+                <v-list-tile-sub-title>Edit profile, password, bank info</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <!-- <v-list-tile key="moderator">
               <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-users</v-icon> -->
+                <v-icon right>fa-users</v-icon>
                 <label>Moderator</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="profile" :to="'/' + currentUser.slug">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-folder-open</v-icon> -->
-                <label>Profile</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile key="upload" to="/upload/album" v-if="currentUser.user_type=='artist'">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-upload</v-icon> -->
-                <label>Upload</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile key="chat" :to="'/user/' + currentUser.slug + '/chat'">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-upload</v-icon> -->
-                <label>Chat</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video"
-              key="video" :to="'/user/' + currentUser.slug + '/video'">
-              <v-list-tile-title class="profile-menu-item">
-                <label>Live Video</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile key="manage" to="/albums" v-if="currentUser.user_type=='artist'">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-music</v-icon> -->
-                <label>Manage</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile key="settings" to="/settings">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-gear</v-icon> -->
-                <label>Settings</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <!-- <v-list-tile key="getverified" to="/verified" v-if="currentUser.user_type=='artist'">
+            <v-list-tile key="getverified" to="/verified" v-if="currentUser.user_type=='artist'">
               <v-list-tile-title class="profile-menu-item">
                 <v-icon right>fa-gear</v-icon>
                 <label>Get Verified</label>
               </v-list-tile-title>
-            </v-list-tile> -->
+            </v-list-tile>
             <v-list-tile key="main_landing" to="/">
               <v-list-tile-title class="profile-menu-item">
                 <label>Main Landing</label>
@@ -180,40 +194,40 @@
             </v-list-tile>
             <v-list-tile key="landing" to="/home">
               <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-gear</v-icon> -->
                 <label>Landing</label>
               </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile key="support">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-question</v-icon> -->
-                <label>Support</label>
-              </v-list-tile-title>
+            </v-list-tile> -->
+            <v-list-tile key="payments" to="/payments" v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1">
+              <v-list-tile-content>
+                <v-list-tile-title>Payments</v-list-tile-title>
+                <v-list-tile-sub-title>View transactions, refunds</v-list-tile-sub-title>
+              </v-list-tile-content>
             </v-list-tile>
             <v-list-tile key="admin" to="/admin" v-if="['admin', 'moderator'].indexOf(currentUser.user_type) > -1">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-question</v-icon> -->
-                <label>Admin</label>
-              </v-list-tile-title>
+              <v-list-tile-content>
+                <v-list-tile-title>Admin</v-list-tile-title>
+              </v-list-tile-content>
             </v-list-tile>
             <v-list-tile key="labels" to="/labels" v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-question</v-icon> -->
-                <label v-if="currentUser.user_type=='artist'">My Labels</label>
-                <label v-if="currentUser.user_type=='label'">Record Label</label>
-              </v-list-tile-title>
+              <v-list-tile-content v-if="currentUser.user_type=='artist'">
+                <v-list-tile-title>My Labels</v-list-tile-title>
+                <v-list-tile-sub-title>Manage your labels</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-content v-else>
+                <v-list-tile-title>Record Labels</v-list-tile-title>
+                <v-list-tile-sub-title>Manage record labels</v-list-tile-sub-title>
+              </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile key="payments" to="/payments" v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-question</v-icon> -->
-                <label>Payments</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile key="signout" @click.native="signOut">
-              <v-list-tile-title class="profile-menu-item">
-                <!-- <v-icon right>fa-sign-out</v-icon> -->
-                <label>Sign Out</label>
-              </v-list-tile-title>
+            <v-list-tile key="support" @click="">
+              <v-list-tile-content>
+                <v-list-tile-title>Support</v-list-tile-title>
+                <v-list-tile-sub-title>Help docs</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>            
+            <v-list-tile key="signout" @click="signOut">
+              <v-list-tile-content>
+                <v-list-tile-title>Sign Out</v-list-tile-title>
+              </v-list-tile-content>
             </v-list-tile>
           </v-list>
         </v-menu>
