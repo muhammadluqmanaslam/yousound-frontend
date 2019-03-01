@@ -35,7 +35,6 @@ export default {
         { id: 'bank-details', title: 'Bank Details' },
         { id: 'repost-price', title: 'Repost Price' },
         { id: 'shipping-address', title: 'Shipping Address' },
-        { id: 'genre-filter', title: 'Genre Filter' },
         { id: 'blocked', title: 'Blocked' },
         { id: 'seller-policies', title: 'Seller Policies' },
         { id: 'verify-status', title: 'Verification Status' }

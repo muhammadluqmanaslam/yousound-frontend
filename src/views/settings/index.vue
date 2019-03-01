@@ -157,7 +157,7 @@
       </div>
       <price-tab v-else-if="tab=='repost-price'"/>
       <address-tab v-else-if="tab=='shipping-address'"/>
-      <genre-tab v-else-if="tab=='genre-filter'"/>
+      <!--genre-tab v-else-if="tab=='genre-filter'"/-->
       <div class="main-section" v-else-if="tab=='blocked'">
         <div class="description-section">
           <p>You can unblock users here</p>

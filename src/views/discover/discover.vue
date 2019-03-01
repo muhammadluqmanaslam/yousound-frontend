@@ -70,7 +70,7 @@
             >
               <div class="tooltip-arrow"></div>
               <div class="tooltip-inner">
-                Set your genre Filters<br>
+                Set your Genre Filters<br>
                 & control your experience
                 <a @click.stop="got_genre_tooltip = true">Got it!</a>
               </div>

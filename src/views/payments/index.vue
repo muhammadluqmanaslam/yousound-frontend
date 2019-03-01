@@ -86,7 +86,7 @@
                         <router-link v-else-if="history.refund_amount > 0"
                           :to="`/sell/order/${history.order_id}`">Partial Refund</router-link>
                         <router-link v-else
-                          :to="`/sell/order/${history.order_id}`">Buy</router-link>
+                          :to="`/sell/order/${history.order_id}`">Purchase</router-link>
                       </template>
                       <template v-else-if="history.payment_type == 'refund'">
                         <router-link :to="`/sell/order/${history.order_id}`">Refund</router-link>
