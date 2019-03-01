@@ -76,6 +76,12 @@
           <template v-else>
             <template v-for="(values, key) in groupChildrenByRegion(parent)">
               <v-flex xs12><h5>{{ key }}</h5></v-flex>
+              <v-flex xs12 sm12>
+                <p class="regular-checkbox settings parent-genre">
+                  <input :id="`${parent.id}-${key}`" type="checkbox" v-model="region[`${parent.id}-${key}`]" @click="checkRegionGenre(parent, key)"/>
+                  <label :for="`${parent.id}-${key}`">Select All</label>
+                </p>
+              </v-flex>
               <v-flex xs12 sm3 v-for="child in values" :key="child.id">
                 <p class="regular-checkbox settings">
                   <input :id="child.id" type="checkbox" v-model="child.value" @click="checkChildGenre(parent, child)"/>

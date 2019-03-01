@@ -15,6 +15,7 @@ export default {
     return {
       genres: [],
       parent: null,
+      region: {},
       parent_index: 0,
       show_selector_view: true,
       isPageReady: true
@@ -69,6 +70,22 @@ export default {
       this.$forceUpdate()
     },
 
+    checkRegionGenre (parent, region) {
+      const key = `${parent.id}-${region}`
+      // console.log('checkRegionGenre', region, this.region[key])
+      _.each(parent.children, (g) => {
+        if (g.region == region) {
+          g.value = !this.region[key]
+        }
+      })
+      if (_.countBy(parent.children, 'value')['false'] > 0) {
+        parent.value = false
+      } else {
+        parent.value = true
+      }
+      this.$forceUpdate()
+    },
+
     checkChildGenre (parent, child) {
       if (child.value) {
         if (parent.value) {
@@ -90,7 +107,17 @@ export default {
     },
 
     groupChildrenByRegion (parent) {
-      return _.groupBy(parent.children, 'region')
+      const group = _.groupBy(parent.children, 'region')
+      _.forEach(group, (values, k) => {
+        let key = `${parent.id}-${k}`
+        if (typeof this.region[key] != undefined) {
+          this.region[key] = true
+          if (_.countBy(values, 'value')['false'] > 0) {
+            this.region[key] = false
+          }
+        }
+      })
+      return group
     },
 
     selectParent (parent, index) {
