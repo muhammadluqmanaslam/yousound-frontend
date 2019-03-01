@@ -89,6 +89,10 @@ export default {
       return c > 0 ? c : 0
     },
 
+    groupChildrenByRegion (parent) {
+      return _.groupBy(parent.children, 'region')
+    },
+
     selectParent (parent, index) {
       this.show_selector_view = false
       this.parent = parent

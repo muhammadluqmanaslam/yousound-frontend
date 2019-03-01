@@ -20,7 +20,8 @@ export const Countries = [
 export const StreamHourlyPrice = 1000
 
 export const PaymentTypes = {
-  repost_price_upgrade_cost: 'Repost Price Upgrade Cost'
+  repost_price_upgrade_cost: 'Repost Price Upgrade Cost',
+  pay_view_stream: 'Pay Per View'
 }
 
 // export const RepostPrices = [5, 10, 15]

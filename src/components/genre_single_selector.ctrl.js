@@ -67,5 +67,9 @@ export default {
       this.parent = parent
       this.parent_index = index
     },
+
+    groupChildrenByRegion (parent) {
+      return _.groupBy(parent.children, 'region')
+    },
   }
 }

@@ -12,7 +12,11 @@
     <v-layout row wrap mt-3 class="pgs_area" v-if="show_selector_view">
       <div class="pgs-wrapper" v-for="(parent, index) in genres">
         <div class="pgs" :key="parent.id">
-          <div class="pgs-inner-wrapper" :class="`bg-color-${index}`" @click="checkParentGenre(parent, !parent.value)">
+          <div
+            class="pgs-inner-wrapper"
+            :style="{backgroundColor: parent.color}"
+            @click="checkParentGenre(parent, !parent.value)"
+          >
             <div class="pgs-inner">
               <div class="pgs__title"><label>{{ parent.name }}</label></div>
               <div class="pgs__description">
@@ -40,7 +44,7 @@
     <div class="genre-container" v-if="!show_selector_view">
       <div class="pgs-wrapper">
         <div class="pgs" :key="parent.id">
-          <div class="pgs-inner-wrapper" :class="`bg-color-${parent_index}`">
+          <div class="pgs-inner-wrapper" :style="{backgroundColor: parent.color}">
             <div class="pgs-inner">
               <div class="pgs__title">{{ parent.name }}</div>
               <div class="pgs__description">+{{ getSelectedChildrenCount(parent) }} Subgenres</div>
@@ -60,13 +64,27 @@
               <label :for="parent.id">Select All</label>
             </p>
           </v-flex>
-          <v-flex xs12 sm3 v-for="child in parent.children" :key="child.id">
-            <p class="regular-checkbox settings">
-              <input :id="child.id" type="checkbox" v-model="child.value" @click="checkChildGenre(parent, child)"/>
-              <label :for="child.id">{{ child.name }}</label>
-              <span>({{ child.users_size }})</span>
-            </p>
-          </v-flex>
+          <template v-if="Object.keys(groupChildrenByRegion(parent)).length == 1">
+            <v-flex xs12 sm3 v-for="child in parent.children" :key="child.id">
+              <p class="regular-checkbox settings">
+                <input :id="child.id" type="checkbox" v-model="child.value" @click="checkChildGenre(parent, child)"/>
+                <label :for="child.id">{{ child.name }}</label>
+                <span>({{ child.users_size }})</span>
+              </p>
+            </v-flex>
+          </template>
+          <template v-else>
+            <template v-for="(values, key) in groupChildrenByRegion(parent)">
+              <v-flex xs12><h5>{{ key }}</h5></v-flex>
+              <v-flex xs12 sm3 v-for="child in values" :key="child.id">
+                <p class="regular-checkbox settings">
+                  <input :id="child.id" type="checkbox" v-model="child.value" @click="checkChildGenre(parent, child)"/>
+                  <label :for="child.id">{{ child.name }}</label>
+                  <span>({{ child.users_size }})</span>
+                </p>
+              </v-flex>
+            </template>
+          </template>
         </v-layout>
       </div>
     </div>
