@@ -2,7 +2,7 @@
   <div class="main-section">
     <h2>Privacy Choices</h2>
 
-    <p> YouSound takes your privacy seriously, so we provide you with a variety of choices regarding how we use the information we collect about you, and how you can manage your online privacy when you use the Twitch Services.  Here’s how you can exercise those choices. </p>
+    <p> YouSound takes your privacy seriously, so we provide you with a variety of choices regarding how we use the information we collect about you, and how you can manage your online privacy when you use the YouSound Services.  Here’s how you can exercise those choices. </p>
 
     <p>If you want more information or have questions, contact us at privacy@yousound.com. </p>
 
@@ -88,7 +88,7 @@
 							</tr>
 							<tr>
 								<td style="border: 1px solid #d7d7d7; padding: 16px">   
-									 Opt out of Google Analytics in connection with your use of the Twitch Services
+									 Opt out of Google Analytics in connection with your use of the YouSound Services
 								</td>
 								<td style="border: 1px solid #d7d7d7; padding: 16px"> 
 									<a href="http://tools.google.com/dlpage/gaoptout">Click here</a>
