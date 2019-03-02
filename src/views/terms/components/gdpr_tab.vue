@@ -1,6 +1,6 @@
 <template>
   <div class="main-section">
-    <h2>GDPR</h2>
+    <h2>General Data Protection Regulation</h2>
 
     <div class="article-body content-body wikistyle markdown-format">
       <div class="intro">

@@ -161,11 +161,11 @@
 
 			<p>To offer our services, we may transfer your Personal Data to recipients in countries other than the country in which the data were originally collected, including to the United States. The laws in those countries may not offer the same level of data protection as the country in which the data initially were provided. When we transfer your Personal Data to recipients in other countries, we will protect the data as described in this Privacy Policy.</p>
 
-			<h3>Changes To This Privacy Policy</h3>
+			<h3>Changes To This Privacy Policy.</h3>
 
 			<p>YouSound may amend this Privacy Policy from time to time. Use of information we collect now is subject to the Privacy Policy in effect at the time such information is used. If we make changes in the way we use Personal Data, we will notify you by posting an announcement on our Service or sending you an email. Users are bound by any changes to the Privacy Policy when they use the Service after such changes have been first posted.</p>
 
-			<h3>How To Contact Us</h3>
+			<h3>How To Contact Us.</h3>
 
 			<p>If you have any questions or concerns regarding the privacy of your Personal Data by YouSound, or if you would like to exercise your rights to your Personal Data, please send a detailed message to support@youSound.com. Please specify the subject of your request on the subject line and in the body of your message (e.g. “Request for access to my personal data”, “Request for California Privacy Information” etc.). We will provide the requested information and make every effort to resolve your concerns.</p>
 		</div>
