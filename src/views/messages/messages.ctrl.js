@@ -326,6 +326,7 @@ export default {
           params['attachable_type'] = 'ShopProduct'
           params['attachable_id'] = this.item.id
         }
+        this.item = null
       }
       if (token) {
         params['payment_token'] = token.id

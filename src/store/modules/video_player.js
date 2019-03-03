@@ -57,6 +57,7 @@ const actions = {
   },
 
   setFrameMode ({ commit }, frameMode) {
+    console.log('setFrameMode', frameMode)
     commit('setFrameMode', frameMode)
   },
 
