@@ -43,13 +43,5 @@
     <p>However if you are still looking for more information then you can contact us through one of our preferred contact methods:</p>
 
     <li>Email: support@yousound.com</li>
-
-
-
-
-
-
-
-
   </div>
 </template>

@@ -14,7 +14,6 @@
 
     <p>If you believe that material or content residing on or accessible through the Company Web site or service infringes an intellectual property right that you own or control, please use the form below to send a notice of claimed infringement.  Please note that you will be liable for damages, including costs and attorneys' fees, if you materially misrepresent that content or an activity is infringing your copyrights. Your communication must include all of the following items: </p>
 
-
     <li>A physical or electronic signature of a person authorized to act on behalf of the owner of the work that has been allegedly infringed;</li>
 
     <li>Identification of works or materials being infringed;</li>
@@ -31,13 +30,11 @@
 
     <p>It is Company's policy</p>
 
-
     <li>to remove or disable access to the infringing material;</li>
 
     <li>to notify the content provider, member or user that it has removed or disabled access to the material; and</li>
 
     <li>that repeat offenders will have the infringing material removed from the system and that Company will terminate such content provider's, member's or user's access to the service.</li>
-
 
     <h2>Procedure to Supply a Counter-Noticet</h2>
 
@@ -52,7 +49,5 @@
     <li>Content provider's, member's or user's name, address, telephone number, and, if available, e-mail address and a statement that such person or entity consents to the jurisdiction of the Federal Court for the judicial district in which the content provider's, member's or user's address is located, or if the content provider's, member's or user's address is located outside the United States, for any judicial district in which Company is located, and that such person or entity will accept service of process from the person who provided notification of the alleged infringement.</li>
 
     <p>Company may send a copy of the counter-notice to the original complaining party informing that person that Company may replace the removed material or cease disabling it in 10 business days. Unless the owner files an action seeking a court order against the content provider, member or user, the removed material may be replaced or access to it restored in 10 to 14 business days or more after receipt of the counter-notice, at Company's discretion.  Please contact Company to Receive Notification of Claimed Infringement at the following address: copyright@yousound.com</p>
-
-
   </div>
 </template>
