@@ -43,7 +43,7 @@
                     </v-list-tile>
                   </v-list>
                 </v-menu>
-                <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">All Shipped</v-btn>
+                <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">Mark All Shipped</v-btn>
                 <v-btn dark color="green" @click.native="csvExport()">Export</v-btn>
               </div>
               <div v-if="!orderHistories || orderHistories.length == 0" class="empty-section">
