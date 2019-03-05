@@ -22,8 +22,8 @@
       <copyright-policy-tab v-else-if="currentTab == 'copyright_policy'"/>
       <trademark-policy-tab v-else-if="currentTab == 'trademark_policy'"/>
       <gdpr-tab v-else-if="currentTab == 'gdpr'"/>
-      <trademark-guideline-tab v-else-if="currentTab == 'trademark_guideline'"/>
       <cookie-policy-tab v-else-if="currentTab == 'cookie_policy'"/>
+      <sample-clearance-tab v-else-if="currentTab == 'sample_clearance'"/>
     </div>
   </div>
 </template>
