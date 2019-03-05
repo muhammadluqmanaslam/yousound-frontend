@@ -76,6 +76,7 @@ export default {
   methods: {
     loadPublishedAlbums() {
       const params = {
+        q: this.searchValue,
         statuses: 'published, collaborated',
         page: this.published_pagination.page,
         per_page: this.published_pagination.rowsPerPage
@@ -92,6 +93,7 @@ export default {
 
     loadPrivatedAlbums() {
       const params = {
+        q: this.searchValue,
         statuses: 'privated',
         page: this.privated_pagination.page,
         per_page: this.privated_pagination.rowsPerPage
@@ -124,15 +126,18 @@ export default {
 
     onTab(tab) {
       this.albums_tab = tab
-      switch (tab) {
+    },
+
+    onKeyEnter(e) {
+      // console.log('onKeyEnter', this.albums_tab, this.searchValue, e)
+      switch (this.albums_tab) {
         case 'published':
-          console.log('onTab', tab)
+          this.loadPublishedAlbums()
           break
         case 'privated':
-          console.log('onTab', tab)
+          this.loadPrivatedAlbums()
           break
         case 'product':
-          console.log('onTab', tab)
           break
       }
     },

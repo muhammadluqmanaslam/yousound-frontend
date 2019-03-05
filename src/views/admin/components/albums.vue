@@ -6,7 +6,8 @@
           :key="tab.id"
           :href="'#' + tab.id"
           @click.native="onTab(tab.id)"
-          ripple>{{ tab.title }}</v-tabs-item>
+          ripple
+        >{{ tab.title }}</v-tabs-item>
         <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -15,7 +16,9 @@
           label="Search"
           class="user-serach search-input mr-4"
           single-line
-          hide-details></v-text-field>
+          hide-details
+          v-on:keyup.enter="onKeyEnter"
+        ></v-text-field>
       </v-tabs-bar>
       <v-tabs-items style="border:none;">
         <v-tabs-content key="published" id="published">
@@ -26,7 +29,8 @@
               :pagination.sync="published_pagination"
               :rows-per-page-items="per_page_options"
               :total-items="total_published_albums"
-              class="album-table">
+              class="album-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="album-cover-image" :style="{'background-image': 'url(' + props.item.cover.thumb.url + ')'}"></div>
@@ -84,7 +88,8 @@
               :pagination.sync="privated_pagination"
               :rows-per-page-items="per_page_options"
               :total-items="total_privated_albums"
-              class="album-table">
+              class="album-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="album-cover-image" :style="{'background-image': 'url(' + props.item.cover.thumb.url + ')'}"></div>
@@ -142,7 +147,8 @@
               :pagination.sync="product_pagination"
               :rows-per-page-items="per_page_options"
               :total-items="total_products"
-              class="product-table">
+              class="product-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
                   <div class="album-cover-image" :style="{'background-image': 'url(' + props.item.covers[0].cover.thumb.url + ')'}"></div>

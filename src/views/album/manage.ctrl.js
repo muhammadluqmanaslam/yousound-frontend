@@ -170,32 +170,32 @@ export default {
 
     publishAlbum () {
       AlbumService.makePublicAlbum(this.album.id).then(response => {
-        this.hideAlbumStatusConfirmDialog()
+        this.closePublishConfirmDialog()
         this.album.status = 'published'
         this.album.is_only_for_live_stream = false
       }).catch(e => {
-        this.hideAlbumStatusConfirmDialog()
+        this.closePublishConfirmDialog()
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
     privateAlbum () {
       AlbumService.makePrivateAlbum(this.album.id).then(response => {
-        this.hideAlbumStatusConfirmDialog()
+        this.closePrivateConfirmDialog()
         this.album.status = 'private'
       }).catch(e => {
-        this.hideAlbumStatusConfirmDialog()
+        this.closePrivateConfirmDialog()
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
     videoOnlyAlbum () {
       AlbumService.makeLiveVideoOnlyAlbum(this.album.id).then(response => {
-        this.hideAlbumStatusConfirmDialog()
+        this.closeVideoOnlyConfirmDialog()
         this.album.status = 'published'
         this.album.is_only_for_live_stream = true
       }).catch(e => {
-        this.hideAlbumStatusConfirmDialog();
+        this.closeVideoOnlyConfirmDialog();
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
