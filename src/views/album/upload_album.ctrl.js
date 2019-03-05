@@ -105,6 +105,9 @@ export default {
         this.followings = _.cloneDeep(values[0].body.users)
         this.users = _.cloneDeep(values[0].body.users)
         this.users.unshift(this.currentUser)
+
+        this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
+
         this.products = values[1].body
         this.$store.dispatch('genreSelector/setGenres', [])
 

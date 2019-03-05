@@ -1,3 +1,6 @@
+/* global $:true */
+
+import communityGuidelinesTab from './components/community_guidelines_tab'
 import cookiePolicyTab from './components/cookie_policy_tab'
 import copyrightPolicyTab from './components/copyright_policy_tab'
 import privacyChoiceTab from './components/privacy_choice_tab'
@@ -9,6 +12,7 @@ import SampleClearanceTab from './components/sample_clearance_tab'
 
 export default {
   components: {
+    communityGuidelinesTab,
     cookiePolicyTab,
     copyrightPolicyTab,
     privacyChoiceTab,
@@ -23,6 +27,7 @@ export default {
     return {
       tabs: [
         { id: 'terms_of_use', title: 'Terms of Service' },
+        { id: 'community_guidelines', title: 'Community Guidlines' },
         { id: 'privacy_policy', title: 'Privacy Policy' },
         { id: 'privacy_choice', title: 'Privacy Choices' },
         { id: 'copyright_policy', title: 'Copyright Policy (DMCA)' },
@@ -54,6 +59,7 @@ export default {
   methods: {
     onTab (tab) {
       this.currentTab = tab
+      this.$nextTick(() => { $(window).scrollTop(0) })
     }
   },
 
