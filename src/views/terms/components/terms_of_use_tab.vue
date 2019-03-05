@@ -1,6 +1,6 @@
 <template>
   <div class="main-section">
-    <h2>YouSound Terms of Service</h2>
+    <h2>Terms of Service</h2>
 
     <div class="article-body content-body wikistyle markdown-format">
       <div class="intro">
@@ -207,7 +207,9 @@
 
      <p>As a condition to using certain features of the Service (including, without limitation, the free download feature, or making a purchase from Company or an Artist Entity, Brand Entity, Label Entity), you may be required to provide certain personal information to Company or relevant Artist Entity, Brand Entity, Label Entity, such as your e-mail address, country of residence and zip/postal code ("User Information").<br><br>
       You may register with the Company as a Listener and create a user account (“Listener Account”), which will allow you to access features of the Service that are available through Listeners Accounts,  a Listeners profile page that along with information that you choose to share about yourself, and the ability to follow other Listeners or Artist Accounts, Brand Accounts, Label Accounts . Following an Artist Account, Brand Account, or Label Account, purchasing any content or services of Verified Users, gives Verified Users access to your email address while logged in to your Listener Account. Any information you provide for your profile page will be available to other users of the Service by default, subject to our Privacy Policy.<br><br>
-    As a condition to each such Verified User’s right to receive such User Information, Company requires each Verified User to agree to the terms set forth in the next section of this Agreement. However, you acknowledge that Company has no control over the use of the User Information by the Verified Users, and you further acknowledge and agree that YouSound shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the Verified User’s use of such User Information. </p>    
+    As a condition to each such Verified User’s right to receive such User Information, Company requires each Verified User to agree to the terms set forth in the next section of this Agreement. However, you acknowledge that Company has no control over the use of the User Information by the Verified Users, and you further acknowledge and agree that YouSound shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the Verified User’s use of such User Information. </p>  
+
+    <p>When any user manually deletes their accounts, their personal information is deleted from our servers instantly, and information from deleted accounts by any other user is no longer accessible.  All deleted account information backed up is deleted indefinitely within 7 days.</p>
 
       <h3>
         <a id="6-verified-users-usages-of-personal-user-information" class="anchor" href="#6-verified-users-usages-of-personal-user-information" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Verified Users Usages of Personal User Information.</h3>

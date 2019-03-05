@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       tabs: [
-        { id: 'terms_of_use', title: 'Terms of Use' },
+        { id: 'terms_of_use', title: 'Terms of Service' },
         { id: 'privacy_policy', title: 'Privacy Policy' },
         { id: 'privacy_choice', title: 'Privacy Choices' },
         { id: 'copyright_policy', title: 'Copyright Policy (DMCA)' },

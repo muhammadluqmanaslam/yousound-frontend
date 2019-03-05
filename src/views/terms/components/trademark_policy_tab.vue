@@ -2,8 +2,6 @@
   <div class="main-section">
     <h2>Trademark Policy</h2>
 
-    <h3>Respect Trademark Rights,</h3>
-
     <p>Using a trademark without the trademark owner’s permission on the YouSound Services in a manner that may mislead or confuse others about who you are, or your brand affiliation, may violate YouSound’s Trademark Policy.</p>
 
     <h3>How To Report a Violation.</h3>

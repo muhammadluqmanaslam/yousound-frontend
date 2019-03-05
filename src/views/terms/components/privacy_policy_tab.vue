@@ -1,6 +1,6 @@
 <template>
 	<div class="main-section">
-		<h2>YouSound Privacy Policy</h2>
+		<h2>Privacy Policy</h2>
 
 		<div class="article-body content-body wikistyle markdown-format">
 			<div class="intro">
