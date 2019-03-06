@@ -92,15 +92,31 @@
                   name="stream_cover_file"
                   id="stream_cover_file"
                   accept="image/*"
-                  v-validate="'required'"
+                  v-validate="'required|dimensions:1280,720'"
                   @change="imageChanged($event)"
                 >
                 <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload Thumbnail</label>
-               <span class="ml-2 px-1">*1280x720px or 640x360px | PNG, JPG, GIF</span>
+               <span class="ml-2 px-1">*1280x720px | PNG, JPG, GIF</span>
               </v-flex>
             </v-layout>
           </v-flex>
           <v-flex sm4>
+            <h3 class="mb-4">Video Thumbnail</h3>
+            <div class="video-thumbnail-wrapper">
+              <div
+                v-if="stream_cover_url"
+                :style="{'background-image': 'url(' + stream_cover_url + ')'}"
+                class="video-thumbnail"
+              ></div>
+              <div
+                v-else
+                class="video-thumbnail"
+              >
+                <label>PREVIEW</label>
+              </div>
+            </div>
+          </v-flex>
+          <!-- <v-flex sm4>
             <h3 class="mb-4">Preview</h3>
             <v-card class="user-preview">
               <v-card-media
@@ -136,7 +152,7 @@
                 </div>
               </v-card-title>
             </v-card>
-          </v-flex>
+          </v-flex> -->
         </v-layout>
 
         <div class="divider mt-3 mb-5"></div>
