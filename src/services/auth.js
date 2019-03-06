@@ -35,6 +35,10 @@ export default {
     return Vue.http.post(API_BASE_URL + '/signin_with_social', params)
   },
 
+  isUsernameAvailable (params) {
+    return Vue.http.post(API_BASE_URL + '/is_username_available', params)
+  },
+
   checkTokenValidation () {
     const params = {
       auth_token: localStorage.getItem(ACCESS_TOKEN_KEY)

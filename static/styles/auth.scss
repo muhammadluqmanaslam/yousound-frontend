@@ -162,6 +162,12 @@
 .page.auth-page.auth-register-page {
   width: 306px;
   margin: 0 auto;
+  .error--text {
+    position: absolute;
+    top: 20px;
+    right: -95px;
+    width: 100px;
+  }
   .avatar-area {
     background: #FAFAFA;
     border: 0.75px solid #D2D2D2;

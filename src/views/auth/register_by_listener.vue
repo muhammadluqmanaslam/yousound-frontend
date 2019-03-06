@@ -8,9 +8,6 @@
         <v-flex xs12 text-xs-center>
           <h4>Sign Up as Listener</h4>
         </v-flex>
-        <!-- <v-flex xs12 text-xs-center pt-2 pb-3>
-          <label for="terms">Are you an Artist, Label, or Brand? <router-link class="forgot-password" to="/register">Sign Up Here</router-link></label>
-        </v-flex> -->
       </div>
       <div class="page auth-page auth-register-page">
         <form v-on:submit.prevent="submit()">
@@ -24,8 +21,17 @@
               </div>
             </div>
           </v-flex>
-          <v-flex xs12 text-xs-center>
-            <input class="username" type="text" name="username" placeholder="Username" v-model="user.username" v-validate="'required|max:20'">
+          <v-flex xs12 text-xs-center relative>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              v-model="user.username"
+              v-validate="'required|max:20'"
+              @blur="onBlur"
+              class="username"
+            >
+            <label v-if="!is_username_available" class="error--text">already taken</label>
           </v-flex>
           <v-flex xs12 text-xs-center>
             <input class="displayname" type="text" name="display_name" placeholder="Display Name" v-model="user.display_name" v-validate="'required|max:20'">
