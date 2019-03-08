@@ -178,6 +178,27 @@
       </form>
     </v-flex>
 
+    <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
+      <v-card>
+        <v-card-title>
+          <v-card-media src="/static/images/post1.jpg" contain></v-card-media>
+          <label>Live Video</label>
+        </v-card-title>
+        <v-card-text>
+          <ul>
+            <li>Attach albums & products to live video to <br/>let user <b>download</b> or <b>add to cart</b> while viewing.</li>
+            <li>Make albums & products <b>exclusive</b> on broadcast.</li>
+            <li>Let users view for <b>Free</b> or <b>Pay Per View</b>.<br/>Charge up to $10,000 per user.</li>
+            <li><b>Limit</b> the amount of viewers on your broadcast.</li>
+            <li>Add users to your <b>Guest List</b> to watch for free.</li>
+          </ul>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark round color="blue" @click.native="closeHelpDialog()" class="px-4">Ok, Got it!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <payment-modal
       v-if="show_payment_dialog"
       :type="''"

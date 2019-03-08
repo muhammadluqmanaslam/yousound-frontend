@@ -28,6 +28,7 @@ export default {
       album_status_confirm_dialog: false,
       roster_delete_confirm_dialog: false,
       show_select_user_modal: false,
+      show_help_dialog: true,
       isPageReady: false,
     }
   },
@@ -121,6 +122,14 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', reason)
       });
+    },
+
+    openHelpDialog () {
+      this.show_help_dialog = true
+    },
+
+    closeHelpDialog () {
+      this.show_help_dialog = false
     },
 
     onTab (tab) {

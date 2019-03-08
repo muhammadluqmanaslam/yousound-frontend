@@ -276,6 +276,31 @@
         </div>
       </v-flex>
     </template>
+
+    <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
+      <v-card>
+        <v-card-title>
+          <v-card-media src="/static/images/post4.jpg" contain></v-card-media>
+          <label>Labels</label>
+        </v-card-title>
+        <v-card-text>
+          <div>
+            <h4>Labels</h4>
+            <ul>
+              <li><b>Invite artists</b> to your roster.</li>
+              <li><b>Request albums</b> to be added to your catalog.</li>
+            </ul>
+            <h4>Artists</h4>
+            <ul>
+              <li><b>Manage</b> your approved labels & albums.</li>
+            </ul>
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark round color="blue" @click.native="closeHelpDialog()" class="px-4">Ok, Got it!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 

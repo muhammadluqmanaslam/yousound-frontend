@@ -278,6 +278,28 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
+      <v-card>
+        <v-card-title>
+          <v-card-media src="/static/images/post2.jpg" contain></v-card-media>
+          <label>Sellers</label>
+        </v-card-title>
+        <v-card-text>
+          <ul>
+            <li>Sell <b>physical</b> & <b>digital</b> products.</li>
+            <li><b>Collaborate</b> on products with artists, brands & labels<br/>and split sales automatically.</li>
+            <li><b>Split percentages</b> & <b>set recoup cost,</b><br/>confirm through direct message.</li>
+            <li><b>Track</b> shipped items from you & your collaborators.</li>
+            <li><b>Export orders</b> with csv file for drop shipments.</li>
+            <li>Keep <b>90%</b> of all sales.</li>
+          </ul>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark round color="blue" @click.native="closeHelpDialog()" class="px-4">Ok, Got it!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 

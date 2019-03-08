@@ -24,6 +24,7 @@ export default {
         { id: 'merch', title: 'Shop' }
       ],
       show_genre_selector_dialog: false,
+      show_help_dialog: true,
       got_genre_tooltip: false,
       hover_on_genre_button: false,
       hover_on_genre_tooltip: false,
@@ -123,6 +124,14 @@ export default {
         // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         console.log('discover error', e)
       })
+    },
+
+    openHelpDialog () {
+      this.show_help_dialog = true
+    },
+
+    closeHelpDialog () {
+      this.show_help_dialog = false
     },
 
     openGenreSelectorDialog () {

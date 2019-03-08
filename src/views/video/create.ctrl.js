@@ -51,6 +51,7 @@ export default {
       },
       stream_cover_url: null,
       show_payment_dialog: false,
+      show_help_dialog: true,
       isPageReady: false
     }
   },
@@ -121,6 +122,14 @@ export default {
   },
 
   methods: {
+    openHelpDialog () {
+      this.show_help_dialog = true
+    },
+
+    closeHelpDialog () {
+      this.show_help_dialog = false
+    },
+
     openPaymentDialog () {
       this.$validator.validateAll().then(response => {
         if (response === true) {

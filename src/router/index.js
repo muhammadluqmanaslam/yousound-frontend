@@ -14,6 +14,7 @@ import ListenerRegister from '@/views/auth/register_by_listener'
 // import ArtistRegister from '@/views/auth/register_by_artist'
 // import LabelRegister from '@/views/auth/register_by_label'
 // import BrandRegister from '@/views/auth/register_by_brand'
+import TwitterConfirmPage from '@/views/auth/twitter_confirm'
 import TwitterCallbackPage from '@/views/auth/twitter_callback'
 import TermsPage from '@/views/terms/index'
 import AdminPage from '@/views/admin/admin'
@@ -66,6 +67,7 @@ export function createRouter (settings) {
     { path: '/terms', name: 'TermsPage', component: TermsPage },
     { path: '/_oauth/verification', name: 'SocialVerification', component: SocialVerification },
     { path: '/_oauth/stripe_connect_callback', name: 'StripeConnectPage', component: StripeConnectPage },
+    { path: '/_oauth/twitter_confirm', name: 'TwitterConfirmPage', component: TwitterConfirmPage },
     { path: '/_oauth/twitter_callback', name: 'TwitterCallbackPage', component: TwitterCallbackPage },
     { path: '/confirm/:token', name: 'Confirmation', component: Confirmation }
   ]

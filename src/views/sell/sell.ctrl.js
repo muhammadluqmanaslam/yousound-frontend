@@ -35,6 +35,7 @@ export default {
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
       show_ship_all_confirm_dialog: false,
+      show_help_dialog: true,
       shipping_id: null,
       order_detail: null,
       orderHistories: [],
@@ -150,6 +151,14 @@ export default {
 
     editProduct (product) {
       this.$router.push(`/product/edit/${product.id}`)
+    },
+
+    openHelpDialog () {
+      this.show_help_dialog = true
+    },
+
+    closeHelpDialog () {
+      this.show_help_dialog = false
     },
 
     openProductFinishModal () {

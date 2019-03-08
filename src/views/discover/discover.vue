@@ -119,6 +119,27 @@
         :dismiss="closeGenreSelectorDialog"
       />
     </v-dialog>
+
+    <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
+      <v-card>
+        <v-card-title>
+          <v-card-media src="/static/images/post3.jpg" contain></v-card-media>
+          <label>Stream</label>
+        </v-card-title>
+        <v-card-text>
+          <ul>
+            <li>See all content <b>chronologically posted</b> by who you follow.</li>
+            <li><b>Easily Sort</b> content by Everything, Albums, Products,<br/>Live Video, Reposts & Playlists.</li>
+            <li>Listen to albums and add products to cart <b>from the stream</b>.</li>
+            <li><b>Discover artists & brands</b> by clicking 'Discover More'.</li>
+            <li>Connect to Twitter to <b>automatically follow artists</b>.</li>
+          </ul>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark round color="blue" @click.native="closeHelpDialog()" class="px-4">Ok, Got it!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
