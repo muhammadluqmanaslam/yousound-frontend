@@ -1,6 +1,8 @@
 import _ from 'lodash'
+
 import AuthService from  '@/services/auth'
 import StreamService from  '@/services/stream'
+import UserService from '@/services/user'
 
 import paymentModal from '@/components/paymentmodal'
 
@@ -51,12 +53,16 @@ export default {
       },
       stream_cover_url: null,
       show_payment_dialog: false,
-      show_help_dialog: true,
+      show_help_dialog: false,
       isPageReady: false
     }
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     MediaLiveInputTypes () {
       return MediaLiveInputTypes
     },
@@ -73,20 +79,16 @@ export default {
       return MediaLiveInputMaximumBitrates
     },
 
+    // isValidate () {
+    //   return !!this.stream_cover_url
+    // },
+
     streamCost () {
       return Math.round(this.period * StreamHourlyPrice / 3600)
     },
 
     profileUrl () {
       return window.location.origin + '/' + this.currentUser.slug
-    },
-
-    // isValidate () {
-    //   return !!this.stream_cover_url
-    // },
-
-    currentUser () {
-      return this.$store.state.auth.user
     }
   },
 
@@ -97,6 +99,11 @@ export default {
 
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
+
+    if (this.currentUser.data['video_page_visited'] !== 1) {
+      this.openHelpDialog()
+    }
+
     // this.genres = _.flatMap(this.$store.state.app.genres, 'children')
     this.genres = this.$store.state.app.genres
     if (this.currentUser.enabled_live_video_free) {
@@ -128,6 +135,15 @@ export default {
 
     closeHelpDialog () {
       this.show_help_dialog = false
+      const params = {
+        user: {
+          video_page_visited: 1
+        }
+      }
+      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
+        AuthService.setUser(response.body)
+        this.$store.dispatch('auth/setUser', response.body)
+      })
     },
 
     openPaymentDialog () {

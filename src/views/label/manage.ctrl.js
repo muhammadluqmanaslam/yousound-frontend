@@ -1,7 +1,10 @@
 import _ from 'lodash'
+
+import AuthService from '@/services/auth'
 import AlbumService from '@/services/album'
 import LabelService from '@/services/label'
 import UserService from '@/services/user'
+
 import selectUserModal from '@/components/selectusermodal'
 import labelUserItem from './components/user'
 import labelAlbumItem from './components/album'
@@ -28,7 +31,7 @@ export default {
       album_status_confirm_dialog: false,
       roster_delete_confirm_dialog: false,
       show_select_user_modal: false,
-      show_help_dialog: true,
+      show_help_dialog: false,
       isPageReady: false,
     }
   },
@@ -42,6 +45,10 @@ export default {
     //   set: function (newValue) {
     //   }
     // },
+
+    currentUser () {
+      return this.$store.state.auth.user
+    },
 
     approved_labels () {
       return _.filter(this.labels, (item) => { return item.status === 'accepted' })
@@ -87,10 +94,14 @@ export default {
   },
 
   created () {
-    if (!this.$store.state.auth.user) {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
+    }
+
+    if (this.currentUser.data['label_page_visited'] !== 1) {
+      this.openHelpDialog()
     }
 
     this.navigatorState.page = 'label'
@@ -130,6 +141,15 @@ export default {
 
     closeHelpDialog () {
       this.show_help_dialog = false
+      const params = {
+        user: {
+          label_page_visited: 1
+        }
+      }
+      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
+        AuthService.setUser(response.body)
+        this.$store.dispatch('auth/setUser', response.body)
+      })
     },
 
     onTab (tab) {

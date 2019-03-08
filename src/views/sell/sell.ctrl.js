@@ -3,9 +3,11 @@ import moment from 'moment'
 
 import { Utils } from '@/helper'
 
+import AuthService from '@/services/auth'
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
 import ProductService from '@/services/product'
+import UserService from '@/services/user'
 
 import productItem from '@/components/productitem'
 import profileItem from '@/components/profileitem'
@@ -35,7 +37,7 @@ export default {
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
       show_ship_all_confirm_dialog: false,
-      show_help_dialog: true,
+      show_help_dialog: false,
       shipping_id: null,
       order_detail: null,
       orderHistories: [],
@@ -54,6 +56,10 @@ export default {
   computed: {
     _ () {
       return _
+    },
+
+    currentUser () {
+      return this.$store.state.auth.user
     },
 
     user () {
@@ -81,7 +87,7 @@ export default {
   },
 
   created () {
-    if (!this.$store.state.auth.user) {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
@@ -90,6 +96,10 @@ export default {
     if (['artist', 'brand', 'label'].indexOf(this.$store.state.auth.user.user_type) == -1)  {
       this.$router.push({ path: '/' })
       return
+    }
+
+    if (this.currentUser.data['sell_page_visited'] !== 1) {
+      this.openHelpDialog()
     }
 
     const tab = this.$route.hash.substr(1)
@@ -159,6 +169,15 @@ export default {
 
     closeHelpDialog () {
       this.show_help_dialog = false
+      const params = {
+        user: {
+          sell_page_visited: 1
+        }
+      }
+      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
+        AuthService.setUser(response.body)
+        this.$store.dispatch('auth/setUser', response.body)
+      })
     },
 
     openProductFinishModal () {

@@ -1,11 +1,13 @@
 import _ from 'lodash'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
 import { Utils } from '@/helper'
+
 import MessageService from '@/services/message'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
+
 import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
 import repostPaymentModal from '@/components/repost_payment_modal'
@@ -88,10 +90,12 @@ export default {
     }
 
     this.$store.dispatch('navigator/goNextState', { page: 'messages', tab: '' })
-    if (!this.$store.state.auth.user.message_first_visited_time) {
+
+    if (this.currentUser.data['message_page_visited'] !== 1) {
       this.show_stopPopup = true
     }
-    if (['brand'].indexOf(this.$store.state.auth.user.user_type) != -1) {
+
+    if (['brand'].indexOf(this.currentUser.user_type) != -1) {
       this.tab = 'merch'
     }
     this.loadConversations()
@@ -352,9 +356,12 @@ export default {
     setVisitedTime () {
       this.show_stopPopup = false
       if (this.$refs.message) this.$refs.message.focus()
-      const params = new FormData()
-      params.append('user[message_visited]', 1)
-      UserService.updateUserInfo(this.$store.state.auth.user.id, params).then(response => {
+      const params = {
+        user: {
+          message_page_visited: 1
+        }
+      }
+      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
         AuthService.setUser(response.body)
         this.$store.dispatch('auth/setUser', response.body)
       }).catch(e => {
