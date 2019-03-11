@@ -1,5 +1,7 @@
 import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
+import UserService from '@/services/user'
+
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
 import streamUser from '@/components/streamuser'
@@ -23,6 +25,7 @@ export default {
         { id: 'playlist', title: 'Playlists' },
 
       ],
+      show_help_dialog: false,
       page_index: 1,
       total_pages: 1,
       items_per_page: 5,
@@ -32,6 +35,9 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    }
   },
 
   watch: {
@@ -42,10 +48,14 @@ export default {
   },
 
   created () {
-    if (!this.$store.state.auth.user) {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
+    }
+
+    if (this.currentUser.data['stream_page_visited'] !== 1) {
+      this.openHelpDialog()
     }
 
     const tab = this.$route.hash.substr(1)
@@ -76,6 +86,23 @@ export default {
     loadMore() {
       this.page_index += 1
       this.loadFeeds(this.activeTab)
+    },
+
+    openHelpDialog () {
+      this.show_help_dialog = true
+    },
+
+    closeHelpDialog () {
+      this.show_help_dialog = false
+      const params = {
+        user: {
+          stream_page_visited: 1
+        }
+      }
+      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
+        AuthService.setUser(response.body)
+        this.$store.dispatch('auth/setUser', response.body)
+      })
     },
 
     onTab (tab) {

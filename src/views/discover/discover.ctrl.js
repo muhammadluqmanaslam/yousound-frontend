@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
-import UserService from '@/services/user'
 
 import genreDialog from '@/components/genre_dialog'
 import productCard from '@/components/productcard'
@@ -25,7 +24,6 @@ export default {
         { id: 'merch', title: 'Shop' }
       ],
       show_genre_selector_dialog: false,
-      show_help_dialog: false,
       got_genre_tooltip: false,
       hover_on_genre_button: false,
       hover_on_genre_tooltip: false,
@@ -85,10 +83,6 @@ export default {
       return
     }
 
-    if (this.currentUser.data['discover_page_visited'] !== 1) {
-      this.openHelpDialog()
-    }
-
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
   },
@@ -128,23 +122,6 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         console.log('discover error', e)
-      })
-    },
-
-    openHelpDialog () {
-      this.show_help_dialog = true
-    },
-
-    closeHelpDialog () {
-      this.show_help_dialog = false
-      const params = {
-        user: {
-          discover_page_visited: 1
-        }
-      }
-      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
-        AuthService.setUser(response.body)
-        this.$store.dispatch('auth/setUser', response.body)
       })
     },
 

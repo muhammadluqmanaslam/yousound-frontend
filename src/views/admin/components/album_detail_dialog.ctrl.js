@@ -17,8 +17,9 @@ export default {
   data () {
     return {
       tracks_headers: [
-        { text: 'Name', value: 'name', align: 'left' },
-        { text: '', value: 'status', align: 'center' }
+        { text: 'Track Title', value: 'name', align: 'left', sortable: false },
+        { text: 'Sampled from Yousound', value: 'status', align: 'center', sortable: false },
+        { text: '', value: 'status', align: 'center', sortable: false }
       ],
       album: {
         cover: {}
@@ -32,12 +33,16 @@ export default {
   },
 
   computed: {
+    album_product () {
+      return _.get(this.album, 'products[0]', null)
+    }
   },
 
   created () {
     // this.user = _.get(this.item, 'user', {avatar: {}})
     // this.tracks = _.get(this.item, 'tracks', [])
     this.loadData()
+    console.log('album_product', this.album_product)
   },
 
   methods: {
