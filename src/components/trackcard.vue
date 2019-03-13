@@ -1,52 +1,61 @@
 <template>
   <v-flex class="track-card">
-    <v-flex xs12 class="track-info" pa-0 v-if="!_.isEmpty(item)">
-      <!-- <v-flex xs12 class="track-user" pa-0>
-        <profile-item :user="publisher" :className="'track-user-avatar'"></profile-item>
-        <div class="track-user-content-section">
-          <router-link :to="'/' + publisher.slug"><p class="track-user-name">{{ publisher.display_name }}</p></router-link>
-          <div class="track-posted-at">
-            <img class="track-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
-          </div>
-        </div>
-      </v-flex> -->
+    <v-flex xs12 class="track-info" pa-0 v-if="!isEmptyAlbum">
       <v-flex xs12 class="track-cover">
         <div class="playlist-icon" v-if="item.album_type=='playlist'">
           <img src="/static/images/playlist.png" />
         </div>
         <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
         <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
-          <router-link :to="`/${item.album_type}/${item.slug}`"><v-flex xs12 class="touch-flex"></v-flex></router-link>
-          <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
+          <router-link :to="`/${item.album_type}/${item.slug}`">
+            <v-flex xs12 class="touch-flex"></v-flex>
+          </router-link>
+          <v-btn
+            v-if="!isPlaying || $store.state.player.isPaused"
+            @click.native="playSong()"
+            dark
+            class="play-button"
+          >
             <v-icon>play_arrow</v-icon>
           </v-btn>
-          <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
+          <v-btn
+            v-if="isPlaying && !$store.state.player.isPaused"
+            @click.native="pauseSong()"
+            dark
+            class="play-button"
+          >
             <v-icon>pause</v-icon>
           </v-btn>
-          <v-menu v-if="$store.state.auth.user"
+          <v-menu
+            v-if="currentUser"
+            v-model="menu"
             offset-y
             :close-on-content-click="false"
             :nudge-width="100"
-            v-model="menu"
-            class="track-menu">
+            class="track-menu"
+          >
             <v-btn dark slot="activator">
               <v-icon right>more_horiz</v-icon>
             </v-btn>
             <v-card>
               <v-list>
-                <v-list-tile v-if="item.user.id != $store.state.auth.user.id"
+                <v-list-tile
+                  v-if="item.user.id != currentUser.id"
                   key="repost"
+                  @click.native="repostItem()"
                   class="default-menu-item track-menu-item"
-                  @click.native="repostItem()">
+                >
                   <v-list-tile-title>
                     <img class="track-status-icon" src="/static/images/ic_repeat.png" />
                     <label>Repost</label>
                   </v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-if="item.album_type!='playlist'"
+                <v-list-tile
+                  v-if="item.album_type != 'playlist'"
                   key="download"
+                  @click.native="showDownloadDialog()"
                   class="default-menu-item track-menu-item"
-                  @click.native="showDownloadDialog()">
+                >
                   <v-list-tile-title>
                     <img class="track-status-icon" src="/static/images/ic_download.png" />
                     <label>Download</label>
@@ -54,17 +63,20 @@
                 </v-list-tile>
                 <v-list-tile
                   key="share"
+                  @click.native="showShareDialog()"
                   class="default-menu-item track-menu-item"
-                  @click.native="showShareDialog()">
+                >
                   <v-list-tile-title>
                     <img class="track-status-icon" src="/static/images/ic_share.png" />
                     <label>Share</label>
                   </v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-if="item.user.id != $store.state.auth.user.id"
+                <v-list-tile
+                  v-if="item.user.id != currentUser.id"
                   key="hide"
+                  @click.native="showHideAlbumDialog()"
                   class="default-menu-item track-menu-item"
-                  @click.native="showHideAlbumDialog()">
+                >
                   <v-dialog v-model="hide_dialog" content-class="my-dialog-1">
                     <v-list-tile-title slot="activator">
                       <v-icon>visibility_off</v-icon>
@@ -83,36 +95,48 @@
                     </v-card>
                   </v-dialog>
                 </v-list-tile>
-
-               <!-- <v-list-tile
-                  key="flag"
+                <v-list-tile
+                  v-if="item.user.id != currentUser.id"
+                  key="report"
+                  @click.native="openReportDialog()"
                   class="default-menu-item track-menu-item"
-                  @click.native="flagItem()">
+                >
                   <v-list-tile-title>
                     <img class="track-status-icon" src="/static/images/ic_flag.png" />
-                    <label>Flag</label>
-                  </v-list-tile-title>  -->
-
+                    <label>Report</label>
+                  </v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-if="$store.state.auth.user.user_type == 'label'"
+                <v-list-tile
+                  v-if="currentUser.user_type == 'label'"
                   key="add_to_my_label"
+                  @click.native="addToMyLabel()"
                   class="default-menu-item track-menu-item"
-                  @click.native="addToMyLabel()">
+                >
                   <v-list-tile-title>
                     <img class="track-status-icon" src="/static/images/ic_add_to.png" />
                     <label>Add to my label</label>
                   </v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-if="item.album_type != 'playlist'"
+                <v-list-tile
+                  v-if="item.album_type != 'playlist'"
                   key="add_to_playlist"
-                  class="default-menu-item track-menu-item has-sub-menu">
-                  <v-menu offset-x class="track-menu" v-model="submenu">
+                  class="default-menu-item track-menu-item has-sub-menu"
+                >
+                  <v-menu
+                    v-model="submenu"
+                    offset-x
+                    class="track-menu"
+                  >
                     <v-list-tile-title slot="activator" class="has-sub-menu">
                       <img class="track-status-icon" src="/static/images/ic_add_to.png" />
                       <label>Add to Playlist</label>
                     </v-list-tile-title>
                     <v-list>
-                      <v-list-tile key="add_to_playlist" class="default-menu-item track-menu-item" @click.native="addToNewPlaylist()">
+                      <v-list-tile
+                        key="add_to_playlist"
+                        @click.native="addToNewPlaylist()"
+                        class="default-menu-item track-menu-item"
+                      >
                         <v-dialog v-model="playlist_dialog" class="playlist-dialog" max-width="500px">
                           <v-list-tile-title slot="activator">
                             <img class="track-status-icon" src="/static/images/ic_add_to.png" />
@@ -155,10 +179,11 @@
                           </v-card>
                         </v-dialog>
                       </v-list-tile>
-                      <v-list-tile v-for="(list, list_index) in playlists"
+                      <v-list-tile
+                        v-for="(list, list_index) in playlists"
                         :key="`playlist_2_${list_index}`"
-                        class="default-menu-item track-menu-item"
                         @click.native="addToPlaylist(list)"
+                        class="default-menu-item track-menu-item"
                       >
                         <v-list-tile-title>
                           <img class="track-status-icon" src="/static/images/ic_download.png" />
@@ -168,20 +193,22 @@
                     </v-list>
                   </v-menu>
                 </v-list-tile>
-                <v-list-tile v-if="['admin', 'moderator'].indexOf($store.state.auth.user.user_type) > -1 && !item.recommended"
+                <v-list-tile
+                  v-if="['admin', 'moderator'].indexOf(currentUser.user_type) > -1 && !item.recommended"
                   key="recommended"
-                  class="default-menu-item track-menu-item"
                   @click.native="recommendAlbum()"
+                  class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
                     <v-icon>thumb_up</v-icon>
                     <label>Recommend</label>
                   </v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-if="['admin', 'moderator'].indexOf($store.state.auth.user.user_type) > -1 && item.recommended"
+                <v-list-tile v-if="['admin', 'moderator'].indexOf(currentUser.user_type) > -1 && item.recommended"
                   key="unrecommended"
+                  @click.native="unrecommendAlbum()"
                   class="default-menu-item track-menu-item"
-                  @click.native="unrecommendAlbum()">
+                >
                   <v-list-tile-title>
                     <v-icon>thumb_down</v-icon>
                     <label>Unrecommend</label>
@@ -211,316 +238,20 @@
       :item="item"
       :dismiss="dismissDownloadDialog"
     />
+
     <share-modal
       v-if="showShareModal"
       :item="item"
       :dismiss="dismissShareDialog"
     />
+
+    <v-dialog v-model="show_report_dialog" width="1000" persistent>
+      <album-report-dialog
+        :album="item"
+        :dismiss="closeReportDialog"
+      />
+    </v-dialog>
   </v-flex>  
 </template>
 
-<script type="text/javascript">
-  import _ from 'lodash'
-  import { mapActions } from 'vuex'
-  import { MyEvents } from '@/helper'
-  import AlbumService from '@/services/album'
-  import PlaylistService from '@/services/playlist'
-  import downloadModal from '@/components/downloadmodal'
-  import profileItem from '@/components/profileitem'
-  import shareModal from '@/components/sharemodal'
-
-  export default {
-    components: {
-      downloadModal,
-      shareModal,
-      profileItem
-    },
-
-    props: {
-      objects: {
-        type: Array
-      },
-
-      objectIndex: {
-        type: Number
-      },
-
-      hideButtonAction: {
-        type: Function
-      }
-    },
-
-    data () {
-      return {
-        showDownloadModal: false,
-        showShareModal: false,
-        hide_dialog: false,
-        playlist_dialog: false,
-        menu: false,
-        submenu: false,
-        playlist: {
-          name: '',
-          image: null
-        },
-        page: '',
-        selectedImage: null
-      }
-    },
-
-    computed: {
-      _ () {
-        return _
-      },
-
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
-      },
-
-      publisher () {
-        if (this.objects[this.objectIndex].assoc_type) {
-          return this.objects[this.objectIndex].publisher
-        } else {
-          return this.objects[this.objectIndex].user
-        }
-      },
-
-      item () {
-        if (this.objects[this.objectIndex].assoc_type) {
-          return this.objects[this.objectIndex].assoc
-        } else {
-          return this.objects[this.objectIndex]
-        }
-      },
-
-      owner () {
-        if (this.objects[this.objectIndex].assoc_type) {
-          return this.objects[this.objectIndex].assoc.user
-        } else {
-          return this.objects[this.objectIndex].user
-        }
-      },
-
-      isPlaying () {
-        var playingItem = this.$store.state.player.list[this.$store.state.player.listIndex]
-        if (playingItem !== undefined) {
-          if (playingItem.assoc_type === 'Album') {
-            playingItem = playingItem.assoc
-          }
-          var currentItem = this.objects[this.objectIndex]
-          if (currentItem.assoc_type === 'Album') {
-            currentItem = currentItem.assoc
-          }
-          if (playingItem.id === currentItem.id) {
-            return true
-          }
-        }
-        return false
-      },
-
-      input_id () {
-        return 'playlist_image_file_' + this.item.slug + '_' + parseInt((Math.random() * 999999))
-      },
-
-      playlists () {
-        return this.$store.state.playlist.playlists
-      }
-    },
-
-    created () {
-    },
-
-    methods: {
-      ...mapActions({
-        setPlaylist: 'player/setPlaylist',
-        setPlaylistIndex: 'player/setListIndex',
-        setTrackIndex: 'player/setTrackIndex',
-        setPlaying: 'player/setPlayingStatus'
-      }),
-
-      playSong () {
-        if (this.isPlaying && this.$store.state.player.isPaused) {
-          this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
-        } else {
-          this.setPlaylist(this.objects)
-          this.setPlaylistIndex(this.objectIndex)
-          this.setPlaying(true)
-          this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, 0)
-        }
-      },
-
-      pauseSong () {
-        this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
-      },
-
-      repostItem () {
-        this.menu = false
-        this.submenu = false
-        AlbumService.repostAlbum(this.item.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      },
-
-      showDownloadDialog () {
-        this.menu = false
-        this.submenu = false
-        this.showDownloadModal = true
-      },
-
-      dismissDownloadDialog () {
-        this.showDownloadModal = false
-      },
-
-      showShareDialog () {
-        this.menu = false
-        this.submenu = false
-        this.showShareModal = true
-      },
-
-      dismissShareDialog () {
-        this.showShareModal = false
-      },
-
-      showHideAlbumDialog () {
-        this.menu = false
-        this.submenu = false
-        this.hide_dialog = true
-      },
-
-      hideAlbum () {
-        this.menu = false
-        this.submenu = false
-        this.hide_dialog = false
-
-        AlbumService.hideAlbum(this.item.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just hid ' + this.item.name])
-          if (this.hideButtonAction) {
-            this.hideButtonAction(this.objects[this.objectIndex])
-          }
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      },
-
-      flagItem () {
-        this.menu = false
-        this.submenu = false
-      },
-
-      addComment () {
-        this.menu = false
-        this.submenu = false
-      },
-
-      addToMyLabel () {
-        AlbumService.sendLabelRequest(this.item.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just send a label request on <' + this.item.name + '>'])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      },
-
-      addToNewPlaylist () {
-        this.menu = false
-        this.playlist = {
-          name: '',
-          image: null
-        }
-        this.selectedImage = null
-      },
-
-      createPlaylist () {
-        if (this.playlist.name.replace(' ', '').length > 0) {
-          if (this.playlist.image !== null) {
-            const params = new FormData()
-            params.append('name', this.playlist.name)
-            params.append('description', this.playlist.name)
-            if (this.playlist.image) {
-              params.append('cover', this.playlist.image)
-            }
-            // params.append('assoc_id', this.item.id)
-            // params.append('assoc_type', 'Album')
-            params.append('assoc_id', this.item.tracks[0].id)
-            params.append('assoc_type', 'Track')
-            this.$store.dispatch('error/showLoadingActivity', true)
-            PlaylistService.createPlaylist(params).then(response => {
-              this.playlist_dialog = false
-              this.$store.dispatch('error/showLoadingActivity', false)
-              this.$store.dispatch('error/showSuccessToast', ['Added the album to New Playlist '])
-
-              PlaylistService.getPlaylists().then(response => {
-                this.$store.dispatch('playlist/setPlaylists', response.body)
-              })
-            }).catch(e => {
-              this.$store.dispatch('error/showLoadingActivity', false)
-              this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-            })
-          } else {
-            this.$store.dispatch('error/showErrorToast', ['Please add Playlist cover.'])
-          }
-        } else {
-          this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
-        }
-      },
-
-      addToPlaylist (list) {
-        this.menu = false
-        this.submenu = false
-        // const params = new FormData()
-        // params.append('assoc_id', this.item.id)
-        // params.append('assoc_type', 'Album')
-        const params = {
-          assoc_id: this.item.tracks[0].id,
-          assoc_type: 'Track'
-        }
-        PlaylistService.updatePlaylist(list.id, params).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['Added the track to <' + list.name + '>'])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      },
-
-      recommendAlbum () {
-        this.menu = false
-        this.submenu = false
-        AlbumService.recommendAlbum(this.item.id).then(response => {
-          this.item.recommended = true
-          this.$store.dispatch('error/showSuccessToast', ['You just recommended ' + this.item.name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      },
-
-      unrecommendAlbum () {
-        this.menu = false
-        this.submenu = false
-        AlbumService.unrecommendAlbum(this.item.id).then(response => {
-          this.item.recommended = false
-          this.$store.dispatch('error/showSuccessToast', ['You just unrecommended ' + this.item.name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      },
-
-      imageChanged (e) {
-        if (e.target.files[0].size > 2097152) {
-          // console.log(e.target.files)
-          this.$store.dispatch('error/showErrorToast', ['You can upload an image 2MB in maximum'])
-          return
-        }
-
-        this.playlist.image = e.target.files[0]
-        var reader = new FileReader()
-        reader.addEventListener('load', (event) => {
-          this.selectedImage = event.target.result
-        }, false)
-        reader.readAsDataURL(this.playlist.image)
-      }
-    }
-  }
-</script>
+<script type="text/javascript" src="./trackcard.ctrl.js"></script>

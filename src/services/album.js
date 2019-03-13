@@ -97,6 +97,10 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + albumId + '/unrecommend', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  reportAlbum (albumId, params) {
+    return Vue.http.post(API_BASE_URL + '/' + albumId + '/report', params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   hideAlbum (albumId) {
     return Vue.http.get(API_BASE_URL + '/' + albumId + '/hide', { headers: { 'Authorization': $store.state.auth.token } })
   },
