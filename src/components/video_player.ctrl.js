@@ -2,12 +2,20 @@
 
 // import _ from 'lodash'
 // import Hls from 'hls.js'
+import Vue from 'vue'
+import moment from 'moment'
+import SocketManager from '@/services/chat'
+import AuthService from '@/services/auth'
+
 import ActivityService from '@/services/activity'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import StreamService from '@/services/stream'
 import UserService from '@/services/user'
 
+import activityAlbumCard from '@/components/activityalbumcard'
+import activityProductCard from '@/components/activityproductcard'
+import activityUserCard from '@/components/activityusercard'
 import downloadModal from '@/components/downloadmodal'
 import merchModal from '@/components/merchmodal'
 import paymentModal from '@/components/paymentmodal'
@@ -16,9 +24,13 @@ import shareModal from '@/components/sharemodal'
 import { MyEvents } from '@/helper'
 
 const ActionCable = require('actioncable')
+var sm
 
 export default {
   components: {
+    activityAlbumCard,
+    activityProductCard,
+    activityUserCard,
     downloadModal,
     merchModal,
     paymentModal,
@@ -46,6 +58,12 @@ export default {
       buttonHover: false,
       cable: null,
       stream_subscription: null,
+      moment: moment,
+      messages: [],
+      albumLinks: {},
+      merchLinks: {},
+      userLinks: {},
+      notAttachments: [],
       isPageReady: false
     }
   },
@@ -76,6 +94,10 @@ export default {
     product () {
       // return this.products[0]
       return _.get(this.stream, 'assoc')
+    },
+
+    reverseMessages() {
+      return this.messages.slice(0, 3).reverse()
     },
 
     followButtonText () {
@@ -279,6 +301,74 @@ export default {
           }
         }
       )
+
+      sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
+        sm.onMessage = function (message) {
+          if (!message) return;
+
+          // look up the username in message.from to get image, etc.
+          if (message.from === vm.currentUser.username) {
+            message.me = true
+            message.fromUser = vm.currentUser
+            vm.messages.unshift(message)
+          } else {
+            UserService.getUserInfo(message.from).then(response => {
+              message.fromUser = response.body
+              if (vm.messages.length != 0) {
+                if (vm.messages[0].localId != message.localId) {
+                  vm.messages.unshift(message)
+                }
+              }
+            })
+          }
+
+          if (vm.isAlbumLink(message.text)) {
+            vm.getAlbumFromLink(message.text)
+          }
+
+          if (vm.isMerchLink(message.text)) {
+            vm.getMerchFromLink(message.text)
+          }
+
+          if (vm.isUserLink(message.text)) {
+            vm.getUserFromLink(message.text)
+          }
+        }
+
+        sm.onUserInfo = function (user) {
+          vm.user = user
+        }
+
+        sm.onLoadMessages = function (loadMessageObj) {
+          // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
+          for (var i = loadMessageObj.chunk * 500; i < (loadMessageObj.chunk + 1) * 500; i++) {
+            var nextMessage = loadMessageObj.data[i - (loadMessageObj.chunk * 500)];
+            if (nextMessage) {
+              Vue.set(vm.messages, i, nextMessage)
+            }
+          }
+          vm.messages.map((message) => {
+            if (message) {
+              if (vm.isAlbumLink(message.text)) {
+                vm.getAlbumFromLink(message.text)
+              }
+              if (vm.isMerchLink(message.text)) {
+                vm.getMerchFromLink(message.text)
+              }
+              if (vm.isUserLink(message.text)) {
+                vm.getUserFromLink(message.text)
+              }
+              if (message.from === vm.currentUser.username) {
+                message.me = true;
+              }
+              UserService.getUserInfo(message.from).then(response => {
+                Vue.set(message, "fromUser", response.body)
+              })
+              return message
+            }
+          })
+        }
+      })
     },
 
     getMetrics () {
@@ -527,12 +617,74 @@ export default {
       }
     },
 
+    isAttachmentLink(string) {
+      // const attachmentRegex = /\/((album)|(merch)\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12})|user\/\w+/g
+      const attachmentRegex = /\/((album)|(merch)\/\d+)|user\/\w+/g
+      return this.notAttachments.indexOf(string) < 0 && attachmentRegex.test(string)
+    },
+
+    isAlbumLink(string) {
+      // const albumLinkRegex = /\/album\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      const albumLinkRegex = /\/album\/\d+/g
+      return albumLinkRegex.test(string)
+    },
+
+    isMerchLink(string) {
+      // const merchLinkRegex = /\/merch\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      const merchLinkRegex = /\/merch\/\d+/g
+      return merchLinkRegex.test(string)
+    },
+
+    isUserLink(string) {
+      const userLinkRegex = /\/user\/\w+/g
+      return this.isAttachmentLink(string) && userLinkRegex.test(string)
+    },
+
+    getAlbumFromLink(string) {
+      const albumId = string.split("/")[2]
+      AlbumService.getAlbum(albumId).then(res => {
+        if (res.ok) {
+          Vue.set(this.albumLinks, string, res.body)
+        } else {
+          this.notAttachments.push(string)
+        }
+      }).catch(err => {
+        this.notAttachments.push(string)
+      })
+    },
+
+    getMerchFromLink(string) {
+      const merchId = string.split("/")[2]
+      ProductService.getProduct(merchId).then(res => {
+        if (res.ok) {
+          Vue.set(this.merchLinks, string, res.body)
+        } else {
+          this.notAttachments.push(string)
+        }
+      }).catch(err => {
+        this.notAttachments.push(string)
+      })
+    },
+
+    getUserFromLink(string) {
+      const userId = string.split("/")[2]
+      UserService.getUserInfo(userId).then(res => {
+        if (res && res.ok) {
+          Vue.set(this.userLinks, string, res.body)
+        } else {
+          this.notAttachments.push(string)
+        }
+      }).catch(err => {
+        this.notAttachments.push(string)
+      })
+    },
+
     onClick: function (e) {
       this.closeStreamingConfirmDialog()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
       // this.getMetrics()
-      console.log('this.stream.assoc_type', this.stream.assoc_type)
+      // console.log('this.stream.assoc_type', this.stream.assoc_type)
       if (this.stream && ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1) {
         this.showAttachButton = true
       }

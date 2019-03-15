@@ -148,16 +148,16 @@
       <v-layout row>
         <v-flex xs12 sm9 pa-0 class="chat-content-section">
           <div class="chat-list-section" v-chat-scroll="{always: false, smooth: false}" id="msg-container">
-            <!--<div class="chat-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">-->
-              <!--<div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>-->
-              <!--<div class="message-section">-->
-                <!--<div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div>-->
-                <!--<div class="message-content text">-->
-                  <!--<label class="text-message">{{ message.body }}</label>-->
-                <!--</div>-->
-                <!--<div class="clear"></div>-->
-              <!--</div>-->
-            <!--</div>-->
+            <!-- <div class="chat-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
+              <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
+              <div class="message-section">
+                <div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div>
+                <div class="message-content text">
+                  <label class="text-message">{{ message.body }}</label>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div> -->
             <center>
               <transition name="fade">
               <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
@@ -266,7 +266,6 @@
             </div>
           </div> -->
           <div class="content-section" v-if="meberList">
-                        
             <v-menu v-if="admin"
               class="settings-menu"
               down
@@ -374,12 +373,10 @@
   display: block;
   /* position: relative; */
   /* left: -10px; */
-
 }
 
 .settings-list-tile {
-padding-bottom: 10px;
+  padding-bottom: 10px;
   padding-top: 10px;
 }
-
 </style>

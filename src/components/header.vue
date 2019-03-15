@@ -40,7 +40,7 @@
                 </g>
               </svg>
             </v-btn>
-            <span>Stream</span>
+            <span>Feed</span>
           </v-tooltip>
         </v-badge>
         <v-badge color="red">
@@ -179,12 +179,6 @@
               <v-list-tile-title class="profile-menu-item">
                 <v-icon right>fa-users</v-icon>
                 <label>Moderator</label>
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile key="getverified" to="/verified" v-if="currentUser.user_type=='artist'">
-              <v-list-tile-title class="profile-menu-item">
-                <v-icon right>fa-gear</v-icon>
-                <label>Get Verified</label>
               </v-list-tile-title>
             </v-list-tile>
             <v-list-tile key="main_landing" to="/">

@@ -238,17 +238,20 @@ export default {
     },
 
     isAttachmentLink(string) {
-      const attachmentRegex = /\/((album)|(merch)\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12})|user\/\w+/g
+      // const attachmentRegex = /\/((album)|(merch)\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12})|user\/\w+/g
+      const attachmentRegex = /\/((album)|(merch)\/\d+)|user\/\w+/g
       return this.notAttachments.indexOf(string) < 0 && attachmentRegex.test(string)
     },
 
     isAlbumLink(string) {
-      const albumLinkRegex = /\/album\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      // const albumLinkRegex = /\/album\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      const albumLinkRegex = /\/album\/\d+/g
       return albumLinkRegex.test(string)
     },
 
     isMerchLink(string) {
-      const merchLinkRegex = /\/merch\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      // const merchLinkRegex = /\/merch\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g
+      const merchLinkRegex = /\/merch\/\d+/g
       return merchLinkRegex.test(string)
     },
 

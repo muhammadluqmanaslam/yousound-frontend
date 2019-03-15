@@ -41,7 +41,7 @@
                       </g>
                     </svg>
                   </v-btn>
-                  <span>Stream</span>
+                  <span>Feed</span>
                 </v-tooltip>
               </v-badge>
               <v-badge color="red">
@@ -262,7 +262,7 @@
 
         <div class="chat-sector">
           <div class="chat-sector__content">
-            <div class="media">
+            <!-- <div class="media">
               <div class="media__image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"></div>
               <div class="media__content">
                 <div class="media__title"><strong>{{ currentUser.display_name }}</strong><span>Today 9:00 AM</span></div>
@@ -281,6 +281,69 @@
               <div class="media__content">
                 <div class="media__title"><strong>{{ currentUser.display_name }}</strong><span>Today 9:04 AM</span></div>
                 <div class="media__description">DAAAMN BOY!</div>
+              </div>
+            </div> -->
+
+            <div
+              v-for="message in reverseMessages"
+              :key="message.id"
+              class="chat-item"
+            >
+              <div
+                class="user-avatar-image"
+                :style="'background-color: gray; background-image: url('+ (message.fromUser ? message.fromUser.avatar.url : new String()) +');'"
+              ></div>
+              <div class="chat-section">
+                <div class="info-section">
+                  <router-link :to="'/'+message.from" class="item-user" >
+                    {{ message.fromUser ? message.fromUser.display_name : message.from }}
+                  </router-link>
+                  <label class="messaged-time">{{ moment(message.time).calendar() }}</label>
+                </div>
+                <div class="chat-content text">
+                  <label v-if="!isAttachmentLink(message.text)" class="text-message">{{message.text}}</label>
+                  <div class="album-embed-wrapper" v-if="isAlbumLink(message.text) && albumLinks[message.text]">
+                    <activity-album-card
+                      :object="albumLinks[message.text]"
+                      class="chat-album-embed"
+                    ></activity-album-card>
+                    <div class="info-section">
+                      <router-link :to="'/album/'+albumLinks[message.text].slug">
+                        <label class="item-title">{{ albumLinks[message.text].name }}</label>
+                      </router-link>
+                      <br>
+                      <router-link :to="'/'+albumLinks[message.text].user.slug" class="item-user">
+                        {{ albumLinks[message.text].user.display_name }}
+                      </router-link>
+                    </div>
+                  </div>
+                  <div class="album-embed-wrapper" v-if="isMerchLink(message.text) && merchLinks[message.text]">
+                    <activity-product-card
+                      :object="merchLinks[message.text]"
+                      class="chat-album-embed"
+                    ></activity-product-card>
+                    <div class="info-section">
+                      <label class="item-title">{{ merchLinks[message.text].name }}</label>
+                      <br>
+                      <router-link :to="'/'+merchLinks[message.text].merchant.slug" class="item-user">
+                        {{ merchLinks[message.text].merchant.display_name }}
+                      </router-link>
+                    </div>
+                  </div>
+                  <div class="album-embed-wrapper" v-if="isUserLink(message.text) && userLinks[message.text]">
+                    <activity-user-card
+                      :object="userLinks[message.text]"
+                      class="chat-album-embed"
+                    ></activity-user-card>
+                    <div class="info-section" v-if="!!userLinks[message.text]">
+                      <label class="item-title">{{ userLinks[message.text].display_name }}</label>
+                      <br>
+                      <router-link :to="'/'+userLinks[message.text].slug" class="item-user">
+                        {{ userLinks[message.text].followers | formatLargeNumber }} followers
+                      </router-link>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

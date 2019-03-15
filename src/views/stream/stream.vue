@@ -1,7 +1,7 @@
 <template>
   <div class="page stream-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
-      <h2 class="page-title">Stream</h2>
+      <h2 class="page-title">Feed</h2>
     </v-flex>
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <div class="stream-tab">
@@ -43,7 +43,7 @@
       <v-card>
         <v-card-title>
           <v-card-media src="/static/images/post3.jpg" contain></v-card-media>
-          <label>Stream</label>
+          <label>Feed</label>
         </v-card-title>
         <v-card-text>
           <ul>
