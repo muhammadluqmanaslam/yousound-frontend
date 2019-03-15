@@ -65,7 +65,9 @@
 }
 
 .dialog.my-dialog-2 {
-  width: 600px;
+  width: 860px;
+  border-radius: 14px;
+  background: #fff;
   .card {
     padding: 30px 10px;
     .card__media {
@@ -76,14 +78,23 @@
     .card__title {
       justify-content: center;
       label {
-        margin-left: 15px;
-        font-size: 36px;
+        margin-left: 0;
+        font-size: 60px;
         font-weight: 700;
+        font-family: 'Work Sans';
+        padding: 10px 30px 10px 30px;
+        border-radius: 8px;
+        color: #fff;
+        background: #ec008c;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
       }
     }
     .card__text {
       display: flex;
       justify-content: center;
+      margin-bottom: 20px;
+      margin-top: 20px;
       h4 {
         font-size: 24px;
         font-weight: 700;
@@ -94,7 +105,12 @@
         padding: 0;
         font-size: 18px;
         li {
-          padding-top: 10px;
+          padding-top: 12px;
+          font-size: 24px;
+          font-family: 'Open Sans', sans-serif;
+          padding-bottom: 12px;
+          text-align: center;
+
         }
       }
       ul + h4 {
@@ -103,6 +119,15 @@
     }
     .card__actions {
       justify-content: center;
+      .btn.btn--round.px-4 {
+        font-size: 20px;
+        font-weight: 700;
+        font-family: 'Work Sans';
+        box-shadow: none;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        margin: 0 auto;
+      }
     }
   }
 }
