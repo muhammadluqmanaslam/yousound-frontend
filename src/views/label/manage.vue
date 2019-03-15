@@ -280,7 +280,6 @@
     <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
       <v-card>
         <v-card-title>
-          <v-card-media src="/static/images/post4.jpg" contain></v-card-media>
           <label>Labels</label>
         </v-card-title>
         <v-card-text>

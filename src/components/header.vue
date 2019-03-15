@@ -40,7 +40,7 @@
                 </g>
               </svg>
             </v-btn>
-            <span>Stream</span>
+            <span>Feed</span>
           </v-tooltip>
         </v-badge>
         <v-badge color="red">

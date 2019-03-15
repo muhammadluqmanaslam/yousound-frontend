@@ -1,7 +1,7 @@
 <template>
   <div class="page stream-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
-      <h2 class="page-title">Stream</h2>
+      <h2 class="page-title">Feed</h2>
     </v-flex>
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <div class="stream-tab">
@@ -42,16 +42,13 @@
     <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
       <v-card>
         <v-card-title>
-          <v-card-media src="/static/images/post3.jpg" contain></v-card-media>
-          <label>Stream</label>
+          <label>Feed</label>
         </v-card-title>
         <v-card-text>
           <ul>
-            <li>See all content <b>chronologically posted</b> by who you follow.</li>
-            <li><b>Easily Sort</b> content by Everything, Albums, Products,<br/>Live Video, Reposts & Playlists.</li>
-            <li>Listen to albums and add products to cart <b>from the stream</b>.</li>
-            <li><b>Discover artists & brands</b> by clicking 'Discover More'.</li>
-            <li>Connect to Twitter to <b>automatically follow artists</b>.</li>
+            <li>See all content chronologically posted by who you follow</li>
+            <li>Easily sort content by albums, products, video, reposts & playlists</li>
+            <li>Listen to albums and add products to cart from the feed</li>
           </ul>
         </v-card-text>
         <v-card-actions>
