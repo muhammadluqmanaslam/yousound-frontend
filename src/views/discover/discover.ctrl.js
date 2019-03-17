@@ -23,6 +23,7 @@ export default {
         { id: 'new', title: 'Albums' },
         { id: 'merch', title: 'Shop' }
       ],
+      seed: '',
       show_genre_selector_dialog: false,
       got_genre_tooltip: false,
       hover_on_genre_button: false,
@@ -83,6 +84,7 @@ export default {
       return
     }
 
+    this.seed = parseInt(Date.now() * Math.random())
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
   },
@@ -98,6 +100,9 @@ export default {
         category: category,
         page: this.page_index,
         'per_page': this.items_per_page
+      }
+      if (tab !== 'recommended') {
+        params['seed'] = this.seed
       }
       SearchService.searchDiscover(params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
