@@ -5,11 +5,11 @@
  */
 import io from 'socket.io-client'
 
-var SocketManager = (socketHost, roomName, token, callback) => {
-  this.room = roomName || getParameterByName('room') || 'general' // TODO: change 'general'
+var SocketManager = function (socketHost, roomName, token, callback) {
+  let sm = this
+  let socket = io.connect(socketHost)
 
-  var sm = this
-  var socket = io.connect(socketHost)
+  sm.room = roomName || getParameterByName('room') || 'general' // TODO: change 'general'
 
   socket.on('connect', () => {
     console.log('SocketManager connected to ' + roomName + ' @ ' + socketHost)
@@ -74,9 +74,9 @@ var SocketManager = (socketHost, roomName, token, callback) => {
     socket.emit('loadMessages', sm.room) // reload messages
   }
 
-  sm.loadMessages = () => {
-    socket.emit('loadMessages', sm.room)
-  }
+  // sm.loadMessages = () => {
+  //   // socket.emit('loadMessages', sm.room)
+  // }
 
   sm.close = () => {
     socket.close()

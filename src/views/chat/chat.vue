@@ -86,22 +86,7 @@
                   <div class="search-box">
                     <div class="search-container">
                       <span class="icon">
-                        <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                          <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
-                          <title>Group 22</title>
-                          <desc>Created with Sketch.</desc>
-                          <defs></defs>
-                          <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="searchIcon" transform="translate(-732.000000, -61.000000)" stroke="#FFFFFF" stroke-width="1.5999999">
-                              <g id="Group-29" transform="translate(710.000000, 50.000000)">
-                                <g id="Group-22" transform="translate(23.000000, 12.000000)">
-                                  <circle id="Oval-2" cx="11.375" cy="11.375" r="11.375"></circle>
-                                  <path d="M19.5,19.5 L25.59375,25.59375" id="Line" stroke-linecap="round" stroke-linejoin="round"></path>
-                                </g>
-                              </g>
-                            </g>
-                          </g>
-                        </svg>
+                        <img src="/static/images/ic_search.svg" width="20">
                       </span>
                       <input
                         class="search-field"
@@ -206,30 +191,13 @@
           </div>
 
           <div class="send-chat-section">
-            <v-btn v-if="connected" class="show-attachment-box-btn" @click.native="show_requestPopup = true" :class="{'selected': show_broadcastPopup}">
-              
-            <svg width="33px" height="39px" viewBox="0 0 33 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-                <desc>Created with Sketch.</desc>
-                <defs></defs>
-                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="25---Chat" transform="translate(-196.000000, -989.000000)">
-                        <g id="Group-7" transform="translate(166.000000, 225.000000)">
-                            <g id="Group-4">
-                                <g id="Group-3" transform="translate(0.000000, 745.000000)">
-                                    <g id="Group-14" transform="translate(48.000000, 20.000000)" stroke="#3A92FF" stroke-linecap="square" stroke-width="2">
-                                        <path d="M7,8.8817842e-16 L7,14" id="Line-2"></path>
-                                        <path d="M14,7 L0,7" id="Line-2"></path>
-                                    </g>
-                                    <g id="Group-6-Copy" transform="translate(30.000000, 31.000000)" fill="#3A92FF" fill-rule="nonzero">
-                                        <path d="M18.5541482,0.776088481 L5.71682145,4.81207182 C5.38504164,4.88870442 5.51264926,5.1952348 5.51264926,5.52730938 L5.51264926,20.7771958 C4.74700353,20.4706654 4.13448694,20.3174002 3.44540579,20.3174002 C1.60785603,20.3174002 0,21.5946101 0,23.1783504 C0,24.7620907 1.42920536,26.0393007 3.26675512,26.0393007 C5.07878335,26.0393007 6.53351023,24.7876349 6.58455328,23.254983 C6.58455328,23.254983 6.45694566,10.5850607 6.45694566,10.5850607 L18.0181962,7.03441708 L18.0181962,16.2814169 C17.5077657,15.9748865 16.9718137,15.8216213 16.3082541,15.8216213 C14.4707043,15.8216213 13.0414989,17.0988312 13.0414989,18.6825715 C13.0414989,20.2663118 14.3430967,21.5435217 16.1806464,21.5435217 C18.0181962,21.5435217 19.2942724,20.2663118 19.2942724,18.6825715 C19.2942724,18.6825715 19.2942724,1.49132604 19.2942724,1.49132604 C19.2942724,1.00598627 19.0390572,0.648367489 18.5541482,0.776088481 Z" id="Music-note"></path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
+            <v-btn
+              v-if="connected"
+              @click.native="show_requestPopup = true"
+              :class="{'selected': show_broadcastPopup}"
+              class="show-attachment-box-btn"
+            >
+              <img src="/static/images/ic_attach_add.svg" width="36">
             </v-btn>
             <input
               type="text"

@@ -24,7 +24,7 @@ import shareModal from '@/components/sharemodal'
 import { MyEvents } from '@/helper'
 
 const ActionCable = require('actioncable')
-var sm
+const linkRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
 
 export default {
   components: {
@@ -58,7 +58,19 @@ export default {
       buttonHover: false,
       cable: null,
       stream_subscription: null,
+      chat_socket: null,
       moment: moment,
+      room: {
+        settings: {
+          links: false,
+          charLimitBool: false,
+          charLimit: 100,
+          attachments: true
+        },
+        online: [],
+        idle: []
+      },
+      message: '',
       messages: [],
       albumLinks: {},
       merchLinks: {},
@@ -153,11 +165,6 @@ export default {
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.closePlayer()
-
-    if (this.stream_subscription) {
-      this.stream_subscription.unsubscribe()
-      this.stream_subscription = null
-    }
   },
 
   methods: {
@@ -302,8 +309,13 @@ export default {
         }
       )
 
-      sm = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
-        sm.onMessage = function (message) {
+      this.chat_socket = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
+        this.chat_socket.onDisconnect = () => {
+          console.log('videoPlayer onDisconnect')
+        }
+
+        this.chat_socket.onMessage = function (message) {
+          // console.log('videoPlayer onMessage', message)
           if (!message) return;
 
           // look up the username in message.from to get image, etc.
@@ -335,11 +347,19 @@ export default {
           }
         }
 
-        sm.onUserInfo = function (user) {
-          vm.user = user
+        // this.chat_socket.onUserInfo = function (user) {
+        //   console.log('videoPlayer onUserInfo')
+        //   vm.user = user
+        // }
+
+        this.chat_socket.onRoomInfo = async room => {
+          // console.log('videoPlayer onRoomInfo')
+          // Vue.set(vm, 'room', room)
+          vm.room = room
         }
 
-        sm.onLoadMessages = function (loadMessageObj) {
+        this.chat_socket.onLoadMessages = function (loadMessageObj) {
+          // console.log('videoPlayer onLoadMessages')
           // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
           for (var i = loadMessageObj.chunk * 500; i < (loadMessageObj.chunk + 1) * 500; i++) {
             var nextMessage = loadMessageObj.data[i - (loadMessageObj.chunk * 500)];
@@ -609,6 +629,11 @@ export default {
         this.stream_subscription.unsubscribe()
         this.stream_subscription = null
       }
+
+      if (this.chat_socket) {
+        this.chat_socket.close()
+        this.chat_socket = null
+      }
     },
 
     mutePlayer () {
@@ -677,6 +702,15 @@ export default {
       }).catch(err => {
         this.notAttachments.push(string)
       })
+    },
+
+    sendMessage(messageText) {
+      if (this.room.settings.charLimitBool && this.message.length > this.room.settings.charLimit) return false
+      if (!this.room.settings.links && linkRegex.test(this.message)) return // TODO error instead of returning
+      this.chat_socket.sendMessage(messageText, this.currentUser.username)
+      this.message = '' // clear textbox
+      $('#msg-container').scrollTop = $('#msg-container').scrollHeight
+      return false
     },
 
     onClick: function (e) {

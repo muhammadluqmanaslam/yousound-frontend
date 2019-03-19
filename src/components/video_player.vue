@@ -286,7 +286,7 @@
 
             <div
               v-for="message in reverseMessages"
-              :key="message.id"
+              :key="`vp-chat-${message.id}`"
               class="chat-item"
             >
               <div
@@ -350,11 +350,20 @@
           <div class="chat-sector__footer">
             <div class="media">
               <div class="media__image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"></div>
-              <div class="media__content" @click="choosePage(`user/${user.slug}/chat`)">
-                <div class="media__title">
+              <div class="media__content">
+                <input
+                  type="text"
+                  class="chat-input-box"
+                  placeholder="Write a message..."
+                  v-model="message"
+                  @keyup.enter="sendMessage(message)"
+                  ref="chat"
+                  autofocus
+                />
+                <!-- <div class="media__title">
                   <i class="fa fa-chat"></i>
                   Leave a comment
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

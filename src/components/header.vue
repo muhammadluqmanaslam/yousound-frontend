@@ -234,7 +234,7 @@
       </v-toolbar>
       <div class="search-box">
         <div class="search-container">
-            <span class="icon">
+          <span class="icon">
             <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>Group 22</title>
