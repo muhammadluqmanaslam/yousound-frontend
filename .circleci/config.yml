@@ -1,11 +1,11 @@
 version: 2
 jobs:
-  build: 
-    branches: 
-      only: 
-        - integration 
+  build:
+    branches:
+      only:
         - master
-        - circleci
+        - integration
+        - fix/wrong-env-var
     docker:
        - image: circleci/node:7.10
 
@@ -23,9 +23,9 @@ jobs:
             elif [ "${CIRCLE_BRANCH}" == "integration" ]; then
               echo "export ENVIRONMENT=integration" >> $BASH_ENV
               echo "export EBENVIRONMENT=int" >> $BASH_ENV
-            elif [ "${CIRCLE_BRANCH}" == "circleci" ]; then
-              echo "export ENVIRONMENT=production" >> $BASH_ENV
-              echo "export EBENVIRONMENT=prod" >> $BASH_ENV
+            elif [ "${CIRCLE_BRANCH}" == "fix/wrong-env-var" ]; then
+              echo "export ENVIRONMENT=integration" >> $BASH_ENV
+              echo "export EBENVIRONMENT=int" >> $BASH_ENV
             fi
 
       - run:
@@ -42,13 +42,14 @@ jobs:
 
             # INSTALL AWS EB CLI FOR BEANSTALK DEPLOYMENT
             sudo pip3 install awsebcli --upgrade
-      
+
       - run:
           name: "COPY CONFIG"
           command: |
-            # COPY SETTINGS FROM S3
-            aws s3 cp s3://ys-circleci/vue/$EBENVIRONMENT.env.js ./config/$EBENVIRONMENT.env.js
-      
+            # COPY SETTINGS FROM S3.
+            # For PROD and INT we rename the file to prod.env.js
+            aws s3 cp s3://ys-circleci/vue/$EBENVIRONMENT.env.js ./config/prod.env.js
+
       - run:
           name: "PRINT CURRENT CACHE KEY"
           command: |
@@ -59,7 +60,7 @@ jobs:
       - restore_cache:
           keys:
           - key-{{ checksum "cache_key_file" }}
-          
+
       - run:
           name: "INSTALL NPM PACKAGES"
           command: |
