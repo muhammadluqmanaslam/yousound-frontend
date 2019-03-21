@@ -133,6 +133,7 @@ export default {
     // this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
+    this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
     this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
 
@@ -162,6 +163,7 @@ export default {
     // this.$root.$off(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
+    this.$root.$off(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.closePlayer()
@@ -639,6 +641,12 @@ export default {
     mutePlayer () {
       if (this.player) {
         this.player.mute(true)
+      }
+    },
+
+    unmutePlayer () {
+      if (this.player) {
+        this.player.mute(false)
       }
     },
 

@@ -5,17 +5,34 @@
         <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
         <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
           <v-flex xs12 class="touch-flex" @click="goToAlbum()"></v-flex>
-          <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
+          <v-btn
+            v-if="!isPlaying || $store.state.player.isPaused"
+            @click.native="playSong()"
+            dark
+            class="play-button"
+          >
             <v-icon >play_arrow</v-icon>
           </v-btn>
-          <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
+          <v-btn
+            v-else
+            @click.native="pauseSong()"
+            dark
+            class="play-button"
+          >
             <v-icon>pause</v-icon>
           </v-btn>
-          <!-- <router-link :to="'/album/' + item.slug "><p class="track-count">{{ item.tracks.length }} tracks</p></router-link> -->
+          <!-- <router-link :to="'/album/' + item.slug ">
+            <p class="track-count">{{ item.tracks.length }} tracks</p>
+          </router-link> -->
         </v-flex>
       </v-flex>
     </v-flex>
-    <download-modal :item="item" :dismiss="dismissDownloadModal" v-if="showDownloadModal"></download-modal>
+
+    <download-modal
+      v-if="showDownloadModal"
+      :item="item"
+      :dismiss="dismissDownloadModal"
+    />
   </v-flex>  
 </template>
 
