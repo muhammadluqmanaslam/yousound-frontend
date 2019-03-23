@@ -20,8 +20,9 @@ import {
   UserAnnualIncomeOptions
 } from '@/helper'
 
-// import GenreService from '@/services/genre'
+import AuthService from '@/services/auth.js'
 import TwitterService from '@/services/twitter'
+import UserService from '@/services/user.js'
 
 export default {
   components: {
@@ -32,14 +33,26 @@ export default {
       query_string: [],
       twitter_info: null,
       user: {},
-      main_genres: [],
-      sub_genres: [],
+      // main_genres: [],
+      // sub_genres: [],
       year_of_birth_options: [],
       isPageReady: false
     }
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
+    main_genres () {
+      return this.$store.state.app.genres
+    },
+
+    sub_genres () {
+      return _.flatMap(this.$store.state.app.genres, 'children')
+    },
+
     country_options () {
       return Countries
     },
@@ -105,6 +118,11 @@ export default {
     }
   },
 
+  // beforeRouteEnter (to, from, next) {
+  //   console.log('tiwtter_calllback beforeRouteEnter', to, from)
+  //   next()
+  // },
+
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
     this.twitter_info = JSON.parse(Storage.get('twitter_info'))
@@ -160,11 +178,12 @@ export default {
           annual_income: null
         }
 
+        // console.log('twitter callback created', this.currentUser)
         // console.log(this.$route.query['code'])
         this.$store.dispatch('auth/setSecretCode', this.$route.query['code'])
 
-        this.main_genres = this.$store.state.app.genres
-        this.sub_genres = _.flatMap(this.$store.state.app.genres, 'children')
+        // this.main_genres = this.$store.state.app.genres
+        // this.sub_genres = _.flatMap(this.$store.state.app.genres, 'children')
 
         const current_year = moment().year()
         for (let i = 1900; i < current_year; i++) {
@@ -175,17 +194,36 @@ export default {
       })
     } else {
       Storage.remove('twitter_info')
-      this.$router.push('/register')
+      // this.$router.push('/register')
+      this.$router.push('/')
     }
   },
 
   methods: {
     submit () {
+      // console.log('twitter_callback submit', this.currentUser)
       const vm = this
       this.$validator.validateAll().then(response => {
         if (response === true) {
-          vm.$store.dispatch('auth/setPendingUser', vm.user)
-          this.$router.push(`/register/${this.user.request_role}`)
+          if (this.currentUser && this.currentUser.id) {
+            const params = {
+              user: this.user
+            }
+            this.$store.dispatch('error/showLoadingActivity', true)
+            UserService.updateUserInfo(this.currentUser.id, params).then(response => {
+              AuthService.setUser(response.body)
+              vm.$store.dispatch('error/showLoadingActivity', false)
+              vm.$router.push('/settings#verify-status')
+            }).catch(e => {
+              vm.$store.dispatch('error/showLoadingActivity', false)
+              vm.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+            })
+            // vm.$store.dispatch('auth/setPendingUser', vm.user)
+            // vm.$router.push(`/register/${this.user.request_role}`)
+          } else {
+            vm.$store.dispatch('error/showErrorToast', ['Please sign in first'])
+            vm.$router.push('/login')
+          }
         } else {
           vm.$store.dispatch('error/showErrorToast', [vm.errors.items[0].msg])
         }

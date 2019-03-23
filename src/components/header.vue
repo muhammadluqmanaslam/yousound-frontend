@@ -212,7 +212,11 @@
                 <v-list-tile-sub-title>Manage record labels</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile key="verified" @click="goTwitter()">
+            <v-list-tile
+              v-if="currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(currentUser.request_role) == -1"
+              key="verified"
+              @click="openTwitterConfirmDialog()"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>Get Verified</v-list-tile-title>
                 <v-list-tile-sub-title>Become an Artist, Brand, or Label</v-list-tile-sub-title>
@@ -269,16 +273,29 @@
       </v-toolbar>
     </v-flex>
 
-    <v-dialog v-model="show_twitter_confirm_dialog" fullscreen content-class="twitter-confirm-dialog">
+    <v-dialog v-model="show_twitter_confirm_dialog" content-class="twitter-confirm-dialog" width="800">
       <v-card mt-5>
         <!-- <div class="card__image"><v-icon>twitter</v-icon></div> -->
         <v-card-media contain src="/static/images/ic_twitter.png" height="50px"></v-card-media>
         <v-card-title class="headline">Connect to Twitter</v-card-title>
-        <v-card-text>To complete verification, you must login to your Artist, Brand, or Label<br>
-        Twitter account once time & verify your identity.</v-card-text>
+        <v-card-text>
+          To complete verification, you must choose your request role like Artist, Brand, or Label<br>
+          Twitter account once time & verify your identity.
+        </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn round dark color="blue" px-4 @click.native="submit()">Login to Twitter</v-btn>
+          <div class="img-button">
+            <img class="avatar" src="/static/images/artist.png" @click="goTwitter('artist')" />
+            <label class="pt-2">Artist</label>
+          </div>
+          <div class="img-button">
+            <img class="avatar" src="/static/images/listener.png" @click="goTwitter('label')" />
+            <label class="pt-2">Label</label>
+          </div>
+          <div class="img-button">
+            <img class="avatar" src="/static/images/listener.png" @click="goTwitter('brand')" />
+            <label class="pt-2">Brand</label>
+          </div>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>

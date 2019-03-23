@@ -162,7 +162,7 @@ export default {
         AuthService.checkTokenValidation().then(response => {
           // console.log('checkTokenValidation', response.body)
           if (response.body !== false) {
-            // this.getUserInfo()
+            // console.log('App created', response.body)
             AuthService.setUser(response.body)
             this.$root.$emit(MyEvents.AUTH_SIGNIN)
           } else {
@@ -263,6 +263,7 @@ export default {
         PlaylistService.getPlaylists(),
         UserService.cartItems(this.currentUser.id)
       ]).then(values => {
+        // console.log('App getUserInfo', values[0].body)
         AuthService.setUser(values[0].body)
         this.$store.dispatch('activity/setBadge', values[1].body)
         this.$store.dispatch('playlist/setPlaylists', values[2].body)

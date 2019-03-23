@@ -71,6 +71,7 @@ const mutations = {
   },
 
   setUser (state, user) {
+    // console.log('setUser', user)
     state.user = user
   },
 

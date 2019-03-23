@@ -1,6 +1,6 @@
 import AuthService from '@/services/auth'
 import TwitterService from '@/services/twitter.js'
-import { MyEvents } from '@/helper'
+import { MyEvents, Storage } from '@/helper'
 
 export default {
   data () {
@@ -49,8 +49,8 @@ export default {
       this.show_twitter_confirm_dialog = false
     },
 
-    goTwitter () {
-      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${this.currentUser.user_type}&code=${this.$store.state.auth.secret_code}` }).then(response => {
+    goTwitter (request_type) {
+      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${request_type}&code=${this.$store.state.auth.secret_code}` }).then(response => {
         Storage.set('twitter_info', JSON.stringify(response.body))
         location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${response.body.oauth_token}`
       })
