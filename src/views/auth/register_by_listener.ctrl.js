@@ -44,7 +44,6 @@ export default {
             }
             UserService.hiddenUserGenres(userId, params)
             this.$store.dispatch('error/showLoadingActivity', false)
-            // AuthService.setTokenAndUserInfo(response.body.token, response.body)
             this.$router.push({ path: `/confirm/being?email=${this.user.email}` })
           }).catch(e => {
             this.$store.dispatch('error/showLoadingActivity', false)

@@ -5,6 +5,7 @@ const API_BASE_URL = process.env.API_BASE_URL + '/v1/auth'
 const ACCESS_TOKEN_KEY = 'access_token'
 const USER_INFO = 'user_info'
 const USER_CREDENTIAL = 'user_credential'
+const USER_HMAC = 'user_hmac'
 
 export default {
   login (params) {
@@ -61,8 +62,10 @@ export default {
 
   clearTokenAndUserInfo () {
     localStorage.removeItem(ACCESS_TOKEN_KEY)
+    localStorage.removeItem(USER_HMAC)
     localStorage.removeItem(USER_INFO)
     $store.dispatch('auth/setToken', null)
+    $store.dispatch('auth/setHMAC', null)
     $store.dispatch('auth/setUser', null)
     $store.dispatch('auth/setFirstVisit', false)
   },
@@ -76,15 +79,22 @@ export default {
     }
   },
 
-  setTokenAndUserInfo (token, user) {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token)
-    $store.dispatch('auth/setToken', token)
+  setTokenAndUserInfo (user) {
+    localStorage.setItem(ACCESS_TOKEN_KEY, user.token)
+    localStorage.setItem(USER_HMAC, user.hmac)
+    $store.dispatch('auth/setToken', user.token)
+    $store.dispatch('auth/setHMAC', user.hmac)
     this.setUser(user)
   },
 
   setUser (user) {
     localStorage.setItem(USER_INFO, JSON.stringify(user))
     $store.dispatch('auth/setUser', user)
+
+    if (user.hmac) {
+      localStorage.setItem(USER_HMAC, user.hmac)
+      $store.dispatch('auth/setHMAC', user.hmac)
+    }
   },
 
   getToken () {

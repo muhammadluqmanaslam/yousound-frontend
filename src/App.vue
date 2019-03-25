@@ -147,7 +147,8 @@ export default {
 
     // this.$root.$on('showLoginModal', this.showLoginDialog)
     // this.$root.$on('hideLoginModal', this.hideLoginDialog)
-    this.$root.$on(MyEvents.AUTH_SIGNIN, this.getUserInfo)
+    this.$root.$on(MyEvents.AUTH_SIGNIN, this.doAfterSignIn)
+    this.$root.$on(MyEvents.AUTH_SIGNOUT, this.doAfterSignOut)
 
     Promise.all([
       SettingService.getSettings(),
@@ -160,7 +161,6 @@ export default {
 
       if (AuthService.isAuthenticated()) {
         AuthService.checkTokenValidation().then(response => {
-          // console.log('checkTokenValidation', response.body)
           if (response.body !== false) {
             // console.log('App created', response.body)
             AuthService.setUser(response.body)
@@ -230,8 +230,13 @@ export default {
     })
   },
 
+  beforeDestroy () {
+    this.$root.$off(MyEvents.AUTH_SIGNIN, this.doAfterSignIn)
+    this.$root.$off(MyEvents.AUTH_SIGNOUT, this.doAfterSignOut)
+  },
+
   methods: {
-    getUserInfo () {
+    doAfterSignIn () {
       const vm = this
       this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
       this.notification_subscription = this.cable.subscriptions.create(
@@ -256,6 +261,18 @@ export default {
         }
       )
 
+      this.$intercom.boot({
+        user_id: this.currentUser.id,
+        name: this.currentUser.display_name,
+        email: this.currentUser.email,
+        avatar: {
+          type: 'avatar',
+          image_url: this.currentUser.avatar.url
+        },
+        user_hash: this.$store.state.auth.hmac,
+        hide_default_launcher: true
+      })
+
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         UserService.getUserInfo(this.currentUser.id),
@@ -273,6 +290,10 @@ export default {
         // console.log(reason)
         this.$store.dispatch('error/showLoadingActivity', false)
       })
+    },
+
+    doAfterSignOut () {
+      this.$intercom.shutdown()
     },
 
     openLoginDialog () {

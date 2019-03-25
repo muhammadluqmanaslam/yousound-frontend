@@ -7,6 +7,7 @@ const state = {
   secret_code: '',
   register_role: null,
   token: null,
+  hmac: null,
   pendingUser: null,
   user: null,
   genreIds: '',
@@ -22,6 +23,10 @@ const getters = {
 const actions = {
   setToken ({ commit }, token) {
     commit('setToken', token)
+  },
+
+  setHMAC ({ commit }, hmac) {
+    commit('setHMAC', hmac)
   },
 
   setUser ({ commit }, user) {
@@ -68,6 +73,10 @@ const actions = {
 const mutations = {
   setToken (state, token) {
     state.token = token
+  },
+
+  setHMAC (state, hmac) {
+    state.hmac = hmac
   },
 
   setUser (state, user) {

@@ -48,7 +48,7 @@ export default {
         if (this.remember) {
           AuthService.saveCredential(this.user)
         }
-        AuthService.setTokenAndUserInfo(response.body.token, response.body)
+        AuthService.setTokenAndUserInfo(response.body)
 
         if (response.body.sign_in_count <= 1) {
           this.$store.dispatch('auth/setFirstVisit', true)

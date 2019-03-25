@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import VueIntercom from 'vue-intercom'
 import 'jquery'
 import App from './App'
 import { createRouter } from './router'
@@ -29,6 +30,7 @@ import '@/../static/styles/app.scss'
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
+Vue.use(VueIntercom, { appId: process.env.INTERCOM_APP_ID })
 Vue.use(Vuetify)
 Vue.use(VueNumeric)
 Vue.use(VeeValidate)

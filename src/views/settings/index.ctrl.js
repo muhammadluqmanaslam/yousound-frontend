@@ -90,9 +90,12 @@ export default {
     const tab = this.$route.hash.substr(1) || 'info'
     this.$store.dispatch('navigator/goNextState', { page: 'settings', tab: tab })
     this.onTab(tab)
+
+    this.$intercom.update({hide_default_launcher: false})
   },
 
   beforeDestroy () {
+    this.$intercom.update({hide_default_launcher: true})
   },
 
   methods: {
