@@ -37,7 +37,6 @@ export default {
       user_search: '',
       user: null,
       per_page_options: [50, 100, 150],
-
       users: [],
       pagination: {
         // sortBy: 'created_at',
@@ -46,8 +45,6 @@ export default {
         rowsPerPage: 10
       },
       total_users: 0,
-      loading: false,
-
       isPageReady: true
     }
   },
@@ -60,9 +57,6 @@ export default {
         return _.filter(this.user_headers, (h) => { return h.text != 'View Direct Messages' })
       }
     }
-  },
-
-  created () {
   },
 
   methods: {
@@ -183,6 +177,9 @@ export default {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     }
+  },
+
+  created () {
   },
 
   watch: {

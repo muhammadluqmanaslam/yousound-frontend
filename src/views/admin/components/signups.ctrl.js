@@ -12,7 +12,7 @@ export default {
 
   data () {
     return {
-      signups_tab: 'waiting',
+      active_tab: 'waiting',
       signups_tabs: [
         { id: 'waiting', title: 'Waiting For Approval' },
         { id: 'co-signed', title: 'Co-Signed' },
@@ -22,7 +22,8 @@ export default {
       waiting_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
         { text: 'User Type', value: 'request_role', align: 'left' },
-        { text: 'Date Signed Up', value: 'created_at', align: 'left' }
+        { text: 'Date Signed Up', value: 'created_at', align: 'left' },
+        { text: '', value: 'id', align: 'left'}
       ],
       invited_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
@@ -30,7 +31,7 @@ export default {
         { text: 'Date', value: 'joined_date', align: 'left' },
         { text: 'Status', value: 'status', align: 'left' },
         { text: 'Invited By', value: 'invited_by', align: 'left' },
-        { text: 'Profile', value: 'facebook', align: 'left'}
+        { text: '', value: 'id', align: 'left'}
       ],
       approved_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
@@ -38,7 +39,7 @@ export default {
         { text: 'Date Signed Up', value: 'signed_up_date', align: 'center' },
         { text: 'Date Accepted', value: 'approved_date', align: 'center' },
         { text: 'Verified By', value: 'verified_by', align: 'left' },
-        { text: 'View Submission', value:'facebook', align: 'left'}
+        { text: '', value: '', align: 'left'}
       ],
       denied_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
@@ -46,56 +47,69 @@ export default {
         { text: 'Date Signed Up', value: 'signed_up_date', align: 'center' },
         { text: 'Date Denied', value: 'denied_date', align: 'center' },
         { text: 'Verified By', value: 'verified_by', align: 'left' },
-        { text: 'View Submission', value:'facebook', align: 'left'}
+        { text: '', value: 'id', align: 'left'}
       ],
       signups_search: '',
-      signups: [],
       show_approve_modal: false,
       show_deny_modal: false,
       user: {},
-      pagination: {
-        sortBy: 'created_at',
-        page: 1,
-        rowsPerPage: 100,
-        descending: true,
-        totalItems: 0
-      },
       per_page_options: [50, 100, 150],
+      signups: [],
+      total_signups: 0,
+      pagination: {
+        // sortBy: 'created_at',
+        // descending: true,
+        // totalItems: 0,
+        page: 1,
+        rowsPerPage: 10
+      },
       isPageReady: true
     }
   },
 
   computed: {
-    filtered_items () {
-      switch (this.signups_tab) {
+    headers () {
+      switch (this.active_tab) {
         case 'waiting':
-          return _.filter(this.signups, (user) => { return user.request_status === 'pending' && !user.inviter })
+          return this.waiting_headers
         case 'co-signed':
-          return _.filter(this.signups, (user) => { return user.request_status === 'pending' && user.inviter })
+          return this.invited_headers
         case 'approved':
-          return _.filter(this.signups, (user) => { return user.request_status === 'accepted' })
+          return this.approved_headers
         case 'denied':
-          return _.filter(this.signups, (user) => { return user.request_status === 'denied' })
-        default:
-          return []
+          return this.denied_headers
       }
     }
   },
 
-  created () {
-    this.$store.dispatch('error/showLoadingActivity', true)
-    Promise.all([
-      AdminService.getSignupUsers()
-    ]).then(values => {
-      this.signups = values[0].body.users
-      this.$store.dispatch('error/showLoadingActivity', false)
-    }).catch(reason => {
-      console.log(reason)
-      this.$store.dispatch('error/showLoadingActivity', false)
-    })
-  },
-
   methods: {
+    loadUsers() {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      const params = {
+        filter: this.active_tab,
+        page: this.pagination.page,
+        per_page: this.pagination.rowsPerPage
+      }
+      AdminService.getSignupUsers(params).then(response => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.signups = response.body.users
+        this.total_signups = response.body.pagination.total_count
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    onTab (tab) {
+      if (this.active_tab == tab) return
+
+      this.active_tab = tab
+      this.pagination = {
+        page: 1,
+        rowsPerPage: 10
+      }
+    },
+
     openApproveModal (user) {
       this.user = user
       this.show_approve_modal = true
@@ -150,5 +164,16 @@ export default {
         this.closeDenyModal()
       })
     },
+  },
+
+  created () {
+  },
+
+  watch: {
+    pagination: {
+      handler () {
+        this.loadUsers()
+      }
+    }
   }
 }
