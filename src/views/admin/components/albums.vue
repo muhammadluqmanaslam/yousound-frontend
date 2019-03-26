@@ -2,10 +2,11 @@
   <v-card flat v-if="isPageReady">
     <v-tabs dark class="white" v-model="albums_tab">
       <v-tabs-bar class="transparent pl-4 mt-4">
-        <v-tabs-item v-for="tab in albums_tabs"
+        <v-tabs-item
+          v-for="tab in albums_tabs"
+          @click.native="onTab(tab.id)"
           :key="tab.id"
           :href="'#' + tab.id"
-          @click.native="onTab(tab.id)"
           ripple
         >{{ tab.title }}</v-tabs-item>
         <v-tabs-slider color="black"></v-tabs-slider>

@@ -4,6 +4,10 @@ import $store from '@/store'
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/admin'
 
 export default {
+  getUsers (params) {
+    return Vue.http.get(API_BASE_URL + '/users', { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  },
+
   getSignupUsers (params) {
     return Vue.http.get(API_BASE_URL + '/signup_users', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },

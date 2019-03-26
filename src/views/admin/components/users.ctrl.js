@@ -8,20 +8,22 @@ export default {
   data () {
     return {
       users_tabs: [
-        { id: 'all', title: 'All Users' },
-        { id: 'artists', title: 'Artists' },
-        { id: 'listeners', title: 'Listeners' },
-        { id: 'moderators', title: 'Moderators' },
+        { id: 'any', title: 'All Users' },
+        { id: 'artist', title: 'Artists' },
+        { id: 'listener', title: 'Listeners' },
+        { id: 'brand', title: 'Brands' },
+        { id: 'label', title: 'Labels' },
+        { id: 'moderator', title: 'Moderators' },
         { id: 'suspended', title: 'Suspended' }
       ],
-      user_tab:'all',
+      active_tab: 'any',
       user_headers: [
         { text: 'Username', value: 'username', align: 'left' },
         { text: 'View Direct Messages', value: 'enabled_view_direct_messages', align: 'left' },
         { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
         { text: 'Free Streaming', value: 'enabled_live_video_free', align: 'left' },
         { text: 'Current Free Stream Hours', value: 'free_streamed_time' },
-        { text: 'Stop Streaming' },
+        { text: 'Stop Streaming', value: 'id'},
         { text: 'Free Stream Hours', value: 'free_stream_seconds' },
         { text: 'Demand Stream Hours', value: 'demand_stream_seconds' },
         { text: 'Email', value: 'email', align: 'left' },
@@ -30,72 +32,64 @@ export default {
         { text: 'Verified By', value: 'verified_by', align: 'left' },
         { text: 'Status', value: 'status', align: 'left' },
       ],
-      user_search: '',
-      users: [],
-      user: null,
-      pagination: {
-        sortBy: 'created_at',
-        descending: true,
-        rowsPerPage: 100,
-        // page: 1,
-        // totalItems: 0
-      },
-      per_page_options: [50, 100, 150],
       show_stream_delete_confirm_dialog: false,
       show_free_stream_toggle_confirm_dialog: false,
-      isPageReady: false
+      user_search: '',
+      user: null,
+      per_page_options: [50, 100, 150],
+
+      users: [],
+      pagination: {
+        // sortBy: 'created_at',
+        // descending: true,
+        page: 1,
+        rowsPerPage: 10
+      },
+      total_users: 0,
+      loading: false,
+
+      isPageReady: true
     }
   },
 
   computed: {
-    filtered_users () {
-      if (this.user_tab === 'artists') {
-        return _.filter(this.users, (user) => { return user.user_type === 'artist' && user.status !== 'suspended' })
-      } else if (this.user_tab === 'listeners') {
-        return _.filter(this.users, (user) => { return user.user_type === 'listener' && user.status !== 'suspended' })
-      } else if (this.user_tab === 'moderators') {
-        return _.filter(this.users, (user) => { return user.user_type === 'moderator' && user.status !== 'suspended' })
-      } else if (this.user_tab === 'suspended') {
-        return _.filter(this.users, (user) => { return user.status === 'suspended' })
+    headers () {
+      if (this.active_tab == 'moderator') {
+        return this.user_headers
       } else {
-        if (this.$store.state.auth.user.user_type !== 'admin') {
-          return _.filter(this.users, (user) => { return user.user_type !== 'admin' })
-        } else {
-          return this.users
-        }
+        return _.filter(this.user_headers, (h) => { return h.text != 'View Direct Messages' })
       }
     }
   },
 
   created () {
-    this.loadUsers()
   },
 
   methods: {
     loadUsers () {
       this.$store.dispatch('error/showLoadingActivity', true)
-      this.isPageReady = false
       const params = {
+        filter: this.active_tab,
         page: this.pagination.page,
         per_page: this.pagination.rowsPerPage
       }
-      UserService.getUsers(params).then(response => {
+      AdminService.getUsers(params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.isPageReady = true
         this.users = response.body.users
-        // this.pagination = response.body.pagination
+        this.total_users = response.body.pagination.total_count
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        // this.isPageReady = true
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
-    headers (tab_id) {
-      if (tab_id == 'moderators') {
-        return this.user_headers
-      } else {
-        return _.filter(this.user_headers, (h) => { return h.text != 'View Direct Messages' })
+    onTab (tab) {
+      if (this.active_tab == tab) return
+
+      this.active_tab = tab
+      this.pagination = {
+        page: 1,
+        rowsPerPage: 10
       }
     },
 
@@ -191,6 +185,11 @@ export default {
     }
   },
 
-  mounted () {
+  watch: {
+    pagination: {
+      handler () {
+        this.loadUsers()
+      }
+    }
   }
 }
