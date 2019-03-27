@@ -212,7 +212,7 @@
       <v-card>
         <v-card-title class="headline">Your item has shipped</v-card-title>
         <v-card-text>
-          <div class="product">
+          <div class="product" v-if="active_item && active_item.product">
             <div class="product-cover" :style="`background-image: url(${active_item.product.covers[0].cover.thumb.url})`"></div>
             <div class="product-info">
               <div class="product-name">{{ active_item.product.name }}</div>
