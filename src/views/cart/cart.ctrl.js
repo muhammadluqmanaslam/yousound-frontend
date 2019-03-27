@@ -26,8 +26,9 @@ export default {
       showSendMessage: false,
       show_address_confirm_dialog: false,
       show_ticket_dialog: false,
+      show_tracking_info_dialog: false,
       active_order: null,
-      active_item: null,
+      active_item: {},
       cartItems: [],
       orderHistories: [],
       cartCost: {},
@@ -39,6 +40,10 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     user () {
       return _.get(this.active_order, 'merchant', {avatar: {}})
     }
@@ -58,7 +63,7 @@ export default {
 
   methods: {
     init (tab) {
-      if (!this.$store.state.auth.user) {
+      if (!this.currentUser) {
         AuthService.clearTokenAndUserInfo()
         this.$router.push({ path: '/login' })
         return
@@ -162,6 +167,12 @@ export default {
 
     closeTicketDialog () {
       this.show_ticket_dialog = false
+    },
+
+    openTrackingInfoDialog(item) {
+      console.log('openTicketDialog', item)
+      this.active_item = item
+      this.show_tracking_info_dialog = true
     },
 
     openAddressConfimDialog (order) {

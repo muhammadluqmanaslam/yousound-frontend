@@ -319,13 +319,15 @@
         }
       }
       .order-status-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: #F6F6F6;
         width: 262.5px;
         &.shipped {
           background: #0ea958;
-          .order-status-text {
-            color: #FFFFFF;
-          }
+          cursor: pointer;
+          color: #FFFFFF;
         }
         &.digital {
           background-color: transparent;
@@ -352,15 +354,17 @@
 
           label {
             display: block;
-            width: 215px;
+            max-width: 215px;
             height: 20px;
-            margin: 20px 20px 5px 20px;
+            line-height: 20px;
             text-align: center;
             white-space: nowrap;
             overflow: hidden;
             font-size: 16px;
           }
           span {
+            display: block;
+            margin-top: 3px;
             color: #3A92FF;
             cursor: pointer;
           }
@@ -368,7 +372,7 @@
         .order-status-text {
           // margin: 12.75px 0 4.5px;
           margin: 0;
-          padding-top: calc(20% - 16px);
+          // padding-top: calc(20% - 16px);
           font-size: 15px;
           color: #000000;
           letter-spacing: 0;
@@ -470,6 +474,32 @@
 
     p {
       font-size: 12px;
+    }
+  }
+}
+
+.dialog.tracking-info-dialog {
+  .product {
+    display: flex;
+    flex: 1 1 0;
+    height: 70px;
+    margin: 0 0 20px 0;
+    align-items: center;
+    .product-cover {
+      width: 70px;
+      height: 70px;
+      background-position: center;
+      background-size: cover;
+    }
+    .product-info {
+      margin-left: 10px;
+      .product-name {
+        font-size: 14px;
+      }
+      .product-owner {
+        color: #1976D2;
+        font-size: 14px;
+      }
     }
   }
 }

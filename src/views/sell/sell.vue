@@ -4,54 +4,49 @@
       <h2 class="page-title">Sell</h2>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="$store.state.auth.user && isPageReady">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="currentUser && isPageReady">
       <div class="normal-tab">
-        <v-tabs black v-model="activeTab">
+        <v-tabs black v-model="active_tab">
           <v-tabs-bar class="transparent">
             <v-tabs-item
-              key="orders"
-              href="#orders"
-              @click.native="onTab('orders')"
-              ripple>Orders</v-tabs-item>
-            <v-tabs-item
-              key="products"
-              href="#products"
-              @click.native="onTab('products')"
-              ripple>Products</v-tabs-item>
-            <v-tabs-item
-              key="collaborations"
-              href="#collaborations"
-              @click.native="onTab('collaborations')"
-              ripple>Collaborations</v-tabs-item>
-            <v-tabs-item
-              key="pendings"
-              href="#pendings"
-              @click.native="onTab('pendings')"
-              ripple>Pending collaborations</v-tabs-item>
+              v-for="tab in tabs"
+              @click.native="onTab(tab.id)"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              ripple
+            >{{ tab.title }}</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content key="orders" id="orders">
               <div class="orders-actions">
-                <v-menu offset-y id="filter_selector" class="filter_menu" v-show="activeTab == 'orders'">
+                <v-menu offset-y id="filter_selector" class="filter_menu" v-show="active_tab == 'orders'">
                   <v-btn slot="activator">All
                     <v-icon right>keyboard_arrow_down</v-icon>
                   </v-btn>
                   <v-list>
-                    <v-list-tile v-for="filter in filters" :key="filter.id" @click.native="filterItems(filter)">
+                    <v-list-tile
+                      v-for="filter in filters"
+                      @click.native="filterItems(filter)"
+                      :key="filter.id"
+                    >
                       <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
                 </v-menu>
-                <v-btn dark color="blue" @click.native="openShipAllConfirmDialog()">Mark All Shipped</v-btn>
                 <v-btn dark color="green" @click.native="csvExport()">Export</v-btn>
               </div>
               <div v-if="!orderHistories || orderHistories.length == 0" class="empty-section">
                 <p class="empty-title">Your have no new orders</p>
               </div>
-              <v-card flat v-else class="relative">
-                <v-flex xs12 class="order-item" v-for="(order, index) in orderHistories" :key="index">
-                  <template v-if="$store.state.auth.user.id == order.merchant.id">
+              <v-card v-else flat class="relative">
+                <v-flex
+                  v-for="(order, index) in orderHistories"
+                  :key="index"
+                  xs12
+                  class="order-item"
+                >
+                  <template v-if="currentUser.id == order.merchant.id">
                     <div class="profile-section">
                       <v-layout row>
                         <div class="profile-content-section relative">
@@ -71,7 +66,11 @@
                         <div class="status-section text-xs-center"></div>
                       </v-layout>
                     </div>
-                    <div class="order-section" v-for="item in order.items" v-if="filter_status == '' || item.status == filter_status">
+                    <div
+                      v-for="item in order.items"
+                      v-if="filter_status == '' || item.status == filter_status"
+                      class="order-section"
+                    >
                       <v-layout row>
                         <div class="order-content-section relative">
                           <div class="product-cover-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div>
@@ -133,7 +132,7 @@
                             </v-flex>
                           </div>
                         </div>
-                        <div class="order-status-section text-xs-center" v-if="_.find(item.product.collaborators, {user_id: $store.state.auth.user.id})">
+                        <div class="order-status-section text-xs-center" v-if="isCollaborated(item)">
                           <p class="order-status-text">Collaborated</p>
                           <v-chip label outline color="red" v-if="item.status == 'item_ordered'">Unshipped</v-chip>
                           <v-chip label outline color="blue" v-else>Shipped</v-chip>
@@ -145,10 +144,11 @@
                 </v-flex>
               </v-card>
             </v-tabs-content>
+
             <v-tabs-content key="products" id="products">
               <v-card flat>
                 <v-layout row wrap>
-                  <v-flex xs12 v-if="['artist', 'brand', 'label'].indexOf($store.state.auth.user.user_type)!=-1">
+                  <v-flex xs12 v-if="['artist', 'brand', 'label'].indexOf(currentUser.user_type)!=-1">
                     <v-btn class="add-product-btn" @click.native="addProduct()">
                       <v-icon>add</v-icon>Add Product
                     </v-btn>
@@ -161,6 +161,7 @@
                 </v-layout>
               </v-card>
             </v-tabs-content>
+
             <v-tabs-content key="collaborations" id="collaborations">
               <div v-if="!collaborated_products || collaborated_products.length == 0" class="empty-section">
                 <p class="empty-title">Your have no product collaborations</p>
@@ -176,6 +177,7 @@
                 </v-layout>
               </v-card>
             </v-tabs-content>
+
             <v-tabs-content key="pendings" id="pendings">
               <div v-if="!pending_products || pending_products.length == 0" class="empty-section">
                 <p class="empty-title">Your have no pending product collaborations</p>
@@ -183,20 +185,26 @@
               <v-card flat v-else>
                 <v-layout row wrap class="covers-content">
                   <div class="card-container" v-for="product in pending_products" :key="product.id">
-                    <collaborate-product v-if="product.merchant.id==$store.state.auth.user.id"
+                    <collaborate-product
+                      v-if="product.merchant.id == currentUser.id"
                       :product="product"
                       :showPromoteButton="false"
                       :editButtonAction="editProduct"
                       :deleteButtonAction="openProductDeleteConfirmDialog"
-                      :releaseButtonAction="releaseProduct"></collaborate-product>
-                    <collaborate-product v-else-if="notResponded(product)"
+                      :releaseButtonAction="releaseProduct"
+                    />
+                    <collaborate-product
+                      v-else-if="notResponded(product)"
                       :product="product"
                       :showPromoteButton="false"
                       :acceptButtonAction="acceptCollaboration"
-                      :denyButtonAction="denyCollaboration"></collaborate-product>
-                    <collaborate-product v-else
+                      :denyButtonAction="denyCollaboration"
+                    />
+                    <collaborate-product
+                      v-else
                       :product="product"
-                      :showPromoteButton="false"></collaborate-product>
+                      :showPromoteButton="false"
+                    />
                   </div>
                 </v-layout>
               </v-card>
@@ -206,7 +214,11 @@
       </div>
     </v-flex>
 
-    <send-message :receiver="user" :dismiss="dismissMessageModal" v-if="showSendMessage"></send-message>
+    <send-message
+      v-if="showSendMessage"
+      :receiver="user"
+      :dismiss="dismissMessageModal"
+    />
 
     <div class="product-finish-section" v-if="show_product_finish_modal">
       <v-flex xs12 sm12 class="dismiss-section" @click="closeProductFinishModal()"></v-flex>
@@ -243,28 +255,43 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="show_ship_all_confirm_dialog" persistent>
-      <v-card>
-        <v-card-title class="headline">Ship all products</v-card-title>
-        <v-card-text>If you click OK, the buyer will see that the items have been shipped. Click OK to mark all items as shipped, or click Cancel.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="shipAll()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeShipAllConfirmDialog()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <v-dialog v-model="show_ship_confirm_modal" persistent>
-      <v-card>
-        <v-card-title class="headline">Ship Product</v-card-title>
-        <v-card-text>If you click OK, the buyer will see that the item has been shipped. Click OK to mark the item as shipped, or click Cancel.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="shipItem()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeShipConfirmModal()">Cancel</v-btn>
-        </v-card-actions>
-      </v-card>
+      <v-form v-model="valid_tracking_form" ref="valid_tracking_form" lazy-valiation>
+        <v-card>
+          <v-card-title class="headline">Ship Product</v-card-title>
+          <v-card-text>
+            Enter shipping carrier website & tracking number<br>
+            Buyer will see the tracking number in their <b>Order History</b>
+            <v-text-field
+              label='www.fedex.com'
+              v-model="tracking_site"
+              :rules="[v => !!v || 'Carrier website is required']"
+              required
+              single-line
+            ></v-text-field>
+            <v-text-field
+              label='Enter tracking number'
+              v-model="tracking_number"
+              :rules="[v => !!v || 'Tracking number is required']"
+              required
+              single-line
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              @click.native="shipItem()"
+              flat
+              class="blue--text darken-1"
+            >Ok</v-btn>
+            <v-btn
+              @click.native="closeShipConfirmModal()"
+              flat
+              class="blue--text darken-1"
+            >Cancel</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
     </v-dialog>
 
     <v-dialog v-model="show_unship_confirm_modal" persistent>

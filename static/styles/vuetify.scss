@@ -22,6 +22,20 @@
   }
 }
 
+/* v-text-field */
+.input-group--text-field {
+  label {
+    left: 10px;
+    line-height: 42px;
+  }
+  input {
+    padding-left: 10px;
+  }
+  .input-group__messages {
+    padding-left: 10px;
+  }
+}
+
 /* v-select */
 .input-group__details {
   &:before {

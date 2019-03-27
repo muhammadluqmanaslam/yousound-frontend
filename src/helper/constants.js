@@ -185,3 +185,7 @@ export const MyEvents = {
   VIDEO_PLAYER_INIT: 'video_player_init',
   VIDEO_PLAYER_FULLSCREEN_ENTER: 'video_player_fullscreen_enter'
 }
+
+export const MyCookies = {
+  TRACKING_SITE: 'tracking_site'
+}

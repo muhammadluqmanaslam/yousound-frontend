@@ -28,8 +28,8 @@ export default {
     return Vue.http.patch(API_BASE_URL + '/' + itemId, params, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
-  markShipped (itemId) {
-    return Vue.http.get(API_BASE_URL + '/' + itemId + '/mark_as_shipped', { headers: { 'Authorization': $store.state.auth.token } })
+  markShipped (itemId, params) {
+    return Vue.http.post(API_BASE_URL + '/' + itemId + '/mark_as_shipped', params, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
   markUnshipped (itemId) {

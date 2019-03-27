@@ -12,12 +12,14 @@
               key="cart"
               href="#cart"
               @click.native="onTab('cart')"
-              ripple>Added to cart</v-tabs-item>
+              ripple
+            >Added to cart</v-tabs-item>
             <v-tabs-item
               key="history"
               href="#history"
               @click.native="onTab('history')"
-              ripple>Order History</v-tabs-item>
+              ripple
+            >Order History</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
@@ -104,7 +106,10 @@
                     <v-layout row>
                       <div class="profile-content-section relative">
                         <div class="profile-avatar">
-                          <profile-item :user="$store.state.auth.user" :className="'order-item-profile-avatar'"></profile-item>
+                          <profile-item
+                            :user="currentUser"
+                            :className="'order-item-profile-avatar'"
+                          />
                         </div>
                         <div class="profile-content">
                           <a href="#" class="user-name"><b>You</b></a>
@@ -161,16 +166,25 @@
                           </v-list>
                         </v-menu>
                       </div>
-                      <div class="order-status-section digital text-xs-center" v-if="isDigitalProduct(item)">
-                        <!-- <div class="file_name" data-filetype="zip">
-                          <label>sample-0123456789-abcdefghikjklmnop.zip</label>
-                        </div> -->
-                        <label>{{ item.product.digital_content_name | truncateInMiddle(20) }}</label>
-                        <span class="product-link" @click = "download(item)">Download</span>
+                      <div v-if="isDigitalProduct(item)" class="order-status-section digital">
+                        <div class="text-xs-center">
+                          <label>{{ item.product.digital_content_name | truncateInMiddle(20) }}</label>
+                          <span class="product-link" @click="download(item)">Download</span>
+                        </div>
                       </div>
-                      <div class="order-status-section text-xs-center" :class="{'pending': item.status == 'item_ordered', 'shipped': item.status == 'item_shipped'}" v-else>
-                        <p class="order-status-text" v-if="item.status=='item_ordered'">Pending Order</p>
-                        <p class="order-status-text" v-else>Your Item Has Shipped!</p>
+                      <div
+                        v-else
+                        @click="item.status!=='item_ordered' && openTrackingInfoDialog(item)"
+                        :class="{'pending': item.status == 'item_ordered', 'shipped': item.status == 'item_shipped'}"
+                        class="order-status-section">
+                        <div
+                          v-if="item.status=='item_ordered'"
+                          class="text-xs-center"
+                        >Pending Order</div>
+                        <div
+                          v-else
+                          class="text-xs-center"
+                        >Your Item Has Shipped!<br>View tracking info</div>
                       </div>
                     </v-layout>
                   </div>
@@ -193,6 +207,27 @@
       :item="active_item"
       :dismiss="closeTicketDialog"
     />
+
+    <v-dialog v-model="show_tracking_info_dialog" content-class="tracking-info-dialog">
+      <v-card>
+        <v-card-title class="headline">Your item has shipped</v-card-title>
+        <v-card-text>
+          <div class="product">
+            <div class="product-cover" :style="`background-image: url(${active_item.product.covers[0].cover.thumb.url})`"></div>
+            <div class="product-info">
+              <div class="product-name">{{ active_item.product.name }}</div>
+              <div class="product-owner">{{ active_item.product.merchant.display_name }}</div>
+            </div>
+          </div>
+          <div>
+            <label>Carrier: </label><span class="red--text"><b>{{ active_item.tracking_site }}</b></span>
+          </div>
+          <div>
+            <label>Tracking number: </label><span>{{ active_item.tracking_number }}</span>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
 
     <v-dialog v-model="show_address_confirm_dialog" content-class="my-dialog-1">
       <v-card>

@@ -13,6 +13,7 @@ import productItem from '@/components/productitem'
 import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
 import collaborateProduct from './components/collaborate_product'
+import { Storage, MyCookies } from '@/helper'
 
 export default {
   components: {
@@ -24,7 +25,13 @@ export default {
 
   data () {
     return {
-      activeTab: 'orders',
+      active_tab: 'orders',
+      tabs: [
+        { id: 'orders', title: 'Orders' },
+        { id: 'products', title: 'Products' },
+        { id: 'collaborations', title: 'Collaborations' },
+        { id: 'pendings', title: 'Pending collaborations' }
+      ],
       filters: [
         { id: '', name: 'All' },
         { id: 'creator_unshipped', name: 'Unshipped' },
@@ -38,14 +45,17 @@ export default {
       show_unship_confirm_modal: false,
       show_ship_all_confirm_dialog: false,
       show_help_dialog: false,
+      product_delete_confirm_dialog: false,
+      showSendMessage: false,
+      valid_tracking_form: true,
       shipping_id: null,
       order_detail: null,
       orderHistories: [],
       products: [],
       product: {},
       selected_item: {},
-      product_delete_confirm_dialog: false,
-      showSendMessage: false,
+      tracking_site: null,
+      tracking_number: null,
       page_index: 1,
       total_pages: 1,
       items_per_page: 6 * 5,
@@ -54,10 +64,6 @@ export default {
   },
 
   computed: {
-    _ () {
-      return _
-    },
-
     currentUser () {
       return this.$store.state.auth.user
     },
@@ -150,13 +156,17 @@ export default {
       if (!tab)
         tab = 'orders'
 
-      this.activeTab = tab
+      this.active_tab = tab
       // this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: tab })
       this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: tab })
     },
 
     isDigitalProduct (item) {
       return _.get(item, 'product.category.is_digital', false)
+    },
+
+    isCollaborated(item) {
+      return _.find(item.product.collaborators, {user_id: this.currentUser.id})
     },
 
     editProduct (product) {
@@ -188,31 +198,31 @@ export default {
       this.show_product_finish_modal = false
     },
 
-    openShipAllConfirmDialog () {
-      this.show_ship_all_confirm_dialog = true
-    },
+    // openShipAllConfirmDialog () {
+    //   this.show_ship_all_confirm_dialog = true
+    // },
 
-    closeShipAllConfirmDialog () {
-      this.show_ship_all_confirm_dialog = false
-    },
+    // closeShipAllConfirmDialog () {
+    //   this.show_ship_all_confirm_dialog = false
+    // },
 
-    shipAll () {
-      this.$store.dispatch('error/showLoadingActivity', true)
-      ItemService.markAllShipped().then(response => {
-        _.each(this.orderHistories, (order) => {
-          _.each(order.items, (item) => {
-            item.status = 'item_shipped'
-          })
-        })
-        const arr = this.orderHistories.slice()
-        this.orderHistories = arr
-        this.closeShipAllConfirmDialog()
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.closeShipAllConfirmDialog()
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
-    },
+    // shipAll () {
+    //   this.$store.dispatch('error/showLoadingActivity', true)
+    //   ItemService.markAllShipped().then(response => {
+    //     _.each(this.orderHistories, (order) => {
+    //       _.each(order.items, (item) => {
+    //         item.status = 'item_shipped'
+    //       })
+    //     })
+    //     const arr = this.orderHistories.slice()
+    //     this.orderHistories = arr
+    //     this.closeShipAllConfirmDialog()
+    //     this.$store.dispatch('error/showLoadingActivity', false)
+    //   }).catch(e => {
+    //     this.closeShipAllConfirmDialog()
+    //     this.$store.dispatch('error/showLoadingActivity', false)
+    //   })
+    // },
 
     csvExport () {
       OrderService.receivedExport().then(response => {
@@ -225,29 +235,38 @@ export default {
     openShipConfirmModal (item) {
       this.selected_item = item
       this.show_ship_confirm_modal = true
+      this.tracking_site = Storage.get(MyCookies.TRACKING_SITE)
     },
 
     closeShipConfirmModal () {
+      this.$refs.valid_tracking_form.reset()
       this.show_ship_confirm_modal = false
     },
 
     shipItem () {
-      const itemId = this.selected_item.id
-      ItemService.markShipped(itemId).then(response => {
-        let item
-        _.each(this.orderHistories, (order) => {
-          item = _.find(order.items, { id: itemId })
-          if (!!item) {
-            return false
-          }
+      if (this.$refs.valid_tracking_form.validate()) {
+        const itemId = this.selected_item.id
+        const params = {
+          tracking_site: this.tracking_site,
+          tracking_number: this.tracking_number
+        }
+        ItemService.markShipped(itemId, params).then(response => {
+          Storage.set(MyCookies.TRACKING_SITE, this.tracking_site)
+          let item
+          _.each(this.orderHistories, (order) => {
+            item = _.find(order.items, { id: itemId })
+            if (!!item) {
+              return false
+            }
+          })
+          item.status = 'item_shipped'
+          const arr = this.orderHistories.slice()
+          this.orderHistories = arr
+          this.closeShipConfirmModal()
+        }).catch(e => {
+          this.closeShipConfirmModal()
         })
-        item.status = 'item_shipped'
-        const arr = this.orderHistories.slice()
-        this.orderHistories = arr
-        this.closeShipConfirmModal()
-      }).catch(e => {
-        this.closeShipConfirmModal()
-      })
+      }
     },
 
     openUnshipConfirmModal (item) {
@@ -311,7 +330,7 @@ export default {
 
     releaseProduct (product) {
       ProductService.releaseProduct(product.id).then(response => {
-        this.activeTab = 'collaborations'
+        this.active_tab = 'collaborations'
         this.loadData()
       })
     },
