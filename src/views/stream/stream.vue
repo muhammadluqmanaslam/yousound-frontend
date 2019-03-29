@@ -46,9 +46,9 @@
         </v-card-title>
         <v-card-text>
           <ul>
-            <li>See all content chronologically posted by who you follow</li>
-            <li>Easily sort content by albums, products, video, reposts & playlists</li>
-            <li>Listen to albums and add products to cart from the feed</li>
+            <li>View content <b>chronologically</b> from people you follow.</li>
+            <li><b>Easily sort feed</b> by albums, products, video, reposts & playlists.</li>
+            <li>Listen to albums & add products to cart <b>from the feed</b>.</li>
           </ul>
         </v-card-text>
         <v-card-actions>
