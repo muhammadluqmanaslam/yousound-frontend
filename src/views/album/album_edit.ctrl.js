@@ -34,13 +34,12 @@ export default {
       samplings: [],
       // sampling: {},
       artists: [],
-      artist_albums: [],
-      artist_album_tracks: [],
       selected_product: null,
       album: null,
       album_image: null,
       album_image_url: null,
       genre: '',
+      sampling_min_id: 0,
       slug: null,
       show_collaborators_confirm_dialog: false,
       show_genre_selector_dialog: false,
@@ -58,7 +57,24 @@ export default {
       // console.log('isAvailableToUploadAlbum', this.album.tracks)
       const failed_track = _.find(this.album.tracks, (track) => (track.status != 2))
       const has_failed_track = !!failed_track
-      return this.album.tracks.length > 0 &&
+      let isSamplingsGood = true
+      let sampling_track_id = 0
+      let sample_track_id = 0
+      let sample_album_id = 0
+      let sample_user_id = 0
+      for (let i = 0; i < this.samplings.length; i ++) {
+        sampling_track_id = _.get(this.samplings[i], 'sampling_track_id', 0)
+        sample_track_id = _.get(this.samplings[i], 'sample_track_id', 0)
+        sample_album_id = _.get(this.samplings[i], 'sample_album_id.id', this.samplings[i].sample_album_id)
+        sample_user_id = _.get(this.samplings[i], 'sample_user_id.id', this.samplings[i].sample_user_id)
+        // console.log(i, sampling_track_id, sample_track_id, sample_album_id, sample_user_id)
+        if (!(sampling_track_id > 0 && sample_track_id > 0 && sample_album_id > 0 && sample_user_id > 0)) {
+          isSamplingsGood = false
+          break
+        }
+      }
+      return isSamplingsGood &&
+        this.album.tracks.length > 0 &&
         !has_failed_track &&
         this.album.name.length &&
         this.album_image_url &&
@@ -76,6 +92,7 @@ export default {
       if (this.currentUser.user_type !== 'artist') {
         this.$router.push({ path: '/'})
       } else {
+        const vm = this
         const params = {
           filter: 'artist',
           'page': 1,
@@ -127,11 +144,38 @@ export default {
           }
           if (this.album.samplings.length > 0) {
             this.samplings = this.album.samplings
+            _.each(this.samplings, (sampling) => {
+              let artists = _.cloneDeep(this.artists)
+              _.each(artists, (u) => {u.sampling_id = sampling.id})
+              sampling.artists = artists
+            })
+
+            let users_ids = _.chain(this.samplings).map('sample_user_id').uniq().value()
+            let fns = _.map(users_ids, (user_id) => (
+              AlbumService.getAlbums({
+                statuses: 'published, collaborated',
+                user_statuses: 'accepted',
+                user_id: user_id,
+                enabled_sample: true
+              })
+            ))
+            Promise.all(fns).then((values) => {
+              for (let i = 0; i < values.length; i ++) {
+                let samplings = _.filter(this.samplings, (s) => (s.sample_user_id == users_ids[i]))
+                _.each(samplings, (sampling) => {
+                  let albums = values[i].body
+                  _.each(albums, (a) => {a.sampling_id = sampling.id})
+                  sampling.artist_albums = albums
+                  sampling.artist_album_tracks = _.find(albums, (a) => (a.id == sampling.sample_album_id)).tracks
+                  // console.log('samplings', this.samplings)
+                })
+              }
+
+              this.isPageReady = true
+              this.$store.dispatch('error/showLoadingActivity', false)
+            })
           }
           // console.log('album_edit created', this.users)
-          this.isPageReady = true
-          this.$store.dispatch('error/showLoadingActivity', false)
-          const vm = this
           setTimeout(function () {
             $('#album_image').css('background-image', 'url(' + vm.album.cover.url + ')')
           }, 200)
@@ -185,32 +229,49 @@ export default {
     },
 
     addSampling () {
-      this.samplings.push({
+      this.sampling_min_id -= 1
+      let sampling = {
+        id: this.sampling_min_id,
         sampling_track_id: '',
         sample_track_id: '',
         sample_album_id: '',
-        sample_user_id: ''
-      })
+        sample_user_id: '',
+      }
+      let artists = _.cloneDeep(this.artists)
+      _.each(artists, (u) => {u.sampling_id = sampling.id})
+      sampling.artists = artists
+      this.samplings.push(sampling)
     },
 
     deleteSampling (index) {
       this.samplings.splice(index, 1)
     },
 
-    onChangeSampleArtist (user_id) {
-      // console.log('onChangeSampleArtist', user_id)
+    onChangeSampleArtist (user) {
+      // console.log('onChangeSampleArtist', user.sampling_id, user.id, user.display_name)
       AlbumService.getAlbums({
         statuses: 'published, collaborated',
         user_statuses: 'accepted',
-        user_id: user_id,
+        user_id: user.id,
         enabled_sample: true
       }).then(response => {
-        this.artist_albums = response.body
+        let sampling = _.find(this.samplings, (s) => (s.id == user.sampling_id))
+        let albums = response.body
+        _.each(albums, (a) => {a.sampling_id = user.sampling_id})
+        sampling.artist_albums = albums
+        sampling.artist_album_tracks = []
+        sampling.sample_album_id = 0
+        sampling.sample_track_id = 0
+        this.$forceUpdate()
       })
     },
 
-    onChangeSampleArtistAlbum (album_id) {
-      this.artist_album_tracks = _.find(this.artist_albums, (album) => (album.id == album_id)).tracks
+    onChangeSampleArtistAlbum (album) {
+      // console.log('onChangeSampleArtistAlbum', album.sampling_id, album.name)
+      let sampling = _.find(this.samplings, (s) => (s.id == album.sampling_id))
+      sampling.artist_album_tracks = album.tracks
+      sampling.sample_track_id = 0
+      this.$forceUpdate()
     },
 
     deleteAlbum() {
@@ -298,7 +359,21 @@ export default {
       formData.append('album[product_ids]', product_ids)
       formData.append('album[collaborators]', JSON.stringify(this.collaborators))
       formData.append('album[contributors]', JSON.stringify(this.contributors))
-      formData.append('album[samplings]', JSON.stringify(this.samplings))
+
+      let samplings = _.cloneDeep(this.samplings)
+      _.each(samplings, (sampling) => {
+        if (sampling.id <= 0) {
+          delete sampling.id
+        }
+        delete sampling.artists
+        delete sampling.artist_albums
+        delete sampling.artist_album_tracks
+
+        sampling.sample_user_id = _.get(sampling, 'sample_user_id.id', sampling.sample_user_id)
+        sampling.sample_album_id = _.get(sampling, 'sample_album_id.id', sampling.sample_album_id)
+      })
+      // console.log('samplings', samplings)
+      formData.append('album[samplings]', JSON.stringify(samplings))
 
       AlbumService.updateAlbum(this.album.id, formData).then(res => {
         const id = res.body.id
