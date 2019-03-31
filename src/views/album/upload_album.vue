@@ -344,10 +344,11 @@
               <v-flex xs12 sm3>
                 <label class="control-label">Artist you sampled<label class="required">*</label></label>
                 <v-select
-                  :items="artists"
+                  :items="sampling.artists"
                   v-model="sampling.sample_user_id"
                   item-text="username"
                   item-value="id"
+                  return-object
                   @change="onChangeSampleArtist"
                   chips
                   max-height="auto"
@@ -384,10 +385,11 @@
               <v-flex xs12 sm3>
                 <label class="control-label">Sample<label class="required">*</label></label>
                 <v-select
-                  :items="artist_albums"
+                  :items="sampling.artist_albums"
                   v-model="sampling.sample_album_id"
                   item-text="name"
                   item-value="id"
+                  return-object
                   @change="onChangeSampleArtistAlbum"
                   chips
                   max-height="auto"
@@ -425,7 +427,7 @@
               <v-flex xs12 sm3>
                 <label class="control-label">Track<label class="required">*</label></label>
                 <v-select
-                  :items="artist_album_tracks"
+                  :items="sampling.artist_album_tracks"
                   v-model="sampling.sample_track_id"
                   item-text="name"
                   item-value="id"
