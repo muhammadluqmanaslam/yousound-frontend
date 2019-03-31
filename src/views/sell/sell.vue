@@ -315,8 +315,8 @@
           <ul>
             <li>Sell <b>physical</b> & <b>digital</b> products.</li>
             <li><b>Collaborate</b> on products with artists, brands & labels.</li>
-            <li><b>Set percentages & recoup costs</b>, confirm through direct message</li>
-            <li>Split payments from sales automatically.</li>
+            <li><b>Set splits & recoup costs</b>, confirm through direct message.</li>
+            <li>Automatically <b>split payments</b> for collaborative products.</li>
             <li>Keep<b> 90%</b> of sales.</li>
           </ul>
         </v-card-text>
