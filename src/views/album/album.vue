@@ -61,6 +61,17 @@
                         </template>
                       </label>
                     </v-flex>
+                    <v-flex xs12 sm12 v-if="album.samplings && album.samplings.length > 0">
+                      <label class="album-info-label">Samples: </label>
+                      <label class="album-info-text" v-if="album.samplings && album.samplings.length > 0">
+                        <template v-for="s in album.samplings">
+                          <div class="sampling-info">
+                            <label>{{ s.sampling_track.name }}</label>:&nbsp;<router-link class="user-name" :to="`/${s.sample_user.slug}`">{{ s.sample_user.display_name }}</router-link>
+                            <span> - {{ s.sample_track.name }}</span>
+                          </div>
+                        </template>
+                      </label>
+                    </v-flex>
                     <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
                       <label class="album-info-label">Label: </label>
                       <label class="album-info-text">

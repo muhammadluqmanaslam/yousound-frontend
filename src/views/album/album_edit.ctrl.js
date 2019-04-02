@@ -174,6 +174,9 @@ export default {
               this.isPageReady = true
               this.$store.dispatch('error/showLoadingActivity', false)
             })
+          } else {
+            this.isPageReady = true
+            this.$store.dispatch('error/showLoadingActivity', false)
           }
           // console.log('album_edit created', this.users)
           setTimeout(function () {
@@ -360,17 +363,18 @@ export default {
       formData.append('album[collaborators]', JSON.stringify(this.collaborators))
       formData.append('album[contributors]', JSON.stringify(this.contributors))
 
-      let samplings = _.cloneDeep(this.samplings)
-      _.each(samplings, (sampling) => {
-        if (sampling.id <= 0) {
-          delete sampling.id
+      let samplings = []
+      _.each(this.samplings, (sampling) => {
+        let s = {
+          sampling_track_id: sampling.sampling_track_id,
+          sample_track_id: sampling.sample_track_id,
+          sample_album_id: _.get(sampling, 'sample_album_id.id', sampling.sample_album_id),
+          sample_user_id: _.get(sampling, 'sample_user_id.id', sampling.sample_user_id),
         }
-        delete sampling.artists
-        delete sampling.artist_albums
-        delete sampling.artist_album_tracks
-
-        sampling.sample_user_id = _.get(sampling, 'sample_user_id.id', sampling.sample_user_id)
-        sampling.sample_album_id = _.get(sampling, 'sample_album_id.id', sampling.sample_album_id)
+        if (sampling.id > 0) {
+          s['id'] = sampling.id
+        }
+        samplings.push(s)
       })
       // console.log('samplings', samplings)
       formData.append('album[samplings]', JSON.stringify(samplings))

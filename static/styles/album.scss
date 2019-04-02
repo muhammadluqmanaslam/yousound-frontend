@@ -113,6 +113,10 @@ p {
           color: rgba(58, 146, 255, 0.50);
         }
       }
+      .grey--text {
+        color: #777;
+        font-size: 16px;
+      }
     }
     .album-content-section {
       padding: 0 0 0 22.5px;
@@ -1203,13 +1207,14 @@ p {
       .collaborator-info, .contributor-info {
         padding-left: 0;
       }
+      .sampling-info {
+        padding-left: 0;
+        // label {
+        //   font-weight: 500;
+        // }
+      }
     }
   }
-}
-
-    .grey--text {
-       color: #777;
-       font-size: 16px;
 }
 
 .dialog.collaborators-confirm-dialog {
