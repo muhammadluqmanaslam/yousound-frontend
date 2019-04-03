@@ -295,7 +295,7 @@ export default {
         })
     },
 
-    loadPage () {
+    loadPage() {
       this.unloadPage()
 
       let vm = this
@@ -373,10 +373,10 @@ export default {
             // Vue.set(vm, "room", room)
             vm.room = room
             // Fetch user data (avatar image, etc)
-            let temponlineUsers = await Promise.all(room.online.map(async username => {
+            let temponlineUsers = await Promise.all(_.chain(room.online).compact().map(async username => {
               const res = await UserService.getUserInfo(username)
               return res.body
-            }))
+            }).value())
             let tempidleUsers = await Promise.all(room.idle.map(async username => {
               const res = await UserService.getUserInfo(username)
               return res.body

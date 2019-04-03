@@ -293,6 +293,11 @@ export default {
     },
 
     doAfterSignOut () {
+      if (this.notification_subscription) {
+        this.notification_subscription.unsubscribe()
+        this.notification_subscription = null
+      }
+
       this.$intercom.shutdown()
     },
 

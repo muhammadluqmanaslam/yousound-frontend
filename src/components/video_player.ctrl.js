@@ -622,11 +622,7 @@ export default {
       }
     },
 
-    closePlayer () {
-      if (this.player) {
-        this.player.shutdown()
-      }
-
+    closeSocket () {
       if (this.stream_subscription) {
         this.stream_subscription.unsubscribe()
         this.stream_subscription = null
@@ -636,6 +632,14 @@ export default {
         this.chat_socket.close()
         this.chat_socket = null
       }
+    },
+
+    closePlayer () {
+      if (this.player) {
+        this.player.shutdown()
+      }
+
+      this.closeSocket()
     },
 
     mutePlayer () {
@@ -722,7 +726,9 @@ export default {
     },
 
     onClick: function (e) {
+      this.closeSocket()
       this.closeStreamingConfirmDialog()
+
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
       // this.getMetrics()
