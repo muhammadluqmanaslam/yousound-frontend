@@ -84,7 +84,8 @@ export default {
       return
     }
 
-    this.seed = parseInt(Date.now() * Math.random())
+    // this.seed = parseInt(Date.now() * Math.random())
+    this.seed = Math.random()
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
   },
