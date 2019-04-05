@@ -4,8 +4,12 @@ import $store from '@/store'
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/comments'
 
 export default {
-  getComments (commentableType, commentableId) {
-    return Vue.http.get(API_BASE_URL + '?commentable_type=' + commentableType + '&commentable_id=' + commentableId, { headers: { 'Authorization': $store.state.auth.token } })
+  // getComments (commentableType, commentableId) {
+  //   return Vue.http.get(API_BASE_URL + '?commentable_type=' + commentableType + '&commentable_id=' + commentableId, { headers: { 'Authorization': $store.state.auth.token } })
+  // },
+
+  getComments (params) {
+    return Vue.http.get(API_BASE_URL, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
   sendComment (params) {

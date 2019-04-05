@@ -41,6 +41,13 @@ export default {
       trackIndex: 0,
       comments: [],
       commentString: '',
+      comment_pagination: {
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
+      },
       buttonHover: []
     }
   },
@@ -67,11 +74,15 @@ export default {
     },
 
     commentsCount() {
-      if (this.comments.length > 0) {
-        return this.comments.length
+      if (this.comment_pagination.total_count > 0) {
+        return this.comment_pagination.total_count
       } else {
         return 'No'
       }
+    },
+
+    hasMoreComments() {
+      return this.comment_pagination.current_page < this.comment_pagination.total_pages
     },
 
     isPlaying () {
@@ -128,7 +139,7 @@ export default {
         for (let index in this.playlist.tracks) {
           this.buttonHover.push(false)
         }
-        this.getComments()
+        this.loadMoreComments()
         this.selectedImage = this.playlist.cover.url
         setTimeout(function () {
           vm.changeBackground()
@@ -188,15 +199,23 @@ export default {
       params.append('comment[body]', this.commentString)
       this.commentString = ''
       CommentService.sendComment(params).then(response => {
-        this.getComments()
+        this.comments.unshift(response.body)
+        this.comment_pagination.total_count += 1
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     },
 
-    getComments () {
-      CommentService.getComments('Album', this.playlist.id).then(response => {
-        this.comments = response.body
+    loadMoreComments() {
+      const params = {
+        commentable_type: 'Album',
+        commentable_id: this.playlist.id,
+        page: this.comment_pagination.current_page + 1,
+        per_page: this.comment_pagination.per_page
+      }
+      CommentService.getComments(params).then(response => {
+        this.comments = this.comments.concat(response.body.comments)
+        this.comment_pagination = response.body.pagination
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })

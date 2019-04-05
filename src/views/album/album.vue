@@ -293,6 +293,13 @@
                   </div>
                 </div>
               </div>
+              <div class="text-xs-center">
+                <v-btn
+                  v-if="hasMoreComments"
+                  @click.native="loadMoreComments()"
+                  class="loadmore-btn"
+                >More Comments</v-btn>
+              </div>
             </div>
           </div>
         </div>
