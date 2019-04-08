@@ -46,7 +46,15 @@
         <v-btn class ="donate-amount-btn" @click.native="donateAmount(50)">$50</v-btn>
       </v-flex>
       <v-flex xs12 class="input-section">
-        <input type="text" class="donate-amount form-control" v-model="donate_amount" placeholder="$0.00">
+        <vue-numeric
+          currency="$"
+          currency-symbol-position="prefix"
+          separator=","
+          :precision="2"
+          :min="0"
+          v-model="donate_amount"
+          class="donate-amount form-control"
+        />
         <v-btn class ="download-btn" @click.native="showPaymentDialog()">
           <img class="pa-2" src="/static/images/ic_download_white.png"/>Download
         </v-btn>
