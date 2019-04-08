@@ -118,11 +118,27 @@
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">Shipped Alone</label>
-                <input type="text" class="form-control" v-model="shipment.shipment_alone_price">
+                <vue-numeric
+                  currency="$"
+                  currency-symbol-position="prefix"
+                  separator=","
+                  :precision="2"
+                  :min="0"
+                  v-model="shipment.shipment_alone_price"
+                  class="form-control primary-input"
+                />
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">With others</label>
-                <input type="text" class="form-control" v-model="shipment.shipment_with_price">
+                <vue-numeric
+                  currency="$"
+                  currency-symbol-position="prefix"
+                  separator=","
+                  :precision="2"
+                  :min="0"
+                  v-model="shipment.shipment_with_price"
+                  class="form-control primary-input"
+                />
               </v-flex>
               <v-icon class="clear-btn" @click="deleteShipment(index)">clear</v-icon>
             </v-layout>
