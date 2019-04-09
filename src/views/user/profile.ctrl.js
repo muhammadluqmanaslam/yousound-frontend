@@ -388,7 +388,7 @@ export default {
       // this.$nextTick(() => {
       //   $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
       // })
-      this.getItems('followers', false)
+      this.onTab('followers')
     },
 
     onAfterAlbumSlideChange (index) {
