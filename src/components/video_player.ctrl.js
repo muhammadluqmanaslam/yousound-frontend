@@ -125,6 +125,15 @@ export default {
       // console.log('video-player', toPath.path, fromPath.path)
       this.show_payment_dialog = false
       this.show_streaming_confirm_dialog = false
+    },
+
+    message: function (newVal, oldVal) {
+      // console.log('message', newVal, oldVal)
+      if (newVal == '') {
+        $('#my_video').removeClass('is-chatting')
+      } else {
+        $('#my_video').addClass('is-chatting')
+      }
     }
   },
 

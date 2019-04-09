@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="video-player-wrapper" :class="{'is-hide': !$store.getters['videoPlayer/hasFrame']}"> -->
   <div class="video-player-wrapper">
-    <div id="my_video" ref="my_video" v-if="user">
+    <div v-if="user" id="my_video" ref="my_video">
       <!-- <div class="my_splash"></div> -->
       <div class="my_overlay">
         <v-layout row wrap class="my-header">
