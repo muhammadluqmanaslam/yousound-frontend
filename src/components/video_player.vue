@@ -163,39 +163,52 @@
               </div>
             </div>
 
-            <div
-              class="stream-sector__content__right"
-              @mouseenter="showAttachButton = true"
-              v-if="!showAttachButton"
-            >
-              <div class="media d-flex" v-if="stream && stream.assoc_type=='Album'">
-                <div class="media__image" :style="`background-image: url(${stream.assoc.cover.thumb.url})`"></div>
-                <div class="media__content">
-                  <div class="media__title">{{ stream.assoc.name }}</div>
-                  <div class="media__description">{{ stream.assoc.tracks.length }} tracks</div>
+            <div class="stream-sector__content__right">
+              <template v-if="showAttachButton">
+                <v-btn
+                  dark color="blue"
+                  class="display-btn"
+                  @click.native="openAlbumMerchPopup()"
+                >Display Merch / Album</v-btn>
+              </template>
+              <template v-else>
+                <div class="media d-flex">
+                  <template v-if="stream && stream.assoc_type=='Album'">
+                    <div class="media__image" :style="`background-image: url(${stream.assoc.cover.thumb.url})`"></div>
+                    <div class="media__content">
+                      <div class="media__title">{{ stream.assoc.name }}</div>
+                      <div class="media__description">{{ stream.assoc.tracks.length }} tracks</div>
+                    </div>
+                  </template>
+                  <template v-else-if="stream && stream.assoc_type=='ShopProduct'">
+                    <div class="media__image" :style="`background-image: url(${stream.assoc.covers[0].cover.thumb.url})`"></div>
+                    <div class="media__content">
+                      <div class="media__title">{{ stream.assoc.name }}</div>
+                      <div class="media__description">${{ stream.assoc.price | formatNumber }}</div>
+                    </div>
+                  </template>
+                  <template v-else-if="stream && stream.assoc_type=='User'">
+                    <div class="media__image round" :style="`background-image: url(${stream.assoc.avatar.thumb.url})`"></div>
+                    <div class="media__content">
+                      <div class="media__title">{{ stream.assoc.display_name }}</div>
+                      <div class="media__description">{{ stream.assoc.followers }} followers</div>
+                    </div>
+                  </template>
+
+                  <div class="media__action--hover">
+                    <v-btn
+                      @click.native="openAlbumMerchPopup()"
+                      dark color="blue"
+                      class="display-btn"
+                    ><v-icon>link</v-icon></v-btn>
+                    <v-btn
+                      @click.native="removeItem()"
+                      dark color="red"
+                      class="remove-btn"
+                    ><v-icon>delete</v-icon></v-btn>
+                  </div>
                 </div>
-              </div>
-              <div class="media d-flex" v-else-if="stream && stream.assoc_type=='ShopProduct'">
-                <div class="media__image" :style="`background-image: url(${stream.assoc.covers[0].cover.thumb.url})`"></div>
-                <div class="media__content">
-                  <div class="media__title">{{ stream.assoc.name }}</div>
-                  <div class="media__description">${{ stream.assoc.price | formatNumber }}</div>
-                </div>
-              </div>
-              <div class="media d-flex" v-else-if="stream && stream.assoc_type=='User'">
-                <div class="media__image round" :style="`background-image: url(${stream.assoc.avatar.thumb.url})`"></div>
-                <div class="media__content">
-                  <div class="media__title">{{ stream.assoc.display_name }}</div>
-                  <div class="media__description">{{ stream.assoc.followers }} followers</div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="stream-sector__content__right"
-              @mouseleave="['Album', 'ShopProduct', 'User'].indexOf(stream.assoc_type) > -1 ? showAttachButton = false : showAttachButton = true"
-              v-else
-            >
-              <v-btn dark color="blue" class="display-btn" @click.native="openAlbumMerchPopup()">Display Merch / Album</v-btn>
+              </template>
             </div>
           </div>
         </div>
@@ -223,7 +236,9 @@
           <div class="separator"></div>
           <div class="stream-sector__content" v-if="stream && stream.assoc_type=='Album'">
             <div class="stream-sector__content__left">
-              <div class="media__image" :style="`background-image: url(${stream.assoc.cover.thumb.url})`"></div>
+              <div class="media__image" :style="`background-image: url(${stream.assoc.cover.thumb.url})`">
+                <!-- <div class="media__image--hover" @click="removeItem()"><v-icon>delete</v-icon></div> -->
+              </div>
               <div class="media__content">
                 <div class="media__title">{{ stream.assoc.name }}</div>
                 <div class="media__description">{{ stream.assoc.tracks.length }} tracks</div>
@@ -235,20 +250,24 @@
           </div>
           <div class="stream-sector__content" v-else-if="stream && stream.assoc_type=='ShopProduct'">
             <div class="stream-sector__content__left">
-              <div class="media__image" :style="`background-image: url(${stream.assoc.covers[0].cover.thumb.url})`"></div>
+              <div class="media__image" :style="`background-image: url(${stream.assoc.covers[0].cover.thumb.url})`">
+                <div class="media__image--hover" @click="removeProductFromCart()"><v-icon>delete</v-icon></div>
+              </div>
               <div class="media__content">
                 <div class="media__title">{{ stream.assoc.name }}</div>
                 <div class="media__description">${{ stream.assoc.price | formatNumber }}</div>
               </div>
             </div>
             <div class="stream-sector__content__right">
-              <v-btn v-if="inCart()" dark color="green">Added to Cart</v-btn>
+              <v-btn v-if="isInCart" dark color="green">Added to Cart</v-btn>
               <v-btn v-else dark color="blue" @click.native="openMerchModal()">Add to Cart</v-btn>
             </div>
           </div>
           <div class="stream-sector__content" v-else-if="stream && stream.assoc_type=='User'">
             <div class="stream-sector__content__left">
-              <div class="media__image round" :style="`background-image: url(${stream.assoc.avatar.thumb.url})`"></div>
+              <div class="media__image round" :style="`background-image: url(${stream.assoc.avatar.thumb.url})`">
+                <!-- <div class="media__image--hover" @click="removeItem()"><v-icon>delete</v-icon></div> -->
+              </div>
               <div class="media__content">
                 <div class="media__title">{{ stream.assoc.display_name }}</div>
                 <div class="media__description">{{ stream.assoc.followers }} followers</div>

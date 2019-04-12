@@ -9,6 +9,7 @@ import AuthService from '@/services/auth'
 
 import ActivityService from '@/services/activity'
 import AlbumService from '@/services/album'
+import ItemService from '@/services/item'
 import ProductService from '@/services/product'
 import StreamService from '@/services/stream'
 import UserService from '@/services/user'
@@ -54,7 +55,6 @@ export default {
       albums: [],
       products: [],
       users: [],
-      showAttachButton: false,
       buttonHover: false,
       cable: null,
       stream_subscription: null,
@@ -110,6 +110,22 @@ export default {
 
     reverseMessages() {
       return this.messages.slice(0, 3).reverse()
+    },
+
+    isInCart () {
+      if (this.stream.assoc_type != 'ShopProduct') {
+        return false
+      }
+
+      const item = _.find(this.$store.state.user.cartItems, (item) => {
+        return item.product_id == this.stream.assoc.id
+      })
+
+      return !!item
+    },
+
+    showAttachButton () {
+      return this.stream && ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1
     },
 
     followButtonText () {
@@ -418,18 +434,6 @@ export default {
       })
     },
 
-    inCart () {
-      if (this.stream.assoc_type != 'ShopProduct') {
-        return false
-      }
-
-      const item = _.find(this.$store.state.user.cartItems, (item) => {
-        return item.product_id == this.stream.assoc.id
-      })
-
-      return !!item
-    },
-
     onRequestTab (tab) {
       if (this.request_tab === tab) {
         return
@@ -472,6 +476,30 @@ export default {
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
+      }
+    },
+
+    removeItem () {
+      this.assoc = {}
+      const params = {
+        stream: {
+          assoc_type: '',
+          assoc_id: 0
+        }
+      }
+      StreamService.updateStream(this.stream.id, params).then(response => {
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    removeProductFromCart () {
+      const item = _.find(this.$store.state.user.cartItems, (item) => {
+        return item.product_id == this.stream.assoc.id
+      })
+
+      if (item) {
+        ItemService.deleteCartItem(item.id)
       }
     },
 
@@ -742,9 +770,6 @@ export default {
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
       // this.getMetrics()
       // console.log('this.stream.assoc_type', this.stream.assoc_type)
-      if (this.stream && ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1) {
-        this.showAttachButton = true
-      }
       this.viewStream()
       this.initPlayer(this.stream.mp_channel_1_ep_1_url)
       this.player.load()
