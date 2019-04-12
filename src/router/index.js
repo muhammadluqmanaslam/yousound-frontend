@@ -17,6 +17,7 @@ import ListenerRegister from '@/views/auth/register_by_listener'
 import TwitterConfirmPage from '@/views/auth/twitter_confirm'
 import TwitterCallbackPage from '@/views/auth/twitter_callback'
 import TermsPage from '@/views/terms/index'
+import OverviewPage from '@/views/overview/index'
 import AdminPage from '@/views/admin/admin'
 import MainLandingPage from '@/views/home/main_landing'
 import LandingPage from '@/views/home/landing'
@@ -65,6 +66,7 @@ export function createRouter (settings) {
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword },
     { path: '/reset_password/:token', name: 'ResetPassword', component: ResetPassword },
     { path: '/terms', name: 'TermsPage', component: TermsPage },
+    { path: '/squad', name: 'OverviewPage', component: OverviewPage },
     { path: '/_oauth/verification', name: 'SocialVerification', component: SocialVerification },
     { path: '/_oauth/stripe_connect_callback', name: 'StripeConnectPage', component: StripeConnectPage },
     { path: '/_oauth/twitter_confirm', name: 'TwitterConfirmPage', component: TwitterConfirmPage },

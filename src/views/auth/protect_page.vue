@@ -41,7 +41,8 @@
         // console.log(sha256(this.secret_code))
         if (sha256(this.secret_code) === process.env.SECRET_CODE) {
           this.$store.dispatch('auth/setSecretCode', process.env.SECRET_CODE)
-          this.$router.push('/')
+          // this.$router.push('/')
+          this.$router.go(-1)
         }
       }
     }
