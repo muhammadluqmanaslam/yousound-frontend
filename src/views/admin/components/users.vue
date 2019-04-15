@@ -12,7 +12,8 @@
         <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
-          v-model="user_search"
+          v-model="search_value"
+          @keyup.enter="onKeyEnter"
           append-icon="search"
           label="Search"
           class="user-serach search-input mr-4"

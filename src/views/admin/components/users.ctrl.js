@@ -34,7 +34,7 @@ export default {
       ],
       show_stream_delete_confirm_dialog: false,
       show_free_stream_toggle_confirm_dialog: false,
-      user_search: '',
+      search_value: '',
       user: null,
       per_page_options: [50, 100, 150],
       users: [],
@@ -63,6 +63,7 @@ export default {
     loadUsers () {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
+        q: this.search_value,
         filter: this.active_tab,
         page: this.pagination.page,
         per_page: this.pagination.rowsPerPage
@@ -85,6 +86,10 @@ export default {
         page: 1,
         rowsPerPage: 10
       }
+    },
+
+    onKeyEnter(e) {
+      this.loadUsers()
     },
 
     toggleViewDirectMessages (user) {
