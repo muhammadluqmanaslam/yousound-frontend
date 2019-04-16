@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import AdminService from '@/services/admin'
 import SettingService from '@/services/setting'
 
 export default {
@@ -12,15 +13,12 @@ export default {
         disable_live_video: false,
         disable_merch_upload: false
       },
+      message: '',
       isPageReady: false
     }
   },
 
   computed: {
-  },
-
-  created () {
-    this.loadSettings()
   },
 
   methods: {
@@ -47,7 +45,23 @@ export default {
         this.settings[key] = !this.settings[key]
         // console.log(key, this.settings.disable_sign_up, this.settings[key])
       })
+    },
+
+    sendGlobalMessage() {
+      this.message = this.message.trim()
+      if (this.message == '') return
+
+      const params = {
+        message: this.message
+      }
+      AdminService.sendGlobalMessage(params).then(response => {
+        this.message = ''
+      })
     }
+  },
+
+  created () {
+    this.loadSettings()
   },
 
   mounted () {

@@ -40,6 +40,10 @@ export default {
     return Vue.http.get(API_BASE_URL + '/products', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
+  sendGlobalMessage (params) {
+    return Vue.http.post(API_BASE_URL + '/send_global_message', params, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   getGlobalStats (params) {
     return Vue.http.get(API_BASE_URL + '/global_stats', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },

@@ -582,9 +582,10 @@
         .text-message {
           width: 100%;
           word-break: break-all;
+          white-space: pre-line;
           font-size: 16px;
           letter-spacing: -0.5px;
-          font-family: 'Work Sans'
+          font-family: 'Work Sans';
         }
       }
       &.request {

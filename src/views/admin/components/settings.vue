@@ -45,14 +45,16 @@
         <v-text-field
           name="input-7-1"
           multi-line
-          v-model="settings.message"
+          v-model="message"
           class="normal-input"
           full-width
           style="max-width:100%;"
         />
       </v-flex>
     </v-layout>
-    <v-layout row wrap><v-btn color="primary">SEND MESSAGE TO USERS</v-btn></v-layout>
+    <v-layout row wrap>
+      <v-btn color="primary" @click.native="sendGlobalMessage()">SEND MESSAGE TO USERS</v-btn>
+    </v-layout>
   </v-card>
 </template>
 
