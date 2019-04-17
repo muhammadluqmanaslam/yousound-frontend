@@ -49,7 +49,7 @@ export default {
         { text: 'Verified By', value: 'verified_by', align: 'left' },
         { text: '', value: 'id', align: 'left'}
       ],
-      signups_search: '',
+      search_value: '',
       show_approve_modal: false,
       show_deny_modal: false,
       user: {},
@@ -86,6 +86,7 @@ export default {
     loadUsers() {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
+        q: this.search_value,
         filter: this.active_tab,
         page: this.pagination.page,
         per_page: this.pagination.rowsPerPage
@@ -108,6 +109,10 @@ export default {
         page: 1,
         rowsPerPage: 10
       }
+    },
+
+    onKeyEnter(e) {
+      this.loadUsers()
     },
 
     openApproveModal (user) {
