@@ -45,6 +45,7 @@ export default {
         { text: 'Explanation', value: 'downloaded', align: 'center' }
       ],
       searchValue: '',
+      product_detail: {},
       user: {
         avatar: {}
       },
@@ -70,6 +71,11 @@ export default {
         page: 1,
         rowsPerPage: 100
       },
+      // total_items: 0,
+      // pagination: {
+      //   page: 1,
+      //   rowsPerPage: 10
+      // },
       isPageReady: true
     }
   },
@@ -77,8 +83,19 @@ export default {
   computed: {
   },
 
+  methods: {
+    loadProduct() {
+      ProductService.getProduct(this.prod.id)
+    }
+  },
+
   created () {
+    this.product_detail = _.cloneDeep(this.product)
     this.user = _.get(this.product, 'merchant', {avatar: {}})
+    console.log('product_detail_dialog', this.product_detail)
+    ProductService.getProduct(this.product.id).then(response => {
+      this.product_detail = response.body
+    })
   },
 
   watch: {

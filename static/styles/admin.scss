@@ -231,7 +231,14 @@
         width: 90px !important;
       }
       .product-name {
+        display: -webkit-box;
+        max-height: 66px;
         font-size: 16px;
+        line-height: 22px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
       }
       .product-price {
         font-size: 20px;
@@ -267,30 +274,51 @@
     overflow-y: auto;
   }
 
-  table.tracks-table {
+  .album_credit-btn {
+    color: #1976D2;
+    cursor: pointer;
+  }
+
+  .remove-btn {
+    display: none;
+    min-width: auto;
+  }
+
+  .table-wrapper {
     width: 100%;
-    max-height: 550px;
-    overflow-y: auto;
-    border-collapse: collapse;
-    thead {
-      tr {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-        th {
-          height: 48px;
-          padding: 0 24px;
+    max-height: 500px;
+    overflow-y: scroll;
+
+    table.tracks-table {
+      width: 100%;
+      overflow-y: auto;
+      border-collapse: collapse;
+      thead {
+        tr {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          th {
+            height: 48px;
+            padding: 0 24px;
+          }
         }
       }
-    }
-    tbody {
-      tr {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-        &:hover {
-          background: #eee;
-        }
-
-        td {
-          height: 48px;
-          padding: 0 24px;
+      tbody {
+        tr {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+          &:hover {
+            background: #eee;
+            .remove-btn {
+              display: block;
+            }
+          }
+          td {
+            height: 48px;
+            padding: 0 24px;
+          }
+          td:last-child {
+            width: 67px;
+            padding: 0;
+          }
         }
       }
     }

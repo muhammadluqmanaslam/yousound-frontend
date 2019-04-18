@@ -11,14 +11,41 @@
           {{ product.name }}
         </v-flex>
         <v-flex x12>
-          <label>Product id: <span></span></label>
+          <label>Product id: <span>{{ product.id }}</span></label>
         </v-flex>
         <v-flex x12>
-          <label>Buyer transaction: <span></span></label>
+          <label>Upload Date: <span>{{ product.created_at | formatDate }}</span></label>
+        </v-flex>
+        <v-flex x12>
+          <label>Current Price: <span>${{ product.price | formatNumber }}</span></label></label>
         </v-flex>
         <v-flex x12 mt-4 mb-3 py-2 border-top border-bottom>
           <h4>Total Sales</h4>
         </v-flex>
+        <v-list subheader two-line>
+          <v-list-tile :key="user.slug">
+            <v-list-tile-avatar class="mr-2">
+              <img v-bind:src="user.avatar.url"/>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="user.display_name"></v-list-tile-title>
+              <v-list-tile-sub-title>Uploader</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile
+            v-if="product.collaborators && product.collaborators.length > 0"
+            v-for="c in product.contributors"
+            :key="c.user.slug"
+          >
+            <v-list-tile-avatar class="mr-2">
+              <img v-bind:src="c.user.avatar.url"/>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title v-html="c.user.display_name"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="c.user_role"></v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </v-flex>
       <v-flex xs9 border-left>
         <v-tabs dark class="white" v-model="active_tab">

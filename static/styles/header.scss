@@ -225,15 +225,14 @@
   }
 }
 
-.list {
-     padding: 20px 20px 20px 20px;
-      }
-
 .user-status.online {
   margin-left: 3px !important;
 }
 
 .menu__content.profile-menu__content {
+  ul.list {
+    padding: 20px 20px 20px 20px;
+  }
   li.profile {
     .list__tile.list__tile--avatar {
       height: 100px;

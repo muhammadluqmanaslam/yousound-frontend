@@ -19,6 +19,7 @@ export default {
       tracks_headers: [
         { text: 'Track Title', value: 'name', align: 'left', sortable: false },
         { text: 'Sampled from Yousound', value: 'status', align: 'center', sortable: false },
+        { text: 'Played', value: 'status', align: 'played', sortable: false },
         { text: '', value: 'status', align: 'center', sortable: false }
       ],
       album: {
@@ -28,21 +29,19 @@ export default {
         avatar: {}
       },
       tracks: [],
+      show_album_credit_dialog: false,
       isPageReady: true
     }
   },
 
   computed: {
-    album_product () {
+    album_product() {
       return _.get(this.album, 'products[0]', null)
-    }
-  },
+    },
 
-  created () {
-    // this.user = _.get(this.item, 'user', {avatar: {}})
-    // this.tracks = _.get(this.item, 'tracks', [])
-    this.loadData()
-    console.log('album_product', this.album_product)
+    genres() {
+      return _.map(this.album.genres, 'name').join(', ')
+    }
   },
 
   methods: {
@@ -54,6 +53,17 @@ export default {
         this.user = _.get(this.album, 'user', {avatar: {}})
         this.tracks = _.get(this.album, 'tracks', [])
       })
+    },
+
+    isSampledTrack(track_id) {
+      return _.find(this.album.samplings, (s) => (s.sampling_track_id == track_id))
     }
+  },
+
+  created () {
+    // this.user = _.get(this.item, 'user', {avatar: {}})
+    // this.tracks = _.get(this.item, 'tracks', [])
+    this.loadData()
+    console.log('album_product', this.album_product)
   }
 }
