@@ -85,9 +85,21 @@
         </div>
       </v-flex>
       <v-flex xs9 pl-2 border-left>
-        <v-flex>
+        <div class="album-action">
           <label class="album-name">{{ album.name }}</label>
-        </v-flex>
+          <v-menu offset-y class="more-menu">
+            <v-btn dark class="more-btn" slot="activator">
+              <v-icon right>more_horiz</v-icon>
+            </v-btn>
+            <v-list>
+              <v-list-tile key="delete_album" class="default-menu-item" @click.native="deleteAlbum()">
+                <v-list-tile-title>
+                  <label>Delete Entire Album</label>
+                </v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
+        </div>
         <!-- <v-data-table
           :headers="tracks_headers"
           :items="tracks"
@@ -124,6 +136,7 @@
                 <td>{{ track.played }}</td>
                 <td>
                   <v-btn
+                    @click.native="deleteTrack(track.id)"
                     dark small
                     color="red"
                     class="remove-btn"

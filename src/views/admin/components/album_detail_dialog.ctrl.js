@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import AlbumService from '@/services/album'
+import TrackService from '@/services/track'
 
 export default {
   props: {
@@ -57,6 +58,35 @@ export default {
 
     isSampledTrack(track_id) {
       return _.find(this.album.samplings, (s) => (s.sampling_track_id == track_id))
+    },
+
+    deleteAlbum() {
+      // console.log('deleteAlbum', this.album.id)
+      this.$store.dispatch('error/showLoadingActivity', true)
+      AlbumService.deleteAlbum(this.album.id).then(response => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.dismiss()
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    },
+
+    deleteTrack(track_id) {
+      // console.log('deleteTrack', track_id)
+      this.$store.dispatch('error/showLoadingActivity', true)
+      TrackService.deleteTrack(track_id).then(response => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        _.remove(this.tracks, (item) => { return item.id == track_id })
+        const arr = this.tracks.slice()
+        this.tracks = arr
+        if (this.tracks.length === 0) {
+          this.dismiss()
+        }
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     }
   },
 
