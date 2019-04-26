@@ -38,11 +38,11 @@ export default {
           formData.append('user[display_name]', this.user.display_name)
           formData.append('user[avatar]', this.user.avatar_file)
           AuthService.registerAsListener(formData).then(response => {
-            const userId = response.body.id
-            const params = {
-              genre_ids: this.$store.state.auth.genreIds
-            }
-            UserService.hiddenUserGenres(userId, params)
+            // const userId = response.body.id
+            // const params = {
+            //   genre_ids: this.$store.state.auth.genreIds
+            // }
+            // UserService.hiddenUserGenres(userId, params)
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$router.push({ path: `/confirm/being?email=${this.user.email}` })
           }).catch(e => {

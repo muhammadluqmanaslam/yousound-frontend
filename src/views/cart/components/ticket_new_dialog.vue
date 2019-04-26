@@ -30,7 +30,11 @@
           ></textarea>
         </v-flex>
         <v-flex xs12 text-xs-right>
-          <v-btn dark small round color="green" :disabled="!canSend">Send</v-btn>
+          <v-btn
+            @click.native="sendTicket()"
+            dark small round color="green"
+            :disabled="!canSend"
+          >Send</v-btn>
         </v-flex>
         <v-flex xs12 px-5 pt-3 text-xs-center>
           <p class="ma-0">
@@ -52,7 +56,7 @@
           {{ product.name }}
         </v-flex>
         <v-flex x12>
-          <label>Product id: <span></span></label>
+          <label>Product id: <span>{{ product.id }}</span></label>
         </v-flex>
         <v-flex x12>
           <label>Buyer transaction: <span></span></label>
@@ -64,6 +68,7 @@
 
 <script type="text/javascript">
   import _ from 'lodash'
+  import TicketService from '@/services/ticket'
 
   export default {
     props: {
@@ -106,9 +111,25 @@
 
     computed: {
       canSend () {
-        let b = this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
-        console.log('canSend', b)
-        return b
+        // let b = this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
+        // console.log('canSend', b)
+        return this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
+      }
+    },
+
+    methods: {
+      sendTicket () {
+        const params = {
+          ticket: {
+            reason: this.ticket.reason,
+            description: this.ticket.description,
+            item_id: this.item.id
+          }
+        }
+
+        TicketService.createTicket(params).then(response => {
+          this.dismiss()
+        })
       }
     },
 
