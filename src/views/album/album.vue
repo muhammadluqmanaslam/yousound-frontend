@@ -108,7 +108,7 @@
               <template v-for="collaborator in album.collaborators">
                 , <router-link :to="'/' + collaborator.user.slug" class="album-detail">{{ collaborator.user.display_name }}</router-link>
               </template>
-              <div v-if="currentUser.user_type != 'listener' && album.enabled_sample" class="album-sample-clearance mr-2">
+              <div v-if="currentUser && currentUser.user_type != 'listener' && album.enabled_sample" class="album-sample-clearance mr-2">
                 • Cleared to be sampled on YouSound.
                 <span class="border-bottom" @click="openSampleClearanceLicenseModal()">More Info</span>
               </div>

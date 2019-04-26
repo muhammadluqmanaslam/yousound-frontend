@@ -155,7 +155,7 @@
                 @click="$router.push(`/upload/album`)"
               >Upload</label>
               <label
-                v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video"
+                v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1"
                 @click="$router.push(`/user/${currentUser.slug}/video`)"
               >Live Video</label>
               <label
