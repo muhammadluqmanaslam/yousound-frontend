@@ -27,19 +27,36 @@
                 <label class="user-role">{{ user.user_type }}</label>
                 <template v-if="user.user_type === 'listener' && user.inviter">
                   <label class="vertical-divider"></label>
-                  <label class="user-inviter-name">Invited by <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link></label>
+                  <label class="user-inviter-name">Invited by
+                    <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link>
+                  </label>
                 </template>
               </div>
               <div class="user-action-section">
                 <template v-if="user.user_type === 'listener'">
-                  <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn></template>
-                <v-btn v-else class="play-btn" @click.native="playSong()"><v-icon>play_arrow</v-icon>Play</v-btn>
-                <v-btn v-if="show_stream_live_button" class="green px-2" dark @click.native="viewStream()"><v-icon>videocam</v-icon>Streaming Live</v-btn>
+                  <v-btn
+                    v-if="!user.inviter"
+                    @click.native="openInviteConfirmDialog()"
+                    class="invite-btn"
+                  >Invite</v-btn>
+                </template>
+                <v-btn
+                  v-else
+                  @click.native="playSong()"
+                  class="play-btn"
+                ><v-icon>play_arrow</v-icon>Play</v-btn>
+                <v-btn
+                  v-if="show_stream_live_button"
+                  @click.native="viewStream()"
+                  dark
+                  class="green px-2"
+                ><v-icon>videocam</v-icon>Streaming Live</v-btn>
                 <v-btn v-if="currentUser && user.id!=currentUser.id"
-                  :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                   @mouseenter="buttonHover = true"
                   @mouseleave="buttonHover = false"
-                  @click.native="followUser()">{{ followButtonText }}</v-btn>
+                  @click.native="followUser()"
+                  :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
+                >{{ followButtonText }}</v-btn>
                 <v-menu offset-y class="more-menu" v-if="currentUser && user.id!=currentUser.id">
                   <v-btn dark class="more-btn" slot="activator">
                     <v-icon right>more_horiz</v-icon>
@@ -93,7 +110,8 @@
                   :id="tab.id"
                   :href="'#' + tab.id"
                   @click.native="onTab(tab.id)"
-                  ripple>{{ tab.title }}</v-tabs-item>
+                  ripple
+                >{{ tab.title }}</v-tabs-item>
                 <v-tabs-slider color="black"></v-tabs-slider>
                 <v-btn dark class="more-btn" @click.native="setGridView(true)">
                   <!-- <v-icon>widgets</v-icon> -->
@@ -169,7 +187,7 @@
     </div>
 
     <div class="page profile-grid-page" v-if="grid_show">
-      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 id="no_id" style="height:inherit !important;">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 style="height:inherit !important;">
         <div class="user-profile-section" v-if="user">
           <div class="user-profile-image-section">
             <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
@@ -184,31 +202,54 @@
           </div>
           <div class="user-info-section">
             <div class="user-name-section">
-              <label>{{ user.display_name }} <v-icon class="user-status online" v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1">fa-check-circle</v-icon></label>
+              <label>
+                {{ user.display_name }}
+                <v-icon
+                  v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1"
+                  class="user-status online"
+                >fa-check-circle</v-icon>
+              </label>
             </div>
             <div class="user-status-section">
-              <label class="follower-count" @click="followersClickHandler()"><strong>{{ user.followers }}</strong> Followers</label>
+              <label
+                @click="followersClickHandler()"
+                class="follower-count"
+              ><strong>{{ user.followers }}</strong> Followers</label>
               <label class="vertical-divider"></label>
               <label class="user-role">{{ user.user_type }}</label>
               <template v-if="user.user_type === 'listener' && user.inviter">
                 <label class="vertical-divider"></label>
-                <label class="user-inviter-name">Invited by <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link></label>
+                <label class="user-inviter-name">
+                  Invited by
+                  <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link>
+                </label>
               </template>
             </div>
             <div class="user-action-section">
               <template v-if="user.user_type === 'listener'">
-                <v-btn v-if="!user.inviter" class="invite-btn" @click.native="openInviteConfirmDialog()">Invite</v-btn>
+                <v-btn
+                  v-if="currentUser && ['artist', 'label', 'brand'].indexOf(currentUser.user_type) > -1 && !user.inviter && user.request_status === 'pending'"
+                  @click.native="openInviteConfirmDialog()"
+                  class="invite-btn"
+                >Invite</v-btn>
               </template>
-              <v-btn v-else class="play-btn" @click.native="playSong()">
-                <v-icon>play_arrow</v-icon>Play
-              </v-btn>
-              <v-btn v-if="currentUser && user.id!=currentUser.id"
-                :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
+              <v-btn
+                v-else
+                @click.native="playSong()"
+                class="play-btn"
+              ><v-icon>play_arrow</v-icon>Play</v-btn>
+              <v-btn
+                v-if="currentUser && user.id!=currentUser.id"
                 @mouseenter="buttonHover = true"
                 @mouseleave="buttonHover = false"
                 @click.native="followUser()"
+                :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
               >{{ followButtonText }}</v-btn>
-              <v-menu offset-y class="more-menu" v-if="currentUser && user.id!=currentUser.id">
+              <v-menu
+                v-if="currentUser && user.id!=currentUser.id"
+                offset-y
+                class="more-menu"
+              >
                 <v-btn dark class="more-btn" slot="activator">
                   <v-icon right>more_horiz</v-icon>
                 </v-btn>
@@ -277,7 +318,11 @@
                   <div v-if="!users || users.length == 0" class="empty-section">
                     <p class="empty-title">Profile is Empty</p>
                     <p class="empty-description">It’s a little lonely in here...</p>
-                    <router-link to="/discover" class="empty-discover-btn" v-if="currentUser && user.id==currentUser.id">Discover</router-link>
+                    <router-link
+                      v-if="currentUser && user.id==currentUser.id"
+                      to="/discover"
+                      class="empty-discover-btn"
+                    >Discover</router-link>
                   </div>
                   <v-layout row wrap class="covers-content" v-else>
                     <div class="card-container" v-for="(user, index) in users" :key="index">
@@ -330,7 +375,11 @@
                       <product-card :dataObject="product"></product-card>
                     </div>
                   </v-layout>
-                  <v-btn class="loadmore-btn" @click.native="getItems(tab.id, true)" v-show="page_index < total_pages">Load More</v-btn>
+                  <v-btn
+                    v-show="page_index < total_pages"
+                    @click.native="getItems(tab.id, true)"
+                    class="loadmore-btn"
+                  >Load More</v-btn>
                 </div>
                 <!-- <div v-else-if="tab.id=='reposted'">
                   <v-layout row wrap class="covers-content">
@@ -423,7 +472,11 @@
                       <track-card :objects="albums" :objectIndex="index"></track-card>
                     </div>
                   </v-layout>
-                  <v-btn class="loadmore-btn" @click.native="getItems(tab.id, true)" v-show="page_index < total_pages">Load More</v-btn>
+                  <v-btn
+                    v-show="page_index < total_pages"
+                    class="loadmore-btn"
+                    @click.native="getItems(tab.id, true)"
+                  >Load More</v-btn>
                 </div>
               </v-tabs-content>
             </v-tabs-items>
@@ -432,12 +485,14 @@
       </v-flex>
     </div>
 
-    <send-message v-if="showSendMessage"
+    <send-message
+      v-if="showSendMessage"
       :receiver="user"
       :dismiss="dismissMessageModal"
     />
 
-    <send-love-modal v-if="showSendLoveModal"
+    <send-love-modal
+      v-if="showSendLoveModal"
       :item="user"
       :dismiss="dismissLoveDialog"
     />
