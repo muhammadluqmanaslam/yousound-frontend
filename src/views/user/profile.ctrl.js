@@ -261,8 +261,8 @@ export default {
               this.slide_tab = 'merch'
               break
             default:
-              this.currentTab = 'downloaded'
-              this.slide_tab = 'downloaded'
+              this.currentTab = 'playlists'
+              this.slide_tab = 'playlists'
               break
           }
         }
