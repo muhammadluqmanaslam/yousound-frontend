@@ -2,7 +2,7 @@
 }
 
 .page.auth-page.auth-login-header {
-  width: 306px;
+  width: 320px;
   margin: 90px auto 0;
   .logo {
     // width: 200.25px;
@@ -10,16 +10,16 @@
   }
   h4 {
     font-weight: 300;
-    font-size: 40px;
+    font-size: 38px;
     color: #2D2D2D;
     letter-spacing: -3.18px;
-    margin-top: 80px;
+    margin-top: 60px;
     padding-bottom: 20px;
   }
 }
 
 .page.auth-page.auth-login-page {
-  width: 306px;
+  width: 320px;
   margin: 0 auto 0;
   .logo {
     // width: 200.25px;
@@ -71,11 +71,11 @@
   }
 
   .login-button {
-    margin-top: 0;
-    background: #3A92FF !important;
-    border-radius: 75px;
     height: 40.5px;
     width: 300px;
+    margin: 0 auto;
+    background: #3A92FF !important;
+    border-radius: 75px;
     box-shadow: none;
     font-weight: 600;
     font-size: 15px;
@@ -138,11 +138,11 @@
 }
 
 .page.auth-page.auth-register-header {
-  width: 313.5px;
-  margin: 46.5px auto 0;
+  width: 320px;
+  margin: 45px auto 0;
   .logo {
     // width: 200.25px;
-    height: 32px;
+    height: 40px;
     margin-right: 14px;
     margin-top: 28px;
   }
@@ -160,7 +160,7 @@
 }
 
 .page.auth-page.auth-register-page {
-  width: 306px;
+  width: 320px;
   margin: 0 auto;
   .error--text {
     position: absolute;
@@ -185,7 +185,6 @@
       width: 75px;
       height: 75px;
       border-radius: 37.5px;
-
     }
     .upload-caption {
       position: absolute;
@@ -250,6 +249,9 @@
     text-decoration: none;
   }
   .create-account-button {
+    width: 300px;
+    height: 40.5px;
+    margin: 0 auto;
     text-transform: none;
     box-shadow: none;
     background: #3A92FF !important;
@@ -257,9 +259,7 @@
     font-weight: 600;
     font-size: 15px;
     color: #FFFFFF;
-    letter-spacing: 0;    
-    width: 300px;
-    height:40.5px;
+    letter-spacing: 0;
   }
   &.artist {
     width: 100%;
@@ -307,7 +307,7 @@
 
 .page.auth-page.social-verify-page {
   .page-header {
-    width: 306px;
+    width: 320px;
     margin: 90px auto 0;
     .logo {
       // width: 200.25px;
@@ -362,160 +362,120 @@
 }
 
 .page.auth-page.auth-forgot-page {
-  .page-header {
-    width: 306px;
-    margin: 90px auto 0;
-    .logo {
-      // width: 200.25px;
-      height: 37px;
-    }
-    h4 {
-      font-weight: 300;
-      font-size: 30.25px;
-      color: #2D2D2D;
-      letter-spacing: -3.18px;
-      margin-top: 63.75px;
-    }
+  width: 320px;
+  margin: 0 auto;
+
+  input[type=text],
+  input[type=email] {
+    background: #FFFFFF;
+    border: 0.75px solid #D2D2D2;
+    border-radius: 3.75px;
+    height: 45px;
+    width: 300px;
+    margin-top: 22.5px;
+    font-size: 15px;
+    color: #4A4A4A;
+    letter-spacing: 0;
+    padding: 0 15px;
   }
-
-  .page-content {
-    width: 306px;
-    margin: 0 auto;
-
-    input[type=text],
-    input[type=email] {
-      background: #FFFFFF;
-      border: 0.75px solid #D2D2D2;
-      border-radius: 3.75px;
-      height: 45px;
-      width: 300px;
-      margin-top: 22.5px;
-      font-size: 15px;
-      color: #4A4A4A;
-      letter-spacing: 0;
-      padding: 0 15px;
-    }
-    a {
-      font-weight: 600;
-      font-size: 13.5px;
-      color: #3A92FF;
-      letter-spacing: 0;
-      text-decoration: none;
-      display: block;    
-    }
-
-    .reset-btn {
-      margin-top: 15px;
-      background: #3A92FF !important;
-      border-radius: 75px;
-      height: 37.5px;
-      width: 300px;
-      box-shadow: none;
-      font-weight: 600;
-      font-size: 15px;
-      color: #FFFFFF;
-      letter-spacing: 0;
-      text-transform: none;
-    }
-    .or-divider {
-      margin-top: 30px;
-    }
-    .or {
-      font-size: 13.5px;
-      color: #262626;
-      letter-spacing: 0;
-      margin-bottom: 0px;
-    }
-    .divider {
-      margin: 9px 0px;
-      background-color: #D0D0D0;
-    }
-
-    .sign-in {
-      margin-top: 11.25px;
-    }
+  a {
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #3A92FF;
+    letter-spacing: 0;
+    text-decoration: none;
+    display: block;
+  }
+  .reset-btn {
+    margin: 15px auto 0 auto;
+    background: #3A92FF !important;
+    border-radius: 75px;
+    height: 37.5px;
+    width: 300px;
+    box-shadow: none;
+    font-weight: 600;
+    font-size: 15px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .or-divider {
+    margin-top: 30px;
+  }
+  .or {
+    font-size: 13.5px;
+    color: #262626;
+    letter-spacing: 0;
+    margin-bottom: 0px;
+  }
+  .divider {
+    margin: 9px 0px;
+    background-color: #D0D0D0;
+  }
+  .sign-in {
+    margin-top: 11.25px;
   }
 }
 
 .page.auth-page.auth-reset-page {
-  .page-header {
-    width: 306px;
-    margin: 90px auto 0;
-    .logo {
-      // width: 200.25px;
-      height: 80.25px;
-    }
-    h4 {
-      font-weight: 300;
-      font-size: 30.25px;
-      color: #2D2D2D;
-      letter-spacing: -3.18px;
-      margin-top: 63.75px;
-    }
+  width: 320px;
+  margin: 0 auto;
+
+  input[type=text],
+  input[type=password] {
+    background: #FFFFFF;
+    border: 0.75px solid #D2D2D2;
+    border-radius: 3.75px;
+    height: 45px;
+    width: 300px;
+    margin-top: 22.5px;
+    font-size: 15px;
+    color: #4A4A4A;
+    letter-spacing: 0;
+    padding: 0 15px;
   }
-
-  .page-content {
-    width: 306px;
-    margin: 0 auto;
-
-    input[type=text],
-    input[type=password] {
-      background: #FFFFFF;
-      border: 0.75px solid #D2D2D2;
-      border-radius: 3.75px;
-      height: 45px;
-      width: 300px;
-      margin-top: 22.5px;
-      font-size: 15px;
-      color: #4A4A4A;
-      letter-spacing: 0;
-      padding: 0 15px;
-    }
-    a {
-      font-weight: 600;
-      font-size: 13.5px;
-      color: #3A92FF;
-      letter-spacing: 0;
-      text-decoration: none;
-      display: block;    
-    }
-
-    .reset-btn {
-      margin-top: 15px;
-      background: #3A92FF !important;
-      border-radius: 75px;
-      height: 37.5px;
-      width: 300px;
-      box-shadow: none;
-      font-weight: 600;
-      font-size: 15px;
-      color: #FFFFFF;
-      letter-spacing: 0;
-      text-transform: none;
-    }
-    .or-divider {
-      margin-top: 30px;
-    }
-    .or {
-      font-size: 13.5px;
-      color: #262626;
-      letter-spacing: 0;
-      margin-bottom: 0px;
-    }
-    .divider {
-      margin: 9px 0px;
-      background-color: #D0D0D0;
-    }
-
-    .sign-in {
-      margin-top: 11.25px;
-    }
+  a {
+    font-weight: 600;
+    font-size: 13.5px;
+    color: #3A92FF;
+    letter-spacing: 0;
+    text-decoration: none;
+    display: block;
+  }
+  .reset-btn {
+    margin: 15px auto 0 auto;
+    background: #3A92FF !important;
+    border-radius: 75px;
+    height: 37.5px;
+    width: 300px;
+    box-shadow: none;
+    font-weight: 600;
+    font-size: 15px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .or-divider {
+    margin-top: 30px;
+  }
+  .or {
+    font-size: 13.5px;
+    color: #262626;
+    letter-spacing: 0;
+    margin-bottom: 0px;
+  }
+  .divider {
+    margin: 9px 0px;
+    background-color: #D0D0D0;
+  }
+  .sign-in {
+    margin-top: 11.25px;
   }
 }
 
 .page.auth-page.auth-twitter-page {
   .page-header {
-    width: 306px;
+    width: 320px;
     margin: 46.25px auto 0;
     .logo {
       // width: 200.25px;
@@ -536,7 +496,7 @@
   }
 
   .page-content {
-    // width: 306px;
+    // width: 320px;
     max-width: 800px;
     margin: 0 auto;
 
