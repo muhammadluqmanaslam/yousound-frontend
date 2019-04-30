@@ -15,7 +15,13 @@
               </div>
             </div>
             <div class="content-section">
-              <div class="message-room-item " v-for="(conv, index) in conversations" :key="index" :class="{'new': !conv.last_message.is_read, 'selected': index==selected_index}" @click="selectedConversation(index)">
+              <div
+                v-for="conv in conversations"
+                @click="selectedConversation(conv)"
+                :key="`conversation-${conv.id}`"
+                :class="{'new': conv.last_message && !conv.last_message.is_read, 'selected': conv.id == conversation.id}"
+                class="message-room-item"
+              >
                 <div class="avatar-area">
                   <router-link :to="`/${conv.other.slug}`"><div class="avatar-image" :style="'background-image: url(' + conv.other.avatar.thumb.url + ');'" v-if="!conv.other.length"></div></router-link>
                 </div>
@@ -27,18 +33,24 @@
               </div>
             </div>
           </v-flex>
-          <v-flex xs12 pa-0 class="message-content-section" :class="{'sm6':$store.state.auth.user.user_type === 'artist', 'sm9':$store.state.auth.user.user_type !== 'artist'}" v-if="selected_index >= 0">
+          <v-flex
+            v-if="conversation && conversation.id > 0"
+            xs12 pa-0
+            :class="{'sm6': currentUser.user_type === 'artist', 'sm9': currentUser.user_type !== 'artist'}"
+            class="message-content-section"
+          >
             <div class="header-section">
-              <p href="" class="user-name">
-                {{ conversations[selected_index].other.display_name }}
-                <v-icon v-if="conversations[selected_index].other.user_type == 'artist'"
+              <p class="user-name">
+                {{ conversation.other.display_name }}
+                <v-icon
+                  v-if="conversation.other.user_type == 'artist'"
                   class="user-status" 
-                  :class="{'online': conversations[selected_index].other.status == 'active'}">fa-check-circle</v-icon>
+                  :class="{'online': conversation.other.status == 'active'}">fa-check-circle</v-icon>
               </p>
-              <p class="messaged-time">Repost Price: ${{ conversations[selected_index].other.repost_price|formatNumber }}</p>
+              <p class="messaged-time">Repost Price: ${{ conversation.other.repost_price | formatNumber }}</p>
             </div>
-            <div class="message-list-section" v-if="conversation.messages && conversation.messages.length > 0">
-              <div class="message-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
+            <div class="message-list-section" v-if="messages && messages.length > 0">
+              <div class="message-item space" v-for="message in messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
                 <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
                 <template v-if="message.attachment">
                   <div class="message-section">

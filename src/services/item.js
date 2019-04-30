@@ -40,6 +40,10 @@ export default {
     return Vue.http.get(`${API_BASE_URL}/mark_all_as_shipped`, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  tickets (itemId) {
+    return Vue.http.get(`${API_BASE_URL}/${itemId}/tickets`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   calculateCost (params) {
     return Vue.http.get(API_BASE_URL + '/calculate_cost', { headers: { 'Authorization': $store.state.auth.token }, params: params })
   }

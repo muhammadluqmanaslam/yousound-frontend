@@ -15,8 +15,9 @@
             v-model="ticket.reason"
             v-validate="'required'"
             name="ticket_reason"
-            class="ticket_reason_dropdown"
+            :disabled="hasTicket"
             placeholder="Select reason for opening case..."
+            class="ticket_reason_dropdown"
             autocomplete
           />
         </v-flex>
@@ -26,10 +27,11 @@
             v-validate="'required|max:1023'"
             name="ticket_description"
             placeholder="Write a message..."
+            :disabled="hasTicket"
             class="mt-2"
           ></textarea>
         </v-flex>
-        <v-flex xs12 text-xs-right>
+        <v-flex v-if="!hasTicket" xs12 text-xs-right>
           <v-btn
             @click.native="sendTicket()"
             dark small round color="green"
@@ -68,6 +70,7 @@
 
 <script type="text/javascript">
   import _ from 'lodash'
+  import ItemService from '@/services/item'
   import TicketService from '@/services/ticket'
 
   export default {
@@ -105,7 +108,9 @@
               cover: {}
             }
           ]
-        }
+        },
+        hasTicket: false,
+        isDialogReady: false
       }
     },
 
@@ -134,9 +139,24 @@
     },
 
     created () {
-      // console.log('ticket_new_dialog', this.item)
+      console.log('ticket_new_dialog', this.item)
       this.user = _.get(this.item, 'product.merchant', {avatar: {}})
       this.product = _.get(this.item, 'product', {covers: [{cover: {}}]})
+
+      this.isDialogReady = false
+      this.hasTicket = false
+      this.$store.dispatch('error/showLoadingActivity', true)
+      ItemService.tickets(this.item.id, response => {
+        if (response.body.tickets.length > 0) {
+          this.ticket = response.body.tickets[0]
+          this.hasTicket = true
+        }
+        this.isDialogReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.isDialogReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
     }
   }
 </script>

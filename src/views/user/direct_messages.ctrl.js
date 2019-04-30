@@ -26,12 +26,25 @@ export default {
       page_index: 0,
       total_pages: 1,
       items_per_page: 5 * 5,
-      selected_index: -1,
       conversations: [],
       conversation: {},
+      conversation_pagination: {
+        count: 0,
+        current_page: 0,
+        per_page: 50,
+        total_count: 0,
+        total_pages: 0
+      },
       messages:[],
       message: {
         body: ''
+      },
+      message_pagination: {
+        count: 0,
+        current_page: 0,
+        per_page: 50,
+        total_count: 0,
+        total_pages: 0
       },
       isPageReady: false,
       cable: null,
@@ -55,11 +68,7 @@ export default {
     },
 
     current_repost_price() {
-      if (this.conversations[this.selected_index].other.length) {
-        return this.conversations[this.selected_index].other[0].repost_price
-      } else {
-        return this.conversations[this.selected_index].other.repost_price
-      }
+      return _.get(this.conversation, 'other.repost_price', 0)
     }
   },
 
@@ -93,15 +102,15 @@ export default {
           const other_id = _.get(vm.conversation, 'other.id', '')
           // console.log(data, data.sender.id, other_id)
           if (data.sender.id == other_id || data.sender.id == vm.currentUser.id) {
-            const messageIndex = _.findIndex(vm.conversation.messages, (message) => (message.id == data.id))
+            const messageIndex = _.findIndex(vm.messages, (message) => (message.id == data.id))
             if (messageIndex === -1) {
-              vm.conversation.messages.push(data)
+              vm.messages.push(data)
             } else {
-              vm.conversation.messages[messageIndex] = data
-              // console.log(messageIndex, vm.conversation.messages[messageIndex])
+              vm.messages[messageIndex] = data
+              // console.log(messageIndex, vm.messages[messageIndex])
             }
-            const arr = vm.conversation.messages.slice()
-            vm.conversation.messages = arr
+            const arr = vm.messages.slice()
+            vm.messages = arr
             vm.$nextTick(() => {
               $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
             })
@@ -121,17 +130,30 @@ export default {
   },
 
   methods: {
-    loadConversations() {
+    loadConversations(loadMore) {
       this.$store.dispatch('error/showLoadingActivity', true)
-      const params = {
-        user_id: this.user.slug
+      let params
+      if (loadMore) {
+        params = {
+          user_id: this.user.slug,
+          page: this.conversation_pagination.current_page + 1,
+          per_page: this.conversation_pagination.per_page
+        }
+      } else {
+        params = {
+          user_id: this.user.slug,
+          page: 1,
+          per_page: this.conversation_pagination.per_page
+        }
+        this.messages = []
       }
       MessageService.getConversations(params).then(response => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.conversations = response.body
+        this.conversations = response.body.conversations
         if (this.conversations.length) {
-          this.selected_index = 0
-          this.loadMessages(this.conversations[this.selected_index].id, false, true)
+          this.conversation = this.conversations[0]
+
+          this.loadMessages(this.conversation.id, false, true)
         }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
@@ -149,11 +171,10 @@ export default {
       }
       MessageService.getMessages(params).then(response => {
         if (loadMore) {
-          // this.conversation.messages = this.conversation.messages.concat(response.body.messages)
-          this.conversation.messages = _.reverse(response.body.messages).concat(this.conversation.messages.concat)
+          // this.messages = this.conversation.concat(response.body.messages)
+          this.messages = _.reverse(response.body.messages).concat(this.messages)
         } else {
-          this.conversation = response.body
-          _.reverse(this.conversation.messages)
+          this.messages = _.reverse(response.body.messages)
           if (scrollMove) {
             this.$nextTick(() => {
               // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
@@ -174,15 +195,15 @@ export default {
       }
     },
 
-    selectedConversation(index) {
-      if (this.selected_index === index) {
+    selectedConversation(conv) {
+      if (this.conversation.id === conv.id) {
         return
       }
 
       this.item = null
-      this.selected_index = index
-      this.conversations[this.selected_index].last_message.is_read = true
-      this.loadMessages(this.conversations[this.selected_index].id, false, true)
+      this.conversation = conv
+      this.conversation.last_message.is_read = true
+      this.loadMessages(this.conversation.id, false, true)
     },
 
     selectItem (item) {
