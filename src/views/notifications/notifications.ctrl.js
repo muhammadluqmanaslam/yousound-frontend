@@ -12,7 +12,7 @@ export default {
     return {
       page_index: 1,
       total_pages: 1,
-      items_per_page: 8 * 1,
+      items_per_page: 6 * 1,
       filter: 'all',
       filters: [
         { id: 'all', name: 'All Activity' },

@@ -25,7 +25,7 @@ export default {
       ],
       page_index: 1,
       total_pages: 1,
-      items_per_page: 6 * 5,
+      items_per_page: 6 * 4,
       genres: [],
       selected_genre: null,
       keyword: '',
