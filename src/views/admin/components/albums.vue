@@ -210,7 +210,7 @@
 
     <product-detail-dialog
       v-if="show_product_detail_dialog"
-      :product="product"
+      :item="product"
       :dismiss="closeProductDetailDialog"
     />
 

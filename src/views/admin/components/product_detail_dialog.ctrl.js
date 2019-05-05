@@ -1,8 +1,11 @@
 import _ from 'lodash'
+import ProductService from '@/services/product'
+import ItemService from '@/services/item'
+import TicketService from '@/services/ticket'
 
 export default {
   props: {
-    product: {
+    item: {
       type: Object,
       required: true
     },
@@ -16,60 +19,60 @@ export default {
   data () {
     return {
       tabs: [
-        { id: 'orders', title: 'Orders' },
-        { id: 'open_cases', title: 'Open Cases' },
-        { id: 'closed_cases', title: 'Closed Cases' }
+        { id: 'items', title: 'Orders' },
+        { id: 'open_tickets', title: 'Open Cases' },
+        { id: 'closed_tickets', title: 'Closed Cases' }
       ],
-      active_tab: 'orders',
-      orders_headers: [
-        { text: 'Username', value: 'username', align: 'left' },
-        { text: 'Date', value: 'publisher_name', align: 'left' },
-        { text: 'Price', value: 'played', align: 'center' },
-        { text: 'Quantity', value: 'downloaded', align: 'center' },
-        { text: 'Shipping', value: 'reposted', align: 'center' },
-        { text: 'Tax', value: 'recommended', align: 'center' },
-        { text: 'Address', value: 'recommended', align: 'center' }
+      active_tab: 'items',
+      items_headers: [
+        { text: 'Username', value: 'username', align: 'left', sortable: false, width: '1%' },
+        { text: 'Date', value: 'order.created_at', align: 'left', sortable: false, width: '1%' },
+        { text: 'Price', value: 'price', align: 'center', sortable: false, width: '1%' },
+        { text: 'Quantity', value: 'quantity', align: 'center', sortable: false, width: '1%' },
+        { text: 'Shipping', value: 'shipping_cost', align: 'center', sortable: false, width: '1%' },
+        { text: 'Tax', value: 'tax_cost', align: 'center', sortable: false, width: '1%' },
+        { text: 'Address', value: 'status', align: 'center', sortable: false }
       ],
-      open_cases_headers: [
-        { text: 'Username', value: 'name', align: 'left' },
-        { text: 'Date Opened', value: 'publisher_name', align: 'left' },
-        { text: 'Reason', value: 'played', align: 'center' },
-        { text: 'Explanation', value: 'downloaded', align: 'center' },
-        { text: 'Close Case', value: 'status', align: 'center' }
+      open_tickets_headers: [
+        { text: 'Username', value: 'username', align: 'left', sortable: false },
+        { text: 'Date Opened', value: 'created_at', align: 'left', sortable: false },
+        { text: 'Reason', value: 'reason', align: 'center', sortable: false },
+        { text: 'Explanation', value: 'description', align: 'center', sortable: false },
+        { text: 'Close Case', value: 'status', align: 'center', sortable: false }
       ],
-      closed_cases_headers: [
-        { text: 'Username', value: 'name', align: 'left' },
-        { text: 'Date Opened', value: 'publisher_name', align: 'left' },
-        { text: 'Date Closed', value: 'publisher_name', align: 'left' },
-        { text: 'Reason', value: 'played', align: 'center' },
-        { text: 'Explanation', value: 'downloaded', align: 'center' }
+      closed_tickets_headers: [
+        { text: 'Username', value: 'username', align: 'left', sortable: false },
+        { text: 'Date Opened', value: 'created_at', align: 'left', sortable: false },
+        { text: 'Date Closed', value: 'closed_at', align: 'left', sortable: false },
+        { text: 'Reason', value: 'reason', align: 'center', sortable: false },
+        { text: 'Explanation', value: 'description', align: 'center', sortable: false }
       ],
       searchValue: '',
-      product_detail: {},
+      product: {},
       user: {
         avatar: {}
       },
-      orders: [],
-      open_cases: [],
-      closed_cases: [],
+      items: [],
+      open_tickets: [],
+      closed_tickets: [],
       per_page_options: [50, 100, 150],
-      orders_loading: false,
-      open_cases_loading: false,
-      closed_cases_loading: false,
-      total_orders: 0,
-      total_open_cases: 0,
-      total_closed_cases: 0,
-      orders_pagination: {
+      items_loading: false,
+      open_tickets_loading: false,
+      closed_tickets_loading: false,
+      total_items: 0,
+      total_open_tickets: 0,
+      total_closed_tickets: 0,
+      items_pagination: {
         page: 1,
-        rowsPerPage: 100
+        rowsPerPage: 10
       },
-      open_cases_pagination: {
+      open_tickets_pagination: {
         page: 1,
-        rowsPerPage: 100
+        rowsPerPage: 10
       },
-      closed_cases_pagination: {
+      closed_tickets_pagination: {
         page: 1,
-        rowsPerPage: 100
+        rowsPerPage: 10
       },
       // total_items: 0,
       // pagination: {
@@ -81,39 +84,108 @@ export default {
   },
 
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    }
   },
 
   methods: {
     loadProduct() {
-      ProductService.getProduct(this.prod.id)
+      // ProductService.getProduct(this.item.id)
+    },
+
+    loadItems() {
+      const params = {
+        page: this.items_pagination.page,
+        per_page: this.items_pagination.rowsPerPage
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      ProductService.orderedItems(this.product.id, params).then(response => {
+        this.items = response.body.items
+        this.total_items = response.body.pagination.total_count
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+    },
+
+    loadOpenTickets() {
+      const params = {
+        status: 'open',
+        page: this.open_tickets_pagination.page,
+        per_page: this.open_tickets_pagination.rowsPerPage
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      ProductService.tickets(this.product.id, params).then(response => {
+        this.open_tickets = response.body.tickets
+        this.total_open_tickets = response.body.pagination.total_count
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+    },
+
+    loadClosedTickets() {
+      const params = {
+        status: 'close',
+        page: this.closed_tickets_pagination.page,
+        per_page: this.closed_tickets_pagination.rowsPerPage
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      ProductService.tickets(this.product.id, params).then(response => {
+        this.closed_tickets = response.body.tickets
+        this.total_closed_tickets = response.body.pagination.total_count
+        this.$store.dispatch('error/showLoadingActivity', false)
+      }).catch(e => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+    },
+
+    fullAddress(address) {
+      return `${address.street_1}, ${address.city}, ${address.state}, ${address.country}`
+    },
+
+    closeTicket(ticket) {
+      // console.log('closeTicket', ticket)
+      const params = {
+        ticket: {
+          closed_user_id: this.currentUser.id,
+          status: 'close'
+        }
+      }
+      TicketService.updateTicket(ticket.id, params).then(response => {
+        this.loadOpenTickets()
+        this.loadClosedTickets()
+      })
     }
   },
 
   created () {
-    this.product_detail = _.cloneDeep(this.product)
-    this.user = _.get(this.product, 'merchant', {avatar: {}})
-    console.log('product_detail_dialog', this.product_detail)
-    ProductService.getProduct(this.product.id).then(response => {
-      this.product_detail = response.body
+    this.product = _.cloneDeep(this.item)
+    this.user = _.get(this.item, 'merchant', {avatar: {}})
+    console.log('product_detail_dialog', this.product)
+    ProductService.getProduct(this.item.id).then(response => {
+      this.product = response.body
     })
   },
 
   watch: {
-    orders_pagination: {
+    items_pagination: {
       handler () {
-        console.log('orders_pagination')
+        this.loadItems()
       }
     },
 
-    open_cases_pagination: {
+    open_tickets_pagination: {
       handler () {
-        console.log('open_cases_pagination')
+        // console.log('open_tickets_pagination', this.open_tickets_pagination)
+        this.loadOpenTickets()
       }
     },
 
-    closed_cases_pagination: {
+    closed_tickets_pagination: {
       handler () {
-        console.log('closed_cases_pagination')
+        this.loadClosedTickets()
       }
     }
   }

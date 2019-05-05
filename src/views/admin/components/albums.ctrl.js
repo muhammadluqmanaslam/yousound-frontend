@@ -50,15 +50,15 @@ export default {
       products: [],
       published_pagination: {
         page: 1,
-        rowsPerPage: 100
+        rowsPerPage: 10
       },
       privated_pagination: {
         page: 1,
-        rowsPerPage: 100
+        rowsPerPage: 10
       },
       product_pagination: {
         page: 1,
-        rowsPerPage: 100
+        rowsPerPage: 10
       },
       total_published_albums: 0,
       total_privated_albums: 0,

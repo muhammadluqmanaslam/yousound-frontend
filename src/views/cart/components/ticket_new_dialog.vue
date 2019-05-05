@@ -139,14 +139,14 @@
     },
 
     created () {
-      console.log('ticket_new_dialog', this.item)
+      // console.log('ticket_new_dialog', this.item)
       this.user = _.get(this.item, 'product.merchant', {avatar: {}})
       this.product = _.get(this.item, 'product', {covers: [{cover: {}}]})
 
       this.isDialogReady = false
       this.hasTicket = false
       this.$store.dispatch('error/showLoadingActivity', true)
-      ItemService.tickets(this.item.id, response => {
+      ItemService.tickets(this.item.id).then(response => {
         if (response.body.tickets.length > 0) {
           this.ticket = response.body.tickets[0]
           this.hasTicket = true

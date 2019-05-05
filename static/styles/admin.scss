@@ -195,6 +195,47 @@
     font-size: 20px;
     font-weight: 600;
   }
+
+  .table-wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+    .avatar-image-wrapper {
+      display: flex;
+      flex-direction: row;
+      .avatar-image {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        vertical-align: middle;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        margin-right: 10px;
+        border-radius: 100%;
+        background-color: rgba(0,0,0,.12);
+      }
+      .avatar-title {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .menu {
+      color: #8b8b8b;
+      .menu__activator .btn {
+        background: #f5f5f5!important;
+        border: none!important;
+        width: 37.5px;
+        min-width: 37.5px;
+        box-shadow: none;
+        border-radius: 50%;
+        color: #888;
+        .icon {
+          margin: 0;
+        }
+      }
+    }
+  }
 }
 
 .page.admin-page .ys-dialog.ys-album-dialog {

@@ -12,7 +12,8 @@
               :key="tab.id"
               :href="'#' + tab.id"
               @click.native="onTab(tab.id)"
-              ripple>{{ tab.title }}</v-tabs-item>
+              ripple
+            >{{ tab.title }}</v-tabs-item>
             <v-tabs-slider color="white"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>

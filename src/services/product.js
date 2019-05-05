@@ -69,11 +69,11 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + productId + '/deny_collaboration', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
-  orderedItems (productId) {
-    return Vue.http.get(`${API_BASE_URL}/${productId}/ordered_items`, { headers: { 'Authorization': $store.state.auth.token } })
+  orderedItems (productId, params) {
+    return Vue.http.get(`${API_BASE_URL}/${productId}/ordered_items`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   },
 
-  tickets (productId) {
-    return Vue.http.get(`${API_BASE_URL}/${productId}/tickets`, { headers: { 'Authorization': $store.state.auth.token } })
+  tickets (productId, params) {
+    return Vue.http.get(`${API_BASE_URL}/${productId}/tickets`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
   }
 }
