@@ -30,7 +30,7 @@ export default {
       hover_on_genre_tooltip: false,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 1 * 20,
+      items_per_page: 1 * 10,
       genres: [],
       selected_genre: null,
       categories: [],
@@ -214,6 +214,10 @@ export default {
       }
       this.$nextTick(() => {
         this.loadFeeds(this.activeTab)
+        this.loadMore()
+        this.loadMore()
+        this.loadMore()
+        this.loadMore()
       })
     }
   },
