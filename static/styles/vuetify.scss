@@ -1,6 +1,7 @@
 /* global error box */
 .snack {
-  z-index: 16;
+  // z-index: 16;
+  z-index: 203;
   .snack__content {
     label {
       text-overflow: ellipsis;
