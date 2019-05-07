@@ -84,6 +84,7 @@ able.table thead th:not(:first-child) {
 /* v-select : dropdown box */
 .menu__content {
   // z-index: 30 !important;
+  z-index: 300!important;
   border-radius: 3.75px;
 
   ul {
