@@ -15,6 +15,7 @@ import VeeValidate from 'vee-validate'
 import VueClipboard from 'vue-clipboard2'
 import VueHead from 'vue-head'
 import SocialSharing from 'vue-social-sharing'
+import VueLazyload from 'vue-lazyload'
 import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
 
@@ -37,6 +38,7 @@ Vue.use(VeeValidate)
 Vue.use(VueClipboard)
 Vue.use(VueHead)
 Vue.use(SocialSharing)
+Vue.use(VueLazyload)
 
 Vue.directive('on-click-outside', onClickOutside)
 

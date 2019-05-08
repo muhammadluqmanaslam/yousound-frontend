@@ -2,7 +2,7 @@
   <div>
     <div>&nbsp;</div>
 
-    <div class="page profile-slider-page image-container" v-if="!grid_show">
+    <!-- <div class="page profile-slider-page image-container" v-if="!grid_show">
       <canvas id="canvas" class="background-image" v-if="slide_tab!='merch'"></canvas>
       <div id="back_image" class="background-overlay" v-if="slide_tab!='merch'"></div>
 
@@ -64,7 +64,6 @@
                   <v-list>
                     <v-list-tile key="message" @click.native="showMessageDialog()">
                       <v-list-tile-title class="default-menu-item">
-                        <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
                         <label>Message</label>
                       </v-list-tile-title>
                     </v-list-tile>
@@ -80,13 +79,11 @@
                     </v-list-tile>
                     <v-list-tile key="share" class="default-menu-item">
                       <v-list-tile-title>
-                        <!-- <img class="track-status-icon" src="/static/images/ic_share.png" /> -->
                         <label>Share</label>
                       </v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile key="flag" class="default-menu-item">
                       <v-list-tile-title>
-                        <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
                         <label>Report</label>
                       </v-list-tile-title>
                     </v-list-tile>
@@ -114,9 +111,7 @@
                 >{{ tab.title }}</v-tabs-item>
                 <v-tabs-slider color="black"></v-tabs-slider>
                 <v-btn dark class="more-btn" @click.native="setGridView(true)">
-                  <!-- <v-icon>widgets</v-icon> -->
                   <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <!-- Generator: Sketch 47 (45396) - http://www.bohemiancoding.com/sketch -->
                     <title>ic-grid2</title>
                     <desc>Created with Sketch.</desc>
                     <defs></defs>
@@ -184,7 +179,7 @@
         :item="selectedProduct"
         :dismiss="closePageShareModal"
       />
-    </div>
+    </div> -->
 
     <div class="page profile-grid-page" v-if="grid_show">
       <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 style="height:inherit !important;">
