@@ -32,7 +32,6 @@
                     :objectIndex="index"
                     :hideButtonAction="hideAlbum"
                   />
-                  <!-- <track-card :dataObject="feed"/> -->
                 </div>
                 <div
                   v-for="feed in products"

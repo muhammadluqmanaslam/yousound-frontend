@@ -379,10 +379,11 @@
                   ref="chat"
                   autofocus
                 />
-                <!-- <div class="media__title">
-                  <i class="fa fa-chat"></i>
-                  Leave a comment
-                </div> -->
+              </div>
+              <div class="media__right">
+                <v-btn small fab @click.native="choosePage(`user/${user.slug}/chat`)">
+                  <img class="comment-icon" src="/static/images/ic_message.png"/>
+                </v-btn>
               </div>
             </div>
           </div>
