@@ -37,7 +37,7 @@ export default {
         { name: 'Top 5 listened genres', value: '' },
         { name: 'Cancelled Accounts', value: 0 }
       ],
-      per_page_options: [100, { text: "All", value: -1 }],
+      per_page_options: [50, { text: "All", value: -1 }],
       isPageReady: false
     }
   },

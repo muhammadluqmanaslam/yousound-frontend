@@ -42,7 +42,7 @@ export default {
         // sortBy: 'created_at',
         // descending: true,
         page: 1,
-        rowsPerPage: 10
+        rowsPerPage: 50
       },
       total_users: 0,
       isPageReady: true

@@ -23,7 +23,7 @@ export default {
       attendees: [],
       pagination: {
         page: 1,
-        rowsPerPage: 100,
+        rowsPerPage: 50,
         descending: true,
         totalItems: 0
       },

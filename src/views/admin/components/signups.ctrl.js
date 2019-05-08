@@ -61,7 +61,7 @@ export default {
         // descending: true,
         // totalItems: 0,
         page: 1,
-        rowsPerPage: 10
+        rowsPerPage: 50
       },
       isPageReady: true
     }

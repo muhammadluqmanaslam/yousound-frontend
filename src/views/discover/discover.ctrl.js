@@ -30,7 +30,7 @@ export default {
       hover_on_genre_tooltip: false,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 5 * 20,
+      items_per_page: 5 * 10,
       genres: [],
       selected_genre: null,
       categories: [],
