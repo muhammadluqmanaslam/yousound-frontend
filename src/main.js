@@ -11,9 +11,9 @@ import BrowserPage from '@/views/home/browser'
 import store from './store'
 import Vuetify from 'vuetify'
 import VueNumeric from 'vue-numeric'
-import VeeValidate from 'vee-validate'
 import VueClipboard from 'vue-clipboard2'
 import VueHead from 'vue-head'
+import VeeValidate from 'vee-validate'
 import SocialSharing from 'vue-social-sharing'
 import VueLazyload from 'vue-lazyload'
 import { directive as onClickOutside } from 'vue-on-click-outside'
@@ -34,11 +34,22 @@ Vue.use(VueResource)
 Vue.use(VueIntercom, { appId: process.env.INTERCOM_APP_ID })
 Vue.use(Vuetify)
 Vue.use(VueNumeric)
-Vue.use(VeeValidate)
 Vue.use(VueClipboard)
 Vue.use(VueHead)
 Vue.use(SocialSharing)
 Vue.use(VueLazyload)
+
+const dictionary = {
+  en: {
+    custom: {
+      username: {
+        regex: 'Username cannot have special char.'
+      }
+    }
+  }
+}
+VeeValidate.Validator.localize('en', dictionary.en)
+Vue.use(VeeValidate)
 
 Vue.directive('on-click-outside', onClickOutside)
 

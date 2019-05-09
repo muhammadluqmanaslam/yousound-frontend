@@ -27,7 +27,7 @@
               name="username"
               placeholder="Username"
               v-model="user.username"
-              v-validate="'required|max:20'"
+              v-validate="{ required: true, min: 3, max: 20, regex: /^[a-z0-9_.]+$/ }"
               @blur="onBlur"
               class="username"
             >

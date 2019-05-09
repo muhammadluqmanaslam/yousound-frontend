@@ -71,7 +71,7 @@ export default {
       startIndex: 0,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 6 * 1,
+      items_per_page: 5 * 10,
       genres: null,
       genre_index: 0,
       followings_selector: 'followings',
@@ -298,7 +298,8 @@ export default {
       }
 
       var params = {
-        page: this.page_index
+        page: this.page_index,
+        per_page: this.items_per_page
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       ProfileService.getItems(this.user.id, tab, params).then(response => {
