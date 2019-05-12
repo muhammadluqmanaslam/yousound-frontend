@@ -76,7 +76,13 @@
             </div>
           </div>
 
-          <v-menu offset-y id="genre_selector" class="filter_menu" v-show="activeTab!='merch'">
+          <v-menu
+            v-show="activeTab!='merch'"
+            content-class="filter-menu__content"
+            id="genre_selector"
+            class="filter_menu"
+            offset-y
+          >
             <v-btn dark slot="activator">Any genre
               <v-icon dark right>keyboard_arrow_down</v-icon>
             </v-btn>
@@ -91,7 +97,12 @@
             </v-list>
           </v-menu>
 
-          <v-menu offset-y id="category_selector" class="filter_menu" v-show="activeTab=='merch'">
+          <v-menu
+            v-show="activeTab=='merch'"
+            id="category_selector"
+            class="filter_menu"
+            offset-y
+          >
             <v-btn dark slot="activator">Any category
               <v-icon dark right>keyboard_arrow_down</v-icon>
             </v-btn>
