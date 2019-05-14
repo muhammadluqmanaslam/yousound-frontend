@@ -5,8 +5,8 @@
         <div class="playlist-icon" v-if="item.album_type=='playlist'">
           <img src="/static/images/playlist.png" />
         </div>
-        <!-- <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div> -->
-        <div class="track-image" v-lazy:background-image="item.cover.url"></div>
+        <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
+        <!-- <div class="track-image" v-lazy:background-image="item.cover.url"></div> -->
         <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
           <router-link :to="`/${item.album_type}/${item.slug}`">
             <v-flex xs12 class="touch-flex"></v-flex>
