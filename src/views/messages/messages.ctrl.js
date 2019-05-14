@@ -15,6 +15,7 @@ import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
 
 const ActionCable = require('actioncable')
+const DefaultRepostMessage = 'Hi, if you like this please repost it, thank you.'
 
 export default {
   components: {
@@ -434,8 +435,14 @@ export default {
       // console.log(this.item === item, this.item, item)
       if (this.item === item) {
         this.item = null
+        if (this.message.body === DefaultRepostMessage) {
+          this.message.body = ''
+        }
       } else {
         this.item = item
+        if (this.message.body === '') {
+          this.message.body = DefaultRepostMessage
+        }
       }
     },
 

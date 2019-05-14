@@ -360,7 +360,7 @@
               </div>
             </div>
             <div class="send-message-section">
-              <input v-model="message.body"
+              <input v-model.trim="message.body"
                 type="text"
                 maxlength="500"
                 class="message-input-box"
