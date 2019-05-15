@@ -115,14 +115,16 @@ export default {
           statuses: 'published, collaborated',
           stock_statuses: 'active',
           user_statuses: 'accepted'
-        })
+        }),
+        ProfileService.getItems(this.currentUser.id, 'sample_followings', params)
       ]).then(values => {
         this.genres = _.flatMap(this.$store.state.app.genres, 'children')
         this.followings = _.cloneDeep(values[0].body.users)
         this.users = _.cloneDeep(values[0].body.users)
         this.users.unshift(this.currentUser)
 
-        this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
+        // this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
+        this.artists = _.cloneDeep(values[2].body.users)
 
         this.products = values[1].body
         this.$store.dispatch('genreSelector/setGenres', [])
