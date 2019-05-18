@@ -91,6 +91,7 @@
   }
   .player-section {
     .controls-section {
+      position: relative;
       padding-top: 7.5px;
       text-align: center;
       .player-control-btn {
@@ -128,6 +129,43 @@
         }
         &.selected {
           background: rgba(0, 0, 0, 0.1) !important;
+        }
+      }
+      .volume-container {
+        position: absolute;
+        display: flex;
+        right: 5px;
+        top: 10px;
+        height: 50px;
+        align-items: center;
+        .volume {
+          display: flex;
+          height: auto;
+          align-items: center;
+          .input-group.volume-ranger {
+            display: block;
+            min-width: auto;
+            width: 0;
+            transition: width .5s, padding .5s;
+            padding: 0;
+            .slider__thumb-container {
+              opacity: 0;
+            }
+          }
+          i {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+          }
+          &:hover {
+            .volume-ranger {
+              width: 60px;
+              padding: 0 10px 0 15px;
+              .slider__thumb-container {
+                opacity: 1;
+              }
+            }
+          }
         }
       }
     }

@@ -1,11 +1,9 @@
 <template>
   <v-layout row wrap class="bottom-player" v-if="$store.getters['player/isPlaying']">
-  <!-- <v-layout row wrap class="bottom-player" v-if="isStart"> -->
     <v-flex xs12 sm4 md4 class="track-detail-section">
       <router-link :to="`/${item.album_type}/${item.slug}`">
         <div class="track-cover-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
       </router-link>
-      <!-- <div class="track-cover-image" style="background-image: url('/static/images/post1.jpg')"></div> -->
       <div class="track-info-section">
         <div class="track-info">
           <label class="track-index" id="trackIndex">{{ trackIndex }}</label>
@@ -126,6 +124,19 @@
                 </g>
             </svg>
           </v-btn>
+
+          <div class="volume-container">
+            <div class="volume">
+              <v-slider
+                v-model="volume"
+                @input="updateVolume"
+                thumb-label
+                class="volume-ranger"
+                hide-details
+              ></v-slider>
+              <v-icon>volume_up</v-icon>
+            </div>
+          </div>
         </div>
         <div class="bar-section">
           <!-- <label class="duration-time played" id="playedTime">0:34</label> -->
@@ -233,7 +244,7 @@
 
 <script type="text/javascript">
 import { mapActions } from 'vuex'
-import { Howl } from 'howler'
+import { Howl, Howler } from 'howler'
 import AlbumService from '@/services/album'
 import TrackService from '@/services/track'
 import UserService from '@/services/user'
@@ -259,6 +270,8 @@ export default {
       track: {},
       playedTime: 0,
       progress: 0,
+      volume: 100,
+      lastVolume: 100,
       showDownloadModal: false,
       showShareModal: false,
       totalTime: null,
@@ -305,6 +318,7 @@ export default {
   },
 
   created () {
+    Howler.volume(this.volume / 100)
   },
 
   methods: {
@@ -666,6 +680,16 @@ export default {
 
     skipTrack (index) {
       this.skipTo(index)
+    },
+
+    // onVolumeChange (evt) {
+    //   // console.log('onVolumeChange', evt, this.volume)
+    //   this.updateVolume(this.volume)
+    // },
+
+    updateVolume () {
+      // console.log('updateVolume', volume)
+      Howler.volume(this.volume / 100)
     },
 
     randomPlay () {
