@@ -25,24 +25,25 @@
       <h4 class="track-list-title" id="track_list">Track List</h4>
       <draggable
         v-model="album.tracks"
-        :disabled="dragDisabled"
+        handle=".item-handle"
         class="track-items"
       >
         <transition-group>
           <div class="track-item" v-for="(file, index) in album.tracks" :key="index">
             <label class="item-index">{{ index + 1 }}</label>
             <div class="item-section">
-              <div class="item-progress" style="display:none;"></div>
+              <!-- <div class="item-progress" style="display:none;"></div> -->
+              <v-icon class="item-handle">reorder</v-icon>
               <input
                 v-model="file.file_name"
                 type="text"
-                :disabled="!file.editing || file.status != status.success"
+                :disabled="file.status != status.success"
                 @focus="onInputFocus(index, $event)"
                 @blur="onInputBlur(index, $event)"
                 class="item-name"
               >
 
-              <v-icon
+              <!-- <v-icon
                 v-if="file.editing"
                 @click="disableEditing(file)"
                 class="not_edit"
@@ -51,7 +52,7 @@
                 v-else
                 @click="enableEditing(file)"
                 class="edit"
-              >title</v-icon>
+              >title</v-icon> -->
 
               <!-- <label class="item-progress-value" v-if="file.status == status.uploading">28%</label> -->
               <v-progress-circular
@@ -132,7 +133,6 @@ export default {
     return {
       show_unauthorized_content_dialog: false,
       show_duplicate_content_dialog: false,
-      // dragEnabled: true,
       currentFile: {
         track_title: '',
         artist_name: ''
@@ -148,11 +148,11 @@ export default {
   },
 
   computed: {
-    dragDisabled () {
-      const hasEditing = _.find(this.album.tracks, (file) => (file.editing)) == null
-      // console.log('dragDisabled', !hasEditing)
-      return !hasEditing
-    }
+    // dragDisabled () {
+    //   const hasEditing = _.find(this.album.tracks, (file) => (file.editing)) == null
+    //   // console.log('dragDisabled', !hasEditing)
+    //   return !hasEditing
+    // }
   },
 
   created () {

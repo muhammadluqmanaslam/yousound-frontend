@@ -114,7 +114,7 @@
           // letter-spacing: 0;
           // line-height: 30px;
           position: absolute;
-          left: 4.5px;
+          left: 34.5px;
           font-weight: 600;
           font-size: 14px;
           color: #000000;
@@ -127,20 +127,27 @@
           padding: 0 11.25px;
           font-family: 'Nunito'
         }
-        .edit {
+        .item-handle {
           position: absolute;
           top: 7px;
-          right: 38px;
+          left: 5px;
           color: #C1C1C1;
           cursor: pointer;
         }
-        .not_edit {
-          position: absolute;
-          top: 7px;
-          right: 38px;
-          color: #D0021B;
-          cursor: pointer;
-        }
+        // .edit {
+        //   position: absolute;
+        //   top: 7px;
+        //   right: 38px;
+        //   color: #C1C1C1;
+        //   cursor: pointer;
+        // }
+        // .not_edit {
+        //   position: absolute;
+        //   top: 7px;
+        //   right: 38px;
+        //   color: #D0021B;
+        //   cursor: pointer;
+        // }
         .item-progress {
           height: 30px;
           position: absolute;
