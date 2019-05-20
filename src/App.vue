@@ -53,6 +53,7 @@
 <script>
 /* global $:true */
 
+import _ from 'lodash'
 import debounce from 'lodash/debounce'
 import Vue from 'vue'
 
@@ -213,6 +214,7 @@ export default {
         console.log('flowplayer unload')
       }).on('shutdown', function (e, api) {
         console.log('flowplayer shutdown')
+        vm.$root.$emit(MyEvents.VIDEO_PLAYER_EXIT, _.get(vm.$store.state.videoPlayer.stream, 'user.username', ''))
         vm.$store.commit('videoPlayer/reset')
       }).on('fullscreen', function (e, api) {
         console.log('flowplayer fullscreen')

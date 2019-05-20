@@ -14,7 +14,7 @@ import activityUserCard from '@/components/activityusercard'
 import { Picker } from 'emoji-mart-vue'
 import VueChatScroll from 'vue-chat-scroll'
 import Vue from 'vue'
-import { EHOSTUNREACH } from 'constants';
+// import { EHOSTUNREACH } from 'constants';
 import { MyEvents } from '@/helper';
 
 Vue.use(VueChatScroll)
@@ -295,6 +295,17 @@ export default {
         })
     },
 
+    onExitVideoPlayer(username) {
+      // console.log('exit video player...', username)
+      const vm = this
+      if (this.user.username === username) {
+        setTimeout(() => {
+          console.log('back to online', username)
+          vm.chat_socket.online()
+        }, 1000)
+      }
+    },
+
     loadPage() {
       this.unloadPage()
 
@@ -370,6 +381,7 @@ export default {
           }
 
           this.chat_socket.onRoomInfo = async room => {
+            console.log('chat onRoomInfo', room)
             // Vue.set(vm, "room", room)
             vm.room = room
             // Fetch user data (avatar image, etc)
@@ -484,10 +496,12 @@ export default {
   created() {
     this.artist = this.$route.params.user
 
+    this.$root.$on(MyEvents.VIDEO_PLAYER_EXIT, this.onExitVideoPlayer)
     this.loadPage()
   },
 
   beforeDestroy () {
+    this.$root.$off(MyEvents.VIDEO_PLAYER_EXIT, this.onExitVideoPlayer)
     this.unloadPage()
   },
 

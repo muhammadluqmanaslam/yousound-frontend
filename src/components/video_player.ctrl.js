@@ -380,7 +380,7 @@ export default {
         // }
 
         this.chat_socket.onRoomInfo = async room => {
-          // console.log('videoPlayer onRoomInfo')
+          console.log('videoPlayer onRoomInfo', room)
           // Vue.set(vm, 'room', room)
           vm.room = room
         }
