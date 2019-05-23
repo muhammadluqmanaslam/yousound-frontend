@@ -61,12 +61,15 @@
       </v-flex>
     </v-flex>
 
-    <merch-modal v-if="showMerchModal"
+    <merch-modal
+      v-if="showMerchModal"
       :item="item"
       :dismiss="dimissMerchDialog"
       :shareProduct="showShareDialog"
     />
-    <share-modal v-if="showShareModal"
+
+    <share-modal
+      v-if="showShareModal"
       :item="item"
       :dismiss="dismissShareDialog"
     />

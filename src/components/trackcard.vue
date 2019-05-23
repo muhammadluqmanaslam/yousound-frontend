@@ -78,23 +78,10 @@
                   @click.native="showHideAlbumDialog()"
                   class="default-menu-item track-menu-item"
                 >
-                  <v-dialog v-model="hide_dialog" content-class="my-dialog-1">
-                    <v-list-tile-title slot="activator">
-                      <v-icon>visibility_off</v-icon>
-                      <label>Hide</label>
-                    </v-list-tile-title>
-                    <v-card>
-                      <v-card-media :src="item.cover.url" height="125px" contain></v-card-media>
-                      <v-card-text>
-                        <div class="headline">Are you sure you want to hide this {{item.album_type}}?</div>
-                        <div>You won't be able to see it anymore, unless you visit the artists profile or download the song.</div>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-btn dark color="grey" @click.native="hide_dialog = false">No, cancel please!</v-btn>
-                        <v-btn dark color="red" @click.native="hideAlbum()">Yes, hide it!</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
+                  <v-list-tile-title>
+                    <v-icon>visibility_off</v-icon>
+                    <label>Hide</label>
+                  </v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile
                   v-if="item.user.id != currentUser.id"
@@ -138,47 +125,10 @@
                         @click.native="addToNewPlaylist()"
                         class="default-menu-item track-menu-item"
                       >
-                        <v-dialog v-model="playlist_dialog" class="playlist-dialog" max-width="500px">
-                          <v-list-tile-title slot="activator">
-                            <img class="track-status-icon" src="/static/images/ic_add_to.png" />
-                            <label>New Playlist</label>
-                          </v-list-tile-title>
-                          <v-card class="playlist-dialog-body">
-                            <v-card-title>
-                              <v-flex xs12 text-xs-center>
-                                <h5 class="ma-0">New Playlist</h5>
-                              </v-flex>
-                              <v-btn class="dialog-close-btn" @click.native="playlist_dialog=false"><v-icon>highlight_off</v-icon></v-btn>
-                            </v-card-title>
-                            <v-divider></v-divider>
-                            <v-card-text class="create-playlist-section">
-                              <div class="playlist-image-section"> 
-                                <div class="image-section">
-                                  <div class="playlist-image" id="playlist_image" v-if="playlist.image" :style="`background-image: url(${selectedImage})`"></div>
-                                  <div class="playlist-image-upload-section" v-if="!playlist.image">
-                                    <input type="file" name="playlist_image_file" :id="input_id" class="add-playlist-image-file" accept="image/*" @change="imageChanged($event)">
-                                    <label :for="input_id">
-                                      <v-icon class="camera">photo_camera</v-icon>Add Image
-                                    </label>
-                                  </div>
-                                </div>
-                                <div class="image-change-section" v-if="playlist.image">
-                                  <input type="file" name="playlist_image_file" :id="input_id" class="change-playlist-image-file" accept="image/*" @change="imageChanged($event)">
-                                  <label :for="input_id">Change</label>
-                                </div>
-                              </div>
-                              <div class="playlist-content-section">
-                                <v-flex xs12 form-group>
-                                  <label class="control-label">Name<label class="required">*</label></label>
-                                  <input type="text" class="form-control" v-model="playlist.name">
-                                </v-flex>
-                                <v-flex xs12 sm12 form-group>
-                                  <v-btn class="create-playlist-btn" flat @click.native="createPlaylist()">Create Playlist</v-btn>
-                                </v-flex>
-                              </div>
-                            </v-card-text>
-                          </v-card>
-                        </v-dialog>
+                        <v-list-tile-title>
+                          <img class="track-status-icon" src="/static/images/ic_add_to.png" />
+                          <label>New Playlist</label>
+                        </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile
                         v-for="(list, list_index) in playlists"
@@ -246,12 +196,65 @@
       :dismiss="dismissShareDialog"
     />
 
-    <v-dialog v-model="show_report_dialog" width="1000" persistent>
+    <v-dialog v-if="show_report_dialog" v-model="show_report_dialog" width="1000" persistent>
       <album-report-dialog
         :album="item"
         :dismiss="closeReportDialog"
       />
     </v-dialog>
+
+    <v-dialog v-if="hide_dialog" v-model="hide_dialog" content-class="my-dialog-1">
+      <v-card>
+        <v-card-media :src="item.cover.url" height="125px" contain></v-card-media>
+        <v-card-text>
+          <div class="headline">Are you sure you want to hide this {{item.album_type}}?</div>
+          <div>You won't be able to see it anymore, unless you visit the artists profile or download the song.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark color="grey" @click.native="hide_dialog = false">No, cancel please!</v-btn>
+          <v-btn dark color="red" @click.native="hideAlbum()">Yes, hide it!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-if="playlist_dialog" v-model="playlist_dialog" max-width="500px" class="playlist-dialog">
+      <v-card class="playlist-dialog-body">
+        <v-card-title>
+          <v-flex xs12 text-xs-center>
+            <h5 class="ma-0">New Playlist</h5>
+          </v-flex>
+          <v-btn class="dialog-close-btn" @click.native="playlist_dialog=false"><v-icon>highlight_off</v-icon></v-btn>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="create-playlist-section">
+          <div class="playlist-image-section">
+            <div class="image-section">
+              <div class="playlist-image" id="playlist_image" v-if="playlist.image" :style="`background-image: url(${selectedImage})`"></div>
+              <div class="playlist-image-upload-section" v-if="!playlist.image">
+                <input type="file" name="playlist_image_file" :id="input_id" class="add-playlist-image-file" accept="image/*" @change="imageChanged($event)">
+                <label :for="input_id">
+                  <v-icon class="camera">photo_camera</v-icon>Add Image
+                </label>
+              </div>
+            </div>
+            <div class="image-change-section" v-if="playlist.image">
+              <input type="file" name="playlist_image_file" :id="input_id" class="change-playlist-image-file" accept="image/*" @change="imageChanged($event)">
+              <label :for="input_id">Change</label>
+            </div>
+          </div>
+          <div class="playlist-content-section">
+            <v-flex xs12 form-group>
+              <label class="control-label">Name<label class="required">*</label></label>
+              <input type="text" class="form-control" v-model="playlist.name">
+            </v-flex>
+            <v-flex xs12 sm12 form-group>
+              <v-btn class="create-playlist-btn" flat @click.native="createPlaylist()">Create Playlist</v-btn>
+            </v-flex>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
   </v-flex>  
 </template>
 

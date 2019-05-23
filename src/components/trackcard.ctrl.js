@@ -226,6 +226,7 @@ export default {
         image: null
       }
       this.selectedImage = null
+      this.playlist_dialog = true
     },
 
     createPlaylist () {
