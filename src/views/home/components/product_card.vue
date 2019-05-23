@@ -20,7 +20,9 @@
         </p>
       </v-flex>
     </v-flex>
-    <merch-modal v-if="show_merch_dialog"
+
+    <merch-modal
+      v-if="show_merch_dialog"
       :item="item"
       :dismiss="closeMerchDialog"
     />

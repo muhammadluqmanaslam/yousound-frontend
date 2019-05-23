@@ -1,6 +1,12 @@
 <template>
   <v-flex class="track-card">
-    <v-flex xs12 class="track-info" pa-0 v-if="!isEmptyAlbum">
+    <v-flex
+      v-if="!isEmptyAlbum"
+      @mouseenter="is_component_hover=true"
+      @mouseleave="is_component_hover=false"
+      xs12 pa-0
+      class="track-info"
+    >
       <v-flex xs12 class="track-cover">
         <div class="playlist-icon" v-if="item.album_type=='playlist'">
           <img src="/static/images/playlist.png" />
@@ -28,14 +34,14 @@
             <v-icon>pause</v-icon>
           </v-btn>
           <v-menu
-            v-if="currentUser"
+            v-if="currentUser && willMenuRender"
             v-model="menu"
             offset-y
             :close-on-content-click="false"
             :nudge-width="100"
             class="track-menu"
           >
-            <v-btn dark slot="activator">
+            <v-btn dark slot="activator" @click="is_menu_hover = true">
               <v-icon right>more_horiz</v-icon>
             </v-btn>
             <v-card>
