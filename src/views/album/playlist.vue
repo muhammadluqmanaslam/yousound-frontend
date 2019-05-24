@@ -17,8 +17,7 @@
               </v-btn>
             </div>
           </div>
-          <div class="action-section">
-          </div> 
+          <div class="action-section"></div>
         </div> 
         <div class="album-detail-section">
           <div class="album-info-section">
@@ -26,58 +25,70 @@
             <h4 class="album-name">{{ playlist.name }}</h4>
             <div class="py-2">
               <!-- <label class="album-description">{{ playlist.description }}</label> -->
-              <v-dialog v-model="playlist_dialog" class="album-credits-dialog" scrollable max-width="600px" v-if="currentUser.id==playlist.user.id">
+              <v-dialog
+                v-if="currentUser.id==playlist.user.id"
+                v-model="playlist_dialog"
+                scrollable
+                max-width="600px"
+                class="album-credits-dialog"
+              >
                 <v-btn color="primary" dark slot="activator" class="text-btn">Edit playlist</v-btn>
                 <v-card class="album-dialog-body">
                   <v-card-title>Edit Playlist</v-card-title>
-                  <v-btn class="dialog-close-btn" @click.native="playlist_dialog=false"><v-icon>highlight_off</v-icon></v-btn>
-                    <v-card-text class="create-playlist-section">
-                      <div class="playlist-image-section"> 
-                        <div class="image-section">
-                          <div class="playlist-image" id="playlist_image" v-if="selectedImage" :style="`background-image: url(${selectedImage})`"></div>
-                          <div class="playlist-image-upload-section" v-if="!selectedImage">
-                            <input type="file" name="playlist_image_file" :id="input_id" class="add-playlist-image-file" accept="image/*" @change="imageChanged($event)">
-                            <label :for="input_id">
-                              <v-icon class="camera">photo_camera</v-icon>Add Image
-                            </label>
-                          </div>
-                        </div>
-                        <div class="image-change-section" v-if="selectedImage">
-                          <input type="file" name="playlist_image_file" :id="input_id" class="change-playlist-image-file" accept="image/*" @change="imageChanged($event)">
-                          <label :for="input_id">Change</label>
+                  <v-btn class="dialog-close-btn" @click.native="playlist_dialog=false">
+                    <v-icon>highlight_off</v-icon>
+                  </v-btn>
+                  <v-card-text class="create-playlist-section">
+                    <div class="playlist-image-section">
+                      <div class="image-section">
+                        <div class="playlist-image" id="playlist_image" v-if="selectedImage" :style="`background-image: url(${selectedImage})`"></div>
+                        <div class="playlist-image-upload-section" v-if="!selectedImage">
+                          <input type="file" name="playlist_image_file" :id="input_id" class="add-playlist-image-file" accept="image/*" @change="imageChanged($event)">
+                          <label :for="input_id">
+                            <v-icon class="camera">photo_camera</v-icon>Add Image
+                          </label>
                         </div>
                       </div>
-                      <div class="playlist-content-section">
-                        <v-flex xs12 form-group>
-                          <label class="control-label">Name<label class="required">*</label></label>
-                          <input type="text" class="form-control" v-model="playlist.name">
-                        </v-flex>
-                        <v-flex xs12 sm12 form-group>
-                          <v-btn class="create-playlist-btn" flat @click.native="updatePlaylist()">Update Playlist</v-btn>
-                          <v-btn class="create-playlist-btn delete-playlist-btn" flat @click.native="deletePlaylist()">Delete Playlist</v-btn>
-                        </v-flex>
+                      <div class="image-change-section" v-if="selectedImage">
+                        <input type="file" name="playlist_image_file" :id="input_id" class="change-playlist-image-file" accept="image/*" @change="imageChanged($event)">
+                        <label :for="input_id">Change</label>
                       </div>
-                    </v-card-text>
+                    </div>
+                    <div class="playlist-content-section">
+                      <v-flex xs12 form-group>
+                        <label class="control-label">Name<label class="required">*</label></label>
+                        <input type="text" class="form-control" v-model="playlist.name">
+                      </v-flex>
+                      <v-flex xs12 sm12 form-group>
+                        <v-btn class="create-playlist-btn" flat @click.native="updatePlaylist()">Update Playlist</v-btn>
+                        <v-btn class="create-playlist-btn delete-playlist-btn" flat @click.native="deletePlaylist()">Delete Playlist</v-btn>
+                      </v-flex>
+                    </div>
+                  </v-card-text>
                 </v-card>
               </v-dialog>
             </div>
             <p class="album-detail">by <router-link :to="'/' + playlist.user.slug" class="album-detail">{{ playlist.user.display_name }}</router-link>  •  2017 – {{ playlist.tracks.length }} Songs, 40:22 </p>
           </div>
           <div v-if="currentUser.id != playlist.user.id" class="album-tracks-section">
-            <album-track-item v-for="(track, index) in playlist.tracks"
+            <album-track-item
+              v-for="(track, index) in playlist.tracks"
               :key="index"
               :album="playlist"
-              :trackIndex="index"></album-track-item>
+              :trackIndex="index"
+            ></album-track-item>
           </div>
           <div v-else class="album-tracks-section">
             <draggable v-model="playlist.tracks" class="track-items" @end="onEnd">
               <transition-group>
-                <album-track-item v-for="(track, index) in playlist.tracks"
+                <album-track-item
+                  v-for="(track, index) in playlist.tracks"
                   :key="index"
                   :album="playlist"
                   :trackIndex="index"
                   :removeTrack="removeTrack"
-                  :showStats="true"></album-track-item>
+                  :showStats="true"
+                ></album-track-item>
               </transition-group>
             </draggable>
           </div>
@@ -166,11 +177,11 @@
                     <label class="comment-time">Now</label>
                   </div>
                 </div>
-                <div class="child-items" v-if="false">
+                <!-- <div class="child-items" v-if="false">
                   <div class="comment-child-item">
                     <img class="profile-image" src="/static/images/sample_user.png" />
                     <div class="comment-content relative">
-                      <!-- <label class="user-name">Ruckazoid <v-icon class="user-status online">fa-check-circle</v-icon></label> -->
+                      <label class="user-name">Ruckazoid <v-icon class="user-status online">fa-check-circle</v-icon></label>
                       <p class="commnet-text">🙌🏿 You da man! Thanks bro.</p>
                     </div>
                     <div class="right-section">
@@ -202,7 +213,7 @@
                       <label class="comment-time">5 min ago</label>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="text-xs-center">
                 <v-btn
@@ -231,7 +242,8 @@
         </v-layout>
       </v-flex>
 
-      <download-modal v-if="showDownloadModal"
+      <download-modal
+        v-if="showDownloadModal"
         :item="playlist"
         :dismiss="dismissDownloadModal"
       />

@@ -50,8 +50,8 @@ export default {
   },
 
   computed: {
-    _ () {
-      return _
+    currentUser () {
+      return this.$store.state.auth.user
     },
 
     track () {
