@@ -326,8 +326,10 @@
 
   .video-thumbnail-wrapper {
     position: relative;
-    width: 100%;
-    padding-top: 56.25%;
+    // width: 100%;
+    // padding-top: 56.25%;
+    width: 60%;
+    padding-top: 60%;
     .video-thumbnail {
       position: absolute;
       top: 0;
