@@ -44,7 +44,12 @@
               </v-layout>
 
               <div class="text-xs-center">
-                <v-btn class="loadmore-btn" @click.native="loadMore()" v-show="page_index < total_pages">Load More</v-btn>
+                <v-btn
+                  v-if="isPageReady"
+                  v-show="page_index < total_pages"
+                  @click.native="loadMore()"
+                  class="loadmore-btn"
+                >Load More</v-btn>
               </div>
             </v-tabs-content>
           </v-tabs-items>

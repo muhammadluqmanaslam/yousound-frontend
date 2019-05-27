@@ -31,7 +31,7 @@ export default {
       hover_on_genre_tooltip: false,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 5 * 10,
+      items_per_page: 1 * 10,
       genres: [],
       selected_genre: null,
       categories: [],
@@ -92,7 +92,11 @@ export default {
   },
 
   methods: {
-    loadFeeds(tab) {
+    loadFeeds(tab, page) {
+      const vm = this
+      if (page == 1) {
+        this.isPageReady = false
+      }
       this.$store.dispatch('error/showLoadingActivity', true)
       const genre = _.get(this.selected_genre, 'id', 'any')
       const category = _.get(this.selected_category, 'id', 'any')
@@ -100,8 +104,8 @@ export default {
         filter: tab,
         genre: genre,
         category: category,
-        page: this.page_index,
-        'per_page': this.items_per_page
+        page: page,
+        per_page: this.items_per_page
       }
       if (tab !== 'recommended') {
         params['seed'] = this.seed
@@ -125,6 +129,38 @@ export default {
         }
         this.page_index = response.body.pagination.current_page
         this.total_pages = response.body.pagination.total_pages
+
+        if (page == 1) {
+          Promise.all([
+            SearchService.searchDiscover(_.extend(params, { page: 2 })),
+            SearchService.searchDiscover(_.extend(params, { page: 3 })),
+            SearchService.searchDiscover(_.extend(params, { page: 4 })),
+            SearchService.searchDiscover(_.extend(params, { page: 5 }))
+          ]).then(values => {
+            if (tab === 'merch') {
+              vm.products = vm.products.concat(
+                values[0].body.products,
+                values[1].body.products,
+                values[2].body.products,
+                values[3].body.products
+              )
+              vm.page_index = values[3].body.pagination.total_pages > 5 ? 5 : values[3].body.pagination.total_pages
+            } else {
+              vm.feeds = vm.feeds.concat(
+                values[0].body.albums,
+                values[1].body.albums,
+                values[2].body.albums,
+                values[3].body.albums
+              )
+              const genres = _.chain(vm.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+              vm.genres = [
+                { id: 'any', name: 'Any genre' },
+              ].concat(genres)
+              vm.page_index = values[3].body.pagination.total_pages > 5 ? 5 : values[3].body.pagination.total_pages
+            }
+            vm.isPageReady = true
+          })
+        }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -168,15 +204,15 @@ export default {
           this.selected_category = category
       }
 
-      this.page_index = 1
+      // this.page_index = 1
       this.total_pages = 1
       this.products = []
-      this.loadFeeds(this.activeTab)
+      this.loadFeeds(this.activeTab, 1)
     },
 
     loadMore() {
-      this.page_index += 1
-      this.loadFeeds(this.activeTab)
+      // this.page_index += 1
+      this.loadFeeds(this.activeTab, this.page_index + 1)
     },
 
     hideAlbum(album) {
@@ -214,7 +250,7 @@ export default {
         $('#genre_selector .btn__content').html('Any genre' + filterArrowDownString)
       }
       this.$nextTick(() => {
-        this.loadFeeds(this.activeTab)
+        this.loadFeeds(this.activeTab, 1)
       })
     }
   },
