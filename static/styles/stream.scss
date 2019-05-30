@@ -15,10 +15,12 @@
               text-transform: none;
               font-size: 18px;
               font-weight: 500;
-              color: #777 !important;
+              color: #000 !important;
+              font-family: 'Montserrat';
               text-transform: uppercase;
               &.tabs__item--active {
                 color: #000000 !important;
+                font-weight: 700;
               }
             }
           }

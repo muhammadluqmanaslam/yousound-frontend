@@ -38,11 +38,11 @@ body {
 
   &.primary {
     background: #0ebcff; /* For browsers that do not support gradients */
-    background: radial-gradient(ellipse at center, #67d4ff 2%, #0040DE 100%); /* Standard syntax */
-    background: -webkit-radial-gradient(center, ellipse cover, #67d4ff 2%, #0040DE 100%); /* For Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(center, ellipse cover, #67d4ff 2%, #0040DE 100%); /* For Opera 11.1 to 12.0 */
-    background: -moz-radial-gradient(center, ellipse cover, #67d4ff 2%, #0040DE 100%); /* For Firefox 3.6 to 15 */
-    background: -ms-radial-gradient(center, ellipse cover, #67d4ff 2%, #0040DE 100%);
+    background: radial-gradient(ellipse at center, #002389 2%, #1f59e4 100%); /* Standard syntax */
+    background: -webkit-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%); /* For Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%); /* For Opera 11.1 to 12.0 */
+    background: -moz-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%); /* For Firefox 3.6 to 15 */
+    background: -ms-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%);
 
     .my-footer {
       a {
@@ -239,7 +239,8 @@ a {
     font-weight: 500;
     font-size: 18px;
     text-transform: uppercase;
-    color: #777 !important;
+    color: #000 !important;
+    font-family: 'Montserrat';
   }
 }
 
@@ -252,6 +253,7 @@ a {
 }
 .application .normal-tab .tabs .tabs__item.tabs__item--active {
   color: #000 !important;
+  font-weight: 700;
 }
 
 .relative {
@@ -454,7 +456,7 @@ input[type=password] {
 .card-container {
   flex: initial !important;
   margin-bottom: 16px;
-  padding: 0 11.25px !important;
+  padding: 0 14px !important;
 }
 
 .empty-section {
@@ -536,17 +538,17 @@ input[type=password] {
 
 @media (min-width: 1012.5px) {
   .card-container {
-    flex-basis: 20%;
-    max-width: 20%;
-    width: 20%;
+    flex-basis: 25%;
+    max-width: 25%;
+    width: 25%;
   }
 }
 
 @media (min-width: 1215px) {
   .card-container {
-    flex-basis: 20%;
-    max-width: 20%;
-    width: 20%;
+    flex-basis: 25%;
+    max-width: 25%;
+    width: 25%;
   }
 }
 

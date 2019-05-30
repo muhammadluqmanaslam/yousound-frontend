@@ -45,7 +45,7 @@
         </v-flex>
 
         <v-flex xs12 sm6 class="activity-item-recent-posts" v-if="activityItem.sender.recent_items">
-          <p class="recent-posts-section-title">Recent reposts</p>
+          <p class="recent-posts-section-title">Recent activity</p>
           <!-- <div class="recent-post-item" :style="{'background-image': 'url(' + imageURL(repost.assoc) + ')'}" v-for="(repost, index) in activityItem.sender.recent_items" :key="index">
             <router-link :to="'/album/' + repost.assoc.slug" v-if="repost.assoc.album_type"></router-link>
             <router-link to="/" v-if="!repost.assoc.album_type"></router-link>

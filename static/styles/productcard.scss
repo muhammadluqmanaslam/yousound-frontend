@@ -70,7 +70,7 @@
         margin: 0;
         top: 15px;
         left: 15px;
-        font-size: 14px;
+        font-size: 16px;
         color: #FFFFFF;
         letter-spacing: 0;
       }
@@ -106,7 +106,7 @@
         .view-details-btn {
           position: absolute;
           bottom: 10px;
-          left: 70px;
+          left: 100px;
           text-transform: initial;
           box-shadow: none;
           background-color: #000!important;
@@ -152,7 +152,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        text-align: center;
+        text-align: left;
       }
       .product-user-name {
         width: 100%;
@@ -160,10 +160,12 @@
         opacity: 0.5;
         font-size: 18px;
         color: #000;
+        text-align: left;
         letter-spacing: -0.6px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        margin-bottom: 24px;
         a {
           color: inherit;
         }

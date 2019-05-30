@@ -86,7 +86,7 @@
 
   .share-view {
     h3 {
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 300px;
       font-family: 'Work Sans';
       letter-spacing: -1px;
@@ -192,15 +192,16 @@
     .my-card__subtitle {
       font-size: 24px;
       font-weight: 600;
-      letter-spacing: -.5px;
+      letter-spacing: -.8px;
+      font-family: 'Montserrat';
     }
 
     .my-card__text {
       margin-top: 10px;
       margin-bottom: 36px;
-      font-family: 'Work Sans';
-      letter-spacing: -.4px;
-      font-size: 17px;
+      font-family: 'Montserrat';
+      letter-spacing: 0;
+      font-size: 16px;
     }
 
     .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
@@ -265,8 +266,8 @@
   }
 
   h3 {
-    font-size: 32px;
-    font-family: 'Work Sans';
+    font-size: 22px;
+    font-family: 'Montserrat';
     letter-spacing: -.5px;
   }
 
@@ -283,7 +284,7 @@
   }
 
   .comment-box {
-    padding: 20px 25px;
+    padding: 18px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #FFFFEE;
@@ -417,7 +418,7 @@
   }
 
   .button-wrapper {
-    padding: 16px 25px;
+    padding: 18px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #F9F9F9;
