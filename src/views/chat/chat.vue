@@ -132,7 +132,11 @@
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="chat-page-content" v-if="user">
       <v-layout row>
         <v-flex xs12 sm9 pa-0 class="chat-content-section">
-          <div class="chat-list-section" v-chat-scroll="{always: false, smooth: false}" id="msg-container">
+          <div
+            v-chat-scroll="{always: false, smooth: false}"
+            id="msg-container"
+            class="chat-list-section"
+          >
             <!-- <div class="chat-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
               <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
               <div class="message-section">

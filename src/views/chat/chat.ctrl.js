@@ -147,7 +147,9 @@ export default {
       if (!this.room.settings.links && linkRegex.test(this.message)) return // TODO error instead of returning
       this.chat_socket.sendMessage(messageText, this.currentUser.username)
       this.message = '' // clear textbox
-      $('#msg-container').scrollTop = $('#msg-container').scrollHeight
+      this.$nextTick(() => {
+        $('#msg-container').scrollTop($('#msg-container').prop('scrollHeight'))
+      })
       return false
     },
 
@@ -441,8 +443,8 @@ export default {
               }
             })
             vm.connected = true
-            vm.messageError = ""
-            $('#msg-container')[0].scrollTop = $('#msg-container')[0].scrollHeight
+            vm.messageError = ''
+            $('#msg-container').scrollTop($('#msg-container').prop('scrollHeight'))
 
             // setTimeout(function () {
             //   scrollDown(loadMessageObj.chunk === 0);
