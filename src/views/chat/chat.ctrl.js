@@ -381,7 +381,7 @@ export default {
           }
 
           this.chat_socket.onRoomInfo = async room => {
-            console.log('chat onRoomInfo', room)
+            // console.log('chat onRoomInfo', room)
             // Vue.set(vm, "room", room)
             vm.room = room
             // Fetch user data (avatar image, etc)
@@ -549,9 +549,9 @@ export default {
   }
 }
 
-function scrollDown(force) {
-  let container = $('#msg-container');
-  if (force || Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) < 70) {
-    container.scrollTop = container.scrollHeight;
-  }
-}
+// function scrollDown(force) {
+//   let container = $('#msg-container');
+//   if (force || Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) < 70) {
+//     container.scrollTop = container.scrollHeight;
+//   }
+// }

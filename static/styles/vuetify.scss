@@ -49,6 +49,11 @@ able.table thead th:not(:first-child) {
   }
 }
 
+/* v-switch */
+// .input-group.input-group--selection-controls.switch .input-group--selection-controls__ripple:after {
+//   box-shadow: none;
+// }
+
 /* v-select */
 .input-group__details {
   &:before {

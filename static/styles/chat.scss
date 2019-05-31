@@ -528,6 +528,7 @@
         }
       }
       .content-section {
+        position: relative;
         max-height: calc(100vh - 352.5px);
         padding: 15px 20px;
         overflow-x: hidden;
@@ -741,8 +742,9 @@
 }
 
 .settings-menu {
-  position: float;
-  float: right;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 
   .settings-btn {
     width: 40px;
