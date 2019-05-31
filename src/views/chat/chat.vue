@@ -204,20 +204,20 @@
               <img src="/static/images/ic_attach_add.svg" width="36">
             </v-btn>
             <input
-              type="text"
-              class="chat-input-box"
-              placeholder="Write a message..."
               v-model="message"
               @keyup.enter="sendMessage(message)"
               ref="chat"
+              type="text"
+              class="chat-input-box"
+              placeholder="Write a message..."
               autofocus
             />
             <picker
+              v-if="showEmojiPicker"
+              @click="addEmoji"
               title="Pick your emoji…"
               emoji="point_up"
               class="emoji-picker"
-              @click="addEmoji"
-              v-if="showEmojiPicker"
             ></picker>
             <v-btn
               class="show-emoji-box-btn"
