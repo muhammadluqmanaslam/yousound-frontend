@@ -31,7 +31,7 @@ export default {
       hover_on_genre_tooltip: false,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 1 * 10,
+      items_per_page: 1 * 8,
       genres: [],
       selected_genre: null,
       categories: [],
@@ -134,29 +134,26 @@ export default {
           Promise.all([
             SearchService.searchDiscover(_.extend(params, { page: 2 })),
             SearchService.searchDiscover(_.extend(params, { page: 3 })),
-            SearchService.searchDiscover(_.extend(params, { page: 4 })),
-            SearchService.searchDiscover(_.extend(params, { page: 5 }))
+            SearchService.searchDiscover(_.extend(params, { page: 4 }))
           ]).then(values => {
             if (tab === 'merch') {
               vm.products = vm.products.concat(
                 values[0].body.products,
                 values[1].body.products,
-                values[2].body.products,
-                values[3].body.products
+                values[2].body.products
               )
-              vm.page_index = values[3].body.pagination.total_pages > 5 ? 5 : values[3].body.pagination.total_pages
+              vm.page_index = values[2].body.pagination.total_pages > 4 ? 4 : values[2].body.pagination.total_pages
             } else {
               vm.feeds = vm.feeds.concat(
                 values[0].body.albums,
                 values[1].body.albums,
-                values[2].body.albums,
-                values[3].body.albums
+                values[2].body.albums
               )
               const genres = _.chain(vm.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
               vm.genres = [
                 { id: 'any', name: 'Any genre' },
               ].concat(genres)
-              vm.page_index = values[3].body.pagination.total_pages > 5 ? 5 : values[3].body.pagination.total_pages
+              vm.page_index = values[2].body.pagination.total_pages > 4 ? 4 : values[2].body.pagination.total_pages
             }
             vm.isPageReady = true
           })
