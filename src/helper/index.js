@@ -94,7 +94,7 @@ export const Filter = {
 
   // #TODO rename it formatDecimal
   formatNumber (value) {
-    return numeral(value / 100).format('0.00') // displaying other groupings/separators is possible, look at the docs
+    return numeral(value / 100).format('0,0.00') // displaying other groupings/separators is possible, look at the docs
   },
 
   formatNumberWithComma (value) {

@@ -2,6 +2,7 @@
   .page-title {
     color: #000000;
   }
+
   .tabs {
     .tabs__wrapper.tabs__wrapper--scrollable {
       margin: 0 !important;
@@ -115,11 +116,10 @@
       }
     }
   }
-}
 
-.tooltip__content {
-  font-size: 16px;
-  background: #222;
+  .track-card .track-info .track-cover .track-image {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 .application.theme--light.primary {

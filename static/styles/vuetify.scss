@@ -122,3 +122,9 @@ able.table thead th:not(:first-child) {
 .list__tile .avatar {
   min-width: 0;
 }
+
+/* v-tooltip */
+.tooltip__content {
+  font-size: 16px;
+  background: #222;
+}
