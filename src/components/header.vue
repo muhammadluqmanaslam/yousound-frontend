@@ -27,7 +27,7 @@
         <v-badge color="red">
           <span slot="badge" v-if="$store.state.activity.badge.stream > 0">{{ $store.state.activity.badge.stream }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: currentPage == 'stream' }" @click.native="choosePage('stream')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'feed' }" @click.native="choosePage('feed')">
               <svg width="23px" height="22px" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_stream</title>

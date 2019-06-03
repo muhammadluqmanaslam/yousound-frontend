@@ -120,7 +120,7 @@ export default {
         type = 'activity'
       }
       if (this.$store.state.auth.token) {
-        if (type === 'activity' || type === 'stream') {
+        if (type === 'activity' || type === 'feed') {
           ActivityService.makeRead(type).then(response => {
             ActivityService.getUnread().then(response => {
               this.$store.dispatch('activity/setBadge', response.body)

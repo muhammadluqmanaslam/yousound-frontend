@@ -72,21 +72,21 @@ export default {
       return _.isEmpty(this.item)
     },
 
-    isShowUserInfo () {
-      if (this.$store.state.navigator.current.page === 'stream') {
-        return true
-      } else {
-        return false
-      }
-    },
+    // isShowUserInfo () {
+    //   if (this.$store.state.navigator.current.page === 'stream') {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // },
 
-    publisher () {
-      if (this.objects[this.objectIndex].assoc_type) {
-        return this.objects[this.objectIndex].publisher
-      } else {
-        return this.objects[this.objectIndex].user
-      }
-    },
+    // publisher () {
+    //   if (this.objects[this.objectIndex].assoc_type) {
+    //     return this.objects[this.objectIndex].publisher
+    //   } else {
+    //     return this.objects[this.objectIndex].user
+    //   }
+    // },
 
     owner () {
       if (this.objects[this.objectIndex].assoc_type) {

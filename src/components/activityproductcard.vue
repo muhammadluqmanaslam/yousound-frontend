@@ -19,7 +19,12 @@
         </v-flex>
       </v-flex>
     </v-flex>
-    <merch-modal :item="item" :dismiss="dimissMerchModal" v-if="showMerchModal"></merch-modal>
+
+    <merch-modal
+      v-if="showMerchModal"
+      :item="item"
+      :dismiss="dimissMerchModal"
+    />
   </v-flex>  
 </template>
 
@@ -53,37 +58,37 @@
     },
 
     computed: {
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
-      },
-
-      publisher () {
-        if (this.object.assoc_type) {
-          return this.object.publisher
-        } else {
-          return this.object.merchant
-        }
-      },
-
       item () {
         if (this.object.assoc_type) {
           return this.object.assoc
         } else {
           return this.object
         }
-      },
-
-      owner () {
-        if (this.object.assoc_type) {
-          return this.object.assoc.merchant
-        } else {
-          return this.object.merchant
-        }
       }
+
+      // isShowUserInfo () {
+      //   if (this.$store.state.navigator.current.page === 'feed') {
+      //     return true
+      //   } else {
+      //     return false
+      //   }
+      // },
+
+      // publisher () {
+      //   if (this.object.assoc_type) {
+      //     return this.object.publisher
+      //   } else {
+      //     return this.object.user
+      //   }
+      // },
+
+      // owner () {
+      //   if (this.object.assoc_type) {
+      //     return this.object.assoc.merchant
+      //   } else {
+      //     return this.object.merchant
+      //   }
+      // }
     },
 
     created () {

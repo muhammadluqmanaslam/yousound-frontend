@@ -8,17 +8,34 @@
         <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
         <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
           <v-flex xs12 class="touch-flex" @click="playSong()"></v-flex>
-          <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
+          <v-btn
+            v-if="!isPlaying || $store.state.player.isPaused"
+            @click.native="playSong()"
+            dark
+            class="play-button"
+          >
             <v-icon>play_arrow</v-icon>
           </v-btn>
-          <v-btn dark class="play-button" @click.native="pauseSong()" v-if="isPlaying && !$store.state.player.isPaused">
+          <v-btn
+            v-else
+            @click.native="pauseSong()"
+            dark
+            class="play-button"
+          >
             <v-icon>pause</v-icon>
           </v-btn>
-          <router-link :to="`/${item.album_type}/${item.slug}`"><p class="track-count">{{ item.tracks.length }} tracks</p></router-link>
+          <router-link :to="`/${item.album_type}/${item.slug}`">
+            <p class="track-count">{{ item.tracks.length }} tracks</p>
+          </router-link>
         </v-flex>
       </v-flex>
     </v-flex>
-    <download-modal :item="item" :dismiss="dismissDownloadModal" v-if="showDownloadModal"></download-modal>
+
+    <download-modal
+      v-if="showDownloadModal"
+      :item="item"
+      :dismiss="dismissDownloadModal"
+    />
   </v-flex>  
 </template>
 
@@ -53,35 +70,11 @@
     },
 
     computed: {
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
-      },
-
-      publisher () {
-        if (this.objects[this.objectIndex].assoc_type) {
-          return this.objects[this.objectIndex].publisher
-        } else {
-          return this.objects[this.objectIndex].user
-        }
-      },
-
       item () {
         if (this.objects[this.objectIndex].assoc_type) {
           return this.objects[this.objectIndex].assoc
         } else {
           return this.objects[this.objectIndex]
-        }
-      },
-
-      owner () {
-        if (this.objects[this.objectIndex].assoc_type) {
-          return this.objects[this.objectIndex].assoc.user
-        } else {
-          return this.objects[this.objectIndex].user
         }
       },
 

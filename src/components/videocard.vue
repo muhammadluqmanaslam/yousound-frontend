@@ -43,22 +43,6 @@
     },
 
     computed: {
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
-      },
-
-      publisher () {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.publisher
-        } else {
-          return this.dataObject.user
-        }
-      },
-
       item () {
         if (this.dataObject.assoc_type) {
           return this.dataObject.assoc

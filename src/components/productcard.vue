@@ -115,26 +115,18 @@
         return this.$store.state.auth.user
       },
 
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
-      },
-
       willMenuRender () {
         // console.log('willMenuRender', this.item.id, this.is_component_hover, this.is_menu_hover)
         return this.is_menu_hover || this.is_component_hover
       },
 
-      publisher () {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.publisher
-        } else {
-          return this.dataObject.merchant
-        }
-      },
+      // publisher () {
+      //   if (this.dataObject.assoc_type) {
+      //     return this.dataObject.publisher
+      //   } else {
+      //     return this.dataObject.merchant
+      //   }
+      // },
 
       item () {
         if (this.dataObject.assoc_type) {
