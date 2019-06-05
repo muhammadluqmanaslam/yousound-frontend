@@ -100,12 +100,12 @@ export default {
       return this.$store.state.auth.user
     },
 
-    settingsChange() {
-      if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '' && this.rules.number(this.room.settings.charLimit) !== 'string') {
-        // this.room.settings.charLimit = parseInt(this.room.settings.charLimit);
-      }
-      return JSON.stringify(this.room.settings)
-    },
+    // settingsChange() {
+    //   if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '' && this.rules.number(this.room.settings.charLimit) !== 'string') {
+    //     // this.room.settings.charLimit = parseInt(this.room.settings.charLimit);
+    //   }
+    //   return JSON.stringify(this.room.settings)
+    // },
 
     reverseMessages() {
       return this.messages.slice().reverse()
@@ -308,6 +308,16 @@ export default {
       }
     },
 
+    updateSettings() {
+      if (this.room.settings.charLimitBool && typeof this.rules.number(this.room.settings.charLimit) === 'string') {
+        return
+      }
+      if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '') {
+        this.room.settings.charLimit = parseInt(this.room.settings.charLimit)
+      }
+      this.chat_socket.updateSettings(this.room.settings)
+    },
+
     loadPage() {
       this.unloadPage()
 
@@ -482,17 +492,17 @@ export default {
       this.loadPage()
     },
 
-    settingsChange (newSettings) {
-      // check settings
-      var parsed = JSON.parse(newSettings)
-      if (parsed.charLimitBool && typeof this.rules.number(parsed.charLimit) === 'string') {
-        return
-      }
-      if (typeof parsed.charLimit === 'string' && parsed.charLimit !== '') {
-        parsed.charLimit = parseInt(parsed.charLimit)
-      }
-      this.chat_socket.updateSettings(parsed)
-    }
+    // settingsChange (newSettings) {
+    //   // check settings
+    //   var parsed = JSON.parse(newSettings)
+    //   if (parsed.charLimitBool && typeof this.rules.number(parsed.charLimit) === 'string') {
+    //     return
+    //   }
+    //   if (typeof parsed.charLimit === 'string' && parsed.charLimit !== '') {
+    //     parsed.charLimit = parseInt(parsed.charLimit)
+    //   }
+    //   this.chat_socket.updateSettings(parsed)
+    // }
   },
 
   created() {

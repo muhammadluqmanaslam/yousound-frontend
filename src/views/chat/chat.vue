@@ -327,21 +327,35 @@
                 <v-list-tile class="settings-list-tile">
                   <v-list-tile-content class="default-menu-item">
                     <v-list-tile-title>Allow users to attach content</v-list-tile-title>
-                    <v-switch v-model="room.settings.attachments" hide-details class="pl-3"></v-switch>
+                    <v-switch
+                      v-model="room.settings.attachments"
+                      @change="updateSettings()"
+                      hide-details class="pl-3"
+                    ></v-switch>
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
                 <v-list-tile class="settings-list-tile">
                   <v-list-tile-content class="default-menu-item">
                     <v-list-tile-title>Allow users to send links</v-list-tile-title>
-                    <v-switch v-model="room.settings.links" hide-details class="pl-3"></v-switch>
+                    <v-switch
+                      v-model="room.settings.links"
+                      @change="updateSettings()"
+                      hide-details
+                      class="pl-3"
+                    ></v-switch>
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
                 <v-list-tile class="settings-list-tile">
                   <v-list-tile-content class="default-menu-item">
                     <v-list-tile-title>Enable a character limit</v-list-tile-title>
-                    <v-switch v-model="room.settings.charLimitBool" hide-details class="pl-3"></v-switch>
+                    <v-switch
+                      v-model="room.settings.charLimitBool"
+                      @change="updateSettings()"
+                      hide-details
+                      class="pl-3"
+                    ></v-switch>
                     <!-- <v-text-field v-if="room.settings.charLimitBool" placeholder="# of characters" v-model="room.settings.charLimit" :rules="[rules.number]"></v-text-field> -->
                   </v-list-tile-content>
                 </v-list-tile>
