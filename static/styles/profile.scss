@@ -1,32 +1,28 @@
 .page.profile-grid-page {
   .user-profile-section {
+    display: flex;
     .user-profile-image-section {
       position: relative;
-      // width: 114px;
-      // height: 140px;
       overflow: hidden;
       display: inline-block;
       vertical-align: top;
       .user-profile-image {
-        width: 110px;
-        height: 110px;
+        width: 180px;
+        height: 180px;
+        margin-right: 20px;
         border-radius: 100%;
         background-color: #FAFAFA;
         overflow: hidden;
         background-size: cover;
         background-position: center;
-        // width: 152px;
-        // height: 152px;
-        // margin-top: -1px;
-        // margin-left: -1px;
       }
       .user-profile-image--live {
         position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 110px;
-        height: 110px;
+        width: 180px;
+        height: 180px;
         top: 0;
         border-radius: 100%;
         border: 3px solid #FF0000;
@@ -108,8 +104,7 @@
       }
     }
     .user-info-section {
-      width: calc(100% - 168px);
-      margin-left: 14px;
+      flex: 1;
       display: inline-block;
       vertical-align: top;
       .user-name-section {
@@ -126,18 +121,8 @@
         line-height: 24px;
         margin-bottom: -4px;
         margin-left: 1px;
-        .follower-count {
-          font-weight: 400;
-          font-size: 16px;
-          color: #000000;
-          margin-right: 10px;
-          line-height: 36px;
-          cursor: pointer;
-          font-family: 'Work Sans';
-          letter-spacing: .5px;
-        }
         .vertical-divider {
-          margin: 0px;
+          margin: 0px 10px;
           font-size: 14px;
           background-color: #9D9D9D;
           border-left: 1px solid #9D9D9D;
@@ -147,10 +132,20 @@
           font-size: 16px;
           color: #000000;
           letter-spacing: .5px;
-          margin-left: 12px;
+          // margin-left: 12px;
           font-family: 'Work Sans';
           font-weight: 400;
           color: #333;
+        }
+        .follower-count {
+          font-weight: 400;
+          font-size: 16px;
+          color: #000000;
+          // margin-right: 10px;
+          line-height: 36px;
+          cursor: pointer;
+          font-family: 'Work Sans';
+          letter-spacing: .5px;
         }
         .user-inviter-name {
           text-transform: capitalize;
@@ -236,9 +231,11 @@
   }
   .profile-grid-tab {
     position: relative;
-    margin-top: 20px;
+    margin-top: -52px;
     .tabs {
       .tabs__bar {
+        margin-left: 200px;
+        width: calc(100% - 200px);
         .tabs__wrapper.tabs__wrapper--scrollable {
           margin: 0;
           .tabs__li {

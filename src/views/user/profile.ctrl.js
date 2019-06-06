@@ -380,18 +380,6 @@ export default {
       }
     },
 
-    followersClickHandler () {
-      // this.grid_show = true
-      // this.currentTab = 'followings'
-      // const value = 'followers', name = 'Follower'
-      // this.followings_selector = value
-      // this.getItems('followings', false)
-      // this.$nextTick(() => {
-      //   $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-      // })
-      this.onTab('followers')
-    },
-
     onAfterAlbumSlideChange (index) {
       // if(this.$store.state.player.isPlaying && this.$store.state.player.page === 'profile' && !this.grid_show) {
       //   this.$refs.albumCarousel.goSlide(this.$store.state.player.listIndex)

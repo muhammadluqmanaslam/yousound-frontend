@@ -206,12 +206,17 @@
               </label>
             </div>
             <div class="user-status-section">
+              <label class="user-role">{{ user.user_type }}</label>
+              <label class="vertical-divider"></label>
               <label
-                @click="followersClickHandler()"
+                @click="onTab('followings')"
+                class="follower-count"
+              ><strong>{{ user.followings }}</strong> Followings</label>
+              <label class="vertical-divider"></label>
+              <label
+                @click="onTab('followers')"
                 class="follower-count"
               ><strong>{{ user.followers }}</strong> Followers</label>
-              <label class="vertical-divider"></label>
-              <label class="user-role">{{ user.user_type }}</label>
               <template v-if="user.user_type === 'listener' && user.inviter">
                 <label class="vertical-divider"></label>
                 <label class="user-inviter-name">
@@ -299,6 +304,7 @@
             <v-tabs-bar class="transparent">
               <v-tabs-item v-for="tab in tabs"
                 v-if="isAvailableForGridView(tab)"
+                v-show="['followings', 'followers'].indexOf(tab.id) == -1"
                 :key="tab.id"
                 :href="'#' + tab.id"
                 @click.native="onTab(tab.id)"
