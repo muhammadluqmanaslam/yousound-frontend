@@ -45,12 +45,12 @@ export default {
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
         { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'songs', title: 'Albums', roles: ['artist'] },
-        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
         { id: 'playlists', title: 'Playlists' },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
         { id: 'followings', title: 'Following' },
-        { id: 'followers', title: 'Followers' }
+        { id: 'followers', title: 'Followers' },
+        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] }
       ],
       slug: null,
       user: {
@@ -229,19 +229,19 @@ export default {
         }
 
         // put 'merch' tab first for brand
-        // if (this.user.user_type == 'brand') {
-        //   if (this.tabs[7].id === 'merch') {
-        //     this.tabs.unshift(this.tabs.pop())
-        //     // const arr = this.tabs.slice()
-        //     // this.tabs = arr
-        //     // console.log(this.tabs[0].id, this.tabs[7].id)
-        //   }
-        // } else {
-        //   if (this.tabs[7].id !== 'merch') {
-        //     this.tabs.push(this.tabs.shift())
-        //     // console.log(this.tabs[0].id, this.tabs[7].id)
-        //   }
-        // }
+        if (this.user.user_type == 'brand') {
+          if (this.tabs[8].id === 'merch') {
+            this.tabs.unshift(this.tabs.pop())
+            // const arr = this.tabs.slice()
+            // this.tabs = arr
+            // console.log(this.tabs[0].id, this.tabs[8].id)
+          }
+        } else {
+          if (this.tabs[8].id !== 'merch') {
+            this.tabs.push(this.tabs.shift())
+            // console.log(this.tabs[0].id, this.tabs[8].id)
+          }
+        }
 
         if (tab) {
           this.currentTab = tab
