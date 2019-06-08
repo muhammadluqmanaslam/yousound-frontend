@@ -279,7 +279,7 @@
         <v-card-media contain src="/static/images/ic_twitter.png" height="50px"></v-card-media>
         <v-card-title class="headline">Connect to Twitter</v-card-title>
         <v-card-text>
-          To complete verification, you must choose your request role like Artist, Brand, or Label<br>
+          To complete verification, you must choose your request role like Artist or Brand<br>
           Twitter account once time & verify your identity.
         </v-card-text>
         <v-card-actions>
@@ -288,10 +288,10 @@
             <img class="avatar" src="/static/images/artist.png" @click="goTwitter('artist')" />
             <label class="pt-2">Artist</label>
           </div>
-          <div class="img-button">
+          <!-- <div class="img-button">
             <img class="avatar" src="/static/images/listener.png" @click="goTwitter('label')" />
             <label class="pt-2">Label</label>
-          </div>
+          </div> -->
           <div class="img-button">
             <img class="avatar" src="/static/images/listener.png" @click="goTwitter('brand')" />
             <label class="pt-2">Brand</label>
