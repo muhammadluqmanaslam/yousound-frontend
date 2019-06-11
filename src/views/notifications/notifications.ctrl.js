@@ -10,16 +10,16 @@ export default {
 
   data () {
     return {
+      active_tab: 'any',
+      tabs: [
+        { id: 'any', title: 'Everything' },
+        { id: 'reposts', title: 'Reposts' },
+        { id: 'commented', title: 'Commented' },
+        { id: 'followed', title: 'Followed' }
+      ],
       page_index: 1,
       total_pages: 1,
       items_per_page: 8 * 1,
-      filter: 'all',
-      filters: [
-        { id: 'all', name: 'All Activity' },
-        { id: 'reposts', name: 'Reposts' },
-        { id: 'commented', name: 'Commented' },
-        { id: 'followed', name: 'Followed' }
-      ],
       activities: [],
       isPageReady: false,
     }
@@ -27,31 +27,31 @@ export default {
 
   computed: {
     filtered_activities () {
-      if (this.filter === 'reposts') {
+      if (this.active_tab === 'reposts') {
         return _.filter(this.activities, (item) => {
           return item.action_type === 'repost' || item.action_type === 'unrepost'
         })
       }
 
-      if (this.filter === 'commented') {
+      if (this.active_tab === 'commented') {
         return _.filter(this.activities, (item) => {
           return item.action_type === 'comment'
         })
       }
 
-      if (this.filter === 'followed') {
+      if (this.active_tab === 'followed') {
         return _.filter(this.activities, (item) => {
           return item.action_type === 'follow' || item.action_type === 'unfollow'
         })
       }
 
-      if (this.filter === 'released') {
+      if (this.active_tab === 'released') {
         return _.filter(this.activities, (item) => {
           return item.action_type === 'release'
         })
       }
 
-      if (this.filter === 'played') {
+      if (this.active_tab === 'played') {
         return _.filter(this.activities, (item) => {
           return item.action_type === 'play'
         })
@@ -67,10 +67,10 @@ export default {
   },
 
   methods: {
-    filterSelected (index) {
-      $('#filter_selector .btn__content').html(this.filters[index].name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-      this.filter = this.filters[index].id
-    },
+    // filterSelected (index) {
+    //   $('#filter_selector .btn__content').html(this.tabs[index].name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+    //   this.active_tab = this.tabs[index].id
+    // },
 
     loadActivities() {
       console.log('loadActivities')
