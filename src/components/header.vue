@@ -46,7 +46,7 @@
         <v-badge color="red">
           <span slot="badge" v-if="$store.state.activity.badge.activity > 0">{{ $store.state.activity.badge.activity }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: currentPage == 'notifications' }" @click.native="choosePage('notifications')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'activity' }" @click.native="choosePage('activity')">
               <svg width="20px" height="22px" viewBox="0 0 26 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_notifications</title>

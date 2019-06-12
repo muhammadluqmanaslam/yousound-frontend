@@ -27,7 +27,7 @@ import CreateAttendee from '@/views/home/create_attendee'
 import Discover from '@/views/discover/discover'
 import SearchPage from '@/views/search/search'
 import Feed from '@/views/stream/stream'
-import Notifications from '@/views/notifications/notifications'
+import ActivityIndex from '@/views/activity/index'
 import Chat from '@/views/chat/chat'
 import Messages from '@/views/messages/messages'
 import DirectMessages from '@/views/user/direct_messages'
@@ -98,7 +98,7 @@ export function createRouter (settings) {
     { path: '/discover', name: 'Discover', component: Discover },
     { path: '/search', name: 'Search', component: SearchPage, props: (route) => ({query: route.query.q}) },
     { path: '/feed', name: 'Feed', component: Feed },
-    { path: '/notifications', name: 'Notifications', component: Notifications },
+    { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/messages', name: 'Messages', component: Messages },
     { path: '/cart', name: 'Cart', component: Cart },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },

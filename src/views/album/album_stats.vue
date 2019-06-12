@@ -26,16 +26,22 @@
               :key="tab.id"
               :href="`#${tab.id}`"
               @click.native="onTab(tab.id)"
-              ripple>{{ tab.title }}</v-tabs-item>
+              ripple
+            >{{ tab.title }}</v-tabs-item>
             <v-tabs-slider color="black"></v-tabs-slider>
           </v-tabs-bar>
           <v-tabs-items>
             <v-tabs-content
               v-for="tab in tabs"
               :key="tab.id"
-              :id="tab.id">
+              :id="tab.id"
+            >
               <v-card flat>
-                <activity-item v-for="activity in activities" :key="activity.id" :activityItem="activity"></activity-item>
+                <activity-item
+                  v-for="activity in activities"
+                  :key="activity.id"
+                  :activityItem="activity"
+                />
               </v-card>
             </v-tabs-content>
           </v-tabs-items>

@@ -116,9 +116,6 @@ export default {
     '$route' (to, from) {
       const toPath = to.path.split('/')
       var type = toPath[1]
-      if (type === 'notifications') {
-        type = 'activity'
-      }
       if (this.$store.state.auth.token) {
         if (type === 'activity' || type === 'feed') {
           ActivityService.makeRead(type).then(response => {

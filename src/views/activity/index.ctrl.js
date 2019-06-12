@@ -62,7 +62,7 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'notifications', tab: '' })
+    this.$store.dispatch('navigator/goNextState', { page: 'activity', tab: '' })
     this.loadActivities()
   },
 
@@ -92,9 +92,13 @@ export default {
       })
     },
 
-    loadMore () {
+    loadMore() {
       this.page_index += 1
       this.loadActivities()
+    },
+
+    onTab(tab) {
+      this.active_tab = tab
     }
   },
 

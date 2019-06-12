@@ -1,5 +1,5 @@
 <template>
-  <div class="page notifications-page">
+  <div class="page activity-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
       <h2 class="page-title">Activity</h2>
     </v-flex>
@@ -45,7 +45,7 @@
       </div>
     </v-flex>
 
-    <!-- <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="notifications-page-header">
+    <!-- <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="activity-page-header">
       <v-flex xs12>
         <v-layout row wrap>
           <h2 class="page-title">Activity</h2>
@@ -64,7 +64,7 @@
       </v-flex>
     </v-flex>
 
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="notifications-page-content" v-if="isPageReady">
+    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="activity-page-content" v-if="isPageReady">
       <div v-if="!filtered_activities || filtered_activities.length == 0" class="empty-section">
         <p class="empty-title">No Activity</p>
         <p class="empty-description">This is where you'll see who followed, commented, and other activity.</p>
@@ -80,4 +80,4 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./notifications.ctrl.js"></script>
+<script type="text/javascript" src="./index.ctrl.js"></script>

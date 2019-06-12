@@ -164,7 +164,7 @@
                   <label v-if="!isAttachmentLink(message.text)" class="text-message">{{message.text}}</label>
                   <!-- <div v-if="isAttachmentLink(message.text) && (!albumLinks[message.text] && !merchLinks[message.text])">Loading...</div> -->
                   <div class="album-embed-wrapper" v-if="isAlbumLink(message.text) && albumLinks[message.text]">
-                    <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"></activity-album-card>
+                    <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"/>
                     <div class="info-section">
                       <router-link :to="'/album/'+albumLinks[message.text].slug"><label class="item-title">{{ albumLinks[message.text].name }}</label></router-link>
                       <br>
@@ -172,7 +172,7 @@
                     </div>
                   </div>
                   <div class="album-embed-wrapper" v-if="isMerchLink(message.text) && merchLinks[message.text]">
-                    <activity-product-card :object="merchLinks[message.text]" class="chat-album-embed"></activity-product-card>
+                    <activity-product-card :object="merchLinks[message.text]" class="chat-album-embed"/>
                     <div class="info-section">
                       <label class="item-title">{{ merchLinks[message.text].name }}</label>
                       <br>
@@ -180,7 +180,7 @@
                     </div>
                   </div>
                   <div class="album-embed-wrapper" v-if="isUserLink(message.text) && userLinks[message.text]">
-                    <activity-user-card :object="userLinks[message.text]" class="chat-album-embed"></activity-user-card>
+                    <activity-user-card :object="userLinks[message.text]" class="chat-album-embed"/>
                     <div class="info-section" v-if="!!userLinks[message.text]">
                       <label class="item-title">{{ userLinks[message.text].display_name }}</label>
                       <br>
