@@ -13,9 +13,9 @@ export default {
       active_tab: 'any',
       tabs: [
         { id: 'any', title: 'Everything' },
-        { id: 'reposts', title: 'Reposts' },
-        { id: 'commented', title: 'Commented' },
-        { id: 'followed', title: 'Followed' }
+        { id: 'repost', title: 'Reposts' },
+        { id: 'comment', title: 'Commented' },
+        { id: 'follow', title: 'Followed' }
       ],
       page_index: 1,
       total_pages: 1,
@@ -25,46 +25,7 @@ export default {
     }
   },
 
-  computed: {
-    filtered_activities () {
-      if (this.active_tab === 'reposts') {
-        return _.filter(this.activities, (item) => {
-          return item.action_type === 'repost' || item.action_type === 'unrepost'
-        })
-      }
-
-      if (this.active_tab === 'commented') {
-        return _.filter(this.activities, (item) => {
-          return item.action_type === 'comment'
-        })
-      }
-
-      if (this.active_tab === 'followed') {
-        return _.filter(this.activities, (item) => {
-          return item.action_type === 'follow' || item.action_type === 'unfollow'
-        })
-      }
-
-      if (this.active_tab === 'released') {
-        return _.filter(this.activities, (item) => {
-          return item.action_type === 'release'
-        })
-      }
-
-      if (this.active_tab === 'played') {
-        return _.filter(this.activities, (item) => {
-          return item.action_type === 'play'
-        })
-      }
-
-      return this.activities
-    }
-  },
-
-  created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'activity', tab: '' })
-    this.loadActivities()
-  },
+  computed: {},
 
   methods: {
     // filterSelected (index) {
@@ -76,8 +37,9 @@ export default {
       console.log('loadActivities')
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
-        'page': this.page_index,
-        'per_page': this.items_per_page
+        page: this.page_index,
+        per_page: this.items_per_page,
+        action_types: this.active_tab
       }
       ActivityService.getActivities(params).then(response => {
         this.activities = this.activities.concat(response.body.activities)
@@ -98,10 +60,36 @@ export default {
     },
 
     onTab(tab) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab
+      })
+    },
+
+    setTab(tab) {
+      if (!tab)
+        tab = 'any'
+
       this.active_tab = tab
+      this.page_index = 1
+      this.total_pages = 1
+      this.activities = []
+      this.$store.dispatch('navigator/goNextState', { page: 'activity', tab: tab })
+      this.$nextTick(() => {
+        this.loadActivities(this.activeTab, 1)
+      })
     }
   },
 
-  mounted () {
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.setTab(tab)
+    }
+  },
+
+  created () {
+    const tab = this.$route.hash.substr(1)
+    this.setTab(tab)
   }
 }

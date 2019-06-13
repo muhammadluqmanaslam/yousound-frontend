@@ -117,7 +117,7 @@
       }
     }
     .activity-item-recent-posts {
-      padding-left: 105px;
+      padding-left: 50px;
       padding-top: 22.5px;
       padding-bottom: 22.5px;
       .recent-posts-section-title {
@@ -128,9 +128,9 @@
         margin-left: 0;
       }
       .recent-post-item {
-        width: 150px;
-        height: 150px;
-        margin-right: 6px;
+        width: 32%;
+        height: auto;
+        margin-right: 1%;
         border-radius: 3.75px;
         background-size: cover;
         overflow: hidden;

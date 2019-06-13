@@ -3,8 +3,8 @@
     <div class="activity-item-body">
       <v-layout row wrap>
         <v-flex
-          xs12 sm5
-          :class="{'sm5': activityItem.sender.recent_reposts, 'no-reposts': !activityItem.sender.recent_reposts}"
+          xs12 md5
+          :class="{'md5': activityItem.sender.recent_reposts, 'no-reposts': !activityItem.sender.recent_reposts}"
           class="activity-item-section"
         >
           <v-flex xs12 class="activity-item-section-body">
@@ -50,7 +50,7 @@
 
         <v-flex
           v-if="activityItem.sender.recent_items"
-          xs12 sm7
+          xs12 md7
           class="activity-item-recent-posts"
         >
           <div class="recent-posts-section-title">Recent activity</div>
