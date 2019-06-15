@@ -47,7 +47,6 @@
             }
             .item-status {
               color: #959595;
-
             }
             .description-text {
               font-size: 18px;
@@ -66,22 +65,17 @@
                 line-height: 24px;
               }
               .share-icon {
-
               }
               .play-icon {
-
               }
               .comment-icon {
                 height: 15px;
               }
               .recommend-icon {
-
               }
               .release-icon {
-
               }
               .follow-icon {
-
               }
               .repost-icon {
                 height: 15px;
@@ -93,7 +87,7 @@
           }
           .details {
             margin-top: 20px;
-            .detailed-description {
+            p {
               font-size: 16px;
               color: #000000;
               letter-spacing: 0;
