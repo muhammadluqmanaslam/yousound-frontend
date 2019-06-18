@@ -133,6 +133,7 @@ export default {
   },
 
   created () {
+    // console.log('App created')
     Vue.http.interceptors.push((req, next) => {
       next((res) => {
         if (res.url.startsWith(process.env.API_BASE_URL) && res.status === 401) {

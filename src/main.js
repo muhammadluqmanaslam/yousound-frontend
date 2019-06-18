@@ -148,15 +148,18 @@ if (isOldBrowser) {
   })
   app.$mount('#app')
 } else if (isMobileBrowser) {
+  console.log('loaded routes for Mobile')
   const router = createMobileRouter()
   const app = new Vue({
     router,
     store,
-    template: '<App/>',
-    components: { App }
+    template: '<v-app id="app"><router-view id="content-view"></router-view></v-app>'
+    // template: '<App/>',
+    // components: { App }
   })
   app.$mount('#app')
 } else {
+  console.log('loaded routes for Desktop')
   SettingService.getSettings().then(response => {
     const settings = response.body
     const router = createRouter(settings)
