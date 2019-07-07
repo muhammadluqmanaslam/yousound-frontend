@@ -39,16 +39,16 @@
   .genre {
     position: relative;
     & > h3 {
-      font-size: 32px;
+      font-size: 42px;
       letter-spacing: -1px;
       line-height: 32px;
       color: #fff;
       font-family: Avenir,Arial !important;
+      font-weight: 900;
     }
     & > p {
       // margin: 10px 0 10px 10px;
       font-family: Avenir,Arial !important;
-      font-weight: 300;
     }
     & > .update-btn {
       position: absolute;
@@ -66,11 +66,12 @@
 
     p {
       color: #fff;
-      font-weight: 600;
+      font-weight: 200;
     }
 
-    strong {
+    b, strong {
     font-family: Avenir,Arial !important;
+    font-weight: 900;
     }
 
     .pgs-wrapper {
@@ -210,6 +211,9 @@
         h5 {
           margin: 24px 0 10px 10px;
           font-size: 24px;
+          color: #fff;
+		  font-weight: 800;
+		  font-family: avenir;
         }
       }
     }
