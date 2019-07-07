@@ -1,8 +1,12 @@
 .activity-item {
   padding-top: 22.5px;
+  &:first-child{
+    padding-top: 0;
+  }
+
   .activity-item-body {
     padding-bottom: 22.5px;
-    border-bottom: 0.75px solid #E1E1E1;
+    // border-bottom: 0.75px solid #E1E1E1;
     position: relative;
     &.last-item {
       border: none;
@@ -43,7 +47,6 @@
             }
             .item-status {
               color: #959595;
-
             }
             .description-text {
               font-size: 18px;
@@ -62,22 +65,17 @@
                 line-height: 24px;
               }
               .share-icon {
-
               }
               .play-icon {
-
               }
               .comment-icon {
                 height: 15px;
               }
               .recommend-icon {
-
               }
               .release-icon {
-
               }
               .follow-icon {
-
               }
               .repost-icon {
                 height: 15px;
@@ -89,7 +87,7 @@
           }
           .details {
             margin-top: 20px;
-            .detailed-description {
+            p {
               font-size: 16px;
               color: #000000;
               letter-spacing: 0;
@@ -113,7 +111,7 @@
       }
     }
     .activity-item-recent-posts {
-      padding-left: 105px;
+      padding-left: 50px;
       padding-top: 22.5px;
       padding-bottom: 22.5px;
       .recent-posts-section-title {
@@ -124,9 +122,9 @@
         margin-left: 0;
       }
       .recent-post-item {
-        width: 150px;
-        height: 150px;
-        margin-right: 6px;
+        width: 32%;
+        height: auto;
+        margin-right: 1%;
         border-radius: 3.75px;
         background-size: cover;
         overflow: hidden;
@@ -147,4 +145,8 @@
       letter-spacing: 0;
     }
   }
+}
+
+.activity-item + .activity-item {
+  border-top: 0.75px solid #E1E1E1;
 }
