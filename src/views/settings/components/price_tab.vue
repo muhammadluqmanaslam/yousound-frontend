@@ -4,7 +4,7 @@
       <p>All users can earn revenue by sharing content verified users request for you to repost via Direct Messages. 
       <br>Every user can accept $1 and earns 50% of the revenue split.</p>
 
-      <p>Repost price upgrades will keep 80% of each repost request, and can decrease their price at any time.  <br> To increase your repost price, you must pay an annual amount equal to the price you want to set.  <br> If you increase your price multiple times within a year, your cost is prorated.</p>
+      <p>Repost price upgrades will keep 90% of each repost request, and can decrease their price at any time.  <br> To increase your repost price, you must pay an annual amount equal to the price you want to set.  <br> If you increase your price multiple times within a year, your cost is prorated.</p>
     </div>
 
     <div class="content-section">
