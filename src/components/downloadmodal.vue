@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm12 class="download-section">
+  <v-flex xs12 sm12 class="my-download-dialog">
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
     <v-layout row wrap class="top-section">
       <p class="title-label">Support artists with your contribution</p>
