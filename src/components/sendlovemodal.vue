@@ -2,10 +2,10 @@
   <v-flex xs12 sm12 class="send-love-section" :class="{'transparent': showPaymentModal}">
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()" v-if="!showPaymentModal"></v-flex>
     <v-layout row wrap class="popup-section" v-if="!showPaymentModal">
-      <v-layout row wrap class="top-section">
+      <div class="top-section">
         <!-- <p class="title-label">Support this artist with your contribution</p> -->
         <p class="title-label">Send payment to</p>
-      </v-layout>
+      </div>
       <v-flex xs12 class="profile-section">
       <label class="user-name">{{ item.display_name }} 
           <v-icon class="user-status" v-bind:class="{'online': item.status == 'active'}" v-if="item.user_type == 'artist'">fa-check-circle</v-icon>
@@ -22,20 +22,30 @@
       </v-flex> -->
       <v-flex xs12 class="input-section">
         <!-- <input type="text" class="donate-amount form-control" v-model="donate_amount" placeholder="$0.00"> -->
-        <vue-numeric currency="$" separator="," :precision="2" :min="1" v-model="donate_amount" class="donate-amount"></vue-numeric>
+        <vue-numeric
+          v-model="donate_amount"
+          currency="$"
+          separator=","
+          :precision="2"
+          :min="10"
+          class="donate-amount"
+        ></vue-numeric>
         <v-select
-          :items="descriptions"
           v-model="description"
-          class="pt-4"></v-select>
+          :items="descriptions"
+          class="pt-4"
+        ></v-select>
         <v-btn class ="download-btn" @click.native="showPaymentDialog()">Submit</v-btn>
       </v-flex>
     </v-layout>
 
-    <payment-modal v-if="showPaymentModal"
+    <payment-modal
+      v-if="showPaymentModal"
       :type="''"
       :amount="donate_amount_by_cent"
       :dismiss="hidePaymentDialog"
-      :finish="sendLove"></payment-modal>
+      :finish="sendLove"
+    ></payment-modal>
   </v-flex>
 </template>
 
