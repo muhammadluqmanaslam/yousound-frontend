@@ -10,12 +10,13 @@
   // margin: -320px 0 0 -400px;
   // padding: 10px 10px;
   // border-radius: 5px;
-  background-color: #FFFFFF;
+  background-color: #060621;
   padding-left: 40px !important;
   padding-right: 40px !important;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
   border-radius: 8px;
+  height: 730px;
 
   .ma-2 {
       margin: 8px 8px 30px 8px !important;
@@ -25,6 +26,8 @@
       label {
       font-family: 'Open Sans',sans-serif !important;
       font-size: 16px !important;
+      color: #fff;
+      font-weight: 300;
     }
   }
 
@@ -36,12 +39,16 @@
   .genre {
     position: relative;
     & > h3 {
-      font-size: 32px;
+      font-size: 42px;
       letter-spacing: -1px;
       line-height: 32px;
+      color: #fff;
+      font-family: Avenir,Arial !important;
+      font-weight: 900;
     }
     & > p {
       // margin: 10px 0 10px 10px;
+      font-family: Avenir,Arial !important;
     }
     & > .update-btn {
       position: absolute;
@@ -50,11 +57,21 @@
       border-radius: 50px;
       box-shadow: none;
       font-size: 18px;
-      font-weight: 600;
+      font-family: Avenir,Arial !important;
     }
     & > .pgs_area {
-      height: 500px;
+      height: 540px;
       overflow-y: scroll;
+    }
+
+    p {
+      color: #fff;
+      font-weight: 200;
+    }
+
+    b, strong {
+    font-family: Avenir,Arial !important;
+    font-weight: 900;
     }
 
     .pgs-wrapper {
@@ -66,7 +83,7 @@
       padding-bottom: 1px;
       .pgs {
         position: relative;
-        padding-bottom: 100%;
+        padding-bottom: 68%;
         .pgs-inner-wrapper {
           position: absolute;
           width: 100%;
@@ -83,10 +100,10 @@
             height: 100%;
             .pgs__title {
               label {
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 700;
                 word-break: break-word;
-                font-family: 'Work Sans';
+                font-family: 'Montserrat';
               }
               span {
                 display: inline-block;
@@ -98,7 +115,7 @@
             .pgs__description {
               span {
                 padding: 0 5px;
-                font-size: 16px;
+                font-size: 13px;
                 font-weight: 400;
                 word-break: break-word;
                 cursor: pointer;
@@ -151,6 +168,7 @@
                 &.check-o {
                   background: url('/static/images/ic_check_o.png') no-repeat center center;
                   background-size: contain;
+                  opacity: .5;
                 }
 
                 &.check {
@@ -193,6 +211,9 @@
         h5 {
           margin: 24px 0 10px 10px;
           font-size: 24px;
+          color: #fff;
+		  font-weight: 800;
+		  font-family: avenir;
         }
       }
     }
