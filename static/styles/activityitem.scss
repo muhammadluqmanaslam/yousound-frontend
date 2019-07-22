@@ -49,20 +49,20 @@
               color: #959595;
             }
             .description-text {
-              font-size: 18px;
-              color: #959595;
-              letter-spacing: 0;
               display: block;
               padding-top: 8px;
+              color: #959595;
               font-family: 'Work Sans';
+              font-size: 18px;
+              line-height: 18px;
               letter-spacing: -1px;
               .items-title {
-                font-weight: 600;
                 color: #000000;
+                font-family: 'Work Sans';
+                font-weight: 600;
+                line-height: 24px;
                 text-decoration: none;
                 cursor: pointer;
-                font-family: 'Work Sans';
-                line-height: 24px;
               }
               .share-icon {
               }
