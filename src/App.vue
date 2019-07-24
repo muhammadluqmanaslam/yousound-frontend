@@ -118,7 +118,7 @@ export default {
       var type = toPath[1]
       if (this.$store.state.auth.token) {
         if (type === 'activity' || type === 'feed') {
-          ActivityService.makeRead(type).then(response => {
+          ActivityService.makeRead(type === 'feed' ? 'stream' : type).then(response => {
             ActivityService.getUnread().then(response => {
               this.$store.dispatch('activity/setBadge', response.body)
             })
