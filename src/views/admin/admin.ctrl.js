@@ -1,22 +1,24 @@
 import SearchService from '@/services/search'
 
 import albumTab from './components/albums'
-import genreTab from './components/genres'
-import settingTab from './components/settings'
-import userTab from './components/users'
-import signupTab from './components/signups'
-import globalstatsTab from './components/global_stats'
 import attendeeTab from './components/attendees'
+import genreTab from './components/genres'
+import globalstatsTab from './components/global_stats'
+import paymentTab from './components/payments'
+import settingTab from './components/settings'
+import signupTab from './components/signups'
+import userTab from './components/users'
 
 export default {
   components: {
-    userTab,
     albumTab,
-    signupTab,
+    attendeeTab,
     genreTab,
-    settingTab,
     globalstatsTab,
-    attendeeTab
+    paymentTab,
+    settingTab,
+    signupTab,
+    userTab
   },
 
   data () {
@@ -25,6 +27,7 @@ export default {
         { id: 'users', title: 'USERS' },
         { id: 'albums', title: 'ALBUMS' },
         { id: 'signups', title: 'SIGN UPS' },
+        { id: 'payments', title: 'PAYMENTS' },
         { id: 'genres', title: 'GENRES' },
         { id: 'settings', title: 'SETTINGS' },
         { id: 'globalstats', title: 'GLOBAL STATS' },
