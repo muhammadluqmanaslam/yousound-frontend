@@ -1,33 +1,43 @@
 <template>
-  <div class="main-section">
+  <div class="main-section repost-price">
     <div class="description-section">
-      <p>All users can earn revenue by sharing content verified users request for you to repost via Direct Messages. 
-      <br>Every user can accept $1 and earns 50% of the revenue split.</p>
-
-      <p>Repost price upgrades will keep 90% of each repost request, and can decrease their price at any time.  <br> To increase your repost price, you must pay an annual amount equal to the price you want to set.  <br> If you increase your price multiple times within a year, your cost is prorated.</p>
+      <h3>Earn money by sharing content</h3>
+      <span @click="learnMore()">Learn more</span>
+      <p class="mt-2">Every user can accept $1 and earns 50% of the revenue split.<br>
+      Upgrade your price to keep 90% of each repost request.</p>
+      <ul class="mt-3">
+        <li>To increase your repost price, you must pay an annual amount equal to the price you want to set<br>
+        Example: To charge $20 per repost, you must pay $20 per year</li>
+        <li>If you want to increase your price multiple times within an year, your cost is prorated</li>
+        <li>If you upgrade your price, you can downgrade your price at any time</li>
+      </ul>
     </div>
 
     <div class="content-section">
-      <v-flex xs12 repost-price-section pa-0>
-        <v-flex xs12 sm12 form-group>
-          <label class="normal-text">repost price</label>
-          <div class="repost-price-select">
-            <v-select
-              :items="repost_prices"
-              v-model="repost_price"
-              item-text="name"
-              item-value="value"
-              label="Price"
-              content-class="GLOBAL-repost-price-select"
-              single-line
-              auto
-              dirty
-              text-field
-            />
-          </div>
-          <v-btn @click.native="openRepostPriceConfirmModal()" class="update-btn top-btn">Set</v-btn>
-        </v-flex>
-      </v-flex>
+      <div class="form-group">
+        <!-- <label class="normal-text">repost price</label> -->
+        <div class="repost-price-select">
+          <v-select
+            :items="repost_prices"
+            v-model="repost_price"
+            item-text="name"
+            item-value="value"
+            label="Price"
+            content-class="GLOBAL-repost-price-select"
+            single-line
+            auto
+            dirty
+            text-field
+            hide-details/>
+        </div>
+        <v-btn
+          @click.native="openRepostPriceConfirmModal()"
+          class="update-btn top-btn">Set</v-btn>
+      </div>
+      <div class="repost-price-info-box pa-3 mt-2">
+        <div>You've upgraded to <b>${{ currentUser.repost_price | formatNumber }}</b></div>
+        <div>Upgraded until <b>{{ currentUser.repost_price_end_at | formatDate }}</b></div>
+      </div>
     </div>
 
     <v-dialog v-model="show_repost_price_confirm_modal">

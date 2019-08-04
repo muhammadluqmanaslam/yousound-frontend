@@ -101,6 +101,12 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
+    },
+
+    learnMore() {
+      this.$router.push({
+        path: '/terms'
+      })
     }
   }
 }

@@ -70,11 +70,6 @@
           letter-spacing: -0.6px;
           display: none;
         }
-        .repost-price-select {
-          margin: 0 7.5px;
-          width: 200px;
-          display: inline-block;
-        }
         .update-btn {
           height: 37.5px;
           // width: 112.5px;
@@ -339,12 +334,6 @@
       }
 
       .description-section {
-        // width: 262.5px;
-        // height: 450px;
-        // position: absolute;
-        // top: 0;
-        // right: 0;
-        // padding: 0px 0px 26px 5px;
         position: relative;
         width: 100%;
         height: inherit;
@@ -525,6 +514,41 @@
             letter-spacing: 0;
             text-transform: none;
           }
+        }
+      }
+    }
+    .main-section.repost-price {
+      .description-section {
+        padding: 0;
+        h3 {
+          font-size: 30px;
+          line-height: 30px;
+        }
+        h3 + span {
+          color: #3A92FF;
+          cursor: pointer;
+        }
+        ul {
+          border-top: 1px solid #D2D2D2;
+          border-bottom: 1px solid #D2D2D2;
+          padding: 20px;
+          li + li {
+            margin-top: 10px;
+          }
+        }
+      }
+      .content-section {
+        .repost-price-select {
+          display: inline-block;
+          width: 200px;
+          margin-right: 10px;
+        }
+        .repost-price-info-box {
+          display: inline-block;
+          width: 300px;
+          background-color: #f0f0f0;
+          text-align: center;
+          border-radius: 5px;
         }
       }
     }
