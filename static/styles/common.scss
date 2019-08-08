@@ -38,11 +38,11 @@ body {
 
   &.primary {
     background: #0ebcff; /* For browsers that do not support gradients */
-    background: radial-gradient(ellipse at center, #002389 2%, #1f59e4 100%); /* Standard syntax */
-    background: -webkit-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%); /* For Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%); /* For Opera 11.1 to 12.0 */
-    background: -moz-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%); /* For Firefox 3.6 to 15 */
-    background: -ms-radial-gradient(center, ellipse cover, #002389 2%, #1f59e4 100%);
+    background: radial-gradient(ellipse at center, #0f3fc8 2%, #003eee 100%); /* Standard syntax */
+    background: -webkit-radial-gradient(center, ellipse cover, #0f3fc8 2%, #003eee 100%); /* For Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(center, ellipse cover, #0f3fc8 2%, #003eee 100%); /* For Opera 11.1 to 12.0 */
+    background: -moz-radial-gradient(center, ellipse cover, #0f3fc8 2%, #003eee 100%); /* For Firefox 3.6 to 15 */
+    background: -ms-radial-gradient(center, ellipse cover, #0f3fc8 2%, #003eee 100%);
 
     .my-footer {
       a {
