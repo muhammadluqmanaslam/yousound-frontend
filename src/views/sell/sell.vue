@@ -142,6 +142,13 @@
                     </div>
                   </template>
                 </v-flex>
+                <div class="text-xs-center">
+                  <v-btn
+                    v-show="order_pagination.current_page < order_pagination.total_pages"
+                    @click.native="loadOrders()"
+                    class="loadmore-btn"
+                  >Load More</v-btn>
+                </div>
               </v-card>
             </v-tabs-content>
 

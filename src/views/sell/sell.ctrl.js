@@ -51,6 +51,10 @@ export default {
       shipping_id: null,
       order_detail: null,
       orderHistories: [],
+      order_pagination: {
+        current_page: 1,
+        per_page: 100
+      },
       products: [],
       product: {},
       selected_item: {},
@@ -118,26 +122,43 @@ export default {
         this.openProductFinishModal()
       })
     }
-    this.loadData()
+
+    this.isPageReady = false
+    this.$store.dispatch('error/showLoadingActivity', true)
+    Promise.all([
+      OrderService.getReceivedOrders({ page: this.order_pagination.current_page, per_page: this.order_pagination.per_page }),
+      ProductService.getProducts()
+    ]).then(values => {
+      this.orderHistories = values[0].body.orders
+      this.order_pagination = values[0].body.pagination
+      this.products = values[1].body
+      this.isPageReady = true
+      this.$store.dispatch('error/showLoadingActivity', false)
+    }).catch(reason => {
+      console.log(reason)
+      this.$store.dispatch('error/showLoadingActivity', false)
+      this.$store.dispatch('error/showErrorToast', reason)
+    })
   },
 
   methods: {
-    loadData () {
-      this.isPageReady = false
+    loadProducts () {
       this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([
-        OrderService.getReceivedOrders({ page: this.page_index, per_page: this.items_per_page }),
-        ProductService.getProducts()
-      ]).then(values => {
-        this.orderHistories = values[0].body.orders
-        this.products = values[1].body
+      ProductService.getProducts().then(response => {
+        this.products = response.body
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+    },
 
-        this.isPageReady = true
+    loadOrders () {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      OrderService.getReceivedOrders({
+        page: this.order_pagination.current_page + 1,
+        per_page: this.order_pagination.per_page
+      }).then(response => {
+        this.orderHistories = this.orderHistories.concat(response.body.orders)
+        this.order_pagination = response.body.pagination
         this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(reason => {
-        console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', reason)
       })
     },
 
@@ -331,7 +352,7 @@ export default {
     releaseProduct (product) {
       ProductService.releaseProduct(product.id).then(response => {
         this.active_tab = 'collaborations'
-        this.loadData()
+        this.loadProducts()
       })
     },
 
@@ -345,13 +366,13 @@ export default {
 
     acceptCollaboration(product) {
       ProductService.acceptCollaboration(product.id).then(response => {
-        this.loadData()
+        this.loadProducts()
       })
     },
 
     denyCollaboration(product) {
       ProductService.denyCollaboration(product.id).then(response => {
-        this.loadData()
+        this.loadProducts()
       })
     },
 
