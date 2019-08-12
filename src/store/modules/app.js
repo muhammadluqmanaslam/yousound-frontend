@@ -14,6 +14,10 @@ const getters = {
   digitalCategoryIds: (state) => {
     // return _.chain(state.product_categories).find((c) => (c.name === 'Digital Product')).get('id', null).value()
     return _.chain(state.product_categories).filter((c) => (c.is_digital)).map('id').value()
+  },
+
+  reminderTracksCount: state => {
+    return _.get(state.settings, 'reminder_tracks_count', 5)
   }
 }
 

@@ -90,6 +90,7 @@
     animation: sk-scaleout 1.0s infinite ease-in-out;
   }
   .player-section {
+    position: relative;
     .controls-section {
       position: relative;
       padding-top: 7.5px;
@@ -187,6 +188,34 @@
       .player-bar {
         padding: 0 10px;
       }
+    }
+
+  }
+  .reminder-section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .media {
+    height: 70px;
+    margin-top: 8px;
+    align-items: center;
+    box-shadow: 5px 5px 5px #e0e0e0;
+    background-color: #FFF;
+    &__image {
+      flex: 0 0 auto;
+      width: 80px;
+      height: 60px;
+      background: url("/static/images/ic_send_love.svg") no-repeat center center;
+    }
+    &__title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    &__description {
+      font-size: 18px;
     }
   }
   .actions-section {
