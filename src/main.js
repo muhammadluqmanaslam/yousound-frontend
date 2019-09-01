@@ -153,7 +153,7 @@ if (isOldBrowser) {
   const app = new Vue({
     router,
     store,
-    template: '<v-app id="app"><router-view id="content-view"></router-view></v-app>'
+    template: '<v-app id="app"><router-view class="main-content-view"></router-view></v-app>'
     // template: '<App/>',
     // components: { App }
   })

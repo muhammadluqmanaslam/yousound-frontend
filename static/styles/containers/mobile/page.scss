@@ -1,0 +1,54 @@
+.main-content-view {
+  padding: 0;
+}
+
+.mobile-page {
+  padding: 0;
+  font-size: 18px;
+
+  h3 {
+    font-size: 36px;
+  }
+
+  h4 {
+    font-size: 24px;
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+
+  .font-weight-300 {
+    font-weight: 300 !important;
+  }
+
+  .page-header {
+    text-align: center;
+    .site-logo {
+      width: 200px;
+    }
+  }
+
+  .footer.my-mobile-footer {
+    display: block;
+    background-color: transparent;
+    line-height: 36px;
+    a {
+      display: block;
+    }
+  }
+}
+
+.mobile-page.mobile-dashboard-landing-page {
+  .app-overview-section {
+    line-height: 36px;
+  }
+
+  .app-download-section {
+    img {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+}
