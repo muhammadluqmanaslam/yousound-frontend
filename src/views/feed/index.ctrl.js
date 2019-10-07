@@ -63,6 +63,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab == tab
+    },
+
     loadFeeds (filter) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {

@@ -92,6 +92,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab == tab
+    },
+
     loadFeeds(tab, page) {
       const vm = this
       if (page == 1) {
