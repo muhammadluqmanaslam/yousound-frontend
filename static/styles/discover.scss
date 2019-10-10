@@ -34,9 +34,20 @@
     }
   }
 
+  .genre-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    img, i {
+      width: 24px;
+      height: 24px;
+      flex: 0 0 auto;
+    }
+  }
+
   .genre-dialog-selector {
     position: relative;
-    display: inline-block;
+    // display: inline-block;
     .btn {
       min-width: 45px;
       height: 40px;
@@ -47,8 +58,8 @@
     }
     .tooltip {
       position: absolute;
-      bottom: 40px;
-      right: -5px;
+      bottom: 50px;
+      right: 60px;
       width: 240px;
       padding: 0 0 10px 0;
       background-color: transparent;
@@ -62,7 +73,8 @@
         height: 0;
         margin: -2px;
         border-style: solid;
-        border-color: rgba(0, 0, 0, 0.2);
+        // border-color: rgba(0, 0, 0, 0.2);
+        border-color: #0ba0f7;
         border-width: 12px 12px 0;
         border-left-color: transparent!important;
         border-right-color: transparent!important;
@@ -72,7 +84,8 @@
         position: relative;
         padding: 10px 60px 10px 10px;
         border-radius: 5px;
-        background-color: rgba(0, 0, 0, 0.2);
+        // background-color: rgba(0, 0, 0, 0.2);
+        background-color: #0ba0f7;
         color: #FFFFFF;
         text-align: left;
         font-size: 16px;

@@ -3,7 +3,7 @@
     <div class="d-flex">
       <div class="tab-container">
         <h2 class="page-title">Display</h2>
-        <ul>
+        <ul class="pr-3">
           <li
             v-for="tab in tabs"
             :key="tab.id"
@@ -11,22 +11,22 @@
             :class="{active: isActiveTab(tab.id)}"
           ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
 
-          <li>
-            <div class="genre-dialog-selector">
-              <v-btn
-                flat
-                class="ma-0 mr-2"
-                @mouseenter="hover_on_genre_button = true"
-                @mouseleave="hover_on_genre_button = false"
-                @click.native="openGenreSelectorDialog()"
+          <li v-if="activeTab != 'merch'" class="border-top my-0">
+            <div
+              class="genre-dialog-selector py-3"
+              @mouseenter="hover_on_genre_button = true"
+              @mouseleave="hover_on_genre_button = false"
+            >
+              <div
+                class="genre-filter"
+                @click="openGenreSelectorDialog()"
               >
-                <img src="/static/images/ic_filter.svg" width="20">
-              </v-btn>
+                <span>Genre Filter</span>
+                <img src="/static/images/ic_filter.svg">
+              </div>
               <div
                 v-show="showGenreTooltip"
                 class="tooltip"
-                @mouseenter="hover_on_genre_tooltip = true"
-                @mouseleave="hover_on_genre_tooltip = false"
               >
                 <div class="tooltip-arrow"></div>
                 <div class="tooltip-inner">
@@ -36,17 +36,23 @@
                 </div>
               </div>
             </div>
+          </li>
 
+          <li v-if="activeTab != 'merch'" class="border-top border-bottom my-0">
             <v-menu
-              v-show="activeTab!='merch'"
               content-class="filter-menu__content"
               id="genre_selector"
               class="filter_menu"
+              style="display: block;"
               offset-y
             >
-              <v-btn dark slot="activator">Any genre
+              <!-- <v-btn dark slot="activator">Any genre
                 <v-icon dark right>keyboard_arrow_down</v-icon>
-              </v-btn>
+              </v-btn> -->
+              <div slot="activator" class="genre-filter py-3">
+                <span>{{ selectedGenreName }}</span>
+                <v-icon dark right>keyboard_arrow_down</v-icon>
+              </div>
               <v-list>
                 <v-list-tile
                   v-for="genre in genres"
@@ -59,16 +65,20 @@
             </v-menu>
           </li>
 
-          <li>
+          <li v-if="activeTab == 'merch'" class="border-top border-bottom my-0">
             <v-menu
-              v-show="activeTab=='merch'"
               id="category_selector"
               class="filter_menu"
+              style="display: block;"
               offset-y
             >
-              <v-btn dark slot="activator">Any category
+              <!-- <v-btn dark slot="activator">Any category
                 <v-icon dark right>keyboard_arrow_down</v-icon>
-              </v-btn>
+              </v-btn> -->
+              <div slot="activator" class="genre-filter py-3">
+                <span>{{ selectedCategoryName }}</span>
+                <v-icon right>keyboard_arrow_down</v-icon>
+              </div>
               <v-list>
                 <v-list-tile
                   v-for="category in categories"

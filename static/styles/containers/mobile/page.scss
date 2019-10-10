@@ -3,7 +3,7 @@
 }
 
 .page-title {
-  margin: 0 0 15px;
+  margin: 0 0 25px;
   font-family: 'Work Sans';
   font-size: 40px;
   font-weight: 700;
@@ -13,6 +13,8 @@
 }
 
 .tab-container {
+  width: 300px;
+  flex: 0 0 auto;
   ul {
     li {
       list-style: none;

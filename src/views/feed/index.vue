@@ -1,6 +1,6 @@
 <template>
   <div class="page stream-page mx-5">
-    <div style="display: flex;">
+    <div class="d-flex">
       <div class="tab-container" style="flex: 0 0 auto; width: 300px;">
         <h2 class="page-title">Feed</h2>
         <ul>

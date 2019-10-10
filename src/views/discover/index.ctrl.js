@@ -51,6 +51,14 @@ export default {
       return !this.got_genre_tooltip && (this.hover_on_genre_button || this.hover_on_genre_tooltip)
     },
 
+    selectedGenreName() {
+      return _.get(this.selected_genre, 'name', 'All Genres')
+    },
+
+    selectedCategoryName() {
+      return _.get(this.selected_category, 'name', 'All Categories')
+    },
+
     filtered_feeds() {
       if (this.selected_genre) {
         return _.filter(this.feeds, (feed) => (
@@ -128,7 +136,7 @@ export default {
           const genres = _.chain(this.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
           this.genres = [
             // { id: 'go_to_filters', name: 'Set Genre Filters' },
-            { id: 'any', name: 'Any genre' },
+            { id: 'any', name: 'All genre' },
           ].concat(genres)
         }
         this.page_index = response.body.pagination.current_page
@@ -155,7 +163,7 @@ export default {
               )
               const genres = _.chain(vm.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
               vm.genres = [
-                { id: 'any', name: 'Any genre' },
+                { id: 'any', name: 'All genre' },
               ].concat(genres)
               vm.page_index = values[2].body.pagination.total_pages > 4 ? 4 : values[2].body.pagination.total_pages
             }
