@@ -73,12 +73,13 @@
         font-size: 16px;
         color: #FFFFFF;
         letter-spacing: 0;
+        display: none;
       }
       .product-actions {
         cursor: pointer;
         width: 100%;
         height: 100%;
-        background: rgba(32, 130, 255, 0.9);
+        background: rgba(53, 53, 53, 0.87);
         border-radius: 7.5px;
         position: absolute;
         padding: 0;
@@ -146,9 +147,9 @@
       text-align: center;
       .product-name {
         margin: 0;
-        font-size: 18px;
+        font-size: 17px;
         color: #000000;
-        letter-spacing: -0.6px;
+        letter-spacing: -.3px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
@@ -158,10 +159,10 @@
         width: 100%;
         margin: 0;
         opacity: 0.5;
-        font-size: 18px;
+        font-size: 16px;
         color: #000;
         text-align: left;
-        letter-spacing: -0.6px;
+        letter-spacing: -.3px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

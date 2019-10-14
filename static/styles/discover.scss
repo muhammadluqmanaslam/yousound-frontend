@@ -18,7 +18,7 @@
       color: #8E8E8E;
       text-transform: uppercase;
       margin-left: 1px;
-      font-family: 'Montserrat';
+      font-family: 'Raleway', sans-serif;
       &.tabs__item--active {
         color: #000000;
       }
@@ -39,8 +39,8 @@
     align-items: center;
     justify-content: space-between;
     img, i {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       flex: 0 0 auto;
     }
   }
@@ -68,13 +68,13 @@
       .tooltip-arrow {
         position: absolute;
         bottom: 0px;
-        right: 20px;
+        right: 180px;
         width: 0;
         height: 0;
         margin: -2px;
         border-style: solid;
         // border-color: rgba(0, 0, 0, 0.2);
-        border-color: #0ba0f7;
+        border-color: #1e1e1e;
         border-width: 12px 12px 0;
         border-left-color: transparent!important;
         border-right-color: transparent!important;
@@ -85,18 +85,20 @@
         padding: 10px 60px 10px 10px;
         border-radius: 5px;
         // background-color: rgba(0, 0, 0, 0.2);
-        background-color: #0ba0f7;
+        background-color: #1e1e1e;
         color: #FFFFFF;
         text-align: left;
-        font-size: 16px;
-        width: 300px;
+        font-size: 15px;
+        width: 285px;
+        margin-left: 12px;
+        padding-left: 15px;
         a {
           position: absolute;
           top: 15px;
           right: 10px;
           padding: 5px 7px;
           border-radius: 5px;
-          background-color: rgba(255, 255, 255, 0.2);
+          background-color: rgb(55, 55, 55);
           color: #FFFFFF;
         }
       }

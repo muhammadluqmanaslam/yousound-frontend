@@ -1,5 +1,5 @@
 body {
-  font-family: 'Nunito', 'Avenir', 'Arial';
+  font-family: 'Raleway', sans-serif;
 }
 
 .application.theme--light {
@@ -9,7 +9,7 @@ body {
 // div#app {
 .application {
   background-color: #FFFFFF;
-  font-family: 'Nunito', 'Avenir', 'Arial';
+  font-family: 'Raleway', sans-serif;
 
   .my-footer {
     z-index: 1;
@@ -38,11 +38,7 @@ body {
 
   &.primary {
     background: #0ebcff; /* For browsers that do not support gradients */
-    background: radial-gradient(ellipse at center, #1d3cb1 2%, #2b71b9 100%); /* Standard syntax */
-    background: -webkit-radial-gradient(center, ellipse cover, #365480 2%, #2b71b9 100%); /* For Safari 5.1 to 6.0 */
-    background: -o-radial-gradient(center, ellipse cover, #1d3cb1 2%, #2b71b9 100%); /* For Opera 11.1 to 12.0 */
-    background: -moz-radial-gradient(center, ellipse cover, #1d3cb1 2%, #2b71b9 100%); /* For Firefox 3.6 to 15 */
-    background: -ms-radial-gradient(center, ellipse cover, #1d3cb1 2%, #2b71b9 100%);
+    background-image: linear-gradient(to top, #4b7370 0%, #343d82 100%);
 
     .my-footer {
       a {
@@ -349,11 +345,11 @@ input[type=password] {
 }
 
 .border-top {
-  border-top: 1px solid #D2D2D2;
+  border-top: 1px solid #D2D2D25E;
 }
 
 .border-bottom {
-  border-bottom: 1px solid #D2D2D2;
+  border-bottom: 1px solid #D2D2D2A8;
 }
 
 .border-left {
@@ -435,7 +431,7 @@ input[type=password] {
   margin: 0px auto;
   box-shadow: none;
   text-transform: none;
-  background: #0ba0f7 !important;
+  background: #000 !important;
   border-radius: 100px;
   font-weight: 600;
   font-size: 18px;
@@ -445,7 +441,7 @@ input[type=password] {
 
 .card-container {
   flex: initial !important;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   padding: 0 14px !important;
 }
 

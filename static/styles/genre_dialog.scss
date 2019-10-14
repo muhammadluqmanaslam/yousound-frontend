@@ -10,12 +10,12 @@
   // margin: -320px 0 0 -400px;
   // padding: 10px 10px;
   // border-radius: 5px;
-  background-color: #060621;
+  background-color: #1a1919;
   padding-left: 40px !important;
   padding-right: 40px !important;
   padding-top: 20px !important;
   padding-bottom: 20px !important;
-  border-radius: 8px;
+  border-radius: 4px;
   height: 730px;
 
   .ma-2 {
@@ -122,6 +122,10 @@
                 &:hover {
                   border-radius: 10px;
                   background: rgba(0, 0, 0, 0.2);
+                  padding-left: 8px;
+                  padding-right: 8px;
+                  padding-top: 4px;
+                  padding-bottom: 4px;
                 }
               }
             }

@@ -144,6 +144,10 @@
     }
   }
 
+  .menu__content profile-menu__content menuable__content__active {
+  left: 1320px;
+  }
+
   .menu.profile-menu {
     margin-right: 0 !important;
     .btn {
@@ -164,7 +168,7 @@
 .my-header.fixed {
   z-index: 11;
   position: fixed;
-  background-color: #FFFFFF;
+  background-color: #FFFFFFF5;
 }
 
 #searchIcon {

@@ -19,7 +19,7 @@
         // color: #FFFFFF;
         // letter-spacing: 0;
         img {
-          width: 15%;
+          width: 12%;
           vertical-align: middle;
           padding: 5px;
           background-color: rgba(0, 0, 0, 0.58);
@@ -128,9 +128,9 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        font-size: 18px;
+        font-size: 17px;
         color: #000000;
-        letter-spacing: -0.6px;
+        letter-spacing: -0.3px;
         text-align: left;
         margin-left: 0;
         a {
@@ -140,13 +140,12 @@
       .track-user-name {
         width: 100%;
         opacity: 0.5;
-        font-size: 18px;
+        font-size: 16px;
         color: #333;
-        letter-spacing: -1px;
+        letter-spacing: -.3px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-family: 'Work Sans';
         text-align: left;
         margin-left: 0;
         margin-top: -16px;

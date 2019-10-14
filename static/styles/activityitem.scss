@@ -6,13 +6,13 @@
 
   .activity-item-body {
     padding-bottom: 22.5px;
-    // border-bottom: 0.75px solid #E1E1E1;
+    // border-bottom: 1px solid #E1E1E1;
     position: relative;
     &.last-item {
       border: none;
     }
     .activity-item-section {
-      border-right: 0.75px solid #E1E1E1;
+      border-right: 1x solid #E1E1E1;
       &.no-reposts {
         border: none;
       }
@@ -148,5 +148,5 @@
 }
 
 .activity-item + .activity-item {
-  border-top: 0.75px solid #E1E1E1;
+  border-top: 1px solid #DBDBDB;
 }
