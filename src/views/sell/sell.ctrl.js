@@ -142,6 +142,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
     loadProducts () {
       this.$store.dispatch('error/showLoadingActivity', true)
       ProductService.getProducts().then(response => {

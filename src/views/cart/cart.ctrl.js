@@ -22,7 +22,11 @@ export default {
 
   data () {
     return {
-      current_tab: 'cart',
+      active_tab: 'cart',
+      tabs: [
+        { id: 'cart', title: 'Added to Cart' },
+        { id: 'history', title: 'Order History' },
+      ],
       showSendMessage: false,
       show_address_confirm_dialog: false,
       show_ticket_dialog: false,
@@ -62,6 +66,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
     init (tab) {
       if (!this.currentUser) {
         AuthService.clearTokenAndUserInfo()
@@ -69,11 +77,11 @@ export default {
         return
       }
 
-      this.current_tab = tab || 'cart'
-      this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: this.current_tab })
+      this.active_tab = tab || 'cart'
+      this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: this.active_tab })
 
       let params
-      switch (this.current_tab) {
+      switch (this.active_tab) {
         case 'cart':
           params = {}
           if (this.$store.state.auth.user.default_address) {
@@ -187,7 +195,7 @@ export default {
     removeMyAddress () {
       this.closeAddressConfimDialog()
       OrderService.hideMyAddress(this.active_order.id).then(response => {
-        this.init(this.current_tab)
+        this.init(this.active_tab)
       })
     },
 

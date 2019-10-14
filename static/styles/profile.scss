@@ -1,6 +1,7 @@
 .page.profile-grid-page {
   .user-profile-section {
-    display: flex;
+    // display: flex;
+    text-align: center;
     .user-profile-image-section {
       position: relative;
       overflow: hidden;
@@ -161,7 +162,7 @@
       }
       .user-action-section {
         & > .btn {
-          min-width: 130px;
+          min-width: 110px;
           height: 40px;
           margin: 8px 0px 8px 0px;
           box-shadow: none;
@@ -231,7 +232,7 @@
   }
   .profile-grid-tab {
     position: relative;
-    margin-top: -52px;
+    // margin-top: -52px;
     .tabs {
       .tabs__bar {
         margin-left: 200px;

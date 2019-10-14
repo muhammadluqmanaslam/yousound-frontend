@@ -25,13 +25,21 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    }
+  },
 
   methods: {
     // filterSelected (index) {
     //   $('#filter_selector .btn__content').html(this.tabs[index].name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
     //   this.active_tab = this.tabs[index].id
     // },
+
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
 
     loadActivities() {
       console.log('loadActivities')

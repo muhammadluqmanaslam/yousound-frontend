@@ -37,9 +37,9 @@ export default {
 
   data () {
     return {
-      // currentTab: 'songs',
+      // active_tab: 'songs',
       // slide_tab: 'songs',
-      currentTab: '',
+      active_tab: '',
       slide_tab: '',
       tabs: [
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
@@ -85,6 +85,10 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    userLocation() {
+      return _.get(this.user, 'default_address.city', '--')
     },
 
     enabledViewDirectMessage () {
@@ -160,6 +164,10 @@ export default {
       setPlaying: 'player/setPlayingStatus'
     }),
 
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
     onTab (tab) {
       this.$router.push({
         path: this.$route.path,
@@ -173,7 +181,7 @@ export default {
     setGridView (flag) {
       this.$router.push({
         path: this.$route.path,
-        hash: this.currentTab,
+        hash: this.active_tab,
         query: {
           grid_view: flag
         }
@@ -244,24 +252,24 @@ export default {
         }
 
         if (tab) {
-          this.currentTab = tab
+          this.active_tab = tab
           this.slide_tab = tab
         } else {
           switch (this.user.user_type) {
             case 'artist':
-              this.currentTab = 'songs'
+              this.active_tab = 'songs'
               this.slide_tab = 'songs'
               break
             case 'label':
-              this.currentTab = 'artists'
+              this.active_tab = 'artists'
               this.slide_tab = 'artists'
               break
             case 'brand':
-              this.currentTab = 'merch'
+              this.active_tab = 'merch'
               this.slide_tab = 'merch'
               break
             default:
-              this.currentTab = 'playlists'
+              this.active_tab = 'playlists'
               this.slide_tab = 'playlists'
               break
           }
@@ -271,14 +279,14 @@ export default {
         this.auto_play = auto_play
         this.$store.dispatch('player/setGridShow', grid_view)
         if (grid_view) {
-          this.currentTab = this.slide_tab
-          this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.currentTab })
+          this.active_tab = this.slide_tab
+          this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.active_tab })
         } else {
-          this.slide_tab = this.currentTab
-          this.$store.dispatch('navigator/goNextState', { page: 'profile-slider', tab: this.currentTab })
+          this.slide_tab = this.active_tab
+          this.$store.dispatch('navigator/goNextState', { page: 'profile-slider', tab: this.active_tab })
         }
 
-        this.getItems(this.currentTab, false)
+        this.getItems(this.active_tab, false)
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -368,7 +376,7 @@ export default {
         }
       }
       this.genres = _.uniqBy(genres, 'id')
-      // console.log(this.currentTab, albums)
+      // console.log(this.active_tab, albums)
       // console.log(this.albums)
     },
 
@@ -376,7 +384,7 @@ export default {
       if (this.followings_selector !== value) {
         this.followings_selector = value
         $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-        this.getItems(this.currentTab, false)
+        this.getItems(this.active_tab, false)
       }
     },
 
@@ -534,7 +542,7 @@ export default {
     },
 
     playSong () {
-      if (this.currentTab === 'songs' || this.albums.length) {
+      if (this.active_tab === 'songs' || this.albums.length) {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
         this.setPlaying(true)

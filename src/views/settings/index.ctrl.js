@@ -39,7 +39,7 @@ export default {
         { id: 'seller-policies', title: 'Seller Policies' },
         { id: 'verify-status', title: 'Verification Status' }
       ],
-      tab: 'info',
+      active_tab: 'info',
       profile: {
         image: null,
         username: '',
@@ -99,6 +99,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
     availableTab (tab) {
       return tab.id !== 'verify-status' ||
         (this.currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1)
@@ -106,8 +110,8 @@ export default {
     },
 
     onTab (tab) {
-      this.tab = tab
-      switch (this.tab) {
+      this.active_tab = tab
+      switch (this.active_tab) {
         case 'info':
           this.resetProfile()
           break

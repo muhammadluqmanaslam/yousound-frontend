@@ -1,7 +1,7 @@
 <template>
   <div class="page stream-page mx-5">
     <div class="d-flex">
-      <div class="tab-container" style="flex: 0 0 auto; width: 300px;">
+      <div class="tab-container">
         <h2 class="page-title">Feed</h2>
         <ul>
           <li
@@ -26,7 +26,11 @@
             </v-layout>
           </div>
           <div class="text-xs-center">
-            <v-btn class="loadmore-btn" @click.native="loadMore()" v-show="page_index < total_pages">Load More</v-btn>
+            <v-btn
+              v-show="page_index < total_pages"
+              @click.native="loadMore()"
+              class="loadmore-btn"
+            >Load More</v-btn>
           </div>
         </div>
       </div>
