@@ -1,19 +1,21 @@
 <template>
   <div class="page stream-page mx-5">
     <div class="d-flex">
-      <div class="tab-container">
-        <h2 class="page-title">Feed</h2>
-        <ul>
-          <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            :class="{active: isActiveTab(tab.id)}"
-          ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
-        </ul>
+      <div class="page-left">
+        <div class="tab-container">
+          <h2 class="page-title">Feed</h2>
+          <ul>
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{active: isActiveTab(tab.id)}"
+            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="tab-content" v-if="currentUser">
+      <div class="page-content" v-if="currentUser">
         <div v-if="!users || users.length == 0" class="empty-section">
           <p class="empty-title">Your stream is empty</p>
           <p class="empty-description">Follow people to discover new music &amp; products.</p>

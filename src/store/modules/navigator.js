@@ -29,7 +29,8 @@ const getters = {
   },
 
   isHeaderFixed: (state) => {
-    return ['main_landing'].indexOf(state.current.page) > -1
+    // return ['main_landing'].indexOf(state.current.page) > -1
+    return true
   },
 
   isPrimaryTheme: (state) => {

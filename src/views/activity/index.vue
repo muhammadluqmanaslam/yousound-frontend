@@ -1,19 +1,21 @@
 <template>
   <div class="page activity-page mx-5">
     <div class="d-flex">
-      <div class="tab-container">
-        <h2 class="page-title">Activity</h2>
-        <ul>
-          <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            :class="{active: isActiveTab(tab.id)}"
-          ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
-        </ul>
+      <div class="page-left">
+        <div class="tab-container">
+          <h2 class="page-title">Activity</h2>
+          <ul>
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{active: isActiveTab(tab.id)}"
+            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="tab-content" v-if="currentUser && isPageReady">
+      <div class="page-content" v-if="currentUser && isPageReady">
         <div v-if="!activities || activities.length == 0" class="empty-section">
           <p class="empty-title">No Activity</p>
           <p class="empty-description">This is where you'll see who followed, commented, and other activity.</p>

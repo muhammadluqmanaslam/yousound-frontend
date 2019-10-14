@@ -449,51 +449,6 @@ input[type=password] {
   padding: 0 14px !important;
 }
 
-.empty-section {
-  text-align: center;
-  .empty-icon {
-    height: 150px;
-    display: none;
-  }
-  .empty-title {
-    margin: 0;
-    padding-top: 150px;
-    font-weight: 700;
-    font-size: 36px;
-    color: #3C3C3C;
-    letter-spacing: 0;
-    line-height: 40px;
-    font-family: 'Work Sans';
-    letter-spacing: -1.3px;
-  }
-  .empty-description {
-    margin-bottom: 20px;
-    font-weight: 400;
-    font-size: 16px;
-    color: #9C9C9C;
-    letter-spacing: 0;
-    line-height: 20px;
-    font-family: 'Work Sans';
-  }
-  .empty-discover-btn {
-    display: inline-block;
-    margin-top: 15px;
-    background: #3A92FF !important;
-    border-radius: 200px;
-    height: 50px;
-    width: 100%;
-    max-width: 160px;
-    cursor: pointer;
-    line-height: 50px;
-    box-shadow: none;
-    font-weight: 600;
-    font-size: 18px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-    text-transform: none;
-  }
-}
-
 @media (min-width: 0) {
   .card-container {
     flex-basis: 100%;

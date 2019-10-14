@@ -12,29 +12,88 @@
   color: #000;
 }
 
-.tab-container {
-  width: 300px;
-  flex: 0 0 auto;
-  ul {
-    li {
-      list-style: none;
-      margin: 15px 0;
-      font-size: 20px;
-      font-weight: 300;
-      color: #999;
-      &.active {
-        font-weight: 700;
-        color: #000;
-      }
-      label {
-        cursor: pointer;
+.page {
+  position: relative;
+
+  .empty-section {
+    text-align: center;
+    .empty-icon {
+      height: 150px;
+      display: none;
+    }
+    .empty-title {
+      margin: 0;
+      padding-top: 150px;
+      font-weight: 700;
+      font-size: 36px;
+      color: #3C3C3C;
+      letter-spacing: 0;
+      line-height: 40px;
+      font-family: 'Work Sans';
+      letter-spacing: -1.3px;
+    }
+    .empty-description {
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-size: 16px;
+      color: #9C9C9C;
+      letter-spacing: 0;
+      line-height: 20px;
+      font-family: 'Work Sans';
+    }
+    .empty-discover-btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: #3A92FF !important;
+      border-radius: 200px;
+      height: 50px;
+      width: 100%;
+      max-width: 160px;
+      cursor: pointer;
+      line-height: 50px;
+      box-shadow: none;
+      font-weight: 600;
+      font-size: 18px;
+      color: #FFFFFF;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  }
+
+  .page-left {
+    width: 300px;
+    flex: 0 0 auto;
+
+    .tab-container {
+      position: fixed;
+      top: 120px;
+      width: 300px;
+      ul {
+        li {
+          list-style: none;
+          margin: 15px 0;
+          font-size: 20px;
+          font-weight: 300;
+          color: #999;
+          &.active {
+            font-weight: 700;
+            color: #000;
+          }
+          label {
+            cursor: pointer;
+          }
+        }
       }
     }
+  }
+
+  .page-content .empty-section {
+    margin-left: -300px;
   }
 }
 
 .application.primary {
-  .tab-container ul li {
+  .page .page-left .tab-container ul li {
     color: #eee;
     &.active {
       color: #fff;

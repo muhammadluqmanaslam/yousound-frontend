@@ -2,138 +2,140 @@
   <div>
     <div class="page profile-grid-page mx-5">
       <div class="d-flex">
-        <div class="tab-container pr-3">
-          <div v-if="user" class="user-profile-section border-bottom pb-2">
-            <div class="user-profile-image-section">
-              <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
-              <div
-                v-if="show_stream_live_button"
-                @click="viewStream()"
-                class="user-profile-image--live"
-              >
-                <i class="fa fa-circle"></i>
-                <span class="live">Live</span>
-              </div>
-            </div>
-            <div class="user-info-section">
-              <div class="user-name-section">
-                <label>
-                  {{ user.display_name }}
-                  <v-icon
-                    v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1"
-                    class="user-status online"
-                  >fa-check-circle</v-icon>
-                </label>
-              </div>
-              <div class="user-status-section mt-2">
-                <label class="user-role">{{ user.user_type }}</label>
-                <label class="vertical-divider"></label>
-                <label>{{ userLocation }}</label>
-              </div>
-              <div class="user-status-section mt-2">
-                <label
-                  @click="onTab('followings')"
-                  class="follower-count"
-                ><strong>{{ user.followings }}</strong> Followings</label>
-                <label class="vertical-divider"></label>
-                <label
-                  @click="onTab('followers')"
-                  class="follower-count"
-                ><strong>{{ user.followers }}</strong> Followers</label>
-                <template v-if="user.user_type === 'listener' && user.inviter">
-                  <label class="vertical-divider"></label>
-                  <label class="user-inviter-name">
-                    Invited by
-                    <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link>
-                  </label>
-                </template>
-              </div>
-              <div class="user-action-section">
-                <template v-if="user.user_type === 'listener'">
-                  <v-btn
-                    v-if="currentUser && ['artist', 'label', 'brand'].indexOf(currentUser.user_type) > -1 && !user.inviter && user.request_status === 'pending'"
-                    @click.native="openInviteConfirmDialog()"
-                    class="invite-btn"
-                  >Invite</v-btn>
-                </template>
-                <v-btn
-                  v-else
-                  @click.native="playSong()"
-                  class="play-btn"
-                ><v-icon>play_arrow</v-icon>Play</v-btn>
-                <v-btn
-                  v-if="currentUser && user.id!=currentUser.id"
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
-                  @click.native="followUser()"
-                  :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
-                >{{ followButtonText }}</v-btn>
-                <v-menu
-                  v-if="currentUser && user.id!=currentUser.id"
-                  offset-y
-                  class="more-menu"
+        <div class="page-left">
+          <div class="tab-container pr-3">
+            <div v-if="user" class="user-profile-section border-bottom pb-2">
+              <div class="user-profile-image-section">
+                <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
+                <div
+                  v-if="show_stream_live_button"
+                  @click="viewStream()"
+                  class="user-profile-image--live"
                 >
-                  <v-btn dark class="more-btn" slot="activator">
-                    <v-icon right>more_horiz</v-icon>
-                  </v-btn>
-                  <v-list>
-                    <v-list-tile key="message" @click.native="showMessageDialog()">
-                      <v-list-tile-title class="default-menu-item">
-                        <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
-                        <label>Message</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile key="view_direct_messages" @click.native="viewDirectMessages()" v-if="enabledViewDirectMessage">
-                      <v-list-tile-title class="default-menu-item">
-                        <label>View Direct Messages</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="currentUser && user.id!=currentUser.id">
-                      <v-list-tile-title class="default-menu-item">
-                        <label>Send Love</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile key="chat" @click.native="goToChat()">
-                      <v-list-tile-title class="default-menu-item">
-                        <label>Chat</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile key="share">
-                      <v-list-tile-title class="default-menu-item">
-                        <!-- <img class="track-status-icon" src="/static/images/ic_share.png" /> -->
-                        <label>Share</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile key="flag">
-                      <v-list-tile-title class="default-menu-item">
-                        <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
-                        <label>Flag</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile key="block" @click.native="openBlockUserConfirmDialog()">
-                      <v-list-tile-title class="default-menu-item">
-                        <label>Block</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                  </v-list>
-                </v-menu>
+                  <i class="fa fa-circle"></i>
+                  <span class="live">Live</span>
+                </div>
+              </div>
+              <div class="user-info-section">
+                <div class="user-name-section">
+                  <label>
+                    {{ user.display_name }}
+                    <v-icon
+                      v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1"
+                      class="user-status online"
+                    >fa-check-circle</v-icon>
+                  </label>
+                </div>
+                <div class="user-status-section mt-2">
+                  <label class="user-role">{{ user.user_type }}</label>
+                  <label class="vertical-divider"></label>
+                  <label>{{ userLocation }}</label>
+                </div>
+                <div class="user-status-section mt-2">
+                  <label
+                    @click="onTab('followings')"
+                    class="follower-count"
+                  ><strong>{{ user.followings }}</strong> Followings</label>
+                  <label class="vertical-divider"></label>
+                  <label
+                    @click="onTab('followers')"
+                    class="follower-count"
+                  ><strong>{{ user.followers }}</strong> Followers</label>
+                  <template v-if="user.user_type === 'listener' && user.inviter">
+                    <label class="vertical-divider"></label>
+                    <label class="user-inviter-name">
+                      Invited by
+                      <router-link :to="`/${user.inviter.slug}`">{{ user.inviter.display_name }}</router-link>
+                    </label>
+                  </template>
+                </div>
+                <div class="user-action-section">
+                  <template v-if="user.user_type === 'listener'">
+                    <v-btn
+                      v-if="currentUser && ['artist', 'label', 'brand'].indexOf(currentUser.user_type) > -1 && !user.inviter && user.request_status === 'pending'"
+                      @click.native="openInviteConfirmDialog()"
+                      class="invite-btn"
+                    >Invite</v-btn>
+                  </template>
+                  <v-btn
+                    v-else
+                    @click.native="playSong()"
+                    class="play-btn"
+                  ><v-icon>play_arrow</v-icon>Play</v-btn>
+                  <v-btn
+                    v-if="currentUser && user.id!=currentUser.id"
+                    @mouseenter="buttonHover = true"
+                    @mouseleave="buttonHover = false"
+                    @click.native="followUser()"
+                    :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
+                  >{{ followButtonText }}</v-btn>
+                  <v-menu
+                    v-if="currentUser && user.id!=currentUser.id"
+                    offset-y
+                    class="more-menu"
+                  >
+                    <v-btn dark class="more-btn" slot="activator">
+                      <v-icon right>more_horiz</v-icon>
+                    </v-btn>
+                    <v-list>
+                      <v-list-tile key="message" @click.native="showMessageDialog()">
+                        <v-list-tile-title class="default-menu-item">
+                          <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
+                          <label>Message</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile key="view_direct_messages" @click.native="viewDirectMessages()" v-if="enabledViewDirectMessage">
+                        <v-list-tile-title class="default-menu-item">
+                          <label>View Direct Messages</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile key="send_love" @click.native="showLoveDialog()" v-if="currentUser && user.id!=currentUser.id">
+                        <v-list-tile-title class="default-menu-item">
+                          <label>Send Love</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile key="chat" @click.native="goToChat()">
+                        <v-list-tile-title class="default-menu-item">
+                          <label>Chat</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile key="share">
+                        <v-list-tile-title class="default-menu-item">
+                          <!-- <img class="track-status-icon" src="/static/images/ic_share.png" /> -->
+                          <label>Share</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile key="flag">
+                        <v-list-tile-title class="default-menu-item">
+                          <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
+                          <label>Flag</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile key="block" @click.native="openBlockUserConfirmDialog()">
+                        <v-list-tile-title class="default-menu-item">
+                          <label>Block</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </div>
               </div>
             </div>
-          </div>
 
-          <ul>
-            <li
-              v-for="tab in tabs"
-              v-if="isAvailableForGridView(tab)"
-              v-show="['followings', 'followers'].indexOf(tab.id) == -1"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{active: isActiveTab(tab.id)}"
-            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
-          </ul>
+            <ul>
+              <li
+                v-for="tab in tabs"
+                v-if="isAvailableForGridView(tab)"
+                v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+                :key="tab.id"
+                :href="`#${tab.id}`"
+                :class="{active: isActiveTab(tab.id)}"
+              ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="tab-content">
+        <div class="page-content">
           <div class="profile-grid-tab">
             <div v-if="active_tab == 'followings' || active_tab == 'followers'">
               <div v-if="!users || users.length == 0" class="empty-section">

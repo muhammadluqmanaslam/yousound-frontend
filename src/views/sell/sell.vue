@@ -1,19 +1,21 @@
 <template>
   <div row wrap class="page sell-page mx-5">
     <div class="d-flex">
-      <div class="tab-container">
-        <h2 class="page-title">Sell</h2>
-        <ul>
-          <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            :class="{active: isActiveTab(tab.id)}"
-          ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
-        </ul>
+      <div class="page-left">
+        <div class="tab-container">
+          <h2 class="page-title">Sell</h2>
+          <ul>
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{active: isActiveTab(tab.id)}"
+            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="tab-content" v-if="currentUser && isPageReady">
+      <div class="page-content" v-if="currentUser && isPageReady">
         <template v-if="active_tab == 'orders'">
           <div class="orders-actions">
             <v-menu offset-y id="filter_selector" class="filter_menu" v-show="active_tab == 'orders'">
