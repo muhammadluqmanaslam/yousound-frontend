@@ -1,124 +1,123 @@
 <template>
-  <div class="page payments-page">
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative>
-      <div class="wallet-section" v-if="currentUser">
-        <label class="">Total</label>
-        <label class="available-money-amount">${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label>
-        <div class="action-section">
+  <div class="page payments-page mx-5">
+    <div class="d-flex">
+      <div class="page-left">
+        <div class="tab-container pr-3">
+          <h2 class="page-title">Payments</h2>
 
-          <!-- a class="link-btn" @click.self="openWithdrawModal()">Withdraw Funds</a>
-          <label>|</label> -->
-          
-          <a v-if="!$store.state.auth.user.is_stripe_connected" :href="stripeLink" target="_self">
-            Connect Stripe Account
-          </a>
-          <a v-else class="link-btn pl-3">View Stripe Account</a>
+          <div class="wallet-section mb-4">
+            <label class="">Total</label>
+            <label class="available-money-amount">${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label>
+            <div class="action-section">
+              <!-- a class="link-btn" @click.self="openWithdrawModal()">Withdraw Funds</a>
+              <label>|</label> -->
+              <a v-if="!$store.state.auth.user.is_stripe_connected" :href="stripeLink" target="_self">
+                Connect Stripe Account
+              </a>
+              <a v-else class="link-btn">View Stripe Account</a>
+            </div>
+          </div>
+
+          <ul>
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{active: isActiveTab(tab.id)}"
+            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+          </ul>
         </div>
       </div>
-      <h2 class="page-title">Payments</h2>
-      <div class="payments-tab">
-        <v-tabs dark v-model="activeTab">
-          <v-tabs-bar class="transparent">
-            <v-tabs-item v-for="tab in tabs"
-              :key="tab.id"
-              :href="'#' + tab.id"
-              @click.native="onTab(tab.id)"
-              ripple>{{ tab.title }}</v-tabs-item>
-            <v-tabs-slider color="black"></v-tabs-slider>
-          </v-tabs-bar>
-          <v-tabs-items>
-            <v-tabs-content v-for="tab in tabs" :key="tab.id" :id="tab.id">
-              <template v-if="!histories || histories.length == 0">
-                <div class="empty-section" v-if="tab.id == 'received'">
-                  <p class="empty-title">You have not received any payments</p>
+
+      <div class="page-content" v-if="currentUser">
+        <template v-if="!histories || histories.length == 0">
+          <div class="empty-section" v-if="active_tab == 'received'">
+            <p class="empty-title">You have not received any payments</p>
+          </div>
+          <div class="empty-section" v-else-if="active_tab == 'sent'">
+            <p class="empty-title">You have not sent any payments</p>
+          </div>
+        </template>
+        <table class="payment-table" v-else>
+          <thead>
+            <tr>
+              <th width="30%" class="text-xs-left">{{ active_tab == 'received' ? 'Sender' : 'Receiver' }}</th>
+              <th width="10%">Sent</th>
+              <th width="10%">Received</th>
+              <th width="10%">Type</th>
+              <th width="10%">Status</th>
+              <th width="10%">Date</th>
+              <th width="10%" v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && active_tab == 'received'">Refund</th>
+              <th width="10%">Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(history, index) in histories" :key="index">
+              <td v-if="active_tab == 'received'">
+                <div class="profile-section">
+                  <div class="user-avatar-image" :style="`background-image: url(${history.sender.avatar.thumb.url})`"></div>
+                  <div class="user-info-section">
+                    <label class="user-name">
+                      {{ history.sender.display_name }}
+                      <v-icon class="user-status online" v-if="history.sender.user_type == 'artist'">fa-check-circle</v-icon>
+                    </label>
+                    <!-- <label class="user-type" v-if="true">VERIFIED ARTIST</label> -->
+                    <label class="user-type">{{ history.sender.user_type }}</label>
+                  </div>
                 </div>
-                <div class="empty-section" v-else-if="tab.id == 'sent'">
-                  <p class="empty-title">You have not sent any payments</p>
+              </td>
+              <td v-if="active_tab == 'sent'">
+                <div class="profile-section">
+                  <div class="user-avatar-image" :style="`background-image: url(${history.receiver.avatar.thumb.url})`"></div>
+                  <div class="user-info-section">
+                    <label class="user-name">
+                      {{ history.receiver.display_name }}
+                      <v-icon class="user-status online" v-if="history.receiver.user_type == 'artist'">fa-check-circle</v-icon>
+                    </label>
+                    <!-- <label class="user-type" v-if="true">VERIFIED ARTIST</label> -->
+                    <label class="user-type">{{ history.receiver.user_type }}</label>
+                  </div>
                 </div>
-              </template>
-              <table class="payment-table" v-else>
-                <thead>
-                  <tr>
-                    <th width="30%" class="text-xs-left">{{ activeTab == 'received' ? 'Sender' : 'Receiver' }}</th>
-                    <th width="10%">Sent</th>
-                    <th width="10%">Received</th>
-                    <th width="10%">Type</th>
-                    <th width="10%">Status</th>
-                    <th width="10%">Date</th>
-                    <th width="10%" v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && tab.id == 'received'">Refund</th>
-                    <th width="10%">Message</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(history, index) in histories" :key="index">
-                    <td v-if="activeTab == 'received'">
-                      <div class="profile-section">
-                        <div class="user-avatar-image" :style="`background-image: url(${history.sender.avatar.thumb.url})`"></div>
-                        <div class="user-info-section">
-                          <label class="user-name">
-                            {{ history.sender.display_name }}
-                            <v-icon class="user-status online" v-if="history.sender.user_type == 'artist'">fa-check-circle</v-icon>
-                          </label>
-                          <!-- <label class="user-type" v-if="true">VERIFIED ARTIST</label> -->
-                          <label class="user-type">{{ history.sender.user_type }}</label>
-                        </div>
-                      </div>
-                    </td>
-                    <td v-if="activeTab == 'sent'">
-                      <div class="profile-section">
-                        <div class="user-avatar-image" :style="`background-image: url(${history.receiver.avatar.thumb.url})`"></div>
-                        <div class="user-info-section">
-                          <label class="user-name">
-                            {{ history.receiver.display_name }}
-                            <v-icon class="user-status online" v-if="history.receiver.user_type == 'artist'">fa-check-circle</v-icon>
-                          </label>
-                          <!-- <label class="user-type" v-if="true">VERIFIED ARTIST</label> -->
-                          <label class="user-type">{{ history.receiver.user_type }}</label>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="text-xs-center">${{ history.sent_amount|formatNumber }}</td>
-                    <td class="text-xs-center">${{ history.received_amount|formatNumber }}</td>
-                    <td class="text-xs-center" style="text-transform: capitalize;">
-                      <template v-if="history.payment_type == 'buy'">
-                        <router-link v-if="history.sent_amount == history.refund_amount"
-                          :to="`/sell/order/${history.order_id}`">Full Refund</router-link>
-                        <router-link v-else-if="history.refund_amount > 0"
-                          :to="`/sell/order/${history.order_id}`">Partial Refund</router-link>
-                        <router-link v-else
-                          :to="`/sell/order/${history.order_id}`">Purchase</router-link>
-                      </template>
-                      <template v-else-if="history.payment_type == 'refund'">
-                        <router-link :to="`/sell/order/${history.order_id}`">Refund</router-link>
-                      </template>
-                      <template v-else-if="history.payment_type == 'collaborate'">
-                        <a @click="openProductModal(history)">Collaborate</a>
-                      </template>
-                      <template v-else>
-                        {{ history.description || PaymentTypes[history.payment_type] || history.payment_type }}
-                      </template>
-                    </td>
-                    <td class="text-xs-center" :class="{'error--text': history.status == 'pending'}">{{ history.status | capitalize }}</td>
-                    <td class="text-xs-center">{{ history.created_at | formatDate }}</td>
-                    <td v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && tab.id == 'received'">
-                      <v-btn v-if="history.payment_type == 'buy' && history.sent_amount > history.refund_amount"
-                        round dark
-                        color="red"
-                        class="send-refund-btn"
-                        @click.native="openRefundDialog(history)"
-                      >Refund</v-btn>
-                    </td>
-                    <td class="text-xs-center">
-                      <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </v-tabs-content>
-          </v-tabs-items>
-        </v-tabs>
+              </td>
+              <td class="text-xs-center">${{ history.sent_amount|formatNumber }}</td>
+              <td class="text-xs-center">${{ history.received_amount|formatNumber }}</td>
+              <td class="text-xs-center" style="text-transform: capitalize;">
+                <template v-if="history.payment_type == 'buy'">
+                  <router-link v-if="history.sent_amount == history.refund_amount"
+                    :to="`/sell/order/${history.order_id}`">Full Refund</router-link>
+                  <router-link v-else-if="history.refund_amount > 0"
+                    :to="`/sell/order/${history.order_id}`">Partial Refund</router-link>
+                  <router-link v-else
+                    :to="`/sell/order/${history.order_id}`">Purchase</router-link>
+                </template>
+                <template v-else-if="history.payment_type == 'refund'">
+                  <router-link :to="`/sell/order/${history.order_id}`">Refund</router-link>
+                </template>
+                <template v-else-if="history.payment_type == 'collaborate'">
+                  <a @click="openProductModal(history)">Collaborate</a>
+                </template>
+                <template v-else>
+                  {{ history.description || PaymentTypes[history.payment_type] || history.payment_type }}
+                </template>
+              </td>
+              <td class="text-xs-center" :class="{'error--text': history.status == 'pending'}">{{ history.status | capitalize }}</td>
+              <td class="text-xs-center">{{ history.created_at | formatDate }}</td>
+              <td v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && active_tab == 'received'">
+                <v-btn v-if="history.payment_type == 'buy' && history.sent_amount > history.refund_amount"
+                  round dark
+                  color="red"
+                  class="send-refund-btn"
+                  @click.native="openRefundDialog(history)"
+                >Refund</v-btn>
+              </td>
+              <td class="text-xs-center">
+                <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </v-flex>
+    </div>
 
     <send-message v-if="send_message_dialog"
       :receiver="messaging_user"

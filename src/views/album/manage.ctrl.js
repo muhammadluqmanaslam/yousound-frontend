@@ -9,7 +9,14 @@ export default {
 
   data () {
     return {
-      activeTab: null,
+      active_tab: null,
+      tabs: [
+        { id: 'published', title: 'Published' },
+        { id: 'private', title: 'Private' },
+        { id: 'video_only', title: 'Video Attachments' },
+        { id: 'collaborated', title: 'Collaborations' },
+        { id: 'pending', title: 'Pending Collaborations' }
+      ],
       albums: [],
       album: {},
       show_album_delete_confirm_dialog: false,
@@ -22,6 +29,10 @@ export default {
   },
 
   computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    },
+
     published_albums () {
       return _.filter(this.albums, (item) => { return item.status === 'published' && !item.is_only_for_live_stream })
     },
@@ -88,6 +99,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
     loadAlbums () {
       this.$store.dispatch('error/showLoadingActivity', true)
       this.isPageReady = false
@@ -222,7 +237,7 @@ export default {
 
     releaseAlbum (album) {
       AlbumService.releaseAlbum(album.id).then(response => {
-        this.activeTab = 'collaborated'
+        this.active_tab = 'collaborated'
         this.loadAlbums()
       })
     },
@@ -238,7 +253,7 @@ export default {
       if (!tab)
         tab = 'published'
 
-      this.activeTab = tab
+      this.active_tab = tab
       // this.$store.dispatch('navigator/setCurrentState', { page: 'manage', tab: tab })
       this.$store.dispatch('navigator/goNextState', { page: 'manage', tab: tab })
     }
