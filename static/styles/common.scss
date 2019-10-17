@@ -38,7 +38,7 @@ body {
 
   &.primary {
     background: #0ebcff; /* For browsers that do not support gradients */
-    background-image: linear-gradient(to top, #4b7370 0%, #343d82 100%);
+    background-image: linear-gradient(to top, #3c707b 60%, #2c3bac 100%);
 
     .my-footer {
       a {
@@ -345,11 +345,11 @@ input[type=password] {
 }
 
 .border-top {
-  border-top: 1px solid #D2D2D25E;
+  border-top: 1px solid #D2D2D247;
 }
 
 .border-bottom {
-  border-bottom: 1px solid #D2D2D2A8;
+  border-bottom: 1px solid #D2D2D247;
 }
 
 .border-left {

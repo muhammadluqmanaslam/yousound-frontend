@@ -3,7 +3,7 @@
     <div class="d-flex">
       <div class="page-left">
         <div class="tab-container">
-          <h2 class="page-title">Sell</h2>
+          <h2 class="page-title">Settings</h2>
           <ul>
             <li
               v-for="tab in tabs"
@@ -18,7 +18,6 @@
       <div class="page-content" v-if="currentUser">
         <div class="main-section" v-if="active_tab == 'info'">
           <div class="description-section">
-            <p>Update your profile information</p>
           </div>
           <div class="content-section">
             <v-layout row wrap ma-0 profile-section>
@@ -101,7 +100,7 @@
                 <v-btn class="update-btn" @click.native="updateAccount()">Update</v-btn>
                 <p class="regular-checkbox enable-alerts settings">
                   <input type="checkbox" id="enable_alert" v-model="profile.enable_alert">
-                  <label for="enable_alert">Enable Alerts</label>
+                  <!-- <label for="enable_alert">Enable Alerts</label> -->
                 </p>
               </v-flex>
             </v-layout>
@@ -110,7 +109,6 @@
 
         <div class="main-section" v-else-if="active_tab == 'password'">
           <div class="description-section">
-            <p>Change your password</p>
           </div>
           <div class="content-section">
             <v-layout row wrap ma-0 password-section>
@@ -203,4 +201,4 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./index.ctrl.js"></script>
+sell<script type="text/javascript" src="./index.ctrl.js"></script>
