@@ -15,7 +15,7 @@ export default {
 
   data() {
     return {
-      tab: 'albums',
+      active_tab: 'albums',
       tabs: [
         { id: 'albums', title: 'Albums' },
         { id: 'playlists', title: 'Playlists' },
@@ -58,12 +58,33 @@ export default {
   },
 
   created() {
-    this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.tab })
+    this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.active_tab })
     this.keyword = this.$route.query.q
     this.init()
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
+    searchResultCount(tab) {
+      switch (tab) {
+        case 'albums':
+          return this.result.albums.length
+        case 'playlists':
+          return this.result.playlists.length
+        case 'products':
+          return this.result.products.length
+        case 'live_video':
+          return this.result.streams.length
+        case 'users':
+          return this.result.users.length
+        default:
+          return 0
+      }
+    },
+
     init () {
       this.page_index = 1
       this.total_pages = 1
@@ -145,14 +166,14 @@ export default {
     },
 
     onTab (tab) {
-      this.tab = tab
-      this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.tab })
+      this.active_tab = tab
+      this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.active_tab })
       // if (tab === 'albums') {
       //   $('#genre_selector').show()
       // } else {
       //   $('#genre_selector').hide()
       // }
-      // console.log('onTab', this.tab, this.users)
+      // console.log('onTab', this.active_tab, this.users)
     }
   },
 

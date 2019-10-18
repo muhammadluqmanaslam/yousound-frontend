@@ -1,56 +1,60 @@
 <template>
-  <div class="page cart-page">
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
-      <h2 class="page-title">Checkout</h2>
-    </v-flex>
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 relative checkout-page>
-      <div class="order-status-section" v-if="isPageReady && cartItems.length">
-        <div class="status-row">
-          <label class="status-title">Subtotal</label>
-          <label class="status-title value">${{ cartCost.subtotal_cost|formatNumber }}</label>
-        </div>
-        <div class="status-row">
-          <label class="status-title">Shipping</label>
-          <label class="status-title value">${{ cartCost.shipping_cost|formatNumber }}</label>
-        </div>
-        <div class="status-row">
-          <label class="status-title">Sales Tax</label>
-          <label class="status-title value">${{ cartCost.tax_cost|formatNumber }}</label>
-        </div>
-        <div class="total-row">
-          <label class="status-title">Total</label>
-          <label class="status-title value">${{ cartCost.total_cost|formatNumber }}</label>
-        </div>
-        <div class="action-row">
-          <v-btn class="place-order-btn" @click.native="openPaymentDialog()">Place Order</v-btn>
+  <div class="page cart-page cart-checkout-page mx-5">
+    <div class="d-flex">
+      <div class="page-left">
+        <div class="tab-container">
+          <h2 class="page-title">Checkout</h2>
+          <div class="shipping-address-section">
+            <a class="shipping-address-header" :class="{'open': showAddress}" @click.self="showAddress = !showAddress">
+              <div class="arrow"></div> Default Shipping Address
+              <div class="shipping-address-content" v-if="shippingAddress.length">
+                <label>{{ shippingAddress[0].street_1 }} {{ shippingAddress[0].street_2 }}</label>
+                <label>{{ shippingAddress[0].city }}, {{ shippingAddress[0].state }} {{ shippingAddress[0].postcode }}</label>
+                <label>{{ shippingAddress[0].country }}</label>
+              </div>
+            </a>
+          </div>
+          <div class="shipping-address-section">
+            <router-link to="/settings#shipping-address" class ="update-shipping-address">
+              Update Shipping Address
+              <v-icon class="settings-icon">settings</v-icon>
+            </router-link>
+            <!-- <a class="shipping-address-header">
+              <div class="arrow"></div> New Shipping Address
+              <div class="shipping-address-content">
+                <label>123 Main Street</label>
+                <label>San Francisco, CA</label>
+                <label>United States</label>
+              </div>
+            </a> -->
+          </div>
         </div>
       </div>
-      <v-flex xs12 class="shipping-address-section">
-        <a class="shipping-address-header" :class="{'open': showAddress}" @click.self="showAddress = !showAddress">
-          <div class="arrow"></div> Default Shipping Address
-          <div class="shipping-address-content" v-if="shippingAddress.length">
-            <label>{{ shippingAddress[0].street_1 }} {{ shippingAddress[0].street_2 }}</label>
-            <label>{{ shippingAddress[0].city }}, {{ shippingAddress[0].state }} {{ shippingAddress[0].postcode }}</label>
-            <label>{{ shippingAddress[0].country }}</label>
+
+      <div class="page-content relative" v-if="currentUser && isPageReady">
+        <div class="order-status-section" v-if="cartItems.length">
+          <div class="status-row">
+            <label class="status-title">Subtotal</label>
+            <label class="status-title value">${{ cartCost.subtotal_cost|formatNumber }}</label>
           </div>
-        </a>
-      </v-flex>
-      <v-flex xs12 class="shipping-address-section">
-        <router-link to="/settings#shipping-address" class ="update-shipping-address">
-          Update Shipping Address
-          <v-icon class="settings-icon">settings</v-icon>
-        </router-link>
-        <!-- <a class="shipping-address-header">
-          <div class="arrow"></div> New Shipping Address
-          <div class="shipping-address-content">
-            <label>123 Main Street</label>
-            <label>San Francisco, CA</label>
-            <label>United States</label>
+          <div class="status-row">
+            <label class="status-title">Shipping</label>
+            <label class="status-title value">${{ cartCost.shipping_cost|formatNumber }}</label>
           </div>
-        </a> -->
-      </v-flex>
-      <v-flex xs12 pt-2></v-flex>
-      <v-flex class="order-item" v-for="(item, index) in cartItems" :key="index">
+          <div class="status-row">
+            <label class="status-title">Sales Tax</label>
+            <label class="status-title value">${{ cartCost.tax_cost|formatNumber }}</label>
+          </div>
+          <div class="total-row">
+            <label class="status-title">Total</label>
+            <label class="status-title value">${{ cartCost.total_cost|formatNumber }}</label>
+          </div>
+          <div class="action-row">
+            <v-btn class="place-order-btn" @click.native="openPaymentDialog()">Place Order</v-btn>
+          </div>
+        </div>
+
+        <div class="order-item" v-for="(item, index) in cartItems" :key="index">
           <div class="order-section">
             <v-layout row>
               <v-flex sm12 class="order-content-section pa-0 relative" :class="{'border-top-none': index!=0}">
@@ -93,8 +97,9 @@
               </v-flex>
             </v-layout>
           </div>
-        </v-flex>
-    </v-flex>
+        </div>
+      </div>
+    </div>
 
     <v-dialog v-model="show_order_complete_dialog" content-class="my-dialog-1">
       <v-card>

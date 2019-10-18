@@ -200,7 +200,7 @@
                 <v-list-tile-title>Admin</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile key="labels" to="/labels" v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1">
+            <!-- <v-list-tile key="labels" to="/labels" v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1">
               <v-list-tile-content v-if="currentUser.user_type=='artist'">
                 <v-list-tile-title>My Labels</v-list-tile-title>
                 <v-list-tile-sub-title>Manage your labels</v-list-tile-sub-title>
@@ -209,7 +209,7 @@
                 <v-list-tile-title>Record Labels</v-list-tile-title>
                 <v-list-tile-sub-title>Manage record labels</v-list-tile-sub-title>
               </v-list-tile-content>
-            </v-list-tile>
+            </v-list-tile> -->
             <v-list-tile
               v-if="currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(currentUser.request_role) == -1"
               key="verified"
