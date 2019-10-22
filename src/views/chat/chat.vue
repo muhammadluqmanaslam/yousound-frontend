@@ -137,6 +137,11 @@
             id="msg-container"
             class="chat-list-section"
           >
+
+          <div style="font-weight: 600; margin-left: 8px; font-size: 18px; padding-bottom: 5px;" v-bind:style="">
+          <P> Start chatting!  Chat conversations are deleted permanently every 24 hours. Be respectful.  </p></div>
+          <v-divider :inset="inset"></v-divider>
+
             <!-- <div class="chat-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
               <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
               <div class="message-section">

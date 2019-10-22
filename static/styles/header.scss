@@ -144,10 +144,6 @@
     }
   }
 
-  .menu__content profile-menu__content menuable__content__active {
-  left: 1320px;
-  }
-
   .menu.profile-menu {
     margin-right: 0 !important;
     .btn {
@@ -181,7 +177,7 @@
   .my-header {
     color: #000;
     // background-color: transparent;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: transparent;
     .toolbar__title {
       background-image: url('../images/nav_logo_white.png');
       margin-left: -16px !important;
@@ -233,6 +229,10 @@
 
 .user-status.online {
   margin-left: 3px !important;
+}
+
+.menu__content {
+  margin-left: -70px;
 }
 
 .menu__content.profile-menu__content {
