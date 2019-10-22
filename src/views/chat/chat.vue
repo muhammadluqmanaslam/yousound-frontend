@@ -138,7 +138,7 @@
             class="chat-list-section"
           >
 
-          <div style="font-weight: 600; margin-left: 8px; font-size: 18px; padding-bottom: 5px;" v-bind:style="">
+          <div style="font-weight: 600; margin-left: 8px; font-size: 16px; padding-bottom: 5px;" v-bind:style="">
           <P> Start chatting!  Chat conversations are deleted permanently every 24 hours. Be respectful.  </p></div>
           <v-divider :inset="inset"></v-divider>
 
