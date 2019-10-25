@@ -124,7 +124,7 @@ export default {
       this.users = []
       this.page_index = 1
       this.activeTab = tab
-      this.$store.dispatch('navigator/goNextState', { page: 'stream', tab: tab })
+      this.$store.dispatch('navigator/goNextState', { page: 'feed', tab: tab })
       this.loadFeeds(tab)
     }
   },

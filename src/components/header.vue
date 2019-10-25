@@ -123,7 +123,7 @@
           left
           offset-y
           :nudge-top="-5"
-          :nudge-left="-70"
+          :nudge-left="0"
           class="profile-menu"
           content-class="profile-menu__content"
         >
