@@ -7,7 +7,7 @@
 
           <div class="wallet-section mb-4">
             <label class="">Total</label>
-            <label class="available-money-amount">${{ currentUser.balance_amount|formatNumber }} <label class="currency">USD</label></label>
+            <label class="available-money-amount">${{ currentUser.balance_amount | formatNumber }} <label class="currency">USD</label></label>
             <div class="action-section">
               <!-- a class="link-btn" @click.self="openWithdrawModal()">Withdraw Funds</a>
               <label>|</label> -->
@@ -79,8 +79,8 @@
                   </div>
                 </div>
               </td>
-              <td class="text-xs-center">${{ history.sent_amount|formatNumber }}</td>
-              <td class="text-xs-center">${{ history.received_amount|formatNumber }}</td>
+              <td class="text-xs-center">${{ history.sent_amount | formatNumber }}</td>
+              <td class="text-xs-center">${{ history.received_amount | formatNumber }}</td>
               <td class="text-xs-center" style="text-transform: capitalize;">
                 <template v-if="history.payment_type == 'buy'">
                   <router-link v-if="history.sent_amount == history.refund_amount"
@@ -151,9 +151,9 @@
         </v-card-title>
         <v-card-text class="withdraw-dialog">
           <label>Available</label>
-          <label class="available-money-amount">${{ currentUser.available_amount|formatNumber }}</label>
+          <label class="available-money-amount">${{ currentUser.available_amount | formatNumber }}</label>
           <label>out of&nbsp;</label>
-          <label>${{ currentUser.balance_amount|formatNumber }}</label>
+          <label>${{ currentUser.balance_amount | formatNumber }}</label>
           <v-radio-group v-model="withdraw_option" :mandatory="true">
             <v-radio label="All" value="all"></v-radio>
             <v-radio label="Partial" value="partial"></v-radio>

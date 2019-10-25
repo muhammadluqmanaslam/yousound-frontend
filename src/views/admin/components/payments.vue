@@ -46,8 +46,8 @@
                   ></div>
                   {{ props.item.receiver.display_name }}
                 </td>
-                <td class="text-xs-center">{{ props.item.sent_amount }}</td>
-                <td class="text-xs-center">{{ props.item.received_amount }}</td>
+                <td class="text-xs-center">${{ props.item.sent_amount | formatNumber }}</td>
+                <td class="text-xs-center">${{ props.item.received_amount | formatNumber }}</td>
                 <td class="text-xs-center">{{ props.item.payment_type }}</td>
                 <td class="text-xs-center">{{ props.item.status }}</td>
                 <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>

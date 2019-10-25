@@ -9,7 +9,7 @@
         </div>
       </v-flex> -->
       <v-flex xs12 class="product-cover">
-        <p class="product-price" v-if="priceShow">${{ item.price|formatNumber }}</p>
+        <p class="product-price" v-if="priceShow">${{ item.price | formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.thumb.url + ')'}"/></div>
         <v-flex xs12 class="product-actions" relative>
           <v-flex xs12 class="touch-flex" @click="showMerchModal=true"></v-flex>

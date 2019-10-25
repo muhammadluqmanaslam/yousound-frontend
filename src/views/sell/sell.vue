@@ -53,12 +53,12 @@
                       </div>
                       <div class="profile-content">
                         <a href="#" class="user-name">{{ order.customer.display_name }}</a>
-                        <label class="order-detail-text"> purchased <b>${{ order.amount|formatNumber }}</b></label>
+                        <label class="order-detail-text"> purchased <b>${{ order.amount | formatNumber }}</b></label>
                       </div>
                       <div class="profile-actions">
                         <router-link :to="`/sell/order/${order.id}`" class="order-detail-btn">View Order Details</router-link>
                         <a class="message-buyer-btn" @click="showMessageDialog(order)">Message Buyer</a>
-                        <label class="order-date">{{ order.created_at|formatDate }}</label>
+                        <label class="order-date">{{ order.created_at | formatDate }}</label>
                       </div>
                     </div>
                     <div class="status-section text-xs-center"></div>
@@ -78,7 +78,7 @@
                           <label class="product-count" v-if="!isDigitalProduct(item)">Quantity: <b>{{ item.quantity }}</b></label>
                         </v-flex>
                         <v-flex sm12 class="product-content-row" pt-1>
-                          <label class="product-price">${{ item.price|formatNumber }}</label>
+                          <label class="product-price">${{ item.price | formatNumber }}</label>
                         </v-flex>
                       </div>
                     </div>
@@ -105,12 +105,12 @@
                       </div>
                       <div class="profile-content">
                         <a href="#" class="user-name">{{ order.customer.display_name }}</a>
-                        <label class="order-detail-text"> purchased <b>${{ order.amount|formatNumber }}</b></label>
+                        <label class="order-detail-text"> purchased <b>${{ order.amount | formatNumber }}</b></label>
                       </div>
                       <div class="profile-actions">
                         <router-link :to="`/sell/order/${order.id}`" class="order-detail-btn">View Order Details</router-link>
                         <a class="message-buyer-btn" @click="showMessageDialog(order)">Message Buyer</a>
-                        <label class="order-date">{{ order.created_at|formatDate }}</label>
+                        <label class="order-date">{{ order.created_at | formatDate }}</label>
                       </div>
                     </div>
                     <div class="status-section text-xs-center"></div>
@@ -126,7 +126,7 @@
                           <label class="product-count">Quantity: <b>{{ item.quantity }}</b></label>
                         </v-flex>
                         <v-flex sm12 class="product-content-row" pt-1>
-                          <label class="product-price">${{ item.price|formatNumber }}</label>
+                          <label class="product-price">${{ item.price | formatNumber }}</label>
                         </v-flex>
                       </div>
                     </div>

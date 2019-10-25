@@ -35,19 +35,19 @@
         <div class="order-status-section" v-if="cartItems.length">
           <div class="status-row">
             <label class="status-title">Subtotal</label>
-            <label class="status-title value">${{ cartCost.subtotal_cost|formatNumber }}</label>
+            <label class="status-title value">${{ cartCost.subtotal_cost | formatNumber }}</label>
           </div>
           <div class="status-row">
             <label class="status-title">Shipping</label>
-            <label class="status-title value">${{ cartCost.shipping_cost|formatNumber }}</label>
+            <label class="status-title value">${{ cartCost.shipping_cost | formatNumber }}</label>
           </div>
           <div class="status-row">
             <label class="status-title">Sales Tax</label>
-            <label class="status-title value">${{ cartCost.tax_cost|formatNumber }}</label>
+            <label class="status-title value">${{ cartCost.tax_cost | formatNumber }}</label>
           </div>
           <div class="total-row">
             <label class="status-title">Total</label>
-            <label class="status-title value">${{ cartCost.total_cost|formatNumber }}</label>
+            <label class="status-title value">${{ cartCost.total_cost | formatNumber }}</label>
           </div>
           <div class="action-row">
             <v-btn class="place-order-btn" @click.native="openPaymentDialog()">Place Order</v-btn>
@@ -89,7 +89,7 @@
                     By <router-link :to="`/${item.product.merchant.slug}`" class="user-name" href="#">{{ item.product.merchant.display_name }}</router-link>
                   </v-flex>
                   <v-flex sm12 class="product-content-row" pt-1>
-                    <label class="product-price">${{ item.price|formatNumber }}</label>
+                    <label class="product-price">${{ item.price | formatNumber }}</label>
                     <a class="message-buyer-btn" @click.self="removeCartItem(item)">Remove</a>
                     <!-- <a class="order-detail-btn" href="#">Save for later</a> -->
                   </v-flex>

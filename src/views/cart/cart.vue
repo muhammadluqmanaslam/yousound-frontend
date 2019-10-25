@@ -26,19 +26,19 @@
             <div class="orders-status-section">
               <div class="status-row">
                 <label class="status-title">Subtotal</label>
-                <label class="status-title value">${{ cartCost.subtotal_cost|formatNumber }}</label>
+                <label class="status-title value">${{ cartCost.subtotal_cost | formatNumber }}</label>
               </div>
               <div class="status-row">
                 <label class="status-title">Shipping</label>
-                <label class="status-title value">${{ cartCost.shipping_cost|formatNumber }}</label>
+                <label class="status-title value">${{ cartCost.shipping_cost | formatNumber }}</label>
               </div>
               <div class="status-row">
                 <label class="status-title">Sales Tax</label>
-                <label class="status-title value">${{ cartCost.tax_cost|formatNumber }}</label>
+                <label class="status-title value">${{ cartCost.tax_cost | formatNumber }}</label>
               </div>
               <div class="total-row">
                 <label class="status-title">Total</label>
-                <label class="status-title value">${{ cartCost.total_cost|formatNumber }}</label>
+                <label class="status-title value">${{ cartCost.total_cost | formatNumber }}</label>
               </div>
               <div class="action-row">
                 <v-btn class="checkout-btn" @click.native="submit()">Proceed to Checkout</v-btn>
@@ -77,7 +77,7 @@
                         By <router-link :to="`/${item.product.merchant.slug}`" class="user-name" href="#">{{ item.product.merchant.display_name }}</router-link>
                       </v-flex>
                       <v-flex sm12 class="product-content-row" pt-1>
-                        <label class="product-price">${{ item.price|formatNumber }}</label>
+                        <label class="product-price">${{ item.price | formatNumber }}</label>
                         <a class="message-buyer-btn" @click.self="removeCartItem(item)">Remove</a>
                         <!-- <a class="order-detail-btn" href="#">Save for later</a> -->
                       </v-flex>
@@ -107,12 +107,12 @@
                     </div>
                     <div class="profile-content">
                       <a href="#" class="user-name"><b>You</b></a>
-                      <label class="order-detail-text">purchased these items for<b>&nbsp;${{ order.amount|formatNumber }}</b></label>
+                      <label class="order-detail-text">purchased these items for<b>&nbsp;${{ order.amount | formatNumber }}</b></label>
                     </div>
                     <div class="profile-actions">
                       <router-link :to="`/sell/order/${order.id}`" class="order-detail-btn">View Order Details</router-link>
                       <a class="message-buyer-btn" @click="showMessageDialog(order)">Message Buyer</a>
-                      <label class="order-date">{{ order.created_at|formatDate }}</label>
+                      <label class="order-date">{{ order.created_at | formatDate }}</label>
                     </div>
                   </div>
                   <div class="status-section text-xs-center"></div>
