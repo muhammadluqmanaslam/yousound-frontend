@@ -32,7 +32,7 @@
     letter-spacing: -.2px;
     color: #3c3c3c;
     font-size: 18px !important;
-    }
+  }
 
   .btn:not(.btn--depressed) {
     border-radius: 30px!important;
@@ -51,7 +51,7 @@
 
   .green {
     background-color: #14c55a !important;
-    }
+  }
 
   .btn--active .btn__content:before, .btn:focus .btn__content:before, .btn:hover .btn__content:before {
     background-color: transparent!important;
@@ -59,11 +59,6 @@
 
   .mb-5 {
     margin-bottom: 10px!important;
-  }
-
-  #content-view {
-
-   padding-bottom: 120px !important;
   }
 
   .time-info {

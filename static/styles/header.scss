@@ -1,7 +1,8 @@
 .my-header {
+  z-index: 10;
   position: absolute;
   width: 100%;
-  z-index: 10;
+  top: 0;
   .header {
     background-color: transparent !important;
     box-shadow: none;

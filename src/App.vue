@@ -4,15 +4,17 @@
     'gray': $store.getters['navigator/isGrayTheme'],
     'normal': $store.getters['navigator/isNormalTheme'],
     'app-audio': $store.state.player.isPlaying,
-    'app-video': $store.getters['videoPlayer/hasFrame']
+    'app-video': $store.getters['videoPlayer/hasFrame'],
+    'app-header': $store.getters['navigator/hasHeader'],
+    'app-footer': $store.getters['navigator/hasFooter'],
   }">
 
     <app-header
-      v-if="currentUser || $store.state.navigator.current.page == 'main_landing'"
+      v-if="currentUser"
       v-show="$store.getters['navigator/hasHeader']"
     />
 
-    <router-view id="content-view"></router-view>
+    <router-view></router-view>
 
     <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
 

@@ -122,9 +122,5 @@ export default {
       }, false)
       reader.readAsDataURL(this.user.avatar_file)
     }
-  },
-
-  mounted () {
-    $('#content-view').css('padding-top', '0');
   }
 }

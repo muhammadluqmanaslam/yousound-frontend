@@ -21,6 +21,7 @@ import OverviewPage from '@/views/overview/index'
 import AdminPage from '@/views/admin/admin'
 import MainLandingPage from '@/views/home/main_landing'
 import LandingPage from '@/views/home/landing'
+// import LandingFirstStep from '@/views/landing/step1'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
@@ -60,6 +61,7 @@ Vue.use(Router)
 export function createRouter (settings) {
   let routes = [
     { path: '/', name: 'MainLandingPage', component: MainLandingPage },
+    // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/login', name: 'Login', component: Login },
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword },

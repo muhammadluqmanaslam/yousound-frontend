@@ -27,9 +27,5 @@ export default {
   methods: {
     submit () {      
     }
-  },
-
-  mounted () {
-    $('#content-view').css('padding-top', '0');
   }
 }

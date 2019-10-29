@@ -76,16 +76,19 @@ body {
   &.theme--light {
     background-color: #FFFFFF;
   }
-}
 
-#content-view {
-  padding-top: 112.5px;
-  min-height: calc(100vh - 90px);
-}
+  &.app-header {
+    .page {
+      padding-top: 112.5px;
+    }
+  }
 
-// .transparent {
-//   background-color: transparent !important;
-// }
+  &.app-footer {
+    .page {
+      min-height: calc(100vh - 90px);
+    }
+  }
+}
 
 .regular-checkbox {
   position: relative;
