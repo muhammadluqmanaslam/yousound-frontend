@@ -1,6 +1,7 @@
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { Howl, Howler } from 'howler'
 import AlbumService from '@/services/album'
+import PaymentService from '@/services/payment'
 import TrackService from '@/services/track'
 import UserService from '@/services/user'
 import { MyEvents } from '@/helper'
@@ -36,6 +37,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      reminderTracksCount: 'app/reminderTracksCount'
+    }),
+
     MyEvents () {
       return MyEvents
     },
@@ -196,10 +201,13 @@ export default {
       this.index = index
       this.$store.dispatch('player/setTrackIndex', index)
 
-      const reminderTracksCount = this.$store.getters['app/reminderTracksCount']
-      if (this.index > 0 && this.index % reminderTracksCount == 0) {
-        this.showReminder = true
-        setTimeout(() => { this.showReminder = false }, 5000)
+      if (this.index > 0 && this.index % this.reminderTracksCount == 0) {
+        PaymentService.hasTransactionInPeriod().then(res => {
+          if (res.body != true) {
+            this.showReminder = true
+            setTimeout(() => { this.showReminder = false }, 5000)
+          }
+        })
       }
     },
 
