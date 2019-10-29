@@ -1,12 +1,8 @@
 .page.auth-page {
-}
-
-.page.auth-page.auth-login-header {
-  width: 320px;
-  margin: 90px auto 0;
   .logo {
     // width: 200.25px;
     height: 40px;
+    margin-top: 90px;
   }
   h4 {
     font-weight: 300;
@@ -20,18 +16,7 @@
 
 .page.auth-page.auth-login-page {
   width: 320px;
-  margin: 0 auto 0;
-  .logo {
-    // width: 200.25px;
-    height: 40px;
-  }
-  h4 {
-    font-weight: 300;
-    font-size: 40.25px;
-    color: #2D2D2D;
-    letter-spacing: -3.18px;
-    margin-top: 63.75px;
-  }
+  margin: 0 auto;
   input[type=text],
   input[type=email],
   input[type=password] {

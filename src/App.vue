@@ -10,7 +10,7 @@
   }">
 
     <app-header
-      v-if="currentUser"
+      v-if="currentUser || currentPage == 'main_landing'"
       v-show="$store.getters['navigator/hasHeader']"
     />
 
@@ -101,6 +101,10 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    currentPage () {
+      return this.$store.state.navigator.current.page
     },
 
     showError: {
