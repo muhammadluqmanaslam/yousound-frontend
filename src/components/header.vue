@@ -184,12 +184,21 @@
                 <label>Main Landing</label>
               </v-list-tile-title>
             </v-list-tile>
+            <v-list-tile key="landing1" to="/home1">
+              <v-list-tile-title class="profile-menu-item">
+                <label>Landing 1</label>
+              </v-list-tile-title>
+            </v-list-tile> -->
             <v-list-tile key="landing" to="/home">
               <v-list-tile-title class="profile-menu-item">
                 <label>Landing</label>
               </v-list-tile-title>
-            </v-list-tile> -->
-            <v-list-tile key="payments" to="/payments" v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1">
+            </v-list-tile>
+            <v-list-tile
+              v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1"
+              key="payments"
+              to="/payments"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>Payments</v-list-tile-title>
                 <v-list-tile-sub-title>View transactions, refunds</v-list-tile-sub-title>

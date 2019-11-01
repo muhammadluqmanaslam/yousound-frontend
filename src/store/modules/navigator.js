@@ -21,7 +21,13 @@ const getters = {
   },
 
   hasHeader: (state) => {
-    return ['login', 'register', 'register_by_listener', 'landing', 'terms', ''].indexOf(state.current.page) === -1
+    return [
+      'login',
+      'register',
+      'register_by_listener',
+      'landing',
+      'terms',
+      ''].indexOf(state.current.page) === -1
   },
 
   hasFooter: (state) => {

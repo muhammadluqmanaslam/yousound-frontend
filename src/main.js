@@ -16,6 +16,12 @@ import VueHead from 'vue-head'
 import VeeValidate from 'vee-validate'
 import SocialSharing from 'vue-social-sharing'
 import VueLazyload from 'vue-lazyload'
+
+import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
+// import 'fullpage.scrollHorizontally.min' // Optional. When using fullpage extensions
+import 'fullpage.js/dist/fullpage.css'
+import VueFullPage from 'vue-fullpage.js'
+
 import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
 
@@ -38,6 +44,7 @@ Vue.use(VueClipboard)
 Vue.use(VueHead)
 Vue.use(SocialSharing)
 Vue.use(VueLazyload)
+Vue.use(VueFullPage)
 
 const dictionary = {
   en: {

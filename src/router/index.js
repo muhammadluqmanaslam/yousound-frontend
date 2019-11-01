@@ -20,8 +20,8 @@ import TermsPage from '@/views/terms/index'
 import OverviewPage from '@/views/overview/index'
 import AdminPage from '@/views/admin/admin'
 import MainLandingPage from '@/views/home/main_landing'
-import LandingPage from '@/views/home/landing'
-// import LandingFirstStep from '@/views/landing/step1'
+import Landing1Page from '@/views/home/landing'
+import LandingPage from '@/views/landing/landing'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
@@ -95,6 +95,7 @@ export function createRouter (settings) {
   }
 
   routes = routes.concat([
+    { path: '/home1', name: 'LandingPage', component: Landing1Page },
     { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/discover', name: 'Discover', component: Discover },
