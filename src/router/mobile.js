@@ -5,7 +5,7 @@ import ProtectPage from '@/views/auth/protect_page'
 // import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
 import AlbumShow from '@/views/mobile/album/show'
-import LandingPage from '@/views/mobile/dashboard/landing'
+import LandingPage from '@/views/mobile/landing/landing'
 
 Vue.use(Router)
 
