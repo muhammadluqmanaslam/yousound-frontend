@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-page mobile-dashboard-landing-page">
-    <landing-header></landing-header>
+    <landing-header @open-menu="openMenu"></landing-header>
     <v-tabs v-model="activeTab" centered>
       <v-tabs-bar>
         <v-tabs-item href="#tab-1">1</v-tabs-item>
@@ -94,6 +94,10 @@
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
+
+    <v-dialog v-model="showMenu" fullscreen transition="slide-x-reverse-transition">
+      <landing-menu @close-menu="closeMenu"></landing-menu>
+    </v-dialog>
   </div>
 </template>
 
@@ -112,7 +116,8 @@ export default {
   data () {
     return {
       activeTab: 'tab-1',
-      tabs: ['tab-1', 'tab-2', 'tab-3', 'tab-4']
+      tabs: ['tab-1', 'tab-2', 'tab-3', 'tab-4'],
+      showMenu: false
     }
   },
 
@@ -120,6 +125,14 @@ export default {
     nextTab () {
       console.log('nextTab', this.activeTab)
       this.activeTab = this.tabs[(this.tabs.indexOf(this.activeTab) + 1) % this.tabs.length]
+    },
+
+    openMenu () {
+      this.showMenu = true
+    },
+
+    closeMenu () {
+      this.showMenu = false
     }
   }
 }
@@ -224,7 +237,7 @@ export default {
     }
   }
 
-  .menu-container {
+  .header-container {
     z-index: 1;
     position: fixed;
     top: 0;

@@ -35,6 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .step-container {
+  height: 30px;
   span {
     display: inline-block;
     width: 10px;

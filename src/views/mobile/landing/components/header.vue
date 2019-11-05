@@ -1,14 +1,14 @@
 <template>
-  <div class="menu-container">
+  <div class="header-container">
     <img class="logo" src="/static/images/nav_logo_white.png">
-    <v-btn flat>
+    <v-btn flat @click="$emit('open-menu')">
       <img src="/static/images/ic_menu.svg">
     </v-btn>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.menu-container {
+.header-container {
   display: flex;
   align-items: center;
   justify-content: center;
