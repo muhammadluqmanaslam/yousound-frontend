@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-page mobile-dashboard-landing-page">
-    <landing-header @open-menu="openMenu"></landing-header>
+    <mobile-header @open-menu="openMenu"></mobile-header>
     <v-tabs v-model="activeTab" centered>
       <v-tabs-bar>
         <v-tabs-item href="#tab-1">1</v-tabs-item>
@@ -60,7 +60,7 @@
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Live Video Chart with<br>
+                  Live Video Chat with<br>
                   Artists & Friends.
                 </h3>
               </div>
@@ -87,7 +87,7 @@
               </div>
               <div class="section__footer">
                 <stepper :step-size="4" :active-index="4"></stepper>
-                <img src="/static/images/img_download_ios.svg" height="40">
+                <img src="/static/images/img_download_ios.svg">
               </div>
             </div>
           </div>
@@ -96,20 +96,20 @@
     </v-tabs>
 
     <v-dialog v-model="showMenu" fullscreen transition="slide-x-reverse-transition">
-      <landing-menu @close-menu="closeMenu"></landing-menu>
+      <mobile-menu @close-menu="closeMenu"></mobile-menu>
     </v-dialog>
   </div>
 </template>
 
 <script>
-import landingHeader from './components/header'
-import landingMenu from './components/menu'
+import mobileHeader from '@/views/mobile/components/header'
+import mobileMenu from '@/views/mobile/components/menu'
 import stepper from './components/stepper'
 
 export default {
   components: {
-    landingHeader,
-    landingMenu,
+    mobileHeader,
+    mobileMenu,
     stepper
   },
 
@@ -147,13 +147,15 @@ export default {
     padding-top: 80px;
     color: #ffffff;
     text-align: center;
+    font-family: Montserrat, serif;
+    letter-spacing: -1px;
 
     &__image {
       height: 50%;
       flex: 0 0 auto;
       background-repeat: no-repeat;
       background-size: auto 90%;
-      background-position: 15px center;
+      background-position: center center;
     }
 
     &__content {
@@ -169,10 +171,14 @@ export default {
       .step-container {
         margin-bottom: 20px;
       }
+      img {
+        height: 40px;
+      }
     }
 
     h3 {
-      font-size: 24px;
+      font-size: 16px;
+      line-height: 20px;
     }
 
     .btn {
@@ -182,7 +188,7 @@ export default {
       background: rgba(0, 0, 0, 0.2);
       box-shadow: none;
       color: #ffffff;
-      font-size: 12px;
+      font-size: 16px;
       /deep/ &__content {
         position: relative;
         height: 40px;
@@ -204,14 +210,14 @@ export default {
     background-image: linear-gradient(#7152FF, #3908FF);
     .section__image {
       background-image: url('/static/images/img_land_albums.png');
+      background-position: 15px center;
     }
   }
 
   .section-wrapper.step-2 {
     background-image: linear-gradient(#DD5675, #FF5C44);
     .section__image {
-      background-image: url('/static/images/img_land_products.png');
-      background-position: -90px center;
+      background-image: url('/static/images/img_mobile_landing_products.png');
     }
   }
 
@@ -224,7 +230,6 @@ export default {
     background-image: linear-gradient(#5155FF, #62A3FF);
     .section__image {
       background-image: url('/static/images/img_land_artists.png');
-      background-position: center center;
     }
   }
 
@@ -242,6 +247,54 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
+  }
+}
+
+@media (min-width: 320px) {
+  .mobile-page .section h3 {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .mobile-page .section__footer img {
+    height: 45px;
+  }
+}
+
+//@media (min-width: 384px) {
+@media (min-width: 375px) {
+  .mobile-page .section h3 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .mobile-page .section__footer img {
+    height: 50px;
+  }
+}
+
+@media (min-width: 414px) {
+  .mobile-page .section h3 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .mobile-page .section__footer img {
+    height: 60px;
+  }
+}
+
+@media (min-width: 600px) {
+  .mobile-page .section h3 {
+    font-size: 38px;
+    line-height: 42px;
+  }
+}
+
+@media (min-width: 800px) {
+  .mobile-page .section h3 {
+    font-size: 48px;
+    line-height: 55px;
   }
 }
 </style>

@@ -37,4 +37,16 @@
     }
   }
 }
+
+@media (min-width: 600px) {
+  .header-container img {
+    height: 28px;
+  }
+}
+
+@media (min-width: 800px) {
+  .header-container img {
+    height: 32px;
+  }
+}
 </style>
