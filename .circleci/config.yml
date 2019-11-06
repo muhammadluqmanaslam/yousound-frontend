@@ -15,6 +15,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: "CHECK NODE and PYTHON versions"
+          command: |
+            # CHECK NODE and PYTHON versions
+            python -v
+            node -v
+            
+      - run:
           name: "PREPARE ENVIRONMENT VARIABLES"
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
