@@ -7,7 +7,7 @@ jobs:
         - integration
         - fix/debian-hash-sum-mismatch
     docker:
-       - image: circleci/python:3.6.3-node-browsers
+       - image: circleci/python:3.6.9-stretch-node
 
     working_directory: ~/repo
 
