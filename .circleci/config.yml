@@ -18,8 +18,8 @@ jobs:
           name: "CHECK NODE and PYTHON versions"
           command: |
             # CHECK NODE and PYTHON versions
-            python -v
-            node -v
+            sudo python -v
+            sudo node -v
             
       - run:
           name: "PREPARE ENVIRONMENT VARIABLES"
