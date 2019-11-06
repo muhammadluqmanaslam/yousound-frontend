@@ -5,6 +5,7 @@ jobs:
       only:
         - master
         - integration
+        - fix/debian-hash-sum-mismatch
     docker:
        - image: circleci/node:7.10
 
@@ -22,7 +23,7 @@ jobs:
             elif [ "${CIRCLE_BRANCH}" == "integration" ]; then
               echo "export ENVIRONMENT=integration" >> $BASH_ENV
               echo "export EBENVIRONMENT=int" >> $BASH_ENV
-            elif [ "${CIRCLE_BRANCH}" == "feature-branch" ]; then
+            elif [ "${CIRCLE_BRANCH}" == "fix/debian-hash-sum-mismatch" ]; then
               echo "export ENVIRONMENT=integration" >> $BASH_ENV
               echo "export EBENVIRONMENT=int" >> $BASH_ENV
             fi
@@ -36,12 +37,12 @@ jobs:
             #sudo apt-get update -qq && sudo apt-get install -y python3.6 python3-pip python-dev build-essential
 
             # TEMPORARY DEBIAN REPO FIX
-            sudo rm /etc/apt/sources.list
-            echo 'deb http://ftp.fr.debian.org/debian testing main' | sudo tee -a /etc/apt/sources.list
-            echo "deb http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
-            echo "deb-src http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
-            echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid
-            echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin
+            #sudo rm /etc/apt/sources.list
+            #echo 'deb http://ftp.fr.debian.org/debian testing main' | sudo tee -a /etc/apt/sources.list
+            #echo "deb http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
+            #echo "deb-src http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
+            #echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid
+            #echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin
             sudo apt-get update
             sudo apt-get install -y python3.6 python3-pip python-dev build-essential
 
