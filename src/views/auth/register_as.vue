@@ -1,45 +1,42 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12>
-      <div class="page auth-page auth-login-header">
-        <v-flex xs12 text-xs-center>
-          <img class="logo" src="/static/images/nav_logo_primary.png">
-        </v-flex>
-        <v-flex xs12 text-xs-center>
-          <h4>Sign Up as</h4>
-        </v-flex>
+  <div class="page auth-page auth-register-as-page">
+    <div class="text-xs-center">
+      <img class="logo" src="/static/images/nav_logo_primary.png">
+      <h4>Sign Up as</h4>
+    </div>
+
+    <v-flex xs12 text-xs-center pa-0>
+      <div class="artist-area">
+        <router-link class="create-account" to="/register/listener">
+          <img class="avatar" src="/static/images/listener.png" />
+          <div class="pt-2">Listener</div>
+        </router-link>
       </div>
-      <div class="page auth-page auth-register-as-page">
-        <v-flex xs12 text-xs-center pa-0>
-          <div class="artist-area">
-            <router-link class="create-account" to="/register/listener">
-              <img class="avatar" src="/static/images/listener.png" />
-              <div class="pt-2">Listener</div>
-            </router-link>
-          </div>
-          <div class="artist-area">
-            <a @click="openTwitterConfirmDialog('artist')">
-              <img class="avatar" src="/static/images/artist.png" />
-              <div class="pt-2">Artist</div>
-            </a>
-          </div>
-          <div class="artist-area">
-            <a @click="openTwitterConfirmDialog('label')">
-              <img class="avatar" src="/static/images/listener.png" />
-              <div class="pt-2">Label</div>
-            </a>
-          </div>
-          <div class="artist-area">
-            <a @click="openTwitterConfirmDialog('brand')">
-              <img class="avatar" src="/static/images/listener.png" />
-              <div class="pt-2">Brand</div>
-            </a>
-          </div>
-        </v-flex>
+      <div class="artist-area">
+        <a @click="openTwitterConfirmDialog('artist')">
+          <img class="avatar" src="/static/images/artist.png" />
+          <div class="pt-2">Artist</div>
+        </a>
+      </div>
+      <div class="artist-area">
+        <a @click="openTwitterConfirmDialog('label')">
+          <img class="avatar" src="/static/images/listener.png" />
+          <div class="pt-2">Label</div>
+        </a>
+      </div>
+      <div class="artist-area">
+        <a @click="openTwitterConfirmDialog('brand')">
+          <img class="avatar" src="/static/images/listener.png" />
+          <div class="pt-2">Brand</div>
+        </a>
       </div>
     </v-flex>
 
-    <v-dialog v-model="show_twitter_confirm_dialog" fullscreen content-class="twitter-confirm-dialog">
+    <v-dialog
+      v-model="show_twitter_confirm_dialog"
+      fullscreen
+      content-class="twitter-confirm-dialog"
+    >
       <v-card mt-5>
         <!-- <div class="card__image"><v-icon>twitter</v-icon></div> -->
         <v-card-media contain src="/static/images/ic_twitter.png" height="50px"></v-card-media>
@@ -53,7 +50,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-layout>
+  </div>
 </template>
 
 <script type="text/javascript" src="./register_as.ctrl.js"></script>

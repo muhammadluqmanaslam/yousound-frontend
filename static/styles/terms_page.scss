@@ -1,62 +1,64 @@
 .page.terms-page {
-  &#content-view {
-    padding-top: 10px;
-    margin-left: 100px;
-  }
+  .page-left {
+    width: 416px;
+    .tab-container {
+      width: 416px;
+      .page-title {
+        width: 140px;
+        height: 50px;
+        margin: 57px 0 0 66px;
+        background-image: url('/static/images/nav_logo_white.png');
+        background-position: center;
+        background-size: contain;
+      }
 
-  .page-title {
-    width: 140px;
-    height: 50px;
-    margin: 57px 0 0 66px;
-    background-image: url('/static/images/nav_logo_white.png');
-    background-position: center;
-    background-size: contain;
-  }
+      .navigation-drawer {
+        width: 416px !important;
+        // height: 450px !important;
+        padding: 0 0;
+        // border: 0.75px solid #D1D1D1;
+        background: #333;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to top, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-  .navigation-drawer {
-    width: 416px !important;
-    // height: 450px !important;
-    padding: 0 0;
-    // border: 0.75px solid #D1D1D1;
-    background: #333;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    &:after {
-      background: none;
-    }
-    &__border {
-      display: none;
-    }
-    ul {
-      margin-left: 40px;
-      margin-top: 48px;
-      background: transparent;
-      li {
-        .list__tile {
-          display: inline-flex;
-          padding-left: 0;
-          font-size: 16px;
-          color: #8E8E8E;
-          letter-spacing: -0.5px;
-          &:hover {
-            background: transparent;
-            color: #444;
-          }
-          &__title {
-            display: inline-block;
-            width: auto;
-            font-family: 'Open Sans', sans-serif;
-            font-weight: 400;
-            font-size: 20px;
-            color: #efefef;
-          }
+        &:after {
+          background: none;
         }
-        &.active {
-          .list__tile {
-            color: #fff;
-            border-bottom: 1px solid #fff;
-            padding: 0;
+        &__border {
+          display: none;
+        }
+        ul {
+          margin-left: 40px;
+          margin-top: 48px;
+          background: transparent;
+          li {
+            margin: 0;
+            .list__tile {
+              display: inline-flex;
+              padding-left: 0;
+              font-size: 16px;
+              color: #8E8E8E;
+              letter-spacing: -0.5px;
+              &:hover {
+                background: transparent;
+                color: #444;
+              }
+              &__title {
+                display: inline-block;
+                width: auto;
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 400;
+                font-size: 20px;
+                color: #efefef;
+              }
+            }
+            &.active {
+              .list__tile {
+                color: #fff;
+                border-bottom: 1px solid #fff;
+                padding: 0;
+              }
+            }
           }
         }
       }
@@ -64,33 +66,33 @@
   }
 
   li {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
-  margin-left: 16px;
-  padding-bottom: 18px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    margin-left: 16px;
+    padding-bottom: 18px;
   }
 
   strong {
-  font-size: 17px;
-  font-family: 'Open Sans', sans-serif;
+    font-size: 17px;
+    font-family: 'Open Sans', sans-serif;
   }
 
   .ul {
-      font-family: 'Open Sans', sans-serif;
-      font-size: 16px;
-      margin-left: 14px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    margin-left: 14px;
   }
 
   .main-section {
-    margin: 10px 30px 30px 350px;
+    margin: 10px 30px 30px 30px;
   }
 
   h1, h2 {
-      font-size: 42px;
-      font-weight: 700;
-      margin: 42px 0;
-      font-family: 'Open Sans', sans-serif;
-      letter-spacing: -1px;
+    font-size: 42px;
+    font-weight: 700;
+    margin: 42px 0;
+    font-family: 'Open Sans', sans-serif;
+    letter-spacing: -1px;
   }
   h3 {
     color: #000;

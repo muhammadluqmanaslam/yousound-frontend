@@ -32,7 +32,7 @@
         </v-flex>
         <v-flex xs12 class="item-section">
           <p class="item-name">{{ item.name }}</p>
-          <p class="item-price">${{ price|formatNumber }}</p>
+          <p class="item-price">${{ price | formatNumber }}</p>
           <p class="item-description">{{ item.description }}</p>
           <v-flex xs12 sm10>
             <v-select

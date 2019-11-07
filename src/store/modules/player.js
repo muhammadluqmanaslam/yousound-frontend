@@ -5,12 +5,13 @@
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
   isPlaying: false,
+  isPaused: false,
+  isShuffle: false,
   list: [],
   tracks: [],
   listIndex: -1,
   trackIndex: -1,
   gridShow: false,
-  isPaused: false,
   user: null
 }
 
@@ -39,6 +40,10 @@ const actions = {
 
   setPauseStatus ({ commit }, isPaused) {
     commit('setPauseStatus', isPaused)
+  },
+
+  setShuffleStatus ({ commit }, isShuffle) {
+    commit('setShuffleStatus', isShuffle)
   },
 
   setPlaylist ({ commit }, list) {
@@ -78,6 +83,10 @@ const mutations = {
 
   setPauseStatus (state, isPaused) {
     state.isPaused = isPaused
+  },
+
+  setShuffleStatus (state, isShuffle) {
+    state.isShuffle = isShuffle
   },
 
   setPlaylist (state, list) {

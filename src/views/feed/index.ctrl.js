@@ -63,6 +63,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab == tab
+    },
+
     loadFeeds (filter) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
@@ -120,7 +124,7 @@ export default {
       this.users = []
       this.page_index = 1
       this.activeTab = tab
-      this.$store.dispatch('navigator/goNextState', { page: 'stream', tab: tab })
+      this.$store.dispatch('navigator/goNextState', { page: 'feed', tab: tab })
       this.loadFeeds(tab)
     }
   },

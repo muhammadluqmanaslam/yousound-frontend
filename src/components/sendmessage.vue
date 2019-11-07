@@ -7,7 +7,7 @@
         <p class="user-name">{{ receiver.display_name }} <v-icon class="user-status" v-bind:class="{'online': receiver.status == 'active'}" v-if="receiver.user_type == 'artist'">fa-check-circle</v-icon></p>
         <label class="repost-price" v-if="$store.state.auth.user.user_type=='artist'">Repost Price: ${{ receiver.repost_price | formatNumber }}</label>
         <div class="send-message-section relative">
-          <textarea v-model="message"
+          <textarea v-model.trim="message"
             maxlength="500"
             class="message-input-area"
             placeholder="Write a message..."
@@ -101,6 +101,8 @@
   import UserService from '@/services/user'
 
   import repostPaymentModal from '@/components/repost_payment_modal'
+
+  const DefaultRepostMessage = 'Hi, if you like this please repost it, thank you.'
 
   export default {
     props: {
@@ -240,8 +242,14 @@
         // console.log(this.item === item, this.item, item)
         if (this.item === item) {
           this.item = null
+          if (this.message === DefaultRepostMessage) {
+            this.message = ''
+          }
         } else {
           this.item = item
+          if (this.message === '') {
+            this.message = DefaultRepostMessage
+          }
         }
       },
 

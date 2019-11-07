@@ -26,5 +26,9 @@ export default {
 
   getReceivedPayments (params) {
     return Vue.http.get(API_BASE_URL + '/received', { params: params, headers: { 'Authorization': $store.state.auth.token } })
+  },
+
+  hasTransactionInPeriod () {
+    return Vue.http.get(API_BASE_URL + '/has_transaction_in_period', { headers: { 'Authorization': $store.state.auth.token } })
   }
 }

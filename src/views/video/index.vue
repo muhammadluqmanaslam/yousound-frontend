@@ -23,7 +23,7 @@
         </v-flex>
       </v-layout>
 
-      <div class="divider mt-5 mb-5"></div>
+      <!-- <div class="divider mt-5 mb-5"></div>
 
       <div class="share-view">
         <h3 class="mt-0 mb-4">Options</h3>
@@ -58,7 +58,7 @@
             autocomplete
           ></v-select>
         </v-flex>
-      </div>
+      </div> -->
 
       <div class="divider mt-5 mb-5"></div>
 

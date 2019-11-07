@@ -20,15 +20,15 @@ import TermsPage from '@/views/terms/index'
 import OverviewPage from '@/views/overview/index'
 import AdminPage from '@/views/admin/admin'
 import MainLandingPage from '@/views/home/main_landing'
-import LandingPage from '@/views/home/landing'
+import Landing1Page from '@/views/home/landing'
+import LandingPage from '@/views/landing/landing'
 // import ArtistLandingPage from '@/views/home/artist_landing'
-import EmptyPage from '@/views/home/empty'
 import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
-import Discover from '@/views/discover/discover'
+import Discover from '@/views/discover/index'
 import SearchPage from '@/views/search/search'
-import Stream from '@/views/stream/stream'
-import Notifications from '@/views/notifications/notifications'
+import Feed from '@/views/feed/index'
+import ActivityIndex from '@/views/activity/index'
 import Chat from '@/views/chat/chat'
 import Messages from '@/views/messages/messages'
 import DirectMessages from '@/views/user/direct_messages'
@@ -61,6 +61,7 @@ Vue.use(Router)
 export function createRouter (settings) {
   let routes = [
     { path: '/', name: 'MainLandingPage', component: MainLandingPage },
+    // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/login', name: 'Login', component: Login },
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword },
@@ -94,13 +95,13 @@ export function createRouter (settings) {
   }
 
   routes = routes.concat([
+    { path: '/home1', name: 'LandingPage', component: Landing1Page },
     { path: '/home', name: 'LandingPage', component: LandingPage },
-    { path: '/empty', name: 'EmptyPage', component: EmptyPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/discover', name: 'Discover', component: Discover },
     { path: '/search', name: 'Search', component: SearchPage, props: (route) => ({query: route.query.q}) },
-    { path: '/stream', name: 'Stream', component: Stream },
-    { path: '/notifications', name: 'Notifications', component: Notifications },
+    { path: '/feed', name: 'Feed', component: Feed },
+    { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/messages', name: 'Messages', component: Messages },
     { path: '/cart', name: 'Cart', component: Cart },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },

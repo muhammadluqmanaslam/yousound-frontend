@@ -61,35 +61,11 @@
     },
 
     computed: {
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
-      },
-
-      publisher () {
-        if (this.object.assoc_type) {
-          return this.object.publisher
-        } else {
-          return this.object.user
-        }
-      },
-
       item () {
         if (this.object.assoc_type) {
           return this.object.assoc
         } else {
           return this.object
-        }
-      },
-
-      owner () {
-        if (this.object.assoc_type) {
-          return this.object.assoc.user
-        } else {
-          return this.object.user
         }
       },
 

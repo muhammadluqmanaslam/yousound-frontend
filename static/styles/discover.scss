@@ -1,7 +1,4 @@
 .page.discover-page {
-  .page-title {
-    color: #000000;
-  }
   .tabs {
     .tabs__wrapper.tabs__wrapper--scrollable {
       margin: 0 !important;
@@ -21,13 +18,14 @@
       color: #8E8E8E;
       text-transform: uppercase;
       margin-left: 1px;
+      font-family: 'Raleway', sans-serif;
       &.tabs__item--active {
         color: #000000;
       }
     }
     .tabs__items {
       border: none !important;
-      margin-top: 24px;
+      margin-top: 32px;
       margin-bottom: 80px;
     }
     .card.card--flat {
@@ -36,65 +34,81 @@
     }
   }
 
+  .genre-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    img, i {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+    }
+  }
+
+  .genre-dialog-selector {
+    position: relative;
+    // display: inline-block;
+    .btn {
+      min-width: 45px;
+      height: 40px;
+      border-radius: 5px;
+      .btn__content {
+        padding: 0;
+      }
+    }
+    .tooltip {
+      position: absolute;
+      bottom: 50px;
+      right: 60px;
+      width: 240px;
+      padding: 0 0 10px 0;
+      background-color: transparent;
+      text-transform: initial;
+      letter-spacing: -0.1px;
+      .tooltip-arrow {
+        position: absolute;
+        bottom: 0px;
+        right: 180px;
+        width: 0;
+        height: 0;
+        margin: -2px;
+        border-style: solid;
+        // border-color: rgba(0, 0, 0, 0.2);
+        border-color: #1e1e1e;
+        border-width: 12px 12px 0;
+        border-left-color: transparent!important;
+        border-right-color: transparent!important;
+        border-bottom-color: transparent!important;
+      }
+      .tooltip-inner {
+        position: relative;
+        padding: 10px 60px 10px 10px;
+        border-radius: 5px;
+        // background-color: rgba(0, 0, 0, 0.2);
+        background-color: #1e1e1e;
+        color: #FFFFFF;
+        text-align: left;
+        font-size: 15px;
+        width: 285px;
+        margin-left: 12px;
+        padding-left: 15px;
+        a {
+          position: absolute;
+          top: 15px;
+          right: 10px;
+          padding: 5px 7px;
+          border-radius: 5px;
+          background-color: rgb(55, 55, 55);
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+
   .filters-wrapper {
     position: absolute;
     top: 5.5px;
     right: 0;
-
-    .genre-dialog-selector {
-      position: relative;
-      display: inline-block;
-      .btn {
-        min-width: 45px;
-        height: 40px;
-        border-radius: 5px;
-        .btn__content {
-          padding: 0;
-        }
-      }
-      .tooltip {
-        position: absolute;
-        bottom: 40px;
-        right: -5px;
-        width: 240px;
-        padding: 0 0 10px 0;
-        background-color: transparent;
-        text-transform: initial;
-        letter-spacing: -0.1px;
-        .tooltip-arrow {
-          position: absolute;
-          bottom: 0px;
-          right: 20px;
-          width: 0;
-          height: 0;
-          margin: -2px;
-          border-style: solid;
-          border-color: rgba(0, 0, 0, 0.2);
-          border-width: 12px 12px 0;
-          border-left-color: transparent!important;
-          border-right-color: transparent!important;
-          border-bottom-color: transparent!important;
-        }
-        .tooltip-inner {
-          position: relative;
-          padding: 10px 60px 10px 10px;
-          border-radius: 5px;
-          background-color: rgba(0, 0, 0, 0.2);
-          color: #FFFFFF;
-          text-align: left;
-          font-size: 14px;
-          a {
-            position: absolute;
-            top: 15px;
-            right: 10px;
-            padding: 5px 7px;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #FFFFFF;
-          }
-        }
-      }
-    }
 
     .menu.filter_menu {
       .menu__activator .btn {
@@ -113,11 +127,10 @@
       }
     }
   }
-}
 
-.tooltip__content {
-  font-size: 16px;
-  background: #222;
+  .track-card .track-info .track-cover .track-image {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 .application.theme--light.primary {
@@ -133,6 +146,7 @@
         color: #FFFFFF !important;
         &.tabs__item--active {
           color: #FFFFFF !important;
+          font-weight: 700;
         }
       }
     }
@@ -157,4 +171,10 @@
       }
     }
   }
+}
+
+.menu__content.filter-menu__content {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-left: 0 !important;
 }

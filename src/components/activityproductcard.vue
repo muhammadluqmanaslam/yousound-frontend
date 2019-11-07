@@ -9,106 +9,108 @@
         </div>
       </v-flex> -->
       <v-flex xs12 class="product-cover">
-        <p class="product-price" v-if="priceShow">${{ item.price|formatNumber }}</p>
+        <p class="product-price" v-if="priceShow">${{ item.price | formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.thumb.url + ')'}"/></div>
         <v-flex xs12 class="product-actions" relative>
-          <!-- <v-btn dark class="play-button">
-            <img src="/static/images/btn_play.png"/>
-          </v-btn> -->
           <v-flex xs12 class="touch-flex" @click="showMerchModal=true"></v-flex>
         </v-flex>
       </v-flex>
     </v-flex>
-    <merch-modal :item="item" :dismiss="dimissMerchModal" v-if="showMerchModal"></merch-modal>
+
+    <merch-modal
+      v-if="showMerchModal"
+      :item="item"
+      :dismiss="dimissMerchModal"
+    />
   </v-flex>  
 </template>
 
 <script type="text/javascript">
-  import merchModal from '@/components/merchmodal'
-  import profileItem from '@/components/profileitem'
-  import ProductService from '@/services/product'
+import merchModal from '@/components/merchmodal'
+import profileItem from '@/components/profileitem'
+import ProductService from '@/services/product'
 
-  export default {
-    components: {
-      merchModal,
-      profileItem
+export default {
+  components: {
+    merchModal,
+    profileItem
+  },
+
+  props: {
+    object: {
+      type: Object
     },
 
-    props: {
-      object: {
-        type: Object
-      },
-
-      priceShow: {
-        type: Boolean,
-        default: true
-      }
-    },
-
-    data () {
-      return {
-        dialog: false,
-        showMerchModal: false
-      }
-    },
-
-    computed: {
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
-      },
-
-      publisher () {
-        if (this.object.assoc_type) {
-          return this.object.publisher
-        } else {
-          return this.object.merchant
-        }
-      },
-
-      item () {
-        if (this.object.assoc_type) {
-          return this.object.assoc
-        } else {
-          return this.object
-        }
-      },
-
-      owner () {
-        if (this.object.assoc_type) {
-          return this.object.assoc.merchant
-        } else {
-          return this.object.merchant
-        }
-      }
-    },
-
-    created () {
-    },
-
-    methods: {
-      dimissMerchModal () {
-        this.showMerchModal = false
-      },
-
-      showModal () {
-        this.showMerchModal = true
-      },
-
-      repostProduct () {
-        this.dialog = false
-        ProductService.repostProduct(this.item.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      }
-    },
-
-    mounted () {
+    priceShow: {
+      type: Boolean,
+      default: true
     }
+  },
+
+  data () {
+    return {
+      dialog: false,
+      showMerchModal: false
+    }
+  },
+
+  computed: {
+    item () {
+      if (this.object.assoc_type) {
+        return this.object.assoc
+      } else {
+        return this.object
+      }
+    }
+
+    // isShowUserInfo () {
+    //   if (this.$store.state.navigator.current.page === 'feed') {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // },
+
+    // publisher () {
+    //   if (this.object.assoc_type) {
+    //     return this.object.publisher
+    //   } else {
+    //     return this.object.user
+    //   }
+    // },
+
+    // owner () {
+    //   if (this.object.assoc_type) {
+    //     return this.object.assoc.merchant
+    //   } else {
+    //     return this.object.merchant
+    //   }
+    // }
+  },
+
+  created () {
+  },
+
+  methods: {
+    dimissMerchModal () {
+      this.showMerchModal = false
+    },
+
+    showModal () {
+      this.showMerchModal = true
+    },
+
+    repostProduct () {
+      this.dialog = false
+      ProductService.repostProduct(this.item.id).then(response => {
+        this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+    }
+  },
+
+  mounted () {
   }
+}
 </script>

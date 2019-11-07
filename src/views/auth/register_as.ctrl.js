@@ -88,9 +88,5 @@ export default {
       //   }
       // }, {scope: 'public_profile,email'})
     }
-  },
-
-  mounted () {
-    $('#content-view').css('padding-top', '0');
   }
 }

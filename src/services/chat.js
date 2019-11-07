@@ -5,7 +5,7 @@
  */
 import io from 'socket.io-client'
 
-var SocketManager = function (socketHost, roomName, token, callback) {
+let SocketManager = function (socketHost, roomName, token, callback) {
   let sm = this
   let socket = io.connect(socketHost)
 

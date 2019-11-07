@@ -85,13 +85,12 @@
         let _text = ''
         switch (this.recentItem.feed_type) {
           case 'release':
-            switch (this.recentItem.assoc_type) {
-              case 'Stream':
-                _text = 'broadcasted'
-                break
-              default:
-                _text = 'released'
-                break
+            if (this.recentItem.assoc_type === 'Stream') {
+              _text = 'broadcasted'
+            } else if (this.recentItem.assoc_type === 'Album' && this.recentItem.assoc.album_type === 'playlist') {
+              _text = 'created playlist'
+            } else {
+              _text = 'released'
             }
             break
           case 'repost':

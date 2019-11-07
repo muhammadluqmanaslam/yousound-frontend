@@ -30,9 +30,5 @@ export default {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     }
-  },
-
-  mounted () {
-    $('#content-view').css('padding-top', '0');
   }
 }

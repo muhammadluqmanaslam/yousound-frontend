@@ -18,7 +18,7 @@
           <label class="product-count product-stock-count">In Stock: <b>{{ product.stock }}</b></label>
         </v-flex>
         <v-flex sm12 class="product-content-row" pt-1>
-          <label class="product-price">${{ product.price|formatNumber }}</label>
+          <label class="product-price">${{ product.price | formatNumber }}</label>
 
           <template v-if="$store.state.auth.user.id==product.merchant.id">
             <v-btn class="text-btn pr-1" @click.native.stop="deleteItem(product)">Delete</v-btn>

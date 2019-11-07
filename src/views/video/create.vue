@@ -59,7 +59,7 @@
               </v-flex>
 
               <v-flex xs5 ml-3>
-                <v-flex xs12 form-group>
+                <!-- <v-flex xs12 form-group>
                   <label class="control-label">Pay Per View?</label>
                   <v-select
                     :items="view_prices"
@@ -69,7 +69,7 @@
                     item-value="id"
                     class="pt-0"
                   />
-                </v-flex>
+                </v-flex> -->
                 <v-flex xs12>
                   <label class="control-label">Duration</label>
                   <v-select
@@ -92,11 +92,11 @@
                   name="stream_cover_file"
                   id="stream_cover_file"
                   accept="image/*"
-                  v-validate="'required|dimensions:1280,720'"
+                  v-validate="'required'"
                   @change="imageChanged($event)"
                 >
                 <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload Thumbnail</label>
-               <span class="ml-2 px-1">*1280x720px | PNG, JPG, GIF</span>
+               <span class="ml-2 px-1 red--text">*PNG, JPG, GIF</span>
               </v-flex>
             </v-layout>
           </v-flex>

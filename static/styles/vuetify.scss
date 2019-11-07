@@ -1,6 +1,7 @@
 /* global error box */
 .snack {
-  z-index: 16;
+  // z-index: 16;
+  z-index: 203;
   .snack__content {
     label {
       text-overflow: ellipsis;
@@ -48,6 +49,11 @@ able.table thead th:not(:first-child) {
   }
 }
 
+/* v-switch */
+// .input-group.input-group--selection-controls.switch .input-group--selection-controls__ripple:after {
+//   box-shadow: none;
+// }
+
 /* v-select */
 .input-group__details {
   &:before {
@@ -83,6 +89,7 @@ able.table thead th:not(:first-child) {
 /* v-select : dropdown box */
 .menu__content {
   // z-index: 30 !important;
+  z-index: 300!important;
   border-radius: 3.75px;
 
   ul {
@@ -114,4 +121,10 @@ able.table thead th:not(:first-child) {
 
 .list__tile .avatar {
   min-width: 0;
+}
+
+/* v-tooltip */
+.tooltip__content {
+  font-size: 16px;
+  background: #222;
 }

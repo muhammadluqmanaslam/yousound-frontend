@@ -38,9 +38,5 @@ export default {
         console.log('error', e)
       })
     }
-  },
-
-  mounted () {
-    $('#content-view').css('padding-top', '0');
   }
 }

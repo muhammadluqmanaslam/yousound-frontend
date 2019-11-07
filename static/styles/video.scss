@@ -32,7 +32,7 @@
     letter-spacing: -.2px;
     color: #3c3c3c;
     font-size: 18px !important;
-    }
+  }
 
   .btn:not(.btn--depressed) {
     border-radius: 30px!important;
@@ -51,7 +51,7 @@
 
   .green {
     background-color: #14c55a !important;
-    }
+  }
 
   .btn--active .btn__content:before, .btn:focus .btn__content:before, .btn:hover .btn__content:before {
     background-color: transparent!important;
@@ -59,11 +59,6 @@
 
   .mb-5 {
     margin-bottom: 10px!important;
-  }
-
-  #content-view {
-
-   padding-bottom: 120px !important;
   }
 
   .time-info {
@@ -86,7 +81,7 @@
 
   .share-view {
     h3 {
-      font-size: 36px;
+      font-size: 32px;
       margin-bottom: 300px;
       font-family: 'Work Sans';
       letter-spacing: -1px;
@@ -191,16 +186,17 @@
 
     .my-card__subtitle {
       font-size: 24px;
-      font-weight: 600;
-      letter-spacing: -.5px;
+      font-weight: 700;
+      letter-spacing: -.8px;
+      font-family: 'Montserrat';
     }
 
     .my-card__text {
       margin-top: 10px;
       margin-bottom: 36px;
-      font-family: 'Work Sans';
-      letter-spacing: -.4px;
-      font-size: 17px;
+      font-family: 'Montserrat';
+      letter-spacing: 0;
+      font-size: 16px;
     }
 
     .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
@@ -265,8 +261,8 @@
   }
 
   h3 {
-    font-size: 32px;
-    font-family: 'Work Sans';
+    font-size: 22px;
+    font-family: 'Montserrat';
     letter-spacing: -.5px;
   }
 
@@ -283,7 +279,7 @@
   }
 
   .comment-box {
-    padding: 20px 25px;
+    padding: 18px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #FFFFEE;
@@ -326,8 +322,10 @@
 
   .video-thumbnail-wrapper {
     position: relative;
-    width: 100%;
-    padding-top: 56.25%;
+    // width: 100%;
+    // padding-top: 56.25%;
+    width: 60%;
+    padding-top: 60%;
     .video-thumbnail {
       position: absolute;
       top: 0;
@@ -415,7 +413,7 @@
   }
 
   .button-wrapper {
-    padding: 16px 25px;
+    padding: 18px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #F9F9F9;

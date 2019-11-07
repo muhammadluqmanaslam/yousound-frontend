@@ -9,7 +9,7 @@
 @import './search';
 @import './stream';
 @import './trackcard';
-@import './notifications';
+@import './activity';
 @import './messages';
 @import './sendmessage';
 @import './activityitem';
@@ -34,7 +34,6 @@
 @import './player';
 @import './promotemodal';
 @import './admin';
-@import './browser';
 @import './landing';
 @import './main_landing';
 @import './signup_approve_modal';
@@ -62,3 +61,5 @@
 @import './video_card';
 @import './video_player';
 @import './vuetify';
+
+@import './containers/mobile/page';

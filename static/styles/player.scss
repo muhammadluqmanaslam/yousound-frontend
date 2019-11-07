@@ -90,7 +90,9 @@
     animation: sk-scaleout 1.0s infinite ease-in-out;
   }
   .player-section {
+    position: relative;
     .controls-section {
+      position: relative;
       padding-top: 7.5px;
       text-align: center;
       .player-control-btn {
@@ -130,6 +132,43 @@
           background: rgba(0, 0, 0, 0.1) !important;
         }
       }
+      .volume-container {
+        position: absolute;
+        display: flex;
+        right: 5px;
+        top: 10px;
+        height: 50px;
+        align-items: center;
+        .volume {
+          display: flex;
+          height: auto;
+          align-items: center;
+          .input-group.volume-ranger {
+            display: block;
+            min-width: auto;
+            width: 0;
+            transition: width .5s, padding .5s;
+            padding: 0;
+            .slider__thumb-container {
+              opacity: 0;
+            }
+          }
+          i {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+          }
+          &:hover {
+            .volume-ranger {
+              width: 60px;
+              padding: 0 10px 0 15px;
+              .slider__thumb-container {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
     }
     .bar-section {
       display: flex;
@@ -149,6 +188,34 @@
       .player-bar {
         padding: 0 10px;
       }
+    }
+
+  }
+  .reminder-section {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .media {
+    height: 70px;
+    margin-top: 8px;
+    align-items: center;
+    box-shadow: 5px 5px 5px #e0e0e0;
+    background-color: #FFF;
+    &__image {
+      flex: 0 0 auto;
+      width: 80px;
+      height: 60px;
+      background: url("/static/images/ic_send_love.svg") no-repeat center center;
+    }
+    &__title {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    &__description {
+      font-size: 18px;
     }
   }
   .actions-section {

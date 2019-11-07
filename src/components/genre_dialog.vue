@@ -1,7 +1,7 @@
 <template>
   <v-container pa-0 class="genre" v-if="isPageReady">
-    <h3 class="mt-4 ml-2">Set Genre Filters</h3>
-    <p class="ma-2">Only the albums from genres you select will appear on your <strong>Discover & Stream feeds</strong></p>
+    <h3 class="mt-4 ml-2">Genre Filters</h3>
+    <p class="ma-2">Only the albums from genres you select will appear on <strong>Discover & Feed</strong></p>
 
     <v-btn
       v-if="show_selector_view"
@@ -24,7 +24,7 @@
               <div class="pgs__content">
                 <div class="upload-info">
                   <label>{{ parent.users_size | formatNumberWithComma }}</label>
-                  <span>Albums Uploaded</span>
+                  <span>Albums</span>
                 </div>
                 <div v-if="parent.value" class="pgs__badge check-o"></div>
                 <div v-else class="pgs__badge check"></div>

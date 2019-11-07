@@ -2,11 +2,15 @@
   <div>
     <div class="uploaderBox" id="uploaderBox">
       <div class="uploaderBox__input">
-        <input type="file" id="file" class="uploaderBox__file"
+        <input
+          type="file"
+          id="file"
+          class="uploaderBox__file"
           :name="uploadFieldName"
           :accept="accept"
           @change="filesChange($event.target.files)"
-          multiple>
+          multiple
+        >
         <label for="file">
           <img src="/static/images/drop_box.png" class="uploaderBox_image" />
         </label>
@@ -19,27 +23,51 @@
 
     <div class="track-list-section" v-if="album.tracks.length">
       <h4 class="track-list-title" id="track_list">Track List</h4>
-      <!-- <div class="track-items"> -->
-        <draggable v-model="album.tracks" class="track-items" @end="onEnd">
-          <transition-group>
-            <div class="track-item" v-for="(file, index) in album.tracks" :key="index">
-              <label class="item-index">{{ index + 1 }}</label>
-              <div class="item-section">
-                <div class="item-progress" style="display:none;"></div>
-                <!-- <label class="item-name">{{ file.file_name }}</label> -->
-                <input type="text" class="item-name" v-model="file.file_name" v-if="file.status != status.success" disabled>
-                <!-- <input type="text" class="item-name" v-model="file.new_name" v-if="file.status == status.success" @blur="updateTrack(index)" :placeholder="file.file_name"> -->
-                <input type="text" class="item-name" v-model="file.file_name" v-if="file.status == status.success" @blur="updateTrack(index)">
-                <!-- <label class="item-progress-value" v-if="file.status == status.uploading">28%</label> -->
-                <v-progress-circular indeterminate v-bind:size="20" class="primary--text loading" v-if="file.status == status.uploading"></v-progress-circular>
-                <v-icon class="done" v-if="file.status == status.success">done</v-icon>
-                <v-icon class="failed" v-if="file.status == status.failed">error_outline</v-icon>
-              </div>
-              <v-icon class="clear-btn" @click="deleteTrack(index)" v-if="file.status != status.uploading">clear</v-icon>
+      <draggable
+        v-model="album.tracks"
+        handle=".item-handle"
+        class="track-items"
+      >
+        <transition-group>
+          <div class="track-item" v-for="(file, index) in album.tracks" :key="index">
+            <label class="item-index">{{ index + 1 }}</label>
+            <div class="item-section">
+              <!-- <div class="item-progress" style="display:none;"></div> -->
+              <v-icon class="item-handle">reorder</v-icon>
+              <input
+                v-model="file.file_name"
+                type="text"
+                :disabled="file.status != status.success"
+                @focus="onInputFocus(index, $event)"
+                @blur="onInputBlur(index, $event)"
+                class="item-name"
+              >
+
+              <!-- <v-icon
+                v-if="file.editing"
+                @click="disableEditing(file)"
+                class="not_edit"
+              >format_strikethrough</v-icon>
+              <v-icon
+                v-else
+                @click="enableEditing(file)"
+                class="edit"
+              >title</v-icon> -->
+
+              <!-- <label class="item-progress-value" v-if="file.status == status.uploading">28%</label> -->
+              <v-progress-circular
+                v-if="file.status == status.uploading"
+                indeterminate
+                :size="20"
+                class="primary--text loading"
+              ></v-progress-circular>
+              <v-icon class="done" v-if="file.status == status.success">done</v-icon>
+              <v-icon class="failed" v-if="file.status == status.failed">error_outline</v-icon>
             </div>
-          </transition-group>
-        </draggable>
-      <!-- </div> -->
+            <v-icon class="clear-btn" @click="deleteTrack(index)" v-if="file.status != status.uploading">clear</v-icon>
+          </div>
+        </transition-group>
+      </draggable>
     </div>
 
     <v-dialog v-model="show_unauthorized_content_dialog" content-class="my-dialog-1">
@@ -120,6 +148,11 @@ export default {
   },
 
   computed: {
+    // dragDisabled () {
+    //   const hasEditing = _.find(this.album.tracks, (file) => (file.editing)) == null
+    //   // console.log('dragDisabled', !hasEditing)
+    //   return !hasEditing
+    // }
   },
 
   created () {
@@ -127,6 +160,7 @@ export default {
     for (let index in this.album.tracks) {
       const track = this.album.tracks[index]
       var file = {
+        editing: false,
         status: this.status.success,
         file_name: track.name,
         track: track
@@ -139,9 +173,11 @@ export default {
   methods: {
     saveTrack (file) {
       TrackService.uploadTrack(file.formData).then(response => {
+        file.editing = false
         file.status = this.status.success
         file.track = response.body
       }).catch(e => {
+        file.editing = false
         file.status = this.status.failed
         // console.log('saveTrack', e.body)
         switch (e.body.code) {
@@ -213,6 +249,7 @@ export default {
             filename = filename.replace('.wma', '')
             filename = filename.replace('.ogg', '')
             var file = {
+              editing: false,
               status: vm.status.uploading,
               file_name: filename,
               new_name: '',
@@ -234,8 +271,38 @@ export default {
       }, 100)
     },
 
-    onEnd () {
+    enableEditing (file) {
+      // console.log('enableEditing', file)
+      file.editing = true
     },
+
+    disableEditing (file) {
+      // console.log('disableEditing', file)
+      file.editing = false
+    },
+
+    onInputFocus (index, evt) {
+      // console.log('focus', $(evt.target).val())
+      evt.target.select()
+    },
+
+    onInputBlur (index, evt) {
+      // console.log('blur', index, $(evt.target).val())
+      // this.disableEditing(this.album.tracks[index])
+      this.updateTrack(index)
+    },
+
+    // onStart (evt) {
+    //   // console.log('dragging start...', $(evt.item).find('input').val())
+    // },
+
+    // onEnd (evt) {
+    //   // console.log('dragging end...', $(evt.item).find('input').val())
+    // },
+
+    // onClone (evt) {
+    //   // console.log('dragging clone...', evt)
+    // },
 
     updateTrack (index) {
       const file = this.album.tracks[index]

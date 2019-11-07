@@ -132,7 +132,16 @@
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="chat-page-content" v-if="user">
       <v-layout row>
         <v-flex xs12 sm9 pa-0 class="chat-content-section">
-          <div class="chat-list-section" v-chat-scroll="{always: false, smooth: false}" id="msg-container">
+          <div
+            v-chat-scroll="{always: false, smooth: false}"
+            id="msg-container"
+            class="chat-list-section"
+          >
+
+          <div style="font-weight: 600; margin-left: 8px; font-size: 16px; padding-bottom: 5px;" v-bind:style="">
+          <P> Start chatting!  Chat conversations are deleted permanently every 24 hours. Be respectful.  </p></div>
+          <v-divider :inset="inset"></v-divider>
+
             <!-- <div class="chat-item space" v-for="message in conversation.messages" :class="conversation.other.id == message.sender.id ? 'other' : 'self'">
               <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
               <div class="message-section">
@@ -160,7 +169,7 @@
                   <label v-if="!isAttachmentLink(message.text)" class="text-message">{{message.text}}</label>
                   <!-- <div v-if="isAttachmentLink(message.text) && (!albumLinks[message.text] && !merchLinks[message.text])">Loading...</div> -->
                   <div class="album-embed-wrapper" v-if="isAlbumLink(message.text) && albumLinks[message.text]">
-                    <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"></activity-album-card>
+                    <activity-album-card :object="albumLinks[message.text]" class="chat-album-embed"/>
                     <div class="info-section">
                       <router-link :to="'/album/'+albumLinks[message.text].slug"><label class="item-title">{{ albumLinks[message.text].name }}</label></router-link>
                       <br>
@@ -168,7 +177,7 @@
                     </div>
                   </div>
                   <div class="album-embed-wrapper" v-if="isMerchLink(message.text) && merchLinks[message.text]">
-                    <activity-product-card :object="merchLinks[message.text]" class="chat-album-embed"></activity-product-card>
+                    <activity-product-card :object="merchLinks[message.text]" class="chat-album-embed"/>
                     <div class="info-section">
                       <label class="item-title">{{ merchLinks[message.text].name }}</label>
                       <br>
@@ -176,7 +185,7 @@
                     </div>
                   </div>
                   <div class="album-embed-wrapper" v-if="isUserLink(message.text) && userLinks[message.text]">
-                    <activity-user-card :object="userLinks[message.text]" class="chat-album-embed"></activity-user-card>
+                    <activity-user-card :object="userLinks[message.text]" class="chat-album-embed"/>
                     <div class="info-section" v-if="!!userLinks[message.text]">
                       <label class="item-title">{{ userLinks[message.text].display_name }}</label>
                       <br>
@@ -200,20 +209,20 @@
               <img src="/static/images/ic_attach_add.svg" width="36">
             </v-btn>
             <input
-              type="text"
-              class="chat-input-box"
-              placeholder="Write a message..."
               v-model="message"
               @keyup.enter="sendMessage(message)"
               ref="chat"
+              type="text"
+              class="chat-input-box"
+              placeholder="Write a message..."
               autofocus
             />
             <picker
+              v-if="showEmojiPicker"
+              @click="addEmoji"
               title="Pick your emoji…"
               emoji="point_up"
               class="emoji-picker"
-              @click="addEmoji"
-              v-if="showEmojiPicker"
             ></picker>
             <v-btn
               class="show-emoji-box-btn"
@@ -234,7 +243,82 @@
             </div>
           </div> -->
           <div class="content-section" v-if="meberList">
-            <v-menu v-if="admin"
+            <center>
+              <v-progress-circular
+                v-if="disconnected"
+                indeterminate
+                color="primary"
+                class="progress-circular"
+              />
+            </center>
+            <div v-if="connected" class="member-group">
+              MODERATOR
+            </div>
+            <transition-group name="fade">
+              <div
+                v-for="adminUser in adminUsers"
+                :key="`admin-${adminUser.username}`"
+                class="member-item"
+              >
+                <div class="avatar-area">
+                  <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
+                  <div class="memeber-status" :class="room.online.indexOf(adminUser.slug) > -1 ? 'online' : (room.idle.indexOf(adminUser.slug) > -1 ? 'idle' : 'offline')"></div>
+                </div>
+                <div class="detail-area">
+                  <router-link :to="'/'+adminUser.slug" class="user-name">{{ adminUser.display_name }}</router-link>
+                </div>
+              </div>
+            </transition-group>
+            <transition-group name="fade">
+              <div
+                v-if="onlineUsers.length"
+                :key="'onlineHeader'"
+                class="member-group mt-3"
+              >ONLINE: {{ room.online.length }}</div>
+              <div
+                v-for="onlineUser in onlineUsers"
+                v-if="onlineUsers.length"
+                :key="`online-${onlineUser.username}`"
+                class="member-item"
+              >
+                <div class="avatar-area">
+                  <div class="avatar-image" :style="'background-image: url(' + onlineUser.avatar.url + ');'"></div>
+                  <div class="memeber-status online"></div>
+                </div>
+                <div class="detail-area">
+                  <router-link
+                    v-if="onlineUser"
+                    :to="'/'+onlineUser.slug"
+                    class="user-name"
+                  >{{ onlineUser.display_name }}</router-link>
+                </div>
+              </div>
+              <div
+                v-if="idleUsers.length"
+                :key="'idleHeader'"
+                class="member-group mt-3"
+              >IDLE: {{ room.idle.length }}</div>
+              <div
+                v-for="idleUser in idleUsers"
+                v-if="idleUsers.length"
+                :key="`idle-${idleUser.username}`"
+                class="member-item"
+              >
+                <div class="avatar-area">
+                  <div class="avatar-image" :style="'background-image: url(' + idleUser.avatar.url + ');'"></div>
+                  <div class="memeber-status idle"></div>
+                </div>
+                <div class="detail-area">
+                  <router-link
+                    v-if="idleUser"
+                    :to="'/'+idleUser.slug"
+                    class="user-name"
+                  >{{ idleUser.display_name }}</router-link>
+                </div>
+              </div>
+            </transition-group>
+            <v-menu
+              v-if="admin"
               class="settings-menu"
               down
               offset-y
@@ -244,70 +328,44 @@
               <v-btn round class="settings-btn" slot="activator">
                 <v-icon dark right>more_horiz</v-icon>
               </v-btn>
-              <v-list>
+              <v-list two-line>
                 <v-list-tile class="settings-list-tile">
                   <v-list-tile-content class="default-menu-item">
-                      Allow users to attach content
-                      <br>
-                      <v-switch v-model="room.settings.attachments"></v-switch>
+                    <v-list-tile-title>Allow users to attach content</v-list-tile-title>
+                    <v-switch
+                      v-model="room.settings.attachments"
+                      @change="updateSettings()"
+                      hide-details class="pl-3"
+                    ></v-switch>
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
                 <v-list-tile class="settings-list-tile">
                   <v-list-tile-content class="default-menu-item">
-                      Allow users to send links
-                      <br>
-                      <v-switch v-model="room.settings.links"></v-switch>
+                    <v-list-tile-title>Allow users to send links</v-list-tile-title>
+                    <v-switch
+                      v-model="room.settings.links"
+                      @change="updateSettings()"
+                      hide-details
+                      class="pl-3"
+                    ></v-switch>
                   </v-list-tile-content>
                 </v-list-tile>
                 <v-divider></v-divider>
                 <v-list-tile class="settings-list-tile">
                   <v-list-tile-content class="default-menu-item">
-                      Enable a character limit
-                      <br>
-                      <v-switch v-model="room.settings.charLimitBool"></v-switch>
-                      <!-- <v-text-field v-if="room.settings.charLimitBool" placeholder="# of characters" v-model="room.settings.charLimit" :rules="[rules.number]"></v-text-field> -->
+                    <v-list-tile-title>Enable a character limit</v-list-tile-title>
+                    <v-switch
+                      v-model="room.settings.charLimitBool"
+                      @change="updateSettings()"
+                      hide-details
+                      class="pl-3"
+                    ></v-switch>
+                    <!-- <v-text-field v-if="room.settings.charLimitBool" placeholder="# of characters" v-model="room.settings.charLimit" :rules="[rules.number]"></v-text-field> -->
                   </v-list-tile-content>
                 </v-list-tile>
               </v-list>
             </v-menu>
-            <center>
-            <v-progress-circular class="progress-circular" v-if="disconnected" indeterminate color="primary"></v-progress-circular>
-            </center>
-            <div v-if="connected" class="member-group">MODERATOR</div>
-            <transition-group name="fade">
-            <div class="member-item" v-for="adminUser in adminUsers" :key="`admin-${adminUser.username}`">
-              <div class="avatar-area">
-                <div class="avatar-image" :style="'background-image: url(' + adminUser.avatar.url + ');'"></div>
-                <div class="memeber-status" :class="room.online.indexOf(adminUser.slug) > -1 ? 'online' : (room.idle.indexOf(adminUser.slug) > -1 ? 'idle' : 'offline')"></div>
-              </div>
-              <div class="detail-area">
-                <router-link :to="'/'+adminUser.slug" class="user-name">{{ adminUser.display_name }}</router-link>
-              </div>
-            </div>
-            </transition-group>
-            <transition-group name="fade">
-            <div :key="'onlineHeader'" v-if="onlineUsers.length" class="member-group mt-3">ONLINE: {{ room.online.length }}</div>
-            <div v-if="onlineUsers.length" class="member-item" v-for="onlineUser in onlineUsers" :key="`online-${onlineUser.username}`">
-              <div class="avatar-area">
-                <div class="avatar-image" :style="'background-image: url(' + onlineUser.avatar.url + ');'"></div>
-                <div class="memeber-status online"></div>
-              </div>
-              <div class="detail-area">
-                <router-link v-if="onlineUser" :to="'/'+onlineUser.slug" class="user-name">{{ onlineUser.display_name }}</router-link>
-              </div>
-            </div>
-            <div :key="'idleHeader'" v-if="idleUsers.length" class="member-group mt-3">IDLE: {{ room.idle.length }}</div>
-            <div v-if="idleUsers.length" class="member-item" v-for="idleUser in idleUsers" :key="`idle-${idleUser.username}`">
-              <div class="avatar-area">
-                <div class="avatar-image" :style="'background-image: url(' + idleUser.avatar.url + ');'"></div>
-                <div class="memeber-status idle"></div>
-              </div>
-              <div class="detail-area">
-                <router-link v-if="idleUser" :to="'/'+idleUser.slug" class="user-name">{{ idleUser.display_name }}</router-link>
-              </div>
-            </div>
-            </transition-group>
           </div>
         </v-flex>
       </v-layout>
@@ -334,17 +392,17 @@
 <script type="text/javascript" src="./chat.ctrl.js"></script>
 
 <style scoped>
-.progress-circular {
+/*.progress-circular {
 }
 
 .default-menu-item {
   display: block;
-  /* position: relative; */
-  /* left: -10px; */
+  position: relative;
+  left: -10px;
 }
 
-.settings-list-tile {
+settings-list-tile {
   padding-bottom: 10px;
   padding-top: 10px;
-}
+}*/
 </style>

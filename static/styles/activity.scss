@@ -1,0 +1,64 @@
+.page.activity-page {
+  .tab-container {
+    position: relative;
+    .tabs {
+      .tabs__bar {
+        .tabs__wrapper.tabs__wrapper--scrollable {
+          margin: 0;
+          .tabs__li {
+            margin-right: 33px;
+            .tabs__item {
+              padding: 0;
+              text-transform: none;
+              font-size: 18px;
+              font-weight: 500;
+              color: #000 !important;
+              font-family: 'Montserrat';
+              text-transform: uppercase;
+              &.tabs__item--active {
+                color: #000000 !important;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+      .tabs__items {
+        border: none;
+        margin-top: 36px;
+      }
+    }
+  }
+
+  // .activity-page-header {
+  //   margin-bottom: 16px;
+  //   .menu {
+  //     padding-top: 20px;
+  //     i {
+  //       color: #c5c5c5;
+  //     }
+  //     .menu__activator .btn {
+  //       width: 165px;
+  //       height: 37.5px;
+  //       margin: 0;
+  //       background: #FFFFFF !important;
+  //       border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  //       border-radius: 3.75px;
+  //       // transform: rotate(-180deg);
+  //       // border: 2.25px solid #FFFFFF;
+  //       font-size: 18px;
+  //       color: #000;
+  //       letter-spacing: -0.6px;
+  //       box-shadow: none;
+  //       text-transform: none;
+  //     }
+  //   }
+  // }
+  // .activity-page-content {
+  //   border-top: 0.75px solid #e1e1e1;
+  //   padding-bottom: 150px;
+  //   .btn.loadmore-btn {
+  //     margin-top: 30px;
+  //   }
+  // }
+}

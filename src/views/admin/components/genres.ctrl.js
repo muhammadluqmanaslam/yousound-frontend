@@ -15,11 +15,11 @@ export default {
       pagination: {
         sortBy: 'name',
         descending: false,
-        rowsPerPage: 100,
+        rowsPerPage: 50,
         // page: 1,
         // totalItems: 0
       },
-      per_page_options: [100],
+      per_page_options: [50],
       isPageReady: false
     }
   },

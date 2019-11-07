@@ -4,15 +4,17 @@
     'gray': $store.getters['navigator/isGrayTheme'],
     'normal': $store.getters['navigator/isNormalTheme'],
     'app-audio': $store.state.player.isPlaying,
-    'app-video': $store.getters['videoPlayer/hasFrame']
+    'app-video': $store.getters['videoPlayer/hasFrame'],
+    'app-header': $store.getters['navigator/hasHeader'],
+    'app-footer': $store.getters['navigator/hasFooter'],
   }">
 
     <app-header
-      v-if="currentUser || $store.state.navigator.current.page == 'main_landing'"
+      v-if="currentUser || currentPage == 'main_landing'"
       v-show="$store.getters['navigator/hasHeader']"
     />
 
-    <router-view id="content-view"></router-view>
+    <router-view></router-view>
 
     <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
 
@@ -53,6 +55,7 @@
 <script>
 /* global $:true */
 
+import _ from 'lodash'
 import debounce from 'lodash/debounce'
 import Vue from 'vue'
 
@@ -100,6 +103,10 @@ export default {
       return this.$store.state.auth.user
     },
 
+    currentPage () {
+      return this.$store.state.navigator.current.page
+    },
+
     showError: {
       get: function () {
         return this.$store.state.error.showError
@@ -115,12 +122,9 @@ export default {
     '$route' (to, from) {
       const toPath = to.path.split('/')
       var type = toPath[1]
-      if (type === 'notifications') {
-        type = 'activity'
-      }
       if (this.$store.state.auth.token) {
-        if (type === 'activity' || type === 'stream') {
-          ActivityService.makeRead(type).then(response => {
+        if (type === 'activity' || type === 'feed') {
+          ActivityService.makeRead(type === 'feed' ? 'stream' : type).then(response => {
             ActivityService.getUnread().then(response => {
               this.$store.dispatch('activity/setBadge', response.body)
             })
@@ -135,6 +139,7 @@ export default {
   },
 
   created () {
+    // console.log('App created')
     Vue.http.interceptors.push((req, next) => {
       next((res) => {
         if (res.url.startsWith(process.env.API_BASE_URL) && res.status === 401) {
@@ -213,6 +218,7 @@ export default {
         console.log('flowplayer unload')
       }).on('shutdown', function (e, api) {
         console.log('flowplayer shutdown')
+        vm.$root.$emit(MyEvents.VIDEO_PLAYER_EXIT, _.get(vm.$store.state.videoPlayer.stream, 'user.username', ''))
         vm.$store.commit('videoPlayer/reset')
       }).on('fullscreen', function (e, api) {
         console.log('flowplayer fullscreen')

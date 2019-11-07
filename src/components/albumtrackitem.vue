@@ -1,18 +1,21 @@
 <template>
   <div
-    class="album-track-item relative"
-    :class="{'selected': buttonHover || (isPlaying && trackIndex==$store.state.player.trackIndex) || (!isPlaying && trackIndex==0)}"
     @click.self="selectTrack()"
     @mouseenter="buttonHover=true"
     @mouseleave="buttonHover=false"
+    :class="{'selected': buttonHover || (isPlaying && trackIndex==$store.state.player.trackIndex) || (!isPlaying && trackIndex==0)}"
+    class="album-track-item relative"
   >
-    <v-btn class="action-btn" v-if="false && (!$store.state.auth.user || ($store.state.auth.user && album.user.id!=$store.state.auth.user.id))">
+    <v-btn class="action-btn" v-if="false && (!currentUser || (currentUser && album.user.id!=currentUser.id))">
       <!-- <v-icon v-if="(trackIndex==$store.state.player.trackIndex && !isPlaying) || (buttonHover && trackIndex!=$store.state.player.trackIndex)">play_arrow</v-icon> -->
       <v-icon v-if="trackIndex==$store.state.player.trackIndex && isPlaying">pause</v-icon>
       <v-icon v-else-if="buttonHover || (trackIndex==0 && !isPlaying)">play_arrow</v-icon>
     </v-btn>
     <label class="track-name" @click.self="selectTrack()">
-    <label class="track-index">{{ trackIndex + 1 }}. </label>{{ track.name }}</label>
+      <span class="track-index">{{ trackIndex + 1 }}. </span>
+      <span>{{ track.name }}</span>
+      <span v-if="album.album_type == 'playlist'" class="track-user-name"> - {{ track.user.display_name }}</span>
+    </label>
     <div class="right-section">
       <v-menu v-model="menu"
         offset-y
@@ -24,7 +27,7 @@
         </v-btn>
         <v-list>
           <v-list-tile
-            v-if="album.album_type == 'playlist' && $store.state.auth.user && album.user.id == $store.state.auth.user.id"
+            v-if="album.album_type == 'playlist' && currentUser && album.user.id == currentUser.id"
             key="remove_track"
             @click.native="removeItem()"
           >

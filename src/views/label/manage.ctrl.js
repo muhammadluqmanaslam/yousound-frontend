@@ -22,6 +22,18 @@ export default {
         page: '',
         tab: ''
       },
+      artist_tabs: [
+        { id: 'approved_labels', title: 'Labels' },
+        { id: 'approved_albums', title: 'Approved Albums' },
+        { id: 'pending_labels', title: 'Pending Labels' },
+        { id: 'pending_albums', title: 'Pending Albums' }
+      ],
+      label_tabs: [
+        { id: 'approved_labels', title: 'Roster' },
+        { id: 'approved_albums', title: 'Albums' },
+        { id: 'pending_labels', title: 'Pending Artists' },
+        { id: 'pending_albums', title: 'Pending Albums' }
+      ],
       labels: [],
       albums: [],
       user: {},
@@ -63,6 +75,7 @@ export default {
     },
 
     approved_albums () {
+      console.log('approved_albums', _.filter(this.albums, (item) => { return item.status === 'accepted' }))
       return _.filter(this.albums, (item) => { return item.status === 'accepted' })
     },
 
@@ -119,6 +132,10 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.navigatorState.tab == tab
+    },
+
     loadData () {
       this.isPageReady = false
       Promise.all([

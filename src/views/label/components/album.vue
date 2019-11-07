@@ -26,7 +26,7 @@
               <v-btn dark class="action-btn" :class="deleteButtonClass" @click.native="deleteButtonFunc(album, user)" v-if="deleteButtonFunc"><span v-html="deleteButtonText"></span></v-btn>  
             </template>
           </v-flex>
-          <p class="album-count" v-if="!acceptButtonFunc">{{ album.tracks.length }} tracks</p>
+          <p class="album-count" v-if="!acceptButtonFunc && album.tracks">{{ album.tracks }} tracks</p>
         </v-flex>
       </v-flex>
       <v-flex xs12 class="album-detail" pa-0>

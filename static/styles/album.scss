@@ -413,11 +413,11 @@ p {
     width: 100vw !important;
     height: 100% !important;
     overflow: hidden;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.5);
   }
   .album-pages {
     z-index: 9;
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 85px;
     .album-info-page {
       min-height: calc(100vh - 230px);
@@ -776,6 +776,9 @@ p {
                 letter-spacing: 0;
                 vertical-align: middle;
               }
+              .track-user-name {
+                font-weight: 900;
+              }
             }
             .action-btn {
               background-color: transparent !important;
@@ -902,7 +905,7 @@ p {
         .tab-section {
           padding: 0 12px;
           .comment-tab {
-            padding-bottom: 15px;
+            padding-bottom: 13px;
             border-bottom: 1px solid #C3C3C3;
             .comment-count {
               padding-right: 22px;
@@ -1025,7 +1028,7 @@ p {
               display: inline-flex;
               justify-content: flex-end;
               align-items: center;
-              width: 135px;
+              width: 120px;
               .comment-more-action {
                 opacity: 0;
                 .more-btn {
@@ -1156,7 +1159,7 @@ p {
         margin-bottom: 20px;
         border-bottom: 1px solid #C3C3C3;
         font-weight: 700;
-        font-size: 30px;
+        font-size: 24px;
         color: #000000;
         letter-spacing: -1.5px;
         font-family: 'Work Sans';

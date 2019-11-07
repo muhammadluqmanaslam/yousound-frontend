@@ -37,20 +37,20 @@ export default {
 
   data () {
     return {
-      // currentTab: 'songs',
+      // active_tab: 'songs',
       // slide_tab: 'songs',
-      currentTab: '',
+      active_tab: '',
       slide_tab: '',
       tabs: [
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
         { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'songs', title: 'Albums', roles: ['artist'] },
-        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
         { id: 'playlists', title: 'Playlists' },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
         { id: 'followings', title: 'Following' },
-        { id: 'followers', title: 'Followers' }
+        { id: 'followers', title: 'Followers' },
+        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] }
       ],
       slug: null,
       user: {
@@ -71,7 +71,7 @@ export default {
       startIndex: 0,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 6 * 1,
+      items_per_page: 5 * 10,
       genres: null,
       genre_index: 0,
       followings_selector: 'followings',
@@ -85,6 +85,10 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    userLocation() {
+      return _.get(this.user, 'default_address.city', '--')
     },
 
     enabledViewDirectMessage () {
@@ -160,6 +164,10 @@ export default {
       setPlaying: 'player/setPlayingStatus'
     }),
 
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
     onTab (tab) {
       this.$router.push({
         path: this.$route.path,
@@ -173,7 +181,7 @@ export default {
     setGridView (flag) {
       this.$router.push({
         path: this.$route.path,
-        hash: this.currentTab,
+        hash: this.active_tab,
         query: {
           grid_view: flag
         }
@@ -229,39 +237,39 @@ export default {
         }
 
         // put 'merch' tab first for brand
-        // if (this.user.user_type == 'brand') {
-        //   if (this.tabs[7].id === 'merch') {
-        //     this.tabs.unshift(this.tabs.pop())
-        //     // const arr = this.tabs.slice()
-        //     // this.tabs = arr
-        //     // console.log(this.tabs[0].id, this.tabs[7].id)
-        //   }
-        // } else {
-        //   if (this.tabs[7].id !== 'merch') {
-        //     this.tabs.push(this.tabs.shift())
-        //     // console.log(this.tabs[0].id, this.tabs[7].id)
-        //   }
-        // }
+        if (this.user.user_type == 'brand') {
+          if (this.tabs[8].id === 'merch') {
+            this.tabs.unshift(this.tabs.pop())
+            // const arr = this.tabs.slice()
+            // this.tabs = arr
+            // console.log(this.tabs[0].id, this.tabs[8].id)
+          }
+        } else {
+          if (this.tabs[8].id !== 'merch') {
+            this.tabs.push(this.tabs.shift())
+            // console.log(this.tabs[0].id, this.tabs[8].id)
+          }
+        }
 
         if (tab) {
-          this.currentTab = tab
+          this.active_tab = tab
           this.slide_tab = tab
         } else {
           switch (this.user.user_type) {
             case 'artist':
-              this.currentTab = 'songs'
+              this.active_tab = 'songs'
               this.slide_tab = 'songs'
               break
             case 'label':
-              this.currentTab = 'artists'
+              this.active_tab = 'artists'
               this.slide_tab = 'artists'
               break
             case 'brand':
-              this.currentTab = 'merch'
+              this.active_tab = 'merch'
               this.slide_tab = 'merch'
               break
             default:
-              this.currentTab = 'playlists'
+              this.active_tab = 'playlists'
               this.slide_tab = 'playlists'
               break
           }
@@ -271,14 +279,14 @@ export default {
         this.auto_play = auto_play
         this.$store.dispatch('player/setGridShow', grid_view)
         if (grid_view) {
-          this.currentTab = this.slide_tab
-          this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.currentTab })
+          this.active_tab = this.slide_tab
+          this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.active_tab })
         } else {
-          this.slide_tab = this.currentTab
-          this.$store.dispatch('navigator/goNextState', { page: 'profile-slider', tab: this.currentTab })
+          this.slide_tab = this.active_tab
+          this.$store.dispatch('navigator/goNextState', { page: 'profile-slider', tab: this.active_tab })
         }
 
-        this.getItems(this.currentTab, false)
+        this.getItems(this.active_tab, false)
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -298,7 +306,8 @@ export default {
       }
 
       var params = {
-        page: this.page_index
+        page: this.page_index,
+        per_page: this.items_per_page
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       ProfileService.getItems(this.user.id, tab, params).then(response => {
@@ -367,7 +376,7 @@ export default {
         }
       }
       this.genres = _.uniqBy(genres, 'id')
-      // console.log(this.currentTab, albums)
+      // console.log(this.active_tab, albums)
       // console.log(this.albums)
     },
 
@@ -375,20 +384,8 @@ export default {
       if (this.followings_selector !== value) {
         this.followings_selector = value
         $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-        this.getItems(this.currentTab, false)
+        this.getItems(this.active_tab, false)
       }
-    },
-
-    followersClickHandler () {
-      // this.grid_show = true
-      // this.currentTab = 'followings'
-      // const value = 'followers', name = 'Follower'
-      // this.followings_selector = value
-      // this.getItems('followings', false)
-      // this.$nextTick(() => {
-      //   $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-      // })
-      this.onTab('followers')
     },
 
     onAfterAlbumSlideChange (index) {
@@ -545,7 +542,7 @@ export default {
     },
 
     playSong () {
-      if (this.currentTab === 'songs' || this.albums.length) {
+      if (this.active_tab === 'songs' || this.albums.length) {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
         this.setPlaying(true)

@@ -1,6 +1,11 @@
 <template>
   <v-flex class="product-card">
-    <v-flex xs12 class="product-info" pa-0>
+    <v-flex
+      @mouseenter="is_component_hover=true"
+      @mouseleave="is_component_hover=false"
+      xs12 pa-0
+      class="product-info"
+    >
       <!-- <v-flex xs12 class="product-user" v-if="false" pa-0>
         <router-link :to="'/' + publisher.slug"><div class="product-user-avatar" :style="{'background-image': 'url(' + publisher.avatar.thumb.url + ')'}"/></div></router-link>
         <profile-item :user="publisher" :className="'product-user-avatar'"></profile-item>
@@ -12,20 +17,21 @@
       <v-flex xs12 class="product-cover">
         <p class="product-price">${{ item.price | formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.url + ')'}"/></div>
-        <v-flex xs12 class="product-actions" relative v-if="$store.state.auth.user">
-          <!-- <v-btn dark class="play-button">
-            <img src="/static/images/btn_play.png"/>
-          </v-btn> -->
+        <v-flex xs12 class="product-actions" relative v-if="currentUser">
           <div class="product-label">${{ item.price | formatNumber }}</div>
           <v-btn dark round color="black" class="view-details-btn">View Details</v-btn>
-          <v-flex xs12 class="touch-flex" @click="showMerchModal=true"></v-flex>
-          <v-menu offset-y class="product-menu">
-            <v-btn dark slot="activator">
-              <!-- <img src="/static/images/ic_more.png"/></v-icon> -->
+          <v-flex xs12 class="touch-flex" @click="openMerchDialog()"></v-flex>
+          <v-menu
+            v-if="willMenuRender"
+            offset-y
+            class="product-menu"
+          >
+            <v-btn dark slot="activator" @click="is_menu_hover = true">
               <v-icon right>more_horiz</v-icon>
             </v-btn>
             <v-list>
-              <v-list-tile v-if="item.merchant.id != $store.state.auth.user.id"
+              <v-list-tile
+                v-if="item.merchant.id != currentUser.id"
                 key="repost"
                 @click.native="repostProduct()"
               >
@@ -37,7 +43,7 @@
               <v-list-tile
                 key="share"
                 class="product-menu-item"
-                @click.native="showShareDialog()"
+                @click.native="openShareDialog()"
               >
                 <v-list-tile-title>
                   <img class="product-status-icon" src="/static/images/ic_share.png" />
@@ -61,14 +67,17 @@
       </v-flex>
     </v-flex>
 
-    <merch-modal v-if="showMerchModal"
+    <merch-modal
+      v-if="showMerchModal"
       :item="item"
-      :dismiss="dimissMerchDialog"
-      :shareProduct="showShareDialog"
+      :dismiss="closeMerchDialog"
+      :shareProduct="openShareDialog"
     />
-    <share-modal v-if="showShareModal"
+
+    <share-modal
+      v-if="showShareModal"
       :item="item"
-      :dismiss="dismissShareDialog"
+      :dismiss="closeShareDialog"
     />
   </v-flex>  
 </template>
@@ -95,26 +104,29 @@
     data () {
       return {
         showMerchModal: false,
-        showShareModal: false
+        showShareModal: false,
+        is_component_hover: false,
+        is_menu_hover: false
       }
     },
 
     computed: {
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
-        } else {
-          return false
-        }
+      currentUser () {
+        return this.$store.state.auth.user
       },
 
-      publisher () {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.publisher
-        } else {
-          return this.dataObject.merchant
-        }
+      willMenuRender () {
+        // console.log('willMenuRender', this.item.id, this.is_component_hover, this.is_menu_hover)
+        return this.is_menu_hover || this.is_component_hover
       },
+
+      // publisher () {
+      //   if (this.dataObject.assoc_type) {
+      //     return this.dataObject.publisher
+      //   } else {
+      //     return this.dataObject.merchant
+      //   }
+      // },
 
       item () {
         if (this.dataObject.assoc_type) {
@@ -133,24 +145,21 @@
       }
     },
 
-    created () {
-    },
-
     methods: {
-      showMerchDialog () {
+      openMerchDialog () {
         this.showMerchModal = true
       },
 
-      dimissMerchDialog () {
+      closeMerchDialog () {
         this.showMerchModal = false
       },
 
-      showShareDialog () {
+      openShareDialog () {
         this.showMerchModal = false
         this.showShareModal = true
       },
 
-      dismissShareDialog () {
+      closeShareDialog () {
         this.showShareModal = false
       },
 
@@ -165,6 +174,9 @@
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       }
+    },
+
+    created () {
     },
 
     mounted () {

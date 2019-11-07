@@ -1,9 +1,7 @@
 <template>
   <v-layout row wrap class="my-header" :class="{'fixed': $store.getters['navigator/isHeaderFixed']}">
-    <v-flex
-      v-if="currentUser"
-      xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1
-    >
+    <!-- <v-flex v-if="currentUser" xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1> -->
+    <v-flex v-if="currentUser" mx-5>
       <v-toolbar class="header">
         <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
         <!-- <v-toolbar-title></v-toolbar-title> -->
@@ -27,7 +25,7 @@
         <v-badge color="red">
           <span slot="badge" v-if="$store.state.activity.badge.stream > 0">{{ $store.state.activity.badge.stream }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: currentPage == 'stream' }" @click.native="choosePage('stream')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'feed' }" @click.native="choosePage('feed')">
               <svg width="23px" height="22px" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_stream</title>
@@ -46,7 +44,7 @@
         <v-badge color="red">
           <span slot="badge" v-if="$store.state.activity.badge.activity > 0">{{ $store.state.activity.badge.activity }}</span>
           <v-tooltip bottom>
-            <v-btn icon slot="activator" :class="{ active: currentPage == 'notifications' }" @click.native="choosePage('notifications')">
+            <v-btn icon slot="activator" :class="{ active: currentPage == 'activity' }" @click.native="choosePage('activity')">
               <svg width="20px" height="22px" viewBox="0 0 26 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                 <title>ic_notifications</title>
@@ -125,7 +123,7 @@
           left
           offset-y
           :nudge-top="-5"
-          :nudge-left="-70"
+          :nudge-left="0"
           class="profile-menu"
           content-class="profile-menu__content"
         >
@@ -186,12 +184,21 @@
                 <label>Main Landing</label>
               </v-list-tile-title>
             </v-list-tile>
+            <v-list-tile key="landing1" to="/home1">
+              <v-list-tile-title class="profile-menu-item">
+                <label>Landing 1</label>
+              </v-list-tile-title>
+            </v-list-tile> -->
             <v-list-tile key="landing" to="/home">
               <v-list-tile-title class="profile-menu-item">
                 <label>Landing</label>
               </v-list-tile-title>
-            </v-list-tile> -->
-            <v-list-tile key="payments" to="/payments" v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1">
+            </v-list-tile>
+            <v-list-tile
+              v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1"
+              key="payments"
+              to="/payments"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>Payments</v-list-tile-title>
                 <v-list-tile-sub-title>View transactions, refunds</v-list-tile-sub-title>
@@ -202,7 +209,7 @@
                 <v-list-tile-title>Admin</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile key="labels" to="/labels" v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1">
+            <!-- <v-list-tile key="labels" to="/labels" v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1">
               <v-list-tile-content v-if="currentUser.user_type=='artist'">
                 <v-list-tile-title>My Labels</v-list-tile-title>
                 <v-list-tile-sub-title>Manage your labels</v-list-tile-sub-title>
@@ -211,7 +218,7 @@
                 <v-list-tile-title>Record Labels</v-list-tile-title>
                 <v-list-tile-sub-title>Manage record labels</v-list-tile-sub-title>
               </v-list-tile-content>
-            </v-list-tile>
+            </v-list-tile> -->
             <v-list-tile
               v-if="currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(currentUser.request_role) == -1"
               key="verified"
@@ -279,7 +286,7 @@
         <v-card-media contain src="/static/images/ic_twitter.png" height="50px"></v-card-media>
         <v-card-title class="headline">Connect to Twitter</v-card-title>
         <v-card-text>
-          To complete verification, you must choose your request role like Artist, Brand, or Label<br>
+          To complete verification, you must choose your request role like Artist or Brand<br>
           Twitter account once time & verify your identity.
         </v-card-text>
         <v-card-actions>
@@ -288,10 +295,10 @@
             <img class="avatar" src="/static/images/artist.png" @click="goTwitter('artist')" />
             <label class="pt-2">Artist</label>
           </div>
-          <div class="img-button">
+          <!-- <div class="img-button">
             <img class="avatar" src="/static/images/listener.png" @click="goTwitter('label')" />
             <label class="pt-2">Label</label>
-          </div>
+          </div> -->
           <div class="img-button">
             <img class="avatar" src="/static/images/listener.png" @click="goTwitter('brand')" />
             <label class="pt-2">Brand</label>

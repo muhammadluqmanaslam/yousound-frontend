@@ -64,15 +64,15 @@ export default {
       total_closed_tickets: 0,
       items_pagination: {
         page: 1,
-        rowsPerPage: 10
+        rowsPerPage: 50
       },
       open_tickets_pagination: {
         page: 1,
-        rowsPerPage: 10
+        rowsPerPage: 50
       },
       closed_tickets_pagination: {
         page: 1,
-        rowsPerPage: 10
+        rowsPerPage: 50
       },
       // total_items: 0,
       // pagination: {

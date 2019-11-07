@@ -28,7 +28,7 @@
               <v-badge color="red">
                 <span slot="badge" v-if="$store.state.activity.badge.stream>0">{{ $store.state.activity.badge.stream }}</span>
                 <v-tooltip bottom>
-                  <v-btn icon slot="activator" @click.native="choosePage('stream')">
+                  <v-btn icon slot="activator" @click.native="choosePage('feed')">
                     <svg width="23px" height="22px" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                       <title>ic_stream</title>
@@ -47,7 +47,7 @@
               <v-badge color="red">
                 <span slot="badge" v-if="$store.state.activity.badge.activity>0">{{ $store.state.activity.badge.activity }}</span>
                 <v-tooltip bottom>
-                  <v-btn icon slot="activator" @click.native="choosePage('notifications')">
+                  <v-btn icon slot="activator" @click.native="choosePage('activity')">
                     <svg width="20px" height="22px" viewBox="0 0 26 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                       <title>ic_notifications</title>
@@ -379,10 +379,11 @@
                   ref="chat"
                   autofocus
                 />
-                <!-- <div class="media__title">
-                  <i class="fa fa-chat"></i>
-                  Leave a comment
-                </div> -->
+              </div>
+              <div class="media__right">
+                <v-btn small fab @click.native="choosePage(`user/${user.slug}/chat`)">
+                  <img class="comment-icon" src="/static/images/ic_message.png"/>
+                </v-btn>
               </div>
             </div>
           </div>

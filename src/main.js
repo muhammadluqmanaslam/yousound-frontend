@@ -11,10 +11,17 @@ import BrowserPage from '@/views/home/browser'
 import store from './store'
 import Vuetify from 'vuetify'
 import VueNumeric from 'vue-numeric'
-import VeeValidate from 'vee-validate'
 import VueClipboard from 'vue-clipboard2'
 import VueHead from 'vue-head'
+import VeeValidate from 'vee-validate'
 import SocialSharing from 'vue-social-sharing'
+import VueLazyload from 'vue-lazyload'
+
+import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverflow:true
+// import 'fullpage.scrollHorizontally.min' // Optional. When using fullpage extensions
+import 'fullpage.js/dist/fullpage.css'
+import VueFullPage from 'vue-fullpage.js'
+
 import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
 
@@ -33,10 +40,23 @@ Vue.use(VueResource)
 Vue.use(VueIntercom, { appId: process.env.INTERCOM_APP_ID })
 Vue.use(Vuetify)
 Vue.use(VueNumeric)
-Vue.use(VeeValidate)
 Vue.use(VueClipboard)
 Vue.use(VueHead)
 Vue.use(SocialSharing)
+Vue.use(VueLazyload)
+Vue.use(VueFullPage)
+
+const dictionary = {
+  en: {
+    custom: {
+      username: {
+        regex: 'Username cannot have special char.'
+      }
+    }
+  }
+}
+VeeValidate.Validator.localize('en', dictionary.en)
+Vue.use(VeeValidate)
 
 Vue.directive('on-click-outside', onClickOutside)
 
@@ -115,7 +135,8 @@ switch (browserName) {
     if (browserVersion < 60) isOldBrowser = true
     break
   case 'safari':
-    if (browserVersion < 11) isOldBrowser = true
+    // if (browserVersion < 11) isOldBrowser = true
+    if (browserVersion < 10) isOldBrowser = true
     break
   case 'ie':
     if (browserVersion < 11) isOldBrowser = true
@@ -135,22 +156,33 @@ if (isOldBrowser) {
   })
   app.$mount('#app')
 } else if (isMobileBrowser) {
+  console.log('loaded routes for Mobile')
   const router = createMobileRouter()
+  router.beforeEach((to, frm, next) => {
+    if (/^\/(protect)/.test(to.path) ||
+      store.state.auth.secret_code === process.env.SECRET_CODE) {
+      next()
+    } else {
+      next('/protect')
+    }
+  })
   const app = new Vue({
     router,
     store,
-    template: '<App/>',
-    components: { App }
+    template: '<v-app id="app"><router-view class="main-content-view"></router-view></v-app>'
+    // template: '<App/>',
+    // components: { App }
   })
   app.$mount('#app')
 } else {
+  console.log('loaded routes for Desktop')
   SettingService.getSettings().then(response => {
     const settings = response.body
     const router = createRouter(settings)
     router.beforeEach((to, frm, next) => {
       if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) ||
         /^\/register\/attendee\/.+/.test(to.path) ||
-        /^\/(playlist|x)$/.test(to.path) ||
+        /^\/(playlist)$/.test(to.path) ||
         store.state.auth.secret_code === process.env.SECRET_CODE) {
         next()
       } else {

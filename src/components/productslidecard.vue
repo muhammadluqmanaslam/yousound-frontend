@@ -69,11 +69,11 @@
     },
 
     computed: {
-      isShowUserInfo () {
-        if (this.$store.state.navigator.current.page === 'stream') {
-          return true
+      item () {
+        if (this.dataObject.assoc_type) {
+          return this.dataObject.assoc
         } else {
-          return false
+          return this.dataObject
         }
       },
 
@@ -83,23 +83,15 @@
         } else {
           return this.dataObject.merchant
         }
-      },
-
-      item () {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.assoc
-        } else {
-          return this.dataObject
-        }
-      },
-
-      owner () {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.assoc.merchant
-        } else {
-          return this.dataObject.merchant
-        }
       }
+
+      // owner () {
+      //   if (this.dataObject.assoc_type) {
+      //     return this.dataObject.assoc.merchant
+      //   } else {
+      //     return this.dataObject.merchant
+      //   }
+      // }
     },
 
     created () {

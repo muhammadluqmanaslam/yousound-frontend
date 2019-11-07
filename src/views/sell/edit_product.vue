@@ -11,7 +11,7 @@
           </v-flex>
           <v-flex xs12 product-section>
             <v-flex xs12 form-group>
-              <label class="control-label">Product Name</label>
+              <label class="control-label">Product Name<label class="required">*</label></label>
               <input type="text" class="form-control" v-model="product.name">
             </v-flex>
             <v-flex xs12 form-group>
@@ -27,7 +27,7 @@
               </v-radio-group>
             </v-flex>
             <v-flex xs12 form-group>
-              <label class="control-label">Category</label>
+              <label class="control-label">Category<label class="required">*</label></label>
               <v-select
                 v-bind:items="product_categories"
                 v-model="product.category"
@@ -63,20 +63,21 @@
             </v-flex>
             <v-layout row mb-2 product-option-content form-group v-for="(variant, index) in product.variants" :key="index">
               <v-flex xs12 sm4>
-                <label class="control-label">Name</label>
+                <label class="control-label">Name<label class="required">*</label></label>
                 <input type="text" class="form-control" v-model="variant.name" :disabled="isDigitalProduct">
               </v-flex>
               <v-flex xs12 sm4 v-if="!isDigitalProduct">
-                <label class="control-label">In Stock</label>
+                <label class="control-label">In Stock<label class="required">*</label></label>
                 <input type="text" class="form-control" v-model="variant.quantity">              
               </v-flex>
               <v-flex xs12 sm4>
-                <label class="control-label">Price</label>
+                <label class="control-label">Price<label class="required">*</label></label>
                 <input type="text" class="form-control" v-model="variant.price">
               </v-flex>
               <v-icon class="clear-btn" @click="deleteVariant(index)" v-if="!variant.id">clear</v-icon>
               <v-icon class="clear-btn" v-else>block</v-icon>
             </v-layout>
+            <p class="d-inline-flex grey--text lighten-2">e.g. "Large - Black" "100" "$30.00"</p>
           </v-flex>
         </v-flex>
 
@@ -209,7 +210,7 @@
             <div class="vertical-middle-div">
               <v-layout row>
                 <v-flex xs12 sm4>
-                  <label class="control-label">Image 1</label>
+                  <label class="control-label">Image 1<label class="required">*</label></label>
                   <div class="product-image-section">
                     <div class="product-image" id="product_image1"  v-if="product_image1_url" :style="`background-image:url(${product_image1_url})`"></div>
                     <div class="product-image-upload-section" v-if="!product_image1_url">

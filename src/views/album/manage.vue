@@ -1,8 +1,129 @@
 <template>
-  <div row wrap class="page manage-page">
+  <div row wrap class="page manage-page mx-5">
+    <div class="d-flex">
+      <div class="page-left">
+        <div class="tab-container">
+          <h2 class="page-title">Manage</h2>
+          <ul>
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{active: isActiveTab(tab.id)}"
+            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+          </ul>
+        </div>
+      </div>
 
-    <v-flex xs12 sm12 class="album-finish-section" v-if="show_album_finish_modal">
-      <v-flex xs12 sm12 class="dismiss-section" @click="closeAlbumFinishModal()"></v-flex>
+      <div class="page-content" v-if="currentUser && isPageReady">
+        <div v-if="active_tab == 'published'">
+          <div v-if="!published_albums || published_albums.length == 0" class="empty-section">
+            <p class="empty-title">Your have not uploaded any albums yet</p>
+            <router-link to="/upload/album" class="empty-discover-btn">Upload</router-link>
+          </div>
+          <v-card flat v-else>
+            <v-layout row wrap class="covers-content">
+              <div class="card-container" v-for="(album, index) in published_albums" :key="index">
+                <album-card
+                  :album="album"
+                  :editButtonAction="editAlbum"
+                  :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                  :videoOnlyButtonAction="openVideoOnlyConfirmDialog"
+                  :privateButtonAction="openPrivateConfirmDialog"
+                ></album-card>
+              </div>
+            </v-layout>
+          </v-card>
+        </div>
+
+        <div v-if="active_tab == 'private'">
+          <div v-if="!private_albums || private_albums.length == 0" class="empty-section">
+            <p class="empty-title">Your have no private albums</p>
+          </div>
+          <v-card flat v-else>
+            <v-layout row wrap class="covers-content">
+              <div class="card-container" v-for="(album, index) in private_albums" :key="index">
+                <album-card
+                  :album="album"
+                  :showPromoteButton="false"
+                  :editButtonAction="editAlbum"
+                  :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                  :publishButtonAction="openPublishConfirmDialog"
+                ></album-card>
+              </div>
+            </v-layout>
+          </v-card>
+        </div>
+
+        <div v-if="active_tab == 'video_only'">
+          <div v-if="!video_only_albums || video_only_albums.length == 0" class="empty-section">
+            <p class="empty-title">Your have no albums only for live video</p>
+          </div>
+          <v-card flat v-else>
+            <v-layout row wrap class="covers-content">
+              <div class="card-container" v-for="(album, index) in video_only_albums" :key="index">
+                <album-card
+                  :album="album"
+                  :showPromoteButton="false"
+                  :editButtonAction="editAlbum"
+                  :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                  :publishButtonAction="openPublishConfirmDialog"
+                ></album-card>
+              </div>
+            </v-layout>
+          </v-card>
+        </div>
+
+        <div v-if="active_tab == 'collaborated'">
+          <div v-if="!collaborated_albums || collaborated_albums.length == 0" class="empty-section">
+            <p class="empty-title">Your have no album collaborations</p>
+          </div>
+          <v-card flat v-else>
+            <v-layout row wrap class="covers-content">
+              <div class="card-container" v-for="(album, index) in collaborated_albums" :key="index">
+                <album-card
+                  :album="album"
+                  :editButtonAction="editAlbum"
+                  :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                ></album-card>
+              </div>
+            </v-layout>
+          </v-card>
+        </div>
+
+        <div v-if="active_tab == 'pending'">
+          <div v-if="!pending_albums || pending_albums.length == 0" class="empty-section">
+            <p class="empty-title">Your have no pending album collaborations</p>
+          </div>
+          <v-card flat v-else>
+            <v-layout row wrap class="covers-content">
+              <div class="card-container" v-for="(album, index) in pending_albums" :key="index">
+                <album-card v-if="album.user.id==$store.state.auth.user.id"
+                  :album="album"
+                  :showPromoteButton="false"
+                  :editButtonAction="editAlbum"
+                  :deleteButtonAction="openAlbumDeleteConfirmDialog"
+                  :releaseButtonAction="releaseAlbum"
+                ></album-card>
+                <album-card v-else-if="notResponded(album)"
+                  :album="album"
+                  :showPromoteButton="false"
+                  :acceptButtonAction="acceptAlbum"
+                  :denyButtonAction="denyAlbum"
+                ></album-card>
+                <album-card v-else
+                  :album="album"
+                  :showPromoteButton="false"
+                ></album-card>
+              </div>
+            </v-layout>
+          </v-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="album-finish-section" v-if="show_album_finish_modal">
+      <div class="dismiss-section" @click="closeAlbumFinishModal()"></div>
       <v-layout row wrap class="popup-section">
         <v-flex xs12 class="title-section">
           <label class="title-text">This album is pending release, <router-link to="/upload/album" class="link-text">upload another</router-link></label>
@@ -22,152 +143,7 @@
           </div>
         </v-flex>
       </v-layout>
-    </v-flex>
-
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1>
-      <h2 class="page-title">Manage</h2>
-    </v-flex>
-
-    <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 v-if="$store.state.auth.user && isPageReady">
-      <div class="manage-tab">
-        <v-tabs dark v-model="activeTab">
-          <v-tabs-bar class="transparent">
-            <v-tabs-item
-              key="published"
-              href="#published"
-              @click.native="onTab('published')"
-              ripple
-            >Published</v-tabs-item>
-            <v-tabs-item
-              key="private"
-              href="#private"
-              @click.native="onTab('private')"
-              ripple
-            >Private</v-tabs-item>
-            <v-tabs-item
-              key="video_only"
-              href="#video_only"
-              @click.native="onTab('video_only')"
-              ripple
-            >Video Attachments</v-tabs-item>
-            <v-tabs-item
-              key="collaborated"
-              href="#collaborated"
-              @click.native="onTab('collaborated')"
-              ripple
-            >Collaborations</v-tabs-item>
-            <v-tabs-item
-              key="pending"
-              href="#pending"
-              @click.native="onTab('pending')"
-              ripple
-            >Pending Collaborations</v-tabs-item>
-            <v-tabs-slider color="black"></v-tabs-slider>
-          </v-tabs-bar>
-          <v-tabs-items>
-            <v-tabs-content key="published" id="published">
-              <div v-if="!published_albums || published_albums.length == 0" class="empty-section">
-                <p class="empty-title">Your have not uploaded any albums yet</p>
-                <router-link to="/upload/album" class="empty-discover-btn">Upload</router-link>
-              </div>
-              <v-card flat v-else>
-                <v-layout row wrap class="covers-content">
-                  <div class="card-container" v-for="(album, index) in published_albums" :key="index">
-                    <album-card
-                      :album="album"
-                      :editButtonAction="editAlbum"
-                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
-                      :videoOnlyButtonAction="openVideoOnlyConfirmDialog"
-                      :privateButtonAction="openPrivateConfirmDialog"
-                    ></album-card>
-                  </div>
-                </v-layout>
-              </v-card>
-            </v-tabs-content>
-            <v-tabs-content key="private" id="private">
-              <div v-if="!private_albums || private_albums.length == 0" class="empty-section">
-                <p class="empty-title">Your have no private albums</p>
-              </div>
-              <v-card flat v-else>
-                <v-layout row wrap class="covers-content">
-                  <div class="card-container" v-for="(album, index) in private_albums" :key="index">
-                    <album-card
-                      :album="album"
-                      :showPromoteButton="false"
-                      :editButtonAction="editAlbum"
-                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
-                      :publishButtonAction="openPublishConfirmDialog"
-                    ></album-card>
-                  </div>
-                </v-layout>
-              </v-card>
-            </v-tabs-content>
-            <v-tabs-content key="video_only" id="video_only">
-              <div v-if="!video_only_albums || video_only_albums.length == 0" class="empty-section">
-                <p class="empty-title">Your have no albums only for live video</p>
-              </div>
-              <v-card flat v-else>
-                <v-layout row wrap class="covers-content">
-                  <div class="card-container" v-for="(album, index) in video_only_albums" :key="index">
-                    <album-card
-                      :album="album"
-                      :showPromoteButton="false"
-                      :editButtonAction="editAlbum"
-                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
-                      :publishButtonAction="openPublishConfirmDialog"
-                    ></album-card>
-                  </div>
-                </v-layout>
-              </v-card>
-            </v-tabs-content>
-            <v-tabs-content key="collaborated" id="collaborated">
-              <div v-if="!collaborated_albums || collaborated_albums.length == 0" class="empty-section">
-                <p class="empty-title">Your have no album collaborations</p>
-              </div>
-              <v-card flat v-else>
-                <v-layout row wrap class="covers-content">
-                  <div class="card-container" v-for="(album, index) in collaborated_albums" :key="index">
-                    <album-card
-                      :album="album"
-                      :editButtonAction="editAlbum"
-                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
-                    ></album-card>
-                  </div>
-                </v-layout>
-              </v-card>
-            </v-tabs-content>
-            <v-tabs-content key="pending" id="pending">
-              <div v-if="!pending_albums || pending_albums.length == 0" class="empty-section">
-                <p class="empty-title">Your have no pending album collaborations</p>
-              </div>
-              <v-card flat v-else>
-                <v-layout row wrap class="covers-content">
-                  <div class="card-container" v-for="(album, index) in pending_albums" :key="index">
-                    <album-card v-if="album.user.id==$store.state.auth.user.id"
-                      :album="album"
-                      :showPromoteButton="false"
-                      :editButtonAction="editAlbum"
-                      :deleteButtonAction="openAlbumDeleteConfirmDialog"
-                      :releaseButtonAction="releaseAlbum"
-                    ></album-card>
-                    <album-card v-else-if="notResponded(album)"
-                      :album="album"
-                      :showPromoteButton="false"
-                      :acceptButtonAction="acceptAlbum"
-                      :denyButtonAction="denyAlbum"
-                    ></album-card>
-                    <album-card v-else
-                      :album="album"
-                      :showPromoteButton="false"
-                    ></album-card>
-                  </div>
-                </v-layout>
-              </v-card>
-            </v-tabs-content>
-          </v-tabs-items>
-        </v-tabs>
-      </div>
-    </v-flex>
+    </div>
 
     <v-dialog v-model="show_album_delete_confirm_dialog">
       <v-card>

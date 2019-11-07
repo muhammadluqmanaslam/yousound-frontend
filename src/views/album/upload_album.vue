@@ -72,6 +72,7 @@
                   v-model="album.location"
                   item-text="name"
                   item-value="name"
+                  class="pt-0"
                   single-line
                   autocomplete
                 />

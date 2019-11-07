@@ -99,7 +99,7 @@
               https://twitter.com/intent/user?user_id={{ props.item.social_user_id }}
             </a>
           </td>
-          <td class="text-xs-left">{{ props.item.created_at|formatDate }}</td>
+          <td class="text-xs-left">{{ props.item.created_at | formatDate }}</td>
           <td class="text-xs-left">
             <router-link
               v-if="props.item.approver"

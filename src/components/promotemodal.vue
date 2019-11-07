@@ -89,7 +89,7 @@
                         <p class="user-followers">{{ user.followers }}</p>
                       </v-flex>
                       <v-flex sm2>
-                        <p class="repost-price">${{ user.repost_price|formatNumber }}</p>
+                        <p class="repost-price">${{ user.repost_price | formatNumber }}</p>
                       </v-flex>
                       <v-flex sm3>
                         <div class="recent-posts text-xs-left px-2">
@@ -132,7 +132,7 @@
                     </div>
                     <div class="cost-section px-3">
                       <p class="title mb-1">Cost</p>
-                      <p class="value">${{ suggested_values.total_cost|formatNumber }}</p>
+                      <p class="value">${{ suggested_values.total_cost | formatNumber }}</p>
                     </div>
                   </div>
                 </v-card>
@@ -163,7 +163,7 @@
                         <p class="user-followers">{{ user.followers }}</p>
                       </v-flex>
                       <v-flex sm2>
-                        <p class="repost-price">${{ user.repost_price|formatNumber }}</p>
+                        <p class="repost-price">${{ user.repost_price | formatNumber }}</p>
                       </v-flex>
                       <v-flex sm2>
                         <!-- <p class="user-followers">{{ user.followings }}</p> -->
@@ -185,7 +185,7 @@
                   <div class="total-section">
                   <div class="cost-section px-3">
                       <p class="title mb-1">Paid</p>
-                      <p class="value">${{ current_values.total_paid|formatNumber }}</p>
+                      <p class="value">${{ current_values.total_paid | formatNumber }}</p>
                     </div>
                     <div class="total-potential-section px-3">
                       <p class="title mb-1">Total Potential Reach</p>

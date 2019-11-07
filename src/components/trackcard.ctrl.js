@@ -37,6 +37,8 @@ export default {
       hide_dialog: false,
       show_report_dialog: false,
       playlist_dialog: false,
+      is_component_hover: false,
+      is_menu_hover: false,
       menu: false,
       submenu: false,
       playlist: {
@@ -53,6 +55,11 @@ export default {
       return this.$store.state.auth.user
     },
 
+    willMenuRender () {
+      // console.log('willMenuRender', this.item.id, this.is_component_hover, this.is_menu_hover)
+      return this.is_menu_hover || this.is_component_hover
+    },
+
     item () {
       if (this.objects[this.objectIndex].assoc_type) {
         return this.objects[this.objectIndex].assoc
@@ -65,21 +72,21 @@ export default {
       return _.isEmpty(this.item)
     },
 
-    isShowUserInfo () {
-      if (this.$store.state.navigator.current.page === 'stream') {
-        return true
-      } else {
-        return false
-      }
-    },
+    // isShowUserInfo () {
+    //   if (this.$store.state.navigator.current.page === 'stream') {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // },
 
-    publisher () {
-      if (this.objects[this.objectIndex].assoc_type) {
-        return this.objects[this.objectIndex].publisher
-      } else {
-        return this.objects[this.objectIndex].user
-      }
-    },
+    // publisher () {
+    //   if (this.objects[this.objectIndex].assoc_type) {
+    //     return this.objects[this.objectIndex].publisher
+    //   } else {
+    //     return this.objects[this.objectIndex].user
+    //   }
+    // },
 
     owner () {
       if (this.objects[this.objectIndex].assoc_type) {
@@ -226,6 +233,7 @@ export default {
         image: null
       }
       this.selectedImage = null
+      this.playlist_dialog = true
     },
 
     createPlaylist () {

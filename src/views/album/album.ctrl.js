@@ -184,6 +184,14 @@ export default {
     loadData() {
       const vm = this
       this.slug = this.$route.params.slug
+      this.comments = []
+      this.comment_pagination = {
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
+      }
       this.isPageReady = false
       Promise.all([
         AlbumService.getAlbum(this.slug),

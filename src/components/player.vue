@@ -1,11 +1,9 @@
 <template>
   <v-layout row wrap class="bottom-player" v-if="$store.getters['player/isPlaying']">
-  <!-- <v-layout row wrap class="bottom-player" v-if="isStart"> -->
     <v-flex xs12 sm4 md4 class="track-detail-section">
       <router-link :to="`/${item.album_type}/${item.slug}`">
         <div class="track-cover-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
       </router-link>
-      <!-- <div class="track-cover-image" style="background-image: url('/static/images/post1.jpg')"></div> -->
       <div class="track-info-section">
         <div class="track-info">
           <label class="track-index" id="trackIndex">{{ trackIndex }}</label>
@@ -39,12 +37,16 @@
         </div>
       </div>
     </v-flex>
-    <v-flex xs12 sm4 md4>
+    <v-flex xs12 sm4 md4 style="position: relative;">
       <div class="loading" id="loading" v-if="!isLoaded"></div>
       <div class="player-section" v-if="isLoaded">
         <div class="controls-section">
           <v-tooltip top>
-            <v-btn slot="activator" class="player-control-btn" @click.native="randomPlay()">
+            <v-btn
+              slot="activator"
+              @click.native="randomPlay()"
+              class="player-control-btn"
+               :class="{'selected': $store.state.player.isShuffle}">
               <svg width="25px" height="20px" viewBox="0 0 25 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                   <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
                   <desc>Created with Sketch.</desc>
@@ -126,6 +128,19 @@
                 </g>
             </svg>
           </v-btn>
+
+          <div class="volume-container">
+            <div class="volume">
+              <v-slider
+                v-model="volume"
+                @input="updateVolume"
+                thumb-label
+                class="volume-ranger"
+                hide-details
+              ></v-slider>
+              <v-icon>volume_up</v-icon>
+            </div>
+          </div>
         </div>
         <div class="bar-section">
           <!-- <label class="duration-time played" id="playedTime">0:34</label> -->
@@ -136,6 +151,15 @@
           </v-spacer>
           <!-- <label class="duration-time total" id="totalTime">2:40</label> -->
           <label class="duration-time total" id="totalTime">{{ totalTime }}</label>
+        </div>
+      </div>
+      <div class="reminder-section" v-if="showReminder">
+        <div class="media d-flex">
+          <div class="media__image"></div>
+          <div class="media__content">
+            <div class="media__title">Reminder!</div>
+            <div class="media__description">Support your favorite artists & brands</div>
+          </div>
         </div>
       </div>
     </v-flex>
@@ -231,455 +255,4 @@
   </v-layout>
 </template>
 
-<script type="text/javascript">
-import { mapActions } from 'vuex'
-import { Howl } from 'howler'
-import AlbumService from '@/services/album'
-import TrackService from '@/services/track'
-import UserService from '@/services/user'
-import { MyEvents } from '@/helper'
-import downloadModal from '@/components/downloadmodal'
-import shareModal from '@/components/sharemodal'
-
-export default {
-  components: {
-    downloadModal,
-    shareModal
-  },
-
-  data () {
-    return {
-      playlist: [],
-      index: 0,
-      isLoaded: false,
-      isRepeated: false,
-      isPlaying: false,
-      trackIndex: null,
-      trackName: null,
-      track: {},
-      playedTime: 0,
-      progress: 0,
-      showDownloadModal: false,
-      showShareModal: false,
-      totalTime: null,
-      buttonHover: false
-    }
-  },
-
-  computed: {
-    MyEvents () {
-      return MyEvents
-    },
-
-    item () {
-      const item = this.$store.state.player.list[this.$store.state.player.listIndex]
-      if (!item) {
-        return null
-      }
-
-      if (item.assoc_type) {
-        return item.assoc
-      } else {
-        return item
-      }
-    },
-
-    user () {
-      if (!this.item) {
-        return null
-      }
-
-      if (this.item.album_type === 'album') {
-        return this.item.user
-      } else {
-        return this.track.user
-      }
-    },
-
-    followButtonText () {
-      if (this.user.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
-      }
-      return 'Follow'
-    }
-  },
-
-  created () {
-  },
-
-  methods: {
-    ...mapActions({
-      setPlaying: 'player/setPlayingStatus',
-      setPauseStatus: 'player/setPauseStatus'
-    }),
-
-    startPlaying (index) {
-      this.setPlaylist('next')
-      this.play(index)
-      this.$forceUpdate()
-    },
-
-    resetPlayer () {
-      if (this.$store.state.player.isPlaying) {
-        this.setPlaying(false)
-        this.pause()
-        this.setPauseStatus(false)
-        this.$store.dispatch('player/setPlaylist', [])
-        this.$store.dispatch('player/setListIndex', -1)
-        this.$store.dispatch('player/setTrackIndex', -1)
-        for (let index in this.playlist) {
-          let item = this.playlist[index]
-          if (item) {
-            if (item.howl) {
-              item.howl.unload()
-            }
-          }
-        }
-        this.playlist = []
-        this.index = 0
-        this.isLoaded = false
-        this.isRepeated = false
-        this.isPlaying = false
-        this.trackIndex = null
-        this.trackName = null
-        this.track = {}
-        this.playedTime = 0
-        this.progress = 0
-        this.showDownloadModal = false
-        this.totalTime = null
-        this.buttonHover = false
-      }
-    },
-
-    play (index) {
-      // console.log('player', index, this.index, this.playlist)
-      var self = this
-      var sound
-      index = typeof index === 'number' ? index : this.index
-      var data = this.playlist[index]
-
-      // Update the track display.
-      // track.innerHTML = (index + 1) + '. ' + data.title
-      // this.trackName = this.playlist[index].track.name
-      this.trackIndex = (index + 1) + ' of ' + this.playlist.length
-      this.track = this.playlist[index].track
-      console.log('player play track', this.track)
-
-      // If we already loaded self track, use the current one.
-      // Otherwise, setup and load a new Howl.
-      if (data.howl) {
-        sound = data.howl
-      } else {
-        sound = data.howl = new Howl({
-          src: data.track.audio.url,
-          html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-          onplay: function () {
-            // Display the duration.
-            self.totalTime = self.formatTime(Math.round(sound.duration()))
-
-            // Start upating the progress of the track.
-            requestAnimationFrame(self.step.bind(this))
-
-            // Start the wave animation if we have already loaded
-            self.isPlaying = true
-            self.setPauseStatus(false)
-          },
-          onload: function () {
-            // Start the wave animation.
-            self.isLoaded = true
-          },
-          onend: function () {
-            // Stop the wave animation.
-            // this.isLoaded = false
-            // this.isPlaying = false
-            if (self.isRepeated) {
-              self.skipTo(self.index)
-            } else {
-              self.skip('right')
-            }
-          },
-          onpause: function () {
-            // Stop the wave animation.
-            // this.isPlaying = false
-          },
-          onstop: function () {
-            // Stop the wave animation.
-            // this.isPlaying = false
-          }
-        })
-
-        TrackService.playTrack(this.track.id).then(response => (console.log('playing - track', this.track.id)))
-      }
-
-      // Begin playing the sound.
-      sound.play()
-
-      // Show the pause button.
-      if (sound.state() === 'loaded') {
-        this.isPlaying = true
-      } else {
-        this.isLoaded = false
-        this.isPlaying = false
-      }
-
-      // Keep track of the index we are currently playing.
-      this.index = index
-      this.$store.dispatch('player/setTrackIndex', index)
-    },
-
-    /**
-     * Pause the currently playing track.
-     */
-    pause () {
-      // player is not initialized yet.
-      if (!this.$store.state.player.isPlaying) return
-
-      // Get the Howl we want to manipulate.
-      var sound = this.playlist[this.index].howl
-
-      // Puase the sound.
-      sound.pause()
-
-      // Show the play button.
-      this.isPlaying = false
-      this.setPauseStatus(true)
-      // this.setPlaying(false)
-    },
-
-    skip (direction) {
-      // Get the next track based on the direction of the track.
-      var index = 0
-      if (direction === 'prev') {
-        index = this.index - 1
-        if (index < 0) {
-          this.$store.dispatch('player/setListIndex', this.$store.state.player.listIndex - 1)
-          this.setPlaylist('prev')
-          index = this.playlist.length - 1
-          // this.$root.$emit('index_change')
-        }
-      } else {
-        index = this.index + 1
-        if (index >= this.playlist.length) {
-          index = 0
-          this.$store.dispatch('player/setListIndex', this.$store.state.player.listIndex + 1)
-          this.setPlaylist('next')
-          // this.$root.$emit('index_change')
-        }
-      }
-      this.$store.dispatch('player/setTrackIndex', index)
-      this.skipTo(index)
-    },
-
-    /**
-     * Skip to a specific track based on its playlist index.
-     * @param  {Number} index Index in the playlist.
-     */
-    skipTo (index) {
-      // Stop the current track.
-      var sound = null
-      if (this.playlist[this.index] !== null && this.playlist[this.index] !== undefined) {
-        if (this.playlist[this.index].howl !== undefined && this.playlist[this.index].howl !== null) {
-          sound = this.playlist[this.index].howl
-          sound.stop()
-        }
-      }
-
-      // Reset progress.
-      this.progress = 0
-
-      if (this.playlist.length > 0) {
-        // Play the new track.
-        this.play(index)
-      }
-    },
-
-    /**
-     * Seek to a new position in the currently playing track.
-     * @param  {Number} per Percentage through the song to skip.
-     */
-    seek (per) {
-      // Get the Howl we want to manipulate.
-      var sound = this.playlist[this.index].howl
-
-      // Convert the percent into a seek position.
-      if (sound.playing()) {
-        sound.seek(sound.duration() * per / 100)
-      }
-    },
-
-    /**
-     * The step called within requestAnimationFrame to update the playback position.
-     */
-    step () {
-      // Get the Howl we want to manipulate.
-      var sound = null
-      // var sound = this.playlist[this.index].howl
-      if (this.playlist[this.index] !== null && this.playlist[this.index] !== undefined) {
-        if (this.playlist[this.index].howl !== undefined && this.playlist[this.index].howl !== null) {
-          sound = this.playlist[this.index].howl
-
-          // Determine our current seek position.
-          var seek = sound.seek() || 0
-          this.playedTime = this.formatTime(Math.round(seek))
-          this.progress = (((seek / sound.duration()) * 100) || 0)
-
-          // If the sound is still playing, continue stepping.
-          if (sound.playing()) {
-            requestAnimationFrame(this.step.bind(this))
-          }
-        }
-      }
-    },
-
-    setPlaylist (direction) {
-      // Display the title of the first track.
-      let object = this.$store.state.player.list[this.$store.state.player.listIndex]
-      var tracks = []
-      if (direction === 'next') {
-        for (var i = this.$store.state.player.listIndex; i < this.$store.state.player.list.length; i++) {
-          object = this.$store.state.player.list[i]
-          if (object.assoc_type) {
-            if (object.assoc_type !== 'ShopProduct') {
-              tracks = object.assoc.tracks
-              this.$store.dispatch('player/setListIndex', i)
-              this.$root.$emit('index_change')
-              break
-            }
-          } else {
-            tracks = object.tracks
-            this.$store.dispatch('player/setListIndex', i)
-            this.$root.$emit('index_change')
-            break
-          }
-        }
-      } else {
-        for (i = this.$store.state.player.listIndex; i >= 0; i--) {
-          object = this.$store.state.player.list[i]
-          if (object.assoc_type) {
-            if (object.assoc_type !== 'ShopProduct') {
-              tracks = object.assoc.tracks
-              this.$store.dispatch('player/setListIndex', i)
-              this.$root.$emit('index_change')
-              break
-            }
-          } else {
-            tracks = object.tracks
-            this.$store.dispatch('player/setListIndex', i)
-            this.$root.$emit('index_change')
-            break
-          }
-        }
-      }
-      for (let index in this.playlist) {
-        let item = this.playlist[index]
-        if (item) {
-          if (item.howl) {
-            item.howl.unload()
-          }
-        }
-      }
-      this.playlist = []
-      this.index = 0
-      if (tracks.length > 0) {
-        if (this.$store.state.auth.user) {
-          const album = object.assoc || object
-          AlbumService.playAlbum(album.id).then(response => (console.log('playing - album', album.id)))
-        }
-
-        for (let track in tracks) {
-          this.playlist.push({
-            track: tracks[track],
-            played: false,
-            howl: null
-          })
-        }
-        // if (this.$store.state.player.trackIndex > -1) {
-        //   this.index = this.$store.state.player.trackIndex
-        // }
-        this.$store.dispatch('player/setTrackIndex', 0)
-        this.trackIndex = (this.index + 1) + ' of ' + this.playlist.length
-        // this.trackName = this.playlist[this.index].track.name
-        this.track = this.playlist[this.index].track
-        console.log('player setPlaylist track', this.track)
-      } else {
-        this.$store.dispatch('player/setListIndex', -1)
-        this.$store.dispatch('player/setPlayingStatus', false)
-      }
-    },
-
-    formatTime (secs) {
-      var minutes = Math.floor(secs / 60) || 0
-      var seconds = (secs - minutes * 60) || 0
-
-      return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
-    },
-
-    followUser () {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id).then(response => {
-          this.$store.dispatch('player/updateFollowingStatus', false)
-          this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.user.display_name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      } else {
-        UserService.followUser(this.user.id).then(response => {
-          this.$store.dispatch('player/updateFollowingStatus', true)
-          this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
-      }
-    },
-
-    choosePage (path) {
-      this.$router.push({ path: '/' + path })
-    },
-
-    dismissDownloadDialog () {
-      this.showDownloadModal = false
-    },
-
-    dismissShareDialog () {
-      this.showShareModal = false
-    },
-
-    setRepeated () {
-      this.isRepeated = !this.isRepeated
-    },
-
-    repostItem () {
-      AlbumService.repostAlbum(this.item.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    setFollowingStatus (userId, isFollowing) {
-      // console.log('player setFollowingStatus', status)
-      // console.log(this.user)
-      if (this.user && this.user.id === userId) {
-        this.$store.dispatch('player/updateFollowingStatus', isFollowing)
-      }
-    },
-
-    skipTrack (index) {
-      this.skipTo(index)
-    },
-
-    randomPlay () {
-    }
-  },
-
-  mounted () {
-    this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.startPlaying)
-    this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.play)
-    this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.pause)
-    this.$root.$on(MyEvents.AUDIO_PLAYER_SKIPTO, this.skipTrack)
-    this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
-    this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
-    this.$root.$on(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER, this.pause)
-  }
-}
-</script>
+<script type="text/javascript" src="./player.ctrl.js"></script>

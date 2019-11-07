@@ -19,7 +19,7 @@ export default {
 
   data () {
     return {
-      activeTab: 'received',
+      active_tab: 'received',
       tabs: [
         { id: 'received', title: 'Received' },
         { id: 'sent', title: 'Sent' }
@@ -98,9 +98,13 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.active_tab == tab
+    },
+
     showSendMessageDialog (history) {
       this.send_message_dialog = true
-      if(this.activeTab === 'received') {
+      if(this.active_tab === 'received') {
         this.messaging_user = history.sender
       } else {
         this.messaging_user = history.receiver
@@ -203,7 +207,7 @@ export default {
       if (!tab)
         tab = 'received'
 
-      this.activeTab = tab
+      this.active_tab = tab
       this.$store.dispatch('navigator/goNextState', { page: 'payments', tab: '' })
       this.loadPayments(tab)
     },

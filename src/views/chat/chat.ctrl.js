@@ -14,7 +14,7 @@ import activityUserCard from '@/components/activityusercard'
 import { Picker } from 'emoji-mart-vue'
 import VueChatScroll from 'vue-chat-scroll'
 import Vue from 'vue'
-import { EHOSTUNREACH } from 'constants';
+// import { EHOSTUNREACH } from 'constants';
 import { MyEvents } from '@/helper';
 
 Vue.use(VueChatScroll)
@@ -100,12 +100,12 @@ export default {
       return this.$store.state.auth.user
     },
 
-    settingsChange() {
-      if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '' && this.rules.number(this.room.settings.charLimit) !== 'string') {
-        // this.room.settings.charLimit = parseInt(this.room.settings.charLimit);
-      }
-      return JSON.stringify(this.room.settings)
-    },
+    // settingsChange() {
+    //   if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '' && this.rules.number(this.room.settings.charLimit) !== 'string') {
+    //     // this.room.settings.charLimit = parseInt(this.room.settings.charLimit);
+    //   }
+    //   return JSON.stringify(this.room.settings)
+    // },
 
     reverseMessages() {
       return this.messages.slice().reverse()
@@ -147,7 +147,9 @@ export default {
       if (!this.room.settings.links && linkRegex.test(this.message)) return // TODO error instead of returning
       this.chat_socket.sendMessage(messageText, this.currentUser.username)
       this.message = '' // clear textbox
-      $('#msg-container').scrollTop = $('#msg-container').scrollHeight
+      this.$nextTick(() => {
+        $('#msg-container').scrollTop($('#msg-container').prop('scrollHeight'))
+      })
       return false
     },
 
@@ -295,6 +297,27 @@ export default {
         })
     },
 
+    onExitVideoPlayer(username) {
+      // console.log('exit video player...', username)
+      const vm = this
+      if (this.user.username === username) {
+        setTimeout(() => {
+          console.log('back to online', username)
+          vm.chat_socket.online()
+        }, 1000)
+      }
+    },
+
+    updateSettings() {
+      if (this.room.settings.charLimitBool && typeof this.rules.number(this.room.settings.charLimit) === 'string') {
+        return
+      }
+      if (typeof this.room.settings.charLimit === 'string' && this.room.settings.charLimit !== '') {
+        this.room.settings.charLimit = parseInt(this.room.settings.charLimit)
+      }
+      this.chat_socket.updateSettings(this.room.settings)
+    },
+
     loadPage() {
       this.unloadPage()
 
@@ -370,6 +393,7 @@ export default {
           }
 
           this.chat_socket.onRoomInfo = async room => {
+            // console.log('chat onRoomInfo', room)
             // Vue.set(vm, "room", room)
             vm.room = room
             // Fetch user data (avatar image, etc)
@@ -429,8 +453,8 @@ export default {
               }
             })
             vm.connected = true
-            vm.messageError = ""
-            $('#msg-container')[0].scrollTop = $('#msg-container')[0].scrollHeight
+            vm.messageError = ''
+            $('#msg-container').scrollTop($('#msg-container').prop('scrollHeight'))
 
             // setTimeout(function () {
             //   scrollDown(loadMessageObj.chunk === 0);
@@ -468,26 +492,28 @@ export default {
       this.loadPage()
     },
 
-    settingsChange (newSettings) {
-      // check settings
-      var parsed = JSON.parse(newSettings)
-      if (parsed.charLimitBool && typeof this.rules.number(parsed.charLimit) === 'string') {
-        return
-      }
-      if (typeof parsed.charLimit === 'string' && parsed.charLimit !== '') {
-        parsed.charLimit = parseInt(parsed.charLimit)
-      }
-      this.chat_socket.updateSettings(parsed)
-    }
+    // settingsChange (newSettings) {
+    //   // check settings
+    //   var parsed = JSON.parse(newSettings)
+    //   if (parsed.charLimitBool && typeof this.rules.number(parsed.charLimit) === 'string') {
+    //     return
+    //   }
+    //   if (typeof parsed.charLimit === 'string' && parsed.charLimit !== '') {
+    //     parsed.charLimit = parseInt(parsed.charLimit)
+    //   }
+    //   this.chat_socket.updateSettings(parsed)
+    // }
   },
 
   created() {
     this.artist = this.$route.params.user
 
+    this.$root.$on(MyEvents.VIDEO_PLAYER_EXIT, this.onExitVideoPlayer)
     this.loadPage()
   },
 
   beforeDestroy () {
+    this.$root.$off(MyEvents.VIDEO_PLAYER_EXIT, this.onExitVideoPlayer)
     this.unloadPage()
   },
 
@@ -535,9 +561,9 @@ export default {
   }
 }
 
-function scrollDown(force) {
-  let container = $('#msg-container');
-  if (force || Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) < 70) {
-    container.scrollTop = container.scrollHeight;
-  }
-}
+// function scrollDown(force) {
+//   let container = $('#msg-container');
+//   if (force || Math.abs(container.scrollHeight - container.scrollTop - container.clientHeight) < 70) {
+//     container.scrollTop = container.scrollHeight;
+//   }
+// }
