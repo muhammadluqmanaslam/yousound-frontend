@@ -242,12 +242,7 @@ export default {
     }
   }
 
-  .header-container {
-    z-index: 1;
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
+  .header-container {}
 }
 
 @media (min-width: 320px) {

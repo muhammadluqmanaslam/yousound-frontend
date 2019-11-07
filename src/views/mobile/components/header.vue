@@ -1,14 +1,43 @@
 <template>
   <div class="header-container">
-    <img class="logo" src="/static/images/nav_logo_white.png">
-    <v-btn flat @click="$emit('open-menu')">
-      <img src="/static/images/ic_menu.svg">
-    </v-btn>
+    <template v-if="isDarkTheme">
+      <img class="logo" src="/static/images/nav_logo_primary.png">
+      <v-btn flat @click="$emit('open-menu')">
+        <img src="/static/images/ic_menu_dark.svg">
+      </v-btn>
+    </template>
+    <template v-else>
+      <img class="logo" src="/static/images/nav_logo_white.png">
+      <v-btn flat @click="$emit('open-menu')">
+        <img src="/static/images/ic_menu.svg">
+      </v-btn>
+    </template>
   </div>
 </template>
 
+<script>
+export default {
+  props: {
+    theme: {
+      type: String,
+      default: 'light'
+    }
+  },
+
+  computed: {
+    isDarkTheme () {
+      return this.theme !== 'light'
+    }
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .header-container {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

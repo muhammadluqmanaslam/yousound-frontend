@@ -135,7 +135,8 @@ switch (browserName) {
     if (browserVersion < 60) isOldBrowser = true
     break
   case 'safari':
-    if (browserVersion < 11) isOldBrowser = true
+    // if (browserVersion < 11) isOldBrowser = true
+    if (browserVersion < 10) isOldBrowser = true
     break
   case 'ie':
     if (browserVersion < 11) isOldBrowser = true
@@ -157,6 +158,14 @@ if (isOldBrowser) {
 } else if (isMobileBrowser) {
   console.log('loaded routes for Mobile')
   const router = createMobileRouter()
+  router.beforeEach((to, frm, next) => {
+    if (/^\/(protect)/.test(to.path) ||
+      store.state.auth.secret_code === process.env.SECRET_CODE) {
+      next()
+    } else {
+      next('/protect')
+    }
+  })
   const app = new Vue({
     router,
     store,
