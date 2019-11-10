@@ -2,7 +2,7 @@
   <div class="page auth-page auth-register-page">
     <div class="text-xs-center">
       <img class="logo" src="/static/images/nav_logo_primary.png">
-      <h4>Sign Up as Listener</h4>
+      <h4>Create Account</h4>
     </div>
 
     <form v-on:submit.prevent="submit()">
@@ -40,7 +40,7 @@
       <v-flex xs12 text pa-0>
         <p class="regular-checkbox">
           <input id="terms" type="checkbox" name="terms" v-model="terms" v-validate="'required'"/>
-          <label for="terms">Accept <router-link class="forgot-password" to="#">Terms & Conditions</router-link></label>
+          <label for="terms">Accept <router-link class="forgot-password" to="/terms">Terms & Conditions</router-link></label>
         </p>
       </v-flex>
       <v-flex xs12 text-xs-center>

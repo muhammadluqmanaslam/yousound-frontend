@@ -4,10 +4,10 @@
     .tab-container {
       width: 416px;
       .page-title {
-        width: 140px;
-        height: 50px;
-        margin: 57px 0 0 66px;
-        background-image: url('/static/images/nav_logo_white.png');
+        width: 150px;
+        height: 40px;
+        margin: 50px 0 0 66px;
+        background-image: url('/static/images/nav_logo_primary.png');
         background-position: center;
         background-size: contain;
       }
@@ -17,9 +17,7 @@
         // height: 450px !important;
         padding: 0 0;
         // border: 0.75px solid #D1D1D1;
-        background: #333;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to top, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to top, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: #fff;
 
         &:after {
           background: none;
@@ -28,8 +26,8 @@
           display: none;
         }
         ul {
-          margin-left: 40px;
-          margin-top: 48px;
+          margin-left: 72px;
+          margin-top: 38px;
           background: transparent;
           li {
             margin: 0;
@@ -38,7 +36,7 @@
               padding-left: 0;
               font-size: 16px;
               color: #8E8E8E;
-              letter-spacing: -0.5px;
+              letter-spacing: 0 ;
               &:hover {
                 background: transparent;
                 color: #444;
@@ -48,14 +46,14 @@
                 width: auto;
                 font-family: 'Open Sans', sans-serif;
                 font-weight: 400;
-                font-size: 20px;
-                color: #efefef;
+                font-size: 16px;
+                color: #333;
               }
             }
             &.active {
               .list__tile {
                 color: #fff;
-                border-bottom: 1px solid #fff;
+                border-bottom: 0px solid #000;
                 padding: 0;
               }
             }
@@ -69,7 +67,7 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 18px;
     margin-left: 16px;
-    padding-bottom: 18px;
+    padding-bottom: 12px;
   }
 
   strong {
@@ -119,7 +117,7 @@
   a, a:visited {
     color: #2669c0;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
   }
