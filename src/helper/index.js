@@ -133,6 +133,16 @@ export const Filter = {
     return hours === 0 ? `${dMins}:${dSecs}` : `${dHours}:${dMins}:${dSecs}`
   },
 
+  timeInMinutes (value) {
+    const minutes = Math.floor(value / 60) || 0
+    const seconds = (value - minutes * 60) || 0
+
+    const dMins = minutes.toString()
+    const dSecs = (seconds > 9 ? seconds : '0' + seconds)
+
+    return `${dMins}:${dSecs}`
+  },
+
   capitalize (value) {
     if (!value) return ''
     value = value.toString().toLowerCase()

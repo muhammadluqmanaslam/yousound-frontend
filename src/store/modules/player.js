@@ -4,6 +4,7 @@
 
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
+  /* whether sound track loaded */
   isPlaying: false,
   isPaused: false,
   isShuffle: false,

@@ -1,19 +1,19 @@
 <template>
   <div class="mobile-product-page">
     <mobile-header theme="dark" @open-menu="openMenu"></mobile-header>
-    <div class="section">
+    <div class="section" v-if="!loading">
       <div class="section__header">
         <div class="media">
           <div class="media__cover">
-            <div class="image"></div>
-            <div class="tag">$40</div>
+            <div class="image" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"></div>
+            <div class="tag">${{ product.price | formatNumber }}</div>
           </div>
           <div class="media__footer">
             <div class="media__title">
-              Austral Pulse Double Vinlyl Austral Pulse Double Vinlyl
+              {{ product.name }}
             </div>
             <div class="media__subtitle">
-              George Clinton
+              {{ product.merchant.display_name }}
             </div>
           </div>
         </div>
@@ -39,6 +39,8 @@
 import mobileHeader from '@/views/mobile/components/header'
 import mobileMenu from '@/views/mobile/components/menu'
 
+import ProductService from '@/services/product'
+
 export default {
   components: {
     mobileHeader,
@@ -47,7 +49,10 @@ export default {
 
   data () {
     return {
-      showMenu: false
+      slug: null,
+      product: null,
+      showMenu: false,
+      loading: true
     }
   },
 
@@ -59,6 +64,15 @@ export default {
     closeMenu () {
       this.showMenu = false
     }
+  },
+
+  created () {
+    this.slug = this.$route.params.slug
+    this.loading = true
+    ProductService.getProduct(this.slug).then(res => {
+      this.product = res.body
+      this.loading = false
+    })
   }
 }
 </script>
@@ -114,6 +128,7 @@ export default {
         width: 100%;
         height: 100%;
         background: url('/static/images/album.jpg') no-repeat center center;
+        background-size: contain;
       }
       .tag {
         position: absolute;
@@ -145,7 +160,7 @@ export default {
       text-align: left;
       white-space: nowrap;
       line-height: 16px;
-      font-size: 14px; 
+      font-size: 14px;
       font-weight: 300;
     }
   }
