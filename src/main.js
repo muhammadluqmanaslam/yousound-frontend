@@ -71,6 +71,7 @@ Vue.filter('formatNumberWithComma', Filter.formatNumberWithComma)
 Vue.filter('formatLargeNumber', Filter.formatLargeNumber)
 Vue.filter('formatFullUrl', Filter.formatFullUrl)
 Vue.filter('timeInHours', Filter.timeInHours)
+Vue.filter('timeInMinutes', Filter.timeInMinutes)
 Vue.filter('capitalize', Filter.capitalize)
 Vue.filter('truncateInMiddle', Filter.truncateInMiddle)
 

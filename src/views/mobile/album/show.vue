@@ -1,81 +1,407 @@
 <template>
-  <div class="mobile-page mobile-album-show-page">
-    <h2>Mobile Yousound</h2>
+  <div class="mobile-album-page">
+    <mobile-header @open-menu="openMenu"></mobile-header>
+    <div class="section" v-if="!loading">
+      <div class="section__header">
+        <canvas id="canvas" class="background-image"></canvas>
+        <div id="back_image" class="background-overlay"></div>
 
-    <div class="album">
-      <div class="album-image"></div>
-      <div class="album-title"></div>
-      <div class="album-artist-name">
-        <span>By</span>
-        <label>{{ album.user.display_name}}</label>
-      </div>
-      <div class="tracks">
-        <div class="track">
+        <div class="media">
+          <div class="media__cover">
+            <div class="image" :style="{'background-image': 'url(' + album.cover.url + ')'}"></div>
+          </div>
+          <div class="media__footer">
+            <audio-player></audio-player>
+            <div class="media__title">
+              {{ album.name }}
+            </div>
+            <div class="media__subtitle">
+              {{ album.user.display_name }}
+            </div>
+          </div>
         </div>
+
+        <v-list two-line>
+          <template v-for="(track, trackIndex) in album.tracks">
+            <v-list-tile
+              avatar
+              :key="`track-${track.id}`"
+              @click="play(trackIndex)"
+            >
+              <v-list-tile-avatar>
+                <v-icon v-if="isTrackPlaying(trackIndex)">pause</v-icon>
+                <v-icon v-else>play_arrow</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="track.name"></v-list-tile-title>
+                <v-list-tile-sub-title v-html="album.user.display_name"></v-list-tile-sub-title>
+                <!-- <v-list-tile-sub-title v-html="track.index"></v-list-tile-sub-title> -->
+              </v-list-tile-content>
+            </v-list-tile>
+          </template>
+        </v-list>
+      </div>
+      <div class="section__content">
+        <h3>
+          Free streaming.<br>
+          Free downloading.<br>
+          No ads.
+        </h3>
+      </div>
+      <div class="section__footer">
+        <img src="/static/images/img_download_ios.svg">
       </div>
     </div>
 
-    <v-divider/>
-
-    <section class="download-info-section">
-      <h3>Download the app</h3>
-      <p>Free streaming & downloading</p>
-      <p>Shop artists & brands</p>
-      <p>Share content & earn money</p>
-      <p>No Ads.</p>
-    </section>
-
-    <v-divider/>
-
-    <section class="download-section">
-      <!-- <img src="/static/images/nav_logo_white_old.png">
-      <img src="/static/images/nav_logo_white_old.png"> -->
-    </section>
-
-    <v-divider/>
-
-    <v-footer class="my-mobile-footer">
-      <a href="#">Terms of Service</a>
-      <a href="#">Privacy</a>
-      <a href="#">About</a>
-      <div class="copyright">© {{ new Date().getFullYear() }} YouSound, Inc.</div>
-    </v-footer>
+    <v-dialog
+      v-model="showMenu"
+      fullscreen
+      transition="slide-x-reverse-transition"
+    >
+      <mobile-menu @close-menu="closeMenu"></mobile-menu>
+    </v-dialog>
   </div>
 </template>
 
 <script type="text/javascript">
+// /* global $:true */
+
+import _ from 'lodash'
+import { mapGetters, mapActions } from 'vuex'
+import mobileHeader from '@/views/mobile/components/header'
+import mobileMenu from '@/views/mobile/components/menu'
+import audioPlayer from '@/views/mobile/components/audio_player'
+import { MyEvents } from '@/helper'
 import AlbumService from '@/services/album'
 
 export default {
+  components: {
+    mobileHeader,
+    mobileMenu,
+    audioPlayer
+  },
+
   data () {
     return {
       slug: null,
-      album: {
-        name: '',
-        user: {
-          display_name: ''
-        },
-        cover: {
-          large: ''
-        }
-      },
-      isPageReady: false
+      album: null,
+      showMenu: false,
+      loading: true
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      activeAlbum: 'player/currentAlbum'
+    }),
+
+    isPlaying () {
+      const playing = this.$store.state.player.isPlaying &&
+        !this.$store.state.player.isPaused &&
+        _.get(this.activeAlbum, 'id') === this.album.id
+
+      console.log('isPlaying', playing)
+      return playing
+    },
+
+    coverThumbImageURL () {
+      if (this.album.cover) {
+        return this.album.cover.thumb.url + '?' + new Date()
+      } else {
+        return ''
+      }
     }
   },
 
   methods: {
+    ...mapActions({
+      setPlaylist: 'player/setPlaylist',
+      setPlaylistIndex: 'player/setListIndex',
+      setTrackIndex: 'player/setTrackIndex',
+      setPlaying: 'player/setPlayingStatus'
+    }),
+
     loadData () {
-      this.slug = this.$route.params.slug
+      this.loading = true
       AlbumService.getAlbum(this.slug).then(response => {
         this.album = response.body
+
+        const vm = this
+        setTimeout(function () {
+          vm.changeBackground()
+          // let height = $('#album_info_page').height() + 230
+          // const screenHeight = $(window).height()
+          // if (height > screenHeight) {
+          //   height += 50
+          // } else {
+          //   height = screenHeight
+          // }
+          // var canvas = document.getElementById('canvas')
+          // canvas.height = height
+          // $('#back_image').css("cssText", "height: " + height + "px !important;")
+        }, 200)
+
+        this.loading = false
       })
+    },
+
+    changeBackground () {
+      console.log(window)
+      var StackBlur = window.StackBlur
+      var canvas = document.getElementById('canvas')
+      var cctx = canvas.getContext('2d')
+      var buff = document.createElement('canvas')
+      buff.width = canvas.width
+      buff.height = canvas.height
+
+      var imageObj = new Image()
+      // this will make CORS happy because the server is well configured
+      imageObj.crossOrigin = 'anonymous'
+      // Easiest is to always host your images on your own server
+      // imageObj.src = 'https://dl.dropboxusercontent.com/s/8q8sjnqmmto13h5/lionCMYK.jpg'
+      imageObj.src = this.coverThumbImageURL
+      imageObj.onload = function () {
+        // canvas.width = imageObj.height
+        // canvas.height = imageObj.height
+        cctx.drawImage(imageObj, 0, 0)
+        StackBlur.image(imageObj, canvas, 70, false)
+        // let height = $('#album_info_page').height() + 230
+        // const screenHeight = $(window).height()
+        // if (height > screenHeight) {
+        //   height += 50
+        // } else {
+        //   height = screenHeight
+        // }
+        // if (canvas) {
+        //   $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
+        // }
+        // $('#back_image').css('cssText', 'height: ' + height + 'px !important;')
+      }
+    },
+
+    isTrackPlaying (trackIndex) {
+      return this.isPlaying && trackIndex === this.$store.state.player.trackIndex
+    },
+
+    play (trackIndex) {
+      // if (this.isPlaying) {
+      //   this.pauseSong()
+      // } else {
+      //   this.playSong()
+      // }
+      if (this.isPlaying) {
+        if (this.isTrackPlaying(trackIndex)) {
+          this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE, trackIndex)
+        } else {
+          this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, trackIndex)
+        }
+      } else {
+        this.setPlaylist([this.album])
+        this.setPlaylistIndex(0)
+        this.setPlaying(true)
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, trackIndex)
+      }
+    },
+
+    playSong () {
+      if (this.$store.state.player.isPaused && _.get(this.activeAlbum, 'id') === this.album.id) {
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
+      } else {
+        this.setPlaylist([_.cloneDeep(this.album)])
+        this.setPlaylistIndex(0)
+        this.setPlaying(true)
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
+      }
+    },
+
+    pauseSong () {
+      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+    },
+
+    openMenu () {
+      this.showMenu = true
+    },
+
+    closeMenu () {
+      this.showMenu = false
     }
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
-
+    // this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
+    this.slug = this.$route.params.slug
     this.loadData()
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.mobile-album-page {
+  .section {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: #000;
+    text-align: center;
+    font-family: Montserrat, serif;
+
+    &__header {
+      flex: 0 0 auto;
+      position: relative;
+      padding-top: 80px;
+      background-color: #000;
+      color: #fff;
+
+      .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100% !important;
+        // background: #414141;
+        overflow: hidden;
+        // opacity: 0.6;
+        background-color: #000000;
+        opacity: 0.8;
+        div {
+          width: 100%;
+          height: 100%;
+          opacity: 0.6;
+          background-size: cover;
+          -webkit-filter: blur(160px);
+          -moz-filter: blur(160px);
+          -o-filter: blur(160px);
+          -ms-filter: blur(160px);
+          filter: blur(160px);
+        }
+      }
+      .background-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100% !important;
+        overflow: hidden;
+        background-color: rgba(0,0,0,0.5);
+      }
+    }
+
+    &__content {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__footer {
+      height: 70px;
+      flex: 0 0 auto;
+      img {
+        height: 40px;
+      }
+    }
+
+    h3 {
+      margin: 20px 0;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .media {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    //height: 50%;
+    //flex: 0 0 auto;
+    padding: 0 20px;
+    &__cover {
+      position: relative;
+      //width: 80%;
+      //padding-top: 80%;
+      width: 100%;
+      padding-top: 100%;
+      margin: 0 auto;
+      border-radius: 5px;
+      overflow: hidden;
+      .image {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/static/images/album.jpg') no-repeat center center;
+        background-size: contain;
+      }
+      .tag {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        padding: 4px 12px;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+        font-weight: 500;
+      }
+    }
+    &__title {
+      width: 100%;
+      padding-top: 8px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      //text-align: left;
+      white-space: nowrap;
+      line-height: 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    &__subtitle {
+      width: 100%;
+      padding-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      //text-align: left;
+      white-space: nowrap;
+      line-height: 16px;
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+
+  .list {
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+    padding: 0;
+    border-top: 1px solid #ccc;
+    background-color: transparent;
+    color: #fff !important;
+
+    /deep/ &__tile {
+      height: 54px;
+      padding: 0;
+    }
+
+    li {
+      margin: 0 5px 0 20px;
+      &:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+
+    &__tile {
+      &__avatar {
+        flex: 0 0 auto;
+        .icon {
+          color: #fff;
+        }
+      }
+      &__title {
+        color: #fff;
+      }
+      &__sub-title {
+        color: #fff;
+      }
+    }
+  }
+}
+</style>

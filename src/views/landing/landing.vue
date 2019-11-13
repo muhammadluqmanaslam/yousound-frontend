@@ -27,9 +27,9 @@
           <section>
             <div>
               <h3>
-                Share to earn<br>
-                money. Shop<br>
-                artists & brands.
+                Share music<br>
+                & earn money.<br>
+                Shop artists & brands.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
                 Next
@@ -45,9 +45,9 @@
           <section>
             <div>
               <h3>
-                Live video chat<br>
-                with artists &<br>
-                friends.
+                Live video<br>
+                with artists & brands<br>
+                Chat with friends.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
                 Next
@@ -140,8 +140,8 @@ export default {
         }
         h3 {
           font-family: 'Montserrat', 'Work Sans';
-          font-size: 40px;
-          line-height: 54px;
+          font-size: 50px;
+          line-height: 58px;
         }
         .btn {
           height: 30px;
@@ -163,6 +163,11 @@ export default {
           }
         }
       }
+    }
+
+    .toolbar__items {
+    margin-right: 0;
+    font-size: 18px !important;
     }
 
     &:nth-child(1) {

@@ -16,14 +16,26 @@
   padding: 0 120px;
   &__title {
     img {
-      height: 24px;
+      height: 28px;
+
     }
   }
   &__items {
     align-items: center;
     a {
       color: #ffffff;
+      font-size: 18px;
     }
   }
 }
+
+:not(.btn):not(.menu):first-child {
+  margin-left: 0;
+
+:not(.btn):not(.menu):last-child {
+  margin-right: 0;
+}
+
+}
+
 </style>
