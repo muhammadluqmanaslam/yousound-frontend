@@ -20,7 +20,7 @@ jobs:
             # CHECK NODE and PYTHON versions
             # sudo python -v
             sudo node -v
-            
+
       - run:
           name: "PREPARE ENVIRONMENT VARIABLES"
           command: |
@@ -50,16 +50,16 @@ jobs:
             #echo "deb-src http://archive.debian.org/debian/ jessie-backports main" | sudo tee -a /etc/apt/sources.list
             #echo "Acquire::Check-Valid-Until false;" | sudo tee -a /etc/apt/apt.conf.d/10-nocheckvalid
             #echo 'Package: *\nPin: origin "archive.debian.org"\nPin-Priority: 500' | sudo tee -a /etc/apt/preferences.d/10-archive-pin
-            
-            #sudo apt-get update
-            
+
+            ##sudo apt-get update
+
             #sudo apt-get install software-properties-common -y
             #sudo add-apt-repository ppa:deadsnakes/ppa -y
-            
+
             sudo apt-get update
             #sudo apt-get install -y python3.6 python3-pip python-dev build-essential
             #sudo apt-get install -y python3-pip python-dev build-essential
-            
+
             sudo pip3 install --upgrade pip
             sudo pip3 install --upgrade virtualenv
 
@@ -83,14 +83,15 @@ jobs:
             echo "v${CACHE_ID}-dependencies-${CIRCLE_BRANCH}" >> cache_key_file
 
       # RESTORE NPM PACKAGES CACHE IF AVAILABLE
-      - restore_cache:
-          keys:
-          - key-{{ checksum "cache_key_file" }}
+      #- restore_cache:
+      #    keys:
+      #    - key-{{ checksum "cache_key_file" }}
 
       - run:
           name: "INSTALL NPM PACKAGES"
           command: |
             # USING YARN INSTEAD NPM FOR SPEED
+            #npm rebuild node-sass
             yarn install
 
       # SAVE NPM PACKAGES AS CACHE
