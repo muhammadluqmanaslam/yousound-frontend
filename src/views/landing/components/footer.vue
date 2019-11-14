@@ -15,17 +15,16 @@
         <div><label>iOS App</label></div>
         <div><label>Support</label></div>
       </div>
-      <v-spacer></v-spacer>
-      <div>
+      <div class="ml-5">
         <img src="/static/images/img_download_ios.svg" height="48">
       </div>
     </v-layout>
 
     <v-layout class="mt-5">
-      <div><label>Term of use</label></div>
-      <div class="ml-4"><label>Privacy</label></div>
-      <div class="ml-4"><label>Community Guidelines</label></div>
-      <div class="ml-4"><label>Copyright</label></div>
+      <div><router-link to='/terms'>Terms of use</router-link></div>
+      <div class="ml-4"><router-link to='/terms#privacy_policy'>Privacy</router-link></div>
+      <div class="ml-4"><router-link to='/terms#community_guidelines'>Community Guidelines</router-link></div>
+      <div class="ml-4"><router-link to='/terms#copyright_policy'>Copyright</router-link></div>
       <v-spacer></v-spacer>
       <div><label>&copy; 2019 YouSound,Inc.</label></div>
     </v-layout>
@@ -39,5 +38,8 @@
   color: #fff;
   font-size: 12px;
   line-height: 24px;
+  a {
+    color: #fff;
+  }
 }
 </style>

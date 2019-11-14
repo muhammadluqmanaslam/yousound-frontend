@@ -52,6 +52,8 @@ export default {
   // },
 
   created () {
+    const tab = this.$route.hash.substr(1)
+    this.currentTab = tab || 'terms_of_use'
     this.$store.dispatch('navigator/goNextState', { page: 'terms', tab: this.currentTab })
     this.onTab(this.currentTab)
   },

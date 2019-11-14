@@ -13,8 +13,7 @@
                 No ads.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
-                Next
-                <v-icon>arrow_forward</v-icon>
+                <v-icon>arrow_downward</v-icon>
               </v-btn>
             </div>
           </section>
@@ -32,8 +31,7 @@
                 Shop artists & brands.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
-                Next
-                <v-icon>arrow_forward</v-icon>
+                <v-icon>arrow_downward</v-icon>
               </v-btn>
             </div>
           </section>
@@ -50,8 +48,7 @@
                 Chat with friends.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
-                Next
-                <v-icon>arrow_forward</v-icon>
+                <v-icon>arrow_downward</v-icon>
               </v-btn>
             </div>
           </section>
@@ -68,8 +65,7 @@
                 & brands.
               </h3>
               <v-btn to="/register">
-                Create Account
-                <v-icon>arrow_forward</v-icon>
+                <label>Sign Up</label>
               </v-btn>
             </div>
           </section>
@@ -97,6 +93,8 @@ export default {
   data () {
     return {
       options: {
+        navigation: true,
+        navigationPosition: 'left',
         afterLoad: this.afterLoad
       }
     }
@@ -114,6 +112,41 @@ export default {
 }
 </script>
 
+<style lang="scss">
+#fp-nav.fp-left {
+  left: 40px;
+  top: auto;
+  bottom: 260px;
+}
+
+#fp-nav ul li {
+  margin: 10px 0;
+  a {
+    span {
+      height: 12px;
+      width: 12px;
+      margin: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &.active {
+      span {
+        margin: 0;
+        background-color: #ffffff;
+      }
+    }
+  }
+
+  &:hover {
+    a span {
+      height: 12px;
+      width: 12px;
+      margin: 0;
+    }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 .landing-page {
   .toolbar {
@@ -127,47 +160,40 @@ export default {
   .section {
     &__content{
       height: 100vh;
-      padding-bottom: 230px;
-
+      padding: 120px 0 230px 0;
       section {
         display: flex;
+        //align-items: center;
         height: 100%;
-        align-items: center;
         color: #ffffff;
+        background-repeat: no-repeat;
+        background-size: auto 90%;
+        background-position: 400px 0;
         div {
-          padding-left: 120px;
+          padding: 50px 0 0 120px;
           //width: 400px;
         }
         h3 {
           font-family: 'Montserrat', 'Work Sans';
-          font-size: 50px;
-          line-height: 58px;
+          font-size: 40px;
+          line-height: 48px;
         }
         .btn {
-          height: 30px;
+          min-width: 60px;
+          height: 60px;
           margin-top: 30px;
-          border-radius: 15px;
+          border-radius: 40px;
           background: rgba(0, 0, 0, 0.2);
           box-shadow: none;
           color: #ffffff;
-          font-size: 10px;
           /deep/ &__content {
-            position: relative;
-            height: 30px;
-            padding: 0 60px;
+            padding: 0;
             i {
-              position: absolute;
-              right: 15px;
-              font-size: 14px;
+              font-size: 40px;
             }
           }
         }
       }
-    }
-
-    .toolbar__items {
-    margin-right: 0;
-    font-size: 18px !important;
     }
 
     &:nth-child(1) {
@@ -179,9 +205,7 @@ export default {
       // }
       section {
         background-image: url('/static/images/img_land_albums.png');
-        background-repeat: no-repeat;
-        background-size: auto 60%;
-        background-position: 420px 50%;
+        background-position-x: 420px;
       }
     }
 
@@ -189,9 +213,7 @@ export default {
       background-image: linear-gradient(#DD5675, #FF5C44);
       section {
         background-image: url('/static/images/img_land_products.png');
-        background-repeat: no-repeat;
-        background-size: auto 70%;
-        background-position: 500px 50%;
+        background-position-x: 500px;
       }
     }
 
@@ -204,11 +226,16 @@ export default {
       background-image: linear-gradient(#5155FF, #62A3FF);
       section {
         background-image: url('/static/images/img_land_artists.png');
-        background-repeat: no-repeat;
-        background-size: auto 70%;
-        background-position: 500px 50%;
+        background-position-x: 500px;
         .btn {
+          height: 48px;
           background-color: #000000;
+          /deep/ &__content {
+            label {
+              padding: 0 30px;
+              font-size: 18px;
+            }
+          }
         }
       }
     }
