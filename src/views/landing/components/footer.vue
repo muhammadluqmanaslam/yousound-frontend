@@ -5,7 +5,7 @@
         <img class="logo" src="/static/images/nav_logo_white.png" height="20">
       </div>
       <div class="ml-5">
-        <div><label>Company</label></div>
+        <div style="cursor: pointer;"><a href="#"><label>Company</label></a></div>
         <div><label>Blog</label></div>
         <div><label>Investors</label></div>
         <div><label>Jobs</label></div>
@@ -32,6 +32,10 @@
 </template>
 
 <style lang="scss" scoped>
+
+div {
+  z-index: 9999;
+}
 .footer-container {
   padding: 30px 120px;
   background-color: #000;
@@ -41,5 +45,8 @@
   a {
     color: #fff;
   }
+}
+a {
+  color: #ffffff;
 }
 </style>

@@ -6,9 +6,7 @@
       <div class="intro">
       </div>
 
-      <p>We believe respect and logic can balance the relationship between creatives, content owners, and listeners, so that all users can maximize their experience. We believe in building features that mandate each user to act with consideration of others, and rewards users for doing so. We've allowed for a seamless experience that lets every user recognize that they're a valuable part of the music communities they choose to become apart of on YouSound.  It's important that all users realize that we've leveled the playing field for you to maximize your traction and sales conversations, and have allowed every user to generate revenue by doing what they've always done for free.  There's nothing to take, all music is free to stream and download, simply support the creatives you love and everything works.<br><br></p>
-
-      <p>Effective date: July 4, 2018</p>
+      <p>Effective date: Jan 1, 2020</p>
 
       <p><strong>Please read these Terms of Use ("Agreement" or "Terms of Use") carefully before using the services offered by YouSound, Inc. ("Company," “we,” “us,” or “our”). This agreement sets forth the legally binding terms and conditions for you ("You" “your,” “User,” "Listener," "Customer," "Buyer," "Seller," "Verified Artist," "Verified Brand," "Verified Label," or "Verified User”) use of the Website at https://www.yousound.com (the "Site") and the service owned and operated by company, including any mobile software applications offered or published by Company (collectively with the Site, the "Service"). By using the Site or Service in any manner, including but not limited to visiting or browsing the Site, you agree to be bound by these Terms of Use. These Terms of Use apply to all users of the Site or Service, including users who are also contributors of content, information, and other materials or services on the Site. </strong><br></p>
 
@@ -30,18 +28,18 @@
           </tr>
           <tr>
             <td><a href="#3-modification">Modification of Terms of Use.</a></td>
-            <td>YouSound's right to modidy it's Terms of Use at any time.</td>
+            <td>YouSound's right to modify it's Terms of Use at any time.</td>
           </tr>
           <tr>
             <td><a href="#4-rules-and-conduct">Rules and Conduct</a></td>
-            <td>All of the rules and coduct every user must abide by when using YouSound.com</td>
+            <td>All of the rules and conduct every user must abide by when using YouSound.com</td>
           </tr>
           <tr>
             <td><a href="#5-personal-information">Personal Information</a></td>
             <td>How the personal information you submit to YouSound.com is handled.</td>
           </tr>
           <tr>
-            <td><a href="#6-verified-users-usages-of-personal-user-information">Verified Users Usages of Personal User Information</a></td>
+            <td><a href="#6-verified-users-usages-of-personal-user-information">Verified Users Usage of Personal User Information</a></td>
             <td>How the personal information you submit to Verified Users on YouSound.com is handled.</td>
           </tr>
           <tr>
@@ -99,7 +97,7 @@
             <td>How YouSound deals with user promotions & giveaways.</td>
           </tr>
           <tr>
-            <td><a href="#24-endorements-testimonials">Endorsements and Testimonials</a></td>
+            <td><a href="#24-endorsements-testimonials">Endorsements and Testimonials</a></td>
             <td>How Verified Users must comply with FTC guidelines when endorsing products or services.</td>
           </tr>
           <tr>
@@ -135,11 +133,11 @@
             <td>How if users access YouSound outside of California, they do so on their own initiative. </td>
           </tr>
           <tr>
-            <td><a href="#33-dispute-ressolution">Dispute Resolution</a></td>
+            <td><a href="#33-dispute-resolution">Dispute Resolution</a></td>
             <td>How YouSound handles dispute resolutions.</td>
           </tr>
           <tr>
-            <td><a href="#34-intergration-and-severability">Intergration and Severability</a></td>
+            <td><a href="#34-integration-and-severability">Integration and Severability</a></td>
             <td>How YouSound terms are between the user & YouSound.
             </td>
           </tr>
@@ -233,7 +231,7 @@
 
       <h4>All Sales Are Final.</h4>
 
-      <p>All sales of Digital Content are final (except where prohibited by law), unless otherwise determined by YouSound. If you do not receive the Digital Content or Physical product or otherwise have an issue with the content delivered, please contact YouSound with your request and proof of payment, and we will notify the relevant Verified User and contact with them to resolve your issue. At YouSound’s sole discretion, you may be credited or refunded for the Digital Content. However, you understand and agree that YouSound is a platform that Verified Users use to sell their products and services, and the relevant Verified User(s) is/are solely responsible for such content being delivered to you.  In the case where a Verified User refuses to refund a sale that YouSound has deemed refundable, YouSound will connect both seller and buyer to resolve their dispute.  YouSound cannot force any sell to refund.  YouSound does track all orders to ensure sellers are actively fullfilling their orders. Sellers are able to refund buyers through the Payments section of YouSound, refunds can only be given by sellers descretion, YouSound cannot force a refund.  YouSound does track all orders processed, and keeps track of every case opened for any product sold.  If YouSound finds a trend in fraudulent activity, we will delete all products, and deleted the sellers account.  Refunds should be persued via your payment processes and/or financial services used to render such payments.  If a fradulent chargeback is made to a seller, we will delete the buyers account.</p>
+      <p>All sales of Digital Content are final (except where prohibited by law), unless otherwise determined by YouSound. If you do not receive the Digital Content or Physical product or otherwise have an issue with the content delivered, please contact YouSound with your request and proof of payment, and we will notify the relevant Verified User and contact with them to resolve your issue. At YouSound’s sole discretion, you may be credited or refunded for the Digital Content. However, you understand and agree that YouSound is a platform that Verified Users use to sell their products and services, and the relevant Verified User(s) is/are solely responsible for such content being delivered to you.  In the case where a Verified User refuses to refund a sale that YouSound has deemed refundable, YouSound will connect both seller and buyer to resolve their dispute.  YouSound cannot force any sell to refund.  YouSound does track all orders to ensure sellers are actively fulfilling their orders. Sellers are able to refund buyers through the Payments section of YouSound, refunds can only be given by sellers discretion, YouSound cannot force a refund.  YouSound does track all orders processed, and keeps track of every case opened for any product sold.  If YouSound finds a trend in fraudulent activity, we will delete all products, and deleted the sellers account.  Refunds should be pursued via your payment processes and/or financial services used to render such payments.  If a fraudulent charge back is made to a seller, we will delete the buyers account.</p>
 
       <h4>Tax.</h4>
 
@@ -365,9 +363,7 @@
 
       <li>(i) Unless otherwise agreed to in a written agreement between you and YouSound that was signed by an authorized representative of YouSound, if you submit, transmit, display, perform, post or store User Content using the YouSound Services, you grant YouSound and its sublicensees an unrestricted, worldwide, perpetual, irrevocable, fully sub-licenseable, nonexclusive, and royalty-free right to (a) use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, perform and display such User Content (including without limitation for promoting and redistributing part or all of the YouSound Services (and derivative works thereof)) in any form, format, media or media channels now known or later developed or discovered; and (b) use the name, identity, likeness and voice (or other biographical information) that you submit in connection with such User Content. </li>
 
-      <li>(ii) With respect to User Content known as “add-ons”, "maps", "mods", or other types of projects submitted through CurseForge.com or related sites (“Submitted Projects”), the rights granted by you hereunder terminate once you remove or delete such Submitted Projects from the YouSound Services. You also acknowledge that YouSound may retain, but not display, distribute, or perform, server copies of Submitted Projects that have been removed or deleted.</li>
-
-      <li>(iii) With respect to streaming live and pre-recorded audio-visual works, the rights granted by you hereunder terminate once you delete such User Content from the YouSound Services, or generally by closing your account, except (a) to the extent you shared it with others as part of the YouSound Services and others copied or stored portions of the User Content (e.g., made a Clip); (b) YouSound used it for promotional purposes; and (c) for the reasonable time it takes to remove from backup and other systems.</li>
+      <li>(ii) With respect to streaming live and pre-recorded audio-visual works, the rights granted by you hereunder terminate once you delete such User Content from the YouSound Services, or generally by closing your account, except (a) to the extent you shared it with others as part of the YouSound Services and others copied or stored portions of the User Content (e.g., made a Clip); (b) YouSound used it for promotional purposes; and (c) for the reasonable time it takes to remove from backup and other systems.</li>
 
       <h4>User Content Representations and Warranties</h4>
 
@@ -377,7 +373,7 @@
 
       <li>(2) your User Content does not and will not (a) infringe, violate, or misappropriate any third-party right, including any copyright, trademark, patent, trade secret, moral right, privacy right, right of publicity, or any other intellectual property or proprietary right or (b) defame any other person;</li> 
 
-      <li>(3) your User Content does not contain any viruses, adware, spyware, worms, or other harmful or malicious code; and (4) unless you have received prior written authorization, your User Content specifically does not contain any pre-release or non-public beta software or game content or any confidential information of YouSound or third parties. YouSound reserves all rights and remedies against any users who breach these representations and warranties.</li>
+      <li>(3) your User Content does not contain any viruses, adware, spyware, worms, or other harmful or malicious code; and (4) unless you have received prior written authorization, your User Content specifically does not contain any pre-release or non-public beta software or content or any confidential information of YouSound or third parties. YouSound reserves all rights and remedies against any users who breach these representations and warranties.</li>
 
       <h4>Content is Uploaded at Your Own Risk</h4>
 
@@ -393,7 +389,7 @@
       <p>Users may promote, administer, or conduct a promotion (a contest or sweepstakes) on, through or utilizing the YouSound Services (a “Promotion”). If you choose to promote, administer or conduct a Promotion, you must adhere to the following rules: (i) You may carry out Promotions to the extent permitted by applicable law and you are solely responsible for ensuring that any Promotions comply with any and all applicable laws, obligations, and restrictions. (ii) You will be solely responsible for all aspects of and expenses related to your Promotion, including, without limitation, the execution, administration, and operation of the Promotion; drafting and posting any official rules; selecting winners; issuing prizes; and obtaining all necessary third-party permissions and approvals, including, without limitation, filing any and all necessary registrations and bonds. YouSound has the right to remove your Promotion from the YouSound Services for any reason. (iii) YouSound is not responsible for and does not endorse or support any such Promotions. You may not indicate that YouSound is a sponsor or co-sponsor of the Promotion. (iv) All Creators should display or read out the following when a Promotion is on their channel: "This is a promotion by [Your Name]. YouSound does not sponsor or endorse [Your Name]’s promotion and is not responsible for this promotion".</p>
 
       <h3>
-        <a id="24-endorements-testimonials" class="anchor" href="#24-endorements-testimonials" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Endorsements and Testimonials.</h3>
+        <a id="24-endorsements-testimonials" class="anchor" href="#24-endorsements-testimonials" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Endorsements and Testimonials.</h3>
 
       <p>You agree that your User Content will comply with the FTC's Guidelines Concerning the Use of Testimonials and Endorsements in Advertising , the FTC’s .com Disclosures Guide , the FTC’s Native Advertising Guidelines , and any other guidelines issued by the FTC from time to time ("FTC Guidelines”). For example, if you have been paid or provided with free products in exchange for discussing or promoting a product or service through the YouSound Services, or if you are an employee of a company and you decide to discuss or promote that company's products or services through the YouSound Services, you agree to comply with the FTC Guidelines' requirements for disclosing such relationships. You, and not YouSound, are solely responsible for any endorsements or testimonials you make regarding any product or service through the YouSound Services.</p>
 
@@ -497,12 +493,12 @@
       <p>Company makes no representation that the Content is appropriate or available for use in locations outside of California, and accessing the Service is prohibited from territories where such Content is illegal. If you access the Service from other locations, you do so at your own initiative and are responsible for compliance with local laws.</p>
 
       <h3>
-        <a id="33-dispute-ressolution" class="anchor" href="#33-dispute-ressolution" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Dispute Resolution.</h3>
+        <a id="33-dispute-resolution" class="anchor" href="#33-dispute-resolution" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Dispute Resolution.</h3>
 
       <p>A printed version of these Terms of Use and of any notice given in electronic form shall be admissible in judicial or administrative proceedings based upon or relating to these Terms of Use to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form. You and Company agree that any cause of action arising out of or related to the Service must commence within one (1) year after the cause of action arose; otherwise, such cause of action is permanently barred.  These Terms of Use shall be governed by and construed in accordance with the laws of the State of California, excluding its conflicts of law rules, and the United States of America. Any dispute arising from or relating to the subject matter of this Agreement shall be finally settled by arbitration in San Francisco County, California, using the English language in accordance with the Arbitration Rules and Procedures of Judicial Arbitration and Mediation Services, Inc. ("JAMS") then in effect, by one commercial arbitrator with substantial experience in resolving intellectual property and commercial contract disputes, who shall be selected from the appropriate list of JAMS arbitrators in accordance with the Arbitration Rules and Procedures of JAMS. The prevailing party in the arbitration shall be entitled to receive reimbursement of its reasonable expenses (including reasonable attorneys' fees, expert witness fees and all other expenses) incurred in connection therewith. Judgment upon the award so rendered may be entered in a court having jurisdiction or application may be made to such court for judicial acceptance of any award and an order of enforcement, as the case may be. Notwithstanding the foregoing, each party shall have the right to institute an action in a court of proper jurisdiction for injunctive or other equitable relief pending a final decision by the arbitrator. For all purposes of this Agreement, the parties consent to exclusive jurisdiction and venue in the United States Federal Courts or state courts located in the Northern District of California. Use of the Service is not authorized in any jurisdiction that does not give effect to all provisions of these Terms of Use, including without limitation, this section.</p>
 
       <h3>
-        <a id="34-intergration-and-severability" class="anchor" href="#34-intergration-and-severability" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Integration and Severability.</h3>
+        <a id="34-integration-and-severability" class="anchor" href="#34-integration-and-severability" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Integration and Severability.</h3>
 
       <p>These Terms of Use are the entire agreement between you and Company with respect to the Service and use of the Site, and supersede all prior or contemporaneous communications and proposals (whether oral, written or electronic) between you and Company with respect to the Site. If any provision of these Terms of Use is found to be unenforceable or invalid, that provision will be limited or eliminated to the minimum extent necessary so that these Terms of Use will otherwise remain in full force and effect and enforceable. The failure of either party to exercise in any respect any right provided for herein shall not be deemed a waiver of any further rights hereunder.</p>
 

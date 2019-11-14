@@ -22,7 +22,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
@@ -31,17 +31,17 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Close your account and delete your profile information Note: If you close your account, YouSound may retain other information about you for the activities described in our&nbsp;
-            <a href="https://www.yousound.com/privacy">Privacy Policy</a>, or as permitted or required by applicable law.
+            <a href="/terms#privacy_policy">Privacy Policy</a>, or as permitted or required by applicable law.
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
@@ -58,7 +58,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
              Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
@@ -67,7 +67,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the “Settings”, then click "Bank Details" and click "Disconnect Stripe"<br>
+            <a href="https://yousound.com/settings">here</a>, to the “Settings”, then click "Bank Details" and click "Disconnect Stripe"<br>
           </td>
         </tr>
         <tr>
@@ -91,7 +91,7 @@
             Opt out of Google Analytics in connection with your use of the YouSound Services
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            <a href="http://tools.google.com/dlpage/gaoptout">Click here</a>
+            <a href="https://tools.google.com/dlpage/gaoptout">Click here</a>
           </td>
         </tr>
       </tbody>
@@ -121,7 +121,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             If you want to see your account information, login, then go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings” page, then click "view all of your user submitted data"
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings” page, then click "view all of your user submitted data"
           </td>
         </tr>
         <tr>
@@ -130,7 +130,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             To update your account or profile information, login, then go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings” page,&nbsp;and update out of date or incorrect information.
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings” page,&nbsp;and update out of date or incorrect information.
           </td>
         </tr>
         <tr>
@@ -139,7 +139,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp; Your information is permanently deleted within 30 days, view our <a href="https://www.yousound.com/privacy">Privacy Policy</a> clause "Closing Your Account" to see the specifics.<br>
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp; Your information is permanently deleted within 30 days, view our <a href="https://yousound.com/privacy">Privacy Policy</a> clause "Closing Your Account" to see the specifics.<br>
           </td>
         </tr>
         <tr>
@@ -148,7 +148,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp;<br>
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp;<br>
           </td>
         </tr>
         <tr>
@@ -157,7 +157,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             To allow users to send and accept payments, we use Stripe, to remove Stripe from your account, Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the “Settings”, then click "Bank Details" and click "Disconnect Stripe"
+            <a href="https://yousound.com/settings">here</a>, to the “Settings”, then click "Bank Details" and click "Disconnect Stripe"
           </td>
         </tr>
         <tr>
@@ -166,7 +166,7 @@
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Go&nbsp;
-            <a href="http://www.yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp;<br>
+            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp;<br>
           </td>
         </tr>
       </tbody>

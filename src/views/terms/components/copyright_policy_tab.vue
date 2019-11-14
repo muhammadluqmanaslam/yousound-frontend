@@ -36,7 +36,7 @@
 
     <li>that repeat offenders will have the infringing material removed from the system and that Company will terminate such content provider's, member's or user's access to the service.</li>
 
-    <h2>Procedure to Supply a Counter-Noticet</h2>
+    <h2>Procedure to Supply a Counter-Notice</h2>
 
     <p>If the content provider, member or user believes that the material that was removed or to which access was disabled is either not infringing, or the content provider, member or user believes that it has the right to post and use such material from the owner of the intellectual property, the owner's agent, or pursuant to the law, the content provider, member or user must send a counter-notice containing the following information to the Company listed below: </p>
 
