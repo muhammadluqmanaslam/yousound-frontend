@@ -140,6 +140,9 @@ export default {
 
 <style lang="scss" scoped>
 .mobile-page {
+  overflow-x: hidden;
+}
+.mobile-page {
   .section {
     display: flex;
     flex-direction: column;
@@ -275,13 +278,13 @@ export default {
 
 @media (min-width: 414px) {
   .mobile-page .section h3 {
-    font-size: 32px;
-    line-height: 36px;
-    margin-top: -30px;
+    font-size: 28px;
+    line-height: 32px;
+    margin-top: -16px;
   }
 
     .mobile-page .section .btn {
-  font-size: 18px;
+  font-size: 16px;
   }
 
   .menu-container .section__content ul {
