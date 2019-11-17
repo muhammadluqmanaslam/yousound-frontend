@@ -86,7 +86,7 @@
                 </h3>
               </div>
               <div class="section__footer">
-                <stepper :step-size="6" :active-index="4"></stepper>
+                <stepper :step-size="4" :active-index="4"></stepper>
                 <img src="/static/images/img_download_ios.svg">
               </div>
             </div>
@@ -141,6 +141,7 @@ export default {
 <style lang="scss" scoped>
 .mobile-page {
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 .mobile-page {
   .section {
@@ -157,7 +158,7 @@ export default {
       height: 50%;
       flex: 0 0 auto;
       background-repeat: no-repeat;
-      background-size: auto 90%;
+      background-size: auto 77%;
       background-position: center center;
     }
 
