@@ -8,9 +8,9 @@
           <section>
             <div>
               <h3>
-                Free streaming.<br>
-                Free downloads.<br>
-                No ads.
+                Free Streaming.<br>
+                Free Downloads.<br>
+                No Ads.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
                 <v-icon>arrow_downward</v-icon>
@@ -27,8 +27,8 @@
             <div>
               <h3>
                 Share music<br>
-                & earn money.<br>
-                Shop artists & brands.
+                & Earn Money.<br>
+                Shop.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
                 <v-icon>arrow_downward</v-icon>
@@ -43,9 +43,9 @@
           <section>
             <div>
               <h3>
-                Live video<br>
-                with artists & brands<br>
-                Chat with friends.
+                Live Video<br>
+                with Artists & Brands.<br>
+                Chat with Friends.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
                 <v-icon>arrow_downward</v-icon>
@@ -61,8 +61,8 @@
             <div>
               <h3>
                 Powered by<br>
-                verified artists<br>
-                & brands.
+                Verified Artists<br>
+                & Brands.
               </h3>
               <v-btn to="/register">
                 <label>Sign Up</label>
@@ -167,16 +167,16 @@ export default {
         height: 100%;
         color: #ffffff;
         background-repeat: no-repeat;
-        background-size: auto 90%;
+        background-size: auto 75%;
         background-position: 400px 0;
         div {
-          padding: 50px 0 0 120px;
+          padding: 70px 0 0 120px;
           //width: 400px;
         }
         h3 {
           font-family: 'Montserrat', 'Work Sans';
-          font-size: 40px;
-          line-height: 48px;
+          font-size: 48px;
+          line-height: 52px;
         }
         .btn {
           min-width: 60px;
@@ -200,12 +200,13 @@ export default {
       background-image: linear-gradient(#7152FF, #3908FF);
       // /deep/ .fp-tableCell {
       //   background: url('/static/images/img_land_albums.png') no-repeat center center;
-      //   background-size: auto 50%;
+      //   background-size: auto 80%;
       //   background-position: 30% 50%;
       // }
       section {
         background-image: url('/static/images/img_land_albums.png');
         background-position-x: 420px;
+        background-position-y: 10px;
       }
     }
 
@@ -213,7 +214,7 @@ export default {
       background-image: linear-gradient(#DD5675, #FF5C44);
       section {
         background-image: url('/static/images/img_land_products.png');
-        background-position-x: 500px;
+        background-position-x: 465px;
       }
     }
 
@@ -232,8 +233,9 @@ export default {
           background-color: #000000;
           /deep/ &__content {
             label {
-              padding: 0 30px;
+              padding: 2px 30px 0 30px;
               font-size: 18px;
+              font-weight: 900;
             }
           }
         }

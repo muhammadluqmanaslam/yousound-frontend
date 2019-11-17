@@ -38,9 +38,9 @@
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Share music<br>
-                  and earn money.<br>
-                  Shop Artists & Brands.
+                  Share Music <br>
+                  & Earn Money.<br>
+                  Shop.
                 </h3>
               </div>
               <div class="section__footer">
@@ -61,7 +61,7 @@
               <div class="section__content">
                 <h3>
                   Live Video Chat with<br>
-                  Artists & Friends.
+                  Artists & Brands.<br>
                 </h3>
               </div>
               <div class="section__footer">
@@ -86,7 +86,7 @@
                 </h3>
               </div>
               <div class="section__footer">
-                <stepper :step-size="4" :active-index="4"></stepper>
+                <stepper :step-size="6" :active-index="4"></stepper>
                 <img src="/static/images/img_download_ios.svg">
               </div>
             </div>
@@ -166,7 +166,7 @@ export default {
     }
 
     &__footer {
-      height: 120px;
+      height: 180px;
       flex: 0 0 auto;
       .step-container {
         margin-bottom: 20px;
@@ -247,8 +247,13 @@ export default {
 
 @media (min-width: 320px) {
   .mobile-page .section h3 {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 24px;
+    margin-bottom: 16px;
+  }
+
+  .mobile-page .section .btn {
+  font-size: 14px;
   }
 
   .mobile-page .section__footer img {
@@ -270,8 +275,23 @@ export default {
 
 @media (min-width: 414px) {
   .mobile-page .section h3 {
-    font-size: 26px;
-    line-height: 32px;
+    font-size: 32px;
+    line-height: 36px;
+    margin-top: -30px;
+  }
+
+    .mobile-page .section .btn {
+  font-size: 18px;
+  }
+
+  .menu-container .section__content ul {
+    font-size: 36px;
+    line-height: 108px;
+    font-weight: 100;
+  }
+
+  .mobile-page .section__footer {
+    height: 200px;
   }
 
   .mobile-page .section__footer img {
