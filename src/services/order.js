@@ -16,8 +16,8 @@ export default {
     return Vue.http.get(API_BASE_URL + '/received', { params: params, headers: { 'Authorization': $store.state.auth.token } })
   },
 
-  receivedExport () {
-    return Vue.http.get(`${API_BASE_URL}/received_export`, { headers: { 'Authorization': $store.state.auth.token } })
+  receivedExport (params) {
+    return Vue.http.get(`${API_BASE_URL}/received_export`, { params: params, headers: { 'Authorization': $store.state.auth.token } })
   },
 
   getOrder (orderId) {

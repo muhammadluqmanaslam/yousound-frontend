@@ -1,4 +1,21 @@
 .page.sell-page {
+  .filter {
+    &__activator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      i {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+      }
+    }
+  }
+  .export-wrapper {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
   .orders-actions {
     position: absolute;
     right: 0;

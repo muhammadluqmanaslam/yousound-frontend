@@ -15,6 +15,8 @@ import sendMessage from '@/components/sendmessage'
 import collaborateProduct from './components/collaborate_product'
 import { Storage, MyCookies } from '@/helper'
 
+const filterArrowDownString = '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
+
 export default {
   components: {
     collaborateProduct,
@@ -39,7 +41,8 @@ export default {
         { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
         { id: 'collaborator_shipped', name: 'Collaborated Shipped' }
       ],
-      filter_status: '',
+      activeFilter: null,
+      exportPeriod: null,
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
       show_unship_confirm_modal: false,
@@ -87,6 +90,27 @@ export default {
     collaborated_products () {
       return _.filter(this.products, (item) => { return item.status == 'collaborated' })
     },
+
+    activeFilterName () {
+      return _.get(this.activeFilter, 'name', 'All')
+    },
+
+    activeFilterItemStatus () {
+      const status = _.get(this.activeFilter, 'id', '').split('_')[1] || ''
+      let item_status = ''
+      switch (status) {
+        case 'shipped':
+          item_status = 'item_shipped'
+          break
+        case 'unshipped':
+          item_status = 'item_ordered'
+          break
+        default:
+          item_status = ''
+          break
+      }
+      return item_status
+    }
   },
 
   watch: {
@@ -250,7 +274,14 @@ export default {
     // },
 
     csvExport () {
-      OrderService.receivedExport().then(response => {
+      let params = {}
+      if (this.exportPeriod && this.exportPeriod.start) {
+        params['start_date'] = this.exportPeriod.start + ' 00:00:00'
+      }
+      if (this.exportPeriod && this.exportPeriod.end) {
+        params['end_date'] = this.exportPeriod.end + ' 23:59:59'
+      }
+      OrderService.receivedExport(params).then(response => {
         const csvData = 'data:text/csv;charset=utf-8,' + encodeURIComponent(response.body);
         const filename = `order-items-${moment().format('YYYYMMDD')}.csv`
         Utils.downloadFile(csvData, filename)
@@ -381,8 +412,18 @@ export default {
     },
 
     filterItems (filter) {
-      const status = filter.id.split('_')[1] || ''
-      $('#filter_selector .btn__content').html(filter.name + '<i class="material-icons icon icon--right">keyboard_arrow_down</i>')
+      if (this.activeFilter == filter) return
+
+      $('#item_filter .btn__content').html(filter.name + filterArrowDownString)
+
+      switch (filter.id) {
+        case 'any':
+          this.activeFilter = null
+          break
+        default:
+          this.activeFilter = filter
+      }
+
       const params = {
         page: this.page_index,
         per_page: this.items_per_page,
@@ -391,17 +432,6 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       OrderService.getReceivedOrders(params).then(response => {
         this.orderHistories = response.body.orders
-        switch (status) {
-          case 'shipped':
-            this.filter_status = 'item_shipped'
-            break
-          case 'unshipped':
-            this.filter_status = 'item_ordered'
-            break
-          default:
-            this.filter_status = ''
-            break
-        }
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])

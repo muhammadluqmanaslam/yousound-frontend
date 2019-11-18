@@ -4,36 +4,55 @@
       <div class="page-left">
         <div class="tab-container">
           <h2 class="page-title">Sell</h2>
-          <ul>
+          <ul class="pr-3">
             <li
               v-for="tab in tabs"
               :key="tab.id"
               :href="`#${tab.id}`"
               :class="{active: isActiveTab(tab.id)}"
             ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+
+            <li v-if="active_tab == 'orders'" class="border-top border-bottom my-0">
+              <v-menu
+                id="item_filter"
+                class="filter"
+                style="display: block;"
+                offset-y
+              >
+                <div slot="activator" class="filter__activator py-3">
+                  <span>{{ activeFilterName }}</span>
+                  <v-icon right>keyboard_arrow_down</v-icon>
+                </div>
+                <v-list>
+                  <v-list-tile
+                    v-for="filter in filters"
+                    @click.native="filterItems(filter)"
+                    :key="filter.id"
+                  >
+                    <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </li>
+
+            <li v-if="active_tab == 'orders'" class="border-top border-bottom my-0 py-3">
+              <div class="export-wrapper">
+                <VueCtkDateTimePicker
+                  v-model="exportPeriod"
+                  id="export-period"
+                  :range="true"
+                  format="YYYY-MM-DD"
+                  formatted="ll">
+                </VueCtkDateTimePicker>
+                <v-icon class="pl-2" @click="csvExport()">save_alt</v-icon>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
 
       <div class="page-content" v-if="currentUser && isPageReady">
         <template v-if="active_tab == 'orders'">
-          <div class="orders-actions">
-            <v-menu offset-y id="filter_selector" class="filter_menu" v-show="active_tab == 'orders'">
-              <v-btn slot="activator">All
-                <v-icon right>keyboard_arrow_down</v-icon>
-              </v-btn>
-              <v-list>
-                <v-list-tile
-                  v-for="filter in filters"
-                  @click.native="filterItems(filter)"
-                  :key="filter.id"
-                >
-                  <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-            <v-btn dark color="green" @click.native="csvExport()">Export</v-btn>
-          </div>
           <div v-if="!orderHistories || orderHistories.length == 0" class="empty-section">
             <p class="empty-title">Your have no new orders</p>
           </div>
@@ -66,7 +85,7 @@
                 </div>
                 <div
                   v-for="item in order.items"
-                  v-if="filter_status == '' || item.status == filter_status"
+                  v-if="activeFilterItemStatus == '' || item.status == activeFilterItemStatus"
                   class="order-section"
                 >
                   <v-layout row>
@@ -116,7 +135,7 @@
                     <div class="status-section text-xs-center"></div>
                   </v-layout>
                 </div>
-                <div class="order-section" v-for="item in order.items" v-if="filter_status == '' || item.status == filter_status">
+                <div class="order-section" v-for="item in order.items" v-if="activeFilterItemStatus == '' || item.status == activeFilterItemStatus">
                   <v-layout row>
                     <div class="order-content-section relative">
                       <div class="product-cover-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div>

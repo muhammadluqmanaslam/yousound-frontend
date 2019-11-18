@@ -22,6 +22,10 @@ import 'fullpage.js/vendors/scrolloverflow' // Optional. When using scrollOverfl
 import 'fullpage.js/dist/fullpage.css'
 import VueFullPage from 'vue-fullpage.js'
 
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css'
+Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker)
+
 import { directive as onClickOutside } from 'vue-on-click-outside'
 import { Filter } from './helper'
 
@@ -45,6 +49,7 @@ Vue.use(VueHead)
 Vue.use(SocialSharing)
 Vue.use(VueLazyload)
 Vue.use(VueFullPage)
+Vue.use(VueCtkDateTimePicker)
 
 const dictionary = {
   en: {

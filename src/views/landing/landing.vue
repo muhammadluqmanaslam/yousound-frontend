@@ -114,34 +114,36 @@ export default {
 
 <style lang="scss">
 #fp-nav.fp-left {
-  left: 40px;
-  top: auto;
-  bottom: 260px;
+  left: 40px !important;
+  top: auto !important;
+  bottom: 260px !important;
 }
 
 #fp-nav ul li {
-  margin: 10px 0;
+  margin: 10px 0 !important;
   a {
     span {
-      height: 12px;
-      width: 12px;
-      margin: 0;
-      background-color: rgba(255, 255, 255, 0.2);
+      height: 12px !important;
+      width: 12px !important;
+      margin: 0 !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
     }
 
     &.active {
       span {
-        margin: 0;
-        background-color: #ffffff;
+        margin: 0 !important;
+        background-color: #ffffff !important;
       }
     }
   }
 
   &:hover {
-    a span {
-      height: 12px;
-      width: 12px;
-      margin: 0;
+    a {
+      span {
+        height: 12px !important;
+        width: 12px !important;
+        margin: 0 !important;
+      }
     }
   }
 }
