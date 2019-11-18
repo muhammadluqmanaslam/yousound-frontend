@@ -38,9 +38,9 @@
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Share music<br>
-                  and earn money.<br>
-                  Shop Artists & Brands.
+                  Share Music <br>
+                  & Earn Money.<br>
+                  Shop.
                 </h3>
               </div>
               <div class="section__footer">
@@ -61,7 +61,7 @@
               <div class="section__content">
                 <h3>
                   Live Video Chat with<br>
-                  Artists & Friends.
+                  Artists & Brands.<br>
                 </h3>
               </div>
               <div class="section__footer">
@@ -140,6 +140,10 @@ export default {
 
 <style lang="scss" scoped>
 .mobile-page {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.mobile-page {
   .section {
     display: flex;
     flex-direction: column;
@@ -154,7 +158,7 @@ export default {
       height: 50%;
       flex: 0 0 auto;
       background-repeat: no-repeat;
-      background-size: auto 90%;
+      background-size: auto 77%;
       background-position: center center;
     }
 
@@ -166,7 +170,7 @@ export default {
     }
 
     &__footer {
-      height: 120px;
+      height: 180px;
       flex: 0 0 auto;
       .step-container {
         margin-bottom: 20px;
@@ -247,8 +251,13 @@ export default {
 
 @media (min-width: 320px) {
   .mobile-page .section h3 {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 24px;
+    margin-bottom: 16px;
+  }
+
+  .mobile-page .section .btn {
+  font-size: 14px;
   }
 
   .mobile-page .section__footer img {
@@ -270,8 +279,23 @@ export default {
 
 @media (min-width: 414px) {
   .mobile-page .section h3 {
-    font-size: 26px;
+    font-size: 28px;
     line-height: 32px;
+    margin-top: -16px;
+  }
+
+    .mobile-page .section .btn {
+  font-size: 16px;
+  }
+
+  .menu-container .section__content ul {
+    font-size: 36px;
+    line-height: 108px;
+    font-weight: 100;
+  }
+
+  .mobile-page .section__footer {
+    height: 200px;
   }
 
   .mobile-page .section__footer img {

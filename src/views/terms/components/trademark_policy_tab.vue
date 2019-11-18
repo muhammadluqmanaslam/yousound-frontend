@@ -50,7 +50,7 @@
 
     <h3>What is Not a Violation of This Policy?</h3>
 
-    <p> Any reference to another’s trademark is not an automatic violation.  It is permissible for an account holder to use a trademark in a manner that is outside the scope of the trademark owner’s rights. For example, a trademark for plumbing services likely will not apply to gaming activities (you’re safe, Super Mario).  You can use someone’s trademark to refer to their goods or services – just not in a way that confuses other users about whose trademark it is. In legal terms, nominative and other fair uses of trademarks do not violate this policy. However, an account holder that uses a trademark must clearly distinguish itself from the trademark owner.</p>
+    <p> Any reference to another’s trademark is not an automatic violation.  It is permissible for an account holder to use a trademark in a manner that is outside the scope of the trademark owner’s rights. You can use someone’s trademark to refer to their goods or services – just not in a way that confuses other users about whose trademark it is. In legal terms, nominative and other fair uses of trademarks do not violate this policy. However, an account holder that uses a trademark must clearly distinguish itself from the trademark owner.</p>
 
     <p>YouSound allows account holders to create parody, commentary, and fan accounts, provided the accounts meet the following requirements:</p>
 

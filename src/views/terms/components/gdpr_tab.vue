@@ -12,7 +12,7 @@
 
       <p>(a) “Data Processor”, “Data Subject”, “Processor”, “Processing”, “Subprocessor”, and “Supervisory Authority” shall be interpreted in accordance with applicable Data Protection Legislation;</p>
 
-      <p>(a) “Personal Data” means information relating to an identifiable or identified Data Subject who visits or engages in transactions through your store (a “Customer”), which YouSound Processes as a Data Processor in the course of providing you with the Services. Notwithstanding the foregoing sentence, Personal Data does not include information that YouSound processes in the context of services that it provides directly to a consumery; and</p>
+      <p>(a) “Personal Data” means information relating to an identifiable or identified Data Subject who visits or engages in transactions through your store (a “Customer”), which YouSound Processes as a Data Processor in the course of providing you with the Services. Notwithstanding the foregoing sentence, Personal Data does not include information that YouSound processes in the context of services that it provides directly to a consumer; and</p>
 
       <p>(a) All other capitalized terms shall have the same definition as in the Agreement.</p>
 
