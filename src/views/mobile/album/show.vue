@@ -282,7 +282,7 @@ export default {
         width: 100vw !important;
         height: 100% !important;
         overflow: hidden;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0,0,0,0.25);
       }
     }
 
@@ -294,18 +294,32 @@ export default {
     }
 
     &__footer {
-      height: 70px;
+      height: 100px;
       flex: 0 0 auto;
       img {
-        height: 40px;
+        height: 48px;
       }
     }
 
     h3 {
-      margin: 20px 0;
-      font-size: 16px;
-      line-height: 20px;
+      margin: 40px 0;
+      font-size: 24px;
+      line-height: 32px;
     }
+  }
+
+  .aplayer {
+      width: 90%;
+      margin: 0 auto;
+  }
+
+  .aplayer__meta {
+      margin-top: -6px;
+  }
+
+  .primary {
+      background-color: #1976D2 !important;
+      border-color: #1976D2 !important;
   }
 
   .media {
@@ -319,11 +333,13 @@ export default {
       position: relative;
       //width: 80%;
       //padding-top: 80%;
-      width: 100%;
-      padding-top: 100%;
+      width: 90%;
+      padding-top: 90%;
       margin: 0 auto;
-      border-radius: 5px;
+      margin-top: 4%;
+      border-radius: 3px;
       overflow: hidden;
+
       .image {
         position: absolute;
         top: 0;
@@ -345,14 +361,16 @@ export default {
     }
     &__title {
       width: 100%;
-      padding-top: 8px;
+      padding-top: 12px;
+      padding-bottom: 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       //text-align: left;
       white-space: nowrap;
       line-height: 16px;
-      font-size: 14px;
+      font-size: 24px;
       font-weight: 600;
+      letter-spacing: -.4px;
     }
     &__subtitle {
       width: 100%;
@@ -370,11 +388,12 @@ export default {
   .list {
     position: relative;
     z-index: 1;
-    margin-top: 10px;
+    margin-top: 24px;
     padding: 0;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #cccccc3d;
     background-color: transparent;
     color: #fff !important;
+    margin-bottom: 40px;
 
     /deep/ &__tile {
       height: 54px;
@@ -384,7 +403,7 @@ export default {
     li {
       margin: 0 5px 0 20px;
       &:not(:last-child) {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #cccccc1f;
       }
     }
 
@@ -400,6 +419,7 @@ export default {
       }
       &__sub-title {
         color: #fff;
+        display: none;
       }
     }
   }
