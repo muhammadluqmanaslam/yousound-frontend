@@ -33,7 +33,7 @@
                 <v-icon v-else>play_arrow</v-icon>
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title v-html="track.name"></v-list-tile-title>
+            <v-list-tile-title v-html="track.name"></v-list-tile-title>
                 <v-list-tile-sub-title v-html="album.user.display_name"></v-list-tile-sub-title>
                 <!-- <v-list-tile-sub-title v-html="track.index"></v-list-tile-sub-title> -->
               </v-list-tile-content>
@@ -51,6 +51,10 @@
       <div class="section__footer">
         <img src="/static/images/img_download_ios.svg">
       </div>
+      <v-list two-line>
+      </v-list>
+      <div style="padding-bottom: 20px; margin-top:-10px;font-size: 16px" v-bind:style=""> Terms </div>
+          <div style="padding-bottom: 20px;font-size: 12px;" v-bind:style=""> &copy; 2019 YouSound,Inc.</div>
     </div>
 
     <v-dialog
@@ -294,17 +298,17 @@ export default {
     }
 
     &__footer {
-      height: 100px;
+      height: 115px;
       flex: 0 0 auto;
       img {
-        height: 48px;
+        height: 60px;
       }
     }
 
     h3 {
       margin: 40px 0;
-      font-size: 24px;
-      line-height: 32px;
+      font-size: 26px;
+      line-height: 30px;
     }
   }
 
@@ -320,6 +324,10 @@ export default {
   .primary {
       background-color: #1976D2 !important;
       border-color: #1976D2 !important;
+  }
+
+  .icon {
+     height: 48px;
   }
 
   .media {
@@ -380,9 +388,20 @@ export default {
       //text-align: left;
       white-space: nowrap;
       line-height: 16px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 300;
     }
+  }
+
+  .ul {
+      padding-bottom: 14px;
+      padding-top: 14px;
+      background: #f0f0f0;
+      list-style-type: none;
+  }
+
+  .btn {
+       display: none;
   }
 
   .list {

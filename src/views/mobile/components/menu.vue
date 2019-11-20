@@ -10,14 +10,12 @@
     <div class="section">
       <div class="section__content">
         <ul>
-          <li>Support</li>
           <li>Terms</li>
           <li>Privacy</li>
         </ul>
       </div>
 
       <div class="section__footer">
-        <img src="/static/images/img_download_ios.svg" height="40">
       </div>
     </div>
   </div>
