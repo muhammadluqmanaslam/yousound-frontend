@@ -44,7 +44,7 @@
       <div class="section__content">
         <h3>
           Free streaming.<br>
-          Free downloading.<br>
+          Free downloads.<br>
           No ads.
         </h3>
       </div>
@@ -53,8 +53,8 @@
       </div>
       <v-list two-line>
       </v-list>
-      <div style="padding-bottom: 20px; margin-top:-10px;font-size: 16px" v-bind:style=""> Terms </div>
-          <div style="padding-bottom: 20px;font-size: 12px;" v-bind:style=""> &copy; 2019 YouSound,Inc.</div>
+      <div style="padding-bottom: 8px; margin-top:-24px;font-size: 16px" v-bind:style=""> Terms </div>
+          <div style="padding-bottom: 12px;font-size: 12px;" v-bind:style=""> &copy; 2019 YouSound, Inc.</div>
     </div>
 
     <v-dialog
@@ -400,8 +400,13 @@ export default {
       list-style-type: none;
   }
 
-  .btn {
+  .btn--flat {
        display: none;
+  }
+
+  .primary {
+       background-color: #FFF !important;
+       border-color: #FFF !important;
   }
 
   .list {

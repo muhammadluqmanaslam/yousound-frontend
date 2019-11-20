@@ -18,6 +18,10 @@
           </div>
         </div>
       </div>
+
+      <v-list two-line>
+      </v-list>
+
       <div class="section__content">
         <h3>
           Share to earn money.<br>
@@ -103,9 +107,15 @@ export default {
       height: 70px;
       flex: 0 0 auto;
       img {
-        height: 40px;
+        height: 60px;
+        margin-bottom: 70px;
       }
     }
+  }
+
+  h3 {
+     font-size: 22px;
+     line-height: 26px;
   }
 
   .media {
@@ -149,7 +159,7 @@ export default {
       text-align: left;
       white-space: nowrap;
       line-height: 16px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
     }
     &__subtitle {
