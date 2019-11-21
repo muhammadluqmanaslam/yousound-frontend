@@ -298,10 +298,11 @@ export default {
     }
 
     &__footer {
-      height: 115px;
+      height: 220px;
       flex: 0 0 auto;
       img {
         height: 60px;
+        margin-top: 160px;
       }
     }
 
@@ -309,6 +310,7 @@ export default {
       margin: 40px 0;
       font-size: 26px;
       line-height: 30px;
+      margin-top: 200px;
     }
   }
 
@@ -322,8 +324,8 @@ export default {
   }
 
   .primary {
-      background-color: #1976D2 !important;
-      border-color: #1976D2 !important;
+      background-color: #fff !important;
+      border-color: #fff !important;
   }
 
   .icon {
@@ -412,7 +414,7 @@ export default {
   .list {
     position: relative;
     z-index: 1;
-    margin-top: 24px;
+    margin-top: 44px;
     padding: 0;
     border-top: 1px solid #cccccc3d;
     background-color: transparent;
