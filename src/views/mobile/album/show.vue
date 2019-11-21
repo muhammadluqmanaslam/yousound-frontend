@@ -295,6 +295,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 0px;
     }
 
     &__footer {
