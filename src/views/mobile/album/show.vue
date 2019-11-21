@@ -1,6 +1,10 @@
 <template>
   <div class="mobile-album-page">
-    <mobile-header @open-menu="openMenu"></mobile-header>
+    <mobile-header
+      :show-menu="false"
+      @open-menu="openMenu"
+    />
+
     <div class="section" v-if="!loading">
       <div class="section__header">
         <canvas id="canvas" class="background-image"></canvas>
@@ -17,6 +21,7 @@
             </div>
             <div class="media__subtitle">
               {{ album.user.display_name }}
+              <v-icon v-if="isAlbumUserVerified">fa-check-circle</v-icon>
             </div>
           </div>
         </div>
@@ -51,11 +56,9 @@
       <div class="section__footer">
         <img src="/static/images/img_download_ios.svg">
       </div>
-      <v-list two-line>
-      </v-list>
-      <div style="padding-bottom: 8px; margin-top:-24px;font-size: 16px" v-bind:style=""> Terms </div>
-          <div style="padding-bottom: 12px;font-size: 12px;" v-bind:style=""> &copy; 2019 YouSound, Inc.</div>
     </div>
+
+    <mobile-footer v-if="!loading"/>
 
     <v-dialog
       v-model="showMenu"
@@ -73,6 +76,7 @@
 import _ from 'lodash'
 import { mapGetters, mapActions } from 'vuex'
 import mobileHeader from '@/views/mobile/components/header'
+import mobileFooter from '@/views/mobile/components/footer'
 import mobileMenu from '@/views/mobile/components/menu'
 import audioPlayer from '@/views/mobile/components/audio_player'
 import { MyEvents } from '@/helper'
@@ -81,6 +85,7 @@ import AlbumService from '@/services/album'
 export default {
   components: {
     mobileHeader,
+    mobileFooter,
     mobileMenu,
     audioPlayer
   },
@@ -106,6 +111,11 @@ export default {
 
       console.log('isPlaying', playing)
       return playing
+    },
+
+    isAlbumUserVerified () {
+      const userType = _.get(this.album, 'user.user_type')
+      return ['artist', 'label', 'brand'].indexOf(userType) > -1
     },
 
     coverThumbImageURL () {
@@ -242,9 +252,10 @@ export default {
 <style lang="scss" scoped>
 .mobile-album-page {
   .section {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    //display: flex;
+    //height: 100vh;
+    //flex-direction: column;
+    display: block;
     color: #000;
     text-align: center;
     font-family: Montserrat, serif;
@@ -295,15 +306,13 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 0px;
     }
 
     &__footer {
-      height: 220px;
+      height: 120px;
       flex: 0 0 auto;
       img {
         height: 60px;
-        margin-top: 160px;
       }
     }
 
@@ -311,26 +320,21 @@ export default {
       margin: 40px 0;
       font-size: 26px;
       line-height: 30px;
-      margin-top: 200px;
     }
   }
 
   .aplayer {
-      width: 90%;
-      margin: 0 auto;
+    width: 90%;
+    margin: 0 auto;
   }
 
   .aplayer__meta {
-      margin-top: -6px;
+    margin-top: -6px;
   }
 
   .primary {
-      background-color: #fff !important;
-      border-color: #fff !important;
-  }
-
-  .icon {
-     height: 48px;
+    background-color: #fff !important;
+    border-color: #fff !important;
   }
 
   .media {
@@ -393,34 +397,31 @@ export default {
       line-height: 16px;
       font-size: 16px;
       font-weight: 300;
+      .icon {
+        margin-top: -10px;
+        font-size: 12px;
+        color: #7ed321;
+      }
     }
   }
 
-  .ul {
-      padding-bottom: 14px;
-      padding-top: 14px;
-      background: #f0f0f0;
-      list-style-type: none;
-  }
-
   .btn--flat {
-       display: none;
+    display: none;
   }
 
   .primary {
-       background-color: #FFF !important;
-       border-color: #FFF !important;
+    background-color: #FFF !important;
+    border-color: #FFF !important;
   }
 
   .list {
     position: relative;
     z-index: 1;
     margin-top: 44px;
-    padding: 0;
+    padding: 0 0 40px 0;
     border-top: 1px solid #cccccc3d;
     background-color: transparent;
     color: #fff !important;
-    margin-bottom: 40px;
 
     /deep/ &__tile {
       height: 54px;
@@ -439,6 +440,7 @@ export default {
         flex: 0 0 auto;
         .icon {
           color: #fff;
+          height: 48px;
         }
       }
       &__title {
@@ -449,6 +451,15 @@ export default {
         display: none;
       }
     }
+  }
+
+  .header-container {
+    position: absolute;
+  }
+
+  .footer-container {
+    border-top: 1px solid #cccccc3d;
+    padding: 15px 0 5px 0;
   }
 }
 </style>

@@ -2,13 +2,21 @@
   <div class="header-container">
     <template v-if="isDarkTheme">
       <img class="logo" src="/static/images/nav_logo_primary.png">
-      <v-btn flat @click="$emit('open-menu')">
+      <v-btn
+        v-if="showMenu"
+        flat
+        @click="$emit('open-menu')"
+      >
         <img src="/static/images/ic_menu_dark.svg">
       </v-btn>
     </template>
     <template v-else>
       <img class="logo" src="/static/images/nav_logo_white.png">
-      <v-btn flat @click="$emit('open-menu')">
+      <v-btn
+        v-if="showMenu"
+        flat
+        @click="$emit('open-menu')"
+      >
         <img src="/static/images/ic_menu.svg">
       </v-btn>
     </template>
@@ -21,6 +29,11 @@ export default {
     theme: {
       type: String,
       default: 'light'
+    },
+
+    showMenu: {
+      type: Boolean,
+      default: true
     }
   },
 

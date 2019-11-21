@@ -1,6 +1,11 @@
 <template>
   <div class="mobile-product-page">
-    <mobile-header theme="dark" @open-menu="openMenu"></mobile-header>
+    <mobile-header
+      theme="dark"
+      :show-menu="false"
+      @open-menu="openMenu"
+    />
+
     <div class="section" v-if="!loading">
       <div class="section__header">
         <div class="media">
@@ -14,6 +19,7 @@
             </div>
             <div class="media__subtitle">
               {{ product.merchant.display_name }}
+              <v-icon v-if="isProductMerchantVerified">fa-check-circle</v-icon>
             </div>
           </div>
         </div>
@@ -33,14 +39,22 @@
       </div>
     </div>
 
-    <v-dialog v-model="showMenu" fullscreen transition="slide-x-reverse-transition">
+    <mobile-footer v-if="!loading"/>
+
+    <v-dialog
+      v-model="showMenu"
+      fullscreen
+      transition="slide-x-reverse-transition"
+    >
       <mobile-menu @close-menu="closeMenu"></mobile-menu>
     </v-dialog>
   </div>
 </template>
 
 <script type="text/javascript">
+import _ from 'lodash'
 import mobileHeader from '@/views/mobile/components/header'
+import mobileFooter from '@/views/mobile/components/footer'
 import mobileMenu from '@/views/mobile/components/menu'
 
 import ProductService from '@/services/product'
@@ -48,6 +62,7 @@ import ProductService from '@/services/product'
 export default {
   components: {
     mobileHeader,
+    mobileFooter,
     mobileMenu
   },
 
@@ -57,6 +72,13 @@ export default {
       product: null,
       showMenu: false,
       loading: true
+    }
+  },
+
+  computed: {
+    isProductMerchantVerified () {
+      const userType = _.get(this.product, 'merchant.user_type')
+      return ['artist', 'label', 'brand'].indexOf(userType) > -1
     }
   },
 
@@ -84,9 +106,10 @@ export default {
 <style lang="scss" scoped>
 .mobile-product-page {
   .section {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    //display: flex;
+    //height: 100vh;
+    //flex-direction: column;
+    display: block;
     padding-top: 80px;
     color: #000;
     text-align: center;
@@ -104,18 +127,18 @@ export default {
     }
 
     &__footer {
-      height: 70px;
+      height: 120px;
       flex: 0 0 auto;
       img {
         height: 60px;
-        margin-bottom: 70px;
       }
     }
   }
 
   h3 {
-     font-size: 22px;
-     line-height: 26px;
+    margin: 40px 0;
+    font-size: 22px;
+    line-height: 30px;
   }
 
   .media {
@@ -164,7 +187,9 @@ export default {
     }
     &__subtitle {
       width: 100%;
-      padding-top: 2px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #cccccc3d;
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: left;
@@ -172,7 +197,21 @@ export default {
       line-height: 16px;
       font-size: 14px;
       font-weight: 300;
+      .icon {
+        margin-top: -10px;
+        font-size: 12px;
+        color: #7ed321;
+      }
     }
+  }
+
+  .header-container {
+    position: absolute;
+  }
+
+  .footer-container {
+    border-top: 1px solid #cccccc3d;
+    padding: 15px 0 5px 0;
   }
 }
 </style>
