@@ -31,7 +31,7 @@
       <div class="section__content">
         <h3>
           Share to earn money.<br>
-          Shop artists and brands.
+          Shop artists & brands.
         </h3>
       </div>
       <div class="section__footer">
@@ -166,19 +166,20 @@ export default {
     }
     &__footer {
       position: relative;
-      padding: 0 70px 10px 0;
-      border-bottom: 1px solid #cccccc3d;
+      padding: 0 70px 13px 0;
+      border-bottom: 1px solid #0000001f;
     }
     &__title {
       width: 100%;
-      padding-top: 8px;
+      padding-top: 14px;
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: left;
       white-space: nowrap;
       line-height: 16px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
+      letter-spacing: -.3px;
     }
     &__subtitle {
       display: flex;
@@ -190,6 +191,8 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        margin-top: -4px;
+        letter-spacing: -.2px;
       }
       .icon {
         margin-top: -10px;
@@ -199,13 +202,14 @@ export default {
     }
     &__tag {
       position: absolute;
-      top: 5px;
+      top: 8px;
       right: 5px;
       //padding: 4px 8px;
       //border-radius: 5px;
       //background-color: rgba(0, 0, 0, 0.1);
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
+      letter-spacing: -.2px;
     }
   }
 
@@ -214,7 +218,7 @@ export default {
   }
 
   .footer-container {
-    border-top: 1px solid #cccccc3d;
+    border-top: 1px solid #0000001f;
     padding: 15px 0 5px 0;
   }
 }

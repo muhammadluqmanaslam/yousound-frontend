@@ -409,11 +409,6 @@ export default {
     display: none;
   }
 
-  .primary {
-    background-color: #FFF !important;
-    border-color: #FFF !important;
-  }
-
   .list {
     position: relative;
     z-index: 1;
@@ -458,7 +453,7 @@ export default {
   }
 
   .footer-container {
-    border-top: 1px solid #cccccc3d;
+    border-top: 1px solid #0000001f;
     padding: 15px 0 5px 0;
   }
 }
