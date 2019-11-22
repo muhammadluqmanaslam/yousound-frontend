@@ -11,16 +11,16 @@
         <div class="media">
           <div class="media__cover">
             <div class="image" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"></div>
-            <div class="tag">${{ product.price | formatNumber }}</div>
           </div>
           <div class="media__footer">
             <div class="media__title">
-              {{ product.name }}
+            {{ product.name }}
             </div>
             <div class="media__subtitle">
-              {{ product.merchant.display_name }}
+              <label>{{ product.merchant.display_name }}</label>
               <v-icon v-if="isProductMerchantVerified">fa-check-circle</v-icon>
             </div>
+            <div class="media__tag">${{ product.price | formatNumber }}</div>
           </div>
         </div>
       </div>
@@ -163,16 +163,11 @@ export default {
         background: url('/static/images/album.jpg') no-repeat center center;
         background-size: contain;
       }
-      .tag {
-        position: absolute;
-        bottom: 15px;
-        right: 15px;
-        padding: 4px 12px;
-        border-radius: 5px;
-        background-color: rgba(255, 255, 255, 0.5);
-        font-size: 16px;
-        font-weight: 500;
-      }
+    }
+    &__footer {
+      position: relative;
+      padding: 0 70px 10px 0;
+      border-bottom: 1px solid #cccccc3d;
     }
     &__title {
       width: 100%;
@@ -186,22 +181,31 @@ export default {
       font-weight: 600;
     }
     &__subtitle {
-      width: 100%;
+      display: flex;
       margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid #cccccc3d;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: left;
-      white-space: nowrap;
-      line-height: 16px;
-      font-size: 14px;
-      font-weight: 300;
+      label {
+        line-height: 16px;
+        font-size: 14px;
+        font-weight: 300;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       .icon {
         margin-top: -10px;
         font-size: 12px;
         color: #7ed321;
       }
+    }
+    &__tag {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      //padding: 4px 8px;
+      //border-radius: 5px;
+      //background-color: rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      font-weight: 600;
     }
   }
 
