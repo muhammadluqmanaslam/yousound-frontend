@@ -30,6 +30,7 @@
 
       <div class="section__content">
         <h3>
+          Get the app.<br>
           Share to earn money.<br>
           Shop artists & brands.
         </h3>
@@ -138,7 +139,7 @@ export default {
   h3 {
     margin: 40px 0;
     font-size: 22px;
-    line-height: 30px;
+    line-height: 26px;
   }
 
   .media {
@@ -176,7 +177,7 @@ export default {
       text-overflow: ellipsis;
       text-align: left;
       white-space: nowrap;
-      line-height: 16px;
+      line-height: 24px;
       font-size: 18px;
       font-weight: 600;
       letter-spacing: -.3px;
@@ -202,7 +203,7 @@ export default {
     }
     &__tag {
       position: absolute;
-      top: 8px;
+      top: 12px;
       right: 5px;
       //padding: 4px 8px;
       //border-radius: 5px;

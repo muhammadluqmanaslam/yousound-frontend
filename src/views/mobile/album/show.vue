@@ -332,11 +332,6 @@ export default {
     margin-top: -6px;
   }
 
-  .primary {
-    background-color: #fff !important;
-    border-color: #fff !important;
-  }
-
   .media {
     position: relative;
     z-index: 1;
