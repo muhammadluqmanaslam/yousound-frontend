@@ -11,22 +11,22 @@
         <div class="media">
           <div class="media__cover">
             <div class="image" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"></div>
+            <div class="media__tag">
+              <img src="/static/images/ic_cart.svg">
+            </div>
           </div>
           <div class="media__footer">
-            <div class="media__title">
-            {{ product.name }}
-            </div>
+            <div class="media__title">{{ product.name }}</div>
+            <div class="media__description">${{ product.price | formatNumber }}</div>
             <div class="media__subtitle">
               <label>{{ product.merchant.display_name }}</label>
               <v-icon v-if="isProductMerchantVerified">fa-check-circle</v-icon>
             </div>
-            <div class="media__tag">${{ product.price | formatNumber }}</div>
           </div>
         </div>
       </div>
 
-      <v-list two-line>
-      </v-list>
+      <!-- <v-divider></v-divider> -->
 
       <div class="section__content">
         <h3>
@@ -167,7 +167,7 @@ export default {
     }
     &__footer {
       position: relative;
-      padding: 0 70px 13px 0;
+      padding: 0 0 15px 0;
       border-bottom: 1px solid #0000001f;
     }
     &__title {
@@ -175,7 +175,7 @@ export default {
       padding-top: 14px;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-align: left;
+      text-align: center;
       white-space: nowrap;
       line-height: 24px;
       font-size: 18px;
@@ -185,6 +185,9 @@ export default {
     &__subtitle {
       display: flex;
       margin-top: 10px;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
       label {
         line-height: 16px;
         font-size: 14px;
@@ -201,16 +204,31 @@ export default {
         color: #7ed321;
       }
     }
+    &__description {
+      width: 100%;
+      padding-top: 5px;
+      text-align: center;
+      line-height: 24px;
+      font-size: 16px;
+      font-weight: 600;
+    }
     &__tag {
       position: absolute;
-      top: 12px;
-      right: 5px;
+      bottom: 20px;
+      right: 20px;
+      height: 40px;
+      width: 40px;
       //padding: 4px 8px;
-      //border-radius: 5px;
+      border-radius: 20px;
       //background-color: rgba(0, 0, 0, 0.1);
+      background-color: #000;
       font-size: 18px;
       font-weight: 600;
       letter-spacing: -.2px;
+      img {
+        width: 24px;
+        height: 40px;
+      }
     }
   }
 
