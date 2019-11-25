@@ -1,23 +1,23 @@
 <template>
   <div class="header-container">
     <template v-if="isDarkTheme">
-      <img class="logo" src="/static/images/nav_logo_primary.png">
+      <img :src="logoImgSrc">
       <v-btn
         v-if="showMenu"
         flat
         @click="$emit('open-menu')"
       >
-        <img src="/static/images/ic_menu_dark.svg">
+        <img :src="menuImgSrc">
       </v-btn>
     </template>
     <template v-else>
-      <img class="logo" src="/static/images/nav_logo_white.png">
+      <img :src="logoImgSrc">
       <v-btn
         v-if="showMenu"
         flat
         @click="$emit('open-menu')"
       >
-        <img src="/static/images/ic_menu.svg">
+        <img :src="menuImgSrc">
       </v-btn>
     </template>
   </div>
@@ -34,12 +34,51 @@ export default {
     showMenu: {
       type: Boolean,
       default: true
+    },
+
+    logoImg: {
+      type: String,
+      default: ''
+    },
+
+    menuImg: {
+      type: String,
+      default: ''
+    }
+  },
+
+  data () {
+    return {
+      logoImgSrc: '',
+      menuImgSrc: ''
     }
   },
 
   computed: {
     isDarkTheme () {
       return this.theme !== 'light'
+    }
+  },
+
+  created () {
+    if (this.menuImg === '') {
+      if (this.isDarkTheme) {
+        this.menuImgSrc = '/static/images/ic_menu_dark.svg'
+      } else {
+        this.menuImgSrc = '/static/images/ic_menu.svg'
+      }
+    } else {
+      this.menuImgSrc = this.menuImg
+    }
+
+    if (this.logoImg === '') {
+      if (this.isDarkTheme) {
+        this.logoImgSrc = '/static/images/nav_logo_primary.png'
+      } else {
+        this.logoImgSrc = '/static/images/nav_logo_white.png'
+      }
+    } else {
+      this.logoImgSrc = this.logoImg
     }
   }
 }
