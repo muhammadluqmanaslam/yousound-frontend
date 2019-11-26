@@ -24,5 +24,8 @@
     padding-bottom: 12px;
     font-size: 12px;
   }
+  a {
+    color: #000;
+  }
 }
 </style>

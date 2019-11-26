@@ -8,8 +8,15 @@
     <div class="section">
       <div class="section__content">
         <ul>
-          <li @click="goTo('/terms')">Terms</li>
-          <li @click="goTo('/terms#privacy_policy')">Privacy</li>
+          <li @click="goTo('/terms')">Terms of Service</li>
+          <li @click="goTo('/terms#community_guidelines')">Community Guidlines</li>
+          <li @click="goTo('/terms#privacy_policy')">Privacy Policy</li>
+          <li @click="goTo('/terms#privacy_choice')">Privacy Choices</li>
+          <li @click="goTo('/terms#copyright_policy')">Copyright Policy (DMCA)</li>
+          <li @click="goTo('/terms#trademark_policy')">Trademark Policy</li>
+          <li @click="goTo('/terms#gdpr')">GDPR</li>
+          <li @click="goTo('/terms#cookie_policy')">Cookie Policy</li>
+          <li @click="goTo('/terms#sample_clearance')">Sample Clearance License</li>
         </ul>
       </div>
 
@@ -42,45 +49,14 @@ export default {
 <style lang="scss" scoped>
 .menu-container {
   height: 100%;
-  background-color: #000000;
-
-  .header-container {
-    position: fixed;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80px;
-    background: transparent;
-    box-shadow: none;
-
-    img {
-      height: 24px;
-    }
-
-    .btn {
-      position: absolute !important;
-      min-width: auto;
-      margin: 0;
-      right: 15px;
-      &__content {
-        padding: 8px;
-        &:before {
-          background-color: transparent;
-        }
-        img {
-          width: 24px;
-          height: 24px;
-        }
-      }
-    }
-  }
+  //background-color: #000000;
 
   .section {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 80px;
+    background-color: #000;
     color: #ffffff;
     text-align: center;
 
@@ -104,6 +80,10 @@ export default {
       height: 70px;
       flex: 0 0 auto;
     }
+  }
+
+  .header-container {
+    background-color: #000;
   }
 }
 </style>
