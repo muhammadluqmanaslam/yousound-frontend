@@ -1,7 +1,7 @@
 <template>
   <div class="mobile-product-page">
     <mobile-header
-      theme="dark"
+      theme="light"
       :show-menu="false"
       @open-menu="openMenu"
     />

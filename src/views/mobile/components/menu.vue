@@ -1,17 +1,15 @@
 <template>
   <div class="menu-container">
-    <div class="header-container">
-      <img class="logo" src="/static/images/nav_logo_white.png">
-      <v-btn flat @click="$emit('close-menu')">
-        <img src="/static/images/ic_close.svg">
-      </v-btn>
-    </div>
+    <mobile-header
+      @open-menu="$emit('close-menu')"
+      menu-img="/static/images/ic_close.svg"
+    />
 
     <div class="section">
       <div class="section__content">
         <ul>
-          <li>Terms</li>
-          <li>Privacy</li>
+          <li @click="goTo('/terms')">Terms</li>
+          <li @click="goTo('/terms#privacy_policy')">Privacy</li>
         </ul>
       </div>
 
@@ -20,6 +18,26 @@
     </div>
   </div>
 </template>
+
+<script>
+import mobileHeader from './header'
+export default {
+  components: {
+    mobileHeader
+  },
+
+  methods: {
+    closeMenu () {
+      this.$emit('close-menu')
+    },
+
+    goTo (path) {
+      this.$router.push({ path: path })
+      this.closeMenu()
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .menu-container {

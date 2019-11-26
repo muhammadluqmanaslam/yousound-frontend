@@ -28,7 +28,7 @@ export default {
   props: {
     theme: {
       type: String,
-      default: 'light'
+      default: 'dark'
     },
 
     showMenu: {
@@ -56,16 +56,16 @@ export default {
 
   computed: {
     isDarkTheme () {
-      return this.theme !== 'light'
+      return this.theme === 'dark'
     }
   },
 
   created () {
     if (this.menuImg === '') {
       if (this.isDarkTheme) {
-        this.menuImgSrc = '/static/images/ic_menu_dark.svg'
-      } else {
         this.menuImgSrc = '/static/images/ic_menu.svg'
+      } else {
+        this.menuImgSrc = '/static/images/ic_menu_dark.svg'
       }
     } else {
       this.menuImgSrc = this.menuImg
@@ -73,9 +73,9 @@ export default {
 
     if (this.logoImg === '') {
       if (this.isDarkTheme) {
-        this.logoImgSrc = '/static/images/nav_logo_primary.png'
-      } else {
         this.logoImgSrc = '/static/images/nav_logo_white.png'
+      } else {
+        this.logoImgSrc = '/static/images/nav_logo_primary.png'
       }
     } else {
       this.logoImgSrc = this.logoImg
