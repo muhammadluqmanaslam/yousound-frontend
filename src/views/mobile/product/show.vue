@@ -197,19 +197,21 @@ export default {
         white-space: nowrap;
         margin-top: -4px;
         letter-spacing: -.2px;
+        padding-right: 1px;
       }
       .icon {
         margin-top: -10px;
         font-size: 12px;
-        color: #7ed321;
+        color: #5cb338;
       }
     }
     &__description {
       width: 100%;
-      padding-top: 5px;
+      padding-top: 0;
+      padding-bottom: 4px;
       text-align: center;
       line-height: 24px;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
     }
     &__tag {
@@ -225,6 +227,7 @@ export default {
       font-size: 18px;
       font-weight: 600;
       letter-spacing: -.2px;
+      display: none;
       img {
         width: 24px;
         height: 40px;
