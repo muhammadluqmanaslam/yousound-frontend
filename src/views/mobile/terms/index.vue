@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-term-page">
+  <div class="mobile-terms-page page terms-page">
     <mobile-header
       theme="light"
       @open-menu="openMenu"
@@ -97,9 +97,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mobile-term-page {
+.mobile-terms-page {
   .section {
     padding-top: 80px;
+
+    /deep/ h2 {
+      font-size: 24px;
+    }
+
+    /deep/ h3 {
+      font-size: 20px;
+    }
   }
 
   .header-container {
