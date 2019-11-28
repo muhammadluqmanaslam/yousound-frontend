@@ -65,13 +65,13 @@
 
   li {
     font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     margin-left: 16px;
     padding-bottom: 12px;
   }
 
   strong {
-    font-size: 17px;
+    font-size: 16px;
     font-family: 'Open Sans', sans-serif;
   }
 
@@ -111,13 +111,13 @@
   }
   p {
     margin: 1em 0;
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Open Sans', sans-serif;
   }
   a, a:visited {
     color: #2669c0;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
   }
@@ -140,7 +140,8 @@
       padding: 10px;
       vertical-align: top;
       font-family: 'Open Sans', sans-serif;
-      font-size: 16px;
+      font-size: 14px;
+      text-align: left;
     }
     td {
       border: solid #ddd;
@@ -148,7 +149,7 @@
       padding: 10px;
       vertical-align: top;
       font-family: 'Open Sans',sans-serif;
-      font-size: 16px;
+      font-size: 14px;
     }
   }
   thead, tr {

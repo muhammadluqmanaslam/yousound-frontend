@@ -67,11 +67,11 @@ export default {
       //align-items: center;
 
       ul {
-        margin-top: 20%;
+        margin-top: 10%;
         list-style: none;
         li {
-          font-size: 24px;
-          line-height: 64px;
+          font-size: 16px;
+          line-height: 55px;
         }
       }
     }

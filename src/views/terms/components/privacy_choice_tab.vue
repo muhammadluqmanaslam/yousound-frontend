@@ -21,27 +21,23 @@
             Update your user profile information and preferences
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+            Go to “Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
             Disable or deactivate your YouSound user account
           </td>
-          <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+        termina  <td style="border: 1px solid #d7d7d7; padding: 16px">
+            Go to “Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Close your account and delete your profile information Note: If you close your account, YouSound may retain other information about you for the activities described in our&nbsp;
-            <a href="/terms#privacy_policy">Privacy Policy</a>, or as permitted or required by applicable law.
+            Close your account and delete your profile information Note: If you close your account, YouSound may retain other information about you for the activities described in our Terms, or as permitted or required by applicable law.
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+            Go to “Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
@@ -57,8 +53,7 @@
              To disable activity sharing with friends, you must close your account
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-             Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account"<br>
+             Go to “Settings”, then click "cancel my account"<br>
           </td>
         </tr>
         <tr>
@@ -66,8 +61,7 @@
             De-link your account from your other accounts and services (such as Stripe.com) and opt out of sharing between the YouSound Services and Stripe.
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the “Settings”, then click "Bank Details" and click "Disconnect Stripe"<br>
+            Go to “Settings”, then click "Bank Details" and click "Disconnect Stripe"<br>
           </td>
         </tr>
         <tr>
@@ -97,8 +91,6 @@
       </tbody>
     </table>
 
-    <p><br>Residents of the European Economic Area (“EEA”) can exercise certain data subject rights available to them under applicable data protection laws.  If you are an EEA resident and wish to exercise one of these rights, please click  here. </p>
-
     <h3>EEA DATA SUBJECT RIGHTS</h3>
 
     <p>Residents of the European Economic Area (“EEA”), can exercise certain data subject rights available to them under applicable data protection laws.  Where such rights apply, we will comply with requests to exercise these rights in accordance with applicable law.  Please note, however, that we are not legally required to accommodate such requests  under all circumstances, which may include if we need to keep processing your information for our legitimate interests or to comply with a legal obligation. </p>
@@ -120,8 +112,7 @@
             Obtain access to or a copy of certain personal information we hold about you.
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            If you want to see your account information, login, then go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings” page, then click "view all of your user submitted data"
+            If you want to see your account information, login, then go to “Settings” page, then click "view all of your user submitted data"
           </td>
         </tr>
         <tr>
@@ -129,8 +120,7 @@
             Update personal information which is out of date or incorrect
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            To update your account or profile information, login, then go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings” page,&nbsp;and update out of date or incorrect information.
+            To update your account or profile information, login, then go to “Settings” page, and update out of date or incorrect information.
           </td>
         </tr>
         <tr>
@@ -138,8 +128,7 @@
             Delete certain personal information which we are holding about you
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp; Your information is permanently deleted within 30 days, view our <a href="https://yousound.com/privacy">Privacy Policy</a> clause "Closing Your Account" to see the specifics.<br>
+            Go to “Settings”, then click "cancel my account".&nbsp; Your information is permanently deleted within 7 days, view our Terms clause "Personal Information" to see the specifics.<br>
           </td>
         </tr>
         <tr>
@@ -147,8 +136,7 @@
             Restrict the way that we process and disclose specific personal information about you.
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp;<br>
+            Go to “Settings”, then click "cancel my account".&nbsp;<br>
           </td>
         </tr>
         <tr>
@@ -156,8 +144,7 @@
             Transfer your personal information to a third-party provider of services
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            To allow users to send and accept payments, we use Stripe, to remove Stripe from your account, Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the “Settings”, then click "Bank Details" and click "Disconnect Stripe"
+            To allow users to send and accept payments, we use Stripe, to remove Stripe from your account, Go to “Settings”, then click "Bank Details" and click "Disconnect Stripe"
           </td>
         </tr>
         <tr>
@@ -165,8 +152,7 @@
             Object to the processing of your personal information
           </td>
           <td style="border: 1px solid #d7d7d7; padding: 16px">
-            Go&nbsp;
-            <a href="https://yousound.com/settings">here</a>, to the&nbsp;“Settings”, then click "cancel my account".&nbsp;<br>
+            Go to “Settings”, then click "cancel my account".&nbsp;<br>
           </td>
         </tr>
       </tbody>

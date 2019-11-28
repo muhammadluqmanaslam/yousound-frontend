@@ -6,15 +6,15 @@
 			<div class="intro">
 			</div>
 
-			<p>Effective Date: July 4, 2018
-					YouSound, Inc. (“YouSound”) knows that you care about how your Personal Data is used and shared, and we take your privacy seriously. Please read the following to learn more about our privacy policy. This Privacy Policy describes how we collect, use, share, and safeguard your Personal Data when you access the www.yousound.com website and domain name, mobile applications, and any other linked pages, features, content, or application services offered from time to time by YouSound in connection therewith (collectively, the "Service"), or otherwise interact with us. This policy does not apply to the practices of companies that YouSound does not own or control, or to individuals that YouSound does not employ or manage. “Personal Data” means any data related to an identified or identifiable individual. By accessing or using the Service, you acknowledge that you accept the practices and policies outlined in this Privacy Policy.
+			<p>Effective Date: Jan 1, 2020
+					YouSound, Inc. (“YouSound”) knows that you care about how your Personal Data is used and shared, and we take your privacy seriously. Please read the following to learn more about our privacy policy. <br><br>This Privacy Policy describes how we collect, use, share, and safeguard your Personal Data when you access the www.yousound.com website and domain name, mobile applications, and any other linked pages, features, content, or application services offered from time to time by YouSound in connection therewith (collectively, the "Service"), or otherwise interact with us. This policy does not apply to the practices of companies that <br><br>“Personal Data” means any data related to an identified or identifiable individual. By accessing or using the Service, you acknowledge that you accept the practices and policies outlined in this Privacy Policy.
 			</p>
 
 			<h3>What Personal Data Does YouSound Collect?</h3>
 	
-			<li><strong>User information,</strong> such as the name, username, password, email address, photograph or other likeness, settings, associations with Verified Users and fans, purchase history, and any other information you provide in connection with your user account.</li>
+			<li><strong>User information,</strong> such as the name, username, password, email address, photograph or other likeness, settings, associations with Verified Users and customers, purchase history, and any other information you provide in connection with your user account.</li>
 
-			<li><strong>User financial information,</strong> such as your credit or debit card number, bank account number, and billing and shipping address. This information is collected and processed by our payment processor, as necessary to complete your purchase. We do not receive your credit card information directly, but we may receive information about the transaction, such as the date and time it occurred. This information may or may not be associated with an existing user or fan account on the website.</li>
+			<li><strong>User financial information,</strong> such as your credit or debit card number, bank account number, and billing and shipping address. This information is collected and processed by our payment processor, as necessary to complete your purchase. We do not receive your credit card information directly, but we may receive information about the transaction, such as the date and time it occurred. This information may or may not be associated with an existing user on the website.</li>
 
 			<li><strong>User information,</strong> such as user-provided biography, location, and tags.</li>
 
@@ -79,7 +79,7 @@
 			<li>We have a legitimate interest in using your Personal Data. This includes our legitimate interests to ensure and improve the safety, security and performance of our products and services.</li>
 
 
-			<h3>How Does YouSound Receive Personal Data About To You?</h3>
+			<h3>How Does YouSound Receive Personal Data About You?</h3>
 
 			<p>We may receive Personal Data relating to you from:</p>
 
@@ -89,7 +89,7 @@
 
 			<li>Third parties that provide us with information about you.</li>
 
-			<h3>For How Long Does YouSound Keep Your Personal Data?</h3>
+			<h3>How Long Does YouSound Keep Your Personal Data?</h3>
 
 			<p>YouSound stores Personal Data only for as long as it is necessary for the fulfillment of the purpose for which it was collected, unless otherwise required or authorized by applicable law. We take measures to destroy or permanently de-identify Personal Data if required by law or if the Personal Data is no longer required for the purpose for which we collected it.</p>
 
@@ -103,7 +103,7 @@
 
 			<li><strong>Agents:</strong> We employ other companies and people to perform tasks on our behalf and need to share your information with them to provide products or services to you. Examples may include sending postal mail and email, analyzing data, providing marketing assistance, providing search results and links (including paid listings and links), processing credit card payments, and providing customer service. Unless we tell you differently, YouSound’s agents do not have any right to use Personal Data we share with them beyond what is necessary to assist us. You hereby consent to our sharing of Personal Data for the above purposes.</li>
 
-			<li><strong>Verified Users:</strong> When you use certain functionality or services, we may provide certain Personal Data to Verified Users, such as your email address, country of residence and zip/postal code ("Fan Information"), and you can opt-in to be added to the relevant band’s mailing list. Verified Users are only authorized by us to use the Fan Information to send email to you and may not share, rent, or sell the information with others for any other purpose.</li>
+			<li><strong>Verified Users:</strong> When you use certain functionality or services, we may provide certain Personal Data to Verified Users, such as your email address, country of residence and zip/postal code ("Customer Information"), and you can opt-in to be added to the relevant band’s mailing list. Verified Users are only authorized by us to use the Customer Information to send email to you and may not share, rent, or sell the information with others for any other purpose.</li>
 
 			<li><strong>User profiles:</strong> User profile information including users’ name, email address, purchase history and other information you enter (“User Submissions”) may be displayed to other users in certain cases to facilitate user interaction within the Service. Email addresses are used to add new User Submissions to user profiles and to communicate through User Submissions. Users’ email addresses will not be directly revealed to other users by us, except, when the user is “connected” to another user via a shared group membership, or an invitation, or if the user has chosen to include their email address in their User Profile. You may designate certain User Submissions, including individual items in your purchase history, as private, in which case they will not be displayed to other users.</li>
 

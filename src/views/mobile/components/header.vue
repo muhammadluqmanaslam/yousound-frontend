@@ -106,6 +106,7 @@ export default {
     min-width: auto;
     margin: 0;
     right: 15px;
+    display: none;
     &__content {
       padding: 8px;
       &:before {

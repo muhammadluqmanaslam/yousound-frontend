@@ -12,13 +12,13 @@
 
     <h3>Procedure of Reporting Copyright Infringement.</h3>
 
-    <p>If you believe that material or content residing on or accessible through the Company Web site or service infringes an intellectual property right that you own or control, please use the form below to send a notice of claimed infringement.  Please note that you will be liable for damages, including costs and attorneys' fees, if you materially misrepresent that content or an activity is infringing your copyrights. Your communication must include all of the following items: </p>
+    <p>If you believe that material or content residing on or accessible through the Company Web site or service infringes an intellectual property right that you own or control, email copyright@yousound.com to send a notice of claimed infringement.  Please note that you will be liable for damages, including costs and attorneys' fees, if you materially misrepresent that content or an activity is infringing your copyrights. Your communication must include all of the following items: </p>
 
     <li>A physical or electronic signature of a person authorized to act on behalf of the owner of the work that has been allegedly infringed;</li>
 
-    <li>Identification of works or materials being infringed;</li>
+    <li>Identification of works or materials being infringed in the form of a URL on YouSound.com;</li>
 
-    <li> Identification of the material that is claimed to be infringing including information regarding the location of the infringing materials that the intellectual property owner seeks to have removed, with sufficient detail so that Company is capable of finding and verifying its existence;</li>
+    <li> Identification of the material that is claimed to be infringing including information regarding the location or time of the infringing materials that the intellectual property owner seeks to have removed, with sufficient detail so that Company is capable of finding and verifying its existence;</li>
 
     <li>Information reasonably sufficient to permit us to contact you, such as an address, telephone number, and, if available, an electronic mail address at which you may be contacted;</li>
 

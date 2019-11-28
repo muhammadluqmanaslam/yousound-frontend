@@ -1,12 +1,11 @@
 <template>
   <div class="main-section">
     <h2>Trademark Policy</h2>
-
     <p>Using a trademark without the trademark owner’s permission on the YouSound Services in a manner that may mislead or confuse others about who you are, or your brand affiliation, may violate YouSound’s Trademark Policy.</p>
 
     <h3>How To Report a Violation.</h3>
 
-    <p>When asserting a trademark violation, you should identify the allegedly infringing work and the legal basis for your claim, including the registration and/or application numbers for your trademark.  Specifically, please provide a report to copyright@yousound.com that includes the following information:</p>
+    <p>When asserting a trademark violation, you should identify the allegedly infringing work and the legal basis for your claim, including the registration and/or application numbers for your trademark. Please provide a report to trademark@yousound.com that includes the following information:</p>
 
     <li>Your contact information (name, email, address, telephone number, website)</li>
 
