@@ -19,8 +19,8 @@ import TwitterCallbackPage from '@/views/auth/twitter_callback'
 import TermsPage from '@/views/terms/index'
 import OverviewPage from '@/views/overview/index'
 import AdminPage from '@/views/admin/admin'
-import MainLandingPage from '@/views/home/main_landing'
-import Landing1Page from '@/views/home/landing'
+// import MainLandingPage from '@/views/home/main_landing'
+// import Landing1Page from '@/views/home/landing'
 import LandingPage from '@/views/landing/landing'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
@@ -60,7 +60,8 @@ Vue.use(Router)
 
 export function createRouter (settings) {
   let routes = [
-    { path: '/', name: 'MainLandingPage', component: MainLandingPage },
+    { path: '/', name: 'LandingPage', component: LandingPage },
+    // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
     // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/login', name: 'Login', component: Login },
@@ -95,8 +96,8 @@ export function createRouter (settings) {
   }
 
   routes = routes.concat([
-    { path: '/home1', name: 'LandingPage', component: Landing1Page },
-    { path: '/home', name: 'LandingPage', component: LandingPage },
+    // { path: '/home1', name: 'LandingPage', component: Landing1Page },
+    // { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/discover', name: 'Discover', component: Discover },
     { path: '/search', name: 'Search', component: SearchPage, props: (route) => ({query: route.query.q}) },
