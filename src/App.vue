@@ -1,6 +1,6 @@
 <template>
   <v-app id="app" standalone :class="{
-    'primary': $store.getters['navigator/isPrimaryTheme'],
+    //'primary': $store.getters['navigator/isPrimaryTheme'],
     'gray': $store.getters['navigator/isGrayTheme'],
     'normal': $store.getters['navigator/isNormalTheme'],
     'app-audio': $store.state.player.isPlaying,
