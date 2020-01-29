@@ -31,11 +31,9 @@
 
 :not(.btn):not(.menu):first-child {
   margin-left: 0;
+}
 
 :not(.btn):not(.menu):last-child {
   margin-right: 0;
 }
-
-}
-
 </style>

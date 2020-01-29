@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="section">
+      <!-- <div class="section">
         <div class="section__content">
           <section>
             <div>
@@ -53,7 +53,7 @@
             </div>
           </section>
         </div>
-      </div>
+      </div> -->
 
       <div class="section">
         <div class="section__content">
@@ -220,12 +220,12 @@ export default {
       }
     }
 
-    &:nth-child(3) {
-      background: url('/static/images/bg_land_videos.jpg') no-repeat center center;
-      background-size: cover;
-    }
+    // &:nth-child(3) {
+    //  background: url('/static/images/bg_land_videos.jpg') no-repeat center center;
+    //  background-size: cover;
+    // }
 
-    &:nth-child(4) {
+    &:nth-child(3) {
       background-image: linear-gradient(#5155FF, #62A3FF);
       section {
         background-image: url('/static/images/img_land_artists.png');

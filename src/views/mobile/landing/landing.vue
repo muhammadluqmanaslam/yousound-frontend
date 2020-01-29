@@ -5,7 +5,7 @@
       <v-tabs-bar>
         <v-tabs-item href="#tab-1">1</v-tabs-item>
         <v-tabs-item href="#tab-2">2</v-tabs-item>
-        <v-tabs-item href="#tab-3">3</v-tabs-item>
+        <!-- <v-tabs-item href="#tab-3">3</v-tabs-item> -->
         <v-tabs-item href="#tab-4">4</v-tabs-item>
       </v-tabs-bar>
 
@@ -22,7 +22,7 @@
                 </h3>
               </div>
               <div class="section__footer">
-                <stepper :step-size="4" :active-index="1"></stepper>
+                <stepper :step-size="3" :active-index="1"></stepper>
                 <v-btn @click.native="nextTab">
                   Next
                   <v-icon>arrow_forward</v-icon>
@@ -44,7 +44,7 @@
                 </h3>
               </div>
               <div class="section__footer">
-                <stepper :step-size="4" :active-index="2"></stepper>
+                <stepper :step-size="3" :active-index="2"></stepper>
                 <v-btn @click.native="nextTab">
                   Next
                   <v-icon>arrow_forward</v-icon>
@@ -54,7 +54,7 @@
           </div>
         </v-tabs-content>
 
-        <v-tabs-content id="tab-3">
+        <!-- <v-tabs-content id="tab-3">
           <div class="section-wrapper step-3">
             <div class="section">
               <div class="section__image"></div>
@@ -73,7 +73,7 @@
               </div>
             </div>
           </div>
-        </v-tabs-content>
+        </v-tabs-content> -->
 
         <v-tabs-content id="tab-4">
           <div class="section-wrapper step-4">
@@ -86,7 +86,7 @@
                 </h3>
               </div>
               <div class="section__footer">
-                <stepper :step-size="4" :active-index="4"></stepper>
+                <stepper :step-size="3" :active-index="4"></stepper>
                 <img src="/static/images/img_download_ios.svg">
               </div>
             </div>
@@ -116,7 +116,7 @@ export default {
   data () {
     return {
       activeTab: 'tab-1',
-      tabs: ['tab-1', 'tab-2', 'tab-3', 'tab-4'],
+      tabs: ['tab-1', 'tab-2', 'tab-4'],
       showMenu: false
     }
   },
