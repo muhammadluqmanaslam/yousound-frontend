@@ -54,9 +54,9 @@ export default {
       return
     }
 
-    if (this.currentUser.data['stream_page_visited'] !== 1) {
-      this.openHelpDialog()
-    }
+    // if (this.currentUser.data['stream_page_visited'] !== 1) {
+    //   this.openHelpDialog()
+    // }
 
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
