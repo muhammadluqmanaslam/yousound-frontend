@@ -184,16 +184,11 @@
                 <label>Main Landing</label>
               </v-list-tile-title>
             </v-list-tile>
-            <v-list-tile key="landing1" to="/home1">
-              <v-list-tile-title class="profile-menu-item">
-                <label>Landing 1</label>
-              </v-list-tile-title>
-            </v-list-tile> -->
             <v-list-tile key="landing" to="/home">
               <v-list-tile-title class="profile-menu-item">
                 <label>Landing</label>
               </v-list-tile-title>
-            </v-list-tile>
+            </v-list-tile> -->
             <v-list-tile
               v-if="['listener', 'artist', 'label'].indexOf(currentUser.user_type) > -1"
               key="payments"
@@ -229,7 +224,7 @@
                 <v-list-tile-sub-title>Become an Artist, Brand, or Label</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile key="support" @click="">
+            <v-list-tile key="support" @click="goSupport">
               <v-list-tile-content>
                 <v-list-tile-title>Support</v-list-tile-title>
                 <v-list-tile-sub-title>Help docs</v-list-tile-sub-title>

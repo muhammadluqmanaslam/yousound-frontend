@@ -15,6 +15,7 @@
         <div><label>iOS App</label></div>
         <div><label>Support</label></div>
       </div>
+      <v-spacer></v-spacer>
       <div class="ml-5">
         <img src="/static/images/img_download_ios.svg" height="48">
       </div>

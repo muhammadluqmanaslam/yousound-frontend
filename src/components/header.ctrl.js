@@ -65,6 +65,10 @@ export default {
       this.$router.push({ path: '/search', query: { q: keyword } })
     },
 
+    goSupport () {
+      window.open('//support.yousound.com', '_blank')
+    },
+
     signOut () {
       // const _user = _.cloneDeep(this.$store.state.auth.user)
       AuthService.signout()
