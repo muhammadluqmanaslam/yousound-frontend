@@ -289,7 +289,11 @@ export default {
         this.getItems(this.active_tab, false)
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        this.$store.dispatch('error/showErrorToast', ["User does not exist"])
+        setTimeout(() => {
+          this.$router.push({ path: '/discover' })
+        }, 5000)
       })
     },
 
