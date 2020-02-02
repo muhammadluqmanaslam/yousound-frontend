@@ -240,7 +240,7 @@ export default {
           const filesize = fileList[x].size / 1024 / 1024
           var filename = fileList[x].name
           if (filename.toLowerCase().endsWith(this.accept)) {
-            if (filesize <= 100) {
+            if (filesize <= 300) {
               const formData = new FormData()
               formData.append('track[name]', fileList[x].name)
               formData.append('track[description]', fileList[x].name)
