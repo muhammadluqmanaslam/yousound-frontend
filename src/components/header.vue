@@ -156,9 +156,9 @@
                 v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1"
                 @click="$router.push(`/user/${currentUser.slug}/video`)"
               >Live Video</label>
-              <label
+              <!-- <label
                 @click="$router.push(`/user/${currentUser.slug}/chat`)"
-              >Chat</label>
+              >Chat</label> -->
             </v-list-tile>
             <v-divider></v-divider>
             <v-list-tile key="manage" to="/albums" v-if="currentUser.user_type=='artist'">

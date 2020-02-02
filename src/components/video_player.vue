@@ -279,30 +279,8 @@
           </div>
         </div>
 
-        <div class="chat-sector">
+        <!-- <div class="chat-sector">
           <div class="chat-sector__content">
-            <!-- <div class="media">
-              <div class="media__image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"></div>
-              <div class="media__content">
-                <div class="media__title"><strong>{{ currentUser.display_name }}</strong><span>Today 9:00 AM</span></div>
-                <div class="media__description">Wow! Love this track</div>
-              </div>
-            </div>
-            <div class="media">
-              <div class="media__image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"></div>
-              <div class="media__content">
-                <div class="media__title"><strong>{{ currentUser.display_name }}</strong><span>Today 9:03 AM</span></div>
-                <div class="media__description">Has Joined</div>
-              </div>
-            </div>
-            <div class="media">
-              <div class="media__image" :style="{'background-image': 'url(' + currentUser.avatar.thumb.url + ')'}"></div>
-              <div class="media__content">
-                <div class="media__title"><strong>{{ currentUser.display_name }}</strong><span>Today 9:04 AM</span></div>
-                <div class="media__description">DAAAMN BOY!</div>
-              </div>
-            </div> -->
-
             <div
               v-for="message in reverseMessages"
               :key="`vp-chat-${message.id}`"
@@ -387,7 +365,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <merch-modal
           v-if="show_merch_modal"
