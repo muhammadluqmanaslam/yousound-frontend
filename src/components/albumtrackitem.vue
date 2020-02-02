@@ -14,7 +14,11 @@
     <label class="track-name" @click.self="selectTrack()">
       <span class="track-index">{{ trackIndex + 1 }}. </span>
       <span>{{ track.name }}</span>
-      <span v-if="album.album_type == 'playlist'" class="track-user-name"> - {{ track.user.display_name }}</span>
+      <router-link
+        v-if="album.album_type == 'playlist'"
+        class="track-user-name"
+        :to = "`/${track.user.slug}`"
+      > - {{ track.user.display_name }}</router-link>
     </label>
     <div class="right-section">
       <v-menu v-model="menu"
