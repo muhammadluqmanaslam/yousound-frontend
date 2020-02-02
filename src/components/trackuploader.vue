@@ -238,36 +238,40 @@ export default {
         .from(Array(fileList.length).keys())
         .map(x => {
           const filesize = fileList[x].size / 1024 / 1024
-          if (filesize <= 100) {
-            const formData = new FormData()
-            formData.append('track[name]', fileList[x].name)
-            formData.append('track[description]', fileList[x].name)
-            formData.append('track[audio]', fileList[x])
-            var filename = fileList[x].name
-            filename = filename.replace('.mp3', '')
-            filename = filename.replace('.wav', '')
-            filename = filename.replace('.wma', '')
-            filename = filename.replace('.ogg', '')
-            var file = {
-              editing: false,
-              status: vm.status.uploading,
-              file_name: filename,
-              new_name: '',
-              formData: formData
+          var filename = fileList[x].name
+          if (filename.toLowerCase().endsWith(this.accept)) {
+            if (filesize <= 100) {
+              const formData = new FormData()
+              formData.append('track[name]', fileList[x].name)
+              formData.append('track[description]', fileList[x].name)
+              formData.append('track[audio]', fileList[x])
+              filename = filename.replace('.mp3', '')
+              filename = filename.replace('.wav', '')
+              filename = filename.replace('.wma', '')
+              filename = filename.replace('.ogg', '')
+              var file = {
+                editing: false,
+                status: vm.status.uploading,
+                file_name: filename,
+                new_name: '',
+                formData: formData
+              }
+              vm.album.tracks.push(file)
+              if (vm.autoUpload) {
+                vm.saveTrack(file)
+              }
+            } else {
+              this.$store.dispatch('error/showErrorToast', [fileList[x].name + ' size is over 100MB.'])
             }
-            vm.album.tracks.push(file)
-            if (vm.autoUpload) {
-              vm.saveTrack(file)
-            }
-          } else {
-            this.$store.dispatch('error/showErrorToast', [fileList[x].name + ' size is over 100MB.'])
           }
         })
 
       setTimeout(function () {
-        $('html, body').animate({
-          scrollTop: $('#track_list').offset().top - 37.5
-        }, 700)
+        if ($('#track_list').length) {
+          $('html, body').animate({
+            scrollTop: $('#track_list').offset().top - 37.5
+          }, 700)
+        }
       }, 100)
     },
 
