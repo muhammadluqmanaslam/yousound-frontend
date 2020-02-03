@@ -52,7 +52,7 @@
                 </v-btn> -->
                 <div slot="activator" class="genre-filter py-3">
                   <span>{{ selectedGenreName }}</span>
-                  <v-icon dark right>keyboard_arrow_down</v-icon>
+                  <v-icon right>keyboard_arrow_down</v-icon>
                 </div>
                 <v-list>
                   <v-list-tile

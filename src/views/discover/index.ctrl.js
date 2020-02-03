@@ -21,7 +21,7 @@ export default {
       tabs: [
         { id: 'recommended', title: 'Recommended' },
         { id: 'new', title: 'Albums' },
-        { id: 'playlist', title: 'Playlists' },
+        // { id: 'playlist', title: 'Playlists' },
         { id: 'merch', title: 'Shop' }
       ],
       seed: '',
