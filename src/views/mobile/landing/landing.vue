@@ -27,6 +27,7 @@
                   Next
                   <v-icon>arrow_forward</v-icon>
                 </v-btn>
+                <mobile-footer/>
               </div>
             </div>
           </div>
@@ -49,6 +50,7 @@
                   Next
                   <v-icon>arrow_forward</v-icon>
                 </v-btn>
+                <mobile-footer/>
               </div>
             </div>
           </div>
@@ -89,6 +91,7 @@
                 <stepper :step-size="3" :active-index="4"></stepper>
                 <img src="/static/images/img_download_ios.svg">
               </div>
+              <mobile-footer/>
             </div>
           </div>
         </v-tabs-content>
@@ -103,12 +106,14 @@
 
 <script>
 import mobileHeader from '@/views/mobile/components/header'
+import mobileFooter from '@/views/mobile/components/footer'
 import mobileMenu from '@/views/mobile/components/menu'
 import stepper from './components/stepper'
 
 export default {
   components: {
     mobileHeader,
+    mobileFooter,
     mobileMenu,
     stepper
   },
@@ -170,6 +175,7 @@ export default {
     }
 
     &__footer {
+      position: relative;
       height: 180px;
       flex: 0 0 auto;
       .step-container {
@@ -247,6 +253,15 @@ export default {
   }
 
   .header-container {}
+
+  .footer-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /deep/ a {
+      color: #ffffff;
+    }
+  }
 }
 
 @media (min-width: 320px) {
@@ -257,7 +272,7 @@ export default {
   }
 
   .mobile-page .section .btn {
-  font-size: 14px;
+    font-size: 14px;
   }
 
   .mobile-page .section__footer img {

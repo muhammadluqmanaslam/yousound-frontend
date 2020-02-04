@@ -6,14 +6,14 @@
       </div>
       <div class="ml-5">
         <div style="cursor: pointer;"><a href="#"><label>Company</label></a></div>
-        <div><label>Blog</label></div>
-        <div><label>Investors</label></div>
-        <div><label>Jobs</label></div>
+        <div><router-link to="/">Blog</router-link></div>
+        <div><router-link to="/">Investors</router-link></div>
+        <div><router-link to="/">Jobs</router-link></div>
       </div>
       <div class="ml-5">
         <div><label>Quick Links</label></div>
-        <div><label>iOS App</label></div>
-        <div><label>Support</label></div>
+        <div><router-link to="/">iOS App</router-link></div>
+        <div><router-link to="/">Support</router-link></div>
       </div>
       <v-spacer></v-spacer>
       <div class="ml-5">
