@@ -11,6 +11,10 @@ const getters = {
     return _.get(state.settings, 'disable_live_video', false)
   },
 
+  disabledVerification: (state) => {
+    return _.get(state.settings, 'disable_verification', false)
+  },
+
   digitalCategoryIds: (state) => {
     // return _.chain(state.product_categories).find((c) => (c.name === 'Digital Product')).get('id', null).value()
     return _.chain(state.product_categories).filter((c) => (c.is_digital)).map('id').value()

@@ -14,6 +14,12 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap class="setting-row">
+      <v-flex xs12 sm6><label class="setting-cell-text">Disable Verification</label></v-flex>
+      <v-flex xs12 sm6 class="text-xs-right">
+        <v-switch hide-details class="setting-cell-switch" label="" :input-value="settings.disable_verification" @change="updateSetting('disable_verification')"></v-switch>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap class="setting-row">
       <v-flex xs12 sm6><label class="setting-cell-text">Disable Live Video</label></v-flex>
       <v-flex xs12 sm6 class="text-xs-right">
         <v-switch hide-details class="setting-cell-switch" label="" :input-value="settings.disable_live_video" @change="updateSetting('disable_live_video')"></v-switch>

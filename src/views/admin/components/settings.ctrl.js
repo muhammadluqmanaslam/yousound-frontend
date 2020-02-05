@@ -11,6 +11,7 @@ export default {
       settings: {
         disable_sign_up: false,
         disable_live_video: false,
+        disable_verification: false,
         disable_merch_upload: false
       },
       message: '',

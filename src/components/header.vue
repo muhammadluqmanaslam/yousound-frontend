@@ -147,7 +147,10 @@
                 <v-list-tile-sub-title>View Profile</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile class="chat">
+            <v-list-tile
+              v-if="currentUser.user_type=='artist' || (!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1)"
+              class="chat"
+            >
               <label
                 v-if="currentUser.user_type=='artist'"
                 @click="$router.push(`/upload/album`)"
@@ -215,7 +218,7 @@
               </v-list-tile-content>
             </v-list-tile> -->
             <v-list-tile
-              v-if="currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(currentUser.request_role) == -1"
+              v-if="!$store.getters['app/disabledVerification'] && currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(currentUser.request_role) == -1"
               key="verified"
               @click="openTwitterConfirmDialog()"
             >
