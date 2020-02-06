@@ -209,7 +209,7 @@
         </div>
       </div>
 
-      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="currentUser">
+      <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-comment-page v-if="false && currentUser">
         <h4 class="comment-title">Talk to {{ album.user.display_name }}</h4>
         <label class="description">Comments are only seen by the artist and people you @mention, unless artist makes your comment public.</label>
         <div class="comments-section">
