@@ -22,7 +22,14 @@ export default {
   },
 
   created () {
-    console.log('login created')
+    let myAlert = null
+    try {
+      myAlert = JSON.parse(atob(this.$route.query['alert']))
+    } catch (e) {
+      myAlert = null
+    }
+    console.log('login created', myAlert)
+
     if (AuthService.isAuthenticated()) {
       this.$router.push({ path: '/discover' })
       return
@@ -34,6 +41,17 @@ export default {
       this.user.password = user.password
     }
     this.$store.dispatch('navigator/goNextState', { page: 'login', tab: '' })
+
+    if (myAlert) {
+      switch (myAlert.type) {
+        case 'success':
+          this.$store.dispatch('error/showSuccessToast', myAlert.messages)
+          break
+        case 'error':
+          this.$store.dispatch('error/showErrorToast', myAlert.messages)
+          break
+      }
+    }
 
     this.$nextTick(() => {
       console.log('after video-player beforeDestroy ???')
