@@ -361,6 +361,7 @@ export default {
       }
       formData.append('album[track_ids]', track_ids)
       formData.append('album[genre_ids]', genre_ids)
+      // #TODO pass null when no selection
       formData.append('album[product_ids]', product_ids)
       formData.append('album[collaborators]', JSON.stringify(this.collaborators))
       formData.append('album[contributors]', JSON.stringify(this.contributors))

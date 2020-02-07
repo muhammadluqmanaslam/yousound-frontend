@@ -23,7 +23,7 @@ export default {
       isNeededToRelease: false,
       genres: [],
       products: [],
-      selected_products: null,
+      selected_product: null,
       album: {
         name: '',
         released_at: null,
@@ -305,9 +305,8 @@ export default {
       formData.append('album[cover]', this.album.image)
       formData.append('album[track_ids]', track_ids)
       formData.append('album[genre_ids]', genre_ids)
-      if (this.selected_products !== null && this.selected_products.length > 0) {
-        formData.append('album[product_ids]', this.selected_products)
-      }
+      // #TODO pass null when no selection
+      formData.append('album[product_ids]', this.selected_product)
       formData.append('album[collaborators]', JSON.stringify(this.collaborators))
       formData.append('album[contributors]', JSON.stringify(this.contributors))
 

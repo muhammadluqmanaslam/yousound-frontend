@@ -118,7 +118,7 @@
                 <label class="control-label">Product</label>
                 <v-select
                   v-bind:items="products"
-                  v-model="selected_products"
+                  v-model="selected_product"
                   item-text="name"
                   item-value="id"
                   chips
