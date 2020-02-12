@@ -6,7 +6,7 @@
           <h2 class="page-title">Settings</h2>
           <ul>
             <li
-              v-for="tab in tabs"
+              v-for="tab in availableTabs"
               :key="tab.id"
               :href="`#${tab.id}`"
               :class="{active: isActiveTab(tab.id)}"

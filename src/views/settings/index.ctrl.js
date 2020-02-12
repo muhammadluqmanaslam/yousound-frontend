@@ -37,7 +37,7 @@ export default {
         { id: 'shipping-address', title: 'Shipping Address' },
         { id: 'blocked', title: 'Blocked' },
         { id: 'seller-policies', title: 'Seller Policies' },
-        { id: 'verify-status', title: 'Verification Status' }
+        // { id: 'verify-status', title: 'Verification Status' }
       ],
       active_tab: 'info',
       profile: {
@@ -68,6 +68,14 @@ export default {
 
     stripeLink () {
       return `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.STRIPE_CONNECT_CLIENT_ID}&scope=read_write&state=${this.$store.state.auth.secret_code}`
+    },
+
+    availableTabs () {
+      if (['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1) {
+        return _.concat(this.tabs, { id: 'verify-status', title: 'Verification Status' })
+      } else  {
+        return this.tabs
+      }
     }
   },
 
