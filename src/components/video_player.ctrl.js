@@ -42,6 +42,8 @@ export default {
     return {
       player: null,
       time: 0,
+      latency_time: 10,
+      latency_time_interval: null,
       show_payment_dialog: false,
       show_streaming_confirm_dialog: false,
       show_stream_delete_confirm_dialog: false,
@@ -126,6 +128,15 @@ export default {
 
     showAttachButton () {
       return this.stream && ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1
+    },
+
+    /* add latency on playing video confirmation dialog */
+    enabledPlaying () {
+      return this.latency_time <=  0
+    },
+
+    latencyTime () {
+      return this.enabledPlaying ? '' : ` (${this.latency_time})`
     },
 
     followButtonText () {
@@ -541,7 +552,17 @@ export default {
     },
 
     openStreamingConfirmDialog () {
+      this.latency_time = 10
       this.show_streaming_confirm_dialog = true
+
+      const vm = this
+      vm.latency_time_interval = setInterval(() => {
+        vm.latency_time--
+        if (vm.enabledPlaying) {
+          clearInterval(vm.latency_time_interval)
+          vm.latency_time_interval = null
+        }
+      }, 1000)
     },
 
     closeStreamingConfirmDialog () {

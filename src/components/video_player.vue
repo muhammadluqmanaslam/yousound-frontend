@@ -491,7 +491,12 @@
             <div>Video will enter full screen mode, press ESC to minimize to minimize.</div>
           </v-card-text>
           <v-card-actions>
-            <v-btn dark color="green" @click="onClick">Yes</v-btn>
+            <v-btn
+              :class="{ 'theme--dark': enabledPlaying }"
+              color="green"
+              @click="onClick"
+              :disabled="!enabledPlaying"
+            >Yes{{ latencyTime }}</v-btn>
             <v-btn dark color="grey" @click.native="closeStreamingConfirmDialog()">No</v-btn>
           </v-card-actions>
         </v-card>

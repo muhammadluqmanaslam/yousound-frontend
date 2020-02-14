@@ -35,13 +35,13 @@
   }
 
   .btn:not(.btn--depressed) {
-    border-radius: 30px!important;
-    margin-left: 0;
     float: left !important;
+    margin-left: 0;
+    // padding-top: 14px;
+    // padding-bottom: 14px;
+    border-radius: 30px!important;
     color: #fff !important;
     font-size: 16px;
-    padding-top: 14px;
-    padding-bottom: 14px;
     font-weight: 700;
   }
 
