@@ -8,11 +8,21 @@
       class="track-info"
     >
       <v-flex xs12 class="track-cover">
-        <div class="playlist-icon" v-if="item.album_type=='playlist'">
-          <img src="/static/images/playlist.png" />
-        </div>
-        <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
-        <!-- <div class="track-image" v-lazy:background-image="item.cover.url"></div> -->
+        <template v-if="item.album_type=='playlist'">
+          <div class="playlist-icon">
+            <img src="/static/images/playlist.png" />
+          </div>
+          <div
+            class="track-image"
+            :class="item.album_type"
+            :style="{'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`}"
+          ></div>
+        </template>
+        <template v-else>
+          <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
+          <!-- <div class="track-image" v-lazy:background-image="item.cover.url"></div> -->
+        </template>
+
         <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
           <router-link :to="`/${item.album_type}/${item.slug}`">
             <v-flex xs12 class="touch-flex"></v-flex>
@@ -233,7 +243,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text class="create-playlist-section">
-          <div class="playlist-image-section">
+          <!-- <div class="playlist-image-section">
             <div class="image-section">
               <div class="playlist-image" id="playlist_image" v-if="playlist.image" :style="`background-image: url(${selectedImage})`"></div>
               <div class="playlist-image-upload-section" v-if="!playlist.image">
@@ -247,16 +257,16 @@
               <input type="file" name="playlist_image_file" :id="input_id" class="change-playlist-image-file" accept="image/*" @change="imageChanged($event)">
               <label :for="input_id">Change</label>
             </div>
-          </div>
-          <div class="playlist-content-section">
+          </div> -->
+          <v-layout row wrap>
             <v-flex xs12 form-group>
               <label class="control-label">Name<label class="required">*</label></label>
               <input type="text" class="form-control" v-model="playlist.name">
             </v-flex>
-            <v-flex xs12 sm12 form-group>
-              <v-btn class="create-playlist-btn" flat @click.native="createPlaylist()">Create Playlist</v-btn>
+            <v-flex xs12 form-group text-xs-center>
+              <v-btn dark round color="blue" @click.native="createPlaylist()">Create Playlist</v-btn>
             </v-flex>
-          </div>
+          </v-layout>
         </v-card-text>
       </v-card>
     </v-dialog>

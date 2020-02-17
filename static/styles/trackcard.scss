@@ -36,6 +36,10 @@
         border: none;
         background-color: #f3f3f3;
       }
+      .track-image.playlist {
+        background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+        background-size: 50% 50%;
+      }
       .track-actions {
         width: 100%;
         height: 100%;

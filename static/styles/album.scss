@@ -433,6 +433,10 @@ p {
           background-size: cover;
           overflow: hidden;
           background-position: center;
+          &.playlist {
+            background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+            background-size: 50% 50%;
+          }
         }
         .album-hover-section {
           width: 400px;

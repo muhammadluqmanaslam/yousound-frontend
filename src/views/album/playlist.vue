@@ -6,7 +6,10 @@
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="album-pages" v-if="playlist">
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
-          <div class="album-image" :style="{'background-image': 'url(' + coverImageURL + ')'}"> </div>
+          <div
+            class="album-image playlist"
+            :style="{'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`}"
+          ></div>
           <div class="album-hover-section">
             <div class="play-button-section">
               <v-btn dark class="play-button" @click.native="playSong()" v-if="!isPlaying || $store.state.player.isPaused">
@@ -39,7 +42,7 @@
                     <v-icon>highlight_off</v-icon>
                   </v-btn>
                   <v-card-text class="create-playlist-section">
-                    <div class="playlist-image-section">
+                    <!-- <div class="playlist-image-section">
                       <div class="image-section">
                         <div class="playlist-image" id="playlist_image" v-if="selectedImage" :style="`background-image: url(${selectedImage})`"></div>
                         <div class="playlist-image-upload-section" v-if="!selectedImage">
@@ -53,17 +56,17 @@
                         <input type="file" name="playlist_image_file" :id="input_id" class="change-playlist-image-file" accept="image/*" @change="imageChanged($event)">
                         <label :for="input_id">Change</label>
                       </div>
-                    </div>
-                    <div class="playlist-content-section">
+                    </div> -->
+                    <v-layout row wrap>
                       <v-flex xs12 form-group>
                         <label class="control-label">Name<label class="required">*</label></label>
                         <input type="text" class="form-control" v-model="playlist.name">
                       </v-flex>
-                      <v-flex xs12 sm12 form-group>
-                        <v-btn class="create-playlist-btn" flat @click.native="updatePlaylist()">Update Playlist</v-btn>
-                        <v-btn class="create-playlist-btn delete-playlist-btn" flat @click.native="deletePlaylist()">Delete Playlist</v-btn>
+                      <v-flex xs12 form-group text-xs-center>
+                        <v-btn dark round color="blue" @click.native="updatePlaylist()">Update Playlist</v-btn>
+                        <v-btn dark round color="red" @click.native="deletePlaylist()">Delete Playlist</v-btn>
                       </v-flex>
-                    </div>
+                    </v-layout>
                   </v-card-text>
                 </v-card>
               </v-dialog>

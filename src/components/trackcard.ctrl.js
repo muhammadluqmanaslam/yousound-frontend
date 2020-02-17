@@ -113,6 +113,22 @@ export default {
       return false
     },
 
+    album1Cover () {
+      return _.get(this.item.tracks, '[0].album.cover.url')
+    },
+
+    album2Cover () {
+      return _.get(this.item.tracks, '[1].album.cover.url')
+    },
+
+    album3Cover () {
+      return _.get(this.item.tracks, '[2].album.cover.url')
+    },
+
+    album4Cover () {
+      return _.get(this.item.tracks, '[3].album.cover.url')
+    },
+
     input_id () {
       return 'playlist_image_file_' + this.item.slug + '_' + parseInt((Math.random() * 999999))
     },
@@ -238,33 +254,29 @@ export default {
 
     createPlaylist () {
       if (this.playlist.name.replace(' ', '').length > 0) {
-        if (this.playlist.image !== null) {
-          const params = new FormData()
-          params.append('name', this.playlist.name)
-          params.append('description', this.playlist.name)
-          if (this.playlist.image) {
-            params.append('cover', this.playlist.image)
-          }
-          // params.append('assoc_id', this.item.id)
-          // params.append('assoc_type', 'Album')
-          params.append('assoc_id', this.item.tracks[0].id)
-          params.append('assoc_type', 'Track')
-          this.$store.dispatch('error/showLoadingActivity', true)
-          PlaylistService.createPlaylist(params).then(response => {
-            this.playlist_dialog = false
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showSuccessToast', ['Added the album to New Playlist '])
+        const params = new FormData()
+        params.append('name', this.playlist.name)
+        params.append('description', this.playlist.name)
+        // if (this.playlist.image) {
+        //   params.append('cover', this.playlist.image)
+        // }
+        // params.append('assoc_id', this.item.id)
+        // params.append('assoc_type', 'Album')
+        params.append('assoc_id', this.item.tracks[0].id)
+        params.append('assoc_type', 'Track')
+        this.$store.dispatch('error/showLoadingActivity', true)
+        PlaylistService.createPlaylist(params).then(response => {
+          this.playlist_dialog = false
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Added the album to New Playlist '])
 
-            PlaylistService.getPlaylists().then(response => {
-              this.$store.dispatch('playlist/setPlaylists', response.body)
-            })
-          }).catch(e => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          PlaylistService.getPlaylists().then(response => {
+            this.$store.dispatch('playlist/setPlaylists', response.body)
           })
-        } else {
-          this.$store.dispatch('error/showErrorToast', ['Please add Playlist cover.'])
-        }
+        }).catch(e => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        })
       } else {
         this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
       }

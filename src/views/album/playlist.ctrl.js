@@ -90,6 +90,22 @@ export default {
         _.get(this.$store.state.player.list[this.$store.state.player.listIndex], 'id') === this.playlist.id
     },
 
+    album1Cover () {
+      return _.get(this.playlist.tracks, '[0].album.cover.url')
+    },
+
+    album2Cover () {
+      return _.get(this.playlist.tracks, '[1].album.cover.url')
+    },
+
+    album3Cover () {
+      return _.get(this.playlist.tracks, '[2].album.cover.url')
+    },
+
+    album4Cover () {
+      return _.get(this.playlist.tracks, '[3].album.cover.url')
+    },
+
     input_id () {
       return 'playlist_image_file_' + this.playlist.slug + '_' + parseInt((Math.random() * 999999))
     }
@@ -314,26 +330,22 @@ export default {
 
     updatePlaylist () {
       if (this.playlist.name.replace(' ', '').length > 0) {
-        if (this.playlist.image !== null) {
-          const params = new FormData()
-          params.append('name', this.playlist.name)
-          params.append('description', this.playlist.name)
-          if (this.playlist.image) {
-            params.append('cover', this.playlist.image)
-          }
-          this.$store.dispatch('error/showLoadingActivity', true)
-          PlaylistService.updatePlaylist(this.playlist.id, params).then(response => {
-            this.playlist_dialog = false
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showSuccessToast', ['Updated Playlist '])
-            this.getPlaylist(this.playlist.slug)
-          }).catch(e => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          })
-        } else {
-          this.$store.dispatch('error/showErrorToast', ['Please add Playlist cover.'])
-        }
+        const params = new FormData()
+        params.append('name', this.playlist.name)
+        params.append('description', this.playlist.name)
+        // if (this.playlist.image) {
+        //   params.append('cover', this.playlist.image)
+        // }
+        this.$store.dispatch('error/showLoadingActivity', true)
+        PlaylistService.updatePlaylist(this.playlist.id, params).then(response => {
+          this.playlist_dialog = false
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Updated Playlist '])
+          this.getPlaylist(this.playlist.slug)
+        }).catch(e => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        })
       } else {
         this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
       }
