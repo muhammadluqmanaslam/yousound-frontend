@@ -2,7 +2,16 @@
   <v-layout row wrap class="bottom-player" v-if="$store.getters['player/isPlaying']">
     <v-flex xs12 sm4 md4 class="track-detail-section">
       <router-link :to="`/${item.album_type}/${item.slug}`">
-        <div class="track-cover-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
+        <template v-if="item.album_type=='playlist'">
+          <div
+            class="track-cover-image"
+            :class="item.album_type"
+            :style="{'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`}"
+          ></div>
+        </template>
+        <template v-else>
+          <div class="track-cover-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
+        </template>
       </router-link>
       <div class="track-info-section">
         <div class="track-info">

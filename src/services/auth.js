@@ -81,9 +81,9 @@ export default {
 
   setTokenAndUserInfo (user) {
     localStorage.setItem(ACCESS_TOKEN_KEY, user.token)
-    localStorage.setItem(USER_HMAC, user.hmac)
     $store.dispatch('auth/setToken', user.token)
-    $store.dispatch('auth/setHMAC', user.hmac)
+    // localStorage.setItem(USER_HMAC, user.hmac)
+    // $store.dispatch('auth/setHMAC', user.hmac)
     this.setUser(user)
   },
 

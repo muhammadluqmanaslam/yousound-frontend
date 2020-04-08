@@ -13,11 +13,16 @@
       height: 75px;
       margin: 7.5px;
       display: inline-block;
+      background-color: rgba(0, 0, 0, 0.1);
       background-size: cover;
       vertical-align: middle;
       overflow: hidden;
       /* Sketch doesnt export pattern fills at this point */
       border-radius: 7.5px;
+    }
+    .track-cover-image.playlist {
+      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      background-size: 50% 50%;
     }
     .track-info-section {
       position: absolute;

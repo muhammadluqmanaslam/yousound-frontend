@@ -70,6 +70,22 @@ export default {
       }
     },
 
+    album1Cover () {
+      return _.get(this.item.tracks, '[0].album.cover.url')
+    },
+
+    album2Cover () {
+      return _.get(this.item.tracks, '[1].album.cover.url')
+    },
+
+    album3Cover () {
+      return _.get(this.item.tracks, '[2].album.cover.url')
+    },
+
+    album4Cover () {
+      return _.get(this.item.tracks, '[3].album.cover.url')
+    },
+
     followButtonText () {
       if (this.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
