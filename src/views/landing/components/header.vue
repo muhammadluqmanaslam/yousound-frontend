@@ -17,7 +17,6 @@
   &__title {
     img {
       height: 28px;
-
     }
   }
   &__items {
