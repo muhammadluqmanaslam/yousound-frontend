@@ -22,7 +22,7 @@
                 dark
                 class="action-btn"
                 @click.native="publishButtonAction(album)"
-              >Make Publish</v-btn>
+              >Make Public</v-btn>
               <v-btn
                 v-if="videoOnlyButtonAction"
                 dark

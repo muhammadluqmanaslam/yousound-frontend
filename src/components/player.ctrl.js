@@ -217,14 +217,15 @@ export default {
       this.index = index
       this.$store.dispatch('player/setTrackIndex', index)
 
-      if (this.index > 0 && this.index % this.reminderTracksCount == 0) {
-        PaymentService.hasTransactionInPeriod().then(res => {
-          if (res.body != true) {
-            this.showReminder = true
-            setTimeout(() => { this.showReminder = false }, 5000)
-          }
-        })
-      }
+      /// Show the reminder on the audio player
+      // if (this.index > 0 && this.index % this.reminderTracksCount == 0) {
+      //   PaymentService.hasTransactionInPeriod().then(res => {
+      //     if (res.body != true) {
+      //       this.showReminder = true
+      //       setTimeout(() => { this.showReminder = false }, 5000)
+      //     }
+      //   })
+      // }
     },
 
     /**
