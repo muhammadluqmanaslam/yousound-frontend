@@ -39,6 +39,10 @@ export default {
       return this.user.request_status == 'denied'
     },
 
+    gotApproved () {
+      return this.user.request_status == 'accepted'
+    },
+
     country_options () {
       return Countries
     },

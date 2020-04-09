@@ -6,19 +6,19 @@
         <div class="user-info-section">
           <div class="info-section">
             <label class="user-name">{{ user.display_name }}</label>
-            <label class="denied-status">{{ user.request_status }}</label>
+            <label class="denied-status" :class="user.request_status">{{ user.request_status }}</label>
           </div>
         </div>
       </div>
 
       <div class="link-section border-bottom mx-3 py-2">
         <label>Verified By: </label>
-        <span>Morderator Name</span>
+        <span>{{ user.approver.display_name }}</span>
         <label class="pl-4">Date Verified: </label>
-        <span>Jan 21, 2018</span>
+        <span>{{ user.approved_at | formatDate }}</span>
       </div>
 
-      <v-layout row wrap class="about-section border-bottom mx-3 pt-3">
+      <v-layout v-if="!gotApproved" row wrap class="about-section border-bottom mx-3 pt-3">
         <v-flex xs12 sm12>
           <label>Reasons For Denial</label>
           <p class="link-title">{{ user.denial_reason }}</p>
