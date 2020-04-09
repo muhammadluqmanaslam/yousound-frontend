@@ -141,14 +141,19 @@ export default {
     },
 
     createPlaylist () {
+      if (this.playlist.name == '') {
+        this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
+        return
+      }
+
       this.playlist_dialog = false
 
       const params = new FormData()
       params.append('name', this.playlist.name)
       params.append('description', this.playlist.name)
-      if (this.playlist.image) {
-        params.append('cover', this.playlist.image)
-      }
+      // if (this.playlist.image) {
+      //   params.append('cover', this.playlist.image)
+      // }
       params.append('assoc_id', this.track.id)
       params.append('assoc_type', 'Track')
       this.$store.dispatch('error/showLoadingActivity', true)

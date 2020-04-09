@@ -261,7 +261,7 @@
           <v-layout row wrap>
             <v-flex xs12 form-group>
               <label class="control-label">Name<label class="required">*</label></label>
-              <input type="text" class="form-control" v-model="playlist.name">
+              <input type="text" class="form-control" v-model.trim="playlist.name">
             </v-flex>
             <v-flex xs12 form-group text-xs-center>
               <v-btn dark round color="blue" @click.native="createPlaylist()">Create Playlist</v-btn>

@@ -86,7 +86,7 @@
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text class="create-playlist-section">
-                        <div class="playlist-image-section">
+                        <!-- <div class="playlist-image-section">
                           <div class="image-section">
                             <div class="playlist-image" id="playlist_image" v-if="playlist.image" :style="`background-image: url(${selectedImage})`"></div>
                             <div class="playlist-image-upload-section" v-if="!playlist.image">
@@ -100,16 +100,16 @@
                             <input type="file" name="playlist_image_file" :id="input_id" class="change-playlist-image-file" accept="image/*" @change="imageChanged($event)">
                             <label :for="input_id" v-if="playlist.image">Change</label>
                           </div>
-                        </div>
-                        <div class="playlist-content-section">
+                        </div> -->
+                        <v-layout row wrap>
                           <v-flex xs12 form-group>
                             <label class="control-label">Name<label class="required">*</label></label>
-                            <input type="text" class="form-control" v-model="playlist.name">
+                            <input type="text" class="form-control" v-model.trim="playlist.name">
                           </v-flex>
-                          <v-flex xs12 sm12 form-group>
+                          <v-flex xs12 form-group text-xs-center>
                             <v-btn class="create-playlist-btn" flat @click.native="createPlaylist()">Create Playlist</v-btn>
                           </v-flex>
-                        </div>
+                        </v-layout>
                       </v-card-text>
                     </v-card>
                   </v-dialog>
