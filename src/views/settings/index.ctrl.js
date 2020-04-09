@@ -71,11 +71,17 @@ export default {
     },
 
     availableTabs () {
-      if (['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1) {
-        return _.concat(this.tabs, { id: 'verify-status', title: 'Verification Status' })
-      } else  {
-        return this.tabs
+      let tabs = this.tabs.slice()
+
+      if (this.currentUser.user_type === 'listener') {
+        tabs = _.filter(tabs, t => t.id != 'seller-policies')
       }
+
+      if (['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1) {
+        tabs = _.concat(tabs, { id: 'verify-status', title: 'Verification Status' })
+      }
+
+      return tabs
     }
   },
 
@@ -111,11 +117,10 @@ export default {
       return this.active_tab == tab
     },
 
-    availableTab (tab) {
-      return tab.id !== 'verify-status' ||
-        (this.currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1)
-        // || (tab.id == 'co-sign' && this.currentUser.user_type == 'listener')
-    },
+    // availableTab (tab) {
+    //   return tab.id !== 'verify-status' ||
+    //     (this.currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1)
+    // },
 
     onTab (tab) {
       this.active_tab = tab
