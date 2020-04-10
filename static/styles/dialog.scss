@@ -150,17 +150,23 @@
         padding: 6px 18px;
       }
       .img-button {
-        margin: 20px 20px;
+        margin: 20px;
+        padding: 20px;
+        cursor: pointer;
         img {
           width: 200px;
           height: 200px;
           border-radius: 50%;
-          cursor: pointer;
         }
         label {
           display: block;
           font-size: 24px;
           font-weight: 600;
+          cursor: pointer;
+        }
+        &:hover {
+          // border: 1px dotted #ccc;
+          background-color: #f0f0f0;
         }
       }
     }

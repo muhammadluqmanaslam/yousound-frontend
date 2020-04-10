@@ -289,16 +289,16 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <div class="img-button">
-            <img class="avatar" src="/static/images/artist.png" @click="goTwitter('artist')" />
+          <div class="img-button" @click="goTwitter('artist')">
+            <img class="avatar" src="/static/images/artist.png"/>
             <label class="pt-2">Artist</label>
           </div>
-          <!-- <div class="img-button">
-            <img class="avatar" src="/static/images/listener.png" @click="goTwitter('label')" />
+          <!-- <div class="img-button" @click="goTwitter('label')">
+            <img class="avatar" src="/static/images/listener.png"/>
             <label class="pt-2">Label</label>
           </div> -->
-          <div class="img-button">
-            <img class="avatar" src="/static/images/listener.png" @click="goTwitter('brand')" />
+          <div class="img-button" @click="goTwitter('brand')">
+            <img class="avatar" src="/static/images/listener.png"/>
             <label class="pt-2">Brand</label>
           </div>
           <v-spacer></v-spacer>
