@@ -10,7 +10,12 @@
         background-size: cover;
         overflow: hidden;
         background-position: center;
+        background-color: #f3f3f3;
         border-radius: 7.5px;
+      }
+      .track-image.playlist {
+        background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+        background-size: 50% 50%;
       }
       .track-actions {
         width: 100%;

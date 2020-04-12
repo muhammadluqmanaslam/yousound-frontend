@@ -2,7 +2,17 @@
   <v-flex class="activity-album-card">
     <v-flex xs12 class="track-info" pa-0>
       <v-flex xs12 class="track-cover">
-        <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
+        <div
+          v-if="item.album_type=='playlist'"
+          class="track-image"
+          :class="item.album_type"
+          :style="{'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`}"
+        ></div>
+        <div
+          v-else
+          class="track-image"
+          :style="{'background-image': 'url(' + item.cover.url + ')'}"
+        ></div>
         <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
           <v-flex xs12 class="touch-flex" @click="goToAlbum()"></v-flex>
           <v-btn
@@ -28,15 +38,16 @@
       </v-flex>
     </v-flex>
 
-    <download-modal
+    <!-- <download-modal
       v-if="showDownloadModal"
       :item="item"
       :dismiss="dismissDownloadModal"
-    />
+    /> -->
   </v-flex>  
 </template>
 
 <script type="text/javascript">
+  import _ from 'lodash'
   import { mapActions } from 'vuex'
   import { MyEvents } from '@/helper'
   import AlbumService from '@/services/album'
@@ -67,6 +78,22 @@
         } else {
           return this.object
         }
+      },
+
+      album1Cover () {
+        return _.get(this.item.tracks, '[0].album.cover.url')
+      },
+
+      album2Cover () {
+        return _.get(this.item.tracks, '[1].album.cover.url')
+      },
+
+      album3Cover () {
+        return _.get(this.item.tracks, '[2].album.cover.url')
+      },
+
+      album4Cover () {
+        return _.get(this.item.tracks, '[3].album.cover.url')
       },
 
       isPlaying () {
