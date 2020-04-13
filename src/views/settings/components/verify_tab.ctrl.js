@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import moment from 'moment'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
@@ -39,8 +40,8 @@ export default {
       return this.user.request_status == 'denied'
     },
 
-    gotApproved () {
-      return this.user.request_status == 'accepted'
+    reviewerName () {
+      return _.get(this.user.approver, 'display_name', '--')
     },
 
     country_options () {

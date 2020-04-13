@@ -11,14 +11,22 @@
         </div>
       </div>
 
-      <div class="link-section border-bottom mx-3 py-2">
+      <div
+        v-if="['accepted', 'denied'].indexOf(user.request_status) > -1"
+        class="link-section border-bottom mx-3 py-2"
+      >
         <label>Verified By: </label>
-        <span>{{ user.approver.display_name }}</span>
+        <span>{{ reviewerName }}</span>
         <label class="pl-4">Date Verified: </label>
         <span>{{ user.approved_at | formatDate }}</span>
       </div>
 
-      <v-layout v-if="!gotApproved" row wrap class="about-section border-bottom mx-3 pt-3">
+      <v-layout
+        v-if="user.request_status == 'denied'"
+        row
+        wrap
+        class="about-section border-bottom mx-3 pt-3"
+      >
         <v-flex xs12 sm12>
           <label>Reasons For Denial</label>
           <p class="link-title">{{ user.denial_reason }}</p>
@@ -29,7 +37,10 @@
         </v-flex>
       </v-layout>
 
-      <form v-on:submit.prevent="submit()">
+      <form
+        v-if="user.request_status != 'accepted'"
+        v-on:submit.prevent="submit()"
+      >
         <div class="info-section mx-3">
           <v-layout row wrap pb-3 class="border-bottom">
             <v-flex xs6 pt-3 px-2 text-xs-center>
