@@ -34,8 +34,7 @@
         >{{ followButtonText }}</v-btn>
       </v-flex>
       <v-flex xs12 class="item-section">
-        <!-- <div class="item-image" style="background-image: url('/static/images/post1.jpg');"></div> -->
-        <div class="item-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
+        <div class="item-image" :style="{'background-image': 'url(' + coverUrl + ')'}"></div>
         <p class="item-name" v-if="track">{{ track.name }}</p>
         <p class="item-name" v-else>{{ item.name }}</p>
       </v-flex>
@@ -72,6 +71,7 @@
 </template>
 
 <script type="text/javascript">
+  import _ from 'lodash'
   import AuthService from '@/services/auth'
   import AlbumService from '@/services/album'
   import TrackService from '@/services/track'
@@ -116,6 +116,14 @@
 
       trackUser () {
         return this.track ? this.track.user : this.item.user
+      },
+
+      coverUrl () {
+        if (this.track) {
+          return _.get(this.track, 'album.cover.url')
+        } else {
+          return _.get(this.item, 'cover.url')
+        }
       },
 
       followButtonText () {
