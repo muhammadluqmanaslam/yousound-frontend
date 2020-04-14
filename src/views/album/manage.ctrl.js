@@ -185,9 +185,9 @@ export default {
 
     publishAlbum () {
       AlbumService.makePublicAlbum(this.album.id).then(response => {
-        this.closePublishConfirmDialog()
         this.album.status = 'published'
         this.album.is_only_for_live_stream = false
+        this.closePublishConfirmDialog()
       }).catch(e => {
         this.closePublishConfirmDialog()
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
@@ -196,8 +196,8 @@ export default {
 
     privateAlbum () {
       AlbumService.makePrivateAlbum(this.album.id).then(response => {
+        this.album.status = 'privated'
         this.closePrivateConfirmDialog()
-        this.album.status = 'private'
       }).catch(e => {
         this.closePrivateConfirmDialog()
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
