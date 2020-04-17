@@ -52,7 +52,7 @@
                 <div class="user-action-section">
                   <template v-if="user.user_type === 'listener'">
                     <v-btn
-                      v-if="currentUser && ['artist', 'label', 'brand'].indexOf(currentUser.user_type) > -1 && !user.inviter && user.request_status === 'pending'"
+                      v-if="currentUser && ['listener'].indexOf(currentUser.user_type) == -1 && !user.inviter && user.request_status === 'pending'"
                       @click.native="openInviteConfirmDialog()"
                       class="invite-btn"
                     >Invite</v-btn>

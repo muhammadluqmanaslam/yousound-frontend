@@ -116,6 +116,14 @@
             </tr>
           </tbody>
         </table>
+
+        <div class="text-xs-center">
+          <v-btn
+            v-show="page_index < total_pages"
+            @click.native="loadMore()"
+            class="loadmore-btn"
+          >Load More</v-btn>
+        </div>
       </div>
     </div>
 

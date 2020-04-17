@@ -209,32 +209,43 @@ export default {
 
       this.active_tab = tab
       this.$store.dispatch('navigator/goNextState', { page: 'payments', tab: '' })
-      this.loadPayments(tab)
+      this.page_index = 1
+      this.total_pages = 1
+      this.histories = []
+      this.loadPayments(tab, this.page_index)
     },
 
-    loadPayments (tab) {
+    loadPayments (tab, page) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
-        page: this.page_index,
+        page: page,
         per_page: this.items_per_page
       }
       if (tab === 'sent') {
-        PaymentService.getSentPayments(params).then( response=> {
+        PaymentService.getSentPayments(params).then(response=> {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.histories = response.body.payments
+          this.page_index = response.body.pagination.current_page
+          this.total_pages = response.body.pagination.total_pages
+          this.histories = this.histories.concat(response.body.payments)
         }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       } else {
-        PaymentService.getReceivedPayments(params).then( response=> {
+        PaymentService.getReceivedPayments(params).then(response=> {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.histories = response.body.payments
+          this.page_index = response.body.pagination.current_page
+          this.total_pages = response.body.pagination.total_pages
+          this.histories = this.histories.concat(response.body.payments)
         }).catch(e => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
       }
+    },
+
+    loadMore () {
+      this.loadPayments(this.tab, this.page_index + 1)
     },
 
     withdrawMoney () {
