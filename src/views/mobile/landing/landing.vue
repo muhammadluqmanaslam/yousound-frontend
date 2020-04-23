@@ -5,8 +5,8 @@
       <v-tabs-bar>
         <v-tabs-item href="#tab-1">1</v-tabs-item>
         <v-tabs-item href="#tab-2">2</v-tabs-item>
-        <!-- <v-tabs-item href="#tab-3">3</v-tabs-item> -->
-        <v-tabs-item href="#tab-4">4</v-tabs-item>
+        <v-tabs-item href="#tab-3">3</v-tabs-item>
+        <!-- <v-tabs-item href="#tab-4">4</v-tabs-item> -->
       </v-tabs-bar>
 
       <v-tabs-items>
@@ -39,8 +39,8 @@
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Share Music <br>
-                  & Earn Money.<br>
+                  Share & Earn<br>
+                  Money.<br>
                   Shop.
                 </h3>
               </div>
@@ -56,28 +56,27 @@
           </div>
         </v-tabs-content>
 
-        <!-- <v-tabs-content id="tab-3">
+        <v-tabs-content id="tab-3">
           <div class="section-wrapper step-3">
             <div class="section">
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Live Video Chat with<br>
-                  Artists & Brands.<br>
+                  Live Video<br>
+                  with Artists &<br>
+                  Brands.
                 </h3>
               </div>
               <div class="section__footer">
-                <stepper :step-size="4" :active-index="3"></stepper>
-                <v-btn @click.native="nextTab">
-                  Next
-                  <v-icon>arrow_forward</v-icon>
-                </v-btn>
+                <stepper :step-size="3" :active-index="3"></stepper>
+                <img src="/static/images/img_download_ios.svg">
+                <mobile-footer/>
               </div>
             </div>
           </div>
-        </v-tabs-content> -->
+        </v-tabs-content>
 
-        <v-tabs-content id="tab-4">
+        <!-- <v-tabs-content id="tab-4">
           <div class="section-wrapper step-4">
             <div class="section">
               <div class="section__image"></div>
@@ -94,7 +93,7 @@
               <mobile-footer/>
             </div>
           </div>
-        </v-tabs-content>
+        </v-tabs-content> -->
       </v-tabs-items>
     </v-tabs>
 
@@ -121,7 +120,7 @@ export default {
   data () {
     return {
       activeTab: 'tab-1',
-      tabs: ['tab-1', 'tab-2', 'tab-4'],
+      tabs: ['tab-1', 'tab-2', 'tab-3'],
       showMenu: false
     }
   },
@@ -225,14 +224,16 @@ export default {
   }
 
   .section-wrapper.step-2 {
-    background-image: linear-gradient(#DD5675, #FF5C44);
+    background-image: linear-gradient(#17B9A0, #024848);
     .section__image {
       background-image: url('/static/images/img_mobile_landing_products.png');
+      background-position: -70px center;
     }
   }
 
   .section-wrapper.step-3 {
-    background: url('/static/images/bg_land_videos.jpg') no-repeat center center;
+    background: url('/static/images/img_mobile_land_videos.png') no-repeat center center, linear-gradient(#FF3434, #441009);
+    background-position: center 80px, center center;
     background-size: cover;
   }
 

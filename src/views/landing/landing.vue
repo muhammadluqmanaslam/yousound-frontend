@@ -26,8 +26,8 @@
           <section>
             <div>
               <h3>
-                Share music<br>
-                & Earn Money.<br>
+                Share & Earn<br>
+                Money.<br>
                 Shop.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
@@ -44,18 +44,18 @@
             <div>
               <h3>
                 Live Video<br>
-                with Artists & Brands.<br>
-                Chat with Friends.
+                with Artists &<br>
+                Brands.
               </h3>
-              <v-btn @click="$refs.fullpage.api.moveSectionDown()">
-                <v-icon>arrow_downward</v-icon>
+              <v-btn to="/register">
+                <label>Sign Up</label>
               </v-btn>
             </div>
           </section>
         </div>
       </div>
 
-      <div class="section">
+      <!-- <div class="section">
         <div class="section__content">
           <section>
             <div>
@@ -70,13 +70,9 @@
             </div>
           </section>
         </div>
-      </div>
+      </div> -->
     </full-page>
     <landing-footer></landing-footer>
-    <!-- <v-layout row wrap>
-      <v-flex xs12><landing-content></landing-content></v-flex>
-      <v-flex xs12><landing-footer></landing-footer></v-flex>
-    </v-layout> -->
   </div>
 </template>
 
@@ -178,7 +174,7 @@ export default {
         h3 {
           font-family: 'Montserrat', 'Work Sans';
           font-size: 48px;
-          line-height: 52px;
+          line-height: 60px;
         }
         .btn {
           min-width: 60px;
@@ -213,7 +209,7 @@ export default {
     }
 
     &:nth-child(2) {
-      background-image: linear-gradient(#DD5675, #FF5C44);
+      background-image: linear-gradient(#17B9A0, #024848);
       section {
         background-image: url('/static/images/img_land_products.png');
         background-position-x: 465px;
@@ -221,8 +217,22 @@ export default {
     }
 
     &:nth-child(3) {
-      background: url('/static/images/bg_land_videos.jpg') no-repeat center center;
-      background-size: cover;
+      //background-image: linear-gradient(#FF3434, #441009);
+      background: url('/static/images/img_land_videos.png'), linear-gradient(#FF3434, #441009);
+      background-size: contain;
+      section {
+        .btn {
+          height: 48px;
+          background-color: #000000;
+          /deep/ &__content {
+            label {
+              padding: 2px 30px 0 30px;
+              font-size: 18px;
+              font-weight: 900;
+            }
+          }
+        }
+      }
     }
 
     &:nth-child(4) {

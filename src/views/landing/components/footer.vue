@@ -1,11 +1,11 @@
 <template>
   <div class="footer-container">
     <v-layout>
-      <div>
+      <!-- <div>
         <img class="logo" src="/static/images/nav_logo_white.png" height="20">
-      </div>
-      <div class="ml-5">
-        <div style="cursor: pointer;"><a href="#"><label>Company</label></a></div>
+      </div> -->
+      <div>
+        <div><label>Company</label></div>
         <div><router-link to="/">Blog</router-link></div>
         <div><router-link to="/">Investors</router-link></div>
         <div><router-link to="/">Jobs</router-link></div>
@@ -27,7 +27,7 @@
       <div class="ml-4"><router-link to='/terms#community_guidelines'>Community Guidelines</router-link></div>
       <div class="ml-4"><router-link to='/terms#copyright_policy'>Copyright</router-link></div>
       <v-spacer></v-spacer>
-      <div><label>&copy; 2019 YouSound,Inc.</label></div>
+      <div>&copy; 2019 YouSound,Inc.</div>
     </v-layout>
   </div>
 </template>
@@ -43,11 +43,14 @@ div {
   color: #fff;
   font-size: 12px;
   line-height: 24px;
+  label {
+    color: #666;
+  }
   a {
-    color: #fff;
+    color: #FFF;
   }
 }
 a {
-  color: #ffffff;
+  color: #FFF;
 }
 </style>
