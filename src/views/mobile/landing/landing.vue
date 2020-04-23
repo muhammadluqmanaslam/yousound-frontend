@@ -227,7 +227,7 @@ export default {
     background-image: linear-gradient(#17B9A0, #024848);
     .section__image {
       background-image: url('/static/images/img_mobile_landing_products.png');
-      background-position: -70px center;
+      background-position: -65px center;
     }
   }
 

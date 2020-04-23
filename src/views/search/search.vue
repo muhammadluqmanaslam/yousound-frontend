@@ -36,7 +36,7 @@
           </v-layout>
         </div>
 
-        <div v-if="active_tab == 'playlists'">
+        <!-- <div v-if="active_tab == 'playlists'">
           <v-layout row wrap class="covers-content">
             <div
               v-for="(feed, index) in result.playlists"
@@ -49,7 +49,7 @@
               ></track-card>
             </div>
           </v-layout>
-        </div>
+        </div> -->
 
         <div v-if="active_tab == 'products'">
           <v-layout row wrap class="covers-content">

@@ -263,7 +263,7 @@
                     </div>
                   </template>
                 </template>
-                <template v-else-if="active_tab == 'playlists'">
+                <!-- <template v-else-if="active_tab == 'playlists'">
                   <template v-if="currentUser && currentUser.id == user.id">
                     <div class="empty-section">
                       <p class="empty-title">Empty</p>
@@ -277,7 +277,7 @@
                       <p class="empty-description">This user has no playlists</p>
                     </div>
                   </template>
-                </template>
+                </template> -->
                 <template v-else-if="active_tab == 'catalog'">
                   <template v-if="currentUser && currentUser.id == user.id">
                     <div class="empty-section">

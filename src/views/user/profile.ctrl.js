@@ -45,7 +45,7 @@ export default {
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
         { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'songs', title: 'Albums', roles: ['artist'] },
-        { id: 'playlists', title: 'Playlists' },
+        // { id: 'playlists', title: 'Playlists' },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
         { id: 'followings', title: 'Following' },
@@ -238,16 +238,12 @@ export default {
 
         // put 'merch' tab first for brand
         if (this.user.user_type == 'brand') {
-          if (this.tabs[8].id === 'merch') {
+          if (this.tabs[7].id === 'merch') {
             this.tabs.unshift(this.tabs.pop())
-            // const arr = this.tabs.slice()
-            // this.tabs = arr
-            // console.log(this.tabs[0].id, this.tabs[8].id)
           }
         } else {
-          if (this.tabs[8].id !== 'merch') {
+          if (this.tabs[7].id !== 'merch') {
             this.tabs.push(this.tabs.shift())
-            // console.log(this.tabs[0].id, this.tabs[8].id)
           }
         }
 
@@ -269,8 +265,10 @@ export default {
               this.slide_tab = 'merch'
               break
             default:
-              this.active_tab = 'playlists'
-              this.slide_tab = 'playlists'
+              // this.active_tab = 'playlists'
+              // this.slide_tab = 'playlists'
+              this.active_tab = 'songs'
+              this.slide_tab = 'songs'
               break
           }
         }
@@ -289,11 +287,11 @@ export default {
         this.getItems(this.active_tab, false)
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        this.$store.dispatch('error/showErrorToast', ["User does not exist"])
-        setTimeout(() => {
-          this.$router.push({ path: '/discover' })
-        }, 5000)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        // this.$store.dispatch('error/showErrorToast', ["User does not exist"])
+        // setTimeout(() => {
+        //   this.$router.push({ path: '/discover' })
+        // }, 5000)
       })
     },
 

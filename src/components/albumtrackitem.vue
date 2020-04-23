@@ -64,7 +64,11 @@
               <label>Flag</label>
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile key="add_to_playlist" class="default-menu-item track-menu-item has-sub-menu" v-if="album.album_type!='playlist'">
+          <v-list-tile
+            v-if="false && album.album_type!='playlist'"
+            key="add_to_playlist"
+            class="default-menu-item track-menu-item has-sub-menu"
+          >
             <v-menu offset-x class="track-menu" v-model="submenu">
               <v-list-tile-title slot="activator" class="has-sub-menu">
                 <img class="track-status-icon" src="/static/images/ic_add_to.png" />

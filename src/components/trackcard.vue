@@ -122,7 +122,7 @@
                   </v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile
-                  v-if="item.album_type != 'playlist'"
+                  v-if="false && item.album_type != 'playlist'"
                   key="add_to_playlist"
                   class="default-menu-item track-menu-item has-sub-menu"
                 >

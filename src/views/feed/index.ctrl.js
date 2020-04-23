@@ -22,8 +22,7 @@ export default {
         { id: 'merch', title: 'Products' },
         { id: 'video', title: 'Live Video' },
         { id: 'reposted', title: 'Reposts' },
-        { id: 'playlist', title: 'Playlists' },
-
+        // { id: 'playlist', title: 'Playlists' },
       ],
       show_help_dialog: false,
       page_index: 1,
