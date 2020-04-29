@@ -34,6 +34,10 @@ const getters = {
     return ['landing', ''].indexOf(state.current.page) === -1
   },
 
+  hasAudioPlayer: (state) => {
+    return ['settings', ''].indexOf(state.current.page) === -1
+  },
+
   isHeaderFixed: (state) => {
     // return ['main_landing'].indexOf(state.current.page) > -1
     return true

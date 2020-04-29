@@ -41,6 +41,7 @@ import '@/../static/styles/app.scss'
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
+console.log('INTERCOM', process.env.INTERCOM_APP_ID)
 Vue.use(VueIntercom, { appId: process.env.INTERCOM_APP_ID })
 Vue.use(Vuetify)
 Vue.use(VueNumeric)

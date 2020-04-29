@@ -20,7 +20,7 @@
 
     <video-player v-if="currentUser"></video-player>
 
-    <player ref="player"></player>
+    <audio-player ref="player" v-show="$store.getters['navigator/hasAudioPlayer']"></audio-player>
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
 
@@ -70,7 +70,7 @@ import UserService from '@/services/user'
 import appHeader from '@/components/header'
 import appFooter from '@/components/footer'
 import earnMoneySticker from '@/components/earn_money'
-import Player from '@/components/player'
+import audioPlayer from '@/components/player'
 import videoPlayer from '@/components/video_player'
 import loginDialog from '@/components/login_dialog'
 
@@ -85,7 +85,7 @@ export default {
     appFooter,
     earnMoneySticker,
     loginDialog,
-    Player,
+    audioPlayer,
     videoPlayer
   },
 

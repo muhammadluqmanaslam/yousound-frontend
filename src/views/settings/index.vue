@@ -201,4 +201,4 @@
   </div>
 </template>
 
-sell<script type="text/javascript" src="./index.ctrl.js"></script>
+<script type="text/javascript" src="./index.ctrl.js"></script>
