@@ -28,7 +28,7 @@ export default {
     } catch (e) {
       myAlert = null
     }
-    console.log('login created', myAlert)
+    // console.log('login created', myAlert)
 
     if (AuthService.isAuthenticated()) {
       this.$router.push({ path: '/discover' })
@@ -54,7 +54,7 @@ export default {
     }
 
     this.$nextTick(() => {
-      console.log('after video-player beforeDestroy ???')
+      // console.log('after video-player beforeDestroy ???')
       this.$root.$emit(MyEvents.AUTH_SIGNOUT)
     })
   },

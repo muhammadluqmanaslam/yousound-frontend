@@ -41,7 +41,7 @@ import '@/../static/styles/app.scss'
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
-console.log('INTERCOM', process.env.INTERCOM_APP_ID)
+// console.log('INTERCOM', process.env.INTERCOM_APP_ID)
 Vue.use(VueIntercom, { appId: process.env.INTERCOM_APP_ID })
 Vue.use(Vuetify)
 Vue.use(VueNumeric)
@@ -163,7 +163,7 @@ if (isOldBrowser) {
   })
   app.$mount('#app')
 } else if (isMobileBrowser) {
-  console.log('loaded routes for Mobile')
+  // console.log('loaded routes for Mobile')
   const router = createMobileRouter()
   router.beforeEach((to, frm, next) => {
     if (/^\/(protect)/.test(to.path) ||
