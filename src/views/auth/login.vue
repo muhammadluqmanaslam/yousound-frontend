@@ -35,7 +35,7 @@
     <v-flex xs12 text-xs-center>
       <v-layout row class="or-divider">
         <v-flex xs5><hr class="divider"></v-flex>
-        <v-flex xs2><p class="or">OR</p></v-flex>
+        <v-flex xs2><p class="or ma-0">OR</p></v-flex>
         <v-flex xs5><hr class="divider"></v-flex>
       </v-layout>
     </v-flex>

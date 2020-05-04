@@ -182,7 +182,7 @@ if (isOldBrowser) {
   })
   app.$mount('#app')
 } else {
-  console.log('loaded routes for Desktop')
+  // console.log('loaded routes for Desktop')
   SettingService.getSettings().then(response => {
     const settings = response.body
     const router = createRouter(settings)
