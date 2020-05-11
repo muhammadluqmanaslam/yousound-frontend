@@ -96,6 +96,12 @@ export default {
     }
   },
 
+  computed: {
+    currentUser () {
+      return this.$store.state.auth.user
+    }
+  },
+
   methods: {
     afterLoad () {
       console.log("Emitted 'after load' event.")
@@ -103,7 +109,11 @@ export default {
   },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'landing', tab: '' })
+    if (this.currentUser) {
+      this.$router.push({path: '/'})
+    } else {
+      this.$store.dispatch('navigator/goNextState', { page: 'landing', tab: '' })
+    }
   }
 }
 </script>

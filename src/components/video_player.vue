@@ -388,7 +388,7 @@
                 <div class="option-area">
                   <v-btn class="request-option-btn" :class="{'selected':request_tab=='Album'}" @click.native="onRequestTab('Album')">Album</v-btn>
                   <v-btn class="request-option-btn" :class="{'selected':request_tab=='ShopProduct'}" @click.native="onRequestTab('ShopProduct')">Product</v-btn>
-                  <v-btn class="request-option-btn" :class="{'selected':request_tab=='User'}" @click.native="onRequestTab('User')">User</v-btn>
+                  <!-- <v-btn class="request-option-btn" :class="{'selected':request_tab=='User'}" @click.native="onRequestTab('User')">User</v-btn> -->
                 </div>
               </div>
               <div class="content-section" v-if="request_tab=='Album'">
@@ -413,14 +413,13 @@
                   </div>
                 </div>
               </div>
-              <div class="content-section" v-if="request_tab=='User'">
+              <!-- <div class="content-section" v-if="request_tab=='User'">
                 <div class="title-section">
                   <div class="search-section">
                     <div class="search-box">
                       <div class="search-container">
                         <span class="icon">
                           <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
                             <title>Group 22</title>
                             <desc>Created with Sketch.</desc>
                             <defs></defs>
@@ -465,7 +464,7 @@
                     </label>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
