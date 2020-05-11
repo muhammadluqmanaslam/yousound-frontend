@@ -110,7 +110,7 @@ export default {
 
   created () {
     if (this.currentUser) {
-      this.$router.push({path: '/'})
+      this.$router.push({path: '/discover'})
     } else {
       this.$store.dispatch('navigator/goNextState', { page: 'landing', tab: '' })
     }
