@@ -184,6 +184,7 @@ export const MyEvents = {
   AUDIO_PLAYER_SKIPTO: 'skipTo',
   VIDEO_PLAYER_INIT: 'video_player_init',
   VIDEO_PLAYER_FULLSCREEN_ENTER: 'video_player_fullscreen_enter',
+  VIDEO_PLAYER_SHUTDOWN: 'video_player_shutdown',
   VIDEO_PLAYER_EXIT: 'video_player_exit'
 }
 

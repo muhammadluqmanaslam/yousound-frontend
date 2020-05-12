@@ -18,9 +18,9 @@
 
     <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
 
-    <video-player v-if="currentUser"></video-player>
+    <video-player ref="videoPlayer" v-if="currentUser"></video-player>
 
-    <audio-player ref="player" v-show="$store.getters['navigator/hasAudioPlayer']"></audio-player>
+    <audio-player ref="audioPlayer" v-show="$store.getters['navigator/hasAudioPlayer']"></audio-player>
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
 

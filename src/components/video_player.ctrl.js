@@ -171,6 +171,7 @@ export default {
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
     this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
+    this.$root.$on(MyEvents.VIDEO_PLAYER_SHUTDOWN, this.closePlayer)
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
 
     Promise.all([
@@ -201,6 +202,7 @@ export default {
     this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
     this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
+    this.$root.$off(MyEvents.VIDEO_PLAYER_SHUTDOWN, this.closePlayer)
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.closePlayer()
   },

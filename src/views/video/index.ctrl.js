@@ -385,6 +385,10 @@ export default {
       this.closeStreamDeleteConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)
       StreamService.deleteStream(this.currentUser.stream.id).then(response => {
+        /// close the video player if watching own live video
+        if (_.get(this.$store.state.videoPlayer.stream, 'id') == this.currentUser.stream.id) {
+          this.$root.$emit(MyEvents.VIDEO_PLAYER_SHUTDOWN)
+        }
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('auth/setStream', response.body)
         this.$router.push({ path: '/' })
