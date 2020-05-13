@@ -44,7 +44,7 @@
                   <label class="control-label">Title of stream?</label>
                   <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs12 form-group>
                   <label class="control-label">Genre</label>
                   <v-select
                     :items="genres"
@@ -55,6 +55,44 @@
                     item-value="id"
                     class="pt-0"
                   />
+                </v-flex>
+                <v-flex xs12>
+                  <label class="control-label">Attach Product/Album to Broadcast</label>
+                  <template v-if="stream_assoc.value">
+                    <attach
+                      v-if="stream_assoc.type == 'Album'"
+                      :image="_.get(stream_assoc.value, 'cover.thumb.url', '')"
+                      :title="stream_assoc.value.name"
+                      :subtitle="`${stream_assoc.value.tracks.length} tracks`"
+                    />
+
+                    <attach
+                      v-if="stream_assoc.type == 'ShopProduct'"
+                      :image="_.get(stream_assoc.value, 'covers[0].cover.thumb.url', '')"
+                      :title="stream_assoc.value.name"
+                      :subtitle="`$${$options.filters.formatNumber(stream_assoc.value.price)}`"
+                    />
+
+                    <attach
+                      v-if="stream_assoc.type == 'User'"
+                      :image="_.get(stream_assoc.value, 'avatar.thumb.url', '')"
+                      :title="stream_assoc.value.display_name"
+                      :subtitle="`${stream_assoc.value.followers} followers`"
+                    />
+                  </template>
+
+                  <v-flex xs text-xs-center>
+                    <v-btn
+                      @click.native="openAttachPicker()"
+                      dark color="blue"
+                      class="display-btn"
+                    ><v-icon>link</v-icon></v-btn>
+                    <v-btn
+                      @click.native="removeAttach()"
+                      dark color="red"
+                      class="remove-btn"
+                    ><v-icon>delete</v-icon></v-btn>
+                  </v-flex>
                 </v-flex>
               </v-flex>
 
@@ -70,7 +108,7 @@
                     class="pt-0"
                   />
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs12 form-group>
                   <label class="control-label">Duration</label>
                   <v-select
                     v-bind:items="periods"
@@ -80,25 +118,23 @@
                     class="pt-0"
                   />
                 </v-flex>
+                <v-layout row wrap cover-wrapper>
+                  <v-flex xs12 cover-actions>
+                    <input
+                      type="file"
+                      name="stream_cover_file"
+                      id="stream_cover_file"
+                      accept="image/*"
+                      v-validate="'required'"
+                      @change="imageChanged($event)"
+                    >
+                    <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload Thumbnail</label>
+                    <div class="mt-2 ml-2 px-1 red--text">*PNG, JPG, GIF</div>
+                  </v-flex>
+                </v-layout>
               </v-flex>
             </v-layout>
-            <v-layout row wrap cover-wrapper>
-              <v-flex xs12 my-3 cover-title>
-              </v-flex>
-              <v-flex xs12 cover-actions>
-                <!-- <v-btn dark round color="red lighten-1" class="px-2">Upload Thumbnail</v-btn> -->
-                <input
-                  type="file"
-                  name="stream_cover_file"
-                  id="stream_cover_file"
-                  accept="image/*"
-                  v-validate="'required'"
-                  @change="imageChanged($event)"
-                >
-                <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload Thumbnail</label>
-               <span class="ml-2 px-1 red--text">*PNG, JPG, GIF</span>
-              </v-flex>
-            </v-layout>
+
           </v-flex>
           <v-flex sm4>
             <h3 class="mb-4">Video Thumbnail</h3>
@@ -205,6 +241,12 @@
       :amount="streamCost"
       :dismiss="closePaymentDialog"
       :finish="deposit"
+    />
+
+    <attach-picker
+      v-if="show_attach_picker"
+      v-model="stream_assoc"
+      :dismiss="closeAttachPicker"
     />
   </div>
 </template>

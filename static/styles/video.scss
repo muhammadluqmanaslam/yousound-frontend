@@ -218,7 +218,7 @@
 
     .mt-3 {
       margin-top: 12px!important;
-    } 
+    }
 
     .divider {
       border: .5px dotted #ededed;
@@ -310,6 +310,7 @@
         z-index: -1;
       }
       input[type="file"] + label {
+        display: inline-block;
         border-radius: 30px;
         font-size: 14px;
         font-weight: 700;

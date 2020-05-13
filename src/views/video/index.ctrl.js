@@ -19,7 +19,7 @@ import {
 
 export default {
   components: {
-    paymentModal
+    paymentModal,
   },
 
   mixins: [onClickOutside],
@@ -310,6 +310,7 @@ export default {
         if (!this.show_view_stream_button) {
           Vue.http.get(this.currentUser.stream.mp_channel_1_ep_1_url).then(response => {
             this.show_view_stream_button = true
+            StreamService.notifyStream(this.currentUser.stream.id)
           })
         }
       }

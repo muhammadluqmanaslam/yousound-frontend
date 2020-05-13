@@ -388,7 +388,7 @@
                 <div class="option-area">
                   <v-btn class="request-option-btn" :class="{'selected':request_tab=='Album'}" @click.native="onRequestTab('Album')">Album</v-btn>
                   <v-btn class="request-option-btn" :class="{'selected':request_tab=='ShopProduct'}" @click.native="onRequestTab('ShopProduct')">Product</v-btn>
-                  <!-- <v-btn class="request-option-btn" :class="{'selected':request_tab=='User'}" @click.native="onRequestTab('User')">User</v-btn> -->
+                  <v-btn class="request-option-btn" :class="{'selected':request_tab=='User'}" @click.native="onRequestTab('User')">User</v-btn>
                 </div>
               </div>
               <div class="content-section" v-if="request_tab=='Album'">
@@ -413,7 +413,7 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="content-section" v-if="request_tab=='User'">
+              <div class="content-section" v-if="request_tab=='User'">
                 <div class="title-section">
                   <div class="search-section">
                     <div class="search-box">
@@ -464,7 +464,7 @@
                     </label>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>

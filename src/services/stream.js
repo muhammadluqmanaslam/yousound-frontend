@@ -20,6 +20,10 @@ export default {
     return Vue.http.delete(`${API_BASE_URL}/${streamId}`, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  notifyStream (streamId) {
+    return Vue.http.get(`${API_BASE_URL}/${streamId}/notify`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   startStream (streamId) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}/start`, { headers: { 'Authorization': $store.state.auth.token } })
   },

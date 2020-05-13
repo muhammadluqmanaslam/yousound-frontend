@@ -4,6 +4,7 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueIntercom from 'vue-intercom'
 import 'jquery'
+import _ from 'lodash'
 import App from './App'
 import { createRouter } from './router'
 import { createMobileRouter } from './router/mobile'
@@ -39,6 +40,8 @@ import SettingService from './services/setting'
 import '@/../static/styles/app.scss'
 
 Vue.config.productionTip = false
+// Vue.prototype._ = _
+Object.defineProperty(Vue.prototype, '_', { value: _ })
 
 Vue.use(VueResource)
 // console.log('INTERCOM', process.env.INTERCOM_APP_ID)

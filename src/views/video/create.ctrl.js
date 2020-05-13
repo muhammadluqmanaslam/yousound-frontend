@@ -4,6 +4,8 @@ import AuthService from  '@/services/auth'
 import StreamService from  '@/services/stream'
 import UserService from '@/services/user'
 
+import attach from './components/attach'
+import attachPicker from './components/attach_picker'
 import paymentModal from '@/components/paymentmodal'
 
 import {
@@ -17,6 +19,8 @@ import {
 
 export default {
   components: {
+    attach,
+    attachPicker,
     paymentModal
   },
 
@@ -52,8 +56,13 @@ export default {
         ml_input_maximum_bitrate: 'MAX_10_MBPS'
       },
       stream_cover_url: null,
+      stream_assoc: {
+        type: 'Album',
+        value: null
+      },
       show_payment_dialog: false,
       show_help_dialog: false,
+      show_attach_picker: false,
       isPageReady: false
     }
   },
@@ -146,6 +155,21 @@ export default {
       })
     },
 
+    openAttachPicker () {
+      this.show_attach_picker = true
+    },
+
+    closeAttachPicker () {
+      this.show_attach_picker = false
+    },
+
+    removeAttach () {
+      this.stream_assoc = {
+        type: 'Album',
+        value: null
+      }
+    },
+
     openPaymentDialog () {
       this.$validator.validateAll().then(response => {
         if (response === true) {
@@ -208,6 +232,11 @@ export default {
           formData.append('stream[view_price]', this.stream.view_price)
           formData.append('stream[valid_period]', this.period)
           formData.append('stream[cover]', this.stream.cover)
+
+          if (this.stream_assoc.value) {
+            formData.append('stream[assoc_type]', this.stream_assoc.type)
+            formData.append('stream[assoc_id]', this.stream_assoc.value.id)
+          }
 
           this.$store.dispatch('error/showLoadingActivity', true)
           StreamService.createStream(formData).then(response => {
