@@ -1160,7 +1160,7 @@ p {
     .album-recent-page {
       padding-top: 0;
       padding-bottom: 0px;
-      margin-top: 200px;
+      margin-top: 160px;
       .recent-title {
         padding: 0 11.25px 15px 11.25px;
         margin-bottom: 20px;
@@ -1188,6 +1188,7 @@ p {
 
 .album-dialog-body.card {
   padding-bottom: 10px;
+  overflow-x: hidden;
 
   .card__title {
     font-size: 28px;

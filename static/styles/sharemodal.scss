@@ -49,9 +49,9 @@
         letter-spacing: 0;
       }
       .follow-btn {
-        height: 22.5px;
+        height: 30px;
         min-width: 100px;
-        margin: 11.25px 0px;
+        margin: 6px 0px;
         float: right;
         text-transform: none;
         box-shadow: none;
@@ -64,11 +64,11 @@
           border: 0.75px solid #3A92FF;
         }
         &.following {
-          color: #5BAD00 !important;
-          border: 0.75px solid #5BAD00;
+          color: #000 !important;
+          border: 1px solid #0009;
           &:hover {
             color: #dc3545 !important;
-            border: 0.75px solid #dc3545;
+            border: 1px solid #dc3545;
           }
         }
       }
