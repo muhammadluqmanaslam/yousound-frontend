@@ -106,7 +106,7 @@
         }
         .view-details-btn {
           position: absolute;
-          bottom: 10px;
+          bottom: 90px;
           margin-left: 33.33333%;
           text-transform: initial;
           box-shadow: none;
@@ -147,7 +147,7 @@
       text-align: center;
       .product-name {
         margin: 0;
-        font-size: 17px;
+        font-size: 16px;
         color: #000000;
         letter-spacing: -.3px;
         text-overflow: ellipsis;
@@ -158,8 +158,9 @@
       .product-user-name {
         width: 100%;
         margin: 0;
-        opacity: 0.5;
-        font-size: 16px;
+        opacity: 1;
+        font-size: 14px;
+        font-weight: 600;
         color: #000;
         text-align: left;
         letter-spacing: -.3px;

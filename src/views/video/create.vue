@@ -198,7 +198,7 @@
             <div class="comment-box">
               After clicking <b>“Create Channel”</b>, it can take up to <b>5 minutes</b> to generate your Stream Key.<br/>
               It costs $10 per hour to live video broadcast & you can purchase up to 24 hours.<br/>
-              Unused time is rolled over to your next broadcast.
+              Unused time is unpaid, and the remaining cost is added to your next broadcast.
             </div>
           </v-flex>
           <v-flex sm4>

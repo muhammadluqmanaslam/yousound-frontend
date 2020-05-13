@@ -92,7 +92,7 @@
           color: #FFFFFF;
           // filter: brightness(1.2);
           cursor: pointer;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 600;
           .pgs-inner {
             position: relative;
@@ -119,9 +119,15 @@
                 font-weight: 400;
                 word-break: break-word;
                 cursor: pointer;
+                border-radius: 10px;
+                background: rgba(0, 0, 0, 0.16);
+                padding-left: 8px;
+                padding-right: 8px;
+                padding-top: 4px;
+                padding-bottom: 4px;
                 &:hover {
                   border-radius: 10px;
-                  background: rgba(0, 0, 0, 0.2);
+                  background: rgba(21, 21, 21, 0.8);
                   padding-left: 8px;
                   padding-right: 8px;
                   padding-top: 4px;
@@ -164,15 +170,15 @@
                 position: absolute;
                 right: -3px;
                 bottom: -3px;
-                width: 32px;
-                height: 32px;
+                width: 28px;
+                height: 28px;
                 border-radius: 16px;
                 cursor: pointer;
 
                 &.check-o {
                   background: url('/static/images/ic_check_o.png') no-repeat center center;
                   background-size: contain;
-                  opacity: .5;
+                  opacity: .7;
                 }
 
                 &.check {
@@ -211,7 +217,7 @@
       }
       .genre__content {
         width: 840px;
-        padding: 5px 0 25px 10px;
+        padding: 5px 0 25px 50px;
         h5 {
           margin: 24px 0 10px 10px;
           color: #fff;

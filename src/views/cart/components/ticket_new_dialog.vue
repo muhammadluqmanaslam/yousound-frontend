@@ -40,11 +40,9 @@
         </v-flex>
         <v-flex xs12 px-5 pt-3 text-xs-center>
           <p class="ma-0">
-            Since all sellers are verified, we approach open cases as unintentional mistakes until proven otherwise.
-            If we discover a seller has a trend of intentional violations, we will close his account.
-            Any other actions regarding refunds & returns can only be resolved between sellers and buyers.
+            Any disputes regarding refunds & returns can only be resolved between sellers and buyers.
+            If we discover a seller has a trend of violations, we may close their account.
             <br><br>
-            <span class="blue--text">Learn about Buyer protection</span>
           </p>
         </v-flex>
       </v-flex>
@@ -56,12 +54,6 @@
         </v-flex>
         <v-flex x12 product-name>
           {{ product.name }}
-        </v-flex>
-        <v-flex x12>
-          <label>Product id: <span>{{ product.id }}</span></label>
-        </v-flex>
-        <v-flex x12>
-          <label>Buyer transaction: <span></span></label>
         </v-flex>
       </v-flex>
     </v-layout>

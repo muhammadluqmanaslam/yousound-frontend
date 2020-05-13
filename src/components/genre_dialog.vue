@@ -1,7 +1,7 @@
 <template>
   <v-container pa-0 class="genre" v-if="isPageReady">
     <h3 class="mt-4 ml-2">Genre Filters</h3>
-    <p class="ma-2">Only the albums from genres you select will appear on <strong>Discover & Feed</strong></p>
+    <p class="ma-2">Only albums from genres selected will appear on <strong>Discover & Feed</strong></p>
 
     <v-btn
       v-if="show_selector_view"
@@ -20,7 +20,7 @@
             <div class="pgs-inner">
               <div class="pgs__title"><label>{{ parent.name }}</label></div>
               <div class="pgs__description">
-                <span @click.stop="selectParent(parent, index)">+{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
+                <span @click.stop="selectParent(parent, index)">{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
               <div class="pgs__content">
                 <div class="upload-info">
                   <label>{{ parent.users_size | formatNumberWithComma }}</label>
