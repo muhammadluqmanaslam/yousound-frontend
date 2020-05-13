@@ -173,7 +173,7 @@
 .page.video-page.create-page {
   .my-card {
     position: relative;
-    margin: 50px 0px 20px 40px;
+    margin: 40px 0px 20px 70px;
     background: none;
     box-shadow: none;
 
@@ -185,7 +185,7 @@
     }
 
     .my-card__subtitle {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
       letter-spacing: -.8px;
       font-family: 'Montserrat';
@@ -196,7 +196,8 @@
       margin-bottom: 36px;
       font-family: 'Montserrat';
       letter-spacing: 0;
-      font-size: 16px;
+      font-size: 14px;
+      width: 340px;
     }
 
     .application .theme--dark.btn:not(.btn--icon):not(.btn--flat) {
@@ -262,7 +263,6 @@
 
   h3 {
     font-size: 22px;
-    font-family: 'Montserrat';
     letter-spacing: -.5px;
   }
 
@@ -280,10 +280,10 @@
 
   .comment-box {
     padding: 18px 25px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #DDDDA8;
     border-radius: 5px;
     background-color: #FFFFEE;
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .cover-wrapper {
@@ -413,7 +413,7 @@
   }
 
   .button-wrapper {
-    padding: 18px 25px;
+    padding: 16px 25px;
     border: 1px solid #DBDBDB;
     border-radius: 5px;
     background-color: #F9F9F9;

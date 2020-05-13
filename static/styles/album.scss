@@ -93,8 +93,9 @@ p {
         }
       }
       .image-change-section {
-        margin-top: 11.25px;
-        text-align: center;
+        margin-top: 14px;
+        text-align: left;
+        margin-bottom: 20px;
         .change-album-image-file {
           width: 0.0.75px;
           height: 0.0.75px;
@@ -1157,8 +1158,9 @@ p {
       }
     }
     .album-recent-page {
-      padding-top: 100px;
+      padding-top: 0;
       padding-bottom: 0px;
+      margin-top: 200px;
       .recent-title {
         padding: 0 11.25px 15px 11.25px;
         margin-bottom: 20px;
