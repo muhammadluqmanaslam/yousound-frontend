@@ -344,6 +344,7 @@ export default {
               this.remainingInterval = setInterval(function () { vm.refresh() }, 1000)
             }
             break
+          case 'inactive':
           case 'deleted':
             if (this.creatingInterval) {
               clearInterval(this.creatingInterval)
@@ -352,11 +353,11 @@ export default {
             break
         }
       }).catch(e => {
-        console.log('getStream', e)
-        if (this.creatingInterval) {
-          clearInterval(this.creatingInterval)
-        }
-        this.openCreateFailedDialog()
+        console.log('getStream Error', e)
+        // if (this.creatingInterval) {
+        //   clearInterval(this.creatingInterval)
+        // }
+        // this.openCreateFailedDialog()
       })
     },
 

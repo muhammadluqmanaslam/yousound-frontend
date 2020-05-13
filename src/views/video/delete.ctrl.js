@@ -31,17 +31,24 @@ export default {
   methods: {
     getStream () {
       StreamService.getStream(this.currentUser.stream.id).then(response => {
+        if (response.body.status == 'deleted') {
+          this.resetStream()
+        }
       }).catch(e => {
         if (e.status === 404) {
-          if (this.deletingInterval) {
-            clearInterval(this.deletingInterval)
-            this.$store.dispatch('auth/setStream', null)
-            this.$router.push({ path: `/user/${this.currentUser.slug}/video` })
-          }
+          this.resetStream()
         } else {
           console.log('getStream', e)
         }
       })
+    },
+
+    resetStream () {
+      if (this.deletingInterval) {
+        clearInterval(this.deletingInterval)
+        this.$store.dispatch('auth/setStream', null)
+        this.$router.push({ path: `/user/${this.currentUser.slug}/video` })
+      }
     }
   }
 }
