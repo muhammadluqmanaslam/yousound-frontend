@@ -82,13 +82,15 @@
       }
       .tooltip-inner {
         position: relative;
-        padding: 10px 60px 10px 10px;
+        padding: 12px 12px 12px 12px;
         border-radius: 5px;
         // background-color: rgba(0, 0, 0, 0.2);
         background-color: #1e1e1e;
         color: #FFFFFF;
         text-align: left;
-        font-size: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
         width: 285px;
         margin-left: 12px;
         padding-left: 15px;
@@ -98,7 +100,7 @@
           right: 10px;
           padding: 5px 7px;
           border-radius: 5px;
-          background-color: rgb(55, 55, 55);
+          background-color: #4389f7;
           color: #FFFFFF;
         }
       }

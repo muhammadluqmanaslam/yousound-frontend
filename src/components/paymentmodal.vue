@@ -7,7 +7,7 @@
         <h4>You're almost done.</h4>
         <p>Choose your payment method<br>to complete your order.</p>
         <div class="payment-info">
-          <label>Make Payment</label>
+          <label>Payment</label>
           <span>${{ amount | formatNumber }}</span>
         </div>
         <div class="divider"></div>

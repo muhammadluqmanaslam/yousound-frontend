@@ -29,10 +29,10 @@
     }
     .content {
       width: 100%;
-      line-height: 18.75px;
+      line-height: 18px;
       font-size: 20px;
       color: #3a3a3a;
-      letter-spacing: -0.6px;
+      letter-spacing: -0.3px;
       margin-bottom: 40px;
     }
   }
@@ -73,10 +73,10 @@
         letter-spacing: 0;
       }
       .follow-btn {
-        height: 24px;
-        min-width: 90px;
+        height: 30px;
+        min-width: 100px;
         width: 90px;
-        margin: 11px 0px;
+        margin: 6px 0px;
         float: right;
         text-transform: none;
         box-shadow: none;
@@ -89,11 +89,11 @@
           border: 0.75px solid #3A92FF;
         }
         &.following {
-          color: #5BAD00 !important;
-          border: 0.75px solid #5BAD00;
+          color: #000 !important;
+          border: 1px solid #0009;
           &:hover {
             color: #dc3545 !important;
-            border: 0.75px solid #dc3545;
+            border: 1px solid #dc3545;
           }
         }
       }
