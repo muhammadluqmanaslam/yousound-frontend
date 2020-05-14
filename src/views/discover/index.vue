@@ -17,10 +17,10 @@
                 class="genre-dialog-selector py-3"
                 @mouseenter="hover_on_genre_button = true"
                 @mouseleave="hover_on_genre_button = false"
+                @click="openGenreSelectorDialog()"
               >
                 <div
                   class="genre-filter"
-                  @click="openGenreSelectorDialog()"
                 >
                   <span>Genre Filter</span>
                   <img src="/static/images/ic_filter.svg">
