@@ -19,7 +19,6 @@
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.url + ')'}"/></div>
         <v-flex xs12 class="product-actions" relative v-if="currentUser">
           <div class="product-label">${{ item.price | formatNumber }}</div>
-          <v-btn dark round color="black" class="view-details-btn">View Details</v-btn>
           <v-flex xs12 class="touch-flex" @click="openMerchDialog()"></v-flex>
           <v-menu
             v-if="willMenuRender"

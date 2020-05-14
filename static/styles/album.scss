@@ -1239,6 +1239,8 @@ p {
       font-size: 24px !important;
       font-weight: 700;
       font-family: 'Work Sans';
+      padding-left: 50px;
+      padding-top: 50px;
 
       .icon {
         color: #FF0000;
@@ -1246,9 +1248,10 @@ p {
     }
 
     .card__text {
-      font-size: 18px;
-      font-family: 'Work Sans';
-      letter-spacing: -1px;
+      font-size: 20px;
+      letter-spacing: 0;
+      padding-left: 50px;
+      padding-right: 50px;
     }
   }
 }
