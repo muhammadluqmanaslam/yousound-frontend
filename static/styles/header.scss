@@ -229,9 +229,10 @@
 }
 
 .user-status.online {
-  margin-left: -4px !important;
+  margin-left: -1px !important;
   margin-top: -9px !important;
   color: #31BB25 !important;
+  font-size: 16px !important;
 }
 
 .menu__content.profile-menu__content {
@@ -283,7 +284,7 @@
   .list__tile__title {
     font-size: 16px;
     font-weight: 600;
-    font-family: 'Open Sans',sans-serif;
+    font-family: 'Work Sans';
     // i {
     //   font-size: 15px;
     //   padding: 0 7.5px;

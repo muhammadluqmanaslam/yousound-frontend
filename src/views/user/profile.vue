@@ -35,7 +35,7 @@
                   <label
                     @click="onTab('followings')"
                     class="follower-count"
-                  ><strong>{{ user.followings }}</strong> Followings</label>
+                  ><strong>{{ user.followings }}</strong> Following</label>
                   <label class="vertical-divider"></label>
                   <label
                     @click="onTab('followers')"
@@ -69,6 +69,21 @@
                     @click.native="followUser()"
                     :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                   >{{ followButtonText }}</v-btn>
+
+                  <label class="divider"></label>
+
+
+                            <ul>
+              <li
+                v-for="tab in tabs"
+                v-if="isAvailableForGridView(tab)"
+                v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+                :key="tab.id"
+                :href="`#${tab.id}`"
+                :class="{active: isActiveTab(tab.id)}"
+              ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+            </ul>
+
                   <v-menu
                     v-if="currentUser && user.id!=currentUser.id"
                     offset-y
@@ -80,9 +95,9 @@
                     <v-list>
                       <v-list-tile key="message" @click.native="showMessageDialog()">
                         <v-list-tile-title class="default-menu-item">
-                          <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
+                          <!-- <img class="track-status-icon" src="/static/images/ic_download.png" />    .user-role  -->
                           <label>Message</label>
-                        </v-list-tile-title>
+                     </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile key="view_direct_messages" @click.native="viewDirectMessages()" v-if="enabledViewDirectMessage">
                         <v-list-tile-title class="default-menu-item">
@@ -96,15 +111,9 @@
                       </v-list-tile>
                       <!-- <v-list-tile key="chat" @click.native="goToChat()">
                         <v-list-tile-title class="default-menu-item">
-                          <label>Chat</label>
+             .default-menu-item             <label>Chat</label>
                         </v-list-tile-title>
                       </v-list-tile> -->
-                      <v-list-tile key="share">
-                        <v-list-tile-title class="default-menu-item">
-                          <!-- <img class="track-status-icon" src="/static/images/ic_share.png" /> -->
-                          <label>Share</label>
-                        </v-list-tile-title>
-                      </v-list-tile>
                       <v-list-tile key="flag">
                         <v-list-tile-title class="default-menu-item">
                           <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
@@ -122,16 +131,8 @@
               </div>
             </div>
 
-            <ul>
-              <li
-                v-for="tab in tabs"
-                v-if="isAvailableForGridView(tab)"
-                v-show="['followings', 'followers'].indexOf(tab.id) == -1"
-                :key="tab.id"
-                :href="`#${tab.id}`"
-                :class="{active: isActiveTab(tab.id)}"
-              ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
-            </ul>
+
+
           </div>
         </div>
 
@@ -183,7 +184,7 @@
                 <template v-if="currentUser && currentUser.id == user.id">
                   <div class="empty-section">
                     <p class="empty-title">Empty</p>
-                    <p class="empty-description">You have not uploaded any product</p>
+                    <p class="empty-description">You have not uploaded any products</p>
                     <router-link to="/product/add" class="empty-discover-btn">Upload</router-link>
                   </div>
                 </template>
@@ -209,7 +210,7 @@
 
             <!-- <div v-else-if="active_tab == 'reposted'">
               <v-layout row wrap class="covers-content">
-                <div class="card-container" v-for="(feed, index) in feeds" :key="index" v-else-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
+refund                <div class="card-container" v-for="(feed, index) in feeds" :key="index" v-else-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
                   <track-card :objects="user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"></track-card>
                   <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"></product-card>
                 </div>
@@ -244,7 +245,7 @@
                   <template v-else>
                     <div class="empty-section">
                       <p class="empty-title">Empty</p>
-                      <p class="empty-description">This user has not any downloaded albums</p>
+                      <p class="empty-description">This user has not downloaded any albums</p>
                     </div>
                   </template>
                 </template>
