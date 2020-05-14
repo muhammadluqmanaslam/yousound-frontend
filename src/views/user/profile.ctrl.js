@@ -3,7 +3,7 @@ import Vue from 'vue'
 import { mapActions } from 'vuex'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
-import { MyEvents } from '@/helper'
+import { MyEvents, ViolationsEmail } from '@/helper'
 import albumSlideCard from '@/components/albumslidecard'
 import carousel3d from '@/components/slider/Carousel3d'
 import merchModal from '@/components/merchmodal'
@@ -482,6 +482,14 @@ export default {
       this.$router.push({ path: '/user/' + this.user.slug + '/chat' })
     },
 
+    flagUser () {
+      const emailTo = ViolationsEmail
+      const emailCC = ''
+      const emailSub = ''
+      const emailBody = ''
+      window.open(`mailto:${emailTo}?cc=${emailCC}&subject=${emailSub}&body=${emailBody}`, '_blank');
+    },
+
     openBlockUserConfirmDialog () {
       this.show_block_user_confirm_dialog = true
     },
@@ -548,7 +556,7 @@ export default {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
         this.setPlaying(true)
-        this.$root.$emit('play')        
+        this.$root.$emit('play')
       } else {
         this.$router.push({
           path: this.$route.path,

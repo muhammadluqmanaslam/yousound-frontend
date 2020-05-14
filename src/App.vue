@@ -9,8 +9,8 @@
     'app-footer': $store.getters['navigator/hasFooter'],
   }">
 
+    <!-- v-if="currentUser || currentPage == 'main_landing'" -->
     <app-header
-      v-if="currentUser || currentPage == 'main_landing'"
       v-show="$store.getters['navigator/hasHeader']"
     />
 

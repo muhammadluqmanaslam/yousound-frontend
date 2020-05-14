@@ -9,7 +9,7 @@
               <div class="hover-title">View Profile</div>
             </div>
           </router-link>
-          <div class="follow-section">
+          <div class="follow-section" v-if="currentUser && currentUser.id != artist.id">
             <v-btn
               :class="{ 'follow-btn': true, 'follow': !artist.is_following, 'following': artist.is_following }"
               @click.native="followUser()"
@@ -19,11 +19,15 @@
         </v-flex>
         <div class="artist-name">
           {{ artist.display_name }}
-          <v-icon class="user-status" :class="{'online': artist.status == 'active'}" v-if="artist.user_type == 'artist'">fa-check-circle</v-icon>
+          <v-icon
+            v-if="artist.user_type == 'artist'"
+            class="user-status"
+            :class="{'online': artist.status == 'active'}"
+          >fa-check-circle</v-icon>
         </div>
       </v-flex>
     </v-flex>
-  </v-flex>  
+  </v-flex>
 </template>
 
 <script type="text/javascript">
@@ -47,6 +51,10 @@
     },
 
     computed: {
+      currentUser () {
+        return this.$store.state.auth.user
+      },
+
       followButtonText () {
         if (this.artist.is_following) {
           return this.buttonHover ? 'Unfollow' : 'Following'
