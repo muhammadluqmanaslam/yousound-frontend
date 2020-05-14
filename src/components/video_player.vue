@@ -532,9 +532,11 @@
             </div>
           </div>
           <v-card-actions>
-            <label>Cost:</label>
-            <span v-if="stream.view_price > 0">${{ stream.view_price | formatNumber }}</span>
-            <span v-else>FREE</span>
+            <template v-if="!can_view">
+              <label>Cost:</label>
+              <span v-if="stream.view_price > 0">${{ stream.view_price | formatNumber }}</span>
+              <span v-else>FREE</span>
+            </template>
             <v-spacer></v-spacer>
             <v-btn dark color="green" @click="onClick">Yes</v-btn>
             <v-btn dark color="grey" @click.native="closeStreamingConfirmDialog()">No</v-btn>
