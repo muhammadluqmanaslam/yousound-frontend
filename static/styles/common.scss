@@ -213,7 +213,7 @@ a {
   }
   .tabs__li {
     margin-right: 30px !important;
-  }    
+  }
   .tabs__items {
     border: none;
     margin-top: 41.25px;
@@ -443,20 +443,16 @@ input[type=password] {
 }
 
 .card-container {
-  flex: initial !important;
+  min-width: 200px;
   margin-bottom: 8px;
   padding: 0 14px !important;
+  flex: initial !important;
+  flex-basis: 100%;
+  max-width: 100%;
+  width: 100%;
 }
 
-@media (min-width: 0) {
-  .card-container {
-    flex-basis: 100%;
-    max-width: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 405px) {
+@media (min-width: 810px) {
   .card-container {
     flex-basis: 50%;
     max-width: 50%;
@@ -464,27 +460,11 @@ input[type=password] {
   }
 }
 
-@media (min-width: 607.5px) {
+@media (min-width: 1012.5px) {
   .card-container {
     flex-basis: 33.33333333333333%;
     max-width: 33.33333333333333%;
     width: 33.33333333333333%;
-  }
-}
-
-@media (min-width: 810px) {
-  .card-container {
-    flex-basis: 25%;
-    max-width: 25%;
-    width: 25%;
-  }
-}
-
-@media (min-width: 1012.5px) {
-  .card-container {
-    flex-basis: 25%;
-    max-width: 25%;
-    width: 25%;
   }
 }
 

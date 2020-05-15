@@ -20,7 +20,7 @@
         <v-flex xs12 class="product-actions" relative v-if="currentUser">
           <div class="product-label">${{ item.price | formatNumber }}</div>
           <v-flex xs12 class="touch-flex" @click="openMerchDialog()"></v-flex>
-          <v-menu
+          <!-- <v-menu
             v-if="willMenuRender"
             offset-y
             class="product-menu"
@@ -50,7 +50,7 @@
                 </v-list-tile-title>
               </v-list-tile>
             </v-list>
-          </v-menu>
+          </v-menu> -->
         </v-flex>
       </v-flex>
       <v-flex xs12 class="product-detail" pa-0>
@@ -78,7 +78,7 @@
       :item="item"
       :dismiss="closeShareDialog"
     />
-  </v-flex>  
+  </v-flex>
 </template>
 
 <script type="text/javascript">

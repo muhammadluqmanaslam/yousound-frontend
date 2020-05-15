@@ -4,7 +4,7 @@
       <div class="d-flex">
         <div class="page-left">
           <div class="tab-container pr-3">
-            <div v-if="user" class="user-profile-section border-bottom pb-2">
+            <div v-if="user" class="user-profile-section pb-2">
               <div class="user-profile-image-section">
                 <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
                 <div
@@ -57,6 +57,7 @@
                       class="invite-btn"
                     >Invite</v-btn>
                   </template>
+
                   <v-btn
                     v-else
                     @click.native="playSong()"
@@ -70,20 +71,6 @@
                     :class="{ 'follow-btn': true, 'follow': !user.is_following, 'following': user.is_following }"
                   >{{ followButtonText }}</v-btn>
 
-                  <label class="divider"></label>
-
-
-                            <ul>
-              <li
-                v-for="tab in tabs"
-                v-if="isAvailableForGridView(tab)"
-                v-show="['followings', 'followers'].indexOf(tab.id) == -1"
-                :key="tab.id"
-                :href="`#${tab.id}`"
-                :class="{active: isActiveTab(tab.id)}"
-              ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
-            </ul>
-
                   <v-menu
                     v-if="currentUser && user.id!=currentUser.id"
                     offset-y
@@ -95,9 +82,9 @@
                     <v-list>
                       <v-list-tile key="message" @click.native="showMessageDialog()">
                         <v-list-tile-title class="default-menu-item">
-                          <!-- <img class="track-status-icon" src="/static/images/ic_download.png" />    .user-role  -->
+                          <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
                           <label>Message</label>
-                     </v-list-tile-title>
+                        </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile key="view_direct_messages" @click.native="viewDirectMessages()" v-if="enabledViewDirectMessage">
                         <v-list-tile-title class="default-menu-item">
@@ -111,9 +98,10 @@
                       </v-list-tile>
                       <!-- <v-list-tile key="chat" @click.native="goToChat()">
                         <v-list-tile-title class="default-menu-item">
-             .default-menu-item             <label>Chat</label>
+                          <label>Chat</label>
                         </v-list-tile-title>
                       </v-list-tile> -->
+                      <v-list-tile @click.natvie="flagUser()">
                         <v-list-tile-title class="default-menu-item">
                           <label>Flag</label>
                         </v-list-tile-title>
@@ -125,185 +113,192 @@
                       </v-list-tile>
                     </v-list>
                   </v-menu>
+
+                  <label class="divider"></label>
                 </div>
               </div>
+              <ul>
+                <li
+                  v-for="tab in tabs"
+                  v-if="isAvailableForGridView(tab)"
+                  v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+                  :key="tab.id"
+                  :href="`#${tab.id}`"
+                  :class="{active: isActiveTab(tab.id)}"
+                ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+              </ul>
             </div>
-
-
-
           </div>
         </div>
 
         <div class="page-content">
-          <div class="profile-grid-tab">
-            <div v-if="active_tab == 'followings' || active_tab == 'followers'">
-              <div v-if="!users || users.length == 0" class="empty-section">
-                <p class="empty-title">Profile is Empty</p>
-                <p class="empty-description">It’s a little lonely in here...</p>
-                <router-link
-                  v-if="currentUser && user.id==currentUser.id"
-                  to="/discover"
-                  class="empty-discover-btn"
-                >Discover</router-link>
+          <div v-if="active_tab == 'followings' || active_tab == 'followers'">
+            <div v-if="!users || users.length == 0" class="empty-section">
+              <p class="empty-title">Profile is Empty</p>
+              <p class="empty-description">It’s a little lonely in here...</p>
+              <router-link
+                v-if="currentUser && user.id==currentUser.id"
+                to="/discover"
+                class="empty-discover-btn"
+              >Discover</router-link>
+            </div>
+            <v-layout row wrap class="covers-content" v-else>
+              <div class="card-container" v-for="(user, index) in users" :key="index">
+                <artist-item :artist="user" :key="index"></artist-item>
               </div>
-              <v-layout row wrap class="covers-content" v-else>
+            </v-layout>
+          </div>
+
+          <div v-else-if="active_tab == 'artists'">
+            <template v-if="!users || users.length == 0">
+              <template v-if="currentUser && currentUser.id == user.id">
+                <div class="empty-section">
+                  <p class="empty-title">Empty</p>
+                  <p class="empty-description">You have not added any user</p>
+                </div>
+              </template>
+              <template v-else>
+                <div class="empty-section">
+                  <p class="empty-title">Empty</p>
+                  <p class="empty-description">This user has not added any user</p>
+                </div>
+              </template>
+            </template>
+            <template v-else>
+              <v-layout row wrap class="covers-content">
                 <div class="card-container" v-for="(user, index) in users" :key="index">
                   <artist-item :artist="user" :key="index"></artist-item>
                 </div>
               </v-layout>
-            </div>
+            </template>
+          </div>
 
-            <div v-else-if="active_tab == 'artists'">
-              <template v-if="!users || users.length == 0">
-                <template v-if="currentUser && currentUser.id == user.id">
-                  <div class="empty-section">
-                    <p class="empty-title">Empty</p>
-                    <p class="empty-description">You have not added any user</p>
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="empty-section">
-                    <p class="empty-title">Empty</p>
-                    <p class="empty-description">This user has not added any user</p>
-                  </div>
-                </template>
+          <div v-else-if="active_tab == 'merch'">
+            <template v-if="!products || products.length == 0">
+              <template v-if="currentUser && currentUser.id == user.id">
+                <div class="empty-section">
+                  <p class="empty-title">Empty</p>
+                  <p class="empty-description">You have not uploaded any products</p>
+                  <router-link to="/product/add" class="empty-discover-btn">Upload</router-link>
+                </div>
               </template>
               <template v-else>
-                <v-layout row wrap class="covers-content">
-                  <div class="card-container" v-for="(user, index) in users" :key="index">
-                    <artist-item :artist="user" :key="index"></artist-item>
-                  </div>
-                </v-layout>
+                <div class="empty-section">
+                  <p class="empty-title">Empty</p>
+                  <p class="empty-description">This user has no products</p>
+                </div>
               </template>
-            </div>
+            </template>
 
-            <div v-else-if="active_tab == 'merch'">
-              <template v-if="!products || products.length == 0">
+            <v-layout row wrap class="covers-content" v-else>
+              <div class="card-container" v-for="(product, index) in products" :key="index">
+                <product-card :dataObject="product"></product-card>
+              </div>
+            </v-layout>
+            <v-btn
+              v-show="page_index < total_pages"
+              @click.native="getItems(tab.id, true)"
+              class="loadmore-btn"
+            >Load More</v-btn>
+          </div>
+
+          <!-- <div v-else-if="active_tab == 'reposted'">
+            <v-layout row wrap class="covers-content">
+              <div class="card-container" v-for="(feed, index) in feeds" :key="index" v-else-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
+                <track-card :objects="user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"></track-card>
+                <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"></product-card>
+              </div>
+            </v-layout>
+          </div> -->
+
+          <div v-else>
+            <template v-if="!albums || albums.length == 0">
+              <template v-if="active_tab == 'songs'">
                 <template v-if="currentUser && currentUser.id == user.id">
                   <div class="empty-section">
                     <p class="empty-title">Empty</p>
-                    <p class="empty-description">You have not uploaded any products</p>
-                    <router-link to="/product/add" class="empty-discover-btn">Upload</router-link>
+                    <p class="empty-description">You have no uploaded albums</p>
+                    <router-link to="/upload/album" class="empty-discover-btn">Upload</router-link>
                   </div>
                 </template>
                 <template v-else>
                   <div class="empty-section">
                     <p class="empty-title">Empty</p>
-                    <p class="empty-description">This user has no products</p>
+                    <p class="empty-description">This user has no uploaded albums</p>
                   </div>
                 </template>
               </template>
-
-              <v-layout row wrap class="covers-content" v-else>
-                <div class="card-container" v-for="(product, index) in products" :key="index">
-                  <product-card :dataObject="product"></product-card>
-                </div>
-              </v-layout>
-              <v-btn
-                v-show="page_index < total_pages"
-                @click.native="getItems(tab.id, true)"
-                class="loadmore-btn"
-              >Load More</v-btn>
-            </div>
-
-            <!-- <div v-else-if="active_tab == 'reposted'">
-              <v-layout row wrap class="covers-content">
-refund                <div class="card-container" v-for="(feed, index) in feeds" :key="index" v-else-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
-                  <track-card :objects="user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"></track-card>
-                  <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"></product-card>
-                </div>
-              </v-layout>
-            </div> -->
-
-            <div v-else>
-              <template v-if="!albums || albums.length == 0">
-                <template v-if="active_tab == 'songs'">
-                  <template v-if="currentUser && currentUser.id == user.id">
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">You have no uploaded albums</p>
-                      <router-link to="/upload/album" class="empty-discover-btn">Upload</router-link>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">This user has no uploaded albums</p>
-                    </div>
-                  </template>
+              <template v-else-if="active_tab == 'downloaded'">
+                <template v-if="currentUser && currentUser.id == user.id">
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">You have no downloaded albums</p>
+                    <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
+                  </div>
                 </template>
-                <template v-else-if="active_tab == 'downloaded'">
-                  <template v-if="currentUser && currentUser.id == user.id">
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">You have no downloaded albums</p>
-                      <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">This user has not downloaded any albums</p>
-                    </div>
-                  </template>
-                </template>
-                <template v-else-if="active_tab == 'reposted'">
-                  <template v-if="currentUser && currentUser.id == user.id">
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">You have no reposts</p>
-                      <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">This user has no reposts</p>
-                    </div>
-                  </template>
-                </template>
-                <!-- <template v-else-if="active_tab == 'playlists'">
-                  <template v-if="currentUser && currentUser.id == user.id">
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">You have no playlists</p>
-                      <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">This user has no playlists</p>
-                    </div>
-                  </template>
-                </template> -->
-                <template v-else-if="active_tab == 'catalog'">
-                  <template v-if="currentUser && currentUser.id == user.id">
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">You have no catalog</p>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="empty-section">
-                      <p class="empty-title">Empty</p>
-                      <p class="empty-description">This user has no catalog</p>
-                    </div>
-                  </template>
+                <template v-else>
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">This user has not downloaded any albums</p>
+                  </div>
                 </template>
               </template>
+              <template v-else-if="active_tab == 'reposted'">
+                <template v-if="currentUser && currentUser.id == user.id">
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">You have no reposts</p>
+                    <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">This user has no reposts</p>
+                  </div>
+                </template>
+              </template>
+              <!-- <template v-else-if="active_tab == 'playlists'">
+                <template v-if="currentUser && currentUser.id == user.id">
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">You have no playlists</p>
+                    <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">This user has no playlists</p>
+                  </div>
+                </template>
+              </template> -->
+              <template v-else-if="active_tab == 'catalog'">
+                <template v-if="currentUser && currentUser.id == user.id">
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">You have no catalog</p>
+                  </div>
+                </template>
+                <template v-else>
+                  <div class="empty-section">
+                    <p class="empty-title">Empty</p>
+                    <p class="empty-description">This user has no catalog</p>
+                  </div>
+                </template>
+              </template>
+            </template>
 
-              <v-layout row wrap class="covers-content" v-else>
-                <div class="card-container" v-for="(feed, index) in albums" :key="index">
-                  <track-card :objects="albums" :objectIndex="index"></track-card>
-                </div>
-              </v-layout>
-              <v-btn
-                v-show="page_index < total_pages"
-                class="loadmore-btn"
-                @click.native="getItems(active_tab, true)"
-              >Load More</v-btn>
-            </div>
+            <v-layout row wrap class="covers-content" v-else>
+              <div class="card-container" v-for="(feed, index) in albums" :key="index">
+                <track-card :objects="albums" :objectIndex="index"></track-card>
+              </div>
+            </v-layout>
+            <v-btn
+              v-show="page_index < total_pages"
+              class="loadmore-btn"
+              @click.native="getItems(active_tab, true)"
+            >Load More</v-btn>
           </div>
         </div>
       </div>
