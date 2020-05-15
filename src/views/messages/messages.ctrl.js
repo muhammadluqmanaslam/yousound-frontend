@@ -101,9 +101,9 @@ export default {
 
     this.$store.dispatch('navigator/goNextState', { page: 'messages', tab: '' })
 
-    if (this.currentUser.data['message_page_visited'] !== 1) {
-      this.show_stopPopup = true
-    }
+    // if (this.currentUser.data['message_page_visited'] !== 1) {
+    //   this.show_stopPopup = true
+    // }
 
     if (['brand'].indexOf(this.currentUser.user_type) != -1) {
       this.tab = 'merch'

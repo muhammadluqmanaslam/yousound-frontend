@@ -10,27 +10,25 @@ export default {
 
   data () {
     return {
-      repost_prices: [
-        { name: '$1', value: 100 },
-        { name: '$5 Upgrade', value: 500 },
-        { name: '$10 Upgrade', value: 1000 },
-        { name: '$20 Upgrade', value: 2000 },
-        { name: '$50 Upgrade', value: 5000 },
-        { name: '$100 Upgrade', value: 10000 },
-        { name: '$250 Upgrade', value: 25000 },
-        { name: '$500 Upgrade', value: 50000 },
-        { name: '$1000 Upgrade', value: 100000 },
-        { name: '$2500 Upgrade', value: 250000 },
-        { name: '$5000 Upgrade', value: 500000 },
-        { name: '$10000 Upgrade', value: 1000000 },
-        { name: '$25000 Upgrade', value: 2500000 },
-        { name: '$50000 Upgrade', value: 5000000 },
-        { name: '$100000 Upgrade', value: 10000000 },
-        { name: '$250000 Upgrade', value: 25000000 },
-        { name: '$500000 Upgrade', value: 50000000 },
-        { name: '$1000000 Upgrade', value: 100000000 },
-        // { name: '$2500000 Upgrade', value: 250000000 },
-        // { name: '$5000000 Upgrade', value: 500000000 },
+      prices: [
+        100,
+        500,
+        1000,
+        2000,
+        5000,
+        10000,
+        25000,
+        50000,
+        100000,
+        250000,
+        500000,
+        1000000,
+        2500000,
+        5000000,
+        10000000,
+        25000000,
+        50000000,
+        100000000,
       ],
       repost_price: 100,
       proration: {
@@ -46,6 +44,19 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.auth.user
+    },
+
+    repost_prices () {
+      let arr = []
+      for (let i in this.prices) {
+        arr.push(
+          {
+            name: `$${this.prices[i] / 100}${this.prices[i] > this.currentUser.max_repost_price ? ' Upgrade' : ''}`,
+            value: this.prices[i]
+          }
+        )
+      }
+      return arr
     }
   },
 
@@ -59,7 +70,7 @@ export default {
     },
 
     openRepostPriceConfirmModal () {
-      if (this.currentUser.repost_price == this.repost_price) {
+      if (this.repost_price == this.currentUser.repost_price) {
         return
       }
 
@@ -71,7 +82,11 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.proration = response.body
         // console.log(this.proration)
-        this.show_repost_price_confirm_modal = true
+        if (this.proration.add_amount > 0) {
+          this.show_repost_price_confirm_modal = true
+        } else {
+          this.setRepostPrice(null)
+        }
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
       })

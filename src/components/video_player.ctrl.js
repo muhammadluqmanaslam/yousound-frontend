@@ -40,6 +40,7 @@ export default {
 
   data () {
     return {
+      can_view: false,
       player: null,
       time: 0,
       latency_time: 10,
@@ -183,7 +184,7 @@ export default {
         statuses: 'published, collaborated',
         stock_statuses: 'active',
         user_statuses: 'accepted'
-      }) 
+      })
     ]).then(values => {
       this.albums = values[0].body
       this.products = values[1].body
@@ -213,13 +214,16 @@ export default {
       // this.player.load('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.openStreamingConfirmDialog()
+      this.can_view = false
       StreamService.canViewStream(this.stream.id).then(response => {
         if (response.body.code) {
           // console.log(1, response.body.code)
+          this.can_view = true
           this.openStreamingConfirmDialog()
         } else if (response.body.amount > 0) {
           // console.log(2, response.body.amount)
-          this.openPaymentDialog()
+          this.openStreamingConfirmDialog()
+          // this.openPaymentDialog()
         } else {
           // console.log(3, response.body.message)
           this.$store.dispatch('error/showErrorToast', [response.body.message])
@@ -640,7 +644,9 @@ export default {
       }
       StreamService.payViewStream(this.stream.id, params).then(response => {
         this.closePaymentDialog()
-        this.openStreamingConfirmDialog()
+        // this.openStreamingConfirmDialog()
+        this.can_view = true
+        this.onClick()
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
@@ -786,9 +792,14 @@ export default {
     },
 
     onClick: function (e) {
-      this.closeSocket()
       this.closeStreamingConfirmDialog()
 
+      if (!this.can_view) {
+        this.openPaymentDialog()
+        return
+      }
+
+      this.closeSocket()
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
       // this.getMetrics()

@@ -7,14 +7,17 @@
 
           <div class="wallet-section mb-4">
             <label class="">Total</label>
-            <label class="available-money-amount">${{ currentUser.balance_amount | formatNumber }} <label class="currency">USD</label></label>
+            <label class="available-money-amount">
+              ${{ currentUser.balance_amount | formatNumber }}
+              <label class="currency">USD</label>
+            </label>
             <div class="action-section">
               <!-- a class="link-btn" @click.self="openWithdrawModal()">Withdraw Funds</a>
               <label>|</label> -->
               <a v-if="!$store.state.auth.user.is_stripe_connected" :href="stripeLink" target="_self">
                 Connect Stripe Account
               </a>
-              <a v-else class="link-btn">View Stripe Account</a>
+              <!-- <a v-else class="link-btn">View Stripe Account</a> -->
             </div>
           </div>
 

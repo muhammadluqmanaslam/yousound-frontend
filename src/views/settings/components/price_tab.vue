@@ -35,7 +35,7 @@
           class="update-btn top-btn">Set</v-btn>
       </div>
       <div class="repost-price-info-box pa-3 mt-2">
-        <div>You've upgraded to <b>${{ currentUser.repost_price | formatNumber }}</b></div>
+        <div>You've upgraded to <b>${{ currentUser.max_repost_price | formatNumber }}</b></div>
         <div>Upgraded until <b>{{ currentUser.repost_price_end_at | formatDate }}</b></div>
       </div>
     </div>

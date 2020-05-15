@@ -147,7 +147,7 @@
                 <v-list-tile-sub-title>View Profile</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile
+            <!-- <v-list-tile
               v-if="currentUser.user_type=='artist' || (!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1)"
               class="chat"
             >
@@ -159,11 +159,23 @@
                 v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1"
                 @click="$router.push(`/user/${currentUser.slug}/video`)"
               >Live Video</label>
-              <!-- <label
+              <label
                 @click="$router.push(`/user/${currentUser.slug}/chat`)"
-              >Chat</label> -->
-            </v-list-tile>
+              >Chat</label>
+            </v-list-tile> -->
             <v-divider></v-divider>
+            <v-list-tile to="/user/${currentUser.slug}/video" v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1">
+              <v-list-tile-content>
+                <v-list-tile-title>Live Video</v-list-tile-title>
+                <v-list-tile-sub-title>broadcast a live stream</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile to="/upload/album" v-if="currentUser.user_type=='artist'">
+              <v-list-tile-content>
+                <v-list-tile-title>Upload</v-list-tile-title>
+                <v-list-tile-sub-title>upload an ablum</v-list-tile-sub-title>
+              </v-list-tile-content>
+            </v-list-tile>
             <v-list-tile key="manage" to="/albums" v-if="currentUser.user_type=='artist'">
               <v-list-tile-content>
                 <v-list-tile-title>Manage</v-list-tile-title>
@@ -274,6 +286,7 @@
         <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
         <v-spacer></v-spacer>
         <v-btn flat class="my-0" @click.native="choosePage('login')">Login</v-btn>
+        <!-- <router-link to="/login">Login</router-link> -->
         <v-btn dark round color="green" class="my-0" @click.native="choosePage('register')">Sign Up</v-btn>
       </v-toolbar>
     </v-flex>

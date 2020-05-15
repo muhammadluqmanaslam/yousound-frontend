@@ -114,9 +114,7 @@
              .default-menu-item             <label>Chat</label>
                         </v-list-tile-title>
                       </v-list-tile> -->
-                      <v-list-tile key="flag">
                         <v-list-tile-title class="default-menu-item">
-                          <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
                           <label>Flag</label>
                         </v-list-tile-title>
                       </v-list-tile>
