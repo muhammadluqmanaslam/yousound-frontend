@@ -267,8 +267,8 @@ export default {
             default:
               // this.active_tab = 'playlists'
               // this.slide_tab = 'playlists'
-              this.active_tab = 'songs'
-              this.slide_tab = 'songs'
+              this.active_tab = 'reposted'
+              this.slide_tab = 'reposted'
               break
           }
         }
