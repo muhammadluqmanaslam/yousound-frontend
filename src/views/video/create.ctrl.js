@@ -109,9 +109,9 @@ export default {
   created () {
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
 
-    if (this.currentUser.data['video_page_visited'] !== 1) {
-      this.openHelpDialog()
-    }
+    // if (this.currentUser.data['video_page_visited'] !== 1) {
+    //   this.openHelpDialog()
+    // }
 
     // this.genres = _.flatMap(this.$store.state.app.genres, 'children')
     this.genres = this.$store.state.app.genres
