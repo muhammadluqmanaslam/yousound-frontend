@@ -12,7 +12,11 @@
             <div class="activity-item-content-area">
               <div class="activity-item-content">
                 <router-link class="user-name" :to="'/' + activityItem.sender.slug">{{ activityItem.sender.display_name }}</router-link>&nbsp;
-                <v-icon class="user-status" v-bind:class="{'online': activityItem.sender.status == 'active'}" v-if="activityItem.sender.user_type == 'artist'">fa-check-circle</v-icon>&nbsp;
+                <v-icon
+                  class="user-status"
+                  :class="{'online': activityItem.sender.status == 'active'}"
+                  v-if="activityItem.sender.user_type == 'artist'"
+                >fa-check-circle</v-icon>&nbsp;
                 <label class="description-text">{{ activityItem.message }}
                   <img v-if="activityItem.action_type=='follow'" src="" class="follow-icon"/>
                   <img v-else-if="activityItem.action_type=='download'" src="/static/images/ic_download.png" class="download-icon"/>
@@ -49,9 +53,7 @@
                   :style="{'background-image': 'url(' + activityItem.assoc.cover.thumb.url + ')'}"
                   class="actioned-item"
                 ><router-link :to="'/album/' + activityItem.assoc.slug"></router-link></div> -->
-                <template
-                  v-if="activityItem.assoc && activityItem.assoc_type=='Comment'"
-                >
+                <template v-if="activityItem.assoc && activityItem.assoc_type=='Comment'">
                   <div
                     v-if="activityItem.assoc.commentable_type=='ShopProduct'"
                     :style="{'background-image': 'url(' + activityItem.assoc.commentable.covers[0].cover.thumb.url + ')'}"
@@ -88,7 +90,12 @@
           class="activity-item-recent-posts"
         >
           <div class="recent-posts-section-title">Recent activity</div>
-          <div class="recent-post-item" v-for="(repost, index) in activityItem.sender.recent_items" :key="index">
+          <div
+            v-for="(repost, index) in activityItem.sender.recent_items"
+            v-if="['ShopProduct', 'Album'].indexOf(repost.assoc_type) > -1"
+            :key="index"
+            class="recent-post-item"
+          >
             <activity-product-card :object="repost" v-if="repost.assoc_type=='ShopProduct'"></activity-product-card>
             <activity-album-card :object="repost" v-if="repost.assoc_type=='Album'"></activity-album-card>
           </div>

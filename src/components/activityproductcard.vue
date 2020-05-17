@@ -17,12 +17,16 @@
       </v-flex>
     </v-flex>
 
+    <v-btn>
+      <img src="/static/images/ic_cart-2.svg">
+    </v-btn>
+
     <merch-modal
       v-if="showMerchModal"
       :item="item"
       :dismiss="dimissMerchModal"
     />
-  </v-flex>  
+  </v-flex>
 </template>
 
 <script type="text/javascript">

@@ -1,7 +1,5 @@
 .activity-product-card {
-  // flex: initial !important;
-  // margin-bottom: 22.5px;
-  // padding: 0 11.25px !important;
+  position: relative;
   width: 100%;
   .product-info {
     position: relative;
@@ -93,28 +91,6 @@
         &:hover {
           opacity: 1;
         }
-        .play-button {
-          border: none;
-          border-radius: 30px;
-          background: none !important;
-          box-shadow: none;
-          // width: 33.33333333333333%;
-          // height: 33.33333333333333%;
-          // margin-left: 33.33333333333333%;
-          // margin-top: 33.33333333333333%;
-          width: 60px;
-          height: 60px;
-          margin-left: calc(50% - 30px);
-          margin-top: calc(50% - 30px);
-          min-width: 60px;
-          .btn__content {
-            padding: 0;
-          }
-          img {
-            // width: 100%;
-            max-width: 60px;
-          }
-        }
         .product-menu.menu {
           position: absolute;
           top: calc(50% - 18.75px);
@@ -162,6 +138,29 @@
         color: #FFFFFF;
         letter-spacing: -0.6px;
       }
+    }
+  }
+
+  .btn {
+    position: absolute;
+    min-width: auto;
+    bottom: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    // margin: 50% 0 0 50%;
+    // transform: translate(-50%, -50%);
+    margin: 0;
+    border: none;
+    border-radius: 30px;
+    background: none !important;
+    box-shadow: none;
+    .btn__content {
+      padding: 0;
+    }
+    img {
+      // width: 100%;
+      width: 40px;
     }
   }
 }
