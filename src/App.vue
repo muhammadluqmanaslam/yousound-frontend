@@ -74,7 +74,7 @@ import audioPlayer from '@/components/player'
 import videoPlayer from '@/components/video_player'
 import loginDialog from '@/components/login_dialog'
 
-import { MyEvents } from '@/helper'
+import { MyEvents, PublicRelationsUsername } from '@/helper'
 
 const ActionCable = require('actioncable')
 
@@ -158,11 +158,13 @@ export default {
     Promise.all([
       SettingService.getSettings(),
       GenreService.getGenres2(),
-      CategoryService.getCategories()
+      CategoryService.getCategories(),
+      UserService.getUserInfo(PublicRelationsUsername)
     ]).then(values => {
       this.$store.dispatch('app/setSettings', values[0].body)
       this.$store.dispatch('app/setGenres', values[1].body)
       this.$store.dispatch('app/setProductCategories', values[2].body)
+      this.$store.dispatch('app/setPublicRelationsUser', values[3].body)
 
       if (AuthService.isAuthenticated()) {
         AuthService.checkTokenValidation().then(response => {

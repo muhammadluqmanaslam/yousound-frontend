@@ -78,32 +78,6 @@
         padding: 18px 0;
       }
     }
-    .profile-section {
-      .user-avatar-image {
-        display: inline-block;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        vertical-align: middle;
-        background-size: cover;
-        background-position: center;
-        margin-right: 10px;
-      }
-      .user-info-section {
-        display: inline-block;
-        vertical-align: middle;
-        .user-name {
-          display: block;
-          font-weight: 700;
-          font-size: 16px;
-        }
-        .user-type {
-          display: block;
-          color: #777;
-          font-size: 14px;
-        }
-      }
-    }
     .send-message-btn {
       background: #4598ff !important;
       color: white;

@@ -1,5 +1,6 @@
 /* eslint-disable */
 export const ViolationsEmail = 'violations@yousound.com'
+export const PublicRelationsUsername = 'yousound'
 
 export const Countries = [
   'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antigua & Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan',

@@ -21,7 +21,7 @@ export default {
         { id: 'uploaded', title: 'Albums' },
         { id: 'merch', title: 'Products' },
         { id: 'video', title: 'Live Video' },
-        { id: 'reposted', title: 'Reposts' },
+        // { id: 'reposted', title: 'Reposts' },
         // { id: 'playlist', title: 'Playlists' },
       ],
       show_help_dialog: false,

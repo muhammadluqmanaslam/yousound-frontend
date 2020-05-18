@@ -44,43 +44,27 @@
         <table class="payment-table" v-else>
           <thead>
             <tr>
-              <th width="30%" class="text-xs-left">{{ active_tab == 'received' ? 'Sender' : 'Receiver' }}</th>
+              <th width="25%" class="text-xs-left">{{ active_tab == 'received' ? 'Sender' : 'Receiver' }}</th>
               <th width="10%">Sent</th>
               <th width="10%">Received</th>
-              <th width="10%">Type</th>
+              <th width="25%">Type</th>
               <th width="10%">Status</th>
               <th width="10%">Date</th>
               <th width="10%" v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && active_tab == 'received'">Refund</th>
-              <th width="10%">Message</th>
+              <!-- <th width="10%">Message</th> -->
             </tr>
           </thead>
           <tbody>
             <tr v-for="(history, index) in histories" :key="index">
-              <td v-if="active_tab == 'received'">
-                <div class="profile-section">
-                  <div class="user-avatar-image" :style="`background-image: url(${history.sender.avatar.thumb.url})`"></div>
-                  <div class="user-info-section">
-                    <label class="user-name">
-                      {{ history.sender.display_name }}
-                      <v-icon class="user-status online" v-if="history.sender.user_type == 'artist'">fa-check-circle</v-icon>
-                    </label>
-                    <!-- <label class="user-type" v-if="true">VERIFIED ARTIST</label> -->
-                    <label class="user-type">{{ history.sender.user_type }}</label>
-                  </div>
-                </div>
-              </td>
-              <td v-if="active_tab == 'sent'">
-                <div class="profile-section">
-                  <div class="user-avatar-image" :style="`background-image: url(${history.receiver.avatar.thumb.url})`"></div>
-                  <div class="user-info-section">
-                    <label class="user-name">
-                      {{ history.receiver.display_name }}
-                      <v-icon class="user-status online" v-if="history.receiver.user_type == 'artist'">fa-check-circle</v-icon>
-                    </label>
-                    <!-- <label class="user-type" v-if="true">VERIFIED ARTIST</label> -->
-                    <label class="user-type">{{ history.receiver.user_type }}</label>
-                  </div>
-                </div>
+              <td class="user">
+                <user-card
+                   v-if="active_tab == 'received'"
+                  :user="history.sender"
+                />
+                <user-card
+                  v-else-if="active_tab == 'sent'"
+                  :user="history.receiver"
+                />
               </td>
               <td class="text-xs-center">${{ history.sent_amount | formatNumber }}</td>
               <td class="text-xs-center">${{ history.received_amount | formatNumber }}</td>
@@ -113,9 +97,9 @@
                   @click.native="openRefundDialog(history)"
                 >Refund</v-btn>
               </td>
-              <td class="text-xs-center">
+              <!-- <td class="text-xs-center">
                 <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
-              </td>
+              </td> -->
             </tr>
           </tbody>
         </table>

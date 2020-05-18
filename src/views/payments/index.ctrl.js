@@ -4,17 +4,17 @@ import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
 import UserService from '@/services/user'
 
+import productModal from './components/product'
 import sendMessage from '@/components/sendmessage'
 import shareModal from '@/components/sharemodal'
-
-import productModal from './components/product'
-
+import UserCard from  '@/components/user_card'
 
 export default {
   components: {
     sendMessage,
     shareModal,
-    productModal
+    productModal,
+    UserCard
   },
 
   data () {

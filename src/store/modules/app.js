@@ -3,7 +3,8 @@ import _ from 'lodash'
 const state = {
   settings: {},
   genres: [],
-  product_categories: []
+  product_categories: [],
+  public_relations_user: {}
 }
 
 const getters = {
@@ -36,6 +37,10 @@ const actions = {
 
   setProductCategories ({ commit }, categories) {
     commit('setProductCategories', categories)
+  },
+
+  setPublicRelationsUser ({ commit }, user) {
+    commit('setPublicRelationsUser', user)
   }
 }
 
@@ -50,6 +55,10 @@ const mutations = {
 
   setProductCategories (state, categories) {
     state.product_categories = categories
+  },
+
+  setPublicRelationsUser (state, user) {
+    state.public_relations_user = user
   }
 }
 
