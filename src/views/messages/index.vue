@@ -29,12 +29,10 @@
           <p class="empty-description">Your conversations will appear here.</p>
         </v-flex>
         <template v-else>
-          <v-flex xs12 sm3 pa-0 class="message-rooms-section">
-            <div class="header-section">
-              <div class="header-title">
-                <label>Inbox</label>
-                <span>{{ conversations.length }} messages</span>
-              </div>
+          <v-flex xs12 sm3 pa-0 class="conversations">
+            <div class="conversations__header">
+              <div class="conversations__title">Inbox</div>
+              <div class="conversations__count">{{ conversations.length }} messages</div>
               <!-- <div class="search-box">
                 <div class="search-container">
                   <span class="icon">
@@ -77,7 +75,7 @@
                 </v-list>
               </v-menu> -->
             </div>
-            <div class="content-section">
+            <div class="conversations__content">
               <div
                 v-for="conv in conversations"
                 @click="selectedConversation(conv)"
@@ -174,58 +172,59 @@
           <v-flex
             v-if="['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1"
             xs12 sm3 pa-0
-            class="requests-section"
+            class="requests"
           >
-            <div class="header-section">
-              <p class="section-title">Request repost</p>
-              <div class="option-area">
+            <div class="requests__header">
+              <p class="requests__title">Request repost</p>
+              <div class="requests__actions">
                 <v-btn
                   v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1"
                   @click.native="onTab('album')"
-                  :class="{'selected':tab=='album'}"
-                  class="request-option-btn"
+                  :class="{'btn--active': tab == 'album'}"
                 >Album</v-btn>
                 <v-btn
                   v-if="['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1"
                   @click.native="onTab('merch')"
-                  :class="{'selected':tab=='merch'}"
-                  class="request-option-btn"
+                  :class="{'btn--active': tab == 'merch'}"
                 >Product</v-btn>
               </div>
             </div>
-            <div class="content-section" v-if="tab=='album'">
-              <div
-                v-for="album in albums"
-                :key="album.id"
-                @click="InBanned(album) ? null : selectItem(album)"
-                class="request-item"
-                :class="{'selected': item == album, 'banned': InBanned(album)}"
-              >
-                <div class="avatar-area">
-                  <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div>
+            <div class="requests__content">
+              <template v-if="tab == 'album'">
+                <div
+                  v-for="album in albums"
+                  :key="album.id"
+                  @click="InBanned(album) ? null : selectItem(album)"
+                  class="request-item"
+                  :class="{'selected': item == album, 'banned': InBanned(album)}"
+                >
+                  <div class="avatar-area">
+                    <div class="avatar-image" :style="`background-image: url(${album.cover.thumb.url})`"></div>
+                  </div>
+                  <div class="detail-area">
+                    <label class="item-name">{{ album.name }}</label>
+                    <label class="user-name">{{ album.user.display_name }}</label>
+                  </div>
                 </div>
-                <div class="detail-area">
-                  <label class="item-name">{{ album.name }}</label>
-                  <label class="user-name">{{ album.user.display_name }}</label>
+              </template>
+
+              <template v-else-if="tab == 'merch'">
+                <div
+                  v-for="product in products"
+                  :key="product.id"
+                  @click="InReposted(product) ? null : selectItem(product)"
+                  class="request-item"
+                  :class="{'selected': item == product, 'banned': InReposted(product)}"
+                >
+                  <div class="avatar-area">
+                    <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div>
+                  </div>
+                  <div class="detail-area">
+                    <label class="item-name">{{ product.name }}</label>
+                    <label class="user-name">{{ product.merchant.display_name }}</label>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div class="content-section" v-if="tab=='merch'">
-              <div
-                v-for="product in products"
-                :key="product.id"
-                @click="InReposted(product) ? null : selectItem(product)"
-                class="request-item"
-                :class="{'selected': item == product, 'banned': InReposted(product)}"
-              >
-                <div class="avatar-area">
-                  <div class="avatar-image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div>
-                </div>
-                <div class="detail-area">
-                  <label class="item-name">{{ product.name }}</label>
-                  <label class="user-name">{{ product.merchant.display_name }}</label>
-                </div>
-              </div>
+              </template>
             </div>
           </v-flex>
         </template>
