@@ -2,17 +2,16 @@ import _ from 'lodash'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
 import { Utils } from '@/helper'
 
-import MessageService from '@/services/message'
-import AuthService from '@/services/auth'
-import UserService from '@/services/user'
 import AlbumService from '@/services/album'
+import AuthService from '@/services/auth'
+import MessageService from '@/services/message'
+import UserService from '@/services/user'
 import ProductService from '@/services/product'
 
 import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
 import repostPaymentModal from '@/components/repost_payment_modal'
-import activityAlbumCard from '@/components/activityalbumcard'
-import activityProductCard from '@/components/activityproductcard'
+import message from './components/message'
 
 const ActionCable = require('actioncable')
 const DefaultRepostMessage = 'Hi, if you like this please repost it, thank you.'
@@ -21,8 +20,7 @@ export default {
   components: {
     profileItem,
     Picker,
-    activityAlbumCard,
-    activityProductCard,
+    message,
     repostPaymentModal
   },
 
@@ -445,86 +443,6 @@ export default {
         }
       }
     },
-
-    acceptRepostRequest (message) {
-      MessageService.acceptRepost(message.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ["Accepted a repost request!"])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    denyRepostRequest (message) {
-      MessageService.denyRepost(message.id).then(response => {
-        this.$store.dispatch('error/showErrorToast', ["Denied a repost request!"])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    acceptRepostRequestOnFree (message) {
-      MessageService.acceptRepostOnFree(message.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ["Accepted a repost request on free!"])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    // viewPendingCollaboration (message) {
-    //   if (message.attachment.attachable_type == 'Album') {
-    //     this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
-    //     this.$router.push({ path: '/albums' })
-    //   } else if (message.attachment.attachable_type == 'ShopProduct') {
-    //     this.$store.dispatch('navigator/setCurrentState', {page: 'messages', tab: '', action: 'view_pending_collaboration'})
-    //     this.$router.push({ path: '/sell' })
-    //   }
-    // },
-
-    // acceptCollaboration (message) {
-    //   if (message.attachment.attachable_type == 'Album') {
-    //     AlbumService.acceptCollaboration(message.attachment.assoc.id).then(response => {
-    //       this.refreshMessages()
-    //     })
-    //   } else if (message.attachment.attachable_type == 'ShopProduct') {
-    //     ProductService.acceptCollaboration(message.attachment.assoc.id).then(response => {
-    //       this.refreshMessages()
-    //     })
-    //   }
-    // },
-
-    // denyCollaboration (message) {
-    //   if (message.attachment.attachable_type == 'Album') {
-    //     AlbumService.denyCollaboration(message.attachment.assoc.id).then(response => {
-    //       this.refreshMessages()
-    //     })
-    //   } else if (message.attachment.attachable_type == 'ShopProduct') {
-    //     ProductService.denyCollaboration(message.attachment.assoc.id).then(response => {
-    //       this.refreshMessages()
-    //     })
-    //   }
-    // },
-
-    acceptLabelUser (message) {
-      UserService.acceptLabelRequest(message.sender.id)
-    },
-
-    denyLabelUser (message) {
-      UserService.denyLabelRequest(message.sender.id)
-    },
-
-    acceptLabelAlbum (message) {
-      const params = {
-        label_id: message.sender.id
-      }
-      AlbumService.acceptLabelRequest(message.attachment.assoc.id, params)
-    },
-
-    denyLabelAlbum (message) {
-      const params = {
-        label_id: message.sender.id
-      }
-      AlbumService.denyLabelRequest(message.attachment.assoc.id, params)
-    }
   },
 
   mounted() {
