@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 import AuthService from  '@/services/auth'
+import PaymentService from '@/services/payment'
 import StreamService from  '@/services/stream'
 import UserService from '@/services/user'
 
