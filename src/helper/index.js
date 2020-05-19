@@ -17,9 +17,11 @@ export const Utils = {
       lastDay: '[Yesterday,] LT',
       sameDay: '[Today,] LT',
       nextDay: '[Tomorrow,] LT',
-      lastWeek: '[Last] dddd[,] LT',
-      nextWeek: 'dddd[,] LT',
-      sameElse: 'L'
+      // lastWeek: '[Last] dddd[,] LT',
+      // nextWeek: 'dddd[,] LT',
+      lastWeek: 'LLLL',
+      nextWeek: 'LLLL',
+      sameElse: 'LLLL'
     })
   },
 
