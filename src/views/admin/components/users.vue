@@ -1,4 +1,4 @@
-<template> 
+<template>
   <v-card flat v-if="isPageReady">
     <v-tabs dark class="white" v-model="active_tab">
       <v-tabs-bar class="transparent pl-4 mt-4">
@@ -110,15 +110,26 @@
           </td>
           <td class="text-xs-left">{{ props.item.status }}</td>
           <td class="text-xs-right">
-            <v-menu offset-y class="more-menu" v-if="props.item.status!='inactive'">
+            <v-menu offset-y class="more-menu">
               <v-btn dark slot="activator">
                 <v-icon>settings</v-icon>
               </v-btn>
               <v-list>
-                <v-list-tile v-if="['suspended', 'pending'].indexOf(props.item.status)!==-1"
-                    key="activate"
-                    class="default-menu-item"
-                    @click.native="activateAccount(props.item)">
+                <v-list-tile
+                  v-if="props.item.status == 'inactive'""
+                  class="default-menu-item"
+                  @click.native="sendConfirmEmail(props.item)"
+                >
+                  <v-list-tile-title>
+                    <label>Resend confirm email</label>
+                  </v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile
+                  v-if="['suspended', 'pending'].indexOf(props.item.status)!==-1"
+                  key="activate"
+                  class="default-menu-item"
+                  @click.native="activateAccount(props.item)"
+                >
                   <v-list-tile-title>
                     <label>Activate account</label>
                   </v-list-tile-title>
@@ -127,7 +138,6 @@
                 <v-list-tile
                   v-if="['active', 'pending'].indexOf(props.item.status)!==-1"
                   @click.native="suspendAccount(props.item)"
-                  key="suspend"
                   class="default-menu-item"
                 >
                   <v-list-tile-title>
@@ -149,7 +159,6 @@
                 <v-list-tile
                   v-if="props.item.status=='active' && ['artist', 'moderator'].indexOf(props.item.user_type) > -1"
                   @click.native="updateUserRole(props.item, 'listener')"
-                  key="activate"
                   class="default-menu-item"
                 >
                   <v-list-tile-title>
@@ -160,7 +169,6 @@
                 <v-list-tile
                   v-if="props.item.status=='active' && ['listener', 'artist'].indexOf(props.item.user_type) > -1"
                   @click.native="updateUserRole(props.item, 'moderator')"
-                  key="convert_moderator"
                   class="default-menu-item"
                 >
                   <v-list-tile-title>

@@ -1,3 +1,4 @@
+import AuthService from '@/services/auth'
 import AdminService from '@/services/admin'
 import UserService from '@/services/user'
 import StreamService from '@/services/stream'
@@ -148,6 +149,17 @@ export default {
         user_id: user.id
       }
       AdminService.toggleLiveVideoFree(params)
+    },
+
+    sendConfirmEmail (user) {
+      const params = {
+        email: user.email
+      }
+      AuthService.sendConfirmEmail(params).then(response => {
+        // this.$store.dispatch('error/showSuccessToast', ['Resent a confirmation email'])
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     },
 
     suspendAccount (user) {
