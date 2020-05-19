@@ -3,7 +3,7 @@ import Vue from 'vue'
 import { mapActions } from 'vuex'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
-import { MyEvents, ViolationsEmail } from '@/helper'
+import { MyEvents, ViolationsEmail, PublicRelationsUsername } from '@/helper'
 import albumSlideCard from '@/components/albumslidecard'
 import carousel3d from '@/components/slider/Carousel3d'
 import merchModal from '@/components/merchmodal'
@@ -39,6 +39,7 @@ export default {
     return {
       // active_tab: 'songs',
       // slide_tab: 'songs',
+      PublicRelationsUsername: PublicRelationsUsername,
       active_tab: '',
       slide_tab: '',
       tabs: [

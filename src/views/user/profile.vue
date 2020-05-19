@@ -63,8 +63,9 @@
                     @click.native="playSong()"
                     class="play-btn"
                   ><v-icon>play_arrow</v-icon>Play</v-btn>
+
                   <v-btn
-                    v-if="currentUser && user.id!=currentUser.id"
+                    v-if="currentUser && user.id != currentUser.id && user.username != PublicRelationsUsername"
                     @mouseenter="buttonHover = true"
                     @mouseleave="buttonHover = false"
                     @click.native="followUser()"
@@ -72,7 +73,7 @@
                   >{{ followButtonText }}</v-btn>
 
                   <v-menu
-                    v-if="currentUser && user.id!=currentUser.id"
+                    v-if="currentUser && user.id != currentUser.id && user.username != PublicRelationsUsername"
                     offset-y
                     class="more-menu"
                   >

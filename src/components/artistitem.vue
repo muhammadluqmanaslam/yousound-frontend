@@ -9,7 +9,7 @@
               <div class="hover-title">View Profile</div>
             </div>
           </router-link>
-          <div class="follow-section" v-if="currentUser && currentUser.id != artist.id">
+          <div class="follow-section" v-if="currentUser && currentUser.id != artist.id && artist.username != PublicRelationsUsername">
             <v-btn
               :class="{ 'follow-btn': true, 'follow': !artist.is_following, 'following': artist.is_following }"
               @click.native="followUser()"
@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
   import UserService from '@/services/user'
-  import { MyEvents } from '@/helper'
+  import { MyEvents, PublicRelationsUsername } from '@/helper'
 
   export default {
     components: {
@@ -46,6 +46,7 @@
 
     data () {
       return {
+        PublicRelationsUsername: PublicRelationsUsername,
         buttonHover: false
       }
     },
