@@ -70,7 +70,7 @@
               :key="`video-${feed.id}`"
               class="card-container"
             >
-              <video-card :dataObject="feed"></video-card>
+              <video-box :item="feed" />
             </div>
           </v-layout>
         </div>

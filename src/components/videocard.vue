@@ -18,7 +18,7 @@
         </p>
       </v-flex>
     </v-flex>
-  </v-flex>  
+  </v-flex>
 </template>
 
 <script type="text/javascript">
@@ -44,7 +44,7 @@
 
     computed: {
       item () {
-        if (this.dataObject.assoc_type) {
+        if (this.dataObject.assoc_type === 'Stream') {
           return this.dataObject.assoc
         } else {
           return this.dataObject
@@ -52,7 +52,7 @@
       },
 
       owner () {
-        if (this.dataObject.assoc_type) {
+        if (this.dataObject.assoc_type === 'Stream') {
           return this.dataObject.assoc.user
         } else {
           return this.dataObject.user

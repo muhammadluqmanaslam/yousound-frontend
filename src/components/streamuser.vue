@@ -17,7 +17,7 @@
       </v-flex>
     </v-flex>
 
-    <v-layout row wrap class="covers-content">
+    <v-layout row wrap class="covers-content" mt-2>
       <div
         v-for="(feed, index) in user.recent_items"
         v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
@@ -33,9 +33,9 @@
           v-if="feed.assoc_type=='ShopProduct'"
           :dataObject="feed"
         />
-        <video-card
+        <video-box
           v-if="feed.assoc_type=='Stream'"
-          :dataObject="feed"
+          :item="feed.assoc"
         />
       </div>
     </v-layout>
@@ -45,7 +45,7 @@
       :item="user.recent_items[0].assoc"
       :dismiss="dimissMerchModal"
     />
-  </v-flex>  
+  </v-flex>
 </template>
 
 <script type="text/javascript">
@@ -53,7 +53,8 @@
   import productCard from '@/components/productcard'
   import profileItem from '@/components/profileitem'
   import trackCard from '@/components/trackcard'
-  import videoCard from '@/components/videocard'
+  import VideoBox from '@/components/video_box'
+  // import videoCard from '@/components/videocard'
 
   export default {
     components: {
@@ -61,7 +62,8 @@
       productCard,
       profileItem,
       trackCard,
-      videoCard
+      VideoBox
+      // videoCard
     },
 
     props: {

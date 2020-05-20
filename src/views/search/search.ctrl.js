@@ -3,6 +3,7 @@ import SearchService from '@/services/search'
 import artistItem from '@/components/artistitem'
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
+import VideoBox from '@/components/video_box'
 import videoCard from '@/components/videocard'
 
 export default {
@@ -10,6 +11,7 @@ export default {
     artistItem,
     trackCard,
     productCard,
+    VideoBox,
     videoCard
   },
 
@@ -20,7 +22,7 @@ export default {
         { id: 'albums', title: 'Albums' },
         // { id: 'playlists', title: 'Playlists' },
         { id: 'products', title: 'Products' },
-        { id: 'live_video', title: 'Live Videos' },
+        { id: 'live_videos', title: 'Live Videos' },
         { id: 'users', title: 'Users' }
       ],
       page_index: 1,
@@ -76,7 +78,7 @@ export default {
           return this.result.playlists.length
         case 'products':
           return this.result.products.length
-        case 'live_video':
+        case 'live_videos':
           return this.result.streams.length
         case 'users':
           return this.result.users.length

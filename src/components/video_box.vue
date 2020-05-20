@@ -1,0 +1,117 @@
+<template>
+  <div class="box">
+    <div class="box__content">
+      <div
+        class="box__image"
+        :style="`background-image: url(${ _.get(item, 'cover.url') })`"
+      ></div>
+      <div class="box__caption">Live</div>
+
+      <div class="box__overlay">
+        <video-detail-box :item="item" />
+      </div>
+    </div>
+    <div class="box__footer">
+      <div class="box__subtitle">{{ item.name }}</div>
+      <div class="box__title">{{ _.get(item, 'user.display_name') }}</div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import VideoDetailBox from './video_detail_box'
+
+  export default {
+    components: {
+      VideoDetailBox
+    },
+
+    props: {
+      item: Object
+    },
+
+    methods: {
+
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+.box {
+  //display: flex;
+  //flex-direction: column;
+
+  &__content {
+    position: relative;
+    width: 100%;
+  }
+
+  &__overlay {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 7.5px;
+  }
+
+  &__image {
+    z-index: 1;
+    width: 100%;
+    padding-bottom: 100%;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center;
+    border-radius: 7.5px;
+    border: none;
+  }
+
+  &__caption {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 5px 12px;
+    border-radius: 3.75px;
+    background-color: #ff0042;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2.6px;
+    text-transform: uppercase;
+  }
+
+  &__title,
+  &__subtitle {
+    display: block;
+    overflow: hidden;
+    letter-spacing: -0.6px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__title {
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  &__subtitle {
+    margin-top: 10px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  &__content:hover {
+    .box__overlay {
+      display: block;
+    }
+  }
+}
+</style>
