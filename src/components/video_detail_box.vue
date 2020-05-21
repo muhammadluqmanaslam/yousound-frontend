@@ -9,8 +9,12 @@
       <div class="box__subtitle">{{ item.name }}</div>
       <label>{{ _.get(item, 'genre.name') }}</label>
     </div>
-    <div class="box__footer">
-      <v-btn block dark>Pay $20</v-btn>
+    <div class="box__footer" v-if="item.view_price > 0">
+      <!-- <v-btn block dark>Pay ${{ item.view_price | formatNumber }}</v-btn> -->
+      <v-btn
+        dark block
+        :to="`/${_.get(item, 'user.slug')}`"
+      >Watch</v-btn>
     </div>
   </div>
 </template>

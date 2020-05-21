@@ -323,7 +323,7 @@
         <v-card-text>Are you sure you want to block this?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
+          <v-btn class="red--text darken-1" flat="flat" @click.native="blockUser()">Ok</v-btn>
           <v-btn class="blue--text darken-1" flat="flat" @click.native="closeBlockUserConfirmDialog()">Cancel</v-btn>
         </v-card-actions>
       </v-card>

@@ -13,7 +13,9 @@
     </div>
     <div class="box__footer">
       <div class="box__subtitle">{{ item.name }}</div>
-      <div class="box__title">{{ _.get(item, 'user.display_name') }}</div>
+      <div class="box__title">
+        <router-link :to="`/${_.get(item, 'user.slug')}`">{{ _.get(item, 'user.display_name') }}</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +33,6 @@
     },
 
     methods: {
-
     }
   }
 </script>
@@ -99,6 +100,9 @@
     color: #333;
     font-size: 14px;
     font-weight: 700;
+    a {
+      color: #000000;
+    }
   }
 
   &__subtitle {
