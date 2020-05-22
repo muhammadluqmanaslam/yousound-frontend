@@ -52,7 +52,7 @@ export default {
     },
 
     selectedGenreName() {
-      return _.get(this.selected_genre, 'name', 'All Genres')
+      return _.get(this.selected_genre, 'name', 'All')
     },
 
     selectedCategoryName() {
@@ -163,7 +163,7 @@ export default {
               )
               const genres = _.chain(vm.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
               vm.genres = [
-                { id: 'any', name: 'All genre' },
+                { id: 'any', name: 'All' },
               ].concat(genres)
               vm.page_index = values[2].body.pagination.total_pages > 4 ? 4 : values[2].body.pagination.total_pages
             }

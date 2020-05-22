@@ -23,6 +23,10 @@
         </v-flex>
       </v-layout>
 
+      <v-flex sm3>
+        <attach v-model="stream_assoc" @input="saveAttach()"/>
+      </v-flex>
+
       <!-- <div class="divider mt-5 mb-5"></div>
 
       <div class="share-view">

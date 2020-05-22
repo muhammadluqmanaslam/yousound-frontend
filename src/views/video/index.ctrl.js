@@ -6,7 +6,8 @@ import PaymentService from '@/services/payment'
 import StreamService from '@/services/stream'
 import UserService from '@/services/user'
 
-import paymentModal from '@/components/paymentmodal'
+import Attach from './components/attach'
+import PaymentModal from '@/components/paymentmodal'
 
 import {
   MediaLiveInputTypes,
@@ -19,7 +20,8 @@ import {
 
 export default {
   components: {
-    paymentModal,
+    Attach,
+    PaymentModal
   },
 
   mixins: [onClickOutside],
@@ -40,6 +42,10 @@ export default {
       show_add_more_time_dialog: false,
       show_payment_dialog: false,
       show_view_stream_button: false,
+      stream_assoc: {
+        type: 'Album',
+        value: null
+      },
       viewers_limits: [
         { id: 0, name: 'Unlimited' },
         { id: 1, name: '1' },
@@ -138,6 +144,14 @@ export default {
 
       AuthService.setUser(response.body)
       this.$store.dispatch('auth/setStream', response.body.stream)
+      this.stream_assoc = {
+        type: _.get(response.body, 'stream.assoc_type', 'Album'),
+        value: _.get(response.body, 'stream.assoc'),
+      }
+      if (this.stream_assoc.type === '') {
+        this.stream_assoc.type = 'Album'
+      }
+      console.log('stream_assoc', this.stream_assoc)
 
       const stream_status = _.get(response.body, 'stream.status', '')
       if (stream_status === '') {
@@ -193,9 +207,6 @@ export default {
     },
 
     saveViewersLimit (value) {
-      // console.log('saveViewersLimit')
-      // console.log(value)
-      // console.log(this.viewers_limit)
       if (value == this.viewers_limit) return
 
       const params = {
@@ -203,25 +214,37 @@ export default {
           viewers_limit: value
         }
       }
-      StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
-      }).catch(e => {
-        console.log('saveViewersLimit', e.body.errors || [e.body])
-      })
+      StreamService.updateStream(this.currentUser.stream.id, params)
     },
 
     saveGuests (values) {
-      // console.log('saveGuests')
-      // console.log(values)
-      // console.log(this.selected_guests)
       const params = {
         stream: {
           guests_ids: values.join(',')
         }
       }
-      StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
-      }).catch(e => {
-        console.log('saveGuests', e.body.errors || [e.body])
-      })
+      StreamService.updateStream(this.currentUser.stream.id, params)
+    },
+
+    saveAttach () {
+      console.log('saveAttach', this.stream_assoc)
+      let params
+      if (this.stream_assoc.value && this.stream_assoc.value.id > 0) {
+        params = {
+          stream: {
+            assoc_type: this.stream_assoc.type,
+            assoc_id: this.stream_assoc.value.id
+          }
+        }
+      } else {
+        params = {
+          stream: {
+            assoc_type: '',
+            assoc_id: 0
+          }
+        }
+      }
+      StreamService.updateStream(this.currentUser.stream.id, params)
     },
 
     addMoreTime () {

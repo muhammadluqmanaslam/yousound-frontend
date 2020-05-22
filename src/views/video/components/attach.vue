@@ -1,92 +1,121 @@
 <template>
-  <div class="media" :class="type">
-    <div class="media__image" :style="`background-image: url(${image})`"></div>
-    <div class="media__content">
-      <div>
-        <div class="media__title">{{ title }}</div>
-        <div class="media__description">{{ subtitle }}</div>
-      </div>
+  <div class="attach">
+    <template v-if="stream_assoc.value">
+      <attach-card
+        v-if="stream_assoc.type == 'Album'"
+        :image="_.get(stream_assoc.value, 'cover.thumb.url', '')"
+        :title="stream_assoc.value.name"
+        :subtitle="`${stream_assoc.value.tracks.length} tracks`"
+      />
+
+      <attach-card
+        v-if="stream_assoc.type == 'ShopProduct'"
+        :image="_.get(stream_assoc.value, 'covers[0].cover.thumb.url', '')"
+        :title="stream_assoc.value.name"
+        :subtitle="`$${$options.filters.formatNumber(stream_assoc.value.price)}`"
+      />
+
+      <attach-card
+        v-if="stream_assoc.type == 'User'"
+        :image="_.get(stream_assoc.value, 'avatar.thumb.url', '')"
+        :title="stream_assoc.value.display_name"
+        :subtitle="`${stream_assoc.value.followers} followers`"
+      />
+    </template>
+
+    <div>
+      <template v-if="stream_assoc.value">
+        <span
+          class="attach__cta"
+          @click="openAttachPicker()"
+        >Change</span>
+        <span
+          class="attach__cta danger"
+          @click="removeAttach()"
+        >Remove</span>
+      </template>
+      <template v-else>
+        <span
+          class="attach__cta"
+          @click="openAttachPicker()"
+        >Add</span>
+      </template>
     </div>
+
+    <attach-picker
+      v-if="show_attach_picker"
+      v-model="stream_assoc"
+      :dismiss="closeAttachPicker"
+    />
   </div>
 </template>
 
 <script>
+  import AttachCard from './attach_card'
+  import AttachPicker from './attach_picker'
+
   export default {
+    components: {
+      AttachCard,
+      AttachPicker
+    },
+
     props: {
-      image: String,
-      title: String,
-      subtitle: String,
-      type: String
+      value: Object
+    },
+
+    data () {
+      return {
+        stream_assoc: {
+          type: 'Album',
+          value: null
+        },
+        show_attach_picker: false
+      }
+    },
+
+    methods: {
+      openAttachPicker () {
+        this.show_attach_picker = true
+      },
+
+      closeAttachPicker () {
+        this.show_attach_picker = false
+        this.$emit('input', this.stream_assoc)
+      },
+
+      removeAttach () {
+        this.stream_assoc = {
+          type: 'Album',
+          value: null
+        }
+        this.$emit('input', this.stream_assoc)
+      }
+    },
+
+    created () {
+      this.stream_assoc = {
+        type: this._props.value.type,
+        value: this._props.value.value
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-.media {
-  // display: flex;
-  padding: 4px 12px;
-
-  &__image {
-    // flex: 0 0 auto;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    border-radius: 3.75px;
-    background-size: cover;
-    vertical-align: middle;
-  }
-
-  &__content {
-    width: calc(100% - 80px);
-    display: inline-block;
-    padding-left: 11.25px;
-    vertical-align: middle;
-  }
-
-  &__title {
-    display: block;
+.attach {
+  &__cta {
+    margin-left: 20px;
+    color: #1976D2;
     cursor: pointer;
-    font-size: 15px;
-    color: #000000;
-    letter-spacing: -0.6px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
+    &:hover {
+      text-decoration: underline;
+    }
 
-  &__subtitle {
-    display: block;
-    cursor: pointer;
-    opacity: 0.5;
-    font-size: 15px;
-    color: #000000;
-    letter-spacing: -0.6px;
-  }
-}
-
-.media.user {
-  .media__image {
-    width: 55px;
-    height: 55px;
-    border-radius: 27.5px;
-    background-size: cover;
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    background-position: center;
-    background-color: rgba(0, 0, 0, 0.1);
-    // border: 0.75px solid rgba(0, 0, 0, 0.3);
-  }
-
-  .media__subtitle {
-    padding-left: 10px;
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 15px;
-    color: #000000;
-    letter-spacing: 0;
+    &.danger {
+      margin-left: 30px;
+      color: #f44336;
+    }
   }
 }
 </style>

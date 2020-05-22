@@ -164,7 +164,7 @@
               >Chat</label>
             </v-list-tile> -->
             <v-divider></v-divider>
-            <v-list-tile to="/user/${currentUser.slug}/video" v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1">
+            <v-list-tile :to="`/user/${currentUser.slug}/video`" v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1">
               <v-list-tile-content>
                 <v-list-tile-title>Live Video</v-list-tile-title>
                 <v-list-tile-sub-title>broadcast a live stream</v-list-tile-sub-title>

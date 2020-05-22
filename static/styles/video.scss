@@ -35,7 +35,7 @@
   }
 
   .btn:not(.btn--depressed) {
-    float: left !important;
+    // float: left !important;
     margin-left: 0;
     // padding-top: 14px;
     // padding-bottom: 14px;
@@ -45,16 +45,16 @@
     font-weight: 700;
   }
 
-  .mb-3 {
-    font-size: 16px !important;
-  }
-
   .green {
     background-color: #14c55a !important;
   }
 
   .btn--active .btn__content:before, .btn:focus .btn__content:before, .btn:hover .btn__content:before {
-    background-color: transparent!important;
+    background-color: transparent !important;
+  }
+
+  .mb-3 {
+    font-size: 16px !important;
   }
 
   .mb-5 {
@@ -212,12 +212,12 @@
       padding-bottom: 18px;
     }
 
-    .mb-5 {
-      margin-bottom: 32px!important;
+    .mt-3 {
+      margin-top: 12px !important;
     }
 
-    .mt-3 {
-      margin-top: 12px!important;
+    .mb-5 {
+      margin-bottom: 32px !important;
     }
 
     .divider {

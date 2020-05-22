@@ -161,6 +161,7 @@
           value: value
         }
         this.$emit('input', this.item)
+        this.dismiss()
       },
 
       loadUsers () {

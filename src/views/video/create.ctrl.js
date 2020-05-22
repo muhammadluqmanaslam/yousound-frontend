@@ -5,9 +5,8 @@ import PaymentService from '@/services/payment'
 import StreamService from  '@/services/stream'
 import UserService from '@/services/user'
 
-import attach from './components/attach'
-import attachPicker from './components/attach_picker'
-import paymentModal from '@/components/paymentmodal'
+import Attach from './components/attach'
+import PaymentModal from '@/components/paymentmodal'
 
 import {
   MediaLiveInputTypes,
@@ -20,9 +19,8 @@ import {
 
 export default {
   components: {
-    attach,
-    attachPicker,
-    paymentModal
+    Attach,
+    PaymentModal
   },
 
   data () {
@@ -154,21 +152,6 @@ export default {
         AuthService.setUser(response.body)
         this.$store.dispatch('auth/setUser', response.body)
       })
-    },
-
-    openAttachPicker () {
-      this.show_attach_picker = true
-    },
-
-    closeAttachPicker () {
-      this.show_attach_picker = false
-    },
-
-    removeAttach () {
-      this.stream_assoc = {
-        type: 'Album',
-        value: null
-      }
     },
 
     openPaymentDialog () {
