@@ -298,7 +298,8 @@
         <v-card-title class="headline">Connect to Twitter</v-card-title>
         <v-card-text>
           To complete verification, you must choose your request role like Artist or Brand<br>
-          Twitter account once time & verify your identity.
+          Twitter account once time & verify your identity.<br>
+          <a href="http://support.yousound.com/en/articles/4078259-i-m-trying-to-get-verified-on-yousound-but-i-don-t-have-twitter" target="_blank">I don't have a Twitter</a>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
