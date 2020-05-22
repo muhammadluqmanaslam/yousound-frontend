@@ -47,8 +47,13 @@ export const UserBooleanOptions = [
   {id: true, name: 'Yes'},
   {id: false, name: 'No'},
 ]
-export const UserGenderOptions = ['Male', 'Female']
-export const UserArtistTypeOptions = ['Solo artist', 'Brand', 'Producer', 'DJ']
+// export const UserGenderOptions = ['Male', 'Female', ]
+export const UserGenderOptions = [
+  { value: '', text: "I'd rather not say" },
+  { value: 'Male', text: "Male" },
+  { value: 'Female', text: "Female" }
+]
+export const UserArtistTypeOptions = ['Solo artist', 'Brand/Group', 'Producer', 'DJ']
 export const UserReleasedAlbumsCountOptions = [
   {id: 0, name: '0'},
   {id: 1, name: '1-5'},

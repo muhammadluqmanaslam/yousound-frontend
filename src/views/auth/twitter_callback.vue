@@ -37,6 +37,8 @@
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <v-select v-validate="'required'"
                 :items="gender_options"
+                item-value="value"
+                item-text="text"
                 v-model="user.gender"
                 name="gender"
                 placeholder="Sex"
