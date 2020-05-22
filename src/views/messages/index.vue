@@ -89,7 +89,7 @@
                 <div class="detail-area">
                   <!-- <router-link class="user-name" :to="'/' + conv.other.slug">{{ conv.other.display_name }}</router-link> -->
                   <div class="user-name">{{ conv.other.display_name }}</div>
-                  <div class="short-message">{{ conv.last_message.body }}</div>
+                  <div class="short-message" v-html="conv.last_message.body"></div>
                 </div>
                 <div class="messaged-time">{{ toLocalTimeString(conv.last_message.created_at) }}</div>
               </div>
