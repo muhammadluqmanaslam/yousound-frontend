@@ -167,13 +167,13 @@
             <v-list-tile :to="`/user/${currentUser.slug}/video`" v-if="!$store.getters['app/disabledLiveVideo'] && currentUser.enabled_live_video && ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1">
               <v-list-tile-content>
                 <v-list-tile-title>Live Video</v-list-tile-title>
-                <v-list-tile-sub-title>broadcast a live stream</v-list-tile-sub-title>
+                <v-list-tile-sub-title>Broadcast a live stream</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile to="/upload/album" v-if="currentUser.user_type=='artist'">
               <v-list-tile-content>
                 <v-list-tile-title>Upload</v-list-tile-title>
-                <v-list-tile-sub-title>upload an ablum</v-list-tile-sub-title>
+                <v-list-tile-sub-title>Upload an ablum</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile key="manage" to="/albums" v-if="currentUser.user_type=='artist'">
@@ -291,15 +291,14 @@
       </v-toolbar>
     </v-flex>
 
-    <v-dialog v-model="show_twitter_confirm_dialog" content-class="twitter-confirm-dialog" width="800">
+    <v-dialog v-model="show_twitter_confirm_dialog" content-class="twitter-confirm-dialog" width="700">
       <v-card mt-5>
         <!-- <div class="card__image"><v-icon>twitter</v-icon></div> -->
         <v-card-media contain src="/static/images/ic_twitter.png" height="50px"></v-card-media>
         <v-card-title class="headline">Connect to Twitter</v-card-title>
         <v-card-text>
-          To complete verification, you must choose your request role like Artist or Brand<br>
-          Twitter account once time & verify your identity.<br>
-          <a href="http://support.yousound.com/en/articles/4078259-i-m-trying-to-get-verified-on-yousound-but-i-don-t-have-twitter" target="_blank">I don't have a Twitter</a>
+          Choose your role then you will be redirected to Twitter<br>
+          to login one time to verify your artist/brand identity.<br>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -317,6 +316,7 @@
           </div>
           <v-spacer></v-spacer>
         </v-card-actions>
+        <a href="http://support.yousound.com/en/articles/4078259-i-m-trying-to-get-verified-on-yousound-but-i-don-t-have-twitter" target="_blank">I don't have a Twitter</a>
       </v-card>
     </v-dialog>
   </v-layout>

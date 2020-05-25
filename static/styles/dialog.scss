@@ -1,4 +1,5 @@
 .dialog {
+  border-radius: 10px;
   &:not(.dialog--fullscreen) {
     width : 500px;
   }
@@ -45,6 +46,7 @@
       font-size: 20px;
       text-align: center;
       font-size: 16px !important;
+      margin-top: -20px;
       .headline {
         font-size: 19px !important;
         font-weight: 600;
@@ -137,13 +139,14 @@
 .dialog.twitter-confirm-dialog {
   .card {
     // padding-top: 200px !important;
-    padding: 100px 0 50px 0;
+    padding: 40px 0 36px 0;
     text-align: center;
     background: #FFFFFF;
     &__title {
       display: block;
-      font-size: 32px !important;
+      font-size: 28px !important;
       font-weight: 700;
+      margin-top: -10px;
     }
     &__actions {
       .btn {
@@ -151,12 +154,15 @@
       }
       .img-button {
         margin: 20px;
-        padding: 20px;
+        padding: 10px 20px 16px 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
         cursor: pointer;
         img {
           width: 200px;
           height: 200px;
           border-radius: 50%;
+          display: none;
         }
         label {
           display: block;
@@ -167,6 +173,7 @@
         &:hover {
           // border: 1px dotted #ccc;
           background-color: #f0f0f0;
+          border-radius: 10px;
         }
       }
     }

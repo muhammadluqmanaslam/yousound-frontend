@@ -2,7 +2,6 @@
   <div class="main-section repost-price">
     <div class="description-section">
       <h3>Earn money by sharing content</h3>
-      <span @click="learnMore()">Learn more</span>
       <p class="mt-2">Every user can accept $1 and earns 50% of the revenue split.<br>
       Upgrade your price to keep 90% of each repost request.</p>
       <ul class="mt-3">

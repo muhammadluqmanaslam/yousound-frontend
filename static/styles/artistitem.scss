@@ -37,23 +37,28 @@
           width: 88.5px;
           height: 40px;
           box-shadow: none;
-          text-transform: none;
+          text-transform: uppercase;
           margin: 7.5px 5.25px 7.5px 0px;
-          background-color: #FFFFFF !important;
+          color: #FFF;
+          border: 1px solid #377af9;
+          background-color: #fff;
           border-radius: 75px;
-          font-size: 16px;
-          letter-spacing: 0;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: -.5px;
           min-width: 100px;
           &.follow {
-            color: #3A92FF !important;
-            border: 1.5px solid #3A92FF;
+            color: #FFF !important;
+            border: 1px solid #3A92FF;
+            background-color: #417ef2;
           }
           &.following {
-            color: #5BAD00 !important;
-            border: 1.5px solid #5BAD00;
+            color: #333!important;
+            border: 1px solid #333;
             &:hover {
-              color: #dc3545 !important;
-              border: 1.5px solid #dc3545;
+              color: #fff !important;
+              border: 1.5px solid #dc3546;
+              background: #fe2020;
             }
           }
         }

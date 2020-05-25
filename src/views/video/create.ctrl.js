@@ -123,7 +123,7 @@ export default {
       if (this.currentUser.stream_rolled_time > 0) {
         this.periods.push({
           id: this.currentUser.stream_rolled_time,
-          name: `${Filter.timeInHours(this.currentUser.stream_rolled_time)} / Rolled Over Time`
+          name: `${Filter.timeInHours(this.currentUser.stream_rolled_time)} / Remaining Unpaid Time`
         })
         this.period = this.currentUser.stream_rolled_time
       }

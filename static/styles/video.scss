@@ -79,6 +79,10 @@
     }
   }
 
+  .mr-4 {
+  margin-bottom: 40px;
+  }
+
   .share-view {
     h3 {
       font-size: 32px;
@@ -142,7 +146,6 @@
       // margin: 15px 7.5px 0;
       text-align: center;
       padding-left: 24px;
-      top: -18px;
       .clipboard-btn {
         position: absolute;
         top: 5px;

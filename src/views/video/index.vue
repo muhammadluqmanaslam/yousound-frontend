@@ -2,7 +2,7 @@
   <div class="page video-page index-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
       <h2 class="page-title">Live Video</h2>
-      <p class="page-subtitle mt-5 mb-4">It can take up to 5 mins to get your stream keys, get ready to broadcast!</p>
+      <p class="page-subtitle mt-5 mb-4">It can take up to 5 mins to get your stream keys. For best quality, connect directly to your ethernet router.</p>
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 v-if="isPageReady">
@@ -23,9 +23,13 @@
         </v-flex>
       </v-layout>
 
+      
+      <div class="share-view">
       <v-flex sm3>
+       <h3 class="mt-0 mb-4">Attach Content</h3>
         <attach v-model="stream_assoc" @input="saveAttach()"/>
       </v-flex>
+       </div>
 
       <!-- <div class="divider mt-5 mb-5"></div>
 
@@ -70,7 +74,6 @@
         <h3 class="mt-0 mb-4">Share</h3>
         <v-flex x12>
           <div class="share-social-section d-inline-block">
-            <v-btn class ="social-share-btn"><v-icon>fa-envelope</v-icon></v-btn>
             <social-sharing v-bind:url="profileUrl" inline-template>
               <div class="social-section">
                 <network network="facebook">
