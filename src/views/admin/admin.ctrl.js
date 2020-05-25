@@ -87,7 +87,7 @@ export default {
 
     availableTab (tab) {
       return this.$store.state.auth.user.user_type === 'admin' ||
-        (this.$store.state.auth.user.user_type=='moderator' && ['users', 'albums', 'signups'].indexOf(tab.id) > -1)
+        (this.$store.state.auth.user.user_type === 'moderator' && ['users', 'albums', 'signups', 'attendees' ].indexOf(tab.id) > -1)
     },
 
     onTab(tab) {
