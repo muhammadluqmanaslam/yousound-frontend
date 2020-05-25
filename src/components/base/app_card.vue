@@ -1,5 +1,5 @@
 <template>
-  <div class="media" :class="type">
+  <div class="media">
     <div
       class="media__image"
       :class="{'round': imageRounded }"
@@ -34,7 +34,7 @@
 
     computed: {
       imageRounded () {
-        return this.meta.type === 'user'
+        return this._.get(this.meta, 'type') === 'user'
       }
     }
   }

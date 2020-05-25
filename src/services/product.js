@@ -57,6 +57,10 @@ export default {
     return Vue.http.get(API_BASE_URL + '/' + productId + '/repost', { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  hideProduct (productId) {
+    return Vue.http.get(`${API_BASE_URL}/${productId}/hide`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   searchProduct (params) {
     return Vue.http.post(API_BASE_URL + '/search', params, { headers: { 'Authorization': $store.state.auth.token } })
   },

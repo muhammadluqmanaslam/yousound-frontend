@@ -115,14 +115,14 @@
         }
         .product-menu.menu {
           position: absolute;
-          top: calc(50% - 18.75px);
+          top: 50%;
           right: 5px;
+          transform: translateY(-50%);
           .btn {
-            background: none !important;
+            background: none;
             border: none !important;
             width: 37.5px;
             min-width: 37.5px;
-            bottom: -105px;
             box-shadow: none;
             .btn__content {
               padding: 0;

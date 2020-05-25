@@ -20,7 +20,7 @@
         <v-flex xs12 class="product-actions" relative v-if="currentUser">
           <div class="product-label">${{ item.price | formatNumber }}</div>
           <v-flex xs12 class="touch-flex" @click="openMerchDialog()"></v-flex>
-          <!-- <v-menu
+          <v-menu
             v-if="willMenuRender"
             offset-y
             class="product-menu"
@@ -29,28 +29,27 @@
               <v-icon right>more_horiz</v-icon>
             </v-btn>
             <v-list>
-              <v-list-tile
+              <!-- <v-list-tile
                 v-if="item.merchant.id != currentUser.id"
-                key="repost"
                 @click.native="repostProduct()"
               >
                 <v-list-tile-title class="product-menu-item">
                   <img class="product-status-icon" src="/static/images/ic_repeat.png" />
                   <label>Repost</label>
                 </v-list-tile-title>
-              </v-list-tile>
+              </v-list-tile> -->
               <v-list-tile
-                key="share"
-                class="product-menu-item"
-                @click.native="openShareDialog()"
+                v-if="item.merchant.id != currentUser.id"
+                @click.native="openHideDialog()"
+                class="default-menu-item track-menu-item"
               >
                 <v-list-tile-title>
-                  <img class="product-status-icon" src="/static/images/ic_share.png" />
-                  <label>Share</label>
+                  <v-icon>visibility_off</v-icon>
+                  <label>Hide</label>
                 </v-list-tile-title>
               </v-list-tile>
             </v-list>
-          </v-menu> -->
+          </v-menu>
         </v-flex>
       </v-flex>
       <v-flex xs12 class="product-detail" pa-0>
@@ -78,6 +77,20 @@
       :item="item"
       :dismiss="closeShareDialog"
     />
+
+    <v-dialog v-if="show_hide_dialog" v-model="show_hide_dialog" content-class="my-dialog-1">
+      <v-card>
+        <v-card-media :src="item.covers[0].cover.url" height="125px" contain></v-card-media>
+        <v-card-text>
+          <div class="headline">Are you sure you want to hide this product?</div>
+          <div>You won't be able to see it anymore, unless you visit the artists profile or download the song.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark color="grey" @click.native="show_hide_dialog = false">No, cancel please!</v-btn>
+          <v-btn dark color="red" @click.native="hideProduct()">Yes, hide it!</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-flex>
 </template>
 
@@ -97,6 +110,10 @@
     props: {
       dataObject: {
         type: Object
+      },
+
+      hideButtonAction: {
+        type: Function
       }
     },
 
@@ -104,6 +121,7 @@
       return {
         showMerchModal: false,
         showShareModal: false,
+        show_hide_dialog: false,
         is_component_hover: false,
         is_menu_hover: false
       }
@@ -160,6 +178,27 @@
 
       closeShareDialog () {
         this.showShareModal = false
+      },
+
+      openHideDialog () {
+        this.menu = false
+        this.submenu = false
+        this.show_hide_dialog = true
+      },
+
+      hideProduct () {
+        this.menu = false
+        this.submenu = false
+        this.show_hide_dialog = false
+
+        ProductService.hideProduct(this.item.id).then(response => {
+          this.$store.dispatch('error/showSuccessToast', ['You just hid ' + this.item.name])
+          if (this.hideButtonAction) {
+            this.hideButtonAction(this.objects[this.objectIndex])
+          }
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        })
       },
 
       repostProduct () {
