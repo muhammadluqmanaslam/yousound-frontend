@@ -226,7 +226,7 @@ export default {
     },
 
     refreshMessages () {
-      if(this.conversation && this.conversation.id !== undefined) {
+      if (this.conversation && this.conversation.id !== undefined) {
         this.loadMessages(this.conversation.id, false, false)
       }
     },

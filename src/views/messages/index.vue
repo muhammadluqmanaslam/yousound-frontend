@@ -136,7 +136,8 @@
                 v-for="message in messages"
                 :key="message.id"
                 :message="message"
-                :is-own="conversation.other.id == message.sender.id ? 'other' : 'self'"
+                :is-own="conversation.other.id != message.sender.id"
+                @updated="refreshMessages"
               />
             </div>
             <div class="send-message-section">

@@ -13,11 +13,16 @@
       <div class="message-section">
         <router-link :to="`/${message.sender.slug}`"><div class="user-avatar-image" :style="{'background-image': 'url(' + message.sender.avatar.thumb.url + ')'}"></div></router-link>
 
-        <template v-if="message.attachment.attachment_type=='repost'">
+        <template v-if="message.attachment.attachment_type == 'repost'">
           <div class="message-content text request no-top-corner">
             <div>
               <div class="repost-status-section">
-                <div v-if="message.sender.id==currentUser.id || message.attachment.status!='pending'">
+                <v-icon
+                  v-if="message.sender.id == currentUser.id && message.attachment.status == 'pending'"
+                  class="icon-close"
+                  @click="removeRepostRequest(message)"
+                >close</v-icon>
+                <div v-if="message.sender.id == currentUser.id || message.attachment.status != 'pending'">
                   <label class="status-title">Repost request: </label>
                   <span :class="message.attachment.status">{{ message.attachment.status }}</span>
                 </div>
@@ -29,7 +34,7 @@
                 </div>
               </div>
 
-              <div class="content-section" v-if="message.attachment.attachable_type=='Album'">
+              <div class="content-section" v-if="message.attachment.attachable_type == 'Album'">
                 <div class="repost-item-image">
                   <activity-album-card :object="message.attachment.assoc"></activity-album-card>
                 </div>
@@ -38,7 +43,7 @@
                   <a class="item-user">{{ message.sender.display_name }}</a>
                 </div>
               </div>
-              <div class="content-section" v-else-if="message.attachment.attachable_type=='ShopProduct'">
+              <div class="content-section" v-else-if="message.attachment.attachable_type == 'ShopProduct'">
                 <div class="repost-item-image">
                   <activity-product-card :object="message.attachment.assoc" :price-show="false"></activity-product-card>
                 </div>
@@ -52,12 +57,12 @@
           </div>
         </template>
 
-        <template v-else-if="message.attachment.attachment_type=='collaboration'">
+        <template v-else-if="message.attachment.attachment_type == 'collaboration'">
           <div class="message-content text request no-top-corner">
             <div>
               <!-- <div class="content-section" v-if="message.attachment.attachable_type=='User'"> -->
               <div class="content-section">
-                <template v-if="message.attachment.attachable_type=='Album'">
+                <template v-if="message.attachment.attachable_type == 'Album'">
                   <div class="label-message-section">
                     <!-- <div class="label-message">{{ message.body }}</div> -->
                     <div class="label-message">{{ message.attachment.assoc.user.display_name }} wants to upload this album collaboration</div>
@@ -76,7 +81,7 @@
                     </div>
                   </div>
                 </template>
-                <template v-else-if="message.attachment.attachable_type=='ShopProduct'">
+                <template v-else-if="message.attachment.attachable_type == 'ShopProduct'">
                   <div class="label-message-section">
                     <!-- <div class="label-message">{{ message.body }}</div> -->
                     <div class="label-message">{{ message.attachment.assoc.merchant.display_name }} wants to upload this product collaboration</div>
@@ -105,24 +110,24 @@
                 </template>
 
                 <div class="repost-status-section label">
-                  <div v-if="message.sender.id==currentUser.id || message.attachment.status!='pending'">
+                  <div v-if="message.sender.id == currentUser.id || message.attachment.status != 'pending'">
                     <v-btn
-                      v-if="message.attachment.attachable_type=='Album'"
+                      v-if="message.attachment.attachable_type == 'Album'"
                       to="/albums#pending"
                     >View & Release</v-btn>
                     <v-btn
-                      v-else-if="message.attachment.attachable_type=='ShopProduct'"
+                      v-else-if="message.attachment.attachable_type == 'ShopProduct'"
                       to="/sell#pendings"
                     >View & Release</v-btn>
                   </div>
                   <div v-else>
                     <v-btn
+                      v-if="message.attachment.attachable_type == 'Album'"
                       to="/albums#pending"
-                      v-if="message.attachment.attachable_type=='Album'"
                     >View Pending Collaboration</v-btn>
                     <v-btn
+                      v-else-if="message.attachment.attachable_type == 'ShopProduct'"
                       to="/sell#pendings"
-                      v-else-if="message.attachment.attachable_type=='ShopProduct'"
                     >View Pending Collaboration</v-btn>
                   </div>
                   <!-- <div v-else>
@@ -136,7 +141,7 @@
           </div>
         </template>
 
-        <template v-else-if="message.attachment.attachment_type=='label_user'">
+        <template v-else-if="message.attachment.attachment_type == 'label_user'">
           <div class="message-content text request no-top-corner">
             <div>
               <div class="content-section">
@@ -144,7 +149,7 @@
                   <div class="label-message">{{ message.body }}</div>
                 </div>
 
-                <template v-if="message.attachment.attachable_type=='User'">
+                <template v-if="message.attachment.attachable_type == 'User'">
                   <div class="repost-item-image avatar" :style="{'background-image': 'url(' +  message.attachment.assoc.avatar.thumb.url + ')'}"></div>
                   <div class="info-section">
                     <label class="item-title">{{ message.attachment.assoc.display_name }}</label>
@@ -152,7 +157,7 @@
                 </template>
 
                 <div class="repost-status-section label">
-                  <div v-if="message.sender.id==currentUser.id || message.attachment.status!='pending'">
+                  <div v-if="message.sender.id == currentUser.id || message.attachment.status != 'pending'">
                     <span :class="message.attachment.status">{{ message.attachment.status }}</span>
                   </div>
                   <div v-else>
@@ -166,7 +171,7 @@
           </div>
         </template>
 
-        <template v-else-if="message.attachment.attachment_type=='label_album'">
+        <template v-else-if="message.attachment.attachment_type == 'label_album'">
           <div class="message-content text request no-top-corner">
             <div>
               <div class="content-section">
@@ -174,7 +179,7 @@
                   <div class="label-message">{{ message.body }}</div>
                 </div>
 
-                <template v-if="message.attachment.attachable_type=='Album'">
+                <template v-if="message.attachment.attachable_type == 'Album'">
                   <div class="repost-item-image avatar" :style="{'background-image': 'url(' +  message.attachment.assoc.cover.url + ')'}"></div>
                   <div class="info-section">
                     <label class="item-title">{{ message.attachment.assoc.name }}</label>
@@ -182,7 +187,7 @@
                 </template>
 
                 <div class="repost-status-section label">
-                  <div v-if="message.sender.id==currentUser.id || message.attachment.status!='pending'">
+                  <div v-if="message.sender.id == currentUser.id || message.attachment.status != 'pending'">
                     <span :class="message.attachment.status">{{ message.attachment.status }}</span>
                   </div>
                   <div v-else>
@@ -195,10 +200,10 @@
           </div>
         </template>
 
-        <template v-else-if="message.attachment.attachment_type=='sample_album'">
+        <template v-else-if="message.attachment.attachment_type == 'sample_album'">
           <div class="message-content text request no-top-corner">
             <div>
-              <div class="content-section" v-if="message.attachment.attachable_type=='Album'">
+              <div class="content-section" v-if="message.attachment.attachable_type == 'Album'">
                 <div class="repost-item-image">
                   <activity-album-card :object="message.attachment.assoc"></activity-album-card>
                 </div>
@@ -259,9 +264,19 @@
     },
 
     methods: {
+      removeRepostRequest (message) {
+        MessageService.removeRepost(message.id).then(response => {
+          this.$store.dispatch('error/showSuccessToast', ['Removed a repost request!'])
+          this.$emit('updated')
+        }).catch(e => {
+          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        })
+      },
+
       acceptRepostRequest (message) {
         MessageService.acceptRepost(message.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['Accepted a repost request!'])
+          this.$emit('updated')
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
@@ -270,6 +285,7 @@
       denyRepostRequest (message) {
         MessageService.denyRepost(message.id).then(response => {
           this.$store.dispatch('error/showErrorToast', ['Denied a repost request!'])
+          this.$emit('updated')
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
@@ -278,6 +294,7 @@
       acceptRepostRequestOnFree (message) {
         MessageService.acceptRepostOnFree(message.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['Accepted a repost request on free!'])
+          this.$emit('updated')
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
@@ -386,6 +403,9 @@
         padding: 11.25px 18.75px 22.5px;
         width: 420px;
         .repost-status-section {
+          .icon-close {
+            display: none;
+          }
           .status-title {
             font-size: 15px;
             margin-right: 3px;
@@ -524,6 +544,7 @@
     }
 
     .message-content {
+      position: relative;
       float: right;
       text-align: left;
       background: #f1f1f1;
@@ -542,6 +563,22 @@
       }
       &.request {
         .repost-status-section {
+          .icon-close {
+            display: block;
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            height: 20px;
+            width: 20px;
+            line-height: 20px;
+            border-radius: 50%;
+            background-color: #f44336;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+          }
           .status-title {
             color: #000;
           }

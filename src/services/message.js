@@ -16,6 +16,10 @@ export default {
     return Vue.http.post(API_BASE_URL + '/has_pending_repost', params, { headers: { 'Authorization': $store.state.auth.token } })
   },
 
+  removeRepost (id) {
+    return Vue.http.get(`${API_BASE_URL}/${id}/remove_repost_request`, { headers: { 'Authorization': $store.state.auth.token } })
+  },
+
   acceptRepost (id) {
     return Vue.http.get(API_BASE_URL + '/' + id + '/accept_repost', { headers: { 'Authorization': $store.state.auth.token } })
   },
