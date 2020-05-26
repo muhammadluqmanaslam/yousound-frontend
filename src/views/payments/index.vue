@@ -89,13 +89,15 @@
               </td>
               <td class="text-xs-center" :class="{'error--text': history.status == 'pending'}">{{ history.status | capitalize }}</td>
               <td class="text-xs-center">{{ history.created_at | formatDate }}</td>
-              <td v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && active_tab == 'received'">
-                <v-btn v-if="history.payment_type == 'buy' && history.sent_amount > history.refund_amount"
+              <td class="text-xs-center" v-if="['listener', 'moderator'].indexOf(currentUser.user_type) == -1 && active_tab == 'received'">
+                <v-btn
+                  v-if="canRefund(history) === true"
                   round dark
                   color="red"
                   class="send-refund-btn"
                   @click.native="openRefundDialog(history)"
                 >Refund</v-btn>
+                <span v-else class="red--text" >{{ canRefund(history) }}</span>
               </td>
               <!-- <td class="text-xs-center">
                 <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
@@ -114,18 +116,24 @@
       </div>
     </div>
 
-    <send-message v-if="send_message_dialog"
+    <send-message
+      v-if="send_message_dialog"
       :receiver="messaging_user"
-      :dismiss="hideSendMessageDialog"></send-message>
+      :dismiss="hideSendMessageDialog"
+    />
 
-    <product-modal v-if="show_product_modal"
+    <product-modal
+      v-if="show_product_modal"
       :item="payment.assoc"
       :dismiss="closeProductModal"
-      :shareProduct="shareProduct"></product-modal>
+      :shareProduct="shareProduct"
+    />
 
-    <share-modal v-if="show_share_modal"
+    <share-modal
+      v-if="show_share_modal"
       :item="payment.assoc"
-      :dismiss="closeShareModal"></share-modal>
+      :dismiss="closeShareModal"
+    />
 
     <v-dialog v-model="show_withdraw_confirm_modal" class="my-dialog-1">
       <v-card>
@@ -175,7 +183,7 @@
         <v-card-text>Are you sure you want to refund ${{ refundAmount | formatNumber }}?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="refundMoney()">Ok</v-btn>
+          <v-btn class="red--text darken-1" flat="flat" @click.native="refundMoney()">Ok</v-btn>
           <v-btn class="blue--text darken-1" flat="flat" @click.native="closeRefundConfirmDialog()">Cancel</v-btn>
         </v-card-actions>
       </v-card>

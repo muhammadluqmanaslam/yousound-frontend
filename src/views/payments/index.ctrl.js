@@ -72,10 +72,15 @@ export default {
     },
 
     refundAmount () {
-      if (this.refund_option == 'all') {
-        return this.payment.sent_amount - this.payment.refund_amount
-      } else {
-        return parseInt(this.refund_amount * 100)
+      switch (this.payment.payment_type) {
+        case 'pay_view_stream':
+          return this.payment.received_amount
+        default:
+          if (this.refund_option == 'all') {
+            return this.payment.sent_amount - this.payment.refund_amount
+          } else {
+            return parseInt(this.refund_amount * 100)
+          }
       }
     }
   },
@@ -157,7 +162,13 @@ export default {
 
     openRefundDialog (payment) {
       this.payment = payment
-      this.show_refund_dialog = true
+      switch (this.payment.payment_type) {
+        case 'pay_view_stream':
+          this.openRefundConfirmDialog()
+          break
+        default:
+          this.show_refund_dialog = true
+      }
     },
 
     closeRefundDialog () {
@@ -170,8 +181,28 @@ export default {
     },
 
     closeRefundConfirmDialog () {
-      this.show_refund_dialog = true
+      // this.show_refund_dialog = true
       this.show_refund_confirm_dialog = false
+    },
+
+    canRefund (payment) {
+      let val = 'Fully Refunded'
+      switch (payment.payment_type) {
+        case 'buy':
+          if (payment.sent_amount > payment.refund_amount) {
+            val = true
+          }
+          break
+        case 'pay_view_stream':
+          if (payment.received_amount > payment.refund_amount) {
+            val = true
+          }
+          break
+        default:
+          val = ''
+      }
+
+      return val
     },
 
     refundMoney () {
