@@ -250,6 +250,7 @@ export default {
     },
 
     saveProduct () {
+      this.hideCollaboratorsConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)
       const formData = new FormData()
       formData.append('shop_product[name]', this.product.name)
@@ -307,13 +308,13 @@ export default {
     deleteProductImage (index) {
       if (index === 'product_image1') {
         this.product.image1 = null
-        $('#product_image1').css('background-image', 'none') 
+        $('#product_image1').css('background-image', 'none')
       } else if (index === 'product_image2') {
         this.product.image2 = null
-        $('#product_image2').css('background-image', 'none') 
+        $('#product_image2').css('background-image', 'none')
       } else {
         this.product.image3 = null
-        $('#product_image3').css('background-image', 'none') 
+        $('#product_image3').css('background-image', 'none')
       }
     }
   },

@@ -1,6 +1,12 @@
 
 const state = {
+  progressBar: {
+    hasValue: false,
+    visibility: false,
+    value: -1
+  },
   isLoading: false,
+  progressValue: 0,
   showError: false,
   color: 'error',
   timeout: 3000,
@@ -8,11 +14,18 @@ const state = {
 }
 
 const getters = {
+  isLoading: (state) => {
+    return state.progressBar.visibility
+  }
 }
 
 const actions = {
   showLoadingActivity ({ commit }, show) {
-    commit('showLoadingActivity', show)
+    commit('setProgressBarVisibility', show)
+  },
+
+  setProgressBarValue ({ commit }, value) {
+    commit('setProgressBarValue', value)
   },
 
   showErrorToast ({ commit }, errors) {
@@ -37,8 +50,13 @@ const actions = {
 }
 
 const mutations = {
-  showLoadingActivity (state, show) {
-    state.isLoading = show
+  setProgressBarVisibility (state, show) {
+    state.progressBar.value = -1
+    state.progressBar.visibility = show
+  },
+
+  setProgressBarValue (state, value) {
+    state.progressBar.value = value
   },
 
   showErrorToast (state, errors) {

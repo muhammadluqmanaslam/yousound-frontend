@@ -38,7 +38,14 @@ export default {
   },
 
   addProduct (params) {
-    return Vue.http.post(API_BASE_URL, params, { headers: { 'Authorization': $store.state.auth.token } })
+    return Vue.http.post(API_BASE_URL, params, {
+      headers: { 'Authorization': $store.state.auth.token },
+      progress (e) {
+        if (e.lengthComputable) {
+          $store.commit('error/setProgressBarValue', parseInt(e.loaded / e.total * 100))
+        }
+      }
+    })
   },
 
   deleteProduct (productId) {
@@ -46,7 +53,14 @@ export default {
   },
 
   updateProduct (productId, params) {
-    return Vue.http.patch(API_BASE_URL + '/' + productId, params, { headers: { 'Authorization': $store.state.auth.token } })
+    return Vue.http.patch(API_BASE_URL + '/' + productId, params, {
+      headers: { 'Authorization': $store.state.auth.token },
+      progress (e) {
+        if (e.lengthComputable) {
+          $store.commit('error/setProgressBarValue', parseInt(e.loaded / e.total * 100))
+        }
+      }
+    })
   },
 
   releaseProduct (productId) {

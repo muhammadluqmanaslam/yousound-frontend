@@ -24,16 +24,28 @@
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
 
-    <v-flex xs12 text-xs-center loading-section v-if="$store.state.error.isLoading">
+    <v-flex xs12 text-xs-center loading-section v-if="$store.getters['error/isLoading']">
       <v-progress-circular
-        indeterminate
-        v-bind:size="50"
+        v-if="$store.state.error.progressBar.value >= 0"
+        :size="50"
+        :rotate="-90"
+        :value="$store.state.error.progressBar.value"
         class="loading-activity"
         v-bind:class="{
           'primary--text': !$store.getters['navigator/isPrimaryTheme'],
           'white-activity': $store.getters['navigator/isPrimaryTheme']
         }"
-      ></v-progress-circular>
+      >{{ $store.state.error.progressBar.value }}</v-progress-circular>
+      <v-progress-circular
+        v-else
+        indeterminate
+        :size="50"
+        class="loading-activity"
+        v-bind:class="{
+          'primary--text': !$store.getters['navigator/isPrimaryTheme'],
+          'white-activity': $store.getters['navigator/isPrimaryTheme']
+        }"
+      />
     </v-flex>
 
     <v-snackbar
