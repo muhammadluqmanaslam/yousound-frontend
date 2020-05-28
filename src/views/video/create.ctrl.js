@@ -106,7 +106,7 @@ export default {
   // },
 
   created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
+    this.$store.dispatch('navigator/goNextState', { page: 'broadcast', tab: '' })
 
     // if (this.currentUser.data['video_page_visited'] !== 1) {
     //   this.openHelpDialog()

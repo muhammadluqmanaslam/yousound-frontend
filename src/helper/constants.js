@@ -20,6 +20,24 @@ export const Countries = [
   'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe'
 ]
 
+export const VideoGenres = [
+  'HIP HOP / RAP',
+  'ELECTRONIC',
+  'HOUSE',
+  'R&B / SOUL',
+  'TURNTABLISM',
+  'LATIN',
+  'VERBAL',
+  'JAZZ',
+  'REGGAE',
+  'ROCK',
+  'METAL',
+  'WORLD',
+  'BLUES',
+  'CLASSICAL',
+  'GOSPEL'
+]
+
 export const StreamHourlyPrice = 1000
 
 export const PaymentTypes = {

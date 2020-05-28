@@ -51,7 +51,7 @@ import UserProfile from '@/views/user/profile'
 import UserGetVerified from '@/views/user/get_verified'
 import UserSettings from '@/views/settings/index'
 import VideoIndex from '@/views/video/index'
-// import VideoShow from '@/views/video/show'
+import VideoManage from '@/views/video/manage'
 import VideoCreate from '@/views/video/create'
 import VideoDelete from '@/views/video/delete'
 
@@ -99,6 +99,7 @@ export function createRouter (settings) {
     // { path: '/home1', name: 'LandingPage', component: Landing1Page },
     // { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
+    { path: '/video', name: 'VideoIndex', component: VideoIndex },
     { path: '/discover', name: 'Discover', component: Discover },
     { path: '/search', name: 'Search', component: SearchPage, props: (route) => ({query: route.query.q}) },
     { path: '/feed', name: 'Feed', component: Feed },
@@ -129,13 +130,13 @@ export function createRouter (settings) {
 
   if (!settings.disable_live_video) {
     routes = routes.concat([
-      { path: '/user/:user/video', name: 'VideoIndex', component: VideoIndex },
+      { path: '/user/:user/video', name: 'VideoManage', component: VideoManage },
       { path: '/user/:user/video/create', name: 'VideoCreate', component: VideoCreate },
       { path: '/user/:user/video/delete', name: 'VideoDelete', component: VideoDelete }
     ])
   } else {
     routes = routes.concat([
-      { path: '/user/:user/video', name: 'VideoIndex', redirect: '/' },
+      { path: '/user/:user/video', name: 'VideoManage', redirect: '/' },
       { path: '/user/:user/video/create', name: 'VideoCreate', redirect: '/' },
       { path: '/user/:user/video/delete', name: 'VideoDelete', redirect: '/' }
     ])

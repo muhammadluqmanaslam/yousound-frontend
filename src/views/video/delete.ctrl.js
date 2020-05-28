@@ -18,7 +18,7 @@ export default {
 
   created () {
     const vm = this
-    this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
+    this.$store.dispatch('navigator/goNextState', { page: 'broadcast', tab: '' })
     this.deletingInterval = setInterval(function () { vm.getStream() }, 10000)
   },
 

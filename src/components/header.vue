@@ -3,9 +3,37 @@
     <!-- <v-flex v-if="currentUser" xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1> -->
     <v-flex v-if="currentUser" mx-5>
       <v-toolbar class="header">
-        <router-link to="/discover"><v-toolbar-title></v-toolbar-title></router-link>
+        <router-link to="/discover">
+          <v-toolbar-title></v-toolbar-title>
+        </router-link>
+        <v-btn
+          v-if="['video'].indexOf(currentPage) > -1"
+          class="btn-live"
+          :to="`/video#follows`"
+        >Live</v-btn>
         <!-- <v-toolbar-title></v-toolbar-title> -->
         <v-spacer></v-spacer>
+        <v-tooltip bottom>
+          <v-btn
+            icon
+            slot="activator"
+            :class="{ active: ['video'].indexOf(currentPage) > -1 }"
+            @click.native="choosePage('video')"
+          >
+            <svg width="22px" height="18px" viewBox="0 0 101 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+              <title>noun_Video_3136010</title>
+              <desc>Created with Sketch.</desc>
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="noun_Video_3136010" fill="#000000" fill-rule="nonzero">
+                  <rect id="Rectangle" x="0" y="0.32" width="72.95" height="61.35" rx="12"></rect>
+                  <path d="M93.06,4.49 L78.79,12.7 L78.79,49.3 L93.07,57.51 C96.88,59.7 100.01,57.9 100.01,53.51 L100.01,8.51 C100,4.1 96.88,2.3 93.06,4.49 Z" id="Path"></path>
+                </g>
+              </g>
+            </svg>
+          </v-btn>
+          <span>Video</span>
+        </v-tooltip>
         <v-tooltip bottom>
           <v-btn icon slot="activator" :class="{ active: ['discover', 'merch'].indexOf(currentPage) > -1 }" @click.native="choosePage('discover')">
             <svg width="20px" height="22px" viewBox="0 0 20 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

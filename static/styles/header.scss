@@ -15,10 +15,25 @@
       background-size: contain;
       margin-left: -16px !important;
     }
+    .btn {
+      &.btn-live {
+        min-width: auto;
+        height: 28px;
+        margin-left: 15px;
+        background-color: #ff0042;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2.6px;
+      }
+      &__content {
+        padding: 0 10px;
+      }
+    }
     svg g {
       stroke: #D5D5D5;
     }
-    svg path {
+    svg path, svg rect {
       fill: #D5D5D5;
     }
     .btn.btn--icon {
@@ -34,7 +49,7 @@
       svg g {
         stroke: #3A92FF;
       }
-      svg path {
+      svg path, svg rect {
         fill: #3A92FF;
       }
     }
