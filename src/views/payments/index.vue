@@ -77,7 +77,7 @@
                   <router-link v-else
                     :to="`/sell/order/${history.order_id}`">Purchase</router-link>
                 </template>
-                <template v-else-if="history.payment_type == 'refund'">
+                <template v-else-if="history.payment_type == 'refund' && history.order_id">
                   <router-link :to="`/sell/order/${history.order_id}`">Refund</router-link>
                 </template>
                 <template v-else-if="history.payment_type == 'collaborate'">
