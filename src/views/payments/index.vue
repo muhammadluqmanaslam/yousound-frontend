@@ -189,7 +189,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="show_refund_dialog" max-width="500px">
+    <!-- <v-dialog v-model="show_refund_dialog" max-width="500px">
       <v-card>
         <v-card-title>
           <h2>Refund Money</h2>
@@ -226,7 +226,14 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
+
+    <order-refund-dialog
+      v-if="show_refund_dialog"
+      :value="payment"
+      @input="continueRefund"
+      @close="closeRefundDialog"
+    />
   </div>
 </template>
 

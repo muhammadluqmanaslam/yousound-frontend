@@ -1,19 +1,22 @@
 import { PaymentTypes, Filter } from '@/helper'
 
 import AuthService from '@/services/auth'
+import OrderService from '@/services/order'
 import PaymentService from '@/services/payment'
 import UserService from '@/services/user'
 
-import productModal from './components/product'
-import sendMessage from '@/components/sendmessage'
-import shareModal from '@/components/sharemodal'
+import OrderRefundDialog from './components/order_refund_dialog'
+import ProductModal from './components/product'
+import SendMessage from '@/components/sendmessage'
+import ShareModal from '@/components/sharemodal'
 import UserCard from  '@/components/user_card'
 
 export default {
   components: {
-    sendMessage,
-    shareModal,
-    productModal,
+    OrderRefundDialog,
+    ProductModal,
+    SendMessage,
+    ShareModal,
     UserCard
   },
 
@@ -35,6 +38,7 @@ export default {
       refund_description: '',
       histories: [],
       payment: {},
+      refund_item: {},
       show_product_modal: false,
       show_share_modal: false,
       send_message_dialog: false,
@@ -161,13 +165,24 @@ export default {
     },
 
     openRefundDialog (payment) {
-      this.payment = payment
+      this.payment = this._.cloneDeep(payment)
       switch (this.payment.payment_type) {
         case 'pay_view_stream':
           this.openRefundConfirmDialog()
           break
         default:
-          this.show_refund_dialog = true
+          this.$store.dispatch('error/showLoadingActivity', true)
+          OrderService.getOrder(payment.order_id).then(response => {
+            let order = response.body
+            order.items.forEach((item) => { item.refund = false })
+            console.log('order', order, this.payment)
+            this.payment.order = order
+            this.show_refund_dialog = true
+            this.$store.dispatch('error/showLoadingActivity', false)
+          }).catch(error => {
+            console.log('openRefundDialog error', error)
+            this.$store.dispatch('error/showLoadingActivity', false)
+          })
       }
     },
 
@@ -203,6 +218,10 @@ export default {
       }
 
       return val
+    },
+
+    continueRefund (payment) {
+      console.log('continueRefund', payment)
     },
 
     refundMoney () {

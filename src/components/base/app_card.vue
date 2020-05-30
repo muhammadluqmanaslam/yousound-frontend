@@ -28,7 +28,9 @@
       description: String,
       meta: {
         type: Object,
-        default: {}
+        default () {
+          return {}
+        }
       }
     },
 
