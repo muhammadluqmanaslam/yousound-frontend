@@ -73,37 +73,7 @@ export default {
       } else {
         return parseInt(this.withdraw_amount * 100)
       }
-    },
-
-    refundAmount () {
-      switch (this.payment.payment_type) {
-        case 'pay_view_stream':
-          return this.payment.received_amount
-        default:
-          if (this.refund_option == 'all') {
-            return this.payment.sent_amount - this.payment.refund_amount
-          } else {
-            return parseInt(this.refund_amount * 100)
-          }
-      }
     }
-  },
-
-  watch: {
-    '$route' (toPath, fromPath) {
-      const tab = toPath.hash.substr(1)
-      this.setTab(tab)
-    }
-  },
-
-  created () {
-    UserService.getUserInfo(this.$store.state.auth.user.slug).then(response => {
-      AuthService.setUser(response.body)
-      const tab = this.$route.hash.substr(1)
-      this.setTab(tab)
-    }).catch(e => {
-      this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-    })
   },
 
   methods: {
@@ -175,7 +145,6 @@ export default {
           OrderService.getOrder(payment.order_id).then(response => {
             let order = response.body
             order.items.forEach((item) => { item.refund = false })
-            console.log('order', order, this.payment)
             this.payment.order = order
             this.show_refund_dialog = true
             this.$store.dispatch('error/showLoadingActivity', false)
@@ -191,6 +160,8 @@ export default {
     },
 
     openRefundConfirmDialog () {
+      // console.log('order', this.payment.order)
+      this.refund_amount = this.refundAmount()
       this.closeRefundDialog()
       this.show_refund_confirm_dialog = true
     },
@@ -198,6 +169,12 @@ export default {
     closeRefundConfirmDialog () {
       // this.show_refund_dialog = true
       this.show_refund_confirm_dialog = false
+    },
+
+    continueRefund (payment) {
+      // console.log('continueRefund', payment)
+      this.closeRefundDialog()
+      this.openRefundConfirmDialog()
     },
 
     canRefund (payment) {
@@ -216,34 +193,91 @@ export default {
         default:
           val = ''
       }
-
       return val
     },
 
-    continueRefund (payment) {
-      console.log('continueRefund', payment)
+    refundAmount () {
+      switch (this.payment.payment_type) {
+        case 'buy':
+          const items = this._.get(this.payment, 'order.items', [])
+          // console.log('refundAmount', items)
+          let refund_amount = 0
+          if (items.length > 0) {
+            refund_amount = items.reduce((amount, item) => {
+              if (item.status != 'item_refunded' && item.refund && item.refund_amount_in_dollar > 0) {
+                return amount + item.refund_amount_in_dollar * 100
+              } else {
+                return amount
+              }
+            }, 0)
+          }
+          return refund_amount
+        case 'pay_view_stream':
+          return this.payment.received_amount
+        default:
+          // if (this.refund_option == 'all') {
+          //   return this.payment.sent_amount - this.payment.refund_amount
+          // } else {
+          //   return parseInt(this.refund_amount * 100)
+          // }
+          return 0
+      }
     },
 
     refundMoney () {
-      // console.log('refundMoney', this.refundAmount, this.refund_description, this.payment)
-      this.show_refund_confirm_dialog = false
-      this.$store.dispatch('error/showLoadingActivity', true)
-      const params = {
-        amount: this.refundAmount,
-        description: this.refund_description
-      }
-      PaymentService.refundMoney(this.payment.id, params).then(response => {
-        AuthService.setUser(response.body)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', [`Refunded $${Filter.formatNumber(this.refundAmount)} successfully.`])
+      // this.show_refund_confirm_dialog = false
+      let params
+      let items = []
+      this.closeRefundConfirmDialog()
+      switch (this.payment.payment_type) {
+        case 'buy':
+          this.payment.order.items.forEach((item) => {
+            if (item.status != 'item_refunded' && item.refund && item.refund_amount_in_dollar > 0) {
+              items.push({
+                id: item.id,
+                refund_amount: item.refund_amount_in_dollar * 100
+              })
+            }
+          })
+          params = {
+            payment_id: this.payment.id,
+            amount: this.refund_amount,
+            description: this.refund_description,
+            items: JSON.stringify(items)
+          }
+          console.log('refundOrder', params)
+          this.$store.dispatch('error/showLoadingActivity', true)
+          PaymentService.refundOrder(this.payment.id, params).then(response => {
+            AuthService.setUser(response.body)
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showSuccessToast', [`Refunded $${Filter.formatNumber(this.refund_amount)} successfully.`])
+            this.payment.refund_amount += this.refund_amount
+            const arr = this.histories.slice();
+            this.histories = arr;
+          }).catch(e => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          })
+          break
+        default:
+          this.$store.dispatch('error/showLoadingActivity', true)
+          params = {
+            amount: this.refund_amount,
+            description: this.refund_description
+          }
+          PaymentService.refundMoney(this.payment.id, params).then(response => {
+            AuthService.setUser(response.body)
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showSuccessToast', [`Refunded $${Filter.formatNumber(this.refund_amount)} successfully.`])
 
-        this.payment.refund_amount += this.refundAmount
-        const arr = this.histories.slice();
-        this.histories = arr;
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+            this.payment.refund_amount += this.refund_amount
+            const arr = this.histories.slice();
+            this.histories = arr;
+          }).catch(e => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          })
+      }
     },
 
     onTab (tab) {
@@ -315,6 +349,20 @@ export default {
     }
   },
 
-  mounted () {
+  watch: {
+    '$route' (toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.setTab(tab)
+    }
+  },
+
+  created () {
+    UserService.getUserInfo(this.$store.state.auth.user.slug).then(response => {
+      AuthService.setUser(response.body)
+      const tab = this.$route.hash.substr(1)
+      this.setTab(tab)
+    }).catch(e => {
+      this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+    })
   }
 }

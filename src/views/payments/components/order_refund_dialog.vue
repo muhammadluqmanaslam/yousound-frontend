@@ -10,12 +10,12 @@
           label="Refund all items"
           hide-details
           color="red"
-          @change="toggleRefund"
+          @change="toggleRefundAll"
         ></v-checkbox> -->
         <v-btn
           dark
           color="red"
-          @click="toggleRefund(true)"
+          @click="toggleRefundAll(true)"
         >Refund All</v-btn>
       </div>
 
@@ -23,7 +23,7 @@
         <shop-item
           v-for="(item, index) in payment.order.items"
           :key="item.id"
-          :value.sync="payment.order.items[index]"
+          :value="payment.order.items[index]"
           @input="changeOrderItem"
         />
       </div>
@@ -67,23 +67,29 @@
     computed: {},
 
     methods: {
-      toggleRefund (event) {
-        console.log('toggleRefund', this.payment.order)
+      toggleRefundAll (event) {
         this.payment.order.items.forEach((item) => {
-          item.refund = event
+          if (item.status !== 'item_refunded') {
+            item.refund = event
+            const itemQuantity = item.quantity > 0 ? item.quantity : 1
+            item.refund_amount_in_dollar = (item.price + item.shipping_cost) * itemQuantity / 100
+          }
         })
       },
 
       changeOrderItem (event) {
-        let item = this._.find(this.payment.order.items, { id: event.id })
+        const item = this._.find(this.payment.order.items, { id: event.id })
         item.refund = event.refund
-        item.refund_amount = event.refund_amount
+        item.refund_amount_in_dollar = event.refund_amount_in_dollar
       }
     },
 
     created () {
       this.payment = this.value
-      console.log('order_refund_dialog created', this.payment)
+      this.payment.order.items.forEach((item) => {
+        const itemQuantity = item.quantity > 0 ? item.quantity : 1
+        item.refund_amount_in_dollar = (item.price + item.shipping_cost) * itemQuantity / 100
+      })
     }
   }
 </script>

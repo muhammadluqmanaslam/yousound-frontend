@@ -177,10 +177,14 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="show_refund_confirm_dialog" class="my-dialog-1">
+    <v-dialog
+      v-if="show_refund_confirm_dialog"
+      v-model="show_refund_confirm_dialog"
+      class="my-dialog-1"
+    >
       <v-card>
         <v-card-title class="headline">Refund Confirmation</v-card-title>
-        <v-card-text>Are you sure you want to refund ${{ refundAmount | formatNumber }}?</v-card-text>
+        <v-card-text>Are you sure you want to refund ${{ refund_amount | formatNumber }}?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="red--text darken-1" flat="flat" @click.native="refundMoney()">Ok</v-btn>

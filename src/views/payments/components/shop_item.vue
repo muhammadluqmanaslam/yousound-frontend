@@ -2,11 +2,11 @@
   <div class="item">
     <div class="item__header">
       <v-checkbox
-        v-if="item.status != 'item_refunded'"
+        v-if="item.status !== 'item_refunded'"
         v-model="item.refund"
         hide-details
         color="red"
-        @change="toggleRefund"
+        @change="$emit('input', item)"
       ></v-checkbox>
     </div>
     <div class="item__content">
@@ -20,12 +20,13 @@
     <div class="item__footer">
       <vue-numeric
         v-if="item.refund"
-        v-model="refund_amount"
+        v-model="item.refund_amount_in_dollar"
         currency="$"
         separator=","
         :precision="2"
         :min="0.01"
-        @blur="changeRefundAmount"
+        :max="itemMaxRefundAmount"
+        @blur="$emit('input', item)"
       ></vue-numeric>
     </div>
     <div class="item__footer">
@@ -49,8 +50,7 @@
 
     data () {
       return {
-        item: {},
-        refund_amount: 0.0
+        item: {}
       }
     },
 
@@ -72,6 +72,10 @@
         return `$${this.$options.filters.formatNumber(this._.get(this.item, 'price', 0))}`
       },
 
+      itemMaxRefundAmount () {
+        return (this.item.price + this.item.shipping_cost) * this.itemQuantity / 100
+      },
+
       itemShippingCost () {
         const shippingCost = this._.get(this.item, 'shipping_cost', 0)
         return shippingCost > 0 ? `$${this.$options.filters.formatNumber(shippingCost)}` : ''
@@ -89,35 +93,14 @@
       }
     },
 
-    methods: {
-      toggleRefund (event) {
-        if (event) {
-          this.item.refund_amount = (this.item.price + this.item.shipping_cost) * this.itemQuantity
-          this.refund_amount = this.item.refund_amount / 100
-        }
-        this.$emit('input', this.item)
-      },
-
-      changeRefundAmount (event) {
-        // console.log('changeRefundAmount', event, this.refund_amount)
-        this.item.refund_amount = this.refund_amount * 100
-        this.$emit('input', this.item)
+    watch: {
+      value: function (val) {
+        this.item = val
       }
     },
 
-    // watch: {
-    //   value: {
-    //     deep: true,
-    //     immediate: true,
-    //     handler () {
-    //       console.log('watch value', this.value.refund)
-    //     }
-    //   }
-    // },
-
     created () {
       this.item = this.value
-      console.log('shop_item created', this.item)
     }
   }
 </script>

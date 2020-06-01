@@ -108,9 +108,12 @@
                       <p class="order-status-text">Pending</p>
                       <v-btn class="order-status-btn ship" @click.native.stop="openShipConfirmModal(item)">Ship</v-btn>
                     </div>
-                    <div class="order-status-section text-xs-center" v-else>
+                    <div class="order-status-section text-xs-center" v-else-if="item.status=='item_shipped'">
                       <p class="order-status-text">Shipped</p>
                       <v-btn class="order-status-btn shipped" @click.native.stop="openUnshipConfirmModal(item)">Unship</v-btn>
+                    </div>
+                    <div class="order-status-section text-xs-center" v-else>
+                      <p class="order-status-text">Refunded</p>
                     </div>
                   </v-layout>
                 </div>
