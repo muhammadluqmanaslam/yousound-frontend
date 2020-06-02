@@ -49,7 +49,10 @@
                 <v-layout row>
                   <v-flex sm12 class="order-content-section pa-0 relative" :class="{'border-top-none': index!=0}">
                     <div class="product-cover-image">
-                      <activity-product-card :object="item.product" :priceShow="false"></activity-product-card>
+                      <activity-product-card
+                        :object="item.product"
+                        :price-show="false"
+                      />
                     </div>
                     <div class="product-content">
                       <v-flex sm12 class="product-content-row">

@@ -61,7 +61,10 @@
                 <!-- <img class="product-cover-image" src="/static/images/product1.png"/> -->
                 <!-- <div class="product-cover-image" :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"></div> -->
                 <div class="product-cover-image">
-                  <activity-product-card :object="item.product" :priceShow="false"></activity-product-card>
+                  <activity-product-card
+                    :object="item.product"
+                    :price-show="false"
+                  />
                 </div>
                 <div class="product-content">
                   <v-flex sm12 class="product-content-row">

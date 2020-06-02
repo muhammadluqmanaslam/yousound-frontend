@@ -13,10 +13,12 @@
           @change="toggleRefundAll"
         ></v-checkbox> -->
         <v-btn
+          v-if="items_available"
           dark
           color="red"
           @click="toggleRefundAll(true)"
         >Refund All</v-btn>
+        <label v-else>No items available to refund</label>
       </div>
 
       <div class="modal__content">
@@ -30,6 +32,7 @@
 
       <div class="modal__footer">
         <v-btn
+          v-if="items_selected"
           dark
           color="blue"
           @click="$emit('input', payment)"
@@ -60,6 +63,8 @@
     data () {
       return {
         refund_all: false,
+        items_available: false,
+        items_selected: false,
         payment: {}
       }
     },
@@ -67,6 +72,11 @@
     computed: {},
 
     methods: {
+      evaluate () {
+        const item = this._.find(this.payment.order.items, { refund: true })
+        this.items_selected = !!item
+      },
+
       toggleRefundAll (event) {
         this.payment.order.items.forEach((item) => {
           if (item.status !== 'item_refunded') {
@@ -75,20 +85,25 @@
             item.refund_amount_in_dollar = (item.price + item.shipping_cost) * itemQuantity / 100
           }
         })
+        this.evaluate()
       },
 
       changeOrderItem (event) {
         const item = this._.find(this.payment.order.items, { id: event.id })
         item.refund = event.refund
         item.refund_amount_in_dollar = event.refund_amount_in_dollar
+        this.evaluate()
       }
     },
 
     created () {
       this.payment = this.value
       this.payment.order.items.forEach((item) => {
-        const itemQuantity = item.quantity > 0 ? item.quantity : 1
-        item.refund_amount_in_dollar = (item.price + item.shipping_cost) * itemQuantity / 100
+        if (item.status !== 'item_refunded') {
+          this.items_available = true
+          const itemQuantity = item.quantity > 0 ? item.quantity : 1
+          item.refund_amount_in_dollar = (item.price + item.shipping_cost) * itemQuantity / 100
+        }
       })
     }
   }
@@ -133,6 +148,10 @@
   &__header {
     margin-left: 10px;
     text-align: right;
+    label {
+      font-weight: 700;
+      color: #E53935;
+    }
   }
 
   &__footer {
