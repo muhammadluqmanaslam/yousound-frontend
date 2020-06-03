@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { VideoGenres } from '@/helper'
 
 import AuthService from  '@/services/auth'
 import PaymentService from '@/services/payment'
@@ -113,7 +114,12 @@ export default {
     // }
 
     // this.genres = _.flatMap(this.$store.state.app.genres, 'children')
-    this.genres = this.$store.state.app.genres
+    // this.genres = this.$store.state.app.genres
+    VideoGenres.forEach((vg) => {
+      const g = this._.find(this.$store.state.app.genres, { name: vg })
+      this.genres.push({ id: g.id, name: g.name })
+    })
+
     if (this.currentUser.enabled_live_video_free) {
       this.periods.push({
         id: 1,

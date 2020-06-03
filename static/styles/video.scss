@@ -1,4 +1,26 @@
 .page.video-page.index-page {
+  .page-title {
+    margin-bottom: 10px;
+  }
+
+  .page-subtitle {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+
+  .genre-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    img, i {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+    }
+  }
+}
+
+.page.video-page.manage-page {
   .page-subtitle {
     font-size: 18px;
   }

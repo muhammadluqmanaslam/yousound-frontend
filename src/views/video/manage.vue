@@ -1,5 +1,5 @@
 <template>
-  <div class="page video-page index-page">
+  <div class="page video-page manage-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
       <h2 class="page-title">Live Video</h2>
       <p class="page-subtitle mt-5 mb-4">It can take up to 5 mins to get your stream keys. For best quality, connect directly to your ethernet router.</p>

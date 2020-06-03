@@ -1,5 +1,4 @@
-import { VideoGenres } from '@/helper'
-
+// import { VideoGenres } from '@/helper'
 import StreamService from '@/services/stream'
 
 import VideoBox from '@/components/video_box'
@@ -19,6 +18,7 @@ export default {
         current_page: 1,
         total_pages: 0
       },
+      videoGenres: [],
       isPageReady: false
     }
   },
@@ -28,13 +28,19 @@ export default {
       let genres = [
         { id: 0, name: 'All' }
       ]
-      VideoGenres.forEach((vg) => {
+      this.videoGenres.forEach((vg) => {
         const g = this._.find(this.$store.state.app.genres, { name: vg })
         genres.push({ id: g.id, name: g.name })
       })
       // const genres = this._.filter(this.$store.state.app.genres, (g) => (VideoGenres.indexOf(g.name) > -1))
       // console.log('available_genres', genres)
       return genres
+    },
+
+    selected_genre () {
+      const genre = _.find(this.available_genres, { id: this.activeTab }) || _.find(this.available_genres, { id: 0 })
+      console.log('selected_genre', this.available_genres, genre)
+      return genre
     },
 
     currentUser () {
@@ -53,6 +59,7 @@ export default {
       StreamService.getStreams(params).then(response => {
         this.videos = this.videos.concat(response.body.streams)
         this.pagination = response.body.pagination
+        this.videoGenres = response.body.genres
         this.$store.dispatch('error/showLoadingActivity', false)
       }).catch(err => {
         this.$store.dispatch('error/showLoadingActivity', false)

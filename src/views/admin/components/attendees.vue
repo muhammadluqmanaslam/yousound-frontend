@@ -38,6 +38,9 @@
                   <template v-if="['created', 'expired'].indexOf(props.item.status) > -1">
                     <v-btn color="primary" @click.native="inviteAttendee(props.item)">Invite</v-btn>
                   </template>
+                  <template v-else-if="props.item.status === 'invited'">
+                    Invited by {{ _.get(props.item, 'inviter.display_name', '--' )}}
+                  </template>
                   <template v-else>
                     {{ props.item.status | capitalize }}
                   </template>
