@@ -53,7 +53,7 @@ export default {
   },
 
   updateProduct (productId, params) {
-    return Vue.http.patch(API_BASE_URL + '/' + productId, params, {
+    return Vue.http.put(API_BASE_URL + '/' + productId, params, {
       headers: { 'Authorization': $store.state.auth.token },
       progress (e) {
         if (e.lengthComputable) {
