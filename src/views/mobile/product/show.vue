@@ -95,11 +95,15 @@ export default {
 
   created () {
     this.slug = this.$route.params.slug
-    this.loading = true
-    ProductService.getProduct(this.slug).then(res => {
-      this.product = res.body
-      this.loading = false
-    })
+    const self = this
+    document.location = `ys://product/${this.slug}`
+    setTimeout(function () {
+      self.loading = true
+      ProductService.getProduct(self.slug).then(res => {
+        self.product = res.body
+        self.loading = false
+      })
+    }, 300)
   }
 }
 </script>
