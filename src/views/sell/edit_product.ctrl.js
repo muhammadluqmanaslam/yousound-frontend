@@ -90,6 +90,10 @@ export default {
 
     profit_share_types () {
       return CollaboratorProfitShareTypes
+    },
+
+    productCategoryName () {
+      return this.product_categories[this.product.category].name
     }
   },
 
@@ -279,12 +283,7 @@ export default {
       } else {
         formData.append('shop_product[show_status]', 'show_all')
       }
-      // if (this.product.category.id) {
-      //   formData.append('shop_product[category_id]', this.product.category.id)
-      // } else {
-      //   formData.append('shop_product[category_id]', this.product.category)
-      // }
-      formData.append('shop_product[category_id]', this.product.category)
+      // formData.append('shop_product[category_id]', this.product.category)
       formData.append('shop_product[price]', Math.round(this.product.price * 100))
       for (let index in this.product.variants) {
         this.product.variants[index].price = Math.round(this.product.variants[index].price * 100)

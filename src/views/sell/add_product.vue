@@ -51,7 +51,7 @@
                 autocomplete
               />
             </v-flex>
-            <v-flex xs12 mt-5>
+            <v-flex xs12 mt-4>
               <v-checkbox value="show_only_stream" label="Only For Live Stream" v-model="product.show_status"></v-checkbox>
               <span class="grey--text lighten-2">(product will not appear on user profile if checked)</span>
             </v-flex>
@@ -81,7 +81,7 @@
               </v-flex>
               <v-flex xs12 sm4 v-if="!isDigitalProduct">
                 <label class="control-label"># In Stock<label class="required">*</label></label>
-                <input type="text" class="form-control" v-model="variant.quantity">              
+                <input type="text" class="form-control" v-model="variant.quantity">
               </v-flex>
               <v-flex xs12 sm4>
                 <label class="control-label">Price<label class="required">*</label></label>
@@ -263,7 +263,7 @@
                       <input type="file" name="product_image_file3" id="product_image_file3" class="add-product-image-file" accept="image/*" @change="imageChanged('product_image3', $event)">
                       <label for="product_image_file3">
                         <v-icon class="camera">photo_camera</v-icon>Add Image
-                      </label>  
+                      </label>
                     </div>
                   </div>
                   <div class="product-image-change-section">
