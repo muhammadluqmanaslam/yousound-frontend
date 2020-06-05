@@ -5,7 +5,7 @@
         <div class="page-left">
           <div class="tab-container pr-3">
             <div v-if="user" class="user-profile-section pb-2">
-              <div class="user-profile-image-section">
+              <!-- <div class="user-profile-image-section">
                 <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
                 <div
                   v-if="show_stream_live_button"
@@ -15,7 +15,12 @@
                   <i class="fa fa-circle"></i>
                   <span class="live">Live</span>
                 </div>
+              </div> -->
+              <div class="user-profile-image-section" :class="{ 'live' : show_stream_live_button }">
+                <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
+                <div class="live-btn" @click="viewStream()">Live</div>
               </div>
+
               <div class="user-info-section">
                 <div class="user-name-section">
                   <label>

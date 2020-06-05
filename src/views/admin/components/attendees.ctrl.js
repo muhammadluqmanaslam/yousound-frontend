@@ -53,6 +53,8 @@ export default {
         this.attendees[attendeeIndex].status = 'invited'
         const arr = this.attendees.slice()
         this.attendees = arr
+      }).catch(e => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
     }
   }
