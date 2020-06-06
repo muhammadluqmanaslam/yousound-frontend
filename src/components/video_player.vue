@@ -482,7 +482,7 @@
       />
     </v-dialog>
 
-    <template v-if="user">
+    <!-- <template v-if="user">
       <v-dialog v-if="user.id==currentUser.id" v-model="show_streaming_confirm_dialog" content-class="my-dialog-1">
         <v-card>
           <v-card-text>
@@ -542,6 +542,45 @@
             <v-btn dark color="grey" @click.native="closeStreamingConfirmDialog()">No</v-btn>
           </v-card-actions>
         </v-card>
+      </v-dialog>
+    </template> -->
+
+    <template v-if="user">
+      <v-dialog
+        v-model="show_streaming_confirm_dialog"
+        content-class="stream-view-confirm-dialog"
+      >
+        <div class="box">
+          <div class="box__header">
+            <div class="box__caption">Live</div>
+            <label>{{ stream.started_at | formatDateFromNow }}</label>
+          </div>
+          <div class="box__content">
+            <div class="box__title">
+              {{ _.get(stream, 'user.display_name') }}
+              <v-icon>fa-check-circle</v-icon>
+            </div>
+            <div class="box__subtitle">{{ stream.name }}</div>
+            <label>{{ _.get(stream, 'genre.name') }}</label>
+          </div>
+          <div
+            class="box__image"
+            :style="`background-image: url(${ _.get(stream, 'cover.url') })`"
+          ></div>
+          <div class="box__footer" v-if="stream.view_price > 0">
+            <v-btn
+              v-if="!can_view"
+              dark block
+            >Pay ${{ stream.view_price | formatNumber }}</v-btn>
+            <v-btn
+              v-else
+              block
+              :class="{ 'theme--dark': enabledPlaying }"
+              @click="onClick"
+              :disabled="!enabledPlaying"
+            >Watch{{ latencyTime }}</v-btn>
+          </div>
+        </div>
       </v-dialog>
     </template>
 
