@@ -6,9 +6,11 @@
       </div> -->
       <div>
         <div><label>Company</label></div>
-        <div><router-link to="/">Blog</router-link></div>
-        <div><router-link to="/">Investors</router-link></div>
-        <div><router-link to="/">Jobs</router-link></div>
+        <div><a href="//yousound.ghost.io" target="_blank">Blog</a></div>
+        <div>
+          <a href="mailto:investors@yousound.com?subject=Investment&body=Please tell us about yourself, if you are an accredited investor, your past investments, you typical investment amount, what value outside of funding you can bring, and any partners you plan to invest with.">Investors</a>
+        </div>
+        <div><a href="//support.yousound.com/en/collections/2401816-careers" target="_blank">Jobs</a></div>
       </div>
       <div class="ml-5">
         <div><label>Quick Links</label></div>
