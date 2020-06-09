@@ -13,7 +13,7 @@
       <div class="ml-5">
         <div><label>Quick Links</label></div>
         <div><router-link to="/">iOS App</router-link></div>
-        <div><router-link to="/">Support</router-link></div>
+        <div><a href="//support.yousound.com" target="_blank">Support</a></div>
       </div>
       <v-spacer></v-spacer>
       <div class="ml-5">
