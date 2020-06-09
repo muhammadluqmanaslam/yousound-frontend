@@ -24,13 +24,13 @@
 <style lang="scss" scoped>
 .media {
   // display: flex;
-  padding: 4px 12px;
+  // padding: 4px 12px;
 
   &__image {
     // flex: 0 0 auto;
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     border-radius: 3.75px;
     background-size: cover;
     vertical-align: middle;

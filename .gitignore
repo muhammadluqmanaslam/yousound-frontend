@@ -10,5 +10,7 @@ package-lock.json
 fixed/*
 
 README.local.md
+config/dev.env.js
+config/prod.env.js
 
 .idea/

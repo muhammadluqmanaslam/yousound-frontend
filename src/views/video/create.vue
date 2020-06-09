@@ -35,11 +35,12 @@
 
         <div class="divider mt-3 mb-4"></div>
 
+        <h3 class="mb-4">Broadcast Info</h3>
+
         <v-layout row>
-          <v-flex sm8>
-            <h3 class="mb-4">Broadcast Info</h3>
+          <v-flex sm7>
             <v-layout row>
-              <v-flex xs5>
+              <v-flex sm6 mr-3>
                 <v-flex xs12 form-group>
                   <label class="control-label">Title of stream?</label>
                   <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
@@ -56,13 +57,9 @@
                     class="pt-0"
                   />
                 </v-flex>
-                <v-flex xs12>
-                  <label class="control-label">Attach Product/Album to Broadcast</label>
-                  <attach v-model="stream_assoc" />
-                </v-flex>
               </v-flex>
 
-              <v-flex xs5 ml-3>
+              <v-flex sm6 mr-3>
                 <v-flex xs12 form-group>
                   <label class="control-label">Pay Per View?</label>
                   <v-select
@@ -84,39 +81,47 @@
                     class="pt-0"
                   />
                 </v-flex>
-                <v-layout row wrap cover-wrapper>
-                  <v-flex xs12 cover-actions>
-                    <input
-                      type="file"
-                      name="stream_cover_file"
-                      id="stream_cover_file"
-                      accept="image/*"
-                      v-validate="'required'"
-                      @change="imageChanged($event)"
-                    >
-                    <label for="stream_cover_file" class="red lighten-1 white--text px-4 py-2">Upload Thumbnail</label>
-                    <div class="mt-2 ml-2 px-1 red--text">*PNG, JPG, GIF</div>
-                  </v-flex>
-                </v-layout>
               </v-flex>
             </v-layout>
-
           </v-flex>
-          <v-flex sm4>
-            <h3 class="mb-4">&nbsp;</h3>
-            <div class="video-thumbnail-wrapper">
-              <div
-                v-if="stream_cover_url"
-                :style="{'background-image': 'url(' + stream_cover_url + ')'}"
-                class="video-thumbnail"
-              ></div>
-              <div
-                v-else
-                class="video-thumbnail"
-              >
-                <label>PREVIEW</label>
-              </div>
-            </div>
+
+          <v-flex sm5>
+            <v-layout row>
+              <v-flex sm7 mr-3>
+                <label class="control-label">Attach Product/Album</label>
+                <attach v-model="stream_assoc" />
+              </v-flex>
+              <v-flex sm5>
+                <label class="control-label">Thumbnail</label>
+
+                <div class="video-thumbnail-wrapper">
+                  <div
+                    v-if="stream_cover_url"
+                    :style="{'background-image': 'url(' + stream_cover_url + ')'}"
+                    class="video-thumbnail"
+                  ></div>
+                  <div
+                    v-else
+                    class="video-thumbnail"
+                  >
+                    <!-- <label>PREVIEW</label> -->
+                  </div>
+                </div>
+
+                <div class="cover-wrapper">
+                  <input
+                    type="file"
+                    name="stream_cover_file"
+                    id="stream_cover_file"
+                    accept="image/*"
+                    v-validate="'required'"
+                    @change="imageChanged($event)"
+                  >
+                  <label for="stream_cover_file">Upload</label>
+                  <span>*PNG, JPG, GIF</span>
+                </div>
+              </v-flex>
+            </v-layout>
           </v-flex>
           <!-- <v-flex sm4>
             <h3 class="mb-4">Preview</h3>
