@@ -1,7 +1,8 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
+var fs = require('fs')
 var path = require('path')
 
-module.exports = {
+var config = {
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
@@ -20,8 +21,11 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
-  },
-  dev: {
+  }
+}
+
+if (fs.existsSync(path.resolve(__dirname, 'dev.env.js'))) {
+  config.dev = {
     env: require('./dev.env'),
     port: 8080,
     autoOpenBrowser: true,
@@ -35,3 +39,6 @@ module.exports = {
     cssSourceMap: false
   }
 }
+// console.log('existsSync', config)
+
+module.exports = config
