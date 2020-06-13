@@ -76,9 +76,6 @@
                 <div class="actioned-item" v-if="activityItem.assoc && activityItem.assoc_type=='Album'">
                   <activity-album-card :object="activityItem.assoc" ></activity-album-card>
                 </div>
-                <!-- <div class="actioned-item" v-if="activityItem.assoc && activityItem.assoc_type=='Comment'">
-                  <activity-album-card :object="activityItem.assoc.commentable" ></activity-album-card>
-                </div> -->
               </div>
             </div>
           </v-flex>

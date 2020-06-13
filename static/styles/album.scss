@@ -458,7 +458,7 @@ p {
             opacity: 1;
           }
           .play-button-section {
-            position: relative; 
+            position: relative;
             .play-button {
               border: rgba(255, 255, 255, 0.5) solid 1px;
               border-radius: 100%;
@@ -503,7 +503,7 @@ p {
                 // padding: 0 2px;
                 border-radius: 15px;
                 box-shadow: none;
-                background: transparent !important;                
+                background: transparent !important;
                 .btn__content {
                   // padding: 0;
                 }
@@ -624,7 +624,7 @@ p {
             font-size: 16px;
             color: rgba(255, 255, 255, 0.5);
             letter-spacing: 0.6px;
-            padding-bottom: 20px;
+            padding-bottom: 30px;
             margin: 0;
 
             .album-sample-clearance {
@@ -683,7 +683,7 @@ p {
           .album-action-section {
             position: absolute;
             right: -35px;
-            bottom: 10px;
+            bottom: 5px;
 
             #follow_selector {
               .btn {
@@ -920,7 +920,7 @@ p {
               color: #000000;
               letter-spacing: 0;
               border-bottom: 3px solid #3A92FF;
-            }            
+            }
           }
         }
       }
@@ -1197,9 +1197,9 @@ p {
     letter-spacing: -1px;
     padding-left: 28px;
     padding-bottom: 8px;
-    padding-top: 10px; 
+    padding-top: 10px;
     border-bottom: 1px solid rgba(195, 195, 195, 0.25);
-    font-family: 'Work Sans';  
+    font-family: 'Work Sans';
   }
   .card__text {
     .album-info-label {
