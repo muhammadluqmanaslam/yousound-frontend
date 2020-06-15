@@ -39,7 +39,7 @@ export default {
 
     selected_genre () {
       const genre = _.find(this.available_genres, { id: this.activeTab }) || _.find(this.available_genres, { id: 0 })
-      console.log('selected_genre', this.available_genres, genre)
+      // console.log('selected_genre', this.available_genres, genre)
       return genre
     },
 
@@ -83,7 +83,7 @@ export default {
   watch: {
     '$route' (toPath, fromPath) {
       this.only_follows = toPath.hash.substr(1) == 'follows'
-      console.log('$route', this.only_follows)
+      // console.log('$route', this.only_follows)
       this.setTab(-1)
     }
   },

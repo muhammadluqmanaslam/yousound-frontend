@@ -11,11 +11,12 @@
             <profile-item :user="activityItem.sender" :className="'activity-item-profile-avatar-area'"></profile-item>
             <div class="activity-item-content-area">
               <div class="activity-item-content">
-                <router-link class="user-name" :to="'/' + activityItem.sender.slug">{{ activityItem.sender.display_name }}</router-link>&nbsp;
+                <router-link class="user-name" :to="'/' + activityItem.sender.slug">
+                  {{ activityItem.sender.display_name }}
+                </router-link>
                 <v-icon
-                  class="user-status"
-                  :class="{'online': activityItem.sender.status == 'active'}"
                   v-if="activityItem.sender.user_type == 'artist'"
+                  class="user-status online"
                 >fa-check-circle</v-icon>&nbsp;
                 <label class="description-text">{{ activityItem.message }}
                   <img v-if="activityItem.action_type=='follow'" src="" class="follow-icon"/>

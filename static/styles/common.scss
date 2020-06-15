@@ -372,11 +372,11 @@ input[type=password] {
 }
 
 .user-status {
-  margin-top: -14px;
   margin-left: -4px;
-  font-size: 14px;
+  font-size: 16px;
+  vertical-align: super;
   &.online {
-    color: #7ED321;
+    color: #31BB25;
   }
   &.away {
   }
