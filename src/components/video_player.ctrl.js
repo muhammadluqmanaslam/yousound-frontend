@@ -341,10 +341,12 @@ export default {
           received: (data) => {
             console.log('stream_subscription')
             console.log(data)
-            if (data.assoc_type == undefined) {
-              vm.$store.dispatch('videoPlayer/addStats', data)
-            } else {
+            if (data.assoc_type) {
               vm.$store.dispatch('videoPlayer/updateStreamAssoc', data)
+            } else if (data.notified) {
+              console.log('signal comming')
+            } else {
+              vm.$store.dispatch('videoPlayer/addStats', data)
             }
           },
           disconnected: () => {

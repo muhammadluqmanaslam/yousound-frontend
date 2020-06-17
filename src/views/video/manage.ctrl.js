@@ -18,6 +18,8 @@ import {
   StreamHourlyPrice
 } from '@/helper'
 
+const ActionCable = require('actioncable')
+
 export default {
   components: {
     Attach,
@@ -151,7 +153,7 @@ export default {
       if (this.stream_assoc.type === '') {
         this.stream_assoc.type = 'Album'
       }
-      console.log('stream_assoc', this.stream_assoc)
+      // console.log('stream_assoc', this.stream_assoc)
 
       const stream_status = _.get(response.body, 'stream.status', '')
       if (stream_status === '') {
@@ -173,11 +175,38 @@ export default {
         // this.guests = _.cloneDeep(this.currentUser.stream.guests)
         this.guests = _.map(this.currentUser.stream.guests, (u) => ({id: u.id, name: u.username}))
         this.selected_guests = _.map(this.currentUser.stream.guests, 'id')
+
+        if (!this.currentUser.stream.notified) {
+          this.stream_subscription = this.cable.subscriptions.create(
+            {
+              channel: 'StreamsChannel',
+              stream_id: vm.currentUser.stream.id
+            },
+            {
+              connected: () => {
+                console.log('connected to StreamsChannel')
+              },
+              received: (data) => {
+                console.log('stream_subscription')
+                console.log(data)
+                if (data.notified) {
+                  console.log('signal comming')
+                  vm.show_view_stream_button = true
+                }
+              },
+              disconnected: () => {
+                console.log('disconnected to StreamsChannel :(')
+              }
+            }
+          )
+        }
       }
     }).catch(e => {
       // console.log(e)
       this.$store.dispatch('error/showLoadingActivity', false)
     })
+
+    this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
   },
 
   beforeDestroy () {
@@ -329,14 +358,15 @@ export default {
           clearInterval(this.remainingInterval)
         }
         this.deleteStream()
-      } else {
-        if (!this.show_view_stream_button) {
-          Vue.http.get(this.currentUser.stream.mp_channel_1_ep_1_url).then(response => {
-            this.show_view_stream_button = true
-            // StreamService.notifyStream(this.currentUser.stream.id)
-          })
-        }
       }
+      // else {
+      //   if (!this.show_view_stream_button) {
+      //     Vue.http.get(this.currentUser.stream.mp_channel_1_ep_1_url).then(response => {
+      //       this.show_view_stream_button = true
+      //       // StreamService.notifyStream(this.currentUser.stream.id)
+      //     })
+      //   }
+      // }
     },
 
     isStreaming () {

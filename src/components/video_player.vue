@@ -575,9 +575,9 @@
             class="box__image"
             :style="`background-image: url(${ _.get(stream, 'cover.url') })`"
           ></div>
-          <div class="box__footer" v-if="stream.view_price > 0">
+          <div class="box__footer">
             <v-btn
-              v-if="!can_view"
+              v-if="stream.view_price > 0 && !can_view"
               dark block
             >Pay ${{ stream.view_price | formatNumber }}</v-btn>
             <v-btn
