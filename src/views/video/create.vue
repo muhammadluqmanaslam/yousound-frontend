@@ -113,7 +113,7 @@
                     type="file"
                     name="stream_cover_file"
                     id="stream_cover_file"
-                    accept="image/*"
+                    accept=".png, .jpg, .jpeg"
                     v-validate="'required'"
                     @change="imageChanged($event)"
                   >

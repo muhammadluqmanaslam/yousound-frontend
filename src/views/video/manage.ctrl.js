@@ -65,6 +65,8 @@ export default {
       creatingInterval: null,
       remainingInterval: null,
       remainingSeconds: 0,
+      cable: null,
+      stream_subscription: null,
       isPageReady: false
     }
   },
@@ -216,6 +218,10 @@ export default {
 
     if (this.remainingInterval) {
       clearInterval(this.remainingInterval)
+    }
+
+    if (this.stream_subscription) {
+      this.stream_subscription.unsubscribe()
     }
   },
 
