@@ -326,7 +326,7 @@ export default {
             break
           default:
             let albums = []
-            if (tab === 'reposted') {
+            if (tab === 'reposted' || tab === 'downloaded') {
               for(let index in response.body.feeds) {
                 if (response.body.feeds[index].assoc_type === 'Album') {
                   albums.push(response.body.feeds[index].assoc)
