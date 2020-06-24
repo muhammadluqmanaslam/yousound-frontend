@@ -19,14 +19,14 @@
                   class="user-status online"
                 >fa-check-circle</v-icon>&nbsp;
                 <label class="description-text">{{ activityItem.message }}
-                  <img v-if="activityItem.action_type=='follow'" src="" class="follow-icon"/>
-                  <img v-else-if="activityItem.action_type=='download'" src="/static/images/ic_download.png" class="download-icon"/>
-                  <img v-else-if="activityItem.action_type=='play'" src="" class="play-icon"/>
-                  <img v-else-if="activityItem.action_type=='comment'" src="/static/images/ic_message.png" class="comment-icon"/>
-                  <img v-else-if="activityItem.action_type=='release'" src="" class="release-icon"/>
-                  <img v-else-if="activityItem.action_type=='repost'" src="/static/images/ic_repeat.png" class="repost-icon"/>
-                  <img v-else-if="activityItem.action_type=='share'" src="/static/images/ic_share.png" class="share-icon"/>
-                  <v-icon v-else-if="activityItem.action_type=='recommend'" class="recommend-icon">thumb_up</v-icon>
+                  <img v-if="activityItem.action_type == 'follow'" src="" class="follow-icon"/>
+                  <img v-else-if="activityItem.action_type == 'download'" src="/static/images/ic_download.png" class="download-icon"/>
+                  <img v-else-if="activityItem.action_type == 'play'" src="" class="play-icon"/>
+                  <img v-else-if="activityItem.action_type == 'comment'" src="/static/images/ic_message.png" class="comment-icon"/>
+                  <img v-else-if="activityItem.action_type == 'release'" src="" class="release-icon"/>
+                  <img v-else-if="activityItem.action_type == 'repost'" src="/static/images/ic_repeat.png" class="repost-icon"/>
+                  <img v-else-if="activityItem.action_type == 'share'" src="/static/images/ic_share.png" class="share-icon"/>
+                  <v-icon v-else-if="activityItem.action_type == 'recommend'" class="recommend-icon">thumb_up</v-icon>
                   <span
                     v-if="activityItem.assoc && activityItem.assoc_type!='Comment'"
                     @click="doAction()"
@@ -37,7 +37,7 @@
                     @click="doAction()"
                     class="items-title"
                   >
-                    <template v-if="activityItem.assoc.commentable_type=='Post'">Your Story</template>
+                    <template v-if="activityItem.assoc.commentable_type == 'Post'">Story</template>
                     <template v-else>{{ activityItem.assoc.commentable.name }}</template>
                   </span>
                 </label>
@@ -194,14 +194,17 @@ export default {
     },
 
     doAction () {
-      if (this.activityItem.assoc_type === 'ShopProduct') {
-        this.showMerchModal = true
-      } else {
-        if (this.activityItem.assoc.commentable) {
-          this.$router.push({ path: this.activityItem.assoc.commentable.album_type + '/' + this.activityItem.assoc.commentable.slug })
-        } else {
+      switch (this.activityItem.assoc_type) {
+        case 'ShopProduct':
+          this.showMerchModal = true
+          break
+        case 'Album':
           this.$router.push({ path: this.activityItem.assoc.album_type + '/' + this.activityItem.assoc.slug })
-        }
+          break
+        default:
+          if (this.activityItem.assoc.commentable_type === 'Album') {
+            this.$router.push({ path: this.activityItem.assoc.commentable.album_type + '/' + this.activityItem.assoc.commentable.slug })
+          }
       }
     },
 

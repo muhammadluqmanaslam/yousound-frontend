@@ -160,7 +160,7 @@
       <ol>
         <p>
           The Service is offered subject to acceptance without modification of all of the terms and conditions contained herein (the “Terms of Use”), which Terms of Use also incorporate the Privacy Policy, Copyright Policy and all other operating rules, policies and procedures that may be published from time to time on the Site by Company on it's Terms and Policy pages, each of which is incorporated by reference into these Terms of Use and each of which may be updated by Company from time to time without prior notice to you. In addition, some services offered through the Service may be subject to additional terms and conditions promoted by Company from time to time; your use of such services is subject to those additional terms and conditions, which are incorporated into these Terms of Use by this reference.<br><br>
-          If you are using or opening an “Artist Account” or “Brand Account” (Artist Accounts, Brand Accounts collectively known as, “Verified Users”) on behalf of a company, entity or organization (each an “Artist Entity” “Brand Entity” “Label Entity”), then you represent and warrant that you: (i) are an authorized representative of that Artist Entity, Brand Entity, Label Entity, and warrant that you have the authority to bind such Artist Entity, Brand Entity, Label Entity to these Terms of Use and (ii) agree to be bound by these Terms of Use on behalf of such Artist Entity, Brand Entity, Label Entity. 
+          If you are using or opening an “Artist Account” or “Brand Account” (Artist Accounts, Brand Accounts collectively known as, “Verified Users”) on behalf of a company, entity or organization (each an “Artist Entity” “Brand Entity” “Label Entity”), then you represent and warrant that you: (i) are an authorized representative of that Artist Entity, Brand Entity, Label Entity, and warrant that you have the authority to bind such Artist Entity, Brand Entity, Label Entity to these Terms of Use and (ii) agree to be bound by these Terms of Use on behalf of such Artist Entity, Brand Entity, Label Entity.
           The Service is available only to individuals who are at least 13 years old. You represent and warrant that if you are an individual, then you are of legal age to form a binding contract, and that all registration information you submit is accurate and truthful. Company may, in its sole discretion, refuse to offer the Service to any person or entity and change its eligibility criteria at any time. This provision is void where prohibited by law and the right to access the Service is revoked in such jurisdictions.
         </p>
       </ol>
@@ -205,7 +205,7 @@
 
      <p>As a condition to using certain features of the Service (including, without limitation, the free download feature, or making a purchase from Company or an Artist Entity, Brand Entity, Label Entity), you may be required to provide certain personal information to Company or relevant Artist Entity, Brand Entity, Label Entity, such as your e-mail address, country of residence and zip/postal code ("User Information").<br><br>
       You may register with the Company as a Listener and create a user account (“Listener Account”), which will allow you to access features of the Service that are available through Listeners Accounts,  a Listeners profile page that along with information that you choose to share about yourself, and the ability to follow other Listeners or Artist Accounts, Brand Accounts, Label Accounts . Following an Artist Account, Brand Account, or Label Account, purchasing any content or services of Verified Users, gives Verified Users access to your email address while logged in to your Listener Account. Any information you provide for your profile page will be available to other users of the Service by default, subject to our Privacy Policy.<br><br>
-    As a condition to each such Verified User’s right to receive such User Information, Company requires each Verified User to agree to the terms set forth in the next section of this Agreement. However, you acknowledge that Company has no control over the use of the User Information by the Verified Users, and you further acknowledge and agree that YouSound shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the Verified User’s use of such User Information. </p>  
+    As a condition to each such Verified User’s right to receive such User Information, Company requires each Verified User to agree to the terms set forth in the next section of this Agreement. However, you acknowledge that Company has no control over the use of the User Information by the Verified Users, and you further acknowledge and agree that YouSound shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the Verified User’s use of such User Information. </p>
 
     <p>When any user manually deletes their accounts, their personal information is deleted from our servers instantly, and information from deleted accounts by any other user is no longer accessible.  All deleted account information backed up is deleted indefinitely within 7 days.</p>
 
@@ -243,7 +243,7 @@
 
       <h4>Seller Pricing & Fees</h4>
 
-      <p>Verified Users will set the prices for their products and services that are charged through Transactions (the “Prices”) through the Site, and you may change the Prices at your sole discretion. 
+      <p>Verified Users will set the prices for their products and services that are charged through Transactions (the “Prices”) through the Site, and you may change the Prices at your sole discretion.
       Company shall be entitled to a share of the revenue you receive from Transactions (the “Revenue Share”), which shall be calculated on your gross revenue from Transactions, not including any Transactions for which you or we provide a refund. You shall be solely responsible and liable for, and Company shall have no responsibility or liability for, any Stripe fees (except for fees charged on Company’s Stripe account), credit card transaction fees (together, “Fees”), bad debts (such as credit card returns or fraud), disputed payments, and refunds, except as provided in this Agreement.  YouSound may withhold any taxes, duties, charges or levies on payments by YouSound to you pursuant to this Agreement as may be required by applicable law, rule or regulation. YouSound shall remit any such withheld taxes, duties, charges or levies to the appropriate tax authority, if required.</p>
 
       <br>
@@ -251,7 +251,7 @@
       <h4>Physical & Digital Products, Repost Requests, Donations & Services.</h4>
 
       <p>For Merchandise Transactions, payments received from users for Merchandise shall be directed to Verified Users, minus 10% of the product price, excluding shipping costs.  For Digital Content, Donations & Services (accessed through the “Send Love” button on users profiles), payments received from users shall be directed to payment recipients, minus 10% of the product or service price.  For Repost Request (accessed through Direct Messages), payments received from users shall be directed to payment recipients, minus 50% of the price of $1.00 USD (one dollar), and minus 10% of any price above $1.00 USD (one dollar) which is directed to the Company. </p>
-      
+
       <br>
 
       <h4>Repost Price Upgrade.</h4>
@@ -270,7 +270,7 @@
 
       <br>
 
-      <p>Unless there is an outstanding Revenue Share owed to Company in which case such payments may be directed to Company. YouSound may retain funds otherwise payable to you if YouSound is required or chooses to provide a refund on your behalf.</p>          
+      <p>Unless there is an outstanding Revenue Share owed to Company in which case such payments may be directed to Company. YouSound may retain funds otherwise payable to you if YouSound is required or chooses to provide a refund on your behalf.</p>
 
       <h3>
         <a id="14-additional-fees" class="anchor" href="#14-additional-fees" aria-hidden="true"><span aria-hidden="true" class="link"></span></a>Additional Fees.</h3>
@@ -293,9 +293,9 @@
 
       <p>The Service provides Verified Artists with the ability to upload Digital Content owned or controlled by such Verified Artists to the Site, including but not limited to sound recordings (“Sound Recordings”), videos synchronized with Sound Recordings and other audiovisual works (collectively, “Music Videos”), and the musical works embodied within Sound Recordings and Music Videos (“Musical Works” and, collectively with Sound Recordings and Music Videos, the Verified Artist’s “Music”). Company will not have any ownership rights in any elements of a Verified Artist’s Music, however, Company needs the following license to perform the Service. Each Verified Artist uploading Music to the Service grants Company and its authorized sublicensees and distributors, if any, the worldwide, non-exclusive, royalty-free, right and license to:</p>
 
-      <li><strong>(i) reproduce, distribute, publicly perform (including on a through-to-the-audience basis and by means of a digital audio transmission), publicly display, create derivate works of, communicate to the public, synchronize and otherwise exploit (collectively, “Exploit”) (1) the Verified Artist’s Music and perform the Service on the Verified Artist’s behalf (e.g., reproduce, transcode, copy and store the Verified Artist’s Music on computer servers owned and/or operated by or on behalf of Company or its authorized sublicensees and distributors, and publicly perform, transmit, synchronize, stream, distribute, and playback the Verified Artist’s Music) using any technologies or methodologies now known or hereafter developed, and (2) Exploit all associated copyrightable works or metadata, including, without limitation, song lyrics and musical notations, album cover artwork, photographs, graphics, and descriptive text (“Artworks”) in connection with the Service);</strong></li> 
+      <li><strong>(i) reproduce, distribute, publicly perform (including on a through-to-the-audience basis and by means of a digital audio transmission), publicly display, create derivate works of, communicate to the public, synchronize and otherwise exploit (collectively, “Exploit”) (1) the Verified Artist’s Music and perform the Service on the Verified Artist’s behalf (e.g., reproduce, transcode, copy and store the Verified Artist’s Music on computer servers owned and/or operated by or on behalf of Company or its authorized sublicensees and distributors, and publicly perform, transmit, synchronize, stream, distribute, and playback the Verified Artist’s Music) using any technologies or methodologies now known or hereafter developed, and (2) Exploit all associated copyrightable works or metadata, including, without limitation, song lyrics and musical notations, album cover artwork, photographs, graphics, and descriptive text (“Artworks”) in connection with the Service);</strong></li>
 
-      <li><strong>(ii) allow users of the Service to receive public performances and public displays of the Verified Artist’s Music and Artworks and to reproduce the Verified Artist’s Music and Artworks on any and all devices owned or controlled by the user for non-commercial purposes and receive performances and displays of same; and</strong></li> 
+      <li><strong>(ii) allow users of the Service to receive public performances and public displays of the Verified Artist’s Music and Artworks and to reproduce the Verified Artist’s Music and Artworks on any and all devices owned or controlled by the user for non-commercial purposes and receive performances and displays of same; and</strong></li>
 
       <li><strong>(iii) reproduce, use, and publish, and to permit others to reproduce, use and publish, the name(s), trademarks, likenesses, and personal and biographical materials of the Verified Artist, in connection with the provision of the Service.</strong></li>
 
@@ -371,14 +371,14 @@
 
       <li>(1) you are the creator and owner of the User Content or otherwise have sufficient rights and authority to grant the rights granted herein;</li>
 
-      <li>(2) your User Content does not and will not (a) infringe, violate, or misappropriate any third-party right, including any copyright, trademark, patent, trade secret, moral right, privacy right, right of publicity, or any other intellectual property or proprietary right or (b) defame any other person;</li> 
+      <li>(2) your User Content does not and will not (a) infringe, violate, or misappropriate any third-party right, including any copyright, trademark, patent, trade secret, moral right, privacy right, right of publicity, or any other intellectual property or proprietary right or (b) defame any other person;</li>
 
       <li>(3) your User Content does not contain any viruses, adware, spyware, worms, or other harmful or malicious code; and (4) unless you have received prior written authorization, your User Content specifically does not contain any pre-release or non-public beta software or content or any confidential information of YouSound or third parties. YouSound reserves all rights and remedies against any users who breach these representations and warranties.</li>
 
       <h4>Content is Uploaded at Your Own Risk</h4>
 
       <p>YouSound uses reasonable security measures in order to attempt to protect User Content against unauthorized copying and distribution. However, YouSound does not guarantee and is not liable for any unauthorized copying, use or distribution of User Content. You hereby release and forever waive any claims you may have against YouSound for any such unauthorized copying or usage of the User Content, under any theory. THE SECURITY MEASURES TO PROTECT CREATOR CONTENT USED BY YouSound HEREIN ARE PROVIDED AND USED "AS-IS" AND WITH NO WARRANTIES OR ASSURANCES THAT SUCH SECURITY MEASURES WILL WITHSTAND ATTEMPTS TO EVADE SECURITY MECHANISMS OR THAT THERE WILL BE NO CRACKS, DISABLEMENTS OR OTHER CIRCUMVENTION OF SUCH SECURITY MEASURES.</p>
-      
+
 
       <h3>
         <a id="23-promotions" class="anchor" href="#23-promotions" aria-hidden="true">
@@ -399,7 +399,7 @@
 
       <p>BY USING THE YouSound SERVICES, YOU AGREE NOT TO violate any law, contract, intellectual property or other third-party right or commit a tort, and that you are solely responsible for your conduct while on the YouSound Services.  You agree that you will comply with these Terms of Service and YouSound’s Community Guidelines and will not:</p>
 
-      
+
 
       <li><strong>create, upload, transmit, distribute, or store any content that is inaccurate, unlawful, infringing, defamatory, obscene, pornographic, invasive of privacy or publicity rights, harassing, threatening, abusive, inflammatory, or otherwise objectionable;</strong></li>
 

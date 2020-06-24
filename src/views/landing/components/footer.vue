@@ -10,7 +10,7 @@
         <div>
           <a href="mailto:investors@yousound.com?subject=Investment&body=Hi, please tell us about yourself & your investment history.">Investors</a>
         </div>
-        <div><a href="//support.yousound.com/en/collections/2401816-careers" target="_blank">Jobs</a></div>
+        <div><a href="//support.yousound.com/en/collections/2401816-careers" target="_blank">Careers</a></div>
       </div>
       <div class="ml-5">
         <div><label>Quick Links</label></div>
@@ -29,7 +29,7 @@
       <div class="ml-4"><router-link to='/terms#community_guidelines'>Community Guidelines</router-link></div>
       <div class="ml-4"><router-link to='/terms#copyright_policy'>Copyright</router-link></div>
       <v-spacer></v-spacer>
-      <div>&copy; 2019 YouSound,Inc.</div>
+      <div>&copy; 2020 YouSound,Inc.</div>
     </v-layout>
   </div>
 </template>
