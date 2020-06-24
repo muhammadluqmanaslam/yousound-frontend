@@ -28,7 +28,7 @@
                   <img v-else-if="activityItem.action_type == 'share'" src="/static/images/ic_share.png" class="share-icon"/>
                   <v-icon v-else-if="activityItem.action_type == 'recommend'" class="recommend-icon">thumb_up</v-icon>
                   <span
-                    v-if="activityItem.assoc && activityItem.assoc_type!='Comment'"
+                    v-if="activityItem.assoc && activityItem.assoc_type != 'Comment'"
                     @click="doAction()"
                     class="items-title"
                   >{{ activityItem.assoc.name }}</span>
@@ -43,40 +43,47 @@
                 </label>
               </div>
               <div class="details">
-                <p v-if="activityItem.action_type=='comment'">"{{ activityItem.assoc.body }}"</p>
-                <!-- <div
-                  v-if="activityItem.assoc && activityItem.assoc_type=='ShopProduct'"
-                  :style="{'background-image': 'url(' + activityItem.assoc.covers[0].cover.thumb.url + ')'}"
-                  class="actioned-item"
-                ></div>
-                <div
-                  v-if="activityItem.assoc && activityItem.assoc_type=='Album'"
-                  :style="{'background-image': 'url(' + activityItem.assoc.cover.thumb.url + ')'}"
-                  class="actioned-item"
-                ><router-link :to="'/album/' + activityItem.assoc.slug"></router-link></div> -->
-                <template v-if="activityItem.assoc && activityItem.assoc_type=='Comment'">
+                <p v-if="activityItem.action_type == 'comment'">
+                  <template v-if="activityItem.assoc_type == 'Comment'">
+                    {{ activityItem.assoc.body }}
+                  </template>
+                  <template v-else-if="activityItem.assoc_type == 'Post'">
+                    {{ activityItem.assoc.description }}
+                  </template>
+                </p>
+
+                <template v-if="activityItem.assoc">
+                  <template v-if="activityItem.assoc_type == 'Comment'">
+                    <div
+                      v-if="activityItem.assoc.commentable_type=='ShopProduct'"
+                      :style="{'background-image': 'url(' + activityItem.assoc.commentable.covers[0].cover.thumb.url + ')'}"
+                      class="actioned-item"
+                    ></div>
+                    <div
+                      v-else-if="activityItem.assoc.commentable_type=='Album'"
+                      :style="{'background-image': 'url(' + activityItem.assoc.commentable.cover.thumb.url + ')'}"
+                      class="actioned-item"
+                    ></div>
+                    <div
+                      v-else-if="activityItem.assoc.commentable_type=='Post'"
+                      :style="{'background-image': 'url(' + activityItem.assoc.commentable.cover.thumb.url + ')'}"
+                      class="actioned-item"
+                    ></div>
+                  </template>
+
                   <div
-                    v-if="activityItem.assoc.commentable_type=='ShopProduct'"
-                    :style="{'background-image': 'url(' + activityItem.assoc.commentable.covers[0].cover.thumb.url + ')'}"
+                    v-if="activityItem.assoc_type == 'Post'"
+                    :style="{'background-image': 'url(' + activityItem.assoc.cover.thumb.url + ')'}"
                     class="actioned-item"
                   ></div>
-                  <div
-                    v-else-if="activityItem.assoc.commentable_type=='Album'"
-                    :style="{'background-image': 'url(' + activityItem.assoc.commentable.cover.thumb.url + ')'}"
-                    class="actioned-item"
-                  ></div>
-                  <div
-                    v-else-if="activityItem.assoc.commentable_type=='Post'"
-                    :style="{'background-image': 'url(' + activityItem.assoc.commentable.cover.thumb.url + ')'}"
-                    class="actioned-item"
-                  ></div>
+
+                  <div class="actioned-item" v-if="activityItem.assoc_type=='ShopProduct'">
+                    <activity-product-card :object="activityItem.assoc" />
+                  </div>
+                  <div class="actioned-item" v-if="activityItem.assoc_type=='Album'">
+                    <activity-album-card :object="activityItem.assoc" />
+                  </div>
                 </template>
-                <div class="actioned-item" v-if="activityItem.assoc && activityItem.assoc_type=='ShopProduct'">
-                  <activity-product-card :object="activityItem.assoc"></activity-product-card>
-                </div>
-                <div class="actioned-item" v-if="activityItem.assoc && activityItem.assoc_type=='Album'">
-                  <activity-album-card :object="activityItem.assoc" ></activity-album-card>
-                </div>
               </div>
             </div>
           </v-flex>
