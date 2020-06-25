@@ -201,6 +201,8 @@ export default {
               }
             }
           )
+        } else {
+          this.show_view_stream_button = true
         }
       }
     }).catch(e => {
