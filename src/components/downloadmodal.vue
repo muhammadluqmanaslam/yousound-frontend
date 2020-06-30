@@ -115,7 +115,11 @@
       },
 
       trackUser () {
-        return this.track ? this.track.user : this.item.user
+        if (this.item.album_type === 'album') {
+          return this.item.user
+        } else {
+          return this.track ? this.track.user : this.item.user
+        }
       },
 
       coverUrl () {
