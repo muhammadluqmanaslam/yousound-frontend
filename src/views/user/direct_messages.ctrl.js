@@ -9,6 +9,7 @@ import ProductService from '@/services/product'
 import profileItem from '@/components/profileitem'
 import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
+import Message from '../messages/components/message'
 
 const ActionCable = require('actioncable')
 
@@ -16,7 +17,8 @@ export default {
   components: {
     profileItem,
     activityAlbumCard,
-    activityProductCard
+    activityProductCard,
+    Message
   },
 
   data() {

@@ -84,7 +84,9 @@
                 class="message-room-item"
               >
                 <div class="avatar-area">
-                  <router-link :to="`/${conv.other.slug}`"><div class="avatar-image" :style="'background-image: url(' + conv.other.avatar.thumb.url + ');'" v-if="!conv.other.length"></div></router-link>
+                  <router-link :to="`/${conv.other.slug}`">
+                    <div class="avatar-image" :style="'background-image: url(' + conv.other.avatar.thumb.url + ');'" v-if="!conv.other.length"></div>
+                  </router-link>
                 </div>
                 <div class="detail-area">
                   <!-- <router-link class="user-name" :to="'/' + conv.other.slug">{{ conv.other.display_name }}</router-link> -->
@@ -107,7 +109,8 @@
                 <v-icon
                   v-if="conversation.other.user_type == 'artist'"
                   class="user-status"
-                  :class="{'online': conversation.other.status == 'active'}">fa-check-circle</v-icon>
+                  :class="{'online': conversation.other.status == 'active'}"
+                >fa-check-circle</v-icon>
               </p>
               <!-- <p class="messaged-time">{{ toLocalTimeString(conversation.last_message.created_at) }}</p> -->
               <p class="messaged-time">Repost Price: ${{ conversation.other.repost_price | formatNumber }}</p>
