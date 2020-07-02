@@ -47,9 +47,9 @@
                 with Artists &<br>
                 Brands.
               </h3>
-              <v-btn to="/register">
+              <!-- <v-btn to="/register">
                 <label>Sign Up</label>
-              </v-btn>
+              </v-btn> -->
             </div>
           </section>
         </div>
@@ -228,7 +228,7 @@ export default {
 
     &:nth-child(3) {
       //background-image: linear-gradient(#FF3434, #441009);
-      background: url('/static/images/img_land_videos.png'), linear-gradient(#FF3434, #441009);
+      background: linear-gradient(#FF3434C0, #441009C0), url('/static/images/img_land_videos1.png');
       background-size: contain;
       section {
         .btn {
