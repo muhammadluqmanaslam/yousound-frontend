@@ -5,8 +5,9 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>
-      <router-link to="/register"><b>Sign Up</b></router-link>
-      <router-link to="/login" class="ml-3">Log In</router-link>
+      <!-- <router-link to="/register"><b>Sign Up</b></router-link>
+      <router-link to="/login" class="ml-3">Log In</router-link> -->
+      <a href="#"><b>Launching Soon</b></a>
     </v-toolbar-items>
   </v-toolbar>
 </template>

@@ -236,7 +236,7 @@ export default {
           background-color: #000000;
           /deep/ &__content {
             label {
-              padding: 2px 30px 0 30px;
+              padding: 0px 30px 0 30px;
               font-size: 18px;
               font-weight: 900;
             }

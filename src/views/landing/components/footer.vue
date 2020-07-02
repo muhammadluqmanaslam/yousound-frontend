@@ -6,7 +6,7 @@
       </div> -->
       <div>
         <div><label>Company</label></div>
-        <div><a href="//yousound.ghost.io" target="_blank">Blog</a></div>
+        <!-- <div><a href="//yousound.ghost.io" target="_blank">Blog</a></div> -->
         <div>
           <a href="mailto:investors@yousound.com?subject=Investment&body=Hi, please tell us about yourself & your investment history.">Investors</a>
         </div>
@@ -14,13 +14,13 @@
       </div>
       <div class="ml-5">
         <div><label>Quick Links</label></div>
-        <div><router-link to="/">iOS App</router-link></div>
+        <!-- <div><router-link to="/">iOS App</router-link></div> -->
         <div><a href="//support.yousound.com" target="_blank">Support</a></div>
       </div>
       <v-spacer></v-spacer>
-      <div class="ml-5">
+      <!-- <div class="ml-5">
         <img src="/static/images/img_download_ios.svg" height="48">
-      </div>
+      </div> -->
     </v-layout>
 
     <v-layout class="mt-5">
