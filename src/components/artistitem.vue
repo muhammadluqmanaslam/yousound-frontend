@@ -3,13 +3,17 @@
     <v-flex xs12 class="item-info" pa-0>
       <v-flex xs12 class="artist-info-section">
         <div class="artist-cover" :style="{'background-image': 'url(' + artist.avatar.url + ')'}"></div>
-        <v-flex xs12 class="artist-actions">
+        <v-flex
+          v-if="canViewProfile"
+          xs12 class="artist-actions"
+        >
           <router-link :to="`/${artist.slug}`">
             <div class="avatar-cover">
               <div class="hover-title">View Profile</div>
             </div>
           </router-link>
-          <div class="follow-section" v-if="currentUser && currentUser.id != artist.id && artist.username != PublicRelationsUsername">
+
+          <div v-if="followButtonVisible" class="follow-section">
             <v-btn
               :class="{ 'follow-btn': true, 'follow': !artist.is_following, 'following': artist.is_following }"
               @click.native="followUser()"
@@ -61,6 +65,16 @@
           return this.buttonHover ? 'Unfollow' : 'Following'
         }
         return 'Follow'
+      },
+
+      followButtonVisible () {
+        return this.currentUser && this.currentUser.id !== this.artist.id &&
+          ['admin', 'superadmin'].indexOf(this.artist.user_type) === -1 &&
+          this.artist.username !== PublicRelationsUsername
+      },
+
+      canViewProfile () {
+        return ['admin', 'superadmin'].indexOf(this.artist.user_type) === -1
       }
     },
 

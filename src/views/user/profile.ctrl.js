@@ -170,12 +170,19 @@ export default {
     },
 
     onTab (tab) {
+      if (
+        ['followings', 'followers'].indexOf(tab) > -1 &&
+        (_.get(this.currentUser, 'user_type') !== 'admin' && _.get(this.user, 'username') === PublicRelationsUsername)
+      ) {
+        return
+      }
+
       this.$router.push({
         path: this.$route.path,
         hash: tab,
-        query: {
-          grid_view: this.grid_show
-        }
+        // query: {
+        //   grid_view: this.grid_show
+        // }
       })
     },
 
@@ -183,9 +190,9 @@ export default {
       this.$router.push({
         path: this.$route.path,
         hash: this.active_tab,
-        query: {
-          grid_view: flag
-        }
+        // query: {
+        //   grid_view: flag
+        // }
       })
     },
 
@@ -563,7 +570,7 @@ export default {
           path: this.$route.path,
           hash: 'songs',
           query: {
-            grid_view: this.grid_show,
+            // grid_view: this.grid_show,
             auto_play: true
           }
         })
