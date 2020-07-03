@@ -67,6 +67,7 @@ export default {
       showShareModal: false,
       showSendLoveModal: false,
       show_stream_live_button: false,
+      view_stream_clicked: false,
       grid_show: true,
       auto_play: false,
       startIndex: 0,
@@ -125,6 +126,10 @@ export default {
       return _.get(this.user, 'stream.view_price', 0)
     },
 
+    followMetaVisible () {
+      return _.get(this.user, 'username') !== PublicRelationsUsername || _.get(this.currentUser, 'user_type') === 'admin'
+    },
+
     followButtonText () {
       if (this.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
@@ -170,13 +175,6 @@ export default {
     },
 
     onTab (tab) {
-      if (
-        ['followings', 'followers'].indexOf(tab) > -1 &&
-        (_.get(this.currentUser, 'user_type') !== 'admin' && _.get(this.user, 'username') === PublicRelationsUsername)
-      ) {
-        return
-      }
-
       this.$router.push({
         path: this.$route.path,
         hash: tab,
@@ -205,13 +203,17 @@ export default {
 
     viewStream () {
       console.log('viewStream clicked')
+      this.view_stream_clicked = true
       UserService.getUserInfo(this.slug).then(response => {
         this.user = response.body
+        this.view_stream_clicked = false
 
         if (this.isStreaming()) {
           this.$store.dispatch('videoPlayer/setStream', this.user.stream)
           this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
         }
+      }).catch(err => {
+        this.view_stream_clicked = false
       })
     },
 

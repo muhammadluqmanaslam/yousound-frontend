@@ -162,6 +162,15 @@ export default {
       } else {
         $('#my_video').addClass('is-chatting')
       }
+    },
+
+    show_streaming_confirm_dialog: function (val) {
+      if (!val) {
+        if (this.latency_time_interval) {
+          clearInterval(this.latency_time_interval)
+          this.latency_time_interval = null
+        }
+      }
     }
   },
 
@@ -705,6 +714,11 @@ export default {
     closePlayer () {
       if (this.player) {
         this.player.shutdown()
+      }
+
+      if (this.latency_time_interval) {
+        clearInterval(this.latency_time_interval)
+        this.latency_time_interval = null
       }
 
       this.closeSocket()

@@ -16,9 +16,13 @@
                   <span class="live">Live</span>
                 </div>
               </div> -->
-              <div class="user-profile-image-section" :class="{ 'live' : show_stream_live_button }">
+              <div
+                class="user-profile-image-section"
+                :class="{ 'live' : show_stream_live_button }"
+                @click="!view_stream_clicked && viewStream()"
+              >
                 <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
-                <div class="live-btn" @click="viewStream()">Live</div>
+                <div class="live-btn">Live</div>
               </div>
 
               <div class="user-info-section">
@@ -36,7 +40,7 @@
                   <label class="vertical-divider"></label>
                   <label>{{ userLocation }}</label>
                 </div>
-                <div class="user-status-section mt-2">
+                <div v-if="followMetaVisible" class="user-status-section mt-2">
                   <label
                     @click="onTab('followings')"
                     class="follower-count"

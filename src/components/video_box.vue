@@ -77,11 +77,11 @@
     position: absolute;
     top: 20px;
     left: 20px;
-    padding: 5px 12px;
-    border-radius: 3.75px;
+    padding: 5px 6px 4px 10px;
+    border-radius: 3px;
     background-color: #ff0042;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 2.6px;
     text-transform: uppercase;

@@ -229,7 +229,7 @@ export default {
     &:nth-child(3) {
       //background-image: linear-gradient(#FF3434, #441009);
       background: linear-gradient(#FF3434C0, #441009C0), url('/static/images/img_land_videos1.png');
-      background-size: contain;
+      background-size: cover;
       section {
         .btn {
           height: 48px;

@@ -20,6 +20,7 @@
       border: none;
       border-radius: 50%;
       vertical-align: top;
+      cursor: pointer;
       .user-profile-image {
         width: 180px;
         height: 180px;
@@ -37,7 +38,7 @@
         bottom: 0;
         left: 50%;
         transform: translate(-50%, 40%);
-        padding: 8px 16px;
+        padding: 6px 8px 5px 12px;
         border-radius: 3.75px;
         background-color: #ff0042;
         color: #ffffff;

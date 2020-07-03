@@ -564,11 +564,11 @@
             <label>{{ stream.started_at | formatDateFromNow }}</label>
           </div>
           <div class="box__content">
-            <div class="box__title">
+            <div class="box__title">{{ stream.name }}</div>
+            <div class="box__subtitle">
               {{ _.get(stream, 'user.display_name') }}
               <v-icon>fa-check-circle</v-icon>
             </div>
-            <div class="box__subtitle">{{ stream.name }}</div>
             <label>{{ _.get(stream, 'genre.name') }}</label>
           </div>
           <div
