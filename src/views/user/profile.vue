@@ -111,7 +111,7 @@
                           <label>Chat</label>
                         </v-list-tile-title>
                       </v-list-tile> -->
-                      <v-list-tile @click.natvie="flagUser()">
+                      <v-list-tile @click.native="flagUser()">
                         <v-list-tile-title class="default-menu-item">
                           <label>Flag</label>
                         </v-list-tile-title>
@@ -128,14 +128,15 @@
                 </div>
               </div>
               <ul>
-                <li
-                  v-for="tab in tabs"
-                  v-if="isAvailableForGridView(tab)"
-                  v-show="['followings', 'followers'].indexOf(tab.id) == -1"
-                  :key="tab.id"
-                  :href="`#${tab.id}`"
-                  :class="{active: isActiveTab(tab.id)}"
-                ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+                <template v-for="tab in tabs">
+                  <li
+                    v-if="isAvailableForGridView(tab)"
+                    v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+                    :key="tab.id"
+                    :href="`#${tab.id}`"
+                    :class="{active: isActiveTab(tab.id)}"
+                  ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+                </template>
               </ul>
             </div>
           </div>
