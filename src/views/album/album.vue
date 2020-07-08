@@ -43,8 +43,10 @@
                       <label class="album-info-label">Collaborators: </label>
                       <label class="album-info-text">
                         <template v-for="c in album.collaborators">
-                          <div class="collaborator-info">
-                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
+                          <div class="collaborator-info" :key="`collaborator-${c.id}`">
+                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link>
+                            <span> - {{ c.user_role }}</span>
+                          </div>
                         </template>
                       </label>
                     </v-flex>
@@ -52,12 +54,16 @@
                       <label class="album-info-label">Contributors: </label>
                       <label class="album-info-text">
                         <div class="contributor-info">
-                          <router-link class="user-name" :to="`/${album.user.slug}`">{{ album.user.display_name }}</router-link> - Uploader</div>
+                          <router-link class="user-name" :to="`/${album.user.slug}`">{{ album.user.display_name }}</router-link>
+                          <span> - Uploader</span>
+                        </div>
                       </label>
                       <label class="album-info-text" v-if="album.contributors && album.contributors.length > 0">
                         <template v-for="c in album.contributors">
-                          <div class="contributor-info">
-                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
+                          <div class="contributor-info" :key="`contributor-${c.id}`">
+                            <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link>
+                            <span> - {{ c.user_role }}</span>
+                          </div>
                         </template>
                       </label>
                     </v-flex>
@@ -65,7 +71,7 @@
                       <label class="album-info-label">Samples: </label>
                       <label class="album-info-text" v-if="album.samplings && album.samplings.length > 0">
                         <template v-for="s in album.samplings">
-                          <div class="sampling-info">
+                          <div class="sampling-info" :key="`sampling-${s.id}`">
                             <label>{{ s.sampling_track.name }}</label>:&nbsp;<router-link class="user-name" :to="`/${s.sample_user.slug}`">{{ s.sample_user.display_name }}</router-link>
                             <span> - {{ s.sample_track.name }}</span>
                           </div>
@@ -97,8 +103,8 @@
                 <label class="link-btn" @click="goToArtistProfile()">View all artist's products</label>
               </div>
             </div>
-          </div> 
-        </div> 
+          </div>
+        </div>
         <div class="album-detail-section">
           <div class="album-info-section">
             <label class="album-title">{{ album.album_type }}</label>
@@ -106,7 +112,13 @@
             <div class="album-detail">
               by <router-link :to="'/' + album.user.slug" class="album-detail">{{ album.user.display_name }}</router-link>
               <template v-for="collaborator in album.collaborators">
-                , <router-link :to="'/' + collaborator.user.slug" class="album-detail">{{ collaborator.user.display_name }}</router-link>
+                <div :key="`${collaborator.id}`" class="d-inline-block">
+                  <span>,</span>
+                  <router-link
+                    :to="'/' + collaborator.user.slug"
+                    class="album-detail"
+                  >{{ collaborator.user.display_name }}</router-link>
+                </div>
               </template>
               <div v-if="currentUser && currentUser.user_type != 'listener' && album.enabled_sample" class="album-sample-clearance mr-2">
                 • Cleared to be sampled on YouSound.
@@ -222,12 +234,12 @@
             <div class="add-comment-section">
               <img class="profile-image" :src="currentUser.avatar.thumb.url" />
               <!-- <div class="profile-image" :style="{'background-image': 'url(' + currentUser.user.avatar.thumb.url + ')'}"/></div> -->
-              <input 
-                type="text" 
-                class="comment-input" 
-                name="comment_input" 
-                placeholder="Spark a conversation..." 
-                v-model="commentString" 
+              <input
+                type="text"
+                class="comment-input"
+                name="comment_input"
+                placeholder="Spark a conversation..."
+                v-model="commentString"
                 @keyup.enter="addComment()"
                 @blur="blurMessage()"
                 ref="comment"
@@ -238,8 +250,8 @@
                 class="emoji-picker"
                 @click="addEmoji"
               />
-              <v-btn 
-                class="show-emoji-box-btn" 
+              <v-btn
+                class="show-emoji-box-btn"
                 :class="{'selected': showEmojiPicker}"
                 @click.native="showEmojiDialog()"
               >
@@ -308,15 +320,17 @@
       <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 album-recent-page v-if="currentUser">
         <h4 class="recent-title">{{ album.user.display_name }}'s recent reposts</h4>
         <v-layout row wrap class="recent-content">
-          <div v-for="(feed, index) in album.user.recent_items"
-            v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
-            :key="feed.id"
-            class="card-container"
-          >
-            <track-card :objects="album.user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"/>
-            <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"/>
-            <video-card :dataObject="feed" v-if="feed.assoc_type=='Stream'"/>
-          </div>
+          <template v-for="(feed, index) in album.user.recent_items">
+            <div
+              v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
+              :key="feed.id"
+              class="card-container"
+            >
+              <track-card :objects="album.user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"/>
+              <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"/>
+              <video-card :dataObject="feed" v-if="feed.assoc_type=='Stream'"/>
+            </div>
+          </template>
         </v-layout>
       </v-flex>
     </v-flex>

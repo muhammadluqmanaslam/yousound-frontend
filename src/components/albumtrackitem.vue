@@ -1,6 +1,6 @@
 <template>
   <div
-    @click.self="selectTrack()"
+    @click="selectTrack()"
     @mouseenter="buttonHover=true"
     @mouseleave="buttonHover=false"
     :class="{'selected': buttonHover || (isPlaying && trackIndex==$store.state.player.trackIndex) || (!isPlaying && trackIndex==0)}"
@@ -11,7 +11,7 @@
       <v-icon v-if="trackIndex==$store.state.player.trackIndex && isPlaying">pause</v-icon>
       <v-icon v-else-if="buttonHover || (trackIndex==0 && !isPlaying)">play_arrow</v-icon>
     </v-btn>
-    <label class="track-name" @click.self="selectTrack()">
+    <label class="track-name">
       <span class="track-index">{{ trackIndex + 1 }}. </span>
       <span>{{ track.name }}</span>
       <router-link
@@ -20,7 +20,7 @@
         :to = "`/${track.user.slug}`"
       > - {{ track.user.display_name }}</router-link>
     </label>
-    <div class="right-section">
+    <div class="right-section" @click.stop="">
       <v-menu v-model="menu"
         offset-y
         class="track-more-action"
