@@ -92,6 +92,7 @@ const ActionCable = require('actioncable')
 
 export default {
   name: 'app',
+
   components: {
     appHeader,
     appFooter,
@@ -130,6 +131,32 @@ export default {
     }
   },
 
+  // beforeRouteEnter (to, from, next) {
+  //   console.log('beforeRouteEnter')
+  //   next()
+  // },
+
+  // beforeRouteUpdate (to, from, next) {
+  //   console.log('beforeRouteUpdate')
+  //   if (this.$store.state.app.genres.length === 0) {
+  //     Promise.all([
+  //       SettingService.getSettings(),
+  //       GenreService.getGenres2(),
+  //       CategoryService.getCategories(),
+  //       UserService.getUserInfo(PublicRelationsUsername)
+  //     ]).then(values => {
+  //       console.log('App initializing...')
+  //       this.$store.dispatch('app/setSettings', values[0].body)
+  //       this.$store.dispatch('app/setGenres', values[1].body)
+  //       this.$store.dispatch('app/setProductCategories', values[2].body)
+  //       this.$store.dispatch('app/setPublicRelationsUser', values[3].body)
+  //       next()
+  //     })
+  //   } else {
+  //     next()
+  //   }
+  // },
+
   watch: {
     '$route' (to, from) {
       const toPath = to.path.split('/')
@@ -151,7 +178,8 @@ export default {
   },
 
   created () {
-    // console.log('App created')
+    console.log('App created')
+
     Vue.http.interceptors.push((req, next) => {
       next((res) => {
         if (res.url.startsWith(process.env.API_BASE_URL) && res.status === 401) {
@@ -162,8 +190,6 @@ export default {
       })
     })
 
-    // this.$root.$on('showLoginModal', this.showLoginDialog)
-    // this.$root.$on('hideLoginModal', this.hideLoginDialog)
     this.$root.$on(MyEvents.AUTH_SIGNIN, this.doAfterSignIn)
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.doAfterSignOut)
 
@@ -173,26 +199,25 @@ export default {
       CategoryService.getCategories(),
       UserService.getUserInfo(PublicRelationsUsername)
     ]).then(values => {
+      console.log('App initializing...')
       this.$store.dispatch('app/setSettings', values[0].body)
       this.$store.dispatch('app/setGenres', values[1].body)
       this.$store.dispatch('app/setProductCategories', values[2].body)
       this.$store.dispatch('app/setPublicRelationsUser', values[3].body)
-
-      if (AuthService.isAuthenticated()) {
-        AuthService.checkTokenValidation().then(response => {
-          if (response.body !== false) {
-            // console.log('App created', response.body)
-            AuthService.setUser(response.body)
-            this.$root.$emit(MyEvents.AUTH_SIGNIN)
-          } else {
-            AuthService.clearTokenAndUserInfo()
-            this.$router.push({ path: '/login' })
-          }
-        })
-      }
-    }).catch(reason => {
-      console.log('app created error', reason)
     })
+
+    if (AuthService.isAuthenticated()) {
+      AuthService.checkTokenValidation().then(response => {
+        if (response.body !== false) {
+          // console.log('App created', response.body)
+          AuthService.setUser(response.body)
+          this.$root.$emit(MyEvents.AUTH_SIGNIN)
+        } else {
+          AuthService.clearTokenAndUserInfo()
+          this.$router.push({ path: '/login' })
+        }
+      })
+    }
 
     // (function (d, s, id) {
     //   var js = d.getElementsByTagName(s)[0]

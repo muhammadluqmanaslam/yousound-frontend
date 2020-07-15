@@ -374,6 +374,7 @@
       .message-list-section {
         width: calc(100% - 1px);
         // max-height: calc(100vh - 337.5px);
+        height: 100%;
         overflow-x: hidden;
         overflow-y: scroll;
         padding-bottom: 22.5px;

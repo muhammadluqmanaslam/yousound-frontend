@@ -10,6 +10,7 @@ export default {
   },
 
   created () {
+    console.log('stripe_connect created', this.$store.state.auth.user)
     this.$store.dispatch('auth/setSecretCode', this.$route.query['state'])
     for (let key in this.$route.query) {
       if (key === 'code') {
