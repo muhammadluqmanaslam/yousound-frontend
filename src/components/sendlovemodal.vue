@@ -41,7 +41,7 @@
 
     <payment-modal
       v-if="showPaymentModal"
-      :type="''"
+      :receiver="item"
       :amount="donate_amount_by_cent"
       :dismiss="hidePaymentDialog"
       :finish="sendLove"
@@ -112,10 +112,6 @@
     methods: {
       donateAmount (amount) {
         this.donate_amount = amount
-      },
-
-      dismissModal () {
-        console.log('touched')
       },
 
       followUser () {

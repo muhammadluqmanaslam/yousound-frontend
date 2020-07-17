@@ -157,18 +157,18 @@
               <v-flex xs12 sm12 form-group>
                 <img class="stripe" src="/static/images/stripe-logo-blue.png" />
                 <a
-                  v-if="!$store.state.auth.user.is_stripe_connected"
+                  v-if="!$store.state.auth.user.stripe_connected"
                   :href="stripeLink"
                   target="_self"
                 >
                   <v-btn class="update-btn top-btn" dark>Connect Stripe</v-btn>
                 </a>
                 <v-btn
-                  v-if="$store.state.auth.user.is_stripe_connected"
+                  v-if="$store.state.auth.user.stripe_connected"
                   @click.native="disconnetAccount()"
                   class="update-btn top-btn"
                 >Disconnect Stripe</v-btn>
-                <!-- <v-btn @click.native="viewStripeAccount()" class="update-btn top-btn" v-if="$store.state.auth.user.is_stripe_connected">View Stripe Account</v-btn> -->
+                <!-- <v-btn @click.native="viewStripeAccount()" class="update-btn top-btn" v-if="$store.state.auth.user.stripe_connected">View Stripe Account</v-btn> -->
               </v-flex>
             </v-flex>
           </div>

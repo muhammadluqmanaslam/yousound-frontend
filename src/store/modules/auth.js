@@ -93,7 +93,7 @@ const mutations = {
   },
 
   setStripeStatus (state, status) {
-    state.user.is_stripe_connected = status
+    state.user.stripe_connected = status
   },
 
   addFavoriteUser (state, user) {

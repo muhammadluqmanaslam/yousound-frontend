@@ -9,6 +9,8 @@ package-lock.json
 # build/*
 fixed/*
 
+*.org
+*.bak
 README.local.md
 config/dev.env.js
 config/prod.env.js
