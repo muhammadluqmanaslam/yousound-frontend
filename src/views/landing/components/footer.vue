@@ -8,9 +8,18 @@
         <div><label>Company</label></div>
         <!-- <div><a href="//yousound.ghost.io" target="_blank">Blog</a></div> -->
         <div>
-          <a href="mailto:investors@yousound.com?subject=Investment&body=Hi, please tell us about yourself & your investment history.">Investors</a>
+          <a
+            href="mailto:investors@yousound.com?subject=Investment&body=Hi, please tell us about yourself & your investment history."
+            >Investors</a
+          >
         </div>
-        <div><a href="//support.yousound.com/en/collections/2401816-careers" target="_blank">Careers</a></div>
+        <div>
+          <a
+            href="//support.yousound.com/en/collections/2401816-careers"
+            target="_blank"
+            >Careers</a
+          >
+        </div>
       </div>
       <div class="ml-5">
         <div><label>Quick Links</label></div>
@@ -24,10 +33,18 @@
     </v-layout>
 
     <v-layout class="mt-5">
-      <div><router-link to='/terms'>Terms of use</router-link></div>
-      <div class="ml-4"><router-link to='/terms#privacy_policy'>Privacy</router-link></div>
-      <div class="ml-4"><router-link to='/terms#community_guidelines'>Community Guidelines</router-link></div>
-      <div class="ml-4"><router-link to='/terms#copyright_policy'>Copyright</router-link></div>
+      <div><router-link to="/terms">Terms of use</router-link></div>
+      <div class="ml-4">
+        <router-link to="/terms#privacy_policy">Privacy</router-link>
+      </div>
+      <div class="ml-4">
+        <router-link to="/terms#community_guidelines"
+          >Community Guidelines</router-link
+        >
+      </div>
+      <div class="ml-4">
+        <router-link to="/terms#copyright_policy">Copyright</router-link>
+      </div>
       <v-spacer></v-spacer>
       <div>&copy; 2020 YouSound,Inc.</div>
     </v-layout>
@@ -35,7 +52,6 @@
 </template>
 
 <style lang="scss" scoped>
-
 div {
   z-index: 9999;
 }
@@ -49,10 +65,10 @@ div {
     color: #666;
   }
   a {
-    color: #FFF;
+    color: #fff;
   }
 }
 a {
-  color: #FFF;
+  color: #fff;
 }
 </style>

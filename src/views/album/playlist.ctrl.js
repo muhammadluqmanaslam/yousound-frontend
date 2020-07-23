@@ -27,10 +27,10 @@ export default {
     trackCard,
     videoCard,
     Picker,
-    draggable
+    draggable,
   },
 
-  data () {
+  data() {
     return {
       showDownloadModal: false,
       showEmojiPicker: false,
@@ -48,7 +48,7 @@ export default {
         total_count: 0,
         total_pages: 0,
       },
-      buttonHover: []
+      buttonHover: [],
     }
   },
 
@@ -57,7 +57,7 @@ export default {
       return this.$store.state.auth.user
     },
 
-    coverImageURL () {
+    coverImageURL() {
       if (this.playlist.cover) {
         return this.playlist.cover.large.url
       } else {
@@ -65,7 +65,7 @@ export default {
       }
     },
 
-    coverThumbImageURL () {
+    coverThumbImageURL() {
       if (this.playlist.cover) {
         return this.playlist.cover.thumb.url + '?' + new Date()
       } else {
@@ -82,46 +82,59 @@ export default {
     },
 
     hasMoreComments() {
-      return this.comment_pagination.current_page < this.comment_pagination.total_pages
+      return (
+        this.comment_pagination.current_page <
+        this.comment_pagination.total_pages
+      )
     },
 
-    isPlaying () {
-      return this.$store.state.player.isPlaying &&
-        _.get(this.$store.state.player.list[this.$store.state.player.listIndex], 'id') === this.playlist.id
+    isPlaying() {
+      return (
+        this.$store.state.player.isPlaying &&
+        _.get(
+          this.$store.state.player.list[this.$store.state.player.listIndex],
+          'id'
+        ) === this.playlist.id
+      )
     },
 
-    album1Cover () {
+    album1Cover() {
       return _.get(this.playlist.tracks, '[0].album.cover.url')
     },
 
-    album2Cover () {
+    album2Cover() {
       return _.get(this.playlist.tracks, '[1].album.cover.url')
     },
 
-    album3Cover () {
+    album3Cover() {
       return _.get(this.playlist.tracks, '[2].album.cover.url')
     },
 
-    album4Cover () {
+    album4Cover() {
       return _.get(this.playlist.tracks, '[3].album.cover.url')
     },
 
-    input_id () {
-      return 'playlist_image_file_' + this.playlist.slug + '_' + parseInt((Math.random() * 999999))
-    }
+    input_id() {
+      return (
+        'playlist_image_file_' +
+        this.playlist.slug +
+        '_' +
+        parseInt(Math.random() * 999999)
+      )
+    },
   },
 
   watch: {
-    '$route' (to, from) {
+    $route(to, from) {
       const toPath = to.path.split('/')
       this.slug = toPath[2]
       this.trackIndex = 0
       this.getPlaylist(this.slug)
-    }
+    },
   },
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'playlist', tab: ''})
+  created() {
+    this.$store.dispatch('navigator/goNextState', { page: 'playlist', tab: '' })
     this.slug = this.$route.params.slug
     this.getPlaylist(this.slug)
   },
@@ -131,7 +144,7 @@ export default {
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus'
+      setPlaying: 'player/setPlayingStatus',
     }),
 
     convertedHTML(text) {
@@ -146,40 +159,45 @@ export default {
       return text
     },
 
-    getPlaylist (slug) {
+    getPlaylist(slug) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const vm = this
-      AlbumService.getAlbum(slug).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.playlist = response.body
-        for (let index in this.playlist.tracks) {
-          this.buttonHover.push(false)
-        }
-        this.loadMoreComments()
-        this.selectedImage = this.playlist.cover.url
-        setTimeout(function () {
-          vm.changeBackground()
-          var height = $('#album_info_page').height() + 230
-          var screen_height = $( window ).height()
-          if (height > screen_height ) {
-            height += 50
-          } else {
-            height = screen_height
+      AlbumService.getAlbum(slug)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.playlist = response.body
+          for (let index in this.playlist.tracks) {
+            this.buttonHover.push(false)
           }
-          var canvas = document.getElementById("canvas")
-          canvas.height = height
-          // $('#back_image').css("cssText", "height: " + height + "px !important;")
-        }, 200)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+          this.loadMoreComments()
+          this.selectedImage = this.playlist.cover.url
+          setTimeout(function () {
+            vm.changeBackground()
+            var height = $('#album_info_page').height() + 230
+            var screen_height = $(window).height()
+            if (height > screen_height) {
+              height += 50
+            } else {
+              height = screen_height
+            }
+            var canvas = document.getElementById('canvas')
+            canvas.height = height
+            // $('#back_image').css("cssText", "height: " + height + "px !important;")
+          }, 200)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    changeBackground () {
-      var canvas = document.getElementById("canvas")
-      var cctx = canvas.getContext("2d")
-      var buff = document.createElement("canvas")
+    changeBackground() {
+      var canvas = document.getElementById('canvas')
+      var cctx = canvas.getContext('2d')
+      var buff = document.createElement('canvas')
       buff.width = canvas.width
       buff.height = canvas.height
 
@@ -189,37 +207,42 @@ export default {
       // Easiest is to always host your images on your own server
       // imageObj.src = 'https://dl.dropboxusercontent.com/s/8q8sjnqmmto13h5/lionCMYK.jpg'
       imageObj.src = this.coverThumbImageURL
-      imageObj.onload = function() {
+      imageObj.onload = function () {
         // canvas.width = imageObj.height
         // canvas.height = imageObj.height
         cctx.drawImage(imageObj, 0, 0)
         StackBlur.image(imageObj, canvas, 70, false)
         var height = $('#album_info_page').height() + 230
-        var screen_height = $( window ).height()
-        if (height > screen_height ) {
+        var screen_height = $(window).height()
+        if (height > screen_height) {
           height += 50
         } else {
           height = screen_height
         }
-        if(canvas) {
-          $('#canvas').css("cssText", "height: " + height + "px !important;")
+        if (canvas) {
+          $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
         }
-        $('#back_image').css("cssText", "height: " + height + "px !important;")
+        $('#back_image').css('cssText', 'height: ' + height + 'px !important;')
       }
     },
 
-    addComments () {
+    addComments() {
       const params = new FormData()
       params.append('comment[commentable_type]', 'Album')
       params.append('comment[commentable_id]', this.playlist.id)
       params.append('comment[body]', this.commentString)
       this.commentString = ''
-      CommentService.sendComment(params).then(response => {
-        this.comments.unshift(response.body)
-        this.comment_pagination.total_count += 1
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      CommentService.sendComment(params)
+        .then((response) => {
+          this.comments.unshift(response.body)
+          this.comment_pagination.total_count += 1
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     loadMoreComments() {
@@ -227,54 +250,87 @@ export default {
         commentable_type: 'Album',
         commentable_id: this.playlist.id,
         page: this.comment_pagination.current_page + 1,
-        per_page: this.comment_pagination.per_page
+        per_page: this.comment_pagination.per_page,
       }
-      CommentService.getComments(params).then(response => {
-        this.comments = this.comments.concat(response.body.comments)
-        this.comment_pagination = response.body.pagination
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      CommentService.getComments(params)
+        .then((response) => {
+          this.comments = this.comments.concat(response.body.comments)
+          this.comment_pagination = response.body.pagination
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    makePublicComment (comment) {
-      CommentService.makePublicComment(comment.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You made a comment public!'])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    makePublicComment(comment) {
+      CommentService.makePublicComment(comment.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You made a comment public!',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    makePrivateComment (comment) {
-      CommentService.makePrivateComment(comment.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You made a comment private!'])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    makePrivateComment(comment) {
+      CommentService.makePrivateComment(comment.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You made a comment private!',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    blockUser (comment) {
-      UserService.blockUser(comment.user.id).then(response =>  {
-        _.remove(this.comments, (item) => { return item.user.id == comment.user.id });
-        const arr = this.comments.slice();
-        this.comments = arr;
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    blockUser(comment) {
+      UserService.blockUser(comment.user.id)
+        .then((response) => {
+          _.remove(this.comments, (item) => {
+            return item.user.id == comment.user.id
+          })
+          const arr = this.comments.slice()
+          this.comments = arr
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    deleteComment (comment) {
-      CommentService.deleteComment(comment.id).then(response => {
-        _.remove(this.comments, (item) => { return item.id == comment.id });
-        const arr = this.comments.slice();
-        this.comments = arr;
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    deleteComment(comment) {
+      CommentService.deleteComment(comment.id)
+        .then((response) => {
+          _.remove(this.comments, (item) => {
+            return item.id == comment.id
+          })
+          const arr = this.comments.slice()
+          this.comments = arr
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    selectTrack (index) {
+    selectTrack(index) {
       this.trackIndex = index
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, index)
@@ -286,7 +342,7 @@ export default {
       }
     },
 
-    playSong () {
+    playSong() {
       if (this.$store.state.player.isPaused) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
       } else {
@@ -297,38 +353,49 @@ export default {
       }
     },
 
-    pauseSong () {
+    pauseSong() {
       this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     },
 
-    dismissDownloadModal () {
+    dismissDownloadModal() {
       this.showDownloadModal = false
     },
 
-    repostItem () {
-      AlbumService.repostAlbum(this.playlist.id).then(response => {
-        console.log(response)
-        this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.playlist.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    repostItem() {
+      AlbumService.repostAlbum(this.playlist.id)
+        .then((response) => {
+          console.log(response)
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just reposted ' + this.playlist.name,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    hoverTrackItem (index, status) {
+    hoverTrackItem(index, status) {
       this.buttonHover[index] = status
       this.buttonHover = this.buttonHover.slice()
     },
 
-    imageChanged (e) {
+    imageChanged(e) {
       this.playlist.image = e.target.files[0]
       var reader = new FileReader()
-      reader.addEventListener('load', (event) => {
-        this.selectedImage = event.target.result
-      }, false)
+      reader.addEventListener(
+        'load',
+        (event) => {
+          this.selectedImage = event.target.result
+        },
+        false
+      )
       reader.readAsDataURL(this.playlist.image)
     },
 
-    updatePlaylist () {
+    updatePlaylist() {
       if (this.playlist.name.replace(' ', '').length > 0) {
         const params = new FormData()
         params.append('name', this.playlist.name)
@@ -337,48 +404,66 @@ export default {
         //   params.append('cover', this.playlist.image)
         // }
         this.$store.dispatch('error/showLoadingActivity', true)
-        PlaylistService.updatePlaylist(this.playlist.id, params).then(response => {
-          this.playlist_dialog = false
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Updated Playlist '])
-          this.getPlaylist(this.playlist.slug)
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        PlaylistService.updatePlaylist(this.playlist.id, params)
+          .then((response) => {
+            this.playlist_dialog = false
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showSuccessToast', [
+              'Updated Playlist ',
+            ])
+            this.getPlaylist(this.playlist.slug)
+          })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       } else {
-        this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
+        this.$store.dispatch('error/showErrorToast', [
+          'Please input Playlist name.',
+        ])
       }
     },
 
-    removeTrack (track) {
+    removeTrack(track) {
       if (this.playlist.tracks.length == 1) {
-        this.$store.dispatch('error/showErrorToast', ['You have only one track'])
+        this.$store.dispatch('error/showErrorToast', [
+          'You have only one track',
+        ])
         return
       }
 
       const params = {
-        track_id: track.id
+        track_id: track.id,
       }
-      PlaylistService.removeTrack(this.playlist.id, params).then(response => {
-        _.remove(this.playlist.tracks, (item) => { return item.id == params.track_id })
+      PlaylistService.removeTrack(this.playlist.id, params).then((response) => {
+        _.remove(this.playlist.tracks, (item) => {
+          return item.id == params.track_id
+        })
         const arr = this.playlist.tracks.slice()
         this.playlist.tracks = arr
       })
     },
 
-    deletePlaylist () {
-      PlaylistService.deletePlaylist(this.playlist.id).then(response => {
-        this.playlist_dialog = false
-        this.$store.dispatch('error/showSuccessToast', ['Deleted Playlist '])
+    deletePlaylist() {
+      PlaylistService.deletePlaylist(this.playlist.id)
+        .then((response) => {
+          this.playlist_dialog = false
+          this.$store.dispatch('error/showSuccessToast', ['Deleted Playlist '])
 
-        PlaylistService.getPlaylists().then(response => {
-          this.$store.dispatch('playlist/setPlaylists', response.body)
-          this.$router.push({ path: '/discover' })
+          PlaylistService.getPlaylists().then((response) => {
+            this.$store.dispatch('playlist/setPlaylists', response.body)
+            this.$router.push({ path: '/discover' })
+          })
         })
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     addEmoji(emoji, event) {
@@ -387,41 +472,48 @@ export default {
       this.$refs.comment.focus()
     },
 
-
-    onEnd () {
-      var tracks_ids= [];
+    onEnd() {
+      var tracks_ids = []
       for (let index in this.playlist.tracks) {
         const track = this.playlist.tracks[index]
         tracks_ids.push(track.id)
         const params = new FormData()
         params.append('track_ids', tracks_ids.join(','))
-        AlbumService.rearrangeTracks(this.playlist.id, params).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['Updated order of tracks.'])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        AlbumService.rearrangeTracks(this.playlist.id, params)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'Updated order of tracks.',
+            ])
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     const vm = this
-    $( window ).resize(function() {
-      var height = $('#album_info_page').height() + 230
-      var screen_height = $( window ).height()
-      if (height > screen_height ) {
-        height += 50
-      } else {
-        height = screen_height
-      }
-      var canvas = document.getElementById("canvas")
-      if(canvas) {
-        $('#canvas').css("cssText", "height: " + height + "px !important;")
-      }
-      $('#back_image').css("cssText", "height: " + height + "px !important;")
-    }).trigger('resize')
+    $(window)
+      .resize(function () {
+        var height = $('#album_info_page').height() + 230
+        var screen_height = $(window).height()
+        if (height > screen_height) {
+          height += 50
+        } else {
+          height = screen_height
+        }
+        var canvas = document.getElementById('canvas')
+        if (canvas) {
+          $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
+        }
+        $('#back_image').css('cssText', 'height: ' + height + 'px !important;')
+      })
+      .trigger('resize')
   },
 
-  updated () {
-  }
+  updated() {},
 }

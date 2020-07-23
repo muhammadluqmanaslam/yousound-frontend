@@ -37,84 +37,90 @@
 </template>
 
 <script>
-  import AppCard from '@/components/base/app_card'
+import AppCard from '@/components/base/app_card'
 
-  export default {
-    components: {
-      AppCard
-    },
+export default {
+  components: {
+    AppCard,
+  },
 
-    props: {
-      value: Object
-    },
+  props: {
+    value: Object,
+  },
 
-    data () {
-      return {
-        item: {}
-      }
-    },
-
-    computed: {
-      productImage () {
-        return this._.get(this.item, 'product.covers[0].cover.url')
-      },
-
-      productName () {
-        return this._.get(this.item, 'product.name')
-      },
-
-      itemQuantity () {
-        const quantity = this._.get(this.item, 'quantity', 0)
-        return quantity > 0 ? quantity : 1
-      },
-
-      itemPrice () {
-        return `$${this.$options.filters.formatNumber(this._.get(this.item, 'price', 0))}`
-      },
-
-      itemMaxRefundAmount () {
-        return (this.item.price + this.item.shipping_cost) * this.itemQuantity / 100
-      },
-
-      itemShippingCost () {
-        const shippingCost = this._.get(this.item, 'shipping_cost', 0)
-        return shippingCost > 0 ? `$${this.$options.filters.formatNumber(shippingCost)}` : ''
-      },
-
-      itemStatus () {
-        switch (this._.get(this.item, 'status')) {
-          case 'item_ordered':
-            return 'Unshipped'
-          case 'item_shipped':
-            return 'Shipped'
-          case 'item_refunded':
-            return 'Refunded'
-        }
-      }
-    },
-
-    watch: {
-      value: function (val) {
-        this.item = val
-      }
-    },
-
-    created () {
-      this.item = this.value
+  data() {
+    return {
+      item: {},
     }
-  }
+  },
+
+  computed: {
+    productImage() {
+      return this._.get(this.item, 'product.covers[0].cover.url')
+    },
+
+    productName() {
+      return this._.get(this.item, 'product.name')
+    },
+
+    itemQuantity() {
+      const quantity = this._.get(this.item, 'quantity', 0)
+      return quantity > 0 ? quantity : 1
+    },
+
+    itemPrice() {
+      return `$${this.$options.filters.formatNumber(
+        this._.get(this.item, 'price', 0)
+      )}`
+    },
+
+    itemMaxRefundAmount() {
+      return (
+        ((this.item.price + this.item.shipping_cost) * this.itemQuantity) / 100
+      )
+    },
+
+    itemShippingCost() {
+      const shippingCost = this._.get(this.item, 'shipping_cost', 0)
+      return shippingCost > 0
+        ? `$${this.$options.filters.formatNumber(shippingCost)}`
+        : ''
+    },
+
+    itemStatus() {
+      switch (this._.get(this.item, 'status')) {
+        case 'item_ordered':
+          return 'Unshipped'
+        case 'item_shipped':
+          return 'Shipped'
+        case 'item_refunded':
+          return 'Refunded'
+      }
+    },
+  },
+
+  watch: {
+    value: function (val) {
+      this.item = val
+    },
+  },
+
+  created() {
+    this.item = this.value
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 .item {
   display: flex;
   min-height: 90px;
-  border: .75px solid #d7d7d7;
+  border: 0.75px solid #d7d7d7;
 
   &__header {
     display: flex;
     align-items: center;
-    padding-left: 10px
+    padding-left: 10px;
   }
 
   &__content {
@@ -145,7 +151,7 @@
     }
   }
 
-  input[type="tel"] {
+  input[type='tel'] {
     width: 80px;
     height: 30px;
     border: 0.75px solid #d7d7d7;

@@ -1,7 +1,7 @@
 <template>
   <div class="footer-container">
     <ul>
-      <li><router-link to='/terms'>Terms</router-link></li>
+      <li><router-link to="/terms">Terms</router-link></li>
     </ul>
     <div>&copy; 2020 YouSound, Inc.</div>
   </div>

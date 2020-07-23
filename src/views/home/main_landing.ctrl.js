@@ -3,21 +3,23 @@
 export default {
   components: {},
 
-  data () {
+  data() {
     return {
       windowWidth: 0,
       activeSlide: 1,
-      playTimer: null
+      playTimer: null,
     }
   },
 
   computed: {
-    transform () {
-      return `translate3d(-${this.windowWidth * (this.activeSlide - 1)}px, 0px, 0px)`;
-    }
+    transform() {
+      return `translate3d(-${
+        this.windowWidth * (this.activeSlide - 1)
+      }px, 0px, 0px)`
+    },
   },
 
-  created () {
+  created() {
     window.addEventListener('resize', this.handleResize)
     this.windowWidth = window.innerWidth
     // console.log('main_landing created', this.windowWidth)
@@ -26,37 +28,42 @@ export default {
       if (this.$store.state.auth.user) {
         this.$router.push({ path: '/discover' })
       } else {
-        this.$store.dispatch('navigator/goNextState', { page: 'main_landing', tab: '' })
+        this.$store.dispatch('navigator/goNextState', {
+          page: 'main_landing',
+          tab: '',
+        })
       }
     }
   },
 
-  destroyed () {
+  destroyed() {
     window.removeEventListener('resize', this.handleResize)
   },
 
   methods: {
-    adjustDots () {
+    adjustDots() {
       const slideHeight = $(`.slide.slide-${this.activeSlide}`).height()
       // console.log('main_landing adjustDots', this.activeSlide, slideHeight)
-      $('ul.dots').css({top: (170 + slideHeight) + 'px'})
+      $('ul.dots').css({ top: 170 + slideHeight + 'px' })
     },
 
-    setActiveSlide (slideIndex) {
+    setActiveSlide(slideIndex) {
       this.activeSlide = slideIndex
       this.adjustDots()
     },
 
-    handleResize () {
+    handleResize() {
       this.windowWidth = window.innerWidth
       // console.log('main_landing handleResize', this.windowWidth)
-      this.$nextTick(() => { this.adjustDots() })
-    }
+      this.$nextTick(() => {
+        this.adjustDots()
+      })
+    },
   },
 
-  mounted () {
+  mounted() {
     const vm = this
-    $('.slide.slide-1 img').on('load', function() {
+    $('.slide.slide-1 img').on('load', function () {
       // console.log("slide-1 image loaded correctly")
       vm.adjustDots()
       if (!vm.playTimer) {
@@ -70,5 +77,5 @@ export default {
         }, 3000)
       }
     })
-  }
+  },
 }

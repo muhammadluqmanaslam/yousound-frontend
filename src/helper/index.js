@@ -4,15 +4,15 @@ import numeral from 'numeral'
 export * from './constants'
 
 export const Utils = {
-  isEmpty (val) {
-    if (val === null || val === void (0) || val === '') {
+  isEmpty(val) {
+    if (val === null || val === void 0 || val === '') {
       return true
     } else {
       return false
     }
   },
 
-  toLocalTimeString (str) {
+  toLocalTimeString(str) {
     return moment(str).calendar(null, {
       lastDay: '[Yesterday,] LT',
       sameDay: '[Today,] LT',
@@ -21,11 +21,11 @@ export const Utils = {
       // nextWeek: 'dddd[,] LT',
       lastWeek: 'LLLL',
       nextWeek: 'LLLL',
-      sameElse: 'LLLL'
+      sameElse: 'LLLL',
     })
   },
 
-  parseJSON (str) {
+  parseJSON(str) {
     let val
     try {
       val = JSON.parse(str)
@@ -35,7 +35,7 @@ export const Utils = {
     return val
   },
 
-  getFilenameWithExtension (filename) {
+  getFilenameWithExtension(filename) {
     const allowedExtensions = /(\.mp3|\.mpa|\.wav)$/i
     if (allowedExtensions.exec(filename)) {
       return filename
@@ -44,50 +44,50 @@ export const Utils = {
     }
   },
 
-  downloadFile (url, name = '') {
+  downloadFile(url, name = '') {
     var a = document.createElement('A')
     a.href = url
     a.download = name
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
-  }
+  },
 }
 
 export const Log = {
-  put () {
+  put() {
     if (process.env.NODE_ENV !== 'production') {
       console.log.apply(console, arguments)
     }
-  }
+  },
 }
 
 export const Storage = {
-  set (key, value) {
+  set(key, value) {
     localStorage.setItem(key, value)
   },
 
-  get (key) {
+  get(key) {
     return localStorage.getItem(key) || null
   },
 
-  remove (key) {
+  remove(key) {
     localStorage.removeItem(key)
   },
 
-  removeAll () {
+  removeAll() {
     localStorage.clear()
-  }
+  },
 }
 
 export const Filter = {
-  formatDate (value) {
+  formatDate(value) {
     if (value) {
       return moment(String(value)).format('MMM DD, YYYY')
     }
   },
 
-  formatDateFromNow (value) {
+  formatDateFromNow(value) {
     if (value) {
       moment.locale('en')
       return moment(String(value)).fromNow()
@@ -95,27 +95,32 @@ export const Filter = {
   },
 
   // #TODO rename it formatDecimal
-  formatNumber (value) {
+  formatNumber(value) {
     return numeral(value / 100).format('0,0.00') // displaying other groupings/separators is possible, look at the docs
   },
 
-  formatNumberWithComma (value) {
+  formatNumberWithComma(value) {
     return numeral(value).format('0,0')
   },
 
   // #REF https://stackoverflow.com/questions/10599933/convert-long-number-into-abbreviated-string-in-javascript-with-a-special-shortn
-  formatLargeNumber: num => {
-    if (num === null || num === undefined || num === 0) { return '0' } // terminate early
+  formatLargeNumber: (num) => {
+    if (num === null || num === undefined || num === 0) {
+      return '0'
+    } // terminate early
     const fixed = 0 // number of decimal places to show
-    let b = (num).toPrecision(2).split('e') // get power
+    let b = num.toPrecision(2).split('e') // get power
     let k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3) // floor at decimals, ceiling at trillions
-    let c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3)).toFixed(1 + fixed) // divide by power
+    let c =
+      k < 1
+        ? num.toFixed(0 + fixed)
+        : (num / Math.pow(10, k * 3)).toFixed(1 + fixed) // divide by power
     let d = c < 0 ? c : Math.abs(c) // enforce -0 is 0
     let e = d + ['', 'K', 'M', 'B', 'T'][k] // append power
     return e
   },
 
-  formatFullUrl (value) {
+  formatFullUrl(value) {
     if (/http(s?):\/\//gi.test(value)) {
       return value
     } else {
@@ -123,50 +128,52 @@ export const Filter = {
     }
   },
 
-  timeInHours (value) {
+  timeInHours(value) {
     let hours = parseInt(Math.floor(value / 3600))
-    let minutes = parseInt(Math.floor((value - (hours * 3600)) / 60))
-    let seconds = parseInt((value - ((hours * 3600) + (minutes * 60))) % 60)
+    let minutes = parseInt(Math.floor((value - hours * 3600) / 60))
+    let seconds = parseInt((value - (hours * 3600 + minutes * 60)) % 60)
 
-    let dHours = (hours > 9 ? hours : '0' + hours)
-    let dMins = (minutes > 9 ? minutes : '0' + minutes)
-    let dSecs = (seconds > 9 ? seconds : '0' + seconds)
+    let dHours = hours > 9 ? hours : '0' + hours
+    let dMins = minutes > 9 ? minutes : '0' + minutes
+    let dSecs = seconds > 9 ? seconds : '0' + seconds
 
     return hours === 0 ? `${dMins}:${dSecs}` : `${dHours}:${dMins}:${dSecs}`
   },
 
-  timeInMinutes (value) {
+  timeInMinutes(value) {
     const minutes = Math.floor(value / 60) || 0
-    const seconds = (value - minutes * 60) || 0
+    const seconds = value - minutes * 60 || 0
 
     const dMins = minutes.toString()
-    const dSecs = (seconds > 9 ? seconds : '0' + seconds)
+    const dSecs = seconds > 9 ? seconds : '0' + seconds
 
     return `${dMins}:${dSecs}`
   },
 
-  capitalize (value) {
+  capitalize(value) {
     if (!value) return ''
     value = value.toString().toLowerCase()
     return value.charAt(0).toUpperCase() + value.slice(1)
   },
 
-  truncateInMiddle (str, len) {
+  truncateInMiddle(str, len) {
     // console.log('truncateInMiddle', str, len)
     if (str.length > len) {
-      return str.substr(0, len - 5) + '...' + str.substr(str.length - 5, str.length)
+      return (
+        str.substr(0, len - 5) + '...' + str.substr(str.length - 5, str.length)
+      )
     } else {
       return str
     }
   },
 
-  titleize (value) {
+  titleize(value) {
     let stringArr = value.split(' ')
     stringArr = stringArr.map(function (str) {
       return Filter.capitalize(str)
     })
     return stringArr.join(' ')
-  }
+  },
 }
 
 export const CollaboratorRoleTypes = [
@@ -196,9 +203,27 @@ export const CollaboratorRoleTypes = [
   'Video Director',
   'Video Producer',
   'Vocalist',
-  'Writer'
+  'Writer',
 ]
 
 export const CollaboratorProfitShareTypes = [
-  5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95
+  5,
+  10,
+  15,
+  20,
+  25,
+  30,
+  35,
+  40,
+  45,
+  50,
+  55,
+  60,
+  65,
+  70,
+  75,
+  80,
+  85,
+  90,
+  95,
 ]

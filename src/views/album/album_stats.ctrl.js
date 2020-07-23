@@ -4,44 +4,46 @@ import activityItem from '@/components/activityitem'
 
 export default {
   components: {
-    activityItem
+    activityItem,
   },
 
-  data () {
+  data() {
     return {
       tabs: [
         { id: 'reposted_by', title: 'Reposted By' },
         { id: 'downloaded_by', title: 'Downloaded By' },
-        { id: 'played_by', title: 'Played By' }
+        { id: 'played_by', title: 'Played By' },
       ],
       currentTab: null,
       slug: null,
       album: null,
       activities: [],
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       const tab = toPath.hash.substr(1)
       const slug = toPath.params.slug
       this.init(slug, tab)
-    }
+    },
   },
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'album_stats', tab: this.currentTab })
+  created() {
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'album_stats',
+      tab: this.currentTab,
+    })
     const slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
     this.init(slug, tab)
   },
 
   methods: {
-    init (slug, tab) {
+    init(slug, tab) {
       // this.currentTab = tab || 'reposted_by'
       // let apis = null
       // switch (this.currentTab) {
@@ -76,7 +78,7 @@ export default {
       // })
 
       this.currentTab = tab || 'reposted_by'
-      const params = { action_type: 'repost'}
+      const params = { action_type: 'repost' }
       switch (this.currentTab) {
         case 'reposted_by':
           params['action_type'] = 'repost'
@@ -95,27 +97,28 @@ export default {
         AlbumService.getAlbum(slug),
         ActivityService.getAlbumActivities(slug, params),
         ActivityService.getAlbumStats(slug),
-      ]).then(values => {
-        this.album = values[0].body
-        this.activities = values[1].body.activities
-        this.album.stats = values[2].body
-        this.isPageReady = true
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(reason => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+      ])
+        .then((values) => {
+          this.album = values[0].body
+          this.activities = values[1].body.activities
+          this.album.stats = values[2].body
+          this.isPageReady = true
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((reason) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
-    onTab (tab) {
+    onTab(tab) {
       if (tab != this.currentTab) {
         this.$router.push({
           path: this.$route.path,
-          hash: tab
+          hash: tab,
         })
       }
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

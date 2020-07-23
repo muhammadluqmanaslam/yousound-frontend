@@ -1,15 +1,30 @@
 <template>
   <div
     @click="selectTrack()"
-    @mouseenter="buttonHover=true"
-    @mouseleave="buttonHover=false"
-    :class="{'selected': buttonHover || (isPlaying && trackIndex==$store.state.player.trackIndex) || (!isPlaying && trackIndex==0)}"
+    @mouseenter="buttonHover = true"
+    @mouseleave="buttonHover = false"
+    :class="{
+      selected:
+        buttonHover ||
+        (isPlaying && trackIndex == $store.state.player.trackIndex) ||
+        (!isPlaying && trackIndex == 0),
+    }"
     class="album-track-item relative"
   >
-    <v-btn class="action-btn" v-if="false && (!currentUser || (currentUser && album.user.id!=currentUser.id))">
+    <v-btn
+      class="action-btn"
+      v-if="
+        false &&
+        (!currentUser || (currentUser && album.user.id != currentUser.id))
+      "
+    >
       <!-- <v-icon v-if="(trackIndex==$store.state.player.trackIndex && !isPlaying) || (buttonHover && trackIndex!=$store.state.player.trackIndex)">play_arrow</v-icon> -->
-      <v-icon v-if="trackIndex==$store.state.player.trackIndex && isPlaying">pause</v-icon>
-      <v-icon v-else-if="buttonHover || (trackIndex==0 && !isPlaying)">play_arrow</v-icon>
+      <v-icon v-if="trackIndex == $store.state.player.trackIndex && isPlaying"
+        >pause</v-icon
+      >
+      <v-icon v-else-if="buttonHover || (trackIndex == 0 && !isPlaying)"
+        >play_arrow</v-icon
+      >
     </v-btn>
     <label class="track-name">
       <span class="track-index">{{ trackIndex + 1 }}. </span>
@@ -17,11 +32,14 @@
       <router-link
         v-if="album.album_type == 'playlist'"
         class="track-user-name"
-        :to = "`/${track.user.slug}`"
-      > - {{ track.user.display_name }}</router-link>
+        :to="`/${track.user.slug}`"
+      >
+        - {{ track.user.display_name }}</router-link
+      >
     </label>
     <div class="right-section" @click.stop="">
-      <v-menu v-model="menu"
+      <v-menu
+        v-model="menu"
         offset-y
         class="track-more-action"
         :close-on-content-click="false"
@@ -31,54 +49,97 @@
         </v-btn>
         <v-list>
           <v-list-tile
-            v-if="album.album_type == 'playlist' && currentUser && album.user.id == currentUser.id"
+            v-if="
+              album.album_type == 'playlist' &&
+              currentUser &&
+              album.user.id == currentUser.id
+            "
             key="remove_track"
             @click.native="removeItem()"
           >
             <v-list-tile-title class="default-menu-item">
-              <img class="track-status-icon" src="/static/images/ic_comment_delete.png" />
+              <img
+                class="track-status-icon"
+                src="/static/images/ic_comment_delete.png"
+              />
               <label>Remove Track</label>
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile key="repost" @click.native="repostItem()">
             <v-list-tile-title class="default-menu-item">
-              <img class="track-status-icon" src="/static/images/ic_repeat.png" />
+              <img
+                class="track-status-icon"
+                src="/static/images/ic_repeat.png"
+              />
               <label>Repost Album</label>
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile key="download" class="default-menu-item track-menu-item" v-if="album.album_type!='playlist'" @click.native="showDownloadDialog()">
+          <v-list-tile
+            key="download"
+            class="default-menu-item track-menu-item"
+            v-if="album.album_type != 'playlist'"
+            @click.native="showDownloadDialog()"
+          >
             <v-list-tile-title>
-              <img class="track-status-icon" src="/static/images/ic_download.png" />
+              <img
+                class="track-status-icon"
+                src="/static/images/ic_download.png"
+              />
               <label>Download</label>
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile key="share" class="default-menu-item track-menu-item" @click.native="showShareDialog()">
+          <v-list-tile
+            key="share"
+            class="default-menu-item track-menu-item"
+            @click.native="showShareDialog()"
+          >
             <v-list-tile-title>
-              <img class="track-status-icon" src="/static/images/ic_share.png" />
+              <img
+                class="track-status-icon"
+                src="/static/images/ic_share.png"
+              />
               <label>Share</label>
             </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile key="flag" class="default-menu-item" @click.native="flagItem()">
+          <v-list-tile
+            key="flag"
+            class="default-menu-item"
+            @click.native="flagItem()"
+          >
             <v-list-tile-title>
               <img class="track-status-icon" src="/static/images/ic_flag.png" />
               <label>Flag</label>
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile
-            v-if="false && album.album_type!='playlist'"
+            v-if="false && album.album_type != 'playlist'"
             key="add_to_playlist"
             class="default-menu-item track-menu-item has-sub-menu"
           >
             <v-menu offset-x class="track-menu" v-model="submenu">
               <v-list-tile-title slot="activator" class="has-sub-menu">
-                <img class="track-status-icon" src="/static/images/ic_add_to.png" />
+                <img
+                  class="track-status-icon"
+                  src="/static/images/ic_add_to.png"
+                />
                 <label>Add to Playlist</label>
               </v-list-tile-title>
               <v-list>
-                <v-list-tile key="add_to_playlist" class="default-menu-item track-menu-item" @click.native="addToNewPlaylist()">
-                  <v-dialog v-model="playlist_dialog" class="playlist-dialog" max-width="500px">
+                <v-list-tile
+                  key="add_to_playlist"
+                  class="default-menu-item track-menu-item"
+                  @click.native="addToNewPlaylist()"
+                >
+                  <v-dialog
+                    v-model="playlist_dialog"
+                    class="playlist-dialog"
+                    max-width="500px"
+                  >
                     <v-list-tile-title slot="activator">
-                      <img class="track-status-icon" src="/static/images/ic_add_to.png" />
+                      <img
+                        class="track-status-icon"
+                        src="/static/images/ic_add_to.png"
+                      />
                       <label>New Playlist</label>
                     </v-list-tile-title>
                     <v-card class="playlist-dialog-body">
@@ -86,7 +147,11 @@
                         <v-flex xs12 text-xs-center>
                           <h5 class="ma-0">New Playlist</h5>
                         </v-flex>
-                        <v-btn class="dialog-close-btn" @click.native="playlist_dialog=false"><v-icon>highlight_off</v-icon></v-btn>
+                        <v-btn
+                          class="dialog-close-btn"
+                          @click.native="playlist_dialog = false"
+                          ><v-icon>highlight_off</v-icon></v-btn
+                        >
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text class="create-playlist-section">
@@ -107,11 +172,22 @@
                         </div> -->
                         <v-layout row wrap>
                           <v-flex xs12 form-group>
-                            <label class="control-label">Name<label class="required">*</label></label>
-                            <input type="text" class="form-control" v-model.trim="playlist.name">
+                            <label class="control-label"
+                              >Name<label class="required">*</label></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              v-model.trim="playlist.name"
+                            />
                           </v-flex>
                           <v-flex xs12 form-group text-xs-center>
-                            <v-btn class="create-playlist-btn" flat @click.native="createPlaylist()">Create Playlist</v-btn>
+                            <v-btn
+                              class="create-playlist-btn"
+                              flat
+                              @click.native="createPlaylist()"
+                              >Create Playlist</v-btn
+                            >
                           </v-flex>
                         </v-layout>
                       </v-card-text>
@@ -125,7 +201,10 @@
                   @click.native="addToPlaylist(list)"
                 >
                   <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_download.png"/>
+                    <img
+                      class="track-status-icon"
+                      src="/static/images/ic_download.png"
+                    />
                     <label>{{ list.name }}</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -137,7 +216,9 @@
       <!-- <label class="track-length" @click.self="selectTrack()">6:13</label> -->
     </div>
     <div class="track-actions" v-if="showStats">
-      <v-btn class="action-btn"><v-icon>play_arrow</v-icon>{{ track.played }}</v-btn>
+      <v-btn class="action-btn"
+        ><v-icon>play_arrow</v-icon>{{ track.played }}</v-btn
+      >
       <!-- <v-btn class="action-btn" @click.native="goToAlbumStats('played_by')">
         <v-icon>play_arrow</v-icon>3k
       </v-btn>

@@ -104,40 +104,40 @@
     components: {
       merchModal,
       shareModal,
-      profileItem
+      profileItem,
     },
 
     props: {
       dataObject: {
-        type: Object
+        type: Object,
       },
 
       hideButtonAction: {
-        type: Function
-      }
+        type: Function,
+      },
     },
 
-    data () {
+    data() {
       return {
         showMerchModal: false,
         showShareModal: false,
         show_hide_dialog: false,
         is_component_hover: false,
-        is_menu_hover: false
+        is_menu_hover: false,
       }
     },
 
     computed: {
-      currentUser () {
+      currentUser() {
         return this.$store.state.auth.user
       },
 
-      willMenuRender () {
+      willMenuRender() {
         // console.log('willMenuRender', this.item.id, this.is_component_hover, this.is_menu_hover)
         return this.is_menu_hover || this.is_component_hover
       },
 
-      // publisher () {
+      // publisher() {
       //   if (this.dataObject.assoc_type) {
       //     return this.dataObject.publisher
       //   } else {
@@ -145,7 +145,7 @@
       //   }
       // },
 
-      item () {
+      item() {
         if (this.dataObject.assoc_type) {
           return this.dataObject.assoc
         } else {
@@ -153,40 +153,40 @@
         }
       },
 
-      owner () {
+      owner() {
         if (this.dataObject.assoc_type) {
           return this.dataObject.assoc.merchant
         } else {
           return this.dataObject.merchant
         }
-      }
+      },
     },
 
     methods: {
-      openMerchDialog () {
+      openMerchDialog() {
         this.showMerchModal = true
       },
 
-      closeMerchDialog () {
+      closeMerchDialog() {
         this.showMerchModal = false
       },
 
-      openShareDialog () {
+      openShareDialog() {
         this.showMerchModal = false
         this.showShareModal = true
       },
 
-      closeShareDialog () {
+      closeShareDialog() {
         this.showShareModal = false
       },
 
-      openHideDialog () {
+      openHideDialog() {
         this.menu = false
         this.submenu = false
         this.show_hide_dialog = true
       },
 
-      hideProduct () {
+      hideProduct() {
         this.menu = false
         this.submenu = false
         this.show_hide_dialog = false
@@ -201,7 +201,7 @@
         })
       },
 
-      repostProduct () {
+      repostProduct() {
         ProductService.repostProduct(this.item.id).then(response => {
           if (response.body.errors) {
             this.$store.dispatch('error/showErrorToast', response.body.errors)
@@ -211,13 +211,13 @@
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
-      }
+      },
     },
 
-    created () {
+    created() {
     },
 
-    mounted () {
-    }
+    mounted() {
+    },
   }
 </script>

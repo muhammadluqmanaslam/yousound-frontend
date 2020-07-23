@@ -1,50 +1,49 @@
 // import { Utils } from '@/helper'
 // import * as types from '@/store/mutation-types'
 
-function initialState () {
+function initialState() {
   return {
     badge: {
       activity: 0,
       stream: 0,
       message: 0,
       cart: 0,
-      sell: 0
-    }
+      sell: 0,
+    },
   }
 }
 
 const state = initialState
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
-  setBadge ({ commit }, badge) {
+  setBadge({ commit }, badge) {
     commit('setBadge', badge)
   },
 
-  addBadge ({ commit }, badge) {
+  addBadge({ commit }, badge) {
     commit('addBadge', badge)
-  }
+  },
 }
 
 const mutations = {
-  setBadge (state, badge) {
+  setBadge(state, badge) {
     state.badge = badge
   },
 
-  addBadge (state, badge) {
-    Object.keys(badge).forEach(key => {
+  addBadge(state, badge) {
+    Object.keys(badge).forEach((key) => {
       state.badge[key] += badge[key]
     })
   },
 
-  reset (state) {
+  reset(state) {
     const s = initialState()
-    Object.keys(s).forEach(key => {
+    Object.keys(s).forEach((key) => {
       state[key] = s[key]
     })
-  }
+  },
 }
 
 export default {
@@ -53,5 +52,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

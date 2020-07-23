@@ -17,7 +17,7 @@ import {
   UserEmployeesCountOptions,
   UserYearsInBusinessOptions,
   UserProductsCountOptions,
-  UserAnnualIncomeOptions
+  UserAnnualIncomeOptions,
 } from '@/helper'
 
 import AuthService from '@/services/auth.js'
@@ -25,10 +25,9 @@ import TwitterService from '@/services/twitter'
 import UserService from '@/services/user.js'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       query_string: [],
       twitter_info: null,
@@ -36,86 +35,86 @@ export default {
       // main_genres: [],
       // sub_genres: [],
       year_of_birth_options: [],
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    main_genres () {
+    main_genres() {
       return this.$store.state.app.genres
     },
 
-    sub_genres () {
+    sub_genres() {
       return _.flatMap(this.$store.state.app.genres, 'children')
     },
 
-    country_options () {
+    country_options() {
       return Countries
     },
 
-    boolean_options () {
+    boolean_options() {
       return UserBooleanOptions
     },
 
-    gender_options () {
+    gender_options() {
       return UserGenderOptions
     },
 
-    artist_type_options () {
+    artist_type_options() {
       return UserArtistTypeOptions
     },
 
-    released_albums_count_options () {
+    released_albums_count_options() {
       return UserReleasedAlbumsCountOptions
     },
 
-    years_since_first_released_options () {
+    years_since_first_released_options() {
       return UserYearsSinceFirstReleasedOptions
     },
 
-    annual_income_on_merch_sales_options () {
+    annual_income_on_merch_sales_options() {
       return UserAnnualIncomeOnMerchSalesOptions
     },
 
-    annual_performances_count_options () {
+    annual_performances_count_options() {
       return UserAnnualPerformancesCountOptions
     },
 
-    signed_status_options () {
+    signed_status_options() {
       return UserSignedStatusOptions
     },
 
-    performance_rights_organization_options () {
+    performance_rights_organization_options() {
       return UserPerformanceRightsOrganizationOptions
     },
 
-    artists_count_options () {
+    artists_count_options() {
       return UserArtistsCountOptions
     },
 
-    standard_brand_type_options () {
+    standard_brand_type_options() {
       return UserStandardBrandTypeOptions
     },
 
-    employees_count_options () {
+    employees_count_options() {
       return UserEmployeesCountOptions
     },
 
-    years_in_business_options () {
+    years_in_business_options() {
       return UserYearsInBusinessOptions
     },
 
-    products_count_options () {
+    products_count_options() {
       return UserProductsCountOptions
     },
 
-    annual_income_options () {
+    annual_income_options() {
       return UserAnnualIncomeOptions
-    }
+    },
   },
 
   // beforeRouteEnter (to, from, next) {
@@ -123,16 +122,19 @@ export default {
   //   next()
   // },
 
-  created () {
+  created() {
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
     this.twitter_info = JSON.parse(Storage.get('twitter_info'))
-    if (this.twitter_info && this.twitter_info.oauth_token === this.$route.query['oauth_token']) {
+    if (
+      this.twitter_info &&
+      this.twitter_info.oauth_token === this.$route.query['oauth_token']
+    ) {
       const params = {
         oauth_token: this.$route.query['oauth_token'],
         oauth_token_secret: this.twitter_info.oauth_token_secret,
-        oauth_verifier: this.$route.query['oauth_verifier']
+        oauth_verifier: this.$route.query['oauth_verifier'],
       }
-      TwitterService.getAccessToken(params).then(response => {
+      TwitterService.getAccessToken(params).then((response) => {
         this.twitter_info = response.body
         Storage.remove('twitter_info')
         // Storage.set('twitter_info', JSON.stringify(this.twitter_info))
@@ -175,7 +177,7 @@ export default {
           years_in_business: null,
           will_sell_music_related_products: null,
           products_count: null,
-          annual_income: null
+          annual_income: null,
         }
 
         // console.log('twitter callback created', this.currentUser)
@@ -200,36 +202,46 @@ export default {
   },
 
   methods: {
-    submit () {
+    submit() {
       // console.log('twitter_callback submit', this.currentUser)
       const vm = this
-      this.$validator.validateAll().then(response => {
-        if (response === true) {
-          if (this.currentUser && this.currentUser.id) {
-            const params = {
-              user: this.user
+      this.$validator
+        .validateAll()
+        .then((response) => {
+          if (response === true) {
+            if (this.currentUser && this.currentUser.id) {
+              const params = {
+                user: this.user,
+              }
+              this.$store.dispatch('error/showLoadingActivity', true)
+              UserService.updateUserInfo(this.currentUser.id, params)
+                .then((response) => {
+                  AuthService.setUser(response.body)
+                  vm.$store.dispatch('error/showLoadingActivity', false)
+                  vm.$router.push('/settings#verify-status')
+                })
+                .catch((e) => {
+                  vm.$store.dispatch('error/showLoadingActivity', false)
+                  vm.$store.dispatch(
+                    'error/showErrorToast',
+                    e.body.errors || [e.body]
+                  )
+                })
+              // vm.$store.dispatch('auth/setPendingUser', vm.user)
+              // vm.$router.push(`/register/${this.user.request_role}`)
+            } else {
+              vm.$store.dispatch('error/showErrorToast', [
+                'Please sign in first',
+              ])
+              vm.$router.push('/login')
             }
-            this.$store.dispatch('error/showLoadingActivity', true)
-            UserService.updateUserInfo(this.currentUser.id, params).then(response => {
-              AuthService.setUser(response.body)
-              vm.$store.dispatch('error/showLoadingActivity', false)
-              vm.$router.push('/settings#verify-status')
-            }).catch(e => {
-              vm.$store.dispatch('error/showLoadingActivity', false)
-              vm.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-            })
-            // vm.$store.dispatch('auth/setPendingUser', vm.user)
-            // vm.$router.push(`/register/${this.user.request_role}`)
           } else {
-            vm.$store.dispatch('error/showErrorToast', ['Please sign in first'])
-            vm.$router.push('/login')
+            vm.$store.dispatch('error/showErrorToast', [vm.errors.items[0].msg])
           }
-        } else {
-          vm.$store.dispatch('error/showErrorToast', [vm.errors.items[0].msg])
-        }
-      }).catch(e => {
-        console.log('error', e)
-      })
-    }
-  }
+        })
+        .catch((e) => {
+          console.log('error', e)
+        })
+    },
+  },
 }

@@ -14,25 +14,26 @@ export default {
     mobileHeader,
     mobileFooter,
     mobileMenu,
-    audioPlayer
+    audioPlayer,
   },
 
-  data () {
+  data() {
     return {
       slug: null,
       album: null,
       showMenu: false,
-      loading: true
+      loading: true,
     }
   },
 
   computed: {
     ...mapGetters({
-      activeAlbum: 'player/currentAlbum'
+      activeAlbum: 'player/currentAlbum',
     }),
 
-    isPlaying () {
-      const playing = this.$store.state.player.isPlaying &&
+    isPlaying() {
+      const playing =
+        this.$store.state.player.isPlaying &&
         !this.$store.state.player.isPaused &&
         _.get(this.activeAlbum, 'id') === this.album.id
 
@@ -40,18 +41,18 @@ export default {
       return playing
     },
 
-    isAlbumUserVerified () {
+    isAlbumUserVerified() {
       const userType = _.get(this.album, 'user.user_type')
       return ['artist', 'label', 'brand'].indexOf(userType) > -1
     },
 
-    coverThumbImageURL () {
+    coverThumbImageURL() {
       if (this.album.cover) {
         return this.album.cover.thumb.url + '?' + new Date()
       } else {
         return ''
       }
-    }
+    },
   },
 
   methods: {
@@ -59,12 +60,12 @@ export default {
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus'
+      setPlaying: 'player/setPlayingStatus',
     }),
 
-    loadData () {
+    loadData() {
       this.loading = true
-      AlbumService.getAlbum(this.slug).then(response => {
+      AlbumService.getAlbum(this.slug).then((response) => {
         this.album = response.body
 
         const vm = this
@@ -86,7 +87,7 @@ export default {
       })
     },
 
-    changeBackground () {
+    changeBackground() {
       // console.log(window)
       var StackBlur = window.StackBlur
       var canvas = document.getElementById('canvas')
@@ -120,11 +121,13 @@ export default {
       }
     },
 
-    isTrackPlaying (trackIndex) {
-      return this.isPlaying && trackIndex === this.$store.state.player.trackIndex
+    isTrackPlaying(trackIndex) {
+      return (
+        this.isPlaying && trackIndex === this.$store.state.player.trackIndex
+      )
     },
 
-    play (trackIndex) {
+    play(trackIndex) {
       // if (this.isPlaying) {
       //   this.pauseSong()
       // } else {
@@ -144,8 +147,11 @@ export default {
       }
     },
 
-    playSong () {
-      if (this.$store.state.player.isPaused && _.get(this.activeAlbum, 'id') === this.album.id) {
+    playSong() {
+      if (
+        this.$store.state.player.isPaused &&
+        _.get(this.activeAlbum, 'id') === this.album.id
+      ) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
       } else {
         this.setPlaylist([_.cloneDeep(this.album)])
@@ -155,20 +161,20 @@ export default {
       }
     },
 
-    pauseSong () {
+    pauseSong() {
       this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     },
 
-    openMenu () {
+    openMenu() {
       this.showMenu = true
     },
 
-    closeMenu () {
+    closeMenu() {
       this.showMenu = false
-    }
+    },
   },
 
-  created () {
+  created() {
     // this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
     this.slug = this.$route.params.slug
     const self = this
@@ -176,5 +182,5 @@ export default {
     setTimeout(function () {
       self.loadData()
     }, 300)
-  }
+  },
 }

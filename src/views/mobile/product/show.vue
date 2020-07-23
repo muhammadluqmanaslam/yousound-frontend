@@ -1,23 +1,26 @@
 <template>
   <div class="mobile-product-page">
-    <mobile-header
-      theme="light"
-      :show-menu="false"
-      @open-menu="openMenu"
-    />
+    <mobile-header theme="light" :show-menu="false" @open-menu="openMenu" />
 
     <div class="section" v-if="!loading">
       <div class="section__header">
         <div class="media">
           <div class="media__cover">
-            <div class="image" :style="{'background-image': 'url(' + product.covers[0].cover.url + ')'}"></div>
+            <div
+              class="image"
+              :style="{
+                'background-image': 'url(' + product.covers[0].cover.url + ')',
+              }"
+            ></div>
             <div class="media__tag">
-              <img src="/static/images/ic_cart.svg">
+              <img src="/static/images/ic_cart.svg" />
             </div>
           </div>
           <div class="media__footer">
             <div class="media__title">{{ product.name }}</div>
-            <div class="media__description">${{ product.price | formatNumber }}</div>
+            <div class="media__description">
+              ${{ product.price | formatNumber }}
+            </div>
             <div class="media__subtitle">
               <label>{{ product.merchant.display_name }}</label>
               <v-icon v-if="isProductMerchantVerified">fa-check-circle</v-icon>
@@ -30,17 +33,17 @@
 
       <div class="section__content">
         <h3>
-          Get the app.<br>
-          Share to earn money.<br>
+          Get the app.<br />
+          Share to earn money.<br />
           Shop artists & brands.
         </h3>
       </div>
       <div class="section__footer">
-        <img src="/static/images/img_download_ios.svg">
+        <img src="/static/images/img_download_ios.svg" />
       </div>
     </div>
 
-    <mobile-footer v-if="!loading"/>
+    <mobile-footer v-if="!loading" />
 
     <v-dialog
       v-model="showMenu"
@@ -64,47 +67,47 @@ export default {
   components: {
     mobileHeader,
     mobileFooter,
-    mobileMenu
+    mobileMenu,
   },
 
-  data () {
+  data() {
     return {
       slug: null,
       product: null,
       showMenu: false,
-      loading: true
+      loading: true,
     }
   },
 
   computed: {
-    isProductMerchantVerified () {
+    isProductMerchantVerified() {
       const userType = _.get(this.product, 'merchant.user_type')
       return ['artist', 'label', 'brand'].indexOf(userType) > -1
-    }
+    },
   },
 
   methods: {
-    openMenu () {
+    openMenu() {
       this.showMenu = true
     },
 
-    closeMenu () {
+    closeMenu() {
       this.showMenu = false
-    }
+    },
   },
 
-  created () {
+  created() {
     this.slug = this.$route.params.slug
     const self = this
     document.location = `ys://product/${this.slug}`
     setTimeout(function () {
       self.loading = true
-      ProductService.getProduct(self.slug).then(res => {
+      ProductService.getProduct(self.slug).then((res) => {
         self.product = res.body
         self.loading = false
       })
     }, 300)
-  }
+  },
 }
 </script>
 
@@ -184,7 +187,7 @@ export default {
       line-height: 24px;
       font-size: 18px;
       font-weight: 600;
-      letter-spacing: -.3px;
+      letter-spacing: -0.3px;
     }
     &__subtitle {
       display: flex;
@@ -200,7 +203,7 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
         margin-top: -4px;
-        letter-spacing: -.2px;
+        letter-spacing: -0.2px;
         padding-right: 1px;
       }
       .icon {
@@ -230,7 +233,7 @@ export default {
       background-color: #000;
       font-size: 18px;
       font-weight: 600;
-      letter-spacing: -.2px;
+      letter-spacing: -0.2px;
       display: none;
       img {
         width: 24px;

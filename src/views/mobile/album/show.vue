@@ -1,9 +1,6 @@
 <template>
   <div class="mobile-album-page">
-    <mobile-header
-      :show-menu="false"
-      @open-menu="openMenu"
-    />
+    <mobile-header :show-menu="false" @open-menu="openMenu" />
 
     <div class="section" v-if="!loading">
       <div class="section__header">
@@ -12,7 +9,10 @@
 
         <div class="media">
           <div class="media__cover">
-            <div class="image" :style="{'background-image': 'url(' + album.cover.url + ')'}"></div>
+            <div
+              class="image"
+              :style="{ 'background-image': 'url(' + album.cover.url + ')' }"
+            ></div>
           </div>
           <div class="media__footer">
             <audio-player></audio-player>
@@ -38,8 +38,10 @@
                 <v-icon v-else>play_arrow</v-icon>
               </v-list-tile-avatar>
               <v-list-tile-content>
-            <v-list-tile-title v-html="track.name"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="album.user.display_name"></v-list-tile-sub-title>
+                <v-list-tile-title v-html="track.name"></v-list-tile-title>
+                <v-list-tile-sub-title
+                  v-html="album.user.display_name"
+                ></v-list-tile-sub-title>
                 <!-- <v-list-tile-sub-title v-html="track.index"></v-list-tile-sub-title> -->
               </v-list-tile-content>
             </v-list-tile>
@@ -48,17 +50,17 @@
       </div>
       <div class="section__content">
         <h3>
-          Free streaming.<br>
-          Free downloads.<br>
+          Free streaming.<br />
+          Free downloads.<br />
           No ads.
         </h3>
       </div>
       <div class="section__footer">
-        <img src="/static/images/img_download_ios.svg">
+        <img src="/static/images/img_download_ios.svg" />
       </div>
     </div>
 
-    <mobile-footer v-if="!loading"/>
+    <mobile-footer v-if="!loading" />
 
     <v-dialog
       v-model="showMenu"
@@ -120,7 +122,7 @@
         width: 100vw !important;
         height: 100% !important;
         overflow: hidden;
-        background-color: rgba(0,0,0,0.25);
+        background-color: rgba(0, 0, 0, 0.25);
       }
     }
 
@@ -203,7 +205,7 @@
       line-height: 16px;
       font-size: 24px;
       font-weight: 600;
-      letter-spacing: -.4px;
+      letter-spacing: -0.4px;
     }
     &__subtitle {
       width: 100%;

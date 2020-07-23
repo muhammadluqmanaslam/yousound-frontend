@@ -13,24 +13,24 @@ export default {
   components: {
     albumReportDialog,
     downloadModal,
-    shareModal
+    shareModal,
   },
 
   props: {
     objects: {
-      type: Array
+      type: Array,
     },
 
     objectIndex: {
-      type: Number
+      type: Number,
     },
 
     hideButtonAction: {
-      type: Function
-    }
+      type: Function,
+    },
   },
 
-  data () {
+  data() {
     return {
       showDownloadModal: false,
       showShareModal: false,
@@ -43,24 +43,24 @@ export default {
       submenu: false,
       playlist: {
         name: '',
-        image: null
+        image: null,
       },
       page: '',
-      selectedImage: null
+      selectedImage: null,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    willMenuRender () {
+    willMenuRender() {
       // console.log('willMenuRender', this.item.id, this.is_component_hover, this.is_menu_hover)
       return this.is_menu_hover || this.is_component_hover
     },
 
-    item () {
+    item() {
       if (this.objects[this.objectIndex].assoc_type) {
         return this.objects[this.objectIndex].assoc
       } else {
@@ -68,11 +68,11 @@ export default {
       }
     },
 
-    isEmptyAlbum () {
+    isEmptyAlbum() {
       return _.isEmpty(this.item)
     },
 
-    // isShowUserInfo () {
+    // isShowUserInfo() {
     //   if (this.$store.state.navigator.current.page === 'stream') {
     //     return true
     //   } else {
@@ -80,7 +80,7 @@ export default {
     //   }
     // },
 
-    // publisher () {
+    // publisher() {
     //   if (this.objects[this.objectIndex].assoc_type) {
     //     return this.objects[this.objectIndex].publisher
     //   } else {
@@ -88,7 +88,7 @@ export default {
     //   }
     // },
 
-    owner () {
+    owner() {
       if (this.objects[this.objectIndex].assoc_type) {
         return this.objects[this.objectIndex].assoc.user
       } else {
@@ -96,8 +96,10 @@ export default {
       }
     },
 
-    isPlaying () {
-      var playingItem = this.$store.state.player.list[this.$store.state.player.listIndex]
+    isPlaying() {
+      var playingItem = this.$store.state.player.list[
+        this.$store.state.player.listIndex
+      ]
       if (playingItem !== undefined) {
         if (playingItem.assoc_type === 'Album') {
           playingItem = playingItem.assoc
@@ -113,43 +115,47 @@ export default {
       return false
     },
 
-    album1Cover () {
+    album1Cover() {
       return _.get(this.item.tracks, '[0].album.cover.url')
     },
 
-    album2Cover () {
+    album2Cover() {
       return _.get(this.item.tracks, '[1].album.cover.url')
     },
 
-    album3Cover () {
+    album3Cover() {
       return _.get(this.item.tracks, '[2].album.cover.url')
     },
 
-    album4Cover () {
+    album4Cover() {
       return _.get(this.item.tracks, '[3].album.cover.url')
     },
 
-    input_id () {
-      return 'playlist_image_file_' + this.item.slug + '_' + parseInt((Math.random() * 999999))
+    input_id() {
+      return (
+        'playlist_image_file_' +
+        this.item.slug +
+        '_' +
+        parseInt(Math.random() * 999999)
+      )
     },
 
-    playlists () {
+    playlists() {
       return this.$store.state.playlist.playlists
-    }
+    },
   },
 
-  created () {
-  },
+  created() {},
 
   methods: {
     ...mapActions({
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus'
+      setPlaying: 'player/setPlayingStatus',
     }),
 
-    playSong () {
+    playSong() {
       if (this.isPlaying && this.$store.state.player.isPaused) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
       } else {
@@ -160,101 +166,124 @@ export default {
       }
     },
 
-    pauseSong () {
+    pauseSong() {
       this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     },
 
-    repostItem () {
+    repostItem() {
       this.menu = false
       this.submenu = false
-      AlbumService.repostAlbum(this.item.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.repostAlbum(this.item.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just reposted ' + this.item.name,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    openReportDialog () {
+    openReportDialog() {
       this.menu = false
       this.submenu = false
       this.show_report_dialog = true
     },
 
-    closeReportDialog () {
+    closeReportDialog() {
       this.show_report_dialog = false
     },
 
-    reportAlbum () {
+    reportAlbum() {
       console.log('reportAlbum')
     },
 
-    showDownloadDialog () {
+    showDownloadDialog() {
       this.menu = false
       this.submenu = false
       this.showDownloadModal = true
     },
 
-    dismissDownloadDialog () {
+    dismissDownloadDialog() {
       this.showDownloadModal = false
     },
 
-    showShareDialog () {
+    showShareDialog() {
       this.menu = false
       this.submenu = false
       this.showShareModal = true
     },
 
-    dismissShareDialog () {
+    dismissShareDialog() {
       this.showShareModal = false
     },
 
-    showHideAlbumDialog () {
+    showHideAlbumDialog() {
       this.menu = false
       this.submenu = false
       this.hide_dialog = true
     },
 
-    hideAlbum () {
+    hideAlbum() {
       this.menu = false
       this.submenu = false
       this.hide_dialog = false
 
-      AlbumService.hideAlbum(this.item.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just hid ' + this.item.name])
-        if (this.hideButtonAction) {
-          this.hideButtonAction(this.objects[this.objectIndex])
-        }
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.hideAlbum(this.item.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just hid ' + this.item.name,
+          ])
+          if (this.hideButtonAction) {
+            this.hideButtonAction(this.objects[this.objectIndex])
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    addComment () {
+    addComment() {
       this.menu = false
       this.submenu = false
     },
 
-    addToMyLabel () {
-      AlbumService.sendLabelRequest(this.item.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just send a label request on <' + this.item.name + '>'])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    addToMyLabel() {
+      AlbumService.sendLabelRequest(this.item.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just send a label request on <' + this.item.name + '>',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    addToNewPlaylist () {
+    addToNewPlaylist() {
       this.menu = false
       this.playlist = {
         name: '',
-        image: null
+        image: null,
       }
       this.selectedImage = null
       this.playlist_dialog = true
     },
 
-    createPlaylist () {
+    createPlaylist() {
       if (this.playlist.name == '') {
-        this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
+        this.$store.dispatch('error/showErrorToast', [
+          'Please input Playlist name.',
+        ])
         return
       }
 
@@ -269,21 +298,28 @@ export default {
       params.append('assoc_id', this.item.tracks[0].id)
       params.append('assoc_type', 'Track')
       this.$store.dispatch('error/showLoadingActivity', true)
-      PlaylistService.createPlaylist(params).then(response => {
-        this.playlist_dialog = false
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', ['Added the album to New Playlist '])
+      PlaylistService.createPlaylist(params)
+        .then((response) => {
+          this.playlist_dialog = false
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', [
+            'Added the album to New Playlist ',
+          ])
 
-        PlaylistService.getPlaylists().then(response => {
-          this.$store.dispatch('playlist/setPlaylists', response.body)
+          PlaylistService.getPlaylists().then((response) => {
+            this.$store.dispatch('playlist/setPlaylists', response.body)
+          })
         })
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    addToPlaylist (list) {
+    addToPlaylist(list) {
       this.menu = false
       this.submenu = false
       // const params = new FormData()
@@ -291,50 +327,77 @@ export default {
       // params.append('assoc_type', 'Album')
       const params = {
         assoc_id: this.item.tracks[0].id,
-        assoc_type: 'Track'
+        assoc_type: 'Track',
       }
-      PlaylistService.updatePlaylist(list.id, params).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['Added the track to <' + list.name + '>'])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      PlaylistService.updatePlaylist(list.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'Added the track to <' + list.name + '>',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    recommendAlbum () {
+    recommendAlbum() {
       this.menu = false
       this.submenu = false
-      AlbumService.recommendAlbum(this.item.id).then(response => {
-        this.item.recommended = true
-        this.$store.dispatch('error/showSuccessToast', ['You just recommended ' + this.item.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.recommendAlbum(this.item.id)
+        .then((response) => {
+          this.item.recommended = true
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just recommended ' + this.item.name,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    unrecommendAlbum () {
+    unrecommendAlbum() {
       this.menu = false
       this.submenu = false
-      AlbumService.unrecommendAlbum(this.item.id).then(response => {
-        this.item.recommended = false
-        this.$store.dispatch('error/showSuccessToast', ['You just unrecommended ' + this.item.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.unrecommendAlbum(this.item.id)
+        .then((response) => {
+          this.item.recommended = false
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just unrecommended ' + this.item.name,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    imageChanged (e) {
+    imageChanged(e) {
       if (e.target.files[0].size > 2097152) {
         // console.log(e.target.files)
-        this.$store.dispatch('error/showErrorToast', ['You can upload an image 2MB in maximum'])
+        this.$store.dispatch('error/showErrorToast', [
+          'You can upload an image 2MB in maximum',
+        ])
         return
       }
 
       this.playlist.image = e.target.files[0]
       var reader = new FileReader()
-      reader.addEventListener('load', (event) => {
-        this.selectedImage = event.target.result
-      }, false)
+      reader.addEventListener(
+        'load',
+        (event) => {
+          this.selectedImage = event.target.result
+        },
+        false
+      )
       reader.readAsDataURL(this.playlist.image)
-    }
-  }
+    },
+  },
 }

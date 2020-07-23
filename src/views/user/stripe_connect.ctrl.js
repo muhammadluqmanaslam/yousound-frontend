@@ -1,15 +1,13 @@
 import UserService from '@/services/user'
 
 export default {
-  data () {
-    return {
-    }
+  data() {
+    return {}
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
+  created() {
     console.log('stripe_connect created', this.$store.state.auth.user)
     this.$store.dispatch('auth/setSecretCode', this.$route.query['state'])
     for (let key in this.$route.query) {
@@ -23,14 +21,19 @@ export default {
   methods: {
     connectStripe(code) {
       const params = {
-        code: code
+        code: code,
       }
-      UserService.connectStripe(this.$store.state.auth.user.id, params).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['Stripe Conected!'])
-        this.$router.push({ path : '/settings#bank-details' })
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    }
-  }
+      UserService.connectStripe(this.$store.state.auth.user.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', ['Stripe Conected!'])
+          this.$router.push({ path: '/settings#bank-details' })
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+  },
 }

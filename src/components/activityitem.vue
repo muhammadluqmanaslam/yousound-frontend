@@ -3,42 +3,94 @@
     <div class="activity-item-body">
       <v-layout row wrap>
         <v-flex
-          xs12 md5
-          :class="{'md5': activityItem.sender.recent_reposts, 'no-reposts': !activityItem.sender.recent_reposts}"
+          xs12
+          md5
+          :class="{
+            md5: activityItem.sender.recent_reposts,
+            'no-reposts': !activityItem.sender.recent_reposts,
+          }"
           class="activity-item-section"
         >
           <v-flex xs12 class="activity-item-section-body">
-            <profile-item :user="activityItem.sender" :className="'activity-item-profile-avatar-area'"></profile-item>
+            <profile-item
+              :user="activityItem.sender"
+              :className="'activity-item-profile-avatar-area'"
+            ></profile-item>
             <div class="activity-item-content-area">
               <div class="activity-item-content">
-                <router-link class="user-name" :to="'/' + activityItem.sender.slug">
+                <router-link
+                  class="user-name"
+                  :to="'/' + activityItem.sender.slug"
+                >
                   {{ activityItem.sender.display_name }}
                 </router-link>
                 <v-icon
                   v-if="activityItem.sender.user_type == 'artist'"
                   class="user-status online"
-                >fa-check-circle</v-icon>&nbsp;
-                <label class="description-text">{{ activityItem.message }}
-                  <img v-if="activityItem.action_type == 'follow'" src="" class="follow-icon"/>
-                  <img v-else-if="activityItem.action_type == 'download'" src="/static/images/ic_download.png" class="download-icon"/>
-                  <img v-else-if="activityItem.action_type == 'play'" src="" class="play-icon"/>
-                  <img v-else-if="activityItem.action_type == 'comment'" src="/static/images/ic_message.png" class="comment-icon"/>
-                  <img v-else-if="activityItem.action_type == 'release'" src="" class="release-icon"/>
-                  <img v-else-if="activityItem.action_type == 'repost'" src="/static/images/ic_repeat.png" class="repost-icon"/>
-                  <img v-else-if="activityItem.action_type == 'share'" src="/static/images/ic_share.png" class="share-icon"/>
-                  <v-icon v-else-if="activityItem.action_type == 'recommend'" class="recommend-icon">thumb_up</v-icon>
+                  >fa-check-circle</v-icon
+                >&nbsp;
+                <label class="description-text"
+                  >{{ activityItem.message }}
+                  <img
+                    v-if="activityItem.action_type == 'follow'"
+                    src=""
+                    class="follow-icon"
+                  />
+                  <img
+                    v-else-if="activityItem.action_type == 'download'"
+                    src="/static/images/ic_download.png"
+                    class="download-icon"
+                  />
+                  <img
+                    v-else-if="activityItem.action_type == 'play'"
+                    src=""
+                    class="play-icon"
+                  />
+                  <img
+                    v-else-if="activityItem.action_type == 'comment'"
+                    src="/static/images/ic_message.png"
+                    class="comment-icon"
+                  />
+                  <img
+                    v-else-if="activityItem.action_type == 'release'"
+                    src=""
+                    class="release-icon"
+                  />
+                  <img
+                    v-else-if="activityItem.action_type == 'repost'"
+                    src="/static/images/ic_repeat.png"
+                    class="repost-icon"
+                  />
+                  <img
+                    v-else-if="activityItem.action_type == 'share'"
+                    src="/static/images/ic_share.png"
+                    class="share-icon"
+                  />
+                  <v-icon
+                    v-else-if="activityItem.action_type == 'recommend'"
+                    class="recommend-icon"
+                    >thumb_up</v-icon
+                  >
                   <span
-                    v-if="activityItem.assoc && activityItem.assoc_type != 'Comment'"
+                    v-if="
+                      activityItem.assoc && activityItem.assoc_type != 'Comment'
+                    "
                     @click="doAction()"
                     class="items-title"
-                  >{{ activityItem.assoc.name }}</span>
+                    >{{ activityItem.assoc.name }}</span
+                  >
                   <span
                     v-if="activityItem.assoc && activityItem.assoc.commentable"
                     @click="doAction()"
                     class="items-title"
                   >
-                    <template v-if="activityItem.assoc.commentable_type == 'Post'">Story</template>
-                    <template v-else>{{ activityItem.assoc.commentable.name }}</template>
+                    <template
+                      v-if="activityItem.assoc.commentable_type == 'Post'"
+                      >Story</template
+                    >
+                    <template v-else>{{
+                      activityItem.assoc.commentable.name
+                    }}</template>
                   </span>
                 </label>
               </div>
@@ -55,32 +107,59 @@
                 <template v-if="activityItem.assoc">
                   <template v-if="activityItem.assoc_type == 'Comment'">
                     <div
-                      v-if="activityItem.assoc.commentable_type=='ShopProduct'"
-                      :style="{'background-image': 'url(' + activityItem.assoc.commentable.covers[0].cover.thumb.url + ')'}"
+                      v-if="
+                        activityItem.assoc.commentable_type == 'ShopProduct'
+                      "
+                      :style="{
+                        'background-image':
+                          'url(' +
+                          activityItem.assoc.commentable.covers[0].cover.thumb
+                            .url +
+                          ')',
+                      }"
                       class="actioned-item"
                     ></div>
                     <div
-                      v-else-if="activityItem.assoc.commentable_type=='Album'"
-                      :style="{'background-image': 'url(' + activityItem.assoc.commentable.cover.thumb.url + ')'}"
+                      v-else-if="activityItem.assoc.commentable_type == 'Album'"
+                      :style="{
+                        'background-image':
+                          'url(' +
+                          activityItem.assoc.commentable.cover.thumb.url +
+                          ')',
+                      }"
                       class="actioned-item"
                     ></div>
                     <div
-                      v-else-if="activityItem.assoc.commentable_type=='Post'"
-                      :style="{'background-image': 'url(' + activityItem.assoc.commentable.cover.thumb.url + ')'}"
+                      v-else-if="activityItem.assoc.commentable_type == 'Post'"
+                      :style="{
+                        'background-image':
+                          'url(' +
+                          activityItem.assoc.commentable.cover.thumb.url +
+                          ')',
+                      }"
                       class="actioned-item"
                     ></div>
                   </template>
 
                   <div
                     v-if="activityItem.assoc_type == 'Post'"
-                    :style="{'background-image': 'url(' + activityItem.assoc.cover.thumb.url + ')'}"
+                    :style="{
+                      'background-image':
+                        'url(' + activityItem.assoc.cover.thumb.url + ')',
+                    }"
                     class="actioned-item"
                   ></div>
 
-                  <div class="actioned-item" v-if="activityItem.assoc_type=='ShopProduct'">
+                  <div
+                    class="actioned-item"
+                    v-if="activityItem.assoc_type == 'ShopProduct'"
+                  >
                     <activity-product-card :object="activityItem.assoc" />
                   </div>
-                  <div class="actioned-item" v-if="activityItem.assoc_type=='Album'">
+                  <div
+                    class="actioned-item"
+                    v-if="activityItem.assoc_type == 'Album'"
+                  >
                     <activity-album-card :object="activityItem.assoc" />
                   </div>
                 </template>
@@ -91,7 +170,8 @@
 
         <v-flex
           v-if="activityItem.sender.recent_items"
-          xs12 md7
+          xs12
+          md7
           class="activity-item-recent-posts"
         >
           <div class="recent-posts-section-title">Recent activity</div>
@@ -101,12 +181,20 @@
             :key="index"
             class="recent-post-item"
           >
-            <activity-product-card :object="repost" v-if="repost.assoc_type=='ShopProduct'"></activity-product-card>
-            <activity-album-card :object="repost" v-if="repost.assoc_type=='Album'"></activity-album-card>
+            <activity-product-card
+              :object="repost"
+              v-if="repost.assoc_type == 'ShopProduct'"
+            ></activity-product-card>
+            <activity-album-card
+              :object="repost"
+              v-if="repost.assoc_type == 'Album'"
+            ></activity-album-card>
           </div>
         </v-flex>
       </v-layout>
-      <label class="activity-time">{{ toLocalTimeString(activityItem.updated_at) }}</label>
+      <label class="activity-time">{{
+        toLocalTimeString(activityItem.updated_at)
+      }}</label>
     </div>
 
     <!-- <send-message
@@ -135,28 +223,28 @@ export default {
     profileItem,
     merchModal,
     activityAlbumCard,
-    activityProductCard
+    activityProductCard,
   },
 
   props: {
     activityItem: {
-      type: Object
-    }
+      type: Object,
+    },
   },
 
-  data () {
+  data() {
     return {
       showSendMessage: false,
-      showMerchModal: false
+      showMerchModal: false,
     }
   },
 
   computed: {
-    toLocalTimeString () {
+    toLocalTimeString() {
       return Utils.toLocalTimeString
     },
 
-    actionText () {
+    actionText() {
       if (this.activityItem.action_type === 'release') {
         return 'released'
       } else if (this.activityItem.action_type === 'repost') {
@@ -174,22 +262,21 @@ export default {
       } else {
         return 'commented'
       }
-    }
+    },
   },
 
-  created () {
-  },
+  created() {},
 
   methods: {
-    showMessageDialog () {
+    showMessageDialog() {
       this.showSendMessage = true
     },
 
-    dismissMessageModal () {
+    dismissMessageModal() {
       this.showSendMessage = false
     },
 
-    imageURL (item) {
+    imageURL(item) {
       if (item.cover) {
         return item.cover.thumb.url
       } else {
@@ -197,27 +284,36 @@ export default {
       }
     },
 
-    blockUser () {
-    },
+    blockUser() {},
 
-    doAction () {
+    doAction() {
       switch (this.activityItem.assoc_type) {
         case 'ShopProduct':
           this.showMerchModal = true
           break
         case 'Album':
-          this.$router.push({ path: this.activityItem.assoc.album_type + '/' + this.activityItem.assoc.slug })
+          this.$router.push({
+            path:
+              this.activityItem.assoc.album_type +
+              '/' +
+              this.activityItem.assoc.slug,
+          })
           break
         default:
           if (this.activityItem.assoc.commentable_type === 'Album') {
-            this.$router.push({ path: this.activityItem.assoc.commentable.album_type + '/' + this.activityItem.assoc.commentable.slug })
+            this.$router.push({
+              path:
+                this.activityItem.assoc.commentable.album_type +
+                '/' +
+                this.activityItem.assoc.commentable.slug,
+            })
           }
       }
     },
 
-    dimissMerchModal () {
+    dimissMerchModal() {
       this.showMerchModal = false
-    }
-  }
+    },
+  },
 }
 </script>

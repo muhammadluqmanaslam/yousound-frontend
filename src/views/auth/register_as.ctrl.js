@@ -4,21 +4,19 @@ import TwitterService from '@/services/twitter.js'
 import { Storage } from '@/helper'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       user_type: 'artist',
-      show_twitter_confirm_dialog: false
+      show_twitter_confirm_dialog: false,
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'register', tab: ''})
+  created() {
+    this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
     Storage.remove('twitter_info')
     // window.fbAsyncInit = function() {
     //   FB.init({
@@ -32,18 +30,20 @@ export default {
   },
 
   methods: {
-    openTwitterConfirmDialog (user_type) {
+    openTwitterConfirmDialog(user_type) {
       this.show_twitter_confirm_dialog = true
       this.user_type = user_type
     },
 
-    closeTwitterConfirmDialog () {
+    closeTwitterConfirmDialog() {
       this.show_twitter_confirm_dialog = false
     },
 
-    submit () {
+    submit() {
       // this.closeTwitterConfirmDialog()
-      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${this.user_type}&code=${this.$store.state.auth.secret_code}` }).then(response => {
+      TwitterService.getRequestToken({
+        oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${this.user_type}&code=${this.$store.state.auth.secret_code}`,
+      }).then((response) => {
         Storage.set('twitter_info', JSON.stringify(response.body))
         location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${response.body.oauth_token}`
       })
@@ -87,6 +87,6 @@ export default {
       //    console.log('User cancelled login or did not fully authorize.');
       //   }
       // }, {scope: 'public_profile,email'})
-    }
-  }
+    },
+  },
 }

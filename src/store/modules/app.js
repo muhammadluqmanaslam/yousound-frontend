@@ -4,7 +4,7 @@ const state = {
   settings: {},
   genres: [],
   product_categories: [],
-  public_relations_user: {}
+  public_relations_user: {},
 }
 
 const getters = {
@@ -18,48 +18,51 @@ const getters = {
 
   digitalCategoryIds: (state) => {
     // return _.chain(state.product_categories).find((c) => (c.name === 'Digital Product')).get('id', null).value()
-    return _.chain(state.product_categories).filter((c) => (c.is_digital)).map('id').value()
+    return _.chain(state.product_categories)
+      .filter((c) => c.is_digital)
+      .map('id')
+      .value()
   },
 
-  reminderTracksCount: state => {
+  reminderTracksCount: (state) => {
     return _.get(state.settings, 'reminder_tracks_count', 5)
-  }
+  },
 }
 
 const actions = {
-  setSettings ({ commit }, settings) {
+  setSettings({ commit }, settings) {
     commit('setSettings', settings)
   },
 
-  setGenres ({ commit }, genres) {
+  setGenres({ commit }, genres) {
     commit('setGenres', genres)
   },
 
-  setProductCategories ({ commit }, categories) {
+  setProductCategories({ commit }, categories) {
     commit('setProductCategories', categories)
   },
 
-  setPublicRelationsUser ({ commit }, user) {
+  setPublicRelationsUser({ commit }, user) {
     commit('setPublicRelationsUser', user)
-  }
+  },
 }
 
 const mutations = {
-  setSettings (state, settings) {
+  setSettings(state, settings) {
     state.settings = settings
   },
 
-  setGenres (state, genres) {
+  setGenres(state, genres) {
     state.genres = genres
   },
 
-  setProductCategories (state, categories) {
+  setProductCategories(state, categories) {
     state.product_categories = categories
   },
 
-  setPublicRelationsUser (state, user) {
+  setPublicRelationsUser(state, user) {
     state.public_relations_user = user
-  }
+  },
 }
 
 export default {
@@ -68,5 +71,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

@@ -20,10 +20,10 @@ export default {
     termsOfUseTab,
     gdprTab,
     trademarkPolicyTab,
-    SampleClearanceTab
+    SampleClearanceTab,
   },
 
-  data () {
+  data() {
     return {
       tabs: [
         { id: 'terms_of_use', title: 'Terms of Service' },
@@ -34,10 +34,10 @@ export default {
         { id: 'trademark_policy', title: 'Trademark Policy' },
         { id: 'gdpr', title: 'GDPR' },
         { id: 'cookie_policy', title: 'Cookie Policy' },
-        { id: 'sample_clearance', title: 'Sample Clearance License' }
+        { id: 'sample_clearance', title: 'Sample Clearance License' },
       ],
       currentTab: 'terms_of_use',
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
@@ -51,19 +51,24 @@ export default {
   //   }
   // },
 
-  created () {
+  created() {
     const tab = this.$route.hash.substr(1)
     this.currentTab = tab || 'terms_of_use'
-    this.$store.dispatch('navigator/goNextState', { page: 'terms', tab: this.currentTab })
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'terms',
+      tab: this.currentTab,
+    })
     this.onTab(this.currentTab)
   },
 
   methods: {
-    onTab (tab) {
+    onTab(tab) {
       this.currentTab = tab
-      this.$nextTick(() => { $(window).scrollTop(0) })
-    }
+      this.$nextTick(() => {
+        $(window).scrollTop(0)
+      })
+    },
   },
 
-  mounted () {}
+  mounted() {},
 }

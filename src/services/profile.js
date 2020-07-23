@@ -4,10 +4,10 @@ import VueCache from '@/services/cache'
 
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/profile'
 
-let cache = new VueCache('profile', {expiration: 60})
+let cache = new VueCache('profile', { expiration: 60 })
 
 export default {
-  initCache () {
+  initCache() {
     Vue.http.interceptors.push((req) => {
       if (req.fresh) cache.del(req.url)
       if (req.url.startsWith(API_BASE_URL)) {
@@ -15,7 +15,7 @@ export default {
         if (valid) {
           return req.respondWith(valid, {
             status: 200,
-            statusText: 'OK'
+            statusText: 'OK',
           })
         } // if nothing is returned, continue
       }
@@ -29,43 +29,45 @@ export default {
     })
   },
 
-  getAlbums (userId, params) {
+  getAlbums(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/songs', params)
   },
 
-  getMerch (userId, params) {
+  getMerch(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/merch', params)
   },
 
-  getDownloaded (userId, params) {
+  getDownloaded(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/downloaded', params)
   },
 
-  getReposted (userId, params) {
+  getReposted(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/reposted', params)
   },
 
-  getPlaylists (userId, params) {
+  getPlaylists(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/playlists', params)
   },
 
-  getSampleFollowings (userId, params) {
+  getSampleFollowings(userId, params) {
     return Vue.http.post(`${API_BASE_URL}/${userId}/sample_followings`, params)
   },
 
-  getFollowings (userId, params) {
+  getFollowings(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/followings', params)
   },
 
-  getFollowers (userId, params) {
+  getFollowers(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/followers', params)
   },
 
-  getItems (userId, type, params) {
+  getItems(userId, type, params) {
     if ($store.state.auth.user) {
-      return Vue.http.post(API_BASE_URL + '/' + userId + '/' + type, params, { headers: { 'Authorization': $store.state.auth.token } })
+      return Vue.http.post(API_BASE_URL + '/' + userId + '/' + type, params, {
+        headers: { Authorization: $store.state.auth.token },
+      })
     } else {
       return Vue.http.post(API_BASE_URL + '/' + userId + '/' + type, params)
     }
-  }
+  },
 }

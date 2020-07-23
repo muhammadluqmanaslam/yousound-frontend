@@ -1,54 +1,60 @@
-import StreamService from  '@/services/stream'
+import StreamService from '@/services/stream'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
-      deletingInterval: null
+      deletingInterval: null,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
-    }
+    },
   },
 
-  created () {
+  created() {
     const vm = this
-    this.$store.dispatch('navigator/goNextState', { page: 'broadcast', tab: '' })
-    this.deletingInterval = setInterval(function () { vm.getStream() }, 10000)
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'broadcast',
+      tab: '',
+    })
+    this.deletingInterval = setInterval(function () {
+      vm.getStream()
+    }, 10000)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.deletingInterval) {
       clearInterval(this.deletingInterval)
     }
   },
 
   methods: {
-    getStream () {
-      StreamService.getStream(this.currentUser.stream.id).then(response => {
-        if (response.body.status == 'deleted') {
-          this.resetStream()
-        }
-      }).catch(e => {
-        if (e.status === 404) {
-          this.resetStream()
-        } else {
-          console.log('getStream', e)
-        }
-      })
+    getStream() {
+      StreamService.getStream(this.currentUser.stream.id)
+        .then((response) => {
+          if (response.body.status == 'deleted') {
+            this.resetStream()
+          }
+        })
+        .catch((e) => {
+          if (e.status === 404) {
+            this.resetStream()
+          } else {
+            console.log('getStream', e)
+          }
+        })
     },
 
-    resetStream () {
+    resetStream() {
       if (this.deletingInterval) {
         clearInterval(this.deletingInterval)
         this.$store.dispatch('auth/setStream', null)
         this.$router.push({ path: `/user/${this.currentUser.slug}/video` })
       }
-    }
-  }
+    },
+  },
 }

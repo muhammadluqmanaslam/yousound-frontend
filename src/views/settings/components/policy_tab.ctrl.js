@@ -5,62 +5,62 @@ import paymentModal from '@/components/paymentmodal'
 
 export default {
   components: {
-    paymentModal
+    paymentModal,
   },
 
   props: {
     user: {
       type: Object,
-      required: true
+      required: true,
     },
 
     updateUser: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
 
-  data () {
+  data() {
     return {}
   },
 
-  created () {},
+  created() {},
 
   methods: {
-    saveReturnPolicy () {
+    saveReturnPolicy() {
       const params = {
         user: {
-          return_policy: this.user.return_policy
-        }
+          return_policy: this.user.return_policy,
+        },
       }
       this.updateUser(params)
     },
 
-    saveShippingPolicy () {
+    saveShippingPolicy() {
       const params = {
         user: {
-          shipping_policy: this.user.shipping_policy
-        }
+          shipping_policy: this.user.shipping_policy,
+        },
       }
       this.updateUser(params)
     },
 
-    saveSizeChart () {
+    saveSizeChart() {
       const params = {
         user: {
-          size_chart: this.user.size_chart
-        }
+          size_chart: this.user.size_chart,
+        },
       }
       this.updateUser(params)
     },
 
-    savePrivacyPolicy () {
+    savePrivacyPolicy() {
       const params = {
         user: {
-          privacy_policy: this.user.privacy_policy
-        }
+          privacy_policy: this.user.privacy_policy,
+        },
       }
       this.updateUser(params)
-    }
+    },
   },
 }

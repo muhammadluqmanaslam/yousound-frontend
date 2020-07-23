@@ -8,59 +8,61 @@ const USER_CREDENTIAL = 'user_credential'
 const USER_HMAC = 'user_hmac'
 
 export default {
-  login (params) {
+  login(params) {
     return Vue.http.post(API_BASE_URL + '/sign_in', params)
   },
 
-  registerAsListener (params) {
+  registerAsListener(params) {
     return Vue.http.post(API_BASE_URL + '/sign_up_as_listener', params)
   },
 
-  registerAsArtist (params) {
+  registerAsArtist(params) {
     return Vue.http.post(API_BASE_URL + '/sign_up_as_artist', params)
   },
 
-  sendConfirmEmail (params) {
+  sendConfirmEmail(params) {
     return Vue.http.post(API_BASE_URL + '/send_confirm_email', params)
   },
 
-  activeAccount (params) {
+  activeAccount(params) {
     return Vue.http.post(API_BASE_URL + '/confirm', params)
   },
 
-  signinUrlForTwitter (params) {
+  signinUrlForTwitter(params) {
     return Vue.http.post(API_BASE_URL + '/signin_url_for_twitter', params)
   },
 
-  signinWithSocial (params) {
+  signinWithSocial(params) {
     return Vue.http.post(API_BASE_URL + '/signin_with_social', params)
   },
 
-  isUsernameAvailable (params) {
+  isUsernameAvailable(params) {
     return Vue.http.post(API_BASE_URL + '/is_username_available', params)
   },
 
-  checkTokenValidation () {
+  checkTokenValidation() {
     const params = {
-      auth_token: localStorage.getItem(ACCESS_TOKEN_KEY)
+      auth_token: localStorage.getItem(ACCESS_TOKEN_KEY),
     }
     return Vue.http.post(API_BASE_URL + '/token_validity', params)
   },
 
-  requestResetPassword (params) {
+  requestResetPassword(params) {
     return Vue.http.post(API_BASE_URL + '/reset_password', params)
   },
 
-  resetPassword (params) {
+  resetPassword(params) {
     return Vue.http.post(API_BASE_URL + '/set_password', params)
   },
 
-  signout () {
-    Vue.http.post(API_BASE_URL + '/sign_out', null, { headers: { 'Authorization': $store.state.auth.token } })
+  signout() {
+    Vue.http.post(API_BASE_URL + '/sign_out', null, {
+      headers: { Authorization: $store.state.auth.token },
+    })
     this.clearTokenAndUserInfo()
   },
 
-  clearTokenAndUserInfo () {
+  clearTokenAndUserInfo() {
     localStorage.removeItem(ACCESS_TOKEN_KEY)
     localStorage.removeItem(USER_HMAC)
     localStorage.removeItem(USER_INFO)
@@ -70,7 +72,7 @@ export default {
     $store.dispatch('auth/setFirstVisit', false)
   },
 
-  isAuthenticated () {
+  isAuthenticated() {
     let token = this.getToken()
     if (token) {
       return true
@@ -79,7 +81,7 @@ export default {
     }
   },
 
-  setTokenAndUserInfo (user) {
+  setTokenAndUserInfo(user) {
     localStorage.setItem(ACCESS_TOKEN_KEY, user.token)
     $store.dispatch('auth/setToken', user.token)
     // localStorage.setItem(USER_HMAC, user.hmac)
@@ -87,7 +89,7 @@ export default {
     this.setUser(user)
   },
 
-  setUser (user) {
+  setUser(user) {
     localStorage.setItem(USER_INFO, JSON.stringify(user))
     $store.dispatch('auth/setUser', user)
 
@@ -97,7 +99,7 @@ export default {
     }
   },
 
-  getToken () {
+  getToken() {
     let token = localStorage.getItem(ACCESS_TOKEN_KEY)
     let user = JSON.parse(localStorage.getItem(USER_INFO))
     $store.dispatch('auth/setToken', token)
@@ -105,13 +107,13 @@ export default {
     return token
   },
 
-  saveCredential (credential) {
+  saveCredential(credential) {
     localStorage.setItem(USER_CREDENTIAL, JSON.stringify(credential))
   },
 
-  loadCredential () {
+  loadCredential() {
     let val = localStorage.getItem(USER_CREDENTIAL)
     if (val !== null) val = JSON.parse(val)
     return val
-  }
+  },
 }

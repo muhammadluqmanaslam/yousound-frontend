@@ -6,10 +6,10 @@ import activityProductCard from '@/components/activityproductcard'
 export default {
   components: {
     paymentModal,
-    activityProductCard
+    activityProductCard,
   },
 
-  data () {
+  data() {
     return {
       cartItems: [],
       shippingAddress: [],
@@ -19,19 +19,19 @@ export default {
       cartCost: {
         total_cost: 0,
         subtotal_cost: 0,
-        shipping_cost: 0
+        shipping_cost: 0,
       },
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
     currentUser() {
       return this.$store.state.auth.user
-    }
+    },
   },
 
-  created () {
+  created() {
     if (!this.$store.state.auth.user) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
@@ -52,88 +52,112 @@ export default {
       ItemService.getShoppingCartItems(),
       ItemService.calculateCost(params),
       AddressService.getAddresses(),
-    ]).then(values => {
-      this.cartItems = values[0].body
-      this.cartCost = values[1].body
-      // this.shippingAddress = values[2].body
+    ])
+      .then((values) => {
+        this.cartItems = values[0].body
+        this.cartCost = values[1].body
+        // this.shippingAddress = values[2].body
 
-      this.isPageReady = true
-      this.$store.dispatch('error/showLoadingActivity', false)
-    }).catch(reason => {
-      console.log(reason)
-      this.$store.dispatch('error/showLoadingActivity', false)
-      this.$store.dispatch('error/showErrorToast', reason)
-    })
+        this.isPageReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+      .catch((reason) => {
+        console.log(reason)
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', reason)
+      })
   },
 
   methods: {
-    isDigitalProduct (item) {
+    isDigitalProduct(item) {
       return _.get(item, 'product.category.is_digital', false)
     },
 
-    productStatus (item) {
+    productStatus(item) {
       if (this.isDigitalProduct(item)) {
         return {
           text: 'digital content',
-          style: 'success'
+          style: 'success',
         }
-      } else if (['published', 'collaborated'].indexOf(item.product.status) === -1 || item.product.stock_status !== 'active') {
+      } else if (
+        ['published', 'collaborated'].indexOf(item.product.status) === -1 ||
+        item.product.stock_status !== 'active'
+      ) {
         return {
           text: 'out of stock',
-          style: 'error'
+          style: 'error',
         }
       } else if (item.quantity > item.product_variant.quantity) {
         return {
           text: 'limited stock',
-          style: 'warning'
+          style: 'warning',
         }
       } else {
         return {
           text: 'in stock',
-          style: 'success'
+          style: 'success',
         }
       }
     },
 
-    productStatusStyle (item) {
+    productStatusStyle(item) {
       return this.productStatus(item).style
     },
 
-    productStatusText (item) {
+    productStatusText(item) {
       return this.productStatus(item).text
     },
 
-    addQuantity (item) {
-      ItemService.updateCartItem(item.id, { quantity: item.quantity + 1 }).then(response => {
-        item.quantity += 1
-        this.cartCost = response.body
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    addQuantity(item) {
+      ItemService.updateCartItem(item.id, { quantity: item.quantity + 1 })
+        .then((response) => {
+          item.quantity += 1
+          this.cartCost = response.body
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    removeQuantity (item) {
+    removeQuantity(item) {
       if (item.quantity > 1) {
-        ItemService.updateCartItem(item.id, { quantity: item.quantity - 1 }).then(response => {
-          item.quantity -= 1
-          this.cartCost = response.body
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        ItemService.updateCartItem(item.id, { quantity: item.quantity - 1 })
+          .then((response) => {
+            item.quantity -= 1
+            this.cartCost = response.body
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
     removeCartItem(cartItem) {
       // console.log(cartItem.product.name)
-      ItemService.deleteCartItem(cartItem.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', [`deleted ${cartItem.product.name} successfully.`])
-        this.cartCost = response.body
-        _.remove(this.cartItems, (item) => { return item.id == cartItem.id })
-        const arr = this.cartItems.slice()
-        this.cartItems = arr
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      ItemService.deleteCartItem(cartItem.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            `deleted ${cartItem.product.name} successfully.`,
+          ])
+          this.cartCost = response.body
+          _.remove(this.cartItems, (item) => {
+            return item.id == cartItem.id
+          })
+          const arr = this.cartItems.slice()
+          this.cartItems = arr
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     orderItems(token) {
@@ -141,60 +165,68 @@ export default {
         // console.log(token)
         this.$store.dispatch('error/showLoadingActivity', true)
         let params = {
-          shipping_address_id: this.shippingAddress[0].id
+          shipping_address_id: this.shippingAddress[0].id,
         }
-        if(token) {
+        if (token) {
           params['payment_token'] = token.id
         }
-        ItemService.orderItems(params).then(response => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          // this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
-          // this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
-          // this.$router.push({path : '/cart#history'})
-          this.openOrderCompleteDialog()
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-
-          ItemService.getShoppingCartItems().then(response => {
-            this.cartItems = response.body
+        ItemService.orderItems(params)
+          .then((response) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            // this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
+            // this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
+            // this.$router.push({path : '/cart#history'})
+            this.openOrderCompleteDialog()
           })
-        })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+
+            ItemService.getShoppingCartItems().then((response) => {
+              this.cartItems = response.body
+            })
+          })
       } else {
-        this.$store.dispatch('error/showErrorToast', ['Please add Shipping Address.'])
+        this.$store.dispatch('error/showErrorToast', [
+          'Please add Shipping Address.',
+        ])
       }
     },
 
-    viewOrderHistory () {
+    viewOrderHistory() {
       this.closeOrderCompleteDialog()
-      this.$router.push({path : '/cart#history'})
+      this.$router.push({ path: '/cart#history' })
     },
 
-    openPaymentDialog () {
+    openPaymentDialog() {
       if (this.shippingAddress.length == 0) {
-        this.$store.dispatch('error/showErrorToast', ['Please add Shipping Address.'])
+        this.$store.dispatch('error/showErrorToast', [
+          'Please add Shipping Address.',
+        ])
       } else {
-        this.showPaymentModal = true  
+        this.showPaymentModal = true
       }
     },
 
-    closePaymentDialog () {
+    closePaymentDialog() {
       this.showPaymentModal = false
     },
 
-    openOrderCompleteDialog () {
+    openOrderCompleteDialog() {
       this.show_order_complete_dialog = true
     },
 
-    closeOrderCompleteDialog () {
+    closeOrderCompleteDialog() {
       this.show_order_complete_dialog = false
     },
 
-    hideShippingAddress () {
+    hideShippingAddress() {
       console.log('test')
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

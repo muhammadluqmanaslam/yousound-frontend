@@ -17,7 +17,8 @@
           dark
           color="red"
           @click="toggleRefundAll(true)"
-        >Refund All</v-btn>
+          >Refund All</v-btn
+        >
         <label v-else>No items available to refund</label>
       </div>
 
@@ -36,77 +37,76 @@
           dark
           color="blue"
           @click="$emit('input', payment)"
-        >Continue</v-btn>
-        <v-btn
-          dark
-          color="grey"
-          @click="$emit('close')"
-        >Cancel</v-btn>
+          >Continue</v-btn
+        >
+        <v-btn dark color="grey" @click="$emit('close')">Cancel</v-btn>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  // import PaymentService from '@/services/payment'
-  import ShopItem from './shop_item'
+// import PaymentService from '@/services/payment'
+import ShopItem from './shop_item'
 
-  export default {
-    components: {
-      ShopItem
+export default {
+  components: {
+    ShopItem,
+  },
+
+  props: {
+    value: Object,
+  },
+
+  data() {
+    return {
+      refund_all: false,
+      items_available: false,
+      items_selected: false,
+      payment: {},
+    }
+  },
+
+  computed: {},
+
+  methods: {
+    evaluate() {
+      const item = this._.find(this.payment.order.items, { refund: true })
+      this.items_selected = !!item
     },
 
-    props: {
-      value: Object
-    },
-
-    data () {
-      return {
-        refund_all: false,
-        items_available: false,
-        items_selected: false,
-        payment: {}
-      }
-    },
-
-    computed: {},
-
-    methods: {
-      evaluate () {
-        const item = this._.find(this.payment.order.items, { refund: true })
-        this.items_selected = !!item
-      },
-
-      toggleRefundAll (event) {
-        this.payment.order.items.forEach((item) => {
-          if (item.status !== 'item_refunded') {
-            item.refund = event
-            const itemQuantity = item.quantity > 0 ? item.quantity : 1
-            item.refund_amount_in_dollar = (item.price + item.shipping_cost) * itemQuantity / 100
-          }
-        })
-        this.evaluate()
-      },
-
-      changeOrderItem (event) {
-        const item = this._.find(this.payment.order.items, { id: event.id })
-        item.refund = event.refund
-        item.refund_amount_in_dollar = event.refund_amount_in_dollar
-        this.evaluate()
-      }
-    },
-
-    created () {
-      this.payment = this.value
+    toggleRefundAll(event) {
       this.payment.order.items.forEach((item) => {
         if (item.status !== 'item_refunded') {
-          this.items_available = true
+          item.refund = event
           const itemQuantity = item.quantity > 0 ? item.quantity : 1
-          item.refund_amount_in_dollar = (item.price + item.shipping_cost) * itemQuantity / 100
+          item.refund_amount_in_dollar =
+            ((item.price + item.shipping_cost) * itemQuantity) / 100
         }
       })
-    }
-  }
+      this.evaluate()
+    },
+
+    changeOrderItem(event) {
+      const item = this._.find(this.payment.order.items, { id: event.id })
+      item.refund = event.refund
+      item.refund_amount_in_dollar = event.refund_amount_in_dollar
+      this.evaluate()
+    },
+  },
+
+  created() {
+    this.payment = this.value
+    this.payment.order.items.forEach((item) => {
+      if (item.status !== 'item_refunded') {
+        this.items_available = true
+        const itemQuantity = item.quantity > 0 ? item.quantity : 1
+        item.refund_amount_in_dollar =
+          ((item.price + item.shipping_cost) * itemQuantity) / 100
+      }
+    })
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -134,7 +134,7 @@
   border-left: none;
   border-top-left-radius: 7.5px;
   border-top-right-radius: 7.5px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 3px 3px 10px -4px grey;
 
   &__title {
@@ -150,7 +150,7 @@
     text-align: right;
     label {
       font-weight: 700;
-      color: #E53935;
+      color: #e53935;
     }
   }
 

@@ -48,28 +48,28 @@
   export default {
     components: {
       merchModal,
-      profileItem
+      profileItem,
     },
 
     props: {
       dataObject: {
-        type: Object
+        type: Object,
       },
 
       showButtonAction: {
-        type: Function
-      }
+        type: Function,
+      },
     },
 
-    data () {
+    data() {
       return {
         dialog: false,
-        showMerchModal: false
+        showMerchModal: false,
       }
     },
 
     computed: {
-      item () {
+      item() {
         if (this.dataObject.assoc_type) {
           return this.dataObject.assoc
         } else {
@@ -77,15 +77,15 @@
         }
       },
 
-      publisher () {
+      publisher() {
         if (this.dataObject.assoc_type) {
           return this.dataObject.publisher
         } else {
           return this.dataObject.merchant
         }
-      }
+      },
 
-      // owner () {
+      // owner() {
       //   if (this.dataObject.assoc_type) {
       //     return this.dataObject.assoc.merchant
       //   } else {
@@ -94,29 +94,29 @@
       // }
     },
 
-    created () {
+    created() {
     },
 
     methods: {
-      dimissMerchDialog () {
+      dimissMerchDialog() {
         this.showMerchModal = false
       },
 
-      showMerchDialog () {
+      showMerchDialog() {
         this.showMerchModal = true
       },
 
-      repostProduct () {
+      repostProduct() {
         this.dialog = false
         ProductService.repostProduct(this.item.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
-      }
+      },
     },
 
-    mounted () {
-    }
+    mounted() {
+    },
   }
 </script>

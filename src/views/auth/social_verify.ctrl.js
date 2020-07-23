@@ -1,28 +1,25 @@
 import AuthService from '@/services/auth.js'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       isLoading: false,
       showError: false,
       errorMessage: '',
       timeout: 3000,
-      query_string: []
+      query_string: [],
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'register', tab: ''})
+  created() {
+    this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
   },
 
   methods: {
-    submit () {      
-    }
-  }
+    submit() {},
+  },
 }

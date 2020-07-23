@@ -9,19 +9,24 @@
       <div class="section__content">
         <ul>
           <li @click="goTo('/terms')">Terms of Service</li>
-          <li @click="goTo('/terms#community_guidelines')">Community Guidlines</li>
+          <li @click="goTo('/terms#community_guidelines')">
+            Community Guidlines
+          </li>
           <li @click="goTo('/terms#privacy_policy')">Privacy Policy</li>
           <li @click="goTo('/terms#privacy_choice')">Privacy Choices</li>
-          <li @click="goTo('/terms#copyright_policy')">Copyright Policy (DMCA)</li>
+          <li @click="goTo('/terms#copyright_policy')">
+            Copyright Policy (DMCA)
+          </li>
           <li @click="goTo('/terms#trademark_policy')">Trademark Policy</li>
           <li @click="goTo('/terms#gdpr')">GDPR</li>
           <li @click="goTo('/terms#cookie_policy')">Cookie Policy</li>
-          <li @click="goTo('/terms#sample_clearance')">Sample Clearance License</li>
+          <li @click="goTo('/terms#sample_clearance')">
+            Sample Clearance License
+          </li>
         </ul>
       </div>
 
-      <div class="section__footer">
-      </div>
+      <div class="section__footer"></div>
     </div>
   </div>
 </template>
@@ -30,19 +35,19 @@
 import mobileHeader from './header'
 export default {
   components: {
-    mobileHeader
+    mobileHeader,
   },
 
   methods: {
-    closeMenu () {
+    closeMenu() {
       this.$emit('close-menu')
     },
 
-    goTo (path) {
+    goTo(path) {
       this.$router.push({ path: path })
       this.closeMenu()
-    }
-  }
+    },
+  },
 }
 </script>
 

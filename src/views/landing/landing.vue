@@ -8,8 +8,8 @@
           <section>
             <div>
               <h3>
-                Free Streaming.<br>
-                Free Downloads.<br>
+                Free Streaming.<br />
+                Free Downloads.<br />
                 No Ads.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
@@ -26,8 +26,8 @@
           <section>
             <div>
               <h3>
-                Share & Earn<br>
-                Money.<br>
+                Share & Earn<br />
+                Money.<br />
                 Shop.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">
@@ -43,8 +43,8 @@
           <section>
             <div>
               <h3>
-                Live Video<br>
-                with Artists &<br>
+                Live Video<br />
+                with Artists &<br />
                 Brands.
               </h3>
               <!-- <v-btn to="/register">
@@ -83,38 +83,41 @@ import landingFooter from './components/footer'
 export default {
   components: {
     landingHeader,
-    landingFooter
+    landingFooter,
   },
 
-  data () {
+  data() {
     return {
       options: {
         navigation: true,
         navigationPosition: 'left',
-        afterLoad: this.afterLoad
-      }
+        afterLoad: this.afterLoad,
+      },
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
-    }
+    },
   },
 
   methods: {
-    afterLoad () {
+    afterLoad() {
       console.log("Emitted 'after load' event.")
-    }
+    },
   },
 
-  created () {
+  created() {
     if (this.currentUser) {
-      this.$router.push({path: '/discover'})
+      this.$router.push({ path: '/discover' })
     } else {
-      this.$store.dispatch('navigator/goNextState', { page: 'landing', tab: '' })
+      this.$store.dispatch('navigator/goNextState', {
+        page: 'landing',
+        tab: '',
+      })
     }
-  }
+  },
 }
 </script>
 
@@ -166,7 +169,7 @@ export default {
   }
 
   .section {
-    &__content{
+    &__content {
       height: 100vh;
       padding: 120px 0 230px 0;
       section {
@@ -205,7 +208,7 @@ export default {
     }
 
     &:nth-child(1) {
-      background-image: linear-gradient(#7152FF, #3908FF);
+      background-image: linear-gradient(#7152ff, #3908ff);
       // /deep/ .fp-tableCell {
       //   background: url('/static/images/img_land_albums.png') no-repeat center center;
       //   background-size: auto 80%;
@@ -219,7 +222,7 @@ export default {
     }
 
     &:nth-child(2) {
-      background-image: linear-gradient(#17B9A0, #024848);
+      background-image: linear-gradient(#17b9a0, #024848);
       section {
         background-image: url('/static/images/img_land_products.png');
         background-position-x: 465px;
@@ -228,7 +231,8 @@ export default {
 
     &:nth-child(3) {
       //background-image: linear-gradient(#FF3434, #441009);
-      background: linear-gradient(#FF3434C0, #441009C0), url('/static/images/img_land_videos1.png');
+      background: linear-gradient(#ff3434c0, #441009c0),
+        url('/static/images/img_land_videos1.png');
       background-size: cover;
       section {
         .btn {
@@ -246,7 +250,7 @@ export default {
     }
 
     &:nth-child(4) {
-      background-image: linear-gradient(#5155FF, #62A3FF);
+      background-image: linear-gradient(#5155ff, #62a3ff);
       section {
         background-image: url('/static/images/img_land_artists.png');
         background-position-x: 500px;

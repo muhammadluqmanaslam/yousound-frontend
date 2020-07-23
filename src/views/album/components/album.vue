@@ -2,10 +2,23 @@
   <v-flex class="album-card">
     <v-flex xs12 class="album-info" pa-0>
       <v-flex xs12 class="album-cover">
-        <div class="album-image" :style="{'background-image': 'url(' + album.cover.url + ')'}"></div>
+        <div
+          class="album-image"
+          :style="{ 'background-image': 'url(' + album.cover.url + ')' }"
+        ></div>
         <v-flex xs12 class="album-actions">
-          <router-link :to="`/${album.album_type}/${album.slug}`"><v-flex xs12 class="touch-flex"></v-flex></router-link>
-          <v-flex xs12 class="touch-flex" @click.self="editButtonAction(album)" v-if="this.$store.state.auth.user.id === album.user.id && editButtonAction"></v-flex>
+          <router-link :to="`/${album.album_type}/${album.slug}`"
+            ><v-flex xs12 class="touch-flex"></v-flex
+          ></router-link>
+          <v-flex
+            xs12
+            class="touch-flex"
+            @click.self="editButtonAction(album)"
+            v-if="
+              this.$store.state.auth.user.id === album.user.id &&
+              editButtonAction
+            "
+          ></v-flex>
           <v-flex xs12 pt-2>
             <!-- <v-btn dark class="action-btn" @click.native="editButtonAction(album)">Edit</v-btn> -->
             <!-- <v-btn v-if="showPromoteButton"
@@ -16,65 +29,113 @@
                 dark
                 class="action-btn"
                 @click.native="deleteButtonAction(album)"
-              >Delete</v-btn>
+                >Delete</v-btn
+              >
               <v-btn
                 v-if="publishButtonAction"
                 dark
                 class="action-btn"
                 @click.native="publishButtonAction(album)"
-              >Make Public</v-btn>
+                >Make Public</v-btn
+              >
               <v-btn
                 v-if="videoOnlyButtonAction"
                 dark
                 class="action-btn"
                 @click.native="videoOnlyButtonAction(album)"
-              >Make Live Video Only</v-btn>
+                >Make Live Video Only</v-btn
+              >
               <v-btn
                 v-if="privateButtonAction"
                 dark
                 class="action-btn"
                 @click.native="privateButtonAction(album)"
-              >Make Private</v-btn>
+                >Make Private</v-btn
+              >
             </template>
 
             <template v-else>
-              <div v-if="album.status == 'pending'" class="collaboration-status">
-                <template v-if="album.user.id === this.$store.state.auth.user.id && usersCountByStatus.accepted === album.collaborators_count">
+              <div
+                v-if="album.status == 'pending'"
+                class="collaboration-status"
+              >
+                <template
+                  v-if="
+                    album.user.id === this.$store.state.auth.user.id &&
+                    usersCountByStatus.accepted === album.collaborators_count
+                  "
+                >
                   <div class="approve-wrapper">
-                    <div class="approved-text">This album has been <br><span>APPROVED</span></div>
-                    <v-btn dark class="action-btn release" @click.native="releaseButtonAction(album)">Release Now</v-btn>
+                    <div class="approved-text">
+                      This album has been <br /><span>APPROVED</span>
+                    </div>
+                    <v-btn
+                      dark
+                      class="action-btn release"
+                      @click.native="releaseButtonAction(album)"
+                      >Release Now</v-btn
+                    >
                   </div>
                 </template>
 
                 <div v-else class="status-overview">
                   <div v-if="usersCountByStatus.accepted > 0">
                     <div class="accepted-title">Accepted</div>
-                    <div v-for="c in usersByStatus.accepted">{{ c.user.display_name }}</div>
+                    <div v-for="c in usersByStatus.accepted">
+                      {{ c.user.display_name }}
+                    </div>
                   </div>
                   <div v-if="usersCountByStatus.denied > 0">
                     <div class="denied-title">Denied</div>
-                    <div v-for="c in usersByStatus.denied">{{ c.user.display_name }}</div>
+                    <div v-for="c in usersByStatus.denied">
+                      {{ c.user.display_name }}
+                    </div>
                   </div>
                   <div v-if="usersCountByStatus.pending > 0">
                     <div class="pending-title">Waiting for approval</div>
-                    <div v-for="c in usersByStatus.pending">{{ c.user.display_name }}</div>
+                    <div v-for="c in usersByStatus.pending">
+                      {{ c.user.display_name }}
+                    </div>
                   </div>
                 </div>
 
                 <div v-if="acceptButtonAction" class="collaboration-actions">
-                  <v-btn dark class="action-btn accept" @click.native="acceptButtonAction(album)">Accept</v-btn>
-                  <v-btn dark class="action-btn deny" @click.native="denyButtonAction(album)">Deny</v-btn>
+                  <v-btn
+                    dark
+                    class="action-btn accept"
+                    @click.native="acceptButtonAction(album)"
+                    >Accept</v-btn
+                  >
+                  <v-btn
+                    dark
+                    class="action-btn deny"
+                    @click.native="denyButtonAction(album)"
+                    >Deny</v-btn
+                  >
                 </div>
               </div>
 
-              <v-btn v-if="deleteButtonAction && this.$store.state.auth.user.id === album.user.id"
-                dark class="action-btn" @click.native="deleteButtonAction(album)">Delete</v-btn>
+              <v-btn
+                v-if="
+                  deleteButtonAction &&
+                  this.$store.state.auth.user.id === album.user.id
+                "
+                dark
+                class="action-btn"
+                @click.native="deleteButtonAction(album)"
+                >Delete</v-btn
+              >
 
-              <div v-if="album.status == 'collaborated'" class="collaboration-status">
+              <div
+                v-if="album.status == 'collaborated'"
+                class="collaboration-status"
+              >
                 <div class="status-overview">
                   <div>
                     <div class="accepted-title">Collaborators</div>
-                    <div v-for="c in usersByStatus.accepted">{{ c.user.display_name }}</div>
+                    <div v-for="c in usersByStatus.accepted">
+                      {{ c.user.display_name }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -84,8 +145,12 @@
         </v-flex>
       </v-flex>
       <v-flex xs12 class="album-detail" pa-0>
-        <router-link :to="`/${album.album_type}/${album.slug}`"><p class="album-name">{{ album.name }}</p></router-link>
-        <p class="album-posted-date">{{ album.created_at | formatDateFromNow }}</p>
+        <router-link :to="`/${album.album_type}/${album.slug}`"
+          ><p class="album-name">{{ album.name }}</p></router-link
+        >
+        <p class="album-posted-date">
+          {{ album.created_at | formatDateFromNow }}
+        </p>
       </v-flex>
     </v-flex>
 
@@ -95,96 +160,95 @@
       :dismiss="dismissPromoteDialog"
       :success="saveAndFinish"
     />
-  </v-flex>  
+  </v-flex>
 </template>
 
 <script type="text/javascript">
-  import _ from 'lodash'
-  import promoteModal from '@/components/promotemodal'
+import _ from 'lodash'
+import promoteModal from '@/components/promotemodal'
 
-  export default {
-    components: {
-      promoteModal
+export default {
+  components: {
+    promoteModal,
+  },
+
+  props: {
+    album: {
+      type: Object,
     },
 
-    props: {
-      album: {
-        type: Object
-      },
-
-      type: {
-        type: String
-      },
-
-      editButtonAction: {
-        type: Function
-      },
-
-      publishButtonAction: {
-        type: Function
-      },
-
-      privateButtonAction: {
-        type: Function
-      },
-
-      videoOnlyButtonAction: {
-        type: Function
-      },
-
-      deleteButtonAction: {
-        type: Function
-      },
-
-      acceptButtonAction: {
-        type: Function
-      },
-
-      denyButtonAction: {
-        type: Function
-      },
-
-      releaseButtonAction: {
-        type: Function
-      },
-
-      showPromoteButton: {
-        type: Boolean,
-        default: true
-      }
+    type: {
+      type: String,
     },
 
-    data () {
-      return {
-        isShowPromoteModal: false
-      }
+    editButtonAction: {
+      type: Function,
     },
 
-    computed: {
-      usersCountByStatus () {
-        return _.countBy(this.album.collaborators, 'status')
-      },
-
-      usersByStatus () {
-        return _.groupBy(this.album.collaborators, 'status')
-      }
+    publishButtonAction: {
+      type: Function,
     },
 
-    created () {
+    privateButtonAction: {
+      type: Function,
     },
 
-    methods: {
-      showPromoteDialog () {
-        this.isShowPromoteModal = true
-      },
+    videoOnlyButtonAction: {
+      type: Function,
+    },
 
-      dismissPromoteDialog () {
-        this.isShowPromoteModal = false
-      },
+    deleteButtonAction: {
+      type: Function,
+    },
 
-      saveAndFinish () {
-        this.dismissPromoteDialog()
-      }
+    acceptButtonAction: {
+      type: Function,
+    },
+
+    denyButtonAction: {
+      type: Function,
+    },
+
+    releaseButtonAction: {
+      type: Function,
+    },
+
+    showPromoteButton: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
+  data() {
+    return {
+      isShowPromoteModal: false,
     }
-  }
+  },
+
+  computed: {
+    usersCountByStatus() {
+      return _.countBy(this.album.collaborators, 'status')
+    },
+
+    usersByStatus() {
+      return _.groupBy(this.album.collaborators, 'status')
+    },
+  },
+
+  created() {},
+
+  methods: {
+    showPromoteDialog() {
+      this.isShowPromoteModal = true
+    },
+
+    dismissPromoteDialog() {
+      this.isShowPromoteModal = false
+    },
+
+    saveAndFinish() {
+      this.dismissPromoteDialog()
+    },
+  },
+}
 </script>

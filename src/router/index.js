@@ -58,7 +58,7 @@ import VideoDelete from '@/views/video/delete'
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
 
-export function createRouter (settings) {
+export function createRouter(settings) {
   let routes = [
     { path: '/', name: 'LandingPage', component: LandingPage },
     // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
@@ -66,20 +66,48 @@ export function createRouter (settings) {
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/login', name: 'Login', component: Login },
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword },
-    { path: '/reset_password/:token', name: 'ResetPassword', component: ResetPassword },
+    {
+      path: '/reset_password/:token',
+      name: 'ResetPassword',
+      component: ResetPassword,
+    },
     { path: '/terms', name: 'TermsPage', component: TermsPage },
     { path: '/squad', name: 'OverviewPage', component: OverviewPage },
-    { path: '/_oauth/verification', name: 'SocialVerification', component: SocialVerification },
-    { path: '/_oauth/stripe_connect_callback', name: 'StripeConnectPage', component: StripeConnectPage },
-    { path: '/_oauth/twitter_confirm', name: 'TwitterConfirmPage', component: TwitterConfirmPage },
-    { path: '/_oauth/twitter_callback', name: 'TwitterCallbackPage', component: TwitterCallbackPage },
-    { path: '/confirm/:token', name: 'Confirmation', component: Confirmation }
+    {
+      path: '/_oauth/verification',
+      name: 'SocialVerification',
+      component: SocialVerification,
+    },
+    {
+      path: '/_oauth/stripe_connect_callback',
+      name: 'StripeConnectPage',
+      component: StripeConnectPage,
+    },
+    {
+      path: '/_oauth/twitter_confirm',
+      name: 'TwitterConfirmPage',
+      component: TwitterConfirmPage,
+    },
+    {
+      path: '/_oauth/twitter_callback',
+      name: 'TwitterCallbackPage',
+      component: TwitterCallbackPage,
+    },
+    { path: '/confirm/:token', name: 'Confirmation', component: Confirmation },
   ]
 
   if (!settings.disable_sign_up) {
     routes = routes.concat([
-      { path: '/register', name: 'ListenerRegister', component: ListenerRegister },
-      { path: '/register/attendee/:token', name: 'AttendeeRegister', component: AttendeeRegister }
+      {
+        path: '/register',
+        name: 'ListenerRegister',
+        component: ListenerRegister,
+      },
+      {
+        path: '/register/attendee/:token',
+        name: 'AttendeeRegister',
+        component: AttendeeRegister,
+      },
       // { path: '/register', name: 'RegisterAs', component: RegisterAs },
       // { path: '/register/artist', name: 'ArtistRegister', component: ArtistRegister },
       // { path: '/register/label', name: 'LabelRegister', component: LabelRegister },
@@ -88,10 +116,14 @@ export function createRouter (settings) {
   } else {
     routes = routes.concat([
       { path: '/register', name: 'RegisterAs', redirect: '/login' },
-      { path: '/register/listener', name: 'ListenerRegister', redirect: '/login' },
+      {
+        path: '/register/listener',
+        name: 'ListenerRegister',
+        redirect: '/login',
+      },
       { path: '/register/artist', name: 'ArtistRegister', redirect: '/login' },
       { path: '/register/label', name: 'LabelRegister', redirect: '/login' },
-      { path: '/register/brand', name: 'BrandRegister', redirect: '/login' }
+      { path: '/register/brand', name: 'BrandRegister', redirect: '/login' },
     ])
   }
 
@@ -101,7 +133,12 @@ export function createRouter (settings) {
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/video', name: 'VideoIndex', component: VideoIndex },
     { path: '/discover', name: 'Discover', component: Discover },
-    { path: '/search', name: 'Search', component: SearchPage, props: (route) => ({query: route.query.q}) },
+    {
+      path: '/search',
+      name: 'Search',
+      component: SearchPage,
+      props: (route) => ({ query: route.query.q }),
+    },
     { path: '/feed', name: 'Feed', component: Feed },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/messages', name: 'Messages', component: Messages },
@@ -114,7 +151,11 @@ export function createRouter (settings) {
     { path: '/album/:slug', name: 'AlbumDetail', component: AlbumDetail },
     { path: '/x', name: 'AddAttendee', component: AddAttendee },
     { path: '/playlist', name: 'Playlist', component: CreateAttendee },
-    { path: '/playlist/:slug', name: 'PlaylistDetail', component: PlaylistDetail },
+    {
+      path: '/playlist/:slug',
+      name: 'PlaylistDetail',
+      component: PlaylistDetail,
+    },
     { path: '/album/:slug/stats', name: 'AlbumStats', component: AlbumStats },
     { path: '/albums', name: 'AlbumsManage', component: AlbumsManage },
     { path: '/labels', name: 'LabelsManage', component: LabelsManage },
@@ -125,29 +166,43 @@ export function createRouter (settings) {
     { path: '/settings', name: 'UserSettings', component: UserSettings },
     { path: '/:slug', name: 'UserProfile', component: UserProfile },
     { path: '/user/:user/chat', name: 'Chat', component: Chat },
-    { path: '/user/:user/messages', name: 'DirectMessages', component: DirectMessages }
+    {
+      path: '/user/:user/messages',
+      name: 'DirectMessages',
+      component: DirectMessages,
+    },
   ])
 
   if (!settings.disable_live_video) {
     routes = routes.concat([
-      { path: '/user/:user/video', name: 'VideoManage', component: VideoManage },
-      { path: '/user/:user/video/create', name: 'VideoCreate', component: VideoCreate },
-      { path: '/user/:user/video/delete', name: 'VideoDelete', component: VideoDelete }
+      {
+        path: '/user/:user/video',
+        name: 'VideoManage',
+        component: VideoManage,
+      },
+      {
+        path: '/user/:user/video/create',
+        name: 'VideoCreate',
+        component: VideoCreate,
+      },
+      {
+        path: '/user/:user/video/delete',
+        name: 'VideoDelete',
+        component: VideoDelete,
+      },
     ])
   } else {
     routes = routes.concat([
       { path: '/user/:user/video', name: 'VideoManage', redirect: '/' },
       { path: '/user/:user/video/create', name: 'VideoCreate', redirect: '/' },
-      { path: '/user/:user/video/delete', name: 'VideoDelete', redirect: '/' }
+      { path: '/user/:user/video/delete', name: 'VideoDelete', redirect: '/' },
     ])
   }
 
-  routes = routes.concat([
-    { path: '*', redirect: '/' }
-  ])
+  routes = routes.concat([{ path: '*', redirect: '/' }])
 
   return new Router({
     mode: 'history',
-    routes: routes
+    routes: routes,
   })
 }

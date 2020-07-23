@@ -1,7 +1,7 @@
 <template>
   <div class="page auth-page auth-register-page">
     <div class="text-xs-center">
-      <img class="logo" src="/static/images/nav_logo_primary.png">
+      <img class="logo" src="/static/images/nav_logo_primary.png" />
       <h4>Sign Up</h4>
     </div>
 
@@ -12,34 +12,93 @@
     >
       <v-flex xs12 text-xs-center>
         <div class="avatar-area">
-          <img class="avatar" src="/static/images/placeholder.png" id="avatar" ref="avatar" />
+          <img
+            class="avatar"
+            src="/static/images/placeholder.png"
+            id="avatar"
+            ref="avatar"
+          />
           <label class="upload-caption">Upload image</label>
           <div class="avatar-upload">
-            <input type="file" name="avatar_file" id="avatar_file" ref="avatar_file" class="avatar-file" accept="image/*" v-validate="'required'" @change="imageChanged($event)">
+            <input
+              type="file"
+              name="avatar_file"
+              id="avatar_file"
+              ref="avatar_file"
+              class="avatar-file"
+              accept="image/*"
+              v-validate="'required'"
+              @change="imageChanged($event)"
+            />
             <label for="avatar_file">Choose a file</label>
           </div>
         </div>
       </v-flex>
       <v-flex xs12 text-xs-center>
-        <input class="username" type="text" name="username" placeholder="Username" autocomplete="off" v-model="user.username" v-validate="'required|max:20'">
+        <input
+          class="username"
+          type="text"
+          name="username"
+          placeholder="Username"
+          autocomplete="off"
+          v-model="user.username"
+          v-validate="'required|max:20'"
+        />
       </v-flex>
       <v-flex xs12 text-xs-center>
-        <input class="displayname" type="text" name="display_name" placeholder="Display Name" autocomplete="off" v-model="user.display_name" v-validate="'required|max:20'">
+        <input
+          class="displayname"
+          type="text"
+          name="display_name"
+          placeholder="Display Name"
+          autocomplete="off"
+          v-model="user.display_name"
+          v-validate="'required|max:20'"
+        />
       </v-flex>
       <v-flex xs12 text-xs-center>
-        <input class="email" type="email" name="email" placeholder="Email" autocomplete="off" v-model="user.email" disabled>
+        <input
+          class="email"
+          type="email"
+          name="email"
+          placeholder="Email"
+          autocomplete="off"
+          v-model="user.email"
+          disabled
+        />
       </v-flex>
       <v-flex xs12 text-xs-center>
-        <input class="password" type="password" name="password" placeholder="Password" autocomplete="off" v-model="user.password" v-validate="'required|min:6'">
+        <input
+          class="password"
+          type="password"
+          name="password"
+          placeholder="Password"
+          autocomplete="off"
+          v-model="user.password"
+          v-validate="'required|min:6'"
+        />
       </v-flex>
       <v-flex xs12 text pa-0>
         <p class="regular-checkbox">
-          <input id="terms" type="checkbox" name="terms" v-model="terms" v-validate="'required'"/>
-          <label for="terms">Accept <router-link class="forgot-password" to="#">Terms & Conditions</router-link></label>
+          <input
+            id="terms"
+            type="checkbox"
+            name="terms"
+            v-model="terms"
+            v-validate="'required'"
+          />
+          <label for="terms"
+            >Accept
+            <router-link class="forgot-password" to="#"
+              >Terms & Conditions</router-link
+            ></label
+          >
         </p>
       </v-flex>
       <v-flex xs12 text-xs-center>
-        <v-btn block round dark type="submit" class="create-account-button">Create account</v-btn>
+        <v-btn block round dark type="submit" class="create-account-button"
+          >Create account</v-btn
+        >
       </v-flex>
     </form>
 
@@ -56,33 +115,61 @@
       fullscreen
     >
       <v-layout row wrap class="page auth-page auth-twitter-page">
-        <v-flex xs12 sm6 offset-sm3 md6 offset-md3 lg8 offset-lg2 xl8 offset-xl2 transition="slide-x-reverse-transition" v-if="isPageReady">
+        <v-flex
+          xs12
+          sm6
+          offset-sm3
+          md6
+          offset-md3
+          lg8
+          offset-lg2
+          xl8
+          offset-xl2
+          transition="slide-x-reverse-transition"
+          v-if="isPageReady"
+        >
           <div class="page-header">
             <v-flex xs12 text-xs-center>
-              <img class="logo" src="/static/images/nav_logo_primary.png">
+              <img class="logo" src="/static/images/nav_logo_primary.png" />
             </v-flex>
             <v-flex xs12 text-xs-center>
               <h4>Additional Information</h4>
             </v-flex>
           </div>
           <div class="page-content">
-            <form v-on:submit.prevent="submitAdditionalForm()" data-vv-scope="additional-form">
+            <form
+              v-on:submit.prevent="submitAdditionalForm()"
+              data-vv-scope="additional-form"
+            >
               <v-layout row wrap>
                 <v-flex xs12>
                   <h5>Personal Info</h5>
                 </v-flex>
                 <v-flex xs6 pt-3 px-2 text-xs-center>
-                  <input v-model="user.first_name" v-validate="'required'"
-                    type="text" name="first_name" autocomplete="off" placeholder="First Name">
+                  <input
+                    v-model="user.first_name"
+                    v-validate="'required'"
+                    type="text"
+                    name="first_name"
+                    autocomplete="off"
+                    placeholder="First Name"
+                  />
                 </v-flex>
                 <v-flex xs6 pt-3 px-2 text-xs-center>
-                  <input v-model="user.last_name" v-validate="'required'"
-                    type="text" name="last_name" autocomplete="off" placeholder="Last Name">
+                  <input
+                    v-model="user.last_name"
+                    v-validate="'required'"
+                    type="text"
+                    name="last_name"
+                    autocomplete="off"
+                    placeholder="Last Name"
+                  />
                 </v-flex>
                 <v-flex xs6 pt-3 px-2 text-xs-center>
                   <!-- <input v-model="user.year_of_birth" v-validate="'required|numeric'"
                     type="text" name="year_of_birth" autocomplete="off" placeholder="Year of Birth"> -->
-                  <v-select v-validate="'required'"
+                  <v-select
+                    v-validate="'required'"
                     :items="year_of_birth_options"
                     v-model="user.year_of_birth"
                     name="year_of_birth"
@@ -91,7 +178,8 @@
                   />
                 </v-flex>
                 <v-flex xs6 pt-3 px-2 text-xs-center>
-                  <v-select v-validate="'required'"
+                  <v-select
+                    v-validate="'required'"
                     :items="gender_options"
                     v-model="user.gender"
                     name="gender"
@@ -99,7 +187,8 @@
                   />
                 </v-flex>
                 <v-flex xs6 pt-3 px-2 text-xs-center>
-                  <v-select v-validate="'required'"
+                  <v-select
+                    v-validate="'required'"
                     :items="country_options"
                     v-model="user.country"
                     name="country"
@@ -108,11 +197,17 @@
                   />
                 </v-flex>
                 <v-flex xs6 pt-3 px-2 text-xs-center>
-                  <input v-model="user.city" v-validate="'required'"
-                    type="text" name="city" autocomplete="off" placeholder="City">
+                  <input
+                    v-model="user.city"
+                    v-validate="'required'"
+                    type="text"
+                    name="city"
+                    autocomplete="off"
+                    placeholder="City"
+                  />
                 </v-flex>
 
-                <template v-if="user.request_role=='artist'">
+                <template v-if="user.request_role == 'artist'">
                   <v-flex xs12>
                     <h5 class="pt-3"><span>Artist</span> Info</h5>
                   </v-flex>
@@ -242,7 +337,7 @@
                       type="text" name="ipi_cae_number" autocomplete="off" placeholder="IPI/CAE number">
                   </v-flex> -->
                 </template>
-                <template v-else-if="user.request_role=='label'">
+                <template v-else-if="user.request_role == 'label'">
                   <v-flex xs12>
                     <h5 class="pt-3"><span>Label</span> Info</h5>
                   </v-flex>
@@ -359,7 +454,7 @@
                     />
                   </v-flex>
                 </template>
-                <template v-else-if="user.request_role=='brand'">
+                <template v-else-if="user.request_role == 'brand'">
                   <v-flex xs12>
                     <h5 class="pt-3"><span>Brand</span> Info</h5>
                   </v-flex>
@@ -372,8 +467,13 @@
                     />
                   </v-flex>
                   <v-flex xs6 pt-3 px-2 text-xs-center>
-                    <input v-model="user.customized_brand_type"
-                      type="text" name="customized_brand_type" autocomplete="off" placeholder="If your Brand type isn't listed what kind of brand are you?">
+                    <input
+                      v-model="user.customized_brand_type"
+                      type="text"
+                      name="customized_brand_type"
+                      autocomplete="off"
+                      placeholder="If your Brand type isn't listed what kind of brand are you?"
+                    />
                   </v-flex>
                   <v-flex xs6 pt-3 px-2 text-xs-center>
                     <v-select
@@ -466,24 +566,48 @@
                 </template>
 
                 <v-flex xs6 pt-3 px-2 text-xs-center>
-                  <input v-model="user.website_1_url" v-validate="'required|max:1023|url'"
-                    type="text" name="website_1_url" autocomplete="off" placeholder="Website URL">
+                  <input
+                    v-model="user.website_1_url"
+                    v-validate="'required|max:1023|url'"
+                    type="text"
+                    name="website_1_url"
+                    autocomplete="off"
+                    placeholder="Website URL"
+                  />
                 </v-flex>
                 <v-flex xs6 pt-3 px-2 text-xs-center>
-                  <input v-model="user.website_2_url" v-validate="'max:1023|url'"
-                    type="text" name="website_2_url" autocomplete="off" placeholder="Website URL">
+                  <input
+                    v-model="user.website_2_url"
+                    v-validate="'max:1023|url'"
+                    type="text"
+                    name="website_2_url"
+                    autocomplete="off"
+                    placeholder="Website URL"
+                  />
                 </v-flex>
                 <v-flex xs12 pt-3 px-2 text-xs-center>
-                  <textarea v-model="user.history" v-validate="'required|max:1023'"
-                    name="history" placeholder="What artists and/or labels have you previously worked with?"></textarea>
+                  <textarea
+                    v-model="user.history"
+                    v-validate="'required|max:1023'"
+                    name="history"
+                    placeholder="What artists and/or labels have you previously worked with?"
+                  ></textarea>
                 </v-flex>
                 <v-flex xs12 text-xs-center>
                   <p>
-                    All of the information you share with us is secure, never sold & used to verify users.<br>
+                    All of the information you share with us is secure, never
+                    sold & used to verify users.<br />
                     You agree to our terms of services by signing up.
-                    <router-link class="forgot-password" to="/terms" target="_blank">View our terms.</router-link>
+                    <router-link
+                      class="forgot-password"
+                      to="/terms"
+                      target="_blank"
+                      >View our terms.</router-link
+                    >
                   </p>
-                  <v-btn block round dark type="submit" class="reset-btn">Next</v-btn>
+                  <v-btn block round dark type="submit" class="reset-btn"
+                    >Next</v-btn
+                  >
                 </v-flex>
               </v-layout>
             </form>

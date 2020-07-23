@@ -4,40 +4,65 @@ import $store from '@/store'
 const API_BASE_URL = process.env.API_BASE_URL + '/v1/activities'
 
 export default {
-  getActivities (params) {
-    return Vue.http.get(API_BASE_URL, { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  getActivities(params) {
+    return Vue.http.get(API_BASE_URL, {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
   },
 
-  getMetrics (params) {
-    return Vue.http.get(API_BASE_URL + '/metrics', { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  getMetrics(params) {
+    return Vue.http.get(API_BASE_URL + '/metrics', {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
   },
 
-  getUnread () {
-    return Vue.http.get(API_BASE_URL + '/unread', { headers: { 'Authorization': $store.state.auth.token } })
+  getUnread() {
+    return Vue.http.get(API_BASE_URL + '/unread', {
+      headers: { Authorization: $store.state.auth.token },
+    })
   },
 
-  makeRead (type) {
-    return Vue.http.get(API_BASE_URL + '/read?module_type=' + type, { headers: { 'Authorization': $store.state.auth.token } })
+  makeRead(type) {
+    return Vue.http.get(API_BASE_URL + '/read?module_type=' + type, {
+      headers: { Authorization: $store.state.auth.token },
+    })
   },
 
   /* album / {id} / activities */
-  getAlbumActivities (albumId, params) {
-    return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  getAlbumActivities(albumId, params) {
+    return Vue.http.get(
+      `${process.env.API_BASE_URL}/v1/albums/${albumId}/activities`,
+      { headers: { Authorization: $store.state.auth.token }, params: params }
+    )
   },
 
-  getAlbumStats (albumId) {
-    return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/stats`, { headers: { 'Authorization': $store.state.auth.token } })
+  getAlbumStats(albumId) {
+    return Vue.http.get(
+      `${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/stats`,
+      { headers: { Authorization: $store.state.auth.token } }
+    )
   },
 
-  repostedBy (albumId, params) {
-    return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/reposted_by`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  repostedBy(albumId, params) {
+    return Vue.http.get(
+      `${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/reposted_by`,
+      { headers: { Authorization: $store.state.auth.token }, params: params }
+    )
   },
 
-  downloadedBy (albumId, params) {
-    return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/downloaded_by`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
+  downloadedBy(albumId, params) {
+    return Vue.http.get(
+      `${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/downloaded_by`,
+      { headers: { Authorization: $store.state.auth.token }, params: params }
+    )
   },
 
-  playedBy (albumId, params) {
-    return Vue.http.get(`${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/played_by`, { headers: { 'Authorization': $store.state.auth.token }, params: params })
-  }
+  playedBy(albumId, params) {
+    return Vue.http.get(
+      `${process.env.API_BASE_URL}/v1/albums/${albumId}/activities/played_by`,
+      { headers: { Authorization: $store.state.auth.token }, params: params }
+    )
+  },
 }

@@ -35,10 +35,10 @@ export default {
     downloadModal,
     merchModal,
     paymentModal,
-    shareModal
+    shareModal,
   },
 
-  data () {
+  data() {
     return {
       can_view: false,
       player: null,
@@ -68,10 +68,10 @@ export default {
           links: false,
           charLimitBool: false,
           charLimit: 100,
-          attachments: true
+          attachments: true,
         },
         online: [],
-        idle: []
+        idle: [],
       },
       message: '',
       messages: [],
@@ -79,34 +79,34 @@ export default {
       merchLinks: {},
       userLinks: {},
       notAttachments: [],
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    stream () {
+    stream() {
       return this.$store.state.videoPlayer.stream
     },
 
-    streamGenreName () {
+    streamGenreName() {
       return _.get(this.stream, 'genre.name', '')
     },
 
-    //#TODO change user -> streamingUser
-    user () {
+    // #TODO change user -> streamingUser
+    user() {
       return _.get(this.stream, 'user', null)
     },
 
-    album () {
+    album() {
       // return this.albums[0]
       return _.get(this.stream, 'assoc')
     },
 
-    product () {
+    product() {
       // return this.products[0]
       return _.get(this.stream, 'assoc')
     },
@@ -115,7 +115,7 @@ export default {
       return this.messages.slice(0, 3).reverse()
     },
 
-    isInCart () {
+    isInCart() {
       if (this.stream.assoc_type != 'ShopProduct') {
         return false
       }
@@ -127,29 +127,32 @@ export default {
       return !!item
     },
 
-    showAttachButton () {
-      return this.stream && ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1
+    showAttachButton() {
+      return (
+        this.stream &&
+        ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1
+      )
     },
 
     /* add latency on playing video confirmation dialog */
-    enabledPlaying () {
-      return this.latency_time <=  0
+    enabledPlaying() {
+      return this.latency_time <= 0
     },
 
-    latencyTime () {
+    latencyTime() {
       return this.enabledPlaying ? '' : ` (${this.latency_time})`
     },
 
-    followButtonText () {
+    followButtonText() {
       if (this.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
       }
       return 'Follow'
-    }
+    },
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       // console.log('video-player', toPath.path, fromPath.path)
       this.show_payment_dialog = false
       this.show_streaming_confirm_dialog = false
@@ -171,10 +174,10 @@ export default {
           this.latency_time_interval = null
         }
       }
-    }
+    },
   },
 
-  created () {
+  created() {
     // console.log('video-player created')
     // this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
@@ -187,25 +190,29 @@ export default {
     Promise.all([
       AlbumService.getAlbums({
         statuses: 'published, collaborated',
-        user_statuses: 'accepted'
+        user_statuses: 'accepted',
       }),
       ProductService.getProducts({
         statuses: 'published, collaborated',
         stock_statuses: 'active',
-        user_statuses: 'accepted'
+        user_statuses: 'accepted',
+      }),
+    ])
+      .then((values) => {
+        this.albums = values[0].body
+        this.products = values[1].body
       })
-    ]).then(values => {
-      this.albums = values[0].body
-      this.products = values[1].body
-    }).catch(reason => {
-      console.log(reason)
-      // this.$store.dispatch('error/showErrorToast', [reason])
-    })
+      .catch((reason) => {
+        console.log(reason)
+        // this.$store.dispatch('error/showErrorToast', [reason])
+      })
 
-    this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
+    this.cable = ActionCable.createConsumer(
+      `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
+    )
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     // console.log('video-player beforeDestroy')
     // this.$root.$off(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
@@ -218,13 +225,13 @@ export default {
   },
 
   methods: {
-    init () {
+    init() {
       console.log('video-player initializing...')
       // this.player.load('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.openStreamingConfirmDialog()
       this.can_view = false
-      StreamService.canViewStream(this.stream.id).then(response => {
+      StreamService.canViewStream(this.stream.id).then((response) => {
         if (response.body.code) {
           // console.log(1, response.body.code)
           this.can_view = true
@@ -240,7 +247,7 @@ export default {
       })
     },
 
-    initPlayer (url) {
+    initPlayer(url) {
       const vm = this
       // if (vm.player) {
       //   // vm.player.unload()
@@ -248,100 +255,102 @@ export default {
       // }
 
       // console.log('bean', window.flowplayer.bean)
-      vm.player = window.flowplayer('#my_video', {
-        // debug: true,
-        autoplay: true,
-        splash: true,
-        poster: false,
-        live: true,
-        share: false,
-        keyboard: false,
-        fullscreen: true,
-        native_fullscreen: true,
-        key: '$512206430871778',
-        clip: {
-          hlsjs: {
-            xhrSetup: function (xhr, url) {
-              // xhr.addEventListener('error', function (e) {
-              //   console.log('xhr error', e)
-              //   vm.player.trigger('error', [vm.player, {code: 2}]);
-              // })
-              // console.log(xhr, url)
-              xhr.addEventListener('readystatechange', function (e) {
-                let xstatus = e.currentTarget.status
-                // console.log('xhr readystatechange', xhr, e)
-                // xstatus returns 0
-                if (xhr.readyState === 4 && xstatus >= 400 && xstatus < 499) {
-                  vm.player.trigger('error', [vm.player, {code: 4}]);
-                }
-              })
-            }
+      vm.player = window
+        .flowplayer('#my_video', {
+          // debug: true,
+          autoplay: true,
+          splash: true,
+          poster: false,
+          live: true,
+          share: false,
+          keyboard: false,
+          fullscreen: true,
+          native_fullscreen: true,
+          key: '$512206430871778',
+          clip: {
+            hlsjs: {
+              xhrSetup: function (xhr, url) {
+                // xhr.addEventListener('error', function (e) {
+                //   console.log('xhr error', e)
+                //   vm.player.trigger('error', [vm.player, {code: 2}]);
+                // })
+                // console.log(xhr, url)
+                xhr.addEventListener('readystatechange', function (e) {
+                  let xstatus = e.currentTarget.status
+                  // console.log('xhr readystatechange', xhr, e)
+                  // xstatus returns 0
+                  if (xhr.readyState === 4 && xstatus >= 400 && xstatus < 499) {
+                    vm.player.trigger('error', [vm.player, { code: 4 }])
+                  }
+                })
+              },
+            },
+            flashls: {
+              manifestloadmaxretry: 3,
+            },
+            hlsQualities: [-1, 1, 3, 6, 7],
+            sources: [{ type: 'application/x-mpegurl', src: url }],
           },
-          flashls: {
-            manifestloadmaxretry: 3
-          },
-          hlsQualities: [-1, 1, 3, 6, 7],
-          sources: [
-            { type: 'application/x-mpegurl', src: url }
-          ]
-        }
-      }).on('error', function (e, api, err) {
-        console.log('fp error', err)
-        // var delay = initialDelay;
-        // clearInterval(timer);
+        })
+        .on('error', function (e, api, err) {
+          console.log('fp error', err)
+          // var delay = initialDelay;
+          // clearInterval(timer);
 
-        if (err.code === 2 || err.code === 4) {
-          api.shutdown()
-          // // it unloads the engine, so api.load() is not working
-          // console.log('fp error', err.code, api)
-          // api.error = api.loading = false
-          // api.load()
-          // api.fullscreen()
-          // container.className += " is-offline";
-          // if (flowplayer.support.flashVideo) {
-          //   api.one("flashdisabled", function () {
-          //     container.querySelector(".fp-flash-disabled").style.display = "none";
-          //   });
-          // }
-          // timer = setInterval(function () {
-          //   var messageElement = container.querySelector(".fp-ui .fp-message");
-          //   delay -= 1;
-          //   if (delay && messageElement) {
-          //     messageElement.querySelector("span").innerHTML = delay;
-          //     // only for disconnected user:
-          //     messageElement.style.backgroundImage = "url(" + errImage.src + ")";
-          //   } else {
-          //     clearInterval(timer);
-          //     api.error = api.loading = false;
-          //     if (messageElement) {
-          //       container.querySelector(".fp-ui").removeChild(messageElement);
-          //     }
-          //     container.className = container.className.replace(/\bis-(error|offline)\b/g, "")
-          //     api.load()
-          //   }
-          // }, 1000)
-        }
-      }).on('progress', function (e, api, time) {
-        // console.log('flowplayer progress...', api.paused, api.playing, time)
-        vm.time = parseInt(time)
-        if (!vm.$store.getters['videoPlayer/isPlaying']) {
-          if (api.playing) {
-            vm.$store.dispatch('videoPlayer/setPlayMode', 'playing')
+          if (err.code === 2 || err.code === 4) {
+            api.shutdown()
+            // // it unloads the engine, so api.load() is not working
+            // console.log('fp error', err.code, api)
+            // api.error = api.loading = false
+            // api.load()
+            // api.fullscreen()
+            // container.className += " is-offline";
+            // if (flowplayer.support.flashVideo) {
+            //   api.one("flashdisabled", function() {
+            //     container.querySelector(".fp-flash-disabled").style.display = "none";
+            //   });
+            // }
+            // timer = setInterval(function() {
+            //   var messageElement = container.querySelector(".fp-ui .fp-message");
+            //   delay -= 1;
+            //   if (delay && messageElement) {
+            //     messageElement.querySelector("span").innerHTML = delay;
+            //     // only for disconnected user:
+            //     messageElement.style.backgroundImage = "url(" + errImage.src + ")";
+            //   } else {
+            //     clearInterval(timer);
+            //     api.error = api.loading = false;
+            //     if (messageElement) {
+            //       container.querySelector(".fp-ui").removeChild(messageElement);
+            //     }
+            //     container.className = container.className.replace(/\bis-(error|offline)\b/g, "")
+            //     api.load()
+            //   }
+            // }, 1000)
           }
-        }
-      // }).on('play', function (e, api) {
-      //   console.log('flowplayer play...')
-      // }).on('resume', function (e, api) {
-      //   // console.log('flowplayer resume...')
-      }).on('pause', function (e, api) {
-        // console.log('flowplayer pause...')
-        vm.$store.dispatch('videoPlayer/setPlayMode', 'paused')
-      })
+        })
+        .on('progress', function (e, api, time) {
+          // console.log('flowplayer progress...', api.paused, api.playing, time)
+          vm.time = parseInt(time)
+          if (!vm.$store.getters['videoPlayer/isPlaying']) {
+            if (api.playing) {
+              vm.$store.dispatch('videoPlayer/setPlayMode', 'playing')
+            }
+          }
+          // }).on('play', function (e, api) {
+          //   console.log('flowplayer play...')
+          // }).on('resume', function (e, api) {
+          //   // console.log('flowplayer resume...')
+        })
+        .on('pause', function (e, api) {
+          // console.log('flowplayer pause...')
+          vm.$store.dispatch('videoPlayer/setPlayMode', 'paused')
+        })
 
       this.stream_subscription = this.cable.subscriptions.create(
         {
           channel: 'StreamsChannel',
-          stream_id: vm.$store.state.videoPlayer.stream.id
+          stream_id: vm.$store.state.videoPlayer.stream.id,
         },
         {
           connected: () => {
@@ -360,109 +369,121 @@ export default {
           },
           disconnected: () => {
             console.log('disconnected to StreamsChannel :(')
-          }
+          },
         }
       )
 
-      this.chat_socket = new SocketManager(process.env.CHAT_SERVER_URL, this.user.slug, AuthService.getToken(), () => {
-        this.chat_socket.onDisconnect = () => {
-          console.log('videoPlayer onDisconnect')
-        }
+      this.chat_socket = new SocketManager(
+        process.env.CHAT_SERVER_URL,
+        this.user.slug,
+        AuthService.getToken(),
+        () => {
+          this.chat_socket.onDisconnect = () => {
+            console.log('videoPlayer onDisconnect')
+          }
 
-        this.chat_socket.onMessage = function (message) {
-          // console.log('videoPlayer onMessage', message)
-          if (!message) return;
+          this.chat_socket.onMessage = function (message) {
+            // console.log('videoPlayer onMessage', message)
+            if (!message) return
 
-          // look up the username in message.from to get image, etc.
-          if (message.from === vm.currentUser.username) {
-            message.me = true
-            message.fromUser = vm.currentUser
-            vm.messages.unshift(message)
-          } else {
-            UserService.getUserInfo(message.from).then(response => {
-              message.fromUser = response.body
-              if (vm.messages.length != 0) {
-                if (vm.messages[0].localId != message.localId) {
-                  vm.messages.unshift(message)
+            // look up the username in message.from to get image, etc.
+            if (message.from === vm.currentUser.username) {
+              message.me = true
+              message.fromUser = vm.currentUser
+              vm.messages.unshift(message)
+            } else {
+              UserService.getUserInfo(message.from).then((response) => {
+                message.fromUser = response.body
+                if (vm.messages.length != 0) {
+                  if (vm.messages[0].localId != message.localId) {
+                    vm.messages.unshift(message)
+                  }
                 }
+              })
+            }
+
+            if (vm.isAlbumLink(message.text)) {
+              vm.getAlbumFromLink(message.text)
+            }
+
+            if (vm.isMerchLink(message.text)) {
+              vm.getMerchFromLink(message.text)
+            }
+
+            if (vm.isUserLink(message.text)) {
+              vm.getUserFromLink(message.text)
+            }
+          }
+
+          // this.chat_socket.onUserInfo = function (user) {
+          //   console.log('videoPlayer onUserInfo')
+          //   vm.user = user
+          // }
+
+          this.chat_socket.onRoomInfo = async (room) => {
+            console.log('videoPlayer onRoomInfo', room)
+            // Vue.set(vm, 'room', room)
+            vm.room = room
+          }
+
+          this.chat_socket.onLoadMessages = function (loadMessageObj) {
+            // console.log('videoPlayer onLoadMessages')
+            // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
+            for (
+              var i = loadMessageObj.chunk * 500;
+              i < (loadMessageObj.chunk + 1) * 500;
+              i++
+            ) {
+              var nextMessage =
+                loadMessageObj.data[i - loadMessageObj.chunk * 500]
+              if (nextMessage) {
+                Vue.set(vm.messages, i, nextMessage)
+              }
+            }
+            vm.messages.map((message) => {
+              if (message) {
+                if (vm.isAlbumLink(message.text)) {
+                  vm.getAlbumFromLink(message.text)
+                }
+                if (vm.isMerchLink(message.text)) {
+                  vm.getMerchFromLink(message.text)
+                }
+                if (vm.isUserLink(message.text)) {
+                  vm.getUserFromLink(message.text)
+                }
+                if (message.from === vm.currentUser.username) {
+                  message.me = true
+                }
+                UserService.getUserInfo(message.from).then((response) => {
+                  Vue.set(message, 'fromUser', response.body)
+                })
+                return message
               }
             })
           }
-
-          if (vm.isAlbumLink(message.text)) {
-            vm.getAlbumFromLink(message.text)
-          }
-
-          if (vm.isMerchLink(message.text)) {
-            vm.getMerchFromLink(message.text)
-          }
-
-          if (vm.isUserLink(message.text)) {
-            vm.getUserFromLink(message.text)
-          }
         }
-
-        // this.chat_socket.onUserInfo = function (user) {
-        //   console.log('videoPlayer onUserInfo')
-        //   vm.user = user
-        // }
-
-        this.chat_socket.onRoomInfo = async room => {
-          console.log('videoPlayer onRoomInfo', room)
-          // Vue.set(vm, 'room', room)
-          vm.room = room
-        }
-
-        this.chat_socket.onLoadMessages = function (loadMessageObj) {
-          // console.log('videoPlayer onLoadMessages')
-          // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
-          for (var i = loadMessageObj.chunk * 500; i < (loadMessageObj.chunk + 1) * 500; i++) {
-            var nextMessage = loadMessageObj.data[i - (loadMessageObj.chunk * 500)];
-            if (nextMessage) {
-              Vue.set(vm.messages, i, nextMessage)
-            }
-          }
-          vm.messages.map((message) => {
-            if (message) {
-              if (vm.isAlbumLink(message.text)) {
-                vm.getAlbumFromLink(message.text)
-              }
-              if (vm.isMerchLink(message.text)) {
-                vm.getMerchFromLink(message.text)
-              }
-              if (vm.isUserLink(message.text)) {
-                vm.getUserFromLink(message.text)
-              }
-              if (message.from === vm.currentUser.username) {
-                message.me = true;
-              }
-              UserService.getUserInfo(message.from).then(response => {
-                Vue.set(message, "fromUser", response.body)
-              })
-              return message
-            }
-          })
-        }
-      })
+      )
     },
 
-    getMetrics () {
+    getMetrics() {
       if (this.user.id !== this.currentUser.id) {
         return
       }
 
       const params = {
-        page_track: `Stream: ${this.stream.id}`
+        page_track: `Stream: ${this.stream.id}`,
       }
-      ActivityService.getMetrics(params).then(response => {
-        // console.log('getMetrics', response.body)
-        this.$store.dispatch('videoPlayer/setStats', response.body)
-      }).catch(e => {
-        console.log('getMetrics', e.body.errors || [e.body])
-      })
+      ActivityService.getMetrics(params)
+        .then((response) => {
+          // console.log('getMetrics', response.body)
+          this.$store.dispatch('videoPlayer/setStats', response.body)
+        })
+        .catch((e) => {
+          console.log('getMetrics', e.body.errors || [e.body])
+        })
     },
 
-    onRequestTab (tab) {
+    onRequestTab(tab) {
       if (this.request_tab === tab) {
         return
       }
@@ -473,23 +494,28 @@ export default {
       }
     },
 
-    loadUsers () {
+    loadUsers() {
       var params = {
-        'page': 1,
-        'per_page': 10
+        page: 1,
+        per_page: 10,
       }
       if (this.userSearchKeyword.length) {
         params['q'] = this.userSearchKeyword
       }
-      UserService.searchUsers(params).then(response => {
-        this.users = response.body.users
-        console.log('loadUser', this.assoc)
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      UserService.searchUsers(params)
+        .then((response) => {
+          this.users = response.body.users
+          console.log('loadUser', this.assoc)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    selectItem (assoc_type, assoc) {
+    selectItem(assoc_type, assoc) {
       // console.log(assoc_type, assoc)
       this.show_album_merch_popup = false
       if (assoc.id != this.assoc.id) {
@@ -497,31 +523,39 @@ export default {
         const params = {
           stream: {
             assoc_type: assoc_type,
-            assoc_id: assoc.id
-          }
+            assoc_id: assoc.id,
+          },
         }
-        StreamService.updateStream(this.stream.id, params).then(response => {
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        StreamService.updateStream(this.stream.id, params)
+          .then((response) => {})
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
-    removeItem () {
+    removeItem() {
       this.assoc = {}
       const params = {
         stream: {
           assoc_type: '',
-          assoc_id: 0
-        }
+          assoc_id: 0,
+        },
       }
-      StreamService.updateStream(this.stream.id, params).then(response => {
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      StreamService.updateStream(this.stream.id, params)
+        .then((response) => {})
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    removeProductFromCart () {
+    removeProductFromCart() {
       const item = _.find(this.$store.state.user.cartItems, (item) => {
         return item.product_id == this.stream.assoc.id
       })
@@ -531,44 +565,44 @@ export default {
       }
     },
 
-    choosePage (path) {
+    choosePage(path) {
       this.player.fullscreen()
       this.$router.push({ path: '/' + path })
     },
 
-    openPaymentDialog () {
+    openPaymentDialog() {
       this.show_payment_dialog = true
     },
 
-    closePaymentDialog () {
+    closePaymentDialog() {
       this.show_payment_dialog = false
     },
 
-    openDownloadModal () {
+    openDownloadModal() {
       this.show_download_modal = true
     },
 
-    closeDownloadModal () {
+    closeDownloadModal() {
       this.show_download_modal = false
     },
 
-    openMerchModal () {
+    openMerchModal() {
       this.show_merch_modal = true
     },
 
-    closeMerchModal () {
+    closeMerchModal() {
       this.show_merch_modal = false
     },
 
-    openAlbumMerchPopup () {
+    openAlbumMerchPopup() {
       this.show_album_merch_popup = true
     },
 
-    closeAlbumMerchPopup () {
+    closeAlbumMerchPopup() {
       this.show_album_merch_popup = false
     },
 
-    openStreamingConfirmDialog () {
+    openStreamingConfirmDialog() {
       this.latency_time = 10
       this.show_streaming_confirm_dialog = true
 
@@ -582,124 +616,150 @@ export default {
       }, 1000)
     },
 
-    closeStreamingConfirmDialog () {
+    closeStreamingConfirmDialog() {
       this.show_streaming_confirm_dialog = false
     },
 
-    openStreamDeleteConfirmDialog () {
+    openStreamDeleteConfirmDialog() {
       this.show_stream_delete_confirm_dialog = true
     },
 
-    closeStreamDeleteConfirmDialog () {
+    closeStreamDeleteConfirmDialog() {
       this.show_stream_delete_confirm_dialog = false
     },
 
-    openShareDialog () {
+    openShareDialog() {
       this.show_share_dialog = true
     },
 
-    closeShareDialog () {
+    closeShareDialog() {
       this.show_share_dialog = false
     },
 
-    downloadAlbum () {
+    downloadAlbum() {
       // this.openShareDialog()
       const params = {
-        page_track: `Stream: ${this.stream.id}`
+        page_track: `Stream: ${this.stream.id}`,
       }
-      AlbumService.downloadAlbum(this.stream.assoc.id, params).then(response => {
-        var a = document.createElement('A')
-        a.href = response.body.url
-        a.download = ''
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.downloadAlbum(this.stream.assoc.id, params)
+        .then((response) => {
+          var a = document.createElement('A')
+          a.href = response.body.url
+          a.download = ''
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    visitProfile () {
+    visitProfile() {
       this.player.fullscreen()
       this.$router.push({ path: `/${this.stream.assoc.slug}` })
     },
 
-    deleteStream () {
+    deleteStream() {
       console.log('deleteStream', user)
       this.closePlayer()
       if (this.stream) {
-        StreamService.deleteStream(this.stream.id).then(response => {
-          this.$store.dispatch('auth/setStream', null)
-          this.$router.push({ path: '/' })
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        StreamService.deleteStream(this.stream.id)
+          .then((response) => {
+            this.$store.dispatch('auth/setStream', null)
+            this.$router.push({ path: '/' })
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
-    repostStream () {
-      StreamService.repostStream(this.stream.id).then(response => {
-        this.$store.commit('videoPlayer/repostStream')
-        this.$store.dispatch('error/showSuccessToast', ['You just reposted this live stream'])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    repostStream() {
+      StreamService.repostStream(this.stream.id)
+        .then((response) => {
+          this.$store.commit('videoPlayer/repostStream')
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just reposted this live stream',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    payViewStream (token) {
+    payViewStream(token) {
       let params = {
-        'amount': this.stream.view_price
+        amount: this.stream.view_price,
       }
       if (token) {
         params['payment_token'] = token.id
       }
-      StreamService.payViewStream(this.stream.id, params).then(response => {
-        this.closePaymentDialog()
-        // this.openStreamingConfirmDialog()
-        this.can_view = true
-        this.onClick()
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      StreamService.payViewStream(this.stream.id, params)
+        .then((response) => {
+          this.closePaymentDialog()
+          // this.openStreamingConfirmDialog()
+          this.can_view = true
+          this.onClick()
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    viewStream () {
-      StreamService.viewStream(this.stream.id).then(response => {
+    viewStream() {
+      StreamService.viewStream(this.stream.id).then((response) => {
         this.getMetrics()
       })
     },
 
-    followUser () {
+    followUser() {
       if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id).then(response => {
-          // this.user.is_following = false
-          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
-        }).catch(e => {
-          // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
-        })
+        UserService.unfollowUser(this.user.id)
+          .then((response) => {
+            // this.user.is_following = false
+            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
+          })
+          .catch((e) => {
+            // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
+          })
       } else {
         const params = {
-          page_track: `Stream: ${this.stream.id}`
+          page_track: `Stream: ${this.stream.id}`,
         }
-        UserService.followUser(this.user.id, params).then(response => {
-          // this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
-          // this.user.is_following = true
-          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
-        }).catch(e => {
-          // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
-        })
+        UserService.followUser(this.user.id, params)
+          .then((response) => {
+            // this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
+            // this.user.is_following = true
+            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+          })
+          .catch((e) => {
+            // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
+          })
       }
     },
 
-    setFollowingStatus (userId, isFollowing) {
+    setFollowingStatus(userId, isFollowing) {
       if (this.user && this.user.id === userId) {
         this.$store.dispatch('videoPlayer/updateFollowingStatus', isFollowing)
       }
     },
 
-    closeSocket () {
+    closeSocket() {
       if (this.stream_subscription) {
         this.stream_subscription.unsubscribe()
         this.stream_subscription = null
@@ -711,7 +771,7 @@ export default {
       }
     },
 
-    closePlayer () {
+    closePlayer() {
       if (this.player) {
         this.player.shutdown()
       }
@@ -724,13 +784,13 @@ export default {
       this.closeSocket()
     },
 
-    mutePlayer () {
+    mutePlayer() {
       if (this.player) {
         this.player.mute(true)
       }
     },
 
-    unmutePlayer () {
+    unmutePlayer() {
       if (this.player) {
         this.player.mute(false)
       }
@@ -739,7 +799,9 @@ export default {
     isAttachmentLink(string) {
       // const attachmentRegex = /\/((album)|(merch)\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12})|user\/\w+/g
       const attachmentRegex = /\/((album)|(merch)\/\d+)|user\/\w+/g
-      return this.notAttachments.indexOf(string) < 0 && attachmentRegex.test(string)
+      return (
+        this.notAttachments.indexOf(string) < 0 && attachmentRegex.test(string)
+      )
     },
 
     isAlbumLink(string) {
@@ -760,46 +822,56 @@ export default {
     },
 
     getAlbumFromLink(string) {
-      const albumId = string.split("/")[2]
-      AlbumService.getAlbum(albumId).then(res => {
-        if (res.ok) {
-          Vue.set(this.albumLinks, string, res.body)
-        } else {
+      const albumId = string.split('/')[2]
+      AlbumService.getAlbum(albumId)
+        .then((res) => {
+          if (res.ok) {
+            Vue.set(this.albumLinks, string, res.body)
+          } else {
+            this.notAttachments.push(string)
+          }
+        })
+        .catch((err) => {
           this.notAttachments.push(string)
-        }
-      }).catch(err => {
-        this.notAttachments.push(string)
-      })
+        })
     },
 
     getMerchFromLink(string) {
-      const merchId = string.split("/")[2]
-      ProductService.getProduct(merchId).then(res => {
-        if (res.ok) {
-          Vue.set(this.merchLinks, string, res.body)
-        } else {
+      const merchId = string.split('/')[2]
+      ProductService.getProduct(merchId)
+        .then((res) => {
+          if (res.ok) {
+            Vue.set(this.merchLinks, string, res.body)
+          } else {
+            this.notAttachments.push(string)
+          }
+        })
+        .catch((err) => {
           this.notAttachments.push(string)
-        }
-      }).catch(err => {
-        this.notAttachments.push(string)
-      })
+        })
     },
 
     getUserFromLink(string) {
-      const userId = string.split("/")[2]
-      UserService.getUserInfo(userId).then(res => {
-        if (res && res.ok) {
-          Vue.set(this.userLinks, string, res.body)
-        } else {
+      const userId = string.split('/')[2]
+      UserService.getUserInfo(userId)
+        .then((res) => {
+          if (res && res.ok) {
+            Vue.set(this.userLinks, string, res.body)
+          } else {
+            this.notAttachments.push(string)
+          }
+        })
+        .catch((err) => {
           this.notAttachments.push(string)
-        }
-      }).catch(err => {
-        this.notAttachments.push(string)
-      })
+        })
     },
 
     sendMessage(messageText) {
-      if (this.room.settings.charLimitBool && this.message.length > this.room.settings.charLimit) return false
+      if (
+        this.room.settings.charLimitBool &&
+        this.message.length > this.room.settings.charLimit
+      )
+        return false
       if (!this.room.settings.links && linkRegex.test(this.message)) return // TODO error instead of returning
       this.chat_socket.sendMessage(messageText, this.currentUser.username)
       this.message = '' // clear textbox
@@ -835,9 +907,8 @@ export default {
       //   this.player.load()
       //   this.player.fullscreen()
       // }, 3000)
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

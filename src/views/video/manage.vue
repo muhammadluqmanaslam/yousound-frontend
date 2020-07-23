@@ -2,17 +2,27 @@
   <div class="page video-page manage-page">
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1>
       <h2 class="page-title">Live Video</h2>
-      <p class="page-subtitle mt-5 mb-4">It can take up to 5 mins to get your stream keys. For best quality, connect directly to your ethernet router.</p>
+      <p class="page-subtitle mt-5 mb-4">
+        It can take up to 5 mins to get your stream keys. For best quality,
+        connect directly to your ethernet router.
+      </p>
     </v-flex>
 
     <v-flex xs12 sm10 offset-sm1 md10 offset-md1 v-if="isPageReady">
       <v-layout row>
         <v-flex sm6 mr-4>
           <div class="stream-info">
-            <div class="loading" v-if="!isRunning"><i class="fa fa-spinner fa-pulse fa-3x"></i></div>
-            <p class="mb-3">Add the URL and Stream Key to your Video Broadcast Software’s “Stream Settings”</p>
-            <p class="ma-0">URL: {{ isRunning ? streamUrl :  'xxxxxxx' }}</p>
-            <p class="ma-0">Stream Key: {{ isRunning ? streamKey :  'xxxxxxx' }}</p>
+            <div class="loading" v-if="!isRunning">
+              <i class="fa fa-spinner fa-pulse fa-3x"></i>
+            </div>
+            <p class="mb-3">
+              Add the URL and Stream Key to your Video Broadcast Software’s
+              “Stream Settings”
+            </p>
+            <p class="ma-0">URL: {{ isRunning ? streamUrl : 'xxxxxxx' }}</p>
+            <p class="ma-0">
+              Stream Key: {{ isRunning ? streamKey : 'xxxxxxx' }}
+            </p>
           </div>
         </v-flex>
         <v-flex sm6>
@@ -25,8 +35,8 @@
 
       <div class="share-view">
         <v-flex sm3>
-         <h3 class="mt-0 mb-4">Attach Content</h3>
-          <attach v-model="stream_assoc" @input="saveAttach()"/>
+          <h3 class="mt-0 mb-4">Attach Content</h3>
+          <attach v-model="stream_assoc" @input="saveAttach()" />
         </v-flex>
       </div>
 
@@ -77,20 +87,27 @@
               <div class="social-section">
                 <network network="facebook">
                   <!-- <i class="fa fa-fw fa-facebook"></i> Facebook -->
-                  <v-btn class ="social-share-btn"><v-icon>fa-facebook</v-icon></v-btn>
+                  <v-btn class="social-share-btn"
+                    ><v-icon>fa-facebook</v-icon></v-btn
+                  >
                 </network>
                 <network network="twitter">
                   <!-- <i class="fa fa-fw fa-twitter"></i> Twitter -->
-                  <v-btn class ="social-share-btn"><v-icon>fa-twitter</v-icon></v-btn>
+                  <v-btn class="social-share-btn"
+                    ><v-icon>fa-twitter</v-icon></v-btn
+                  >
                 </network>
               </div>
             </social-sharing>
           </div>
           <div class="input-section d-inline-block">
-            <input type="text" class="form-control" v-model="profileUrl" readonly />
-            <v-btn
-              class="clipboard-btn"
-              v-clipboard:copy="profileUrl">
+            <input
+              type="text"
+              class="form-control"
+              v-model="profileUrl"
+              readonly
+            />
+            <v-btn class="clipboard-btn" v-clipboard:copy="profileUrl">
               <v-icon>fa-clipboard</v-icon>
             </v-btn>
           </div>
@@ -105,33 +122,49 @@
           :color="isRunning ? 'theme--dark red' : 'grey lighten-2'"
           class="px-4 cancel-btn"
           @click.native="isRunning && openStreamDeleteConfirmDialog()"
-        >Cancel Stream</v-btn>
-        <v-btn v-if="show_view_stream_button"
+          >Cancel Stream</v-btn
+        >
+        <v-btn
+          v-if="show_view_stream_button"
           dark
           color="green"
           class="px-4 view-btn"
           @click.native="viewStream()"
-        >View Stream</v-btn>
-        <v-btn v-else
-          color="grey lighten-2"
-          class="px-4 view-btn"
-        >Waiting for Connection...</v-btn>
+          >View Stream</v-btn
+        >
+        <v-btn v-else color="grey lighten-2" class="px-4 view-btn"
+          >Waiting for Connection...</v-btn
+        >
         <v-btn
           dark
           color="blue"
           class="px-4 view-btn"
           @click.native.stop="openAddMoreTimeDialog()"
-        >Add more time</v-btn>
+          >Add more time</v-btn
+        >
       </div>
 
       <v-dialog v-model="show_stream_delete_confirm_dialog">
         <v-card>
           <v-card-title class="headline">Delete a Stream</v-card-title>
-          <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
+          <v-card-text
+            >If you click OK, the stream will no longer be available. Click OK
+            to delete, or click Cancel.</v-card-text
+          >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
-            <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+            <v-btn
+              class="red--text darken-1"
+              flat
+              @click.native="deleteStream()"
+              >Ok</v-btn
+            >
+            <v-btn
+              class="green--text darken-1"
+              flat
+              @click.native="closeStreamDeleteConfirmDialog()"
+              >Cancel</v-btn
+            >
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
@@ -139,11 +172,21 @@
 
       <v-dialog v-model="show_create_failed_dialog">
         <v-card>
-          <v-card-title class="headline">Failed in Creating a Stream</v-card-title>
-          <v-card-text>Channel failed to start, you have not been charged. Please try again.</v-card-text>
+          <v-card-title class="headline"
+            >Failed in Creating a Stream</v-card-title
+          >
+          <v-card-text
+            >Channel failed to start, you have not been charged. Please try
+            again.</v-card-text
+          >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn class="red--text darken-1" flat @click.native="closeCreateFailedDialog()">Ok</v-btn>
+            <v-btn
+              class="red--text darken-1"
+              flat
+              @click.native="closeCreateFailedDialog()"
+              >Ok</v-btn
+            >
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
@@ -155,7 +198,9 @@
         v-on-click-outside="closeAddMoreTimeDialog"
       >
         <v-card>
-          <v-card-title class="headline">Add more time to your broadcast</v-card-title>
+          <v-card-title class="headline"
+            >Add more time to your broadcast</v-card-title
+          >
           <v-card-text>
             <v-select
               :items="periods"
@@ -167,7 +212,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark round color="blue" @click.native="openPaymentDialog()">Add More Time</v-btn>
+            <v-btn dark round color="blue" @click.native="openPaymentDialog()"
+              >Add More Time</v-btn
+            >
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>

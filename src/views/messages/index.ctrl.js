@@ -21,7 +21,7 @@ export default {
     profileItem,
     Picker,
     message,
-    repostPaymentModal
+    repostPaymentModal,
   },
 
   mixins: [onClickOutside],
@@ -45,18 +45,18 @@ export default {
         current_page: 0,
         per_page: 50,
         total_count: 0,
-        total_pages: 0
+        total_pages: 0,
       },
       messages: [],
       message: {
-        body: ''
+        body: '',
       },
       message_pagination: {
         count: 0,
         current_page: 0,
         per_page: 50,
         total_count: 0,
-        total_pages: 0
+        total_pages: 0,
       },
       timer: null,
       cable: null,
@@ -64,11 +64,11 @@ export default {
       albums: [],
       products: [],
       itemType: {
-        'album': 'Album',
-        'merch': 'ShopProduct'
+        album: 'Album',
+        merch: 'ShopProduct',
       },
       repostedFeeds: [],
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
@@ -87,7 +87,7 @@ export default {
 
     current_repost_price() {
       return _.get(this.conversation, 'other.repost_price', 0)
-    }
+    },
   },
 
   created() {
@@ -113,10 +113,12 @@ export default {
     const vm = this
     // this.timer = setInterval(function(){ vm.refreshMessages() }, 10000)
 
-    this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
+    this.cable = ActionCable.createConsumer(
+      `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
+    )
     this.message_subscription = this.cable.subscriptions.create(
       {
-        channel: 'MessagesChannel'
+        channel: 'MessagesChannel',
       },
       {
         connected: () => {
@@ -126,8 +128,14 @@ export default {
           console.log('message_subscription')
           const other_id = _.get(vm.conversation, 'other.id', '')
           // console.log(data, data.sender.id, other_id)
-          if (data.sender.id == other_id || data.sender.id == vm.currentUser.id) {
-            const messageIndex = _.findIndex(vm.messages, (message) => (message.id == data.id))
+          if (
+            data.sender.id == other_id ||
+            data.sender.id == vm.currentUser.id
+          ) {
+            const messageIndex = _.findIndex(
+              vm.messages,
+              (message) => message.id == data.id
+            )
             if (messageIndex === -1) {
               vm.messages.push(data)
             } else {
@@ -137,13 +145,15 @@ export default {
             const arr = vm.messages.slice()
             vm.messages = arr
             vm.$nextTick(() => {
-              $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
+              $('.message-list-section').scrollTop(
+                $('.message-list-section').prop('scrollHeight')
+              )
             })
           }
         },
         disconnected: () => {
           console.log('disconnected to MessagesChannel :(')
-        }
+        },
       }
     )
   },
@@ -165,33 +175,40 @@ export default {
       if (loadMore) {
         params = {
           page: this.conversation_pagination.current_page + 1,
-          per_page: this.conversation_pagination.per_page
+          per_page: this.conversation_pagination.per_page,
         }
       } else {
         params = {
           page: 1,
-          per_page: this.conversation_pagination.per_page
+          per_page: this.conversation_pagination.per_page,
         }
         this.messages = []
       }
-      MessageService.getConversations(params).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.conversations = response.body.conversations
-        if (this.conversations.length) {
-          this.conversation = this.conversations[0]
+      MessageService.getConversations(params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.conversations = response.body.conversations
+          if (this.conversations.length) {
+            this.conversation = this.conversations[0]
 
-          UserService.repostedFeeds(this.conversation.other.id).then(response => {
-            this.repostedFeeds = response.body
-            // console.log('repostedFeeds', this.repostedFeeds)
-            // this.$forceUpdate()
-          })
+            UserService.repostedFeeds(this.conversation.other.id).then(
+              (response) => {
+                this.repostedFeeds = response.body
+                // console.log('repostedFeeds', this.repostedFeeds)
+                // this.$forceUpdate()
+              }
+            )
 
-          this.loadMessages(this.conversation.id, false, true)
-        }
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+            this.loadMessages(this.conversation.id, false, true)
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     loadMessages(id, loadMore, scrollMove) {
@@ -199,119 +216,141 @@ export default {
         this.$store.dispatch('error/showLoadingActivity', true)
       }
       const params = {
-        conversation_id: id
+        conversation_id: id,
       }
-      MessageService.getMessages(params).then(response => {
-        if (loadMore) {
-          // this.messages = this.conversation.concat(response.body.messages)
-          this.messages = _.reverse(response.body.messages).concat(this.messages)
-        } else {
-          // this.conversation = response.body
-          this.messages = _.reverse(response.body.messages)
+      MessageService.getMessages(params)
+        .then((response) => {
+          if (loadMore) {
+            // this.messages = this.conversation.concat(response.body.messages)
+            this.messages = _.reverse(response.body.messages).concat(
+              this.messages
+            )
+          } else {
+            // this.conversation = response.body
+            this.messages = _.reverse(response.body.messages)
 
-          if (scrollMove) {
-            this.$nextTick(() => {
-              // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
-              $(".message-list-section").scrollTop($(".message-list-section").prop("scrollHeight"))
-            })
+            if (scrollMove) {
+              this.$nextTick(() => {
+                // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
+                $('.message-list-section').scrollTop(
+                  $('.message-list-section').prop('scrollHeight')
+                )
+              })
+            }
           }
-        }
-        // this.$forceUpdate()
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        // console.log(e)
-        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+          // this.$forceUpdate()
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          // console.log(e)
+          // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
-    refreshMessages () {
+    refreshMessages() {
       if (this.conversation && this.conversation.id !== undefined) {
         this.loadMessages(this.conversation.id, false, false)
       }
     },
 
-    openConversationDeleteConfirmDialog () {
+    openConversationDeleteConfirmDialog() {
       this.show_conversation_delete_confirm_dialog = true
     },
 
-    closeConversationDeleteConfirmDialog () {
+    closeConversationDeleteConfirmDialog() {
       this.show_conversation_delete_confirm_dialog = false
     },
 
-    deleteEntireMessage () {
+    deleteEntireMessage() {
       // console.log('deleteEntireMessage', this.conversation)
-      MessageService.deleteConversation({ conversation_id: this.conversation.id }).then(response => {
-        this.closeConversationDeleteConfirmDialog()
-        // _.remove(this.conversations, (c) => (c.id == conversation.id))
-        this.loadConversations()
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      MessageService.deleteConversation({
+        conversation_id: this.conversation.id,
       })
+        .then((response) => {
+          this.closeConversationDeleteConfirmDialog()
+          // _.remove(this.conversations, (c) => (c.id == conversation.id))
+          this.loadConversations()
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    openBlockUserConfirmDialog () {
+    openBlockUserConfirmDialog() {
       this.show_block_user_confirm_dialog = true
     },
 
-    closeBlockUserConfirmDialog () {
+    closeBlockUserConfirmDialog() {
       this.show_block_user_confirm_dialog = false
     },
 
-    blockUser () {
+    blockUser() {
       const user = this.conversation.other
-      UserService.blockUser(user.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You blocked ' + user.display_name + ', go to settings page to unblock'])
-        this.loadConversations()
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      UserService.blockUser(user.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You blocked ' +
+              user.display_name +
+              ', go to settings page to unblock',
+          ])
+          this.loadConversations()
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
       this.closeBlockUserConfirmDialog()
     },
 
-    showAllMessages () {
-    },
+    showAllMessages() {},
 
-    showRepostRequests () {
-    },
+    showRepostRequests() {},
 
-    addEmoji (emoji, event) {
+    addEmoji(emoji, event) {
       // console.log('addEmoji')
       this.showEmojiPicker = false
       this.message.body += emoji.native
       // this.$refs.message.focus()
     },
 
-    showEmojiDialog () {
+    showEmojiDialog() {
       // console.log('showEmojiDialog')
       this.showEmojiPicker = !this.showEmojiPicker
       // this.$refs.message.focus()
     },
 
-    hideEmojiDialog () {
+    hideEmojiDialog() {
       // console.log('hideEmojiDialog')
       this.showEmojiPicker = false
     },
 
-    blurMessage () {
+    blurMessage() {
       const vm = this
       if (vm.showEmojiPicker) {
-        setTimeout(function() {
+        setTimeout(function () {
           // console.log('hide')
           vm.showEmojiPicker = false
-        }, 200);
+        }, 200)
       }
     },
 
-    InBanned (album) {
+    InBanned(album) {
       return this.InHiddenGenres(album) || this.InReposted(album)
     },
 
     // true : in hidden genres
-    InHiddenGenres (album) {
+    InHiddenGenres(album) {
       if (this.conversation.other) {
         const genreId = _.get(album.genres, '[0].id', '')
-        const genre = _.find(this.conversation.other.hidden_genres, (genre) => { return genre.id === genreId })
+        const genre = _.find(this.conversation.other.hidden_genres, (genre) => {
+          return genre.id === genreId
+        })
         // return !(genre === undefined || genre === null)
         return !!genre
       } else {
@@ -319,14 +358,16 @@ export default {
       }
     },
 
-    InReposted (item) {
+    InReposted(item) {
       const feed = _.find(this.repostedFeeds, (f) => {
-        return f.assoc_type === this.itemType[this.tab] && f.assoc_id === item.id
+        return (
+          f.assoc_type === this.itemType[this.tab] && f.assoc_id === item.id
+        )
       })
       return !!feed
     },
 
-    checkMessage () {
+    checkMessage() {
       if (this.item) {
         this.openRepostPaymentModal()
       } else {
@@ -334,13 +375,13 @@ export default {
       }
     },
 
-    sendMessage (token) {
+    sendMessage(token) {
       this.closeRepostPaymentModal()
       // this.hidePaymentDialog()
       // const message = this.message.body.replace(' ', '')
       // if (message.length > 0) {
       let params = {
-        body: this.message.body
+        body: this.message.body,
       }
       this.message.body = ''
       params['receiver_id'] = this.conversation.other.id
@@ -357,11 +398,16 @@ export default {
       if (token) {
         params['payment_token'] = token.id
       }
-      MessageService.addMessage(params).then(response => {
-        // this.loadMessages(this.conversation.id, false, true)
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      MessageService.addMessage(params)
+        .then((response) => {
+          // this.loadMessages(this.conversation.id, false, true)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     selectedConversation(conv) {
@@ -375,61 +421,73 @@ export default {
       this.loadMessages(this.conversation.id, false, true)
     },
 
-    setVisitedTime () {
+    setVisitedTime() {
       this.show_stopPopup = false
       if (this.$refs.message) this.$refs.message.focus()
       const params = {
         user: {
-          message_page_visited: 1
-        }
+          message_page_visited: 1,
+        },
       }
-      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
-        AuthService.setUser(response.body)
-        this.$store.dispatch('auth/setUser', response.body)
-      }).catch(e => {
-        console.log(e)
-      })
+      UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          AuthService.setUser(response.body)
+          this.$store.dispatch('auth/setUser', response.body)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
 
-    loadAlbums () {
+    loadAlbums() {
       const params = {
         statuses: 'published, collaborated',
-        user_statuses: 'accepted'
+        user_statuses: 'accepted',
       }
-      AlbumService.getAlbums(params).then(response => {
-        this.albums = response.body
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.getAlbums(params)
+        .then((response) => {
+          this.albums = response.body
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    loadProducts () {
+    loadProducts() {
       const params = {
         statuses: 'published, collaborated',
         stock_statuses: 'active',
-        user_statuses: 'accepted'
+        user_statuses: 'accepted',
       }
-      ProductService.getProducts(params).then(response => {
-        this.products = response.body
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      ProductService.getProducts(params)
+        .then((response) => {
+          this.products = response.body
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    onTab (tab) {
+    onTab(tab) {
       this.tab = tab
       this.item = null
     },
 
-    openRepostPaymentModal () {
+    openRepostPaymentModal() {
       this.show_repost_payment_modal = true
     },
 
-    closeRepostPaymentModal () {
+    closeRepostPaymentModal() {
       this.show_repost_payment_modal = false
     },
 
-    selectItem (item) {
+    selectItem(item) {
       // console.log(this.item === item, this.item, item)
       if (this.item === item) {
         this.item = null
@@ -445,6 +503,5 @@ export default {
     },
   },
 
-  mounted() {
-  }
+  mounted() {},
 }

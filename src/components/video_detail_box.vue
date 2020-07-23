@@ -11,24 +11,19 @@
     </div>
     <div class="box__footer" v-if="item.view_price > 0">
       <!-- <v-btn block dark>Pay ${{ item.view_price | formatNumber }}</v-btn> -->
-      <v-btn
-        dark block
-        :to="`/${_.get(item, 'user.slug')}`"
-      >Watch</v-btn>
+      <v-btn dark block :to="`/${_.get(item, 'user.slug')}`">Watch</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    props: {
-      item: Object
-    },
+export default {
+  props: {
+    item: Object,
+  },
 
-    methods: {
-
-    }
-  }
+  methods: {},
+}
 </script>
 
 <style lang="scss" scoped>

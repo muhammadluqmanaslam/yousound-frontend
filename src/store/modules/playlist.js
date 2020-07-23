@@ -2,22 +2,21 @@
 // import * as types from '@/store/mutation-types'
 
 const state = {
-  playlists: []
+  playlists: [],
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
-  setPlaylists ({ commit }, playlists) {
+  setPlaylists({ commit }, playlists) {
     commit('setPlaylists', playlists)
-  }
+  },
 }
 
 const mutations = {
-  setPlaylists (state, playlists) {
+  setPlaylists(state, playlists) {
     state.playlists = playlists
-  }
+  },
 }
 
 export default {
@@ -26,5 +25,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

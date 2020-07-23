@@ -2,11 +2,13 @@
   <v-card flat v-if="isPageReady">
     <v-tabs dark class="white" v-model="current_tab">
       <v-tabs-bar class="transparent pl-4 mt-4">
-        <v-tabs-item v-for="tab in tabs"
+        <v-tabs-item
+          v-for="tab in tabs"
           :key="tab.id"
           :href="'#' + tab.id"
           ripple
-        >{{ tab.title }}</v-tabs-item>
+          >{{ tab.title }}</v-tabs-item
+        >
         <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -18,7 +20,7 @@
           class="user-serach search-input mr-4"
         />
       </v-tabs-bar>
-      <v-tabs-items style="border:none;">
+      <v-tabs-items style="border: none;">
         <v-tabs-content v-for="tab in tabs" :key="tab.id" :id="tab.id">
           <v-card flat>
             <v-data-table
@@ -27,7 +29,8 @@
               :items="attendees"
               :search="search_keyword"
               :rows-per-page-items="per_page_options"
-              class="user-table">
+              class="user-table"
+            >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">{{ props.item.full_name }}</td>
                 <td class="text-xs-left">{{ props.item.display_name }}</td>
@@ -35,11 +38,20 @@
                 <td class="text-xs-left">{{ props.item.account_type }}</td>
                 <td class="text-xs-left">{{ props.item.referred_by }}</td>
                 <td class="text-xs-center">
-                  <template v-if="['created', 'expired'].indexOf(props.item.status) > -1">
-                    <v-btn color="primary" @click.native="inviteAttendee(props.item)">Invite</v-btn>
+                  <template
+                    v-if="
+                      ['created', 'expired'].indexOf(props.item.status) > -1
+                    "
+                  >
+                    <v-btn
+                      color="primary"
+                      @click.native="inviteAttendee(props.item)"
+                      >Invite</v-btn
+                    >
                   </template>
                   <template v-else-if="props.item.status === 'invited'">
-                    Invited by {{ _.get(props.item, 'inviter.display_name', '--' )}}
+                    Invited by
+                    {{ _.get(props.item, 'inviter.display_name', '--') }}
                   </template>
                   <template v-else>
                     {{ props.item.status | capitalize }}
@@ -47,7 +59,8 @@
                 </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-                From {{ pageStart }} to {{ pageStop }} out of {{ attendees.length }}
+                From {{ pageStart }} to {{ pageStop }} out of
+                {{ attendees.length }}
               </template>
             </v-data-table>
           </v-card>

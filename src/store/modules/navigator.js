@@ -6,28 +6,31 @@ const state = {
     page: '',
     tab: '',
     action: '',
-    params: {}
+    params: {},
   },
-  history: []
+  history: [],
 }
 
 const getters = {
   last: (state) => {
     const lastState = state.history[state.history.length - 1]
     if (_.isEmpty(lastState)) {
-      return {page: '', tab: '', action: ''}
+      return { page: '', tab: '', action: '' }
     }
     return lastState
   },
 
   hasHeader: (state) => {
-    return [
-      'login',
-      'register',
-      'register_by_listener',
-      'landing',
-      'terms',
-      ''].indexOf(state.current.page) === -1
+    return (
+      [
+        'login',
+        'register',
+        'register_by_listener',
+        'landing',
+        'terms',
+        '',
+      ].indexOf(state.current.page) === -1
+    )
   },
 
   hasFooter: (state) => {
@@ -44,52 +47,57 @@ const getters = {
   },
 
   isPrimaryTheme: (state) => {
-    return ['discover', 'profile-slider'].indexOf(state.current.page) > -1 && state.current.tab !== 'merch'
+    return (
+      ['discover', 'profile-slider'].indexOf(state.current.page) > -1 &&
+      state.current.tab !== 'merch'
+    )
   },
 
   isGrayTheme: (state) => {
-    return ['upload', 'merch', 'profile', 'merch'].indexOf(state.current.page) > -1
+    return (
+      ['upload', 'merch', 'profile', 'merch'].indexOf(state.current.page) > -1
+    )
   },
 
   isNormalTheme: (state) => {
     return ['album', 'playlist'].indexOf(state.current.page) > -1
-  }
+  },
 }
 
 const actions = {
-  setCurrentState ({commit}, current) {
+  setCurrentState({ commit }, current) {
     commit('setCurrentState', current)
   },
 
-  setParams ({commit}, params) {
+  setParams({ commit }, params) {
     commit('setParams', params)
   },
 
-  goNextState ({commit}, next) {
+  goNextState({ commit }, next) {
     if (_.isEqual(state.current, next) === false) {
       commit('pushToHistory')
       commit('setCurrentState', next)
     }
-  }
+  },
 }
 
 const mutations = {
-  setCurrentState (state, current) {
-    state.current = _.assignIn({page: '', tab: '', action: ''}, current)
+  setCurrentState(state, current) {
+    state.current = _.assignIn({ page: '', tab: '', action: '' }, current)
   },
 
-  setParams (state, params) {
+  setParams(state, params) {
     state.current.params = params
   },
 
-  pushToHistory (state) {
+  pushToHistory(state) {
     if (state.current.page !== '') {
       state.history.push(state.current)
       if (state.history.length > 100) {
         state.history = state.history.slice(1)
       }
     }
-  }
+  },
 }
 
 export default {
@@ -98,5 +106,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

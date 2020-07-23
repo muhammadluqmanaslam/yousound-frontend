@@ -3,28 +3,27 @@ import ProductService from '@/services/product'
 import OrderService from '@/services/order'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       active: 'none',
       order_id: null,
       order_detail: null,
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    user () {
+    user() {
       return this.order_detail.customer
     },
 
-    subTotal () {
+    subTotal() {
       var sum = 0
       for (let index in this.order_detail.items) {
         const item = this.order_detail.items[index]
@@ -37,7 +36,7 @@ export default {
       return sum
     },
 
-    shippingTotal () {
+    shippingTotal() {
       var sum = 0
       for (let index in this.order_detail.items) {
         const item = this.order_detail.items[index]
@@ -48,7 +47,7 @@ export default {
       return sum
     },
 
-    taxTotal () {
+    taxTotal() {
       var sum = 0
       for (let index in this.order_detail.items) {
         const item = this.order_detail.items[index]
@@ -59,16 +58,18 @@ export default {
       return sum
     },
 
-    refundAmount () {
+    refundAmount() {
       return _.get(this.order_detail, 'refund_amount', 0)
     },
 
-    total () {
-      return this.subTotal + this.shippingTotal + this.taxTotal - this.refundAmount
-    }
+    total() {
+      return (
+        this.subTotal + this.shippingTotal + this.taxTotal - this.refundAmount
+      )
+    },
   },
 
-  created () {
+  created() {
     if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
@@ -80,27 +81,26 @@ export default {
     if (this.order_id) {
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([
-        OrderService.getOrder(this.order_id)
-      ]).then(values => {
-        this.order_detail = values[0].body
+      Promise.all([OrderService.getOrder(this.order_id)])
+        .then((values) => {
+          this.order_detail = values[0].body
 
-        this.isPageReady = true
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(reason => {
-        console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        // this.$store.dispatch('error/showErrorToast', [reason])
-      })
+          this.isPageReady = true
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((reason) => {
+          console.log(reason)
+          this.$store.dispatch('error/showLoadingActivity', false)
+          // this.$store.dispatch('error/showErrorToast', [reason])
+        })
     }
   },
 
   methods: {
-    isDigitalProduct (item) {
+    isDigitalProduct(item) {
       return _.get(item, 'product.category.is_digital', false)
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

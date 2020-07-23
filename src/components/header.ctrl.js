@@ -3,77 +3,78 @@ import TwitterService from '@/services/twitter.js'
 import { MyEvents, Storage } from '@/helper'
 
 export default {
-  data () {
+  data() {
     return {
       keyword: '',
-      show_twitter_confirm_dialog: false
+      show_twitter_confirm_dialog: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    currentPage () {
+    currentPage() {
       return this.$store.state.navigator.current.page
-    }
+    },
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       // console.log('header', toPath.path, fromPath.path)
       const keyword = this.$route.query.q
       if (keyword === undefined) {
         this.keyword = ''
       }
-    }
+    },
   },
 
-  created () {
-  },
+  created() {},
 
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.notification_subscription) {
       this.notification_subscription.unsubscribe()
     }
   },
 
   methods: {
-    openTwitterConfirmDialog (user_type) {
+    openTwitterConfirmDialog(user_type) {
       this.show_twitter_confirm_dialog = true
       // this.user_type = user_type
     },
 
-    closeTwitterConfirmDialog () {
+    closeTwitterConfirmDialog() {
       this.show_twitter_confirm_dialog = false
     },
 
-    goTwitter (request_type) {
-      TwitterService.getRequestToken({ oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${request_type}&code=${this.$store.state.auth.secret_code}` }).then(response => {
+    goTwitter(request_type) {
+      TwitterService.getRequestToken({
+        oauth_callback: `${window.location.origin}/_oauth/twitter_callback?user_type=${request_type}&code=${this.$store.state.auth.secret_code}`,
+      }).then((response) => {
         Storage.set('twitter_info', JSON.stringify(response.body))
         location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${response.body.oauth_token}`
       })
     },
 
-    choosePage (path) {
+    choosePage(path) {
       this.$router.push({ path: '/' + path })
     },
 
-    goToSearch () {
+    goToSearch() {
       const keyword = this.keyword
       this.$router.push({ path: '/search', query: { q: keyword } })
     },
 
-    goSupport () {
+    goSupport() {
       window.open('//support.yousound.com', '_blank')
     },
 
-    signOut () {
+    signOut() {
       // const _user = _.cloneDeep(this.$store.state.auth.user)
       AuthService.signout()
       this.$router.push({ path: '/login' })
       this.$root.$emit(MyEvents.AUTH_SIGNOUT)
-    }
-  }
+    },
+  },
 }

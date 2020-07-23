@@ -51,83 +51,83 @@
 
   export default {
     components: {
-      promoteModal
+      promoteModal,
     },
 
     props: {
       product: {
-        type: Object
+        type: Object,
       },
 
       index: {
-        type: Number
+        type: Number,
       },
 
       acceptItem: {
-        type: Function
+        type: Function,
       },
 
       denyItem: {
-        type: Function
+        type: Function,
       },
 
       deleteItem: {
-        type: Function
+        type: Function,
       },
 
       status: {
-        type: String
+        type: String,
       },
 
       showPromoteButton: {
         type: Boolean,
-        default: true
-      }
+        default: true,
+      },
     },
 
-    data () {
+    data() {
       return {
         showPromoteMessage: false,
-        dialog: false
+        dialog: false,
       }
     },
 
     computed: {
-      count () {
+      count() {
         var count = 0
         for (let index in this.product.variants) {
           const variant = this.product.variants[index]
           count += variant.quantity
         }
         return count
-      }
+      },
     },
 
-    created () {
+    created() {
     },
 
     methods: {
-      editProduct () {
+      editProduct() {
         this.$router.push({path: '/product/edit/' + this.product.id})
       },
 
-      showPromoteModal () {
+      showPromoteModal() {
         this.showPromoteMessage = true
         $('body').css('overflow', 'scroll')
       },
 
-      dismissPromoteModal () {
+      dismissPromoteModal() {
         this.showPromoteMessage = false
         $('body').css('overflow', 'scroll')
       },
 
-      saveAndFinish (users) {
+      saveAndFinish(users) {
         $('body').css('overflow', 'scroll')
         this.showPromoteMessage = false
-      }
+      },
     },
 
-    mounted () {
-    }
+    mounted() {
+    },
   }
 </script>

@@ -22,13 +22,21 @@ let SocketManager = function (socketHost, roomName, token, callback) {
       sm.onError('There was an error with the authentication: ' + err.message) // TODO: don't use alert
       sm.close()
     })
-    socket.on('newMessage', (a) => { sm.onMessage(a) })
-    socket.on('loadMessages', (a) => { sm.onLoadMessages(a) })
-    socket.on('roomInfo', (a) => { sm.onRoomInfo(a) })
+    socket.on('newMessage', (a) => {
+      sm.onMessage(a)
+    })
+    socket.on('loadMessages', (a) => {
+      sm.onLoadMessages(a)
+    })
+    socket.on('roomInfo', (a) => {
+      sm.onRoomInfo(a)
+    })
     socket.on('userInfo', sm.onUserInfo)
-    socket.on('disconnect', () => { sm.onDisconnect() })
+    socket.on('disconnect', () => {
+      sm.onDisconnect()
+    })
     socket.on('reconnect', sm.onReconnect)
-    socket.on('messageError', a => sm.onError(a))
+    socket.on('messageError', (a) => sm.onError(a))
   })
 
   /**
@@ -47,7 +55,9 @@ let SocketManager = function (socketHost, roomName, token, callback) {
    * @param  {User} from [description]
    */
   sm.sendMessage = (text, from) => {
-    if (text.trim() === '') { return }
+    if (text.trim() === '') {
+      return
+    }
     var message = messageConstructor(text, from)
     sm.onMessageSending(message)
     socket.emit('newMessage', message) // From field doesn't matter because server knows who this is

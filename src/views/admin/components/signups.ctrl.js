@@ -7,23 +7,23 @@ import signupDenyModal from './signup_deny_modal'
 export default {
   components: {
     signupApproveModal,
-    signupDenyModal
+    signupDenyModal,
   },
 
-  data () {
+  data() {
     return {
       active_tab: 'waiting',
       signups_tabs: [
         { id: 'waiting', title: 'Waiting For Approval' },
         { id: 'co-signed', title: 'Co-Signed' },
         { id: 'approved', title: 'Approved' },
-        { id: 'denied', title: 'Denied' }
+        { id: 'denied', title: 'Denied' },
       ],
       waiting_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
         { text: 'User Type', value: 'request_role', align: 'left' },
         { text: 'Date Signed Up', value: 'created_at', align: 'left' },
-        { text: '', value: 'id', align: 'left'}
+        { text: '', value: 'id', align: 'left' },
       ],
       invited_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
@@ -31,7 +31,7 @@ export default {
         { text: 'Date', value: 'joined_date', align: 'left' },
         { text: 'Status', value: 'status', align: 'left' },
         { text: 'Invited By', value: 'invited_by', align: 'left' },
-        { text: '', value: 'id', align: 'left'}
+        { text: '', value: 'id', align: 'left' },
       ],
       approved_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
@@ -39,7 +39,7 @@ export default {
         { text: 'Date Signed Up', value: 'signed_up_date', align: 'center' },
         { text: 'Date Accepted', value: 'approved_date', align: 'center' },
         { text: 'Verified By', value: 'verified_by', align: 'left' },
-        { text: '', value: '', align: 'left'}
+        { text: '', value: '', align: 'left' },
       ],
       denied_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
@@ -47,7 +47,7 @@ export default {
         { text: 'Date Signed Up', value: 'signed_up_date', align: 'center' },
         { text: 'Date Denied', value: 'denied_date', align: 'center' },
         { text: 'Verified By', value: 'verified_by', align: 'left' },
-        { text: '', value: 'id', align: 'left'}
+        { text: '', value: 'id', align: 'left' },
       ],
       search_value: '',
       show_approve_modal: false,
@@ -61,14 +61,14 @@ export default {
         // descending: true,
         // totalItems: 0,
         page: 1,
-        rowsPerPage: 50
+        rowsPerPage: 50,
       },
-      isPageReady: true
+      isPageReady: true,
     }
   },
 
   computed: {
-    headers () {
+    headers() {
       switch (this.active_tab) {
         case 'waiting':
           return this.waiting_headers
@@ -79,7 +79,7 @@ export default {
         case 'denied':
           return this.denied_headers
       }
-    }
+    },
   },
 
   methods: {
@@ -89,25 +89,30 @@ export default {
         q: this.search_value,
         filter: this.active_tab,
         page: this.pagination.page,
-        per_page: this.pagination.rowsPerPage
+        per_page: this.pagination.rowsPerPage,
       }
-      AdminService.getSignupUsers(params).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.signups = response.body.users
-        this.total_signups = response.body.pagination.total_count
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AdminService.getSignupUsers(params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.signups = response.body.users
+          this.total_signups = response.body.pagination.total_count
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    onTab (tab) {
+    onTab(tab) {
       if (this.active_tab == tab) return
 
       this.active_tab = tab
       this.pagination = {
         page: 1,
-        rowsPerPage: 10
+        rowsPerPage: 10,
       }
     },
 
@@ -115,26 +120,26 @@ export default {
       this.loadUsers()
     },
 
-    openApproveModal (user) {
+    openApproveModal(user) {
       this.user = user
       this.show_approve_modal = true
     },
 
-    closeApproveModal () {
+    closeApproveModal() {
       this.show_approve_modal = false
     },
 
-    showDenyModal () {
+    showDenyModal() {
       this.show_deny_modal = true
     },
 
-    closeDenyModal () {
+    closeDenyModal() {
       this.show_deny_modal = false
     },
 
-    approveUser (user) {
+    approveUser(user) {
       // console.log('approveUser', user)
-      AdminService.approveUser({ user_id: user.id }).then(response => {
+      AdminService.approveUser({ user_id: user.id }).then((response) => {
         // console.log('approveUser', user)
         // user.request_status = 'accepted'
         // user.user_type = user.request_role
@@ -145,12 +150,12 @@ export default {
       })
     },
 
-    denyUser (user) {
+    denyUser(user) {
       this.show_approve_modal = false
       this.show_deny_modal = true
     },
 
-    viewSubmission (user) {
+    viewSubmission(user) {
       // console.log('viewSubmission', user, this.user)
       if (!user.denial_reason || !user.denial_description) {
         return
@@ -159,9 +164,9 @@ export default {
       const params = {
         user_id: user.id,
         denial_reason: user.denial_reason,
-        denial_description: user.denial_description
+        denial_description: user.denial_description,
       }
-      AdminService.denyUser(params).then(response => {
+      AdminService.denyUser(params).then((response) => {
         console.log('viewSubmission', user)
         user.request_status = 'denied'
         const arr = this.signups.slice()
@@ -171,14 +176,13 @@ export default {
     },
   },
 
-  created () {
-  },
+  created() {},
 
   watch: {
     pagination: {
-      handler () {
+      handler() {
         this.loadUsers()
-      }
-    }
-  }
+      },
+    },
+  },
 }

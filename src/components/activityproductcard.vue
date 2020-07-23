@@ -42,37 +42,37 @@ import ProductService from '@/services/product'
 export default {
   components: {
     merchModal,
-    profileItem
+    profileItem,
   },
 
   props: {
     object: {
-      type: Object
+      type: Object,
     },
 
     priceShow: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
-  data () {
+  data() {
     return {
       dialog: false,
-      showMerchModal: false
+      showMerchModal: false,
     }
   },
 
   computed: {
-    item () {
+    item() {
       if (this.object.assoc_type) {
         return this.object.assoc
       } else {
         return this.object
       }
-    }
+    },
 
-    // isShowUserInfo () {
+    // isShowUserInfo() {
     //   if (this.$store.state.navigator.current.page === 'feed') {
     //     return true
     //   } else {
@@ -80,7 +80,7 @@ export default {
     //   }
     // },
 
-    // publisher () {
+    // publisher() {
     //   if (this.object.assoc_type) {
     //     return this.object.publisher
     //   } else {
@@ -88,7 +88,7 @@ export default {
     //   }
     // },
 
-    // owner () {
+    // owner() {
     //   if (this.object.assoc_type) {
     //     return this.object.assoc.merchant
     //   } else {
@@ -97,29 +97,29 @@ export default {
     // }
   },
 
-  created () {
+  created() {
   },
 
   methods: {
-    dimissMerchModal () {
+    dimissMerchModal() {
       this.showMerchModal = false
     },
 
-    showModal () {
+    showModal() {
       this.showMerchModal = true
     },
 
-    repostProduct () {
+    repostProduct() {
       this.dialog = false
       ProductService.repostProduct(this.item.id).then(response => {
         this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
       }).catch(e => {
         this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       })
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {
+  },
 }
 </script>

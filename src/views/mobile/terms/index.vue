@@ -1,22 +1,23 @@
 <template>
   <div class="mobile-terms-page page terms-page">
-    <mobile-header
-      theme="light"
-      @open-menu="openMenu"
-    />
+    <mobile-header theme="light" @open-menu="openMenu" />
     <div class="section">
-      <community-guidelines-tab v-if="activeTab == 'community_guidelines'"/>
-      <privacy-policy-tab v-else-if="activeTab == 'privacy_policy'"/>
-      <privacy-choice-tab v-else-if="activeTab == 'privacy_choice'"/>
-      <copyright-policy-tab v-else-if="activeTab == 'copyright_policy'"/>
-      <trademark-policy-tab v-else-if="activeTab == 'trademark_policy'"/>
-      <gdpr-tab v-else-if="activeTab == 'gdpr'"/>
-      <cookie-policy-tab v-else-if="activeTab == 'cookie_policy'"/>
-      <sample-clearance-tab v-else-if="activeTab == 'sample_clearance'"/>
-      <terms-of-use-tab v-else/>
+      <community-guidelines-tab v-if="activeTab == 'community_guidelines'" />
+      <privacy-policy-tab v-else-if="activeTab == 'privacy_policy'" />
+      <privacy-choice-tab v-else-if="activeTab == 'privacy_choice'" />
+      <copyright-policy-tab v-else-if="activeTab == 'copyright_policy'" />
+      <trademark-policy-tab v-else-if="activeTab == 'trademark_policy'" />
+      <gdpr-tab v-else-if="activeTab == 'gdpr'" />
+      <cookie-policy-tab v-else-if="activeTab == 'cookie_policy'" />
+      <sample-clearance-tab v-else-if="activeTab == 'sample_clearance'" />
+      <terms-of-use-tab v-else />
     </div>
 
-    <v-dialog v-model="showMenu" fullscreen transition="slide-x-reverse-transition">
+    <v-dialog
+      v-model="showMenu"
+      fullscreen
+      transition="slide-x-reverse-transition"
+    >
       <mobile-menu @close-menu="closeMenu"></mobile-menu>
     </v-dialog>
   </div>
@@ -49,30 +50,30 @@ export default {
     privacyPolicyTab,
     sampleClearanceTab,
     termsOfUseTab,
-    trademarkPolicyTab
+    trademarkPolicyTab,
   },
 
-  data () {
+  data() {
     return {
       activeTab: 'terms_of_use',
-      showMenu: false
+      showMenu: false,
     }
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       const tab = toPath.hash.substr(1)
       this.setTab(tab)
-    }
+    },
   },
 
-  created () {
+  created() {
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
   },
 
   methods: {
-    setTab (tab) {
+    setTab(tab) {
       if (tab === this.activeTab) {
         return
       }
@@ -82,17 +83,19 @@ export default {
       }
 
       this.activeTab = tab
-      this.$nextTick(() => { $(window).scrollTop(0) })
+      this.$nextTick(() => {
+        $(window).scrollTop(0)
+      })
     },
 
-    openMenu () {
+    openMenu() {
       this.showMenu = true
     },
 
-    closeMenu () {
+    closeMenu() {
       this.showMenu = false
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -111,7 +114,7 @@ export default {
   }
 
   .header-container {
-    background-color: #FFF;
+    background-color: #fff;
   }
 }
 </style>

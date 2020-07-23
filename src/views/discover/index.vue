@@ -9,8 +9,10 @@
               v-for="tab in tabs"
               :key="tab.id"
               :href="`#${tab.id}`"
-              :class="{active: isActiveTab(tab.id)}"
-            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            </li>
 
             <li v-if="activeTab != 'merch'" class="border-top my-0">
               <div
@@ -19,19 +21,14 @@
                 @mouseleave="hover_on_genre_button = false"
                 @click="openGenreSelectorDialog()"
               >
-                <div
-                  class="genre-filter"
-                >
+                <div class="genre-filter">
                   <span>Genre Filter</span>
-                  <img src="/static/images/ic_filter.svg">
+                  <img src="/static/images/ic_filter.svg" />
                 </div>
-                <div
-                  v-show="showGenreTooltip"
-                  class="tooltip"
-                >
+                <div v-show="showGenreTooltip" class="tooltip">
                   <div class="tooltip-arrow"></div>
                   <div class="tooltip-inner">
-                    Set your Genre Filters<br>
+                    Set your Genre Filters<br />
                     & customize your experience
                     <a @click.stop="got_genre_tooltip = true">Got it!</a>
                   </div>
@@ -39,7 +36,10 @@
               </div>
             </li>
 
-            <li v-if="activeTab != 'merch'" class="border-top border-bottom my-0">
+            <li
+              v-if="activeTab != 'merch'"
+              class="border-top border-bottom my-0"
+            >
               <v-menu
                 content-class="filter-menu__content"
                 id="genre_selector"
@@ -66,7 +66,10 @@
               </v-menu>
             </li>
 
-            <li v-if="activeTab == 'merch'" class="border-top border-bottom my-0">
+            <li
+              v-if="activeTab == 'merch'"
+              class="border-top border-bottom my-0"
+            >
               <v-menu
                 id="category_selector"
                 class="filter_menu"
@@ -111,12 +114,8 @@
         </v-layout>
 
         <v-layout row wrap v-else>
-          <div
-            v-for="feed in products"
-            :key="feed.id"
-            class="card-container"
-          >
-            <product-card :dataObject="feed"/>
+          <div v-for="feed in products" :key="feed.id" class="card-container">
+            <product-card :dataObject="feed" />
           </div>
         </v-layout>
 
@@ -126,7 +125,8 @@
             v-show="page_index < total_pages"
             @click.native="loadMore()"
             class="loadmore-btn"
-          >Load More</v-btn>
+            >Load More</v-btn
+          >
         </div>
       </div>
     </div>
@@ -136,14 +136,11 @@
       v-model="show_genre_selector_dialog"
       content-class="my-genre-dialog ma-0 pa-2"
     >
-      <genre-dialog
-        :dismiss="closeGenreSelectorDialog"
-      />
+      <genre-dialog :dismiss="closeGenreSelectorDialog" />
     </v-dialog>
   </div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

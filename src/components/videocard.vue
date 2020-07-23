@@ -28,22 +28,22 @@
 
   export default {
     components: {
-      profileItem
+      profileItem,
     },
 
     props: {
       dataObject: {
-        type: Object
-      }
+        type: Object,
+      },
     },
 
-    data () {
+    data() {
       return {
       }
     },
 
     computed: {
-      item () {
+      item() {
         if (this.dataObject.assoc_type === 'Stream') {
           return this.dataObject.assoc
         } else {
@@ -51,37 +51,37 @@
         }
       },
 
-      owner () {
+      owner() {
         if (this.dataObject.assoc_type === 'Stream') {
           return this.dataObject.assoc.user
         } else {
           return this.dataObject.user
         }
-      }
+      },
     },
 
-    created () {
+    created() {
     },
 
     methods: {
-      viewStream () {
+      viewStream() {
         Vue.http.get(this.item.mp_channel_1_ep_1_url).then(response => {
-          this.$router.push({ path: `/${this.owner.slug}` })
+          this.$router.push({path: `/${this.owner.slug}`})
         }).catch(e => {
-          this.$router.push({ path: `/user/${this.own.slug}/chat` })
+          this.$router.push({path: `/user/${this.own.slug}/chat`})
         })
       },
 
-      repost () {
+      repost() {
         StreamService.repostStream(this.item.id).then(response => {
           this.$store.dispatch('error/showSuccessToast', ['You just reposted a live video from' + this.owner.display_name])
         }).catch(e => {
           this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
-      }
+      },
     },
 
-    mounted () {
-    }
+    mounted() {
+    },
   }
 </script>

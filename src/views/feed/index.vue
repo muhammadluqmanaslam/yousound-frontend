@@ -9,8 +9,10 @@
               v-for="tab in tabs"
               :key="tab.id"
               :href="`#${tab.id}`"
-              :class="{active: isActiveTab(tab.id)}"
-            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            </li>
           </ul>
         </div>
       </div>
@@ -18,8 +20,12 @@
       <div class="page-content" v-if="currentUser">
         <div v-if="!users || users.length == 0" class="empty-section">
           <p class="empty-title">Your stream is empty</p>
-          <p class="empty-description">Follow people to discover new music &amp; products.</p>
-          <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
+          <p class="empty-description">
+            Follow people to discover new music &amp; products.
+          </p>
+          <router-link to="/discover" class="empty-discover-btn"
+            >Discover</router-link
+          >
         </div>
         <div v-else>
           <div v-for="(user, user_index) in users" :key="user_index">
@@ -32,7 +38,8 @@
               v-show="page_index < total_pages"
               @click.native="loadMore()"
               class="loadmore-btn"
-            >Load More</v-btn>
+              >Load More</v-btn
+            >
           </div>
         </div>
       </div>
@@ -46,12 +53,24 @@
         <v-card-text>
           <ul>
             <li>View content <b>chronologically</b> from people you follow.</li>
-            <li><b>Easily sort feed</b> by albums, products, video, reposts & playlists.</li>
-            <li>Listen to albums & add products to cart <b>from the feed</b>.</li>
+            <li>
+              <b>Easily sort feed</b> by albums, products, video, reposts &
+              playlists.
+            </li>
+            <li>
+              Listen to albums & add products to cart <b>from the feed</b>.
+            </li>
           </ul>
         </v-card-text>
         <v-card-actions>
-          <v-btn dark round color="blue" @click.native="closeHelpDialog()" class="px-4">Ok, Got it!</v-btn>
+          <v-btn
+            dark
+            round
+            color="blue"
+            @click.native="closeHelpDialog()"
+            class="px-4"
+            >Ok, Got it!</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>

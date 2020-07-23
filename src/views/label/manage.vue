@@ -9,8 +9,10 @@
               v-for="tab in artist_tabs"
               :key="tab.id"
               :href="`#${tab.id}`"
-              :class="{active: isActiveTab(tab.id)}"
-            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            </li>
           </ul>
         </div>
       </div>
@@ -48,7 +50,11 @@
             </template>
             <template v-else>
               <v-layout row wrap class="covers-content">
-                <div class="card-container" v-for="(user_album, index) in approved_albums" :key="index">
+                <div
+                  class="card-container"
+                  v-for="(user_album, index) in approved_albums"
+                  :key="index"
+                >
                   <label-album-item
                     :album="user_album.album"
                     :user="user_album.user"
@@ -95,7 +101,11 @@
             </template>
             <template v-else>
               <v-layout row wrap class="covers-content">
-                <div class="card-container" v-for="(user_album, index) in pending_albums" :key="index">
+                <div
+                  class="card-container"
+                  v-for="(user_album, index) in pending_albums"
+                  :key="index"
+                >
                   <label-album-item
                     :album="user_album.album"
                     :user="user_album.user"
@@ -121,8 +131,10 @@
               v-for="tab in label_tabs"
               :key="tab.id"
               :href="`#${tab.id}`"
-              :class="{active: isActiveTab(tab.id)}"
-            ><label @click="onTab(tab.id)">{{ tab.title }}</label></li>
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            </li>
           </ul>
         </div>
       </div>
@@ -132,7 +144,10 @@
           <v-card flat>
             <v-layout row wrap>
               <v-flex xs12>
-                <v-btn class="add-product-btn" @click.native="showSelectUserDialog()">
+                <v-btn
+                  class="add-product-btn"
+                  @click.native="showSelectUserDialog()"
+                >
                   <v-icon>add</v-icon>Add Artist
                 </v-btn>
               </v-flex>
@@ -150,7 +165,11 @@
         <div v-if="navigatorState.tab == 'approved_albums'">
           <v-card flat>
             <v-layout row wrap class="covers-content">
-              <div class="card-container" v-for="(user_album, index) in approved_albums" :key="index">
+              <div
+                class="card-container"
+                v-for="(user_album, index) in approved_albums"
+                :key="index"
+              >
                 <label-album-item
                   :album="user_album.album"
                   :user="user_album.user"
@@ -181,7 +200,11 @@
         <div v-if="navigatorState.tab == 'pending_albums'">
           <v-card flat>
             <v-layout row wrap class="covers-content">
-              <div class="card-container" v-for="(user_album, index) in not_approved_albums" :key="index">
+              <div
+                class="card-container"
+                v-for="(user_album, index) in not_approved_albums"
+                :key="index"
+              >
                 <label-album-item
                   :album="user_album.album"
                   :user="user_album.user"
@@ -201,20 +224,33 @@
 
     <select-user-modal
       v-if="show_select_user_modal"
-      title="Add Artist to Roster" 
-      type="artist" 
-      :dismiss="hideSelectUserDialog" 
+      title="Add Artist to Roster"
+      type="artist"
+      :dismiss="hideSelectUserDialog"
       :selectUser="sendRequestToAdd"
     ></select-user-modal>
 
     <v-dialog v-model="label_delete_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Delete a Label</v-card-title>
-        <v-card-text>If you click OK, you won't see this label any more. Click OK to delete &lt;{{ user.display_name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-text
+          >If you click OK, you won't see this label any more. Click OK to
+          delete &lt;{{ user.display_name }}&gt;, or click Cancel.</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="removeLabel()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideLabelDeleteConfirmDialog()">Cancel</v-btn>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="removeLabel()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hideLabelDeleteConfirmDialog()"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -222,23 +258,52 @@
     <v-dialog v-model="roster_delete_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Delete a Roster</v-card-title>
-        <v-card-text>If you click OK, you won't add roster's album to your label any more. Click OK to delete &lt;{{ user.display_name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-text
+          >If you click OK, you won't add roster's album to your label any more.
+          Click OK to delete &lt;{{ user.display_name }}&gt;, or click
+          Cancel.</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="removeRoster()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideRosterDeleteConfirmDialog()">Cancel</v-btn>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="removeRoster()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hideRosterDeleteConfirmDialog()"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <v-dialog v-model="album_delete_confirm_dialog">
       <v-card>
-        <v-card-title class="headline">Remove an Album from your Record Label</v-card-title>
-        <v-card-text>If you click OK, your followers won't see the album any more. Click OK to remove &lt;{{ album.name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-title class="headline"
+          >Remove an Album from your Record Label</v-card-title
+        >
+        <v-card-text
+          >If you click OK, your followers won't see the album any more. Click
+          OK to remove &lt;{{ album.name }}&gt;, or click Cancel.</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="removeAlbum()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideAlbumDeleteConfirmDialog()">Cancel</v-btn>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="removeAlbum()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hideAlbumDeleteConfirmDialog()"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -249,8 +314,18 @@
         <v-card-text>{{ status_dialog_text }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="updateAlbumStatus()">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="hideAlbumStatusConfirmDialog()">Cancel</v-btn>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="updateAlbumStatus()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hideAlbumStatusConfirmDialog()"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -274,7 +349,14 @@
           </div>
         </v-card-text>
         <v-card-actions>
-          <v-btn dark round color="blue" @click.native="closeHelpDialog()" class="px-4">Ok, Got it!</v-btn>
+          <v-btn
+            dark
+            round
+            color="blue"
+            @click.native="closeHelpDialog()"
+            class="px-4"
+            >Ok, Got it!</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>

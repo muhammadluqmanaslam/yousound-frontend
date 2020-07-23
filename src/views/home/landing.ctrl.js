@@ -4,26 +4,25 @@ import landingCard from './components/landing_card'
 export default {
   components: {
     appFooter,
-    landingCard
+    landingCard,
   },
 
-  data () {
-    return {
-    }
+  data() {
+    return {}
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
+  created() {
     if (this.$store) {
-      this.$store.dispatch('navigator/goNextState', { page: 'landing', tab: '' })
+      this.$store.dispatch('navigator/goNextState', {
+        page: 'landing',
+        tab: '',
+      })
     }
   },
 
-  methods: {
-  },
+  methods: {},
 
-  mounted () {
-  }
+  mounted() {},
 }

@@ -3,7 +3,7 @@
     <div class="box__content">
       <div
         class="box__image"
-        :style="`background-image: url(${ _.get(item, 'cover.url') })`"
+        :style="`background-image: url(${_.get(item, 'cover.url')})`"
       ></div>
       <div class="box__caption">Live</div>
 
@@ -14,27 +14,28 @@
     <div class="box__footer">
       <div class="box__subtitle">{{ item.name }}</div>
       <div class="box__title">
-        <router-link :to="`/${_.get(item, 'user.slug')}`">{{ _.get(item, 'user.display_name') }}</router-link>
+        <router-link :to="`/${_.get(item, 'user.slug')}`">{{
+          _.get(item, 'user.display_name')
+        }}</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import VideoDetailBox from './video_detail_box'
+import VideoDetailBox from './video_detail_box'
 
-  export default {
-    components: {
-      VideoDetailBox
-    },
+export default {
+  components: {
+    VideoDetailBox,
+  },
 
-    props: {
-      item: Object
-    },
+  props: {
+    item: Object,
+  },
 
-    methods: {
-    }
-  }
+  methods: {},
+}
 </script>
 
 <style lang="scss" scoped>

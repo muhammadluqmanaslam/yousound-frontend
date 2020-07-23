@@ -13,7 +13,7 @@ const state = {
   listIndex: -1,
   trackIndex: -1,
   gridShow: false,
-  user: null
+  user: null,
 }
 
 const getters = {
@@ -31,74 +31,74 @@ const getters = {
     } else {
       return state.list[state.listIndex]
     }
-  }
+  },
 }
 
 const actions = {
-  setPlayingStatus ({ commit }, isPlaying) {
+  setPlayingStatus({ commit }, isPlaying) {
     commit('setPlayingStatus', isPlaying)
   },
 
-  setPauseStatus ({ commit }, isPaused) {
+  setPauseStatus({ commit }, isPaused) {
     commit('setPauseStatus', isPaused)
   },
 
-  setShuffleStatus ({ commit }, isShuffle) {
+  setShuffleStatus({ commit }, isShuffle) {
     commit('setShuffleStatus', isShuffle)
   },
 
-  setPlaylist ({ commit }, list) {
+  setPlaylist({ commit }, list) {
     commit('setPlaylist', list)
   },
 
-  setTracks ({ commit }, tracks) {
+  setTracks({ commit }, tracks) {
     commit('setTracks', tracks)
   },
 
-  setListIndex ({ commit }, listIndex) {
+  setListIndex({ commit }, listIndex) {
     commit('setListIndex', listIndex)
   },
 
-  updateFollowingStatus ({ commit }, status) {
+  updateFollowingStatus({ commit }, status) {
     commit('updateFollowingStatus', status)
   },
 
-  setTrackIndex ({ commit }, trackIndex) {
+  setTrackIndex({ commit }, trackIndex) {
     // console.log('player action setTrackIndex', trackIndex)
     commit('setTrackIndex', trackIndex)
   },
 
-  setGridShow ({ commit }, gridShow) {
+  setGridShow({ commit }, gridShow) {
     commit('setGridShow', gridShow)
   },
 
-  setUpdatedUser ({ commit }, user) {
+  setUpdatedUser({ commit }, user) {
     commit('setUpdatedUser', user)
-  }
+  },
 }
 
 const mutations = {
-  setPlayingStatus (state, isPlaying) {
+  setPlayingStatus(state, isPlaying) {
     state.isPlaying = isPlaying
   },
 
-  setPauseStatus (state, isPaused) {
+  setPauseStatus(state, isPaused) {
     state.isPaused = isPaused
   },
 
-  setShuffleStatus (state, isShuffle) {
+  setShuffleStatus(state, isShuffle) {
     state.isShuffle = isShuffle
   },
 
-  setPlaylist (state, list) {
+  setPlaylist(state, list) {
     state.list = list
   },
 
-  setTracks (state, tracks) {
+  setTracks(state, tracks) {
     state.tracks = tracks
   },
 
-  setListIndex (state, listIndex) {
+  setListIndex(state, listIndex) {
     state.listIndex = listIndex
     // if (listIndex >= state.list.length) {
     //   state.listIndex = 0
@@ -107,7 +107,7 @@ const mutations = {
     // }
   },
 
-  updateFollowingStatus (state, status) {
+  updateFollowingStatus(state, status) {
     if (state.list[state.listIndex].assoc_type) {
       state.list[state.listIndex].assoc.publisher.is_following = status
     } else {
@@ -115,7 +115,7 @@ const mutations = {
     }
   },
 
-  setTrackIndex (state, trackIndex) {
+  setTrackIndex(state, trackIndex) {
     state.trackIndex = trackIndex
     // if (trackIndex >= state.tracks.length) {
     //   state.trackIndex = 0
@@ -124,13 +124,13 @@ const mutations = {
     // }
   },
 
-  setGridShow (state, gridShow) {
+  setGridShow(state, gridShow) {
     state.gridShow = gridShow
   },
 
-  setUpdatedUser (state, user) {
+  setUpdatedUser(state, user) {
     state.user = user
-  }
+  },
 }
 
 export default {
@@ -139,5 +139,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

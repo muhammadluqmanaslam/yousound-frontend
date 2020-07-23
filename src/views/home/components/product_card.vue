@@ -4,7 +4,7 @@
       <v-flex xs12 class="my-card__media">
         <div
           class="my-card__media__body"
-          :style="{'background-image': 'url(' + itemCover + ')'}"
+          :style="{ 'background-image': 'url(' + itemCover + ')' }"
         ></div>
         <div class="right-tag">${{ item.price | formatNumber }}</div>
         <v-flex xs12 class="my-card__actions" relative v-if="currentUser">
@@ -16,7 +16,9 @@
           {{ item.name }}
         </p>
         <p class="my-card__subtitle">
-          <router-link :to="'/' + owner.slug">{{ owner.display_name }}</router-link>
+          <router-link :to="'/' + owner.slug">{{
+            owner.display_name
+          }}</router-link>
         </p>
       </v-flex>
     </v-flex>
@@ -30,51 +32,50 @@
 </template>
 
 <script type="text/javascript">
-  // import _ from 'lodash'
-  import merchModal from '@/components/merchmodal'
+// import _ from 'lodash'
+import merchModal from '@/components/merchmodal'
 
-  export default {
-    components: {
-      merchModal
+export default {
+  components: {
+    merchModal,
+  },
+
+  props: {
+    item: {
+      type: Object,
     },
+  },
 
-    props: {
-      item: {
-        type: Object
-      }
-    },
-
-    data () {
-      return {
-        show_merch_dialog: false
-      }
-    },
-
-    computed: {
-      currentUser () {
-        return this.$store.state.auth.user
-      },
-
-      itemCover () {
-        return this.item.covers[0].cover.url
-      },
-
-      owner () {
-        return this.item.merchant
-      }
-    },
-
-    created () {
-    },
-
-    methods: {
-      openMerchDialog () {
-        this.show_merch_dialog = true
-      },
-
-      closeMerchDialog () {
-        this.show_merch_dialog = false
-      }
+  data() {
+    return {
+      show_merch_dialog: false,
     }
-  }
+  },
+
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+
+    itemCover() {
+      return this.item.covers[0].cover.url
+    },
+
+    owner() {
+      return this.item.merchant
+    },
+  },
+
+  created() {},
+
+  methods: {
+    openMerchDialog() {
+      this.show_merch_dialog = true
+    },
+
+    closeMerchDialog() {
+      this.show_merch_dialog = false
+    },
+  },
+}
 </script>

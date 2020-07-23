@@ -11,14 +11,14 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      image: String,
-      title: String,
-      subtitle: String,
-      type: String
-    }
-  }
+export default {
+  props: {
+    image: String,
+    title: String,
+    subtitle: String,
+    type: String,
+  },
+}
 </script>
 
 <style lang="scss" scoped>

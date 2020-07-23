@@ -1,29 +1,28 @@
 const state = {
   stripe: null,
-  cartItems: []
+  cartItems: [],
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
-  setStripe ({ commit }, stripe) {
+  setStripe({ commit }, stripe) {
     commit('setStripe', stripe)
   },
 
-  setCartItems ({ commit }, cartItems) {
+  setCartItems({ commit }, cartItems) {
     commit('setCartItems', cartItems)
-  }
+  },
 }
 
 const mutations = {
-  setStripe (state, stripe) {
+  setStripe(state, stripe) {
     state.stripe = stripe
   },
 
-  setCartItems (state, cartItems) {
+  setCartItems(state, cartItems) {
     state.cartItems = cartItems
-  }
+  },
 }
 
 export default {
@@ -32,5 +31,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

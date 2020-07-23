@@ -2,7 +2,13 @@
   <v-card :class="klass">
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
-        <v-flex sm5 offset-sm1 md4 offset-md2 v-if="klass == 'left-content-card'">
+        <v-flex
+          sm5
+          offset-sm1
+          md4
+          offset-md2
+          v-if="klass == 'left-content-card'"
+        >
           <div class="card__content">
             <label>{{ title }}</label>
             <slot></slot>
@@ -25,27 +31,26 @@
 </template>
 
 <script>
-  export default {
-    components: {
+export default {
+  components: {},
+
+  props: {
+    klass: {
+      type: String,
+      default: 'left-content-card',
     },
 
-    props: {
-      klass: {
-        type: String,
-        default: 'left-content-card'
-      },
-
-      title: {
-        type: String
-      },
-
-      mediaSource: {
-        type: String
-      }
+    title: {
+      type: String,
     },
 
-    data () {
-      return {}
-    }
-  }
+    mediaSource: {
+      type: String,
+    },
+  },
+
+  data() {
+    return {}
+  },
+}
 </script>

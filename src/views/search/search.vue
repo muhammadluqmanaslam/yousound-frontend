@@ -9,7 +9,7 @@
               v-for="tab in tabs"
               :key="tab.id"
               :href="`#${tab.id}`"
-              :class="{active: isActiveTab(tab.id)}"
+              :class="{ active: isActiveTab(tab.id) }"
             >
               <label @click="onTab(tab.id)">
                 {{ tab.title }}

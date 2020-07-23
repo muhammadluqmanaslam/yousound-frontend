@@ -3,9 +3,15 @@
     <v-layout row wrap mt-3 class="pgs_area" v-if="show_selector_view">
       <div class="pgs-wrapper" v-for="(parent, index) in genres">
         <div class="pgs" :key="parent.id">
-          <div class="pgs-inner-wrapper" :style="{backgroundColor: parent.color}" @click.stop="selectParent(parent, index)">
+          <div
+            class="pgs-inner-wrapper"
+            :style="{ backgroundColor: parent.color }"
+            @click.stop="selectParent(parent, index)"
+          >
             <div class="pgs-inner">
-              <div class="pgs__title"><label>{{ parent.name }}</label></div>
+              <div class="pgs__title">
+                <label>{{ parent.name }}</label>
+              </div>
               <div class="pgs__content">
                 <div class="upload-info">
                   <label>{{ parent.users_size | formatNumberWithComma }}</label>
@@ -21,13 +27,18 @@
     </v-layout>
 
     <div v-if="show_selector_view" class="text-xs-center">
-      <v-btn dark color="blue" class="update-btn" @click.native="dismiss()">OK</v-btn>
+      <v-btn dark color="blue" class="update-btn" @click.native="dismiss()"
+        >OK</v-btn
+      >
     </div>
 
     <div class="genre-container" v-if="!show_selector_view">
       <div class="pgs-wrapper">
         <div class="pgs" :key="parent.id">
-          <div class="pgs-inner-wrapper" :style="{backgroundColor: parent.color}">
+          <div
+            class="pgs-inner-wrapper"
+            :style="{ backgroundColor: parent.color }"
+          >
             <div class="pgs-inner">
               <div class="pgs__title">{{ parent.name }}</div>
               <div class="pgs__content">
@@ -41,7 +52,9 @@
       <div class="genre__content">
         <v-radio-group v-model="genre.id" :mandatory="false">
           <v-layout row wrap ma-0 :key="parent.id">
-            <template v-if="Object.keys(groupChildrenByRegion(parent)).length == 1">
+            <template
+              v-if="Object.keys(groupChildrenByRegion(parent)).length == 1"
+            >
               <v-flex xs12 sm3 v-for="child in parent.children" :key="child.id">
                 <v-radio
                   :label="child.name"
@@ -52,7 +65,9 @@
             </template>
             <template v-else>
               <template v-for="(values, key) in groupChildrenByRegion(parent)">
-                <v-flex xs12><h5>{{ key }}</h5></v-flex>
+                <v-flex xs12
+                  ><h5>{{ key }}</h5></v-flex
+                >
                 <v-flex xs12 sm3 v-for="child in values" :key="child.id">
                   <v-radio
                     :label="child.name"
@@ -63,8 +78,20 @@
               </template>
             </template>
             <v-flex xs12 class="text-xs-center">
-              <v-btn dark color="grey" class="update-btn" @click.native="show_selector_view = true">Back</v-btn>
-              <v-btn dark color="blue" class="update-btn" @click.native="dismiss()">Select Genre & Close</v-btn>
+              <v-btn
+                dark
+                color="grey"
+                class="update-btn"
+                @click.native="show_selector_view = true"
+                >Back</v-btn
+              >
+              <v-btn
+                dark
+                color="blue"
+                class="update-btn"
+                @click.native="dismiss()"
+                >Select Genre & Close</v-btn
+              >
             </v-flex>
           </v-layout>
         </v-radio-group>

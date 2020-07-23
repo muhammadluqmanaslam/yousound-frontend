@@ -1,26 +1,36 @@
 <template>
   <v-container pa-0 class="genre" v-if="isPageReady">
     <h3 class="mt-4 ml-2">Genre Filters</h3>
-    <p class="ma-2">Only albums from genres selected will appear on <strong>Discover & Feed</strong></p>
+    <p class="ma-2">
+      Only albums from genres selected will appear on
+      <strong>Discover & Feed</strong>
+    </p>
 
     <v-btn
       v-if="show_selector_view"
-      dark color="blue"
+      dark
+      color="blue"
       class="update-btn"
       @click.native="saveGenreFilters()"
-    >Save</v-btn>
+      >Save</v-btn
+    >
     <v-layout row wrap mt-3 class="pgs_area" v-if="show_selector_view">
       <div class="pgs-wrapper" v-for="(parent, index) in genres">
         <div class="pgs" :key="parent.id">
           <div
             class="pgs-inner-wrapper"
-            :style="{backgroundColor: parent.color}"
+            :style="{ backgroundColor: parent.color }"
             @click="checkParentGenre(parent, !parent.value)"
           >
             <div class="pgs-inner">
-              <div class="pgs__title"><label>{{ parent.name }}</label></div>
+              <div class="pgs__title">
+                <label>{{ parent.name }}</label>
+              </div>
               <div class="pgs__description">
-                <span @click.stop="selectParent(parent, index)">{{ getSelectedChildrenCount(parent) }} Subgenres</span></div>
+                <span @click.stop="selectParent(parent, index)"
+                  >{{ getSelectedChildrenCount(parent) }} Subgenres</span
+                >
+              </div>
               <div class="pgs__content">
                 <div class="upload-info">
                   <label>{{ parent.users_size | formatNumberWithComma }}</label>
@@ -37,17 +47,24 @@
 
     <v-btn
       v-if="!show_selector_view"
-      dark color="blue"
+      dark
+      color="blue"
       class="update-btn"
       @click.native="show_selector_view = true"
-    >OK</v-btn>
+      >OK</v-btn
+    >
     <div class="genre-container" v-if="!show_selector_view">
       <div class="pgs-wrapper">
         <div class="pgs" :key="parent.id">
-          <div class="pgs-inner-wrapper" :style="{backgroundColor: parent.color}">
+          <div
+            class="pgs-inner-wrapper"
+            :style="{ backgroundColor: parent.color }"
+          >
             <div class="pgs-inner">
               <div class="pgs__title">{{ parent.name }}</div>
-              <div class="pgs__description">+{{ getSelectedChildrenCount(parent) }} Subgenres</div>
+              <div class="pgs__description">
+                +{{ getSelectedChildrenCount(parent) }} Subgenres
+              </div>
               <div class="pgs__content">
                 <div class="pgs__badge check-o" v-if="parent.value"></div>
                 <div class="pgs__badge check" v-else></div>
@@ -60,14 +77,26 @@
         <v-layout row wrap ma-0 :key="parent.id">
           <v-flex xs12 sm12>
             <p class="regular-checkbox settings parent-genre">
-              <input :id="parent.id" type="checkbox" v-model="parent.value" @click="checkParentGenre(parent)"/>
+              <input
+                :id="parent.id"
+                type="checkbox"
+                v-model="parent.value"
+                @click="checkParentGenre(parent)"
+              />
               <label :for="parent.id">Select All</label>
             </p>
           </v-flex>
-          <template v-if="Object.keys(groupChildrenByRegion(parent)).length == 1">
+          <template
+            v-if="Object.keys(groupChildrenByRegion(parent)).length == 1"
+          >
             <v-flex xs12 sm3 v-for="child in parent.children" :key="child.id">
               <p class="regular-checkbox settings">
-                <input :id="child.id" type="checkbox" v-model="child.value" @click="checkChildGenre(parent, child)"/>
+                <input
+                  :id="child.id"
+                  type="checkbox"
+                  v-model="child.value"
+                  @click="checkChildGenre(parent, child)"
+                />
                 <label :for="child.id">{{ child.name }}</label>
                 <span>({{ child.users_size }})</span>
               </p>
@@ -75,16 +104,28 @@
           </template>
           <template v-else>
             <template v-for="(values, key) in groupChildrenByRegion(parent)">
-              <v-flex xs12><h5>{{ key }}</h5></v-flex>
+              <v-flex xs12
+                ><h5>{{ key }}</h5></v-flex
+              >
               <v-flex xs12 sm12>
                 <p class="regular-checkbox settings parent-genre">
-                  <input :id="`${parent.id}-${key}`" type="checkbox" v-model="region[`${parent.id}-${key}`]" @click="checkRegionGenre(parent, key)"/>
+                  <input
+                    :id="`${parent.id}-${key}`"
+                    type="checkbox"
+                    v-model="region[`${parent.id}-${key}`]"
+                    @click="checkRegionGenre(parent, key)"
+                  />
                   <label :for="`${parent.id}-${key}`">Select All</label>
                 </p>
               </v-flex>
               <v-flex xs12 sm3 v-for="child in values" :key="child.id">
                 <p class="regular-checkbox settings">
-                  <input :id="child.id" type="checkbox" v-model="child.value" @click="checkChildGenre(parent, child)"/>
+                  <input
+                    :id="child.id"
+                    type="checkbox"
+                    v-model="child.value"
+                    @click="checkChildGenre(parent, child)"
+                  />
                   <label :for="child.id">{{ child.name }}</label>
                   <span>({{ child.users_size }})</span>
                 </p>

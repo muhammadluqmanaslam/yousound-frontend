@@ -6,13 +6,14 @@ import genreDialog from '@/components/genre_dialog'
 import productCard from '@/components/productcard'
 import trackCard from '@/components/trackcard'
 
-const filterArrowDownString = '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
+const filterArrowDownString =
+  '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
 
 export default {
   components: {
     genreDialog,
     productCard,
-    trackCard
+    trackCard,
   },
 
   data() {
@@ -22,7 +23,7 @@ export default {
         { id: 'recommended', title: 'Recommended' },
         { id: 'new', title: 'Albums' },
         // { id: 'playlist', title: 'Playlists' },
-        { id: 'merch', title: 'Shop' }
+        { id: 'merch', title: 'Shop' },
       ],
       seed: '',
       show_genre_selector_dialog: false,
@@ -36,19 +37,22 @@ export default {
       selected_genre: null,
       categories: [],
       selected_category: null,
-      products:[],
+      products: [],
       feeds: [],
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    showGenreTooltip () {
-      return !this.got_genre_tooltip && (this.hover_on_genre_button || this.hover_on_genre_tooltip)
+    showGenreTooltip() {
+      return (
+        !this.got_genre_tooltip &&
+        (this.hover_on_genre_button || this.hover_on_genre_tooltip)
+      )
     },
 
     selectedGenreName() {
@@ -61,13 +65,13 @@ export default {
 
     filtered_feeds() {
       if (this.selected_genre) {
-        return _.filter(this.feeds, (feed) => (
-          _.find(feed.genres, (genre) => (genre.id == this.selected_genre.id))
-        ))
+        return _.filter(this.feeds, (feed) =>
+          _.find(feed.genres, (genre) => genre.id == this.selected_genre.id)
+        )
       } else {
         return this.feeds
       }
-    }
+    },
     // filtered_products() {
     //   if (this.selected_category) {
     //     return _.filter(this.products, (product) => (
@@ -80,10 +84,10 @@ export default {
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       const tab = toPath.hash.substr(1)
       this.setTab(tab)
-    }
+    },
   },
 
   created() {
@@ -117,77 +121,104 @@ export default {
         genre: genre,
         category: category,
         page: page,
-        per_page: this.items_per_page
+        per_page: this.items_per_page,
       }
       if (tab !== 'recommended') {
         params['seed'] = this.seed
       }
-      SearchService.searchDiscover(params).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        if (tab === 'merch') {
-          this.products = this.products.concat(response.body.products)
-          // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
-          const categories = response.body.categories.map((c) => ({id: c, name: c}))
-          this.categories = [
-            { id: 'any', name: 'Any category' },
-          ].concat(categories)
-        } else {
-          this.feeds = this.feeds.concat(response.body.albums)
-          const genres = _.chain(this.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
-          this.genres = [
-            // { id: 'go_to_filters', name: 'Set Genre Filters' },
-            { id: 'any', name: 'All genre' },
-          ].concat(genres)
-        }
-        this.page_index = response.body.pagination.current_page
-        this.total_pages = response.body.pagination.total_pages
+      SearchService.searchDiscover(params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          if (tab === 'merch') {
+            this.products = this.products.concat(response.body.products)
+            // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+            const categories = response.body.categories.map((c) => ({
+              id: c,
+              name: c,
+            }))
+            this.categories = [{ id: 'any', name: 'Any category' }].concat(
+              categories
+            )
+          } else {
+            this.feeds = this.feeds.concat(response.body.albums)
+            const genres = _.chain(this.feeds)
+              .map('genres')
+              .flatMap()
+              .keyBy('id')
+              .map((v, k) => {
+                return v
+              })
+              .sortBy('name')
+              .value()
+            this.genres = [
+              // { id: 'go_to_filters', name: 'Set Genre Filters' },
+              { id: 'any', name: 'All genre' },
+            ].concat(genres)
+          }
+          this.page_index = response.body.pagination.current_page
+          this.total_pages = response.body.pagination.total_pages
 
-        if (page == 1) {
-          Promise.all([
-            SearchService.searchDiscover(_.extend(params, { page: 2 })),
-            SearchService.searchDiscover(_.extend(params, { page: 3 })),
-            SearchService.searchDiscover(_.extend(params, { page: 4 }))
-          ]).then(values => {
-            if (tab === 'merch') {
-              vm.products = vm.products.concat(
-                values[0].body.products,
-                values[1].body.products,
-                values[2].body.products
-              )
-              vm.page_index = values[2].body.pagination.total_pages > 4 ? 4 : values[2].body.pagination.total_pages
-            } else {
-              vm.feeds = vm.feeds.concat(
-                values[0].body.albums,
-                values[1].body.albums,
-                values[2].body.albums
-              )
-              const genres = _.chain(vm.feeds).map('genres').flatMap().keyBy('id').map((v, k) => {return v}).sortBy('name').value()
-              vm.genres = [
-                { id: 'any', name: 'All' },
-              ].concat(genres)
-              vm.page_index = values[2].body.pagination.total_pages > 4 ? 4 : values[2].body.pagination.total_pages
-            }
-            vm.isPageReady = true
-          })
-        }
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        console.log('discover error', e)
-      })
+          if (page == 1) {
+            Promise.all([
+              SearchService.searchDiscover(_.extend(params, { page: 2 })),
+              SearchService.searchDiscover(_.extend(params, { page: 3 })),
+              SearchService.searchDiscover(_.extend(params, { page: 4 })),
+            ]).then((values) => {
+              if (tab === 'merch') {
+                vm.products = vm.products.concat(
+                  values[0].body.products,
+                  values[1].body.products,
+                  values[2].body.products
+                )
+                vm.page_index =
+                  values[2].body.pagination.total_pages > 4
+                    ? 4
+                    : values[2].body.pagination.total_pages
+              } else {
+                vm.feeds = vm.feeds.concat(
+                  values[0].body.albums,
+                  values[1].body.albums,
+                  values[2].body.albums
+                )
+                const genres = _.chain(vm.feeds)
+                  .map('genres')
+                  .flatMap()
+                  .keyBy('id')
+                  .map((v, k) => {
+                    return v
+                  })
+                  .sortBy('name')
+                  .value()
+                vm.genres = [{ id: 'any', name: 'All' }].concat(genres)
+                vm.page_index =
+                  values[2].body.pagination.total_pages > 4
+                    ? 4
+                    : values[2].body.pagination.total_pages
+              }
+              vm.isPageReady = true
+            })
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          console.log('discover error', e)
+        })
     },
 
-    openGenreSelectorDialog () {
+    openGenreSelectorDialog() {
       this.show_genre_selector_dialog = true
     },
 
-    closeGenreSelectorDialog () {
+    closeGenreSelectorDialog() {
       this.show_genre_selector_dialog = false
       this.setTab(this.activeTab)
     },
 
     filterByGenre(genre) {
-      $('#genre_selector .btn__content').html(genre.name + filterArrowDownString)
+      $('#genre_selector .btn__content').html(
+        genre.name + filterArrowDownString
+      )
       switch (genre.id) {
         // case 'go_to_filters':
         //   // this.$router.push({ path: '/settings#genre-filter' })
@@ -204,7 +235,9 @@ export default {
     filterByCategory(category) {
       if (this.selected_category == category) return
 
-      $('#category_selector .btn__content').html(category.name + filterArrowDownString)
+      $('#category_selector .btn__content').html(
+        category.name + filterArrowDownString
+      )
       switch (category.id) {
         case 'any':
           this.selected_category = null
@@ -235,13 +268,14 @@ export default {
     onTab(tab) {
       this.$router.push({
         path: this.$route.path,
-        hash: tab
+        hash: tab,
       })
     },
 
     setTab(tab) {
-      if (!tab)
+      if (!tab) {
         tab = 'recommended'
+      }
 
       // console.log(tab, this.activeTab)
       this.activeTab = tab
@@ -252,18 +286,27 @@ export default {
       this.selected_genre = null
       this.selected_category = null
       if (tab === 'merch') {
-        this.$store.dispatch('navigator/goNextState', { page: 'merch', tab: tab })
-        $('#category_selector .btn__content').html('Any category' + filterArrowDownString)
+        this.$store.dispatch('navigator/goNextState', {
+          page: 'merch',
+          tab: tab,
+        })
+        $('#category_selector .btn__content').html(
+          'Any category' + filterArrowDownString
+        )
       } else {
-        this.$store.dispatch('navigator/goNextState', { page: 'discover', tab: tab })
-        $('#genre_selector .btn__content').html('Any genre' + filterArrowDownString)
+        this.$store.dispatch('navigator/goNextState', {
+          page: 'discover',
+          tab: tab,
+        })
+        $('#genre_selector .btn__content').html(
+          'Any genre' + filterArrowDownString
+        )
       }
       this.$nextTick(() => {
         this.loadFeeds(this.activeTab, 1)
       })
-    }
+    },
   },
 
-  mounted() {
-  }
+  mounted() {},
 }

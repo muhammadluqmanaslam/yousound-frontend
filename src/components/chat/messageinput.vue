@@ -1,16 +1,29 @@
 <template>
   <v-layout row>
     <v-flex xs12>
-      <hr class="divider2">
+      <hr class="divider2" />
       <div class="msg-input-container">
         <v-layout row style="margin-left: 20px;">
           <v-flex xs10>
             <v-layout row>
               <v-flex xs1 class="text-xs-right">
-                <img class="pic" v-bind:src="user.avatar.thumb.url" style="margin-right: 20px;" />
+                <img
+                  class="pic"
+                  v-bind:src="user.avatar.thumb.url"
+                  style="margin-right: 20px;"
+                />
               </v-flex>
               <v-flex>
-                <v-text-field v-model="msgInput" id="msg-input" class="msg-input" label="Write something..." single-line :counter="settings.charLimitBool" :max="settings.charLimit" :rules="settings.link ? [] : [rules.link] "></v-text-field>
+                <v-text-field
+                  v-model="msgInput"
+                  id="msg-input"
+                  class="msg-input"
+                  label="Write something..."
+                  single-line
+                  :counter="settings.charLimitBool"
+                  :max="settings.charLimit"
+                  :rules="settings.link ? [] : [rules.link]"
+                ></v-text-field>
               </v-flex>
             </v-layout>
           </v-flex>
@@ -29,18 +42,18 @@ const linkRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]
 
 export default {
   props: ['user', 'settings'],
-  data () {
+  data() {
     return {
       rules: {
         link: (value) => {
           if (linkRegex.test(value)) return 'Links have been disabled.'
           return true
-        }
+        },
       },
-      msgInput: ''
+      msgInput: '',
     }
   },
-  mounted () {
+  mounted() {
     let that = this
 
     $('#msg-send').mousedown((e) => {
@@ -57,7 +70,7 @@ export default {
         return false
       }
     })
-  }
+  },
 }
 </script>
 
@@ -75,22 +88,22 @@ export default {
 }
 
 .msg-send-btn {
-  background: #FFFFFF;
-  border: 1px solid #B1B1B1;
+  background: #ffffff;
+  border: 1px solid #b1b1b1;
   border-radius: 100px;
   font-size: 18px;
   padding: 3px 15px 3px 15px;
-  color: #9B9B9B;
+  color: #9b9b9b;
   letter-spacing: -0.8px;
-  -webkit-transition: all .25s ease;
-  -moz-transition: all .25s ease;
-  -o-transition: all .25s ease;
-  transition: all .25s ease;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .msg-send-btn:active {
-  border: 1px solid #3A92FF;
-  color: #3A92FF;
+  border: 1px solid #3a92ff;
+  color: #3a92ff;
 }
 
 .pic {
@@ -98,12 +111,12 @@ export default {
   width: 50px;
   height: 50px;
   margin: 0;
-  background-color: #B1B1B1
+  background-color: #b1b1b1;
 }
 
 .divider2 {
   border-width: 1px;
-  border-color: #FFFFFF;
+  border-color: #ffffff;
 }
 
 button:focus {

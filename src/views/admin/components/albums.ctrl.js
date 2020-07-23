@@ -10,15 +10,15 @@ import productDetailDialog from './product_detail_dialog'
 export default {
   components: {
     albumDetailDialog,
-    productDetailDialog
+    productDetailDialog,
   },
 
-  data () {
+  data() {
     return {
       albums_tabs: [
         { id: 'published', title: 'Published Albums' },
         { id: 'privated', title: 'Privated Albums' },
-        { id: 'product', title: 'Products' }
+        { id: 'product', title: 'Products' },
       ],
       albums_tab: 'published',
       album_headers: [
@@ -50,15 +50,15 @@ export default {
       products: [],
       published_pagination: {
         page: 1,
-        rowsPerPage: 50
+        rowsPerPage: 50,
       },
       privated_pagination: {
         page: 1,
-        rowsPerPage: 50
+        rowsPerPage: 50,
       },
       product_pagination: {
         page: 1,
-        rowsPerPage: 50
+        rowsPerPage: 50,
       },
       total_published_albums: 0,
       total_privated_albums: 0,
@@ -66,12 +66,11 @@ export default {
       published_loading: false,
       privated_loading: false,
       product_loading: false,
-      isPageReady: true
+      isPageReady: true,
     }
   },
 
-  created() {
-  },
+  created() {},
 
   methods: {
     loadPublishedAlbums() {
@@ -79,16 +78,18 @@ export default {
         q: this.searchValue,
         statuses: 'published, collaborated',
         page: this.published_pagination.page,
-        per_page: this.published_pagination.rowsPerPage
+        per_page: this.published_pagination.rowsPerPage,
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      AdminService.getAlbums(params).then(response => {
-        this.published_albums = response.body.albums
-        this.total_published_albums = response.body.pagination.total_count
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+      AdminService.getAlbums(params)
+        .then((response) => {
+          this.published_albums = response.body.albums
+          this.total_published_albums = response.body.pagination.total_count
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
     loadPrivatedAlbums() {
@@ -96,32 +97,36 @@ export default {
         q: this.searchValue,
         statuses: 'privated',
         page: this.privated_pagination.page,
-        per_page: this.privated_pagination.rowsPerPage
+        per_page: this.privated_pagination.rowsPerPage,
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      AdminService.getAlbums(params).then(response => {
-        this.privated_albums = response.body.albums
-        this.total_privated_albums = response.body.pagination.total_count
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+      AdminService.getAlbums(params)
+        .then((response) => {
+          this.privated_albums = response.body.albums
+          this.total_privated_albums = response.body.pagination.total_count
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
     loadProducts() {
       const params = {
         statuses: 'published',
         page: this.product_pagination.page,
-        per_page: this.product_pagination.rowsPerPage
+        per_page: this.product_pagination.rowsPerPage,
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      AdminService.getProducts(params).then(response => {
-        this.products = response.body.products
-        this.total_products = response.body.pagination.total_count
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+      AdminService.getProducts(params)
+        .then((response) => {
+          this.products = response.body.products
+          this.total_products = response.body.pagination.total_count
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
     onTab(tab) {
@@ -142,131 +147,165 @@ export default {
       }
     },
 
-    openAlbumDeleteConfirmModal (album) {
+    openAlbumDeleteConfirmModal(album) {
       this.album = album
       this.show_album_delete_confirm_modal = true
     },
 
-    closeAlbumDeleteConfirmModal () {
+    closeAlbumDeleteConfirmModal() {
       this.show_album_delete_confirm_modal = false
     },
 
-    deleteAlbum (album) {
+    deleteAlbum(album) {
       this.closeAlbumDeleteConfirmModal()
-      AlbumService.deleteAlbum(album.id).then(res => {
-        let arr
-        switch (this.albums_tab) {
-          case 'published':
-            _.remove(this.published_albums, (item) => { return item.id == album.id })
-            arr = this.published_albums.slice()
-            this.published_albums = arr
-            break
-          case 'privated':
-            _.remove(this.privated_albums, (item) => { return item.id == album.id })
-            arr = this.privated_albums.slice()
-            this.privated_albums = arr
-            break
-        }
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.deleteAlbum(album.id)
+        .then((res) => {
+          let arr
+          switch (this.albums_tab) {
+            case 'published':
+              _.remove(this.published_albums, (item) => {
+                return item.id == album.id
+              })
+              arr = this.published_albums.slice()
+              this.published_albums = arr
+              break
+            case 'privated':
+              _.remove(this.privated_albums, (item) => {
+                return item.id == album.id
+              })
+              arr = this.privated_albums.slice()
+              this.privated_albums = arr
+              break
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    recommendAlbum (album) {
-      AlbumService.recommendAlbum(album.id).then(response => {
-        let arr
-        switch (this.albums_tab) {
-          case 'published':
-            _.each(this.published_albums, (item) => { if (item.id == album.id) item.recommended = true })
-            arr = this.published_albums.slice()
-            this.published_albums = arr
-            break
-          case 'privated':
-            _.remove(this.privated_albums, (item) => { if (item.id == album.id) item.recommended = true })
-            arr = this.privated_albums.slice()
-            this.privated_albums = arr
-            break
-        }
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    recommendAlbum(album) {
+      AlbumService.recommendAlbum(album.id)
+        .then((response) => {
+          let arr
+          switch (this.albums_tab) {
+            case 'published':
+              _.each(this.published_albums, (item) => {
+                if (item.id == album.id) item.recommended = true
+              })
+              arr = this.published_albums.slice()
+              this.published_albums = arr
+              break
+            case 'privated':
+              _.remove(this.privated_albums, (item) => {
+                if (item.id == album.id) item.recommended = true
+              })
+              arr = this.privated_albums.slice()
+              this.privated_albums = arr
+              break
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    unrecommendAlbum (album) {
-      AlbumService.unrecommendAlbum(album.id).then(response => {
-        switch (this.albums_tab) {
-          case 'published':
-            _.each(this.published_albums, (item) => { if (item.id == album.id) item.recommended = false })
-            arr = this.published_albums.slice()
-            this.published_albums = arr
-            break
-          case 'privated':
-            _.remove(this.privated_albums, (item) => { if (item.id == album.id) item.recommended = false })
-            arr = this.privated_albums.slice()
-            this.privated_albums = arr
-            break
-        }
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    unrecommendAlbum(album) {
+      AlbumService.unrecommendAlbum(album.id)
+        .then((response) => {
+          switch (this.albums_tab) {
+            case 'published':
+              _.each(this.published_albums, (item) => {
+                if (item.id == album.id) item.recommended = false
+              })
+              arr = this.published_albums.slice()
+              this.published_albums = arr
+              break
+            case 'privated':
+              _.remove(this.privated_albums, (item) => {
+                if (item.id == album.id) item.recommended = false
+              })
+              arr = this.privated_albums.slice()
+              this.privated_albums = arr
+              break
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    openAlbumDetailDialog (album) {
+    openAlbumDetailDialog(album) {
       this.album = album
       this.show_album_detail_dialog = true
     },
 
-    closeAlbumDetailDialog () {
+    closeAlbumDetailDialog() {
       this.show_album_detail_dialog = false
     },
 
-    openProductDetailDialog (product) {
+    openProductDetailDialog(product) {
       this.product = product
       this.show_product_detail_dialog = true
     },
 
-    closeProductDetailDialog () {
+    closeProductDetailDialog() {
       this.show_product_detail_dialog = false
     },
 
-    openProductDeleteConfirmModal (product) {
+    openProductDeleteConfirmModal(product) {
       this.product = product
       this.show_product_delete_confirm_modal = true
     },
 
-    closeProductDeleteConfirmModal () {
+    closeProductDeleteConfirmModal() {
       this.show_product_delete_confirm_modal = false
     },
 
-    deleteProduct (product) {
+    deleteProduct(product) {
       this.closeProductDeleteConfirmModal()
-      ProductService.deleteProduct(this.product.id).then(response => {
-        _.remove(this.products, (item) => { return item.id == product.id })
-        const arr = this.products.slice()
-        this.products = arr
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    }
+      ProductService.deleteProduct(this.product.id)
+        .then((response) => {
+          _.remove(this.products, (item) => {
+            return item.id == product.id
+          })
+          const arr = this.products.slice()
+          this.products = arr
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
   },
 
   watch: {
     published_pagination: {
-      handler () {
+      handler() {
         this.loadPublishedAlbums()
-      }
+      },
     },
 
     privated_pagination: {
-      handler () {
+      handler() {
         this.loadPrivatedAlbums()
-      }
+      },
     },
 
     product_pagination: {
-      handler () {
+      handler() {
         this.loadProducts()
-      }
+      },
     },
-  }
+  },
 }

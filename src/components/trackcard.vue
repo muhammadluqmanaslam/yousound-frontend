@@ -2,28 +2,34 @@
   <v-flex class="track-card">
     <v-flex
       v-if="!isEmptyAlbum"
-      @mouseenter="is_component_hover=true"
-      @mouseleave="is_component_hover=false"
-      xs12 pa-0
+      @mouseenter="is_component_hover = true"
+      @mouseleave="is_component_hover = false"
+      xs12
+      pa-0
       class="track-info"
     >
       <v-flex xs12 class="track-cover">
-        <template v-if="item.album_type=='playlist'">
+        <template v-if="item.album_type == 'playlist'">
           <div class="playlist-icon">
             <img src="/static/images/playlist.png" />
           </div>
           <div
             class="track-image"
             :class="item.album_type"
-            :style="{'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`}"
+            :style="{
+              'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`,
+            }"
           ></div>
         </template>
         <template v-else>
-          <div class="track-image" :style="{'background-image': 'url(' + item.cover.url + ')'}"></div>
+          <div
+            class="track-image"
+            :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
+          ></div>
           <!-- <div class="track-image" v-lazy:background-image="item.cover.url"></div> -->
         </template>
 
-        <v-flex xs12 class="track-actions" :class="{'playing': isPlaying}">
+        <v-flex xs12 class="track-actions" :class="{ playing: isPlaying }">
           <router-link :to="`/${item.album_type}/${item.slug}`">
             <v-flex xs12 class="touch-flex"></v-flex>
           </router-link>
@@ -63,7 +69,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_repeat.png" />
+                    <img
+                      class="track-status-icon"
+                      src="/static/images/ic_repeat.png"
+                    />
                     <label>Repost</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -74,7 +83,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_download.png" />
+                    <img
+                      class="track-status-icon"
+                      src="/static/images/ic_download.png"
+                    />
                     <label>Download</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -84,7 +96,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_share.png" />
+                    <img
+                      class="track-status-icon"
+                      src="/static/images/ic_share.png"
+                    />
                     <label>Share</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -106,7 +121,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_flag.png" />
+                    <img
+                      class="track-status-icon"
+                      src="/static/images/ic_flag.png"
+                    />
                     <label>Report</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -117,7 +135,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_add_to.png" />
+                    <img
+                      class="track-status-icon"
+                      src="/static/images/ic_add_to.png"
+                    />
                     <label>Add to my label</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -126,13 +147,12 @@
                   key="add_to_playlist"
                   class="default-menu-item track-menu-item has-sub-menu"
                 >
-                  <v-menu
-                    v-model="submenu"
-                    offset-x
-                    class="track-menu"
-                  >
+                  <v-menu v-model="submenu" offset-x class="track-menu">
                     <v-list-tile-title slot="activator" class="has-sub-menu">
-                      <img class="track-status-icon" src="/static/images/ic_add_to.png" />
+                      <img
+                        class="track-status-icon"
+                        src="/static/images/ic_add_to.png"
+                      />
                       <label>Add to Playlist</label>
                     </v-list-tile-title>
                     <v-list>
@@ -142,7 +162,10 @@
                         class="default-menu-item track-menu-item"
                       >
                         <v-list-tile-title>
-                          <img class="track-status-icon" src="/static/images/ic_add_to.png" />
+                          <img
+                            class="track-status-icon"
+                            src="/static/images/ic_add_to.png"
+                          />
                           <label>New Playlist</label>
                         </v-list-tile-title>
                       </v-list-tile>
@@ -153,7 +176,10 @@
                         class="default-menu-item track-menu-item"
                       >
                         <v-list-tile-title>
-                          <img class="track-status-icon" src="/static/images/ic_download.png" />
+                          <img
+                            class="track-status-icon"
+                            src="/static/images/ic_download.png"
+                          />
                           <label>{{ list.name }}</label>
                         </v-list-tile-title>
                       </v-list-tile>
@@ -161,7 +187,10 @@
                   </v-menu>
                 </v-list-tile>
                 <v-list-tile
-                  v-if="['admin', 'moderator'].indexOf(currentUser.user_type) > -1 && !item.recommended"
+                  v-if="
+                    ['admin', 'moderator'].indexOf(currentUser.user_type) >
+                      -1 && !item.recommended
+                  "
                   key="recommended"
                   @click.native="recommendAlbum()"
                   class="default-menu-item track-menu-item"
@@ -171,7 +200,11 @@
                     <label>Recommend</label>
                   </v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-if="['admin', 'moderator'].indexOf(currentUser.user_type) > -1 && item.recommended"
+                <v-list-tile
+                  v-if="
+                    ['admin', 'moderator'].indexOf(currentUser.user_type) >
+                      -1 && item.recommended
+                  "
                   key="unrecommended"
                   @click.native="unrecommendAlbum()"
                   class="default-menu-item track-menu-item"
@@ -188,14 +221,31 @@
         </v-flex>
       </v-flex>
       <v-flex xs12 class="track-detail" pa-0>
-        <p class="track-name"><router-link :to="`/${item.album_type}/${item.slug}`">{{ item.name }}</router-link></p>
+        <p class="track-name">
+          <router-link :to="`/${item.album_type}/${item.slug}`">{{
+            item.name
+          }}</router-link>
+        </p>
         <p class="track-user-name">
-          <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.display_name }}</router-link>
+          <router-link
+            :to="'/' + owner.slug"
+            v-if="item.collaborators_count == 0"
+            >{{ owner.display_name }}</router-link
+          >
           <template v-else-if="item.collaborators_count == 1">
-            <router-link :to="'/' + owner.slug">{{ owner.display_name }}</router-link>,&nbsp;
-            <router-link :to="'/' + item.collaborators[0].user.slug" v-if="item.collaborators && item.collaborators[0]">{{ item.collaborators[0].user.display_name }}</router-link>
+            <router-link :to="'/' + owner.slug">{{
+              owner.display_name
+            }}</router-link
+            >,&nbsp;
+            <router-link
+              :to="'/' + item.collaborators[0].user.slug"
+              v-if="item.collaborators && item.collaborators[0]"
+              >{{ item.collaborators[0].user.display_name }}</router-link
+            >
           </template>
-          <router-link :to="`/${item.album_type}/${item.slug}`" v-else>Multiple Collaborators</router-link>
+          <router-link :to="`/${item.album_type}/${item.slug}`" v-else
+            >Multiple Collaborators</router-link
+          >
         </p>
       </v-flex>
     </v-flex>
@@ -212,34 +262,62 @@
       :dismiss="dismissShareDialog"
     />
 
-    <v-dialog v-if="show_report_dialog" v-model="show_report_dialog" width="1000" persistent>
-      <album-report-dialog
-        :album="item"
-        :dismiss="closeReportDialog"
-      />
+    <v-dialog
+      v-if="show_report_dialog"
+      v-model="show_report_dialog"
+      width="1000"
+      persistent
+    >
+      <album-report-dialog :album="item" :dismiss="closeReportDialog" />
     </v-dialog>
 
-    <v-dialog v-if="hide_dialog" v-model="hide_dialog" content-class="my-dialog-1">
+    <v-dialog
+      v-if="hide_dialog"
+      v-model="hide_dialog"
+      content-class="my-dialog-1"
+    >
       <v-card>
-        <v-card-media :src="item.cover.url" height="125px" contain></v-card-media>
+        <v-card-media
+          :src="item.cover.url"
+          height="125px"
+          contain
+        ></v-card-media>
         <v-card-text>
-          <div class="headline">Are you sure you want to hide this {{item.album_type}}?</div>
-          <div>You won't be able to see it anymore, unless you visit the artists profile or download the song.</div>
+          <div class="headline">
+            Are you sure you want to hide this {{ item.album_type }}?
+          </div>
+          <div>
+            You won't be able to see it anymore, unless you visit the artists
+            profile or download the song.
+          </div>
         </v-card-text>
         <v-card-actions>
-          <v-btn dark color="grey" @click.native="hide_dialog = false">No, cancel please!</v-btn>
-          <v-btn dark color="red" @click.native="hideAlbum()">Yes, hide it!</v-btn>
+          <v-btn dark color="grey" @click.native="hide_dialog = false"
+            >No, cancel please!</v-btn
+          >
+          <v-btn dark color="red" @click.native="hideAlbum()"
+            >Yes, hide it!</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-dialog v-if="playlist_dialog" v-model="playlist_dialog" max-width="500px" class="playlist-dialog">
+    <v-dialog
+      v-if="playlist_dialog"
+      v-model="playlist_dialog"
+      max-width="500px"
+      class="playlist-dialog"
+    >
       <v-card class="playlist-dialog-body">
         <v-card-title>
           <v-flex xs12 text-xs-center>
             <h5 class="ma-0">New Playlist</h5>
           </v-flex>
-          <v-btn class="dialog-close-btn" @click.native="playlist_dialog=false"><v-icon>highlight_off</v-icon></v-btn>
+          <v-btn
+            class="dialog-close-btn"
+            @click.native="playlist_dialog = false"
+            ><v-icon>highlight_off</v-icon></v-btn
+          >
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text class="create-playlist-section">
@@ -260,18 +338,25 @@
           </div> -->
           <v-layout row wrap>
             <v-flex xs12 form-group>
-              <label class="control-label">Name<label class="required">*</label></label>
-              <input type="text" class="form-control" v-model.trim="playlist.name">
+              <label class="control-label"
+                >Name<label class="required">*</label></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                v-model.trim="playlist.name"
+              />
             </v-flex>
             <v-flex xs12 form-group text-xs-center>
-              <v-btn dark round color="blue" @click.native="createPlaylist()">Create Playlist</v-btn>
+              <v-btn dark round color="blue" @click.native="createPlaylist()"
+                >Create Playlist</v-btn
+              >
             </v-flex>
           </v-layout>
         </v-card-text>
       </v-card>
     </v-dialog>
-
-  </v-flex>  
+  </v-flex>
 </template>
 
 <script type="text/javascript" src="./trackcard.ctrl.js"></script>

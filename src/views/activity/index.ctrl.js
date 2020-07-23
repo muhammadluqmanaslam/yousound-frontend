@@ -5,17 +5,17 @@ import activityItem from '@/components/activityitem'
 
 export default {
   components: {
-    activityItem
+    activityItem,
   },
 
-  data () {
+  data() {
     return {
       active_tab: 'any',
       tabs: [
         { id: 'any', title: 'Everything' },
         { id: 'repost', title: 'Reposts' },
         { id: 'comment', title: 'Commented' },
-        { id: 'follow', title: 'Followed' }
+        { id: 'follow', title: 'Followed' },
       ],
       page_index: 1,
       total_pages: 1,
@@ -26,9 +26,9 @@ export default {
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
-    }
+    },
   },
 
   methods: {
@@ -46,19 +46,24 @@ export default {
       const params = {
         page: this.page_index,
         per_page: this.items_per_page,
-        action_types: this.active_tab
+        action_types: this.active_tab,
       }
-      ActivityService.getActivities(params).then(response => {
-        this.activities = this.activities.concat(response.body.activities)
-        this.page_index = response.body.pagination.current_page
-        this.total_pages = response.body.pagination.total_pages
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.isPageReady = true
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.isPageReady = true
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      ActivityService.getActivities(params)
+        .then((response) => {
+          this.activities = this.activities.concat(response.body.activities)
+          this.page_index = response.body.pagination.current_page
+          this.total_pages = response.body.pagination.total_pages
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.isPageReady = true
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.isPageReady = true
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     loadMore() {
@@ -69,34 +74,38 @@ export default {
     onTab(tab) {
       this.$router.push({
         path: this.$route.path,
-        hash: tab
+        hash: tab,
       })
     },
 
     setTab(tab) {
-      if (!tab)
+      if (!tab) {
         tab = 'any'
+      }
 
       this.active_tab = tab
       this.page_index = 1
       this.total_pages = 1
       this.activities = []
-      this.$store.dispatch('navigator/goNextState', { page: 'activity', tab: tab })
+      this.$store.dispatch('navigator/goNextState', {
+        page: 'activity',
+        tab: tab,
+      })
       this.$nextTick(() => {
         this.loadActivities(this.activeTab, 1)
       })
-    }
+    },
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       const tab = toPath.hash.substr(1)
       this.setTab(tab)
-    }
+    },
   },
 
-  created () {
+  created() {
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
-  }
+  },
 }

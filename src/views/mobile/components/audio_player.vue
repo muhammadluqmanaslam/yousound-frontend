@@ -23,7 +23,7 @@ import { Howl, Howler } from 'howler'
 import { MyEvents } from '@/helper'
 
 export default {
-  data () {
+  data() {
     return {
       playlist: [],
       index: 0,
@@ -41,13 +41,15 @@ export default {
       showShareModal: false,
       showReminder: false,
       totalTime: null,
-      buttonHover: false
+      buttonHover: false,
     }
   },
 
   computed: {
-    item () {
-      const item = this.$store.state.player.list[this.$store.state.player.listIndex]
+    item() {
+      const item = this.$store.state.player.list[
+        this.$store.state.player.listIndex
+      ]
       if (!item) {
         return null
       }
@@ -59,7 +61,7 @@ export default {
       }
     },
 
-    user () {
+    user() {
       if (!this.item) {
         return null
       }
@@ -69,23 +71,23 @@ export default {
       } else {
         return this.track.user
       }
-    }
+    },
   },
 
   methods: {
     ...mapActions({
       setPlaying: 'player/setPlayingStatus',
-      setPauseStatus: 'player/setPauseStatus'
+      setPauseStatus: 'player/setPauseStatus',
     }),
 
-    startPlaying (index) {
+    startPlaying(index) {
       console.log('startPlaying', index)
       this.setPlaylist('next')
       this.play(index)
       this.$forceUpdate()
     },
 
-    resetPlayer () {
+    resetPlayer() {
       console.log('resetPlayer')
       if (this.$store.state.player.isPlaying) {
         this.setPlaying(false)
@@ -118,14 +120,14 @@ export default {
       }
     },
 
-    play (index) {
+    play(index) {
       // console.log('player', index, this.index, this.playlist)
       var self = this
       var sound
       index = typeof index === 'number' ? index : this.index
       var data = this.playlist[index]
 
-      this.trackIndex = (index + 1) + ' of ' + this.playlist.length
+      this.trackIndex = index + 1 + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
       console.log('player play track', this.track)
 
@@ -170,7 +172,7 @@ export default {
           onstop: function () {
             // Stop the wave animation.
             // this.isPlaying = false
-          }
+          },
         })
       }
 
@@ -193,7 +195,7 @@ export default {
     /**
      * Pause the currently playing track.
      */
-    pause () {
+    pause() {
       // player is not initialized yet.
       if (!this.$store.state.player.isPlaying) return
 
@@ -209,13 +211,16 @@ export default {
       // this.setPlaying(false)
     },
 
-    skip (direction) {
+    skip(direction) {
       // Get the next track based on the direction of the track.
       var index = 0
       if (direction === 'prev') {
         index = this.index - 1
         if (index < 0) {
-          this.$store.dispatch('player/setListIndex', this.$store.state.player.listIndex - 1)
+          this.$store.dispatch(
+            'player/setListIndex',
+            this.$store.state.player.listIndex - 1
+          )
           this.setPlaylist('prev')
           index = this.playlist.length - 1
           // this.$root.$emit('index_change')
@@ -224,7 +229,10 @@ export default {
         index = this.index + 1
         if (index >= this.playlist.length) {
           index = 0
-          this.$store.dispatch('player/setListIndex', this.$store.state.player.listIndex + 1)
+          this.$store.dispatch(
+            'player/setListIndex',
+            this.$store.state.player.listIndex + 1
+          )
           this.setPlaylist('next')
           // this.$root.$emit('index_change')
         }
@@ -237,11 +245,17 @@ export default {
      * Skip to a specific track based on its playlist index.
      * @param  {Number} index Index in the playlist.
      */
-    skipTo (index) {
+    skipTo(index) {
       // Stop the current track.
       var sound = null
-      if (this.playlist[this.index] !== null && this.playlist[this.index] !== undefined) {
-        if (this.playlist[this.index].howl !== undefined && this.playlist[this.index].howl !== null) {
+      if (
+        this.playlist[this.index] !== null &&
+        this.playlist[this.index] !== undefined
+      ) {
+        if (
+          this.playlist[this.index].howl !== undefined &&
+          this.playlist[this.index].howl !== null
+        ) {
           sound = this.playlist[this.index].howl
           sound.stop()
         }
@@ -260,31 +274,37 @@ export default {
      * Seek to a new position in the currently playing track.
      * @param  {Number} per Percentage through the song to skip.
      */
-    seek (per) {
+    seek(per) {
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl
 
       // Convert the percent into a seek position.
       if (sound.playing()) {
-        sound.seek(sound.duration() * per / 100)
+        sound.seek((sound.duration() * per) / 100)
       }
     },
 
     /**
      * The step called within requestAnimationFrame to update the playback position.
      */
-    step () {
+    step() {
       // Get the Howl we want to manipulate.
       var sound = null
       // var sound = this.playlist[this.index].howl
-      if (this.playlist[this.index] !== null && this.playlist[this.index] !== undefined) {
-        if (this.playlist[this.index].howl !== undefined && this.playlist[this.index].howl !== null) {
+      if (
+        this.playlist[this.index] !== null &&
+        this.playlist[this.index] !== undefined
+      ) {
+        if (
+          this.playlist[this.index].howl !== undefined &&
+          this.playlist[this.index].howl !== null
+        ) {
           sound = this.playlist[this.index].howl
 
           // Determine our current seek position.
           var seek = sound.seek() || 0
           this.playedTime = Math.round(seek)
-          this.progress = (((seek / sound.duration()) * 100) || 0)
+          this.progress = (seek / sound.duration()) * 100 || 0
 
           // If the sound is still playing, continue stepping.
           if (sound.playing()) {
@@ -294,13 +314,19 @@ export default {
       }
     },
 
-    setPlaylist (direction) {
+    setPlaylist(direction) {
       // Display the title of the first track.
-      let object = this.$store.state.player.list[this.$store.state.player.listIndex]
+      let object = this.$store.state.player.list[
+        this.$store.state.player.listIndex
+      ]
       var tracks = []
       console.log('setPlaylist', direction, this.$store.state.player)
       if (direction === 'next') {
-        for (var i = this.$store.state.player.listIndex; i < this.$store.state.player.list.length; i++) {
+        for (
+          var i = this.$store.state.player.listIndex;
+          i < this.$store.state.player.list.length;
+          i++
+        ) {
           object = this.$store.state.player.list[i]
           if (object.assoc_type) {
             if (object.assoc_type === 'Album') {
@@ -347,14 +373,14 @@ export default {
           this.playlist.push({
             track: tracks[track],
             played: false,
-            howl: null
+            howl: null,
           })
         }
         // if (this.$store.state.player.trackIndex > -1) {
         //   this.index = this.$store.state.player.trackIndex
         // }
         this.$store.dispatch('player/setTrackIndex', 0)
-        this.trackIndex = (this.index + 1) + ' of ' + this.playlist.length
+        this.trackIndex = this.index + 1 + ' of ' + this.playlist.length
         // this.trackName = this.playlist[this.index].track.name
         this.track = this.playlist[this.index].track
         console.log('player setPlaylist track', this.track)
@@ -364,33 +390,33 @@ export default {
       }
     },
 
-    setRepeated () {
+    setRepeated() {
       this.isRepeated = !this.isRepeated
     },
 
-    skipTrack (index) {
+    skipTrack(index) {
       this.skipTo(index)
     },
 
-    updateVolume () {
+    updateVolume() {
       Howler.volume(this.volume / 100)
-    }
+    },
   },
 
-  created () {
+  created() {
     Howler.volume(this.volume / 100)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.resetPlayer()
   },
 
-  mounted () {
+  mounted() {
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.startPlaying)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.play)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.pause)
     this.$root.$on(MyEvents.AUDIO_PLAYER_SKIPTO, this.skipTrack)
-  }
+  },
 }
 </script>
 

@@ -1,26 +1,22 @@
 import _ from 'lodash'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
   // watch: {
   //   '$route' (toPath, fromPath) {
   //   }
   // },
 
-  created () {
-  },
+  created() {},
 
-  methods: {
-  }
+  methods: {},
 }

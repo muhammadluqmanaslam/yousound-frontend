@@ -13,7 +13,9 @@
           v-if="stream_assoc.type == 'ShopProduct'"
           :image="_.get(stream_assoc.value, 'covers[0].cover.thumb.url', '')"
           :title="stream_assoc.value.name"
-          :subtitle="`$${$options.filters.formatNumber(stream_assoc.value.price)}`"
+          :subtitle="`$${$options.filters.formatNumber(
+            stream_assoc.value.price
+          )}`"
         />
 
         <attach-card
@@ -30,20 +32,11 @@
 
     <div class="attach__footer">
       <template v-if="stream_assoc.value">
-        <span
-          class="attach__cta"
-          @click="openAttachPicker()"
-        >Change</span>
-        <span
-          class="attach__cta danger"
-          @click="removeAttach()"
-        >Remove</span>
+        <span class="attach__cta" @click="openAttachPicker()">Change</span>
+        <span class="attach__cta danger" @click="removeAttach()">Remove</span>
       </template>
       <template v-else>
-        <span
-          class="attach__cta"
-          @click="openAttachPicker()"
-        >Add</span>
+        <span class="attach__cta" @click="openAttachPicker()">Add</span>
       </template>
     </div>
 
@@ -56,55 +49,55 @@
 </template>
 
 <script>
-  import AttachCard from './attach_card'
-  import AttachPicker from './attach_picker'
+import AttachCard from './attach_card'
+import AttachPicker from './attach_picker'
 
-  export default {
-    components: {
-      AttachCard,
-      AttachPicker
-    },
+export default {
+  components: {
+    AttachCard,
+    AttachPicker,
+  },
 
-    props: {
-      value: Object
-    },
+  props: {
+    value: Object,
+  },
 
-    data () {
-      return {
-        stream_assoc: {
-          type: 'Album',
-          value: null
-        },
-        show_attach_picker: false
-      }
-    },
-
-    methods: {
-      openAttachPicker () {
-        this.show_attach_picker = true
+  data() {
+    return {
+      stream_assoc: {
+        type: 'Album',
+        value: null,
       },
-
-      closeAttachPicker () {
-        this.show_attach_picker = false
-        this.$emit('input', this.stream_assoc)
-      },
-
-      removeAttach () {
-        this.stream_assoc = {
-          type: 'Album',
-          value: null
-        }
-        this.$emit('input', this.stream_assoc)
-      }
-    },
-
-    created () {
-      this.stream_assoc = {
-        type: this._props.value.type,
-        value: this._props.value.value
-      }
+      show_attach_picker: false,
     }
-  }
+  },
+
+  methods: {
+    openAttachPicker() {
+      this.show_attach_picker = true
+    },
+
+    closeAttachPicker() {
+      this.show_attach_picker = false
+      this.$emit('input', this.stream_assoc)
+    },
+
+    removeAttach() {
+      this.stream_assoc = {
+        type: 'Album',
+        value: null,
+      }
+      this.$emit('input', this.stream_assoc)
+    },
+  },
+
+  created() {
+    this.stream_assoc = {
+      type: this._props.value.type,
+      value: this._props.value.value,
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -122,14 +115,14 @@
     width: 64px;
     height: 64px;
     border-radius: 3.75px;
-    background-color: #D2D2D2;
+    background-color: #d2d2d2;
     background-size: cover;
     vertical-align: middle;
   }
 
   &__cta {
     // margin-left: 20px;
-    color: #1976D2;
+    color: #1976d2;
     cursor: pointer;
     &:hover {
       text-decoration: underline;

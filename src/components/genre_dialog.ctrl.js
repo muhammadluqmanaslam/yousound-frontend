@@ -7,22 +7,22 @@ export default {
   props: {
     dismiss: {
       type: Function,
-      required: true
+      required: true,
     },
   },
 
-  data () {
+  data() {
     return {
       genres: [],
       parent: null,
       region: {},
       parent_index: 0,
       show_selector_view: true,
-      isPageReady: true
+      isPageReady: true,
     }
   },
 
-  // created () {
+  // created() {
   //   this.isPageReady = false
   //   this.$store.dispatch('error/showLoadingActivity', true)
   //   GenreService.getGenres2().then(response => {
@@ -44,12 +44,14 @@ export default {
   //   })
   // },
 
-  created () {
+  created() {
     this.genres = _.cloneDeep(this.$store.state.app.genres)
     let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
 
     _.each(this.genres, (genre) => {
-      _.each(genre.children, (g) => { g.value = !hiddenGenres[g.id] })
+      _.each(genre.children, (g) => {
+        g.value = !hiddenGenres[g.id]
+      })
     })
 
     // it stores only child genres statuses
@@ -61,8 +63,10 @@ export default {
   },
 
   methods: {
-    checkParentGenre (parent, value) {
-      _.each(parent.children, (g) => { g.value = !parent.value })
+    checkParentGenre(parent, value) {
+      _.each(parent.children, (g) => {
+        g.value = !parent.value
+      })
       // this.genres = this.genres.slice()
       if (!(value == null || value == undefined)) {
         parent.value = !parent.value
@@ -70,7 +74,7 @@ export default {
       this.$forceUpdate()
     },
 
-    checkRegionGenre (parent, region) {
+    checkRegionGenre(parent, region) {
       const key = `${parent.id}-${region}`
       // console.log('checkRegionGenre', region, this.region[key])
       _.each(parent.children, (g) => {
@@ -86,7 +90,7 @@ export default {
       this.$forceUpdate()
     },
 
-    checkChildGenre (parent, child) {
+    checkChildGenre(parent, child) {
       if (child.value) {
         if (parent.value) {
           parent.value = false
@@ -101,16 +105,16 @@ export default {
       this.$forceUpdate()
     },
 
-    getSelectedChildrenCount (parent) {
+    getSelectedChildrenCount(parent) {
       const c = _.countBy(parent.children, 'value')['true']
       return c > 0 ? c : 0
     },
 
-    groupChildrenByRegion (parent) {
+    groupChildrenByRegion(parent) {
       const group = _.groupBy(parent.children, 'region')
       _.forEach(group, (values, k) => {
         let key = `${parent.id}-${k}`
-        if (typeof this.region[key] != undefined) {
+        if (typeof this.region[key] !== undefined) {
           this.region[key] = true
           if (_.countBy(values, 'value')['false'] > 0) {
             this.region[key] = false
@@ -120,13 +124,13 @@ export default {
       return group
     },
 
-    selectParent (parent, index) {
+    selectParent(parent, index) {
       this.show_selector_view = false
       this.parent = parent
       this.parent_index = index
     },
 
-    saveGenreFilters () {
+    saveGenreFilters() {
       let is_genres_selected = false
       let genre_ids = []
       _.each(this.genres, (parent) => {
@@ -141,7 +145,9 @@ export default {
       })
 
       if (!is_genres_selected) {
-        this.$store.dispatch('error/showErrorToast', ['Please select at least 1 genre'])
+        this.$store.dispatch('error/showErrorToast', [
+          'Please select at least 1 genre',
+        ])
         return
       }
 
@@ -149,18 +155,25 @@ export default {
 
       const userId = this.$store.state.auth.user.id
       const params = {
-        genre_ids: genre_ids.join(',')
+        genre_ids: genre_ids.join(','),
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.hiddenUserGenres(userId, params).then(res => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', ['Saved'])
-        UserService.getUserInfo(userId).then(response => AuthService.setUser(response.body))
-        this.dismiss()
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    }
-  }
+      UserService.hiddenUserGenres(userId, params)
+        .then((res) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+          UserService.getUserInfo(userId).then((response) =>
+            AuthService.setUser(response.body)
+          )
+          this.dismiss()
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+  },
 }

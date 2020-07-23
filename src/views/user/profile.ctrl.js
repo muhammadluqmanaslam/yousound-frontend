@@ -31,11 +31,11 @@ export default {
     sendMessage,
     sendLoveModal,
     carousel3d,
-    slide
+    slide,
     // videoPlayer
   },
 
-  data () {
+  data() {
     return {
       // active_tab: 'songs',
       // slide_tab: 'songs',
@@ -51,12 +51,12 @@ export default {
         { id: 'downloaded', title: 'Downloaded' },
         { id: 'followings', title: 'Following' },
         { id: 'followers', title: 'Followers' },
-        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] }
+        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
       ],
       slug: null,
       user: {
         display_name: '',
-        avatar: {}
+        avatar: {},
       },
       show_block_user_confirm_dialog: false,
       show_invite_confirm_dialog: false,
@@ -77,15 +77,15 @@ export default {
       genres: null,
       genre_index: 0,
       followings_selector: 'followings',
-      products:[],
+      products: [],
       albums: [],
       users: [],
-      buttonHover: false
+      buttonHover: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
@@ -93,20 +93,27 @@ export default {
       return _.get(this.user, 'default_address.city', '--')
     },
 
-    enabledViewDirectMessage () {
-      return this.currentUser.user_type == 'admin' ||
-        (this.currentUser.user_type == 'moderator' && _.get(this.currentUser, 'enabled_view_direct_message') == true)
+    enabledViewDirectMessage() {
+      return (
+        this.currentUser.user_type == 'admin' ||
+        (this.currentUser.user_type == 'moderator' &&
+          _.get(this.currentUser, 'enabled_view_direct_message') == true)
+      )
     },
 
-    coverImageURL () {
-      const imageUrl = _.get(this.albums, `[${this.startIndex}].cover.thumb.url`, '')
+    coverImageURL() {
+      const imageUrl = _.get(
+        this.albums,
+        `[${this.startIndex}].cover.thumb.url`,
+        ''
+      )
       if (imageUrl) {
         return imageUrl + '?' + new Date()
       }
       return imageUrl
     },
 
-    albumDisplayCount () {
+    albumDisplayCount() {
       if (this.albums.length > 7) {
         return 7
       } else {
@@ -114,7 +121,7 @@ export default {
       }
     },
 
-    merchDisplayCount () {
+    merchDisplayCount() {
       if (this.products.length > 7) {
         return 7
       } else {
@@ -122,44 +129,61 @@ export default {
       }
     },
 
-    streamViewPrice () {
+    streamViewPrice() {
       return _.get(this.user, 'stream.view_price', 0)
     },
 
-    followMetaVisible () {
-      return _.get(this.user, 'username') !== PublicRelationsUsername || _.get(this.currentUser, 'user_type') === 'admin'
+    followMetaVisible() {
+      return (
+        _.get(this.user, 'username') !== PublicRelationsUsername ||
+        _.get(this.currentUser, 'user_type') === 'admin'
+      )
     },
 
-    followButtonText () {
+    followButtonText() {
       if (this.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
       }
       return 'Follow'
-    }
+    },
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       const paths = toPath.path.split('/')
       this.slug = paths[1]
       const tab = toPath.hash.substr(1)
-      const grid_view = toPath.query.grid_view === undefined ? true : (toPath.query.grid_view === 'true' || toPath.query.grid_view === true)
-      const auto_play = toPath.query.auto_play === undefined ? false : (toPath.query.auto_play === 'true' || toPath.query.auto_play === true)
+      const grid_view =
+        toPath.query.grid_view === undefined
+          ? true
+          : toPath.query.grid_view === 'true' || toPath.query.grid_view === true
+      const auto_play =
+        toPath.query.auto_play === undefined
+          ? false
+          : toPath.query.auto_play === 'true' || toPath.query.auto_play === true
       this.init(tab, grid_view, auto_play, false)
-    }
+    },
   },
 
-  created () {
+  created() {
     this.slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
-    const grid_view = this.$route.query.grid_view === undefined ? true : (this.$route.query.grid_view === 'true' || this.$route.query.grid_view === true)
-    const auto_play = this.$route.query.auto_play === undefined ? false : (this.$route.query.auto_play === 'true' || this.$route.query.auto_play === true)
+    const grid_view =
+      this.$route.query.grid_view === undefined
+        ? true
+        : this.$route.query.grid_view === 'true' ||
+          this.$route.query.grid_view === true
+    const auto_play =
+      this.$route.query.auto_play === undefined
+        ? false
+        : this.$route.query.auto_play === 'true' ||
+          this.$route.query.auto_play === true
     this.init(tab, grid_view, auto_play, true)
 
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
   },
 
@@ -167,14 +191,14 @@ export default {
     ...mapActions({
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
-      setPlaying: 'player/setPlayingStatus'
+      setPlaying: 'player/setPlayingStatus',
     }),
 
     isActiveTab(tab) {
       return this.active_tab == tab
     },
 
-    onTab (tab) {
+    onTab(tab) {
       this.$router.push({
         path: this.$route.path,
         hash: tab,
@@ -184,7 +208,7 @@ export default {
       })
     },
 
-    setGridView (flag) {
+    setGridView(flag) {
       this.$router.push({
         path: this.$route.path,
         hash: this.active_tab,
@@ -194,179 +218,204 @@ export default {
       })
     },
 
-    isStreaming () {
+    isStreaming() {
       // console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
-      return _.get(this.user.stream, 'status', '') === 'running' &&
-        (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !== this.user.slug || !this.$store.getters['videoPlayer/hasFrame'])
+      return (
+        _.get(this.user.stream, 'status', '') === 'running' &&
+        (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !==
+          this.user.slug ||
+          !this.$store.getters['videoPlayer/hasFrame'])
+      )
       // return true
     },
 
-    viewStream () {
+    viewStream() {
       console.log('viewStream clicked')
       this.view_stream_clicked = true
-      UserService.getUserInfo(this.slug).then(response => {
-        this.user = response.body
-        this.view_stream_clicked = false
+      UserService.getUserInfo(this.slug)
+        .then((response) => {
+          this.user = response.body
+          this.view_stream_clicked = false
 
-        if (this.isStreaming()) {
-          this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-          this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
-        }
-      }).catch(err => {
-        this.view_stream_clicked = false
-      })
+          if (this.isStreaming()) {
+            this.$store.dispatch('videoPlayer/setStream', this.user.stream)
+            this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+          }
+        })
+        .catch((err) => {
+          this.view_stream_clicked = false
+        })
     },
 
-    init (tab, grid_view, auto_play, first_visit) {
+    init(tab, grid_view, auto_play, first_visit) {
       this.show_stream_live_button = false
       this.showSendMessage = false
       this.startIndex = 0
-      this.genres = [{
-        id: 'any',
-        name: 'Any genre',
-        slug: 'any'
-      }]
+      this.genres = [
+        {
+          id: 'any',
+          name: 'Any genre',
+          slug: 'any',
+        },
+      ]
 
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.getUserInfo(this.slug).then(response => {
-        // console.log('profile init')
-        this.user = response.body
-        this.$emit('updateHead')
+      UserService.getUserInfo(this.slug)
+        .then((response) => {
+          // console.log('profile init')
+          this.user = response.body
+          this.$emit('updateHead')
 
-        if (this.isStreaming()) {
-          Vue.http.get(this.user.stream.mp_channel_1_ep_1_url).then(response => {
-            this.show_stream_live_button = true
-            if (first_visit) {
-              // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
-              this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-              this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+          if (this.isStreaming()) {
+            Vue.http
+              .get(this.user.stream.mp_channel_1_ep_1_url)
+              .then((response) => {
+                this.show_stream_live_button = true
+                if (first_visit) {
+                  // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
+                  this.$store.dispatch(
+                    'videoPlayer/setStream',
+                    this.user.stream
+                  )
+                  this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+                }
+              })
+            // this.$store.dispatch('videoPlayer/setStream', this.user.stream)
+            // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+          }
+
+          // put 'merch' tab first for brand
+          if (this.user.user_type == 'brand') {
+            if (this.tabs[7].id === 'merch') {
+              this.tabs.unshift(this.tabs.pop())
             }
-          })
-          // this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-          // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
-        }
-
-        // put 'merch' tab first for brand
-        if (this.user.user_type == 'brand') {
-          if (this.tabs[7].id === 'merch') {
-            this.tabs.unshift(this.tabs.pop())
+          } else {
+            if (this.tabs[7].id !== 'merch') {
+              this.tabs.push(this.tabs.shift())
+            }
           }
-        } else {
-          if (this.tabs[7].id !== 'merch') {
-            this.tabs.push(this.tabs.shift())
+
+          if (tab) {
+            this.active_tab = tab
+            this.slide_tab = tab
+          } else {
+            switch (this.user.user_type) {
+              case 'artist':
+                this.active_tab = 'songs'
+                this.slide_tab = 'songs'
+                break
+              case 'label':
+                this.active_tab = 'artists'
+                this.slide_tab = 'artists'
+                break
+              case 'brand':
+                this.active_tab = 'merch'
+                this.slide_tab = 'merch'
+                break
+              default:
+                // this.active_tab = 'playlists'
+                // this.slide_tab = 'playlists'
+                this.active_tab = 'reposted'
+                this.slide_tab = 'reposted'
+                break
+            }
           }
-        }
 
-        if (tab) {
-          this.active_tab = tab
-          this.slide_tab = tab
-        } else {
-          switch (this.user.user_type) {
-            case 'artist':
-              this.active_tab = 'songs'
-              this.slide_tab = 'songs'
-              break
-            case 'label':
-              this.active_tab = 'artists'
-              this.slide_tab = 'artists'
-              break
-            case 'brand':
-              this.active_tab = 'merch'
-              this.slide_tab = 'merch'
-              break
-            default:
-              // this.active_tab = 'playlists'
-              // this.slide_tab = 'playlists'
-              this.active_tab = 'reposted'
-              this.slide_tab = 'reposted'
-              break
+          this.grid_show = grid_view
+          this.auto_play = auto_play
+          this.$store.dispatch('player/setGridShow', grid_view)
+          if (grid_view) {
+            this.active_tab = this.slide_tab
+            this.$store.dispatch('navigator/goNextState', {
+              page: 'profile',
+              tab: this.active_tab,
+            })
+          } else {
+            this.slide_tab = this.active_tab
+            this.$store.dispatch('navigator/goNextState', {
+              page: 'profile-slider',
+              tab: this.active_tab,
+            })
           }
-        }
 
-        this.grid_show = grid_view
-        this.auto_play = auto_play
-        this.$store.dispatch('player/setGridShow', grid_view)
-        if (grid_view) {
-          this.active_tab = this.slide_tab
-          this.$store.dispatch('navigator/goNextState', { page: 'profile', tab: this.active_tab })
-        } else {
-          this.slide_tab = this.active_tab
-          this.$store.dispatch('navigator/goNextState', { page: 'profile-slider', tab: this.active_tab })
-        }
-
-        this.getItems(this.active_tab, false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', ["User does not exist"])
-        this.$router.push({ path: '/' })
-        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        // setTimeout(() => {
-        //   this.$router.push({ path: '/discover' })
-        // }, 5000)
-      })
+          this.getItems(this.active_tab, false)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', ['User does not exist'])
+          this.$router.push({ path: '/' })
+          // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          // setTimeout(() => {
+          //   this.$router.push({ path: '/discover' })
+          // }, 5000)
+        })
     },
 
-    getItems (tab, loadMore) {
+    getItems(tab, loadMore) {
       if (!loadMore) {
         this.albums = []
         this.products = []
         this.users = []
         this.startIndex = 0
         this.page_index = 1
-
       } else {
         this.page_index += 1
       }
 
       var params = {
         page: this.page_index,
-        per_page: this.items_per_page
+        per_page: this.items_per_page,
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      ProfileService.getItems(this.user.id, tab, params).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        switch (tab) {
-          case 'merch':
-            this.products = this.products.concat(response.body.products)
-            break
-          case 'followers':
-          case 'followings':
-          case 'artists':
-            this.users = this.users.concat(response.body.users)
-            break
-          default:
-            let albums = []
-            if (tab === 'reposted' || tab === 'downloaded') {
-              for(let index in response.body.feeds) {
-                if (response.body.feeds[index].assoc_type === 'Album') {
-                  albums.push(response.body.feeds[index].assoc)
+      ProfileService.getItems(this.user.id, tab, params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          switch (tab) {
+            case 'merch':
+              this.products = this.products.concat(response.body.products)
+              break
+            case 'followers':
+            case 'followings':
+            case 'artists':
+              this.users = this.users.concat(response.body.users)
+              break
+            default:
+              let albums = []
+              if (tab === 'reposted' || tab === 'downloaded') {
+                for (let index in response.body.feeds) {
+                  if (response.body.feeds[index].assoc_type === 'Album') {
+                    albums.push(response.body.feeds[index].assoc)
+                  }
                 }
+              } else {
+                albums = response.body.albums
               }
-            } else {
-              albums = response.body.albums
-            }
-            this.fillAlbums(albums)
+              this.fillAlbums(albums)
 
-            if (tab === 'songs' && this.auto_play ) {
-              this.auto_play = false
-              this.playSong()
-            }
+              if (tab === 'songs' && this.auto_play) {
+                this.auto_play = false
+                this.playSong()
+              }
 
-            if (!this.grid_show) {
-              this.changeBackground()
-            }
-            break
-        }
+              if (!this.grid_show) {
+                this.changeBackground()
+              }
+              break
+          }
 
-        this.page_index = response.body.pagination.current_page
-        this.total_pages = response.body.pagination.total_pages
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+          this.page_index = response.body.pagination.current_page
+          this.total_pages = response.body.pagination.total_pages
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    fillAlbums (albums) {
+    fillAlbums(albums) {
       let genres = this.genres.slice()
       for (let album_index in albums) {
         const album = albums[album_index]
@@ -376,7 +425,9 @@ export default {
 
         /* focus the album on playing in slider view */
         if (this.$store.state.player.isPlaying && !this.grid_show) {
-          const currentItem = this.$store.state.player.list[this.$store.state.player.listIndex]
+          const currentItem = this.$store.state.player.list[
+            this.$store.state.player.listIndex
+          ]
           if (currentItem.assoc_type) {
             if (currentItem.assoc.id === album.id) {
               this.startIndex = album_index
@@ -393,15 +444,18 @@ export default {
       // console.log(this.albums)
     },
 
-    setFollowingsSelector (value, name) {
+    setFollowingsSelector(value, name) {
       if (this.followings_selector !== value) {
         this.followings_selector = value
-        $('#followings_selector .btn__content').html(name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+        $('#followings_selector .btn__content').html(
+          name +
+            '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
+        )
         this.getItems(this.active_tab, false)
       }
     },
 
-    onAfterAlbumSlideChange (index) {
+    onAfterAlbumSlideChange(index) {
       // if(this.$store.state.player.isPlaying && this.$store.state.player.page === 'profile' && !this.grid_show) {
       //   this.$refs.albumCarousel.goSlide(this.$store.state.player.listIndex)
       // } else {
@@ -411,14 +465,13 @@ export default {
       this.changeBackground()
     },
 
-    onAfterMerchSlideChange (index) {
-    },
+    onAfterMerchSlideChange(index) {},
 
-    changeBackground () {
-      var canvas = document.getElementById("canvas")
-      var cctx = canvas.getContext("2d")
+    changeBackground() {
+      var canvas = document.getElementById('canvas')
+      var cctx = canvas.getContext('2d')
       if (this.coverImageURL) {
-        var buff = document.createElement("canvas")
+        var buff = document.createElement('canvas')
         buff.width = canvas.width
         buff.height = canvas.height
         var imageObj = new Image()
@@ -427,31 +480,33 @@ export default {
         // Easiest is to always host your images on your own server
         // imageObj.src = 'https://dl.dropboxusercontent.com/s/8q8sjnqmmto13h5/lionCMYK.jpg'
         imageObj.src = this.coverImageURL
-        imageObj.onload = function() {
+        imageObj.onload = function () {
           // canvas.width = imageObj.height
           // canvas.height = imageObj.height
           cctx.drawImage(imageObj, 0, 0)
           StackBlur.image(imageObj, canvas, 70, false)
         }
       } else {
-        cctx.clearRect(0, 0, canvas.width, canvas.height);
+        cctx.clearRect(0, 0, canvas.width, canvas.height)
       }
     },
 
-    isAvailableForSlideView (tab) {
-      return ['artists', 'followings'].indexOf(tab.id) === -1
-          && (!!!tab.roles || tab.roles.indexOf(this.user.user_type) > -1)
+    isAvailableForSlideView(tab) {
+      return (
+        ['artists', 'followings'].indexOf(tab.id) === -1 &&
+        (!tab.roles || tab.roles.indexOf(this.user.user_type) > -1)
+      )
     },
 
-    isAvailableForGridView (tab) {
-      return !!!tab.roles || tab.roles.indexOf(this.user.user_type) > -1
+    isAvailableForGridView(tab) {
+      return !tab.roles || tab.roles.indexOf(this.user.user_type) > -1
     },
 
-    closePageMerchModal () {
+    closePageMerchModal() {
       this.showPageMerchModal = false
     },
 
-    openPageMerchModal (product) {
+    openPageMerchModal(product) {
       // console.log('openPageMerchModal', product)
       this.selectedProduct = product
       this.$nextTick(() => {
@@ -459,110 +514,136 @@ export default {
       })
     },
 
-    closePageShareModal () {
+    closePageShareModal() {
       this.showPageShareModal = false
     },
 
-    openPageShareModal () {
+    openPageShareModal() {
       // console.log('openPageShareModal')
       this.showPageMerchModal = false
       this.showPageShareModal = true
     },
 
-    showMessageDialog () {
+    showMessageDialog() {
       this.showSendMessage = true
     },
 
-    dismissMessageModal () {
+    dismissMessageModal() {
       this.showSendMessage = false
     },
 
-    showLoveDialog () {
+    showLoveDialog() {
       this.showSendLoveModal = true
     },
 
-    dismissLoveDialog () {
+    dismissLoveDialog() {
       this.showSendLoveModal = false
     },
 
-    viewDirectMessages () {
+    viewDirectMessages() {
       this.$router.push({ path: '/user/' + this.user.slug + '/messages' })
     },
 
-    goToChat () {
+    goToChat() {
       this.$router.push({ path: '/user/' + this.user.slug + '/chat' })
     },
 
-    flagUser () {
+    flagUser() {
       const emailTo = ViolationsEmail
       const emailCC = ''
       const emailSub = ''
       const emailBody = ''
-      window.open(`mailto:${emailTo}?cc=${emailCC}&subject=${emailSub}&body=${emailBody}`, '_blank');
+      window.open(
+        `mailto:${emailTo}?cc=${emailCC}&subject=${emailSub}&body=${emailBody}`,
+        '_blank'
+      )
     },
 
-    openBlockUserConfirmDialog () {
+    openBlockUserConfirmDialog() {
       this.show_block_user_confirm_dialog = true
     },
 
-    closeBlockUserConfirmDialog () {
+    closeBlockUserConfirmDialog() {
       this.show_block_user_confirm_dialog = false
     },
 
-    blockUser () {
-      UserService.blockUser(this.user.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You blocked ' + this.user.display_name + ', go to settings page to unblock'])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    blockUser() {
+      UserService.blockUser(this.user.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You blocked ' +
+              this.user.display_name +
+              ', go to settings page to unblock',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
       this.closeBlockUserConfirmDialog()
     },
 
-    followUser () {
+    followUser() {
       if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.user.display_name])
-          // this.user.is_following = false
-          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
-        })
+        UserService.unfollowUser(this.user.id)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just unfollowed ' + this.user.display_name,
+            ])
+            // this.user.is_following = false
+            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       } else {
-        UserService.followUser(this.user.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
-          // this.user.is_following = true
-          // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
-        })
+        UserService.followUser(this.user.id)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just followed ' + this.user.display_name,
+            ])
+            // this.user.is_following = true
+            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
-    setFollowingStatus (userId, isFollowing) {
+    setFollowingStatus(userId, isFollowing) {
       if (this.user && this.user.id === userId) {
         this.user.is_following = isFollowing
       }
     },
 
-    openInviteConfirmDialog () {
+    openInviteConfirmDialog() {
       this.show_invite_confirm_dialog = true
     },
 
-    closeInviteConfirmDialog () {
+    closeInviteConfirmDialog() {
       this.show_invite_confirm_dialog = false
     },
 
-    inviteUser () {
+    inviteUser() {
       this.closeInviteConfirmDialog()
-      UserService.inviteUser(this.user.id).then(response => {
+      UserService.inviteUser(this.user.id).then((response) => {
         this.user = response.body
         this.$store.dispatch('error/showSuccessToast', ['Invited'])
       })
     },
 
-    playSong () {
+    playSong() {
       if (this.active_tab === 'songs' || this.albums.length) {
         this.setPlaylist(this.albums)
         this.setPlaylistIndex(0)
@@ -574,13 +655,13 @@ export default {
           hash: 'songs',
           query: {
             // grid_view: this.grid_show,
-            auto_play: true
-          }
+            auto_play: true,
+          },
         })
       }
     },
 
-    moveSlide () {
+    moveSlide() {
       if (this.$refs.albumCarousel !== undefined) {
         const lastState = this.$store.getters['navigator/last']
         if (lastState.page === 'profile') {
@@ -589,7 +670,9 @@ export default {
           var playingIndex = -1
           for (let index in this.albums) {
             var currentItem = this.albums[index]
-            var playingItem = this.$store.state.player.list[this.$store.state.player.listIndex]
+            var playingItem = this.$store.state.player.list[
+              this.$store.state.player.listIndex
+            ]
             if (playingItem !== undefined) {
               if (playingItem.assoc_type === 'Album') {
                 playingItem = playingItem.assoc
@@ -605,35 +688,37 @@ export default {
       }
     },
 
-    test () {
+    test() {
       console.log('Test')
-    }
+    },
   },
 
-  mounted () {
-    const vm = this;
+  mounted() {
+    const vm = this
     this.$root.$on('index_change', this.moveSlide)
-    $(window).resize(function() {
-      var height = $('#user_info_page').height() + 230
-      var screen_height = $( window ).height()
-      if (height > screen_height ) {
-        height += 50
-      } else {
-        height = screen_height
-      }
-      var canvas = document.getElementById("canvas")
-      if(canvas) {
-        $('#canvas').css("cssText", "height: " + height + "px !important;")
-      }
-      $('#back_image').css("cssText", "height: " + height + "px !important;")
-    }).trigger('resize')
+    $(window)
+      .resize(function () {
+        var height = $('#user_info_page').height() + 230
+        var screen_height = $(window).height()
+        if (height > screen_height) {
+          height += 50
+        } else {
+          height = screen_height
+        }
+        var canvas = document.getElementById('canvas')
+        if (canvas) {
+          $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
+        }
+        $('#back_image').css('cssText', 'height: ' + height + 'px !important;')
+      })
+      .trigger('resize')
   },
 
   head: {
-    title () {
+    title() {
       return {
-        inner: _.get(this.user, 'display_name', '')
+        inner: _.get(this.user, 'display_name', ''),
       }
-    }
-  }
+    },
+  },
 }

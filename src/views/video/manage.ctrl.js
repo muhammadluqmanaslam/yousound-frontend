@@ -15,7 +15,7 @@ import {
   MediaLiveInputResolutions,
   MediaLiveInputMaximumBitrates,
   MyEvents,
-  StreamHourlyPrice
+  StreamHourlyPrice,
 } from '@/helper'
 
 const ActionCable = require('actioncable')
@@ -23,12 +23,12 @@ const ActionCable = require('actioncable')
 export default {
   components: {
     Attach,
-    PaymentModal
+    PaymentModal,
   },
 
   mixins: [onClickOutside],
 
-  data () {
+  data() {
     return {
       // stream: {
       //   name: '',
@@ -46,7 +46,7 @@ export default {
       show_view_stream_button: false,
       stream_assoc: {
         type: 'Album',
-        value: null
+        value: null,
       },
       viewers_limits: [
         { id: 0, name: 'Unlimited' },
@@ -67,21 +67,21 @@ export default {
       remainingSeconds: 0,
       cable: null,
       stream_subscription: null,
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    isRunning () {
+    isRunning() {
       return _.get(this.currentUser, 'stream.status', '') === 'running'
       // return false
     },
 
-    streamUrl () {
+    streamUrl() {
       const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
       const pos = url.lastIndexOf('/')
       if (pos == -1) {
@@ -91,7 +91,7 @@ export default {
       }
     },
 
-    streamKey () {
+    streamKey() {
       const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
       const pos = url.lastIndexOf('/')
       if (pos == -1) {
@@ -101,119 +101,137 @@ export default {
       }
     },
 
-    profileUrl () {
+    profileUrl() {
       return `${window.location.origin}/${this.currentUser.slug}`
     },
 
-    streamCost () {
-      return Math.round(this.period * StreamHourlyPrice / 3600)
+    streamCost() {
+      return Math.round((this.period * StreamHourlyPrice) / 3600)
     },
 
-    MediaLiveInputTypes () {
+    MediaLiveInputTypes() {
       return MediaLiveInputTypes
     },
 
-    MediaLiveInputCodecs () {
+    MediaLiveInputCodecs() {
       return MediaLiveInputCodecs
     },
 
-    MediaLiveInputResolutions () {
+    MediaLiveInputResolutions() {
       return MediaLiveInputResolutions
     },
 
-    MediaLiveInputMaximumBitrates () {
+    MediaLiveInputMaximumBitrates() {
       return MediaLiveInputMaximumBitrates
-    }
+    },
   },
 
   watch: {
-    searchGuests (val) {
+    searchGuests(val) {
       val && this.querySelections(val)
-    }
+    },
   },
 
-  created () {
+  created() {
     for (let i = 1; i <= 24; i++) {
       this.periods.push({
         id: i * 3600,
-        name: `${i}hours / $${i * StreamHourlyPrice / 100}`
+        name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
       })
     }
 
     this.isPageReady = false
     this.$store.dispatch('error/showLoadingActivity', true)
-    UserService.getUserInfo(this.currentUser.id).then(response => {
-      this.isPageReady = true
-      this.$store.dispatch('error/showLoadingActivity', false)
+    UserService.getUserInfo(this.currentUser.id)
+      .then((response) => {
+        this.isPageReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
 
-      AuthService.setUser(response.body)
-      this.$store.dispatch('auth/setStream', response.body.stream)
-      this.stream_assoc = {
-        type: _.get(response.body, 'stream.assoc_type', 'Album'),
-        value: _.get(response.body, 'stream.assoc'),
-      }
-      if (this.stream_assoc.type === '') {
-        this.stream_assoc.type = 'Album'
-      }
-      // console.log('stream_assoc', this.stream_assoc)
-
-      const stream_status = _.get(response.body, 'stream.status', '')
-      if (stream_status === '') {
-        this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
-      } else if (['deleted', 'inactive'].indexOf(stream_status) > -1 ) {
-        this.$router.push({ path: `/user/${this.currentUser.slug}/video/delete` })
-      } else {
-        const vm = this
-        if (!this.isRunning) {
-          this.creatingInterval = setInterval(function () { vm.getStream() }, 10000)
-        } else {
-          this.remainingSeconds = response.body.stream.remaining_seconds
-          this.remainingInterval = setInterval(function () { vm.refresh() }, 1000)
+        AuthService.setUser(response.body)
+        this.$store.dispatch('auth/setStream', response.body.stream)
+        this.stream_assoc = {
+          type: _.get(response.body, 'stream.assoc_type', 'Album'),
+          value: _.get(response.body, 'stream.assoc'),
         }
-        this.$store.dispatch('navigator/goNextState', { page: 'broadcast', tab: '' })
+        if (this.stream_assoc.type === '') {
+          this.stream_assoc.type = 'Album'
+        }
+        // console.log('stream_assoc', this.stream_assoc)
 
-        this.viewers_limit = this.currentUser.stream.viewers_limit
-        // this.selected_guests = ['e0e54729-a1d6-4d8c-8a76-6fc207e6c210']
-        // this.guests = _.cloneDeep(this.currentUser.stream.guests)
-        this.guests = _.map(this.currentUser.stream.guests, (u) => ({id: u.id, name: u.username}))
-        this.selected_guests = _.map(this.currentUser.stream.guests, 'id')
+        const stream_status = _.get(response.body, 'stream.status', '')
+        if (stream_status === '') {
+          this.$router.push({
+            path: `/user/${this.currentUser.slug}/video/create`,
+          })
+        } else if (['deleted', 'inactive'].indexOf(stream_status) > -1) {
+          this.$router.push({
+            path: `/user/${this.currentUser.slug}/video/delete`,
+          })
+        } else {
+          const vm = this
+          if (!this.isRunning) {
+            this.creatingInterval = setInterval(function () {
+              vm.getStream()
+            }, 10000)
+          } else {
+            this.remainingSeconds = response.body.stream.remaining_seconds
+            this.remainingInterval = setInterval(function () {
+              vm.refresh()
+            }, 1000)
+          }
+          this.$store.dispatch('navigator/goNextState', {
+            page: 'broadcast',
+            tab: '',
+          })
 
-        if (!this.currentUser.stream.notified) {
-          this.stream_subscription = this.cable.subscriptions.create(
-            {
-              channel: 'StreamsChannel',
-              stream_id: vm.currentUser.stream.id
-            },
-            {
-              connected: () => {
-                console.log('connected to StreamsChannel')
+          this.viewers_limit = this.currentUser.stream.viewers_limit
+          // this.selected_guests = ['e0e54729-a1d6-4d8c-8a76-6fc207e6c210']
+          // this.guests = _.cloneDeep(this.currentUser.stream.guests)
+          this.guests = _.map(this.currentUser.stream.guests, (u) => ({
+            id: u.id,
+            name: u.username,
+          }))
+          this.selected_guests = _.map(this.currentUser.stream.guests, 'id')
+
+          if (!this.currentUser.stream.notified) {
+            this.stream_subscription = this.cable.subscriptions.create(
+              {
+                channel: 'StreamsChannel',
+                stream_id: vm.currentUser.stream.id,
               },
-              received: (data) => {
-                console.log('stream_subscription')
-                console.log(data)
-                if (data.notified) {
-                  console.log('signal comming')
-                  vm.show_view_stream_button = true
-                }
-              },
-              disconnected: () => {
-                console.log('disconnected to StreamsChannel :(')
+              {
+                connected: () => {
+                  console.log('connected to StreamsChannel')
+                },
+                received: (data) => {
+                  console.log('stream_subscription')
+                  console.log(data)
+                  if (data.notified) {
+                    console.log('signal comming')
+                    vm.show_view_stream_button = true
+                  }
+                },
+                disconnected: () => {
+                  console.log('disconnected to StreamsChannel :(')
+                },
               }
-            }
-          )
-        } else {
-          this.show_view_stream_button = true
+            )
+          } else {
+            this.show_view_stream_button = true
+          }
         }
-      }
-    }).catch(e => {
-      // console.log(e)
-      this.$store.dispatch('error/showLoadingActivity', false)
-    })
+      })
+      .catch((e) => {
+        // console.log(e)
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
 
-    this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
+    this.cable = ActionCable.createConsumer(
+      `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
+    )
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.creatingInterval) {
       clearInterval(this.creatingInterval)
     }
@@ -228,138 +246,150 @@ export default {
   },
 
   methods: {
-    querySelections (v) {
+    querySelections(v) {
       var params = {
-        'page': 1,
-        'per_page': 10
+        page: 1,
+        per_page: 10,
       }
       if (v.length) {
         params['q'] = v
       }
-      UserService.searchUsers(params).then(response => {
-        this.guests = _.map(response.body.users, (u) => ({id: u.id, name: u.username}))
-      }).catch(e => {
-        console.log('querySelections error', e.body.errors || [e.body])
-      })
+      UserService.searchUsers(params)
+        .then((response) => {
+          this.guests = _.map(response.body.users, (u) => ({
+            id: u.id,
+            name: u.username,
+          }))
+        })
+        .catch((e) => {
+          console.log('querySelections error', e.body.errors || [e.body])
+        })
     },
 
-    saveViewersLimit (value) {
+    saveViewersLimit(value) {
       if (value == this.viewers_limit) return
 
       const params = {
         stream: {
-          viewers_limit: value
-        }
+          viewers_limit: value,
+        },
       }
       StreamService.updateStream(this.currentUser.stream.id, params)
     },
 
-    saveGuests (values) {
+    saveGuests(values) {
       const params = {
         stream: {
-          guests_ids: values.join(',')
-        }
+          guests_ids: values.join(','),
+        },
       }
       StreamService.updateStream(this.currentUser.stream.id, params)
     },
 
-    saveAttach () {
+    saveAttach() {
       console.log('saveAttach', this.stream_assoc)
       let params
       if (this.stream_assoc.value && this.stream_assoc.value.id > 0) {
         params = {
           stream: {
             assoc_type: this.stream_assoc.type,
-            assoc_id: this.stream_assoc.value.id
-          }
+            assoc_id: this.stream_assoc.value.id,
+          },
         }
       } else {
         params = {
           stream: {
             assoc_type: '',
-            assoc_id: 0
-          }
+            assoc_id: 0,
+          },
         }
       }
       StreamService.updateStream(this.currentUser.stream.id, params)
     },
 
-    addMoreTime () {
+    addMoreTime() {
       const params = {
         stream: {
-          extend_period: this.period
-        }
+          extend_period: this.period,
+        },
       }
-      StreamService.updateStream(this.currentUser.stream.id, params).then(response => {
-        this.$store.dispatch('auth/setStream', response.body)
-        this.remainingSeconds = response.body.remaining_seconds
-      }).catch(e => {
-        console.log('saveViewersLimit', e.body.errors || [e.body])
-      })
+      StreamService.updateStream(this.currentUser.stream.id, params)
+        .then((response) => {
+          this.$store.dispatch('auth/setStream', response.body)
+          this.remainingSeconds = response.body.remaining_seconds
+        })
+        .catch((e) => {
+          console.log('saveViewersLimit', e.body.errors || [e.body])
+        })
     },
 
-    // openDepositDialog () {
+    // openDepositDialog() {
     //   if (this.currentUser.enabled_live_video_free || this.currentUser.balance_amount >= StreamHourlyPrice * 80) {
     //     this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
     //   } else {
     //     this.show_deposit_dialog = true
     //   }
     // },
-    // closeDepositDialog () {
+    // closeDepositDialog() {
     //   this.show_deposit_dialog = false
     // },
 
-    openStreamDeleteConfirmDialog () {
+    openStreamDeleteConfirmDialog() {
       this.show_stream_delete_confirm_dialog = true
     },
 
-    closeStreamDeleteConfirmDialog () {
+    closeStreamDeleteConfirmDialog() {
       this.show_stream_delete_confirm_dialog = false
     },
 
-    openCreateFailedDialog () {
+    openCreateFailedDialog() {
       this.show_create_failed_dialog = true
     },
 
-    closeCreateFailedDialog () {
+    closeCreateFailedDialog() {
       this.show_create_failed_dialog = false
       this.$router.push({ path: '/' })
     },
 
-    openAddMoreTimeDialog () {
+    openAddMoreTimeDialog() {
       this.show_add_more_time_dialog = true
     },
 
-    closeAddMoreTimeDialog () {
+    closeAddMoreTimeDialog() {
       this.show_add_more_time_dialog = false
     },
 
-    openPaymentDialog () {
+    openPaymentDialog() {
       this.closeAddMoreTimeDialog()
       this.show_payment_dialog = true
       // this.addMoreTime()
     },
 
-    closePaymentDialog () {
+    closePaymentDialog() {
       this.show_payment_dialog = false
     },
 
-    deposit (token) {
+    deposit(token) {
       if (token) {
         const params = {
           payment_token: token.id,
-          amount: this.streamCost
+          amount: this.streamCost,
         }
-        PaymentService.makeDeposit(params).then(response => {
-          AuthService.setUser(response.body)
-          this.addMoreTime()
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        PaymentService.makeDeposit(params)
+          .then((response) => {
+            AuthService.setUser(response.body)
+            this.addMoreTime()
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
-    refresh () {
+    refresh() {
       this.remainingSeconds -= 1
       if (this.remainingSeconds <= 0) {
         if (this.remainingInterval) {
@@ -377,14 +407,17 @@ export default {
       // }
     },
 
-    isStreaming () {
+    isStreaming() {
       // return _.get(this.currentUser.stream, 'status', '') === 'started' &&
-      return (_.get(this.$store.state.videoPlayer.user, 'slug', '') !== this.currentUser.slug || !this.$store.getters['videoPlayer/hasFrame'])
+      return (
+        _.get(this.$store.state.videoPlayer.user, 'slug', '') !==
+          this.currentUser.slug || !this.$store.getters['videoPlayer/hasFrame']
+      )
     },
 
-    viewStream () {
+    viewStream() {
       if (this.isStreaming()) {
-        UserService.getUserInfo(this.currentUser.id).then(response => {
+        UserService.getUserInfo(this.currentUser.id).then((response) => {
           AuthService.setUser(response.body)
 
           this.$store.dispatch('videoPlayer/setStream', this.currentUser.stream)
@@ -393,36 +426,40 @@ export default {
       }
     },
 
-    getStream () {
+    getStream() {
       const vm = this
-      StreamService.getStream(this.currentUser.stream.id).then(response => {
-        switch (response.body.status) {
-          case 'running':
-            this.$store.dispatch('auth/setStream', response.body)
-            if (this.creatingInterval) {
-              clearInterval(this.creatingInterval)
-              this.remainingSeconds = response.body.remaining_seconds
-              this.remainingInterval = setInterval(function () { vm.refresh() }, 1000)
-            }
-            break
-          case 'inactive':
-          case 'deleted':
-            if (this.creatingInterval) {
-              clearInterval(this.creatingInterval)
-            }
-            this.openCreateFailedDialog()
-            break
-        }
-      }).catch(e => {
-        console.log('getStream Error', e)
-        // if (this.creatingInterval) {
-        //   clearInterval(this.creatingInterval)
-        // }
-        // this.openCreateFailedDialog()
-      })
+      StreamService.getStream(this.currentUser.stream.id)
+        .then((response) => {
+          switch (response.body.status) {
+            case 'running':
+              this.$store.dispatch('auth/setStream', response.body)
+              if (this.creatingInterval) {
+                clearInterval(this.creatingInterval)
+                this.remainingSeconds = response.body.remaining_seconds
+                this.remainingInterval = setInterval(function () {
+                  vm.refresh()
+                }, 1000)
+              }
+              break
+            case 'inactive':
+            case 'deleted':
+              if (this.creatingInterval) {
+                clearInterval(this.creatingInterval)
+              }
+              this.openCreateFailedDialog()
+              break
+          }
+        })
+        .catch((e) => {
+          console.log('getStream Error', e)
+          // if (this.creatingInterval) {
+          //   clearInterval(this.creatingInterval)
+          // }
+          // this.openCreateFailedDialog()
+        })
     },
 
-    // startStream () {
+    // startStream() {
     //   this.$store.dispatch('error/showLoadingActivity', true)
     //   StreamService.startStream(this.currentUser.stream.id).then(response => {
     //     this.$store.dispatch('error/showLoadingActivity', false)
@@ -433,7 +470,7 @@ export default {
     //   })
     // },
 
-    // stopStream () {
+    // stopStream() {
     //   this.$store.dispatch('error/showLoadingActivity', true)
     //   StreamService.stopStream(this.currentUser.stream.id).then(response => {
     //     this.$store.dispatch('error/showLoadingActivity', false)
@@ -444,22 +481,30 @@ export default {
     //   })
     // },
 
-    deleteStream () {
+    deleteStream() {
       this.closeStreamDeleteConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)
-      StreamService.deleteStream(this.currentUser.stream.id).then(response => {
-        /// close the video player if watching own live video
-        if (_.get(this.$store.state.videoPlayer.stream, 'id') == this.currentUser.stream.id) {
-          this.$root.$emit(MyEvents.VIDEO_PLAYER_SHUTDOWN)
-        }
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('auth/setStream', response.body)
-        this.$router.push({ path: '/' })
-        // this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    }
-  }
+      StreamService.deleteStream(this.currentUser.stream.id)
+        .then((response) => {
+          // / close the video player if watching own live video
+          if (
+            _.get(this.$store.state.videoPlayer.stream, 'id') ==
+            this.currentUser.stream.id
+          ) {
+            this.$root.$emit(MyEvents.VIDEO_PLAYER_SHUTDOWN)
+          }
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('auth/setStream', response.body)
+          this.$router.push({ path: '/' })
+          // this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+  },
 }

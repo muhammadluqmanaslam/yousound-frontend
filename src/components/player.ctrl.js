@@ -11,10 +11,10 @@ import shareModal from '@/components/sharemodal'
 export default {
   components: {
     downloadModal,
-    shareModal
+    shareModal,
   },
 
-  data () {
+  data() {
     return {
       playlist: [],
       index: 0,
@@ -32,21 +32,23 @@ export default {
       showShareModal: false,
       showReminder: false,
       totalTime: null,
-      buttonHover: false
+      buttonHover: false,
     }
   },
 
   computed: {
     ...mapGetters({
-      reminderTracksCount: 'app/reminderTracksCount'
+      reminderTracksCount: 'app/reminderTracksCount',
     }),
 
-    MyEvents () {
+    MyEvents() {
       return MyEvents
     },
 
-    item () {
-      const item = this.$store.state.player.list[this.$store.state.player.listIndex]
+    item() {
+      const item = this.$store.state.player.list[
+        this.$store.state.player.listIndex
+      ]
       if (!item) {
         return null
       }
@@ -58,7 +60,7 @@ export default {
       }
     },
 
-    user () {
+    user() {
       if (!this.item) {
         return null
       }
@@ -70,47 +72,47 @@ export default {
       }
     },
 
-    album1Cover () {
+    album1Cover() {
       return _.get(this.item.tracks, '[0].album.cover.url')
     },
 
-    album2Cover () {
+    album2Cover() {
       return _.get(this.item.tracks, '[1].album.cover.url')
     },
 
-    album3Cover () {
+    album3Cover() {
       return _.get(this.item.tracks, '[2].album.cover.url')
     },
 
-    album4Cover () {
+    album4Cover() {
       return _.get(this.item.tracks, '[3].album.cover.url')
     },
 
-    followButtonText () {
+    followButtonText() {
       if (this.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
       }
       return 'Follow'
-    }
+    },
   },
 
-  created () {
+  created() {
     Howler.volume(this.volume / 100)
   },
 
   methods: {
     ...mapActions({
       setPlaying: 'player/setPlayingStatus',
-      setPauseStatus: 'player/setPauseStatus'
+      setPauseStatus: 'player/setPauseStatus',
     }),
 
-    startPlaying (index) {
+    startPlaying(index) {
       this.setPlaylist('next')
       this.play(index)
       this.$forceUpdate()
     },
 
-    resetPlayer () {
+    resetPlayer() {
       if (this.$store.state.player.isPlaying) {
         this.setPlaying(false)
         this.pause()
@@ -142,7 +144,7 @@ export default {
       }
     },
 
-    play (index) {
+    play(index) {
       // console.log('player', index, this.index, this.playlist)
       var self = this
       var sound
@@ -152,7 +154,7 @@ export default {
       // Update the track display.
       // track.innerHTML = (index + 1) + '. ' + data.title
       // this.trackName = this.playlist[index].track.name
-      this.trackIndex = (index + 1) + ' of ' + this.playlist.length
+      this.trackIndex = index + 1 + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
       console.log('player play track', this.track)
 
@@ -196,10 +198,12 @@ export default {
           onstop: function () {
             // Stop the wave animation.
             // this.isPlaying = false
-          }
+          },
         })
 
-        TrackService.playTrack(this.track.id).then(response => (console.log('playing - track', this.track.id)))
+        TrackService.playTrack(this.track.id).then((response) =>
+          console.log('playing - track', this.track.id)
+        )
       }
 
       // Begin playing the sound.
@@ -217,7 +221,7 @@ export default {
       this.index = index
       this.$store.dispatch('player/setTrackIndex', index)
 
-      /// Show the reminder on the audio player
+      // / Show the reminder on the audio player
       // if (this.index > 0 && this.index % this.reminderTracksCount == 0) {
       //   PaymentService.hasTransactionInPeriod().then(res => {
       //     if (res.body != true) {
@@ -231,7 +235,7 @@ export default {
     /**
      * Pause the currently playing track.
      */
-    pause () {
+    pause() {
       // player is not initialized yet.
       if (!this.$store.state.player.isPlaying) return
 
@@ -247,13 +251,16 @@ export default {
       // this.setPlaying(false)
     },
 
-    skip (direction) {
+    skip(direction) {
       // Get the next track based on the direction of the track.
       var index = 0
       if (direction === 'prev') {
         index = this.index - 1
         if (index < 0) {
-          this.$store.dispatch('player/setListIndex', this.$store.state.player.listIndex - 1)
+          this.$store.dispatch(
+            'player/setListIndex',
+            this.$store.state.player.listIndex - 1
+          )
           this.setPlaylist('prev')
           index = this.playlist.length - 1
           // this.$root.$emit('index_change')
@@ -262,7 +269,10 @@ export default {
         index = this.index + 1
         if (index >= this.playlist.length) {
           index = 0
-          this.$store.dispatch('player/setListIndex', this.$store.state.player.listIndex + 1)
+          this.$store.dispatch(
+            'player/setListIndex',
+            this.$store.state.player.listIndex + 1
+          )
           this.setPlaylist('next')
           // this.$root.$emit('index_change')
         }
@@ -275,11 +285,17 @@ export default {
      * Skip to a specific track based on its playlist index.
      * @param  {Number} index Index in the playlist.
      */
-    skipTo (index) {
+    skipTo(index) {
       // Stop the current track.
       var sound = null
-      if (this.playlist[this.index] !== null && this.playlist[this.index] !== undefined) {
-        if (this.playlist[this.index].howl !== undefined && this.playlist[this.index].howl !== null) {
+      if (
+        this.playlist[this.index] !== null &&
+        this.playlist[this.index] !== undefined
+      ) {
+        if (
+          this.playlist[this.index].howl !== undefined &&
+          this.playlist[this.index].howl !== null
+        ) {
           sound = this.playlist[this.index].howl
           sound.stop()
         }
@@ -298,31 +314,37 @@ export default {
      * Seek to a new position in the currently playing track.
      * @param  {Number} per Percentage through the song to skip.
      */
-    seek (per) {
+    seek(per) {
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl
 
       // Convert the percent into a seek position.
       if (sound.playing()) {
-        sound.seek(sound.duration() * per / 100)
+        sound.seek((sound.duration() * per) / 100)
       }
     },
 
     /**
      * The step called within requestAnimationFrame to update the playback position.
      */
-    step () {
+    step() {
       // Get the Howl we want to manipulate.
       var sound = null
       // var sound = this.playlist[this.index].howl
-      if (this.playlist[this.index] !== null && this.playlist[this.index] !== undefined) {
-        if (this.playlist[this.index].howl !== undefined && this.playlist[this.index].howl !== null) {
+      if (
+        this.playlist[this.index] !== null &&
+        this.playlist[this.index] !== undefined
+      ) {
+        if (
+          this.playlist[this.index].howl !== undefined &&
+          this.playlist[this.index].howl !== null
+        ) {
           sound = this.playlist[this.index].howl
 
           // Determine our current seek position.
           var seek = sound.seek() || 0
           this.playedTime = this.formatTime(Math.round(seek))
-          this.progress = (((seek / sound.duration()) * 100) || 0)
+          this.progress = (seek / sound.duration()) * 100 || 0
 
           // If the sound is still playing, continue stepping.
           if (sound.playing()) {
@@ -332,12 +354,18 @@ export default {
       }
     },
 
-    setPlaylist (direction) {
+    setPlaylist(direction) {
       // Display the title of the first track.
-      let object = this.$store.state.player.list[this.$store.state.player.listIndex]
+      let object = this.$store.state.player.list[
+        this.$store.state.player.listIndex
+      ]
       var tracks = []
       if (direction === 'next') {
-        for (var i = this.$store.state.player.listIndex; i < this.$store.state.player.list.length; i++) {
+        for (
+          var i = this.$store.state.player.listIndex;
+          i < this.$store.state.player.list.length;
+          i++
+        ) {
           object = this.$store.state.player.list[i]
           if (object.assoc_type) {
             if (object.assoc_type === 'Album') {
@@ -384,21 +412,23 @@ export default {
       if (tracks.length > 0) {
         if (this.$store.state.auth.user) {
           const album = object.assoc || object
-          AlbumService.playAlbum(album.id).then(response => (console.log('playing - album', album.id)))
+          AlbumService.playAlbum(album.id).then((response) =>
+            console.log('playing - album', album.id)
+          )
         }
 
         for (let track in tracks) {
           this.playlist.push({
             track: tracks[track],
             played: false,
-            howl: null
+            howl: null,
           })
         }
         // if (this.$store.state.player.trackIndex > -1) {
         //   this.index = this.$store.state.player.trackIndex
         // }
         this.$store.dispatch('player/setTrackIndex', 0)
-        this.trackIndex = (this.index + 1) + ' of ' + this.playlist.length
+        this.trackIndex = this.index + 1 + ' of ' + this.playlist.length
         // this.trackName = this.playlist[this.index].track.name
         this.track = this.playlist[this.index].track
         console.log('player setPlaylist track', this.track)
@@ -408,56 +438,77 @@ export default {
       }
     },
 
-    formatTime (secs) {
+    formatTime(secs) {
       var minutes = Math.floor(secs / 60) || 0
-      var seconds = (secs - minutes * 60) || 0
+      var seconds = secs - minutes * 60 || 0
 
       return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
     },
 
-    followUser () {
+    followUser() {
       if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id).then(response => {
-          this.$store.dispatch('player/updateFollowingStatus', false)
-          this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.user.display_name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        UserService.unfollowUser(this.user.id)
+          .then((response) => {
+            this.$store.dispatch('player/updateFollowingStatus', false)
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just unfollowed ' + this.user.display_name,
+            ])
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       } else {
-        UserService.followUser(this.user.id).then(response => {
-          this.$store.dispatch('player/updateFollowingStatus', true)
-          this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        UserService.followUser(this.user.id)
+          .then((response) => {
+            this.$store.dispatch('player/updateFollowingStatus', true)
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just followed ' + this.user.display_name,
+            ])
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
-    choosePage (path) {
+    choosePage(path) {
       this.$router.push({ path: '/' + path })
     },
 
-    dismissDownloadDialog () {
+    dismissDownloadDialog() {
       this.showDownloadModal = false
     },
 
-    dismissShareDialog () {
+    dismissShareDialog() {
       this.showShareModal = false
     },
 
-    setRepeated () {
+    setRepeated() {
       this.isRepeated = !this.isRepeated
     },
 
-    repostItem () {
-      AlbumService.repostAlbum(this.item.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    repostItem() {
+      AlbumService.repostAlbum(this.item.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just reposted ' + this.item.name,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    setFollowingStatus (userId, isFollowing) {
+    setFollowingStatus(userId, isFollowing) {
       // console.log('player setFollowingStatus', status)
       // console.log(this.user)
       if (this.user && this.user.id === userId) {
@@ -465,7 +516,7 @@ export default {
       }
     },
 
-    skipTrack (index) {
+    skipTrack(index) {
       this.skipTo(index)
     },
 
@@ -474,17 +525,20 @@ export default {
     //   this.updateVolume(this.volume)
     // },
 
-    updateVolume () {
+    updateVolume() {
       // console.log('updateVolume', volume)
       Howler.volume(this.volume / 100)
     },
 
-    randomPlay () {
-      this.$store.dispatch('player/setShuffleStatus', !this.$store.state.player.isShuffle)
-    }
+    randomPlay() {
+      this.$store.dispatch(
+        'player/setShuffleStatus',
+        !this.$store.state.player.isShuffle
+      )
+    },
   },
 
-  mounted () {
+  mounted() {
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.startPlaying)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.play)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.pause)
@@ -492,5 +546,5 @@ export default {
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.$root.$on(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER, this.pause)
-  }
+  },
 }

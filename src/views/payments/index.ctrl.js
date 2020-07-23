@@ -9,7 +9,7 @@ import OrderRefundDialog from './components/order_refund_dialog'
 import ProductModal from './components/product'
 import SendMessage from '@/components/sendmessage'
 import ShareModal from '@/components/sharemodal'
-import UserCard from  '@/components/user_card'
+import UserCard from '@/components/user_card'
 
 export default {
   components: {
@@ -17,24 +17,24 @@ export default {
     ProductModal,
     SendMessage,
     ShareModal,
-    UserCard
+    UserCard,
   },
 
-  data () {
+  data() {
     return {
       active_tab: 'received',
       tabs: [
         { id: 'received', title: 'Received' },
-        { id: 'sent', title: 'Sent' }
+        { id: 'sent', title: 'Sent' },
       ],
       show_withdraw_dialog: false,
       show_withdraw_confirm_modal: false,
       withdraw_option: 'all',
-      withdraw_amount: 1.00,
+      withdraw_amount: 1.0,
       show_refund_confirm_dialog: false,
       show_refund_dialog: false,
       refund_option: 'all',
-      refund_amount: 1.00,
+      refund_amount: 1.0,
       refund_description: '',
       histories: [],
       payment: {},
@@ -45,35 +45,39 @@ export default {
       messaging_user: {},
       page_index: 1,
       total_pages: 1,
-      items_per_page: 6 * 5
+      items_per_page: 6 * 5,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    PaymentTypes () {
+    PaymentTypes() {
       return PaymentTypes
     },
 
-    disableWithdrawButton () {
-      return this.withdraw_option != 'all' &&
-        (!this.withdraw_amount || this.withdraw_amount < 1 || this.currentUser.available_amount < this.withdraw_amount)
+    disableWithdrawButton() {
+      return (
+        this.withdraw_option != 'all' &&
+        (!this.withdraw_amount ||
+          this.withdraw_amount < 1 ||
+          this.currentUser.available_amount < this.withdraw_amount)
+      )
     },
 
-    stripeLink () {
+    stripeLink() {
       return `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.STRIPE_CONNECT_CLIENT_ID}&scope=read_write&state=${this.$store.state.auth.secret_code}`
     },
 
-    withdrawAmount () {
+    withdrawAmount() {
       if (this.withdraw_option == 'all') {
         return this.currentUser.available_amount
       } else {
         return parseInt(this.withdraw_amount * 100)
       }
-    }
+    },
   },
 
   methods: {
@@ -81,60 +85,60 @@ export default {
       return this.active_tab == tab
     },
 
-    showSendMessageDialog (history) {
+    showSendMessageDialog(history) {
       this.send_message_dialog = true
-      if(this.active_tab === 'received') {
+      if (this.active_tab === 'received') {
         this.messaging_user = history.sender
       } else {
         this.messaging_user = history.receiver
       }
     },
 
-    hideSendMessageDialog () {
+    hideSendMessageDialog() {
       this.send_message_dialog = false
     },
 
-    openProductModal (payment) {
+    openProductModal(payment) {
       this.payment = payment
       this.show_product_modal = true
     },
 
-    closeProductModal () {
+    closeProductModal() {
       this.show_product_modal = false
     },
 
-    shareProduct () {
+    shareProduct() {
       this.closeProductModal()
       this.openShareModal()
     },
 
-    openShareModal () {
+    openShareModal() {
       this.show_share_modal = true
     },
 
-    closeShareModal () {
+    closeShareModal() {
       this.show_share_modal = false
     },
 
-    openWithdrawModal () {
+    openWithdrawModal() {
       this.show_withdraw_dialog = true
     },
 
-    closeWithdrawModal () {
+    closeWithdrawModal() {
       this.show_withdraw_dialog = false
     },
 
-    openWithdrawConfirmModal () {
+    openWithdrawConfirmModal() {
       this.closeWithdrawModal()
       this.show_withdraw_confirm_modal = true
     },
 
-    closeWithdrawConfirmModal () {
+    closeWithdrawConfirmModal() {
       this.openWithdrawModal()
       this.show_withdraw_confirm_modal = false
     },
 
-    openRefundDialog (payment) {
+    openRefundDialog(payment) {
       this.payment = this._.cloneDeep(payment)
       switch (this.payment.payment_type) {
         case 'pay_view_stream':
@@ -142,42 +146,46 @@ export default {
           break
         default:
           this.$store.dispatch('error/showLoadingActivity', true)
-          OrderService.getOrder(payment.order_id).then(response => {
-            let order = response.body
-            order.items.forEach((item) => { item.refund = false })
-            this.payment.order = order
-            this.show_refund_dialog = true
-            this.$store.dispatch('error/showLoadingActivity', false)
-          }).catch(error => {
-            console.log('openRefundDialog error', error)
-            this.$store.dispatch('error/showLoadingActivity', false)
-          })
+          OrderService.getOrder(payment.order_id)
+            .then((response) => {
+              let order = response.body
+              order.items.forEach((item) => {
+                item.refund = false
+              })
+              this.payment.order = order
+              this.show_refund_dialog = true
+              this.$store.dispatch('error/showLoadingActivity', false)
+            })
+            .catch((error) => {
+              console.log('openRefundDialog error', error)
+              this.$store.dispatch('error/showLoadingActivity', false)
+            })
       }
     },
 
-    closeRefundDialog () {
+    closeRefundDialog() {
       this.show_refund_dialog = false
     },
 
-    openRefundConfirmDialog () {
+    openRefundConfirmDialog() {
       // console.log('order', this.payment.order)
       this.refund_amount = this.refundAmount()
       this.closeRefundDialog()
       this.show_refund_confirm_dialog = true
     },
 
-    closeRefundConfirmDialog () {
+    closeRefundConfirmDialog() {
       // this.show_refund_dialog = true
       this.show_refund_confirm_dialog = false
     },
 
-    continueRefund (payment) {
+    continueRefund(payment) {
       // console.log('continueRefund', payment)
       this.closeRefundDialog()
       this.openRefundConfirmDialog()
     },
 
-    canRefund (payment) {
+    canRefund(payment) {
       let val = 'Fully Refunded'
       switch (payment.payment_type) {
         case 'buy':
@@ -196,7 +204,7 @@ export default {
       return val
     },
 
-    refundAmount () {
+    refundAmount() {
       switch (this.payment.payment_type) {
         case 'buy':
           const items = this._.get(this.payment, 'order.items', [])
@@ -204,7 +212,11 @@ export default {
           let refund_amount = 0
           if (items.length > 0) {
             refund_amount = items.reduce((amount, item) => {
-              if (item.status != 'item_refunded' && item.refund && item.refund_amount_in_dollar > 0) {
+              if (
+                item.status != 'item_refunded' &&
+                item.refund &&
+                item.refund_amount_in_dollar > 0
+              ) {
                 return amount + item.refund_amount_in_dollar * 100
               } else {
                 return amount
@@ -224,7 +236,7 @@ export default {
       }
     },
 
-    refundMoney () {
+    refundMoney() {
       // this.show_refund_confirm_dialog = false
       let params
       let items = []
@@ -232,10 +244,14 @@ export default {
       switch (this.payment.payment_type) {
         case 'buy':
           this.payment.order.items.forEach((item) => {
-            if (item.status != 'item_refunded' && item.refund && item.refund_amount_in_dollar > 0) {
+            if (
+              item.status != 'item_refunded' &&
+              item.refund &&
+              item.refund_amount_in_dollar > 0
+            ) {
               items.push({
                 id: item.id,
-                refund_amount: item.refund_amount_in_dollar * 100
+                refund_amount: item.refund_amount_in_dollar * 100,
               })
             }
           })
@@ -243,126 +259,169 @@ export default {
             payment_id: this.payment.id,
             amount: this.refund_amount,
             description: this.refund_description,
-            items: JSON.stringify(items)
+            items: JSON.stringify(items),
           }
           console.log('refundOrder', params)
           this.$store.dispatch('error/showLoadingActivity', true)
-          PaymentService.refundOrder(this.payment.id, params).then(response => {
-            AuthService.setUser(response.body)
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showSuccessToast', [`Refunded $${Filter.formatNumber(this.refund_amount)} successfully.`])
-            this.payment.refund_amount += this.refund_amount
-            const arr = this.histories.slice();
-            this.histories = arr;
-          }).catch(e => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          })
+          PaymentService.refundOrder(this.payment.id, params)
+            .then((response) => {
+              AuthService.setUser(response.body)
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch('error/showSuccessToast', [
+                `Refunded $${Filter.formatNumber(
+                  this.refund_amount
+                )} successfully.`,
+              ])
+              this.payment.refund_amount += this.refund_amount
+              const arr = this.histories.slice()
+              this.histories = arr
+            })
+            .catch((e) => {
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch(
+                'error/showErrorToast',
+                e.body.errors || [e.body]
+              )
+            })
           break
         default:
           this.$store.dispatch('error/showLoadingActivity', true)
           params = {
             amount: this.refund_amount,
-            description: this.refund_description
+            description: this.refund_description,
           }
-          PaymentService.refundMoney(this.payment.id, params).then(response => {
-            AuthService.setUser(response.body)
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showSuccessToast', [`Refunded $${Filter.formatNumber(this.refund_amount)} successfully.`])
+          PaymentService.refundMoney(this.payment.id, params)
+            .then((response) => {
+              AuthService.setUser(response.body)
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch('error/showSuccessToast', [
+                `Refunded $${Filter.formatNumber(
+                  this.refund_amount
+                )} successfully.`,
+              ])
 
-            this.payment.refund_amount += this.refund_amount
-            const arr = this.histories.slice();
-            this.histories = arr;
-          }).catch(e => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          })
+              this.payment.refund_amount += this.refund_amount
+              const arr = this.histories.slice()
+              this.histories = arr
+            })
+            .catch((e) => {
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch(
+                'error/showErrorToast',
+                e.body.errors || [e.body]
+              )
+            })
       }
     },
 
-    onTab (tab) {
+    onTab(tab) {
       this.$router.push({
         path: this.$route.path,
-        hash: tab
+        hash: tab,
       })
     },
 
-    setTab (tab) {
-      if (!tab)
+    setTab(tab) {
+      if (!tab) {
         tab = 'received'
+      }
 
       this.active_tab = tab
-      this.$store.dispatch('navigator/goNextState', { page: 'payments', tab: '' })
+      this.$store.dispatch('navigator/goNextState', {
+        page: 'payments',
+        tab: '',
+      })
       this.page_index = 1
       this.total_pages = 1
       this.histories = []
       this.loadPayments(tab, this.page_index)
     },
 
-    loadPayments (tab, page) {
+    loadPayments(tab, page) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
         page: page,
-        per_page: this.items_per_page
+        per_page: this.items_per_page,
       }
       if (tab === 'sent') {
-        PaymentService.getSentPayments(params).then(response=> {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.page_index = response.body.pagination.current_page
-          this.total_pages = response.body.pagination.total_pages
-          this.histories = this.histories.concat(response.body.payments)
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        PaymentService.getSentPayments(params)
+          .then((response) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.page_index = response.body.pagination.current_page
+            this.total_pages = response.body.pagination.total_pages
+            this.histories = this.histories.concat(response.body.payments)
+          })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       } else {
-        PaymentService.getReceivedPayments(params).then(response=> {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.page_index = response.body.pagination.current_page
-          this.total_pages = response.body.pagination.total_pages
-          this.histories = this.histories.concat(response.body.payments)
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        PaymentService.getReceivedPayments(params)
+          .then((response) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.page_index = response.body.pagination.current_page
+            this.total_pages = response.body.pagination.total_pages
+            this.histories = this.histories.concat(response.body.payments)
+          })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
-    loadMore () {
+    loadMore() {
       this.loadPayments(this.tab, this.page_index + 1)
     },
 
-    withdrawMoney () {
+    withdrawMoney() {
       this.show_withdraw_confirm_modal = false
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
-        amount: this.withdrawAmount
+        amount: this.withdrawAmount,
       }
-      PaymentService.withdrawMoney(params).then(response => {
-        AuthService.setUser(response.body)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', [`Withdrew $${Filter.formatNumber(this.withdrawAmount)} successfully.`])
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    }
+      PaymentService.withdrawMoney(params)
+        .then((response) => {
+          AuthService.setUser(response.body)
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', [
+            `Withdrew $${Filter.formatNumber(
+              this.withdrawAmount
+            )} successfully.`,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       const tab = toPath.hash.substr(1)
       this.setTab(tab)
-    }
+    },
   },
 
-  created () {
-    UserService.getUserInfo(this.$store.state.auth.user.slug).then(response => {
-      AuthService.setUser(response.body)
-      const tab = this.$route.hash.substr(1)
-      this.setTab(tab)
-    }).catch(e => {
-      this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-    })
-  }
+  created() {
+    UserService.getUserInfo(this.$store.state.auth.user.slug)
+      .then((response) => {
+        AuthService.setUser(response.body)
+        const tab = this.$route.hash.substr(1)
+        this.setTab(tab)
+      })
+      .catch((e) => {
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
+  },
 }

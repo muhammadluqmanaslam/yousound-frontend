@@ -13,7 +13,11 @@
       <v-tabs-content id="tab-online" class="full-height">
         <v-card flat class="full-height">
           <v-card-text class="full-height">
-            <v-flex class="text-xs-left" v-for="user in onlineUsers" :key="user.username">
+            <v-flex
+              class="text-xs-left"
+              v-for="user in onlineUsers"
+              :key="user.username"
+            >
               <v-layout row>
                 <div>
                   <img class="pic" v-bind:src="user.avatar.thumb.url" />
@@ -24,7 +28,11 @@
                 </div>
               </v-layout>
             </v-flex>
-            <v-flex class="text-xs-left" v-for="user in idleUsers" :key="user.username">
+            <v-flex
+              class="text-xs-left"
+              v-for="user in idleUsers"
+              :key="user.username"
+            >
               <v-layout row>
                 <div>
                   <img class="pic" v-bind:src="user.avatar.thumb.url" />
@@ -42,9 +50,21 @@
         <v-card flat>
           <v-card-text>
             <template id="room-admin-settings" v-if="admin">
-              <v-switch label="Enable links?" v-model="room.settings.links"></v-switch>
-              <v-switch label="Character limit?" v-model="room.settings.charLimitBool"></v-switch>
-              <v-text-field v-if="room.settings.charLimitBool" label="Limit" placeholder="# of characters" v-model="room.settings.charLimit" :rules="[rules.number]"></v-text-field>
+              <v-switch
+                label="Enable links?"
+                v-model="room.settings.links"
+              ></v-switch>
+              <v-switch
+                label="Character limit?"
+                v-model="room.settings.charLimitBool"
+              ></v-switch>
+              <v-text-field
+                v-if="room.settings.charLimitBool"
+                label="Limit"
+                placeholder="# of characters"
+                v-model="room.settings.charLimit"
+                :rules="[rules.number]"
+              ></v-text-field>
             </template>
             <template id="local-settings">
               <!-- <v-switch v-bind:label="`Switch 1: ${ex11.toString()}`" v-model="ex11"></v-switch>
@@ -63,31 +83,45 @@ import UserService from '@/services/user'
 export default {
   props: ['admin', 'room'],
   components: {
-    UserModal
+    UserModal,
   },
-  data () {
+  data() {
     return {
       rules: {
         number: (value) => {
           const pattern = /^(0|[1-9][0-9]*)$/
           if (value === '') return 'Please enter a number.'
           if (!pattern.test(value)) return 'Please enter a number.'
-          if (!((parseInt(value) <= 500) && (parseInt(value) >= 1))) return 'Please enter a number between 1-500'
+          if (!(parseInt(value) <= 500 && parseInt(value) >= 1)) {
+            return 'Please enter a number between 1-500'
+          }
           return true
-        }
+        },
       },
       onlineUsers: [],
-      idleUsers: []
+      idleUsers: [],
     }
   },
   watch: {
-    room (r) {
+    room(r) {
       var that = this
-      Promise.all(that.room.online.map((e) => { if (e) return UserService.getUserInfo(e) })).then((v) => { that.onlineUsers = v })
-      Promise.all(that.room.idle.map((e) => { if (e) return UserService.getUserInfo(e) })).then((v) => { that.idleUsers = v })
+      Promise.all(
+        that.room.online.map((e) => {
+          if (e) return UserService.getUserInfo(e)
+        })
+      ).then((v) => {
+        that.onlineUsers = v
+      })
+      Promise.all(
+        that.room.idle.map((e) => {
+          if (e) return UserService.getUserInfo(e)
+        })
+      ).then((v) => {
+        that.idleUsers = v
+      })
     },
-    deep: true
-  }
+    deep: true,
+  },
 }
 </script>
 
@@ -114,6 +148,6 @@ export default {
   width: 50px;
   height: 50px;
   margin: 0;
-  background-color: #B1B1B1
+  background-color: #b1b1b1;
 }
 </style>

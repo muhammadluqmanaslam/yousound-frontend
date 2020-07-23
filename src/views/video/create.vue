@@ -12,7 +12,16 @@
               <div class="o-out blue0"><div class="o-in"></div></div>
               <div class="my-card__title"></div>
               <div class="my-card__subtitle">Download Software</div>
-              <div class="my-card__text">Download video streaming software like a free version of <a href="https://obsproject.com/" target="_blank">OBS</a>. Here are <a href="https://support.yousound.com/article/271-how-do-i-setup-a-live-video-broadcast" target="_blank">links to more</a></div>
+              <div class="my-card__text">
+                Download video streaming software like a free version of
+                <a href="https://obsproject.com/" target="_blank">OBS</a>. Here
+                are
+                <a
+                  href="https://support.yousound.com/article/271-how-do-i-setup-a-live-video-broadcast"
+                  target="_blank"
+                  >links to more</a
+                >
+              </div>
             </div>
           </v-flex>
           <v-flex sm4>
@@ -20,7 +29,10 @@
               <div class="o-out red0"><div class="o-in"></div></div>
               <div class="my-card__title"></div>
               <div class="my-card__subtitle">Prepare your live stream</div>
-              <div class="my-card__text">Make sure your live video stream looks good on your computer before proceeding to Step 3.</div>
+              <div class="my-card__text">
+                Make sure your live video stream looks good on your computer
+                before proceeding to Step 3.
+              </div>
             </div>
           </v-flex>
           <v-flex sm4>
@@ -28,7 +40,9 @@
               <div class="o-out green0"><div class="o-in"></div></div>
               <div class="my-card__title"></div>
               <div class="my-card__subtitle">Pay for what you use</div>
-              <div class="my-card__text">Pay per hour.  After payment, you will receive your stream key.</div>
+              <div class="my-card__text">
+                Pay per hour. After payment, you will receive your stream key.
+              </div>
             </div>
           </v-flex>
         </v-layout>
@@ -43,7 +57,13 @@
               <v-flex sm6 mr-3>
                 <v-flex xs12 form-group>
                   <label class="control-label">Title of stream?</label>
-                  <input type="text" class="form-control" name="title" v-model="stream.name" v-validate="'required'">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="title"
+                    v-model="stream.name"
+                    v-validate="'required'"
+                  />
                 </v-flex>
                 <v-flex xs12 form-group>
                   <label class="control-label">Genre</label>
@@ -97,13 +117,12 @@
                 <div class="video-thumbnail-wrapper">
                   <div
                     v-if="stream_cover_url"
-                    :style="{'background-image': 'url(' + stream_cover_url + ')'}"
+                    :style="{
+                      'background-image': 'url(' + stream_cover_url + ')',
+                    }"
                     class="video-thumbnail"
                   ></div>
-                  <div
-                    v-else
-                    class="video-thumbnail"
-                  >
+                  <div v-else class="video-thumbnail">
                     <!-- <label>PREVIEW</label> -->
                   </div>
                 </div>
@@ -116,7 +135,7 @@
                     accept=".png, .jpg, .jpeg"
                     v-validate="'required'"
                     @change="imageChanged($event)"
-                  >
+                  />
                   <label for="stream_cover_file">Upload</label>
                   <span>*PNG, JPG, GIF</span>
                 </div>
@@ -167,17 +186,36 @@
         <v-layout row>
           <v-flex sm8 form-group mr-4>
             <div class="comment-box">
-              After clicking <b>“Create Channel”</b>, it can take up to <b>5 minutes</b> to generate your Stream Key.<br/>
-              It costs $10 per hour to live video broadcast & you can purchase up to 24 hours.<br/>
-              Unused time is unpaid, and the remaining cost is added to your next broadcast.
+              After clicking <b>“Create Channel”</b>, it can take up to
+              <b>5 minutes</b> to generate your Stream Key.<br />
+              It costs $10 per hour to live video broadcast & you can purchase
+              up to 24 hours.<br />
+              Unused time is unpaid, and the remaining cost is added to your
+              next broadcast.
             </div>
           </v-flex>
           <v-flex sm4>
             <div class="button-wrapper text-center">
-              <v-btn round dark color="blue" class="px-5" type="submit">Create Channel</v-btn>
+              <v-btn round dark color="blue" class="px-5" type="submit"
+                >Create Channel</v-btn
+              >
               <p class="regular-checkbox ma-0">
-                <input id="terms" type="checkbox" name="terms" v-model="terms" v-validate="'required'"/>
-                <label for="terms">I have read & agree to the <router-link class="forgot-password" to="/terms" target="_blank">Terms & Conditions</router-link></label>
+                <input
+                  id="terms"
+                  type="checkbox"
+                  name="terms"
+                  v-model="terms"
+                  v-validate="'required'"
+                />
+                <label for="terms"
+                  >I have read & agree to the
+                  <router-link
+                    class="forgot-password"
+                    to="/terms"
+                    target="_blank"
+                    >Terms & Conditions</router-link
+                  ></label
+                >
               </p>
             </div>
           </v-flex>
@@ -193,15 +231,28 @@
         </v-card-title>
         <v-card-text>
           <ul>
-            <li>Attach albums & products to live video to <br/>let user <b>download</b> or <b>add to cart</b> while viewing.</li>
+            <li>
+              Attach albums & products to live video to <br />let user
+              <b>download</b> or <b>add to cart</b> while viewing.
+            </li>
             <li>Make albums & products <b>exclusive</b> on broadcast.</li>
-            <li>Let users view for <b>Free</b> or <b>Pay Per View</b>.<br/>Charge up to $10,000 per user.</li>
+            <li>
+              Let users view for <b>Free</b> or <b>Pay Per View</b>.<br />Charge
+              up to $10,000 per user.
+            </li>
             <li><b>Limit</b> the amount of viewers on your broadcast.</li>
             <li>Add users to your <b>Guest List</b> to watch for free.</li>
           </ul>
         </v-card-text>
         <v-card-actions>
-          <v-btn dark round color="blue" @click.native="closeHelpDialog()" class="px-4">Ok, Got it!</v-btn>
+          <v-btn
+            dark
+            round
+            color="blue"
+            @click.native="closeHelpDialog()"
+            class="px-4"
+            >Ok, Got it!</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>

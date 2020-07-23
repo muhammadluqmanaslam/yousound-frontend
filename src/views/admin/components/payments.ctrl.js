@@ -6,7 +6,7 @@ import PaymentService from '@/services/payment'
 export default {
   components: {},
 
-  data () {
+  data() {
     return {
       tabs: [
         { id: 'all', title: 'All Transactions' },
@@ -28,36 +28,37 @@ export default {
       refunded_transactions: [],
       all_pagination: {
         page: 1,
-        rowsPerPage: 50
+        rowsPerPage: 50,
       },
       refunded_pagination: {
         page: 1,
-        rowsPerPage: 50
+        rowsPerPage: 50,
       },
       total_all_transactions: 0,
       total_refunded_transactions: 0,
-      isPageReady: true
+      isPageReady: true,
     }
   },
 
-  created() {
-  },
+  created() {},
 
   methods: {
     loadAllTransactions() {
       const params = {
         q: this.searchValue,
         page: this.all_pagination.page,
-        per_page: this.all_pagination.rowsPerPage
+        per_page: this.all_pagination.rowsPerPage,
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      PaymentService.getAllPayments(params).then(response => {
-        this.all_transactions = response.body.payments
-        this.total_all_transactions = response.body.pagination.total_count
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+      PaymentService.getAllPayments(params)
+        .then((response) => {
+          this.all_transactions = response.body.payments
+          this.total_all_transactions = response.body.pagination.total_count
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
     loadRefundedTransactions() {
@@ -65,16 +66,19 @@ export default {
         q: this.searchValue,
         payment_types: 'refund',
         page: this.all_pagination.page,
-        per_page: this.all_pagination.rowsPerPage
+        per_page: this.all_pagination.rowsPerPage,
       }
       this.$store.dispatch('error/showLoadingActivity', true)
-      PaymentService.getAllPayments(params).then(response => {
-        this.refunded_transactions = response.body.payments
-        this.total_refunded_transactions = response.body.pagination.total_count
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+      PaymentService.getAllPayments(params)
+        .then((response) => {
+          this.refunded_transactions = response.body.payments
+          this.total_refunded_transactions =
+            response.body.pagination.total_count
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
     onTab(tab) {
@@ -96,15 +100,15 @@ export default {
 
   watch: {
     all_pagination: {
-      handler () {
+      handler() {
         this.loadAllTransactions()
-      }
+      },
     },
 
     refunded_pagination: {
-      handler () {
+      handler() {
         this.loadRefundedTransactions()
-      }
+      },
     },
-  }
+  },
 }

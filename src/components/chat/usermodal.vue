@@ -1,18 +1,32 @@
 <template>
-  <div style="position: relative;display:inline-block;width:auto;margin:0;padding:0;">
-    <div class="modal-trigger">{{user.display_name}}
-      <div class="user-modal" :style="'top: ' + y + 'px; left: ' + x +'px;'">,
-        <v-layout row class="text-xs-right">,
-          <img class="pic-big" v-bind:src="user.image" />,
-          <div class="user-modal-header">,
-            <div class="user-modal-name">{{user.display_name}}</div>,
-            <div class="user-modal-detail"><b>2.8k</b> Followers</div>,
-          </div>,
-        </v-layout>,
-        <v-layout row>,
-          <button class="user-modal-btn">Follow</button>,
-          <button class="user-modal-btn">Message</button>,
-        </v-layout>,
+  <div
+    style="
+      position: relative;
+      display: inline-block;
+      width: auto;
+      margin: 0;
+      padding: 0;
+    "
+  >
+    <div class="modal-trigger">
+      {{ user.display_name }}
+      <div class="user-modal" :style="'top: ' + y + 'px; left: ' + x + 'px;'">
+        ,
+        <v-layout row class="text-xs-right"
+          >, <img class="pic-big" v-bind:src="user.image" />,
+          <div class="user-modal-header">
+            ,
+            <div class="user-modal-name">{{ user.display_name }}</div>
+            ,
+            <div class="user-modal-detail"><b>2.8k</b> Followers</div>
+            ,
+          </div>
+          , </v-layout
+        >,
+        <v-layout row
+          >, <button class="user-modal-btn">Follow</button>,
+          <button class="user-modal-btn">Message</button>, </v-layout
+        >,
       </div>
     </div>
   </div>
@@ -21,19 +35,19 @@
 export default {
   props: ['user'],
   methods: {},
-  data () {
+  data() {
     return {
       x: -85,
-      y: 40
+      y: 40,
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
 .modal-trigger {
   font-size: 18px;
-  color: #3A92FF;
+  color: #3a92ff;
   letter-spacing: 0;
   width: auto;
   display: inline-block;
@@ -70,12 +84,12 @@ export default {
 }
 
 .user-modal-btn {
-  background: #FFFFFF;
-  border: 2px solid #3A92FF;
+  background: #ffffff;
+  border: 2px solid #3a92ff;
   border-radius: 100px;
   font-size: 18px;
   padding: 3px 30px 3px 30px;
-  color: #3A92FF;
+  color: #3a92ff;
   letter-spacing: -0.8px;
   margin-right: 10px;
 }
@@ -103,7 +117,7 @@ export default {
   width: 75px;
   height: 75px;
   margin: 0;
-  background-color: #B1B1B1;
+  background-color: #b1b1b1;
   position: relative;
   left: 25px;
 }
@@ -113,6 +127,6 @@ export default {
   width: 50px;
   height: 50px;
   margin: 0;
-  background-color: #B1B1B1
+  background-color: #b1b1b1;
 }
 </style>

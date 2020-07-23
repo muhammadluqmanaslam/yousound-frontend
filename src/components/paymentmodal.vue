@@ -22,7 +22,8 @@
           class="btn-cta"
           @click.native="sendPayment()"
           :disabled="sent_payment || !complete"
-        >Pay ${{ amount | formatNumber }}</v-btn>
+          >Pay ${{ amount | formatNumber }}</v-btn
+        >
       </div>
 
       <div class="box__footer">
@@ -44,13 +45,28 @@
 
     <v-dialog v-else v-model="show_error_dialog" content-class="my-dialog-1">
       <v-card>
-        <v-card-media :src="_.get(receiver, 'avatar.thumb.url')" height="125px" contain></v-card-media>
+        <v-card-media
+          :src="_.get(receiver, 'avatar.thumb.url')"
+          height="125px"
+          contain
+        ></v-card-media>
         <v-card-text class="mt-2">
           <div class="headline">You cannot send the payment</div>
-          <div>{{_.get(receiver, 'display_name', 'Receiver')}} did not connect to stripe yet.</div>
+          <div>
+            {{ _.get(receiver, 'display_name', 'Receiver') }} did not connect to
+            stripe yet.
+          </div>
         </v-card-text>
         <v-card-actions>
-          <v-btn dark color="blue" @click.native="show_error_dialog = false; dismiss()">OK</v-btn>
+          <v-btn
+            dark
+            color="blue"
+            @click.native="
+              show_error_dialog = false
+              dismiss()
+            "
+            >OK</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -58,77 +74,76 @@
 </template>
 
 <script type="text/javascript">
-  import { Card, createToken } from 'vue-stripe-elements'
+import { Card, createToken } from 'vue-stripe-elements'
 
-  export default {
-    props: {
-      receiver: {
-        type: Object
-      },
-
-      amount: {
-        type: Number,
-        required: true
-      },
-
-      dismiss: {
-        type: Function,
-        required: true
-      },
-
-      finish: {
-        type: Function,
-        required: true
-      }
+export default {
+  props: {
+    receiver: {
+      type: Object,
     },
 
-    components: {
-      Card
+    amount: {
+      type: Number,
+      required: true,
     },
 
-    data () {
-      return {
-        stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
-        sent_payment: false,
-        complete: false,
-        stripeOptions: {},
-        show_error_dialog: false,
-        fee: 0
-      }
+    dismiss: {
+      type: Function,
+      required: true,
     },
 
-    computed: {
-      currentUser () {
-        return this.$store.state.auth.user
-      },
-
-      stripeConnected () {
-        return this._.get(this.receiver, 'stripe_connected', false)
-      }
+    finish: {
+      type: Function,
+      required: true,
     },
+  },
 
-    created () {
-      if (!this.stripeConnected) {
-        this.show_error_dialog = true
-      }
+  components: {
+    Card,
+  },
 
-      const total = (this.amount + 30) / 0.971
-      this.fee = (total - this.amount) / 100
-    },
-
-    beforeDestroy () {
-    },
-
-    methods: {
-      sendPayment () {
-        this.sent_payment = true
-        createToken().then(data => {
-          this.dismiss()
-          this.finish(data.token)
-        })
-      }
+  data() {
+    return {
+      stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
+      sent_payment: false,
+      complete: false,
+      stripeOptions: {},
+      show_error_dialog: false,
+      fee: 0,
     }
-  }
+  },
+
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+
+    stripeConnected() {
+      return this._.get(this.receiver, 'stripe_connected', false)
+    },
+  },
+
+  created() {
+    if (!this.stripeConnected) {
+      this.show_error_dialog = true
+    }
+
+    const total = (this.amount + 30) / 0.971
+    this.fee = total - this.amount
+  },
+
+  beforeDestroy() {},
+
+  methods: {
+    sendPayment() {
+      this.sent_payment = true
+      createToken().then((data) => {
+        this.dismiss()
+        this.finish(data.token)
+      })
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -151,13 +166,13 @@
   margin-top: calc(50vh - 320px);
   margin-left: auto;
   margin-right: auto;
-  background-color: #3A92FF;
-  color: #FFFFFF;
-  box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+  background-color: #3a92ff;
+  color: #ffffff;
+  box-shadow: 0 30px 55.5px 0 rgba(0, 0, 0, 0.3);
   border-radius: 7.5px;
   position: relative;
   overflow: hidden;
-  
+
   &__header {
     h4 {
       margin: 10px 30px 0 30px;
@@ -173,7 +188,7 @@
     width: 32px;
     height: 32px;
     margin: 40px 30px 20px 30px;
-    background: url("/static/images/ic_payment.png") no-repeat center center;
+    background: url('/static/images/ic_payment.png') no-repeat center center;
     background-size: contain;
   }
 
@@ -183,7 +198,7 @@
 
     .divider {
       margin: 5px 0;
-      border-top: 1px dashed #FFFFFF;
+      border-top: 1px dashed #ffffff;
     }
     .payment-info {
       label {
@@ -230,7 +245,7 @@
     align-items: center;
     margin-top: 20px;
     border-radius: 15px;
-    background: #FFFFFF;
+    background: #ffffff;
 
     .payment-card {
       width: 100%;
@@ -239,17 +254,17 @@
     }
     .divider {
       width: 320px;
-      border-bottom: 1px solid #E1E1E1;
+      border-bottom: 1px solid #e1e1e1;
     }
     .btn {
       width: 200px;
       margin: 30px 0 30px;
       text-transform: none;
       box-shadow: none;
-      border: 1px solid #E1E1E1;
+      border: 1px solid #e1e1e1;
       border-radius: 3.75px;
-      background-color: #3A92FF !important;
-      color: #FFFFFF;
+      background-color: #3a92ff !important;
+      color: #ffffff;
       font-size: 15px;
       letter-spacing: -0.6px;
     }

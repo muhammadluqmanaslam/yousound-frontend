@@ -4,30 +4,29 @@
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
   feeds: [],
-  products: []
+  products: [],
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
-  setFeeds ({ commit }, feeds) {
+  setFeeds({ commit }, feeds) {
     commit('setFeeds', feeds)
   },
 
-  setProducts ({ commit }, products) {
+  setProducts({ commit }, products) {
     commit('setProducts', products)
-  }
+  },
 }
 
 const mutations = {
-  setFeeds (state, feeds) {
+  setFeeds(state, feeds) {
     state.feeds = feeds
   },
 
-  setProducts (state, products) {
+  setProducts(state, products) {
     state.products = products
-  }
+  },
 }
 
 export default {
@@ -36,5 +35,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

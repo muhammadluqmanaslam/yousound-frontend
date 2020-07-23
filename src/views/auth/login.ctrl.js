@@ -5,23 +5,21 @@ import PlaylistService from '@/services/playlist'
 import { MyEvents } from '@/helper'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       remember: false,
       user: {
         email: '',
-        password: ''
-      }
+        password: '',
+      },
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
+  created() {
     let myAlert = null
     try {
       myAlert = JSON.parse(atob(this.$route.query['alert']))
@@ -60,26 +58,31 @@ export default {
   },
 
   methods: {
-    submit () {
+    submit() {
       this.$store.dispatch('error/showLoadingActivity', true)
-      AuthService.login(this.user).then(response => {
-        if (this.remember) {
-          AuthService.saveCredential(this.user)
-        }
-        AuthService.setTokenAndUserInfo(response.body)
+      AuthService.login(this.user)
+        .then((response) => {
+          if (this.remember) {
+            AuthService.saveCredential(this.user)
+          }
+          AuthService.setTokenAndUserInfo(response.body)
 
-        if (response.body.sign_in_count <= 1) {
-          this.$store.dispatch('auth/setFirstVisit', true)
-        }
+          if (response.body.sign_in_count <= 1) {
+            this.$store.dispatch('auth/setFirstVisit', true)
+          }
 
-        this.$root.$emit(MyEvents.AUTH_SIGNIN)
+          this.$root.$emit(MyEvents.AUTH_SIGNIN)
 
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$router.push({ path: '/discover' })
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    }
-  }
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$router.push({ path: '/discover' })
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+  },
 }

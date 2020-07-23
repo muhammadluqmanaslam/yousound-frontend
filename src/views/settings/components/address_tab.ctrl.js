@@ -4,7 +4,7 @@ import AuthService from '@/services/auth'
 import UserService from '@/services/user'
 
 export default {
-  data () {
+  data() {
     return {
       countries: [
         'Australia',
@@ -14,7 +14,7 @@ export default {
         'Germeny',
         'Russia',
         'United Kingdom',
-        'United States'
+        'United States',
       ],
       shipping_address: {
         id: '',
@@ -25,19 +25,19 @@ export default {
         city: '',
         state: '',
         postcode: '',
-        country: ''
+        country: '',
       },
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
-  created () {
+  created() {
     this.resetShippingAddress()
   },
 
   methods: {
-    resetShippingAddress () {
-      const address = this.$store.state.auth.user.default_address;
+    resetShippingAddress() {
+      const address = this.$store.state.auth.user.default_address
       if (address) {
         this.shipping_address.id = address.id
         this.shipping_address.first_name = address.first_name
@@ -51,7 +51,7 @@ export default {
       }
     },
 
-    saveShippingAddress () {
+    saveShippingAddress() {
       const userId = this.$store.state.auth.user.id
       const params = {
         shop_address: {
@@ -63,29 +63,43 @@ export default {
           state: this.shipping_address.state,
           country: this.shipping_address.country,
           postcode: this.shipping_address.postcode,
-          set_default: 1
-        }
+          set_default: 1,
+        },
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       if (this.shipping_address.id === '') {
-        AddressService.addAddress(params).then(response => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Saved'])
-          UserService.getUserInfo(userId).then(response => AuthService.setUser(response.body))
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        AddressService.addAddress(params)
+          .then((response) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showSuccessToast', ['Saved'])
+            UserService.getUserInfo(userId).then((response) =>
+              AuthService.setUser(response.body)
+            )
+          })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       } else {
-        AddressService.updateAddress(this.shipping_address.id, params).then(response => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Saved'])
-          UserService.getUserInfo(userId).then(response => AuthService.setUser(response.body))
-        }).catch(e => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        AddressService.updateAddress(this.shipping_address.id, params)
+          .then((response) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showSuccessToast', ['Saved'])
+            UserService.getUserInfo(userId).then((response) =>
+              AuthService.setUser(response.body)
+            )
+          })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
-    }
-  }
+    },
+  },
 }

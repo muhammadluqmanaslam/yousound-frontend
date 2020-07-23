@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import { VideoGenres } from '@/helper'
 
-import AuthService from  '@/services/auth'
+import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
-import StreamService from  '@/services/stream'
+import StreamService from '@/services/stream'
 import UserService from '@/services/user'
 
 import Attach from './components/attach'
@@ -15,16 +15,16 @@ import {
   MediaLiveInputResolutions,
   MediaLiveInputMaximumBitrates,
   Filter,
-  StreamHourlyPrice
+  StreamHourlyPrice,
 } from '@/helper'
 
 export default {
   components: {
     Attach,
-    PaymentModal
+    PaymentModal,
   },
 
-  data () {
+  data() {
     return {
       periods: [],
       period: 3600,
@@ -53,52 +53,52 @@ export default {
         ml_input_type: 'RTMP_PUSH',
         ml_input_codec: 'AVC',
         ml_input_resolution: 'HD',
-        ml_input_maximum_bitrate: 'MAX_10_MBPS'
+        ml_input_maximum_bitrate: 'MAX_10_MBPS',
       },
       stream_cover_url: null,
       stream_assoc: {
         type: 'Album',
-        value: null
+        value: null,
       },
       show_payment_dialog: false,
       show_help_dialog: false,
       show_attach_picker: false,
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    MediaLiveInputTypes () {
+    MediaLiveInputTypes() {
       return MediaLiveInputTypes
     },
 
-    MediaLiveInputCodecs () {
+    MediaLiveInputCodecs() {
       return MediaLiveInputCodecs
     },
 
-    MediaLiveInputResolutions () {
+    MediaLiveInputResolutions() {
       return MediaLiveInputResolutions
     },
 
-    MediaLiveInputMaximumBitrates () {
+    MediaLiveInputMaximumBitrates() {
       return MediaLiveInputMaximumBitrates
     },
 
-    // isValidate () {
+    // isValidate() {
     //   return !!this.stream_cover_url
     // },
 
-    streamCost () {
-      return Math.round(this.period * StreamHourlyPrice / 3600)
+    streamCost() {
+      return Math.round((this.period * StreamHourlyPrice) / 3600)
     },
 
-    profileUrl () {
+    profileUrl() {
       return window.location.origin + '/' + this.currentUser.slug
-    }
+    },
   },
 
   // watch: {
@@ -106,8 +106,11 @@ export default {
   //   }
   // },
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'broadcast', tab: '' })
+  created() {
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'broadcast',
+      tab: '',
+    })
 
     // if (this.currentUser.data['video_page_visited'] !== 1) {
     //   this.openHelpDialog()
@@ -123,88 +126,106 @@ export default {
     if (this.currentUser.enabled_live_video_free) {
       this.periods.push({
         id: 1,
-        name: '1hour / FREE'
+        name: '1hour / FREE',
       })
     } else {
       if (this.currentUser.stream_rolled_time > 0) {
         this.periods.push({
           id: this.currentUser.stream_rolled_time,
-          name: `${Filter.timeInHours(this.currentUser.stream_rolled_time)} / Remaining Unpaid Time`
+          name: `${Filter.timeInHours(
+            this.currentUser.stream_rolled_time
+          )} / Remaining Unpaid Time`,
         })
         this.period = this.currentUser.stream_rolled_time
       }
       for (let i = 1; i <= 24; i++) {
         this.periods.push({
           id: i * 3600,
-          name: `${i}hours / $${i * StreamHourlyPrice / 100}`
+          name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
         })
       }
     }
   },
 
   methods: {
-    openHelpDialog () {
+    openHelpDialog() {
       this.show_help_dialog = true
     },
 
-    closeHelpDialog () {
+    closeHelpDialog() {
       this.show_help_dialog = false
       const params = {
         user: {
-          video_page_visited: 1
-        }
+          video_page_visited: 1,
+        },
       }
-      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
-        AuthService.setUser(response.body)
-        this.$store.dispatch('auth/setUser', response.body)
-      })
-    },
-
-    openPaymentDialog () {
-      this.$validator.validateAll().then(response => {
-        if (response === true) {
-          if (this.currentUser.enabled_live_video_free) {
-            this.submit()
-          } else {
-            this.show_payment_dialog = true
-          }
-        } else {
-          this.$store.dispatch('error/showErrorToast', [this.errors.items[0].msg])
+      UserService.updateUserInfo(this.currentUser.id, params).then(
+        (response) => {
+          AuthService.setUser(response.body)
+          this.$store.dispatch('auth/setUser', response.body)
         }
-      }).catch(e => {
-        console.log('error', e)
-      })
+      )
     },
 
-    closePaymentDialog () {
+    openPaymentDialog() {
+      this.$validator
+        .validateAll()
+        .then((response) => {
+          if (response === true) {
+            if (this.currentUser.enabled_live_video_free) {
+              this.submit()
+            } else {
+              this.show_payment_dialog = true
+            }
+          } else {
+            this.$store.dispatch('error/showErrorToast', [
+              this.errors.items[0].msg,
+            ])
+          }
+        })
+        .catch((e) => {
+          console.log('error', e)
+        })
+    },
+
+    closePaymentDialog() {
       this.show_payment_dialog = false
     },
 
-    deposit (token) {
+    deposit(token) {
       if (token) {
         const params = {
           payment_token: token.id,
-          amount: this.streamCost
+          amount: this.streamCost,
           // amount: StreamHourlyPrice
         }
-        PaymentService.makeDeposit(params).then(response => {
-          AuthService.setUser(response.body)
-          this.submit()
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        PaymentService.makeDeposit(params)
+          .then((response) => {
+            AuthService.setUser(response.body)
+            this.submit()
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       } else {
         this.submit()
       }
     },
 
-    imageChanged (e) {
+    imageChanged(e) {
       if (e.target.files.length > 0) {
         this.stream.cover = e.target.files[0]
         var reader = new FileReader()
-        reader.addEventListener('load', (event) => {
-          this.stream_cover_url = event.target.result
-        }, false)
+        reader.addEventListener(
+          'load',
+          (event) => {
+            this.stream_cover_url = event.target.result
+          },
+          false
+        )
         reader.readAsDataURL(this.stream.cover)
       } else {
         this.stream.cover = null
@@ -212,37 +233,49 @@ export default {
       }
     },
 
-    submit () {
-      this.$validator.validateAll().then(response => {
-        if (response === true) {
-          const formData = new FormData()
-          formData.append('stream[name]', this.stream.name)
-          formData.append('stream[description]', this.stream.description)
-          formData.append('stream[genre_id]', this.stream.genre_id)
-          formData.append('stream[view_price]', this.stream.view_price)
-          formData.append('stream[valid_period]', this.period)
-          formData.append('stream[cover]', this.stream.cover)
+    submit() {
+      this.$validator
+        .validateAll()
+        .then((response) => {
+          if (response === true) {
+            const formData = new FormData()
+            formData.append('stream[name]', this.stream.name)
+            formData.append('stream[description]', this.stream.description)
+            formData.append('stream[genre_id]', this.stream.genre_id)
+            formData.append('stream[view_price]', this.stream.view_price)
+            formData.append('stream[valid_period]', this.period)
+            formData.append('stream[cover]', this.stream.cover)
 
-          if (this.stream_assoc.value) {
-            formData.append('stream[assoc_type]', this.stream_assoc.type)
-            formData.append('stream[assoc_id]', this.stream_assoc.value.id)
+            if (this.stream_assoc.value) {
+              formData.append('stream[assoc_type]', this.stream_assoc.type)
+              formData.append('stream[assoc_id]', this.stream_assoc.value.id)
+            }
+
+            this.$store.dispatch('error/showLoadingActivity', true)
+            StreamService.createStream(formData)
+              .then((response) => {
+                this.$store.dispatch('error/showLoadingActivity', false)
+                this.$store.dispatch('auth/setStream', response.body)
+                this.$router.push({
+                  path: `/user/${this.$store.state.auth.user.slug}/video`,
+                })
+              })
+              .catch((e) => {
+                this.$store.dispatch('error/showLoadingActivity', false)
+                this.$store.dispatch(
+                  'error/showErrorToast',
+                  e.body.errors || [e.body]
+                )
+              })
+          } else {
+            this.$store.dispatch('error/showErrorToast', [
+              this.errors.items[0].msg,
+            ])
           }
-
-          this.$store.dispatch('error/showLoadingActivity', true)
-          StreamService.createStream(formData).then(response => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('auth/setStream', response.body)
-            this.$router.push({ path: `/user/${this.$store.state.auth.user.slug}/video` })
-          }).catch(e => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          })
-        } else {
-          this.$store.dispatch('error/showErrorToast', [this.errors.items[0].msg])
-        }
-      }).catch(e => {
-        console.log('error', e)
-      })
+        })
+        .catch((e) => {
+          console.log('error', e)
+        })
     },
-  }
+  },
 }

@@ -11,96 +11,96 @@ const state = {
   pendingUser: null,
   user: null,
   genreIds: '',
-  firstVisit: false
+  firstVisit: false,
 }
 
 const getters = {
   isAuthenticated: (state) => {
     return AuthService.isAuthenticated()
-  }
+  },
 }
 
 const actions = {
-  setToken ({ commit }, token) {
+  setToken({ commit }, token) {
     commit('setToken', token)
   },
 
-  setHMAC ({ commit }, hmac) {
+  setHMAC({ commit }, hmac) {
     commit('setHMAC', hmac)
   },
 
-  setUser ({ commit }, user) {
+  setUser({ commit }, user) {
     commit('setUser', user)
   },
 
-  setStripeStatus ({ commit }, status) {
+  setStripeStatus({ commit }, status) {
     commit('setStripeStatus', status)
   },
 
-  setPendingUser ({ commit }, user) {
+  setPendingUser({ commit }, user) {
     commit('setPendingUser', user)
   },
 
-  setStream ({ commit }, stream) {
+  setStream({ commit }, stream) {
     commit('setStream', stream)
   },
 
-  addFavoriteUser ({ commit }, user) {
+  addFavoriteUser({ commit }, user) {
     commit('addFavoriteUser', user)
   },
 
-  removeFavoriteUser ({ commit }, user) {
+  removeFavoriteUser({ commit }, user) {
     commit('removeFavoriteUser', user)
   },
 
-  setRegisterRole ({ commit }, role) {
+  setRegisterRole({ commit }, role) {
     commit('setRegisterRole', role)
   },
 
-  setSecretCode ({ commit }, code) {
+  setSecretCode({ commit }, code) {
     commit('setSecretCode', code)
   },
 
-  setGenreIds ({ commit }, genreIds) {
+  setGenreIds({ commit }, genreIds) {
     commit('setGenreIds', genreIds)
   },
 
-  setFirstVisit ({ commit }, firstVisit) {
+  setFirstVisit({ commit }, firstVisit) {
     commit('setFirstVisit', firstVisit)
-  }
+  },
 }
 
 const mutations = {
-  setToken (state, token) {
+  setToken(state, token) {
     state.token = token
   },
 
-  setHMAC (state, hmac) {
+  setHMAC(state, hmac) {
     state.hmac = hmac
   },
 
-  setUser (state, user) {
+  setUser(state, user) {
     // console.log('setUser', user)
     state.user = user
   },
 
-  setPendingUser (state, user) {
+  setPendingUser(state, user) {
     state.pendingUser = user
   },
 
-  setStream (state, stream) {
+  setStream(state, stream) {
     state.user.stream = stream
   },
 
-  setStripeStatus (state, status) {
+  setStripeStatus(state, status) {
     state.user.stripe_connected = status
   },
 
-  addFavoriteUser (state, user) {
+  addFavoriteUser(state, user) {
     state.user.favorite_users.push(user)
   },
 
-  removeFavoriteUser (state, user) {
+  removeFavoriteUser(state, user) {
     for (let index in state.user.favorite_users) {
       if (user.id === state.user.favorite_users[index].id) {
         state.user.favorite_users.splice(index, 1)
@@ -109,21 +109,21 @@ const mutations = {
     }
   },
 
-  setRegisterRole (state, role) {
+  setRegisterRole(state, role) {
     state.register_role = role
   },
 
-  setSecretCode (state, code) {
+  setSecretCode(state, code) {
     state.secret_code = code
   },
 
-  setGenreIds ({ commit }, genreIds) {
+  setGenreIds({ commit }, genreIds) {
     state.genreIds = genreIds
   },
 
-  setFirstVisit (state, firstVisit) {
+  setFirstVisit(state, firstVisit) {
     state.firstVisit = firstVisit
-  }
+  },
 }
 
 export default {
@@ -132,5 +132,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

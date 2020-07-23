@@ -2,7 +2,7 @@
   <div class="media">
     <div
       class="media__image"
-      :class="{'round': imageRounded }"
+      :class="{ round: imageRounded }"
       :style="`background-image: url(${image})`"
     ></div>
     <div class="media__content">
@@ -12,34 +12,36 @@
           <v-icon v-if="meta.verified">fa-check-circle</v-icon>
         </div>
         <div class="media__subtitle" v-if="subtitle">{{ subtitle }}</div>
-        <div class="media__description" v-if="description">{{ description }}</div>
+        <div class="media__description" v-if="description">
+          {{ description }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    props: {
-      image: String,
-      roundImage: Boolean,
-      title: String,
-      subtitle: String,
-      description: String,
-      meta: {
-        type: Object,
-        default () {
-          return {}
-        }
-      }
+export default {
+  props: {
+    image: String,
+    roundImage: Boolean,
+    title: String,
+    subtitle: String,
+    description: String,
+    meta: {
+      type: Object,
+      default() {
+        return {}
+      },
     },
+  },
 
-    computed: {
-      imageRounded () {
-        return this._.get(this.meta, 'type') === 'user'
-      }
-    }
-  }
+  computed: {
+    imageRounded() {
+      return this._.get(this.meta, 'type') === 'user'
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

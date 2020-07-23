@@ -46,15 +46,10 @@
 
       <div class="page-content" v-if="currentUser">
         <v-layout row wrap>
-          <div
-            v-for="video in videos"
-            :key="video.id"
-            class="card-container"
-          >
-            <video-box :item="video"/>
+          <div v-for="video in videos" :key="video.id" class="card-container">
+            <video-box :item="video" />
           </div>
         </v-layout>
-
 
         <div class="text-xs-center">
           <v-btn
@@ -62,7 +57,8 @@
             v-show="pagination.current_page < pagination.total_pages"
             @click.native="loadMore()"
             class="loadmore-btn"
-          >Load More</v-btn>
+            >Load More</v-btn
+          >
         </div>
       </div>
     </div>

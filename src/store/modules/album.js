@@ -3,22 +3,21 @@
 
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
-  albums: []
+  albums: [],
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
-  setAlbums ({ commit }, albums) {
+  setAlbums({ commit }, albums) {
     commit('setAlbums', albums)
-  }
+  },
 }
 
 const mutations = {
-  setAlbums (state, albums) {
+  setAlbums(state, albums) {
     state.albums = albums
-  }
+  },
 }
 
 export default {
@@ -27,5 +26,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

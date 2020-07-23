@@ -3,46 +3,49 @@ import AdminService from '@/services/admin'
 import SettingService from '@/services/setting'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       settings: {
         disable_sign_up: false,
         disable_live_video: false,
         disable_verification: false,
-        disable_merch_upload: false
+        disable_merch_upload: false,
       },
       message: '',
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
   methods: {
-    loadSettings () {
+    loadSettings() {
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
-      SettingService.getSettings().then(response => {
-        this.isPageReady = true
-        this.$store.dispatch('error/showLoadingActivity', false)
-        _.assignIn(this.settings, response.body)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      SettingService.getSettings()
+        .then((response) => {
+          this.isPageReady = true
+          this.$store.dispatch('error/showLoadingActivity', false)
+          _.assignIn(this.settings, response.body)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    updateSetting (key) {
+    updateSetting(key) {
       const params = {
         key: key,
-        value: (!this.settings[key]).toString()
+        value: (!this.settings[key]).toString(),
       }
       console.log(params)
-      SettingService.updateSetting(params).then(response => {
+      SettingService.updateSetting(params).then((response) => {
         this.settings[key] = !this.settings[key]
         // console.log(key, this.settings.disable_sign_up, this.settings[key])
       })
@@ -53,18 +56,17 @@ export default {
       if (this.message == '') return
 
       const params = {
-        message: this.message
+        message: this.message,
       }
-      AdminService.sendGlobalMessage(params).then(response => {
+      AdminService.sendGlobalMessage(params).then((response) => {
         this.message = ''
       })
-    }
+    },
   },
 
-  created () {
+  created() {
     this.loadSettings()
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

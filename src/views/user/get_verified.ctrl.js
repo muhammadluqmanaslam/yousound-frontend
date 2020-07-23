@@ -1,10 +1,9 @@
 import AuthService from '@/services/auth.js'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       verifying_request: {
         main_genre: null,
@@ -12,20 +11,18 @@ export default {
         soundcloud_url: null,
         bandcamp_url: null,
         website_url: null,
-        description: null
-      }
+        description: null,
+      },
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', {page: 'register', tab: ''})
+  created() {
+    this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
   },
 
   methods: {
-    submit () {      
-    }
-  }
+    submit() {},
+  },
 }

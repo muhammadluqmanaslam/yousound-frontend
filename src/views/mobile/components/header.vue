@@ -1,23 +1,15 @@
 <template>
   <div class="header-container">
     <template v-if="isDarkTheme">
-      <img :src="logoImgSrc">
-      <v-btn
-        v-if="showMenu"
-        flat
-        @click="$emit('open-menu')"
-      >
-        <img :src="menuImgSrc">
+      <img :src="logoImgSrc" />
+      <v-btn v-if="showMenu" flat @click="$emit('open-menu')">
+        <img :src="menuImgSrc" />
       </v-btn>
     </template>
     <template v-else>
-      <img :src="logoImgSrc">
-      <v-btn
-        v-if="showMenu"
-        flat
-        @click="$emit('open-menu')"
-      >
-        <img :src="menuImgSrc">
+      <img :src="logoImgSrc" />
+      <v-btn v-if="showMenu" flat @click="$emit('open-menu')">
+        <img :src="menuImgSrc" />
       </v-btn>
     </template>
   </div>
@@ -28,39 +20,39 @@ export default {
   props: {
     theme: {
       type: String,
-      default: 'dark'
+      default: 'dark',
     },
 
     showMenu: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     logoImg: {
       type: String,
-      default: ''
+      default: '',
     },
 
     menuImg: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
 
-  data () {
+  data() {
     return {
       logoImgSrc: '',
-      menuImgSrc: ''
+      menuImgSrc: '',
     }
   },
 
   computed: {
-    isDarkTheme () {
+    isDarkTheme() {
       return this.theme === 'dark'
-    }
+    },
   },
 
-  created () {
+  created() {
     if (this.menuImg === '') {
       if (this.isDarkTheme) {
         this.menuImgSrc = '/static/images/ic_menu.svg'
@@ -80,7 +72,7 @@ export default {
     } else {
       this.logoImgSrc = this.logoImg
     }
-  }
+  },
 }
 </script>
 

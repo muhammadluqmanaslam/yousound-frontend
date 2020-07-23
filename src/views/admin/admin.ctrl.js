@@ -18,10 +18,10 @@ export default {
     paymentTab,
     settingTab,
     signupTab,
-    userTab
+    userTab,
   },
 
-  data () {
+  data() {
     return {
       tabs: [
         { id: 'users', title: 'USERS' },
@@ -31,7 +31,7 @@ export default {
         { id: 'genres', title: 'GENRES' },
         { id: 'settings', title: 'SETTINGS' },
         { id: 'globalstats', title: 'GLOBAL STATS' },
-        { id: 'attendees', title: 'SEED INVITES' }
+        { id: 'attendees', title: 'SEED INVITES' },
       ],
       item: null,
       page_index: 0,
@@ -42,30 +42,30 @@ export default {
       tmp: '',
       signups_search: '',
       pagination: {},
-      genre_headers: [
-        { text: 'Subgenre', value: 'name', align: 'left' }
-      ],
+      genre_headers: [{ text: 'Subgenre', value: 'name', align: 'left' }],
       settings: {
         signups: false,
         login: false,
         uploads: false,
         merch_uploads: false,
         maintenance: false,
-        message: 'Test'
+        message: 'Test',
       },
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'admin', tab: 'users' })
+  created() {
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'admin',
+      tab: 'users',
+    })
   },
 
   methods: {
-    loadFeeds (filter) {
+    loadFeeds(filter) {
       // this.$store.dispatch('error/showLoadingActivity', true)
       // const params = new FormData()
       // params.append('filter', filter)
@@ -85,16 +85,18 @@ export default {
       // })
     },
 
-    availableTab (tab) {
-      return this.$store.state.auth.user.user_type === 'admin' ||
-        (this.$store.state.auth.user.user_type === 'moderator' && ['users', 'albums', 'signups', 'attendees' ].indexOf(tab.id) > -1)
+    availableTab(tab) {
+      return (
+        this.$store.state.auth.user.user_type === 'admin' ||
+        (this.$store.state.auth.user.user_type === 'moderator' &&
+          ['users', 'albums', 'signups', 'attendees'].indexOf(tab.id) > -1)
+      )
     },
 
     onTab(tab) {
       this.$store.dispatch('navigator/goNextState', { page: 'admin', tab: tab })
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

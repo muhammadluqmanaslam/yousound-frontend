@@ -1,12 +1,11 @@
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {}
   },
 
-  created () {
+  created() {
     // this.$store.dispatch('auth/setSecretCode', this.$route.query['code'])
-  }
+  },
 }

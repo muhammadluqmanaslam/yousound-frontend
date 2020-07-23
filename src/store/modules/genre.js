@@ -3,7 +3,7 @@
 // import GenreService from '@/services/genre'
 
 const state = {
-  genres: []
+  genres: [],
 }
 
 const getters = {}
@@ -24,15 +24,15 @@ const actions = {
   //   }
   // },
 
-  setGenres ({ commit }, genres) {
+  setGenres({ commit }, genres) {
     commit('setGenres', genres)
-  }
+  },
 }
 
 const mutations = {
-  setGenres (state, genres) {
+  setGenres(state, genres) {
     state.genres = genres
-  }
+  },
 }
 
 export default {
@@ -41,5 +41,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

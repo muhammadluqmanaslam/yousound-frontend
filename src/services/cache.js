@@ -1,5 +1,5 @@
 class VueCache {
-  constructor (id, options) {
+  constructor(id, options) {
     this._cache = JSON.parse(localStorage.getItem(id) || '{}')
     this.id = id
     this.expiration = 300 // seconds
@@ -8,7 +8,7 @@ class VueCache {
     }
   }
 
-  get (key) {
+  get(key) {
     if (this._cache[key] && this._cache[key].val) {
       let currTime = new Date().getTime() / 1000
       if (currTime - this._cache[key].time < 0) {
@@ -21,20 +21,20 @@ class VueCache {
     }
   }
 
-  set (key, val) {
+  set(key, val) {
     this._cache[key] = {
       time: new Date().getTime() / 1000,
-      val: val
+      val: val,
     }
     this.save()
   }
 
-  del (key) {
+  del(key) {
     this._cache[key].val = null
     this._cache[key].time = null
   }
 
-  save () {
+  save() {
     // save into localstorage
     localStorage.setItem(this.id, JSON.stringify(this._cache))
   }

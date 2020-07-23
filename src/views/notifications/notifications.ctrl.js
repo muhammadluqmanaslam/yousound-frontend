@@ -5,10 +5,10 @@ import activityItem from '@/components/activityitem'
 
 export default {
   components: {
-    activityItem
+    activityItem,
   },
 
-  data () {
+  data() {
     return {
       page_index: 1,
       total_pages: 1,
@@ -18,7 +18,7 @@ export default {
         { id: 'all', name: 'All Activity' },
         { id: 'reposts', name: 'Reposts' },
         { id: 'commented', name: 'Commented' },
-        { id: 'followed', name: 'Followed' }
+        { id: 'followed', name: 'Followed' },
       ],
       activities: [],
       isPageReady: false,
@@ -26,10 +26,12 @@ export default {
   },
 
   computed: {
-    filtered_activities () {
+    filtered_activities() {
       if (this.filter === 'reposts') {
         return _.filter(this.activities, (item) => {
-          return item.action_type === 'repost' || item.action_type === 'unrepost'
+          return (
+            item.action_type === 'repost' || item.action_type === 'unrepost'
+          )
         })
       }
 
@@ -41,7 +43,9 @@ export default {
 
       if (this.filter === 'followed') {
         return _.filter(this.activities, (item) => {
-          return item.action_type === 'follow' || item.action_type === 'unfollow'
+          return (
+            item.action_type === 'follow' || item.action_type === 'unfollow'
+          )
         })
       }
 
@@ -58,17 +62,23 @@ export default {
       }
 
       return this.activities
-    }
+    },
   },
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'notifications', tab: '' })
+  created() {
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'notifications',
+      tab: '',
+    })
     this.loadActivities()
   },
 
   methods: {
-    filterSelected (index) {
-      $('#filter_selector .btn__content').html(this.filters[index].name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
+    filterSelected(index) {
+      $('#filter_selector .btn__content').html(
+        this.filters[index].name +
+          '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
+      )
       this.filter = this.filters[index].id
     },
 
@@ -76,28 +86,32 @@ export default {
       console.log('loadActivities')
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
-        'page': this.page_index,
-        'per_page': this.items_per_page
+        page: this.page_index,
+        per_page: this.items_per_page,
       }
-      ActivityService.getActivities(params).then(response => {
-        this.activities = this.activities.concat(response.body.activities)
-        this.page_index = response.body.pagination.current_page
-        this.total_pages = response.body.pagination.total_pages
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.isPageReady = true
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.isPageReady = true
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      ActivityService.getActivities(params)
+        .then((response) => {
+          this.activities = this.activities.concat(response.body.activities)
+          this.page_index = response.body.pagination.current_page
+          this.total_pages = response.body.pagination.total_pages
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.isPageReady = true
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.isPageReady = true
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    loadMore () {
+    loadMore() {
       this.page_index += 1
       this.loadActivities()
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

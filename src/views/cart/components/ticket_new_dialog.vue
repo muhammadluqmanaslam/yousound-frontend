@@ -69,68 +69,68 @@
     props: {
       item: {
         type: Object,
-        required: true
+        required: true,
       },
 
       dismiss: {
         type: Function,
-        required: true
-      }
+        required: true,
+      },
     },
 
-    data () {
+    data() {
       return {
         ticket_reasons: [
           'Incorrect size',
           'Product damaged',
           'Product not received',
           'Incorrect product',
-          'Other'
+          'Other',
         ],
         ticket: {
           reason: '',
-          description: ''
+          description: '',
         },
         user: {
-          avatar: {}
+          avatar: {},
         },
         product: {
           covers: [
             {
-              cover: {}
-            }
-          ]
+              cover: {},
+            },
+          ],
         },
         hasTicket: false,
-        isDialogReady: false
+        isDialogReady: false,
       }
     },
 
     computed: {
-      canSend () {
+      canSend() {
         // let b = this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
         // console.log('canSend', b)
         return this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
-      }
+      },
     },
 
     methods: {
-      sendTicket () {
+      sendTicket() {
         const params = {
           ticket: {
             reason: this.ticket.reason,
             description: this.ticket.description,
-            item_id: this.item.id
-          }
+            item_id: this.item.id,
+          },
         }
 
         TicketService.createTicket(params).then(response => {
           this.dismiss()
         })
-      }
+      },
     },
 
-    created () {
+    created() {
       // console.log('ticket_new_dialog', this.item)
       this.user = _.get(this.item, 'product.merchant', {avatar: {}})
       this.product = _.get(this.item, 'product', {covers: [{cover: {}}]})
@@ -149,6 +149,6 @@
         this.isDialogReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
       })
-    }
+    },
   }
 </script>

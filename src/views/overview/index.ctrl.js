@@ -14,10 +14,10 @@ export default {
     timelineTab,
     successTab,
     opportunityTab,
-    featuresTab
+    featuresTab,
   },
 
-  data () {
+  data() {
     return {
       tabs: [
         { id: 'team', title: 'Team' },
@@ -28,19 +28,24 @@ export default {
         { id: 'features', title: 'Features' },
       ],
       active_tab: 'team',
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   methods: {
-    onTab (tab) {
+    onTab(tab) {
       this.active_tab = tab
-      this.$nextTick(() => { $(window).scrollTop(0) })
-    }
+      this.$nextTick(() => {
+        $(window).scrollTop(0)
+      })
+    },
   },
 
-  created () {
-    this.$store.dispatch('navigator/goNextState', { page: 'overview', tab: this.active_tab })
+  created() {
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'overview',
+      tab: this.active_tab,
+    })
     this.onTab(this.active_tab)
-  }
+  },
 }

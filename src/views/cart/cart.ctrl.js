@@ -17,10 +17,10 @@ export default {
     profileItem,
     sendMessage,
     ticketNewDialog,
-    trackCard
+    trackCard,
   },
 
-  data () {
+  data() {
     return {
       active_tab: 'cart',
       tabs: [
@@ -39,28 +39,28 @@ export default {
       page_index: 1,
       total_pages: 1,
       items_per_page: 6 * 5,
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    user () {
-      return _.get(this.active_order, 'merchant', {avatar: {}})
-    }
+    user() {
+      return _.get(this.active_order, 'merchant', { avatar: {} })
+    },
   },
 
   watch: {
-    '$route' (toPath, fromPath) {
+    $route(toPath, fromPath) {
       const tab = toPath.hash.substr(1)
       this.init(tab)
-    }
+    },
   },
 
-  created () {
+  created() {
     const tab = this.$route.hash.substr(1)
     this.init(tab)
   },
@@ -70,7 +70,7 @@ export default {
       return this.active_tab == tab
     },
 
-    init (tab) {
+    init(tab) {
       if (!this.currentUser) {
         AuthService.clearTokenAndUserInfo()
         this.$router.push({ path: '/login' })
@@ -78,7 +78,10 @@ export default {
       }
 
       this.active_tab = tab || 'cart'
-      this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: this.active_tab })
+      this.$store.dispatch('navigator/goNextState', {
+        page: 'cart',
+        tab: this.active_tab,
+      })
 
       let params
       switch (this.active_tab) {
@@ -94,86 +97,88 @@ export default {
           Promise.all([
             ItemService.getShoppingCartItems(),
             ItemService.calculateCost(params),
-          ]).then(values => {
-            this.cartItems = values[0].body
-            this.cartCost = values[1].body
+          ])
+            .then((values) => {
+              this.cartItems = values[0].body
+              this.cartCost = values[1].body
 
-            this.isPageReady = true
-            this.$store.dispatch('error/showLoadingActivity', false)
-          }).catch(reason => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', reason)
-          })
+              this.isPageReady = true
+              this.$store.dispatch('error/showLoadingActivity', false)
+            })
+            .catch((reason) => {
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch('error/showErrorToast', reason)
+            })
           break
         case 'history':
           params = {
             page: this.page_index,
-            per_page: this.items_per_page
+            per_page: this.items_per_page,
           }
           this.isPageReady = false
           this.$store.dispatch('error/showLoadingActivity', true)
-          Promise.all([
-            OrderService.getSentOrders(params)
-          ]).then(values => {
-            this.orderHistories = values[0].body.orders
+          Promise.all([OrderService.getSentOrders(params)])
+            .then((values) => {
+              this.orderHistories = values[0].body.orders
 
-            this.isPageReady = true
-            this.$store.dispatch('error/showLoadingActivity', false)
-          }).catch(reason => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', reason)
-          })
+              this.isPageReady = true
+              this.$store.dispatch('error/showLoadingActivity', false)
+            })
+            .catch((reason) => {
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch('error/showErrorToast', reason)
+            })
           break
       }
     },
 
-    onTab (tab) {
+    onTab(tab) {
       this.$router.push({
         path: this.$route.path,
         hash: tab,
         query: {
-          grid_view: this.grid_show
-        }
+          grid_view: this.grid_show,
+        },
       })
     },
 
-    isDigitalProduct (item) {
+    isDigitalProduct(item) {
       return _.get(item, 'product.category.is_digital', false)
     },
 
-    isMenuAvailable (order) {
+    isMenuAvailable(order) {
       return true
     },
 
-    isAddressEnabled (order) {
+    isAddressEnabled(order) {
       return order.status == 'order_shipped' && order.enabled_address
     },
 
-    download (item) {
+    download(item) {
       // console.log(item.product.digital_content_url, item.product.digital_content_name)
       Utils.downloadFile(item.product.digital_content_url)
     },
 
-    submit () {
+    submit() {
       this.$router.push({ path: '/cart/checkout/' })
     },
 
-    showMessageDialog (order) {
+    showMessageDialog(order) {
       this.active_order = order
       this.showSendMessage = true
     },
 
-    dismissMessageModal () {
+    dismissMessageModal() {
       this.showSendMessage = false
     },
 
-    openTicketDialog (order, item) {
+    openTicketDialog(order, item) {
       this.active_order = order
       this.active_item = item
       this.show_ticket_dialog = true
     },
 
-    closeTicketDialog () {
+    closeTicketDialog() {
       this.show_ticket_dialog = false
     },
 
@@ -183,87 +188,108 @@ export default {
       this.show_tracking_info_dialog = true
     },
 
-    openAddressConfimDialog (order) {
+    openAddressConfimDialog(order) {
       this.active_order = order
       this.show_address_confirm_dialog = true
     },
 
-    closeAddressConfimDialog () {
+    closeAddressConfimDialog() {
       this.show_address_confirm_dialog = false
     },
 
-    removeMyAddress () {
+    removeMyAddress() {
       this.closeAddressConfimDialog()
-      OrderService.hideMyAddress(this.active_order.id).then(response => {
+      OrderService.hideMyAddress(this.active_order.id).then((response) => {
         this.init(this.active_tab)
       })
     },
 
-    productStatus (item) {
+    productStatus(item) {
       if (this.isDigitalProduct(item)) {
         return {
           text: 'digital content',
-          style: 'success'
+          style: 'success',
         }
-      } else if (['published', 'collaborated'].indexOf(item.product.status) === -1 || item.product.stock_status !== 'active') {
+      } else if (
+        ['published', 'collaborated'].indexOf(item.product.status) === -1 ||
+        item.product.stock_status !== 'active'
+      ) {
         return {
           text: 'out of stock',
-          style: 'error'
+          style: 'error',
         }
       } else if (item.quantity > item.product_variant.quantity) {
         return {
           text: 'low quantity',
-          style: 'warning'
+          style: 'warning',
         }
       } else {
         return {
           text: 'in stock',
-          style: 'success'
+          style: 'success',
         }
       }
     },
 
-    productStatusStyle (item) {
+    productStatusStyle(item) {
       return this.productStatus(item).style
     },
 
-    productStatusText (item) {
+    productStatusText(item) {
       return this.productStatus(item).text
     },
 
-    addQuantity (item) {
-      ItemService.updateCartItem(item.id, { quantity: item.quantity + 1 }).then(response => {
-        item.quantity += 1
-        this.cartCost = response.body
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+    addQuantity(item) {
+      ItemService.updateCartItem(item.id, { quantity: item.quantity + 1 })
+        .then((response) => {
+          item.quantity += 1
+          this.cartCost = response.body
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    removeQuantity (item) {
+    removeQuantity(item) {
       if (item.quantity > 1) {
-        ItemService.updateCartItem(item.id, { quantity: item.quantity - 1 }).then(response => {
-          item.quantity -= 1
-          this.cartCost = response.body
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+        ItemService.updateCartItem(item.id, { quantity: item.quantity - 1 })
+          .then((response) => {
+            item.quantity -= 1
+            this.cartCost = response.body
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
     },
 
     removeCartItem(cartItem) {
-      ItemService.deleteCartItem(cartItem.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', [`deleted ${cartItem.product.name} successfully.`])
-        this.cartCost = response.body
-        _.remove(this.cartItems, (item) => { return item.id == cartItem.id })
-        const arr = this.cartItems.slice()
-        this.cartItems = arr
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    }
+      ItemService.deleteCartItem(cartItem.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            `deleted ${cartItem.product.name} successfully.`,
+          ])
+          this.cartCost = response.body
+          _.remove(this.cartItems, (item) => {
+            return item.id == cartItem.id
+          })
+          const arr = this.cartItems.slice()
+          this.cartItems = arr
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

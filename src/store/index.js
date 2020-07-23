@@ -39,7 +39,7 @@ export default new Vuex.Store({
     product,
     track,
     user,
-    videoPlayer
+    videoPlayer,
   },
-  plugins: []
+  plugins: [],
 })

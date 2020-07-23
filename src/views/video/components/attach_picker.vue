@@ -6,13 +6,15 @@
 
       <div class="modal__header">
         <v-btn
-          :class="{'selected': active_tab == 'Album'}"
+          :class="{ selected: active_tab == 'Album' }"
           @click.native="onTab('Album')"
-        >Album</v-btn>
+          >Album</v-btn
+        >
         <v-btn
-          :class="{'selected': active_tab == 'ShopProduct'}"
+          :class="{ selected: active_tab == 'ShopProduct' }"
           @click.native="onTab('ShopProduct')"
-        >Product</v-btn>
+          >Product</v-btn
+        >
         <!-- <v-btn
           :class="{'selected': active_tab == 'User'}"
           @click.native="onTab('User')"
@@ -23,11 +25,14 @@
         <div
           v-for="album in albums"
           class="media"
-          :class="{'selected': attachId == album.id}"
+          :class="{ selected: attachId == album.id }"
           @click="selectItem('Album', album)"
         >
           <div class="media__header">
-            <div class="media__image" :style="`background-image: url(${album.cover.thumb.url})`"></div>
+            <div
+              class="media__image"
+              :style="`background-image: url(${album.cover.thumb.url})`"
+            ></div>
           </div>
           <div class="media__content">
             <label class="media__title">{{ album.name }}</label>
@@ -40,15 +45,20 @@
         <div
           v-for="product in products"
           class="media"
-          :class="{'selected': attachId == product.id}"
+          :class="{ selected: attachId == product.id }"
           @click="selectItem('ShopProduct', product)"
         >
           <div class="media__header">
-            <div class="media__image" :style="`background-image: url(${product.covers[0].cover.thumb.url})`"></div>
+            <div
+              class="media__image"
+              :style="`background-image: url(${product.covers[0].cover.thumb.url})`"
+            ></div>
           </div>
           <div class="media__content">
             <label class="media__title">{{ product.name }}</label>
-            <label class="media__subtitle">{{ product.merchant.display_name }}</label>
+            <label class="media__subtitle">{{
+              product.merchant.display_name
+            }}</label>
           </div>
         </div>
       </div>
@@ -115,90 +125,92 @@
 </template>
 
 <script>
-  import _ from 'lodash'
-  import AlbumService from '@/services/album'
-  import ProductService from '@/services/product'
+import _ from 'lodash'
+import AlbumService from '@/services/album'
+import ProductService from '@/services/product'
 
-  export default {
-    props: {
-      dismiss: {
-        type: Function,
-        required: true
+export default {
+  props: {
+    dismiss: {
+      type: Function,
+      required: true,
+    },
+
+    value: {
+      type: Object,
+    },
+  },
+
+  data() {
+    return {
+      active_tab: 'Album',
+      item: {
+        type: 'Album',
+        value: null,
       },
+      albums: [],
+      products: [],
+      userSearchKeyword: '',
+    }
+  },
 
-      value: {
-        type: Object
-      }
+  computed: {
+    attachId() {
+      return _.get(this.item.value, 'id', 0)
+    },
+  },
+
+  methods: {
+    onTab(tab) {
+      this.active_tab = tab
     },
 
-    data () {
-      return {
-        active_tab: 'Album',
-        item: {
-          type: 'Album',
-          value: null
-        },
-        albums: [],
-        products: [],
-        userSearchKeyword: ''
-      }
-    },
-
-    computed: {
-      attachId () {
-        return _.get(this.item.value, 'id', 0)
-      }
-    },
-
-    methods: {
-      onTab (tab) {
-        this.active_tab = tab
-      },
-
-      selectItem (type, value) {
-        this.item = {
-          type: type,
-          value: value
-        }
-        this.$emit('input', this.item)
-        this.dismiss()
-      },
-
-      loadUsers () {
-        console.log('loadUsers')
-      }
-    },
-
-    created () {
+    selectItem(type, value) {
       this.item = {
-        type: this._props.value.type,
-        value: this._props.value.value
+        type: type,
+        value: value,
       }
+      this.$emit('input', this.item)
+      this.dismiss()
+    },
 
-      this.active_tab = this.item.type
+    loadUsers() {
+      console.log('loadUsers')
+    },
+  },
 
-      this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([
-        AlbumService.getAlbums({
-          statuses: 'published, collaborated',
-          user_statuses: 'accepted'
-        }),
-        ProductService.getProducts({
-          statuses: 'published, collaborated',
-          stock_statuses: 'active',
-          user_statuses: 'accepted'
-        })
-      ]).then(values => {
+  created() {
+    this.item = {
+      type: this._props.value.type,
+      value: this._props.value.value,
+    }
+
+    this.active_tab = this.item.type
+
+    this.$store.dispatch('error/showLoadingActivity', true)
+    Promise.all([
+      AlbumService.getAlbums({
+        statuses: 'published, collaborated',
+        user_statuses: 'accepted',
+      }),
+      ProductService.getProducts({
+        statuses: 'published, collaborated',
+        stock_statuses: 'active',
+        user_statuses: 'accepted',
+      }),
+    ])
+      .then((values) => {
         this.albums = values[0].body
         this.products = values[1].body
         this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(reason => {
+      })
+      .catch((reason) => {
         console.log(reason)
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showErrorToast', [reason])
       })
-    }
-  }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -229,7 +241,7 @@
   border-left: none;
   border-top-left-radius: 7.5px;
   border-top-right-radius: 7.5px;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 3px 3px 10px -4px grey;
 
   &__title {
@@ -243,11 +255,11 @@
   &__header {
     width: 100%;
     //height: 75px;
-    border-top: 0.75px solid #E1E1E1;
-    border-bottom: 0.75px solid #E1E1E1;
+    border-top: 0.75px solid #e1e1e1;
+    border-bottom: 0.75px solid #e1e1e1;
     border-top-left-radius: 7.5px;
     border-top-right-radius: 7.5px;
-    background: #FAFAFA;
+    background: #fafafa;
     text-align: center;
 
     .btn {
@@ -259,15 +271,15 @@
       color: #000000;
       letter-spacing: -0.6px;
       &.selected {
-        background: #3A92FF;
-        color: #FFFFFF;
+        background: #3a92ff;
+        color: #ffffff;
       }
     }
   }
 
   .search-box-wrapper {
     // background: #F9FAFB;
-    border-bottom: 0.75px solid #E1E1E1;
+    border-bottom: 0.75px solid #e1e1e1;
     padding: 0px 22.5px 15px;
     border-top-left-radius: 7.5px;
     border-top-right-radius: 7.5px;
@@ -291,7 +303,7 @@
           // width: 375px;
           width: 100%;
           height: 30px;
-          background: #F3F3F3;
+          background: #f3f3f3;
           float: left;
           padding-left: 30px;
           padding-right: 15px;
@@ -302,27 +314,29 @@
           // color: #ABABAB;
           // text-align: center;
           letter-spacing: -0.6px;
-          border: 0.75px solid #C1C1C1;
+          border: 0.75px solid #c1c1c1;
           // -webkit-transition: background .55s ease;
           // -moz-transition: background .55s ease;
           // -ms-transition: background .55s ease;
           // -o-transition: background .55s ease;
           // transition: background .55s ease;
-          &:focus, &:hover, &:active {
+          &:focus,
+          &:hover,
+          &:active {
             outline: none;
             // background: rgba(150, 150, 150, 0.2);
           }
           &::-webkit-input-placeholder {
-            color:#ABABAB;
+            color: #ababab;
           }
           &:-moz-placeholde {
-            color:#ABABAB;
+            color: #ababab;
           }
           &::-moz-placeholder {
-            color:#ABABAB;
+            color: #ababab;
           }
           &:-ms-input-placeholder {
-            color:#ABABAB;
+            color: #ababab;
           }
         }
       }

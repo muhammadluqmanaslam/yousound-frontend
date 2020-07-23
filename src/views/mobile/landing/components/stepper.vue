@@ -2,7 +2,7 @@
   <div class="step-container">
     <span
       v-for="(step, index) in steps"
-      :class="{ 'active':  index + 1 == activeIndex }"
+      :class="{ active: index + 1 == activeIndex }"
     >
     </span>
   </div>
@@ -13,23 +13,23 @@ export default {
   props: {
     stepSize: {
       type: Number,
-      default: 1
+      default: 1,
     },
     activeIndex: {
       type: Number,
-      default: 1
-    }
+      default: 1,
+    },
   },
 
-  data () {
+  data() {
     return {
-      steps: []
+      steps: [],
     }
   },
 
-  created () {
+  created() {
     this.steps = new Array(this.stepSize)
-  }
+  },
 }
 </script>
 

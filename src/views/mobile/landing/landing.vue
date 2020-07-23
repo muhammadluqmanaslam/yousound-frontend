@@ -16,8 +16,8 @@
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Free streaming.<br>
-                  Free downloads.<br>
+                  Free streaming.<br />
+                  Free downloads.<br />
                   No ads.
                 </h3>
               </div>
@@ -27,7 +27,7 @@
                   Next
                   <v-icon>arrow_forward</v-icon>
                 </v-btn>
-                <mobile-footer/>
+                <mobile-footer />
               </div>
             </div>
           </div>
@@ -39,8 +39,8 @@
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Share & Earn<br>
-                  Money.<br>
+                  Share & Earn<br />
+                  Money.<br />
                   Shop.
                 </h3>
               </div>
@@ -50,7 +50,7 @@
                   Next
                   <v-icon>arrow_forward</v-icon>
                 </v-btn>
-                <mobile-footer/>
+                <mobile-footer />
               </div>
             </div>
           </div>
@@ -62,15 +62,15 @@
               <div class="section__image"></div>
               <div class="section__content">
                 <h3>
-                  Live Video<br>
-                  with Artists &<br>
+                  Live Video<br />
+                  with Artists &<br />
                   Brands.
                 </h3>
               </div>
               <div class="section__footer">
                 <stepper :step-size="3" :active-index="3"></stepper>
-                <img src="/static/images/img_download_ios.svg">
-                <mobile-footer/>
+                <img src="/static/images/img_download_ios.svg" />
+                <mobile-footer />
               </div>
             </div>
           </div>
@@ -97,7 +97,11 @@
       </v-tabs-items>
     </v-tabs>
 
-    <v-dialog v-model="showMenu" fullscreen transition="slide-x-reverse-transition">
+    <v-dialog
+      v-model="showMenu"
+      fullscreen
+      transition="slide-x-reverse-transition"
+    >
       <mobile-menu @close-menu="closeMenu"></mobile-menu>
     </v-dialog>
   </div>
@@ -114,31 +118,33 @@ export default {
     mobileHeader,
     mobileFooter,
     mobileMenu,
-    stepper
+    stepper,
   },
 
-  data () {
+  data() {
     return {
       activeTab: 'tab-1',
       tabs: ['tab-1', 'tab-2', 'tab-3'],
-      showMenu: false
+      showMenu: false,
     }
   },
 
   methods: {
-    nextTab () {
+    nextTab() {
       console.log('nextTab', this.activeTab)
-      this.activeTab = this.tabs[(this.tabs.indexOf(this.activeTab) + 1) % this.tabs.length]
+      this.activeTab = this.tabs[
+        (this.tabs.indexOf(this.activeTab) + 1) % this.tabs.length
+      ]
     },
 
-    openMenu () {
+    openMenu() {
       this.showMenu = true
     },
 
-    closeMenu () {
+    closeMenu() {
       this.showMenu = false
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -216,7 +222,7 @@ export default {
   }
 
   .section-wrapper.step-1 {
-    background-image: linear-gradient(#7152FF, #3908FF);
+    background-image: linear-gradient(#7152ff, #3908ff);
     .section__image {
       background-image: url('/static/images/img_land_albums.png');
       background-position: 15px center;
@@ -224,7 +230,7 @@ export default {
   }
 
   .section-wrapper.step-2 {
-    background-image: linear-gradient(#17B9A0, #024848);
+    background-image: linear-gradient(#17b9a0, #024848);
     .section__image {
       background-image: url('/static/images/img_mobile_landing_products.png');
       background-position: -65px center;
@@ -232,13 +238,15 @@ export default {
   }
 
   .section-wrapper.step-3 {
-    background: url('/static/images/img_mobile_land_videos.png') no-repeat center center, linear-gradient(#FF3434, #441009);
+    background: url('/static/images/img_mobile_land_videos.png') no-repeat
+        center center,
+      linear-gradient(#ff3434, #441009);
     background-position: center 80px, center center;
     background-size: cover;
   }
 
   .section-wrapper.step-4 {
-    background-image: linear-gradient(#5155FF, #62A3FF);
+    background-image: linear-gradient(#5155ff, #62a3ff);
     .section__image {
       background-image: url('/static/images/img_land_artists.png');
     }
@@ -253,7 +261,8 @@ export default {
     }
   }
 
-  .header-container {}
+  .header-container {
+  }
 
   .footer-container {
     position: absolute;
@@ -300,8 +309,8 @@ export default {
     margin-top: -16px;
   }
 
-    .mobile-page .section .btn {
-  font-size: 16px;
+  .mobile-page .section .btn {
+    font-size: 16px;
   }
 
   .menu-container .section__content ul {

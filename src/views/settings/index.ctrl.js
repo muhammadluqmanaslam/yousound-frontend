@@ -23,10 +23,10 @@ export default {
     genreTab,
     policyTab,
     priceTab,
-    verifyTab
+    verifyTab,
   },
 
-  data () {
+  data() {
     return {
       dialog: false,
       tabs: [
@@ -46,43 +46,48 @@ export default {
         display_name: '',
         email: '',
         contact_url: '',
-        enable_alert: false
+        enable_alert: false,
       },
       password: {
         current_password: '',
         new_password: '',
-        confirmed_password: ''
+        confirmed_password: '',
       },
       stripeDialog: false,
       user: {},
       cable: null,
       notification_subscription: null,
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    stripeLink () {
+    stripeLink() {
       return `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.STRIPE_CONNECT_CLIENT_ID}&scope=read_write&state=${this.$store.state.auth.secret_code}`
     },
 
-    availableTabs () {
+    availableTabs() {
       let tabs = this.tabs.slice()
 
       if (this.currentUser.user_type === 'listener') {
-        tabs = _.filter(tabs, t => t.id != 'seller-policies')
+        tabs = _.filter(tabs, (t) => t.id != 'seller-policies')
       }
 
-      if (['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1) {
-        tabs = _.concat(tabs, { id: 'verify-status', title: 'Verification Status' })
+      if (
+        ['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1
+      ) {
+        tabs = _.concat(tabs, {
+          id: 'verify-status',
+          title: 'Verification Status',
+        })
       }
 
       return tabs
-    }
+    },
   },
 
   // watch: {
@@ -93,7 +98,7 @@ export default {
   //   }
   // },
 
-  created () {
+  created() {
     if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
@@ -102,14 +107,17 @@ export default {
 
     this.getUserInfo()
     const tab = this.$route.hash.substr(1) || 'info'
-    this.$store.dispatch('navigator/goNextState', { page: 'settings', tab: tab })
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'settings',
+      tab: tab,
+    })
     this.onTab(tab)
 
-    this.$intercom.update({hide_default_launcher: false})
+    this.$intercom.update({ hide_default_launcher: false })
   },
 
-  beforeDestroy () {
-    this.$intercom.update({hide_default_launcher: true})
+  beforeDestroy() {
+    this.$intercom.update({ hide_default_launcher: true })
   },
 
   methods: {
@@ -122,7 +130,7 @@ export default {
     //     (this.currentUser.user_type == 'listener' && ['artist', 'brand', 'label'].indexOf(this.currentUser.request_role) > -1)
     // },
 
-    onTab (tab) {
+    onTab(tab) {
       this.active_tab = tab
       switch (this.active_tab) {
         case 'info':
@@ -143,111 +151,147 @@ export default {
       }
     },
 
-    profileImageChanged (e) {
+    profileImageChanged(e) {
       this.profile.image = e.target.files[0]
       var reader = new FileReader()
-      reader.addEventListener('load', (event) => {
-        // document.getElementById('profile_image').src = event.target.result
-        // document.getElementById('profile_image').style.backgroundImage = event.target.result
-        $('#profile_image').css('background-image', 'url(' + event.target.result + ')')
-      }, false)
+      reader.addEventListener(
+        'load',
+        (event) => {
+          // document.getElementById('profile_image').src = event.target.result
+          // document.getElementById('profile_image').style.backgroundImage = event.target.result
+          $('#profile_image').css(
+            'background-image',
+            'url(' + event.target.result + ')'
+          )
+        },
+        false
+      )
       reader.readAsDataURL(this.profile.image)
     },
 
-    getUserInfo () {
+    getUserInfo() {
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.getUserInfo(this.currentUser.id).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        AuthService.setUser(response.body)
-        this.user = _.cloneDeep(response.body)
-        // this.resetProfile()
-        // this.resetShippingAddress()
-        // this.resetGenres()
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      UserService.getUserInfo(this.currentUser.id)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          AuthService.setUser(response.body)
+          this.user = _.cloneDeep(response.body)
+          // this.resetProfile()
+          // this.resetShippingAddress()
+          // this.resetGenres()
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    cancelAccount () {
+    cancelAccount() {
       this.dialog = false
       // const _user = _.cloneDeep(this.currentUser)
-      UserService.deleteUser(this.user.id).then(response => {
+      UserService.deleteUser(this.user.id).then((response) => {
         AuthService.signout()
         this.$router.push({ path: '/login' })
         // this.$root.$emit(MyEvents.AUTH_SIGNOUT, _user.stream)
       })
     },
 
-    updateAccount () {
+    updateAccount() {
       const params = new FormData()
-      if(this.profile.image) {
+      if (this.profile.image) {
         params.append('user[avatar]', this.profile.image)
       }
       params.append('user[display_name]', this.profile.display_name)
       params.append('user[email]', this.profile.email)
       params.append('user[contact_url]', this.profile.contact_url)
-      params.append('user[enable_alert]', this.profile.enable_alert == true ? 1 : 0)
+      params.append(
+        'user[enable_alert]',
+        this.profile.enable_alert == true ? 1 : 0
+      )
 
       this.updateUser(params)
     },
 
-    resetPassword () {
+    resetPassword() {
       this.password.current_password = ''
       this.password.new_password = ''
       this.password.confirmed_password = ''
     },
 
-    updatePassword () {
+    updatePassword() {
       this.$store.dispatch('error/showLoadingActivity', true)
-      const userId = this.currentUser.id;
+      const userId = this.currentUser.id
       const params = new FormData()
       // console.log(this.password)
       params.append('old_password', this.password.current_password)
       params.append('new_password', this.password.new_password)
       params.append('confirmed_password', this.password.confirmed_password)
-      UserService.changePassword(userId, params).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', ['Saved'])
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      UserService.changePassword(userId, params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    viewStripeAccount () {
+    viewStripeAccount() {},
+
+    disconnetAccount() {
+      UserService.disconnectStripe(this.currentUser.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'Stripe Disconected!',
+          ])
+          this.$store.dispatch('auth/setStripeStatus', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    disconnetAccount () {
-      UserService.disconnectStripe(this.currentUser.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['Stripe Disconected!'])
-        this.$store.dispatch('auth/setStripeStatus', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
-    },
-
-    unblockUser (user) {
+    unblockUser(user) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const userId = user.id
-      UserService.unblockUser(userId).then(response =>  {
-        this.getUserInfo()        
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      UserService.unblockUser(userId)
+        .then((response) => {
+          this.getUserInfo()
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    updateUser (params) {
+    updateUser(params) {
       this.$store.dispatch('error/showLoadingActivity', true)
-      UserService.updateUserInfo(this.currentUser.id, params).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', ['Saved'])
-        AuthService.setUser(response.body)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+          AuthService.setUser(response.body)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     resetProfile() {
@@ -257,21 +301,21 @@ export default {
       this.profile.email = this.currentUser.email
       this.profile.contact_url = this.currentUser.contact_url
       this.profile.enable_alert = this.currentUser.enable_alert
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     const vm = this
     $.getJSON('../../static/countries.json', function (json) {
       const countries = json.countries
       vm.countries = []
-      for(let index in countries) {
+      for (let index in countries) {
         const country = {
           iso: countries[index]['iso_2'],
-          name: countries[index]['name']
+          name: countries[index]['name'],
         }
         vm.countries.push(country)
       }
     })
-  }
+  },
 }

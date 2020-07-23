@@ -1,18 +1,19 @@
 <template>
-  <v-app id="app" standalone :class="{
-    //'primary': $store.getters['navigator/isPrimaryTheme'],
-    'gray': $store.getters['navigator/isGrayTheme'],
-    'normal': $store.getters['navigator/isNormalTheme'],
-    'app-audio': $store.state.player.isPlaying,
-    'app-video': $store.getters['videoPlayer/hasFrame'],
-    'app-header': $store.getters['navigator/hasHeader'],
-    'app-footer': $store.getters['navigator/hasFooter'],
-  }">
-
+  <v-app
+    id="app"
+    standalone
+    :class="{
+      //'primary': $store.getters['navigator/isPrimaryTheme'],
+      gray: $store.getters['navigator/isGrayTheme'],
+      normal: $store.getters['navigator/isNormalTheme'],
+      'app-audio': $store.state.player.isPlaying,
+      'app-video': $store.getters['videoPlayer/hasFrame'],
+      'app-header': $store.getters['navigator/hasHeader'],
+      'app-footer': $store.getters['navigator/hasFooter'],
+    }"
+  >
     <!-- v-if="currentUser || currentPage == 'main_landing'" -->
-    <app-header
-      v-show="$store.getters['navigator/hasHeader']"
-    />
+    <app-header v-show="$store.getters['navigator/hasHeader']" />
 
     <router-view></router-view>
 
@@ -20,11 +21,19 @@
 
     <video-player ref="videoPlayer" v-if="currentUser"></video-player>
 
-    <audio-player ref="audioPlayer" v-show="$store.getters['navigator/hasAudioPlayer']"></audio-player>
+    <audio-player
+      ref="audioPlayer"
+      v-show="$store.getters['navigator/hasAudioPlayer']"
+    ></audio-player>
 
-    <earn-money-sticker v-if="$store.state.auth.firstVisit"/>
+    <earn-money-sticker v-if="$store.state.auth.firstVisit" />
 
-    <v-flex xs12 text-xs-center loading-section v-if="$store.getters['error/isLoading']">
+    <v-flex
+      xs12
+      text-xs-center
+      loading-section
+      v-if="$store.getters['error/isLoading']"
+    >
       <v-progress-circular
         v-if="$store.state.error.progressBar.value >= 0"
         :size="50"
@@ -33,9 +42,10 @@
         class="loading-activity"
         v-bind:class="{
           'primary--text': !$store.getters['navigator/isPrimaryTheme'],
-          'white-activity': $store.getters['navigator/isPrimaryTheme']
+          'white-activity': $store.getters['navigator/isPrimaryTheme'],
         }"
-      >{{ $store.state.error.progressBar.value }}</v-progress-circular>
+        >{{ $store.state.error.progressBar.value }}</v-progress-circular
+      >
       <v-progress-circular
         v-else
         indeterminate
@@ -43,19 +53,22 @@
         class="loading-activity"
         v-bind:class="{
           'primary--text': !$store.getters['navigator/isPrimaryTheme'],
-          'white-activity': $store.getters['navigator/isPrimaryTheme']
+          'white-activity': $store.getters['navigator/isPrimaryTheme'],
         }"
       />
     </v-flex>
 
     <v-snackbar
       v-model="showError"
-      multi-line top
+      multi-line
+      top
       :timeout="$store.state.error.timeout"
       :color="$store.state.error.color"
     >
       <label>{{ $store.state.error.errors[0] }}</label>
-      <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"><v-icon>clear</v-icon></v-btn>
+      <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"
+        ><v-icon>clear</v-icon></v-btn
+      >
     </v-snackbar>
 
     <v-dialog v-model="show_login_dialog" max-width="500px">
@@ -99,24 +112,24 @@ export default {
     earnMoneySticker,
     loginDialog,
     audioPlayer,
-    videoPlayer
+    videoPlayer,
   },
 
-  data () {
+  data() {
     return {
       direction: 'none',
       cable: null,
       notification_subscription: null,
-      show_login_dialog: false
+      show_login_dialog: false,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    currentPage () {
+    currentPage() {
       return this.$store.state.navigator.current.page
     },
 
@@ -127,8 +140,8 @@ export default {
 
       set: function (newValue) {
         this.$store.dispatch('error/hideToast')
-      }
-    }
+      },
+    },
   },
 
   // beforeRouteEnter (to, from, next) {
@@ -158,31 +171,36 @@ export default {
   // },
 
   watch: {
-    '$route' (to, from) {
+    $route(to, from) {
       const toPath = to.path.split('/')
       var type = toPath[1]
       if (this.$store.state.auth.token) {
         if (type === 'activity' || type === 'feed') {
-          ActivityService.makeRead(type === 'feed' ? 'stream' : type).then(response => {
-            ActivityService.getUnread().then(response => {
-              this.$store.dispatch('activity/setBadge', response.body)
-            })
-          })
+          ActivityService.makeRead(type === 'feed' ? 'stream' : type).then(
+            (response) => {
+              ActivityService.getUnread().then((response) => {
+                this.$store.dispatch('activity/setBadge', response.body)
+              })
+            }
+          )
         } else {
-          ActivityService.getUnread().then(response => {
+          ActivityService.getUnread().then((response) => {
             this.$store.dispatch('activity/setBadge', response.body)
           })
         }
       }
-    }
+    },
   },
 
-  created () {
+  created() {
     console.log('App created')
 
     Vue.http.interceptors.push((req, next) => {
       next((res) => {
-        if (res.url.startsWith(process.env.API_BASE_URL) && res.status === 401) {
+        if (
+          res.url.startsWith(process.env.API_BASE_URL) &&
+          res.status === 401
+        ) {
           // console.log('App interceptors', res)
           AuthService.clearTokenAndUserInfo()
           this.$router.push({ path: '/login' })
@@ -197,8 +215,8 @@ export default {
       SettingService.getSettings(),
       GenreService.getGenres2(),
       CategoryService.getCategories(),
-      UserService.getUserInfo(PublicRelationsUsername)
-    ]).then(values => {
+      UserService.getUserInfo(PublicRelationsUsername),
+    ]).then((values) => {
       console.log('App initializing...')
       this.$store.dispatch('app/setSettings', values[0].body)
       this.$store.dispatch('app/setGenres', values[1].body)
@@ -207,7 +225,7 @@ export default {
     })
 
     if (AuthService.isAuthenticated()) {
-      AuthService.checkTokenValidation().then(response => {
+      AuthService.checkTokenValidation().then((response) => {
         if (response.body !== false) {
           // console.log('App created', response.body)
           AuthService.setUser(response.body)
@@ -242,51 +260,64 @@ export default {
 
       // const fsbutton = root.querySelector('.fp-fullscreen')
       // append fullscreen button after HD menu is added on ready
-      api.on('ready', function () {
-        console.log('flowplayer ready')
-        vm.$store.dispatch('videoPlayer/setStatus', 'active')
-        api.mute(false)
-        api.volume(1.0)
-      //   // root.querySelector('.fp-controls').appendChild(fsbutton)
-      //   // api.play()
-      //   // if (api.isFullscreen) api.play()
-      // }).on('load', function (e, api) {
-      //   console.log('flowplayer load')
-      //   // api.fullscreen()
-      }).on('unload', function (e, api) {
-        console.log('flowplayer unload')
-      }).on('shutdown', function (e, api) {
-        console.log('flowplayer shutdown')
-        vm.$root.$emit(MyEvents.VIDEO_PLAYER_EXIT, _.get(vm.$store.state.videoPlayer.stream, 'user.username', ''))
-        vm.$store.commit('videoPlayer/reset')
-      }).on('fullscreen', function (e, api) {
-        console.log('flowplayer fullscreen')
-        vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
-        vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
-        api.mute(false)
-        api.volume(1.0)
-      }).on('fullscreen-exit', function (e, api) {
-        console.log('flowplayer fullscreen-exit')
-        vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-        if (vm.$store.state.player.isPlaying && !vm.$store.state.player.isPaused) {
-          api.mute(true)
-        }
-      })
+      api
+        .on('ready', function () {
+          console.log('flowplayer ready')
+          vm.$store.dispatch('videoPlayer/setStatus', 'active')
+          api.mute(false)
+          api.volume(1.0)
+          //   // root.querySelector('.fp-controls').appendChild(fsbutton)
+          //   // api.play()
+          //   // if (api.isFullscreen) api.play()
+          // }).on('load', function (e, api) {
+          //   console.log('flowplayer load')
+          //   // api.fullscreen()
+        })
+        .on('unload', function (e, api) {
+          console.log('flowplayer unload')
+        })
+        .on('shutdown', function (e, api) {
+          console.log('flowplayer shutdown')
+          vm.$root.$emit(
+            MyEvents.VIDEO_PLAYER_EXIT,
+            _.get(vm.$store.state.videoPlayer.stream, 'user.username', '')
+          )
+          vm.$store.commit('videoPlayer/reset')
+        })
+        .on('fullscreen', function (e, api) {
+          console.log('flowplayer fullscreen')
+          vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
+          vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
+          api.mute(false)
+          api.volume(1.0)
+        })
+        .on('fullscreen-exit', function (e, api) {
+          console.log('flowplayer fullscreen-exit')
+          vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
+          if (
+            vm.$store.state.player.isPlaying &&
+            !vm.$store.state.player.isPaused
+          ) {
+            api.mute(true)
+          }
+        })
     })
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.$root.$off(MyEvents.AUTH_SIGNIN, this.doAfterSignIn)
     this.$root.$off(MyEvents.AUTH_SIGNOUT, this.doAfterSignOut)
   },
 
   methods: {
-    doAfterSignIn () {
+    doAfterSignIn() {
       const vm = this
-      this.cable = ActionCable.createConsumer(`${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`)
+      this.cable = ActionCable.createConsumer(
+        `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
+      )
       this.notification_subscription = this.cable.subscriptions.create(
         {
-          channel: 'NotificationsChannel'
+          channel: 'NotificationsChannel',
         },
         {
           connected: () => {
@@ -296,13 +327,13 @@ export default {
             console.log('notification_subscription')
             console.log(data)
             vm.$store.dispatch('activity/addBadge', data)
-            UserService.cartItems(vm.currentUser.id).then(response => {
+            UserService.cartItems(vm.currentUser.id).then((response) => {
               vm.$store.dispatch('user/setCartItems', response.body)
             })
           },
           disconnected: () => {
             console.log('disconnected to NotificationsChannel :(')
-          }
+          },
         }
       )
 
@@ -312,10 +343,10 @@ export default {
         email: this.currentUser.email,
         avatar: {
           type: 'avatar',
-          image_url: this.currentUser.avatar.url
+          image_url: this.currentUser.avatar.url,
         },
         user_hash: this.$store.state.auth.hmac,
-        hide_default_launcher: true
+        hide_default_launcher: true,
       })
 
       this.$store.dispatch('error/showLoadingActivity', true)
@@ -323,21 +354,23 @@ export default {
         UserService.getUserInfo(this.currentUser.id),
         ActivityService.getUnread(),
         PlaylistService.getPlaylists(),
-        UserService.cartItems(this.currentUser.id)
-      ]).then(values => {
-        // console.log('App getUserInfo', values[0].body)
-        AuthService.setUser(values[0].body)
-        this.$store.dispatch('activity/setBadge', values[1].body)
-        this.$store.dispatch('playlist/setPlaylists', values[2].body)
-        this.$store.dispatch('user/setCartItems', values[3].body)
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(reason => {
-        // console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+        UserService.cartItems(this.currentUser.id),
+      ])
+        .then((values) => {
+          // console.log('App getUserInfo', values[0].body)
+          AuthService.setUser(values[0].body)
+          this.$store.dispatch('activity/setBadge', values[1].body)
+          this.$store.dispatch('playlist/setPlaylists', values[2].body)
+          this.$store.dispatch('user/setCartItems', values[3].body)
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((reason) => {
+          // console.log(reason)
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
-    doAfterSignOut () {
+    doAfterSignOut() {
       if (this.notification_subscription) {
         this.notification_subscription.unsubscribe()
         this.notification_subscription = null
@@ -346,16 +379,16 @@ export default {
       this.$intercom.shutdown()
     },
 
-    openLoginDialog () {
+    openLoginDialog() {
       this.show_login_dialog = true
     },
 
-    closeLoginDialog () {
+    closeLoginDialog() {
       this.show_login_dialog = false
-    }
+    },
   },
 
-  mounted () {
+  mounted() {
     const vm = this
     var _direction = 'none'
     var _top = $(window).scrollTop()
@@ -409,6 +442,6 @@ export default {
     //     return true
     //   }
     // })
-  }
+  },
 }
 </script>

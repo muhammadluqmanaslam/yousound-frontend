@@ -1,24 +1,23 @@
 import AttendeeService from '@/services/attendee.js'
 
 export default {
-  components: {
-  },
+  components: {},
 
   data() {
     return {
       account_types: [
         { id: 'artist', name: 'Artist' },
         { id: 'brand', name: 'Brand' },
-        { id: 'label', name: 'Label' }
+        { id: 'label', name: 'Label' },
       ],
       attendee: {
         full_name: '',
         display_name: '',
         email: '',
         account_type: '',
-        referred_by: ''
+        referred_by: '',
       },
-      show_attendee_confirm_dialog: false
+      show_attendee_confirm_dialog: false,
     }
   },
 
@@ -27,25 +26,32 @@ export default {
   },
 
   methods: {
-    submit () {
-      this.$validator.validateAll().then(response => {
+    submit() {
+      this.$validator.validateAll().then((response) => {
         if (response === true) {
           const params = {
-            attendee: this.attendee
+            attendee: this.attendee,
           }
           this.$store.dispatch('error/showLoadingActivity', true)
-          AttendeeService.createAttendee(params).then(response => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            // this.$store.dispatch('error/showSuccessToast', ['You reserved your account'])
-            this.show_attendee_confirm_dialog = true
-          }).catch(e => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          })
+          AttendeeService.createAttendee(params)
+            .then((response) => {
+              this.$store.dispatch('error/showLoadingActivity', false)
+              // this.$store.dispatch('error/showSuccessToast', ['You reserved your account'])
+              this.show_attendee_confirm_dialog = true
+            })
+            .catch((e) => {
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch(
+                'error/showErrorToast',
+                e.body.errors || [e.body]
+              )
+            })
         } else {
-          this.$store.dispatch('error/showErrorToast', [this.errors.items[0].msg])
+          this.$store.dispatch('error/showErrorToast', [
+            this.errors.items[0].msg,
+          ])
         }
       })
-    }
-  }
+    },
+  },
 }

@@ -4,42 +4,41 @@
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
   tracks: [],
-  isUploadingTracks: false
+  isUploadingTracks: false,
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
-  setUploadingStatus ({ commit }, status) {
+  setUploadingStatus({ commit }, status) {
     commit('setUploadingStatus', status)
   },
 
-  pushTrack ({ commit }, track) {
+  pushTrack({ commit }, track) {
     commit('pushTrack', track)
   },
 
-  popTrack ({ commit }, index) {
+  popTrack({ commit }, index) {
     commit('popTrack', index)
   },
 
-  clearTracks ({ commit }) {
+  clearTracks({ commit }) {
     commit('clearTracks')
-  }
+  },
 }
 
 const mutations = {
-  setUploadingStatus (state, status) {
+  setUploadingStatus(state, status) {
     state.isUploadingTracks = status
   },
 
-  pushTrack (state, track) {
+  pushTrack(state, track) {
     state.tracks.push(track)
   },
 
-  clearTracks (state) {
+  clearTracks(state) {
     state.tracks = []
-  }
+  },
 }
 
 export default {
@@ -48,5 +47,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

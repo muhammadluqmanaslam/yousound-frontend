@@ -11,29 +11,29 @@ export default {
   components: {
     downloadModal,
     shareModal,
-    profileItem
+    profileItem,
   },
 
   props: {
     album: {
-      type: Object
+      type: Object,
     },
 
     trackIndex: {
-      type: Number
+      type: Number,
     },
 
     removeTrack: {
-      type: Function
+      type: Function,
     },
 
     showStats: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
-  data () {
+  data() {
     return {
       buttonHover: false,
       download_dialog: false,
@@ -43,106 +43,119 @@ export default {
       submenu: false,
       playlist: {
         name: '',
-        image: null
+        image: null,
       },
-      selectedImage: null
+      selectedImage: null,
     }
   },
 
   computed: {
-    currentUser () {
+    currentUser() {
       return this.$store.state.auth.user
     },
 
-    track () {
+    track() {
       return this.album.tracks[this.trackIndex]
     },
 
-    isPlaying () {
+    isPlaying() {
       if (this.$store.state.player.isPlaying) {
-        return _.get(this.$store.state.player.list[this.$store.state.player.listIndex], 'id') === this.album.id
+        return (
+          _.get(
+            this.$store.state.player.list[this.$store.state.player.listIndex],
+            'id'
+          ) === this.album.id
+        )
       }
       return false
     },
 
-    input_id () {
+    input_id() {
       return 'playlist_image_file_' + this.track.id
     },
 
-    playlists () {
+    playlists() {
       return this.$store.state.playlist.playlists
-    }
+    },
   },
 
-  created () {
-  },
+  created() {},
 
   methods: {
     ...mapActions({
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus'
+      setPlaying: 'player/setPlayingStatus',
     }),
 
-    removeItem () {
+    removeItem() {
       this.menu = false
       this.submenu = false
       this.removeTrack(this.track)
     },
 
-    repostItem () {
+    repostItem() {
       this.menu = false
       this.submenu = false
-      AlbumService.repostAlbum(this.album.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.album.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      AlbumService.repostAlbum(this.album.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just reposted ' + this.album.name,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    showDownloadDialog () {
+    showDownloadDialog() {
       this.menu = false
       this.submenu = false
       this.download_dialog = true
     },
 
-    dismissDownloadDialog () {
+    dismissDownloadDialog() {
       this.download_dialog = false
     },
 
-    showShareDialog () {
+    showShareDialog() {
       this.menu = false
       this.submenu = false
       this.share_dialog = true
     },
 
-    dismissShareDialog () {
+    dismissShareDialog() {
       this.share_dialog = false
     },
 
-    flagItem () {
+    flagItem() {
       this.menu = false
       this.submenu = false
     },
 
-    addComment () {
+    addComment() {
       this.menu = false
       this.submenu = false
     },
 
-    addToNewPlaylist () {
+    addToNewPlaylist() {
       this.menu = false
       this.playlist = {
         name: '',
-        image: null
+        image: null,
       }
       this.selectedImage = null
     },
 
-    createPlaylist () {
+    createPlaylist() {
       if (this.playlist.name == '') {
-        this.$store.dispatch('error/showErrorToast', ['Please input Playlist name.'])
+        this.$store.dispatch('error/showErrorToast', [
+          'Please input Playlist name.',
+        ])
         return
       }
 
@@ -157,43 +170,61 @@ export default {
       params.append('assoc_id', this.track.id)
       params.append('assoc_type', 'Track')
       this.$store.dispatch('error/showLoadingActivity', true)
-      PlaylistService.createPlaylist(params).then(response => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showSuccessToast', ['Added the track to New Playlist '])
+      PlaylistService.createPlaylist(params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', [
+            'Added the track to New Playlist ',
+          ])
 
-        PlaylistService.getPlaylists().then(response => {
-          this.$store.dispatch('playlist/setPlaylists', response.body)
+          PlaylistService.getPlaylists().then((response) => {
+            this.$store.dispatch('playlist/setPlaylists', response.body)
+          })
         })
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    addToPlaylist (list) {
+    addToPlaylist(list) {
       this.menu = false
       this.submenu = false
       const params = {
         assoc_id: this.track.id,
-        assoc_type: 'Track'
+        assoc_type: 'Track',
       }
-      PlaylistService.updatePlaylist(list.id, params).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['Added the track to <' + list.name + '>'])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      PlaylistService.updatePlaylist(list.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'Added the track to <' + list.name + '>',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    imageChanged (e) {
+    imageChanged(e) {
       this.playlist.image = e.target.files[0]
       var reader = new FileReader()
-      reader.addEventListener('load', (event) => {
-        this.selectedImage = event.target.result
-      }, false)
+      reader.addEventListener(
+        'load',
+        (event) => {
+          this.selectedImage = event.target.result
+        },
+        false
+      )
       reader.readAsDataURL(this.playlist.image)
     },
 
-    selectTrack () {
+    selectTrack() {
       // console.log('album-track-item selectTrack', this.trackIndex, this.isPlaying)
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, this.trackIndex)
@@ -205,8 +236,8 @@ export default {
       }
     },
 
-    goToAlbumStats (stats) {
+    goToAlbumStats(stats) {
       this.$router.push({ path: `/album/${this.album.slug}/stats#${stats}` })
-    }
-  }
+    },
+  },
 }

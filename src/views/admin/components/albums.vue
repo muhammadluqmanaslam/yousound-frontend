@@ -8,7 +8,8 @@
           :key="tab.id"
           :href="'#' + tab.id"
           ripple
-        >{{ tab.title }}</v-tabs-item>
+          >{{ tab.title }}</v-tabs-item
+        >
         <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -21,7 +22,7 @@
           v-on:keyup.enter="onKeyEnter"
         ></v-text-field>
       </v-tabs-bar>
-      <v-tabs-items style="border:none;">
+      <v-tabs-items style="border: none;">
         <v-tabs-content key="published" id="published">
           <v-card flat v-if="albums_tab == 'published'">
             <v-data-table
@@ -34,7 +35,13 @@
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
-                  <div class="album-cover-image" :style="{'background-image': 'url(' + props.item.cover.thumb.url + ')'}"></div>
+                  <div
+                    class="album-cover-image"
+                    :style="{
+                      'background-image':
+                        'url(' + props.item.cover.thumb.url + ')',
+                    }"
+                  ></div>
                   {{ props.item.name }}
                 </td>
                 <td class="text-xs-left">{{ props.item.user.display_name }}</td>
@@ -42,7 +49,9 @@
                 <td class="text-xs-center">{{ props.item.downloaded }}</td>
                 <td class="text-xs-center">{{ props.item.reposted }}</td>
                 <td class="text-xs-center">
-                  <label class="recommended-text" v-if="props.item.recommended">Yes</label>
+                  <label class="recommended-text" v-if="props.item.recommended"
+                    >Yes</label
+                  >
                   <label class="unrecommended-text" v-else>No</label>
                 </td>
                 <td class="text-xs-right">
@@ -51,22 +60,40 @@
                       <v-icon>settings</v-icon>
                     </v-btn>
                     <v-list>
-                      <v-list-tile key="detail" class="default-menu-item" @click.native="openAlbumDetailDialog(props.item)">
+                      <v-list-tile
+                        key="detail"
+                        class="default-menu-item"
+                        @click.native="openAlbumDetailDialog(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Detail</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="delete" class="default-menu-item" @click.native="openAlbumDeleteConfirmModal(props.item)">
+                      <v-list-tile
+                        key="delete"
+                        class="default-menu-item"
+                        @click.native="openAlbumDeleteConfirmModal(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Delete</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="recommended" class="default-menu-item" v-if="!props.item.recommended" @click.native="recommendAlbum(props.item)">
+                      <v-list-tile
+                        key="recommended"
+                        class="default-menu-item"
+                        v-if="!props.item.recommended"
+                        @click.native="recommendAlbum(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Recommend</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="unrecommended" class="default-menu-item" v-if="props.item.recommended" @click.native="unrecommendAlbum(props.item)">
+                      <v-list-tile
+                        key="unrecommended"
+                        class="default-menu-item"
+                        v-if="props.item.recommended"
+                        @click.native="unrecommendAlbum(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Unrecommend</label>
                         </v-list-tile-title>
@@ -76,7 +103,8 @@
                 </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-                From {{ pageStart }} to {{ pageStop }} out of {{ total_published_albums }}
+                From {{ pageStart }} to {{ pageStop }} out of
+                {{ total_published_albums }}
               </template>
             </v-data-table>
           </v-card>
@@ -93,7 +121,13 @@
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
-                  <div class="album-cover-image" :style="{'background-image': 'url(' + props.item.cover.thumb.url + ')'}"></div>
+                  <div
+                    class="album-cover-image"
+                    :style="{
+                      'background-image':
+                        'url(' + props.item.cover.thumb.url + ')',
+                    }"
+                  ></div>
                   {{ props.item.name }}
                 </td>
                 <td class="text-xs-left">{{ props.item.user.display_name }}</td>
@@ -101,7 +135,9 @@
                 <td class="text-xs-center">{{ props.item.downloaded }}</td>
                 <td class="text-xs-center">{{ props.item.reposted }}</td>
                 <td class="text-xs-center">
-                  <label class="recommended-text" v-if="props.item.recommended">Yes</label>
+                  <label class="recommended-text" v-if="props.item.recommended"
+                    >Yes</label
+                  >
                   <label class="unrecommended-text" v-else>No</label>
                 </td>
                 <td class="text-xs-right">
@@ -110,22 +146,40 @@
                       <v-icon>settings</v-icon>
                     </v-btn>
                     <v-list>
-                      <v-list-tile key="detail" class="default-menu-item" @click.native="openAlbumDetailDialog(props.item)">
+                      <v-list-tile
+                        key="detail"
+                        class="default-menu-item"
+                        @click.native="openAlbumDetailDialog(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Detail</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="delete" class="default-menu-item" @click.native="openAlbumDeleteConfirmModal(props.item)">
+                      <v-list-tile
+                        key="delete"
+                        class="default-menu-item"
+                        @click.native="openAlbumDeleteConfirmModal(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Delete</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="recommended" class="default-menu-item" v-if="!props.item.recommended" @click.native="recommendAlbum(props.item)">
+                      <v-list-tile
+                        key="recommended"
+                        class="default-menu-item"
+                        v-if="!props.item.recommended"
+                        @click.native="recommendAlbum(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Recommend</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="unrecommended" class="default-menu-item" v-if="props.item.recommended" @click.native="unrecommendAlbum(props.item)">
+                      <v-list-tile
+                        key="unrecommended"
+                        class="default-menu-item"
+                        v-if="props.item.recommended"
+                        @click.native="unrecommendAlbum(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Unrecommend</label>
                         </v-list-tile-title>
@@ -135,7 +189,8 @@
                 </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-                From {{ pageStart }} to {{ pageStop }} out of {{ total_privated_albums }}
+                From {{ pageStart }} to {{ pageStop }} out of
+                {{ total_privated_albums }}
               </template>
             </v-data-table>
           </v-card>
@@ -152,16 +207,32 @@
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
-                  <div class="album-cover-image" :style="{'background-image': 'url(' + props.item.covers[0].cover.thumb.url + ')'}"></div>
+                  <div
+                    class="album-cover-image"
+                    :style="{
+                      'background-image':
+                        'url(' + props.item.covers[0].cover.thumb.url + ')',
+                    }"
+                  ></div>
                   {{ props.item.name }}
                 </td>
-                <td class="text-xs-left">{{ props.item.merchant.display_name }}</td>
+                <td class="text-xs-left">
+                  {{ props.item.merchant.display_name }}
+                </td>
                 <td class="text-xs-center">{{ props.item.sold }}</td>
-                <td class="text-xs-center">{{ props.item.created_at | formatDate }}</td>
+                <td class="text-xs-center">
+                  {{ props.item.created_at | formatDate }}
+                </td>
                 <td class="text-xs-center">{{ props.item.reposted }}</td>
                 <td class="text-xs-center">
-                  <label class="recommended-text" v-if="props.item.recommended">Yes</label>
-                  <label class="unrecommended-text" v-if="!props.item.recommended">No</label>
+                  <label class="recommended-text" v-if="props.item.recommended"
+                    >Yes</label
+                  >
+                  <label
+                    class="unrecommended-text"
+                    v-if="!props.item.recommended"
+                    >No</label
+                  >
                 </td>
                 <td class="text-xs-right">
                   <v-menu offset-y class="more-menu">
@@ -169,12 +240,22 @@
                       <v-icon>settings</v-icon>
                     </v-btn>
                     <v-list>
-                      <v-list-tile key="detail" class="default-menu-item" @click.native="openProductDetailDialog(props.item)">
+                      <v-list-tile
+                        key="detail"
+                        class="default-menu-item"
+                        @click.native="openProductDetailDialog(props.item)"
+                      >
                         <v-list-tile-title>
                           <label>Detail</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="delete" class="default-menu-item" @click.native="openProductDeleteConfirmModal(props.item)">
+                      <v-list-tile
+                        key="delete"
+                        class="default-menu-item"
+                        @click.native="
+                          openProductDeleteConfirmModal(props.item)
+                        "
+                      >
                         <v-list-tile-title>
                           <label>Delete</label>
                         </v-list-tile-title>
@@ -194,7 +275,8 @@
                 </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
-                From {{ pageStart }} to {{ pageStop }} out of {{ total_products }}
+                From {{ pageStart }} to {{ pageStop }} out of
+                {{ total_products }}
               </template>
             </v-data-table>
           </v-card>
@@ -217,11 +299,25 @@
     <v-dialog v-model="show_album_delete_confirm_modal">
       <v-card>
         <v-card-title class="headline">Delete an Album</v-card-title>
-        <v-card-text>If you click OK, the album will no longer be available to users. Click OK to delete &lt;{{ album.name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-text
+          >If you click OK, the album will no longer be available to users.
+          Click OK to delete &lt;{{ album.name }}&gt;, or click
+          Cancel.</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteAlbum(album)">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeAlbumDeleteConfirmModal()">Cancel</v-btn>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="deleteAlbum(album)"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="closeAlbumDeleteConfirmModal()"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -229,11 +325,25 @@
     <v-dialog v-model="show_product_delete_confirm_modal">
       <v-card>
         <v-card-title class="headline">Delete a Product</v-card-title>
-        <v-card-text>If you click OK, the product will no longer be available to users. Click OK to delete &lt;{{ product.name }}&gt;, or click Cancel.</v-card-text>
+        <v-card-text
+          >If you click OK, the product will no longer be available to users.
+          Click OK to delete &lt;{{ product.name }}&gt;, or click
+          Cancel.</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="deleteProduct(product)">Ok</v-btn>
-          <v-btn class="blue--text darken-1" flat="flat" @click.native="closeProductDeleteConfirmModal()">Cancel</v-btn>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="deleteProduct(product)"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="closeProductDeleteConfirmModal()"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>

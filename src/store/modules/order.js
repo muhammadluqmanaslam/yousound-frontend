@@ -4,40 +4,39 @@
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
   orders: [],
-  tab: null
+  tab: null,
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
-  setOrders ({ commit }, orders) {
+  setOrders({ commit }, orders) {
     commit('setOrders', orders)
   },
-  removeOrder ({ commit }, index) {
+  removeOrder({ commit }, index) {
     commit('removeOrder', index)
   },
-  removeAllOrders ({ commit }) {
+  removeAllOrders({ commit }) {
     commit('removeAllOrders')
   },
-  setTab ({ commit }, tab) {
+  setTab({ commit }, tab) {
     commit('setTab', tab)
-  }
+  },
 }
 
 const mutations = {
-  setOrders (state, orders) {
+  setOrders(state, orders) {
     state.orders = orders
   },
-  removeOrder (state, index) {
+  removeOrder(state, index) {
     state.orders.splice(index, 1)
   },
-  removeAllOrders (state) {
+  removeAllOrders(state) {
     state.orders = []
   },
-  setTab (state, tab) {
+  setTab(state, tab) {
     state.tab = tab
-  }
+  },
 }
 
 export default {
@@ -46,5 +45,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

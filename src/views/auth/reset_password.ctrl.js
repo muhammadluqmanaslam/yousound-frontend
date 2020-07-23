@@ -1,42 +1,50 @@
 import AuthService from '@/services/auth.js'
 
 export default {
-  components: {
-  },
+  components: {},
 
-  data () {
+  data() {
     return {
       password: '',
-      confirm_password: ''
+      confirm_password: '',
     }
   },
 
-  computed: {
-  },
+  computed: {},
 
-  created () {
+  created() {
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
   },
 
   methods: {
-    submit () {
+    submit() {
       const vm = this
-      this.$validator.validateAll().then(function(response) {
-        if (response === true) {
-          const params = {
-            'reset_token': vm.$route.params.token,
-            'password': vm.password
+      this.$validator
+        .validateAll()
+        .then(function (response) {
+          if (response === true) {
+            const params = {
+              reset_token: vm.$route.params.token,
+              password: vm.password,
+            }
+            AuthService.resetPassword(params)
+              .then((response) => {
+                vm.$store.dispatch('error/showSuccessToast', [
+                  'Email has been set successfully.',
+                ])
+                vm.$router.push({ path: '/login' })
+              })
+              .catch((e) => {
+                vm.$store.dispatch(
+                  'error/showErrorToast',
+                  e.body.errors || [e.body]
+                )
+              })
           }
-          AuthService.resetPassword(params).then(response => {
-            vm.$store.dispatch('error/showSuccessToast', ['Email has been set successfully.'])
-            vm.$router.push({ path: '/login' })
-          }).catch(e => {
-            vm.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          })
-        }
-      }).catch(function(e) {
-        console.log('error', e)
-      })
-    }
-  }
+        })
+        .catch(function (e) {
+          console.log('error', e)
+        })
+    },
+  },
 }

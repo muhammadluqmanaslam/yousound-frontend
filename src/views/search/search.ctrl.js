@@ -12,7 +12,7 @@ export default {
     trackCard,
     productCard,
     VideoBox,
-    videoCard
+    videoCard,
   },
 
   data() {
@@ -23,7 +23,7 @@ export default {
         // { id: 'playlists', title: 'Playlists' },
         { id: 'products', title: 'Products' },
         { id: 'live_videos', title: 'Live Videos' },
-        { id: 'users', title: 'Users' }
+        { id: 'users', title: 'Users' },
       ],
       page_index: 1,
       total_pages: 1,
@@ -36,31 +36,37 @@ export default {
         albums: [],
         playlists: [],
         products: [],
-        streams: []
+        streams: [],
       },
-      isPageReady: false
+      isPageReady: false,
     }
   },
 
   computed: {
-    filtered_feeds () {
+    filtered_feeds() {
       if (this.selected_genre) {
-        return _.filter(this.albums, (album) => (album.genre_ids.indexOf(this.selected_genre.id) > -1))
+        return _.filter(
+          this.albums,
+          (album) => album.genre_ids.indexOf(this.selected_genre.id) > -1
+        )
       } else {
         return this.albums
       }
-    }
+    },
   },
 
   watch: {
-    '$route' (to, from) {
+    $route(to, from) {
       this.keyword = this.$route.query.q
       this.init()
-    }
+    },
   },
 
   created() {
-    this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.active_tab })
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'search',
+      tab: this.active_tab,
+    })
     this.keyword = this.$route.query.q
     this.init()
   },
@@ -87,14 +93,16 @@ export default {
       }
     },
 
-    init () {
+    init() {
       this.page_index = 1
       this.total_pages = 1
       this.items_per_page = 6 * 5
-      this.genres = [{
-        id: 'any',
-        name: 'Any genre'
-      }]
+      this.genres = [
+        {
+          id: 'any',
+          name: 'Any genre',
+        },
+      ]
       this.selected_genre = null
       this.users = []
       this.albums = []
@@ -102,7 +110,7 @@ export default {
       this.search()
     },
 
-    // search () {
+    // search() {
     //   let tab = 'albums'
     //   SearchService.searchGlobal({ q: this.keyword }).then(response => {
     //     this.users = response.body.users || []
@@ -137,19 +145,27 @@ export default {
     //   })
     // },
 
-    search () {
+    search() {
       this.$store.dispatch('error/showLoadingActivity', true)
-      SearchService.searchGlobal({ q: this.keyword }).then(response => {
-        this.result = response.body
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      SearchService.searchGlobal({ q: this.keyword })
+        .then((response) => {
+          this.result = response.body
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
-    filterByGenres (genre) {
-      $('#genre_selector .btn__content').html(genre.name + '<i class="material-icons icon theme--dark">keyboard_arrow_down</i>')
+    filterByGenres(genre) {
+      $('#genre_selector .btn__content').html(
+        genre.name +
+          '<i class="material-icons icon theme--dark">keyboard_arrow_down</i>'
+      )
       switch (genre.id) {
         case 'go_to_filters':
           this.$router.push({ path: '/settings#genre-filter' })
@@ -162,23 +178,25 @@ export default {
       }
     },
 
-    loadMore () {
+    loadMore() {
       this.page_index += 1
       this.loadFeeds(this.$store.state.navigator.current.tab)
     },
 
-    onTab (tab) {
+    onTab(tab) {
       this.active_tab = tab
-      this.$store.dispatch('navigator/goNextState', { page: 'search', tab: this.active_tab })
+      this.$store.dispatch('navigator/goNextState', {
+        page: 'search',
+        tab: this.active_tab,
+      })
       // if (tab === 'albums') {
       //   $('#genre_selector').show()
       // } else {
       //   $('#genre_selector').hide()
       // }
       // console.log('onTab', this.active_tab, this.users)
-    }
+    },
   },
 
-  mounted () {
-  }
+  mounted() {},
 }

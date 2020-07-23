@@ -1,7 +1,7 @@
 <template>
   <v-toolbar height="100">
     <v-toolbar-title>
-      <img class="logo" src="/static/images/nav_logo_white.png">
+      <img class="logo" src="/static/images/nav_logo_white.png" />
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items>

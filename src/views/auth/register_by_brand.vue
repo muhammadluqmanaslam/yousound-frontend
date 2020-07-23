@@ -9,7 +9,9 @@
       <div class="info-title">Brands can</div>
       <div class="info-description pt-3">- Sell products</div>
       <div class="info-description">- Promote products</div>
-      <div class="info-description">- Share revenue with any Artist, Brand, or Label</div>
+      <div class="info-description">
+        - Share revenue with any Artist, Brand, or Label
+      </div>
       <div class="info-description">- Broadcast live audio & video chat</div>
     </div>
 
@@ -17,38 +19,93 @@
       <form v-on:submit.prevent="submit()">
         <v-flex xs12 text-xs-center>
           <div class="avatar-area mt-0">
-            <img class="avatar" src="/static/images/placeholder.png" id="avatar" ref="avatar" />
+            <img
+              class="avatar"
+              src="/static/images/placeholder.png"
+              id="avatar"
+              ref="avatar"
+            />
             <label class="upload-caption">Upload image</label>
             <div class="avatar-upload">
-              <input type="file" name="avatar_file" id="avatar_file" ref="avatar_file" class="avatar-file" accept="image/*" v-validate="'required'" @change="imageChanged($event)">
+              <input
+                type="file"
+                name="avatar_file"
+                id="avatar_file"
+                ref="avatar_file"
+                class="avatar-file"
+                accept="image/*"
+                v-validate="'required'"
+                @change="imageChanged($event)"
+              />
               <label for="avatar_file">Choose a file</label>
             </div>
           </div>
         </v-flex>
         <v-flex xs12 text-xs-left pt-3>
           <label class="field-title">Username</label>
-          <input class="username" type="text" name="username" placeholder="Username" v-model="user.username" v-validate="'required|max:20'">
+          <input
+            class="username"
+            type="text"
+            name="username"
+            placeholder="Username"
+            v-model="user.username"
+            v-validate="'required|max:20'"
+          />
         </v-flex>
         <v-flex xs12 text-xs-left>
           <label class="field-title">Brand or Company Name</label>
-          <input class="displayname" type="text" name="display_name" placeholder="Display Name" v-model="user.display_name" v-validate="'required|max:20'">
+          <input
+            class="displayname"
+            type="text"
+            name="display_name"
+            placeholder="Display Name"
+            v-model="user.display_name"
+            v-validate="'required|max:20'"
+          />
         </v-flex>
         <v-flex xs12 text-xs-left>
           <label class="field-title">Email</label>
-          <input class="email" type="email" name="email" placeholder="Email" v-model="user.email" v-validate="'required|email'">
+          <input
+            class="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            v-model="user.email"
+            v-validate="'required|email'"
+          />
         </v-flex>
         <v-flex xs12 text-xs-left>
           <label class="field-title">Password</label>
-          <input class="password" type="password" name="password" placeholder="Password" v-model="user.password" v-validate="'required|min:6'">
+          <input
+            class="password"
+            type="password"
+            name="password"
+            placeholder="Password"
+            v-model="user.password"
+            v-validate="'required|min:6'"
+          />
         </v-flex>
         <v-flex xs12 text pa-0 text-xs-left>
           <p class="regular-checkbox">
-            <input id="terms" type="checkbox" name="terms" v-model="terms" v-validate="'required'"/>
-            <label for="terms">Accept <router-link class="forgot-password" to="#">Terms & Conditions</router-link></label>
+            <input
+              id="terms"
+              type="checkbox"
+              name="terms"
+              v-model="terms"
+              v-validate="'required'"
+            />
+            <label for="terms"
+              >Accept
+              <router-link class="forgot-password" to="#"
+                >Terms & Conditions</router-link
+              ></label
+            >
           </p>
         </v-flex>
         <v-flex xs12 text-xs-center>
-          <v-btn block round dark type="submit" class="create-account-button">Create account</v-btn>
+          <v-btn block round dark type="submit" class="create-account-button"
+            >Create account</v-btn
+          >
         </v-flex>
       </form>
     </div>

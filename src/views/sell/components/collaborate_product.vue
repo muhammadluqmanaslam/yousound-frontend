@@ -84,79 +84,79 @@
 
   export default {
     components: {
-      promoteModal
+      promoteModal,
     },
 
     props: {
       product: {
-        type: Object
+        type: Object,
       },
 
       editButtonAction: {
-        type: Function
+        type: Function,
       },
 
       updateButtonAction: {
-        type: Function
+        type: Function,
       },
 
       deleteButtonAction: {
-        type: Function
+        type: Function,
       },
 
       acceptButtonAction: {
-        type: Function
+        type: Function,
       },
 
       denyButtonAction: {
-        type: Function
+        type: Function,
       },
 
       releaseButtonAction: {
-        type: Function
+        type: Function,
       },
 
       showPromoteButton: {
         type: Boolean,
-        default: true
-      }
+        default: true,
+      },
     },
 
-    data () {
+    data() {
       return {
-        isShowPromoteModal: false
+        isShowPromoteModal: false,
       }
     },
 
     computed: {
-      usersCountByStatus () {
+      usersCountByStatus() {
         return _.countBy(this.product.collaborators, 'status')
       },
 
-      usersByStatus () {
+      usersByStatus() {
         return _.groupBy(this.product.collaborators, 'status')
       },
 
-      ownerShare () {
+      ownerShare() {
         return 100 - _.sumBy(this.product.collaborators, 'user_share')
-      }
+      },
     },
 
-    created () {
+    created() {
     },
 
     methods: {
-      showPromoteDialog () {
+      showPromoteDialog() {
         this.isShowPromoteModal = true
       },
 
-      dismissPromoteDialog () {
+      dismissPromoteDialog() {
         this.isShowPromoteModal = false
       },
 
-      saveAndFinish () {
+      saveAndFinish() {
         this.dismissPromoteDialog()
-      }
-    }
+      },
+    },
   }
 </script>

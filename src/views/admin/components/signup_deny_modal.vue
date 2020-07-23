@@ -3,13 +3,21 @@
     <v-layout row wrap class="dismiss-section" @click="dismiss()"></v-layout>
     <v-layout row wrap class="popup-section">
       <v-flex xs12 sm12 mx-3 py-3 class="profile-section border-bottom">
-        <div class="profile-image" :style="{'background-image': 'url(' + item.avatar.url + ')'}"></div>
+        <div
+          class="profile-image"
+          :style="{ 'background-image': 'url(' + item.avatar.url + ')' }"
+        ></div>
         <div class="info-section">
           <div class="user-name">{{ item.display_name }}</div>
           <label class="denied-status">{{ item.request_status }}</label>
         </div>
         <div class="action-section">
-          <v-btn color="primary" class="deny-btn" @click.native="submission(item)">SUBMIT</v-btn>
+          <v-btn
+            color="primary"
+            class="deny-btn"
+            @click.native="submission(item)"
+            >SUBMIT</v-btn
+          >
         </div>
       </v-flex>
       <v-flex xs12 sm12 mx-3 py-2 class="border-bottom">
@@ -40,7 +48,7 @@
             v-model="item.denial_description"
             class="normal-input"
             full-width
-            style="max-width:100%;"
+            style="max-width: 100%;"
           ></v-text-field>
         </v-flex>
       </v-flex>
@@ -49,45 +57,42 @@
 </template>
 
 <script type="text/javascript">
-  export default {
-    components: {},
+export default {
+  components: {},
 
-    props: {
-      item: {
-        type: Object,
-        required: true
-      },
-
-      dismiss: {
-        type: Function,
-        required: true
-      },
-
-      submission: {
-        type: Function,
-        required: true
-      }
+  props: {
+    item: {
+      type: Object,
+      required: true,
     },
 
-    data () {
-      return {
-        denial_reasons: [
-          'Did not complete application',
-          'Music was not mixed/mastered',
-          'Music was not your own',
-          'Currently not accepting submissions',
-          'Other reason'
-        ]
-      }
+    dismiss: {
+      type: Function,
+      required: true,
     },
 
-    computed: {
+    submission: {
+      type: Function,
+      required: true,
     },
+  },
 
-    created () {
-    },
-
-    methods: {
+  data() {
+    return {
+      denial_reasons: [
+        'Did not complete application',
+        'Music was not mixed/mastered',
+        'Music was not your own',
+        'Currently not accepting submissions',
+        'Other reason',
+      ],
     }
-  }
+  },
+
+  computed: {},
+
+  created() {},
+
+  methods: {},
+}
 </script>

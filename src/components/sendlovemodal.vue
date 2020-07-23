@@ -1,18 +1,38 @@
 <template>
-  <v-flex xs12 sm12 class="send-love-section" :class="{'transparent': showPaymentModal}">
-    <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()" v-if="!showPaymentModal"></v-flex>
+  <v-flex
+    xs12
+    sm12
+    class="send-love-section"
+    :class="{ transparent: showPaymentModal }"
+  >
+    <v-flex
+      xs12
+      sm12
+      class="dismiss-section"
+      @click="dismiss()"
+      v-if="!showPaymentModal"
+    ></v-flex>
     <v-layout row wrap class="popup-section" v-if="!showPaymentModal">
       <div class="top-section">
         <!-- <p class="title-label">Support this artist with your contribution</p> -->
         <p class="title-label">Send payment to</p>
       </div>
       <v-flex xs12 class="profile-section">
-      <label class="user-name">{{ item.display_name }}
-          <v-icon class="user-status" v-bind:class="{'online': item.status == 'active'}" v-if="item.user_type == 'artist'">fa-check-circle</v-icon>
+        <label class="user-name"
+          >{{ item.display_name }}
+          <v-icon
+            class="user-status"
+            v-bind:class="{ online: item.status == 'active' }"
+            v-if="item.user_type == 'artist'"
+            >fa-check-circle</v-icon
+          >
         </label>
         <!-- <router-link :to="'/' + item.slug"><div class="avatar-image" :style="{'background-image': 'url(' + item.avatar.thumb.url + ')'}"></div></router-link> -->
         <!-- <router-link :to="'/' + item.slug"><label class="user-name">{{ item.display_name }} <v-icon class="user-status" v-bind:class="{'online': item.status == 'active'}" v-if="item.user_type == 'artist'">fa-check-circle</v-icon></label></router-link> -->
-        <div class="avatar-image" :style="{'background-image': 'url(' + item.avatar.thumb.url + ')'}"></div>
+        <div
+          class="avatar-image"
+          :style="{ 'background-image': 'url(' + item.avatar.thumb.url + ')' }"
+        ></div>
       </v-flex>
       <!-- <v-flex xs12 class="donate-section">
         <v-btn class ="donate-amount-btn" @click.native="donateAmount(10)">$10</v-btn>
@@ -35,7 +55,9 @@
           :items="descriptions"
           class="pt-4"
         ></v-select>
-        <v-btn class ="download-btn" @click.native="showPaymentDialog()">Submit</v-btn>
+        <v-btn class="download-btn" @click.native="showPaymentDialog()"
+          >Submit</v-btn
+        >
       </v-flex>
     </v-layout>
 
@@ -50,118 +72,138 @@
 </template>
 
 <script type="text/javascript">
-  import AuthService from '@/services/auth'
-  import UserService from '@/services/user'
-  import paymentModal from '@/components/paymentmodal'
-  import { MyEvents } from '@/helper'
+import AuthService from '@/services/auth'
+import UserService from '@/services/user'
+import paymentModal from '@/components/paymentmodal'
+import { MyEvents } from '@/helper'
 
-  export default {
-    components: {
-      paymentModal
+export default {
+  components: {
+    paymentModal,
+  },
+
+  props: {
+    item: {
+      type: Object,
+      required: true,
     },
 
-    props: {
-      item: {
-        type: Object,
-        required: true
-      },
+    dismiss: {
+      type: Function,
+      required: true,
+    },
+  },
 
-      dismiss: {
-        type: Function,
-        required: true
+  data() {
+    return {
+      donate_amount: 0,
+      description: 'Donation',
+      descriptions: [
+        'Donation',
+        // 'Remix',
+        // 'Vocalist',
+        // 'Production',
+        // 'Vocal Production',
+        // 'Mixing',
+        // 'Mastering',
+        // 'Artwork',
+        // 'Writer',
+        // 'Session Musician'
+      ],
+      showPaymentModal: false,
+      buttonHover: false,
+    }
+  },
+
+  computed: {
+    followButtonText() {
+      if (this.item.is_following) {
+        return this.buttonHover ? 'Unfollow' : 'Following'
       }
+      return 'Follow'
     },
 
-    data () {
-      return {
-        donate_amount: 0,
-        description: 'Donation',
-        descriptions: [
-          'Donation'
-          // 'Remix',
-          // 'Vocalist',
-          // 'Production',
-          // 'Vocal Production',
-          // 'Mixing',
-          // 'Mastering',
-          // 'Artwork',
-          // 'Writer',
-          // 'Session Musician'
-        ],
-        showPaymentModal: false,
-        buttonHover: false
-      }
+    donate_amount_by_cent() {
+      return this.donate_amount * 100
+    },
+  },
+
+  created() {},
+
+  methods: {
+    donateAmount(amount) {
+      this.donate_amount = amount
     },
 
-    computed: {
-      followButtonText () {
-        if (this.item.is_following) {
-          return this.buttonHover ? 'Unfollow' : 'Following'
-        }
-        return 'Follow'
-      },
-
-      donate_amount_by_cent () {
-        return this.donate_amount * 100
-      }
-    },
-
-    created () {
-    },
-
-    methods: {
-      donateAmount (amount) {
-        this.donate_amount = amount
-      },
-
-      followUser () {
-        if (this.item.is_following) {
-          UserService.unfollowUser(this.item.id).then(response => {
-            this.$store.dispatch('error/showSuccessToast', ['You just unfollowed ' + this.item.display_name])
+    followUser() {
+      if (this.item.is_following) {
+        UserService.unfollowUser(this.item.id)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just unfollowed ' + this.item.display_name,
+            ])
             this.item.is_following = false
             // this.$store.dispatch('player/setUpdatedUser', this.item)
             this.$root.$emit(MyEvents.USER_FOLLOW, this.item.id, false)
-          }).catch(e => {
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
-        } else {
-          UserService.followUser(this.item.id).then(response => {
-            this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.item.display_name])
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
+      } else {
+        UserService.followUser(this.item.id)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just followed ' + this.item.display_name,
+            ])
             this.item.is_following = true
             // this.$store.dispatch('player/setUpdatedUser', this.item)
             this.$root.$emit(MyEvents.USER_FOLLOW, this.item.id, true)
-          }).catch(e => {
-            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           })
-        }
-      },
-
-      showPaymentDialog () {
-        if (this.donate_amount > 0) {
-          this.showPaymentModal = true
-        }
-      },
-
-      hidePaymentDialog () {
-        this.showPaymentModal = false
-      },
-
-      sendLove (token) {
-        this.dismiss()
-        let params = {
-          'amount': this.donate_amount_by_cent,
-          'description': this.description
-        }
-        if (token) {
-          params['payment_token'] = token.id
-        }
-        UserService.donateMoney(this.item.slug, params).then(response => {
-          this.$store.dispatch('error/showSuccessToast', [`You've donated $${this.donate_amount} to ${this.item.display_name}`])
-          AuthService.setUser(response.body)
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-        })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
       }
-    }
-  }
+    },
+
+    showPaymentDialog() {
+      if (this.donate_amount > 0) {
+        this.showPaymentModal = true
+      }
+    },
+
+    hidePaymentDialog() {
+      this.showPaymentModal = false
+    },
+
+    sendLove(token) {
+      this.dismiss()
+      let params = {
+        amount: this.donate_amount_by_cent,
+        description: this.description,
+      }
+      if (token) {
+        params['payment_token'] = token.id
+      }
+      UserService.donateMoney(this.item.slug, params)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            `You've donated $${this.donate_amount} to ${this.item.display_name}`,
+          ])
+          AuthService.setUser(response.body)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+  },
+}
 </script>

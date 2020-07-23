@@ -5,29 +5,29 @@ const autoplay = {
      */
     autoplay: {
       type: Boolean,
-      default: false
+      default: false,
     },
     /**
      * Time elapsed before next slide
      */
     autoplayTimeout: {
       type: Number,
-      default: 2000
+      default: 2000,
     },
     /**
      * Flag to pause autoplay on hover
      */
     autoplayHoverPause: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  data () {
+  data() {
     return {
-      autoplayInterval: null
+      autoplayInterval: null,
     }
   },
-  destroyed () {
+  destroyed() {
     this.pauseAutoplay()
 
     if (!this.$isServer) {
@@ -36,27 +36,27 @@ const autoplay = {
     }
   },
   methods: {
-    pauseAutoplay () {
+    pauseAutoplay() {
       if (this.autoplayInterval) {
         this.autoplayInterval = clearInterval(this.autoplayInterval)
       }
     },
-    startAutoplay () {
+    startAutoplay() {
       if (this.autoplay) {
         this.autoplayInterval = setInterval(() => {
           this.dir === 'ltr' ? this.goPrev() : this.goNext()
         }, this.autoplayTimeout)
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     if (!this.$isServer && this.autoplayHoverPause) {
       this.$el.addEventListener('mouseenter', this.pauseAutoplay)
       this.$el.addEventListener('mouseleave', this.startAutoplay)
     }
 
     this.startAutoplay()
-  }
+  },
 }
 
 export default autoplay

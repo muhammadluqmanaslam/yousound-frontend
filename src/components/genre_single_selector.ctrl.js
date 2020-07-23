@@ -7,17 +7,17 @@ export default {
   props: {
     dismiss: {
       type: Function,
-      required: true
+      required: true,
     },
   },
 
-  data () {
+  data() {
     return {
       genres: [],
       parent: null,
       parent_index: 0,
       show_selector_view: true,
-      isPageReady: true
+      isPageReady: true,
     }
   },
 
@@ -29,11 +29,11 @@ export default {
 
       set: function (newValue) {
         this.$store.dispatch('genreSelector/setGenres', [newValue])
-      }
-    }
+      },
+    },
   },
 
-  created () {
+  created() {
     // console.log('genreSelector', this.genre)
     this.genres = _.cloneDeep(this.$store.state.app.genres)
 
@@ -51,7 +51,7 @@ export default {
   },
 
   methods: {
-    checkChildGenre (parent, child) {
+    checkChildGenre(parent, child) {
       // console.log('checkChildGenre', parent, child)
       _.each(this.genres, (pg) => {
         pg.value = false
@@ -62,14 +62,14 @@ export default {
       this.genre = child
     },
 
-    selectParent (parent, index) {
+    selectParent(parent, index) {
       this.show_selector_view = false
       this.parent = parent
       this.parent_index = index
     },
 
-    groupChildrenByRegion (parent) {
+    groupChildrenByRegion(parent) {
       return _.groupBy(parent.children, 'region')
     },
-  }
+  },
 }

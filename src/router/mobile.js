@@ -11,7 +11,7 @@ import LandingPage from '@/views/mobile/landing/landing'
 
 Vue.use(Router)
 
-export function createMobileRouter () {
+export function createMobileRouter() {
   let routes = [
     { path: '/', name: 'LandingPage', component: LandingPage },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
@@ -20,11 +20,11 @@ export function createMobileRouter () {
     { path: '/terms', name: 'TermIndex', component: TermIndex },
     { path: '/album/:slug', name: 'AlbumShow', component: AlbumShow },
     { path: '/product/:slug', name: 'ProductShow', component: ProductShow },
-    { path: '*', redirect: '/' }
+    { path: '*', redirect: '/' },
   ]
 
   return new Router({
     mode: 'history',
-    routes: routes
+    routes: routes,
   })
 }
