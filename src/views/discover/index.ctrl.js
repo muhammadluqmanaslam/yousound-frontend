@@ -1,3 +1,5 @@
+/* global $:true */
+
 import _ from 'lodash'
 import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
@@ -66,7 +68,7 @@ export default {
     filtered_feeds() {
       if (this.selected_genre) {
         return _.filter(this.feeds, (feed) =>
-          _.find(feed.genres, (genre) => genre.id == this.selected_genre.id)
+          _.find(feed.genres, (genre) => genre.id === this.selected_genre.id)
         )
       } else {
         return this.feeds
@@ -105,12 +107,12 @@ export default {
 
   methods: {
     isActiveTab(tab) {
-      return this.activeTab == tab
+      return this.activeTab === tab
     },
 
     loadFeeds(tab, page) {
       const vm = this
-      if (page == 1) {
+      if (page === 1) {
         this.isPageReady = false
       }
       this.$store.dispatch('error/showLoadingActivity', true)
@@ -158,7 +160,7 @@ export default {
           this.page_index = response.body.pagination.current_page
           this.total_pages = response.body.pagination.total_pages
 
-          if (page == 1) {
+          if (page === 1) {
             Promise.all([
               SearchService.searchDiscover(_.extend(params, { page: 2 })),
               SearchService.searchDiscover(_.extend(params, { page: 3 })),
@@ -233,7 +235,7 @@ export default {
     },
 
     filterByCategory(category) {
-      if (this.selected_category == category) return
+      if (this.selected_category === category) return
 
       $('#category_selector .btn__content').html(
         category.name + filterArrowDownString

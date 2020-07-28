@@ -43,7 +43,12 @@
       </div>
     </div>
 
-    <v-dialog v-else v-model="show_error_dialog" content-class="my-dialog-1">
+    <v-dialog
+      v-else
+      v-model="show_error_dialog"
+      content-class="my-dialog-1"
+      persistent
+    >
       <v-card>
         <v-card-media
           :src="_.get(receiver, 'avatar.thumb.url')"
@@ -78,8 +83,12 @@ import { Card, createToken } from 'vue-stripe-elements'
 
 export default {
   props: {
-    receiver: {
-      type: Object,
+    // receiver: {
+    //   type: Object,
+    // },
+
+    receivers: {
+      type: Array,
     },
 
     amount: {
@@ -105,6 +114,7 @@ export default {
   data() {
     return {
       stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
+      receiver: {},
       sent_payment: false,
       complete: false,
       stripeOptions: {},
@@ -119,7 +129,17 @@ export default {
     },
 
     stripeConnected() {
-      return this._.get(this.receiver, 'stripe_connected', false)
+      // return this._.get(this.receiver, 'stripe_connected', false)
+      const receiver = this._.find(
+        this.receivers,
+        (user) => user.stripe_connected === false
+      )
+      if (receiver) {
+        this.receiver = receiver
+        return false
+      } else {
+        return true
+      }
     },
   },
 
@@ -158,19 +178,16 @@ export default {
 .box {
   z-index: 20;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
   width: 360px;
   padding: 0;
   max-width: 800px;
-  margin-top: calc(50vh - 320px);
-  margin-left: auto;
-  margin-right: auto;
+  transform: translate(-50%, -50%);
   background-color: #3a92ff;
   color: #ffffff;
   box-shadow: 0 30px 55.5px 0 rgba(0, 0, 0, 0.3);
   border-radius: 7.5px;
-  position: relative;
   overflow: hidden;
 
   &__header {

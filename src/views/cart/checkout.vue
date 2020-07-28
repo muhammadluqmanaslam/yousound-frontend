@@ -179,7 +179,7 @@
 
     <payment-modal
       v-if="showPaymentModal"
-      :type="''"
+      :receivers="merchants"
       :amount="cartCost.total_cost"
       :dismiss="closePaymentDialog"
       :finish="orderItems"

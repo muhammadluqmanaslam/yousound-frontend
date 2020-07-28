@@ -1,3 +1,4 @@
+import AuthService from '@/services/auth'
 import AddressService from '@/services/address'
 import ItemService from '@/services/item'
 import paymentModal from '@/components/paymentmodal'
@@ -29,10 +30,14 @@ export default {
     currentUser() {
       return this.$store.state.auth.user
     },
+
+    merchants() {
+      return this.cartItems.map((item) => item.product.merchant)
+    },
   },
 
   created() {
-    if (!this.$store.state.auth.user) {
+    if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
@@ -40,10 +45,10 @@ export default {
 
     this.$store.dispatch('navigator/goNextState', { page: 'checkout', tab: '' })
     let params = {}
-    if (this.$store.state.auth.user.default_address) {
-      this.shippingAddress.push(this.$store.state.auth.user.default_address)
-      params.country = this.$store.state.auth.user.default_address.country
-      params.state = this.$store.state.auth.user.default_address.state
+    if (this.currentUser.default_address) {
+      this.shippingAddress.push(this.currentUser.default_address)
+      params.country = this.currentUser.default_address.country
+      params.state = this.currentUser.default_address.state
     }
 
     this.isPageReady = false
@@ -70,7 +75,7 @@ export default {
 
   methods: {
     isDigitalProduct(item) {
-      return _.get(item, 'product.category.is_digital', false)
+      return this._.get(item, 'product.category.is_digital', false)
     },
 
     productStatus(item) {
@@ -146,8 +151,8 @@ export default {
             `deleted ${cartItem.product.name} successfully.`,
           ])
           this.cartCost = response.body
-          _.remove(this.cartItems, (item) => {
-            return item.id == cartItem.id
+          this._.remove(this.cartItems, (item) => {
+            return item.id === cartItem.id
           })
           const arr = this.cartItems.slice()
           this.cartItems = arr
@@ -202,7 +207,7 @@ export default {
     },
 
     openPaymentDialog() {
-      if (this.shippingAddress.length == 0) {
+      if (this.shippingAddress.length === 0) {
         this.$store.dispatch('error/showErrorToast', [
           'Please add Shipping Address.',
         ])

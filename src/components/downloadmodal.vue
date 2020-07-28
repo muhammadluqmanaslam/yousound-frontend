@@ -85,7 +85,6 @@
 
     <payment-modal
       v-if="showPaymentModal"
-      :type="''"
       :amount="donate_amount_by_cent"
       :dismiss="hidePaymentDialog"
       :finish="sendLove"

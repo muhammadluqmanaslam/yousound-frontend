@@ -4,7 +4,7 @@
     <v-layout row wrap class="popup-section">
       <v-flex xs12 text-xs-center class="modal__header">
         <p>
-          You are requesting a request from <span>{{ user.display_name }}</span>
+          You are requesting a repost from <span>{{ user.display_name }}</span>
         </p>
       </v-flex>
 
@@ -30,42 +30,22 @@
           </p>
 
           <v-flex xs12 class="payment-section">
-            <v-radio-group
-              v-model="payment_method"
-              :mandatory="false"
-              hide-details
-            >
-              <v-radio
-                :label="`Balance (Available: $${Filter.formatNumber(
-                  $store.state.auth.user.balance_amount
-                )})`"
-                value="balance"
-                :disabled="$store.state.auth.user.balance_amount < amount"
-              ></v-radio>
-              <v-radio label="Credit Card" value="stripe"></v-radio>
-              <card
-                class="stripe-card pa-2"
-                :class="{ complete }"
-                :stripe="stripe_publishable_key"
-                :options="stripeOptions"
-                @change="complete = $event.complete"
-                v-show="payment_method == 'stripe'"
-              />
-            </v-radio-group>
-            <div
-              class="fee-section pl-2 pr-2"
-              v-if="payment_method == 'stripe'"
-            >
-              <label class="fee-amount">fee: ${{ fee }}</label>
+            <card
+              class="stripe-card pa-2"
+              :class="{ complete }"
+              :stripe="stripe_publishable_key"
+              :options="stripeOptions"
+              @change="complete = $event.complete"
+            />
+            <div class="fee-section pl-2 pr-2">
+              <label class="fee-amount">fee: ${{ fee | formatNumber }}</label>
             </div>
           </v-flex>
           <v-flex xs12 text-xs-center class="action-section">
             <v-btn
               class="pay-btn"
               @click.native="sendPayment()"
-              :disabled="
-                sent_payment || (payment_method == 'stripe' && !complete)
-              "
+              :disabled="sent_payment || !complete"
               >Pay: ${{ amount | formatNumber }}</v-btn
             >
           </v-flex>
@@ -118,7 +98,6 @@ export default {
   data() {
     return {
       stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
-      payment_method: 'balance',
       sent_payment: false,
       complete: false,
       stripeOptions: {},
@@ -170,22 +149,15 @@ export default {
 
   created() {
     const total = (this.amount + 30) / 0.971
-    this.fee = ((total - this.amount) / 100).toFixed(2)
-    if (this.$store.state.auth.user.balance_amount < this.amount) {
-      this.payment_method = 'stripe'
-    }
+    this.fee = total - this.amount
   },
 
   methods: {
     sendPayment() {
       this.sent_payment = true
-      if (this.payment_method === 'stripe') {
-        createToken().then((data) => {
-          this.finish(data.token)
-        })
-      } else {
-        this.finish(null)
-      }
+      createToken().then((data) => {
+        this.finish(data.token)
+      })
     },
   },
 }

@@ -63,7 +63,7 @@ export default {
 
   methods: {
     isActiveTab(tab) {
-      return this.activeTab == tab
+      return this.activeTab === tab
     },
 
     loadFeeds(filter) {

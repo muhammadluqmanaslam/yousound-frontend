@@ -63,7 +63,7 @@
 
     <payment-modal
       v-if="showPaymentModal"
-      :receiver="item"
+      :receivers="[item]"
       :amount="donate_amount_by_cent"
       :dismiss="hidePaymentDialog"
       :finish="sendLove"

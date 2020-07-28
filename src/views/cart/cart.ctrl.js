@@ -2,6 +2,7 @@ import _ from 'lodash'
 
 import { Utils } from '@/helper'
 
+import AuthService from '@/services/auth'
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
 
@@ -67,7 +68,7 @@ export default {
 
   methods: {
     isActiveTab(tab) {
-      return this.active_tab == tab
+      return this.active_tab === tab
     },
 
     init(tab) {
@@ -151,7 +152,7 @@ export default {
     },
 
     isAddressEnabled(order) {
-      return order.status == 'order_shipped' && order.enabled_address
+      return order.status === 'order_shipped' && order.enabled_address
     },
 
     download(item) {
@@ -277,7 +278,7 @@ export default {
           ])
           this.cartCost = response.body
           _.remove(this.cartItems, (item) => {
-            return item.id == cartItem.id
+            return item.id === cartItem.id
           })
           const arr = this.cartItems.slice()
           this.cartItems = arr
