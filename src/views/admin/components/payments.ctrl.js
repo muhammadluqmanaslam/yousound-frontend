@@ -1,6 +1,4 @@
-import _ from 'lodash'
-
-import AdminService from '@/services/admin'
+// import AdminService from '@/services/admin'
 import PaymentService from '@/services/payment'
 
 export default {

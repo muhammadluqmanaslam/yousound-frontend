@@ -257,9 +257,33 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog
+      v-model="show_stripe_connect_dialog"
+      content-class="my-dailog-1"
+      persistent
+    >
+      <v-card>
+        <v-card-text>
+          <div class="headline">Stripe Connect</div>
+          <div>You have to connect stripe in setting page.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            dark
+            round
+            color="blue"
+            @click.native="closeStripeConnectDialog()"
+            class="px-4"
+            >Ok, Got it!</v-btn
+          >
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <payment-modal
       v-if="show_payment_dialog"
-      :type="''"
       :amount="streamCost"
       :dismiss="closePaymentDialog"
       :finish="deposit"

@@ -8,7 +8,7 @@ body {
 
 // div#app {
 .application {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-family: 'Raleway', sans-serif;
 
   .my-footer {
@@ -21,18 +21,18 @@ body {
     a {
       font-weight: 500;
       font-size: 16px;
-      color: #1F1F1F;
+      color: #1f1f1f;
       letter-spacing: 0;
       text-decoration: none;
       margin-right: 24px;
-      font-family: 'Open Sans',sans-serif;
+      font-family: 'Open Sans', sans-serif;
     }
     .copyright {
       display: inline-block;
       font-size: 15px;
-      color: #A8A8A8;
+      color: #a8a8a8;
       letter-spacing: 0;
-      font-family: 'Open Sans',sans-serif;
+      font-family: 'Open Sans', sans-serif;
     }
   }
 
@@ -42,39 +42,39 @@ body {
 
     .my-footer {
       a {
-        color: #FFF;
+        color: #fff;
       }
       .copyright {
-        color: #FFF;
+        color: #fff;
       }
     }
 
     .track-card .track-info .track-detail .track-name {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     .track-card .track-info .track-detail .track-user-name {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     .video-card .video-info .video-detail .video-name {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     .video-card .video-info .video-detail .video-user-name {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     .product-card .product-info .product-detail .product-name {
-      color: #FFFFFF;
+      color: #ffffff;
     }
     .product-card .product-info .product-detail .product-user-name {
-      color: #FFFFFF;
+      color: #ffffff;
     }
   }
 
   &.gray {
-    background-color: #FFF;
+    background-color: #fff;
   }
 
   &.theme--light {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
   }
 
   &.app-header {
@@ -110,12 +110,13 @@ body {
     font-size: 14px;
     color: #262626;
     letter-spacing: 0;
-    white-space: pre;
+    // white-space: pre;
+    white-space: nowrap;
   }
   input + label:before {
     content: '';
-    background: #FFFFFF;
-    border: 0.75px solid #D2D2D2;
+    background: #ffffff;
+    border: 0.75px solid #d2d2d2;
     border-radius: 1.5px;
     display: inline-block;
     vertical-align: middle;
@@ -127,13 +128,13 @@ body {
     text-align: center;
   }
   input:checked + label:after {
-    content: "";
+    content: '';
     padding: 1.5px;
     text-align: center;
     position: absolute;
     width: 0.75px;
     height: 9px;
-    border: solid #3A92FF;
+    border: solid #3a92ff;
     border-width: 0 2.25px 2.25px 0;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
@@ -152,7 +153,7 @@ body {
 
 .snack.error {
   .material-icons.icon {
-    color: #FFF;
+    color: #fff;
   }
 }
 .loading-section {
@@ -163,7 +164,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 .loading-activity {
   top: 45vh;
@@ -184,7 +185,7 @@ a {
   background: none !important;
   border: none;
   box-shadow: none;
-  margin:0;
+  margin: 0;
   // padding-top: 10px;
   &:hover {
     background: none !important;
@@ -324,11 +325,11 @@ img.colorify:not(.all-loaded).all-not-loaded {
 }
 
 .primary-input,
-input[type=text],
-input[type=email],
-input[type=password] {
-  background: #FFFFFF;
-  border: 0.75px solid #D2D2D2;
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+  background: #ffffff;
+  border: 0.75px solid #d2d2d2;
   border-radius: 3.75px;
   font-weight: 400;
   font-size: 16px;
@@ -348,27 +349,27 @@ input[type=password] {
 }
 
 .border-top {
-  border-top: 1px solid #D2D2D247;
+  border-top: 1px solid #d2d2d247;
 }
 
 .border-bottom {
-  border-bottom: 1px solid #D2D2D247;
+  border-bottom: 1px solid #d2d2d247;
 }
 
 .border-left {
-  border-left: 1px solid #D2D2D2;
+  border-left: 1px solid #d2d2d2;
 }
 
 .border-right {
-  border-right: 1px solid #D2D2D2;
+  border-right: 1px solid #d2d2d2;
 }
 
 .required {
-  color: #E72A41;
+  color: #e72a41;
 }
 
 [disabled] {
-  background-color: #FAFAFA !important;
+  background-color: #fafafa !important;
 }
 
 .user-status {
@@ -376,7 +377,7 @@ input[type=password] {
   font-size: 16px;
   vertical-align: super;
   &.online {
-    color: #31BB25;
+    color: #31bb25;
   }
   &.away {
   }
@@ -393,7 +394,8 @@ input[type=password] {
 }
 
 .default-menu-item {
-  img, i {
+  img,
+  i {
     vertical-align: middle;
     margin-right: 9px;
     width: 15px;
@@ -438,7 +440,7 @@ input[type=password] {
   border-radius: 100px;
   font-weight: 600;
   font-size: 18px;
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   letter-spacing: 0;
 }
 

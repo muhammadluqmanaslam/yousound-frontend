@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import Vue from 'vue'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
 import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
@@ -84,7 +83,7 @@ export default {
     streamUrl() {
       const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
       const pos = url.lastIndexOf('/')
-      if (pos == -1) {
+      if (pos === -1) {
         return url
       } else {
         return url.substr(0, pos)
@@ -94,7 +93,7 @@ export default {
     streamKey() {
       const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
       const pos = url.lastIndexOf('/')
-      if (pos == -1) {
+      if (pos === -1) {
         return url
       } else {
         return url.substr(pos + 1)
@@ -267,7 +266,7 @@ export default {
     },
 
     saveViewersLimit(value) {
-      if (value == this.viewers_limit) return
+      if (value === this.viewers_limit) return
 
       const params = {
         stream: {
@@ -376,8 +375,7 @@ export default {
           amount: this.streamCost,
         }
         PaymentService.makeDeposit(params)
-          .then((response) => {
-            AuthService.setUser(response.body)
+          .then(() => {
             this.addMoreTime()
           })
           .catch((e) => {
@@ -488,7 +486,7 @@ export default {
         .then((response) => {
           // / close the video player if watching own live video
           if (
-            _.get(this.$store.state.videoPlayer.stream, 'id') ==
+            _.get(this.$store.state.videoPlayer.stream, 'id') ===
             this.currentUser.stream.id
           ) {
             this.$root.$emit(MyEvents.VIDEO_PLAYER_SHUTDOWN)

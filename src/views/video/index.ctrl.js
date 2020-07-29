@@ -1,6 +1,5 @@
 // import { VideoGenres } from '@/helper'
 import StreamService from '@/services/stream'
-
 import VideoBox from '@/components/video_box'
 // import VideoDetailBox from '@/components/video_detail_box'
 
@@ -37,8 +36,8 @@ export default {
 
     selected_genre() {
       const genre =
-        _.find(this.available_genres, { id: this.activeTab }) ||
-        _.find(this.available_genres, { id: 0 })
+        this._.find(this.available_genres, { id: this.activeTab }) ||
+        this._.find(this.available_genres, { id: 0 })
       // console.log('selected_genre', this.available_genres, genre)
       return genre
     },
@@ -63,7 +62,7 @@ export default {
           this.videoGenres = response.body.genres
           this.$store.dispatch('error/showLoadingActivity', false)
         })
-        .catch((err) => {
+        .catch(() => {
           this.$store.dispatch('error/showLoadingActivity', false)
         })
     },
@@ -73,7 +72,7 @@ export default {
     },
 
     setTab(tab) {
-      if (this.activeTab != tab) {
+      if (this.activeTab !== tab) {
         this.activeTab = tab < 0 ? 0 : tab
         this.videos.length = 0
         this.pagination.current_page = 0
@@ -84,7 +83,7 @@ export default {
 
   watch: {
     $route(toPath, fromPath) {
-      this.only_follows = toPath.hash.substr(1) == 'follows'
+      this.only_follows = toPath.hash.substr(1) === 'follows'
       // console.log('$route', this.only_follows)
       this.setTab(-1)
     },

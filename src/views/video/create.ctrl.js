@@ -1,15 +1,12 @@
-import _ from 'lodash'
-import { VideoGenres } from '@/helper'
-
 import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
 import StreamService from '@/services/stream'
 import UserService from '@/services/user'
-
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
 
 import {
+  VideoGenres,
   MediaLiveInputTypes,
   MediaLiveInputCodecs,
   MediaLiveInputResolutions,
@@ -61,6 +58,7 @@ export default {
         value: null,
       },
       show_payment_dialog: false,
+      show_stripe_connect_dialog: false,
       show_help_dialog: false,
       show_attach_picker: false,
       isPageReady: false,
@@ -111,6 +109,10 @@ export default {
       page: 'broadcast',
       tab: '',
     })
+
+    if (!this.currentUser.stripe_connected) {
+      this.openStripeConnectDialog()
+    }
 
     // if (this.currentUser.data['video_page_visited'] !== 1) {
     //   this.openHelpDialog()
@@ -167,6 +169,15 @@ export default {
       )
     },
 
+    openStripeConnectDialog() {
+      this.show_stripe_connect_dialog = true
+    },
+
+    closeStripeConnectDialog() {
+      this.show_stripe_connect_dialog = false
+      this.$router.push({ path: '/settings#bank-details' })
+    },
+
     openPaymentDialog() {
       this.$validator
         .validateAll()
@@ -200,8 +211,7 @@ export default {
           // amount: StreamHourlyPrice
         }
         PaymentService.makeDeposit(params)
-          .then((response) => {
-            AuthService.setUser(response.body)
+          .then(() => {
             this.submit()
           })
           .catch((e) => {
