@@ -85,6 +85,7 @@
 
     <payment-modal
       v-if="showPaymentModal"
+      :receivers="[trackUser]"
       :amount="donate_amount_by_cent"
       :dismiss="hidePaymentDialog"
       :finish="sendLove"
@@ -94,17 +95,16 @@
 
 <script type="text/javascript">
 import _ from 'lodash'
-import AuthService from '@/services/auth'
 import AlbumService from '@/services/album'
 import TrackService from '@/services/track'
 import UserService from '@/services/user'
-import paymentModal from '@/components/paymentmodal'
+import PaymentModal from '@/components/paymentmodal'
 // import { Utils } from '@/helper'
 import { Filter, MyEvents } from '@/helper'
 
 export default {
   components: {
-    paymentModal,
+    PaymentModal,
   },
 
   props: {
@@ -270,9 +270,10 @@ export default {
       UserService.donateMoney(this.trackUser.slug, params)
         .then((response) => {
           this.$store.dispatch('error/showSuccessToast', [
-            `You sent user $${Filter.formatNumber(this.donate_amount_by_cent)}`,
+            `You've sent user $${Filter.formatNumber(
+              this.donate_amount_by_cent
+            )}`,
           ])
-          AuthService.setUser(response.body)
           this.downloadItem()
         })
         .catch((e) => {

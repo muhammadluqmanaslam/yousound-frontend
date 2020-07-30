@@ -222,7 +222,6 @@
 
       <payment-modal
         v-if="show_payment_dialog"
-        :type="''"
         :amount="streamCost"
         :dismiss="closePaymentDialog"
         :finish="deposit"

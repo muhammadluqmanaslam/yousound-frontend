@@ -72,7 +72,6 @@
 </template>
 
 <script type="text/javascript">
-import AuthService from '@/services/auth'
 import UserService from '@/services/user'
 import paymentModal from '@/components/paymentmodal'
 import { MyEvents } from '@/helper'
@@ -195,7 +194,6 @@ export default {
           this.$store.dispatch('error/showSuccessToast', [
             `You've donated $${this.donate_amount} to ${this.item.display_name}`,
           ])
-          AuthService.setUser(response.body)
         })
         .catch((e) => {
           this.$store.dispatch(

@@ -90,7 +90,6 @@
 
     <payment-modal
       v-if="show_payment_modal"
-      :type="''"
       :amount="proration.add_amount"
       :dismiss="closePaymentModal"
       :finish="setRepostPrice"
