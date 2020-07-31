@@ -46,7 +46,7 @@
               class="pay-btn"
               @click.native="sendPayment()"
               :disabled="sent_payment || !complete"
-              >Pay: ${{ amount | formatNumber }}</v-btn
+              >Pay: ${{ (amount + fee) | formatNumber }}</v-btn
             >
           </v-flex>
         </div>
