@@ -60,7 +60,7 @@ export default {
 
     disableWithdrawButton() {
       return (
-        this.withdraw_option != 'all' &&
+        this.withdraw_option !== 'all' &&
         (!this.withdraw_amount ||
           this.withdraw_amount < 1 ||
           this.currentUser.available_amount < this.withdraw_amount)
@@ -72,7 +72,7 @@ export default {
     },
 
     withdrawAmount() {
-      if (this.withdraw_option == 'all') {
+      if (this.withdraw_option === 'all') {
         return this.currentUser.available_amount
       } else {
         return parseInt(this.withdraw_amount * 100)
@@ -82,7 +82,7 @@ export default {
 
   methods: {
     isActiveTab(tab) {
-      return this.active_tab == tab
+      return this.active_tab === tab
     },
 
     showSendMessageDialog(history) {
@@ -213,7 +213,7 @@ export default {
           if (items.length > 0) {
             refund_amount = items.reduce((amount, item) => {
               if (
-                item.status != 'item_refunded' &&
+                item.status !== 'item_refunded' &&
                 item.refund &&
                 item.refund_amount_in_dollar > 0
               ) {
@@ -245,7 +245,7 @@ export default {
         case 'buy':
           this.payment.order.items.forEach((item) => {
             if (
-              item.status != 'item_refunded' &&
+              item.status !== 'item_refunded' &&
               item.refund &&
               item.refund_amount_in_dollar > 0
             ) {
@@ -377,7 +377,7 @@ export default {
     },
 
     loadMore() {
-      this.loadPayments(this.tab, this.page_index + 1)
+      this.loadPayments(this.active_tab, this.page_index + 1)
     },
 
     withdrawMoney() {

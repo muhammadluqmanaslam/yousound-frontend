@@ -8,7 +8,7 @@ export default {
     return {
       tabs: [
         { id: 'all', title: 'All Transactions' },
-        { id: 'refunded', title: 'Refunded Transactions' },
+        // { id: 'refunded', title: 'Refunded Transactions' },
       ],
       active_tab: 'all',
       headers: [

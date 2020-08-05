@@ -5,24 +5,10 @@
         <div class="tab-container pr-3">
           <h2 class="page-title">Payments</h2>
 
-          <div class="wallet-section mb-4">
-            <label class="">Total</label>
-            <label class="available-money-amount">
-              ${{ currentUser.balance_amount | formatNumber }}
-              <label class="currency">USD</label>
-            </label>
-            <div class="action-section">
-              <!-- a class="link-btn" @click.self="openWithdrawModal()">Withdraw Funds</a>
-              <label>|</label> -->
-              <a
-                v-if="!$store.state.auth.user.stripe_connected"
-                :href="stripeLink"
-                target="_self"
-              >
-                Connect Stripe Account
-              </a>
-              <!-- <a v-else class="link-btn">View Stripe Account</a> -->
-            </div>
+          <div v-if="currentUser.stripe_connected" class="wallet-section mb-4">
+            <a href="https://stripe.com" target="_blank"
+              >View Stripe Dashboard</a
+            >
           </div>
 
           <ul>
@@ -58,7 +44,7 @@
               <th width="25%">Type</th>
               <th width="10%">Status</th>
               <th width="10%">Date</th>
-              <th
+              <!-- <th
                 width="10%"
                 v-if="
                   ['listener', 'moderator'].indexOf(currentUser.user_type) ==
@@ -66,7 +52,7 @@
                 "
               >
                 Refund
-              </th>
+              </th> -->
               <!-- <th width="10%">Message</th> -->
             </tr>
           </thead>
@@ -133,7 +119,7 @@
               <td class="text-xs-center">
                 {{ history.created_at | formatDate }}
               </td>
-              <td
+              <!-- <td
                 class="text-xs-center"
                 v-if="
                   ['listener', 'moderator'].indexOf(currentUser.user_type) ==
@@ -150,7 +136,7 @@
                   >Refund</v-btn
                 >
                 <span v-else class="red--text">{{ canRefund(history) }}</span>
-              </td>
+              </td> -->
               <!-- <td class="text-xs-center">
                 <v-btn class="send-message-btn" @click.native="showSendMessageDialog(history)">Message</v-btn>
               </td> -->
