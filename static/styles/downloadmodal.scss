@@ -41,8 +41,8 @@
     // margin-top: calc(50vh - 246px);
     margin-left: auto;
     margin-right: auto;
-    background: #FFFFFF;
-    box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+    background: #ffffff;
+    box-shadow: 0 30px 55.5px 0 rgba(0, 0, 0, 0.3);
     border-radius: 7.5px;
     padding: 22.5px;
     position: relative;
@@ -85,8 +85,8 @@
         font-size: 13.5px;
         letter-spacing: 0;
         &.follow {
-          color: #3A92FF !important;
-          border: 0.75px solid #3A92FF;
+          color: #3a92ff !important;
+          border: 0.75px solid #3a92ff;
         }
         &.following {
           color: #000 !important;
@@ -112,6 +112,7 @@
         border-radius: 8px;
       }
       .item-name {
+        margin: 0;
         padding-top: 12px;
         font-size: 18px;
         color: #000000;
@@ -120,7 +121,7 @@
       }
     }
     .donate-section {
-      padding-top: 0;
+      margin-top: 20px;
       text-align: center;
       .donate-amount-btn {
         text-transform: none;
@@ -130,7 +131,7 @@
         min-width: 52px;
         width: 58px;
         margin: 2px;
-        border: 1px solid #E1E1E1;
+        border: 1px solid #e1e1e1;
         border-radius: 4px;
         font-size: 14px;
         color: #000000;
@@ -144,25 +145,27 @@
         border: none;
         border-radius: 0;
         text-align: center;
-        border-bottom: 0.75px solid #CECECE;
+        border-bottom: 0.75px solid #cecece;
         font-size: 22.5px;
         // color: #CECECE;
         letter-spacing: -1.1.5px;
-        &:focus, &:hover, &:active {
+        &:focus,
+        &:hover,
+        &:active {
           outline: none;
           // background: rgba(150, 150, 150, 0.2);
         }
         &::-webkit-input-placeholder {
-          color:#ABABAB;
+          color: #ababab;
         }
         &:-moz-placeholde {
-          color:#ABABAB;
+          color: #ababab;
         }
         &::-moz-placeholder {
-          color:#ABABAB;
+          color: #ababab;
         }
         &:-ms-input-placeholder {
-          color:#ABABAB;
+          color: #ababab;
         }
       }
       .download-btn {
@@ -171,19 +174,19 @@
         height: 37.5px;
         width: 187.5px;
         margin: 18.75px 0 0;
-        background: #3A92FF !important;
+        background: #3a92ff !important;
         border-radius: 75px;
         font-weight: 600;
         font-size: 15px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
       }
       .pa-2 {
-        padding: 6px!important;
-       width: 25px;
-       height: 27px;
-       margin-left: -6px;
-       }
+        padding: 6px !important;
+        width: 25px;
+        height: 27px;
+        margin-left: -6px;
+      }
     }
   }
 }

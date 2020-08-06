@@ -50,31 +50,38 @@
         <p class="item-name" v-if="track">{{ track.name }}</p>
         <p class="item-name" v-else>{{ item.name }}</p>
       </v-flex>
-      <v-flex xs12 class="donate-section">
-        <v-btn class="donate-amount-btn" @click.native="donateAmount(5)"
-          >$5</v-btn
-        >
-        <v-btn class="donate-amount-btn" @click.native="donateAmount(10)"
-          >$10</v-btn
-        >
-        <v-btn class="donate-amount-btn" @click.native="donateAmount(20)"
-          >$20</v-btn
-        >
-        <v-btn class="donate-amount-btn" @click.native="donateAmount(50)"
-          >$50</v-btn
-        >
-      </v-flex>
+
+      <template v-if="trackUser.stripe_connected">
+        <v-flex xs12 class="donate-section">
+          <v-btn class="donate-amount-btn" @click.native="donateAmount(5)"
+            >$5</v-btn
+          >
+          <v-btn class="donate-amount-btn" @click.native="donateAmount(10)"
+            >$10</v-btn
+          >
+          <v-btn class="donate-amount-btn" @click.native="donateAmount(20)"
+            >$20</v-btn
+          >
+          <v-btn class="donate-amount-btn" @click.native="donateAmount(50)"
+            >$50</v-btn
+          >
+        </v-flex>
+
+        <v-flex xs12 class="input-section">
+          <vue-numeric
+            currency="$"
+            currency-symbol-position="prefix"
+            separator=","
+            :precision="2"
+            :min="0"
+            v-model="donate_amount"
+            class="donate-amount form-control"
+          />
+        </v-flex>
+      </template>
+
       <v-flex xs12 class="input-section">
-        <vue-numeric
-          currency="$"
-          currency-symbol-position="prefix"
-          separator=","
-          :precision="2"
-          :min="0"
-          v-model="donate_amount"
-          class="donate-amount form-control"
-        />
-        <v-btn class="download-btn" @click.native="showPaymentDialog()">
+        <v-btn class="download-btn mt-0" @click.native="showPaymentDialog()">
           <img
             class="pa-2"
             src="/static/images/ic_download_white.png"
