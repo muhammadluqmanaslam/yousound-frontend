@@ -1,3 +1,5 @@
+/* global $:true */
+
 import _ from 'lodash'
 import { mixin as onClickOutside } from 'vue-on-click-outside'
 import { Utils } from '@/helper'
@@ -77,8 +79,12 @@ export default {
       return this.$store.state.auth.user
     },
 
-    other_name() {
+    otherName() {
       return _.get(this.conversation, 'other.display_name', '')
+    },
+
+    otherStripeConnected() {
+      return _.get(this.conversation, 'other.stripe_connected', false)
     },
 
     toLocalTimeString() {
@@ -103,7 +109,7 @@ export default {
     //   this.show_stopPopup = true
     // }
 
-    if (['brand'].indexOf(this.currentUser.user_type) != -1) {
+    if (['brand'].indexOf(this.currentUser.user_type) !== -1) {
       this.tab = 'merch'
     }
     this.loadConversations()
@@ -129,12 +135,12 @@ export default {
           const other_id = _.get(vm.conversation, 'other.id', '')
           // console.log(data, data.sender.id, other_id)
           if (
-            data.sender.id == other_id ||
-            data.sender.id == vm.currentUser.id
+            data.sender.id === other_id ||
+            data.sender.id === vm.currentUser.id
           ) {
             const messageIndex = _.findIndex(
               vm.messages,
-              (message) => message.id == data.id
+              (message) => message.id === data.id
             )
             if (messageIndex === -1) {
               vm.messages.push(data)
@@ -307,10 +313,6 @@ export default {
         })
       this.closeBlockUserConfirmDialog()
     },
-
-    showAllMessages() {},
-
-    showRepostRequests() {},
 
     addEmoji(emoji, event) {
       // console.log('addEmoji')

@@ -1,10 +1,12 @@
 <template>
-  <v-flex xs12 sm12 class="repost-payment-modal">
-    <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
-    <v-layout row wrap class="popup-section">
+  <div class="repost-payment-modal">
+    <div class="dismiss-section" @click="dismiss()"></div>
+
+    <v-layout row wrap class="popup-section" v-if="!show_error_dialog">
       <v-flex xs12 text-xs-center class="modal__header">
         <p>
-          You are requesting a repost from <span>{{ user.display_name }}</span>
+          You are requesting a repost from
+          <span>{{ receiver.display_name }}</span>
         </p>
       </v-flex>
 
@@ -20,13 +22,13 @@
         <div class="payment">
           <p>
             This user charge
-            <strong>${{ user.repost_price | formatNumber }}</strong> for repost
-            requests.
+            <strong>${{ receiver.repost_price | formatNumber }}</strong> for
+            repost requests.
           </p>
           <p>
             You card isn't charged unless this user choose to repost your
             content. Users can accept, deny, or repost for free. If the user
-            doesn't respond in 3 days, the request is automatically denied
+            doesn't respond in 1 day, the request is automatically denied
           </p>
 
           <v-flex xs12 class="payment-section">
@@ -56,7 +58,40 @@
         <p>All transaction powered by <span>Stripe.com</span></p>
       </v-flex>
     </v-layout>
-  </v-flex>
+
+    <v-dialog
+      v-else
+      v-model="show_error_dialog"
+      content-class="my-dialog-1"
+      persistent
+    >
+      <v-card>
+        <v-card-media
+          :src="_.get(receiver, 'avatar.thumb.url')"
+          height="125px"
+          contain
+        ></v-card-media>
+        <v-card-text class="mt-2">
+          <div class="headline">You cannot send the payment</div>
+          <div>
+            {{ _.get(receiver, 'display_name', 'Receiver') }} did not connect to
+            stripe yet.
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn
+            dark
+            color="blue"
+            @click.native="
+              show_error_dialog = false
+              dismiss()
+            "
+            >OK</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script type="text/javascript">
@@ -75,7 +110,7 @@ export default {
       required: true,
     },
 
-    user: {
+    receiver: {
       type: Object,
       required: true,
     },
@@ -102,6 +137,7 @@ export default {
       complete: false,
       stripeOptions: {},
       fee: 0,
+      show_error_dialog: false,
     }
   },
 
@@ -143,11 +179,19 @@ export default {
     },
 
     amount() {
-      return this.user.repost_price
+      return this.receiver.repost_price
+    },
+
+    stripeConnected() {
+      return this.receiver.stripe_connected
     },
   },
 
   created() {
+    if (!this.stripConnected) {
+      this.show_error_dialog = true
+    }
+
     const total = (this.amount + 30) / 0.971
     this.fee = total - this.amount
   },

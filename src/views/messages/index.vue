@@ -248,77 +248,93 @@
             pa-0
             class="requests"
           >
-            <div class="requests__header">
-              <p class="requests__title">Request repost</p>
-              <div class="requests__actions">
-                <v-btn
-                  v-if="['artist', 'label'].indexOf(currentUser.user_type) > -1"
-                  @click.native="onTab('album')"
-                  :class="{ 'btn--active': tab == 'album' }"
-                  >Album</v-btn
-                >
-                <v-btn
-                  v-if="
-                    ['artist', 'brand', 'label'].indexOf(
-                      currentUser.user_type
-                    ) > -1
-                  "
-                  @click.native="onTab('merch')"
-                  :class="{ 'btn--active': tab == 'merch' }"
-                  >Product</v-btn
-                >
+            <template v-if="otherStripeConnected">
+              <div class="requests__header">
+                <div class="requests__title">Repost Requst</div>
+                <div class="requests__actions">
+                  <v-btn
+                    v-if="
+                      ['artist', 'label'].indexOf(currentUser.user_type) > -1
+                    "
+                    @click.native="onTab('album')"
+                    :class="{ 'btn--active': tab == 'album' }"
+                    >Album</v-btn
+                  >
+                  <v-btn
+                    v-if="
+                      ['artist', 'brand', 'label'].indexOf(
+                        currentUser.user_type
+                      ) > -1
+                    "
+                    @click.native="onTab('merch')"
+                    :class="{ 'btn--active': tab == 'merch' }"
+                    >Product</v-btn
+                  >
+                </div>
               </div>
-            </div>
-            <div class="requests__content">
-              <template v-if="tab == 'album'">
-                <div
-                  v-for="album in albums"
-                  :key="album.id"
-                  @click="InBanned(album) ? null : selectItem(album)"
-                  class="request-item"
-                  :class="{ selected: item == album, banned: InBanned(album) }"
-                >
-                  <div class="avatar-area">
-                    <div
-                      class="avatar-image"
-                      :style="`background-image: url(${album.cover.thumb.url})`"
-                    ></div>
+              <div class="requests__content">
+                <template v-if="tab == 'album'">
+                  <div
+                    v-for="album in albums"
+                    :key="album.id"
+                    @click="InBanned(album) ? null : selectItem(album)"
+                    class="request-item"
+                    :class="{
+                      selected: item == album,
+                      banned: InBanned(album),
+                    }"
+                  >
+                    <div class="avatar-area">
+                      <div
+                        class="avatar-image"
+                        :style="`background-image: url(${album.cover.thumb.url})`"
+                      ></div>
+                    </div>
+                    <div class="detail-area">
+                      <label class="item-name">{{ album.name }}</label>
+                      <label class="user-name">{{
+                        album.user.display_name
+                      }}</label>
+                    </div>
                   </div>
-                  <div class="detail-area">
-                    <label class="item-name">{{ album.name }}</label>
-                    <label class="user-name">{{
-                      album.user.display_name
-                    }}</label>
-                  </div>
-                </div>
-              </template>
+                </template>
 
-              <template v-else-if="tab == 'merch'">
-                <div
-                  v-for="product in products"
-                  :key="product.id"
-                  @click="InReposted(product) ? null : selectItem(product)"
-                  class="request-item"
-                  :class="{
-                    selected: item == product,
-                    banned: InReposted(product),
-                  }"
-                >
-                  <div class="avatar-area">
-                    <div
-                      class="avatar-image"
-                      :style="`background-image: url(${product.covers[0].cover.thumb.url})`"
-                    ></div>
+                <template v-else-if="tab == 'merch'">
+                  <div
+                    v-for="product in products"
+                    :key="product.id"
+                    @click="InReposted(product) ? null : selectItem(product)"
+                    class="request-item"
+                    :class="{
+                      selected: item == product,
+                      banned: InReposted(product),
+                    }"
+                  >
+                    <div class="avatar-area">
+                      <div
+                        class="avatar-image"
+                        :style="`background-image: url(${product.covers[0].cover.thumb.url})`"
+                      ></div>
+                    </div>
+                    <div class="detail-area">
+                      <label class="item-name">{{ product.name }}</label>
+                      <label class="user-name">{{
+                        product.merchant.display_name
+                      }}</label>
+                    </div>
                   </div>
-                  <div class="detail-area">
-                    <label class="item-name">{{ product.name }}</label>
-                    <label class="user-name">{{
-                      product.merchant.display_name
-                    }}</label>
-                  </div>
-                </div>
-              </template>
-            </div>
+                </template>
+              </div>
+            </template>
+            <template>
+              <div class="requests__body">
+                <h5>Repost Request</h5>
+                <p>
+                  To promote albums and products<br />
+                  receiver must first connect to Stripe
+                </p>
+              </div>
+            </template>
           </v-flex>
         </template>
       </v-layout>
@@ -328,7 +344,7 @@
       v-if="show_repost_payment_modal"
       :item="item"
       :itemType="tab"
-      :user="conversation.other"
+      :receiver="conversation.other"
       :dismiss="closeRepostPaymentModal"
       :finish="sendMessage"
     />
@@ -337,7 +353,7 @@
       <v-card>
         <v-card-title class="headline">Block a User</v-card-title>
         <v-card-text
-          >Are you sure you want to block &lt;{{ other_name }}&gt;?</v-card-text
+          >Are you sure you want to block &lt;{{ otherName }}&gt;?</v-card-text
         >
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -362,7 +378,7 @@
         <v-card-title class="headline">Delete a Conversation</v-card-title>
         <v-card-text
           >If you click OK, all messages under the conversation will be deleted.
-          Click OK to delete a conversation with &lt;{{ other_name }}&gt;, or
+          Click OK to delete a conversation with &lt;{{ otherName }}&gt;, or
           click Cancel.</v-card-text
         >
         <v-card-actions>
