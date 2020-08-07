@@ -1,5 +1,6 @@
+/* global $:true */
 import _ from 'lodash'
-import AddressService from '@/services/address'
+import MeService from '@/services/me'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
 
@@ -54,6 +55,7 @@ export default {
         confirmed_password: '',
       },
       stripeDialog: false,
+      stripeEmail: '',
       user: {},
       cable: null,
       notification_subscription: null,
@@ -74,7 +76,7 @@ export default {
       let tabs = this.tabs.slice()
 
       if (this.currentUser.user_type === 'listener') {
-        tabs = _.filter(tabs, (t) => t.id != 'seller-policies')
+        tabs = _.filter(tabs, (t) => t.id !== 'seller-policies')
       }
 
       if (
@@ -113,6 +115,8 @@ export default {
     })
     this.onTab(tab)
 
+    MeService.stripeEmail().then((res) => (this.stripeEmail = res.body.email))
+
     this.$intercom.update({ hide_default_launcher: false })
   },
 
@@ -122,7 +126,7 @@ export default {
 
   methods: {
     isActiveTab(tab) {
-      return this.active_tab == tab
+      return this.active_tab === tab
     },
 
     // availableTab (tab) {
@@ -209,7 +213,7 @@ export default {
       params.append('user[contact_url]', this.profile.contact_url)
       params.append(
         'user[enable_alert]',
-        this.profile.enable_alert == true ? 1 : 0
+        this.profile.enable_alert === true ? 1 : 0
       )
 
       this.updateUser(params)

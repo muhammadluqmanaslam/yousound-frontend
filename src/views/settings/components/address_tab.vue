@@ -79,10 +79,11 @@
             item-value="name"
             single-line
             autocomplete
+            class="pt-0"
           ></v-select>
         </v-flex>
-        <v-flex xs12 sm6 form-group> </v-flex>
-        <v-flex xs12 sm6 form-group>
+        <v-flex xs12 sm6 form-group></v-flex>
+        <v-flex xs12 sm6 form-group text-xs-right>
           <v-btn class="update-btn" @click.native="saveShippingAddress()"
             >Save</v-btn
           >

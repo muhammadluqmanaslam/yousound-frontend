@@ -171,18 +171,18 @@
                   </v-card>
                 </v-dialog>
               </v-flex>
-              <v-flex xs12 sm6 form-group>
+              <v-flex xs12 sm6 form-group text-xs-right>
                 <v-btn class="update-btn" @click.native="updateAccount()"
                   >Update</v-btn
                 >
-                <p class="regular-checkbox enable-alerts settings">
+                <!-- <p class="regular-checkbox enable-alerts settings">
                   <input
                     type="checkbox"
                     id="enable_alert"
                     v-model="profile.enable_alert"
                   />
-                  <!-- <label for="enable_alert">Enable Alerts</label> -->
-                </p>
+                  <label for="enable_alert">Enable Alerts</label>
+                </p> -->
               </v-flex>
             </v-layout>
           </div>
@@ -192,96 +192,100 @@
           <div class="description-section"></div>
           <div class="content-section">
             <v-layout row wrap ma-0 password-section>
-              <v-flex xs12 sm6 form-group>
-                <label class="control-label"
-                  >Current Password<label class="required">*</label></label
-                >
-                <!-- <input type="password" class="form-control" v-model="password.current_password"> -->
-                <div
-                  class="form-group"
-                  :class="{ 'has-error': errors.has('password') }"
-                >
-                  <input
-                    class="form-control"
-                    v-model="password.current_password"
-                    v-validate="'required'"
-                    :class="{
-                      input: true,
-                      'text-danger': errors.has('password'),
-                    }"
-                    name="password"
-                    type="password"
-                  />
-                  <p
-                    class="text-danger text-xs-left"
-                    v-if="errors.has('password')"
-                  >
-                    {{ errors.first('password') }}
-                  </p>
-                </div>
-              </v-flex>
-              <v-flex xs12 sm6 form-group> </v-flex>
-              <v-flex xs12 sm6 form-group>
-                <label class="control-label"
-                  >New Password<label class="required">*</label></label
-                >
-                <!-- <input type="password" class="form-control" v-model="password.new_password"> -->
-                <div
-                  class="form-group"
-                  :class="{ 'has-error': errors.has('new_password') }"
-                >
-                  <input
-                    class="form-control"
-                    v-model="password.new_password"
-                    v-validate="'required'"
-                    :class="{
-                      input: true,
-                      'text-danger': errors.has('new_password'),
-                    }"
-                    name="new_password"
-                    type="password"
-                  />
-                  <p
-                    class="text-danger text-xs-left"
-                    v-if="errors.has('new_password')"
-                  >
-                    {{ errors.first('new_password') }}
-                  </p>
-                </div>
-              </v-flex>
-              <v-flex xs12 sm6 form-group>
-                <label class="control-label"
-                  >Confirm New Password<label class="required">*</label></label
-                >
-                <!-- <input type="password" class="form-control" v-model="password.confirmed_password"> -->
-                <div
-                  class="form-group"
-                  :class="{ 'has-error': errors.has('confirmed_password') }"
-                >
-                  <input
-                    class="form-control"
-                    v-model="password.confirmed_password"
-                    v-validate="'required'"
-                    :class="{
-                      input: true,
-                      'text-danger': errors.has('confirmed_password'),
-                    }"
-                    name="confirmed_password"
-                    type="password"
-                  />
-                  <p
-                    class="text-danger text-xs-left"
-                    v-if="errors.has('confirmed_password')"
-                  >
-                    {{ errors.first('confirmed_password') }}
-                  </p>
-                </div>
-              </v-flex>
-              <v-flex xs12 sm6 form-group> </v-flex>
-              <v-flex xs12 sm6 form-group>
-                <v-btn class="update-btn" @click.native="updatePassword()"
-                  >Update</v-btn
-                >
+              <v-flex xs12 sm6>
+                <v-layout row wrap>
+                  <v-flex xs12 form-group>
+                    <label class="control-label"
+                      >Current Password<label class="required">*</label></label
+                    >
+                    <!-- <input type="password" class="form-control" v-model="password.current_password"> -->
+                    <div
+                      class="form-group"
+                      :class="{ 'has-error': errors.has('password') }"
+                    >
+                      <input
+                        class="form-control"
+                        v-model="password.current_password"
+                        v-validate="'required'"
+                        :class="{
+                          input: true,
+                          'text-danger': errors.has('password'),
+                        }"
+                        name="password"
+                        type="password"
+                      />
+                      <p
+                        class="text-danger text-xs-left"
+                        v-if="errors.has('password')"
+                      >
+                        {{ errors.first('password') }}
+                      </p>
+                    </div>
+                  </v-flex>
+                  <v-flex xs12 form-group>
+                    <label class="control-label"
+                      >New Password<label class="required">*</label></label
+                    >
+                    <!-- <input type="password" class="form-control" v-model="password.new_password"> -->
+                    <div
+                      class="form-group"
+                      :class="{ 'has-error': errors.has('new_password') }"
+                    >
+                      <input
+                        class="form-control"
+                        v-model="password.new_password"
+                        v-validate="'required'"
+                        :class="{
+                          input: true,
+                          'text-danger': errors.has('new_password'),
+                        }"
+                        name="new_password"
+                        type="password"
+                      />
+                      <p
+                        class="text-danger text-xs-left"
+                        v-if="errors.has('new_password')"
+                      >
+                        {{ errors.first('new_password') }}
+                      </p>
+                    </div>
+                  </v-flex>
+                  <v-flex xs12 form-group>
+                    <label class="control-label"
+                      >Confirm New Password<label class="required"
+                        >*</label
+                      ></label
+                    >
+                    <!-- <input type="password" class="form-control" v-model="password.confirmed_password"> -->
+                    <div
+                      class="form-group"
+                      :class="{ 'has-error': errors.has('confirmed_password') }"
+                    >
+                      <input
+                        class="form-control"
+                        v-model="password.confirmed_password"
+                        v-validate="'required'"
+                        :class="{
+                          input: true,
+                          'text-danger': errors.has('confirmed_password'),
+                        }"
+                        name="confirmed_password"
+                        type="password"
+                      />
+                      <p
+                        class="text-danger text-xs-left"
+                        v-if="errors.has('confirmed_password')"
+                      >
+                        {{ errors.first('confirmed_password') }}
+                      </p>
+                    </div>
+                  </v-flex>
+                  <v-flex xs12 text-xs-right>
+                    <v-btn class="update-btn" @click.native="updatePassword()"
+                      >Update</v-btn
+                    >
+                  </v-flex>
+                </v-layout>
               </v-flex>
             </v-layout>
           </div>
@@ -299,22 +303,35 @@
           </div>
           <div class="content-section">
             <v-flex xs12 bank-details-section pa-0>
-              <v-flex xs12 sm12 form-group>
-                <img class="stripe" src="/static/images/stripe-logo-blue.png" />
-                <a
-                  v-if="!$store.state.auth.user.stripe_connected"
-                  :href="stripeLink"
-                  target="_self"
-                >
-                  <v-btn class="update-btn top-btn" dark>Connect Stripe</v-btn>
-                </a>
-                <v-btn
-                  v-if="$store.state.auth.user.stripe_connected"
-                  @click.native="disconnetAccount()"
-                  class="update-btn top-btn"
-                  >Disconnect Stripe</v-btn
-                >
-                <!-- <v-btn @click.native="viewStripeAccount()" class="update-btn top-btn" v-if="$store.state.auth.user.stripe_connected">View Stripe Account</v-btn> -->
+              <v-flex xs12 sm12 form-group stripe>
+                <img src="/static/images/stripe-logo-blue.png" />
+                <div v-if="!currentUser.stripe_connected">
+                  <v-btn
+                    :href="stripeLink"
+                    target="_self"
+                    class="update-btn"
+                    dark
+                    >Connect Stripe</v-btn
+                  >
+                </div>
+                <div v-else>
+                  <v-btn
+                    @click.native="disconnetAccount()"
+                    color="red"
+                    class="update-btn"
+                    >Disconnect Stripe</v-btn
+                  >
+                  <div>
+                    <span>connected with: </span>
+                    <label>{{ stripeEmail }}</label>
+                  </div>
+                </div>
+                <!-- <v-btn
+                  @click.native="viewStripeAccount()"
+                  class="update-btn"
+                  v-if="currentUser.stripe_connected"
+                  >View Stripe Account</v-btn
+                > -->
               </v-flex>
             </v-flex>
           </div>
@@ -332,8 +349,7 @@
                 xs12
                 sm12
                 form-group
-                v-for="(blockedUser, index) in $store.state.auth.user
-                  .blocked_users"
+                v-for="(blockedUser, index) in currentUser.blocked_users"
                 :key="index"
               >
                 <div

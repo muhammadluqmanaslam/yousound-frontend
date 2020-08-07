@@ -40,9 +40,7 @@
             hide-details
           />
         </div>
-        <v-btn
-          @click.native="openRepostPriceConfirmModal()"
-          class="update-btn top-btn"
+        <v-btn @click.native="openRepostPriceConfirmModal()" class="update-btn"
           >Set</v-btn
         >
       </div>
