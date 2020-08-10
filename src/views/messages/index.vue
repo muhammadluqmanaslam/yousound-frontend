@@ -53,7 +53,6 @@
         <template v-else>
           <v-flex xs12 sm3 pa-0 class="conversations">
             <div class="conversations__header">
-              <div class="conversations__title">Inbox</div>
               <div class="conversations__count">
                 {{ conversations.length }} messages
               </div>
@@ -250,26 +249,28 @@
           >
             <template v-if="otherStripeConnected">
               <div class="requests__header">
-                <div class="requests__title">Repost Requst</div>
                 <div class="requests__actions">
-                  <v-btn
-                    v-if="
-                      ['artist', 'label'].indexOf(currentUser.user_type) > -1
-                    "
-                    @click.native="onTab('album')"
-                    :class="{ 'btn--active': tab == 'album' }"
-                    >Album</v-btn
-                  >
-                  <v-btn
-                    v-if="
-                      ['artist', 'brand', 'label'].indexOf(
-                        currentUser.user_type
-                      ) > -1
-                    "
-                    @click.native="onTab('merch')"
-                    :class="{ 'btn--active': tab == 'merch' }"
-                    >Product</v-btn
-                  >
+                  <div class="requests__title">Repost Request</div>
+                  <div class="d-flex justify-content-center">
+                    <v-btn
+                      v-if="
+                        ['artist', 'label'].indexOf(currentUser.user_type) > -1
+                      "
+                      @click.native="onTab('album')"
+                      :class="{ 'btn--active': tab == 'album' }"
+                      >Album</v-btn
+                    >
+                    <v-btn
+                      v-if="
+                        ['artist', 'brand', 'label'].indexOf(
+                          currentUser.user_type
+                        ) > -1
+                      "
+                      @click.native="onTab('merch')"
+                      :class="{ 'btn--active': tab == 'merch' }"
+                      >Product</v-btn
+                    >
+                  </div>
                 </div>
               </div>
               <div class="requests__content">

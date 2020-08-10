@@ -510,8 +510,8 @@
         text-align: center;
       }
       &__content {
-        max-height: calc(100vh - 320px);
-        margin-top: 42px;
+        max-height: calc(100vh - 350px);
+        margin-top: 66px;
         padding-top: 0;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -575,18 +575,17 @@
         }
       }
       &__title {
+        line-height: 24px;
         font-family: 'Work Sans';
-        font-size: 18px;
-        font-weight: 700;
-        color: #000000;
+        font-size: 14px;
+        font-weight: 500;
+        color: #b0b0b0;
         letter-spacing: -0.6px;
       }
       &__actions {
         position: absolute;
-        bottom: -42px;
+        bottom: -66px;
         left: 0;
-        display: flex;
-        justify-content: center;
         width: 100%;
         .btn {
           border-radius: 75px;
