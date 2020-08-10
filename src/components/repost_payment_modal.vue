@@ -188,7 +188,7 @@ export default {
   },
 
   created() {
-    if (!this.stripConnected) {
+    if (!this.stripeConnected) {
       this.show_error_dialog = true
     }
 

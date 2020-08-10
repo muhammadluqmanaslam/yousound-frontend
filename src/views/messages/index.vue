@@ -326,7 +326,7 @@
                 </template>
               </div>
             </template>
-            <template>
+            <template v-else>
               <div class="requests__body">
                 <h5>Repost Request</h5>
                 <p>
