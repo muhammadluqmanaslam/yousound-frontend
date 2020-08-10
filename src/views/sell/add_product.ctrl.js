@@ -1,8 +1,10 @@
+/* global $:true */
+
 import _ from 'lodash'
-import CategoryService from '@/services/category'
+// import CategoryService from '@/services/category'
+// import UserService from '@/services/user'
 import ProductService from '@/services/product'
-import ProfileService from '@/services/profile'
-import UserService from '@/services/user'
+import MeService from '@/services/me'
 import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
 
@@ -139,6 +141,7 @@ export default {
       ) > -1
     ) {
       var params = {
+        stripe_connected: true,
         page: 1,
         per_page: 30,
       }
@@ -147,11 +150,7 @@ export default {
       Promise.all([
         // CategoryService.getCategories(),
         // UserService.searchUsers(params)
-        ProfileService.getItems(
-          this.$store.state.auth.user.id,
-          'followings',
-          params
-        ),
+        MeService.mutualUsers(params),
       ])
         .then((values) => {
           this.product_categories = this.$store.state.app.product_categories
@@ -242,7 +241,7 @@ export default {
         ]
       } else if (
         this.isDigitalProduct &&
-        this.digital_content_category_ids.indexOf(category_id) == -1
+        this.digital_content_category_ids.indexOf(category_id) === -1
       ) {
         this.product.variants = this.product_variants
       }
@@ -251,10 +250,10 @@ export default {
     changeTaxPercent(locationName) {
       this.product.tax_percent = 0
       if (this.product.is_vat) {
-        const country = _.find(this.countries, (c) => c.name == locationName)
+        const country = _.find(this.countries, (c) => c.name === locationName)
         this.product.tax_percent = _.get(country, 'rate', 0)
       } else {
-        const state = _.find(this.states, (s) => s.name == locationName)
+        const state = _.find(this.states, (s) => s.name === locationName)
         this.product.tax_percent = _.get(state, 'rate', 0)
       }
     },

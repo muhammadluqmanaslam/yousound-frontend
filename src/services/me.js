@@ -10,6 +10,13 @@ const MeService = {
         Authorization: $store.state.auth.token,
       },
     }),
+
+  mutualUsers: (params) =>
+    Vue.http.post(`${API_BASE_URL}/mutual_users`, params, {
+      headers: {
+        Authorization: $store.state.auth.token,
+      },
+    }),
 }
 
 export default MeService
