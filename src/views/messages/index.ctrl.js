@@ -343,7 +343,8 @@ export default {
     },
 
     InBanned(album) {
-      return this.InHiddenGenres(album) || this.InReposted(album)
+      return false
+      // return this.InHiddenGenres(album) || this.InReposted(album)
     },
 
     // true : in hidden genres
@@ -361,12 +362,13 @@ export default {
     },
 
     InReposted(item) {
-      const feed = _.find(this.repostedFeeds, (f) => {
-        return (
-          f.assoc_type === this.itemType[this.tab] && f.assoc_id === item.id
-        )
-      })
-      return !!feed
+      return false
+      // const feed = _.find(this.repostedFeeds, (f) => {
+      //   return (
+      //     f.assoc_type === this.itemType[this.tab] && f.assoc_id === item.id
+      //   )
+      // })
+      // return !!feed
     },
 
     checkMessage() {

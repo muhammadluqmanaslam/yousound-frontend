@@ -139,9 +139,10 @@
                   </div>
                   <div class="artist-list">
                     <div
-                      class="artist"
                       v-for="collaborator in message.attachment.assoc
                         .collaborators"
+                      :key="collaborator.id"
+                      class="artist"
                     >
                       <span>{{ collaborator.user.display_name }}</span>
                       <span>{{ collaborator.user_role }}</span>
@@ -192,9 +193,10 @@
                       >
                     </div>
                     <div
-                      class="artist"
                       v-for="collaborator in message.attachment.assoc
                         .collaborators"
+                      :key="collaborator.id"
+                      class="artist"
                     >
                       <span>{{ collaborator.user.display_name }}</span>
                       <span>{{ collaborator.user_share }} %</span>
