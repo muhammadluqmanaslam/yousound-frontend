@@ -294,10 +294,11 @@
         <div class="main-section" v-else-if="active_tab == 'bank-details'">
           <div class="description-section">
             <p>
-              In order to withdrawal funds, you must sign up for a
+              In order to accept payments you must connect your
               <a href="https://stripe.com/" target="_blank">Stripe.com</a>
-              account. <br />Stripe will handles your banking information,
-              refunds and/or disputes.
+              account. <br />
+              Stripe will handles your banking information, refunds and/or
+              disputes.
             </p>
             <p></p>
           </div>

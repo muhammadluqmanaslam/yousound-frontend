@@ -92,13 +92,12 @@ export default {
     },
   },
 
-  // watch: {
-  //   '$route' (toPath, fromPath) {
-  //     console.log('list watch')
-  //     console.log(toPath)
-  //     console.log(fromPath)
-  //   }
-  // },
+  watch: {
+    $route(toPath, fromPath) {
+      const tab = toPath.hash.substr(1)
+      this.setTab(tab)
+    },
+  },
 
   created() {
     if (!this.currentUser) {
@@ -113,7 +112,7 @@ export default {
       page: 'settings',
       tab: tab,
     })
-    this.onTab(tab)
+    this.setTab(tab)
 
     MeService.stripeEmail().then((res) => (this.stripeEmail = res.body.email))
 
@@ -135,8 +134,20 @@ export default {
     // },
 
     onTab(tab) {
-      this.active_tab = tab
-      switch (this.active_tab) {
+      if (this.active_tab !== tab) {
+        this.$router.push({
+          path: this.$route.path,
+          hash: tab,
+        })
+      }
+    },
+
+    setTab(tab) {
+      if (!tab) {
+        tab = 'info'
+      }
+
+      switch (tab) {
         case 'info':
           this.resetProfile()
           break
@@ -153,6 +164,8 @@ export default {
         //   this.resetGenres()
         //   break
       }
+
+      this.active_tab = tab
     },
 
     profileImageChanged(e) {
