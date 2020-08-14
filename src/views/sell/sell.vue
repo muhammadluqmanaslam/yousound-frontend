@@ -308,7 +308,7 @@
                   class="add-product-btn"
                   to="/settings#bank-details"
                 >
-                  Connect Stripe
+                  Connect Stripe to Add Products
                 </v-btn>
               </v-flex>
               <product-item
