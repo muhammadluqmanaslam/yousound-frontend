@@ -131,21 +131,22 @@ export default {
         name: '1hour / FREE',
       })
     } else {
-      if (this.currentUser.stream_rolled_time > 0) {
-        this.periods.push({
-          id: this.currentUser.stream_rolled_time,
-          name: `${Filter.timeInHours(
-            this.currentUser.stream_rolled_time
-          )} / Remaining Unpaid Time`,
-        })
-        this.period = this.currentUser.stream_rolled_time
-      }
+      // if (this.currentUser.stream_rolled_time > 0) {
+      //   this.periods.push({
+      //     id: this.currentUser.stream_rolled_time,
+      //     name: `${Filter.timeInHours(
+      //       this.currentUser.stream_rolled_time
+      //     )} / Remaining Unpaid Time`,
+      //   })
+      //   this.period = this.currentUser.stream_rolled_time
+      // }
       for (let i = 1; i <= 24; i++) {
         this.periods.push({
           id: i * 3600,
           name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
         })
       }
+      this.period = 3600
     }
   },
 

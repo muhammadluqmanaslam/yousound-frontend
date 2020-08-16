@@ -28,6 +28,16 @@
         <template v-if="!histories || histories.length == 0">
           <div class="empty-section" v-if="active_tab == 'received'">
             <p class="empty-title">You have not received any payments</p>
+            <p class="empty-description">
+              To start accepting payments connect to Stripe.com
+            </p>
+            <v-btn
+              to="/settings/#bank-details"
+              class="stripe-connect-btn"
+              dark
+              round
+              >Connect Stripe</v-btn
+            >
           </div>
           <div class="empty-section" v-else-if="active_tab == 'sent'">
             <p class="empty-title">You have not sent any payments</p>

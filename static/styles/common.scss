@@ -454,6 +454,23 @@ input[type='password'] {
   width: 100%;
 }
 
+.stripe-connect-btn.btn {
+  height: 37.5px;
+  margin: 0;
+  border-radius: 75px;
+  box-shadow: none;
+  text-transform: none;
+  background: #3a92ff !important;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0;
+
+  .btn__content {
+    padding: 0 22.5px;
+  }
+}
+
 @media (min-width: 810px) {
   .card-container {
     flex-basis: 50%;
