@@ -170,7 +170,7 @@
               >
             </v-layout>
             <p class="d-inline-flex grey--text lighten-2">
-              e.g. "Large - Black" "100" "$30.00"
+              e.g. "Large - Black" "100" "30.00"
             </p>
           </v-flex>
         </v-flex>

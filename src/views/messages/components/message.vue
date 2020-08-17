@@ -119,13 +119,12 @@
               <!-- <div class="content-section" v-if="message.attachment.attachable_type=='User'"> -->
               <div class="content-section">
                 <template v-if="message.attachment.attachable_type == 'Album'">
-                  <div class="label-message-section">
-                    <!-- <div class="label-message">{{ message.body }}</div> -->
+                  <!-- <div class="label-message-section">
                     <div class="label-message">
                       {{ message.attachment.assoc.user.display_name }} wants to
                       upload this album collaboration
                     </div>
-                  </div>
+                  </div> -->
                   <div class="repost-item-image">
                     <activity-album-card
                       :object="message.attachment.assoc"
@@ -137,15 +136,17 @@
                     }}</label>
                     <a class="item-user">{{ message.sender.display_name }}</a>
                   </div>
-                  <div class="artist-list">
+                  <div
+                    class="artist-list"
+                    v-if="message.attachment.assoc.collaborators.length > 0"
+                  >
                     <div
-                      v-for="collaborator in message.attachment.assoc
-                        .collaborators"
-                      :key="collaborator.id"
+                      v-for="c in message.attachment.assoc.collaborators"
+                      :key="c.id"
                       class="artist"
                     >
-                      <span>{{ collaborator.user.display_name }}</span>
-                      <span>{{ collaborator.user_role }}</span>
+                      <span>{{ c.user.display_name }}</span>
+                      <span>{{ c.user_role }}</span>
                     </div>
                   </div>
                 </template>
@@ -154,13 +155,12 @@
                     message.attachment.attachable_type == 'ShopProduct'
                   "
                 >
-                  <div class="label-message-section">
-                    <!-- <div class="label-message">{{ message.body }}</div> -->
+                  <!-- <div class="label-message-section">
                     <div class="label-message">
                       {{ message.attachment.assoc.merchant.display_name }} wants
                       to upload this product collaboration
                     </div>
-                  </div>
+                  </div> -->
                   <div class="repost-item-image">
                     <activity-product-card
                       :object="message.attachment.assoc"
@@ -173,7 +173,10 @@
                     }}</label>
                     <a class="item-user">{{ message.sender.display_name }}</a>
                   </div>
-                  <div class="artist-list">
+                  <div
+                    class="artist-list"
+                    v-if="message.attachment.assoc.collaborators.length > 0"
+                  >
                     <div class="artist">
                       <span
                         >{{ message.attachment.assoc.merchant.display_name }}(
@@ -193,13 +196,12 @@
                       >
                     </div>
                     <div
-                      v-for="collaborator in message.attachment.assoc
-                        .collaborators"
-                      :key="collaborator.id"
+                      v-for="c in message.attachment.assoc.collaborators"
+                      :key="c.id"
                       class="artist"
                     >
-                      <span>{{ collaborator.user.display_name }}</span>
-                      <span>{{ collaborator.user_share }} %</span>
+                      <span>{{ c.user.display_name }}</span>
+                      <span>{{ c.user_share }} %</span>
                     </div>
                   </div>
                 </template>
@@ -245,7 +247,6 @@
                 </div>
               </div>
             </div>
-            <label class="text-message" v-if="false"></label>
           </div>
         </template>
 
@@ -636,6 +637,7 @@ export default {
             height: 36px;
             min-width: 60px;
             color: #ffffff;
+            background-color: #3a92ff;
             &--accept {
               background: #14c45b !important;
             }
