@@ -1,3 +1,5 @@
+/* global $:true */
+
 import _ from 'lodash'
 import Vue from 'vue'
 import { mapActions } from 'vuex'
@@ -95,9 +97,9 @@ export default {
 
     enabledViewDirectMessage() {
       return (
-        this.currentUser.user_type == 'admin' ||
-        (this.currentUser.user_type == 'moderator' &&
-          _.get(this.currentUser, 'enabled_view_direct_message') == true)
+        this.currentUser.user_type === 'admin' ||
+        (this.currentUser.user_type === 'moderator' &&
+          _.get(this.currentUser, 'enabled_view_direct_message') === true)
       )
     },
 
@@ -195,7 +197,7 @@ export default {
     }),
 
     isActiveTab(tab) {
-      return this.active_tab == tab
+      return this.active_tab === tab
     },
 
     onTab(tab) {
@@ -222,11 +224,11 @@ export default {
       // console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
       return (
         _.get(this.user.stream, 'status', '') === 'running' &&
+        _.get(this.user.stream, 'notified', false) &&
         (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !==
           this.user.slug ||
           !this.$store.getters['videoPlayer/hasFrame'])
       )
-      // return true
     },
 
     viewStream() {
@@ -243,6 +245,7 @@ export default {
           }
         })
         .catch((err) => {
+          console.log('profle/viewStream', err)
           this.view_stream_clicked = false
         })
     },
@@ -267,25 +270,20 @@ export default {
           this.$emit('updateHead')
 
           if (this.isStreaming()) {
-            Vue.http
-              .get(this.user.stream.mp_channel_1_ep_1_url)
-              .then((response) => {
-                this.show_stream_live_button = true
-                if (first_visit) {
-                  // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
-                  this.$store.dispatch(
-                    'videoPlayer/setStream',
-                    this.user.stream
-                  )
-                  this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
-                }
-              })
+            Vue.http.get(this.user.stream.mp_channel_1_ep_1_url).then(() => {
+              this.show_stream_live_button = true
+              if (first_visit) {
+                // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
+                this.$store.dispatch('videoPlayer/setStream', this.user.stream)
+                this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+              }
+            })
             // this.$store.dispatch('videoPlayer/setStream', this.user.stream)
             // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
           }
 
           // put 'merch' tab first for brand
-          if (this.user.user_type == 'brand') {
+          if (this.user.user_type === 'brand') {
             if (this.tabs[7].id === 'merch') {
               this.tabs.unshift(this.tabs.pop())
             }
@@ -484,7 +482,7 @@ export default {
           // canvas.width = imageObj.height
           // canvas.height = imageObj.height
           cctx.drawImage(imageObj, 0, 0)
-          StackBlur.image(imageObj, canvas, 70, false)
+          window.StackBlur.image(imageObj, canvas, 70, false)
         }
       } else {
         cctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -694,7 +692,6 @@ export default {
   },
 
   mounted() {
-    const vm = this
     this.$root.$on('index_change', this.moveSlide)
     $(window)
       .resize(function () {

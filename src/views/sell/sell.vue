@@ -66,7 +66,7 @@
             v-if="!orderHistories || orderHistories.length == 0"
             class="empty-section"
           >
-            <p class="empty-title">Your have no new orders</p>
+            <p class="empty-title">You have no new orders</p>
           </div>
           <v-card v-else flat class="relative">
             <v-flex
@@ -115,13 +115,16 @@
                 </div>
                 <div
                   v-for="item in order.items"
-                  v-if="
-                    activeFilterItemStatus == '' ||
-                    item.status == activeFilterItemStatus
-                  "
+                  :key="item.id"
                   class="order-section"
                 >
-                  <v-layout row>
+                  <v-layout
+                    v-if="
+                      activeFilterItemStatus == '' ||
+                      item.status == activeFilterItemStatus
+                    "
+                    row
+                  >
                     <div class="order-content-section relative">
                       <div
                         class="product-cover-image"
@@ -220,14 +223,17 @@
                   </v-layout>
                 </div>
                 <div
-                  class="order-section"
                   v-for="item in order.items"
-                  v-if="
-                    activeFilterItemStatus == '' ||
-                    item.status == activeFilterItemStatus
-                  "
+                  :key="item.id"
+                  class="order-section"
                 >
-                  <v-layout row>
+                  <v-layout
+                    v-if="
+                      activeFilterItemStatus == '' ||
+                      item.status == activeFilterItemStatus
+                    "
+                    row
+                  >
                     <div class="order-content-section relative">
                       <div
                         class="product-cover-image"
@@ -327,7 +333,7 @@
             v-if="!collaborated_products || collaborated_products.length == 0"
             class="empty-section"
           >
-            <p class="empty-title">Your have no product collaborations</p>
+            <p class="empty-title">You have no product collaborations</p>
           </div>
           <v-card flat v-else>
             <v-layout row wrap class="covers-content">
@@ -352,7 +358,7 @@
             class="empty-section"
           >
             <p class="empty-title">
-              Your have no pending product collaborations
+              You have no pending product collaborations
             </p>
           </div>
           <v-card flat v-else>

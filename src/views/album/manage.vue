@@ -23,7 +23,7 @@
             v-if="!published_albums || published_albums.length == 0"
             class="empty-section"
           >
-            <p class="empty-title">Your have not uploaded any albums yet</p>
+            <p class="empty-title">You have not uploaded any albums yet</p>
             <router-link to="/upload/album" class="empty-discover-btn"
               >Upload</router-link
             >
@@ -52,7 +52,7 @@
             v-if="!private_albums || private_albums.length == 0"
             class="empty-section"
           >
-            <p class="empty-title">Your have no private albums</p>
+            <p class="empty-title">You have no private albums</p>
           </div>
           <v-card flat v-else>
             <v-layout row wrap class="covers-content">
@@ -78,7 +78,7 @@
             v-if="!video_only_albums || video_only_albums.length == 0"
             class="empty-section"
           >
-            <p class="empty-title">Your have no albums only for live video</p>
+            <p class="empty-title">You have no albums only for live video</p>
           </div>
           <v-card flat v-else>
             <v-layout row wrap class="covers-content">
@@ -104,7 +104,7 @@
             v-if="!collaborated_albums || collaborated_albums.length == 0"
             class="empty-section"
           >
-            <p class="empty-title">Your have no album collaborations</p>
+            <p class="empty-title">You have no album collaborations</p>
           </div>
           <v-card flat v-else>
             <v-layout row wrap class="covers-content">
@@ -128,7 +128,7 @@
             v-if="!pending_albums || pending_albums.length == 0"
             class="empty-section"
           >
-            <p class="empty-title">Your have no pending album collaborations</p>
+            <p class="empty-title">You have no pending album collaborations</p>
           </div>
           <v-card flat v-else>
             <v-layout row wrap class="covers-content">

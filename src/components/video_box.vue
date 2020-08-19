@@ -8,7 +8,10 @@
       <div class="box__caption">Live</div>
 
       <div class="box__overlay">
-        <video-detail-box :item="item" />
+        <!-- <video-detail-box :item="item" /> -->
+        <v-btn block dark class="box__cta" :to="`/${_.get(item, 'user.slug')}`"
+          >Watch Now</v-btn
+        >
       </div>
     </div>
     <div class="box__footer">
@@ -58,9 +61,19 @@ export default {
     width: 100%;
     height: 100%;
     display: none;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 7.5px;
+    align-items: flex-end;
+    padding: 10px;
+    // background-color: #ffffff;
+    // border: 1px solid #e0e0e0;
+    // border-radius: 7.5px;
+  }
+
+  &__cta {
+    border-radius: 3.75px;
+    background-color: #0074ff !important;
+    text-transform: initial;
+    font-weight: 700;
+    letter-spacing: 0.6px;
   }
 
   &__image {
@@ -115,7 +128,7 @@ export default {
 
   &__content:hover {
     .box__overlay {
-      display: block;
+      display: flex;
     }
   }
 }

@@ -19,7 +19,11 @@
               <div
                 class="user-profile-image-section"
                 :class="{ live: show_stream_live_button }"
-                @click="!view_stream_clicked && viewStream()"
+                @click="
+                  show_stream_live_button &&
+                    !view_stream_clicked &&
+                    viewStream()
+                "
               >
                 <div
                   class="user-profile-image"
