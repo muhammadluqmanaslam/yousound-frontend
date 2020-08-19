@@ -1,16 +1,32 @@
 <template>
   <div class="media">
+    <router-link v-if="imageLink" :to="imageLink">
+      <div
+        class="media__image"
+        :class="{ round: imageRounded }"
+        :style="`background-image: url(${image})`"
+      ></div>
+    </router-link>
     <div
+      v-else
       class="media__image"
       :class="{ round: imageRounded }"
       :style="`background-image: url(${image})`"
     ></div>
+
     <div class="media__content">
       <div>
-        <div class="media__title">
+        <router-link v-if="titleLink" :to="titleLink">
+          <div class="media__title">
+            {{ title }}
+            <v-icon v-if="meta.verified">fa-check-circle</v-icon>
+          </div>
+        </router-link>
+        <div v-else class="media__title">
           {{ title }}
           <v-icon v-if="meta.verified">fa-check-circle</v-icon>
         </div>
+
         <div class="media__subtitle" v-if="subtitle">{{ subtitle }}</div>
         <div class="media__description" v-if="description">
           {{ description }}
@@ -24,8 +40,10 @@
 export default {
   props: {
     image: String,
+    imageLink: String,
     roundImage: Boolean,
     title: String,
+    titleLink: String,
     subtitle: String,
     description: String,
     meta: {

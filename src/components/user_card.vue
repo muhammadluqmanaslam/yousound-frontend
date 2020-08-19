@@ -1,7 +1,9 @@
 <template>
   <app-card
     :image="userImage"
+    :imageLink="`/${user.username}`"
     :title="userName"
+    :titleLink="`/${user.username}`"
     :description="userType"
     :meta="userMeta"
   ></app-card>
