@@ -305,15 +305,14 @@ export default {
         'shop_product[price]',
         Math.round(this.product.price * 100)
       )
+      let variants = []
       for (let index in this.product.variants) {
-        this.product.variants[index].price = Math.round(
-          this.product.variants[index].price * 100
-        )
+        variants.push({
+          ...this.product.variants[index],
+          price: this.product.variants[index].price * 100,
+        })
       }
-      formData.append(
-        'shop_product[variants]',
-        JSON.stringify(this.product.variants)
-      )
+      formData.append('shop_product[variants]', JSON.stringify(variants))
       for (let index in this.product.shipments) {
         this.product.shipments[index].shipment_alone_price = Math.round(
           this.product.shipments[index].shipment_alone_price * 100
