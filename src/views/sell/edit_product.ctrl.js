@@ -1,8 +1,10 @@
+/* global $:true */
+
 import _ from 'lodash'
-import CategoryService from '@/services/category'
+// import CategoryService from '@/services/category'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
-import UserService from '@/services/user'
+// import UserService from '@/services/user'
 import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
 
@@ -87,7 +89,7 @@ export default {
       return (
         ['privated', 'published', 'collaborated'].indexOf(
           this.product.status
-        ) == -1
+        ) === -1
       )
     },
 
@@ -106,7 +108,14 @@ export default {
     },
 
     productCategoryName() {
-      return this.product_categories[this.product.category].name
+      return _.get(
+        _.find(
+          this.product_categories,
+          (pc) => pc.id === this.product.category
+        ),
+        'name',
+        ''
+      )
     },
   },
 
@@ -255,7 +264,7 @@ export default {
         ]
       } else if (
         this.isDigitalProduct &&
-        this.digital_content_category_ids.indexOf(category_id) == -1
+        this.digital_content_category_ids.indexOf(category_id) === -1
       ) {
         this.product.variants = this.product_variants
       }
@@ -264,10 +273,10 @@ export default {
     changeTaxPercent(locationName) {
       this.product.tax_percent = 0
       if (this.product.is_vat) {
-        const country = _.find(this.countries, (c) => c.name == locationName)
+        const country = _.find(this.countries, (c) => c.name === locationName)
         this.product.tax_percent = _.get(country, 'rate', 0)
       } else {
-        const state = _.find(this.states, (s) => s.name == locationName)
+        const state = _.find(this.states, (s) => s.name === locationName)
         this.product.tax_percent = _.get(state, 'rate', 0)
       }
     },
@@ -300,7 +309,7 @@ export default {
     },
 
     beforeSaveProduct() {
-      if (this.product.status == 'pending') {
+      if (this.product.status === 'pending') {
         this.showCollaboratorsConfirmDialog()
       } else {
         this.saveProduct()
@@ -406,7 +415,7 @@ export default {
           'shop_product[digital_content_name]',
           this.digital_content.file.name
         )
-      } else if (_.get(this.digital_content, 'file.name', '') == '') {
+      } else if (_.get(this.digital_content, 'file.name', '') === '') {
         formData.append('shop_product[digital_content]', null)
         formData.append('shop_product[digital_content_name]', null)
       }
