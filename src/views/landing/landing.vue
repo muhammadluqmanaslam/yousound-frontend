@@ -89,6 +89,7 @@ export default {
   data() {
     return {
       options: {
+        licenseKey: '2459B862-98804489-90AD3CCB-A21A20CF',
         navigation: true,
         navigationPosition: 'left',
         afterLoad: this.afterLoad,
