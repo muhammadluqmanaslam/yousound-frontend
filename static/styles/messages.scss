@@ -408,19 +408,16 @@
       }
       .send-message-section {
         flex: 0 0 auto;
-        // position: absolute;
-        // bottom: 0;
-        // left: 0;
-        width: calc(100% - 1px);
+        display: flex;
+        align-items: center;
+        width: 100%;
         height: 60px;
         border-top: 0.75px solid #e1e1e1;
-        // border-right: 0.75px solid #E1E1E1;
         background: #ffffff;
         .message-input-box {
           border: none;
           width: 100%;
-          padding: 28px 26.25px;
-          padding-right: 150.5px;
+          padding: 0 15px 0 20px;
           font-size: 16px;
           letter-spacing: -0.2px;
           &:focus,
@@ -442,13 +439,11 @@
             color: #ababab;
           }
         }
+        .send-love-btn,
         .show-emoji-box-btn {
-          position: absolute;
           width: 30px;
           min-width: 30px;
           height: 30px;
-          right: 110px;
-          bottom: 13.5px;
           margin: 0;
           text-transform: none;
           box-shadow: none;
@@ -463,14 +458,20 @@
             border: none;
             color: #ffffff;
           }
+          .btn__content {
+            padding: 0;
+          }
+        }
+        .send-love-btn {
+          margin-right: 8px;
+          img {
+            width: 23px;
+            height: 20px;
+          }
         }
         .send-message-btn {
-          position: absolute;
           width: 72.75px;
           height: 30px;
-          right: 15px;
-          bottom: 13.5px;
-          margin: 0;
           text-transform: none;
           box-shadow: none;
           background: #14c45a;

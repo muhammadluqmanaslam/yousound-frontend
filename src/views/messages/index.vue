@@ -224,6 +224,13 @@
                 v-on-click-outside="hideEmojiDialog"
               ></picker>
               <v-btn
+                v-if="otherStripeConnected"
+                class="send-love-btn"
+                @click="openSendLoveModal()"
+              >
+                <img src="/static/images/ic_send_love.png" />
+              </v-btn>
+              <v-btn
                 class="show-emoji-box-btn"
                 :class="{ selected: showEmojiPicker }"
                 @click.native="showEmojiDialog()"
@@ -348,6 +355,12 @@
       :receiver="conversation.other"
       :dismiss="closeRepostPaymentModal"
       :finish="sendMessage"
+    />
+
+    <send-love-modal
+      v-if="show_send_love_modal"
+      :item="conversation.other"
+      :dismiss="closeSendLoveModal"
     />
 
     <v-dialog v-model="show_block_user_confirm_dialog">

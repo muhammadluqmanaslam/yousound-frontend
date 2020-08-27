@@ -13,6 +13,7 @@ import ProductService from '@/services/product'
 import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
 import repostPaymentModal from '@/components/repost_payment_modal'
+import SendLoveModal from '@/components/sendlovemodal'
 import message from './components/message'
 
 const ActionCable = require('actioncable')
@@ -24,6 +25,7 @@ export default {
     Picker,
     message,
     repostPaymentModal,
+    SendLoveModal,
   },
 
   mixins: [onClickOutside],
@@ -36,6 +38,7 @@ export default {
       show_conversation_delete_confirm_dialog: false,
       show_block_user_confirm_dialog: false,
       show_repost_payment_modal: false,
+      show_send_love_modal: false,
       showEmojiPicker: false,
       page_index: 0,
       total_pages: 1,
@@ -489,6 +492,14 @@ export default {
 
     closeRepostPaymentModal() {
       this.show_repost_payment_modal = false
+    },
+
+    openSendLoveModal() {
+      this.show_send_love_modal = true
+    },
+
+    closeSendLoveModal() {
+      this.show_send_love_modal = false
     },
 
     selectItem(item) {
