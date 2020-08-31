@@ -66,7 +66,7 @@
             <v-btn
               class="add-to-cart-btn"
               @click.native="addToCart()"
-              :disabled="option == '' || option == null"
+              :disabled="canAdd"
             >
               <svg
                 width="29px"
@@ -370,6 +370,21 @@ export default {
         }
       }
       return covers
+    },
+
+    canAdd() {
+      const stripe_connected = _.get(
+        this.item,
+        'merchant.stripe_connected',
+        false
+      )
+      const product_stock_status = _.get(this.item, 'stock_status', 'inactive')
+      return (
+        this.option === '' ||
+        this.option === null ||
+        !stripe_connected ||
+        product_stock_status !== 'active'
+      )
     },
   },
 

@@ -21,8 +21,8 @@
     margin-right: auto;
     position: relative;
     z-index: 20;
-    background: #FFFFFF;
-    box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+    background: #ffffff;
+    box-shadow: 0 30px 55.5px 0 rgba(0, 0, 0, 0.3);
     border-radius: 7.5px;
     padding: 37.5px 11.25px 30px;
     .image-section {
@@ -57,7 +57,7 @@
         width: 500px !important;
         background-size: cover;
         background-repeat: no-repeat;
-        background: #D5D5D5;
+        background: #d5d5d5;
         border-radius: 10px;
         background-position: center;
         overflow: hidden;
@@ -139,21 +139,21 @@
           height: 50px;
           width: 100%;
           margin: 18px 0 0;
-          background: #3A92FF !important;
+          background: #3a92ff;
           border-radius: 75px;
           font-weight: 600;
           font-size: 15px;
-          color: #FFFFFF;
+          color: #ffffff;
           letter-spacing: 0;
         }
       }
     }
-    .carousel__controls{
+    .carousel__controls {
       display: none;
       background: transparent;
     }
     .theme--dark.btn {
-      color: #707070
+      color: #707070;
     }
     .carousel {
       box-shadow: none;
@@ -190,14 +190,14 @@
           vertical-align: middle;
           cursor: pointer;
           font-size: 16px;
-          color: #3A92FF;
+          color: #3a92ff;
           letter-spacing: 0;
           padding-right: 24px;
           &.right-border {
-            border-right: 0.75px solid #DBDBDB;
+            border-right: 0.75px solid #dbdbdb;
           }
           &.left-border {
-            border-left: 0.75px solid #DBDBDB;
+            border-left: 0.75px solid #dbdbdb;
           }
         }
         .action-btn.policy {
