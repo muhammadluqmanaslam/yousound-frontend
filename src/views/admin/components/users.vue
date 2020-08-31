@@ -8,7 +8,8 @@
           :key="tab.id"
           :href="`#${tab.id}`"
           ripple
-        >{{ tab.title }}</v-tabs-item>
+          >{{ tab.title }}</v-tabs-item
+        >
         <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -21,12 +22,8 @@
           hide-details
         />
       </v-tabs-bar>
-      <v-tabs-items style="border:none;">
-        <v-tabs-content
-          v-for="tab in users_tabs"
-          :key="tab.id"
-          :id="tab.id"
-        >
+      <v-tabs-items style="border: none">
+        <v-tabs-content v-for="tab in users_tabs" :key="tab.id" :id="tab.id">
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
@@ -43,11 +40,16 @@
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">
             <div class="avatar-image-wrapper">
-              <div class="avatar-image" :style="{'background-image': 'url(' + props.item.avatar.url + ')'}"></div>
+              <div
+                class="avatar-image"
+                :style="{
+                  'background-image': 'url(' + props.item.avatar.url + ')',
+                }"
+              ></div>
               <div class="avatar-title">{{ props.item.username }}</div>
             </div>
           </td>
-          <td class="text-xs-left" v-if="active_tab.id=='moderators'">
+          <td class="text-xs-left" v-if="active_tab.id == 'moderators'">
             <v-switch
               v-model="props.item.enabled_view_direct_messages"
               @change="toggleViewDirectMessages(props.item)"
@@ -96,7 +98,9 @@
               :href="`https://twitter.com/intent/user?user_id=${props.item.social_user_id}`"
               target="_blank"
             >
-              https://twitter.com/intent/user?user_id={{ props.item.social_user_id }}
+              https://twitter.com/intent/user?user_id={{
+                props.item.social_user_id
+              }}
             </a>
           </td>
           <td class="text-xs-left">{{ props.item.created_at | formatDate }}</td>
@@ -116,7 +120,7 @@
               </v-btn>
               <v-list>
                 <v-list-tile
-                  v-if="props.item.status == 'inactive'""
+                  v-if="props.item.status == 'inactive'"
                   class="default-menu-item"
                   @click.native="sendConfirmEmail(props.item)"
                 >
@@ -125,7 +129,9 @@
                   </v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile
-                  v-if="['suspended', 'pending'].indexOf(props.item.status)!==-1"
+                  v-if="
+                    ['suspended', 'pending'].indexOf(props.item.status) !== -1
+                  "
                   key="activate"
                   class="default-menu-item"
                   @click.native="activateAccount(props.item)"
@@ -136,7 +142,7 @@
                 </v-list-tile>
 
                 <v-list-tile
-                  v-if="['active', 'pending'].indexOf(props.item.status)!==-1"
+                  v-if="['active', 'pending'].indexOf(props.item.status) !== -1"
                   @click.native="suspendAccount(props.item)"
                   class="default-menu-item"
                 >
@@ -145,7 +151,7 @@
                   </v-list-tile-title>
                 </v-list-tile>
 
-                <v-list-tile
+                <!-- <v-list-tile
                   v-if="props.item.status=='active' && ['listener', 'moderator'].indexOf(props.item.user_type) > -1"
                   @click.native="updateUserRole(props.item, 'artist')"
                   key="convert_artist"
@@ -154,10 +160,13 @@
                   <v-list-tile-title>
                     <label>Convert to artist</label>
                   </v-list-tile-title>
-                </v-list-tile>
+                </v-list-tile> -->
 
                 <v-list-tile
-                  v-if="props.item.status=='active' && ['artist', 'moderator'].indexOf(props.item.user_type) > -1"
+                  v-if="
+                    props.item.status == 'active' &&
+                    ['artist', 'moderator'].indexOf(props.item.user_type) > -1
+                  "
                   @click.native="updateUserRole(props.item, 'listener')"
                   class="default-menu-item"
                 >
@@ -167,7 +176,10 @@
                 </v-list-tile>
 
                 <v-list-tile
-                  v-if="props.item.status=='active' && ['listener', 'artist'].indexOf(props.item.user_type) > -1"
+                  v-if="
+                    props.item.status == 'active' &&
+                    ['listener', 'artist'].indexOf(props.item.user_type) > -1
+                  "
                   @click.native="updateUserRole(props.item, 'moderator')"
                   class="default-menu-item"
                 >
@@ -188,11 +200,21 @@
     <v-dialog v-model="show_stream_delete_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Delete a Stream</v-card-title>
-        <v-card-text>If you click OK, the stream will no longer be available. Click OK to delete, or click Cancel.</v-card-text>
+        <v-card-text
+          >If you click OK, the stream will no longer be available. Click OK to
+          delete, or click Cancel.</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="red--text darken-1" flat @click.native="deleteStream()">Ok</v-btn>
-          <v-btn class="green--text darken-1" flat @click.native="closeStreamDeleteConfirmDialog()">Cancel</v-btn>
+          <v-btn class="red--text darken-1" flat @click.native="deleteStream()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="green--text darken-1"
+            flat
+            @click.native="closeStreamDeleteConfirmDialog()"
+            >Cancel</v-btn
+          >
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
@@ -201,10 +223,18 @@
     <v-dialog v-model="show_free_stream_toggle_confirm_dialog">
       <v-card>
         <v-card-title class="headline">Stream Running</v-card-title>
-        <v-card-text>Stream is running for now. Please stop the stream before toggle free stream option</v-card-text>
+        <v-card-text
+          >Stream is running for now. Please stop the stream before toggle free
+          stream option</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="red--text darken-1" flat @click.native="closeFreeStreamToggleConfirmDialog()">Ok</v-btn>
+          <v-btn
+            class="red--text darken-1"
+            flat
+            @click.native="closeFreeStreamToggleConfirmDialog()"
+            >Ok</v-btn
+          >
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
