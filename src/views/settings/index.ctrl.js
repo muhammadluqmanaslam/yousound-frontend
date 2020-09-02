@@ -263,7 +263,7 @@ export default {
     viewStripeAccount() {},
 
     disconnetAccount() {
-      UserService.disconnectStripe(this.currentUser.id)
+      MeService.disconnectStripe()
         .then((response) => {
           this.$store.dispatch('error/showSuccessToast', [
             'Stripe Disconected!',

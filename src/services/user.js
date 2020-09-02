@@ -84,20 +84,6 @@ export default {
     )
   },
 
-  connectStripe(userId, params) {
-    return Vue.http.post(
-      API_BASE_URL + '/' + userId + '/connect_stripe',
-      params,
-      { headers: { Authorization: $store.state.auth.token } }
-    )
-  },
-
-  disconnectStripe(userId) {
-    return Vue.http.get(API_BASE_URL + '/' + userId + '/disconnect_stripe', {
-      headers: { Authorization: $store.state.auth.token },
-    })
-  },
-
   donateMoney(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/donate', params, {
       headers: { Authorization: $store.state.auth.token },

@@ -6,16 +6,22 @@ const API_BASE_URL = `${process.env.API_BASE_URL}/v1/me`
 const MeService = {
   stripeEmail: () =>
     Vue.http.get(`${API_BASE_URL}/stripe_email`, {
-      headers: {
-        Authorization: $store.state.auth.token,
-      },
+      headers: { Authorization: $store.state.auth.token },
     }),
 
   mutualUsers: (params) =>
     Vue.http.post(`${API_BASE_URL}/mutual_users`, params, {
-      headers: {
-        Authorization: $store.state.auth.token,
-      },
+      headers: { Authorization: $store.state.auth.token },
+    }),
+
+  connectStripe: (params) =>
+    Vue.http.post(`${API_BASE_URL}/connect_stripe`, params, {
+      headers: { Authorization: $store.state.auth.token },
+    }),
+
+  disconnectStripe: () =>
+    Vue.http.get(`${API_BASE_URL}//disconnect_stripe`, {
+      headers: { Authorization: $store.state.auth.token },
     }),
 }
 

@@ -1,4 +1,4 @@
-import UserService from '@/services/user'
+import MeService from '@/services/me'
 
 export default {
   data() {
@@ -23,7 +23,7 @@ export default {
       const params = {
         code: code,
       }
-      UserService.connectStripe(this.$store.state.auth.user.id, params)
+      MeService.connectStripe(params)
         .then((response) => {
           this.$store.dispatch('error/showSuccessToast', ['Stripe Conected!'])
           this.$router.push({ path: '/settings#bank-details' })
