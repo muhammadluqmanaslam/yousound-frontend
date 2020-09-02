@@ -22,7 +22,7 @@
           class="user-serach search-input mr-4"
         />
       </v-tabs-bar>
-      <v-tabs-items style="border: none;">
+      <v-tabs-items style="border: none">
         <v-tabs-content v-for="tab in signups_tabs" :key="tab.id" :id="tab.id">
           <v-card flat>
             <v-data-table
@@ -51,6 +51,9 @@
                   {{ props.item.request_role | capitalize }}
                 </td>
                 <td class="text-xs-left">
+                  {{ props.item.genre.name }}
+                </td>
+                <td class="text-xs-left">
                   {{ props.item.created_at | formatDate }}
                 </td>
                 <td class="text-xs-right">
@@ -67,6 +70,7 @@
                 {{ total_signups }}
               </template>
             </v-data-table>
+
             <v-data-table
               v-if="active_tab == 'co-signed'"
               :headers="headers"
@@ -91,6 +95,9 @@
                 </td>
                 <td class="text-xs-left">
                   {{ props.item.request_role | capitalize }}
+                </td>
+                <td class="text-xs-left">
+                  {{ props.item.genre.name }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.created_at | formatDate }}
@@ -126,6 +133,7 @@
                 {{ total_signups }}
               </template>
             </v-data-table>
+
             <v-data-table
               v-if="active_tab == 'approved' || active_tab == 'denied'"
               :headers="headers"

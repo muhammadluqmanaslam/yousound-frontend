@@ -54,6 +54,7 @@ export default {
         new_password: '',
         confirmed_password: '',
       },
+      show_stripe_disconnect_confirm_dialog: false,
       stripeDialog: false,
       stripeEmail: '',
       user: {},
@@ -262,6 +263,14 @@ export default {
 
     viewStripeAccount() {},
 
+    openStripeDisconnectConfirmDialog() {
+      this.show_stripe_disconnect_confirm_dialog = true
+    },
+
+    closeStripeDisconnectConfirmDialog() {
+      this.show_stripe_disconnect_confirm_dialog = false
+    },
+
     disconnetAccount() {
       MeService.disconnectStripe()
         .then((response) => {
@@ -276,6 +285,7 @@ export default {
             e.body.errors || [e.body]
           )
         })
+      this.closeStripeDisconnectConfirmDialog()
     },
 
     unblockUser(user) {

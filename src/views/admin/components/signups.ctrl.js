@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import AdminService from '@/services/admin'
-import UserService from '@/services/user'
 import signupApproveModal from './signup_approve_modal'
 import signupDenyModal from './signup_deny_modal'
 
@@ -22,12 +21,14 @@ export default {
       waiting_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
         { text: 'User Type', value: 'request_role', align: 'left' },
+        { text: 'Genre', value: 'genre.name', align: 'left' },
         { text: 'Date Signed Up', value: 'created_at', align: 'left' },
         { text: '', value: 'id', align: 'left' },
       ],
       invited_headers: [
         { text: 'User', value: 'display_name', align: 'left' },
         { text: 'User Type', value: 'user_type', align: 'left' },
+        { text: 'Genre', value: 'genre.name', align: 'left' },
         { text: 'Date', value: 'joined_date', align: 'left' },
         { text: 'Status', value: 'status', align: 'left' },
         { text: 'Invited By', value: 'invited_by', align: 'left' },
@@ -107,7 +108,7 @@ export default {
     },
 
     onTab(tab) {
-      if (this.active_tab == tab) return
+      if (this.active_tab === tab) return
 
       this.active_tab = tab
       this.pagination = {

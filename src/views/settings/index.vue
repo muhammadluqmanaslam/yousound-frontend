@@ -317,7 +317,7 @@
                 </div>
                 <div v-else>
                   <v-btn
-                    @click.native="disconnetAccount()"
+                    @click="openStripeDisconnectConfirmDialog()"
                     color="red"
                     class="update-btn"
                     >Disconnect Stripe</v-btn
@@ -336,10 +336,42 @@
               </v-flex>
             </v-flex>
           </div>
+
+          <v-dialog
+            v-model="show_stripe_disconnect_confirm_dialog"
+            content-class="my-dialog-1"
+          >
+            <v-card>
+              <v-card-text>
+                <div class="headline">
+                  Do you really want to disconnect stripe?
+                </div>
+                <div>
+                  Your products will be deleted permanetly when you disconnect
+                  to stripe.
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn dark color="red" @click="disconnetAccount()"
+                  >Confirm</v-btn
+                >
+                <v-btn
+                  dark
+                  color="grey"
+                  @click="closeStripeDisconnectConfirmDialog()"
+                  >Cancel</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </div>
+
         <price-tab v-else-if="active_tab == 'repost-price'" />
+
         <address-tab v-else-if="active_tab == 'shipping-address'" />
+
         <!--genre-tab v-else-if="active_tab == 'genre-filter'"/-->
+
         <div class="main-section" v-else-if="active_tab == 'blocked'">
           <div class="description-section">
             <p>You can unblock users here</p>
@@ -373,11 +405,13 @@
             </v-layout>
           </div>
         </div>
+
         <policy-tab
           v-else-if="active_tab == 'seller-policies'"
           :user="user"
           :updateUser="updateUser"
         />
+
         <verify-tab v-else-if="active_tab == 'verify-status'" />
       </div>
     </div>
