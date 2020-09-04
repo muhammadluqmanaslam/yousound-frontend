@@ -176,6 +176,14 @@ export const Filter = {
   },
 }
 
+export const Stripe = {
+  calculateFee: (amount) => {
+    return amount > 50
+      ? Math.round(((amount + 30) / 0.971 - amount) * 100) / 100
+      : 0
+  },
+}
+
 export const CollaboratorRoleTypes = [
   'Additional Production',
   'Album Artwork',

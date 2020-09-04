@@ -4,6 +4,7 @@ import AddressService from '@/services/address'
 import ItemService from '@/services/item'
 import paymentModal from '@/components/paymentmodal'
 import activityProductCard from '@/components/activityproductcard'
+import { Stripe } from '@/helper'
 
 export default Vue.extend({
   components: {
@@ -13,6 +14,7 @@ export default Vue.extend({
 
   data() {
     return {
+      Stripe: Stripe,
       ordersCost: {
         hasDeleted: false,
         shipping_cost: 0,

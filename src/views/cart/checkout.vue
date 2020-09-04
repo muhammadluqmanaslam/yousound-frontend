@@ -178,8 +178,14 @@
           </div>
           <div class="fields">
             <div class="field py-1">
-              <span>Shipping Fee</span>
-              <label>${{ ordersCost.shipping_cost | formatNumber }}</label>
+              <span>Shipping / Fee</span>
+              <label
+                >${{
+                  (ordersCost.shipping_cost +
+                    Stripe.calculateFee(ordersCost.total_cost))
+                    | formatNumber
+                }}</label
+              >
             </div>
             <div class="field py-1">
               <span>Taxes</span>

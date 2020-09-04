@@ -80,6 +80,7 @@
 
 <script type="text/javascript">
 import { Card, createToken } from 'vue-stripe-elements'
+import { Stripe } from '@/helper'
 
 export default {
   props: {
@@ -148,8 +149,7 @@ export default {
       this.show_error_dialog = true
     }
 
-    const total = (this.amount + 30) / 0.971
-    this.fee = total - this.amount
+    this.fee = Stripe.calculateFee(this.amount)
   },
 
   beforeDestroy() {},
