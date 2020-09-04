@@ -13,6 +13,12 @@ export default Vue.extend({
 
   data() {
     return {
+      ordersCost: {
+        hasDeleted: false,
+        shipping_cost: 0,
+        tax_cost: 0,
+        total_cost: 0,
+      },
       cartItems: [],
       shippingAddress: [],
       showAddress: true,
@@ -188,6 +194,19 @@ export default Vue.extend({
         ItemService.orderItems(params)
           .then((response) => {
             this.$store.dispatch('error/showLoadingActivity', false)
+            const orders = response.body || []
+            this.ordersCost.shipping_cost = this._.sumBy(
+              orders,
+              'shipping_cost'
+            )
+            this.ordersCost.tax_cost = this._.sumBy(orders, 'tax_cost')
+            this.ordersCost.total_cost = this._.sumBy(orders, 'amount')
+            const itemsSize = this._.reduce(
+              orders,
+              (size, order) => size + (order.items || []).length,
+              0
+            )
+            this.ordersCost.hasDeleted = this.cartItems.length !== itemsSize
             // this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
             // this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
             // this.$router.push({path : '/cart#history'})

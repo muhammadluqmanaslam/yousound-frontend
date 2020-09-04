@@ -169,9 +169,26 @@
         ></v-card-media>
         <v-card-text>
           <div class="headline">Your order has been processed!</div>
-          <div>
+          <p v-if="ordersCost.hasDeleted">
+            Some items were out of stock or deleted
+          </p>
+          <div class="mt-2">
             View your order history to view shipping status of your items,<br />
             view payment invoices & download any digital products.
+          </div>
+          <div class="fields">
+            <div class="field py-1">
+              <span>Shipping Fee</span>
+              <label>${{ ordersCost.shipping_cost | formatNumber }}</label>
+            </div>
+            <div class="field py-1">
+              <span>Taxes</span>
+              <label>${{ ordersCost.tax_cost | formatNumber }}</label>
+            </div>
+            <div class="field py-1">
+              <span>Total</span>
+              <label>${{ ordersCost.total_cost | formatNumber }}</label>
+            </div>
           </div>
         </v-card-text>
         <v-card-actions>
