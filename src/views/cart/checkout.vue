@@ -76,7 +76,10 @@
             >
           </div>
           <div class="action-row">
-            <v-btn class="place-order-btn" @click.native="openPaymentDialog()"
+            <v-btn
+              class="place-order-btn"
+              @click.native="openPaymentDialog()"
+              :disabled="!canOrder"
               >Place Order</v-btn
             >
           </div>

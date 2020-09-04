@@ -35,6 +35,15 @@ export default Vue.extend({
     merchants() {
       return this.cartItems.map((item) => item.product.merchant)
     },
+
+    canOrder() {
+      return this._.isEmpty(
+        this._.find(
+          this.cartItems,
+          (item) => this.productStatus(item).style !== 'success'
+        )
+      )
+    },
   },
 
   created() {
