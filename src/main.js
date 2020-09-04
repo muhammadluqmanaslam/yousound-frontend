@@ -84,35 +84,6 @@ Vue.filter('timeInMinutes', Filter.timeInMinutes)
 Vue.filter('capitalize', Filter.capitalize)
 Vue.filter('truncateInMiddle', Filter.truncateInMiddle)
 
-/* eslint-disable no-new */
-// new Vue({
-//   el: '#app',
-//   router,
-//   store,
-//   template: '<App/>',
-//   components: { App }
-// })
-
-// function createApp() {
-//   const router = createRouter()
-//   router.beforeEach((to, frm, next) => {
-//     // console.log('to', store.state.auth.secret_code, ',', to.path)
-//     if (/^\/(protect|_oauth|confirm|reset_password)/.test(to.path) || store.state.auth.secret_code === process.env.SECRET_CODE) {
-//       next()
-//     } else {
-//       next('/protect')
-//     }
-//   })
-//   const app = new Vue({
-//     // el: '#app',
-//     router,
-//     store,
-//     template: '<App/>',
-//     components: { App }
-//   })
-//   return { app, router }
-// }
-
 const isMobileBrowser =
   navigator.userAgent.match(
     /android|blackberry|iphone|ipad|ipod|iemobile|mobile|webos/i

@@ -99,17 +99,28 @@
                   />
                 </div>
                 <div class="product-content">
-                  <v-flex sm12 class="product-content-row">
-                    <label class="product-name"
-                      >{{ item.product.name }} |
-                      {{ item.product_variant.name }}</label
-                    >
-                    <label
+                  <div class="product-content-row">
+                    <div class="product-name">
+                      {{ item.product.name }} | {{ item.product_variant.name }}
+                    </div>
+                    <div
                       class="product-status"
                       :class="productStatusStyle(item)"
-                      >{{ productStatusText(item) }}</label
                     >
-                    <template v-if="!isDigitalProduct(item)">
+                      {{ productStatusText(item) }}
+                    </div>
+                  </div>
+                  <div class="product-content-row justify-space-between pt-2">
+                    <div>
+                      By
+                      <router-link
+                        :to="`/${item.product.merchant.slug}`"
+                        class="user-name"
+                        href="#"
+                        >{{ item.product.merchant.display_name }}</router-link
+                      >
+                    </div>
+                    <div v-if="!isDigitalProduct(item)">
                       <v-btn
                         class="product-count-adjust-btn active"
                         @click.native="addQuantity(item)"
@@ -125,18 +136,9 @@
                       >
                         <v-icon>remove</v-icon>
                       </v-btn>
-                    </template>
-                  </v-flex>
-                  <v-flex sm12 class="product-content-row">
-                    By
-                    <router-link
-                      :to="`/${item.product.merchant.slug}`"
-                      class="user-name"
-                      href="#"
-                      >{{ item.product.merchant.display_name }}</router-link
-                    >
-                  </v-flex>
-                  <v-flex sm12 class="product-content-row" pt-1>
+                    </div>
+                  </div>
+                  <div class="product-content-row justify-space-between pt-2">
                     <label class="product-price"
                       >${{ item.price | formatNumber }}</label
                     >
@@ -146,7 +148,7 @@
                       >Remove</a
                     >
                     <!-- <a class="order-detail-btn" href="#">Save for later</a> -->
-                  </v-flex>
+                  </div>
                 </div>
               </v-flex>
             </v-layout>
@@ -183,7 +185,7 @@
       :amount="cartCost.total_cost"
       :dismiss="closePaymentDialog"
       :finish="orderItems"
-    ></payment-modal>
+    />
   </div>
 </template>
 

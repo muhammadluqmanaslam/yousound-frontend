@@ -1,10 +1,11 @@
+import Vue from 'vue'
 import AuthService from '@/services/auth'
 import AddressService from '@/services/address'
 import ItemService from '@/services/item'
 import paymentModal from '@/components/paymentmodal'
 import activityProductCard from '@/components/activityproductcard'
 
-export default {
+export default Vue.extend({
   components: {
     paymentModal,
     activityProductCard,
@@ -232,6 +233,4 @@ export default {
       console.log('test')
     },
   },
-
-  mounted() {},
-}
+})
