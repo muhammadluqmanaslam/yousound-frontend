@@ -61,7 +61,7 @@
                   <label @click="onTab('followers')" class="follower-count"
                     ><strong>{{ user.followers }}</strong> Followers</label
                   >
-                  <template
+                  <!-- <template
                     v-if="user.user_type === 'listener' && user.inviter"
                   >
                     <label class="vertical-divider"></label>
@@ -71,7 +71,7 @@
                         user.inviter.display_name
                       }}</router-link>
                     </label>
-                  </template>
+                  </template> -->
                 </div>
                 <div class="user-action-section">
                   <template v-if="user.user_type === 'listener'">
