@@ -26,10 +26,20 @@
           </div>
         </v-flex>
         <v-flex sm6>
-          <div class="time-info">
-            <label>Remaining time to broadcast</label>
-            <p>{{ remainingSeconds | timeInHours }}</p>
-          </div>
+          <v-layout row class="time-info">
+            <v-flex sm4>
+              <label>Remaining time</label>
+              <p>{{ remainingSeconds | timeInHours }}</p>
+            </v-flex>
+            <v-flex sm4>
+              <label>Watching now</label>
+              <p>{{ active_viewers }}</p>
+            </v-flex>
+            <v-flex sm4>
+              <label>Total viewers</label>
+              <p>{{ total_viewers }}</p>
+            </v-flex>
+          </v-layout>
         </v-flex>
       </v-layout>
 

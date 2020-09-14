@@ -12,7 +12,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    img, i {
+    img,
+    i {
       width: 20px;
       height: 20px;
       flex: 0 0 auto;
@@ -28,9 +29,9 @@
   .stream-info {
     position: relative;
     padding: 15px 25px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
     border-radius: 5px;
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
 
     .loading {
       position: absolute;
@@ -51,7 +52,7 @@
   .ma-0 {
     font-weight: 600;
     font-family: 'Work Sans';
-    letter-spacing: -.2px;
+    letter-spacing: -0.2px;
     color: #3c3c3c;
     font-size: 18px !important;
   }
@@ -61,7 +62,7 @@
     margin-left: 0;
     // padding-top: 14px;
     // padding-bottom: 14px;
-    border-radius: 30px!important;
+    border-radius: 30px !important;
     color: #fff !important;
     font-size: 16px;
     font-weight: 700;
@@ -71,7 +72,9 @@
     background-color: #14c55a !important;
   }
 
-  .btn--active .btn__content:before, .btn:focus .btn__content:before, .btn:hover .btn__content:before {
+  .btn--active .btn__content:before,
+  .btn:focus .btn__content:before,
+  .btn:hover .btn__content:before {
     background-color: transparent !important;
   }
 
@@ -80,24 +83,24 @@
   }
 
   .mb-5 {
-    margin-bottom: 10px!important;
+    margin-bottom: 10px !important;
   }
 
   .time-info {
     padding: 30px 25px 6px 25px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
     border-radius: 5px;
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
 
     label {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 600;
       font-family: 'Work Sans';
       letter-spacing: -1.3px;
     }
 
     p {
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 
@@ -124,12 +127,12 @@
     p {
       i.fa-facebook {
         margin-right: 20px;
-        color: #0000FF;
+        color: #0000ff;
         font-size: 24px;
       }
       i.fa-twitter {
         margin-right: 20px;
-        color: #0000FF;
+        color: #0000ff;
         font-size: 24px;
       }
     }
@@ -145,14 +148,14 @@
         min-width: 52.5px;
         width: 37.5px;
         margin: 3.75px;
-        border: 0.75px solid #FFF;
+        border: 0.75px solid #fff;
         border-radius: 3.75px;
         font-size: 15px;
         color: #000000;
         letter-spacing: -0.6px;
         .btn__content {
           .icon {
-            color: #3A92FF;
+            color: #3a92ff;
             font-size: 20px;
           }
         }
@@ -177,16 +180,16 @@
         height: 30px;
         width: 30px;
         min-width: 30px;
-        border: 0.75px solid #D2D2D2;
+        border: 0.75px solid #d2d2d2;
         margin: 0;
-        background: #FFFFFF;
+        background: #ffffff;
         font-weight: 600;
         font-size: 15px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
         .btn__content {
           .icon {
-            color: #3A92FF;
+            color: #3a92ff;
             font-size: 16px;
           }
         }
@@ -206,13 +209,13 @@
       font-size: 20px;
       font-weight: 700;
       font-family: 'Work Sans';
-      letter-spacing: -.3px;
+      letter-spacing: -0.3px;
     }
 
     .my-card__subtitle {
       font-size: 20px;
       font-weight: 700;
-      letter-spacing: -.8px;
+      letter-spacing: -0.8px;
       font-family: 'Montserrat';
     }
 
@@ -246,7 +249,7 @@
     }
 
     .divider {
-      border: .5px dotted #ededed;
+      border: 0.5px dotted #ededed;
     }
 
     .o-out {
@@ -264,23 +267,23 @@
       }
 
       &.blue0 {
-        background-color: #AAD0FE;
+        background-color: #aad0fe;
         .o-in {
-          background-color: #3A92FF;
+          background-color: #3a92ff;
         }
       }
 
       &.red0 {
-        background-color: #FF9DBE;
+        background-color: #ff9dbe;
         .o-in {
-          background-color: #F43374;
+          background-color: #f43374;
         }
       }
 
       &.green0 {
-        background-color: #C8FFF3;
+        background-color: #c8fff3;
         .o-in {
-          background-color: #50E3C2;
+          background-color: #50e3c2;
         }
       }
     }
@@ -288,7 +291,7 @@
 
   h3 {
     font-size: 22px;
-    letter-spacing: -.5px;
+    letter-spacing: -0.5px;
   }
 
   .form-control {
@@ -305,30 +308,30 @@
 
   .comment-box {
     padding: 18px 25px;
-    border: 1px solid #DDDDA8;
+    border: 1px solid #dddda8;
     border-radius: 5px;
-    background-color: #FFFFEE;
+    background-color: #ffffee;
     font-size: 16px;
   }
 
   .attach {
     padding: 10px 12px;
-    border: 0.75px solid #D2D2D2;
+    border: 0.75px solid #d2d2d2;
     border-radius: 3.75px;
   }
 
   .cover-wrapper {
-    input[type="file"] {
-      width: 0.0.75px;
-      height: 0.0.75px;
+    input[type='file'] {
+      width: 0.75px;
+      height: 0.75px;
       opacity: 0;
       overflow: hidden;
       position: absolute;
       z-index: -1;
     }
-    input[type="file"] + label {
+    input[type='file'] + label {
       display: inline-block;
-      color: #1976D2;
+      color: #1976d2;
       font-size: 14px;
       cursor: pointer;
     }
@@ -336,7 +339,7 @@
       text-decoration: underline;
     }
     span {
-      color: #E53935;
+      color: #e53935;
       font-size: 10px;
     }
   }
@@ -354,7 +357,7 @@
       width: 100%;
       height: 100%;
       // background-image: linear-gradient(to right bottom, #71e3ff, #4bd2ff, #46beff, #69a6ff, #9689fe);
-      background-color: #D2D2D2;
+      background-color: #d2d2d2;
       background-size: cover;
       background-position: center center;
       label {
@@ -362,7 +365,7 @@
         top: 50%;
         left: 50%;
         margin: -14px 0 0 -41px;
-        color: #FFFFFF;
+        color: #ffffff;
         font-size: 18px;
       }
     }
@@ -384,7 +387,7 @@
       }
       .user-type {
         font-size: 16px;
-        color: #9B9B9B;
+        color: #9b9b9b;
         text-transform: capitalize;
       }
     }
@@ -416,7 +419,7 @@
         line-height: 24px;
         word-break: break-all;
         font-family: 'Work Sans';
-        letter-spacing: -.5px;
+        letter-spacing: -0.5px;
       }
       .video-period {
         font-size: 16px;
@@ -436,9 +439,9 @@
 
   .button-wrapper {
     padding: 16px 25px;
-    border: 1px solid #DBDBDB;
+    border: 1px solid #dbdbdb;
     border-radius: 5px;
-    background-color: #F9F9F9;
+    background-color: #f9f9f9;
     text-align: center;
     margin-left: -8px;
   }
@@ -451,7 +454,7 @@
   }
 
   .mb-5 {
-    margin-bottom: 32px!important;
+    margin-bottom: 32px !important;
   }
 
   button {

@@ -265,6 +265,14 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.slug)
         .then((response) => {
+          if (response.body.status !== 'active') {
+            this.$store.dispatch('error/showErrorToast', [
+              'User does not exist',
+            ])
+            this.$router.push({ path: '/' })
+            return
+          }
+
           // console.log('profile init')
           this.user = response.body
           this.$emit('updateHead')

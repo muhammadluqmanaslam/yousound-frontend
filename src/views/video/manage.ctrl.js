@@ -64,6 +64,8 @@ export default {
       creatingInterval: null,
       remainingInterval: null,
       remainingSeconds: 0,
+      active_viewers: 0,
+      total_viewers: 0,
       cable: null,
       stream_subscription: null,
       isPageReady: false,
@@ -192,32 +194,38 @@ export default {
           }))
           this.selected_guests = _.map(this.currentUser.stream.guests, 'id')
 
-          if (!this.currentUser.stream.notified) {
-            this.stream_subscription = this.cable.subscriptions.create(
-              {
-                channel: 'StreamsChannel',
-                stream_id: vm.currentUser.stream.id,
-              },
-              {
-                connected: () => {
-                  console.log('connected to StreamsChannel')
-                },
-                received: (data) => {
-                  console.log('stream_subscription')
-                  console.log(data)
-                  if (data.notified) {
-                    console.log('signal comming')
-                    vm.show_view_stream_button = true
-                  }
-                },
-                disconnected: () => {
-                  console.log('disconnected to StreamsChannel :(')
-                },
-              }
-            )
-          } else {
+          if (this.currentUser.stream.notified) {
             this.show_view_stream_button = true
           }
+
+          this.stream_subscription = this.cable.subscriptions.create(
+            {
+              channel: 'StreamsChannel',
+              stream_id: vm.currentUser.stream.id,
+            },
+            {
+              connected: () => {
+                console.log('connected to StreamsChannel')
+              },
+              received: (data) => {
+                console.log('stream_subscription')
+                console.log(data)
+                if (data.notified) {
+                  console.log('signal comming')
+                  vm.show_view_stream_button = true
+                }
+                if (data.active_viewers_size) {
+                  vm.active_viewers = data.active_viewers_size
+                }
+                if (data.total_viewers_size) {
+                  vm.total_viewers = data.total_viewers_size
+                }
+              },
+              disconnected: () => {
+                console.log('disconnected to StreamsChannel :(')
+              },
+            }
+          )
         }
       })
       .catch((e) => {
