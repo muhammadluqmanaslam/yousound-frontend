@@ -43,6 +43,7 @@ export default {
       ],
       show_stream_delete_confirm_dialog: false,
       show_free_stream_toggle_confirm_dialog: false,
+      show_user_delete_confirm_dialog: false,
       search_value: '',
       user: null,
       per_page_options: [50, 100, 150],
@@ -60,11 +61,11 @@ export default {
 
   computed: {
     headers() {
-      if (this.active_tab == 'moderator') {
+      if (this.active_tab === 'moderator') {
         return this.user_headers
       } else {
-        return _.filter(this.user_headers, (h) => {
-          return h.text != 'View Direct Messages'
+        return this._.filter(this.user_headers, (h) => {
+          return h.text !== 'View Direct Messages'
         })
       }
     },
@@ -95,7 +96,7 @@ export default {
     },
 
     onTab(tab) {
-      if (this.active_tab == tab) return
+      if (this.active_tab === tab) return
 
       this.active_tab = tab
       this.pagination = {
@@ -159,7 +160,7 @@ export default {
     },
 
     toggleLiveVideoFree(user) {
-      if (user.stream && user.stream.status == 'running') {
+      if (user.stream && user.stream.status === 'running') {
         this.openFreeStreamToggleConfirmDialog()
         user.enabled_live_video_free = !user.enabled_live_video_free
         return
@@ -169,6 +170,15 @@ export default {
         user_id: user.id,
       }
       AdminService.toggleLiveVideoFree(params)
+    },
+
+    openUserDeleteConfirmDialog(user) {
+      this.user = user
+      this.show_user_delete_confirm_dialog = true
+    },
+
+    closeUserDeleteConfirmDialog() {
+      this.show_user_delete_confirm_dialog = false
     },
 
     sendConfirmEmail(user) {
@@ -184,6 +194,17 @@ export default {
             'error/showErrorToast',
             e.body.errors || [e.body]
           )
+        })
+    },
+
+    removeAccount(user) {
+      UserService.deleteUser(user.id)
+        .then((response) => {
+          this.users = this._.filter(this.users, (item) => item.id !== user.id)
+          this.closeUserDeleteConfirmDialog()
+        })
+        .catch(() => {
+          this.closeUserDeleteConfirmDialog()
         })
     },
 

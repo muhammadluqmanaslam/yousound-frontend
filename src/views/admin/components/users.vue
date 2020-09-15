@@ -80,7 +80,7 @@
           <td class="text-xs-center">
             <v-btn
               v-if="props.item.stream && props.item.stream.status === 'running'"
-              @click.natvie="openStreamDeleteConfirmDialog(props.item)"
+              @click="openStreamDeleteConfirmDialog(props.item)"
               fab
               dark
               color="pink"
@@ -142,12 +142,11 @@
                 </v-list-tile>
 
                 <v-list-tile
-                  v-if="['active', 'pending'].indexOf(props.item.status) !== -1"
-                  @click.native="suspendAccount(props.item)"
+                  @click.native="openUserDeleteConfirmDialog(props.item)"
                   class="default-menu-item"
                 >
                   <v-list-tile-title>
-                    <label>Suspend account</label>
+                    <label>Remove account</label>
                   </v-list-tile-title>
                 </v-list-tile>
 
@@ -236,6 +235,33 @@
             >Ok</v-btn
           >
           <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog
+      v-model="show_user_delete_confirm_dialog"
+      content-class="my-dialog-1"
+    >
+      <v-card>
+        <v-card-media
+          :src="_.get(user, 'avatar.thumb.url')"
+          height="125px"
+          contain
+        ></v-card-media>
+        <v-card-text class="mt-2">
+          <!-- <div class="headline">Delete a user permanetly</div> -->
+          <div>
+            Do you really want to delete
+            <b>{{ _.get(user, 'display_name', 'User') }}</b
+            >?
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn dark color="red" @click="removeAccount(user)">Confirm</v-btn>
+          <v-btn dark color="grey" @click="closeUserDeleteConfirmDialog()"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
