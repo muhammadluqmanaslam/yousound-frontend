@@ -69,7 +69,9 @@
               </div>
               <div class="section__footer">
                 <stepper :step-size="3" :active-index="3"></stepper>
-                <img src="/static/images/img_download_ios.svg" />
+                <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
+                  ><img src="/static/images/img_download_ios.svg"
+                /></a>
                 <mobile-footer />
               </div>
             </div>
