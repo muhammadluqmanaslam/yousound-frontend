@@ -56,7 +56,9 @@
         </h3>
       </div>
       <div class="section__footer">
-        <img src="/static/images/img_download_ios.svg" />
+        <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
+          ><img src="/static/images/img_download_ios.svg"
+        /></a>
       </div>
     </div>
 
