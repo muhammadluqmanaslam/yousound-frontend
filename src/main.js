@@ -142,25 +142,22 @@ if (isOldBrowser) {
   })
   app.$mount('#app')
 } else if (isMobileBrowser) {
-  // console.log('loaded routes for Mobile')
   const router = createMobileRouter()
-  router.beforeEach((to, frm, next) => {
-    if (
-      /^\/(protect)/.test(to.path) ||
-      store.state.auth.secret_code === process.env.SECRET_CODE
-    ) {
-      next()
-    } else {
-      next('/protect')
-    }
-  })
+  // router.beforeEach((to, frm, next) => {
+  //   if (
+  //     /^\/(protect)/.test(to.path) ||
+  //     store.state.auth.secret_code === process.env.SECRET_CODE
+  //   ) {
+  //     next()
+  //   } else {
+  //     next('/protect')
+  //   }
+  // })
   const app = new Vue({
     router,
     store,
     template:
       '<v-app id="app"><router-view class="main-content-view"></router-view></v-app>',
-    // template: '<App/>',
-    // components: { App }
   })
   app.$mount('#app')
 } else {
@@ -170,14 +167,12 @@ if (isOldBrowser) {
     const router = createRouter(settings)
     router.beforeEach((to, frm, next) => {
       if (
-        /^\/(protect|_oauth|confirm|reset_password)/.test(to.path) ||
-        /^\/register\/attendee\/.+/.test(to.path) ||
-        /^\/(playlist)$/.test(to.path) ||
-        store.state.auth.secret_code === process.env.SECRET_CODE
+        /^\/(x)$/.test(to.path) &&
+        store.state.auth.secret_code !== process.env.SECRET_CODE
       ) {
-        next()
-      } else {
         next('/protect')
+      } else {
+        next()
       }
     })
     const app = new Vue({
