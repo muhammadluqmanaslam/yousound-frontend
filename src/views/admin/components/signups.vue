@@ -51,7 +51,7 @@
                   {{ props.item.request_role | capitalize }}
                 </td>
                 <td class="text-xs-left">
-                  {{ props.item.genre.name }}
+                  {{ _.get(props.item, 'genre.name', '') }}
                 </td>
                 <td class="text-xs-left">
                   {{ props.item.created_at | formatDate }}
@@ -97,7 +97,7 @@
                   {{ props.item.request_role | capitalize }}
                 </td>
                 <td class="text-xs-left">
-                  {{ props.item.genre.name }}
+                  {{ _.get(props.item, 'genre.name', '') }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.created_at | formatDate }}
