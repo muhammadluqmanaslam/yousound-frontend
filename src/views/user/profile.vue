@@ -50,8 +50,8 @@
                 </div>
                 <div class="user-status-section mt-2">
                   <label class="user-role">{{ user.user_type }}</label>
-                  <label class="vertical-divider"></label>
-                  <label>{{ userLocation }}</label>
+                  <!-- <label class="vertical-divider"></label>
+                  <label>{{ userLocation }}</label> -->
                 </div>
                 <div v-if="followMetaVisible" class="user-status-section mt-2">
                   <label @click="onTab('followings')" class="follower-count"
