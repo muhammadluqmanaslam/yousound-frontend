@@ -28,7 +28,7 @@ export default {
               password: vm.password,
             }
             AuthService.resetPassword(params)
-              .then((response) => {
+              .then(() => {
                 vm.$store.dispatch('error/showSuccessToast', [
                   'Email has been set successfully.',
                 ])
@@ -37,7 +37,11 @@ export default {
               .catch((e) => {
                 vm.$store.dispatch(
                   'error/showErrorToast',
-                  e.body.errors || [e.body]
+                  // e.body.errors || [e.body]
+                  vm._.map(
+                    e.body.errors,
+                    (msg) => `reset_password_token ${msg.detail}`
+                  )
                 )
               })
           }
