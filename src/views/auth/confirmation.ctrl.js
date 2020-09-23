@@ -22,7 +22,7 @@ export default {
     this.token = this.$route.params.token
     this.email = this.$route.query['email']
     this.user_type = this.$route.query['type'] || 1
-    if (this.token == 'being') {
+    if (this.token === 'being') {
       if (!this.email) {
         this.$router.push('/')
       }
