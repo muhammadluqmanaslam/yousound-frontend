@@ -86,11 +86,13 @@ export default {
 
     a {
       display: block;
+      height: 40px;
       margin-top: 30px;
-      padding: 10px 30px;
+      padding: 0 30px;
       border-radius: 40px;
       color: #ffffff;
       background-color: #000;
+      line-height: 40px;
       font-size: 16px;
       font-weight: 700;
     }

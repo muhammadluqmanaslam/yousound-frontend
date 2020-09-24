@@ -30,7 +30,7 @@ export default {
             AuthService.resetPassword(params)
               .then(() => {
                 vm.$store.dispatch('error/showSuccessToast', [
-                  'Email has been set successfully.',
+                  'Password has been updated successfully.',
                 ])
                 vm.$router.push({ path: '/login' })
               })
