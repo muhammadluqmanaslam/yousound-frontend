@@ -31,7 +31,7 @@ export default {
         .catch((e) => {
           this.$store.dispatch(
             'error/showErrorToast',
-            e.body.errors || [e.body]
+            'Email does not exist or inactivated'
           )
         })
     },

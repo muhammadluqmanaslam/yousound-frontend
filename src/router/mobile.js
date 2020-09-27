@@ -8,6 +8,7 @@ import ConfirmPage from '@/views/mobile/auth/confirmation'
 import ResetPasswordPage from '@/views/mobile/auth/reset_password'
 import AlbumShow from '@/views/mobile/album/show'
 import ProductShow from '@/views/mobile/product/show'
+import UserShow from '@/views/mobile/user/show'
 import TermIndex from '@/views/mobile/terms'
 import LandingPage from '@/views/mobile/landing/landing'
 
@@ -28,6 +29,7 @@ export function createMobileRouter() {
     { path: '/terms', name: 'TermIndex', component: TermIndex },
     { path: '/album/:slug', name: 'AlbumShow', component: AlbumShow },
     { path: '/product/:slug', name: 'ProductShow', component: ProductShow },
+    { path: '/user/:slug', name: 'UserShow', component: UserShow },
     { path: '*', redirect: '/' },
   ]
 
