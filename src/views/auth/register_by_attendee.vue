@@ -75,7 +75,7 @@
           placeholder="Password"
           autocomplete="off"
           v-model="user.password"
-          v-validate="'required|min:6'"
+          v-validate="'required|min:5|max:12'"
         />
       </v-flex>
       <v-flex xs12 text pa-0>

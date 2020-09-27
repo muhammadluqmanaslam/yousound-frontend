@@ -13,7 +13,7 @@
         >
           <input
             v-model="password"
-            v-validate="'required|min:6'"
+            v-validate="'required|min:5|max:12'"
             :class="{ input: true, 'text-danger': errors.has('password') }"
             name="password"
             type="password"
