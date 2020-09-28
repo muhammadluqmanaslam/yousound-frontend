@@ -60,7 +60,7 @@ export default {
           isAvailable =
             isAvailable &&
             variant.name.length &&
-            (this.isDigitalProduct || parseFloat(variant.quantity) > 0) &&
+            (this.isDigitalProduct || parseFloat(variant.quantity) >= 0) &&
             parseFloat(variant.price) > 0
         }
         if (this.isDigitalProduct) {
@@ -73,7 +73,7 @@ export default {
                 isAvailable &&
                 shipment.country.length &&
                 parseFloat(shipment.shipment_alone_price) > 0 &&
-                parseFloat(shipment.shipment_with_price) > 0
+                parseFloat(shipment.shipment_with_price) >= 0
             }
           } else {
             isAvailable = false

@@ -30,7 +30,7 @@ table.table tbody th:first-child,
 table.table tbody th:not(:first-child),
 table.table thead td:first-child,
 table.table thead td:not(:first-child),
-table.table thead th:first-child, 
+table.table thead th:first-child,
 able.table thead th:not(:first-child) {
   padding: 0 12px;
 }
@@ -72,7 +72,7 @@ able.table thead th:not(:first-child) {
   }
   .input-group__input {
     min-height: 44px;
-    border: 0.75px solid #D2D2D2;
+    border: 0.75px solid #d2d2d2;
     border-radius: 3.75px;
     .input-group__selections {
       padding-left: 11.25px;
@@ -89,12 +89,12 @@ able.table thead th:not(:first-child) {
 /* v-select : dropdown box */
 .menu__content {
   // z-index: 30 !important;
-  z-index: 300!important;
+  z-index: 300 !important;
   border-radius: 3.75px;
 
   ul {
     margin-bottom: 0;
-    background-color: #F0F0F0 !important;
+    background-color: #f0f0f0 !important;
   }
 }
 
@@ -124,7 +124,12 @@ able.table thead th:not(:first-child) {
 }
 
 /* v-tooltip */
-.tooltip__content {
-  font-size: 16px;
-  background: #222;
+.tooltip {
+  display: flex;
+  align-items: center;
+  &__content {
+    font-size: 16px;
+    background: #121212;
+    text-align: center;
+  }
 }

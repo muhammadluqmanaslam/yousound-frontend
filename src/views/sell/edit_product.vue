@@ -152,7 +152,15 @@
                 v-if="!variant.id"
                 >clear</v-icon
               >
-              <v-icon class="clear-btn" v-else>block</v-icon>
+              <template v-else>
+                <v-tooltip left
+                  ><v-icon class="clear-btn" slot="activator">block</v-icon
+                  ><span
+                    >Options cannot be deleted.<br />Out of stock options will
+                    remain at 0 until restocked.</span
+                  ></v-tooltip
+                >
+              </template>
             </v-layout>
             <p class="d-inline-flex grey--text lighten-2">
               e.g. "Large - Black" "100" "30.00"

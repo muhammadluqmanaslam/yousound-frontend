@@ -164,14 +164,14 @@ export default {
           switch (this.albums_tab) {
             case 'published':
               _.remove(this.published_albums, (item) => {
-                return item.id == album.id
+                return item.id === album.id
               })
               arr = this.published_albums.slice()
               this.published_albums = arr
               break
             case 'privated':
               _.remove(this.privated_albums, (item) => {
-                return item.id == album.id
+                return item.id === album.id
               })
               arr = this.privated_albums.slice()
               this.privated_albums = arr
@@ -193,14 +193,14 @@ export default {
           switch (this.albums_tab) {
             case 'published':
               _.each(this.published_albums, (item) => {
-                if (item.id == album.id) item.recommended = true
+                if (item.id === album.id) item.recommended = true
               })
               arr = this.published_albums.slice()
               this.published_albums = arr
               break
             case 'privated':
               _.remove(this.privated_albums, (item) => {
-                if (item.id == album.id) item.recommended = true
+                if (item.id === album.id) item.recommended = true
               })
               arr = this.privated_albums.slice()
               this.privated_albums = arr
@@ -219,20 +219,22 @@ export default {
       AlbumService.unrecommendAlbum(album.id)
         .then((response) => {
           switch (this.albums_tab) {
-            case 'published':
+            case 'published': {
               _.each(this.published_albums, (item) => {
-                if (item.id == album.id) item.recommended = false
+                if (item.id === album.id) item.recommended = false
               })
-              arr = this.published_albums.slice()
+              const arr = this.published_albums.slice()
               this.published_albums = arr
               break
-            case 'privated':
+            }
+            case 'privated': {
               _.remove(this.privated_albums, (item) => {
-                if (item.id == album.id) item.recommended = false
+                if (item.id === album.id) item.recommended = false
               })
-              arr = this.privated_albums.slice()
+              const arr = this.privated_albums.slice()
               this.privated_albums = arr
               break
+            }
           }
         })
         .catch((e) => {
@@ -275,7 +277,7 @@ export default {
       ProductService.deleteProduct(this.product.id)
         .then((response) => {
           _.remove(this.products, (item) => {
-            return item.id == product.id
+            return item.id === product.id
           })
           const arr = this.products.slice()
           this.products = arr
