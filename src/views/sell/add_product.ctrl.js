@@ -95,7 +95,7 @@ export default {
                 isAvailable &&
                 shipment.country.length &&
                 parseFloat(shipment.shipment_alone_price) > 0 &&
-                parseFloat(shipment.shipment_with_price) > 0
+                parseFloat(shipment.shipment_with_price) >= 0
             }
           } else {
             isAvailable = false

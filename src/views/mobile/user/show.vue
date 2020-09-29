@@ -31,7 +31,7 @@
 
       <div class="section__content">
         <h3>
-          Conenct.<br />
+          Connect.<br />
           Find your community.
         </h3>
       </div>

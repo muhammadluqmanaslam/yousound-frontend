@@ -125,7 +125,7 @@ able.table thead th:not(:first-child) {
 
 /* v-tooltip */
 .tooltip {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   &__content {
     font-size: 16px;

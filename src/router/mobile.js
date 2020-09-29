@@ -29,7 +29,7 @@ export function createMobileRouter() {
     { path: '/terms', name: 'TermIndex', component: TermIndex },
     { path: '/album/:slug', name: 'AlbumShow', component: AlbumShow },
     { path: '/product/:slug', name: 'ProductShow', component: ProductShow },
-    { path: '/user/:slug', name: 'UserShow', component: UserShow },
+    { path: '/:slug', name: 'UserShow', component: UserShow },
     { path: '*', redirect: '/' },
   ]
 
