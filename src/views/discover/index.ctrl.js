@@ -23,7 +23,8 @@ export default {
       activeTab: '',
       tabs: [
         { id: 'recommended', title: 'Recommended' },
-        { id: 'new', title: 'Albums' },
+        { id: 'new', title: 'New Releases' },
+        { id: 'popular', title: 'Popular' },
         // { id: 'playlist', title: 'Playlists' },
         { id: 'merch', title: 'Shop' },
       ],

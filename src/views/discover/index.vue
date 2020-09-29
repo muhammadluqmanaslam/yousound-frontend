@@ -44,7 +44,7 @@
                 content-class="filter-menu__content"
                 id="genre_selector"
                 class="filter_menu"
-                style="display: block;"
+                style="display: block"
                 offset-y
               >
                 <!-- <v-btn dark slot="activator">Any genre
@@ -73,7 +73,7 @@
               <v-menu
                 id="category_selector"
                 class="filter_menu"
-                style="display: block;"
+                style="display: block"
                 offset-y
               >
                 <!-- <v-btn dark slot="activator">Any category
