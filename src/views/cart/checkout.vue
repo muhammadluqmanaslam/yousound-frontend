@@ -176,7 +176,7 @@
             View your order history to view shipping status of your items,<br />
             view payment invoices & download any digital products.
           </div>
-          <div class="fields">
+          <!-- <div class="fields">
             <div class="field py-1">
               <span>Shipping / Fee</span>
               <label
@@ -195,7 +195,7 @@
               <span>Total</span>
               <label>${{ ordersCost.total_cost | formatNumber }}</label>
             </div>
-          </div>
+          </div> -->
         </v-card-text>
         <v-card-actions>
           <v-btn color="blue" dark round @click.native="viewOrderHistory()"

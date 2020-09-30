@@ -1,6 +1,7 @@
 import _ from 'lodash'
-import ProductService from '@/services/product'
+// import AuthService from '@/services/auth'
 import OrderService from '@/services/order'
+import { Stripe } from '@/helper'
 
 export default {
   components: {},
@@ -62,19 +63,30 @@ export default {
       return _.get(this.order_detail, 'refund_amount', 0)
     },
 
+    stripeFee() {
+      return Stripe.calculateFee(
+        this.subTotal + this.shippingTotal + this.taxTotal
+      )
+    },
+
     total() {
       return (
-        this.subTotal + this.shippingTotal + this.taxTotal - this.refundAmount
+        this.subTotal +
+        this.shippingTotal +
+        this.taxTotal +
+        this.stripeFee -
+        this.refundAmount
       )
     },
   },
 
   created() {
-    if (!this.currentUser) {
-      AuthService.clearTokenAndUserInfo()
-      this.$router.push({ path: '/login' })
-      return
-    }
+    // redirect to login when 401 error happens, check it in App.vue
+    // if (!this.currentUser) {
+    //   AuthService.clearTokenAndUserInfo()
+    //   this.$router.push({ path: '/login' })
+    //   return
+    // }
 
     this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: '' })
     this.order_id = this.$route.params.slug
