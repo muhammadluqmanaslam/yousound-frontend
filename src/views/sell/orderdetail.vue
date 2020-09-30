@@ -77,7 +77,10 @@
                     :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
                   ></div>
                 </td>
-                <td class="text-xs-left">{{ item.product.name }}</td>
+                <td class="text-xs-left">
+                  {{ item.product.name }}
+                  <span>{{ item.product_variant.name }}</span>
+                </td>
                 <td class="text-xs-center">${{ item.price | formatNumber }}</td>
                 <td class="text-xs-center">{{ item.quantity }}</td>
                 <td class="text-xs-center">

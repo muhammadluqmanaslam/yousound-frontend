@@ -267,13 +267,18 @@
           padding-right: 22.5px;
 
           .product-content-row {
+            display: flex;
             .product-name {
+              flex: 1;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
               font-size: 15px;
               color: #000000;
               letter-spacing: 0;
             }
             .product-count {
-              float: right;
+              margin-left: 6px;
               font-size: 15px;
               color: #000000;
               letter-spacing: 0;
@@ -295,7 +300,7 @@
 
         .menu {
           position: absolute;
-          right: 50px;
+          right: 5px;
           bottom: 5px;
           .btn {
             background: none !important;
@@ -303,8 +308,6 @@
             width: 37.5px;
             min-width: 37.5px;
             box-shadow: none;
-            right: -45px;
-            top: 5px;
             color: #888;
             .btn__content {
               padding: 0;

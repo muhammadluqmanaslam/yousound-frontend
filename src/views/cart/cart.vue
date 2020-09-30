@@ -203,34 +203,34 @@
                       :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
                     ></div>
                     <div class="product-content">
-                      <v-flex sm12 class="product-content-row">
-                        <label class="product-name">{{
-                          item.product.name
-                        }}</label>
-                        <label
+                      <div class="product-content-row">
+                        <div class="product-name">
+                          {{ item.product.name }} |
+                          {{ item.product_variant.name }}
+                        </div>
+                        <div
                           class="product-count"
                           v-if="!isDigitalProduct(item)"
-                          >Quantity: <b>{{ item.quantity }}</b></label
                         >
-                      </v-flex>
-                      <v-flex sm12 class="product-content-row">
+                          Quantity: <b>{{ item.quantity }}</b>
+                        </div>
+                      </div>
+                      <div class="product-content-row">
                         <router-link
                           class="user-name"
                           :to="'/' + item.product.merchant.slug"
                           >{{ item.product.merchant.display_name }}</router-link
                         >
-                      </v-flex>
-                      <v-flex sm12 class="product-content-row">
-                        <label class="product-price"
-                          >${{
-                            item.product_variant.price | formatNumber
-                          }}</label
-                        >
+                      </div>
+                      <div class="product-content-row">
+                        <div class="product-price">
+                          ${{ item.product_variant.price | formatNumber }}
+                        </div>
                         <!-- <span v-if="isDigitalProduct(item) && item.status == 'item_shipped'"
                           class="product-link"
                           @click = "download(item)"
                         >Download</span> -->
-                      </v-flex>
+                      </div>
                     </div>
                     <v-menu
                       v-if="isMenuAvailable(order)"

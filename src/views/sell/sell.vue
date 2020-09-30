@@ -21,7 +21,7 @@
               <v-menu
                 id="item_filter"
                 class="filter"
-                style="display: block;"
+                style="display: block"
                 offset-y
               >
                 <div slot="activator" class="filter__activator py-3">
@@ -131,21 +131,23 @@
                         :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
                       ></div>
                       <div class="product-content">
-                        <v-flex sm12 class="product-content-row">
-                          <label class="product-name">{{
-                            item.product.name
-                          }}</label>
-                          <label
+                        <div class="product-content-row">
+                          <div class="product-name">
+                            {{ item.product.name }} |
+                            {{ item.product_variant.name }}
+                          </div>
+                          <div
                             class="product-count"
                             v-if="!isDigitalProduct(item)"
-                            >Quantity: <b>{{ item.quantity }}</b></label
                           >
-                        </v-flex>
-                        <v-flex sm12 class="product-content-row" pt-1>
-                          <label class="product-price"
-                            >${{ item.price | formatNumber }}</label
-                          >
-                        </v-flex>
+                            Quantity: <b>{{ item.quantity }}</b>
+                          </div>
+                        </div>
+                        <div class="product-content-row pt-1">
+                          <div class="product-price">
+                            ${{ item.price | formatNumber }}
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div
@@ -271,7 +273,7 @@
                     </div>
                     <div
                       class="order-status-section text-xs-center"
-                      style="background: transparent;"
+                      style="background: transparent"
                       v-else
                     ></div>
                   </v-layout>
