@@ -11,7 +11,9 @@
               :href="`#${tab.id}`"
               :class="{ active: isActiveTab(tab.id) }"
             >
-              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+              <label @click="isPageReady && onTab(tab.id)">{{
+                tab.title
+              }}</label>
             </li>
 
             <li v-if="activeTab != 'merch'" class="border-top my-0">
