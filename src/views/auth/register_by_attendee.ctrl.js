@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 import {
-  Storage,
+  // Storage,
   Countries,
   UserBooleanOptions,
   UserGenderOptions,
@@ -207,7 +207,7 @@ export default {
             this.show_genre_selector_dialog = true
           } else {
             this.$store.dispatch('error/showErrorToast', [
-              _.find(this.errors.items, (item) => item.scope == formScope).msg,
+              _.find(this.errors.items, (item) => item.scope === formScope).msg,
             ])
           }
         })
@@ -316,11 +316,11 @@ export default {
 
             AuthService.registerAsListener(formData)
               .then((response) => {
-                const userId = response.body.id
-                const params = {
-                  genre_ids: this.$store.state.auth.genreIds,
-                }
-                UserService.hiddenUserGenres(userId, params)
+                // const userId = response.body.id
+                // const params = {
+                //   genre_ids: this.$store.state.auth.genreIds,
+                // }
+                // UserService.hiddenUserGenres(userId, params)
                 this.$store.dispatch('error/showLoadingActivity', false)
                 this.$router.push({
                   path: `/confirm/being?email=${this.user.email}`,
@@ -341,7 +341,7 @@ export default {
               })
           } else {
             this.$store.dispatch('error/showErrorToast', [
-              _.find(this.errors.items, (item) => item.scope == formScope).msg,
+              _.find(this.errors.items, (item) => item.scope === formScope).msg,
             ])
           }
         })
@@ -358,7 +358,7 @@ export default {
         } else {
           // console.log(this.errors)
           this.$store.dispatch('error/showErrorToast', [
-            _.find(this.errors.items, (item) => item.scope == formScope).msg,
+            _.find(this.errors.items, (item) => item.scope === formScope).msg,
           ])
         }
       })

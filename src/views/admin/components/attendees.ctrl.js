@@ -33,6 +33,12 @@ export default {
     }
   },
 
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+  },
+
   created() {
     this.$store.dispatch('error/showLoadingActivity', true)
     Promise.all([AttendeeService.getAttendees()])
@@ -53,9 +59,10 @@ export default {
         .then((response) => {
           const attendeeIndex = _.findIndex(
             this.attendees,
-            (attendee) => attendee.id == attendee_id
+            (attendee) => attendee.id === attendee_id
           )
           this.attendees[attendeeIndex].status = 'invited'
+          this.attendees[attendeeIndex].inviter = this.currentUser
           const arr = this.attendees.slice()
           this.attendees = arr
         })
