@@ -206,6 +206,7 @@
                 >Discover</router-link
               >
             </div>
+
             <v-layout row wrap class="covers-content" v-else>
               <div
                 class="card-container"
@@ -215,6 +216,12 @@
                 <artist-item :artist="user" :key="index"></artist-item>
               </div>
             </v-layout>
+            <v-btn
+              v-show="page_index < total_pages"
+              @click.native="getItems(active_tab, true)"
+              class="loadmore-btn"
+              >Load More</v-btn
+            >
           </div>
 
           <div v-else-if="active_tab == 'artists'">
@@ -234,17 +241,22 @@
                 </div>
               </template>
             </template>
-            <template v-else>
-              <v-layout row wrap class="covers-content">
-                <div
-                  class="card-container"
-                  v-for="(user, index) in users"
-                  :key="index"
-                >
-                  <artist-item :artist="user" :key="index"></artist-item>
-                </div>
-              </v-layout>
-            </template>
+
+            <v-layout row wrap class="covers-content" v-else>
+              <div
+                class="card-container"
+                v-for="(user, index) in users"
+                :key="index"
+              >
+                <artist-item :artist="user" :key="index"></artist-item>
+              </div>
+            </v-layout>
+            <v-btn
+              v-show="page_index < total_pages"
+              @click.native="getItems(active_tab, true)"
+              class="loadmore-btn"
+              >Load More</v-btn
+            >
           </div>
 
           <div v-else-if="active_tab == 'merch'">
@@ -279,7 +291,7 @@
             </v-layout>
             <v-btn
               v-show="page_index < total_pages"
-              @click.native="getItems(tab.id, true)"
+              @click.native="getItems(active_tab, true)"
               class="loadmore-btn"
               >Load More</v-btn
             >

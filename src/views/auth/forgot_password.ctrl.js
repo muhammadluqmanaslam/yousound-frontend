@@ -29,10 +29,9 @@ export default {
           this.$router.push({ path: '/login' })
         })
         .catch((e) => {
-          this.$store.dispatch(
-            'error/showErrorToast',
-            'Email does not exist or inactivated'
-          )
+          this.$store.dispatch('error/showErrorToast', [
+            'Email does not exist or inactivated',
+          ])
         })
     },
   },

@@ -74,7 +74,7 @@ export default {
       auto_play: false,
       startIndex: 0,
       page_index: 1,
-      total_pages: 1,
+      total_pages: 0,
       items_per_page: 5 * 10,
       genres: null,
       genre_index: 0,
@@ -261,6 +261,7 @@ export default {
           slug: 'any',
         },
       ]
+      this.total_pages = 0
 
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.slug)
