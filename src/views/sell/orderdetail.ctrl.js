@@ -24,6 +24,13 @@ export default {
       return this.order_detail.customer
     },
 
+    shippingFullName() {
+      return [
+        _.get(this.order_detail, 'shipping_address.first_name', ''),
+        _.get(this.order_detail, 'shipping_address.last_name', ''),
+      ].join(' ')
+    },
+
     subTotal() {
       var sum = 0
       for (let index in this.order_detail.items) {

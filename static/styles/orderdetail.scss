@@ -14,11 +14,12 @@
       padding-top: 15px;
       border-bottom: 0.75px solid #b8b8b8;
       .user-name {
+        font-family: 'Work Sans';
         font-weight: 700;
         font-size: 28px;
         color: #000000;
         letter-spacing: -0.6px;
-        font-family: 'Work Sans';
+        text-transform: capitalize;
       }
     }
 

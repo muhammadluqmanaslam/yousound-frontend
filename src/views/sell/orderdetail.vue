@@ -29,7 +29,7 @@
       <div class="order-details" v-if="active == 'none'">
         <p class="order-id">Transaction Number: {{ order_detail.id }}</p>
         <div class="address-section">
-          <p class="user-name">{{ order_detail.customer.display_name }}</p>
+          <p class="user-name">{{ shippingFullName }}</p>
           <v-flex xs12 class="shipping-address-section">
             <a class="shipping-address-header open">
               <div class="arrow"></div>
