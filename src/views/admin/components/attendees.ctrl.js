@@ -19,9 +19,11 @@ export default {
         { text: 'Account Type', value: 'account_type', align: 'left' },
         { text: 'Referred By', value: 'referred_by', align: 'left' },
         { text: 'Status', value: 'status', align: 'center' },
+        { text: '', value: '', align: 'center' },
       ],
       search_keyword: '',
       attendees: [],
+      attendee: {},
       pagination: {
         page: 1,
         rowsPerPage: 50,
@@ -29,6 +31,7 @@ export default {
         totalItems: 0,
       },
       per_page_options: [50, 100, 150],
+      show_attendee_delete_confirm_dialog: false,
       isPageReady: true,
     }
   },
@@ -67,6 +70,33 @@ export default {
           this.attendees = arr
         })
         .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+
+    openAttendeeDeleteConfirmDialog(attendee) {
+      this.attendee = attendee
+      this.show_attendee_delete_confirm_dialog = true
+    },
+
+    closeAttendeeDeleteConfirmDialog() {
+      this.show_attendee_delete_confirm_dialog = false
+    },
+
+    deleteAttendee(attendee) {
+      AttendeeService.deleteAttendee(attendee.id)
+        .then(() => {
+          this.closeAttendeeDeleteConfirmDialog()
+          this.attendees = _.filter(
+            this.attendees,
+            (item) => item.id !== attendee.id
+          )
+        })
+        .catch((e) => {
+          this.closeAttendeeDeleteConfirmDialog()
           this.$store.dispatch(
             'error/showErrorToast',
             e.body.errors || [e.body]

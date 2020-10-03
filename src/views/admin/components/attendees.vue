@@ -20,7 +20,7 @@
           class="user-serach search-input mr-4"
         />
       </v-tabs-bar>
-      <v-tabs-items style="border: none;">
+      <v-tabs-items style="border: none">
         <v-tabs-content v-for="tab in tabs" :key="tab.id" :id="tab.id">
           <v-card flat>
             <v-data-table
@@ -57,6 +57,26 @@
                     {{ props.item.status | capitalize }}
                   </template>
                 </td>
+                <td class="text-xs-right">
+                  <v-menu offset-y class="more-menu">
+                    <v-btn dark slot="activator">
+                      <v-icon>settings</v-icon>
+                    </v-btn>
+                    <v-list>
+                      <v-list-tile
+                        key="delete"
+                        class="default-menu-item"
+                        @click.native="
+                          openAttendeeDeleteConfirmDialog(props.item)
+                        "
+                      >
+                        <v-list-tile-title>
+                          <label>Delete</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }} out of
@@ -67,6 +87,32 @@
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
+
+    <v-dialog v-model="show_attendee_delete_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Delete an Attendee</v-card-title>
+        <v-card-text
+          >If you click OK, the attendee will be permanently . Click OK to
+          delete &lt;<b>{{ attendee.full_name }}</b
+          >({{ attendee.email }})&gt;, or click Cancel.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="deleteAttendee(attendee)"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="closeAttendeeDeleteConfirmDialog()"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 

@@ -15,6 +15,12 @@ export default {
     return Vue.http.post(API_BASE_URL, params)
   },
 
+  deleteAttendee(attendeeId) {
+    return Vue.http.delete(`${API_BASE_URL}/${attendeeId}`, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   findByToken(params) {
     return Vue.http.get(`${API_BASE_URL}/find_by_token`, {
       headers: { Authorization: $store.state.auth.token },
