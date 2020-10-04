@@ -1,5 +1,6 @@
 // import AdminService from '@/services/admin'
 import PaymentService from '@/services/payment'
+import { Stripe } from '@/helper'
 
 export default {
   components: {},
@@ -34,6 +35,7 @@ export default {
       },
       total_all_transactions: 0,
       total_refunded_transactions: 0,
+      calculateFee: Stripe.calculateFee,
       isPageReady: true,
     }
   },

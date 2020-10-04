@@ -22,7 +22,7 @@
           v-on:keyup.enter="onKeyEnter"
         ></v-text-field>
       </v-tabs-bar>
-      <v-tabs-items style="border: none;">
+      <v-tabs-items style="border: none">
         <v-tabs-content id="all">
           <v-card flat v-if="active_tab == 'all'">
             <v-data-table
@@ -54,7 +54,11 @@
                   {{ props.item.receiver.display_name }}
                 </td>
                 <td class="text-xs-center">
-                  ${{ props.item.sent_amount | formatNumber }}
+                  ${{
+                    (props.item.sent_amount +
+                      calculateFee(props.item.sent_amount))
+                      | formatNumber
+                  }}
                 </td>
                 <td class="text-xs-center">
                   ${{ props.item.received_amount | formatNumber }}

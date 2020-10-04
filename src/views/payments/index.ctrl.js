@@ -1,4 +1,4 @@
-import { PaymentTypes, Filter } from '@/helper'
+import { PaymentTypes, Filter, Stripe } from '@/helper'
 
 import AuthService from '@/services/auth'
 import OrderService from '@/services/order'
@@ -46,6 +46,7 @@ export default {
       page_index: 1,
       total_pages: 1,
       items_per_page: 6 * 5,
+      calculateFee: Stripe.calculateFee,
     }
   },
 

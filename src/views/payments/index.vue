@@ -25,7 +25,7 @@
       </div>
 
       <div class="page-content" v-if="currentUser">
-        <template v-if="!histories || histories.length == 0">
+        <template v-if="total_pages === 0">
           <div class="empty-section" v-if="active_tab == 'received'">
             <p class="empty-title">You have not received any payments</p>
             <p class="empty-description">
@@ -50,7 +50,7 @@
                 {{ active_tab == 'received' ? 'Sender' : 'Receiver' }}
               </th>
               <th width="10%">Sent</th>
-              <th width="10%">Received</th>
+              <th width="10%" v-if="active_tab === 'received'">Received</th>
               <th width="25%">Type</th>
               <th width="10%">Status</th>
               <th width="10%">Date</th>
@@ -79,12 +79,15 @@
                 />
               </td>
               <td class="text-xs-center">
-                ${{ history.sent_amount | formatNumber }}
+                ${{
+                  (history.sent_amount + calculateFee(history.sent_amount))
+                    | formatNumber
+                }}
               </td>
-              <td class="text-xs-center">
+              <td class="text-xs-center" v-if="active_tab === 'received'">
                 ${{ history.received_amount | formatNumber }}
               </td>
-              <td class="text-xs-center" style="text-transform: capitalize;">
+              <td class="text-xs-center" style="text-transform: capitalize">
                 <template v-if="history.payment_type == 'buy'">
                   <router-link
                     v-if="history.sent_amount == history.refund_amount"
