@@ -60,13 +60,13 @@
           <table class="product-table">
             <thead>
               <tr>
-                <th width="15%"></th>
-                <th width="25%" class="text-xs-left pl-1 pr-1">Product</th>
-                <th width="15%">Price</th>
-                <th width="15%">Quantity</th>
-                <th width="15%">Shipping</th>
-                <th width="15%">Tax</th>
-                <th width="15%">Fee</th>
+                <th width="10%"></th>
+                <th class="text-xs-left pl-1 pr-1">Product</th>
+                <th width="10%">Price</th>
+                <th width="10%">Quantity</th>
+                <th width="10%">Shipping</th>
+                <th width="10%">Tax</th>
+                <th width="10%" v-if="currentUser.id !== user.id">Fee</th>
               </tr>
             </thead>
             <tbody>
@@ -87,7 +87,10 @@
                   ${{ item.shipping_cost | formatNumber }}
                 </td>
                 <td class="text-xs-center">{{ item.tax_percent }}%</td>
-                <td class="text-xs-center red--text">
+                <td
+                  v-if="currentUser.id !== user.id"
+                  class="text-xs-center red--text"
+                >
                   ${{ item.fee | formatNumber }}
                 </td>
               </tr>
