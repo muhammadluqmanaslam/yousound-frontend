@@ -80,8 +80,7 @@
               </td>
               <td class="text-xs-center">
                 ${{
-                  (history.sent_amount + calculateFee(history.sent_amount))
-                    | formatNumber
+                  (history.sent_amount + history.payment_fee) | formatNumber
                 }}
               </td>
               <td class="text-xs-center" v-if="active_tab === 'received'">

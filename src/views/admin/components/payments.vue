@@ -55,8 +55,7 @@
                 </td>
                 <td class="text-xs-center">
                   ${{
-                    (props.item.sent_amount +
-                      calculateFee(props.item.sent_amount))
+                    (props.item.sent_amount + props.item.payment_fee)
                       | formatNumber
                   }}
                 </td>
