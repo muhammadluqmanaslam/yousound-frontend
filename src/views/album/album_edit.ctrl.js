@@ -1,3 +1,5 @@
+/* global $:true */
+
 import _ from 'lodash'
 import moment from 'moment'
 
@@ -9,8 +11,8 @@ import trackUploader from '@/components/trackuploader'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
-import UserService from '@/services/user'
-import { Countries, CollaboratorRoleTypes } from '@/helper'
+// import UserService from '@/services/user'
+import { CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
@@ -57,7 +59,7 @@ export default {
       // console.log('isAvailableToUploadAlbum', this.album.tracks)
       const failed_track = _.find(
         this.album.tracks,
-        (track) => track.status != 2
+        (track) => track.status !== 2
       )
       const has_failed_track = !!failed_track
       let isSamplingsGood = true
@@ -200,7 +202,7 @@ export default {
                 for (let i = 0; i < values.length; i++) {
                   let samplings = _.filter(
                     this.samplings,
-                    (s) => s.sample_user_id == users_ids[i]
+                    (s) => s.sample_user_id === users_ids[i]
                   )
                   _.each(samplings, (sampling) => {
                     let albums = values[i].body
@@ -210,7 +212,7 @@ export default {
                     sampling.artist_albums = albums
                     sampling.artist_album_tracks = _.find(
                       albums,
-                      (a) => a.id == sampling.sample_album_id
+                      (a) => a.id === sampling.sample_album_id
                     ).tracks
                     // console.log('samplings', this.samplings)
                   })
@@ -312,7 +314,7 @@ export default {
         user_id: user.id,
         enabled_sample: true,
       }).then((response) => {
-        let sampling = _.find(this.samplings, (s) => s.id == user.sampling_id)
+        let sampling = _.find(this.samplings, (s) => s.id === user.sampling_id)
         let albums = response.body
         _.each(albums, (a) => {
           a.sampling_id = user.sampling_id
@@ -327,7 +329,7 @@ export default {
 
     onChangeSampleArtistAlbum(album) {
       // console.log('onChangeSampleArtistAlbum', album.sampling_id, album.name)
-      let sampling = _.find(this.samplings, (s) => s.id == album.sampling_id)
+      let sampling = _.find(this.samplings, (s) => s.id === album.sampling_id)
       sampling.artist_album_tracks = album.tracks
       sampling.sample_track_id = 0
       this.$forceUpdate()
@@ -373,7 +375,7 @@ export default {
     },
 
     beforeReleaseNow() {
-      if (this.album.status == 'pending') {
+      if (this.album.status === 'pending') {
         this.showCollaboratorsConfirmDialog()
       } else {
         this.releaseNow()
@@ -466,7 +468,7 @@ export default {
           if (this.isNeededToRelease) {
             let accepted = true
             _.each(this.collaborators, (collaborator) => {
-              if (collaborator.status != 'accepted') {
+              if (collaborator.status !== 'accepted') {
                 accepted = false
               }
             })
