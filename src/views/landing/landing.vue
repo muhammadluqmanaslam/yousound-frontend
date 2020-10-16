@@ -9,7 +9,7 @@
             <div>
               <h3>
                 Free Streaming.<br />
-                No Subscriptions.<br />
+                Free downloads.<br />
                 No Ads.
               </h3>
               <v-btn @click="$refs.fullpage.api.moveSectionDown()">

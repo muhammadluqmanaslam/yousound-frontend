@@ -29,6 +29,11 @@ export default {
 
   data() {
     return {
+      active_tab: 'manage',
+      tabs: [
+        { id: 'create', title: 'Info' },
+        { id: 'manage', title: 'Live Stream' },
+      ],
       // stream: {
       //   name: '',
       //   description: '',
@@ -55,12 +60,18 @@ export default {
         { id: 50, name: '50' },
         { id: 100, name: '100' },
       ],
+      costs: [
+        { value: 1000, name: '$10' },
+        { value: 10000, name: '$100' },
+        { value: 100000, name: '$1000' },
+      ],
+      streamCost: 1000,
       viewers_limit: 0,
       searchGuests: null,
       guests: [],
       selected_guests: [],
-      periods: [],
-      period: 3600,
+      // periods: [],
+      // period: 3600,
       creatingInterval: null,
       remainingInterval: null,
       remainingSeconds: 0,
@@ -106,9 +117,9 @@ export default {
       return `${window.location.origin}/${this.currentUser.slug}`
     },
 
-    streamCost() {
-      return Math.round((this.period * StreamHourlyPrice) / 3600)
-    },
+    // streamCost() {
+    //   return Math.round((this.period * StreamHourlyPrice) / 3600)
+    // },
 
     MediaLiveInputTypes() {
       return MediaLiveInputTypes
@@ -134,12 +145,12 @@ export default {
   },
 
   created() {
-    for (let i = 1; i <= 24; i++) {
-      this.periods.push({
-        id: i * 3600,
-        name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
-      })
-    }
+    // for (let i = 1; i <= 24; i++) {
+    //   this.periods.push({
+    //     id: i * 3600,
+    //     name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
+    //   })
+    // }
 
     this.isPageReady = false
     this.$store.dispatch('error/showLoadingActivity', true)
@@ -176,9 +187,11 @@ export default {
             }, 10000)
           } else {
             this.remainingSeconds = response.body.stream.remaining_seconds
-            this.remainingInterval = setInterval(function () {
-              vm.refresh()
-            }, 1000)
+            if (!this.currentUser.enabled_live_video_free) {
+              this.remainingInterval = setInterval(function () {
+                vm.refresh()
+              }, 1000)
+            }
           }
           this.$store.dispatch('navigator/goNextState', {
             page: 'broadcast',
@@ -219,6 +232,9 @@ export default {
                 }
                 if (data.total_viewers_size) {
                   vm.total_viewers = data.total_viewers_size
+                }
+                if (data.remaining_seconds) {
+                  this.remainingSeconds = data.remaining_seconds
                 }
               },
               disconnected: () => {
@@ -383,21 +399,25 @@ export default {
           amount: this.streamCost,
         }
         PaymentService.makeDeposit(params)
-          .then(() => {
-            this.addMoreTime()
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
+        // PaymentService.makeDeposit(params)
+        //   .then(() => {
+        //     this.addMoreTime()
+        //   })
+        //   .catch((e) => {
+        //     this.$store.dispatch(
+        //       'error/showErrorToast',
+        //       e.body.errors || [e.body]
+        //     )
+        //   })
       }
     },
 
     refresh() {
       this.remainingSeconds -= 1
-      if (this.remainingSeconds <= 0) {
+      if (
+        !this.currentUser.enabled_live_video_free &&
+        this.remainingSeconds <= 0
+      ) {
         if (this.remainingInterval) {
           clearInterval(this.remainingInterval)
         }

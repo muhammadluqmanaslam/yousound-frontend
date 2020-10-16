@@ -17,7 +17,7 @@
               <div class="section__content">
                 <h3>
                   Free streaming.<br />
-                  Free downloads.<br />
+                  No Subscriptions.<br />
                   No ads.
                 </h3>
               </div>

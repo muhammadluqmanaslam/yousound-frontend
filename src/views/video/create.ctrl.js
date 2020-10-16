@@ -12,7 +12,7 @@ import {
   MediaLiveInputResolutions,
   MediaLiveInputMaximumBitrates,
   Filter,
-  StreamHourlyPrice,
+  // StreamHourlyPrice,
 } from '@/helper'
 
 export default {
@@ -23,8 +23,11 @@ export default {
 
   data() {
     return {
-      periods: [],
-      period: 3600,
+      active_tab: 'create',
+      tabs: [
+        { id: 'create', title: 'Info' },
+        { id: 'manage', title: 'Live Stream' },
+      ],
       terms: false,
       view_prices: [
         { id: 0, name: 'No' },
@@ -41,11 +44,28 @@ export default {
         { id: 500000, name: '$5,000' },
         { id: 1000000, name: '$10,000' },
       ],
-      genres: [],
+      viewers_limits: [
+        { id: 0, name: 'Unlimited' },
+        { id: 1, name: '1' },
+        { id: 10, name: '10' },
+        { id: 100, name: '100' },
+        { id: 1000, name: '1000' },
+        { id: 10000, name: '10000' },
+      ],
+      costs: [
+        { value: 1000, name: '$10' },
+        { value: 10000, name: '$100' },
+        { value: 100000, name: '$1000' },
+      ],
+      streamCost: 1000,
+      // periods: [],
+      // period: 3600,
+      // genres: [],
       stream: {
         name: '',
         description: '',
         view_price: 0,
+        viewers_limit: 1,
         cover: null,
         ml_input_type: 'RTMP_PUSH',
         ml_input_codec: 'AVC',
@@ -90,12 +110,19 @@ export default {
     //   return !!this.stream_cover_url
     // },
 
-    streamCost() {
-      return Math.round((this.period * StreamHourlyPrice) / 3600)
-    },
+    // streamCost() {
+    //   return Math.round((this.period * StreamHourlyPrice) / 3600)
+    // },
 
     profileUrl() {
       return window.location.origin + '/' + this.currentUser.slug
+    },
+
+    genres() {
+      return this._.filter(
+        this.$store.state.app.genres,
+        (g) => VideoGenres.indexOf(g.name) > -1
+      ).map((g) => ({ id: g.id, name: g.name }))
     },
   },
 
@@ -120,10 +147,14 @@ export default {
 
     // this.genres = _.flatMap(this.$store.state.app.genres, 'children')
     // this.genres = this.$store.state.app.genres
-    VideoGenres.forEach((vg) => {
-      const g = this._.find(this.$store.state.app.genres, { name: vg })
-      this.genres.push({ id: g.id, name: g.name })
-    })
+    // VideoGenres.forEach((vg) => {
+    //   const g = this._.find(this.$store.state.app.genres, { name: vg })
+    //   if (g) {
+    //     this.genres.push({ id: g.id, name: g.name })
+    //   } else {
+    //     console.log('VideoGenres', vg)
+    //   }
+    // })
 
     if (this.currentUser.enabled_live_video_free) {
       this.periods.push({
@@ -140,13 +171,24 @@ export default {
       //   })
       //   this.period = this.currentUser.stream_rolled_time
       // }
-      for (let i = 1; i <= 24; i++) {
-        this.periods.push({
-          id: i * 3600,
-          name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
+
+      // for (let i = 1; i <= 24; i++) {
+      //   this.periods.push({
+      //     id: i * 3600,
+      //     name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
+      //   })
+      // }
+      // this.period = 3600
+
+      if (this.currentUser.stream_rolled_cost > 0) {
+        this.costs.unshift({
+          value: 0,
+          name: `$${Filter.formatNumber(
+            this.currentUser.stream_rolled_cost
+          )} - Remaining Cost`,
         })
+        this.streamCost = 0
       }
-      this.period = 3600
     }
   },
 
@@ -184,7 +226,10 @@ export default {
         .validateAll()
         .then((response) => {
           if (response === true) {
-            if (this.currentUser.enabled_live_video_free) {
+            if (
+              this.currentUser.enabled_live_video_free ||
+              this.streamCost === 0
+            ) {
               this.submit()
             } else {
               this.show_payment_dialog = true
