@@ -22,7 +22,9 @@
           Software’s <b>Stream Settings</b>
         </h3>
 
-        <v-layout row class="box time-info">
+        <v-divider></v-divider>
+
+        <v-layout row class="box time-info mt-5">
           <v-flex sm8>
             <v-layout row>
               <v-flex sm4>

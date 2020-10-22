@@ -44,40 +44,53 @@
                 v-if="$store.state.navigator.current.tab == 'users'"
               ></user-tab>
             </v-tabs-content>
+
             <v-tabs-content key="albums" id="albums">
               <album-tab
                 v-if="$store.state.navigator.current.tab == 'albums'"
               ></album-tab>
             </v-tabs-content>
+
             <v-tabs-content key="signups" id="signups">
               <signup-tab
                 v-if="$store.state.navigator.current.tab == 'signups'"
               ></signup-tab>
             </v-tabs-content>
+
             <v-tabs-content id="payments">
               <payment-tab
                 v-if="$store.state.navigator.current.tab == 'payments'"
               ></payment-tab>
             </v-tabs-content>
+
             <v-tabs-content key="genres" id="genres">
               <genre-tab
                 v-if="$store.state.navigator.current.tab == 'genres'"
               ></genre-tab>
             </v-tabs-content>
+
             <v-tabs-content key="settings" id="settings">
               <setting-tab
                 v-if="$store.state.navigator.current.tab == 'settings'"
               ></setting-tab>
             </v-tabs-content>
+
             <v-tabs-content key="globalstats" id="globalstats">
               <globalstats-tab
                 v-if="$store.state.navigator.current.tab == 'globalstats'"
               ></globalstats-tab>
             </v-tabs-content>
+
             <v-tabs-content key="attendees" id="attendees">
               <attendee-tab
                 v-if="$store.state.navigator.current.tab == 'attendees'"
               ></attendee-tab>
+            </v-tabs-content>
+
+            <v-tabs-content key="streams" id="streams">
+              <stream-tab
+                v-if="$store.state.navigator.current.tab == 'streams'"
+              ></stream-tab>
             </v-tabs-content>
           </v-tabs-items>
         </v-tabs>

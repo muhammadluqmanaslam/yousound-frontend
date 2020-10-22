@@ -7,6 +7,7 @@ import globalstatsTab from './components/global_stats'
 import paymentTab from './components/payments'
 import settingTab from './components/settings'
 import signupTab from './components/signups'
+import streamTab from './components/streams'
 import userTab from './components/users'
 
 export default {
@@ -18,6 +19,7 @@ export default {
     paymentTab,
     settingTab,
     signupTab,
+    streamTab,
     userTab,
   },
 
@@ -32,6 +34,7 @@ export default {
         { id: 'settings', title: 'SETTINGS' },
         { id: 'globalstats', title: 'GLOBAL STATS' },
         { id: 'attendees', title: 'SEED INVITES' },
+        { id: 'streams', title: 'VIDEO STATS' },
       ],
       item: null,
       page_index: 0,

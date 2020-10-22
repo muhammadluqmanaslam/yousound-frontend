@@ -64,6 +64,13 @@ export default {
     })
   },
 
+  getStreams(params) {
+    return Vue.http.get(API_BASE_URL + '/streams', {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
+  },
+
   sendGlobalMessage(params) {
     return Vue.http.post(API_BASE_URL + '/send_global_message', params, {
       headers: { Authorization: $store.state.auth.token },

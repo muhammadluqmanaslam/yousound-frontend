@@ -65,7 +65,7 @@ export default {
         name: '',
         description: '',
         view_price: 0,
-        viewers_limit: 1,
+        viewers_limit: 0,
         cover: null,
         ml_input_type: 'RTMP_PUSH',
         ml_input_codec: 'AVC',
