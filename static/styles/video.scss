@@ -39,7 +39,7 @@
     font-size: 18px;
   }
 
-  .box {
+  .panel {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -381,8 +381,8 @@
     position: relative;
     // width: 60%;
     // padding-top: 60%;
-    width: 240px;
-    padding-top: 240px;
+    width: 330px;
+    padding-top: 330px;
     .video-thumbnail {
       position: absolute;
       top: 0;

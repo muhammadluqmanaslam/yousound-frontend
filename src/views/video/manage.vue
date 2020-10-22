@@ -24,7 +24,7 @@
 
         <v-divider></v-divider>
 
-        <v-layout row class="box time-info mt-5">
+        <v-layout row class="panel time-info mt-5">
           <v-flex sm8>
             <v-layout row>
               <v-flex sm4>
@@ -59,7 +59,7 @@
               >Watch</v-btn
             >
             <v-btn v-else color="grey lighten-2" class="px-4 view-btn"
-              >Conneting...</v-btn
+              >Connecting...</v-btn
             >
             <v-btn
               dark
@@ -71,7 +71,7 @@
           </v-flex>
         </v-layout>
 
-        <div class="box stream-info mt-4">
+        <div class="panel stream-info mt-4">
           <v-flex>
             <div class="loading" v-if="!isRunning">
               <i class="fa fa-spinner fa-pulse fa-3x"></i>
@@ -88,7 +88,7 @@
         <v-layout row mt-3>
           <v-flex sm6>
             <h4>Attach Product/Album</h4>
-            <div class="box pa-3 mr-3">
+            <div class="panel pa-3 mr-3">
               <attach
                 v-model="stream_assoc"
                 @input="saveAttach()"
@@ -99,7 +99,7 @@
 
           <v-flex sm6>
             <h4>Share</h4>
-            <div class="box share-view d-flex pa-3">
+            <div class="panel share-view d-flex pa-3">
               <div class="share-social-section">
                 <social-sharing v-bind:url="profileUrl" inline-template>
                   <div class="social-section">
