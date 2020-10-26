@@ -238,7 +238,7 @@ export default {
                 }
               },
               disconnected: () => {
-                console.log('disconnected to StreamsChannel :(')
+                console.log('disconnected to StreamCreatorsChannel :(')
               },
             }
           )

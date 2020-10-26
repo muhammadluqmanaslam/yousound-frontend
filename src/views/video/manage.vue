@@ -90,6 +90,7 @@
             <h4>Attach Product/Album</h4>
             <div class="panel pa-3 mr-3">
               <attach
+                v-if="show_view_stream_button"
                 v-model="stream_assoc"
                 @input="saveAttach()"
                 style="width: 100%"
