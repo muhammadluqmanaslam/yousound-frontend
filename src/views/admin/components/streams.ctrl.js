@@ -14,6 +14,7 @@ export default {
         { text: 'Username', value: 'user.username', align: 'left' },
         { text: 'Title', value: 'name', align: 'left' },
         { text: 'Date', value: 'created_at', align: 'center' },
+        { text: 'Broadcast Time', value: 'broadcast_time', align: 'center' },
         { text: 'Total Viewers', value: 'total_viewers', align: 'center' },
         { text: 'Genre', value: 'genre.name', align: 'left' },
         { text: 'Pay Per View', value: 'view_price', align: 'left' },

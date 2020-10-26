@@ -49,28 +49,6 @@
     background-color: #f9f9f9;
   }
 
-  // .btn:not(.btn--depressed) {
-  .btn {
-    padding: 0;
-    margin-left: 5px;
-    border-radius: 5px;
-    color: #fff !important;
-    font-size: 14px;
-    font-weight: 700;
-    &.green {
-      background-color: #14c55a;
-    }
-    // &__content {
-    //   padding: 0;
-    // }
-  }
-
-  .btn--active .btn__content:before,
-  .btn:focus .btn__content:before,
-  .btn:hover .btn__content:before {
-    background-color: transparent !important;
-  }
-
   .divider {
     margin-bottom: 10px;
   }
@@ -117,6 +95,28 @@
   .stream-actions {
     display: flex;
     justify-content: flex-end;
+
+    // .btn:not(.btn--depressed) {
+    .btn {
+      padding: 0;
+      margin-left: 5px;
+      border-radius: 5px;
+      color: #fff !important;
+      font-size: 14px;
+      font-weight: 700;
+      &.green {
+        background-color: #14c55a;
+      }
+      // &__content {
+      //   padding: 0;
+      // }
+    }
+
+    .btn--active .btn__content:before,
+    .btn:focus .btn__content:before,
+    .btn:hover .btn__content:before {
+      background-color: transparent !important;
+    }
   }
 
   .time-info {

@@ -55,6 +55,9 @@
                   {{ props.item.created_at | formatDate }}
                 </td>
                 <td class="text-xs-left">
+                  {{ props.item.broadcast_time | timeInHours }}
+                </td>
+                <td class="text-xs-left">
                   {{ props.item.total_viewers }}
                 </td>
                 <td class="text-xs-left">
