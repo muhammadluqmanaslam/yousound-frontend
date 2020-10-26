@@ -213,12 +213,12 @@ export default {
 
           this.stream_subscription = this.cable.subscriptions.create(
             {
-              channel: 'StreamsChannel',
+              channel: 'StreamCreatorsChannel',
               stream_id: vm.currentUser.stream.id,
             },
             {
               connected: () => {
-                console.log('connected to StreamsChannel')
+                console.log('connected to StreamCreatorsChannel')
               },
               received: (data) => {
                 console.log('stream_subscription')
