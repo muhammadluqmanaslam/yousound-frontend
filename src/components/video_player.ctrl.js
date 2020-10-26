@@ -240,6 +240,8 @@ export default {
           // console.log(2, response.body.amount)
           this.openStreamingConfirmDialog()
           // this.openPaymentDialog()
+        } else if (response.body.amount === 0) {
+          this.show_streaming_confirm_dialog = true
         } else {
           // console.log(3, response.body.message)
           this.$store.dispatch('error/showErrorToast', [response.body.message])

@@ -227,13 +227,13 @@ export default {
                   console.log('signal comming')
                   vm.show_view_stream_button = true
                 }
-                if (data.active_viewers_size) {
+                if (data.active_viewers_size >= 0) {
                   vm.active_viewers = data.active_viewers_size
                 }
-                if (data.total_viewers_size) {
+                if (data.total_viewers_size >= 0) {
                   vm.total_viewers = data.total_viewers_size
                 }
-                if (data.remaining_seconds) {
+                if (data.remaining_seconds >= 0) {
                   this.remainingSeconds = data.remaining_seconds
                 }
               },

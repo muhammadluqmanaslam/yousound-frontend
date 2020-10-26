@@ -904,20 +904,24 @@
           ></div>
           <div class="box__footer">
             <v-btn
-              v-if="stream.view_price > 0 && !can_view"
-              dark
-              block
-              @click="openPaymentDialog"
-              >Pay ${{ stream.view_price | formatNumber }}</v-btn
-            >
-            <v-btn
-              v-else
+              v-if="can_view"
               block
               :class="{ 'theme--dark': enabledPlaying }"
               @click="onClick"
               :disabled="!enabledPlaying"
               >Watch{{ latencyTime }}</v-btn
             >
+            <v-btn
+              v-else-if="stream.view_price > 0"
+              dark
+              block
+              @click="openPaymentDialog"
+              >Pay ${{ stream.view_price | formatNumber }}</v-btn
+            >
+            <div v-else>
+              Sorry,<br />
+              Broadcast is at capacity
+            </div>
           </div>
         </div>
       </v-dialog>
