@@ -14,7 +14,9 @@ import {
   MediaLiveInputResolutions,
   MediaLiveInputMaximumBitrates,
   MyEvents,
-  StreamHourlyPrice,
+  // StreamHourlyPrice,
+  StreamViewersLimits,
+  StreamCosts,
 } from '@/helper'
 
 const ActionCable = require('actioncable')
@@ -31,8 +33,8 @@ export default {
     return {
       active_tab: 'manage',
       tabs: [
-        { id: 'create', title: 'Info' },
-        { id: 'manage', title: 'Live Stream' },
+        { id: 'edit', title: 'Info', path: '/edit' },
+        { id: 'manage', title: 'Live Stream', path: '' },
       ],
       // stream: {
       //   name: '',
@@ -52,19 +54,8 @@ export default {
         type: 'Album',
         value: null,
       },
-      viewers_limits: [
-        { id: 0, name: 'Unlimited' },
-        { id: 1, name: '1' },
-        { id: 5, name: '5' },
-        { id: 10, name: '10' },
-        { id: 50, name: '50' },
-        { id: 100, name: '100' },
-      ],
-      costs: [
-        { value: 1000, name: '$10' },
-        { value: 10000, name: '$100' },
-        { value: 100000, name: '$1000' },
-      ],
+      viewers_limits: StreamViewersLimits,
+      costs: StreamCosts,
       streamCost: 1000,
       viewers_limit: 0,
       searchGuests: null,
@@ -265,10 +256,19 @@ export default {
 
     if (this.stream_subscription) {
       this.stream_subscription.unsubscribe()
+      this.stream_subscription = null
     }
   },
 
   methods: {
+    onTab(tab) {
+      if (tab.id === this.active_tab) return
+
+      this.$router.push({
+        path: `/user/${this.currentUser.slug}/video${tab.path}`,
+      })
+    },
+
     querySelections(v) {
       var params = {
         page: 1,

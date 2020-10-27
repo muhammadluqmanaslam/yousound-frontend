@@ -911,17 +911,13 @@
               :disabled="!enabledPlaying"
               >Watch{{ latencyTime }}</v-btn
             >
-            <v-btn
-              v-else-if="stream.view_price > 0"
-              dark
-              block
-              @click="openPaymentDialog"
-              >Pay ${{ stream.view_price | formatNumber }}</v-btn
-            >
-            <div v-else>
+            <div v-else-if="exceed_capacity">
               Sorry,<br />
               Broadcast is at capacity
             </div>
+            <v-btn v-else dark block @click="openPaymentDialog"
+              >Pay ${{ stream.view_price | formatNumber }}</v-btn
+            >
           </div>
         </div>
       </v-dialog>

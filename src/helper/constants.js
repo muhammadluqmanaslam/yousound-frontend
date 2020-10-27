@@ -261,6 +261,35 @@ export const MediaLiveInputMaximumBitrates = [
   'MAX_50_MBPS',
 ]
 
+export const StreamViewPrices = [
+  { id: 0, name: 'No' },
+  { id: 100, name: '$1' },
+  { id: 500, name: '$5' },
+  { id: 1000, name: '$10' },
+  { id: 2000, name: '$20' },
+  { id: 5000, name: '$50' },
+  { id: 10000, name: '$100' },
+  { id: 25000, name: '$250' },
+  { id: 50000, name: '$500' },
+  { id: 100000, name: '$1,000' },
+  { id: 250000, name: '$2,500' },
+  { id: 500000, name: '$5,000' },
+  { id: 1000000, name: '$10,000' },
+]
+export const StreamViewersLimits = [
+  { id: 0, name: 'Unlimited' },
+  { id: 1, name: '1' },
+  { id: 10, name: '10' },
+  { id: 100, name: '100' },
+  { id: 1000, name: '1000' },
+  { id: 10000, name: '10000' },
+]
+export const StreamCosts = [
+  { value: 1000, name: '$10' },
+  { value: 10000, name: '$100' },
+  { value: 100000, name: '$1000' },
+]
+
 // Additional options being used for user registration.
 export const UserBooleanOptions = [
   { id: true, name: 'Yes' },

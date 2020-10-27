@@ -13,6 +13,9 @@ import {
   MediaLiveInputMaximumBitrates,
   Filter,
   // StreamHourlyPrice,
+  StreamViewPrices,
+  StreamViewersLimits,
+  StreamCosts,
 } from '@/helper'
 
 export default {
@@ -29,34 +32,9 @@ export default {
         { id: 'manage', title: 'Live Stream' },
       ],
       terms: false,
-      view_prices: [
-        { id: 0, name: 'No' },
-        { id: 100, name: '$1' },
-        { id: 500, name: '$5' },
-        { id: 1000, name: '$10' },
-        { id: 2000, name: '$20' },
-        { id: 5000, name: '$50' },
-        { id: 10000, name: '$100' },
-        { id: 25000, name: '$250' },
-        { id: 50000, name: '$500' },
-        { id: 100000, name: '$1,000' },
-        { id: 250000, name: '$2,500' },
-        { id: 500000, name: '$5,000' },
-        { id: 1000000, name: '$10,000' },
-      ],
-      viewers_limits: [
-        { id: 0, name: 'Unlimited' },
-        { id: 1, name: '1' },
-        { id: 10, name: '10' },
-        { id: 100, name: '100' },
-        { id: 1000, name: '1000' },
-        { id: 10000, name: '10000' },
-      ],
-      costs: [
-        { value: 1000, name: '$10' },
-        { value: 10000, name: '$100' },
-        { value: 100000, name: '$1000' },
-      ],
+      view_prices: StreamViewPrices,
+      viewers_limits: StreamViewersLimits,
+      costs: StreamCosts,
       streamCost: 1000,
       // periods: [],
       // period: 3600,
@@ -313,7 +291,7 @@ export default {
                 this.$store.dispatch('error/showLoadingActivity', false)
                 this.$store.dispatch('auth/setStream', response.body)
                 this.$router.push({
-                  path: `/user/${this.$store.state.auth.user.slug}/video`,
+                  path: `/user/${this.currentUser.slug}/video`,
                 })
               })
               .catch((e) => {

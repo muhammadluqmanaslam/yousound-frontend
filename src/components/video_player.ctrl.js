@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       can_view: false,
+      exceed_capacity: false,
       player: null,
       time: 0,
       latency_time: 10,
@@ -231,6 +232,7 @@ export default {
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.openStreamingConfirmDialog()
       this.can_view = false
+      this.exceed_capacity = false
       StreamService.canViewStream(this.stream.id).then((response) => {
         if (response.body.code) {
           // console.log(1, response.body.code)
@@ -241,6 +243,7 @@ export default {
           this.openStreamingConfirmDialog()
           // this.openPaymentDialog()
         } else if (response.body.amount === 0) {
+          this.exceed_capacity = true
           this.show_streaming_confirm_dialog = true
         } else {
           // console.log(3, response.body.message)

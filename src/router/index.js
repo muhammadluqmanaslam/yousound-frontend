@@ -53,6 +53,7 @@ import UserSettings from '@/views/settings/index'
 import VideoIndex from '@/views/video/index'
 import VideoManage from '@/views/video/manage'
 import VideoCreate from '@/views/video/create'
+import VideoEdit from '@/views/video/edit'
 import VideoDelete from '@/views/video/delete'
 
 Vue.use(vueMethodsPromise)
@@ -184,6 +185,11 @@ export function createRouter(settings) {
         path: '/user/:user/video/create',
         name: 'VideoCreate',
         component: VideoCreate,
+      },
+      {
+        path: '/user/:user/video/edit',
+        name: 'VideoEdit',
+        component: VideoEdit,
       },
       {
         path: '/user/:user/video/delete',
