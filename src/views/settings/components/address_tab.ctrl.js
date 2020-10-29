@@ -2,6 +2,7 @@ import _ from 'lodash'
 import AddressService from '@/services/address'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
+import { States } from '@/helper'
 
 export default {
   data() {
@@ -27,8 +28,15 @@ export default {
         postcode: '',
         country: '',
       },
+      states: States,
       isPageReady: false,
     }
+  },
+
+  computed: {
+    isCountryUS() {
+      return this.shipping_address.country === 'United States'
+    },
   },
 
   created() {
@@ -49,6 +57,24 @@ export default {
         this.shipping_address.postcode = address.postcode
         this.shipping_address.country = address.country
       }
+    },
+
+    submit() {
+      this.$validator
+        .validateAll()
+        .then((response) => {
+          if (response === true) {
+            this.saveShippingAddress()
+          } else {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              this.errors.items.map((item) => item.msg)
+            )
+          }
+        })
+        .catch((e) => {
+          console.log('validate error', e)
+        })
     },
 
     saveShippingAddress() {
