@@ -3,19 +3,7 @@
     <canvas id="canvas" class="background-image"></canvas>
     <div id="back_image" class="background-overlay"></div>
 
-    <v-flex
-      xs12
-      sm10
-      offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
-      class="album-pages"
-      v-if="playlist"
-    >
+    <v-flex xs12 sm10 offset-sm1 class="album-pages" v-if="playlist">
       <div class="album-info-page" id="album_info_page">
         <div class="album-image-section">
           <div
@@ -164,12 +152,6 @@
         xs12
         sm10
         offset-sm1
-        md10
-        offset-md1
-        lg10
-        offset-lg1
-        xl10
-        offset-xl1
         album-comment-page
         v-if="false && currentUser"
       >
@@ -361,19 +343,7 @@
         </div>
       </v-flex>
 
-      <v-flex
-        xs12
-        sm10
-        offset-sm1
-        md10
-        offset-md1
-        lg10
-        offset-lg1
-        xl10
-        offset-xl1
-        album-recent-page
-        v-if="currentUser"
-      >
+      <v-flex xs12 sm10 offset-sm1 album-recent-page v-if="currentUser">
         <h4 class="recent-title">
           {{ playlist.user.display_name }}'s recent reposts
         </h4>

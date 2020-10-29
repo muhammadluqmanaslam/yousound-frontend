@@ -136,7 +136,7 @@
         v-if="show_repost_payment_modal"
         :item="item"
         :itemType="tab"
-        :user="receiver"
+        :receiver="receiver"
         :dismiss="closeRepostPaymentModal"
         :finish="sendMessage"
       />

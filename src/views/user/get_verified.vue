@@ -1,16 +1,6 @@
 <template>
   <v-layout row wrap class="page verify-page">
-    <v-flex
-      xs12
-      sm10
-      offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
-    >
+    <v-flex xs12 sm10 offset-sm1>
       <div class="verifying-page" v-if="true">
         <v-flex xs12 class="logo-section">
           <img class="logo" src="/static/images/logo.png" />

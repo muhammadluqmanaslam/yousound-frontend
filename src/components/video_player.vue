@@ -5,17 +5,7 @@
       <!-- <div class="my_splash"></div> -->
       <div class="my_overlay">
         <v-layout row wrap class="my-header">
-          <v-flex
-            xs12
-            sm10
-            offset-sm1
-            md10
-            offset-md1
-            lg10
-            offset-lg1
-            xl10
-            offset-xl1
-          >
+          <v-flex xs12 sm10 offset-sm1>
             <v-toolbar class="header">
               <v-toolbar-title
                 @click="choosePage('discover')"

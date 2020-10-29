@@ -304,7 +304,7 @@
           </div>
           <div class="content-section">
             <v-flex xs12 bank-details-section pa-0>
-              <v-flex xs12 sm12 form-group stripe>
+              <v-flex xs12 form-group stripe>
                 <img src="/static/images/stripe-logo-blue.png" />
                 <div v-if="!currentUser.stripe_connected">
                   <v-btn
@@ -380,7 +380,6 @@
             <v-layout row wrap bocked-user-section ma-0>
               <v-flex
                 xs12
-                sm12
                 form-group
                 v-for="(blockedUser, index) in currentUser.blocked_users"
                 :key="index"

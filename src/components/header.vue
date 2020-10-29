@@ -5,7 +5,6 @@
     class="my-header"
     :class="{ fixed: $store.getters['navigator/isHeaderFixed'] }"
   >
-    <!-- <v-flex v-if="currentUser" xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1> -->
     <v-flex v-if="currentUser" mx-5>
       <v-toolbar class="header">
         <router-link to="/discover">
@@ -587,18 +586,7 @@
       </div>
     </v-flex>
 
-    <v-flex
-      v-else
-      xs12
-      sm10
-      offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
-    >
+    <v-flex v-else xs12 sm10 offset-sm1>
       <v-toolbar class="header">
         <router-link to="/discover"
           ><v-toolbar-title></v-toolbar-title

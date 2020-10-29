@@ -1,18 +1,6 @@
 <template>
   <div class="page album-stats-page">
-    <v-flex
-      xs12
-      sm10
-      offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
-      class="album-section"
-      v-if="isPageReady"
-    >
+    <v-flex xs12 sm10 offset-sm1 class="album-section" v-if="isPageReady">
       <h2 class="page-title">Stats</h2>
       <div class="album-info-section">
         <div
@@ -41,17 +29,7 @@
       </div>
     </v-flex>
 
-    <v-flex
-      xs12
-      sm10
-      offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
-    >
+    <v-flex xs12 sm10 offset-sm1>
       <div class="normal-tab">
         <v-tabs black v-model="currentTab">
           <v-tabs-bar class="transparent">

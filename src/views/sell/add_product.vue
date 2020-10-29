@@ -25,31 +25,10 @@
       </v-card>
     </v-dialog>
 
-    <v-flex
-      xs12
-      sm10
-      offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
-    >
+    <v-flex xs12 sm10 offset-sm1>
       <h2 class="page-title">Sell</h2>
     </v-flex>
-    <v-flex
-      xs12
-      sm10
-      offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
-      v-if="isPageReady"
-    >
+    <v-flex xs12 sm10 offset-sm1 v-if="isPageReady">
       <v-layout row wrap content-section>
         <v-flex xs12 sm6>
           <v-flex xs12 section-title>

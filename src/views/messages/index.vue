@@ -14,7 +14,7 @@
       </div>
     </v-flex>
 
-    <!-- <v-flex xs12 sm10 offset-sm1 md10 offset-md1 lg10 offset-lg1 xl10 offset-xl1 class="messages-page-header">
+    <!-- <v-flex xs12 sm10 offset-sm1 class="messages-page-header">
       <v-flex xs12>
         <v-layout row wrap>
           <h2 class="page-title">Messages</h2>
@@ -31,12 +31,6 @@
       xs12
       sm10
       offset-sm1
-      md10
-      offset-md1
-      lg10
-      offset-lg1
-      xl10
-      offset-xl1
       class="messages-page-content"
       v-if="currentUser"
     >
