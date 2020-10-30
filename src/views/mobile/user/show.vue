@@ -19,7 +19,9 @@
           <div class="media__footer">
             <div class="media__subtitle">
               <label>{{ user.display_name }}</label>
-              <v-icon v-if="isUserVerified">fa-check-circle</v-icon>
+              <span>
+                <v-icon v-if="isUserVerified">fa-check-circle</v-icon>
+              </span>
             </div>
             <div class="media__title">@{{ user.username }}</div>
             <div class="media__description">
@@ -192,9 +194,16 @@ export default {
         letter-spacing: -0.2px;
         padding-right: 1px;
       }
+      span {
+        position: relative;
+        width: 1px;
+        height: 20px;
+      }
       .icon {
-        margin-top: -10px;
-        font-size: 20px;
+        position: absolute;
+        top: -3px;
+        right: -10px;
+        font-size: 14px;
         color: #5cb338;
       }
     }

@@ -23,7 +23,7 @@ export default {
         // { id: 'playlists', title: 'Playlists' },
         { id: 'products', title: 'Products' },
         { id: 'live_videos', title: 'Live Videos' },
-        { id: 'users', title: 'Users' },
+        { id: 'users', title: 'People' },
       ],
       page_index: 1,
       total_pages: 1,
