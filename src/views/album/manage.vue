@@ -256,8 +256,8 @@
       <v-card>
         <v-card-title class="headline">Private an Album</v-card-title>
         <v-card-text
-          >If you click OK, the album will be privated. Click OK to private, or
-          click Cancel.</v-card-text
+          >If you make this album private it will be removed from public feeds
+          and reposts. Click OK to private, or click Cancel.</v-card-text
         >
         <v-card-actions>
           <v-spacer></v-spacer>
