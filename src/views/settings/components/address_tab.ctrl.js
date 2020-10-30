@@ -2,21 +2,13 @@ import _ from 'lodash'
 import AddressService from '@/services/address'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
-import { States } from '@/helper'
+import { Countries, States } from '@/helper'
 
 export default {
   data() {
     return {
-      countries: [
-        'Australia',
-        'Canada',
-        'China',
-        'France',
-        'Germeny',
-        'Russia',
-        'United Kingdom',
-        'United States',
-      ],
+      countries: Countries,
+      states: States,
       shipping_address: {
         id: '',
         first_name: '',
@@ -28,7 +20,6 @@ export default {
         postcode: '',
         country: '',
       },
-      states: States,
       isPageReady: false,
     }
   },

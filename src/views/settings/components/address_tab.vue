@@ -57,15 +57,10 @@
               v-model="shipping_address.address_line"
             />
           </v-flex>
-          <v-flex
-            xs12
-            sm6
-            form-group
-            style="display: flex; justify-content: space-between"
-          >
+          <v-flex xs12 sm6 form-group d-flex justify-space-between>
             <div class="shipping-address-city-section">
               <label class="control-label"
-                >City<span class="required">*</span></label
+                >City / Region<span class="required">*</span></label
               >
               <input
                 type="text"
@@ -75,13 +70,12 @@
                 v-validate="'required'"
               />
             </div>
-            <div class="shipping-address-state-section">
+            <div v-if="isCountryUS" class="shipping-address-state-section">
               <label class="control-label"
                 >State<span class="required">*</span></label
               >
               <div class="shipping-address-state">
                 <v-select
-                  v-if="isCountryUS"
                   :items="states"
                   name="state"
                   v-model="shipping_address.state"
@@ -93,14 +87,14 @@
                   hide-details
                   class="pt-0"
                 ></v-select>
-                <input
+                <!-- <input
                   v-else
                   type="text"
                   class="form-control"
                   name="state"
                   v-model="shipping_address.state"
                   v-validate="'required'"
-                />
+                /> -->
               </div>
             </div>
           </v-flex>
