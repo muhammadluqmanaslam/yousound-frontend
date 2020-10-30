@@ -163,7 +163,7 @@ export default {
     }
     &__footer {
       position: relative;
-      padding: 0 0 15px 0;
+      padding: 15px 0 15px 0;
       border-bottom: 1px solid #0000001f;
     }
     &__title {
@@ -172,25 +172,23 @@ export default {
       text-overflow: ellipsis;
       text-align: center;
       white-space: nowrap;
-      line-height: 24px;
-      font-size: 18px;
-      font-weight: 500;
+      line-height: 1.5;
+      font-size: 16px;
+      font-weight: 600;
       letter-spacing: -0.3px;
     }
     &__subtitle {
       display: flex;
-      padding-top: 14px;
       text-align: center;
       justify-content: center;
       align-items: center;
       label {
-        line-height: 24px;
-        font-size: 24px;
-        font-weight: 300;
+        line-height: 1;
+        font-size: 20px;
+        font-weight: 900;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        margin-top: -4px;
         letter-spacing: -0.2px;
         padding-right: 1px;
       }
@@ -202,12 +200,11 @@ export default {
     }
     &__description {
       width: 100%;
-      padding-top: 10px;
-      padding-bottom: 4px;
+      padding-top: 5px;
       text-align: center;
       text-transform: capitalize;
-      line-height: 24px;
-      font-size: 20px;
+      line-height: 1;
+      font-size: 16px;
       font-weight: 500;
     }
     &__tag {
