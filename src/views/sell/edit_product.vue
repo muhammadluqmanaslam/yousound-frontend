@@ -498,7 +498,6 @@
                   item-text="username"
                   item-value="id"
                   chips
-                  max-height="auto"
                   class="pt-0"
                   no-data-text="No collaborator available"
                   :disabled="product.status != 'pending'"

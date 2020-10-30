@@ -2,9 +2,10 @@
 
 import _ from 'lodash'
 // import CategoryService from '@/services/category'
-import ProductService from '@/services/product'
-import ProfileService from '@/services/profile'
+// import ProfileService from '@/services/profile'
 // import UserService from '@/services/user'
+import ProductService from '@/services/product'
+import MeService from '@/services/me'
 import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
 
@@ -93,12 +94,6 @@ export default {
       )
     },
 
-    artists() {
-      return _.filter(this.users, (item) => {
-        return item.user_type === 'artist'
-      })
-    },
-
     creator_share() {
       return 100 - _.sumBy(this.product.collaborators, 'user_share')
     },
@@ -133,8 +128,13 @@ export default {
       ) > -1
     ) {
       this.prod_id = this.$route.params.id
-      const params = {
-        filter: 'artist',
+      // const params = {
+      //   filter: 'artist',
+      //   page: 1,
+      //   per_page: 30,
+      // }
+      var params = {
+        stripe_connected: true,
         page: 1,
         per_page: 30,
       }
@@ -143,11 +143,12 @@ export default {
       Promise.all([
         // CategoryService.getCategories(),
         // UserService.searchUsers(params),
-        ProfileService.getItems(
-          this.$store.state.auth.user.id,
-          'followings',
-          params
-        ),
+        // ProfileService.getItems(
+        //   this.$store.state.auth.user.id,
+        //   'followings',
+        //   params
+        // ),
+        MeService.mutualUsers(params),
         ProductService.getProduct(this.prod_id),
       ])
         .then((values) => {
@@ -181,6 +182,10 @@ export default {
 
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
+
+          MeService.mutualUsers({ ...params, per_page: -1 }).then(
+            (response) => (this.users = response.body.users)
+          )
         })
         .catch((reason) => {
           console.log(reason)

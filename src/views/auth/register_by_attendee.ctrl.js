@@ -22,7 +22,7 @@ import {
 
 import AttendeeService from '@/services/attendee.js'
 import AuthService from '@/services/auth.js'
-import UserService from '@/services/user.js'
+// import UserService from '@/services/user.js'
 
 import genreDialog from '@/components/genre_dialog'
 
@@ -33,7 +33,6 @@ export default {
 
   data() {
     return {
-      show_genre_selector_dialog: false,
       show_additional_info_dialog: false,
       token: '',
       terms: false,
@@ -160,6 +159,7 @@ export default {
   },
 
   created() {
+    AuthService.clearTokenAndUserInfo()
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
 
     const current_year = moment().year()
@@ -196,33 +196,6 @@ export default {
   },
 
   methods: {
-    openGenreSelectorDialog() {
-      // this.show_genre_selector_dialog = true
-      const formScope = 'main-form'
-      this.$validator
-        .validateAll(formScope)
-        .then((response) => {
-          // console.log(this.errors)
-          if (response === true) {
-            this.show_genre_selector_dialog = true
-          } else {
-            this.$store.dispatch('error/showErrorToast', [
-              _.find(this.errors.items, (item) => item.scope === formScope).msg,
-            ])
-          }
-        })
-        .catch((e) => {
-          console.log('error', e)
-        })
-    },
-
-    closeGenreSelectorDialog() {
-      this.show_genre_selector_dialog = false
-      if (this.$store.state.auth.genreIds !== '') {
-        this.submit()
-      }
-    },
-
     submit() {
       const formScope = 'main-form'
       this.$validator

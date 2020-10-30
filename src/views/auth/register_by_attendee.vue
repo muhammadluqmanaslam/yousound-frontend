@@ -102,13 +102,6 @@
       </v-flex>
     </form>
 
-    <!-- <v-dialog
-      v-model="show_genre_selector_dialog"
-      content-class="my-genre-dialog ma-0 pa-2"
-    >
-      <genre-dialog :dismiss="closeGenreSelectorDialog"></genre-dialog>
-    </v-dialog> -->
-
     <v-dialog
       v-model="show_additional_info_dialog"
       content-class="additional-info-dialog"

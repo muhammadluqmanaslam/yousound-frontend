@@ -1,5 +1,5 @@
 import AuthService from '@/services/auth.js'
-import UserService from '@/services/user.js'
+// import UserService from '@/services/user.js'
 
 export default {
   components: {},
@@ -21,6 +21,7 @@ export default {
   computed: {},
 
   created() {
+    AuthService.clearTokenAndUserInfo()
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
   },
 

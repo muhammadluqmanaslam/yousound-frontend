@@ -107,12 +107,6 @@ export default {
       return isAvailable
     },
 
-    artists() {
-      return _.filter(this.users, (item) => {
-        return item.user_type === 'artist'
-      })
-    },
-
     creator_share() {
       return 100 - _.sumBy(this.product.collaborators, 'user_share')
     },
@@ -159,9 +153,12 @@ export default {
           ]
 
           this.users = values[0].body.users
-
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
+
+          MeService.mutualUsers({ ...params, per_page: -1 }).then(
+            (response) => (this.users = response.body.users)
+          )
         })
         .catch((reason) => {
           console.log(reason)
