@@ -1,6 +1,6 @@
 .activity-item {
   padding-top: 22.5px;
-  &:first-child{
+  &:first-child {
     padding-top: 0;
   }
 
@@ -12,7 +12,7 @@
       border: none;
     }
     .activity-item-section {
-      border-right: 1x solid #E1E1E1;
+      border-right: 1x solid #e1e1e1;
       &.no-reposts {
         border: none;
       }
@@ -45,7 +45,7 @@
               letter-spacing: 0;
               text-decoration: none;
               font-family: 'Work Sans';
-              letter-spacing: -.5px;
+              letter-spacing: -0.5px;
             }
             .item-status {
               color: #959595;
@@ -53,8 +53,8 @@
             .description-text {
               display: block;
               font-family: 'Work Sans';
-              letter-spacing: -.5px;
-              padding-top: 8px;
+              letter-spacing: -0.5px;
+              padding-top: 0px;
               color: #000;
               font-size: 14px;
               line-height: 18px;
@@ -91,7 +91,7 @@
           .details {
             margin-top: 20px;
             p {
-              font-size: 16px;
+              font-size: 14px;
               color: #000000;
               letter-spacing: 0;
             }
@@ -125,9 +125,9 @@
         margin-left: 0;
       }
       .recent-post-item {
-        width: 32%;
+        width: 33%;
         height: auto;
-        margin-right: 1%;
+        padding-right: 20px;
         border-radius: 3.75px;
         background-size: cover;
         overflow: hidden;
@@ -144,12 +144,12 @@
       top: 24px;
       right: 15px;
       font-size: 14px;
-      color: #AAA;
+      color: #aaa;
       letter-spacing: 0;
     }
   }
 }
 
 .activity-item + .activity-item {
-  border-top: 1px solid #DBDBDB;
+  border-top: 1px solid #dbdbdb;
 }

@@ -254,7 +254,7 @@
 
     <v-dialog v-model="show_private_confirm_dialog">
       <v-card>
-        <v-card-title class="headline">Private an Album</v-card-title>
+        <v-card-title class="headline">Make album private</v-card-title>
         <v-card-text
           >If you make this album private it will be removed from public feeds
           and reposts. Click OK to private, or click Cancel.</v-card-text

@@ -5,19 +5,11 @@
     .track-cover {
       position: relative;
       padding: 0;
-      // margin-top: 7.5px;
       .playlist-icon {
         position: absolute;
-        // padding: 3.75px 3.897px;
-        // padding: 3.75px 4px;
-        // background-color: rgba(0, 0, 0, 0.5);
-        // border-radius: 100%;
         margin: 0;
         top: 15px;
         left: 15px;
-        // font-size: 13.5px;
-        // color: #FFFFFF;
-        // letter-spacing: 0;
         img {
           width: 12%;
           vertical-align: middle;
@@ -32,7 +24,7 @@
         background-size: cover;
         overflow: hidden;
         background-position: center;
-        border-radius: 7.5px;
+        border-radius: 4px;
         border: none;
         background-color: #f3f3f3;
       }
@@ -43,8 +35,8 @@
       .track-actions {
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.80);
-        border-radius: 7.5px;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 4px;
         position: absolute;
         padding: 0;
         left: 0;
@@ -68,7 +60,7 @@
           bottom: 10.5px;
           left: 20.25px;
           font-size: 16px;
-          color: #FFFFFF;
+          color: #ffffff;
           letter-spacing: 0;
         }
         .play-button {
@@ -112,7 +104,7 @@
             }
             i {
               margin: 0;
-              color: #FFF;
+              color: #fff;
               font-size: 30px;
             }
           }
@@ -149,7 +141,7 @@
         font-size: 14px;
         font-weight: 600;
         color: #333;
-        letter-spacing: -.3px;
+        letter-spacing: -0.3px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -167,35 +159,35 @@
 .ys-dialog.ys-album-report-dialog {
   position: relative;
   padding: 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   .left-pane {
     background-color: #222;
-    color: #FFFFFF;
+    color: #ffffff;
     h3 {
       margin: 10px 0 0 5px;
       font-size: 24px;
     }
     .input-group.input-group--selection-controls.radio {
       label {
-        color: #FFFFFF;
+        color: #ffffff;
       }
       .input-group__input {
         min-height: 30px;
       }
       .icon.icon--selection-control {
-        color: #FFFFFF !important;
+        color: #ffffff !important;
       }
       &.input-group--active .icon.icon--selection-control {
-        color: #FFFFFF !important;
+        color: #ffffff !important;
       }
     }
     .divider {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
     }
     p {
       margin: 20px 0 0 0;
       font-size: 14px;
-      color: #FFFFFF;
+      color: #ffffff;
     }
   }
   .right-pane {
@@ -213,7 +205,7 @@
     }
     .input-group.input-group--multi-line {
       padding: 5px 10px;
-      border: 1px solid #E0E0E0;
+      border: 1px solid #e0e0e0;
       label {
         top: 5px;
         left: -5px;
@@ -236,7 +228,7 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     text-align: center;
     h3 {
       margin: 140px 0 20px 0;
@@ -260,11 +252,10 @@
   }
 }
 
-
 .track-menu-item {
   .icon {
     font-size: 18px;
-    color: #C4C4C4;
+    color: #c4c4c4;
     padding-right: 5px;
   }
 }
@@ -282,8 +273,8 @@
       width: 150px;
       display: inline-block;
       .image-section {
-        background: #3A92FF;
-        border: 0.75px solid #D2D2D2;
+        background: #3a92ff;
+        border: 0.75px solid #d2d2d2;
         border-radius: 3.75px;
         width: 100%;
         padding-bottom: 100%;
@@ -293,8 +284,8 @@
           position: absolute;
           top: 0px;
           left: 0px;
-          background: #FFFFFF;
-          border: 0.75px solid #D2D2D2;
+          background: #ffffff;
+          border: 0.75px solid #d2d2d2;
           width: 100%;
           height: 100%;
           border-radius: 3.75px;
@@ -308,8 +299,8 @@
           height: 100%;
           text-align: center;
           .add-playlist-image-file {
-            width: 0.0.75px;
-            height: 0.0.75px;
+            width: 0.75px;
+            height: 0.75px;
             opacity: 0;
             overflow: hidden;
             position: absolute;
@@ -320,10 +311,10 @@
             height: 100%;
             font-weight: 600;
             font-size: 15px;
-            color: #FFFFFF;
+            color: #ffffff;
             letter-spacing: 0;
             .camera {
-              color: #FFFFFF;
+              color: #ffffff;
               font-size: 28.5px;
               display: block;
               margin-top: calc(50% - 22.5px);
@@ -331,9 +322,9 @@
           }
           .add-playlist-image-file:focus + label,
           .add-playlist-image-file + label:hover {
-            color: rgba(255, 255, 255, 0.50);
+            color: rgba(255, 255, 255, 0.5);
             .camera {
-              color: rgba(255, 255, 255, 0.50);
+              color: rgba(255, 255, 255, 0.5);
             }
           }
         }
@@ -342,8 +333,8 @@
         margin-top: 11.25px;
         text-align: center;
         .change-playlist-image-file {
-          width: 0.0.75px;
-          height: 0.0.75px;
+          width: 0.75px;
+          height: 0.75px;
           opacity: 0;
           overflow: hidden;
           position: absolute;
@@ -351,12 +342,12 @@
         }
         .change-playlist-image-file + label {
           font-size: 13.5px;
-          color: #3A92FF;
+          color: #3a92ff;
           letter-spacing: 0;
         }
         .change-playlist-image-file:focus + label,
         .change-playlist-image-file + label:hover {
-          color: rgba(58, 146, 255, 0.50);
+          color: rgba(58, 146, 255, 0.5);
         }
       }
     }
@@ -369,11 +360,11 @@
         box-shadow: none;
         text-transform: none;
         margin: 0;
-        background: #3A92FF !important;
+        background: #3a92ff !important;
         border-radius: 70px;
         font-weight: 600;
         font-size: 15px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
         &.delete-playlist-btn {
           background: #dc3545 !important;
@@ -442,4 +433,3 @@
 //     width: 14.28571428571429%;
 //   }
 // }
-
