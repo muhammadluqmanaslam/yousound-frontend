@@ -5,11 +5,11 @@ import genreSingleSelector from '@/components/genre_single_selector'
 import sampleLicenseDialog from './components/sample_license_dialog'
 import trackUploader from '@/components/trackuploader'
 
-import UserService from '@/services/user'
+import MeService from '@/services/me'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
-import { Countries, CollaboratorRoleTypes } from '@/helper'
+import { CollaboratorRoleTypes } from '@/helper'
 
 export default {
   components: {
@@ -44,6 +44,8 @@ export default {
       locations: [],
       followings: [],
       users: [],
+      potentional_collaborators: [],
+      potentional_contributors: [],
       collaborators: [],
       contributors: [],
       samplings: [],
@@ -121,38 +123,48 @@ export default {
     this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })
     if (this.currentUser && this.currentUser.user_type === 'artist') {
       this.album.released_at = moment().format('YYYY-MM-DD')
-      const params = {
-        filter: 'artist',
-        page: this.page_index,
-        per_page: this.items_per_page,
-      }
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
       Promise.all([
         // UserService.searchUsers(params),
-        ProfileService.getItems(this.currentUser.id, 'followings', params),
         ProductService.getProducts({
           statuses: 'published, collaborated',
           stock_statuses: 'active',
           user_statuses: 'accepted',
         }),
-        ProfileService.getItems(
-          this.currentUser.id,
-          'sample_followings',
-          params
-        ),
+        // ProfileService.getItems(this.currentUser.id, 'followings', params),
+        // ProfileService.getItems(
+        //   this.currentUser.id,
+        //   'sample_followings',
+        //   params
+        // ),
+        MeService.mutualUsers({
+          per_page: -1,
+        }),
+        MeService.mutualUsers({
+          stripe_connected: true,
+          per_page: -1,
+        }),
+        ProfileService.getItems(this.currentUser.id, 'sample_followings', {
+          per_page: -1,
+        }),
       ])
         .then((values) => {
-          this.genres = _.flatMap(this.$store.state.app.genres, 'children')
-          this.followings = _.cloneDeep(values[0].body.users)
-          this.users = _.cloneDeep(values[0].body.users)
-          this.users.unshift(this.currentUser)
-
-          // this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
-          this.artists = _.cloneDeep(values[2].body.users)
-
-          this.products = values[1].body
+          this.products = values[0].body
           this.$store.dispatch('genreSelector/setGenres', [])
+
+          this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+
+          // this.followings = _.cloneDeep(values[1].body.users)
+          // this.users = _.cloneDeep(values[1].body.users)
+          // this.users.unshift(this.currentUser)
+          // // this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
+          // this.artists = _.cloneDeep(values[2].body.users)
+
+          this.potentional_contributors = values[1].body.users
+          this.potentional_contributors.unshift(this.currentUser)
+          this.potentional_collaborators = values[2].body.users
+          this.artists = values[3].body.users
 
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)

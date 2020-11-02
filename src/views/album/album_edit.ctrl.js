@@ -9,8 +9,10 @@ import sampleLicenseDialog from './components/sample_license_dialog'
 import trackUploader from '@/components/trackuploader'
 
 import AlbumService from '@/services/album'
+import MeService from '@/services/me'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
+
 // import UserService from '@/services/user'
 import { CollaboratorRoleTypes } from '@/helper'
 
@@ -31,6 +33,8 @@ export default {
       users: [],
       genres: [],
       products: [],
+      potentional_collaborators: [],
+      potentional_contributors: [],
       collaborators: [],
       contributors: [],
       samplings: [],
@@ -118,11 +122,6 @@ export default {
         this.$router.push({ path: '/' })
       } else {
         const vm = this
-        const params = {
-          filter: 'artist',
-          page: 1,
-          per_page: 30,
-        }
         this.isPageReady = false
         this.$store.dispatch('error/showLoadingActivity', true)
         this.slug = this.$route.params.slug
@@ -134,22 +133,33 @@ export default {
             user_statuses: 'accepted',
           }),
           AlbumService.getAlbum(this.slug),
-          ProfileService.getItems(this.currentUser.id, 'followings', params),
-          ProfileService.getItems(
-            this.currentUser.id,
-            'sample_followings',
-            params
-          ),
+          MeService.mutualUsers({
+            per_page: -1,
+          }),
+          MeService.mutualUsers({
+            stripe_connected: true,
+            per_page: -1,
+          }),
+          ProfileService.getItems(this.currentUser.id, 'sample_followings', {
+            per_page: -1,
+          }),
         ])
           .then((values) => {
             this.genres = _.flatMap(this.$store.state.app.genres, 'children')
             this.products = values[0].body
-            this.followings = _.cloneDeep(values[2].body.users)
-            this.users = _.cloneDeep(values[2].body.users)
-            this.users.unshift(this.currentUser)
 
-            // this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
-            this.artists = _.cloneDeep(values[3].body.users)
+            // this.followings = _.cloneDeep(values[2].body.users)
+            // this.users = _.cloneDeep(values[2].body.users)
+            // this.users.unshift(this.currentUser)
+            // this.artists = _.filter(
+            //   this.followings,
+            //   (user) => user.user_type === 'artist'
+            // )
+            // this.artists = _.cloneDeep(values[3].body.users)
+            this.potentional_contributors = values[2].body.users
+            this.potentional_contributors.unshift(this.currentUser)
+            this.potentional_collaborators = values[3].body.users
+            this.artists = values[4].body.users
 
             this.album = values[1].body
             this.album_image_url = this.album.cover.url
