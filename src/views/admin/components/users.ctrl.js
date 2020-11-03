@@ -49,8 +49,8 @@ export default {
       per_page_options: [50, 100, 150],
       users: [],
       pagination: {
-        // sortBy: 'created_at',
-        // descending: true,
+        sortBy: 'created_at',
+        descending: true,
         page: 1,
         rowsPerPage: 50,
       },
@@ -100,6 +100,8 @@ export default {
 
       this.active_tab = tab
       this.pagination = {
+        sortBy: 'created_at',
+        descending: true,
         page: 1,
         rowsPerPage: 50,
       }

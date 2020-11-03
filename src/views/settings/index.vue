@@ -297,7 +297,7 @@
               In order to accept payments you must connect your
               <a href="https://stripe.com/" target="_blank">Stripe.com</a>
               account. <br />
-              Stripe will handles your banking information, refunds and/or
+              Stripe will handle your banking information, refunds and/or
               disputes.
             </p>
             <p></p>

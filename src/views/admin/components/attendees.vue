@@ -29,6 +29,7 @@
               :items="attendees"
               :search="search_keyword"
               :rows-per-page-items="per_page_options"
+              disable-initial-sort
               class="user-table"
             >
               <template slot="items" slot-scope="props">

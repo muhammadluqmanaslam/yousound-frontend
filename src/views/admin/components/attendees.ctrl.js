@@ -9,7 +9,11 @@ export default {
       current_tab: 'all',
       tabs: [{ id: 'all', title: 'All Attendees' }],
       attendee_headers: [
-        { text: 'Full Name', value: 'full_name', align: 'left' },
+        {
+          text: 'Full Name',
+          value: 'full_name',
+          align: 'left',
+        },
         {
           text: 'Artist / Brand / Label Name',
           value: 'display_name',
@@ -25,9 +29,10 @@ export default {
       attendees: [],
       attendee: {},
       pagination: {
+        sortBy: 'created_at',
+        descending: true,
         page: 1,
         rowsPerPage: 50,
-        descending: true,
         totalItems: 0,
       },
       per_page_options: [50, 100, 150],
