@@ -276,7 +276,7 @@
                 >
                 <!-- <input type="text" class="form-control" v-model="collaborator.user_id"> -->
                 <v-select
-                  :items="potentional_collaborators"
+                  :items="potential_collaborators"
                   v-model="collaborator.user_id"
                   item-text="username"
                   item-value="id"
@@ -369,7 +369,7 @@
                   >Username<label class="required">*</label></label
                 >
                 <v-select
-                  :items="potentional_contributors"
+                  :items="potential_contributors"
                   v-model="contirbutor.user_id"
                   item-text="username"
                   item-value="id"

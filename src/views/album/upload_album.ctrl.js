@@ -44,8 +44,8 @@ export default {
       locations: [],
       followings: [],
       users: [],
-      potentional_collaborators: [],
-      potentional_contributors: [],
+      potential_collaborators: [],
+      potential_contributors: [],
       collaborators: [],
       contributors: [],
       samplings: [],
@@ -141,10 +141,6 @@ export default {
         MeService.mutualUsers({
           per_page: -1,
         }),
-        MeService.mutualUsers({
-          stripe_connected: true,
-          per_page: -1,
-        }),
         ProfileService.getItems(this.currentUser.id, 'sample_followings', {
           per_page: -1,
         }),
@@ -161,10 +157,10 @@ export default {
           // // this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
           // this.artists = _.cloneDeep(values[2].body.users)
 
-          this.potentional_contributors = values[1].body.users
-          this.potentional_contributors.unshift(this.currentUser)
-          this.potentional_collaborators = values[2].body.users
-          this.artists = values[3].body.users
+          this.potential_collaborators = _.cloneDeep(values[1].body.users)
+          this.potential_contributors = _.cloneDeep(values[1].body.users)
+          this.potential_contributors.unshift(this.currentUser)
+          this.artists = values[2].body.users
 
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
