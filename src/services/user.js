@@ -84,6 +84,12 @@ export default {
     )
   },
 
+  checkStripeConnection(userId) {
+    return Vue.http.get(`${API_BASE_URL}/${userId}/check_stripe_connection`, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   donateMoney(userId, params) {
     return Vue.http.post(API_BASE_URL + '/' + userId + '/donate', params, {
       headers: { Authorization: $store.state.auth.token },
