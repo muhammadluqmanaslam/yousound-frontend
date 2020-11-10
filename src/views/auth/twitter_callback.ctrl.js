@@ -140,7 +140,7 @@ export default {
         // Storage.set('twitter_info', JSON.stringify(this.twitter_info))
 
         this.user = {
-          display_name: this.twitter_info.screen_name,
+          // display_name: this.twitter_info.screen_name,
           social_user_id: this.twitter_info.user_id,
           request_role: this.$route.query['user_type'] || 'artist',
 
