@@ -80,7 +80,7 @@
 
 <script type="text/javascript">
 import { Card, createToken } from 'vue-stripe-elements'
-import UserService from '@/services/user'
+// import UserService from '@/services/user'
 import { Stripe } from '@/helper'
 
 export default {
@@ -136,7 +136,7 @@ export default {
     },
 
     receiverName() {
-      return _.get(this.receiver, 'display_name', 'Receiver')
+      return this._.get(this.receiver, 'display_name', 'Receiver')
     },
 
     stripeConnected() {
