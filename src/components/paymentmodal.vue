@@ -52,16 +52,14 @@
       >
         <v-card>
           <v-card-media
-            :src="_.get(receiver, 'avatar.thumb.url')"
+            v-if="receiverAvatar"
+            :src="receiverAvatar"
             height="125px"
             contain
           ></v-card-media>
           <v-card-text class="mt-2">
             <div class="headline">You cannot send the payment</div>
-            <div>
-              {{ _.get(receiver, 'display_name', 'Receiver') }} did not connect
-              to stripe yet.
-            </div>
+            <div>{{ receiverName }} did not connect to stripe yet.</div>
           </v-card-text>
           <v-card-actions>
             <v-btn
@@ -124,7 +122,7 @@ export default {
       stripeOptions: {},
       show_error_dialog: false,
       fee: 0,
-      loading: true,
+      loading: false,
     }
   },
 
@@ -133,41 +131,65 @@ export default {
       return this.$store.state.auth.user
     },
 
-    // stripeConnected() {
-    //   const receiver = this._.find(
-    //     this.receivers,
-    //     (user) => user.stripe_connected === false
-    //   )
-    //   if (receiver) {
-    //     this.receiver = receiver
-    //     return false
-    //   } else {
-    //     return true
-    //   }
-    // },
+    receiverAvatar() {
+      return this._.get(this.receiver, 'avatar.thumb.url')
+    },
+
+    receiverName() {
+      return _.get(this.receiver, 'display_name', 'Receiver')
+    },
+
+    stripeConnected() {
+      const receiver = this._.find(
+        this.receivers,
+        (user) => user.stripe_connected === false
+      )
+      if (receiver) {
+        this.receiver = receiver
+        return false
+      } else {
+        return true
+      }
+    },
   },
 
   created() {
-    // if (!this.stripeConnected) {
-    //   this.show_error_dialog = true
-    // }
+    if (!this.stripeConnected) {
+      this.show_error_dialog = true
+    }
 
-    this.loading = true
-    this.show_error_dialog = false
-    this.$store.dispatch('error/showLoadingActivity', true)
-    const funcs = (this.receivers || []).map((user) =>
-      UserService.checkStripeConnection(user.id)
-    )
-    Promise.all(funcs)
-      .then((values) => {
-        this.loading = false
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
-      .catch((reason) => {
-        this.loading = false
-        this.show_error_dialog = true
-        this.$store.dispatch('error/showLoadingActivity', false)
-      })
+    // this.loading = true
+    // this.show_error_dialog = false
+    // this.$store.dispatch('error/showLoadingActivity', true)
+
+    // const funcs = (this.receivers || []).map((user) =>
+    //   UserService.checkStripeConnection(user.id)
+    // )
+    // Promise.all(funcs)
+    //   .then((values) => {
+    //     this.loading = false
+    //     this.$store.dispatch('error/showLoadingActivity', false)
+    //   })
+    //   .catch((reason) => {
+    //     this.loading = false
+    //     this.show_error_dialog = true
+    //     this.$store.dispatch('error/showLoadingActivity', false)
+    //   })
+
+    // const funcs = (this.receivers || []).map((user) =>
+    //   UserService.checkStripeConnection(user.id).then(
+    //     (value) => ({ status: 'fulfilled', user, value }),
+    //     (reason) => ({ status: 'rejected', user, reason })
+    //   )
+    // )
+    // Promise.all(funcs).then((values) => {
+    //   const error = this._.find(values, (v) => v.status === 'rejected ')
+    //   this.loading = false
+    //   this.$store.dispatch('error/showLoadingActivity', false)
+    //   if (error) {
+    //     this.receiver = error.user
+    //   }
+    // })
 
     this.fee = Stripe.calculateFee(this.amount)
   },
