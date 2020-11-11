@@ -76,7 +76,7 @@
               class="setting-cell-switch"
             ></v-switch>
           </td>
-          <td>{{ props.item.free_streamed_time | timeInHours }}</td>
+          <!-- <td>{{ props.item.free_streamed_time | timeInHours }}</td>
           <td class="text-xs-center">
             <v-btn
               v-if="props.item.stream && props.item.stream.status === 'running'"
@@ -90,7 +90,7 @@
             </v-btn>
           </td>
           <td>{{ props.item.free_stream_seconds | timeInHours }}</td>
-          <td>{{ props.item.demand_stream_seconds | timeInHours }}</td>
+          <td>{{ props.item.demand_stream_seconds | timeInHours }}</td> -->
           <td class="text-xs-left">{{ props.item.email }}</td>
           <td class="text-xs-left">
             <a
@@ -186,6 +186,16 @@
                     <label>Convert to moderator</label>
                   </v-list-tile-title>
                 </v-list-tile>
+
+                <v-list-tile
+                  v-if="props.item.stripe_connected"
+                  @click.native="openDisconnectStripeConfirmDialog(props.item)"
+                  class="default-menu-item"
+                >
+                  <v-list-tile-title>
+                    <label>Disconnect Stripe</label>
+                  </v-list-tile-title>
+                </v-list-tile>
               </v-list>
             </v-menu>
           </td>
@@ -233,6 +243,32 @@
             flat
             @click.native="closeFreeStreamToggleConfirmDialog()"
             >Ok</v-btn
+          >
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_disconnect_stripe_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Disconnect Stripe</v-card-title>
+        <v-card-text
+          >Are you going to disconnect this user from Yousound
+          marketplace?</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="red--text darken-1"
+            flat
+            @click.native="disconnectStripe()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="green--text darken-1"
+            flat
+            @click.native="closeDisconnectStripeConfirmDialog()"
+            >Cancel</v-btn
           >
           <v-spacer></v-spacer>
         </v-card-actions>

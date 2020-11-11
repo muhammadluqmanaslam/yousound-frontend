@@ -30,6 +30,12 @@ export default {
     })
   },
 
+  disconnectStripe(params) {
+    return Vue.http.post(`${API_BASE_URL}/disconnect_stripe`, params, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   toggleViewDirectMessages(params) {
     return Vue.http.post(
       `${API_BASE_URL}/toggle_view_direct_messages`,

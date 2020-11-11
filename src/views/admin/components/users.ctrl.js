@@ -19,31 +19,55 @@ export default {
       ],
       active_tab: 'any',
       user_headers: [
-        { text: 'Username', value: 'username', align: 'left' },
+        { text: 'Username', value: 'username', align: 'left', sortable: false },
         {
           text: 'View Direct Messages',
           value: 'enabled_view_direct_messages',
           align: 'left',
+          sortable: false,
         },
-        { text: 'Streaming', value: 'enabled_live_video', align: 'left' },
+        {
+          text: 'Streaming',
+          value: 'enabled_live_video',
+          align: 'left',
+          sortable: false,
+        },
         {
           text: 'Free Streaming',
           value: 'enabled_live_video_free',
           align: 'left',
+          sortable: false,
         },
-        { text: 'Current Free Stream Hours', value: 'free_streamed_time' },
-        { text: 'Stop Streaming', value: 'id' },
-        { text: 'Free Stream Hours', value: 'free_stream_seconds' },
-        { text: 'Demand Stream Hours', value: 'demand_stream_seconds' },
-        { text: 'Email', value: 'email', align: 'left' },
-        { text: 'Twitter Link', value: 'social_user_id', align: 'left' },
-        { text: 'Date Joined', value: 'created_at', align: 'left' },
-        { text: 'Verified By', value: 'verified_by', align: 'left' },
-        { text: 'Status', value: 'status', align: 'left' },
+        // { text: 'Current Free Stream Hours', value: 'free_streamed_time' },
+        // { text: 'Stop Streaming', value: 'id' },
+        // { text: 'Free Stream Hours', value: 'free_stream_seconds' },
+        // { text: 'Demand Stream Hours', value: 'demand_stream_seconds' },
+        { text: 'Email', value: 'email', align: 'left', sortable: false },
+        {
+          text: 'Twitter Link',
+          value: 'social_user_id',
+          align: 'left',
+          sortable: false,
+        },
+        {
+          text: 'Date Joined',
+          value: 'created_at',
+          align: 'left',
+          sortable: false,
+        },
+        {
+          text: 'Verified By',
+          value: 'verified_by',
+          align: 'left',
+          sortable: false,
+        },
+        { text: 'Status', value: 'status', align: 'left', sortable: false },
+        { text: '', value: '', sortable: false },
       ],
       show_stream_delete_confirm_dialog: false,
       show_free_stream_toggle_confirm_dialog: false,
       show_user_delete_confirm_dialog: false,
+      show_disconnect_stripe_confirm_dialog: false,
       search_value: '',
       user: null,
       per_page_options: [50, 100, 150],
@@ -134,6 +158,37 @@ export default {
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.user.stream.status = 'deleted'
+          this.user = null
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+          this.user = null
+        })
+    },
+
+    openDisconnectStripeConfirmDialog(user) {
+      this.user = user
+      this.show_disconnect_stripe_confirm_dialog = true
+    },
+
+    closeDisconnectStripeConfirmDialog() {
+      this.show_disconnect_stripe_confirm_dialog = false
+    },
+
+    disconnectStripe() {
+      this.closeDisconnectStripeConfirmDialog()
+      this.$store.dispatch('error/showLoadingActivity', true)
+      const params = {
+        user_id: this.user.id,
+      }
+      AdminService.disconnectStripe(params)
+        .then(() => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.user.stripe_connected = false
           this.user = null
         })
         .catch((e) => {
