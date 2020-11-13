@@ -5,6 +5,7 @@ import { Utils } from '@/helper'
 import AuthService from '@/services/auth'
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
+import UserService from '@/services/user'
 
 import activityProductCard from '@/components/activityproductcard'
 import profileItem from '@/components/profileitem'
@@ -51,6 +52,16 @@ export default {
 
     user() {
       return _.get(this.active_order, 'merchant', { avatar: {} })
+    },
+
+    // merchants
+    receivers() {
+      const merchants = _.chain(this.cartItems)
+        .map('product.merchant')
+        .uniq('id')
+        .value()
+      // console.log('receivers', merchants)
+      return merchants
     },
   },
 
@@ -161,7 +172,25 @@ export default {
     },
 
     submit() {
-      this.$router.push({ path: '/cart/checkout/' })
+      this.$store.dispatch('error/showLoadingActivity', true)
+      const funcs = (this.receivers || []).map((user) =>
+        UserService.checkStripeConnection(user.id).then(
+          (value) => ({ status: 'fulfilled', user, value }),
+          (reason) => ({ status: 'rejected', user, reason })
+        )
+      )
+      Promise.all(funcs).then((values) => {
+        const error = this._.find(values, (v) => v.status === 'rejected')
+
+        this.loading = false
+        this.$store.dispatch('error/showLoadingActivity', false)
+        if (error) {
+          this.receiver = error.user
+          this.show_error_dialog = true
+        } else {
+          this.$router.push({ path: '/cart/checkout/' })
+        }
+      })
     },
 
     showMessageDialog(order) {

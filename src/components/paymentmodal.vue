@@ -80,7 +80,7 @@
 
 <script type="text/javascript">
 import { Card, createToken } from 'vue-stripe-elements'
-// import UserService from '@/services/user'
+import UserService from '@/services/user'
 import { Stripe } from '@/helper'
 
 export default {
@@ -122,7 +122,7 @@ export default {
       stripeOptions: {},
       show_error_dialog: false,
       fee: 0,
-      loading: false,
+      loading: true,
     }
   },
 
@@ -139,28 +139,28 @@ export default {
       return this._.get(this.receiver, 'display_name', 'Receiver')
     },
 
-    stripeConnected() {
-      const receiver = this._.find(
-        this.receivers,
-        (user) => user.stripe_connected === false
-      )
-      if (receiver) {
-        this.receiver = receiver
-        return false
-      } else {
-        return true
-      }
-    },
+    // stripeConnected() {
+    //   const receiver = this._.find(
+    //     this.receivers,
+    //     (user) => user.stripe_connected === false
+    //   )
+    //   if (receiver) {
+    //     this.receiver = receiver
+    //     return false
+    //   } else {
+    //     return true
+    //   }
+    // },
   },
 
   created() {
-    if (!this.stripeConnected) {
-      this.show_error_dialog = true
-    }
+    // if (!this.stripeConnected) {
+    //   this.show_error_dialog = true
+    // }
 
-    // this.loading = true
-    // this.show_error_dialog = false
-    // this.$store.dispatch('error/showLoadingActivity', true)
+    this.loading = true
+    this.show_error_dialog = false
+    this.$store.dispatch('error/showLoadingActivity', true)
 
     // const funcs = (this.receivers || []).map((user) =>
     //   UserService.checkStripeConnection(user.id)
@@ -176,20 +176,22 @@ export default {
     //     this.$store.dispatch('error/showLoadingActivity', false)
     //   })
 
-    // const funcs = (this.receivers || []).map((user) =>
-    //   UserService.checkStripeConnection(user.id).then(
-    //     (value) => ({ status: 'fulfilled', user, value }),
-    //     (reason) => ({ status: 'rejected', user, reason })
-    //   )
-    // )
-    // Promise.all(funcs).then((values) => {
-    //   const error = this._.find(values, (v) => v.status === 'rejected ')
-    //   this.loading = false
-    //   this.$store.dispatch('error/showLoadingActivity', false)
-    //   if (error) {
-    //     this.receiver = error.user
-    //   }
-    // })
+    const funcs = (this.receivers || []).map((user) =>
+      UserService.checkStripeConnection(user.id).then(
+        (value) => ({ status: 'fulfilled', user, value }),
+        (reason) => ({ status: 'rejected', user, reason })
+      )
+    )
+    Promise.all(funcs).then((values) => {
+      const error = this._.find(values, (v) => v.status === 'rejected')
+
+      this.loading = false
+      this.$store.dispatch('error/showLoadingActivity', false)
+      if (error) {
+        this.receiver = error.user
+        this.show_error_dialog = true
+      }
+    })
 
     this.fee = Stripe.calculateFee(this.amount)
   },
