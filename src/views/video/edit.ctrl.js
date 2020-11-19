@@ -6,7 +6,8 @@ export default {
     return {
       active_tab: 'edit',
       tabs: [
-        { id: 'edit', title: 'Info', path: '/edit' },
+        { id: 'info', title: 'Info & Pricing' },
+        { id: 'edit', title: 'Broadcast Details', path: '/edit' },
         { id: 'manage', title: 'Live Stream', path: '' },
       ],
       stream: null,

@@ -10,7 +10,9 @@
               :key="tab.id"
               :class="{ active: tab.id === active_tab }"
             >
-              <label>{{ tab.title }}</label>
+              <label @click="!tab.disabled && onTab(tab)">{{
+                tab.title
+              }}</label>
             </li>
           </ul>
         </div>

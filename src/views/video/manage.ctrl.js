@@ -164,7 +164,7 @@ export default {
         const stream_status = _.get(response.body, 'stream.status', '')
         if (stream_status === '') {
           this.$router.push({
-            path: `/user/${this.currentUser.slug}/video/create`,
+            path: `/user/${this.currentUser.slug}/video/info`,
           })
         } else if (['deleted', 'inactive'].indexOf(stream_status) > -1) {
           this.$router.push({

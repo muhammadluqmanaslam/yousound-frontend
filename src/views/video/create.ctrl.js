@@ -28,8 +28,9 @@ export default {
     return {
       active_tab: 'create',
       tabs: [
-        { id: 'create', title: 'Info' },
-        { id: 'manage', title: 'Live Stream' },
+        { id: 'info', title: 'Info & Pricing', path: '/info' },
+        { id: 'create', title: 'Setup Broadcast' },
+        { id: 'manage', title: 'Live Stream', disabled: true },
       ],
       terms: false,
       view_prices: StreamViewPrices,
@@ -171,6 +172,14 @@ export default {
   },
 
   methods: {
+    onTab(tab) {
+      if (tab.id === this.active_tab) return
+
+      this.$router.push({
+        path: `/user/${this.currentUser.slug}/video${tab.path}`,
+      })
+    },
+
     openHelpDialog() {
       this.show_help_dialog = true
     },

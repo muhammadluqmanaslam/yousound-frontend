@@ -52,6 +52,7 @@ import UserGetVerified from '@/views/user/get_verified'
 import UserSettings from '@/views/settings/index'
 import VideoIndex from '@/views/video/index'
 import VideoManage from '@/views/video/manage'
+import VideoInfo from '@/views/video/estimate'
 import VideoCreate from '@/views/video/create'
 import VideoEdit from '@/views/video/edit'
 import VideoDelete from '@/views/video/delete'
@@ -180,6 +181,11 @@ export function createRouter(settings) {
         path: '/user/:user/video',
         name: 'VideoManage',
         component: VideoManage,
+      },
+      {
+        path: '/user/:user/video/info',
+        name: 'VideoInfo',
+        component: VideoInfo,
       },
       {
         path: '/user/:user/video/create',
