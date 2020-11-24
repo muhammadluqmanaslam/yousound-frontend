@@ -45,9 +45,9 @@
 
           <v-flex sm4 class="stream-actions">
             <v-btn
-              :color="isRunning ? 'theme--dark red' : 'grey lighten-2'"
+              color="theme--dark red"
               class="cancel-btn"
-              @click.native="isRunning && openStreamDeleteConfirmDialog()"
+              @click.native="openStreamDeleteConfirmDialog()"
               >Stop</v-btn
             >
             <v-btn
@@ -73,15 +73,12 @@
 
         <div class="panel stream-info mt-4">
           <v-flex>
-            <div class="loading" v-if="!isRunning">
+            <!-- <div class="loading" v-if="!isRunning">
               <i class="fa fa-spinner fa-pulse fa-3x"></i>
-            </div>
-            <p>
-              *It can take up to 5 mins to get your stream keys. For best
-              quality, connect directly to your ethernet.
-            </p>
-            <label>URL: {{ isRunning ? streamUrl : 'xxxxxxx' }}</label>
-            <label> Stream Key: {{ isRunning ? streamKey : 'xxxxxxx' }} </label>
+            </div> -->
+            <p>*Put the live video into the stream.</p>
+            <label>URL: {{ streamUrl }}</label>
+            <label> Stream Key: {{ streamKey }} </label>
           </v-flex>
         </div>
 

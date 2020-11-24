@@ -33,7 +33,7 @@ export default {
     return {
       active_tab: 'manage',
       tabs: [
-        { id: 'info', title: 'Info & Pricing' },
+        { id: 'info', title: 'Info & Pricing', path: '/info' },
         { id: 'edit', title: 'Info', path: '/edit' },
         { id: 'manage', title: 'Live Stream', path: '' },
       ],
@@ -90,7 +90,7 @@ export default {
     },
 
     streamKey() {
-      return _.get(this.currentUser, 'stream.ml_input_dest_1_id', '')
+      return _.get(this.currentUser, 'stream.ml_input_id', '')
     },
 
     profileUrl() {
@@ -161,18 +161,18 @@ export default {
           })
         } else {
           const vm = this
-          if (!this.isRunning) {
-            this.creatingInterval = setInterval(function () {
-              vm.getStream()
-            }, 10000)
-          } else {
-            this.remainingSeconds = response.body.stream.remaining_seconds
-            if (!this.currentUser.enabled_live_video_free) {
-              this.remainingInterval = setInterval(function () {
-                vm.refresh()
-              }, 1000)
-            }
-          }
+          // if (!this.isRunning) {
+          //   this.creatingInterval = setInterval(function () {
+          //     vm.getStream()
+          //   }, 10000)
+          // } else {
+          //   this.remainingSeconds = response.body.stream.remaining_seconds
+          //   if (!this.currentUser.enabled_live_video_free) {
+          //     this.remainingInterval = setInterval(function () {
+          //       vm.refresh()
+          //     }, 1000)
+          //   }
+          // }
           this.$store.dispatch('navigator/goNextState', {
             page: 'broadcast',
             tab: '',

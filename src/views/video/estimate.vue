@@ -42,6 +42,7 @@
               <router-link to="/">Frequently Asked Questions</router-link>
             </p>
             <v-btn
+              v-if="!isStreamRunning"
               round
               dark
               color="blue"

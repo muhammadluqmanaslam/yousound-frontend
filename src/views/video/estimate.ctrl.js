@@ -26,7 +26,7 @@ export default {
         ? [
             { id: 'info', title: 'Info & Pricing' },
             { id: 'edit', title: 'Broadcast Details', path: '/edit' },
-            { id: 'manage', title: 'Live Stream', disabled: true },
+            { id: 'manage', title: 'Live Stream', path: '' },
           ]
         : [
             { id: 'info', title: 'Info & Pricing' },
