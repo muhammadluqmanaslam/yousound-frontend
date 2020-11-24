@@ -33,6 +33,7 @@ export default {
     return {
       active_tab: 'manage',
       tabs: [
+        { id: 'info', title: 'Info & Pricing' },
         { id: 'edit', title: 'Info', path: '/edit' },
         { id: 'manage', title: 'Live Stream', path: '' },
       ],
@@ -85,23 +86,11 @@ export default {
     },
 
     streamUrl() {
-      const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
-      const pos = url.lastIndexOf('/')
-      if (pos === -1) {
-        return url
-      } else {
-        return url.substr(0, pos)
-      }
+      return _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
     },
 
     streamKey() {
-      const url = _.get(this.currentUser, 'stream.ml_input_dest_1_url', '')
-      const pos = url.lastIndexOf('/')
-      if (pos === -1) {
-        return url
-      } else {
-        return url.substr(pos + 1)
-      }
+      return _.get(this.currentUser, 'stream.ml_input_dest_1_id', '')
     },
 
     profileUrl() {

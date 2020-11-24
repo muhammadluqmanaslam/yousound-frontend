@@ -1,6 +1,6 @@
 /* global $:true */
 
-// import _ from 'lodash'
+import _ from 'lodash'
 // import Hls from 'hls.js'
 import Vue from 'vue'
 import moment from 'moment'
@@ -25,7 +25,7 @@ import shareModal from '@/components/sharemodal'
 import { MyEvents } from '@/helper'
 
 const ActionCable = require('actioncable')
-const linkRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/
+const linkRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/
 
 export default {
   components: {
@@ -45,6 +45,7 @@ export default {
       player: null,
       time: 0,
       latency_time: 10,
+      watching_interval: null,
       latency_time_interval: null,
       show_payment_dialog: false,
       show_streaming_confirm_dialog: false,
@@ -117,12 +118,12 @@ export default {
     },
 
     isInCart() {
-      if (this.stream.assoc_type != 'ShopProduct') {
+      if (this.stream.assoc_type !== 'ShopProduct') {
         return false
       }
 
       const item = _.find(this.$store.state.user.cartItems, (item) => {
-        return item.product_id == this.stream.assoc.id
+        return item.product_id === this.stream.assoc.id
       })
 
       return !!item
@@ -131,7 +132,7 @@ export default {
     showAttachButton() {
       return (
         this.stream &&
-        ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) == -1
+        ['Album', 'ShopProduct', 'User'].indexOf(this.stream.assoc_type) === -1
       )
     },
 
@@ -161,7 +162,7 @@ export default {
 
     message: function (newVal, oldVal) {
       // console.log('message', newVal, oldVal)
-      if (newVal == '') {
+      if (newVal === '') {
         $('#my_video').removeClass('is-chatting')
       } else {
         $('#my_video').addClass('is-chatting')
@@ -378,6 +379,10 @@ export default {
         }
       )
 
+      this.watching_interval = setInterval(() => {
+        StreamService.watchingStream(this.stream.id)
+      }, 60000)
+
       this.chat_socket = new SocketManager(
         process.env.CHAT_SERVER_URL,
         this.user.slug,
@@ -399,8 +404,8 @@ export default {
             } else {
               UserService.getUserInfo(message.from).then((response) => {
                 message.fromUser = response.body
-                if (vm.messages.length != 0) {
-                  if (vm.messages[0].localId != message.localId) {
+                if (vm.messages.length) {
+                  if (vm.messages[0].localId !== message.localId) {
                     vm.messages.unshift(message)
                   }
                 }
@@ -523,7 +528,7 @@ export default {
     selectItem(assoc_type, assoc) {
       // console.log(assoc_type, assoc)
       this.show_album_merch_popup = false
-      if (assoc.id != this.assoc.id) {
+      if (assoc.id !== this.assoc.id) {
         this.assoc = assoc
         const params = {
           stream: {
@@ -562,7 +567,7 @@ export default {
 
     removeProductFromCart() {
       const item = _.find(this.$store.state.user.cartItems, (item) => {
-        return item.product_id == this.stream.assoc.id
+        return item.product_id === this.stream.assoc.id
       })
 
       if (item) {
@@ -669,7 +674,7 @@ export default {
     },
 
     deleteStream() {
-      console.log('deleteStream', user)
+      console.log('deleteStream', this.user)
       this.closePlayer()
       if (this.stream) {
         StreamService.deleteStream(this.stream.id)
@@ -786,6 +791,11 @@ export default {
         this.latency_time_interval = null
       }
 
+      if (this.watching_interval) {
+        clearInterval(this.watching_interval)
+        this.watching_interval = null
+      }
+
       this.closeSocket()
     },
 
@@ -836,7 +846,7 @@ export default {
             this.notAttachments.push(string)
           }
         })
-        .catch((err) => {
+        .catch(() => {
           this.notAttachments.push(string)
         })
     },
@@ -851,7 +861,7 @@ export default {
             this.notAttachments.push(string)
           }
         })
-        .catch((err) => {
+        .catch(() => {
           this.notAttachments.push(string)
         })
     },
@@ -866,7 +876,7 @@ export default {
             this.notAttachments.push(string)
           }
         })
-        .catch((err) => {
+        .catch(() => {
           this.notAttachments.push(string)
         })
     },
@@ -875,8 +885,9 @@ export default {
       if (
         this.room.settings.charLimitBool &&
         this.message.length > this.room.settings.charLimit
-      )
+      ) {
         return false
+      }
       if (!this.room.settings.links && linkRegex.test(this.message)) return // TODO error instead of returning
       this.chat_socket.sendMessage(messageText, this.currentUser.username)
       this.message = '' // clear textbox
@@ -899,6 +910,7 @@ export default {
       // console.log('this.stream.assoc_type', this.stream.assoc_type)
       this.viewStream()
       this.initPlayer(this.stream.mp_channel_1_ep_1_url)
+
       this.player.load()
       this.player.fullscreen()
 

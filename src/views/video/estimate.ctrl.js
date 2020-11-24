@@ -2,6 +2,12 @@ export default {
   data() {
     return {
       active_tab: 'info',
+      durationDetail: {
+        hour: 0,
+        min: 0,
+        sec: 0,
+      },
+      duration: 0,
       isPageReady: true,
     }
   },

@@ -77,4 +77,9 @@ export default {
       headers: { Authorization: $store.state.auth.token },
     })
   },
+
+  watchingStream: (streamId) =>
+    Vue.http.get(`${API_BASE_URL}/${streamId}/watching`, {
+      headers: { Authorization: $store.state.auth.token },
+    }),
 }
