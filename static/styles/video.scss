@@ -596,6 +596,11 @@
     }
   }
 
+  .radio-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .radio {
     position: relative;
     display: inline-block;
@@ -604,11 +609,14 @@
       visibility: hidden;
     }
     label {
-      padding: 20px 10px;
+      padding: 10px 10px;
       border: 1px solid #333333;
       border-radius: 5px;
       background-color: #ffffff;
       color: #333333;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
     }
     input:checked + label {
       background-color: #333333;

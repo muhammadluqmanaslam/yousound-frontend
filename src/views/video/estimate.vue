@@ -60,11 +60,29 @@
             <v-layout>
               <v-flex xs5>
                 <div class="duration">
-                  <input type="number" min="0" max="12" />
+                  <input
+                    type="number"
+                    v-model="durationDetail.hour"
+                    min="0"
+                    max="12"
+                    @change="handleDurationDetailChange"
+                  />
                   <span>:</span>
-                  <input type="number" min="0" max="59" />
+                  <input
+                    type="number"
+                    v-model="durationDetail.min"
+                    min="0"
+                    max="59"
+                    @change="handleDurationDetailChange"
+                  />
                   <span>:</span>
-                  <input type="number" min="0" max="59" />
+                  <input
+                    type="number"
+                    v-model="durationDetail.sec"
+                    min="0"
+                    max="59"
+                    @change="handleDurationDetailChange"
+                  />
                 </div>
                 <div class="duration-helper">
                   <span>hours</span>
@@ -73,25 +91,80 @@
                 </div>
               </v-flex>
               <v-flex xs7 slider-container>
-                <v-slider hide-details />
+                <v-slider
+                  v-model="durationMirror"
+                  min="0"
+                  max="186"
+                  step="1"
+                  @input="handleDurationMirrorChange"
+                  hide-details
+                />
               </v-flex>
             </v-layout>
 
             <div><label>live stream view count</label></div>
             <v-layout>
               <v-flex xs5>
-                <input type="number" max="10000000" />
+                <input
+                  v-model="viewers"
+                  type="number"
+                  min="0"
+                  max="10000000"
+                  @change="handleViewersChange"
+                />
               </v-flex>
               <v-flex xs7 slider-container>
-                <v-slider hide-details />
+                <v-slider
+                  v-model="viewersMirror"
+                  min="0"
+                  max="290"
+                  step="1"
+                  @input="handleViewersMirrorChange"
+                  hide-details
+                />
               </v-flex>
             </v-layout>
 
             <div><label>How long does the average viewer watch?</label></div>
-            <div>
+            <div class="radio-container">
               <div class="radio">
-                <input id="average-100" type="radio" value="100" />
-                <label for="average-100"> 100% of the live stream</label>
+                <input
+                  id="average-30"
+                  type="radio"
+                  name="percentage"
+                  value="30"
+                />
+                <label for="average-30">30% of<br />the live stream</label>
+              </div>
+              <div class="radio">
+                <input
+                  id="average-50"
+                  type="radio"
+                  name="percentage"
+                  value="50"
+                />
+                <label for="average-50">50% of<br />the live stream</label>
+              </div>
+              <div class="radio">
+                <input
+                  id="average-90"
+                  type="radio"
+                  name="percentage"
+                  value="90"
+                />
+                <label for="average-90">90% of<br />the live stream</label>
+              </div>
+              <div class="radio">
+                <input
+                  id="average-100"
+                  type="radio"
+                  name="percentage"
+                  value="100"
+                />
+                <label for="average-100"
+                  >100% of<br />
+                  the live stream</label
+                >
               </div>
             </div>
           </v-flex>
