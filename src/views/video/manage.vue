@@ -77,8 +77,22 @@
               <i class="fa fa-spinner fa-pulse fa-3x"></i>
             </div> -->
             <p>*Put the live video into the stream.</p>
-            <label>URL: {{ streamUrl }}</label>
-            <label> Stream Key: {{ streamKey }} </label>
+            <div>
+              <label
+                >URL: {{ streamUrl
+                }}<v-btn class="clipboard-btn" v-clipboard:copy="streamUrl">
+                  <v-icon>fa-clipboard</v-icon>
+                </v-btn></label
+              >
+            </div>
+            <div>
+              <label>
+                Stream Key: {{ streamKey }}
+                <v-btn class="clipboard-btn" v-clipboard:copy="streamKey">
+                  <v-icon>fa-clipboard</v-icon>
+                </v-btn></label
+              >
+            </div>
           </v-flex>
         </div>
 
