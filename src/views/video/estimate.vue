@@ -129,6 +129,7 @@
             <div class="radio-container">
               <div class="radio">
                 <input
+                  v-model="percentage"
                   id="average-30"
                   type="radio"
                   name="percentage"
@@ -138,6 +139,7 @@
               </div>
               <div class="radio">
                 <input
+                  v-model="percentage"
                   id="average-50"
                   type="radio"
                   name="percentage"
@@ -147,6 +149,7 @@
               </div>
               <div class="radio">
                 <input
+                  v-model="percentage"
                   id="average-90"
                   type="radio"
                   name="percentage"
@@ -156,6 +159,7 @@
               </div>
               <div class="radio">
                 <input
+                  v-model="percentage"
                   id="average-100"
                   type="radio"
                   name="percentage"
@@ -166,6 +170,11 @@
                   the live stream</label
                 >
               </div>
+            </div>
+
+            <div class="total">
+              <label>Estimated Total</label>
+              <span>${{ totalPrice | formatNumber }}</span>
             </div>
           </v-flex>
         </v-layout>

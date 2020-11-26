@@ -24,6 +24,20 @@ const viewersTable = [
 const MaxDuration = durationTable[durationTable.length - 1][0]
 const MaxViewers = viewersTable[viewersTable.length - 1][0]
 
+const editTabs = [
+  { id: 'info', title: 'Info & Pricing' },
+  { id: 'edit', title: 'Broadcast Details', path: '/edit' },
+  { id: 'manage', title: 'Live Stream', path: '' },
+]
+const createTabs = [
+  { id: 'info', title: 'Info & Pricing' },
+  { id: 'create', title: 'Broadcast Details', path: '/create' },
+  { id: 'manage', title: 'Live Stream', path: '', disabled: true },
+]
+
+const STREAM_PER_VIEWER_MINUTE_PRICE = 0.26
+const ENCODING_PER_MINUTE_PRICE = 14.0
+
 export default {
   data() {
     return {
@@ -37,6 +51,7 @@ export default {
       durationMirror: 0,
       viewers: 0,
       viewersMirror: 0,
+      percentage: '30',
       isPageReady: true,
     }
   },
@@ -50,18 +65,20 @@ export default {
       return !this._.isNil(this.currentUser.stream)
     },
 
+    totalPrice() {
+      return (
+        ((ENCODING_PER_MINUTE_PRICE +
+          (this.viewers *
+            STREAM_PER_VIEWER_MINUTE_PRICE *
+            parseInt(this.percentage)) /
+            100.0) *
+          this.duration) /
+        60
+      )
+    },
+
     tabs() {
-      return this.isStreamRunning
-        ? [
-            { id: 'info', title: 'Info & Pricing' },
-            { id: 'edit', title: 'Broadcast Details', path: '/edit' },
-            { id: 'manage', title: 'Live Stream', path: '' },
-          ]
-        : [
-            { id: 'info', title: 'Info & Pricing' },
-            { id: 'create', title: 'Broadcast Details', path: '/create' },
-            { id: 'manage', title: 'Live Stream', path: '', disabled: true },
-          ]
+      return this.isStreamRunning ? editTabs : createTabs
     },
   },
 
