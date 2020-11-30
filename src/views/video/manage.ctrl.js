@@ -418,14 +418,14 @@ export default {
       if (!this.currentUser.enabled_live_video_free) {
         if (
           !this.remainingSecondCheck.checked &&
-          this.remainingSecond < this.remainingSecondCheck.time
+          this.remainingSeconds < this.remainingSecondCheck.time
         ) {
           this.remainingSecondCheck.checked = true
           this.remainingFirstCheck.checked = true
           this.openAddMoreTimeDialog()
         } else if (
           !this.remainingFirstCheck.checked &&
-          this.remainingSecond < this.remainingFirstCheck.time
+          this.remainingSeconds < this.remainingFirstCheck.time
         ) {
           this.remainingFirstCheck.checked = true
           this.openAddMoreTimeDialog()
