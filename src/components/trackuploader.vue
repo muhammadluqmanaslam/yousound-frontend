@@ -25,6 +25,9 @@
 
     <div class="track-list-section" v-if="album.tracks.length">
       <h4 class="track-list-title" id="track_list">Track List</h4>
+      <div class="track-list-subtitle">
+        Highlight track title to rename<span class="required">*</span>
+      </div>
       <draggable
         v-model="album.tracks"
         handle=".item-handle"
@@ -390,12 +393,13 @@ export default {
     const vm = this
     const uploaderBox = $('.uploaderBox')
     uploaderBox
-      .on('drag dragstart dragend dragover dragenter dragleave drop', function (
-        e
-      ) {
-        e.preventDefault()
-        e.stopPropagation()
-      })
+      .on(
+        'drag dragstart dragend dragover dragenter dragleave drop',
+        function (e) {
+          e.preventDefault()
+          e.stopPropagation()
+        }
+      )
       .on('dragover dragenter', function () {
         uploaderBox.addClass('is-dragover')
       })

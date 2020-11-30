@@ -4,7 +4,7 @@
   font-size: 12px;
   text-align: center;
   &.is-dragover {
-    .uploaderBox__input {    
+    .uploaderBox__input {
       .uploaderBox_image {
         opacity: 0.8;
       }
@@ -72,7 +72,7 @@
 
 .track-list-section {
   padding: 37.5px 96.75px 0px 123.75px;
-  background-color: #FFF;
+  background-color: #fff;
   text-align: left;
   .track-list-title {
     font-size: 28px;
@@ -81,6 +81,10 @@
     margin: 0;
     padding-bottom: 0;
     font-family: 'Work Sans';
+    font-weight: 700;
+  }
+  .track-list-subtitle {
+    font-size: 16px;
     font-weight: 700;
   }
   .track-items {
@@ -92,7 +96,7 @@
         top: 0px;
         left: 0px;
         font-size: 22.5px;
-        color: #B0B0B0;
+        color: #b0b0b0;
         letter-spacing: 0;
         line-height: 33.75px;
       }
@@ -101,8 +105,8 @@
         height: 40px;
         margin-left: 30px;
         margin-right: 26.25px;
-        background: #FFFFFF;
-        border: 0.75px solid #D6D6D6;
+        background: #ffffff;
+        border: 0.75px solid #d6d6d6;
         border-radius: 3.75px;
         .item-name {
           // position: absolute;
@@ -125,13 +129,13 @@
           border-radius: 0;
           margin-top: 3px;
           padding: 0 11.25px;
-          font-family: 'Nunito'
+          font-family: 'Nunito';
         }
         .item-handle {
           position: absolute;
           top: 7px;
           left: 5px;
-          color: #C1C1C1;
+          color: #c1c1c1;
           cursor: pointer;
         }
         // .edit {
@@ -151,15 +155,15 @@
         .item-progress {
           height: 30px;
           position: absolute;
-          background: #F6FAFF;
-          border: 0.75px solid #3A92FF;
+          background: #f6faff;
+          border: 0.75px solid #3a92ff;
           border-radius: 3.75px;
         }
         .item-progress-value {
           position: absolute;
           right: 12.75px;
           font-size: 15px;
-          color: #8C8C8C;
+          color: #8c8c8c;
           letter-spacing: 0;
           line-height: 30px;
         }
@@ -167,19 +171,19 @@
           position: absolute;
           top: 7px;
           right: 8px;
-          color: #3A92FF;
+          color: #3a92ff;
         }
         .failed {
           position: absolute;
           top: 7px;
           right: 12.75px;
-          color: #D0021B;
+          color: #d0021b;
         }
         .loading {
           position: absolute;
           top: 9px;
           right: 12.75px;
-          color: #D0021B;
+          color: #d0021b;
         }
       }
       .clear-btn {
@@ -189,8 +193,8 @@
         right: -5px;
         width: 22.5px;
         height: 22.5px;
-        color: #C1C1C1;
+        color: #c1c1c1;
       }
-    }  
+    }
   }
 }
