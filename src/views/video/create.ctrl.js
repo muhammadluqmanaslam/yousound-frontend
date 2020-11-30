@@ -113,7 +113,7 @@ export default {
   created() {
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
-      tab: '',
+      tab: 'create',
     })
 
     if (!this.currentUser.stripe_connected) {

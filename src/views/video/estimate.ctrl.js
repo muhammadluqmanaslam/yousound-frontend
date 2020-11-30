@@ -82,6 +82,13 @@ export default {
     },
   },
 
+  created() {
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'broadcast',
+      tab: 'info',
+    })
+  },
+
   methods: {
     onTab(tab) {
       if (tab.id === this.active_tab) return

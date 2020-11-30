@@ -38,7 +38,11 @@ export default {
   // },
 
   created() {
-    console.log('video/edit', this.currentStream)
+    // console.log('video/edit', this.currentStream)
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'broadcast',
+      tab: 'edit',
+    })
     this.cloneStream(this.currentStream)
   },
 
