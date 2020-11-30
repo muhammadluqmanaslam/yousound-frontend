@@ -64,9 +64,18 @@ export default {
       selected_guests: [],
       // periods: [],
       // period: 3600,
+      remainingFirstCheck: {
+        time: 300,
+        checked: false,
+      },
+      remainingSecondCheck: {
+        time: 60,
+        checked: false,
+      },
       creatingInterval: null,
       remainingInterval: null,
       remainingSeconds: 0,
+      broadcastSeconds: 0,
       active_viewers: 0,
       total_viewers: 0,
       cable: null,
@@ -165,14 +174,16 @@ export default {
           //   this.creatingInterval = setInterval(function () {
           //     vm.getStream()
           //   }, 10000)
-          // } else {
-          //   this.remainingSeconds = response.body.stream.remaining_seconds
-          //   if (!this.currentUser.enabled_live_video_free) {
-          //     this.remainingInterval = setInterval(function () {
-          //       vm.refresh()
-          //     }, 1000)
-          //   }
           // }
+          this.remainingSeconds = response.body.stream.remaining_seconds
+          this.broadcastSeconds = _.get(
+            response.body,
+            'stream.broadcast_seconds',
+            0
+          )
+          this.remainingInterval = setInterval(function () {
+            vm.refresh()
+          }, 1000)
           this.$store.dispatch('navigator/goNextState', {
             page: 'broadcast',
             tab: '',
@@ -403,14 +414,32 @@ export default {
 
     refresh() {
       this.remainingSeconds -= 1
-      if (
-        !this.currentUser.enabled_live_video_free &&
-        this.remainingSeconds <= 0
-      ) {
-        if (this.remainingInterval) {
-          clearInterval(this.remainingInterval)
+      this.broadcastSeconds += 1
+      if (!this.currentUser.enabled_live_video_free) {
+        if (
+          !this.remainingSecondCheck.checked &&
+          this.remainingSecond < this.remainingSecondCheck.time
+        ) {
+          this.remainingSecondCheck.checked = true
+          this.remainingFirstCheck.checked = true
+          this.openAddMoreTimeDialog()
+        } else if (
+          !this.remainingFirstCheck.checked &&
+          this.remainingSecond < this.remainingFirstCheck.time
+        ) {
+          this.remainingFirstCheck.checked = true
+          this.openAddMoreTimeDialog()
         }
-        this.deleteStream()
+
+        if (this.remainingSeconds <= 0) {
+          if (this.remainingInterval) {
+            clearInterval(this.remainingInterval)
+          }
+          this.$store.dispatch('error/showErrorToast', [
+            'Time is up and live stream is about to stop!!!',
+          ])
+          this.deleteStream()
+        }
       }
       // else {
       //   if (!this.show_view_stream_button) {

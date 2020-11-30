@@ -27,10 +27,14 @@
         <v-layout row class="panel time-info mt-5">
           <v-flex sm8>
             <v-layout row>
-              <v-flex sm4>
+              <!-- <v-flex sm4>
                 <label>Remaining time</label>
                 <span v-if="currentUser.enabled_live_video_free">--</span>
                 <span v-else>{{ remainingSeconds | timeInHours }}</span>
+              </v-flex> -->
+              <v-flex sm4>
+                <label>Broadcast time</label>
+                <span>{{ broadcastSeconds | timeInHours }}</span>
               </v-flex>
               <v-flex sm4>
                 <label>Watching now</label>
