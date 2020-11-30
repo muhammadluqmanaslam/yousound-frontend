@@ -65,6 +65,7 @@
                     v-model="durationDetail.hour"
                     min="0"
                     max="12"
+                    size="3"
                     @change="handleDurationDetailChange"
                   />
                   <span>:</span>
@@ -73,6 +74,7 @@
                     v-model="durationDetail.min"
                     min="0"
                     max="59"
+                    size="3"
                     @change="handleDurationDetailChange"
                   />
                   <span>:</span>
@@ -81,6 +83,7 @@
                     v-model="durationDetail.sec"
                     min="0"
                     max="59"
+                    size="3"
                     @change="handleDurationDetailChange"
                   />
                 </div>

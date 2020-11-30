@@ -1,14 +1,12 @@
-import { duration } from 'moment'
-
 const durationTable = [
   // [sec, val, step],
   [10, 0, 0],
-  [60, 50, 1],
-  [300, 74, 10],
-  [600, 84, 30],
-  [3600, 134, 60],
-  [7200, 146, 300],
-  [43200, 186, 900],
+  [60, 50, 1.0],
+  [300, 74, 10.0],
+  [600, 84, 30.0],
+  [3600, 134, 60.0],
+  [7200, 146, 300.0],
+  [43200, 186, 900.0],
 ]
 
 const viewersTable = [
@@ -49,8 +47,10 @@ export default {
         sec: 0,
       },
       durationMirror: 0,
+      durationFlag: false,
       viewers: 0,
       viewersMirror: 0,
+      viewersFlag: false,
       percentage: '30',
       isPageReady: true,
     }
@@ -92,28 +92,37 @@ export default {
     },
 
     handleDurationDetailChange(e) {
+      this.durationFlag = true
       this.duration2detail(
-        this.durationDetail.hour * 3600 +
-          this.durationDetail.min * 60 +
-          this.durationDetail.sec
+        parseInt(this.durationDetail.hour) * 3600 +
+          parseInt(this.durationDetail.min) * 60 +
+          parseInt(this.durationDetail.sec)
       )
       this.durationMirror = this.sec2val(this.duration)
+      this.$nextTick(() => {
+        this.durationFlag = false
+      })
     },
 
     handleDurationMirrorChange(e) {
-      this.duration2detail(this.mirror2sec(this.durationMirror))
+      // console.log('handleDruationMirroChange', e, this.durationFlag)
+      if (!this.durationFlag) {
+        this.duration2detail(this.mirror2sec(this.durationMirror))
+      }
     },
 
     duration2detail(val) {
       if (val > MaxDuration) {
         val = MaxDuration
       }
+      val = parseInt(val)
       this.duration = val
 
-      this.durationDetail.hour = parseInt(val / 3600)
-      val = val - this.durationDetail.hour * 3600
-      this.durationDetail.min = parseInt(val / 60)
-      this.durationDetail.sec = val - this.durationDetail.min * 60
+      const hour = parseInt(val / 3600)
+      val = val - hour * 3600
+      const min = parseInt(val / 60)
+      const sec = val - min * 60
+      this.durationDetail = { hour, min, sec }
     },
 
     mirror2sec(val) {
@@ -143,10 +152,14 @@ export default {
     },
 
     handleViewersMirrorChange() {
-      this.viewers = this.mirror2real(this.viewersMirror)
+      if (!this.viewersFlag) {
+        this.viewers = this.mirror2real(this.viewersMirror)
+      }
     },
 
     handleViewersChange() {
+      this.viewersFlag = true
+      this.viewers = parseInt(this.viewers)
       if (this.viewers < 0) {
         this.viewers = 0
       }
@@ -154,6 +167,9 @@ export default {
         this.viewers = MaxViewers
       }
       this.viewersMirror = this.real2mirror(this.viewers)
+      this.$nextTick(() => {
+        this.durationFlag = false
+      })
     },
 
     mirror2real(val) {
