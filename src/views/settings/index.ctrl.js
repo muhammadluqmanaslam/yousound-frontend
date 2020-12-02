@@ -313,11 +313,11 @@ export default {
           AuthService.setUser(response.body)
         })
         .catch((e) => {
+          const errors = e.body.errors
+            ? _.map(e.body.errors, (msg) => `Email ${msg.detail}`)
+            : [e.body]
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch(
-            'error/showErrorToast',
-            e.body.errors || [e.body]
-          )
+          this.$store.dispatch('error/showErrorToast', errors)
         })
     },
 

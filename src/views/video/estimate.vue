@@ -25,19 +25,13 @@
           <v-flex xs5>
             <h4>How it works</h4>
             <p>
-              YouSound allows verified users to create one of a kind of real
-              time experiences with live video. YouSound is designed to maximize
-              sale conversations to a limited audience by offering exclusive
-              products and prioritizing your most engaging customers. Verified
-              users can leverage multiple revenue streams including:
+              Create one of a kind live video experiences designed to maximize
+              sales with exclusive products & downloads for your most engging
+              customers. Pay as you go. Unused credit rolls over to your next
+              broadcast. All broadcasts include delivery of all resolutions up
+              to HD 1080p.
             </p>
-            <ul>
-              <li>Pay Per View</li>
-              <li>Selling products on your live stream</li>
-            </ul>
             <p>
-              All broadcasts include delivery of all resolutions up to HD
-              1080p.<br />
               To learn more visit the
               <a
                 href="//support.yousound.com/en/articles/4490519-live-video-cost"
@@ -52,7 +46,7 @@
               color="blue"
               class="mt-4"
               :to="`/user/${currentUser.slug}/video/create`"
-              >Setup</v-btn
+              >Setup Live Stream</v-btn
             >
           </v-flex>
           <v-flex xs1></v-flex>

@@ -34,7 +34,7 @@ export default {
       active_tab: 'manage',
       tabs: [
         { id: 'info', title: 'Intro', path: '/info' },
-        { id: 'edit', title: 'Broadcast Details', path: '/edit' },
+        { id: 'edit', title: 'Details', path: '/edit' },
         { id: 'manage', title: 'Live Stream', path: '' },
       ],
       // stream: {

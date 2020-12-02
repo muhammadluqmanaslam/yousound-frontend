@@ -29,7 +29,7 @@ export default {
       active_tab: 'create',
       tabs: [
         { id: 'info', title: 'Intro', path: '/info' },
-        { id: 'create', title: 'Setup Broadcast' },
+        { id: 'create', title: 'Setup' },
         { id: 'manage', title: 'Live Stream', disabled: true },
       ],
       terms: false,

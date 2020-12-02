@@ -18,7 +18,7 @@
 
       <div class="page-content" v-if="isPageReady">
         <form v-on:submit.prevent="submit()">
-          <h3 class="mt-3 mb-4">Setup Your Broadcast</h3>
+          <h3 class="mt-3 mb-4">Broadcast Details</h3>
 
           <v-divider></v-divider>
 

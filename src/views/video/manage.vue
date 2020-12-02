@@ -17,10 +17,7 @@
       </div>
 
       <div class="page-content" v-if="isPageReady">
-        <h3 class="mt-3 mb-5">
-          Add the <b>URL</b> and <b>Stream Key</b> to your video broadcast
-          Software’s <b>Stream Settings</b>
-        </h3>
+        <h3 class="mt-3 mb-4">Live Stream</h3>
 
         <v-divider></v-divider>
 
@@ -80,7 +77,10 @@
             <!-- <div class="loading" v-if="!isRunning">
               <i class="fa fa-spinner fa-pulse fa-3x"></i>
             </div> -->
-            <p>*Put the live video into the stream.</p>
+            <p>
+              Add the <b>URL</b> and <b>Stream Key</b> to your video broadcast
+              Software’s <b>Stream Settings</b>
+            </p>
             <div>
               <label
                 >URL: {{ streamUrl

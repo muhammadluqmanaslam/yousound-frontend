@@ -20,7 +20,7 @@
 
       <div class="page-content">
         <form v-on:submit.prevent="openPaymentDialog()">
-          <h3 class="mt-3 mb-4">Setup Your Broadcast</h3>
+          <h3 class="mt-3 mb-4">Setup Broadcast</h3>
 
           <v-divider></v-divider>
 
