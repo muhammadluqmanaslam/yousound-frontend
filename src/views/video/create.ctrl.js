@@ -28,7 +28,7 @@ export default {
     return {
       active_tab: 'create',
       tabs: [
-        { id: 'info', title: 'Info & Pricing', path: '/info' },
+        { id: 'info', title: 'Intro', path: '/info' },
         { id: 'create', title: 'Setup Broadcast' },
         { id: 'manage', title: 'Live Stream', disabled: true },
       ],

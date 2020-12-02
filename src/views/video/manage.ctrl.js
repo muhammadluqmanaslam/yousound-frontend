@@ -33,8 +33,8 @@ export default {
     return {
       active_tab: 'manage',
       tabs: [
-        { id: 'info', title: 'Info & Pricing', path: '/info' },
-        { id: 'edit', title: 'Info', path: '/edit' },
+        { id: 'info', title: 'Intro', path: '/info' },
+        { id: 'edit', title: 'Broadcast Details', path: '/edit' },
         { id: 'manage', title: 'Live Stream', path: '' },
       ],
       // stream: {

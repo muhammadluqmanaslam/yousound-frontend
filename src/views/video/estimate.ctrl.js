@@ -23,12 +23,12 @@ const MaxDuration = durationTable[durationTable.length - 1][0]
 const MaxViewers = viewersTable[viewersTable.length - 1][0]
 
 const editTabs = [
-  { id: 'info', title: 'Info & Pricing' },
+  { id: 'info', title: 'Intro' },
   { id: 'edit', title: 'Broadcast Details', path: '/edit' },
   { id: 'manage', title: 'Live Stream', path: '' },
 ]
 const createTabs = [
-  { id: 'info', title: 'Info & Pricing' },
+  { id: 'info', title: 'Intro' },
   { id: 'create', title: 'Broadcast Details', path: '/create' },
   { id: 'manage', title: 'Live Stream', path: '', disabled: true },
 ]

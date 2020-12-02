@@ -39,7 +39,11 @@
               All broadcasts include delivery of all resolutions up to HD
               1080p.<br />
               To learn more visit the
-              <router-link to="/">Frequently Asked Questions</router-link>
+              <a
+                href="//support.yousound.com/en/articles/4490519-live-video-cost"
+                target="_blank"
+                >Frequently Asked Questions</a
+              >
             </p>
             <v-btn
               v-if="!isStreamRunning"
@@ -48,16 +52,15 @@
               color="blue"
               class="mt-4"
               :to="`/user/${currentUser.slug}/video/create`"
-              >Setup Broadcast</v-btn
+              >Setup</v-btn
             >
           </v-flex>
           <v-flex xs1></v-flex>
-          <v-flex xs5>
+          <v-flex xs5 class="estimate-container">
             <h4>Estimate your cost</h4>
-            <h5>Add details about your content and audience</h5>
 
-            <div><label>Duration of an average live stream</label></div>
-            <v-layout>
+            <div class="label">Duration of an average live stream</div>
+            <v-layout class="input">
               <v-flex xs5>
                 <div class="duration">
                   <input
@@ -105,8 +108,8 @@
               </v-flex>
             </v-layout>
 
-            <div><label>live stream view count</label></div>
-            <v-layout>
+            <div class="label">Live stream view count</div>
+            <v-layout class="input">
               <v-flex xs5>
                 <input
                   v-model="viewers"
@@ -128,7 +131,7 @@
               </v-flex>
             </v-layout>
 
-            <div><label>How long does the average viewer watch?</label></div>
+            <div class="label">How long does the average viewer watch?</div>
             <div class="radio-container">
               <div class="radio">
                 <input

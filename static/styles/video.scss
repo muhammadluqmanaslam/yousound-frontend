@@ -536,13 +536,14 @@
 
   h3 {
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 300;
     letter-spacing: -0.5px;
   }
 
   h4 {
     margin: 30px 0 20px 0;
     font-size: 32px;
+    letter-spacing: -1px;
   }
 
   h5 {
@@ -551,8 +552,9 @@
   }
 
   p {
+    max-width: 450px;
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
     color: #444;
   }
@@ -566,10 +568,14 @@
     }
   }
 
-  label {
-    display: inline-block;
-    padding: 20px 0 10px;
-    font-size: 14px;
+  .estimate-container {
+    .label {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .input {
+      margin-bottom: 20px;
+    }
   }
 
   .slider-container {
@@ -607,11 +613,15 @@
   .radio {
     position: relative;
     display: inline-block;
+    width: 100%;
+    max-width: 130px;
     input[type='radio'] {
       position: absolute;
       visibility: hidden;
     }
     label {
+      display: inline-block;
+      width: 100%;
       padding: 10px 10px;
       border: 1px solid #333333;
       border-radius: 5px;
@@ -687,6 +697,7 @@
     span {
       font-size: 36px;
       font-weight: 700;
+      letter-spacing: -1px;
     }
   }
 }

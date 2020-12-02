@@ -6,7 +6,7 @@ export default {
     return {
       active_tab: 'edit',
       tabs: [
-        { id: 'info', title: 'Info & Pricing', path: '/info' },
+        { id: 'info', title: 'Intro', path: '/info' },
         { id: 'edit', title: 'Broadcast Details', path: '/edit' },
         { id: 'manage', title: 'Live Stream', path: '' },
       ],
