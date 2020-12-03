@@ -170,25 +170,24 @@ export default {
           })
         } else {
           const vm = this
+
+          this.$store.dispatch('navigator/goNextState', {
+            page: 'broadcast',
+            tab: '',
+          })
+
           // if (!this.isRunning) {
           //   this.creatingInterval = setInterval(function () {
           //     vm.getStream()
           //   }, 10000)
           // }
+
           this.remainingSeconds = response.body.stream.remaining_seconds
           this.broadcastSeconds = _.get(
             response.body,
             'stream.broadcast_seconds',
             0
           )
-          this.remainingInterval = setInterval(function () {
-            vm.refresh()
-          }, 1000)
-          this.$store.dispatch('navigator/goNextState', {
-            page: 'broadcast',
-            tab: '',
-          })
-
           this.viewers_limit = this.currentUser.stream.viewers_limit
           // this.selected_guests = ['e0e54729-a1d6-4d8c-8a76-6fc207e6c210']
           // this.guests = _.cloneDeep(this.currentUser.stream.guests)
@@ -200,6 +199,10 @@ export default {
 
           if (this.currentUser.stream.notified) {
             this.show_view_stream_button = true
+
+            this.remainingInterval = setInterval(function () {
+              vm.refresh()
+            }, 1000)
           }
 
           this.stream_subscription = this.cable.subscriptions.create(
@@ -217,6 +220,11 @@ export default {
                 if (data.notified) {
                   console.log('signal comming')
                   vm.show_view_stream_button = true
+                  if (!this.remainingInterval) {
+                    this.remainingInterval = setInterval(function () {
+                      vm.refresh()
+                    }, 1000)
+                  }
                 }
                 if (data.active_viewers_size >= 0) {
                   vm.active_viewers = data.active_viewers_size
