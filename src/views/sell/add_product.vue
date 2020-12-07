@@ -179,7 +179,7 @@
                   v-bind:items="destinations"
                   v-model="shipment.country"
                   item-text="name"
-                  item-value="name"
+                  item-value="value"
                   class="pt-0"
                   autocomplete
                 />

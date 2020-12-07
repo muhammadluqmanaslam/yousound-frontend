@@ -17,7 +17,40 @@ export default {
   data() {
     return {
       product_categories: [],
-      destinations: [],
+      destinations: [
+        {
+          value: 'United States',
+          name: 'United States',
+        },
+        // {
+        //   value: 'EE',
+        //   name: "Int'l Flat Rate",
+        // },
+        {
+          value: 'Canada',
+          name: 'Canada',
+        },
+        {
+          value: 'United Kingdom',
+          name: 'United Kingdom',
+        },
+        {
+          value: 'Australia',
+          name: 'Australia',
+        },
+        {
+          value: 'France',
+          name: 'France',
+        },
+        {
+          value: 'Germany',
+          name: 'Germany',
+        },
+        {
+          value: 'Japan',
+          name: 'Japan',
+        },
+      ],
       countries: [],
       states: [],
       digital_content_category_ids: [],
@@ -464,12 +497,15 @@ export default {
       const countries = json.countries
       for (let index in countries) {
         const country = {
-          iso: countries[index]['iso_2'],
+          value: countries[index]['name'],
           name: countries[index]['name'],
         }
-        vm.destinations.push(country)
+        if (!vm.destinations.find((c) => c.value === country.value)) {
+          vm.destinations.push(country)
+        }
       }
       vm.countries = _.filter(countries, (c) => c['rate'] !== false)
+      console.log('destinations', vm.destinations)
     })
 
     $.getJSON('../../static/states.json', function (data) {
