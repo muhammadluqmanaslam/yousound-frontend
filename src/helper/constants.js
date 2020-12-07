@@ -333,10 +333,17 @@ export const StreamViewPrices = [
 export const StreamViewersLimits = [
   { id: 0, name: 'Unlimited' },
   { id: 1, name: '1' },
+  { id: 5, name: '5' },
   { id: 10, name: '10' },
+  { id: 20, name: '20' },
+  { id: 50, name: '50' },
   { id: 100, name: '100' },
-  { id: 1000, name: '1000' },
-  { id: 10000, name: '10000' },
+  { id: 250, name: '250' },
+  { id: 500, name: '500' },
+  { id: 1000, name: '1,000' },
+  { id: 2500, name: '2,500' },
+  { id: 5000, name: '5,000' },
+  { id: 10000, name: '10,000' },
 ]
 export const StreamCosts = [
   { value: 1000, name: '$10' },

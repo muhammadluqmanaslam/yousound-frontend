@@ -505,7 +505,6 @@ export default {
         }
       }
       vm.countries = _.filter(countries, (c) => c['rate'] !== false)
-      console.log('destinations', vm.destinations)
     })
 
     $.getJSON('../../static/states.json', function (data) {
