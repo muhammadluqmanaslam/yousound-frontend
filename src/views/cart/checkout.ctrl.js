@@ -30,6 +30,7 @@ export default Vue.extend({
         total_cost: 0,
         subtotal_cost: 0,
         shipping_cost: 0,
+        fee_cost: 0,
       },
       isPageReady: false,
     }

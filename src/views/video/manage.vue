@@ -117,7 +117,11 @@
             <h4>Share</h4>
             <div class="panel share-view d-flex pa-3">
               <div class="share-social-section">
-                <social-sharing v-bind:url="profileUrl" inline-template>
+                <social-sharing
+                  :title="`${currentUser.display_name} is Broadcasting Live!`"
+                  :url="profileUrl"
+                  inline-template
+                >
                   <div class="social-section">
                     <network network="facebook">
                       <!-- <i class="fa fa-fw fa-facebook"></i> Facebook -->

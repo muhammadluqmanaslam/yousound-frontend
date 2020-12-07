@@ -69,10 +69,18 @@
               >${{ cartCost.tax_cost | formatNumber }}</label
             >
           </div>
+          <div class="status-row">
+            <label class="status-title">Stripe Fee</label>
+            <label class="status-title value"
+              >${{ cartCost.fee_cost | formatNumber }}</label
+            >
+          </div>
           <div class="total-row">
             <label class="status-title">Total</label>
             <label class="status-title value"
-              >${{ cartCost.total_cost | formatNumber }}</label
+              >${{
+                (cartCost.total_cost + cartCost.fee_cost) | formatNumber
+              }}</label
             >
           </div>
           <div class="action-row">
