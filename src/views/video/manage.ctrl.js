@@ -545,8 +545,9 @@ export default {
           ) {
             this.$root.$emit(MyEvents.VIDEO_PLAYER_SHUTDOWN)
           }
+          AuthService.setUser(response.body)
+          this.$store.dispatch('auth/setStream', response.body.stream)
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('auth/setStream', response.body)
           this.$router.push({ path: '/' })
           // this.$router.push({ path: `/user/${this.currentUser.slug}/video/create` })
         })

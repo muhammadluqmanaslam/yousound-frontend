@@ -288,6 +288,7 @@ export default {
             formData.append('stream[view_price]', this.stream.view_price)
             formData.append('stream[valid_period]', this.period)
             formData.append('stream[cover]', this.stream.cover)
+            formData.append('stream[viewers_limit]', this.stream.viewers_limit)
 
             if (this.stream_assoc.value) {
               formData.append('stream[assoc_type]', this.stream_assoc.type)
