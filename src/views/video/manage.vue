@@ -21,7 +21,7 @@
 
         <v-divider></v-divider>
 
-        <v-layout row class="panel time-info mt-5">
+        <v-layout row class="panel time-info mt-4">
           <v-flex sm8>
             <v-layout row>
               <!-- <v-flex sm4>

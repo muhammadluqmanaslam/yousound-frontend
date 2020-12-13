@@ -49,9 +49,9 @@
     background-color: #f9f9f9;
   }
 
-  .divider {
-    margin-bottom: 10px;
-  }
+  // .divider {
+  //   margin-bottom: 10px;
+  // }
 
   .stream-info {
     position: relative;
@@ -146,6 +146,8 @@
   }
 
   .time-info {
+    // margin-top: 24px;
+
     label {
       display: block;
       font-size: 20px;
@@ -568,7 +570,13 @@
     }
   }
 
+  .description-container {
+    padding-right: 5.333%;
+  }
+
   .estimate-container {
+    padding-right: 5.333%;
+
     .label {
       margin-bottom: 10px;
       font-size: 14px;

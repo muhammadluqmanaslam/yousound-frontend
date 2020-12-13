@@ -22,7 +22,7 @@
         <h3 class="mt-3 mb-4">Introduction to YouSound Live</h3>
         <v-divider></v-divider>
         <v-layout row wrap>
-          <v-flex xs5>
+          <v-flex xs6 class="description-container">
             <h4>How it works</h4>
             <p>
               Create one of a kind live video experiences designed to maximize
@@ -49,8 +49,7 @@
               >Setup Live Stream</v-btn
             >
           </v-flex>
-          <v-flex xs1></v-flex>
-          <v-flex xs5 class="estimate-container">
+          <v-flex xs6 class="estimate-container">
             <h4>Estimate your cost</h4>
 
             <div class="label">Duration of an average live stream</div>
