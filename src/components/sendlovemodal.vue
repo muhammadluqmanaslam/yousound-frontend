@@ -54,7 +54,11 @@
           v-model="description"
           :items="descriptions"
           class="pt-4"
+          hide-details
         ></v-select>
+        <p v-if="description === 'Add Video Credit'">
+          Adding video credit gives this user more time to broadcast live video
+        </p>
         <v-btn class="download-btn" @click.native="showPaymentDialog()"
           >Submit</v-btn
         >
@@ -97,18 +101,18 @@ export default {
     return {
       donate_amount: 0,
       description: 'Donation',
-      descriptions: [
-        'Donation',
-        // 'Remix',
-        // 'Vocalist',
-        // 'Production',
-        // 'Vocal Production',
-        // 'Mixing',
-        // 'Mastering',
-        // 'Artwork',
-        // 'Writer',
-        // 'Session Musician'
-      ],
+      // descriptions: [
+      //   'Donation',
+      //   // 'Remix',
+      //   // 'Vocalist',
+      //   // 'Production',
+      //   // 'Vocal Production',
+      //   // 'Mixing',
+      //   // 'Mastering',
+      //   // 'Artwork',
+      //   // 'Writer',
+      //   // 'Session Musician'
+      // ],
       showPaymentModal: false,
       buttonHover: false,
     }
@@ -124,6 +128,18 @@ export default {
 
     donate_amount_by_cent() {
       return this.donate_amount * 100
+    },
+
+    isVideoCreditSelected() {
+      return this.description === 'Add Video Credit'
+    },
+
+    descriptions() {
+      if (['listener'].indexOf(this.item.user_type) > -1) {
+        return ['Donation']
+      } else {
+        return ['Donation', 'Add Video Credit']
+      }
     },
   },
 
@@ -189,18 +205,34 @@ export default {
       if (token) {
         params['payment_token'] = token.id
       }
-      UserService.donateMoney(this.item.slug, params)
-        .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            `You've donated $${this.donate_amount} to ${this.item.display_name}`,
-          ])
-        })
-        .catch((e) => {
-          this.$store.dispatch(
-            'error/showErrorToast',
-            e.body.errors || [e.body]
-          )
-        })
+
+      if (this.isVideoCreditSelected) {
+        UserService.addVideoCredit(this.item.slug, params)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              `You've added $${this.donate_amount} video credit to ${this.item.display_name}`,
+            ])
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
+      } else {
+        UserService.donateMoney(this.item.slug, params)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              `You've donated $${this.donate_amount} to ${this.item.display_name}`,
+            ])
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
+      }
     },
   },
 }

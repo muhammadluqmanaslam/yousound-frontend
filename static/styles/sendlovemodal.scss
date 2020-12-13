@@ -17,8 +17,8 @@
     margin-top: calc(50vh - 350px);
     margin-left: auto;
     margin-right: auto;
-    background: #FFFFFF;
-    box-shadow: 0 30px 55.5px 0 rgba(0,0,0,0.30);
+    background: #ffffff;
+    box-shadow: 0 30px 55.5px 0 rgba(0, 0, 0, 0.3);
     border-radius: 7.5px;
     padding: 30px 22.5px 35px;
     position: relative;
@@ -74,12 +74,12 @@
         font-size: 13.5px;
         letter-spacing: 0;
         &.follow {
-          color: #3A92FF !important;
-          border: 0.75px solid #3A92FF;
+          color: #3a92ff !important;
+          border: 0.75px solid #3a92ff;
         }
         &.following {
-          color: #5BAD00 !important;
-          border: 0.75px solid #5BAD00;
+          color: #5bad00 !important;
+          border: 0.75px solid #5bad00;
           &:hover {
             color: #dc3545 !important;
             border: 0.75px solid #dc3545;
@@ -98,7 +98,7 @@
         min-width: 52.5px;
         width: 37.5px;
         margin: 3.75px;
-        border: 1.5px solid #E1E1E1;
+        border: 1.5px solid #e1e1e1;
         border-radius: 3.75px;
         font-size: 28px;
         color: #000000;
@@ -110,31 +110,41 @@
     .input-section {
       margin: 15px 7.5px 0;
       text-align: center;
+      p {
+        margin: 20px 0 0 0;
+        padding: 20px 30px;
+        border-radius: 5px;
+        background-color: #eeeeee;
+        color: #121212;
+        font-size: 14px;
+      }
       .donate-amount {
         width: 100%;
         border: none;
         border-radius: 0;
         text-align: center;
-        border-bottom: 0.75px solid #CECECE;
+        border-bottom: 0.75px solid #cecece;
         font-size: 30px;
         font-family: 'Work Sans';
         // color: #CECECE;
         letter-spacing: -1.2px;
-        &:focus, &:hover, &:active {
+        &:focus,
+        &:hover,
+        &:active {
           outline: none;
           // background: rgba(150, 150, 150, 0.2);
         }
         &::-webkit-input-placeholder {
-          color:#ABABAB;
+          color: #ababab;
         }
         &:-moz-placeholde {
-          color:#ABABAB;
+          color: #ababab;
         }
         &::-moz-placeholder {
-          color:#ABABAB;
+          color: #ababab;
         }
         &:-ms-input-placeholder {
-          color:#ABABAB;
+          color: #ababab;
         }
       }
       .download-btn {
@@ -142,12 +152,12 @@
         box-shadow: none;
         height: 37.5px;
         width: 187.5px;
-        margin: -4px 0 0;
-        background: #3A92FF !important;
+        margin: 30px 0 0 0;
+        background: #3a92ff !important;
         border-radius: 75px;
         font-weight: 600;
         font-size: 18px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: 0;
       }
     }

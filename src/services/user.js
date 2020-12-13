@@ -96,6 +96,12 @@ export default {
     })
   },
 
+  addVideoCredit(userId, params) {
+    return Vue.http.post(`${API_BASE_URL}/${userId}/video_credit`, params, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   inviteUser(userId) {
     return Vue.http.get(API_BASE_URL + '/' + userId + '/invite', {
       headers: { Authorization: $store.state.auth.token },
