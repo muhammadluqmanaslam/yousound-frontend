@@ -266,6 +266,34 @@
           </v-card>
         </v-dialog>
 
+        <v-dialog
+          v-model="show_add_more_time_caution_dialog"
+          content-class="add-more-time-caution-dialog"
+        >
+          <v-card class="pa-4">
+            <v-card-text>
+              You have about<br />
+              <b>{{ remainingTime }}</b
+              ><br />
+              remaining before your broadcast ends.<br />
+              Add more time to continue broadcasting.
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                dark
+                round
+                color="blue"
+                class="px-4"
+                @click.native="closeAddMoreTimeCautionDialog()"
+              >
+                Close</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
         <payment-modal
           v-if="show_payment_dialog"
           :amount="streamCost"

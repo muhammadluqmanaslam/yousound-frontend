@@ -49,6 +49,7 @@ export default {
       show_stream_delete_confirm_dialog: false,
       show_create_failed_dialog: false,
       show_add_more_time_dialog: false,
+      show_add_more_time_caution_dialog: false,
       show_payment_dialog: false,
       show_view_stream_button: false,
       stream_assoc: {
@@ -104,6 +105,15 @@ export default {
 
     profileUrl() {
       return `${window.location.origin}/${this.currentUser.slug}`
+    },
+
+    remainingTime() {
+      if (this.remainingSecondCheck.checked) {
+        return 'a minute'
+      } else if (this.remainingFirstCheck.checked) {
+        return '5 minutes'
+      }
+      return 'a couple of minutes'
     },
 
     // streamCost() {
@@ -388,6 +398,15 @@ export default {
 
     closeAddMoreTimeDialog() {
       this.show_add_more_time_dialog = false
+    },
+
+    openAddMoreTimeCautionDialog() {
+      this.show_add_more_time_caution_dialog = true
+    },
+
+    closeAddMoreTimeCautionDialog() {
+      this.show_add_more_time_caution_dialog = false
+      this.openAddMoreTimeDialog()
     },
 
     openPaymentDialog() {

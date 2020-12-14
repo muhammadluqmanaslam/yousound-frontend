@@ -732,3 +732,15 @@
     }
   }
 }
+
+.dialog.add-more-time-caution-dialog {
+  .card {
+    &__text {
+      text-align: center;
+      line-height: 24px;
+    }
+    &__actions {
+      padding: 0;
+    }
+  }
+}
