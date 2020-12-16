@@ -449,13 +449,13 @@ export default {
         ) {
           this.remainingSecondCheck.checked = true
           this.remainingFirstCheck.checked = true
-          this.openAddMoreTimeDialog()
+          this.openAddMoreTimeCautionDialog()
         } else if (
           !this.remainingFirstCheck.checked &&
           this.remainingSeconds < this.remainingFirstCheck.time
         ) {
           this.remainingFirstCheck.checked = true
-          this.openAddMoreTimeDialog()
+          this.openAddMoreTimeCautionDialog()
         }
 
         if (this.remainingSeconds <= 0) {
