@@ -298,14 +298,14 @@ export default {
         var filename = fileList[x].name
         if (filename.toLowerCase().endsWith(this.accept)) {
           if (filesize <= 300) {
-            const formData = new FormData()
-            formData.append('track[name]', fileList[x].name)
-            formData.append('track[description]', fileList[x].name)
-            formData.append('track[audio]', fileList[x])
             filename = filename.replace('.mp3', '')
             filename = filename.replace('.wav', '')
             filename = filename.replace('.wma', '')
             filename = filename.replace('.ogg', '')
+            const formData = new FormData()
+            formData.append('track[name]', filename)
+            formData.append('track[description]', fileList[x].name)
+            formData.append('track[audio]', fileList[x])
             var file = {
               editing: false,
               status: vm.status.uploading,
