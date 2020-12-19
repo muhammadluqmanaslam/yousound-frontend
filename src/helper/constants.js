@@ -545,6 +545,60 @@ export const UserAnnualIncomeOptions = [
   { id: 10000000, name: '$10m+' },
 ]
 
+// collaborator of product, stream
+
+export const CollaboratorRoleTypes = [
+  'Additional Production',
+  'Album Artwork',
+  'Arranger',
+  'Choreography',
+  'Composer',
+  'Creative Direction',
+  'Engineer',
+  'Executive Producer',
+  'Mastering',
+  'Musician - Bass',
+  'Musician - Brass',
+  'Musician - Drums',
+  'Musician - Electronics',
+  'Musician - Guitar',
+  'Musician - Keys',
+  'Musician - Orchestral',
+  'Musician - Percussion',
+  'Musician - Strings',
+  'Musician - Vocals',
+  'Producer',
+  'Remixer',
+  'Stylist',
+  'Video DP',
+  'Video Director',
+  'Video Producer',
+  'Vocalist',
+  'Writer',
+]
+
+export const CollaboratorProfitShareTypes = [
+  5,
+  10,
+  15,
+  20,
+  25,
+  30,
+  35,
+  40,
+  45,
+  50,
+  55,
+  60,
+  65,
+  70,
+  75,
+  80,
+  85,
+  90,
+  95,
+]
+
 // #TODO - combile audio_player_play and replay
 export const MyEvents = {
   AUTH_SIGNIN: 'auth_signin',

@@ -1,4 +1,5 @@
 import AuthService from '@/services/auth'
+import MeService from '@/services/me'
 import PaymentService from '@/services/payment'
 import StreamService from '@/services/stream'
 import UserService from '@/services/user'
@@ -16,6 +17,7 @@ import {
   StreamViewPrices,
   StreamViewersLimits,
   StreamCosts,
+  CollaboratorProfitShareTypes,
 } from '@/helper'
 
 export default {
@@ -50,6 +52,8 @@ export default {
         ml_input_codec: 'AVC',
         ml_input_resolution: 'HD',
         ml_input_maximum_bitrate: 'MAX_10_MBPS',
+        collaborators: [],
+        creator_recoup_cost: 0,
       },
       stream_cover_url: null,
       stream_assoc: {
@@ -60,6 +64,8 @@ export default {
       show_stripe_connect_dialog: false,
       show_help_dialog: false,
       show_attach_picker: false,
+      show_collaborators_dialog: false,
+      users: [],
       isPageReady: false,
     }
   },
@@ -103,6 +109,18 @@ export default {
         (g) => VideoGenres.indexOf(g.name) > -1
       ).map((g) => ({ id: g.id, name: g.name }))
     },
+
+    stream_view_price() {
+      return Filter.formatNumber(this.stream.view_price)
+    },
+
+    creator_share() {
+      return 100 - this._.sumBy(this.stream.collaborators, 'user_share')
+    },
+
+    profit_share_types() {
+      return CollaboratorProfitShareTypes
+    },
   },
 
   // watch: {
@@ -118,55 +136,83 @@ export default {
 
     if (!this.currentUser.stripe_connected) {
       this.openStripeConnectDialog()
-    }
-
-    // if (this.currentUser.data['video_page_visited'] !== 1) {
-    //   this.openHelpDialog()
-    // }
-
-    // this.genres = _.flatMap(this.$store.state.app.genres, 'children')
-    // this.genres = this.$store.state.app.genres
-    // VideoGenres.forEach((vg) => {
-    //   const g = this._.find(this.$store.state.app.genres, { name: vg })
-    //   if (g) {
-    //     this.genres.push({ id: g.id, name: g.name })
-    //   } else {
-    //     console.log('VideoGenres', vg)
-    //   }
-    // })
-
-    if (this.currentUser.enabled_live_video_free) {
-      this.periods.push({
-        id: 1,
-        name: '1hour / FREE',
-      })
     } else {
-      // if (this.currentUser.stream_rolled_time > 0) {
-      //   this.periods.push({
-      //     id: this.currentUser.stream_rolled_time,
-      //     name: `${Filter.timeInHours(
-      //       this.currentUser.stream_rolled_time
-      //     )} / Remaining Unpaid Time`,
-      //   })
-      //   this.period = this.currentUser.stream_rolled_time
+      // if (this.currentUser.data['video_page_visited'] !== 1) {
+      //   this.openHelpDialog()
       // }
 
-      // for (let i = 1; i <= 24; i++) {
-      //   this.periods.push({
-      //     id: i * 3600,
-      //     name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
-      //   })
-      // }
-      // this.period = 3600
+      // this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+      // this.genres = this.$store.state.app.genres
+      // VideoGenres.forEach((vg) => {
+      //   const g = this._.find(this.$store.state.app.genres, { name: vg })
+      //   if (g) {
+      //     this.genres.push({ id: g.id, name: g.name })
+      //   } else {
+      //     console.log('VideoGenres', vg)
+      //   }
+      // })
 
-      if (this.currentUser.stream_rolled_cost > 0) {
-        this.costs.unshift({
-          value: 0,
-          name: `$${Filter.formatNumber(
-            this.currentUser.stream_rolled_cost
-          )} - Remaining Cost`,
+      var params = {
+        stripe_connected: true,
+        page: 1,
+        per_page: 30,
+      }
+      this.isPageReady = false
+      this.$store.dispatch('error/showLoadingActivity', true)
+      Promise.all([MeService.mutualUsers(params)])
+        .then((values) => {
+          this.product_categories = this.$store.state.app.product_categories
+          this.digital_content_category_ids = this.$store.getters[
+            'app/digitalCategoryIds'
+          ]
+
+          this.users = values[0].body.users
+          this.isPageReady = true
+          this.$store.dispatch('error/showLoadingActivity', false)
+
+          MeService.mutualUsers({ ...params, per_page: -1 }).then(
+            (response) => (this.users = response.body.users)
+          )
         })
-        this.streamCost = 0
+        .catch((reason) => {
+          console.log(reason)
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', reason)
+        })
+
+      if (this.currentUser.enabled_live_video_free) {
+        this.periods.push({
+          id: 1,
+          name: '1hour / FREE',
+        })
+      } else {
+        // if (this.currentUser.stream_rolled_time > 0) {
+        //   this.periods.push({
+        //     id: this.currentUser.stream_rolled_time,
+        //     name: `${Filter.timeInHours(
+        //       this.currentUser.stream_rolled_time
+        //     )} / Remaining Unpaid Time`,
+        //   })
+        //   this.period = this.currentUser.stream_rolled_time
+        // }
+
+        // for (let i = 1; i <= 24; i++) {
+        //   this.periods.push({
+        //     id: i * 3600,
+        //     name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
+        //   })
+        // }
+        // this.period = 3600
+
+        if (this.currentUser.stream_rolled_cost > 0) {
+          this.costs.unshift({
+            value: 0,
+            name: `$${Filter.formatNumber(
+              this.currentUser.stream_rolled_cost
+            )} - Remaining Cost`,
+          })
+          this.streamCost = 0
+        }
       }
     }
   },
@@ -206,6 +252,25 @@ export default {
     closeStripeConnectDialog() {
       this.show_stripe_connect_dialog = false
       this.$router.push({ path: '/settings#bank-details' })
+    },
+
+    openCollaboratorsDialog() {
+      this.show_collaborators_dialog = true
+    },
+
+    closeCollaboratorsDialog() {
+      this.show_collaborators_dialog = false
+    },
+
+    addCollaborator() {
+      this.stream.collaborators.push({
+        user_id: '',
+        user_share: 5,
+      })
+    },
+
+    deleteCollaborator(index) {
+      this.stream.collaborators.splice(index, 1)
     },
 
     openPaymentDialog() {
@@ -289,6 +354,15 @@ export default {
             formData.append('stream[valid_period]', this.period)
             formData.append('stream[cover]', this.stream.cover)
             formData.append('stream[viewers_limit]', this.stream.viewers_limit)
+
+            formData.append(
+              'stream[collaborators]',
+              JSON.stringify(this.stream.collaborators)
+            )
+            formData.append(
+              'stream[creator_recoup_cost]',
+              Math.round(this.stream.creator_recoup_cost * 100)
+            )
 
             if (this.stream_assoc.value) {
               formData.append('stream[assoc_type]', this.stream_assoc.type)
