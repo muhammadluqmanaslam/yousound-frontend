@@ -655,6 +655,7 @@ export default {
         .then((response) => {
           var a = document.createElement('A')
           a.href = response.body.url
+          a.target = '_blank'
           a.download = ''
           document.body.appendChild(a)
           a.click()
