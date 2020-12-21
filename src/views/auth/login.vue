@@ -5,7 +5,13 @@
       <h4>Sign in</h4>
     </div>
 
-    <form v-on:submit.prevent="submit()">
+    <form v-on:submit.prevent="submit()" autocomplete="off">
+      <input
+        autocomplete="off"
+        name="hidden"
+        type="text"
+        style="display: none"
+      />
       <v-flex xs12 text-xs-center>
         <div class="form-group" :class="{ 'has-error': errors.has('email') }">
           <input
@@ -16,6 +22,7 @@
             name="email"
             type="email"
             placeholder="Email"
+            autocomplete="off"
           />
           <p class="text-danger text-xs-left" v-if="errors.has('email')">
             {{ errors.first('email') }}
@@ -28,6 +35,7 @@
           type="password"
           v-model="user.password"
           placeholder="Password"
+          autocomplete="new-password"
         />
       </v-flex>
       <v-flex xs12 px-2>

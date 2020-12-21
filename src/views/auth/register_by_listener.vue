@@ -5,7 +5,13 @@
       <h4>Create Account</h4>
     </div>
 
-    <form v-on:submit.prevent="submit()">
+    <form v-on:submit.prevent="submit()" autocomplete="off">
+      <input
+        autocomplete="off"
+        name="hidden"
+        type="text"
+        style="display: none"
+      />
       <v-flex xs12 text-xs-center>
         <div class="avatar-area">
           <img
@@ -53,6 +59,7 @@
           class="displayname"
           type="text"
           name="display_name"
+          autocomplete="off"
           placeholder="Display Name"
           v-model="user.display_name"
           v-validate="'required|max:20'"
@@ -63,6 +70,7 @@
           class="email"
           type="email"
           name="email"
+          autocomplete="new-password"
           placeholder="Email"
           v-model="user.email"
           v-validate="'required|email'"
@@ -73,6 +81,7 @@
           class="password"
           type="password"
           name="password"
+          autocomplete="new-password"
           placeholder="Password"
           v-model="user.password"
           v-validate="'required|min:5|max:16'"
