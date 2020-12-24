@@ -150,16 +150,18 @@
                   </v-list-tile-title>
                 </v-list-tile>
 
-                <!-- <v-list-tile
-                  v-if="props.item.status=='active' && ['listener', 'moderator'].indexOf(props.item.user_type) > -1"
+                <v-list-tile
+                  v-if="
+                    props.item.status == 'active' &&
+                    ['listener', 'moderator'].indexOf(props.item.user_type) > -1
+                  "
                   @click.native="updateUserRole(props.item, 'artist')"
-                  key="convert_artist"
                   class="default-menu-item"
                 >
                   <v-list-tile-title>
                     <label>Convert to artist</label>
                   </v-list-tile-title>
-                </v-list-tile> -->
+                </v-list-tile>
 
                 <v-list-tile
                   v-if="

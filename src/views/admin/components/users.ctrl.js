@@ -304,6 +304,7 @@ export default {
       UserService.updateUserRole(user.id, params)
         .then((response) => {
           user.user_type = role
+          this.users = this._.filter(this.users, (item) => item.id !== user.id)
         })
         .catch((e) => {
           this.$store.dispatch(

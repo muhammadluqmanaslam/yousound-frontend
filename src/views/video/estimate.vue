@@ -26,7 +26,7 @@
             <h4>How it works</h4>
             <p>
               Create one of a kind live video experiences designed to maximize
-              sales with exclusive products & downloads for your most engging
+              sales with exclusive products & downloads for your most engaging
               customers. Pay as you go. Unused credit rolls over to your next
               broadcast. All broadcasts include delivery of all resolutions up
               to HD 1080p.
