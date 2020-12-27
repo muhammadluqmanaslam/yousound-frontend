@@ -12,7 +12,6 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <!-- v-if="currentUser || currentPage == 'main_landing'" -->
     <app-header v-show="$store.getters['navigator/hasHeader']" />
 
     <router-view></router-view>
@@ -80,7 +79,7 @@
 <script>
 /* global $:true */
 
-import _ from 'lodash'
+// import _ from 'lodash'
 import debounce from 'lodash/debounce'
 import Vue from 'vue'
 
@@ -143,32 +142,6 @@ export default {
       },
     },
   },
-
-  // beforeRouteEnter (to, from, next) {
-  //   console.log('beforeRouteEnter')
-  //   next()
-  // },
-
-  // beforeRouteUpdate (to, from, next) {
-  //   console.log('beforeRouteUpdate')
-  //   if (this.$store.state.app.genres.length === 0) {
-  //     Promise.all([
-  //       SettingService.getSettings(),
-  //       GenreService.getGenres2(),
-  //       CategoryService.getCategories(),
-  //       UserService.getUserInfo(PublicRelationsUsername)
-  //     ]).then(values => {
-  //       console.log('App initializing...')
-  //       this.$store.dispatch('app/setSettings', values[0].body)
-  //       this.$store.dispatch('app/setGenres', values[1].body)
-  //       this.$store.dispatch('app/setProductCategories', values[2].body)
-  //       this.$store.dispatch('app/setPublicRelationsUser', values[3].body)
-  //       next()
-  //     })
-  //   } else {
-  //     next()
-  //   }
-  // },
 
   watch: {
     $route(to, from) {
@@ -237,71 +210,8 @@ export default {
       })
     }
 
-    // (function (d, s, id) {
-    //   var js = d.getElementsByTagName(s)[0]
-    //   var fjs = d.getElementsByTagName(s)[0]
-    //   if (d.getElementById(id)) {
-    //     return
-    //   }
-    //   js = d.createElement(s)
-    //   js.id = id
-    //   js.src = '//connect.facebook.net/en_US/sdk.js'
-    //   fjs.parentNode.insertBefore(js, fjs)
-    // }(document, 'script', 'facebook-jssdk'))
-
     // ### if we move this code to mounted, load event is not caught
-    const vm = this
-    window.flowplayer(function (api, root) {
-      $('.fp-ui', root).click(function (e) {
-        if ($(e.target).hasClass('fp-ui')) {
-          e.stopPropagation()
-        }
-      })
-
-      // const fsbutton = root.querySelector('.fp-fullscreen')
-      // append fullscreen button after HD menu is added on ready
-      api
-        .on('ready', function () {
-          console.log('flowplayer ready')
-          vm.$store.dispatch('videoPlayer/setStatus', 'active')
-          api.mute(false)
-          api.volume(1.0)
-          //   // root.querySelector('.fp-controls').appendChild(fsbutton)
-          //   // api.play()
-          //   // if (api.isFullscreen) api.play()
-          // }).on('load', function (e, api) {
-          //   console.log('flowplayer load')
-          //   // api.fullscreen()
-        })
-        .on('unload', function (e, api) {
-          console.log('flowplayer unload')
-        })
-        .on('shutdown', function (e, api) {
-          console.log('flowplayer shutdown')
-          vm.$root.$emit(
-            MyEvents.VIDEO_PLAYER_EXIT,
-            _.get(vm.$store.state.videoPlayer.stream, 'user.username', '')
-          )
-          vm.$store.commit('videoPlayer/reset')
-        })
-        .on('fullscreen', function (e, api) {
-          console.log('flowplayer fullscreen')
-          vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
-          vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
-          api.mute(false)
-          api.volume(1.0)
-        })
-        .on('fullscreen-exit', function (e, api) {
-          console.log('flowplayer fullscreen-exit')
-          vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-          if (
-            vm.$store.state.player.isPlaying &&
-            !vm.$store.state.player.isPaused
-          ) {
-            api.mute(true)
-          }
-        })
-    })
+    // const vm = this
   },
 
   beforeDestroy() {
@@ -426,22 +336,6 @@ export default {
         toggleBottomPlayer(false)
       }
     })
-
-    // $(document).on('keypress', function (e) {
-    //   if (e.which === 32) {
-    //     if (['album', 'messages'].indexOf(vm.$store.state.navigator.current.page) === -1) {
-    //       if (vm.$store.state.player.isPlaying) {
-    //         if (vm.$store.state.player.isPaused) {
-    //           vm.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
-    //         } else {
-    //           vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
-    //         }
-    //         return false
-    //       }
-    //     }
-    //     return true
-    //   }
-    // })
   },
 }
 </script>

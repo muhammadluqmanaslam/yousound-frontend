@@ -1,7 +1,6 @@
 /* global $:true */
 
 import _ from 'lodash'
-// import Hls from 'hls.js'
 import Vue from 'vue'
 import moment from 'moment'
 import SocketManager from '@/services/chat'
@@ -24,6 +23,7 @@ import shareModal from '@/components/sharemodal'
 
 import { MyEvents } from '@/helper'
 
+const LATENCY_TIME = 3
 const ActionCable = require('actioncable')
 const linkRegex = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/
 
@@ -44,7 +44,7 @@ export default {
       exceed_capacity: false,
       player: null,
       time: 0,
-      latency_time: 10,
+      latency_time: LATENCY_TIME,
       watching_interval: null,
       latency_time_interval: null,
       show_payment_dialog: false,
@@ -255,103 +255,60 @@ export default {
 
     initPlayer(url) {
       const vm = this
-      // if (vm.player) {
-      //   // vm.player.unload()
-      //   vm.player.shutdown()
-      // }
 
-      // console.log('bean', window.flowplayer.bean)
-      vm.player = window
-        .flowplayer('#my_video', {
-          // debug: true,
+      window.videojs(
+        'my_video',
+        {
           autoplay: true,
-          splash: true,
-          poster: false,
-          live: true,
-          share: false,
-          keyboard: false,
-          fullscreen: true,
-          native_fullscreen: true,
-          key: '$512206430871778',
-          clip: {
-            hlsjs: {
-              xhrSetup: function (xhr, url) {
-                // xhr.addEventListener('error', function (e) {
-                //   console.log('xhr error', e)
-                //   vm.player.trigger('error', [vm.player, {code: 2}]);
-                // })
-                // console.log(xhr, url)
-                xhr.addEventListener('readystatechange', function (e) {
-                  let xstatus = e.currentTarget.status
-                  // console.log('xhr readystatechange', xhr, e)
-                  // xstatus returns 0
-                  if (xhr.readyState === 4 && xstatus >= 400 && xstatus < 499) {
-                    vm.player.trigger('error', [vm.player, { code: 4 }])
-                  }
-                })
-              },
+          sources: [
+            {
+              type: 'application/x-mpegURL',
+              src: url,
             },
-            flashls: {
-              manifestloadmaxretry: 3,
-            },
-            hlsQualities: [-1, 1, 3, 6, 7],
-            sources: [{ type: 'application/x-mpegurl', src: url }],
-          },
-        })
-        .on('error', function (e, api, err) {
-          console.log('fp error', err)
-          // var delay = initialDelay;
-          // clearInterval(timer);
+          ],
+        },
+        function () {
+          console.log('video_player ready', this)
+          vm.player = this
 
-          if (err.code === 2 || err.code === 4) {
-            api.shutdown()
-            // // it unloads the engine, so api.load() is not working
-            // console.log('fp error', err.code, api)
-            // api.error = api.loading = false
-            // api.load()
-            // api.fullscreen()
-            // container.className += " is-offline";
-            // if (flowplayer.support.flashVideo) {
-            //   api.one("flashdisabled", function() {
-            //     container.querySelector(".fp-flash-disabled").style.display = "none";
-            //   });
-            // }
-            // timer = setInterval(function() {
-            //   var messageElement = container.querySelector(".fp-ui .fp-message");
-            //   delay -= 1;
-            //   if (delay && messageElement) {
-            //     messageElement.querySelector("span").innerHTML = delay;
-            //     // only for disconnected user:
-            //     messageElement.style.backgroundImage = "url(" + errImage.src + ")";
-            //   } else {
-            //     clearInterval(timer);
-            //     api.error = api.loading = false;
-            //     if (messageElement) {
-            //       container.querySelector(".fp-ui").removeChild(messageElement);
-            //     }
-            //     container.className = container.className.replace(/\bis-(error|offline)\b/g, "")
-            //     api.load()
-            //   }
-            // }, 1000)
-          }
-        })
-        .on('progress', function (e, api, time) {
-          // console.log('flowplayer progress...', api.paused, api.playing, time)
-          vm.time = parseInt(time)
-          if (!vm.$store.getters['videoPlayer/isPlaying']) {
-            if (api.playing) {
-              vm.$store.dispatch('videoPlayer/setPlayMode', 'playing')
+          vm.$store.dispatch('videoPlayer/setStatus', 'active')
+          vm.player.requestFullscreen()
+
+          console.log(vm.$refs.myVideo)
+          // document
+          //   .querySelector(vm.$refs.myVideo)
+          //   .appendChild(vm.$refs.closeButton)
+          // $('.close-btn').appendTo($('#my_video'))
+          // $('.my_overlay').appendTo($('#my_video'))
+
+          vm.player.on('fullscreenchange', () => {
+            if (vm.player.isFullscreen()) {
+              console.log('video_player fullscreen')
+              vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
+              vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
+              vm.player.muted(false)
+              vm.player.volume(1.0)
+            } else {
+              console.log('video_player fullscreen-exit')
+              vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
+              if (
+                vm.$store.state.player.isPlaying &&
+                !vm.$store.state.player.isPaused
+              ) {
+                vm.player.muted(false)
+              }
             }
-          }
-          // }).on('play', function (e, api) {
-          //   console.log('flowplayer play...')
-          // }).on('resume', function (e, api) {
-          //   // console.log('flowplayer resume...')
-        })
-        .on('pause', function (e, api) {
-          // console.log('flowplayer pause...')
-          vm.$store.dispatch('videoPlayer/setPlayMode', 'paused')
-        })
+          })
+
+          vm.player.on('dispose', () => {
+            vm.$root.$emit(
+              MyEvents.VIDEO_PLAYER_EXIT,
+              _.get(vm.$store.state.videoPlayer.stream, 'user.username', '')
+            )
+            vm.$store.commit('videoPlayer/reset')
+          })
+        }
+      )
 
       this.stream_subscription = this.cable.subscriptions.create(
         {
@@ -383,6 +340,7 @@ export default {
         StreamService.watchingStream(this.stream.id)
       }, 60000)
 
+      /*
       this.chat_socket = new SocketManager(
         process.env.CHAT_SERVER_URL,
         this.user.slug,
@@ -472,7 +430,7 @@ export default {
             })
           }
         }
-      )
+      )*/
     },
 
     getMetrics() {
@@ -576,7 +534,7 @@ export default {
     },
 
     choosePage(path) {
-      this.player.fullscreen()
+      this.player.exitFullscreen()
       this.$router.push({ path: '/' + path })
     },
 
@@ -613,7 +571,7 @@ export default {
     },
 
     openStreamingConfirmDialog() {
-      this.latency_time = 10
+      this.latency_time = LATENCY_TIME
       this.show_streaming_confirm_dialog = true
 
       const vm = this
@@ -670,7 +628,7 @@ export default {
     },
 
     visitProfile() {
-      this.player.fullscreen()
+      this.player.exitFullscreen()
       this.$router.push({ path: `/${this.stream.assoc.slug}` })
     },
 
@@ -784,7 +742,7 @@ export default {
 
     closePlayer() {
       if (this.player) {
-        this.player.shutdown()
+        this.player.dispose()
       }
 
       if (this.latency_time_interval) {
@@ -802,13 +760,13 @@ export default {
 
     mutePlayer() {
       if (this.player) {
-        this.player.mute(true)
+        this.player.muted(true)
       }
     },
 
     unmutePlayer() {
       if (this.player) {
-        this.player.mute(false)
+        this.player.muted(false)
       }
     },
 
@@ -911,20 +869,6 @@ export default {
       // console.log('this.stream.assoc_type', this.stream.assoc_type)
       this.viewStream()
       this.initPlayer(this.stream.mp_channel_1_ep_1_url)
-
-      this.player.load()
-      this.player.fullscreen()
-
-      // setTimeout(() => {
-      //   console.log('videoPlayer onClick setTimeout')
-      //   // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
-      //   // this.initPlayer('https://edge.flowplayer.org/FlowplayerHTML5forWordPress.m3u8')
-      //   // this.getMetrics()
-      //   this.viewStream()
-      //   this.initPlayer(this.stream.mp_channel_1_ep_1_url)
-      //   this.player.load()
-      //   this.player.fullscreen()
-      // }, 3000)
     },
   },
 
