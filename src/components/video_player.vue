@@ -1,16 +1,14 @@
 <template>
   <!-- <div class="video-player-wrapper" :class="{'is-hide': !$store.getters['videoPlayer/hasFrame']}"> -->
-  <div class="video-player-wrapper">
+  <div class="video-player-wrapper" ref="myVideoPlayer">
     <video
       ref="myVideo"
       id="my_video"
       class="video-js vjs-default-skin vjs-fluid"
       controls
-      width="640"
-      height="264"
     ></video>
 
-    <div ref="myOverlay" class="my_overlay" v-if="false">
+    <div ref="myOverlay" class="my_overlay" v-if="user">
       <v-layout row wrap class="my-header">
         <v-flex xs12 sm10 offset-sm1>
           <v-toolbar class="header">

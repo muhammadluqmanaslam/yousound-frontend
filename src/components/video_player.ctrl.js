@@ -215,7 +215,7 @@ export default {
   },
 
   beforeDestroy() {
-    // console.log('video-player beforeDestroy')
+    console.log('video-player beforeDestroy')
     // this.$root.$off(MyEvents.AUTH_SIGNOUT, this.deleteStream)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
@@ -255,60 +255,76 @@ export default {
 
     initPlayer(url) {
       const vm = this
+      // console.log(vm.$refs.myVideoPlayer)
+      // vm.$refs.myVideoPlayer.appendChild(
+      //   $(
+      //     '<video ref="myVideo" id="my_video" class="video-js vjs-default-skin vjs-fluid" controls width="640" height="264"></video>'
+      //   )
+      // )
+      vm.player =
+        vm.player ||
+        window.videojs(
+          'my_video',
+          {
+            autoplay: true,
+            controls: true,
+            sources: [
+              {
+                type: 'application/x-mpegURL',
+                src: url,
+              },
+            ],
+          },
+          function () {
+            console.log('video_player ready', this)
+            vm.player = this
 
-      window.videojs(
-        'my_video',
-        {
-          autoplay: true,
-          sources: [
-            {
-              type: 'application/x-mpegURL',
-              src: url,
-            },
-          ],
-        },
-        function () {
-          console.log('video_player ready', this)
-          vm.player = this
+            vm.$store.dispatch('videoPlayer/setStatus', 'active')
+            vm.player.requestFullscreen()
+            // console.log(vm.$refs.myVideo)
+            // console.log(vm.$refs.closeButton)
+            // vm.$refs.myVideo.parentNode.appendChild(vm.$refs.closeButton)
+            document.getElementById('my_video').appendChild(vm.$refs.myOverlay)
+            document
+              .getElementById('my_video')
+              .appendChild(vm.$refs.closeButton)
 
-          vm.$store.dispatch('videoPlayer/setStatus', 'active')
-          vm.player.requestFullscreen()
-
-          console.log(vm.$refs.myVideo)
-          // document
-          //   .querySelector(vm.$refs.myVideo)
-          //   .appendChild(vm.$refs.closeButton)
-          // $('.close-btn').appendTo($('#my_video'))
-          // $('.my_overlay').appendTo($('#my_video'))
-
-          vm.player.on('fullscreenchange', () => {
-            if (vm.player.isFullscreen()) {
-              console.log('video_player fullscreen')
-              vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
-              vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
-              vm.player.muted(false)
-              vm.player.volume(1.0)
-            } else {
-              console.log('video_player fullscreen-exit')
-              vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
-              if (
-                vm.$store.state.player.isPlaying &&
-                !vm.$store.state.player.isPaused
-              ) {
+            vm.player.on('fullscreenchange', () => {
+              if (vm.player.isFullscreen()) {
+                console.log('video_player fullscreen')
+                vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
+                vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
                 vm.player.muted(false)
+                vm.player.volume(1.0)
+              } else {
+                console.log('video_player fullscreen-exit')
+                vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
+                if (
+                  vm.$store.state.player.isPlaying &&
+                  !vm.$store.state.player.isPaused
+                ) {
+                  vm.player.muted(false)
+                }
               }
-            }
-          })
+            })
 
-          vm.player.on('dispose', () => {
-            vm.$root.$emit(
-              MyEvents.VIDEO_PLAYER_EXIT,
-              _.get(vm.$store.state.videoPlayer.stream, 'user.username', '')
-            )
-            vm.$store.commit('videoPlayer/reset')
-          })
-        }
-      )
+            vm.player.on('dispose', () => {
+              vm.$root.$emit(
+                MyEvents.VIDEO_PLAYER_EXIT,
+                _.get(vm.$store.state.videoPlayer.stream, 'user.username', '')
+              )
+              vm.$store.commit('videoPlayer/reset')
+
+              let videoElement = document.createElement('video')
+              videoElement.ref = 'myVideo'
+              videoElement.id = 'my_video'
+              videoElement.className = 'video-js vjs-default-skin vjs-fluid'
+              videoElement.controls = true
+              vm.$refs.myVideoPlayer.appendChild(videoElement)
+              vm.$forceUpdate()
+            })
+          }
+        )
 
       this.stream_subscription = this.cable.subscriptions.create(
         {
@@ -742,8 +758,16 @@ export default {
 
     closePlayer() {
       if (this.player) {
+        this.$refs.myVideoPlayer.appendChild(this.$refs.myOverlay)
+        this.$refs.myVideoPlayer.appendChild(this.$refs.closeButton)
         this.player.dispose()
+        this.player = null
       }
+      // if (this.player) {
+      //   this.player.src()
+      //   this.player.load()
+      //   this.player.hide()
+      // }
 
       if (this.latency_time_interval) {
         clearInterval(this.latency_time_interval)

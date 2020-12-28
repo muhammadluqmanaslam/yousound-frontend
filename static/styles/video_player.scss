@@ -34,6 +34,9 @@
     .my_overlay {
       // z-index: 10;
       display: none;
+      font-family: avenir, sans-serif;
+      font-size: 16px;
+      line-height: 24px;
 
       .layout.my-header {
         z-index: 10;
@@ -685,6 +688,13 @@
       }
 
       &.vjs-fullscreen {
+        &.vjs-user-active,
+        &.vjs-paused {
+          .my_overlay {
+            display: block;
+          }
+        }
+
         .close-btn {
           display: none;
         }
