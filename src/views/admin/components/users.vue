@@ -166,7 +166,22 @@
                 <v-list-tile
                   v-if="
                     props.item.status == 'active' &&
-                    ['artist', 'moderator'].indexOf(props.item.user_type) > -1
+                    ['listener', 'moderator'].indexOf(props.item.user_type) > -1
+                  "
+                  @click.native="updateUserRole(props.item, 'brand')"
+                  class="default-menu-item"
+                >
+                  <v-list-tile-title>
+                    <label>Convert to brand</label>
+                  </v-list-tile-title>
+                </v-list-tile>
+
+                <v-list-tile
+                  v-if="
+                    props.item.status == 'active' &&
+                    ['artist', 'brand', 'moderator'].indexOf(
+                      props.item.user_type
+                    ) > -1
                   "
                   @click.native="updateUserRole(props.item, 'listener')"
                   class="default-menu-item"
