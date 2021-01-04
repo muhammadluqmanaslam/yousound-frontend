@@ -205,7 +205,7 @@ export default {
           if (response === true) {
             // this.$store.dispatch('error/showLoadingActivity', true)
             var formData = new FormData()
-            formData.append('user[invitation_token]', this.token)
+            formData.append('user[attendee_invitation_token]', this.token)
             formData.append('user[email]', this.user.email)
             formData.append('user[password]', this.user.password)
             formData.append('user[username]', this.user.username)

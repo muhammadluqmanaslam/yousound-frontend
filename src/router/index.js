@@ -8,6 +8,7 @@ import ForgotPassword from '@/views/auth/forgot_password'
 import ResetPassword from '@/views/auth/reset_password'
 import Confirmation from '@/views/auth/confirmation'
 import SocialVerification from '@/views/auth/social_verify'
+import InvitedRegister from '@/views/auth/register_by_invited'
 import AttendeeRegister from '@/views/auth/register_by_attendee'
 import ListenerRegister from '@/views/auth/register_by_listener'
 // import RegisterAs from '@/views/auth/register_as'
@@ -104,6 +105,11 @@ export function createRouter(settings) {
         path: '/register',
         name: 'ListenerRegister',
         component: ListenerRegister,
+      },
+      {
+        path: '/register/invited/:token',
+        name: 'InvitedRegister',
+        component: InvitedRegister,
       },
       {
         path: '/register/attendee/:token',

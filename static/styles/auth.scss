@@ -147,6 +147,20 @@
 .page.auth-page.auth-register-page {
   width: 320px;
   margin: 0 auto;
+
+  h5 {
+    margin: 30px 0 20px 0;
+    font-weight: 300;
+    font-size: 24px;
+    color: #2d2d2d;
+    letter-spacing: -1.18px;
+  }
+
+  .inviter {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
   .error--text {
     position: absolute;
     top: 20px;
@@ -223,6 +237,24 @@
     letter-spacing: 0;
     padding: 0 15px;
   }
+
+  .input-group {
+    width: 300px;
+    margin: 7.5px auto 0;
+    padding: 0;
+
+    &__selections {
+      padding-left: 15px;
+    }
+
+    &--text-field input {
+      padding-left: 0;
+      &[disabled] {
+        background-color: transparent !important;
+      }
+    }
+  }
+
   .regular-checkbox {
     margin-top: 11.25px;
   }
@@ -233,6 +265,7 @@
     letter-spacing: 0;
     text-decoration: none;
   }
+
   .create-account-button {
     width: 300px;
     height: 40.5px;
@@ -246,6 +279,7 @@
     color: #ffffff;
     letter-spacing: 0;
   }
+
   &.artist {
     width: 100%;
     text-align: center;

@@ -1,0 +1,144 @@
+<template>
+  <div class="page auth-page auth-register-page">
+    <div class="text-xs-center" v-if="isPageReady">
+      <img class="logo" src="/static/images/nav_logo_primary.png" />
+      <div class="inviter">
+        You've been invited by<br />
+        <user-tag :user="inviter" /><br />
+        to get verified
+      </div>
+      <h5>Create Your Verified Account</h5>
+    </div>
+
+    <form v-if="isPageReady" v-on:submit.prevent="submit()">
+      <v-flex xs12 text-xs-center>
+        <div class="avatar-area">
+          <img
+            class="avatar"
+            src="/static/images/placeholder.png"
+            id="avatar"
+            ref="avatar"
+          />
+          <label class="upload-caption">Upload image</label>
+          <div class="avatar-upload">
+            <input
+              type="file"
+              name="avatar_file"
+              id="avatar_file"
+              ref="avatar_file"
+              class="avatar-file"
+              accept="image/*"
+              v-validate="'required'"
+              @change="imageChanged($event)"
+            />
+            <label for="avatar_file">Choose a file</label>
+          </div>
+        </div>
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <input
+          class="username"
+          type="text"
+          name="twitter_user_id"
+          placeholder="Twitter User Id"
+          autocomplete="off"
+          v-model="user.social_user_id"
+          v-validate="'required'"
+        />
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <v-select
+          :items="UserTypeOptions"
+          item-value="value"
+          item-text="text"
+          v-model="user.request_role"
+          v-validate="'required'"
+          name="account_type"
+          placeholder="Select account type"
+          hide-details
+        />
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <v-select
+          :items="main_genres"
+          item-value="id"
+          item-text="name"
+          v-model="user.genre_id"
+          v-validate="'required'"
+          name="main_genre"
+          placeholder="Main music genre"
+          autocomplete
+          hide-details
+        />
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <input
+          class="username"
+          type="text"
+          name="username"
+          placeholder="Username"
+          autocomplete="off"
+          v-model="user.username"
+          v-validate="'required|max:20'"
+        />
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <input
+          class="displayname"
+          type="text"
+          name="display_name"
+          placeholder="Display Name"
+          autocomplete="off"
+          v-model="user.display_name"
+          v-validate="'required|max:20'"
+        />
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <input
+          class="email"
+          type="email"
+          name="email"
+          placeholder="Email"
+          autocomplete="off"
+          v-model="user.email"
+          v-validate="'required|email'"
+        />
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <input
+          class="password"
+          type="password"
+          name="password"
+          placeholder="Password"
+          autocomplete="off"
+          v-model="user.password"
+          v-validate="'required|min:5|max:16'"
+        />
+      </v-flex>
+      <v-flex xs12 text pa-0>
+        <p class="regular-checkbox">
+          <input
+            id="terms"
+            type="checkbox"
+            name="terms"
+            v-model="terms"
+            v-validate="'required'"
+          />
+          <label for="terms"
+            >Accept
+            <router-link class="forgot-password" to="#"
+              >Terms & Conditions</router-link
+            ></label
+          >
+        </p>
+      </v-flex>
+      <v-flex xs12 text-xs-center>
+        <v-btn block round dark type="submit" class="create-account-button"
+          >Create account</v-btn
+        >
+      </v-flex>
+    </form>
+  </div>
+</template>
+
+<script type="text/javascript" src="./register_by_invited.ctrl.js"></script>

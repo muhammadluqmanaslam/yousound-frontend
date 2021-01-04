@@ -493,20 +493,14 @@
             </v-list-tile> -->
             <v-list-tile
               v-if="
-                !$store.getters['app/disabledVerification'] &&
-                currentUser.user_type == 'listener' &&
-                ['artist', 'brand', 'label'].indexOf(
-                  currentUser.request_role
-                ) == -1
+                ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1
               "
-              key="verified"
-              @click="openTwitterConfirmDialog()"
+              key="invite"
+              @click="openInviteDialog()"
             >
               <v-list-tile-content>
-                <v-list-tile-title>Get Verified</v-list-tile-title>
-                <v-list-tile-sub-title
-                  >Become an Artist, Brand, or Label</v-list-tile-sub-title
-                >
+                <v-list-tile-title>Invite artist/brand</v-list-tile-title>
+                <v-list-tile-sub-title>Invite your team</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile key="support" @click="goSupport">
@@ -608,43 +602,33 @@
     </v-flex>
 
     <v-dialog
-      v-model="show_twitter_confirm_dialog"
-      content-class="twitter-confirm-dialog"
-      width="700"
+      v-model="show_invite_dialog"
+      content-class="invite-dialog"
+      width="780"
     >
-      <v-card mt-5>
-        <!-- <div class="card__image"><v-icon>twitter</v-icon></div> -->
-        <v-card-media
-          contain
-          src="/static/images/ic_twitter.png"
-          height="50px"
-        ></v-card-media>
-        <v-card-title class="headline">Connect to Twitter</v-card-title>
-        <v-card-text>
-          Choose your role then you will be redirected to Twitter<br />
-          to login one time to verify your artist/brand identity.<br />
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <div class="img-button" @click="goTwitter('artist')">
-            <img class="avatar" src="/static/images/artist.png" />
-            <label class="pt-2">Artist</label>
-          </div>
-          <!-- <div class="img-button" @click="goTwitter('label')">
-            <img class="avatar" src="/static/images/listener.png"/>
-            <label class="pt-2">Label</label>
-          </div> -->
-          <div class="img-button" @click="goTwitter('brand')">
-            <img class="avatar" src="/static/images/listener.png" />
-            <label class="pt-2">Brand</label>
-          </div>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-        <a
-          href="http://support.yousound.com/en/articles/4078259-i-m-trying-to-get-verified-on-yousound-but-i-don-t-have-twitter"
-          target="_blank"
-          >I don't have a Twitter</a
-        >
+      <v-card>
+        <v-container pa-4 fluid>
+          <v-layout row>
+            <v-flex xs8>
+              <v-card-title class="headline">Invite Artist/Brand</v-card-title>
+              <v-card-text
+                >Link expires in 72 hours and can only be used once</v-card-text
+              >
+              <v-card-actions>
+                <v-btn dark color="blue" @click.native="createInvitation()"
+                  ><v-icon class="mr-3">fa-link</v-icon> Copy Link</v-btn
+                >
+              </v-card-actions>
+            </v-flex>
+            <v-flex xs4>
+              <v-card-media
+                src="/static/images/plug-link.jpg"
+                height="300px"
+                contain
+              ></v-card-media>
+            </v-flex>
+          </v-layout>
+        </v-container>
       </v-card>
     </v-dialog>
   </v-layout>

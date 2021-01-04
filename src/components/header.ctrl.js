@@ -1,5 +1,6 @@
 import AuthService from '@/services/auth'
-import TwitterService from '@/services/twitter.js'
+import TwitterService from '@/services/twitter'
+import InvitationService from '@/services/invitation'
 import { MyEvents, Storage } from '@/helper'
 
 export default {
@@ -7,6 +8,7 @@ export default {
     return {
       keyword: '',
       show_twitter_confirm_dialog: false,
+      show_invite_dialog: false,
     }
   },
 
@@ -39,13 +41,21 @@ export default {
   },
 
   methods: {
-    openTwitterConfirmDialog(user_type) {
-      this.show_twitter_confirm_dialog = true
-      // this.user_type = user_type
+    openInviteDialog() {
+      this.show_invite_dialog = true
     },
 
-    closeTwitterConfirmDialog() {
-      this.show_twitter_confirm_dialog = false
+    closeInviteDialog() {
+      this.show_invite_dialog = false
+    },
+
+    createInvitation() {
+      InvitationService.createInvitation()
+        .then((res) => {
+          console.log('createInvitation', res.body)
+          this.$copyText(res.body)
+        })
+        .catch((err) => console.log(err))
     },
 
     goTwitter(request_type) {

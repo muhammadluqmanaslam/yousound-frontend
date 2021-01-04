@@ -283,6 +283,12 @@ export const VideoGenres = [
   'GOSPEL',
 ]
 
+export const UserTypeOptions = [
+  { value: 'artist', text: 'Artist' },
+  { value: 'brand', text: 'Brand' },
+  { value: 'label', text: 'Label' },
+]
+
 export const StreamHourlyPrice = 1000
 
 export const PaymentTypes = {
