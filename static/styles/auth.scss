@@ -149,18 +149,16 @@
   margin: 0 auto;
 
   h5 {
-    margin: 30px 0 20px 0;
-    font-weight: 300;
+    margin: 30px 0 15px 0;
+    font-weight: 700;
     font-size: 24px;
     color: #2d2d2d;
     letter-spacing: -1.18px;
   }
-
   .inviter {
     margin-top: 20px;
     font-size: 16px;
   }
-
   .error--text {
     position: absolute;
     top: 20px;
@@ -245,6 +243,10 @@
 
     &__selections {
       padding-left: 15px;
+      &__comma {
+        font-size: 15px;
+        color: #4a4a4a !important;
+      }
     }
 
     &--text-field input {
@@ -258,6 +260,7 @@
   .regular-checkbox {
     margin-top: 11.25px;
   }
+
   a {
     font-weight: 600;
     font-size: 13.5px;

@@ -9,6 +9,7 @@ export default {
       keyword: '',
       show_twitter_confirm_dialog: false,
       show_invite_dialog: false,
+      link_copied: false,
     }
   },
 
@@ -42,6 +43,7 @@ export default {
 
   methods: {
     openInviteDialog() {
+      this.link_copied = false
       this.show_invite_dialog = true
     },
 
@@ -54,6 +56,7 @@ export default {
         .then((res) => {
           // console.log('createInvitation', res.body)
           this.$copyText(res.body.url)
+          this.link_copied = true
         })
         .catch((err) => console.log(err))
     },

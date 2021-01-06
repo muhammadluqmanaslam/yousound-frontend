@@ -241,3 +241,11 @@
     padding: 37.5px 11.25px 20px;
   }
 }
+
+.dialog.invite-dialog {
+  .link-copied {
+    margin-left: 15px;
+    font-size: 12px;
+    color: #ff0000;
+  }
+}

@@ -619,6 +619,9 @@
                   ><v-icon class="mr-3">fa-link</v-icon> Copy Link</v-btn
                 >
               </v-card-actions>
+              <div v-show="link_copied" class="link-copied">
+                link has been copied
+              </div>
             </v-flex>
             <v-flex xs4>
               <v-card-media
