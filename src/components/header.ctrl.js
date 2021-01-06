@@ -52,8 +52,8 @@ export default {
     createInvitation() {
       InvitationService.createInvitation()
         .then((res) => {
-          console.log('createInvitation', res.body)
-          this.$copyText(res.body)
+          // console.log('createInvitation', res.body)
+          this.$copyText(res.body.url)
         })
         .catch((err) => console.log(err))
     },
