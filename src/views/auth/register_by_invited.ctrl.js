@@ -19,7 +19,6 @@ export default {
       UserTypeOptions: UserTypeOptions,
       token: '',
       terms: false,
-      year_of_birth_options: [],
       user: {
         email: '',
         password: '',
@@ -32,6 +31,7 @@ export default {
         request_role: null,
       },
       inviter: {},
+      show_register_success_dialog: false,
       isPageReady: false,
     }
   },
@@ -55,7 +55,6 @@ export default {
     InvitationService.findByToken(params)
       .then((res) => {
         this.inviter = res.body
-
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
       })
@@ -67,6 +66,7 @@ export default {
         this.$router.push({ path: '/' })
         this.$store.dispatch('error/showLoadingActivity', false)
       })
+    // this.show_register_success_dialog = true
   },
 
   methods: {
@@ -89,9 +89,10 @@ export default {
             AuthService.registerAsListener(formData)
               .then((res) => {
                 this.$store.dispatch('error/showLoadingActivity', false)
-                this.$router.push({
-                  path: `/confirm/being?email=${this.user.email}`,
-                })
+                this.show_register_success_dialog = true
+                // this.$router.push({
+                //   path: `/confirm/being?email=${this.user.email}`,
+                // })
               })
               .catch((e) => {
                 this.$store.dispatch('error/showLoadingActivity', false)

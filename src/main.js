@@ -6,6 +6,7 @@ import VueIntercom from 'vue-intercom'
 import 'jquery'
 import _ from 'lodash'
 import App from './App'
+import MobileApp from './MobileApp'
 import { createRouter } from './router'
 import { createMobileRouter } from './router/mobile'
 import BrowserPage from '@/views/home/browser'
@@ -159,8 +160,8 @@ if (isOldBrowser) {
   const app = new Vue({
     router,
     store,
-    template:
-      '<v-app id="app"><router-view class="main-content-view"></router-view></v-app>',
+    template: '<MobileApp/>',
+    components: { MobileApp },
   })
   app.$mount('#app')
 } else {

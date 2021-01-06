@@ -57,7 +57,7 @@
       <a href="ys://login">Open App</a>
     </div>
 
-    <v-snackbar
+    <!-- <v-snackbar
       v-model="showError"
       multi-line
       top
@@ -68,7 +68,7 @@
       <v-btn dark flat @click.native="$store.dispatch('error/hideToast')"
         ><v-icon>clear</v-icon></v-btn
       >
-    </v-snackbar>
+    </v-snackbar> -->
   </div>
 </template>
 

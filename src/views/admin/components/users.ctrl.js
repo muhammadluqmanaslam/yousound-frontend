@@ -56,6 +56,12 @@ export default {
           sortable: false,
         },
         {
+          text: 'Invited By',
+          value: 'invited_by',
+          align: 'left',
+          sortable: false,
+        },
+        {
           text: 'Verified By',
           value: 'verified_by',
           align: 'left',

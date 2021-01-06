@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import ProtectPage from '@/views/auth/protect_page'
 // import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
+import InvitedRegister from '@/views/auth/register_by_invited'
 import ConfirmPage from '@/views/mobile/auth/confirmation'
 import ResetPasswordPage from '@/views/mobile/auth/reset_password'
 import AlbumShow from '@/views/mobile/album/show'
@@ -19,6 +20,11 @@ export function createMobileRouter() {
     { path: '/', name: 'LandingPage', component: LandingPage },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     // { path: '/x', name: 'AddAttendee', component: AddAttendee },
+    {
+      path: '/register/invited/:token',
+      name: 'InvitedRegister',
+      component: InvitedRegister,
+    },
     { path: '/playlist', name: 'Playlist', component: CreateAttendee },
     { path: '/confirm/:token', name: 'ConfirmPage', component: ConfirmPage },
     {

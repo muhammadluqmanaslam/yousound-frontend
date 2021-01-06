@@ -106,6 +106,14 @@
           <td class="text-xs-left">{{ props.item.created_at | formatDate }}</td>
           <td class="text-xs-left">
             <router-link
+              v-if="props.item.inviter"
+              :to="`/${props.item.inviter.slug}`"
+            >
+              {{ props.item.inviter.display_name }}
+            </router-link>
+          </td>
+          <td class="text-xs-left">
+            <router-link
               v-if="props.item.approver"
               :to="`/${props.item.approver.slug}`"
             >

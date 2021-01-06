@@ -138,6 +138,54 @@
         >
       </v-flex>
     </form>
+
+    <v-dialog
+      v-model="show_register_success_dialog"
+      fullscreen
+      content-class="register-success-dialog"
+    >
+      <v-layout row wrap class="page auth-page register-success-page">
+        <v-flex xs12 transition="slide-x-reverse-transition">
+          <div class="page-header">
+            <v-flex xs12 text-xs-center>
+              <img class="logo" src="/static/images/nav_logo_primary.png" />
+            </v-flex>
+          </div>
+          <div class="page-content">
+            <h5>Success!</h5>
+            <div class="info-section">
+              <p>
+                Please allow at least 48 hours for staff to verify your account.
+              </p>
+              <p>
+                While your account is being activated you can download the iOS
+                app & browse as a listener.
+              </p>
+              <p>
+                Use the web/desktop version to upload albums & products,
+                download songs & broadcast live!
+              </p>
+            </div>
+            <v-divider></v-divider>
+            <div class="article-section">
+              <div><label>Learn more:</label></div>
+              <div><a href="#">How to make money on YouSound</a></div>
+              <div><a href="#">YouSound Live Broadcast Strategies</a></div>
+              <div><a href="#">Read all articles</a></div>
+            </div>
+            <v-divider></v-divider>
+            <div class="download-section">
+              <div>
+                <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
+                  ><img src="/static/images/img_download_ios.svg" height="64"
+                /></a>
+              </div>
+              <div><label>Android coming soon.</label></div>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-dialog>
   </div>
 </template>
 
