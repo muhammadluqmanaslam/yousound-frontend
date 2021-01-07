@@ -1,6 +1,9 @@
 <template>
   <div class="page auth-page auth-register-page">
-    <div class="text-xs-center" v-if="isPageReady">
+    <div
+      class="text-xs-center"
+      v-if="isPageReady && !show_register_success_dialog"
+    >
       <img class="logo" src="/static/images/nav_logo_primary.png" />
       <div class="inviter">
         You've been invited by<br />
@@ -10,16 +13,19 @@
       <h5>Create Your Verified Account</h5>
     </div>
 
-    <form v-if="isPageReady" v-on:submit.prevent="submit()">
+    <form
+      v-if="isPageReady && !show_register_success_dialog"
+      v-on:submit.prevent="submit()"
+    >
       <v-flex xs12 text-xs-center>
         <div class="avatar-area">
           <img
-            class="avatar"
-            src="/static/images/placeholder.png"
+            class="avatar default"
+            src="/static/images/ic_camera.svg"
             id="avatar"
             ref="avatar"
           />
-          <label class="upload-caption">Upload image</label>
+          <label class="upload-caption">Upload avatar image</label>
           <div class="avatar-upload">
             <input
               type="file"
@@ -35,16 +41,17 @@
           </div>
         </div>
       </v-flex>
-      <v-flex xs12 text-xs-center>
+      <v-flex xs12 text-xs-center relative>
         <input
-          class="username"
+          class="instagram_username"
           type="text"
-          name="twitter_user_id"
-          placeholder="Twitter User Id"
+          name="instagram_username"
+          placeholder="Instagram username"
           autocomplete="off"
-          v-model="user.social_user_id"
+          v-model="user.social_user_name"
           v-validate="'required'"
         />
+        <img src="/static/images/ic_instagram.png" />
       </v-flex>
       <v-flex xs12 text-xs-center>
         <v-select
@@ -179,6 +186,9 @@
                 <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
                   ><img src="/static/images/img_download_ios.svg" height="64"
                 /></a>
+              </div>
+              <div>
+                <img class="qr-code" src="/static/images/ios-app-link-qr.svg" />
               </div>
               <div><label>Android coming soon.</label></div>
             </div>

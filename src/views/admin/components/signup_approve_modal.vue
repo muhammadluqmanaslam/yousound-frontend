@@ -54,6 +54,15 @@
           >
         </v-flex>
         <v-flex xs12 sm12>
+          <label class="link-title">Instagram: </label>
+          <a
+            v-if="item.social_user_name"
+            :href="`https://instagram.com/${item.social_user_name}`"
+            target="_blank"
+            >https://instagram.com/{{ item.social_user_name }}</a
+          >
+        </v-flex>
+        <v-flex xs12 sm12>
           <label class="link-title">Website: </label>
           <a
             v-if="item.website_1_url"

@@ -103,6 +103,15 @@
               }}
             </a>
           </td>
+          <td class="text-xs-left">
+            <a
+              v-if="props.item.social_user_name"
+              :href="`https://instagram.com/${props.item.social_user_name}`"
+              target="_blank"
+            >
+              https://instagram.com/{{ props.item.social_user_name }}
+            </a>
+          </td>
           <td class="text-xs-left">{{ props.item.created_at | formatDate }}</td>
           <td class="text-xs-left">
             <router-link

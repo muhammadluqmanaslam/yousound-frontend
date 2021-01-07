@@ -50,6 +50,12 @@ export default {
           sortable: false,
         },
         {
+          text: 'Instagram Link',
+          value: 'social_user_name',
+          align: 'left',
+          sortable: false,
+        },
+        {
           text: 'Date Joined',
           value: 'created_at',
           align: 'left',

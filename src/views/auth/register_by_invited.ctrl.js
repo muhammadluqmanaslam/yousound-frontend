@@ -27,7 +27,7 @@ export default {
         avatar_file: null,
 
         genre_id: null,
-        social_user_id: '',
+        social_user_name: '',
         request_role: null,
       },
       inviter: {},
@@ -85,7 +85,10 @@ export default {
             formData.append('user[avatar]', this.user.avatar_file)
             formData.append('user[genre_id]', this.user.genre_id)
             formData.append('user[request_role]', this.user.request_role)
-            formData.append('user[social_user_id]', this.user.social_user_id)
+            formData.append(
+              'user[social_user_name]',
+              this.user.social_user_name
+            )
             AuthService.registerAsListener(formData)
               .then((res) => {
                 this.$store.dispatch('error/showLoadingActivity', false)

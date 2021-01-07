@@ -166,13 +166,13 @@
     width: 100px;
   }
   .avatar-area {
+    position: relative;
     background: #fafafa;
     border: 0.75px solid #d2d2d2;
     border-radius: 3.75px;
     width: 300px;
     height: 90px;
     margin: 28.5px auto 0;
-    position: relative;
     .avatar {
       position: absolute;
       top: 7.5px;
@@ -182,6 +182,13 @@
       width: 75px;
       height: 75px;
       border-radius: 37.5px;
+      &.default {
+        top: 24px;
+        left: 25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 0;
+      }
     }
     .upload-caption {
       position: absolute;
@@ -255,6 +262,17 @@
         background-color: transparent !important;
       }
     }
+  }
+
+  input.instagram_username {
+    padding-left: 45px;
+  }
+  input.instagram_username + img {
+    position: absolute;
+    top: 14px;
+    left: 18px;
+    width: 32px;
+    height: 32px;
   }
 
   .regular-checkbox {
@@ -591,6 +609,7 @@
 }
 
 .page.auth-page.register-success-page {
+  min-height: 100vh;
   background-color: #ffffff;
   .page-content {
     text-align: center;
@@ -630,6 +649,12 @@
 
   .download-section {
     margin-top: 30px;
+    img.qr-code {
+      width: 200px;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: #000000;
+    }
     label {
       line-height: 32px;
       letter-spacing: 0.8px;
@@ -674,6 +699,11 @@
   .page.auth-page.page.auth-page.register-success-page {
     .info-section {
       padding: 0 30px;
+    }
+    .download-section {
+      img.qr-code {
+        display: none;
+      }
     }
   }
 }
