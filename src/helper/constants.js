@@ -286,7 +286,7 @@ export const VideoGenres = [
 export const UserTypeOptions = [
   { value: 'artist', text: 'Artist' },
   { value: 'brand', text: 'Brand' },
-  { value: 'label', text: 'Label' },
+  // { value: 'label', text: 'Label' },
 ]
 
 export const StreamHourlyPrice = 1000
