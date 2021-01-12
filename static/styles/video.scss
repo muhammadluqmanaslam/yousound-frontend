@@ -341,11 +341,21 @@
   .form-control {
     height: 36px;
   }
+  textarea.form-control {
+    height: 80px;
+    resize: none;
+  }
 
   .control-label {
     a {
       font-size: 14px;
       font-weight: 500;
+    }
+    span {
+      float: right;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 27px;
     }
   }
 

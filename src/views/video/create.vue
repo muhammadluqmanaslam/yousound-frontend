@@ -27,12 +27,15 @@
           <v-layout row class="mt-5">
             <v-flex sm5>
               <div class="form-group">
-                <label class="control-label">Title of Event</label>
+                <label class="control-label"
+                  >Title of Event<span>80 char max</span></label
+                >
                 <input
                   type="text"
                   class="form-control"
                   name="title"
                   v-model="stream.name"
+                  maxlength="80"
                   v-validate="'required'"
                 />
               </div>
@@ -95,6 +98,17 @@
                   item-text="name"
                   item-value="value"
                   class="pt-0"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label"
+                  >Description<span>80 char max</span></label
+                >
+                <textarea
+                  class="form-control"
+                  v-model="stream.description"
+                  maxlength="80"
                 />
               </div>
 
