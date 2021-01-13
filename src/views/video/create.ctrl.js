@@ -39,6 +39,7 @@ export default {
       viewers_limits: StreamViewersLimits,
       costs: StreamCosts,
       streamCost: 1000,
+      profit_share_types: [],
       // periods: [],
       // period: 3600,
       // genres: [],
@@ -117,10 +118,6 @@ export default {
     creator_share() {
       return 100 - this._.sumBy(this.stream.collaborators, 'user_share')
     },
-
-    profit_share_types() {
-      return CollaboratorProfitShareTypes
-    },
   },
 
   // watch: {
@@ -151,6 +148,10 @@ export default {
       //     console.log('VideoGenres', vg)
       //   }
       // })
+
+      for (let i = 1; i <= 100; i++) {
+        this.profit_share_types.push(i)
+      }
 
       var params = {
         stripe_connected: true,
