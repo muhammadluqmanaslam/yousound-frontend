@@ -69,6 +69,7 @@ export default {
   }
 
   &__cta {
+    margin: 0;
     border-radius: 3.75px;
     background-color: #0074ff !important;
     text-transform: initial;
@@ -79,7 +80,7 @@ export default {
   &__image {
     z-index: 1;
     width: 100%;
-    padding-bottom: 100%;
+    padding-bottom: 56.25%;
     background-size: cover;
     overflow: hidden;
     background-position: center;
@@ -89,8 +90,8 @@ export default {
 
   &__caption {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
     padding: 5px 6px 4px 10px;
     border-radius: 3px;
     background-color: #ff0042;

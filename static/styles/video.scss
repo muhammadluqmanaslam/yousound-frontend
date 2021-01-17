@@ -399,6 +399,7 @@
   }
 
   .cover-wrapper {
+    padding-left: 15px;
     input[type='file'] {
       width: 0.75px;
       height: 0.75px;
@@ -408,7 +409,7 @@
       z-index: -1;
     }
     input[type='file'] + label {
-      display: inline-block;
+      display: block;
       color: #1976d2;
       font-size: 14px;
       cursor: pointer;
@@ -426,8 +427,8 @@
     position: relative;
     // width: 60%;
     // padding-top: 60%;
-    width: 330px;
-    padding-top: 330px;
+    width: 320px;
+    padding-top: 180px;
     .video-thumbnail {
       position: absolute;
       top: 0;
@@ -447,6 +448,10 @@
         font-size: 18px;
       }
     }
+  }
+
+  .video-thumbnail-container {
+    display: flex;
   }
 
   .card.user-preview {
