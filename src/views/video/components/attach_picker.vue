@@ -126,8 +126,9 @@
 
 <script>
 import _ from 'lodash'
-import AlbumService from '@/services/album'
-import ProductService from '@/services/product'
+// import AlbumService from '@/services/album'
+// import ProductService from '@/services/product'
+import MeService from '@/services/me'
 
 export default {
   props: {
@@ -189,15 +190,17 @@ export default {
 
     this.$store.dispatch('error/showLoadingActivity', true)
     Promise.all([
-      AlbumService.getAlbums({
-        statuses: 'published, collaborated',
-        user_statuses: 'accepted',
-      }),
-      ProductService.getProducts({
-        statuses: 'published, collaborated',
-        stock_statuses: 'active',
-        user_statuses: 'accepted',
-      }),
+      // AlbumService.getAlbums({
+      //   statuses: 'published, collaborated',
+      //   user_statuses: 'accepted',
+      // }),
+      // ProductService.getProducts({
+      //   statuses: 'published, collaborated',
+      //   stock_statuses: 'active',
+      //   user_statuses: 'accepted',
+      // }),
+      MeService.videoAttachAlbums(),
+      MeService.videoAttachProducts(),
     ])
       .then((values) => {
         this.albums = values[0].body

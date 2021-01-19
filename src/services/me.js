@@ -14,13 +14,23 @@ const MeService = {
       headers: { Authorization: $store.state.auth.token },
     }),
 
+  videoAttachAlbums: () =>
+    Vue.http.get(`${API_BASE_URL}/video_attach_albums`, {
+      headers: { Authorization: $store.state.auth.token },
+    }),
+
+  videoAttachProducts: () =>
+    Vue.http.get(`${API_BASE_URL}/video_attach_products`, {
+      headers: { Authorization: $store.state.auth.token },
+    }),
+
   connectStripe: (params) =>
     Vue.http.post(`${API_BASE_URL}/connect_stripe`, params, {
       headers: { Authorization: $store.state.auth.token },
     }),
 
   disconnectStripe: () =>
-    Vue.http.get(`${API_BASE_URL}//disconnect_stripe`, {
+    Vue.http.get(`${API_BASE_URL}/disconnect_stripe`, {
       headers: { Authorization: $store.state.auth.token },
     }),
 }
