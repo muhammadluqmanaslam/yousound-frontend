@@ -139,34 +139,82 @@
             </v-flex>
 
             <v-flex sm7 pl-5>
-              <label class="control-label">Thumbnail</label>
+              <div class="form-group">
+                <label class="control-label">Thumbnail</label>
 
-              <div class="video-thumbnail-container">
-                <div class="video-thumbnail-wrapper">
-                  <div
-                    v-if="stream_cover_url"
-                    :style="{
-                      'background-image': 'url(' + stream_cover_url + ')',
-                    }"
-                    class="video-thumbnail"
-                  ></div>
-                  <div v-else class="video-thumbnail">
-                    <!-- <label>PREVIEW</label> -->
+                <div class="video-thumbnail-container">
+                  <div class="video-thumbnail-wrapper">
+                    <div
+                      v-if="stream_cover_url"
+                      :style="{
+                        'background-image': 'url(' + stream_cover_url + ')',
+                      }"
+                      class="video-thumbnail"
+                    ></div>
+                    <div v-else class="video-thumbnail">
+                      <!-- <label>PREVIEW</label> -->
+                    </div>
+                  </div>
+
+                  <div class="cover-wrapper">
+                    <input
+                      type="file"
+                      name="stream_cover_file"
+                      id="stream_cover_file"
+                      accept=".png, .jpg, .jpeg"
+                      v-validate="'required'"
+                      @change="imageChanged($event)"
+                    />
+                    <label for="stream_cover_file">Upload</label>
+                    <span>*PNG, JPG, GIF</span>
                   </div>
                 </div>
+              </div>
 
-                <div class="cover-wrapper">
-                  <input
-                    type="file"
-                    name="stream_cover_file"
-                    id="stream_cover_file"
-                    accept=".png, .jpg, .jpeg"
-                    v-validate="'required'"
-                    @change="imageChanged($event)"
-                  />
-                  <label for="stream_cover_file">Upload</label>
-                  <span>*PNG, JPG, GIF</span>
-                </div>
+              <div class="form-group">
+                <label class="control-label">Add people to follow button</label>
+                <v-select
+                  :items="users"
+                  v-model="stream.account_ids"
+                  multiple
+                  item-text="name"
+                  item-value="id"
+                  placeholder="Type name to search"
+                  chips
+                  class="pt-0"
+                  autocomplete
+                  clearable
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      :key="JSON.stringify(data.item)"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.avatar.url" />
+                      </v-avatar>
+                      {{ data.item.display_name }}
+                    </v-chip>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content
+                        v-text="data.item"
+                      ></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-avatar>
+                        <img v-bind:src="data.item.avatar.url" />
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title
+                          v-html="data.item.display_name"
+                        ></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-select>
               </div>
             </v-flex>
           </v-layout>

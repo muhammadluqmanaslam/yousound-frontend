@@ -76,6 +76,9 @@ able.table thead th:not(:first-child) {
     border-radius: 3.75px;
     .input-group__selections {
       padding-left: 11.25px;
+      input {
+        padding-left: 0;
+      }
     }
   }
 }

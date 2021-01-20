@@ -72,33 +72,32 @@
             </v-flex>
 
             <v-flex sm7 pl-5>
-              <label class="control-label">Thumbnail</label>
+              <div>
+                <label class="control-label">Thumbnail</label>
 
-              <div class="video-thumbnail-wrapper">
-                <div
-                  v-if="stream_cover_url"
-                  :style="{
-                    'background-image': 'url(' + stream_cover_url + ')',
-                  }"
-                  class="video-thumbnail"
-                ></div>
-                <!-- <div v-else class="video-thumbnail">
-                  <label>PREVIEW</label>
+                <div class="video-thumbnail-wrapper">
+                  <div
+                    v-if="stream_cover_url"
+                    :style="{
+                      'background-image': 'url(' + stream_cover_url + ')',
+                    }"
+                    class="video-thumbnail"
+                  ></div>
+                </div>
+
+                <!-- <div class="cover-wrapper">
+                  <input
+                    type="file"
+                    name="stream_cover_file"
+                    id="stream_cover_file"
+                    accept=".png, .jpg, .jpeg"
+                    v-validate="'required'"
+                    @change="imageChanged($event)"
+                  />
+                  <label for="stream_cover_file">Upload</label>
+                  <span>*PNG, JPG, GIF</span>
                 </div> -->
               </div>
-
-              <!-- <div class="cover-wrapper">
-                <input
-                  type="file"
-                  name="stream_cover_file"
-                  id="stream_cover_file"
-                  accept=".png, .jpg, .jpeg"
-                  v-validate="'required'"
-                  @change="imageChanged($event)"
-                />
-                <label for="stream_cover_file">Upload</label>
-                <span>*PNG, JPG, GIF</span>
-              </div> -->
             </v-flex>
           </v-layout>
         </form>

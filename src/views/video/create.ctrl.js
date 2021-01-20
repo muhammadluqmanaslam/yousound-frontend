@@ -17,7 +17,6 @@ import {
   StreamViewPrices,
   StreamViewersLimits,
   StreamCosts,
-  CollaboratorProfitShareTypes,
 } from '@/helper'
 
 export default {
@@ -54,6 +53,7 @@ export default {
         ml_input_resolution: 'HD',
         ml_input_maximum_bitrate: 'MAX_10_MBPS',
         collaborators: [],
+        account_ids: [],
         creator_recoup_cost: 0,
       },
       stream_cover_url: null,
@@ -356,6 +356,10 @@ export default {
             formData.append('stream[cover]', this.stream.cover)
             formData.append('stream[viewers_limit]', this.stream.viewers_limit)
 
+            formData.append(
+              'stream[account_ids]',
+              this.stream.account_ids.join(',')
+            )
             formData.append(
               'stream[collaborators]',
               JSON.stringify(this.stream.collaborators)
