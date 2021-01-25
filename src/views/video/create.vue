@@ -216,6 +216,27 @@
                   </template>
                 </v-select>
               </div>
+
+              <div class="form-group viewer-support">
+                <label class="control-label">Allow viewer support</label>
+                <ul>
+                  <li>
+                    Upload a small file to include anything from music to videos
+                  </li>
+                  <li>
+                    Your viewers will be able to pay $1, $10, $100, or name
+                    their own price for this file.
+                  </li>
+                  <li>
+                    File is only available for the duration of the broadcast &
+                    downloadable on direct message
+                  </li>
+                </ul>
+                <digital-uploader
+                  :digitalContent="digital_content"
+                  accept=".zip, .mp3"
+                />
+              </div>
             </v-flex>
           </v-layout>
         </form>

@@ -5,6 +5,7 @@ import StreamService from '@/services/stream'
 import UserService from '@/services/user'
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
+import DigitalUploader from './components/digital_uploader'
 
 import {
   VideoGenres,
@@ -23,6 +24,7 @@ export default {
   components: {
     Attach,
     PaymentModal,
+    DigitalUploader,
   },
 
   data() {
@@ -60,6 +62,9 @@ export default {
       stream_assoc: {
         type: 'Album',
         value: null,
+      },
+      digital_content: {
+        file: null,
       },
       show_payment_dialog: false,
       show_stripe_connect_dialog: false,
@@ -355,6 +360,15 @@ export default {
             formData.append('stream[valid_period]', this.period)
             formData.append('stream[cover]', this.stream.cover)
             formData.append('stream[viewers_limit]', this.stream.viewers_limit)
+
+            formData.append(
+              'stream[digital_content]',
+              this.digital_content.file
+            )
+            formData.append(
+              'stream[digital_content_name]',
+              this.digital_content.file.name
+            )
 
             formData.append(
               'stream[account_ids]',
