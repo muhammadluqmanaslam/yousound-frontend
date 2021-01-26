@@ -273,7 +273,7 @@ export default {
       AlbumService.deleteAlbum(id)
         .then((response) => {
           this.isLoading = false
-          this.$router.push({ path: '/discover' })
+          this.$router.push({ path: '/album' })
         })
         .catch((e) => {
           this.isLoading = false
@@ -434,7 +434,7 @@ export default {
       AlbumService.repostAlbum(album_id)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
-          // this.$router.push({ path: '/discover' })
+          // this.$router.push({ path: '/album' })
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)

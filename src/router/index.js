@@ -26,7 +26,7 @@ import LandingPage from '@/views/landing/landing'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
-import Discover from '@/views/discover/index'
+// import Discover from '@/views/discover/index'
 import SearchPage from '@/views/search/search'
 import Feed from '@/views/feed/index'
 import ActivityIndex from '@/views/activity/index'
@@ -39,6 +39,8 @@ import Sell from '@/views/sell/sell'
 import OrderDetail from '@/views/sell/orderdetail'
 import AddProduct from '@/views/sell/add_product'
 import EditProduct from '@/views/sell/edit_product'
+import ProductIndex from '@/views/product/index'
+import AlbumIndex from '@/views/album/index'
 import AlbumDetail from '@/views/album/album'
 import PlaylistDetail from '@/views/album/playlist'
 import AlbumStats from '@/views/album/album_stats'
@@ -140,7 +142,9 @@ export function createRouter(settings) {
     // { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/video', name: 'VideoIndex', component: VideoIndex },
-    { path: '/discover', name: 'Discover', component: Discover },
+    // { path: '/discover', name: 'Discover', component: Discover },
+    { path: '/album', name: 'AlbumIndex', component: AlbumIndex },
+    { path: '/product', name: 'ProductIndex', component: ProductIndex },
     {
       path: '/search',
       name: 'Search',

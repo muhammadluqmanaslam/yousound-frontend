@@ -347,7 +347,7 @@ export default {
       AlbumService.deleteAlbum(id)
         .then((res) => {
           this.isLoading = false
-          this.$router.push({ path: '/discover' })
+          this.$router.push({ path: '/album' })
         })
         .catch((e) => {
           this.isLoading = false

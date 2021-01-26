@@ -111,7 +111,7 @@ export default {
 
   created() {
     if (this.currentUser) {
-      this.$router.push({ path: '/discover' })
+      this.$router.push({ path: '/album' })
     } else {
       this.$store.dispatch('navigator/goNextState', {
         page: 'landing',

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="28px" viewBox="0 0 24 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
-    <title>ic_delivery</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="07---Discover" transform="translate(-1641.000000, -61.000000)" fill-rule="nonzero" fill="#FFFFFF">
-            <path d="M1658.1416,80 L1659.28232,80 C1659.67883,80 1660.00026,80.3214366 1660.00026,80.7179487 L1660.00026,88.2564103 C1660.00026,88.6529224 1659.67883,88.974359 1659.28232,88.974359 L1646.71821,88.974359 L1646.71821,88.974359 C1646.3217,88.974359 1646.00026,88.6529224 1646.00026,88.2564103 L1646.00026,80.7179487 C1646.00026,80.3214366 1646.3217,80 1646.71821,80 L1647.78702,80 L1641.17667,72.4412308 C1641.04467,72.2901026 1640.98794,72.1005641 1641.00212,71.9160513 C1641.48685,65.7948205 1646.7414,61 1652.9643,61 C1659.1894,61 1664.44358,65.7951795 1664.92649,71.9167692 C1664.9414,72.1009231 1664.8843,72.2904615 1664.7523,72.4412308 L1658.1416,80 Z M1655.90976,72.2143578 C1655.08649,71.5385053 1654.05594,71.1686667 1652.96467,71.1686667 C1651.8723,71.1686667 1650.84176,71.5385053 1650.01849,72.2143578 L1652.41382,80 L1653.54436,80 L1655.90976,72.2143578 Z M1642.75412,72.0139136 L1650.07818,80 L1650.99891,80 L1648.5523,72.3740923 C1647.70612,71.5981901 1646.60612,71.1686667 1645.43194,71.1686667 C1644.45412,71.1686667 1643.52612,71.4681256 1642.75412,72.0139136 Z M1654.98976,80 L1655.90976,80 L1663.17485,72.0135686 C1662.40358,71.4681256 1661.47558,71.1686667 1660.49812,71.1686667 C1659.32358,71.1686667 1658.22321,71.5985351 1657.37558,72.3747823 L1654.98976,80 Z" id="ic_delivery"></path>
+<svg width="96px" height="78px" viewBox="0 0 96 78" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>delivery</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="delivery" transform="translate(3.000000, 3.000000)" stroke="#000000" stroke-width="6">
+            <polyline id="Path" points="63 16.5 79.5 16.5 90 37.5 90 63 78 63"></polyline>
+            <line x1="60" y1="63" x2="28.5" y2="63" id="Path"></line>
+            <polyline id="Path" points="10.5 63 0 63 0 0 55.5 0 55.5 43.5"></polyline>
+            <polyline id="Path" points="67.5 25.5 67.5 37.5 81 37.4985"></polyline>
+            <circle id="Oval" cx="19.5" cy="63" r="9"></circle>
+            <circle id="Oval" cx="69" cy="63" r="9"></circle>
         </g>
     </g>
 </svg>

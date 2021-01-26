@@ -26,7 +26,7 @@ export default {
 
     if (this.$store) {
       if (this.$store.state.auth.user) {
-        this.$router.push({ path: '/discover' })
+        this.$router.push({ path: '/album' })
       } else {
         this.$store.dispatch('navigator/goNextState', {
           page: 'main_landing',

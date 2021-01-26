@@ -201,7 +201,7 @@
               <p class="empty-description">It’s a little lonely in here...</p>
               <router-link
                 v-if="currentUser && user.id == currentUser.id"
-                to="/discover"
+                to="/album"
                 class="empty-discover-btn"
                 >Discover</router-link
               >
@@ -334,7 +334,7 @@
                     <p class="empty-description">
                       You have no downloaded albums
                     </p>
-                    <router-link to="/discover" class="empty-discover-btn"
+                    <router-link to="/album" class="empty-discover-btn"
                       >Discover</router-link
                     >
                   </div>
@@ -353,7 +353,7 @@
                   <div class="empty-section">
                     <p class="empty-title">Empty</p>
                     <p class="empty-description">You have no reposts</p>
-                    <router-link to="/discover" class="empty-discover-btn"
+                    <router-link to="/album" class="empty-discover-btn"
                       >Discover</router-link
                     >
                   </div>
@@ -370,7 +370,7 @@
                   <div class="empty-section">
                     <p class="empty-title">Empty</p>
                     <p class="empty-description">You have no playlists</p>
-                    <router-link to="/discover" class="empty-discover-btn">Discover</router-link>
+                    <router-link to="/album" class="empty-discover-btn">Discover</router-link>
                   </div>
                 </template>
                 <template v-else>

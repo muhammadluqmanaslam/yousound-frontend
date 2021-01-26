@@ -47,16 +47,11 @@ const getters = {
   },
 
   isPrimaryTheme: (state) => {
-    return (
-      ['discover', 'profile-slider'].indexOf(state.current.page) > -1 &&
-      state.current.tab !== 'merch'
-    )
+    return ['music', 'profile-slider'].indexOf(state.current.page) > -1
   },
 
   isGrayTheme: (state) => {
-    return (
-      ['upload', 'merch', 'profile', 'merch'].indexOf(state.current.page) > -1
-    )
+    return ['upload', 'product', 'profile'].indexOf(state.current.page) > -1
   },
 
   isNormalTheme: (state) => {

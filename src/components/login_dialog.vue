@@ -142,7 +142,7 @@ export default {
 
           PlaylistService.getPlaylists().then((response) => {
             this.$store.dispatch('playlist/setPlaylists', response.body)
-            this.$router.push({ path: '/discover' })
+            this.$router.push({ path: '/album' })
           })
         })
         .catch((e) => {

@@ -23,7 +23,7 @@
           <p class="empty-description">
             Follow people to discover new music &amp; products.
           </p>
-          <router-link to="/discover" class="empty-discover-btn"
+          <router-link to="/album" class="empty-discover-btn"
             >Discover</router-link
           >
         </div>

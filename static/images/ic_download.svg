@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="93px" height="78px" viewBox="0 0 93 78" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>system-update</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="system-update" transform="translate(3.000000, 3.000000)" stroke="#000000" stroke-width="6">
+            <line x1="43.5" y1="48" x2="43.5" y2="0" id="Path"></line>
+            <path d="M58.5,0 L79.5,0 C83.6421356,0 87,3.35786438 87,7.5 L87,64.5 C87,68.6421356 83.6421356,72 79.5,72 L7.5,72 C3.35786438,72 0,68.6421356 0,64.5 L0,7.5 C0,3.35786438 3.35786438,0 7.5,0 L28.5,0" id="Path"></path>
+            <polyline id="Path" points="61.5 30 43.5 48 25.5 30"></polyline>
+        </g>
+    </g>
+</svg>

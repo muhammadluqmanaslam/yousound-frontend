@@ -353,7 +353,7 @@ export default {
           this.$router.push({ path: '/' })
           // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
           // setTimeout(() => {
-          //   this.$router.push({ path: '/discover' })
+          //   this.$router.push({ path: '/album' })
           // }, 5000)
         })
     },

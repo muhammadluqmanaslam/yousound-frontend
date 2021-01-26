@@ -50,6 +50,10 @@
         .menu__activator {
           cursor: default;
         }
+
+        .btn.btn--icon img {
+          filter: invert(1);
+        }
       }
 
       .stream-sector {

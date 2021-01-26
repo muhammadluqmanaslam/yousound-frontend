@@ -24,7 +24,7 @@
             This is where you'll see who followed, commented, and other
             activity.
           </p>
-          <router-link to="/discover" class="empty-discover-btn"
+          <router-link to="/album" class="empty-discover-btn"
             >Discover</router-link
           >
         </div>
