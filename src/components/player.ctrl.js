@@ -1,7 +1,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { Howl, Howler } from 'howler'
 import AlbumService from '@/services/album'
-import PaymentService from '@/services/payment'
+// import PaymentService from '@/services/payment'
 import TrackService from '@/services/track'
 import UserService from '@/services/user'
 import { MyEvents } from '@/helper'
@@ -73,19 +73,19 @@ export default {
     },
 
     album1Cover() {
-      return _.get(this.item.tracks, '[0].album.cover.url')
+      return this._.get(this.item.tracks, '[0].album.cover.url')
     },
 
     album2Cover() {
-      return _.get(this.item.tracks, '[1].album.cover.url')
+      return this._.get(this.item.tracks, '[1].album.cover.url')
     },
 
     album3Cover() {
-      return _.get(this.item.tracks, '[2].album.cover.url')
+      return this._.get(this.item.tracks, '[2].album.cover.url')
     },
 
     album4Cover() {
-      return _.get(this.item.tracks, '[3].album.cover.url')
+      return this._.get(this.item.tracks, '[3].album.cover.url')
     },
 
     followButtonText() {

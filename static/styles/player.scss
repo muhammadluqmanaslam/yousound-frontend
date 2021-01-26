@@ -77,7 +77,8 @@
             color: #fff !important;
             border: 0.75px solid #5bad00;
             &:hover {
-              color: #dc3545 !important;
+              background-color: #dc3545 !important;
+              color: #fff !important;
               border: 0.75px solid #dc3545;
             }
           }
@@ -100,27 +101,23 @@
   .player-section {
     position: relative;
     .controls-section {
-      position: relative;
-      padding-top: 7.5px;
-      text-align: center;
+      padding-top: 12px;
+      display: flex;
+      justify-content: center;
       .player-control-btn {
         width: 37.5px;
         min-width: 22.5px;
         height: 37.5px;
+        margin: 0 8px;
         border-radius: 37.5px;
         text-transform: none;
         box-shadow: none;
-        margin-bottom: 0px;
         background: transparent !important;
         .btn__content {
           padding: 0;
         }
         &.play {
-          // .btn__content {
-          //   padding: 0 0 0 7.5px;
-          // }
           .btn__content {
-            margin-top: -7px;
             .icon {
               font-size: 50px;
               color: #999;
@@ -129,7 +126,6 @@
         }
         &.pause {
           .btn__content {
-            margin-top: -7px;
             .icon {
               font-size: 50px;
               color: #999;
@@ -140,16 +136,18 @@
           background: rgba(0, 0, 0, 0.1) !important;
         }
       }
+
       .volume-container {
-        position: absolute;
-        display: flex;
-        right: 5px;
-        top: 10px;
-        height: 50px;
-        align-items: center;
+        position: relative;
+        display: inline-block;
+        width: 37.5px;
+        height: 37.5px;
+        margin: 0 8px;
         .volume {
+          position: absolute;
+          right: 2px;
           display: flex;
-          height: auto;
+          height: 100%;
           align-items: center;
           .input-group.volume-ranger {
             display: block;
@@ -162,8 +160,8 @@
             }
           }
           i {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             cursor: pointer;
             color: #999;
           }
