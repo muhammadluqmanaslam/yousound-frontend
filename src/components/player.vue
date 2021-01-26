@@ -91,7 +91,7 @@
       <div class="loading" id="loading" v-if="!isLoaded"></div>
       <div class="player-section" v-if="isLoaded">
         <div class="controls-section">
-          <v-tooltip top>
+          <!-- <v-tooltip top>
             <v-btn
               slot="activator"
               @click.native="randomPlay()"
@@ -106,7 +106,6 @@
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
-                <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
                 <desc>Created with Sketch.</desc>
                 <defs></defs>
                 <g
@@ -119,7 +118,7 @@
                   <g
                     id="Music-Players-––-Preference-Order"
                     transform="translate(-806.000000, -31.000000)"
-                    fill="#444444"
+                    fill="#999"
                   >
                     <g id="Group-29" transform="translate(0.000000, 1.000000)">
                       <g
@@ -142,7 +141,21 @@
               </svg>
             </v-btn>
             <span>Play random albums</span>
-          </v-tooltip>
+          </v-tooltip> -->
+
+          <div class="volume-container">
+            <div class="volume">
+              <v-slider
+                v-model="volume"
+                @input="updateVolume"
+                thumb-label
+                class="volume-ranger"
+                hide-details
+              ></v-slider>
+              <v-icon>volume_up</v-icon>
+            </div>
+          </div>
+
           <v-btn class="player-control-btn" @click.native="skip('prev')">
             <svg
               width="17px"
@@ -165,7 +178,7 @@
                 <g
                   id="Music-Players-––-Preference-Order"
                   transform="translate(-881.000000, -31.000000)"
-                  fill="#444444"
+                  fill="#999"
                 >
                   <g id="Group-29" transform="translate(0.000000, 1.000000)">
                     <g
@@ -226,7 +239,7 @@
                 <g
                   id="Music-Players-––-Preference-Order"
                   transform="translate(-1023.000000, -31.000000)"
-                  fill="#444444"
+                  fill="#999"
                 >
                   <g id="Group-29" transform="translate(0.000000, 1.000000)">
                     <g
@@ -275,7 +288,7 @@
                   id="Music-Players-––-Preference-Order"
                   transform="translate(-1089.000000, -30.000000)"
                   fill-rule="nonzero"
-                  fill="#444444"
+                  fill="#999"
                 >
                   <g id="Group-29" transform="translate(0.000000, 1.000000)">
                     <g
@@ -302,19 +315,6 @@
               </g>
             </svg>
           </v-btn>
-
-          <div class="volume-container">
-            <div class="volume">
-              <v-slider
-                v-model="volume"
-                @input="updateVolume"
-                thumb-label
-                class="volume-ranger"
-                hide-details
-              ></v-slider>
-              <v-icon>volume_up</v-icon>
-            </div>
-          </div>
         </div>
         <div class="bar-section">
           <!-- <label class="duration-time played" id="playedTime">0:34</label> -->
@@ -354,55 +354,7 @@
           slot="activator"
           @click.native="showShareModal = true"
         >
-          <svg
-            width="19px"
-            height="24px"
-            viewBox="0 0 19 24"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-          >
-            <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <g
-              id="Design"
-              stroke="none"
-              stroke-width="1"
-              fill="none"
-              fill-rule="evenodd"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <g
-                id="Music-Players-––-Preference-Order"
-                transform="translate(-1626.000000, -49.000000)"
-                stroke="#444444"
-                stroke-width="2"
-              >
-                <g id="Group-29" transform="translate(0.000000, 1.000000)">
-                  <g
-                    id="Group-25"
-                    transform="translate(1610.000000, 35.000000)"
-                  >
-                    <g
-                      id="Group-23"
-                      transform="translate(17.000000, 14.000000)"
-                    >
-                      <polyline
-                        id="Path-4"
-                        points="0 7.84687355 7.84687355 0 16.0848485 8.23797495"
-                      ></polyline>
-                      <path
-                        d="M8,2 L8.22007757,15.1724323 C8.20675907,19.362821 10.8240604,21.4617746 16.0719814,21.4692931"
-                        id="Path-3"
-                      ></path>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </g>
-          </svg>
+          <img src="/static/images/ic_share.svg" width="20" />
         </v-btn>
         <span>Share</span>
       </v-tooltip>
@@ -412,97 +364,13 @@
           @click.native="showDownloadModal = true"
           slot="activator"
         >
-          <svg
-            width="19px"
-            height="24px"
-            viewBox="0 0 19 24"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-          >
-            <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <g
-              id="Design"
-              stroke="none"
-              stroke-width="1"
-              fill="none"
-              fill-rule="evenodd"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <g
-                id="Music-Players-––-Preference-Order"
-                transform="translate(-1696.000000, -49.000000)"
-                stroke="#444444"
-                stroke-width="2"
-              >
-                <g id="Group-29" transform="translate(0.000000, 1.000000)">
-                  <g
-                    id="Group-26"
-                    transform="translate(1680.000000, 35.000000)"
-                  >
-                    <g
-                      id="Group-23-Copy"
-                      transform="translate(25.500000, 25.000000) rotate(-180.000000) translate(-25.500000, -25.000000) translate(17.000000, 14.000000)"
-                    >
-                      <polyline
-                        id="Path-4"
-                        points="0 7.84687355 7.84687355 0 16.0848485 8.23797495"
-                      ></polyline>
-                      <path
-                        d="M8,2 L8.22007757,15.1724323 C8.20675907,19.362821 10.8240604,21.4617746 16.0719814,21.4692931"
-                        id="Path-3"
-                      ></path>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </g>
-          </svg>
+          <img src="/static/images/ic_download.svg" width="20" />
         </v-btn>
         <span>Download</span>
       </v-tooltip>
       <v-tooltip top>
         <v-btn class="action-btn" @click.native="repostItem()" slot="activator">
-          <svg
-            width="24px"
-            height="20px"
-            viewBox="0 0 24 20"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-          >
-            <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <g
-              id="Design"
-              stroke="none"
-              stroke-width="1"
-              fill="none"
-              fill-rule="evenodd"
-            >
-              <g
-                id="Music-Players-––-Preference-Order"
-                transform="translate(-1763.000000, -51.000000)"
-                fill="#444444"
-              >
-                <g id="Group-29" transform="translate(0.000000, 1.000000)">
-                  <g
-                    id="Group-27"
-                    transform="translate(1750.000000, 35.000000)"
-                  >
-                    <path
-                      d="M35.3534522,24.450486 C35.8429936,24.420565 36.2837921,24.7701682 36.3232088,25.2639522 C36.3323591,25.3817114 36.5303225,28.1267443 34.64096,30.1604973 C33.3898314,31.5064173 31.5618815,32.1561054 29.207789,32.1561054 L18.3887823,32.1561054 L18.3887823,34.5503101 C18.3887823,34.723362 18.1964499,34.8813659 18.039135,34.9560809 C17.9773704,34.9860019 17.8186478,35 17.752308,35 C17.6507748,35 17.5499455,34.9657046 17.4677687,34.8999134 L13.643996,31.8232999 C13.5380636,31.7380863 13.476123,31.6098284 13.476123,31.4736966 C13.476123,31.3373899 13.5380636,31.209132 13.643996,31.1239184 L17.4677687,28.0473049 C17.6030876,27.9393444 17.8828759,27.9155475 18.039135,27.9911374 C18.1964499,28.0658524 18.3887823,28.2240313 18.3887823,28.3970831 L18.3887823,30.581316 L29.207789,30.581316 C31.02958,30.581316 32.4065253,30.0126421 33.3011438,29.0576198 C34.6546854,27.6124881 34.5204223,25.4555516 34.5190145,25.4343794 C34.4836451,24.9398955 34.8565201,24.4874061 35.3534522,24.450486 Z M13.9797193,25.5451396 C13.4903538,25.5748856 13.0493794,25.2275571 13.0101387,24.7337731 C13.0008124,24.6160139 12.802849,21.8543582 14.6922115,19.8204303 C15.9433401,18.4745103 17.77129,17.8080244 20.1253825,17.8080244 L30.9341831,17.8080244 L30.9341831,15.4496899 C30.9341831,15.276638 31.1316186,15.1184592 31.2889335,15.0439191 C31.350698,15.0139981 31.5146997,15 31.5808635,15 C31.6825727,15 31.783226,15.0341204 31.8654028,15.1000866 L35.6891755,18.1767001 C35.7952839,18.2619137 35.8570485,18.3901716 35.8570485,18.5263034 C35.8570485,18.6624351 35.7952839,18.790693 35.6891755,18.8760816 L31.8654028,21.9525201 C31.7302598,22.0606556 31.4453685,22.0844525 31.2889335,22.0088626 C31.1316186,21.9341476 30.9341831,21.7759687 30.9341831,21.6029169 L30.9341831,19.3828138 L20.1253825,19.3828138 C18.3035915,19.3828138 16.9266462,19.9695103 16.0322037,20.9243576 C14.678662,22.3696643 14.8129252,24.5355246 14.814157,24.5565218 C14.8495264,25.0511807 14.4766514,25.5082195 13.9797193,25.5451396 Z"
-                      id="ic_repeat"
-                    ></path>
-                  </g>
-                </g>
-              </g>
-            </g>
-          </svg>
+          <img src="/static/images/ic_repost.svg" width="20" />
         </v-btn>
         <span>Repost</span>
       </v-tooltip>
@@ -532,7 +400,7 @@
               <g
                 id="Music-Players-––-Preference-Order"
                 transform="translate(-1832.000000, -50.000000)"
-                stroke="#444444"
+                stroke="#999"
                 stroke-width="2"
               >
                 <g id="Group-29" transform="translate(0.000000, 1.000000)">

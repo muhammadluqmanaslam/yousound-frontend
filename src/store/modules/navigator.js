@@ -55,7 +55,7 @@ const getters = {
   },
 
   isNormalTheme: (state) => {
-    return ['album', 'playlist'].indexOf(state.current.page) > -1
+    return ['album/show', 'playlist'].indexOf(state.current.page) > -1
   },
 }
 

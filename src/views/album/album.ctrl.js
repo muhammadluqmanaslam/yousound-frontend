@@ -175,7 +175,10 @@ export default {
 
   created() {
     // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
-    this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'album/show',
+      tab: '',
+    })
     // console.log('current', this.$store.state.navigator.current)
     // console.log('last', this.$store.getters['navigator/last'])
 

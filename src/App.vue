@@ -5,7 +5,7 @@
     :class="{
       //'primary': $store.getters['navigator/isPrimaryTheme'],
       //gray: $store.getters['navigator/isGrayTheme'],
-      //normal: $store.getters['navigator/isNormalTheme'],
+      normal: $store.getters['navigator/isNormalTheme'],
       'app-audio': $store.state.player.isPlaying,
       'app-video': $store.getters['videoPlayer/hasFrame'],
       'app-header': $store.getters['navigator/hasHeader'],
