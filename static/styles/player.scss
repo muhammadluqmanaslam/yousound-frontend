@@ -43,7 +43,7 @@
         .track-name {
           padding-left: 3.75px;
           color: #fff;
-          font-weight: 700;
+          font-weight: 400;
           font-size: 14px;
           letter-spacing: -0.54px;
         }
@@ -55,7 +55,8 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         .user-name {
-          font-size: 15px;
+          font-size: 14px;
+          font-weight: 600;
           color: #fff;
           letter-spacing: -0.39px;
         }
@@ -68,18 +69,17 @@
           letter-spacing: 0;
           min-width: 100px;
           &.follow {
-            background-color: #3a92ff !important;
+            border: 1px solid #1872ff;
+            background-color: #1872ff !important;
             color: #fff !important;
-            border: 0.75px solid #3a92ff;
           }
           &.following {
-            background-color: #5bad00 !important;
+            border: 1px solid #5bad00;
+            background-color: #000 !important;
             color: #fff !important;
-            border: 0.75px solid #5bad00;
             &:hover {
-              background-color: #dc3545 !important;
-              color: #fff !important;
               border: 0.75px solid #dc3545;
+              background-color: #dc3545 !important;
             }
           }
         }
@@ -194,13 +194,24 @@
       }
       .player-bar {
         padding: 0 10px;
+      }
+    }
 
-        .slider {
-          &__track {
-            background-color: #000 !important;
-          }
-          &__thumb {
-          }
+    .slider {
+      &__track {
+        background-color: #000 !important;
+        &-fill {
+          background-color: #eee !important;
+          border-color: #eee !important;
+        }
+      }
+      &__thumb {
+        background-color: #eee !important;
+        border-color: #eee !important;
+        &--label {
+          background-color: #eee !important;
+          border-color: #eee !important;
+          color: #121212 !important;
         }
       }
     }

@@ -1,9 +1,9 @@
 <template>
   <v-container pa-0 class="genre" v-if="isPageReady">
-    <h3 class="mt-4 ml-2">Genre Filters</h3>
+    <h3 class="mt-4 ml-2">Genre Filter</h3>
     <p class="ma-2">
       Only albums from genres selected will appear on
-      <strong>Discover & Feed</strong>
+      <strong>Music & Home</strong>
     </p>
 
     <v-btn

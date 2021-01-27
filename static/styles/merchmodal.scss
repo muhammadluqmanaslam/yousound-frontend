@@ -15,8 +15,8 @@
     left: 0;
   }
   .popup-section {
-    max-width: 1000px;
-    margin-top: calc(50vh - 350px);
+    max-width: 1080px;
+    margin-top: calc(50vh - 385px);
     margin-left: auto;
     margin-right: auto;
     position: relative;
@@ -34,6 +34,7 @@
         border-radius: 7.5px;
         height: 0;
         padding-bottom: 100%;
+        overflow: visible;
         .carousel__item {
           position: absolute;
           top: 0;
@@ -45,11 +46,11 @@
         }
         .carousel__right {
           left: 260px;
-          top: 95%;
+          top: 97%;
         }
         .carousel__left {
           left: 185px;
-          top: 95%;
+          top: 97%;
         }
       }
       .product-cover-image {
@@ -105,12 +106,14 @@
         padding-top: 20px;
         padding-bottom: 58.5px;
         .item-name {
-          text-align: left;
           margin: 0;
-          font-size: 24px;
+          padding-bottom: 10px;
           color: #000000;
-          letter-spacing: -1px;
+          text-align: left;
+          line-height: 24px;
           font-family: 'Work Sans';
+          font-size: 24px;
+          letter-spacing: -1px;
         }
         .item-price {
           text-align: left;
@@ -123,12 +126,13 @@
           font-family: 'Work Sans';
         }
         .item-description {
+          width: 350px;
           max-height: 200px;
-          overflow-y: scroll;
+          overflow-y: auto;
           margin-bottom: 36px;
           padding-top: 14px;
           text-align: left;
-          font-size: 16px;
+          font-size: 14px;
           color: #444;
           letter-spacing: 0;
           margin-left: 0;
@@ -179,6 +183,7 @@
 
     .actions-section {
       display: flex;
+      margin-top: 30px;
       padding-top: 20px;
       justify-content: space-between;
       align-items: center;
@@ -189,7 +194,7 @@
         .action-btn {
           vertical-align: middle;
           cursor: pointer;
-          font-size: 16px;
+          font-size: 14px;
           color: #3a92ff;
           letter-spacing: 0;
           padding-right: 24px;

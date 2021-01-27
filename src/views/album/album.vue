@@ -243,8 +243,8 @@
                   v-if="album.collaborators_count == 0"
                   :class="{
                     'follow-btn': true,
-                    follow: false,
-                    following: true,
+                    follow: !album.user.is_following,
+                    following: album.user.is_following,
                   }"
                   @mouseenter="buttonHover = true"
                   @mouseleave="buttonHover = false"

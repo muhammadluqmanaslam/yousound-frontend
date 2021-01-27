@@ -630,7 +630,7 @@ p {
             letter-spacing: 0.6px;
           }
           .album-name {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: 600;
             color: #ffffff;
             letter-spacing: 0;
@@ -742,14 +742,15 @@ p {
               font-size: 16px;
               letter-spacing: 0;
               &.follow {
-                color: #ffffff !important;
-                border: 1px solid #ffffff;
+                border: 1px solid #1872ff;
+                background-color: #1872ff !important;
+                color: #fff !important;
               }
               &.following {
-                color: #ffffff !important;
-                border: 1px solid #ffffff;
+                border: 1px solid #5bad00;
+                background-color: rgba(0, 0, 0, 0.2) !important;
+                color: #fff !important;
                 &:hover {
-                  color: #fff !important;
                   border: 1px solid #ff3121;
                   background-color: rgba(255, 42, 26, 0.7) !important;
                 }
@@ -799,7 +800,7 @@ p {
               white-space: nowrap;
 
               .track-index {
-                font-size: 15px;
+                font-size: 14px;
                 color: rgba(255, 255, 255, 0.5);
                 letter-spacing: 0;
                 vertical-align: middle;
