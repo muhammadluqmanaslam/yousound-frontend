@@ -3,7 +3,7 @@
     <div class="d-flex">
       <div class="page-left">
         <div class="tab-container">
-          <h2 class="page-title">Product</h2>
+          <h2 class="page-title">Shop</h2>
           <ul class="pr-3">
             <!-- <li
               v-for="tab in tabs"

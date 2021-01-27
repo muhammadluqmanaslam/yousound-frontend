@@ -464,34 +464,19 @@
     <v-dialog
       v-model="show_invite_dialog"
       content-class="invite-dialog"
-      width="780"
+      width="440"
     >
       <v-card>
-        <v-container pa-4 fluid>
-          <v-layout row>
-            <v-flex xs8>
-              <v-card-title class="headline">Invite Artist/Brand</v-card-title>
-              <v-card-text
-                >Link expires in 72 hours and can only be used once</v-card-text
-              >
-              <v-card-actions>
-                <v-btn dark color="blue" @click.native="createInvitation()"
-                  ><v-icon class="mr-3">fa-link</v-icon> Copy Link</v-btn
-                >
-              </v-card-actions>
-              <div v-show="link_copied" class="link-copied">
-                link has been copied
-              </div>
-            </v-flex>
-            <v-flex xs4>
-              <v-card-media
-                src="/static/images/plug-link.jpg"
-                height="300px"
-                contain
-              ></v-card-media>
-            </v-flex>
-          </v-layout>
-        </v-container>
+        <v-card-title class="headline">Invite Artist/Brand</v-card-title>
+        <v-card-text
+          >Link expires in 72 hours and can only be used once</v-card-text
+        >
+        <v-card-actions>
+          <v-btn dark block color="black" @click.native="createInvitation()"
+            ><v-icon class="mr-3">fa-link</v-icon> Copy Link</v-btn
+          >
+        </v-card-actions>
+        <div v-show="link_copied" class="link-copied">link has been copied</div>
       </v-card>
     </v-dialog>
   </v-layout>
