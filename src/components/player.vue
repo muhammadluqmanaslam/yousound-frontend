@@ -152,54 +152,12 @@
                 class="volume-ranger"
                 hide-details
               ></v-slider>
-              <v-icon>volume_up</v-icon>
+              <img src="/static/images/ic_sound.svg" width="24" />
             </div>
           </div>
 
           <v-btn class="player-control-btn" @click.native="skip('prev')">
-            <svg
-              width="17px"
-              height="20px"
-              viewBox="0 0 17 20"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-              <desc>Created with Sketch.</desc>
-              <defs></defs>
-              <g
-                id="Design"
-                stroke="none"
-                stroke-width="1"
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  id="Music-Players-––-Preference-Order"
-                  transform="translate(-881.000000, -31.000000)"
-                  fill="#999"
-                >
-                  <g id="Group-29" transform="translate(0.000000, 1.000000)">
-                    <g
-                      id="Group-20"
-                      transform="translate(612.000000, 22.000000)"
-                    >
-                      <g
-                        id="Group-17"
-                        transform="translate(194.000000, 0.000000)"
-                      >
-                        <path
-                          d="M88.3333333,18.7692308 L75,28 L75,8 L88.3333333,17.2307692 L88.3333333,10.2222222 L91.6666667,10.2222222 L91.6666667,26.8888889 L88.3333333,26.8888889 L88.3333333,18.7692308 Z"
-                          id="Combined-Shape-Copy"
-                          transform="translate(83.333333, 18.000000) rotate(-180.000000) translate(-83.333333, -18.000000) "
-                        ></path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <img src="/static/images/ic_rewind.svg" width="24" />
           </v-btn>
           <v-btn
             class="player-control-btn play"
@@ -207,7 +165,7 @@
             id="play"
             v-if="!isPlaying"
           >
-            <v-icon>play_arrow</v-icon>
+            <img src="/static/images/ic_play.svg" height="32" />
           </v-btn>
           <v-btn
             class="player-control-btn pause"
@@ -215,105 +173,17 @@
             v-if="isPlaying"
             @click.native="pause()"
           >
-            <v-icon>pause</v-icon>
+            <img src="/static/images/ic_pause.svg" height="32" />
           </v-btn>
           <v-btn class="player-control-btn" @click.native="skip('next')">
-            <svg
-              width="17px"
-              height="20px"
-              viewBox="0 0 17 20"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-              <desc>Created with Sketch.</desc>
-              <defs></defs>
-              <g
-                id="Design"
-                stroke="none"
-                stroke-width="1"
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  id="Music-Players-––-Preference-Order"
-                  transform="translate(-1023.000000, -31.000000)"
-                  fill="#999"
-                >
-                  <g id="Group-29" transform="translate(0.000000, 1.000000)">
-                    <g
-                      id="Group-20"
-                      transform="translate(612.000000, 22.000000)"
-                    >
-                      <g
-                        id="Group-17"
-                        transform="translate(194.000000, 0.000000)"
-                      >
-                        <path
-                          d="M230.333333,18.7692308 L217,28 L217,8 L230.333333,17.2307692 L230.333333,10.2222222 L233.666667,10.2222222 L233.666667,26.8888889 L230.333333,26.8888889 L230.333333,18.7692308 Z"
-                          id="Combined-Shape"
-                        ></path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <img src="/static/images/ic_skip.svg" width="24" />
           </v-btn>
           <v-btn
             class="player-control-btn"
             :class="{ selected: isRepeated }"
             @click.native="setRepeated()"
           >
-            <svg
-              width="19px"
-              height="22px"
-              viewBox="0 0 19 22"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
-              <desc>Created with Sketch.</desc>
-              <defs></defs>
-              <g
-                id="Design"
-                stroke="none"
-                stroke-width="1"
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <g
-                  id="Music-Players-––-Preference-Order"
-                  transform="translate(-1089.000000, -30.000000)"
-                  fill-rule="nonzero"
-                  fill="#999"
-                >
-                  <g id="Group-29" transform="translate(0.000000, 1.000000)">
-                    <g
-                      id="Group-20"
-                      transform="translate(612.000000, 22.000000)"
-                    >
-                      <g
-                        id="Group-17"
-                        transform="translate(194.000000, 0.000000)"
-                      >
-                        <g
-                          id="Group-24"
-                          transform="translate(283.000000, 7.000000)"
-                        >
-                          <path
-                            d="M10.6673959,5.092988 C12.3150242,5.35561496 13.8472319,6.16757868 15.0030722,7.45126942 C17.749136,10.5010822 17.4921392,15.211601 14.4260261,17.9723416 C11.359913,20.7330823 6.64833546,20.4962879 3.90227167,17.4464751 C1.15620788,14.3966623 1.41320466,9.68614356 4.47931778,6.9254029 C4.88974534,6.55585228 4.92288263,5.92355503 4.553332,5.51312747 C4.18378137,5.10269992 3.55148412,5.06956262 3.14105657,5.43911325 C-0.74448826,8.93767353 -1.07047076,14.9126382 2.41598202,18.7847363 C5.9024348,22.6568344 11.8787425,22.9571916 15.7642873,19.4586313 C19.6498321,15.960071 19.9758146,9.9851063 16.4893619,6.11300821 C14.9316592,4.38300417 12.8333517,3.32717366 10.5963152,3.06454316 L12.0700434,1.74500546 C12.4814986,1.37659929 12.5163967,0.744396785 12.1479905,0.332941632 C11.7795844,-0.0785135216 11.1473819,-0.113411623 10.7359267,0.254994541 L7.33294163,3.30193822 C6.88901946,3.6994145 6.88901946,4.39447285 7.33294163,4.79194914 L10.6912841,7.79892096 C11.1027392,8.16732713 11.7349417,8.13242903 12.1033479,7.72097387 C12.4717541,7.30951872 12.436856,6.67731621 12.0254008,6.30891005 L10.6673959,5.092988 Z"
-                            id="Combined-Shape"
-                          ></path>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <img src="/static/images/ic_refresh.svg" width="24" />
           </v-btn>
         </div>
         <div class="bar-section">

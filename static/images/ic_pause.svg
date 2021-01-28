@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="88px" viewBox="0 0 72 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>button-pause</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="button-pause" transform="translate(3.500000, 3.500000)" stroke="#000000" stroke-width="6">
+            <rect id="Rectangle" x="0" y="0" width="22.5" height="81"></rect>
+            <rect id="Rectangle" x="42.5" y="0" width="22.5" height="81"></rect>
+        </g>
+    </g>
+</svg>

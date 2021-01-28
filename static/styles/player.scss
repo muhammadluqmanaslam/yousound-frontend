@@ -116,21 +116,8 @@
         .btn__content {
           padding: 0;
         }
-        &.play {
-          .btn__content {
-            .icon {
-              font-size: 50px;
-              color: #999;
-            }
-          }
-        }
-        &.pause {
-          .btn__content {
-            .icon {
-              font-size: 50px;
-              color: #999;
-            }
-          }
+        img {
+          filter: invert(1);
         }
         &.selected {
           background: rgba(0, 0, 0, 0.1) !important;
@@ -159,11 +146,8 @@
               opacity: 0;
             }
           }
-          i {
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            color: #999;
+          img {
+            filter: invert(1);
           }
           &:hover {
             .volume-ranger {
