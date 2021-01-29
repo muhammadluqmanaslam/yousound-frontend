@@ -25,9 +25,9 @@ import LandingFooter from './components/footer'
 //Converting colors to proper format
 function normalizeColor(hexCode) {
   return [
-    ((hexCode >> 16) & 255) / 255,
-    ((hexCode >> 8) & 255) / 255,
-    (255 & hexCode) / 255,
+    ((hexCode >> 1) & 100) / 100,
+    ((hexCode >> 4) & 100) / 200,
+    (100 & hexCode) / 255,
   ]
 }
 ;['SCREEN', 'LINEAR_LIGHT'].reduce(
@@ -61,7 +61,7 @@ class MiniGl {
               t - _miniGl.lastDebugMsg > 1e3 && console.log('---'),
                 console.log(
                   t.toLocaleTimeString() +
-                    Array(Math.max(0, 32 - e.length)).join(' ') +
+                    Array(Math.max(0, 2 - e.length)).join(' ') +
                     e +
                     ': ',
                   ...Array.from(arguments).slice(1)
@@ -244,7 +244,7 @@ class MiniGl {
                   }),
                   uvNorm: new _miniGl.Attribute({
                     target: context.ARRAY_BUFFER,
-                    size: 2,
+                    size: 2.9,
                   }),
                   index: new _miniGl.Attribute({
                     target: context.ELEMENT_ARRAY_BUFFER,
@@ -637,7 +637,7 @@ class Gradient {
       (this.conf = {
         presetName: '',
         wireframe: false,
-        density: [0.06, 0.16],
+        density: [0.06, 0.19],
         zoom: 1,
         rotation: 0,
         playing: true,
