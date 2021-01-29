@@ -1,42 +1,9 @@
 <template>
   <div class="footer-container">
-    <v-layout>
-      <!-- <div>
-        <img class="logo" src="/static/images/nav_logo_white.png" height="20">
-      </div> -->
-      <div>
-        <div><label>Company</label></div>
-        <!-- <div><a href="//yousound.ghost.io" target="_blank">Blog</a></div> -->
-        <div>
-          <a
-            href="mailto:investors@yousound.com?subject=Investment&body=Hi, please tell us about yourself & your investment history."
-            >Investors</a
-          >
-        </div>
-        <div>
-          <a
-            href="//support.yousound.com/en/collections/2401816-careers"
-            target="_blank"
-            >Careers</a
-          >
-        </div>
-      </div>
-      <div class="ml-5">
-        <div><label>Quick Links</label></div>
-        <div>
-          <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
-            >iOS App</a
-          >
-        </div>
-        <div><a href="//support.yousound.com" target="_blank">Support</a></div>
-      </div>
-      <v-spacer></v-spacer>
-      <!-- <div class="ml-5">
-        <img src="/static/images/img_download_ios.svg" height="48">
-      </div> -->
-    </v-layout>
+    <div>&copy; 2020 YouSound,Inc.</div>
+    <v-spacer></v-spacer>
 
-    <v-layout class="mt-5">
+    <div class="footer">
       <div><router-link to="/terms">Terms of use</router-link></div>
       <div class="ml-4">
         <router-link to="/terms#privacy_policy">Privacy</router-link>
@@ -47,32 +14,47 @@
         >
       </div>
       <div class="ml-4">
-        <router-link to="/terms#copyright_policy">Copyright</router-link>
+        <a href="//support.yousound.com" target="_blank">Support</a>
       </div>
-      <v-spacer></v-spacer>
-      <div>&copy; 2020 YouSound,Inc.</div>
-    </v-layout>
+      <div class="ml-4">
+        <a
+          href="mailto:investors@yousound.com?subject=Investment&body=Hi, please tell us about yourself & your investment history."
+          >Investors</a
+        >
+      </div>
+    </div>
+
+    <v-spacer></v-spacer>
+
+    <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
+      ><img src="/static/images/img_download_ios.svg" height="36"
+    /></a>
   </div>
 </template>
 
 <style lang="scss" scoped>
-div {
-  z-index: 9999;
-}
 .footer-container {
-  padding: 30px 120px;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  padding: 0 30px;
   background-color: #000;
   color: #fff;
   font-size: 12px;
-  line-height: 24px;
-  label {
-    color: #666;
+
+  .footer {
+    display: flex;
+    background: transparent;
   }
+
+  img {
+    filter: invert(1);
+  }
+
   a {
     color: #fff;
   }
-}
-a {
-  color: #fff;
 }
 </style>

@@ -1,39 +1,29 @@
 <template>
-  <v-toolbar height="100">
-    <v-toolbar-title>
+  <v-layout class="header-container">
+    <!-- <div>
       <img class="logo" src="/static/images/nav_logo_white.png" />
-    </v-toolbar-title>
+    </div> -->
+
     <v-spacer></v-spacer>
-    <v-toolbar-items>
-      <router-link to="/register"><b>Sign Up</b></router-link>
-      <router-link to="/login" class="ml-3">Log In</router-link>
-      <!-- <a href="#"><b>Launching Soon</b></a> -->
-    </v-toolbar-items>
-  </v-toolbar>
+
+    <router-link to="/login">Log In</router-link>
+    <router-link to="/register" class="ml-3">Sign Up</router-link>
+  </v-layout>
 </template>
 
 <style lang="scss" scoped>
-.toolbar {
-  padding: 0 120px;
-  &__title {
-    img {
-      height: 28px;
-    }
-  }
-  &__items {
-    align-items: center;
-    a {
-      color: #ffffff;
-      font-size: 18px;
-    }
-  }
-}
+.header-container {
+  width: 100%;
+  padding: 30px 30px;
+  background: transparent;
 
-:not(.btn):not(.menu):first-child {
-  margin-left: 0;
-}
+  img {
+    height: 28px;
+  }
 
-:not(.btn):not(.menu):last-child {
-  margin-right: 0;
+  a {
+    color: #ffffff;
+    font-size: 18px;
+  }
 }
 </style>
