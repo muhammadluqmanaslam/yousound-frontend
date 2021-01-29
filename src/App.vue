@@ -77,10 +77,9 @@
 </template>
 
 <script>
-/* global $:true */
-
+// /* global $:true */
 // import _ from 'lodash'
-import debounce from 'lodash/debounce'
+// import debounce from 'lodash/debounce'
 import Vue from 'vue'
 
 import ActivityService from '@/services/activity'
@@ -298,44 +297,44 @@ export default {
     },
   },
 
-  mounted() {
-    const vm = this
-    var _direction = 'none'
-    var _top = $(window).scrollTop()
+  // mounted() {
+  //   const vm = this
+  //   var _direction = 'none'
+  //   var _top = $(window).scrollTop()
 
-    var toggleBottomPlayer = debounce(function (show) {
-      if (show) {
-        $('.bottom-player').animate({ bottom: 0 }, 500)
-      } else {
-        $('.bottom-player').animate({ bottom: -150 }, 500)
-      }
-    }, 250)
+  //   var toggleBottomPlayer = debounce(function (show) {
+  //     if (show) {
+  //       $('.bottom-player').animate({ bottom: 0 }, 500)
+  //     } else {
+  //       $('.bottom-player').animate({ bottom: -150 }, 500)
+  //     }
+  //   }, 250)
 
-    $(window).scroll(function (event) {
-      var _curTop = $(window).scrollTop()
-      if (_top < _curTop) {
-        if (vm.direction === 'down') {
-          _direction = 'none'
-        } else {
-          _direction = 'down'
-          vm.direction = 'down'
-        }
-      } else {
-        if (vm.direction === 'up') {
-          _direction = 'none'
-        } else {
-          _direction = 'up'
-          vm.direction = 'up'
-        }
-      }
-      _top = _curTop
+  //   $(window).scroll(function (event) {
+  //     var _curTop = $(window).scrollTop()
+  //     if (_top < _curTop) {
+  //       if (vm.direction === 'down') {
+  //         _direction = 'none'
+  //       } else {
+  //         _direction = 'down'
+  //         vm.direction = 'down'
+  //       }
+  //     } else {
+  //       if (vm.direction === 'up') {
+  //         _direction = 'none'
+  //       } else {
+  //         _direction = 'up'
+  //         vm.direction = 'up'
+  //       }
+  //     }
+  //     _top = _curTop
 
-      if (vm.direction === 'up' && _direction === 'up') {
-        toggleBottomPlayer(true)
-      } else if (vm.direction === 'down' && _direction === 'down') {
-        toggleBottomPlayer(false)
-      }
-    })
-  },
+  //     if (vm.direction === 'up' && _direction === 'up') {
+  //       toggleBottomPlayer(true)
+  //     } else if (vm.direction === 'down' && _direction === 'down') {
+  //       toggleBottomPlayer(false)
+  //     }
+  //   })
+  // },
 }
 </script>
