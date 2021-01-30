@@ -881,11 +881,21 @@ export default {
     LandingFooter,
   },
 
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+  },
+
   created() {
-    this.$store.dispatch('navigator/goNextState', {
-      page: 'landing',
-      tab: '',
-    })
+    if (this.currentUser) {
+      this.$router.push({ path: '/album' })
+    } else {
+      this.$store.dispatch('navigator/goNextState', {
+        page: 'landing',
+        tab: '',
+      })
+    }
   },
 
   mounted() {

@@ -361,14 +361,17 @@ export default {
             formData.append('stream[cover]', this.stream.cover)
             formData.append('stream[viewers_limit]', this.stream.viewers_limit)
 
-            formData.append(
-              'stream[digital_content]',
-              this.digital_content.file
-            )
-            formData.append(
-              'stream[digital_content_name]',
-              this.digital_content.file.name
-            )
+            if (this.digital_content.file) {
+              formData.append(
+                'stream[digital_content]',
+                this.digital_content.file
+              )
+
+              formData.append(
+                'stream[digital_content_name]',
+                this.digital_content.file.name
+              )
+            }
 
             formData.append(
               'stream[account_ids]',
