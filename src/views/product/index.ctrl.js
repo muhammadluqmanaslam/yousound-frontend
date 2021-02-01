@@ -16,8 +16,6 @@ export default {
 
   data() {
     return {
-      activeTab: '',
-      tabs: [{ id: 'merch', title: 'Shop' }],
       seed: '',
       page_index: 1,
       total_pages: 1,
@@ -35,28 +33,8 @@ export default {
       return this.$store.state.auth.user
     },
 
-    selectedCategoryName() {
-      return _.get(this.selected_category, 'name', 'All Categories')
-    },
-
     filtered_feeds() {
       return this.feeds
-    },
-    // filtered_products() {
-    //   if (this.selected_category) {
-    //     return _.filter(this.products, (product) => (
-    //       product.category.id == this.selected_category.id
-    //     ))
-    //   } else {
-    //     return this.products
-    //   }
-    // }
-  },
-
-  watch: {
-    $route(toPath, fromPath) {
-      const tab = toPath.hash.substr(1)
-      this.setTab(tab)
     },
   },
 
@@ -67,18 +45,21 @@ export default {
       return
     }
 
+    this.$store.dispatch('navigator/goNextState', {
+      page: 'product',
+      tab: '',
+    })
     // this.seed = parseInt(Date.now() * Math.random())
     this.seed = Math.random()
-    const tab = this.$route.hash.substr(1)
-    this.setTab(tab)
+    this.loadFeeds(1)
   },
 
   methods: {
-    isActiveTab(tab) {
-      return this.activeTab === tab
+    isActiveCategory(category) {
+      return _.get(this.selected_category, 'id', 'any') === category.id
     },
 
-    loadFeeds(tab, page) {
+    loadFeeds(page) {
       const vm = this
       if (page === 1) {
         this.isPageReady = false
@@ -87,15 +68,13 @@ export default {
       const genre = _.get(this.selected_genre, 'id', 'any')
       const category = _.get(this.selected_category, 'id', 'any')
       const params = {
-        filter: tab,
         genre: genre,
         category: category,
         page: page,
         per_page: this.items_per_page,
+        seed: this.seed,
       }
-      if (tab !== 'recommended') {
-        params['seed'] = this.seed
-      }
+
       SearchService.searchDiscover(params)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -105,9 +84,7 @@ export default {
             id: c,
             name: c,
           }))
-          this.categories = [{ id: 'any', name: 'Any category' }].concat(
-            categories
-          )
+          this.categories = [{ id: 'any', name: 'All' }].concat(categories)
 
           this.page_index = response.body.pagination.current_page
           this.total_pages = response.body.pagination.total_pages
@@ -156,45 +133,12 @@ export default {
       // this.page_index = 1
       this.total_pages = 1
       this.products = []
-      this.loadFeeds(this.activeTab, 1)
+      this.loadFeeds(1)
     },
 
     loadMore() {
       // this.page_index += 1
-      this.loadFeeds(this.activeTab, this.page_index + 1)
-    },
-
-    onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
-    },
-
-    setTab(tab) {
-      if (!tab) {
-        tab = 'merch'
-      }
-
-      // console.log(tab, this.activeTab)
-      this.activeTab = tab
-      this.page_index = 1
-      this.total_pages = 1
-      this.products = []
-      this.feeds = []
-      this.selected_genre = null
-      this.selected_category = null
-      this.$store.dispatch('navigator/goNextState', {
-        page: 'product',
-        tab: tab,
-      })
-      $('#category_selector .btn__content').html(
-        'Any category' + filterArrowDownString
-      )
-
-      this.$nextTick(() => {
-        this.loadFeeds(this.activeTab, 1)
-      })
+      this.loadFeeds(this.page_index + 1)
     },
   },
 
