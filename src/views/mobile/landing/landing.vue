@@ -2,7 +2,7 @@
   <div class="landing-page">
     <canvas id="gradient-canvas" data-transition-in> </canvas>
     <div class="content">
-      <img class="logo" src="/static/images/nav_logo_white.svg" /><br />
+      <img class="logo" src="/static/images/nav_logo_white.png" /><br />
       <label>All for you</label>
     </div>
 
