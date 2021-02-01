@@ -61,7 +61,7 @@
               style="margin-top: -2px"
             />
           </v-btn>
-          <span>Product</span>
+          <span>Shop</span>
         </v-tooltip>
 
         <v-tooltip bottom>

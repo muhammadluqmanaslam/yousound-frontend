@@ -152,12 +152,12 @@
                 class="volume-ranger"
                 hide-details
               ></v-slider>
-              <img src="/static/images/ic_sound.svg" width="24" />
+              <img src="/static/images/ic_sound.svg" width="20" />
             </div>
           </div>
 
           <v-btn class="player-control-btn" @click.native="skip('prev')">
-            <img src="/static/images/ic_rewind.svg" width="24" />
+            <img src="/static/images/ic_rewind.svg" width="20" />
           </v-btn>
           <v-btn
             class="player-control-btn play"
@@ -165,7 +165,7 @@
             id="play"
             v-if="!isPlaying"
           >
-            <img src="/static/images/ic_play.svg" height="32" />
+            <img src="/static/images/ic_play.svg" height="26" />
           </v-btn>
           <v-btn
             class="player-control-btn pause"
@@ -173,17 +173,17 @@
             v-if="isPlaying"
             @click.native="pause()"
           >
-            <img src="/static/images/ic_pause.svg" height="32" />
+            <img src="/static/images/ic_pause.svg" height="26" />
           </v-btn>
           <v-btn class="player-control-btn" @click.native="skip('next')">
-            <img src="/static/images/ic_skip.svg" width="24" />
+            <img src="/static/images/ic_skip.svg" width="20" />
           </v-btn>
           <v-btn
             class="player-control-btn"
             :class="{ selected: isRepeated }"
             @click.native="setRepeated()"
           >
-            <img src="/static/images/ic_refresh.svg" width="24" />
+            <img src="/static/images/ic_refresh.svg" width="18" />
           </v-btn>
         </div>
         <div class="bar-section">

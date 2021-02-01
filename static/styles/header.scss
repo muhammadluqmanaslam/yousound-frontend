@@ -90,7 +90,7 @@
       margin: 0;
     }
     .toolbar__content {
-      height: 112.5px !important;
+      height: 82.5px !important;
     }
     .badge__badge {
       top: 0px;
@@ -114,7 +114,7 @@
   }
 
   .search-box {
-    top: 37.5px;
+    top: 24.5px;
     position: absolute;
     left: calc(50% - 187.5px);
     width: 375px;
@@ -211,7 +211,6 @@
 .normal {
   .my-header {
     color: #000;
-    // background-color: transparent;
     background-color: transparent;
     .toolbar__title {
       background-image: url('../images/nav_logo_white.png');

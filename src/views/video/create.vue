@@ -103,12 +103,12 @@
 
               <div class="form-group">
                 <label class="control-label"
-                  >Description<span>80 char max</span></label
+                  >Description<span>160 char max</span></label
                 >
                 <textarea
                   class="form-control"
                   v-model="stream.description"
-                  maxlength="80"
+                  maxlength="160"
                 />
               </div>
 
