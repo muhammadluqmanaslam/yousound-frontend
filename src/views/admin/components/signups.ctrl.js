@@ -23,6 +23,7 @@ export default {
         { text: 'User Type', value: 'request_role', align: 'left' },
         { text: 'Genre', value: 'genre.name', align: 'left' },
         { text: 'Date Signed Up', value: 'created_at', align: 'left' },
+        { text: 'Invited By', value: 'invited_by', align: 'left' },
         { text: '', value: 'id', align: 'left' },
       ],
       invited_headers: [
