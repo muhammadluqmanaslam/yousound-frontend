@@ -98,6 +98,52 @@
                   <span>*PNG, JPG, GIF</span>
                 </div> -->
               </div>
+
+              <div class="form-group mt-2" v-if="stream.account_ids.length > 0">
+                <label class="control-label">People to follow button</label>
+                <v-select
+                  :items="users"
+                  v-model="stream.account_ids"
+                  multiple
+                  item-text="name"
+                  item-value="id"
+                  placeholder="Type name to search"
+                  chips
+                  class="pt-0"
+                  autocomplete
+                  readonly
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      :key="JSON.stringify(data.item)"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.avatar.url" />
+                      </v-avatar>
+                      {{ data.item.display_name }}
+                    </v-chip>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content
+                        v-text="data.item"
+                      ></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-avatar>
+                        <img v-bind:src="data.item.avatar.url" />
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title
+                          v-html="data.item.display_name"
+                        ></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-select>
+              </div>
             </v-flex>
           </v-layout>
         </form>

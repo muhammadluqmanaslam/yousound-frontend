@@ -1,3 +1,4 @@
+import MeService from '@/services/me'
 import StreamService from '@/services/stream'
 import { StreamViewPrices, StreamViewersLimits } from '@/helper'
 
@@ -13,6 +14,7 @@ export default {
       stream: null,
       view_prices: StreamViewPrices,
       viewers_limits: StreamViewersLimits,
+      users: [],
       isPageReady: false,
     }
   },
@@ -39,11 +41,38 @@ export default {
 
   created() {
     // console.log('video/edit', this.currentStream)
+
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
       tab: 'edit',
     })
+
+    this.isPageReady = false
+    this.$store.dispatch('error/showLoadingActivity', true)
+
     this.cloneStream(this.currentStream)
+    console.log(this.currentStream, this.stream)
+
+    var params = {
+      stripe_connected: true,
+      page: 1,
+      per_page: 30,
+    }
+    Promise.all([MeService.mutualUsers(params)])
+      .then((values) => {
+        this.users = values[0].body.users
+        this.isPageReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+
+        MeService.mutualUsers({ ...params, per_page: -1 }).then(
+          (response) => (this.users = response.body.users)
+        )
+      })
+      .catch((reason) => {
+        console.log(reason)
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', reason)
+      })
   },
 
   methods: {
@@ -64,7 +93,13 @@ export default {
         'view_price',
         'genre',
       ])
-      this.isPageReady = true
+      this.stream['account_ids'] = []
+      ;(stream.account_ids || []).forEach((id) => {
+        const account_id = parseInt(id)
+        if (account_id !== this.currentUser.id) {
+          this.stream.account_ids.push(account_id)
+        }
+      })
     },
 
     submit() {
