@@ -100,7 +100,7 @@
               </div>
 
               <div class="form-group mt-2" v-if="stream.account_ids.length > 0">
-                <label class="control-label">People to follow button</label>
+                <label class="control-label">Feature profiles</label>
                 <v-select
                   :items="users"
                   v-model="stream.account_ids"

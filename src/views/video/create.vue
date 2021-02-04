@@ -172,7 +172,7 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label">Add people to follow button</label>
+                <label class="control-label">Add feature profiles</label>
                 <v-select
                   :items="users"
                   v-model="stream.account_ids"
