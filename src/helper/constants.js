@@ -283,6 +283,14 @@ export const VideoGenres = [
   'GOSPEL',
 ]
 
+export const UserTypes = {
+  ADMIN: 'admin',
+  LISTENER: 'listener',
+  ARTIST: 'artist',
+  BRAND: 'brand',
+  LABEL: 'label',
+}
+
 export const UserTypeOptions = [
   { value: 'artist', text: 'Artist' },
   { value: 'brand', text: 'Brand' },
@@ -353,6 +361,7 @@ export const StreamViewersLimits = [
 ]
 export const StreamCosts = [
   { value: 1000, name: '$10' },
+  { value: 5000, name: '$50' },
   { value: 10000, name: '$100' },
   { value: 100000, name: '$1000' },
 ]

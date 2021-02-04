@@ -36,7 +36,7 @@ export default {
     getStream() {
       StreamService.getStream(this.currentUser.stream.id)
         .then((response) => {
-          if (response.body.status == 'deleted') {
+          if (response.body.status === 'deleted') {
             this.resetStream()
           }
         })

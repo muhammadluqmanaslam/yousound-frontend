@@ -1,5 +1,5 @@
 .bottom-player {
-  height: 90px;
+  height: 78px;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -8,33 +8,38 @@
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   background-color: hsla(240, 2.9%, 6.9%, 0.96);
   .track-detail-section {
-    .track-cover-image {
-      width: 75px;
-      height: 75px;
-      margin: 7.5px;
-      display: inline-block;
-      background-color: rgba(0, 0, 0, 0.1);
-      background-size: cover;
-      vertical-align: middle;
-      overflow: hidden;
-      /* Sketch doesnt export pattern fills at this point */
-      border-radius: 7.5px;
+    display: flex;
+    .track-cover-container {
+      flex: 0 0 auto;
+      width: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .track-cover-image {
+        width: 60px;
+        height: 60px;
+        display: inline-block;
+        background-color: rgba(0, 0, 0, 0.1);
+        background-size: cover;
+        vertical-align: middle;
+        overflow: hidden;
+        /* Sketch doesnt export pattern fills at this point */
+        border-radius: 7.5px;
+      }
+      .track-cover-image.playlist {
+        background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+        background-size: 50% 50%;
+      }
     }
-    .track-cover-image.playlist {
-      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
-      background-size: 50% 50%;
-    }
-    .track-info-section {
-      position: absolute;
-      top: 18.75px;
-      left: 90px;
-      // display: inline-block;
-      // vertical-align: middle;
+    .track-info-container {
+      display: flex;
+      align-items: center;
       .track-info {
         width: 340px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        padding-top: 10px;
         .track-index {
           font-size: 14px;
           color: #999;
@@ -45,7 +50,7 @@
           color: #fff;
           font-weight: 400;
           font-size: 14px;
-          letter-spacing: -0.54px;
+          letter-spacing: -0.4px;
         }
       }
       .user-info {
@@ -101,7 +106,7 @@
   .player-section {
     position: relative;
     .controls-section {
-      padding-top: 12px;
+      padding-top: 6px;
       display: flex;
       justify-content: center;
       .player-control-btn {
@@ -228,7 +233,10 @@
     }
   }
   .actions-section {
-    padding: 18.75px 30px 18.75px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 10px;
     .action-btn {
       width: 37.5px;
       min-width: 22.5px;

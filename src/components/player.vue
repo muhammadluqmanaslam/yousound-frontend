@@ -6,84 +6,88 @@
     v-if="$store.getters['player/isPlaying']"
   >
     <v-flex xs12 sm4 md4 class="track-detail-section">
-      <router-link :to="`/${item.album_type}/${item.slug}`">
-        <template v-if="item.album_type == 'playlist'">
-          <div
-            class="track-cover-image"
-            :class="item.album_type"
-            :style="{
-              'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`,
-            }"
-          ></div>
-        </template>
-        <template v-else>
-          <div
-            class="track-cover-image"
-            :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
-          ></div>
-        </template>
-      </router-link>
-      <div class="track-info-section">
-        <div class="track-info">
-          <label class="track-index" id="trackIndex">{{ trackIndex }}</label>
-          <label class="track-name" id="trackName">{{ track.name }}</label>
-        </div>
-        <div class="user-info">
-          <template v-if="item.collaborators_count > 0">
-            <router-link class="user-name" :to="'/' + item.user.slug">{{
-              item.user.display_name
-            }}</router-link>
-            <template v-for="c in item.collaborators">
-              <span :key="`span-${c.user.id}`">,&nbsp;</span>
-              <router-link
-                :key="`link-${c.user.id}`"
-                class="user-name"
-                :to="`/${c.user.slug}`"
-                >{{ c.user.display_name }}</router-link
-              >
-            </template>
-            <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
-          </template>
-          <template v-else-if="item.album_type == 'album'">
-            <router-link class="user-name" :to="'/' + item.user.slug">{{
-              item.user.display_name
-            }}</router-link>
-            <v-btn
-              v-if="
-                $store.state.auth.user &&
-                item.user.id != $store.state.auth.user.id
-              "
-              :class="{
-                'follow-btn': true,
-                follow: !item.user.is_following,
-                following: item.user.is_following,
+      <div class="track-cover-container">
+        <router-link :to="`/${item.album_type}/${item.slug}`">
+          <template v-if="item.album_type == 'playlist'">
+            <div
+              class="track-cover-image"
+              :class="item.album_type"
+              :style="{
+                'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`,
               }"
-              @mouseenter="buttonHover = true"
-              @mouseleave="buttonHover = false"
-              @click.native="followUser()"
-              >{{ followButtonText }}</v-btn
-            >
+            ></div>
           </template>
           <template v-else>
-            <router-link class="user-name" :to="'/' + track.user.slug">{{
-              track.user.display_name
-            }}</router-link>
-            <v-btn
-              v-if="
-                $store.state.auth.user &&
-                track.user.id != $store.state.auth.user.id
-              "
-              :class="{
-                'follow-btn': true,
-                follow: !track.user.is_following,
-                following: track.user.is_following,
-              }"
-              @mouseenter="buttonHover = true"
-              @mouseleave="buttonHover = false"
-              @click.native="followUser()"
-              >{{ followButtonText }}</v-btn
-            >
+            <div
+              class="track-cover-image"
+              :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
+            ></div>
           </template>
+        </router-link>
+      </div>
+      <div class="track-info-container">
+        <div>
+          <div class="track-info">
+            <label class="track-index" id="trackIndex">{{ trackIndex }}</label>
+            <label class="track-name" id="trackName">{{ track.name }}</label>
+          </div>
+          <div class="user-info">
+            <template v-if="item.collaborators_count > 0">
+              <router-link class="user-name" :to="'/' + item.user.slug">{{
+                item.user.display_name
+              }}</router-link>
+              <template v-for="c in item.collaborators">
+                <span :key="`span-${c.user.id}`">,&nbsp;</span>
+                <router-link
+                  :key="`link-${c.user.id}`"
+                  class="user-name"
+                  :to="`/${c.user.slug}`"
+                  >{{ c.user.display_name }}</router-link
+                >
+              </template>
+              <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
+            </template>
+            <template v-else-if="item.album_type == 'album'">
+              <router-link class="user-name" :to="'/' + item.user.slug">{{
+                item.user.display_name
+              }}</router-link>
+              <v-btn
+                v-if="
+                  $store.state.auth.user &&
+                  item.user.id != $store.state.auth.user.id
+                "
+                :class="{
+                  'follow-btn': true,
+                  follow: !item.user.is_following,
+                  following: item.user.is_following,
+                }"
+                @mouseenter="buttonHover = true"
+                @mouseleave="buttonHover = false"
+                @click.native="followUser()"
+                >{{ followButtonText }}</v-btn
+              >
+            </template>
+            <template v-else>
+              <router-link class="user-name" :to="'/' + track.user.slug">{{
+                track.user.display_name
+              }}</router-link>
+              <v-btn
+                v-if="
+                  $store.state.auth.user &&
+                  track.user.id != $store.state.auth.user.id
+                "
+                :class="{
+                  'follow-btn': true,
+                  follow: !track.user.is_following,
+                  following: track.user.is_following,
+                }"
+                @mouseenter="buttonHover = true"
+                @mouseleave="buttonHover = false"
+                @click.native="followUser()"
+                >{{ followButtonText }}</v-btn
+              >
+            </template>
+          </div>
         </div>
       </div>
     </v-flex>
@@ -197,6 +201,7 @@
               class="player-bar"
               v-model="progress"
               @click.native="seek(progress)"
+              hide-details
             ></v-slider>
           </v-spacer>
           <!-- <label class="duration-time total" id="totalTime">2:40</label> -->
