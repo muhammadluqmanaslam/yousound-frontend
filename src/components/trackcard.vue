@@ -69,10 +69,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img
+                    <!-- <img
                       class="track-status-icon"
                       src="/static/images/ic_repeat.png"
-                    />
+                    /> -->
                     <label>Repost</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -83,10 +83,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img
+                    <!-- <img
                       class="track-status-icon"
                       src="/static/images/ic_download.png"
-                    />
+                    /> -->
                     <label>Download</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -96,10 +96,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img
+                    <!-- <img
                       class="track-status-icon"
                       src="/static/images/ic_share.png"
-                    />
+                    /> -->
                     <label>Share</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -110,7 +110,7 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <v-icon>visibility_off</v-icon>
+                    <!-- <v-icon>visibility_off</v-icon> -->
                     <label>Hide</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -121,10 +121,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img
+                    <!-- <img
                       class="track-status-icon"
                       src="/static/images/ic_flag.png"
-                    />
+                    /> -->
                     <label>Report</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -135,10 +135,10 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <img
+                    <!-- <img
                       class="track-status-icon"
                       src="/static/images/ic_add_to.png"
-                    />
+                    /> -->
                     <label>Add to my label</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -149,10 +149,10 @@
                 >
                   <v-menu v-model="submenu" offset-x class="track-menu">
                     <v-list-tile-title slot="activator" class="has-sub-menu">
-                      <img
+                      <!-- <img
                         class="track-status-icon"
                         src="/static/images/ic_add_to.png"
-                      />
+                      /> -->
                       <label>Add to Playlist</label>
                     </v-list-tile-title>
                     <v-list>
@@ -162,10 +162,10 @@
                         class="default-menu-item track-menu-item"
                       >
                         <v-list-tile-title>
-                          <img
+                          <!-- <img
                             class="track-status-icon"
                             src="/static/images/ic_add_to.png"
-                          />
+                          /> -->
                           <label>New Playlist</label>
                         </v-list-tile-title>
                       </v-list-tile>
@@ -176,10 +176,10 @@
                         class="default-menu-item track-menu-item"
                       >
                         <v-list-tile-title>
-                          <img
+                          <!-- <img
                             class="track-status-icon"
                             src="/static/images/ic_download.png"
-                          />
+                          /> -->
                           <label>{{ list.name }}</label>
                         </v-list-tile-title>
                       </v-list-tile>
@@ -196,7 +196,7 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <v-icon>thumb_up</v-icon>
+                    <!-- <v-icon>thumb_up</v-icon> -->
                     <label>Recommend</label>
                   </v-list-tile-title>
                 </v-list-tile>
@@ -210,7 +210,7 @@
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <v-icon>thumb_down</v-icon>
+                    <!-- <v-icon>thumb_down</v-icon> -->
                     <label>Unrecommend</label>
                   </v-list-tile-title>
                 </v-list-tile>

@@ -44,7 +44,7 @@
                 class="default-menu-item track-menu-item"
               >
                 <v-list-tile-title>
-                  <v-icon>visibility_off</v-icon>
+                  <!-- <v-icon>visibility_off</v-icon> -->
                   <label>Hide</label>
                 </v-list-tile-title>
               </v-list-tile>
