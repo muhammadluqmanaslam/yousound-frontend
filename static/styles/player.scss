@@ -19,12 +19,11 @@
         width: 60px;
         height: 60px;
         display: inline-block;
+        border-radius: 2px;
         background-color: rgba(0, 0, 0, 0.1);
         background-size: cover;
         vertical-align: middle;
         overflow: hidden;
-        /* Sketch doesnt export pattern fills at this point */
-        border-radius: 7.5px;
       }
       .track-cover-image.playlist {
         background-position: 0 0, 100% 0, 0 100%, 100% 100%;

@@ -50,7 +50,7 @@
             </thead>
             <tbody>
               <tr v-for="(item, index) in order_detail.items" :key="index">
-                <td class="text-xs-center">
+                <td class="text-xs-left">
                   <div
                     class="product-image"
                     :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
@@ -60,15 +60,15 @@
                   {{ item.product.name }}
                   <span>{{ item.product_variant.name }}</span>
                 </td>
-                <td class="text-xs-center">${{ item.price | formatNumber }}</td>
-                <td class="text-xs-center">{{ item.quantity }}</td>
-                <td class="text-xs-center">
+                <td class="text-xs-left">${{ item.price | formatNumber }}</td>
+                <td class="text-xs-left">{{ item.quantity }}</td>
+                <td class="text-xs-left">
                   ${{ item.shipping_cost | formatNumber }}
                 </td>
-                <td class="text-xs-center">{{ item.tax_percent }}%</td>
+                <td class="text-xs-left">{{ item.tax_percent }}%</td>
                 <td
                   v-if="currentUser.id !== user.id"
-                  class="text-xs-center red--text"
+                  class="text-xs-left red--text"
                 >
                   ${{ item.fee | formatNumber }}
                 </td>
