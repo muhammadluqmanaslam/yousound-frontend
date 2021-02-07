@@ -161,6 +161,7 @@
           <div class="page-content">
             <h5>Success!</h5>
             <div class="info-section">
+              <p>Please check your email to confirm your account.</p>
               <p>
                 Please allow at least 48 hours for staff to verify your account.
               </p>
