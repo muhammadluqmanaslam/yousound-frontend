@@ -623,17 +623,25 @@
     letter-spacing: -1.18px;
   }
 
+  p {
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
+
   .divider {
     width: 80%;
     margin: 0 auto;
   }
 
-  .info-section {
-    margin-bottom: 30px;
+  .overview-section {
+    margin-bottom: 40px;
     p {
-      font-size: 16px;
-      margin: 0 0 8px;
+      font-weight: 700;
     }
+  }
+
+  .info-section {
+    margin: 40px 0;
   }
 
   .article-section {
@@ -698,6 +706,10 @@
   }
 
   .page.auth-page.page.auth-page.register-success-page {
+    margin-bottom: 0;
+    .overview-section {
+      padding: 0 30px;
+    }
     .info-section {
       padding: 0 30px;
     }

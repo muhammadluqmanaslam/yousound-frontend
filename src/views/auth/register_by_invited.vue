@@ -159,9 +159,14 @@
             </v-flex>
           </div>
           <div class="page-content">
-            <h5>Success!</h5>
-            <div class="info-section">
+            <div class="overview-section">
+              <h5>Success!</h5>
               <p>Please check your email to confirm your account.</p>
+            </div>
+
+            <v-divider></v-divider>
+
+            <div class="info-section">
               <p>
                 Please allow at least 48 hours for staff to verify your account.
               </p>
@@ -174,14 +179,9 @@
                 download songs & broadcast live!
               </p>
             </div>
+
             <v-divider></v-divider>
-            <div class="article-section">
-              <div><label>Learn more:</label></div>
-              <div><a href="#">How to make money on YouSound</a></div>
-              <div><a href="#">YouSound Live Broadcast Strategies</a></div>
-              <div><a href="#">Read all articles</a></div>
-            </div>
-            <v-divider></v-divider>
+
             <div class="download-section">
               <div>
                 <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
