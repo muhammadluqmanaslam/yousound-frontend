@@ -73,7 +73,7 @@
             currency-symbol-position="prefix"
             separator=","
             :precision="2"
-            :min="0"
+            :min="1"
             v-model="donate_amount"
             class="donate-amount form-control"
           />

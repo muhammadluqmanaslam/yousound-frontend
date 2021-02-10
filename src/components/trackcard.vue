@@ -76,20 +76,20 @@
                     <label>Repost</label>
                   </v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile
+                <!-- <v-list-tile
                   v-if="item.album_type != 'playlist'"
                   key="download"
                   @click.native="showDownloadDialog()"
                   class="default-menu-item track-menu-item"
                 >
                   <v-list-tile-title>
-                    <!-- <img
+                    <img
                       class="track-status-icon"
                       src="/static/images/ic_download.png"
-                    /> -->
+                    />
                     <label>Download</label>
                   </v-list-tile-title>
-                </v-list-tile>
+                </v-list-tile> -->
                 <v-list-tile
                   key="share"
                   @click.native="showShareDialog()"

@@ -339,16 +339,16 @@
                   <v-icon right>more_horiz</v-icon>
                 </v-btn>
                 <v-list>
-                  <v-list-tile
+                  <!-- <v-list-tile
                     key="download"
                     class="default-menu-item"
                     @click.native="openDownloadModal()"
                   >
                     <v-list-tile-title>
-                      <!-- <img class="track-status-icon" src="/static/images/ic_share.png" /> -->
+                      <img class="track-status-icon" src="/static/images/ic_share.png" />
                       <label>Download album</label>
                     </v-list-tile-title>
-                  </v-list-tile>
+                  </v-list-tile> -->
                   <v-list-tile
                     key="share"
                     class="default-menu-item"
@@ -359,12 +359,12 @@
                       <label>Share</label>
                     </v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile key="flag" class="default-menu-item">
+                  <!-- <v-list-tile key="flag" class="default-menu-item">
                     <v-list-tile-title>
-                      <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
+                      <img class="track-status-icon" src="/static/images/ic_flag.png" />
                       <label>Flag</label>
                     </v-list-tile-title>
-                  </v-list-tile>
+                  </v-list-tile> -->
                 </v-list>
               </v-menu>
             </div>

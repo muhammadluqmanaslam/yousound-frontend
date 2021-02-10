@@ -58,19 +58,19 @@
             @click.native="removeItem()"
           >
             <v-list-tile-title class="default-menu-item">
-              <img
+              <!-- <img
                 class="track-status-icon"
                 src="/static/images/ic_comment_delete.png"
-              />
+              /> -->
               <label>Remove Track</label>
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile key="repost" @click.native="repostItem()">
             <v-list-tile-title class="default-menu-item">
-              <img
+              <!-- <img
                 class="track-status-icon"
                 src="/static/images/ic_repeat.png"
-              />
+              /> -->
               <label>Repost Album</label>
             </v-list-tile-title>
           </v-list-tile>
@@ -81,10 +81,10 @@
             @click.native="showDownloadDialog()"
           >
             <v-list-tile-title>
-              <img
+              <!-- <img
                 class="track-status-icon"
                 src="/static/images/ic_download.png"
-              />
+              /> -->
               <label>Download</label>
             </v-list-tile-title>
           </v-list-tile>
@@ -94,10 +94,10 @@
             @click.native="showShareDialog()"
           >
             <v-list-tile-title>
-              <img
+              <!-- <img
                 class="track-status-icon"
                 src="/static/images/ic_share.png"
-              />
+              /> -->
               <label>Share</label>
             </v-list-tile-title>
           </v-list-tile>
@@ -107,7 +107,7 @@
             @click.native="flagItem()"
           >
             <v-list-tile-title>
-              <img class="track-status-icon" src="/static/images/ic_flag.png" />
+              <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
               <label>Flag</label>
             </v-list-tile-title>
           </v-list-tile>
