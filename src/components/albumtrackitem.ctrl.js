@@ -77,6 +77,10 @@ export default {
     playlists() {
       return this.$store.state.playlist.playlists
     },
+
+    stripeConnected() {
+      return _.get(this.album, 'user.stripe_connected', false)
+    },
   },
 
   created() {},

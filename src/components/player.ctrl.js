@@ -72,6 +72,10 @@ export default {
       }
     },
 
+    stripeConnected() {
+      return this.user.stripe_connected
+    },
+
     album1Cover() {
       return this._.get(this.item.tracks, '[0].album.cover.url')
     },

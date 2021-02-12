@@ -75,9 +75,9 @@
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile
+            v-if="stripeConnected && album.album_type != 'playlist'"
             key="download"
             class="default-menu-item track-menu-item"
-            v-if="album.album_type != 'playlist'"
             @click.native="showDownloadDialog()"
           >
             <v-list-tile-title>

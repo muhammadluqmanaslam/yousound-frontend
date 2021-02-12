@@ -233,7 +233,7 @@
         </v-btn>
         <span>Share</span>
       </v-tooltip>
-      <v-tooltip top>
+      <v-tooltip top v-if="stripeConnected">
         <v-btn
           class="action-btn"
           @click.native="showDownloadModal = true"

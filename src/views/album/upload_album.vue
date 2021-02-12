@@ -246,6 +246,28 @@
         </v-flex>
 
         <v-flex xs12 class="additional-info-section">
+          <div>
+            <h4 class="album-info-title">Downloads</h4>
+          </div>
+          <ul>
+            <li>
+              To accept payments for downloads, you must
+              <span class="blue--text">Connect to Stripe</span> or downloads
+              will be disabled
+            </li>
+            <li>
+              The mp3 files you upload will be downloadable for a minimum of
+              <span class="black--text">$1.00 per track</span> buyers can choose
+              to pay more
+            </li>
+            <li>
+              Key radio & influential DJs will have access to download your
+              music for promotional use only.
+            </li>
+          </ul>
+        </v-flex>
+
+        <v-flex xs12 class="additional-info-section">
           <v-flex xs12>
             <v-layout>
               <v-flex xs12 sm6 pa-0>
