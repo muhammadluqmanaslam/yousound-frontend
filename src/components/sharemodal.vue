@@ -43,7 +43,7 @@
         <p class="item-name">{{ item.name }}</p>
       </v-flex>
       <v-flex xs12 class="share-social-section">
-        <v-btn class="social-share-btn"><v-icon>fa-envelope</v-icon></v-btn>
+        <!-- <v-btn class="social-share-btn"><v-icon>fa-envelope</v-icon></v-btn> -->
         <social-sharing v-bind:url="albumURL" inline-template>
           <div class="social-section">
             <network network="facebook">
