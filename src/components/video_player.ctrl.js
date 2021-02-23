@@ -181,7 +181,7 @@ export default {
 
   created() {
     // console.log('video-player created')
-    // this.$root.$on(MyEvents.AUTH_SIGNOUT, this.deleteStream)
+    // this.$root.$on(MyEvents.AUTH_SIGNOUT, this.archiveStream)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
@@ -216,7 +216,7 @@ export default {
 
   beforeDestroy() {
     console.log('video-player beforeDestroy')
-    // this.$root.$off(MyEvents.AUTH_SIGNOUT, this.deleteStream)
+    // this.$root.$off(MyEvents.AUTH_SIGNOUT, this.archiveStream)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
@@ -648,11 +648,11 @@ export default {
       this.$router.push({ path: `/${this.stream.assoc.slug}` })
     },
 
-    deleteStream() {
-      console.log('deleteStream', this.user)
+    archiveStream() {
+      console.log('archiveStream', this.user)
       this.closePlayer()
       if (this.stream) {
-        StreamService.deleteStream(this.stream.id)
+        StreamService.archiveStream(this.stream.id)
           .then((response) => {
             this.$store.dispatch('auth/setStream', null)
             this.$router.push({ path: '/' })

@@ -73,10 +73,10 @@ export default {
       this.show_stream_stop_confirm_dialog = false
     },
 
-    deleteStream() {
+    archiveStream() {
       this.closeStreamDeleteConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)
-      StreamService.deleteStream(this.item.id)
+      StreamService.archiveStream(this.item.id)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.item.status = 'deleted'

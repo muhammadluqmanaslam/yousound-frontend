@@ -36,6 +36,12 @@ export default {
     })
   },
 
+  archiveStream(streamId) {
+    return Vue.http.post(`${API_BASE_URL}/${streamId}/archive`, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   notifyStream(streamId) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}/notify`, {
       headers: { Authorization: $store.state.auth.token },

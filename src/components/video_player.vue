@@ -540,7 +540,7 @@
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="red--text darken-1" flat @click.native="deleteStream()"
+          <v-btn class="red--text darken-1" flat @click.native="archiveStream()"
             >Ok</v-btn
           >
           <v-btn

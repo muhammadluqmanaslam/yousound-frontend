@@ -202,7 +202,7 @@
               <v-btn
                 class="red--text darken-1"
                 flat
-                @click.native="deleteStream()"
+                @click.native="archiveStream()"
                 >Ok</v-btn
               >
               <v-btn
