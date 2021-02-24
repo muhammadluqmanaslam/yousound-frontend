@@ -5,7 +5,7 @@
         class="box__image"
         :style="`background-image: url(${_.get(item, 'cover.url')})`"
       ></div>
-      <div class="box__caption">Live</div>
+      <div class="box__caption" v-if="isLive">Live</div>
 
       <div class="box__overlay">
         <!-- <video-detail-box :item="item" /> -->
@@ -35,6 +35,12 @@ export default {
 
   props: {
     item: Object,
+  },
+
+  computed: {
+    isLive() {
+      return this._.get(this.item, 'status') === 'running'
+    },
   },
 
   methods: {},
