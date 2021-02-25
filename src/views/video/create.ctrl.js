@@ -72,6 +72,7 @@ export default {
       show_attach_picker: false,
       show_collaborators_dialog: false,
       users: [],
+      friends: [],
       isPageReady: false,
     }
   },
@@ -163,9 +164,18 @@ export default {
         page: 1,
         per_page: 30,
       }
+
+      var friendsParams = {
+        page: 1,
+        per_page: 30,
+      }
+
       this.isPageReady = false
       this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([MeService.mutualUsers(params)])
+      Promise.all([
+        MeService.mutualUsers(params),
+        MeService.mutualUsers(friendsParams),
+      ])
         .then((values) => {
           this.product_categories = this.$store.state.app.product_categories
           this.digital_content_category_ids = this.$store.getters[
@@ -173,11 +183,16 @@ export default {
           ]
 
           this.users = values[0].body.users
+          this.friends = values[1].body.users
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
 
           MeService.mutualUsers({ ...params, per_page: -1 }).then(
             (response) => (this.users = response.body.users)
+          )
+
+          MeService.mutualUsers({ ...friendsParams, per_page: -1 }).then(
+            (response) => (this.friends = response.body.users)
           )
         })
         .catch((reason) => {

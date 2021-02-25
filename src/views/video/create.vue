@@ -174,7 +174,7 @@
               <div class="form-group">
                 <label class="control-label">Add feature profiles</label>
                 <v-select
-                  :items="users"
+                  :items="friends"
                   v-model="stream.account_ids"
                   multiple
                   item-text="name"
