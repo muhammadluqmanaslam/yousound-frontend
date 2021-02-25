@@ -13,7 +13,7 @@ export default {
 
   data() {
     return {
-      genres: [],
+      // genres: [],
       parent: null,
       parent_index: 0,
       show_selector_view: true,
@@ -22,6 +22,24 @@ export default {
   },
 
   computed: {
+    genres() {
+      const genres = _.cloneDeep(this.$store.state.app.genres)
+
+      _.each(genres, (pg) => {
+        pg.value = false
+      })
+
+      _.each(genres, (pg) => {
+        _.each(pg.children, (cg) => {
+          if (cg.id === this.genre.id) {
+            pg.value = true
+          }
+        })
+      })
+
+      return genres
+    },
+
     genre: {
       get: function () {
         return this.$store.getters['genreSelector/genre']
@@ -35,19 +53,17 @@ export default {
 
   created() {
     // console.log('genreSelector', this.genre)
-    this.genres = _.cloneDeep(this.$store.state.app.genres)
-
-    _.each(this.genres, (pg) => {
-      pg.value = false
-    })
-
-    _.each(this.genres, (pg) => {
-      _.each(pg.children, (cg) => {
-        if (cg.id == this.genre.id) {
-          pg.value = true
-        }
-      })
-    })
+    // this.genres = _.cloneDeep(this.$store.state.app.genres)
+    // _.each(this.genres, (pg) => {
+    //   pg.value = false
+    // })
+    // _.each(this.genres, (pg) => {
+    //   _.each(pg.children, (cg) => {
+    //     if (cg.id == this.genre.id) {
+    //       pg.value = true
+    //     }
+    //   })
+    // })
   },
 
   methods: {

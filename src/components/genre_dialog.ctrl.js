@@ -13,7 +13,7 @@ export default {
 
   data() {
     return {
-      genres: [],
+      // genres: [],
       parent: null,
       region: {},
       parent_index: 0,
@@ -44,22 +44,46 @@ export default {
   //   })
   // },
 
-  created() {
-    this.genres = _.cloneDeep(this.$store.state.app.genres)
-    let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
+  computed: {
+    currentUser() {
+      return this.$store.state.auth
+    },
 
-    _.each(this.genres, (genre) => {
-      _.each(genre.children, (g) => {
-        g.value = !hiddenGenres[g.id]
+    genres() {
+      const genres = _.cloneDeep(this.$store.state.app.genres)
+      let hiddenGenres = _.keyBy(this.currentUser.hidden_genres, 'id')
+
+      _.each(genres, (genre) => {
+        _.each(genre.children, (g) => {
+          g.value = !hiddenGenres[g.id]
+        })
       })
-    })
 
-    // it stores only child genres statuses
-    _.each(this.genres, (genre) => {
-      if (!_.countBy(genre.children, 'value')['false']) {
-        genre.value = true
-      }
-    })
+      // it stores only child genres statuses
+      _.each(genres, (genre) => {
+        if (!_.countBy(genre.children, 'value')['false']) {
+          genre.value = true
+        }
+      })
+
+      return genres
+    },
+  },
+
+  created() {
+    // this.genres = _.cloneDeep(this.$store.state.app.genres)
+    // let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
+    // _.each(this.genres, (genre) => {
+    //   _.each(genre.children, (g) => {
+    //     g.value = !hiddenGenres[g.id]
+    //   })
+    // })
+    // // it stores only child genres statuses
+    // _.each(this.genres, (genre) => {
+    //   if (!_.countBy(genre.children, 'value')['false']) {
+    //     genre.value = true
+    //   }
+    // })
   },
 
   methods: {
