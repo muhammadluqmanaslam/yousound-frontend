@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <h3>Video Show</h3>
+  <div class="page video-page show-page mx-5">
+    <div class="d-flex">
+      <h3>Video Show</h3>
+      <div>
+        {{ stream }}
+      </div>
+    </div>
   </div>
 </template>
 

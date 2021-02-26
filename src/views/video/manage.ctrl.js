@@ -17,6 +17,7 @@ import {
   // StreamHourlyPrice,
   StreamViewersLimits,
   StreamCosts,
+  StreamStatuses,
 } from '@/helper'
 
 const ActionCable = require('actioncable')
@@ -91,7 +92,9 @@ export default {
     },
 
     isRunning() {
-      return _.get(this.currentUser, 'stream.status', '') === 'running'
+      return (
+        _.get(this.currentUser, 'stream.status', '') === StreamStatuses.RUNNING
+      )
       // return false
     },
 
@@ -502,7 +505,7 @@ export default {
       StreamService.getStream(this.currentUser.stream.id)
         .then((response) => {
           switch (response.body.status) {
-            case 'running':
+            case StreamStatuses.RUNNING:
               this.$store.dispatch('auth/setStream', response.body)
               if (this.creatingInterval) {
                 clearInterval(this.creatingInterval)
@@ -512,8 +515,9 @@ export default {
                 }, 1000)
               }
               break
-            case 'inactive':
-            case 'deleted':
+            case StreamStatuses.INACTIVE:
+            case StreamStatuses.ARCHIVED:
+            case StreamStatuses.DELETED:
               if (this.creatingInterval) {
                 clearInterval(this.creatingInterval)
               }

@@ -58,6 +58,7 @@ import VideoManage from '@/views/video/manage'
 import VideoInfo from '@/views/video/estimate'
 import VideoCreate from '@/views/video/create'
 import VideoEdit from '@/views/video/edit'
+import VideoShow from '@/views/video/show'
 import VideoDelete from '@/views/video/delete'
 
 Vue.use(vueMethodsPromise)
@@ -211,6 +212,11 @@ export function createRouter(settings) {
         path: '/user/:user/video/delete',
         name: 'VideoDelete',
         component: VideoDelete,
+      },
+      {
+        path: '/video/:videoId/show',
+        name: 'VideoShow',
+        component: VideoShow,
       },
     ])
   } else {

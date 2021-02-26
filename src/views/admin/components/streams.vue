@@ -71,7 +71,7 @@
                 </td>
                 <td class="text-xs-right">
                   <v-btn
-                    v-if="props.item.status === 'running'"
+                    v-if="props.item.status === StreamStatuses.RUNNING"
                     @click="openStreamStopConfirmDialog(props.item)"
                     fab
                     dark
@@ -79,6 +79,17 @@
                     class="stop-stream-btn"
                   >
                     <v-icon>stop</v-icon>
+                  </v-btn>
+
+                  <v-btn
+                    v-if="props.item.status === StreamStatuses.ARCHIVED"
+                    @click="openStreamStopConfirmDialog(props.item)"
+                    fab
+                    dark
+                    color="gray"
+                    class="stop-stream-btn"
+                  >
+                    <v-icon>videocam</v-icon>
                   </v-btn>
                 </td>
               </template>
@@ -101,7 +112,7 @@
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn class="red--text darken-1" flat @click.native="archiveStream()"
+          <v-btn class="red--text darken-1" flat @click.native="deleteStream()"
             >Ok</v-btn
           >
           <v-btn

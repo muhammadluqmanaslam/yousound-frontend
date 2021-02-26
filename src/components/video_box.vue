@@ -9,7 +9,13 @@
 
       <div class="box__overlay">
         <!-- <video-detail-box :item="item" /> -->
-        <v-btn block dark class="box__cta" :to="`/${_.get(item, 'user.slug')}`"
+        <v-btn
+          block
+          dark
+          class="box__cta"
+          :to="
+            isLive ? `/${_.get(item, 'user.slug')}` : `/video/${item.id}/show`
+          "
           >Watch Now</v-btn
         >
       </div>

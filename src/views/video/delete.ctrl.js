@@ -1,4 +1,5 @@
 import StreamService from '@/services/stream'
+import { StreamStatuses } from '@/helper'
 
 export default {
   components: {},
@@ -36,7 +37,10 @@ export default {
     getStream() {
       StreamService.getStream(this.currentUser.stream.id)
         .then((response) => {
-          if (response.body.status === 'deleted') {
+          if (
+            response.body.status === StreamStatuses.DELETED ||
+            response.body.status === StreamStatuses.ARCHIVED
+          ) {
             this.resetStream()
           }
         })

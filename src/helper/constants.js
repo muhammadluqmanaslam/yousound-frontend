@@ -365,6 +365,12 @@ export const StreamCosts = [
   { value: 10000, name: '$100' },
   { value: 100000, name: '$1000' },
 ]
+export const StreamStatuses = {
+  RUNNING: 'running',
+  INACTIVE: 'inactive',
+  ARCHIVED: 'archived',
+  DELETED: 'deleted',
+}
 
 // Additional options being used for user registration.
 export const UserBooleanOptions = [

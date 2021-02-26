@@ -1,9 +1,11 @@
 import AdminService from '@/services/admin'
 import StreamService from '@/services/stream'
+import { StreamStatuses } from '@/helper'
 
 export default {
   data() {
     return {
+      StreamStatuses: StreamStatuses,
       active_tab: 'all',
       tabs: [
         { id: 'all', title: 'All Users' },
@@ -73,10 +75,10 @@ export default {
       this.show_stream_stop_confirm_dialog = false
     },
 
-    archiveStream() {
-      this.closeStreamDeleteConfirmDialog()
+    deleteStream() {
+      this.closeStreamStopConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)
-      StreamService.archiveStream(this.item.id)
+      StreamService.deleteStream(this.item.id)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.item.status = 'deleted'
