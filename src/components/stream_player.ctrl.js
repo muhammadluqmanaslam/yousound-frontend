@@ -91,7 +91,7 @@ export default {
     },
 
     stream() {
-      return this.$store.state.videoPlayer.stream
+      return this.$store.state.streamPlayer.stream
     },
 
     streamGenreName() {
@@ -155,7 +155,7 @@ export default {
 
   watch: {
     $route(toPath, fromPath) {
-      // console.log('video-player', toPath.path, fromPath.path)
+      // console.log('stream-player', toPath.path, fromPath.path)
       this.show_payment_dialog = false
       this.show_streaming_confirm_dialog = false
     },
@@ -180,13 +180,13 @@ export default {
   },
 
   created() {
-    // console.log('video-player created')
+    // console.log('stream-player created')
     // this.$root.$on(MyEvents.AUTH_SIGNOUT, this.archiveStream)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$on(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
-    this.$root.$on(MyEvents.VIDEO_PLAYER_INIT, this.init)
-    this.$root.$on(MyEvents.VIDEO_PLAYER_SHUTDOWN, this.closePlayer)
+    this.$root.$on(MyEvents.STREM_PLAYER_INIT, this.init)
+    this.$root.$on(MyEvents.STREM_PLAYER_SHUTDOWN, this.closePlayer)
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
 
     Promise.all([
@@ -215,20 +215,20 @@ export default {
   },
 
   beforeDestroy() {
-    console.log('video-player beforeDestroy')
+    console.log('stream-player beforeDestroy')
     // this.$root.$off(MyEvents.AUTH_SIGNOUT, this.archiveStream)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_REPLAY, this.mutePlayer)
     this.$root.$off(MyEvents.AUDIO_PLAYER_PAUSE, this.unmutePlayer)
-    this.$root.$off(MyEvents.VIDEO_PLAYER_INIT, this.init)
-    this.$root.$off(MyEvents.VIDEO_PLAYER_SHUTDOWN, this.closePlayer)
+    this.$root.$off(MyEvents.STREM_PLAYER_INIT, this.init)
+    this.$root.$off(MyEvents.STREM_PLAYER_SHUTDOWN, this.closePlayer)
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.closePlayer()
   },
 
   methods: {
     init() {
-      console.log('video-player initializing...')
+      console.log('stream-player initializing...')
       // this.player.load('https://edge.flowplayer.org/functional.m3u8')
       // this.initPlayer('https://edge.flowplayer.org/functional.m3u8')
       // this.openStreamingConfirmDialog()
@@ -276,10 +276,10 @@ export default {
             ],
           },
           function () {
-            console.log('video_player ready', this)
+            console.log('stream_player ready', this)
             vm.player = this
 
-            vm.$store.dispatch('videoPlayer/setStatus', 'active')
+            vm.$store.dispatch('streamPlayer/setStatus', 'active')
             vm.player.requestFullscreen()
             // console.log(vm.$refs.myVideo)
             // console.log(vm.$refs.closeButton)
@@ -291,14 +291,14 @@ export default {
 
             vm.player.on('fullscreenchange', () => {
               if (vm.player.isFullscreen()) {
-                console.log('video_player fullscreen')
-                vm.$store.dispatch('videoPlayer/setFrameMode', 'full')
-                vm.$root.$emit(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER)
+                console.log('stream_player fullscreen')
+                vm.$store.dispatch('streamPlayer/setFrameMode', 'full')
+                vm.$root.$emit(MyEvents.STREM_PLAYER_FULLSCREEN_ENTER)
                 vm.player.muted(false)
                 vm.player.volume(1.0)
               } else {
-                console.log('video_player fullscreen-exit')
-                vm.$store.dispatch('videoPlayer/setFrameMode', 'normal')
+                console.log('stream_player fullscreen-exit')
+                vm.$store.dispatch('streamPlayer/setFrameMode', 'normal')
                 if (
                   vm.$store.state.player.isPlaying &&
                   !vm.$store.state.player.isPaused
@@ -310,10 +310,10 @@ export default {
 
             vm.player.on('dispose', () => {
               vm.$root.$emit(
-                MyEvents.VIDEO_PLAYER_EXIT,
-                _.get(vm.$store.state.videoPlayer.stream, 'user.username', '')
+                MyEvents.STREM_PLAYER_EXIT,
+                _.get(vm.$store.state.streamPlayer.stream, 'user.username', '')
               )
-              vm.$store.commit('videoPlayer/reset')
+              vm.$store.commit('streamPlayer/reset')
 
               let videoElement = document.createElement('video')
               videoElement.ref = 'myVideo'
@@ -329,7 +329,7 @@ export default {
       this.stream_subscription = this.cable.subscriptions.create(
         {
           channel: 'StreamsChannel',
-          stream_id: vm.$store.state.videoPlayer.stream.id,
+          stream_id: vm.$store.state.streamPlayer.stream.id,
         },
         {
           connected: () => {
@@ -339,11 +339,11 @@ export default {
             console.log('stream_subscription')
             console.log(data)
             if (data.assoc_type) {
-              vm.$store.dispatch('videoPlayer/updateStreamAssoc', data)
+              vm.$store.dispatch('streamPlayer/updateStreamAssoc', data)
             } else if (data.notified) {
               console.log('signal comming')
             } else {
-              vm.$store.dispatch('videoPlayer/addStats', data)
+              vm.$store.dispatch('streamPlayer/addStats', data)
             }
           },
           disconnected: () => {
@@ -363,11 +363,11 @@ export default {
         AuthService.getToken(),
         () => {
           this.chat_socket.onDisconnect = () => {
-            console.log('videoPlayer onDisconnect')
+            console.log('streamPlayer onDisconnect')
           }
 
           this.chat_socket.onMessage = function (message) {
-            // console.log('videoPlayer onMessage', message)
+            // console.log('streamPlayer onMessage', message)
             if (!message) return
 
             // look up the username in message.from to get image, etc.
@@ -400,18 +400,18 @@ export default {
           }
 
           // this.chat_socket.onUserInfo = function (user) {
-          //   console.log('videoPlayer onUserInfo')
+          //   console.log('streamPlayer onUserInfo')
           //   vm.user = user
           // }
 
           this.chat_socket.onRoomInfo = async (room) => {
-            console.log('videoPlayer onRoomInfo', room)
+            console.log('streamPlayer onRoomInfo', room)
             // Vue.set(vm, 'room', room)
             vm.room = room
           }
 
           this.chat_socket.onLoadMessages = function (loadMessageObj) {
-            // console.log('videoPlayer onLoadMessages')
+            // console.log('streamPlayer onLoadMessages')
             // loadMessageObj is an object {chunk: <chunk number>, data: <array of messages in chunk>, last: <if it's the last chunk>}
             for (
               var i = loadMessageObj.chunk * 500;
@@ -460,7 +460,7 @@ export default {
       ActivityService.getMetrics(params)
         .then((response) => {
           // console.log('getMetrics', response.body)
-          this.$store.dispatch('videoPlayer/setStats', response.body)
+          this.$store.dispatch('streamPlayer/setStats', response.body)
         })
         .catch((e) => {
           console.log('getMetrics', e.body.errors || [e.body])
@@ -669,7 +669,7 @@ export default {
     repostStream() {
       StreamService.repostStream(this.stream.id)
         .then((response) => {
-          this.$store.commit('videoPlayer/repostStream')
+          this.$store.commit('streamPlayer/repostStream')
           this.$store.dispatch('error/showSuccessToast', [
             'You just reposted this live stream',
           ])
@@ -740,7 +740,7 @@ export default {
 
     setFollowingStatus(userId, isFollowing) {
       if (this.user && this.user.id === userId) {
-        this.$store.dispatch('videoPlayer/updateFollowingStatus', isFollowing)
+        this.$store.dispatch('streamPlayer/updateFollowingStatus', isFollowing)
       }
     },
 

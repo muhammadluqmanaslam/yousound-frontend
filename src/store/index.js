@@ -15,7 +15,7 @@ import playlist from './modules/playlist'
 import product from './modules/product'
 import track from './modules/track'
 import user from './modules/user'
-import videoPlayer from './modules/video_player'
+import streamPlayer from './modules/stream_player'
 
 Vue.use(Vuex)
 
@@ -39,7 +39,7 @@ export default new Vuex.Store({
     product,
     track,
     user,
-    videoPlayer,
+    streamPlayer,
   },
   plugins: [],
 })

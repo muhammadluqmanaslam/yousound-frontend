@@ -1,4 +1,4 @@
-.video-player-wrapper {
+.stream-player-wrapper {
   z-index: 10;
   display: none;
   position: fixed;
@@ -708,13 +708,13 @@
 }
 
 .application.app-video {
-  .video-player-wrapper {
+  .stream-player-wrapper {
     display: block;
   }
 }
 
 .application.app-audio {
-  .video-player-wrapper {
+  .stream-player-wrapper {
     bottom: 100px;
   }
 }

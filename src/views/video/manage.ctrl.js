@@ -484,8 +484,8 @@ export default {
     isStreaming() {
       // return _.get(this.currentUser.stream, 'status', '') === 'started' &&
       return (
-        _.get(this.$store.state.videoPlayer.user, 'slug', '') !==
-          this.currentUser.slug || !this.$store.getters['videoPlayer/hasFrame']
+        _.get(this.$store.state.streamPlayer.user, 'slug', '') !==
+          this.currentUser.slug || !this.$store.getters['streamPlayer/hasFrame']
       )
     },
 
@@ -494,8 +494,11 @@ export default {
         UserService.getUserInfo(this.currentUser.id).then((response) => {
           AuthService.setUser(response.body)
 
-          this.$store.dispatch('videoPlayer/setStream', this.currentUser.stream)
-          this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+          this.$store.dispatch(
+            'streamPlayer/setStream',
+            this.currentUser.stream
+          )
+          this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
         })
       }
     },
@@ -563,10 +566,10 @@ export default {
         .then((response) => {
           // / close the video player if watching own live video
           if (
-            _.get(this.$store.state.videoPlayer.stream, 'id') ===
+            _.get(this.$store.state.streamPlayer.stream, 'id') ===
             this.currentUser.stream.id
           ) {
-            this.$root.$emit(MyEvents.VIDEO_PLAYER_SHUTDOWN)
+            this.$root.$emit(MyEvents.STREM_PLAYER_SHUTDOWN)
           }
           AuthService.setUser(response.body)
           this.$store.dispatch('auth/setStream', response.body.stream)

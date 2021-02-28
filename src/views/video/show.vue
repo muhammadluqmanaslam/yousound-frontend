@@ -1,11 +1,13 @@
 <template>
   <div class="page video-page show-page mx-5">
-    <div class="d-flex">
-      <h3>Video Show</h3>
-      <div>
+    <v-layout row>
+      <v-flex sm9>
         {{ stream }}
-      </div>
-    </div>
+      </v-flex>
+      <v-flex sm3>
+        {{ comments }}
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 

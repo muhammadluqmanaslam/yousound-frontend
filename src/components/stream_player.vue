@@ -1,6 +1,6 @@
 <template>
-  <!-- <div class="video-player-wrapper" :class="{'is-hide': !$store.getters['videoPlayer/hasFrame']}"> -->
-  <div class="video-player-wrapper" ref="myVideoPlayer">
+  <!-- <div class="stream-player-wrapper" :class="{'is-hide': !$store.getters['streamPlayer/hasFrame']}"> -->
+  <div class="stream-player-wrapper" ref="myVideoPlayer">
     <video
       ref="myVideo"
       id="my_video"
@@ -556,4 +556,4 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./video_player.ctrl.js"></script>
+<script type="text/javascript" src="./stream_player.ctrl.js"></script>

@@ -125,17 +125,17 @@ export default {
     isStreaming() {
       return (
         _.get(this.user.stream, 'status', '') === 'running' &&
-        (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !==
+        (_.get(this.$store.state.streamPlayer.stream, 'user.slug', '') !==
           this.user.slug ||
-          !this.$store.getters['videoPlayer/hasFrame'])
+          !this.$store.getters['streamPlayer/hasFrame'])
       )
       // return true
     },
 
     viewStream() {
       if (this.isStreaming()) {
-        this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-        this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+        this.$store.dispatch('streamPlayer/setStream', this.user.stream)
+        this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
       }
     },
 
@@ -576,12 +576,12 @@ export default {
   created() {
     this.artist = this.$route.params.user
 
-    this.$root.$on(MyEvents.VIDEO_PLAYER_EXIT, this.onExitVideoPlayer)
+    this.$root.$on(MyEvents.STREM_PLAYER_EXIT, this.onExitVideoPlayer)
     this.loadPage()
   },
 
   beforeDestroy() {
-    this.$root.$off(MyEvents.VIDEO_PLAYER_EXIT, this.onExitVideoPlayer)
+    this.$root.$off(MyEvents.STREM_PLAYER_EXIT, this.onExitVideoPlayer)
     this.unloadPage()
   },
 

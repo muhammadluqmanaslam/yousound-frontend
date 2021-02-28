@@ -401,8 +401,12 @@ export default {
         ])
       } else {
         let pageTrack = ''
-        if (this.$store.state.videoPlayer.frame_mode === 'full') {
-          const streamId = _.get(this.$store.state.videoPlayer.stream, 'id', '')
+        if (this.$store.state.streamPlayer.frame_mode === 'full') {
+          const streamId = _.get(
+            this.$store.state.streamPlayer.stream,
+            'id',
+            ''
+          )
           if (streamId !== '') {
             pageTrack = 'Stream: ' + streamId
           }

@@ -7,7 +7,7 @@
       //gray: $store.getters['navigator/isGrayTheme'],
       normal: $store.getters['navigator/isNormalTheme'],
       'app-audio': $store.state.player.isPlaying,
-      'app-video': $store.getters['videoPlayer/hasFrame'],
+      'app-video': $store.getters['streamPlayer/hasFrame'],
       'app-header': $store.getters['navigator/hasHeader'],
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
@@ -18,7 +18,7 @@
 
     <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
 
-    <video-player ref="videoPlayer" v-if="currentUser"></video-player>
+    <stream-player ref="streamPlayer" v-if="currentUser"></stream-player>
 
     <audio-player
       ref="audioPlayer"
@@ -94,7 +94,7 @@ import appHeader from '@/components/header'
 import appFooter from '@/components/footer'
 import earnMoneySticker from '@/components/earn_money'
 import audioPlayer from '@/components/player'
-import videoPlayer from '@/components/video_player'
+import streamPlayer from '@/components/stream_player'
 import loginDialog from '@/components/login_dialog'
 
 import { MyEvents, PublicRelationsUsername } from '@/helper'
@@ -110,7 +110,7 @@ export default {
     earnMoneySticker,
     loginDialog,
     audioPlayer,
-    videoPlayer,
+    streamPlayer,
   },
 
   data() {

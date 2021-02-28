@@ -549,6 +549,6 @@ export default {
     this.$root.$on(MyEvents.AUDIO_PLAYER_SKIPTO, this.skipTrack)
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
-    this.$root.$on(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER, this.pause)
+    this.$root.$on(MyEvents.STREM_PLAYER_FULLSCREEN_ENTER, this.pause)
   },
 }

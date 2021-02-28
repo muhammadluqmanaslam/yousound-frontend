@@ -18,7 +18,7 @@ import slide from '@/components/slider/Slide'
 import trackCard from '@/components/trackcard'
 import userItem from '@/components/useritem'
 import artistItem from '@/components/artistitem'
-// import videoPlayer from '@/components/video_player'
+// import streamPlayer from '@/components/stream_player'
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
     sendLoveModal,
     carousel3d,
     slide,
-    // videoPlayer
+    // streamPlayer
   },
 
   data() {
@@ -221,13 +221,13 @@ export default {
     },
 
     isStreaming() {
-      // console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
+      // console.log(_.get(this.$store.state.streamPlayer.user, 'slug', ''), this.user.slug, this.$store.state.streamPlayer.frame_mode)
       return (
         _.get(this.user.stream, 'status', '') === 'running' &&
         _.get(this.user.stream, 'notified', false) &&
-        (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !==
+        (_.get(this.$store.state.streamPlayer.stream, 'user.slug', '') !==
           this.user.slug ||
-          !this.$store.getters['videoPlayer/hasFrame'])
+          !this.$store.getters['streamPlayer/hasFrame'])
       )
     },
 
@@ -240,8 +240,8 @@ export default {
           this.view_stream_clicked = false
 
           if (this.isStreaming()) {
-            this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-            this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+            this.$store.dispatch('streamPlayer/setStream', this.user.stream)
+            this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
           }
         })
         .catch((err) => {
@@ -282,13 +282,13 @@ export default {
             Vue.http.get(this.user.stream.mp_channel_1_ep_1_url).then(() => {
               this.show_stream_live_button = true
               if (first_visit) {
-                // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
-                this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-                this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+                // console.log('calling ...', MyEvents.STREM_PLAYER_INIT)
+                this.$store.dispatch('streamPlayer/setStream', this.user.stream)
+                this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
               }
             })
-            // this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-            // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+            // this.$store.dispatch('streamPlayer/setStream', this.user.stream)
+            // this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
           }
 
           // put 'merch' tab first for brand

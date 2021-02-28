@@ -125,7 +125,7 @@ const mutations = {
   },
 
   reset(state) {
-    console.log('video_player reset state')
+    console.log('stream_player reset state')
     const s = initialState()
     Object.keys(s).forEach((key) => {
       state[key] = s[key]

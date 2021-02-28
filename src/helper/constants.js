@@ -629,10 +629,10 @@ export const MyEvents = {
   AUDIO_PLAYER_PLAY: 'play',
   AUDIO_PLAYER_REPLAY: 'replay',
   AUDIO_PLAYER_SKIPTO: 'skipTo',
-  VIDEO_PLAYER_INIT: 'video_player_init',
-  VIDEO_PLAYER_FULLSCREEN_ENTER: 'video_player_fullscreen_enter',
-  VIDEO_PLAYER_SHUTDOWN: 'video_player_shutdown',
-  VIDEO_PLAYER_EXIT: 'video_player_exit',
+  STREM_PLAYER_INIT: 'stream_player_init',
+  STREM_PLAYER_FULLSCREEN_ENTER: 'stream_player_fullscreen_enter',
+  STREM_PLAYER_SHUTDOWN: 'stream_player_shutdown',
+  STREM_PLAYER_EXIT: 'stream_player_exit',
 }
 
 export const MyCookies = {

@@ -52,7 +52,7 @@ export default {
     }
 
     this.$nextTick(() => {
-      // console.log('after video-player beforeDestroy ???')
+      // console.log('after stream-player beforeDestroy ???')
       this.$root.$emit(MyEvents.AUTH_SIGNOUT)
     })
   },
