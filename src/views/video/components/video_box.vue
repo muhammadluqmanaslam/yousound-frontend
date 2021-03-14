@@ -1,0 +1,70 @@
+<template>
+  <div class="box">
+    <div class="box__content">
+      <div
+        class="box__image"
+        :style="`background-image: url(${video.cover.url})`"
+      ></div>
+    </div>
+    <div class="box__footer">
+      <div class="box__subtitle">{{ video.name }}</div>
+      <div class="box__title">{{ video.user.display_name }}</div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    video: Object,
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.box {
+  &__content {
+    position: relative;
+    width: 100%;
+  }
+
+  &__footer {
+  }
+
+  &__image {
+    z-index: 1;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background-size: cover;
+    overflow: hidden;
+    background-position: center;
+    border-radius: 7.5px;
+    border: none;
+  }
+
+  &__title,
+  &__subtitle {
+    display: block;
+    overflow: hidden;
+    letter-spacing: -0.6px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__subtitle {
+    color: #333;
+    font-size: 14px;
+    font-weight: 700;
+    a {
+      color: #000000;
+    }
+  }
+
+  &__title {
+    margin-top: 10px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+</style>

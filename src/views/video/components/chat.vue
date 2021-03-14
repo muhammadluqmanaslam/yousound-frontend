@@ -1,22 +1,21 @@
 <template>
-  <div>
-    <div class="box__title">Join the conversation</div>
-    <div class="box__content">
-      <div class="items">
-        <template v-for="item in items">
-          <div class="item" :key="item.id">
-            <div class="item__header">Avatar</div>
-            <div class="item__content">
-              <div class="item__title">Ethan Stoll <span>1 year ago</span></div>
-              <div class="item__description"></div>
-            </div>
+  <div class="items">
+    <template v-for="item in items">
+      <div class="item" :key="item.id">
+        <div class="item__header">
+          <div
+            class="item__image"
+            :style="`background-image: url(${item.user.avatar.url})`"
+          ></div>
+        </div>
+        <div class="item__content">
+          <div class="item__title">
+            {{ item.user.display_name }} <span>1 year ago</span>
           </div>
-        </template>
+          <div class="item__description"></div>
+        </div>
       </div>
-    </div>
-    <div class="box__footer">
-      <input type="text" />
-    </div>
+    </template>
   </div>
 </template>
 
@@ -28,4 +27,39 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.items {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  min-height: 55px;
+
+  &__header {
+    width: 50px;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  &__title {
+    font-weight: 700;
+    span {
+      color: #ccc;
+    }
+  }
+}
+</style>
