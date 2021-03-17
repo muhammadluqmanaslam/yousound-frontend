@@ -21,7 +21,7 @@
 
     <div class="meta">
       <div class="meta__header">
-        <div class="meta__title">{{ video.name }}</div>
+        <div class="meta__title">{{ stream.name }}</div>
         <div class="meta__subtitle"></div>
       </div>
       <div class="meta__content"></div>

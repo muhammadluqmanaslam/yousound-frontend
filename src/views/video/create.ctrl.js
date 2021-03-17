@@ -35,6 +35,7 @@ export default {
         { id: 'create', title: 'Setup' },
         { id: 'manage', title: 'Live Stream', disabled: true },
       ],
+      video_type: 'stream',
       terms: false,
       view_prices: StreamViewPrices,
       viewers_limits: StreamViewersLimits,
@@ -117,6 +118,10 @@ export default {
       ).map((g) => ({ id: g.id, name: g.name }))
     },
 
+    profiles() {
+      return this.friends.slice()
+    },
+
     stream_view_price() {
       return Filter.formatNumber(this.stream.view_price)
     },
@@ -188,11 +193,15 @@ export default {
           this.$store.dispatch('error/showLoadingActivity', false)
 
           MeService.mutualUsers({ ...params, per_page: -1 }).then(
-            (response) => (this.users = response.body.users)
+            (response) => {
+              this.users = response.body.users
+            }
           )
 
           MeService.mutualUsers({ ...friendsParams, per_page: -1 }).then(
-            (response) => (this.friends = response.body.users)
+            (response) => {
+              this.friends = response.body.users
+            }
           )
         })
         .catch((reason) => {

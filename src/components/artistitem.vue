@@ -30,7 +30,7 @@
         <div class="artist-name">
           {{ artist.display_name }}
           <v-icon
-            v-if="artist.user_type == 'artist'"
+            v-if="artist.user_type !== 'listener'"
             class="user-status"
             :class="{ online: artist.status == 'active' }"
             >fa-check-circle</v-icon

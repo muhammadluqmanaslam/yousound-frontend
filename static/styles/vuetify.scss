@@ -35,17 +35,59 @@ able.table thead th:not(:first-child) {
   padding: 0 12px;
 }
 
-/* v-text-field */
-.input-group--text-field {
-  label {
-    left: 10px;
-    line-height: 42px;
+.input-group {
+  /* v-radio */
+  &--selection-controls {
+    align-items: center;
   }
-  input {
-    padding-left: 10px;
+
+  /* v-text-field */
+  &--text-field {
+    label {
+      left: 10px;
+      line-height: 42px;
+    }
+    input {
+      padding-left: 10px;
+    }
+    .input-group__messages {
+      padding-left: 10px;
+    }
   }
-  .input-group__messages {
-    padding-left: 10px;
+
+  /* v-select */
+  &__details {
+    &:before {
+      display: none;
+    }
+    &:after {
+      display: none;
+    }
+  }
+
+  &--select {
+    label {
+      padding-left: 7.5px;
+      line-height: 42px;
+      height: 42px;
+    }
+    .input-group__input {
+      min-height: 42px;
+      border: 0.75px solid #d2d2d2;
+      border-radius: 3.75px;
+      .input-group__selections {
+        padding-left: 11.25px;
+        input {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  &--select.large {
+    label {
+      height: 42px;
+      line-height: 42px;
+    }
   }
 }
 
@@ -53,41 +95,6 @@ able.table thead th:not(:first-child) {
 // .input-group.input-group--selection-controls.switch .input-group--selection-controls__ripple:after {
 //   box-shadow: none;
 // }
-
-/* v-select */
-.input-group__details {
-  &:before {
-    display: none;
-  }
-  &:after {
-    display: none;
-  }
-}
-
-.input-group--select {
-  label {
-    padding-left: 7.5px;
-    line-height: 42px;
-    height: 42px;
-  }
-  .input-group__input {
-    min-height: 42px;
-    border: 0.75px solid #d2d2d2;
-    border-radius: 3.75px;
-    .input-group__selections {
-      padding-left: 11.25px;
-      input {
-        padding-left: 0;
-      }
-    }
-  }
-}
-.input-group--select.large {
-  label {
-    height: 42px;
-    line-height: 42px;
-  }
-}
 
 /* v-select : dropdown box */
 .menu__content {
