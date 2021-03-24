@@ -25,7 +25,7 @@ export default {
   i {
     margin-left: -4px;
     vertical-align: super;
-    font-size: 0.8rem;
+    font-size: 0.8em;
     color: #31bb25;
   }
 }

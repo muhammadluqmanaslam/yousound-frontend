@@ -21,16 +21,21 @@ export default {
 
   created() {
     console.log('video_player created')
-    console.log(this.video)
+    // console.log(this.video)
     console.log(document.getElementById('my_video_player'))
     this.$nextTick(() => {
       this.initPlayer()
     })
   },
 
+  beforeDestroy() {
+    console.log('video_player beforeDestroy')
+    this.closePlayer()
+  },
+
   watch: {
     video: function (newVal, oldVal) {
-      console.log('-----------')
+      console.log('video_player watching')
       console.log(newVal, oldVal)
       console.log(this.video.mp_channel_1_ep_1_url)
       this.player.src([
@@ -53,6 +58,14 @@ export default {
           controls: true,
           sources: [],
         })
+    },
+
+    closePlayer() {
+      const vm = this
+      if (vm.player) {
+        vm.player.dispose()
+        vm.player = null
+      }
     },
   },
 }

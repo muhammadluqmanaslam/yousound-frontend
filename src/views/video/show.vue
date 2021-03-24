@@ -13,7 +13,17 @@
             <chat :items="comments"></chat>
           </div>
           <div class="box__footer">
-            <input type="text" />
+            <div class="ci">
+              <div class="ci__header">
+                <div
+                  class="ci__image"
+                  :style="`background-image: url(${currentUser.avatar.url})`"
+                ></div>
+              </div>
+              <div class="ci__content">
+                <input type="text" />
+              </div>
+            </div>
           </div>
         </div>
       </v-flex>
@@ -21,15 +31,31 @@
 
     <div class="meta">
       <div class="meta__header">
-        <div class="meta__title">{{ stream.name }}</div>
-        <div class="meta__subtitle"></div>
+        <div
+          class="meta__image"
+          :style="`background-image: url(${stream.user.avatar.url})`"
+        ></div>
       </div>
-      <div class="meta__content"></div>
-      <div class="meata__footer">
-        <div class="meta_cta follow"></div>
-        <div class="meta_cta donate"></div>
-        <div class="meta_cta repost"></div>
-        <div class="meta_cta share"></div>
+      <div class="meta__content">
+        <div class="meta__title">{{ stream.name }}</div>
+
+        <div class="meta__subtitle">
+          {{ stream.viewers_size || 0 }}
+          views &bull;
+          {{ moment(stream.created_at).format('MMM D, YYYY') }}
+        </div>
+
+        <div class="meta__actions">
+          <user-tag :user="stream.user" />
+          <div class="meta_cta follow"></div>
+          <div class="meta_cta donate"></div>
+          <div class="meta_cta repost"></div>
+          <div class="meta_cta share"></div>
+        </div>
+
+        <div class="meta__description">
+          {{ stream.description }}
+        </div>
       </div>
     </div>
 
@@ -61,6 +87,7 @@
 
 <style lang="scss" scoped>
 .section {
+  margin: 20px 0 0;
   border-top: 1px solid #ccc;
 
   &__content {
@@ -68,6 +95,7 @@
   }
 }
 
+// comments list
 .box {
   position: relative;
   width: 100%;
@@ -82,7 +110,9 @@
   &__footer {
     display: flex;
     align-items: flex-end;
-    height: 60px;
+    height: 55px;
+    margin-top: 5px;
+    border-top: 1px solid #ccc;
   }
 
   &__content {
@@ -98,6 +128,77 @@
     border-bottom: 1px solid #ccc;
     font-size: 20px;
     font-weight: 700;
+  }
+}
+
+// chat input box
+.ci {
+  display: flex;
+
+  &__header {
+    width: 55px;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  &__image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  input {
+    width: 100%;
+    padding: 5px 10px;
+  }
+}
+
+.meta {
+  display: flex;
+  margin: 20px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid #ccc;
+
+  &__header {
+    width: 60px;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &__actions {
+    display: flex;
+
+    .tag {
+      font-size: 20px;
+    }
   }
 }
 

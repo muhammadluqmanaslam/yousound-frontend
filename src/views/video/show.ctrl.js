@@ -1,7 +1,9 @@
+import moment from 'moment'
 import StreamService from '@/services/stream'
 import CommentService from '@/services/comment'
 import ProfileService from '@/services/profile'
 import { StreamStatuses } from '@/helper'
+import UserTag from '@/components/user_tag'
 import Chat from './components/chat'
 import UserBox from './components/user_box'
 import VideoBox from './components/video_box'
@@ -13,12 +15,14 @@ export default {
     ArtistItem,
     Chat,
     UserBox,
+    UserTag,
     VideoBox,
     VideoPlayer,
   },
 
   data() {
     return {
+      moment: moment,
       stream: {},
       comments: [],
       comments_pagination: {},

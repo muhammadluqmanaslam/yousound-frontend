@@ -255,7 +255,7 @@
           </v-layout>
         </form>
 
-        <form v-if="video_type === 'video'" v-on:submit.prevent="submit()">
+        <form v-if="video_type === 'video'">
           <v-layout row class="mt-5">
             <v-flex sm5>
               <div class="form-group">

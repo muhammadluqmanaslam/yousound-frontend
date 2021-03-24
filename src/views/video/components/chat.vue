@@ -12,7 +12,7 @@
           <div class="item__title">
             {{ item.user.display_name }} <span>1 year ago</span>
           </div>
-          <div class="item__description"></div>
+          <div class="item__description" v-html="item.body"></div>
         </div>
       </div>
     </template>
@@ -41,10 +41,10 @@ export default {
   min-height: 55px;
 
   &__header {
-    width: 50px;
+    width: 55px;
     flex: 0 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   &__image {
