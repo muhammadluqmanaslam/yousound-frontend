@@ -41,6 +41,10 @@ export default {
       reminderTracksCount: 'app/reminderTracksCount',
     }),
 
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+
     MyEvents() {
       return MyEvents
     },
@@ -414,7 +418,7 @@ export default {
       this.playlist = []
       this.index = 0
       if (tracks.length > 0) {
-        if (this.$store.state.auth.user) {
+        if (this.currentUser) {
           const album = object.assoc || object
           AlbumService.playAlbum(album.id).then((response) =>
             console.log('playing - album', album.id)

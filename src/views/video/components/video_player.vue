@@ -10,7 +10,10 @@
 <script>
 export default {
   props: {
-    video: Object,
+    // video: Object,
+    src: {
+      type: String,
+    },
   },
 
   data() {
@@ -22,7 +25,6 @@ export default {
   created() {
     console.log('video_player created')
     // console.log(this.video)
-    console.log(document.getElementById('my_video_player'))
     this.$nextTick(() => {
       this.initPlayer()
     })
@@ -34,14 +36,14 @@ export default {
   },
 
   watch: {
-    video: function (newVal, oldVal) {
+    src: function (newVal, oldVal) {
       console.log('video_player watching')
       console.log(newVal, oldVal)
-      console.log(this.video.mp_channel_1_ep_1_url)
+      console.log(this.src)
       this.player.src([
         {
           type: 'application/x-mpegURL',
-          src: this.video.mp_channel_1_ep_1_url,
+          src: this.src,
           // 'https://stream.mux.com/k2XvrNIFth736J8WZpN5czeEqSsNlsp02GUu4W00YDu02Q.m3u8',
         },
       ])
@@ -51,13 +53,22 @@ export default {
   methods: {
     initPlayer() {
       const vm = this
+      // console.log('video_player init', this.src)
+      // console.log(document.getElementById('my_video_player'))
+      // console.log(vm.player)
       vm.player =
         vm.player ||
         window.videojs('my_video_player', {
           autoplay: true,
           controls: true,
-          sources: [],
+          sources: [
+            {
+              type: 'application/x-mpegURL',
+              src: this.src,
+            },
+          ],
         })
+      // console.log(vm.player)
     },
 
     closePlayer() {

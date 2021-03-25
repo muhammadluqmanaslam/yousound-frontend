@@ -1,8 +1,8 @@
 <template>
-  <div class="page video-page show-page mx-5">
+  <div class="page video-page show-page mx-5" v-if="isPageReady">
     <v-layout row>
       <v-flex sm9>
-        <video-player :video="stream"></video-player>
+        <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
       </v-flex>
       <v-flex sm3 pl-3>
         <div class="box">
@@ -47,10 +47,29 @@
 
         <div class="meta__actions">
           <user-tag :user="stream.user" />
-          <div class="meta_cta follow"></div>
-          <div class="meta_cta donate"></div>
-          <div class="meta_cta repost"></div>
-          <div class="meta_cta share"></div>
+          <div class="meta__cta follow">
+            <v-btn
+              v-if="currentUser && stream.user.id != currentUser.id"
+              :class="{
+                'follow-btn': true,
+                follow: !stream.user.is_following,
+                following: stream.user.is_following,
+              }"
+              @mouseenter="buttonHover = true"
+              @mouseleave="buttonHover = false"
+              @click.native="followUser()"
+              >{{ followButtonText }}</v-btn
+            >
+          </div>
+          <div class="meta__cta donate">
+            <img src="/static/images/ic_dollar.svg" height="32" />
+          </div>
+          <div class="meta__cta repost">
+            <img src="/static/images/ic_repost.svg" height="28" />
+          </div>
+          <div class="meta__cta share">
+            <img src="/static/images/ic_share.svg" height="28" />
+          </div>
         </div>
 
         <div class="meta__description">
@@ -60,8 +79,32 @@
     </div>
 
     <div class="section users-section">
-      <h4 class="section__title">featured profiles</h4>
+      <h4 class="section__title">Featured content and people</h4>
       <div class="section__content">
+        <div class="attach-container" v-if="stream.assoc">
+          <div class="assoc">
+            <div class="assoc__header">
+              <div class="assoc__image-wrapper">
+                <div
+                  class="assoc__image"
+                  :style="`background-image: url(${stream.user.avatar.url})`"
+                ></div>
+              </div>
+            </div>
+            <div class="assoc__content">
+              <div class="assoc__subtitle">
+                {{ stream.assoc.name }}
+              </div>
+              <div class="assoc__title">
+                {{ stream.assoc.price }}
+              </div>
+              <div class="assoc__cta" v-if="stream.assoc_type == 'ShopProduct'">
+                <img src="/static/images/ic_cart_active.svg" width="20" />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <template v-for="account in accounts">
           <div class="user-container" :key="`user-${account.id}`">
             <artist-item :artist="account" />
@@ -91,7 +134,20 @@
   border-top: 1px solid #ccc;
 
   &__content {
-    display: flex;
+    display: block;
+  }
+
+  &__title {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+}
+
+.users-section {
+  .section__content {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
 
@@ -134,6 +190,7 @@
 // chat input box
 .ci {
   display: flex;
+  width: 100%;
 
   &__header {
     width: 55px;
@@ -195,21 +252,131 @@
 
   &__actions {
     display: flex;
+    align-items: center;
+    margin-top: 10px;
 
     .tag {
       font-size: 20px;
     }
   }
+
+  &__cta {
+    display: inline-flex;
+    margin-left: 25px;
+
+    img {
+      cursor: pointer;
+    }
+  }
+}
+
+.assoc {
+  display: flex;
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+
+  &__header {
+    position: relative;
+    width: 40%;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+  }
+
+  &__content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+  }
+
+  &__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &__subtitle {
+    font-size: 16px;
+  }
+
+  &__cta {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      filter: invert(1);
+    }
+  }
+}
+
+.follow-btn {
+  text-transform: none;
+  box-shadow: none;
+  height: 36px;
+  border-radius: 24px;
+  font-size: 14px;
+  letter-spacing: 0;
+  min-width: 100px;
+  &.follow {
+    border: 1px solid #1872ff;
+    background-color: #1872ff !important;
+    color: #fff !important;
+  }
+  &.following {
+    border: 1px solid #5bad00;
+    background-color: #0000 !important;
+    color: #000 !important;
+    &:hover {
+      border: 0.75px solid #dc3545;
+      background-color: #dc3545 !important;
+      color: #fff !important;
+    }
+  }
+}
+
+.attach-container {
+  display: inline-block;
+  width: 37.5%;
+  padding: 10px 20px 10px 5px;
 }
 
 .user-container {
   display: inline-block;
   width: 12.5%;
-  padding: 5px;
+  padding: 10px;
 }
+
 .video-container {
   display: inline-block;
   width: 20%;
-  padding: 5px;
+  padding: 10px;
 }
 </style>

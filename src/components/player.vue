@@ -52,10 +52,7 @@
                 item.user.display_name
               }}</router-link>
               <v-btn
-                v-if="
-                  $store.state.auth.user &&
-                  item.user.id != $store.state.auth.user.id
-                "
+                v-if="currentUser && item.user.id != currentUser.id"
                 :class="{
                   'follow-btn': true,
                   follow: !item.user.is_following,
@@ -72,10 +69,7 @@
                 track.user.display_name
               }}</router-link>
               <v-btn
-                v-if="
-                  $store.state.auth.user &&
-                  track.user.id != $store.state.auth.user.id
-                "
+                v-if="currentUser && track.user.id != currentUser.id"
                 :class="{
                   'follow-btn': true,
                   follow: !track.user.is_following,

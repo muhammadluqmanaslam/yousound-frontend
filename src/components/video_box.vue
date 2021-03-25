@@ -8,14 +8,11 @@
       <div class="box__caption" v-if="isLive">Live</div>
 
       <div class="box__overlay">
-        <!-- <video-detail-box :item="item" /> -->
-        <v-btn
-          block
-          dark
-          class="box__cta"
-          :to="
-            isLive ? `/${_.get(item, 'user.slug')}` : `/video/${item.id}/show`
-          "
+        <!--
+          <video-detail-box :item="item" />
+          isLive ? `/${_.get(item, 'user.slug')}` : `/video/${item.id}/show`
+         -->
+        <v-btn block dark class="box__cta" :to="`/video/${item.id}/show`"
           >Watch Now</v-btn
         >
       </div>

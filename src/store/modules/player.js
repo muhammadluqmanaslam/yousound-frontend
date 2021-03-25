@@ -108,10 +108,12 @@ const mutations = {
   },
 
   updateFollowingStatus(state, status) {
-    if (state.list[state.listIndex].assoc_type) {
-      state.list[state.listIndex].assoc.publisher.is_following = status
-    } else {
-      state.list[state.listIndex].user.is_following = status
+    if (state.list[state.listIndex]) {
+      if (state.list[state.listIndex].assoc_type) {
+        state.list[state.listIndex].assoc.publisher.is_following = status
+      } else {
+        state.list[state.listIndex].user.is_following = status
+      }
     }
   },
 
