@@ -372,6 +372,11 @@ export const StreamStatuses = {
   DELETED: 'deleted',
 }
 
+export const VideoTypes = {
+  LIVE: 'live',
+  UPLOADED: 'uploaded',
+}
+
 // Additional options being used for user registration.
 export const UserBooleanOptions = [
   { id: true, name: 'Yes' },

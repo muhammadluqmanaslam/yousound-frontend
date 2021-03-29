@@ -2,7 +2,7 @@ import * as UpChunk from '@mux/upchunk'
 import AuthService from '@/services/auth'
 import MeService from '@/services/me'
 import PaymentService from '@/services/payment'
-import StreamService from '@/services/stream'
+import VideoService from '@/services/video'
 import UserService from '@/services/user'
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
@@ -38,13 +38,14 @@ export default {
         { id: 'manage', title: 'Live Stream', disabled: true },
       ],
       VideoTypes: VideoTypes,
-      video_type: VideoTypes.LIVE,
+      video_type: VideoTypes.UPLOADED,
       terms: false,
       view_prices: StreamViewPrices,
       viewers_limits: StreamViewersLimits,
       costs: StreamCosts,
       streamCost: 1000,
       profit_share_types: [],
+      duration: 100,
       // periods: [],
       // period: 3600,
       // genres: [],
@@ -387,6 +388,7 @@ export default {
             formData.append('stream[valid_period]', this.period)
             formData.append('stream[cover]', this.stream.cover)
             formData.append('stream[viewers_limit]', this.stream.viewers_limit)
+            formData.append('stream[duration]', this.duration)
 
             if (this.digital_content.file) {
               formData.append(
@@ -419,15 +421,37 @@ export default {
             }
 
             this.$store.dispatch('error/showLoadingActivity', true)
-            StreamService.createStream(formData)
+            VideoService.createVideo(formData)
               .then((response) => {
-                this.$store.dispatch('error/showLoadingActivity', false)
-                this.$store.dispatch('auth/setStream', response.body)
-                this.$router.push({
-                  path: `/user/${this.currentUser.slug}/video`,
+                const upload_url = response.body.url
+                const picker = document.getElementById('picker')
+
+                const upload = UpChunk.createUpload({
+                  endpoint: upload_url,
+                  file: picker.files[0],
+                  chunkSize: 5120, // Uploads the file in ~5mb chunks
+                })
+
+                upload.on('error', (err) => {
+                  this.$store.dispatch('error/showLoadingActivity', false)
+                  console.error('💥', err.detail)
+                })
+
+                upload.on('progress', (progress) => {
+                  this.$store.commit(
+                    'error/setProgressBarValue',
+                    parseInt(progress.detail)
+                  )
+                })
+
+                upload.on('success', () => {
+                  this.$store.dispatch('error/showLoadingActivity', false)
+                  console.log("Wrap it up, we're done here. 👋")
+                  this.$router.push({ path: '/video' })
                 })
               })
               .catch((e) => {
+                console.log(e)
                 this.$store.dispatch('error/showLoadingActivity', false)
                 this.$store.dispatch(
                   'error/showErrorToast',

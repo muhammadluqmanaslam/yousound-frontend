@@ -468,7 +468,7 @@ export default {
           this.$store.dispatch('error/showErrorToast', [
             'Time is up and live stream is about to stop!!!',
           ])
-          this.archiveStream()
+          this.deleteStream()
         }
       }
       // else {
@@ -559,10 +559,10 @@ export default {
     //   })
     // },
 
-    archiveStream() {
+    deleteStream() {
       this.closeStreamDeleteConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)
-      StreamService.archiveStream(this.currentUser.stream.id)
+      StreamService.deleteStream(this.currentUser.stream.id)
         .then((response) => {
           // / close the video player if watching own live video
           if (

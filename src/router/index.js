@@ -57,6 +57,7 @@ import VideoIndex from '@/views/video/index'
 import VideoManage from '@/views/video/manage'
 import VideoInfo from '@/views/video/estimate'
 import VideoCreate from '@/views/video/create'
+import VideoUpload from '@/views/video/upload'
 import VideoEdit from '@/views/video/edit'
 import VideoShow from '@/views/video/show'
 import VideoDelete from '@/views/video/delete'
@@ -202,6 +203,11 @@ export function createRouter(settings) {
         path: '/user/:user/video/create',
         name: 'VideoCreate',
         component: VideoCreate,
+      },
+      {
+        path: '/user/:user/video/upload',
+        name: 'VideoUpload',
+        component: VideoUpload,
       },
       {
         path: '/user/:user/video/edit',

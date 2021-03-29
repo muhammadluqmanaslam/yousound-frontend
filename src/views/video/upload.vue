@@ -30,16 +30,16 @@
                 :value="VideoTypes.LIVE"
                 label="Broadcast Live"
                 light
+                @change="
+                  $router.push({
+                    path: `/user/${currentUser.slug}/video/create`,
+                  })
+                "
               ></v-radio>
               <v-radio
                 :value="VideoTypes.UPLOADED"
                 label="Upload Video"
                 light
-                @change="
-                  $router.push({
-                    path: `/user/${currentUser.slug}/video/upload`,
-                  })
-                "
               ></v-radio>
             </v-radio-group>
           </v-flex>
@@ -47,12 +47,12 @@
 
         <v-divider></v-divider>
 
-        <form v-on:submit.prevent="openPaymentDialog()">
+        <form v-on:submit.prevent="submit()">
           <v-layout row class="mt-5">
             <v-flex sm5>
               <div class="form-group">
                 <label class="control-label"
-                  >Title of Event<span>80 char max</span></label
+                  >Title<span>80 char max</span></label
                 >
                 <input
                   type="text"
@@ -61,20 +61,6 @@
                   v-model="stream.name"
                   maxlength="80"
                   v-validate="'required'"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="control-label"
-                  >Pay Per View?
-                  <a @click.stop="openCollaboratorsDialog()">change</a>
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="view_price"
-                  :value="stream_view_price"
-                  disabled
                 />
               </div>
 
@@ -92,40 +78,6 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label">Event Capacity</label>
-                <v-select
-                  :items="viewers_limits"
-                  v-model="stream.viewers_limit"
-                  v-validate="'required'"
-                  item-text="name"
-                  item-value="id"
-                  class="pt-0"
-                />
-              </div>
-
-              <div class="form-group">
-                <div class="helper-label">
-                  <label class="control-label">Spend Limit</label>
-                  <v-tooltip left>
-                    <div slot="activator">
-                      <v-icon>help</v-icon>Cost & Profit Margins
-                    </div>
-                    <span
-                      >The price per min without viewers is $0.058$<br />
-                      The price per min per user is $0.005</span
-                    ></v-tooltip
-                  >
-                </div>
-                <v-select
-                  v-bind:items="costs"
-                  v-model="streamCost"
-                  item-text="name"
-                  item-value="value"
-                  class="pt-0"
-                />
-              </div>
-
-              <div class="form-group">
                 <label class="control-label"
                   >Description<span>160 char max</span></label
                 >
@@ -133,6 +85,68 @@
                   class="form-control"
                   v-model="stream.description"
                   maxlength="160"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Add feature profiles</label>
+                <v-select
+                  :items="friends"
+                  v-model="stream.account_ids"
+                  multiple
+                  item-text="name"
+                  item-value="id"
+                  placeholder="Type name to search"
+                  chips
+                  class="pt-0"
+                  autocomplete
+                  clearable
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      :key="JSON.stringify(data.item)"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.avatar.url" />
+                      </v-avatar>
+                      {{ data.item.display_name }}
+                    </v-chip>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content
+                        v-text="data.item"
+                      ></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-avatar>
+                        <img v-bind:src="data.item.avatar.url" />
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title
+                          v-html="data.item.display_name"
+                        ></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-select>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label"
+                  >Upload Video<span
+                    >MP4, MOV, WMV, AVI - 500MB MAX</span
+                  ></label
+                >
+                <input
+                  type="file"
+                  accept="video/*"
+                  id="picker"
+                  v-validate="'required|size:512000'"
+                  name="size_field"
+                  data-vv-as="file"
                 />
               </div>
 
@@ -193,52 +207,6 @@
                     <span>*PNG, JPG, GIF</span>
                   </div>
                 </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Add feature profiles</label>
-                <v-select
-                  :items="friends"
-                  v-model="stream.account_ids"
-                  multiple
-                  item-text="name"
-                  item-value="id"
-                  placeholder="Type name to search"
-                  chips
-                  class="pt-0"
-                  autocomplete
-                  clearable
-                >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      @input="data.parent.selectItem(data.item)"
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.avatar.url" />
-                      </v-avatar>
-                      {{ data.item.display_name }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content
-                        v-text="data.item"
-                      ></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img v-bind:src="data.item.avatar.url" />
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title
-                          v-html="data.item.display_name"
-                        ></v-list-tile-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-select>
               </div>
 
               <div class="form-group viewer-support">
@@ -486,4 +454,4 @@
   </div>
 </template>
 
-<script type="text/javascript" src="./create.ctrl.js"></script>
+<script type="text/javascript" src="./upload.ctrl.js"></script>
