@@ -1,14 +1,18 @@
 <template>
   <div class="box">
     <div class="box__content">
-      <div
-        class="box__image"
-        :style="`background-image: url(${video.cover.url})`"
-      ></div>
+      <router-link :to="`/video/${video.id}/show`">
+        <div
+          class="box__image"
+          :style="`background-image: url(${video.cover.url})`"
+        ></div>
+      </router-link>
     </div>
     <div class="box__footer">
       <div class="box__subtitle">{{ video.name }}</div>
-      <div class="box__title">{{ video.user.display_name }}</div>
+      <router-link :to="`/${video.user.slug}`">
+        <div class="box__title">{{ video.user.display_name }}</div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -52,6 +56,7 @@ export default {
   }
 
   &__subtitle {
+    margin-top: 3px;
     color: #333;
     font-size: 14px;
     font-weight: 700;
@@ -61,7 +66,7 @@ export default {
   }
 
   &__title {
-    margin-top: 10px;
+    margin-top: 3px;
     color: #000000;
     font-size: 16px;
     font-weight: 500;

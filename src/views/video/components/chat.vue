@@ -3,14 +3,18 @@
     <template v-for="item in items">
       <div class="item" :key="item.id">
         <div class="item__header">
-          <div
-            class="item__image"
-            :style="`background-image: url(${item.user.avatar.url})`"
-          ></div>
+          <router-link :to="`/${item.user.slug}`">
+            <div
+              class="item__image"
+              :style="`background-image: url(${item.user.avatar.url})`"
+            ></div>
+          </router-link>
         </div>
         <div class="item__content">
           <div class="item__title">
-            {{ item.user.display_name }}
+            <router-link :to="`/${item.user.slug}`">
+              {{ item.user.display_name }}
+            </router-link>
             <span>{{ toLocalTimeString(item.created_at) }}</span>
           </div>
           <div class="item__description" v-html="item.body"></div>

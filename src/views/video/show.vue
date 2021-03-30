@@ -15,10 +15,12 @@
           <div class="box__footer">
             <div class="ci">
               <div class="ci__header">
-                <div
-                  class="ci__image"
-                  :style="`background-image: url(${currentUser.avatar.url})`"
-                ></div>
+                <router-link :to="`/${currentUser.slug}`">
+                  <div
+                    class="ci__image"
+                    :style="`background-image: url(${currentUser.avatar.url})`"
+                  ></div>
+                </router-link>
               </div>
               <div class="ci__content">
                 <input
@@ -36,10 +38,12 @@
 
     <div class="meta">
       <div class="meta__header">
-        <div
-          class="meta__image"
-          :style="`background-image: url(${stream.user.avatar.url})`"
-        ></div>
+        <router-link :to="`/${stream.user.slug}`">
+          <div
+            class="meta__image"
+            :style="`background-image: url(${stream.user.avatar.url})`"
+          ></div>
+        </router-link>
       </div>
       <div class="meta__content">
         <div class="meta__title">{{ stream.name }}</div>
