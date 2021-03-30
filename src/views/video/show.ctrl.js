@@ -3,7 +3,7 @@ import moment from 'moment'
 import UserService from '@/services/user'
 import StreamService from '@/services/stream'
 import CommentService from '@/services/comment'
-import ProfileService from '@/services/profile'
+// import ProfileService from '@/services/profile'
 import { StreamStatuses } from '@/helper'
 import UserTag from '@/components/user_tag'
 import Chat from './components/chat'
@@ -11,11 +11,13 @@ import UserBox from './components/user_box'
 import VideoBox from './components/video_box'
 import VideoPlayer from './components/video_player'
 import ArtistItem from '@/components/artistitem'
+import ShareModal from '@/components/sharemodal'
 
 export default {
   components: {
     ArtistItem,
     Chat,
+    ShareModal,
     UserBox,
     UserTag,
     VideoBox,
@@ -30,7 +32,9 @@ export default {
       comments_pagination: {},
       accounts: [],
       videos: [],
+      commentText: '',
       buttonHover: false,
+      show_share_dialog: false,
       isPageReady: false,
     }
   },
@@ -63,16 +67,14 @@ export default {
   methods: {
     loadData(videoId) {
       this.isPageReady = false
-      console.log('loading data...')
+      console.log('loading data...', videoId)
       Promise.all([
         StreamService.getStream(videoId),
         CommentService.getComments({
-          // commentable_type: 'Stream',
-          // commentable_id: videoId,
-          commentable_type: 'Album',
-          commentable_id: 66,
+          commentable_type: 'Stream',
+          commentable_id: videoId,
         }),
-        ProfileService.getItems(this.currentUser.id, 'followers', {
+        StreamService.getSimilarStreams(videoId, {
           page: 1,
           per_page: 10,
         }),
@@ -91,18 +93,60 @@ export default {
           this.comments = values[1].body.comments
           this.comments_pagination = values[1].body.pagination
 
-          this.accounts = values[2].body.users
+          this.videos = values[2].body.streams
 
-          this.videos.push(values[0].body)
-          this.videos.push(values[0].body)
-          this.videos.push(values[0].body)
-          this.videos.push(values[0].body)
-          this.videos.push(values[0].body)
-          this.videos.push(values[0].body)
           this.isPageReady = true
         })
         .catch((e) => {
           console.log('video/show loadData error', e)
+        })
+    },
+
+    openShareDialog() {
+      this.show_share_dialog = true
+    },
+
+    closeShareDialog() {
+      this.show_share_dialog = false
+    },
+
+    addComment() {
+      if (this.commentText === '') return
+
+      const params = {
+        comment: {
+          commentable_type: 'Stream',
+          commentable_id: this.stream.id,
+          body: this.commentText,
+          status: 'published',
+        },
+      }
+
+      CommentService.sendComment(params)
+        .then((res) => {
+          this.comments.push(res.body)
+          this.commentText = ''
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+
+    repostItem() {
+      StreamService.repostStream(this.stream.id)
+        .then((res) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just reposted ' + this.stream.name,
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
         })
     },
 

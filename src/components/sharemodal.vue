@@ -44,7 +44,7 @@
       </v-flex>
       <v-flex xs12 class="share-social-section">
         <!-- <v-btn class="social-share-btn"><v-icon>fa-envelope</v-icon></v-btn> -->
-        <social-sharing v-bind:url="albumURL" inline-template>
+        <social-sharing v-bind:url="shareUrl" inline-template>
           <div class="social-section">
             <network network="facebook">
               <!-- <i class="fa fa-fw fa-facebook"></i> Facebook -->
@@ -62,10 +62,15 @@
         </social-sharing>
       </v-flex>
       <v-flex xs12 class="input-section">
-        <input type="text" class="form-control" v-model="albumURL" readonly />
+        <input
+          type="text"
+          class="form-control clipboard-url"
+          v-model="shareUrl"
+          readonly
+        />
         <v-btn
           class="clipboard-btn"
-          v-clipboard:copy="albumURL"
+          v-clipboard:copy="shareUrl"
           v-clipboard:success="onCopy"
           v-clipboard:error="onError"
         >
@@ -87,6 +92,9 @@ export default {
       type: Object,
       required: true,
     },
+    type: {
+      type: String,
+    },
     dismiss: {
       type: Function,
       required: true,
@@ -97,7 +105,7 @@ export default {
     return {
       donate_amount: null,
       buttonHover: false,
-      albumURL: '',
+      shareUrl: '',
     }
   },
 
@@ -107,6 +115,19 @@ export default {
         return this.buttonHover ? 'Unfollow' : 'Following'
       }
       return 'Follow'
+    },
+
+    itemType() {
+      switch (this.type) {
+        case 'Stream':
+          return 'Stream'
+        default:
+          if (this.item.slug) {
+            return 'Album'
+          } else {
+            return 'ShopProduct'
+          }
+      }
     },
 
     user() {
@@ -135,10 +156,16 @@ export default {
   },
 
   created() {
-    if (this.item.slug) {
-      this.albumURL = window.location.origin + '/album/' + this.item.slug
-    } else {
-      this.albumURL = window.location.origin + '/product/' + this.item.id
+    switch (this.itemType) {
+      case 'Stream':
+        this.shareUrl = window.location.origin + '/video/' + this.item.slug
+        break
+      case 'Album':
+        this.shareUrl = window.location.origin + '/album/' + this.item.slug
+        break
+      case 'ShopProduct':
+        this.shareUrl = window.location.origin + '/product/' + this.item.id
+        break
     }
   },
 

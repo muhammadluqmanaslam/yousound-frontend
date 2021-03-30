@@ -124,10 +124,15 @@
       margin: 15px 7.5px 0;
       text-align: center;
       position: relative;
+
+      .clipboard-url {
+        padding-right: 42px;
+      }
+
       .clipboard-btn {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 6px;
+        right: 6px;
         text-transform: none;
         box-shadow: none;
         height: 30px;

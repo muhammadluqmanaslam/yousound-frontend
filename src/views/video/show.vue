@@ -21,7 +21,12 @@
                 ></div>
               </div>
               <div class="ci__content">
-                <input type="text" />
+                <input
+                  type="text"
+                  v-model.trim="commentText"
+                  placeholder="Say something nice!"
+                  @keyup.enter="addComment()"
+                />
               </div>
             </div>
           </div>
@@ -64,10 +69,10 @@
           <div class="meta__cta donate">
             <img src="/static/images/ic_dollar.svg" height="32" />
           </div>
-          <div class="meta__cta repost">
+          <div class="meta__cta repost" @click="repostItem()">
             <img src="/static/images/ic_repost.svg" height="28" />
           </div>
-          <div class="meta__cta share">
+          <div class="meta__cta share" @click="openShareDialog()">
             <img src="/static/images/ic_share.svg" height="28" />
           </div>
         </div>
@@ -105,7 +110,7 @@
           </div>
         </div>
 
-        <template v-for="account in accounts">
+        <template v-for="account in stream.accounts">
           <div class="user-container" :key="`user-${account.id}`">
             <artist-item :artist="account" />
           </div>
@@ -123,6 +128,13 @@
         </template>
       </div>
     </div>
+
+    <share-modal
+      v-if="show_share_dialog"
+      :item="stream"
+      type="Stream"
+      :dismiss="closeShareDialog"
+    ></share-modal>
   </div>
 </template>
 

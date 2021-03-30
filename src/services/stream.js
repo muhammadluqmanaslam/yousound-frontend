@@ -18,6 +18,13 @@ export default {
     })
   },
 
+  getSimilarStreams(streamId, params) {
+    return Vue.http.get(`${API_BASE_URL}/${streamId}/similars`, {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
+  },
+
   createStream(params) {
     return Vue.http.post(API_BASE_URL, params, {
       headers: { Authorization: $store.state.auth.token },

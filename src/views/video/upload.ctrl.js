@@ -11,10 +11,6 @@ import DigitalUploader from './components/digital_uploader'
 import {
   VideoGenres,
   VideoTypes,
-  MediaLiveInputTypes,
-  MediaLiveInputCodecs,
-  MediaLiveInputResolutions,
-  MediaLiveInputMaximumBitrates,
   Filter,
   // StreamHourlyPrice,
   StreamViewPrices,
@@ -86,30 +82,6 @@ export default {
     currentUser() {
       return this.$store.state.auth.user
     },
-
-    MediaLiveInputTypes() {
-      return MediaLiveInputTypes
-    },
-
-    MediaLiveInputCodecs() {
-      return MediaLiveInputCodecs
-    },
-
-    MediaLiveInputResolutions() {
-      return MediaLiveInputResolutions
-    },
-
-    MediaLiveInputMaximumBitrates() {
-      return MediaLiveInputMaximumBitrates
-    },
-
-    // isValidate() {
-    //   return !!this.stream_cover_url
-    // },
-
-    // streamCost() {
-    //   return Math.round((this.period * StreamHourlyPrice) / 3600)
-    // },
 
     profileUrl() {
       return window.location.origin + '/' + this.currentUser.slug
