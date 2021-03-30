@@ -10,7 +10,8 @@
         </div>
         <div class="item__content">
           <div class="item__title">
-            {{ item.user.display_name }} <span>1 year ago</span>
+            {{ item.user.display_name }}
+            <span>{{ toLocalTimeString(item.created_at) }}</span>
           </div>
           <div class="item__description" v-html="item.body"></div>
         </div>
@@ -20,9 +21,17 @@
 </template>
 
 <script>
+import { Utils } from '@/helper'
+
 export default {
   props: {
     items: Array,
+  },
+
+  data() {
+    return {
+      toLocalTimeString: Utils.toLocalTimeString,
+    }
   },
 }
 </script>
@@ -58,6 +67,7 @@ export default {
   &__title {
     font-weight: 700;
     span {
+      font-size: 12px;
       color: #ccc;
     }
   }
