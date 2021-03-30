@@ -171,7 +171,7 @@
                 </p>
 
                 <v-btn round dark color="blue" class="px-5" type="submit"
-                  >Create Channel</v-btn
+                  >Upload</v-btn
                 >
               </div>
             </v-flex>

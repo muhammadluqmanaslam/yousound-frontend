@@ -59,7 +59,7 @@ export default {
       vm.player =
         vm.player ||
         window.videojs('my_video_player', {
-          autoplay: true,
+          autoplay: false,
           controls: true,
           sources: [
             {
