@@ -209,7 +209,14 @@
                 </div>
               </div>
 
-              <div class="form-group viewer-support">
+              <div class="mt-3">
+                <h4>Attach Product/Album</h4>
+                <div class="panel">
+                  <attach v-model="stream_assoc" style="width: 100%" />
+                </div>
+              </div>
+
+              <div class="form-group viewer-support mt-3">
                 <label class="control-label">Allow viewer support</label>
                 <ul>
                   <li>
