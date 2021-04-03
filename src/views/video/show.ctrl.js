@@ -102,6 +102,19 @@ export default {
         })
     },
 
+    deleteVideo() {
+      StreamService.deleteStream(this.stream.id)
+        .then(() => {
+          this.$router.push({ path: '/video' })
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+
     openShareDialog() {
       this.show_share_dialog = true
     },

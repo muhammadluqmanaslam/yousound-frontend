@@ -79,6 +79,28 @@
           <div class="meta__cta share" @click="openShareDialog()">
             <img src="/static/images/ic_share.svg" height="28" />
           </div>
+          <div class="meta__cta" v-if="currentUser.id === user.id">
+            <v-menu offset-y class="more-menu">
+              <v-btn icon slot="activator">
+                <v-icon>more_horiz</v-icon>
+              </v-btn>
+              <v-list>
+                <v-list-tile
+                  class="default-menu-item"
+                  @click.native="deleteVideo()"
+                >
+                  <v-list-tile-title>
+                    <label>Delete</label>
+                  </v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile class="default-menu-item">
+                  <v-list-tile-title>
+                    <label>Report</label>
+                  </v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </div>
         </div>
 
         <div class="meta__description">
@@ -282,6 +304,13 @@
 
     img {
       cursor: pointer;
+    }
+
+    .options {
+      filter: invert(1);
+      width: 20px;
+      height: auto;
+      padding: 15px 0;
     }
   }
 }
