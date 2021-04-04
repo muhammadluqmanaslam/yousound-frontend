@@ -72,6 +72,13 @@ export default {
     }
   },
 
+  watch: {
+    value(newVal) {
+      // console.log('attach value', newVal)
+      this.stream_assoc = newVal
+    },
+  },
+
   methods: {
     openAttachPicker() {
       this.show_attach_picker = true

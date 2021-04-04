@@ -264,3 +264,32 @@
     color: #ff0000;
   }
 }
+
+.dialog.featured-content-dialog {
+  overflow: visible;
+  margin: 0;
+  padding: 0px;
+  .card {
+    padding: 30px 10px 10px 10px;
+    .card__text {
+      font-size: 20px;
+      text-align: center;
+      font-size: 16px !important;
+      .headline {
+        font-size: 19px !important;
+        font-weight: 600;
+        font-family: 'Work Sans';
+        letter-spacing: -0.5px !important;
+        margin-top: -15px;
+      }
+    }
+    .card__actions {
+      text-align: center;
+      justify-content: center;
+      .btn {
+        text-transform: initial;
+        font-weight: 700;
+      }
+    }
+  }
+}

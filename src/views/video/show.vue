@@ -87,7 +87,7 @@
               <v-list>
                 <v-list-tile
                   class="default-menu-item"
-                  @click.native="deleteVideo()"
+                  @click.native="deleteStream()"
                 >
                   <v-list-tile-title>
                     <label>Delete</label>
@@ -110,15 +110,26 @@
     </div>
 
     <div class="section users-section">
-      <h4 class="section__title">Featured content and people</h4>
+      <div class="section__header">
+        <h4 class="section__title">Featured content and people</h4>
+        <span
+          class="section__subtitle"
+          v-if="currentUser.id === user.id"
+          @click="openFeaturedDialog()"
+          >Edit attachment</span
+        >
+      </div>
       <div class="section__content">
-        <div class="attach-container" v-if="stream.assoc">
+        <div
+          class="attach-container"
+          v-if="stream.assoc && stream.assoc.id > 0"
+        >
           <div class="assoc">
             <div class="assoc__header">
               <div class="assoc__image-wrapper">
                 <div
                   class="assoc__image"
-                  :style="`background-image: url(${stream.user.avatar.url})`"
+                  :style="`background-image: url(${assocImage})`"
                 ></div>
               </div>
             </div>
@@ -155,6 +166,49 @@
       </div>
     </div>
 
+    <v-dialog
+      v-model="show_featured_dialog"
+      content-class="featured-content-dialog"
+    >
+      <v-card>
+        <v-card-text>
+          <div class="headline mb-2">Add albms & products to your video</div>
+          <v-divider />
+          <div
+            class="mt-3 pa-3"
+            style="
+              text-align: left;
+              background-color: #f8f8f8;
+              border: 1px solid #eee;
+              border-radius: 5px;
+            "
+          >
+            <attach v-model="stream_assoc" style="width: 100%" />
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            dark
+            round
+            color="blue"
+            @click.native="updateStream()"
+            class="px-4"
+            >Update</v-btn
+          >
+          <v-btn
+            dark
+            round
+            color="grey"
+            @click.native="closeFeaturedDialog()"
+            class="px-4"
+            >Cancel</v-btn
+          >
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <share-modal
       v-if="show_share_dialog"
       :item="stream"
@@ -178,6 +232,11 @@
   &__title {
     margin-top: 20px;
     font-size: 18px;
+  }
+
+  &__subtitle {
+    color: #1976d2;
+    cursor: pointer;
   }
 }
 

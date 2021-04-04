@@ -6,16 +6,19 @@ import CommentService from '@/services/comment'
 // import ProfileService from '@/services/profile'
 import { StreamStatuses } from '@/helper'
 import UserTag from '@/components/user_tag'
+import Attach from './components/attach'
 import Chat from './components/chat'
 import UserBox from './components/user_box'
 import VideoBox from './components/video_box'
 import VideoPlayer from './components/video_player'
 import ArtistItem from '@/components/artistitem'
 import ShareModal from '@/components/sharemodal'
+import stream from '../../services/stream'
 
 export default {
   components: {
     ArtistItem,
+    Attach,
     Chat,
     ShareModal,
     UserBox,
@@ -28,12 +31,17 @@ export default {
     return {
       moment: moment,
       stream: {},
+      stream_assoc: {
+        type: 'Album',
+        value: null,
+      },
       comments: [],
       comments_pagination: {},
       accounts: [],
       videos: [],
       commentText: '',
       buttonHover: false,
+      show_featured_dialog: false,
       show_share_dialog: false,
       isPageReady: false,
     }
@@ -46,6 +54,22 @@ export default {
 
     user() {
       return _.get(this.stream, 'user', {})
+    },
+
+    assocType() {
+      return _.get(this.stream, 'assoc_type', '')
+    },
+
+    assocImage() {
+      // console.log('assocType', this.assocType, this.stream.assoc)
+      switch (this.assocType) {
+        case 'Album':
+          return _.get(this.stream.assoc, 'cover.thumb.url', '')
+        case 'ShopProduct':
+          return _.get(this.stream.assoc, 'covers[0].cover.thumb.url', '')
+        default:
+          return ''
+      }
     },
 
     followButtonText() {
@@ -102,7 +126,7 @@ export default {
         })
     },
 
-    deleteVideo() {
+    deleteStream() {
       StreamService.deleteStream(this.stream.id)
         .then(() => {
           this.$router.push({ path: '/video' })
@@ -113,6 +137,49 @@ export default {
             e.body.errors || [e.body]
           )
         })
+    },
+
+    updateStream() {
+      let params
+      if (this.stream_assoc.value && this.stream_assoc.value.id > 0) {
+        params = {
+          stream: {
+            assoc_type: this.stream_assoc.type,
+            assoc_id: this.stream_assoc.value.id,
+          },
+        }
+      } else {
+        params = {
+          stream: {
+            assoc_type: '',
+            assoc_id: 0,
+          },
+        }
+      }
+      StreamService.updateStream(this.stream.id, params).then((res) => {
+        this.stream.assoc = res.body.assoc
+        this.closeFeaturedDialog()
+      })
+    },
+
+    openFeaturedDialog() {
+      if (this.stream.assoc && this.stream.assoc.id > 0) {
+        this.stream_assoc = {
+          type: this.stream.assoc_type,
+          value: this.stream.assoc,
+        }
+      } else {
+        this.stream_assoc = {
+          type: 'Album',
+          value: null,
+        }
+      }
+
+      this.show_featured_dialog = true
+    },
+
+    closeFeaturedDialog() {
+      this.show_featured_dialog = false
     },
 
     openShareDialog() {
