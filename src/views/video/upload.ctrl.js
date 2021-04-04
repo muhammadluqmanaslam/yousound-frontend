@@ -45,6 +45,7 @@ export default {
       // periods: [],
       // period: 3600,
       // genres: [],
+      video: {},
       stream: {
         name: '',
         description: '',
@@ -395,7 +396,8 @@ export default {
             this.$store.dispatch('error/showLoadingActivity', true)
             VideoService.createVideo(formData)
               .then((response) => {
-                const upload_url = response.body.url
+                this.video = response.body
+                const upload_url = this.video.upload_url
                 const picker = document.getElementById('picker')
 
                 const upload = UpChunk.createUpload({
@@ -419,7 +421,7 @@ export default {
                 upload.on('success', () => {
                   this.$store.dispatch('error/showLoadingActivity', false)
                   console.log("Wrap it up, we're done here. 👋")
-                  this.$router.push({ path: '/video' })
+                  this.$router.push({ path: `/video/${this.video.id}/show` })
                 })
               })
               .catch((e) => {

@@ -12,14 +12,17 @@ import UserBox from './components/user_box'
 import VideoBox from './components/video_box'
 import VideoPlayer from './components/video_player'
 import ArtistItem from '@/components/artistitem'
+import PaymentModal from '@/components/paymentmodal'
 import ShareModal from '@/components/sharemodal'
-import stream from '../../services/stream'
+
+const ActionCable = require('actioncable')
 
 export default {
   components: {
     ArtistItem,
     Attach,
     Chat,
+    PaymentModal,
     ShareModal,
     UserBox,
     UserTag,
@@ -41,7 +44,11 @@ export default {
       videos: [],
       commentText: '',
       buttonHover: false,
+      amount: 1000,
+      cable: null,
+      stream_subscription: null,
       show_featured_dialog: false,
+      show_payment_dialog: false,
       show_share_dialog: false,
       isPageReady: false,
     }
@@ -72,6 +79,10 @@ export default {
       }
     },
 
+    hasDigitalContent() {
+      return _.get(this.stream, 'digital_content_url') !== null
+    },
+
     followButtonText() {
       if (this.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
@@ -85,11 +96,21 @@ export default {
       page: 'video',
       tab: 'show',
     })
+
+    this.cable = ActionCable.createConsumer(
+      `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
+    )
+
     this.loadData(this.$route.params.videoId)
+  },
+
+  beforeDestroy() {
+    this.unsubscribe()
   },
 
   methods: {
     loadData(videoId) {
+      const vm = this
       this.isPageReady = false
       console.log('loading data...', videoId)
       Promise.all([
@@ -105,9 +126,11 @@ export default {
       ])
         .then((values) => {
           if (
-            [StreamStatuses.ARCHIVED, StreamStatuses.RUNNING].indexOf(
-              values[0].body.status
-            ) > -1
+            [
+              StreamStatuses.ARCHIVED,
+              StreamStatuses.RUNNING,
+              StreamStatuses.UPLOADING,
+            ].indexOf(values[0].body.status) > -1
           ) {
             this.stream = values[0].body
           } else {
@@ -119,11 +142,46 @@ export default {
 
           this.videos = values[2].body.streams
 
+          this.unsubscribe()
+          this.stream_subscription = this.cable.subscriptions.create(
+            {
+              channel: 'StreamsChannel',
+              stream_id: vm.stream.id,
+            },
+            {
+              connected: () => {
+                console.log('connected to StreamsChannel')
+              },
+              received: (data) => {
+                console.log('stream_subscription')
+                console.log(data)
+                if (data.notified) {
+                  StreamService.getStream(vm.stream.id).then((res) => {
+                    vm.stream = res.body
+                  })
+                } else if (data.assoc_type) {
+                  vm.stream.assoc_type = data.assoc_type
+                  vm.stream.assoc = data.assoc
+                }
+              },
+              disconnected: () => {
+                console.log('disconnected to StreamsChannel :(')
+              },
+            }
+          )
+
           this.isPageReady = true
         })
         .catch((e) => {
           console.log('video/show loadData error', e)
         })
+    },
+
+    unsubscribe() {
+      if (this.stream_subscription) {
+        this.stream_subscription.unsubscribe()
+        this.stream_subscription = null
+      }
     },
 
     deleteStream() {
@@ -182,12 +240,37 @@ export default {
       this.show_featured_dialog = false
     },
 
+    openPaymentDialog() {
+      this.show_payment_dialog = true
+    },
+
+    closePaymentDialog() {
+      this.show_payment_dialog = false
+    },
+
     openShareDialog() {
       this.show_share_dialog = true
     },
 
     closeShareDialog() {
       this.show_share_dialog = false
+    },
+
+    payAttachment(token) {
+      let params = {
+        amount: 0,
+      }
+
+      StreamService.payAttachment(this.stream.id, params)
+        .then((res) => {
+          this.closePaymentDialog()
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     addComment() {

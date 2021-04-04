@@ -89,6 +89,12 @@ export default {
     })
   },
 
+  payAttachment(streamId, params) {
+    return Vue.http.post(`${API_BASE_URL}/${streamId}/pay_attachment`, params, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   viewStream(streamId) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}/view`, {
       headers: { Authorization: $store.state.auth.token },

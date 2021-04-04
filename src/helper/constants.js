@@ -368,6 +368,7 @@ export const StreamCosts = [
 export const StreamStatuses = {
   RUNNING: 'running',
   INACTIVE: 'inactive',
+  UPLOADING: 'uploading',
   ARCHIVED: 'archived',
   DELETED: 'deleted',
 }

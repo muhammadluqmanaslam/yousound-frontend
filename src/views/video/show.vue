@@ -70,7 +70,11 @@
               >{{ followButtonText }}</v-btn
             >
           </div>
-          <div class="meta__cta donate">
+          <div
+            class="meta__cta donate"
+            v-if="hasDigitalContent"
+            @click="openPaymentDialog()"
+          >
             <img src="/static/images/ic_dollar.svg" height="32" />
           </div>
           <div class="meta__cta repost" @click="repostItem()">
@@ -207,6 +211,16 @@
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_payment_dialog">
+      <payment-modal
+        v-if="show_payment_dialog"
+        :receivers="[stream.user]"
+        :amount="amount"
+        :dismiss="closePaymentDialog"
+        :finish="payAttachment"
+      />
     </v-dialog>
 
     <share-modal
