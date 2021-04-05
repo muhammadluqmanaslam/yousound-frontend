@@ -111,6 +111,34 @@ export default {
   methods: {
     loadData(videoId) {
       const vm = this
+      this.unsubscribe()
+      this.stream_subscription = this.cable.subscriptions.create(
+        {
+          channel: 'StreamsChannel',
+          stream_id: videoId,
+        },
+        {
+          connected: () => {
+            console.log('connected to StreamsChannel')
+          },
+          received: (data) => {
+            console.log('stream_subscription')
+            console.log(data)
+            if (data.notified) {
+              StreamService.getStream(videoId).then((res) => {
+                vm.stream = res.body
+              })
+            } else if (data.assoc_type) {
+              vm.stream.assoc_type = data.assoc_type
+              vm.stream.assoc = data.assoc
+            }
+          },
+          disconnected: () => {
+            console.log('disconnected to StreamsChannel :(')
+          },
+        }
+      )
+
       this.isPageReady = false
       console.log('loading data...', videoId)
       Promise.all([
@@ -141,34 +169,6 @@ export default {
           this.comments_pagination = values[1].body.pagination
 
           this.videos = values[2].body.streams
-
-          this.unsubscribe()
-          this.stream_subscription = this.cable.subscriptions.create(
-            {
-              channel: 'StreamsChannel',
-              stream_id: vm.stream.id,
-            },
-            {
-              connected: () => {
-                console.log('connected to StreamsChannel')
-              },
-              received: (data) => {
-                console.log('stream_subscription')
-                console.log(data)
-                if (data.notified) {
-                  StreamService.getStream(vm.stream.id).then((res) => {
-                    vm.stream = res.body
-                  })
-                } else if (data.assoc_type) {
-                  vm.stream.assoc_type = data.assoc_type
-                  vm.stream.assoc = data.assoc
-                }
-              },
-              disconnected: () => {
-                console.log('disconnected to StreamsChannel :(')
-              },
-            }
-          )
 
           this.isPageReady = true
         })
