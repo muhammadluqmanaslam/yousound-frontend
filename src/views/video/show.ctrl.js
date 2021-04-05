@@ -83,6 +83,18 @@ export default {
       return _.get(this.stream, 'digital_content_url') !== null
     },
 
+    showFeaturedSection() {
+      if (this.currentUser.id === this.user.id) {
+        return true
+      }
+
+      if (this.stream.assoc || this.accounts.length > 0) {
+        return true
+      }
+
+      return false
+    },
+
     followButtonText() {
       if (this.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
@@ -287,7 +299,7 @@ export default {
 
       CommentService.sendComment(params)
         .then((res) => {
-          this.comments.push(res.body)
+          this.comments.unshift(res.body)
           this.commentText = ''
         })
         .catch((e) => {

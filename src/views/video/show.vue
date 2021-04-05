@@ -113,7 +113,7 @@
       </div>
     </div>
 
-    <div class="section users-section">
+    <div class="section users-section" v-if="showFeaturedSection">
       <div class="section__header">
         <h4 class="section__title">Featured content and people</h4>
         <span
