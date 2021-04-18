@@ -4,9 +4,22 @@
 
     <template v-if="!loading">
       <div class="section" v-if="confirmed">
-        <h3>Your email is confirmed!</h3>
-        <a href="ys://login">Open App</a>
+        <div class="section__content">
+          <h3>Success!</h3>
+          <p class="text-xs-center">
+            Your account has been activated.<br />
+            Download the app and login.
+          </p>
+          <a href="//apps.apple.com/us/app/id1452078262" target="_blank"
+            ><img src="/static/images/img_download_app_store.svg"
+          /></a>
+        </div>
+        <div class="section__footer">
+          <p>Have the iOS app already?</p>
+          <a href="ys://login">Open App</a>
+        </div>
       </div>
+
       <div class="section" v-else>
         <h3>Check your email</h3>
         <!-- <a @click.stop="sendConfirmEmail()"> Resend Confirmation E-mail </a> -->
@@ -80,21 +93,38 @@ export default {
     justify-content: center;
     align-items: center;
 
-    h3 {
-      font-size: 20px;
+    &__content {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 60px;
+      }
     }
 
-    a {
-      display: block;
-      height: 40px;
-      margin-top: 30px;
-      padding: 0 30px;
-      border-radius: 40px;
-      color: #ffffff;
-      background-color: #000;
-      line-height: 40px;
-      font-size: 16px;
-      font-weight: 700;
+    &__footer {
+      height: 120px;
+      flex: 0 0 auto;
+      text-align: center;
+
+      p {
+        margin-bottom: 0;
+        font-size: 14px;
+      }
+
+      a {
+        color: #000;
+        line-height: 40px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+    }
+
+    h3 {
+      font-size: 24px;
     }
   }
 
