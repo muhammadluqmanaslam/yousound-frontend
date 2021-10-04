@@ -34,7 +34,9 @@ table.table thead th:first-child,
 able.table thead th:not(:first-child) {
   padding: 0 12px;
 }
-
+.list__tile {
+    padding: 0 !important;
+}
 .input-group {
   /* v-radio */
   &--selection-controls {

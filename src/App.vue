@@ -12,18 +12,23 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <app-header v-show="$store.getters['navigator/hasHeader']" />
+    <sidebar />
+    <v-content>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
 
-    <router-view></router-view>
+    <!-- <app-header v-show="$store.getters['navigator/hasHeader']" /> -->
 
     <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
 
     <stream-player ref="streamPlayer" v-if="currentUser"></stream-player>
 
-    <audio-player
+    <!-- <audio-player
       ref="audioPlayer"
       v-show="$store.getters['navigator/hasAudioPlayer']"
-    ></audio-player>
+    ></audio-player> -->
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit" />
 
@@ -96,6 +101,7 @@ import earnMoneySticker from '@/components/earn_money'
 import audioPlayer from '@/components/player'
 import streamPlayer from '@/components/stream_player'
 import loginDialog from '@/components/login_dialog'
+import Sidebar from './components/sidebar'
 
 import { MyEvents, PublicRelationsUsername } from '@/helper'
 
@@ -111,6 +117,7 @@ export default {
     loginDialog,
     audioPlayer,
     streamPlayer,
+    Sidebar,
   },
 
   data() {

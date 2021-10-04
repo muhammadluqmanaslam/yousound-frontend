@@ -78,7 +78,7 @@ body {
 
   &.app-header {
     .page {
-      padding-top: 112.5px;
+      // padding-top: 112.5px;
     }
   }
 
@@ -140,6 +140,37 @@ body {
     -ms-transform: rotate(45deg);
     top: 3.75px;
     left: 5.25px;
+  }
+}
+
+.cursor-me {
+  cursor: pointer;
+}
+
+.flex-none {
+      flex: none;
+}
+.no-Btn-bg::before {
+  /* Remove default gover bg color from button */
+   background-color: transparent !important;
+}
+.no-Btn-bg .btn__content:before {
+      background-color: transparent !important;
+    }
+.sidebar {
+  overflow: hidden;
+  background-color: #101010 !important;
+  .side-tab {
+    a {
+      padding: 12px !important;
+      height: 37px;
+    }
+    .activeTab {
+        color: #ffffff !important;
+        font-weight: bold !important;
+        background-color: #424242;
+        border-radius: 6px;
+    }
   }
 }
 
@@ -502,3 +533,10 @@ textarea {
 //     width: 14.28571428571429%;
 //   }
 // }
+@media (min-width: 1264px) and (max-width: 1903px) {
+    .flex.custom-lg5 {
+        width: 20%;
+        max-width: 20%;
+        flex-basis: 20%;
+    }
+}
