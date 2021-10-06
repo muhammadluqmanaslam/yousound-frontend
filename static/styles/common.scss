@@ -147,6 +147,14 @@ body {
   cursor: pointer;
 }
 
+.heightAuto {
+  height: auto;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
 .flex-none {
       flex: none;
 }
@@ -158,7 +166,8 @@ body {
       background-color: transparent !important;
     }
 .sidebar {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: #101010 !important;
   .side-tab {
     a {
