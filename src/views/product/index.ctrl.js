@@ -5,6 +5,7 @@ import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
 
 import productCard from '@/components/productcard'
+import contentTopHeader from '@/components/contentTopHeader'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -12,10 +13,12 @@ const filterArrowDownString =
 export default {
   components: {
     productCard,
+    contentTopHeader,
   },
 
   data() {
     return {
+      selectedTab: 0,
       seed: '',
       page_index: 1,
       total_pages: 1,

@@ -13,6 +13,8 @@ import productItem from '@/components/productitem'
 import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
 import collaborateProduct from './components/collaborate_product'
+import contentTopHeader from '@/components/contentTopHeader'
+
 import { Storage, MyCookies } from '@/helper'
 
 const filterArrowDownString =
@@ -24,16 +26,17 @@ export default {
     productItem,
     profileItem,
     sendMessage,
+    contentTopHeader,
   },
 
   data() {
     return {
       active_tab: 'orders',
       tabs: [
-        { id: 'orders', title: 'Orders' },
-        { id: 'products', title: 'Products' },
-        { id: 'collaborations', title: 'Collaborations' },
-        { id: 'pendings', title: 'Pending collaborations' },
+        // { id: 'orders', title: 'Orders' },
+        // { id: 'products', title: 'Products' },
+        // { id: 'collaborations', title: 'Collaborations' },
+        // { id: 'pendings', title: 'Pending collaborations' },
       ],
       filters: [
         { id: '', name: 'All' },

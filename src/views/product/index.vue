@@ -1,23 +1,25 @@
 <template>
   <div class="page discover-page product-index-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Shop</h2>
-          <ul class="pr-3">
-            <li
-              v-for="category in categories"
-              :key="category.id"
-              :class="{ active: isActiveCategory(category) }"
+    <content-top-header>
+      <template slot="topHeader">
+        <v-tabs :scrollable="true">
+          <v-tabs-bar>
+            <v-tabs-item
+              v-model="selectedTab"
+              v-for="(category, i) in categories"
+              :key="i"
+              :href="'#tab-' + i"
             >
-              <label @click="filterByCategory(category)">{{
-                category.name
-              }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
+              <v-chip class="text-capitalize" @click="filterByCategory(category)">
+                {{ category.name }}
+              </v-chip>
+            </v-tabs-item>
+          </v-tabs-bar>
+        </v-tabs>
+        </template>
+    </content-top-header>
 
+    <div class="d-flex">
       <div class="page-content" v-if="currentUser">
         <v-layout row wrap>
           <div v-for="feed in products" :key="feed.id" class="card-container">
@@ -40,5 +42,20 @@
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style lang="scss" scoped>
+.tabs__bar {
+    width: calc(100% + 72px);
+    position: relative;
+    // left: -41px;
+    .tabs__li {
+      margin: 0 !important;
+      .tabs__item--active {
+        .chip {
+          background-color: #030303;
+          color: #ffffff;
+        }
+      }
+    }
 
-<style lang="scss" scoped></style>
+}
+</style>

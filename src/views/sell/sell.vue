@@ -1,65 +1,68 @@
-<template>
+empty<template>
   <div row wrap class="page sell-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Sell</h2>
-          <ul class="pr-3">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="onTab(tab.id)">{{ tab.title }}</label>
-            </li>
+    <content-top-header>
+      <template slot="topHeader">
+        <ul class="pr-3">
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="onTab(tab.id)">{{ tab.title }}</label>
+          </li>
 
-            <li
-              v-if="active_tab == 'orders'"
-              class="border-top border-bottom my-0"
-            >
-              <v-menu
-                id="item_filter"
-                class="filter"
-                style="display: block"
-                offset-y
-              >
-                <div slot="activator" class="filter__activator py-3">
-                  <span>{{ activeFilterName }}</span>
-                  <v-icon right>keyboard_arrow_down</v-icon>
-                </div>
-                <v-list>
-                  <v-list-tile
-                    v-for="filter in filters"
-                    @click.native="filterItems(filter)"
-                    :key="filter.id"
-                  >
-                    <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </li>
 
-            <li
-              v-if="active_tab == 'orders'"
-              class="border-top border-bottom my-0 py-3"
+          <li
+            v-if="active_tab == 'orders'"
+            class="my-0"
+          >
+            <v-menu
+              id="item_filter"
+              class="filter"
+              style="display: block"
+              offset-y
             >
-              <div class="export-wrapper">
-                <VueCtkDateTimePicker
-                  v-model="exportPeriod"
-                  id="export-period"
-                  :range="true"
-                  format="YYYY-MM-DD"
-                  formatted="ll"
-                >
-                </VueCtkDateTimePicker>
-                <v-icon class="pl-2" @click="csvExport()">save_alt</v-icon>
+              <div slot="activator" class="filter__activator py-3">
+                <span>{{ activeFilterName }}</span>
+                <v-icon right>keyboard_arrow_down</v-icon>
               </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+              <v-list>
+                <v-list-tile
+                  v-for="filter in filters"
+                  @click="filterItems(filter)"
+                  :key="filter.id"
+                >
+                  <v-list-tile-title class="cursor-me pa-3 heightAuto">{{ filter.name }}</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </li>
 
+          <v-spacer></v-spacer>
+
+          <li
+            v-if="active_tab == 'orders'"
+            class="my-0 py-3"
+          >
+            <div class="export-wrapper">
+              <VueCtkDateTimePicker
+                v-model="exportPeriod"
+                id="export-period"
+                :range="true"
+                format="YYYY-MM-DD"
+                label="Orders CSV - Select date & time"
+                formatted="ll"
+              >
+              </VueCtkDateTimePicker>
+              <v-icon class="pl-2" @click="csvExport()">save_alt</v-icon>
+            </div>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
+    <div class="d-flex">
       <div class="page-content" v-if="currentUser && isPageReady">
         <template v-if="active_tab == 'orders'">
           <div

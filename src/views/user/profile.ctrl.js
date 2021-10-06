@@ -18,6 +18,8 @@ import slide from '@/components/slider/Slide'
 import trackCard from '@/components/trackcard'
 import userItem from '@/components/useritem'
 import artistItem from '@/components/artistitem'
+import contentTopHeader from '@/components/contentTopHeader'
+
 // import streamPlayer from '@/components/stream_player'
 
 export default {
@@ -34,6 +36,7 @@ export default {
     sendLoveModal,
     carousel3d,
     slide,
+    contentTopHeader,
     // streamPlayer
   },
 
@@ -83,6 +86,7 @@ export default {
       albums: [],
       users: [],
       buttonHover: false,
+      isPageReady: false,
     }
   },
 
@@ -346,6 +350,7 @@ export default {
           }
 
           this.getItems(this.active_tab, false)
+          this.isPageReady = false
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)

@@ -1,15 +1,18 @@
 // import { VideoGenres } from '@/helper'
 import StreamService from '@/services/stream'
 import VideoBox from '@/components/video_box'
+import contentTopHeader from '@/components/contentTopHeader'
 // import VideoDetailBox from '@/components/video_detail_box'
 
 export default {
   components: {
     VideoBox,
+    contentTopHeader,
   },
 
   data() {
     return {
+      selectedTab: 0,
       activeTab: 0,
       only_follows: false,
       videos: [],

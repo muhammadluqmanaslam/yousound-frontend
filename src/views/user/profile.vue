@@ -1,11 +1,29 @@
 <template>
   <div>
     <div class="page profile-grid-page mx-5">
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <template v-for="tab in tabs">
+            <li
+              v-if="isAvailableForGridView(tab)"
+              v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            </li>
+          </template>
+        </ul>
+      </template>
+    </content-top-header>
+
       <div class="d-flex">
-        <div class="page-left">
+        <!-- <div class="page-left">
           <div class="tab-container pr-3">
             <div v-if="user" class="user-profile-section pb-2">
-              <!-- <div class="user-profile-image-section">
+              <div class="user-profile-image-section">
                 <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
                 <div
                   v-if="show_stream_live_button"
@@ -15,7 +33,7 @@
                   <i class="fa fa-circle"></i>
                   <span class="live">Live</span>
                 </div>
-              </div> -->
+              </div>
               <div
                 class="user-profile-image-section"
                 :class="{ live: show_stream_live_button }"
@@ -50,8 +68,8 @@
                 </div>
                 <div class="user-status-section mt-2">
                   <label class="user-role">{{ user.user_type }}</label>
-                  <!-- <label class="vertical-divider"></label>
-                  <label>{{ userLocation }}</label> -->
+                  <label class="vertical-divider"></label>
+                  <label>{{ userLocation }}</label>
                 </div>
                 <div v-if="followMetaVisible" class="user-status-section mt-2">
                   <label @click="onTab('followings')" class="follower-count"
@@ -61,7 +79,7 @@
                   <label @click="onTab('followers')" class="follower-count"
                     ><strong>{{ user.followers }}</strong> Followers</label
                   >
-                  <!-- <template
+                  <template
                     v-if="user.user_type === 'listener' && user.inviter"
                   >
                     <label class="vertical-divider"></label>
@@ -71,7 +89,7 @@
                         user.inviter.display_name
                       }}</router-link>
                     </label>
-                  </template> -->
+                  </template>
                 </div>
                 <div class="user-action-section">
                   <template v-if="user.user_type === 'listener'">
@@ -127,7 +145,7 @@
                         @click.native="showMessageDialog()"
                       >
                         <v-list-tile-title class="default-menu-item">
-                          <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
+                          <img class="track-status-icon" src="/static/images/ic_download.png" />
                           <label>Message</label>
                         </v-list-tile-title>
                       </v-list-tile>
@@ -153,11 +171,11 @@
                           <label>Send Love</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <!-- <v-list-tile key="chat" @click.native="goToChat()">
+                      <v-list-tile key="chat" @click.native="goToChat()">
                         <v-list-tile-title class="default-menu-item">
                           <label>Chat</label>
                         </v-list-tile-title>
-                      </v-list-tile> -->
+                      </v-list-tile>
                       <v-list-tile @click.native="flagUser()">
                         <v-list-tile-title class="default-menu-item">
                           <label>Flag</label>
@@ -192,7 +210,7 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="page-content">
           <div v-if="active_tab == 'followings' || active_tab == 'followers'">

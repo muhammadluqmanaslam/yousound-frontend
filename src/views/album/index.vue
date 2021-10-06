@@ -1,7 +1,7 @@
 <template>
   <div class="page discover-page mx-5">
-    <div class="top-menu">
-      <div class="tab-container">
+    <content-top-header>
+      <template slot="topHeader">
         <ul>
           <li
             v-for="tab in tabs"
@@ -24,9 +24,6 @@
               style="display: block"
               offset-y
             >
-              <!-- <v-btn dark slot="activator">Any genre
-                <v-icon dark right>keyboard_arrow_down</v-icon>
-              </v-btn> -->
               <div slot="activator" class="genre-filter py-3">
                 <span class="mr-3">{{ selectedGenreName }}</span>
                 <v-icon right>keyboard_arrow_down</v-icon>
@@ -67,8 +64,8 @@
           </li>
 
         </ul>
-      </div>
-    </div>
+      </template>
+    </content-top-header>
 
     <div class="page-content" v-if="currentUser">
       <v-layout row wrap>

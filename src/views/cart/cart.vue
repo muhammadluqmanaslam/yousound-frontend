@@ -1,22 +1,20 @@
 <template>
   <div row wrap class="page cart-page mx-5">
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="onTab(tab.id)">{{ tab.title }}</label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
     <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Cart</h2>
-          <ul>
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="onTab(tab.id)">{{ tab.title }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
-
       <div class="page-content" v-if="currentUser && isPageReady">
         <template v-if="active_tab == 'cart'">
           <div v-if="!cartItems || cartItems.length == 0" class="empty-section">

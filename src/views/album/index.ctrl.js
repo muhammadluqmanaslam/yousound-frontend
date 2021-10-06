@@ -6,6 +6,7 @@ import SearchService from '@/services/search'
 
 import genreDialog from '@/components/genre_dialog'
 import trackCard from '@/components/trackcard'
+import contentTopHeader from '@/components/contentTopHeader'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -14,6 +15,7 @@ export default {
   components: {
     genreDialog,
     trackCard,
+    contentTopHeader,
   },
 
   data() {

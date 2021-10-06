@@ -1,9 +1,7 @@
 <template>
   <div class="page stream-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Feed</h2>
+    <content-top-header>
+      <template slot="topHeader">
           <ul>
             <li
               v-for="tab in tabs"
@@ -14,8 +12,10 @@
               <label @click="onTab(tab.id)">{{ tab.title }}</label>
             </li>
           </ul>
-        </div>
-      </div>
+      </template>
+    </content-top-header>
+
+    <div class="d-flex">
 
       <div class="page-content" v-if="currentUser">
         <div v-if="!users || users.length == 0" class="empty-section">

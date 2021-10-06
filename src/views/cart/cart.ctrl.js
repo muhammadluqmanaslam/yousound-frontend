@@ -12,6 +12,7 @@ import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
 import ticketNewDialog from './components/ticket_new_dialog'
 import trackCard from '@/components/trackcard'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
@@ -20,6 +21,7 @@ export default {
     sendMessage,
     ticketNewDialog,
     trackCard,
+    contentTopHeader,
   },
 
   data() {

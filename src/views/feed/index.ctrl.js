@@ -5,12 +5,14 @@ import UserService from '@/services/user'
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
 import streamUser from '@/components/streamuser'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
     trackCard,
     productCard,
     streamUser,
+    contentTopHeader,
   },
 
   data() {
@@ -20,7 +22,7 @@ export default {
         { id: 'any', title: 'Everything' },
         { id: 'uploaded', title: 'Albums' },
         { id: 'merch', title: 'Products' },
-        { id: 'video', title: 'Live Video' },
+        { id: 'video', title: 'Video' },
         // { id: 'reposted', title: 'Reposts' },
         // { id: 'playlist', title: 'Playlists' },
       ],
