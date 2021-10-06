@@ -30,6 +30,7 @@ import CreateAttendee from '@/views/home/create_attendee'
 import SearchPage from '@/views/search/search'
 import Feed from '@/views/feed/index'
 import ActivityIndex from '@/views/activity/index'
+import NotificationIndex from '@/views/notification/index'
 import Chat from '@/views/chat/chat'
 import Messages from '@/views/messages/index'
 import DirectMessages from '@/views/user/direct_messages'
@@ -43,9 +44,11 @@ import ProductIndex from '@/views/product/index'
 import AlbumIndex from '@/views/album/index'
 import AlbumDetail from '@/views/album/album'
 import PlaylistDetail from '@/views/album/playlist'
+import ManageIndex from '@/views/manage'
 import AlbumStats from '@/views/album/album_stats'
 import AlbumsManage from '@/views/album/manage'
 import LabelsManage from '@/views/label/manage'
+import UploadIndex from '@/views/upload'
 import UploadAlbum from '@/views/album/upload_album'
 import AlbumEdit from '@/views/album/album_edit'
 import PaymentIndex from '@/views/payments/index'
@@ -155,10 +158,11 @@ export function createRouter(settings) {
     },
     { path: '/feed', name: 'Feed', component: Feed },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
+    { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
     { path: '/messages', name: 'Messages', component: Messages },
     { path: '/cart', name: 'Cart', component: Cart },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },
-    { path: '/sell', name: 'Sell', component: Sell },
+    { path: '/sell#orders', name: 'Sell', component: Sell },
     { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail },
     { path: '/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
@@ -170,9 +174,11 @@ export function createRouter(settings) {
       name: 'PlaylistDetail',
       component: PlaylistDetail,
     },
+    { path: '/manage', name: 'ManageIndex', component: ManageIndex },
     { path: '/album/:slug/stats', name: 'AlbumStats', component: AlbumStats },
     { path: '/albums', name: 'AlbumsManage', component: AlbumsManage },
     { path: '/labels', name: 'LabelsManage', component: LabelsManage },
+    { path: '/upload/', name: 'UploadIndex', component: UploadIndex },
     { path: '/upload/album', name: 'UploadAlbum', component: UploadAlbum },
     { path: '/album/:slug/edit', name: 'AlbumEdit', component: AlbumEdit },
     { path: '/verified', name: 'UserGetVerified', component: UserGetVerified },
