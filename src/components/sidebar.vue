@@ -69,19 +69,26 @@
                 />
             </div>
         </transition>
-
         <v-list v-for="(parent, i) in tabs" :key="i">
             <h4>
                 <h3 class="px-3">{{ parent.name }}</h3>
+                <!-- {{ username }} -->
             </h4>
             <v-list-tile 
                 v-for="(subMenu, ii) in parent.items" 
                 :key="ii" 
-                :to="`#${subMenu.id}`" 
+                :to="subMenu.directPath ? `/${subMenu.path}` : {name: subMenu.path}" 
                 active-class="activeTab" class="side-tab"
             >
                 <v-list-tile-avatar>
-                    <v-icon small color="grey">{{ subMenu.icon }}</v-icon>
+                    <div
+                    v-if="subMenu.id === 'you'"
+                    class="profile-image"
+                    :style="{
+                        'background-image': 'url(' + currentUser.avatar.thumb.url + ')',
+                    }"
+                    ></div>
+                    <v-icon v-else small color="grey">{{ subMenu.icon }}</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-title class="">
                     {{ subMenu.title }}
@@ -115,19 +122,14 @@ export default {
       searchActive: false,
       tabs: [
         {
-          name: 'For You',
+          name: '',
           items: [
             {
               title: 'You',
-              id: 'recommended',
+              id: 'you',
               icon: 'circle',
-              path: 'AlbumIndex',
-            },
-            {
-              title: 'Activity',
-              id: 'activity',
-              icon: 'notifications',
-              path: 'ActivityIndex',
+              directPath: true,
+              path: this.username,
             },
             {
               title: 'Home',
@@ -136,10 +138,10 @@ export default {
               path: 'Feed',
             },
             {
-              title: 'Messages',
-              id: 'messages',
-              icon: 'email',
-              path: 'Messages',
+              title: 'Notifications',
+              id: 'notifications',
+              icon: 'notifications',
+              path: 'NotificationIndex',
             },
             {
               title: 'Cart',
@@ -147,11 +149,28 @@ export default {
               icon: 'shopping_cart',
               path: 'Cart',
             },
+          ],
+        },
+        {
+          name: 'Admin',
+          items: [
             {
-              title: 'Orders',
+              title: 'Sales',
               id: 'orders',
               icon: 'local_shipping',
               path: 'Sell',
+            },
+            {
+              title: 'Upload',
+              id: 'orders',
+              icon: 'file_upload',
+              path: 'UploadIndex',
+            },
+            {
+              title: 'Manage',
+              id: 'orders',
+              icon: 'video_library',
+              path: 'ManageIndex',
             },
           ],
         },
@@ -179,20 +198,6 @@ export default {
           ],
         },
       ],
-      items: [
-        {
-          action: 'local_activity',
-          title: 'Attractions',
-          path: '/',
-          items: [],
-        },
-        {
-          action: 'restaurant',
-          title: 'Breakfast',
-          path: '/breakfast',
-          items: [],
-        },
-      ],
     }
   },
   methods: {
@@ -200,6 +205,20 @@ export default {
       const keyword = this.keyword
       this.$router.push({ path: '/search', query: { q: keyword } })
     },
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+    username() {
+      return this.$store.state.auth.user.slug
+    },
+  },
+  mounted() {
+    //   Set username
+    this.tabs.forEach((parent) => parent.items.forEach((item) => {
+      item.id === 'you' ? item.path = this.username : ''
+    }))
   },
 }
 </script>
@@ -230,5 +249,11 @@ export default {
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
+}
+.profile-image {
+width: 28px;
+height: 28px;
+border-radius: 100%;
+background-size: cover;
 }
 </style>
