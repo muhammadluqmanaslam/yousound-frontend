@@ -1,25 +1,24 @@
 <template>
   <div class="page search-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Search</h2>
-          <ul>
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="onTab(tab.id)">
-                {{ tab.title }}
-                <span>({{ searchResultCount(tab.id) }})</span>
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="onTab(tab.id)">
+              {{ tab.title }}
+              <span>({{ searchResultCount(tab.id) }})</span>
+            </label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
 
+    <div class="d-flex">
       <div class="page-content">
         <div v-if="active_tab == 'albums'">
           <v-layout row wrap class="covers-content">

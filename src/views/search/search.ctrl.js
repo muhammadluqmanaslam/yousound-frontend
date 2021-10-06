@@ -5,6 +5,7 @@ import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
 import VideoBox from '@/components/video_box'
 import videoCard from '@/components/videocard'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
@@ -13,6 +14,7 @@ export default {
     productCard,
     VideoBox,
     videoCard,
+    contentTopHeader,
   },
 
   data() {
