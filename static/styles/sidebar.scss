@@ -1,0 +1,101 @@
+
+.sidebar {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #101010 !important;
+  .side-tab {
+    a {
+      position: relative;
+      padding: 12px 0 12px 12px !important;
+      height: 37px;
+
+      .notifications {
+        flex: none;
+        display: flex;
+        color: #fff;
+        border-radius: 50%;
+        height: 22px;
+        width: 22px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        transition: .3s cubic-bezier(.25,.8,.5,1);
+        background: red;
+      }
+    }
+    .activeTab {
+        color: #ffffff !important;
+        font-weight: bold !important;
+        background-color: #424242;
+        border-radius: 6px;
+    }
+  }
+
+  .sidebar-logo img {
+    border-style: none;
+    width: 52%;
+    margin-top: 4px;
+  }
+
+  .subheader {
+    padding-right: 16px !important;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #777;
+  }
+
+  .list__tile {
+      height: 40px !important;
+  }
+  .avatar .icon {
+      justify-content: flex-start !important;
+  }
+  #search {
+      color: grey;
+      border: 1px solid grey;
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 3px;
+      padding: 5px;
+      transition: opacity .5s;
+  }
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  .profile-image {
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  background-size: cover;
+  }
+}
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8a8787; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cebdbd; 
+}

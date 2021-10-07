@@ -11,14 +11,13 @@
     }
     .tabs__item {
       height: 55px;
-      padding: 0 !important;
       text-transform: none;
       font-size: 18px;
       font-weight: 500;
       color: #8e8e8e;
       text-transform: uppercase;
       margin-left: 1px;
-      font-family: 'Raleway', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       &.tabs__item--active {
         color: #000000;
       }

@@ -1,3 +1,11 @@
+.ellipsisIt {
+    white-space: nowrap;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #000;
+    display: inline-block;
+}
 .side-player {
   position: relative;
   width: 100%;
@@ -27,7 +35,7 @@
     display: flex;
     .track-cover-container {
       flex: 0 0 auto;
-      width: 80px;
+      width: 30%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -47,10 +55,9 @@
       }
     }
     .track-info-container {
-      display: flex;
-      align-items: center;
+      width: 70%;
+
       .track-info {
-        width: 340px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -61,6 +68,7 @@
           letter-spacing: -0.54px;
         }
         .track-name {
+          @extend .ellipsisIt;
           padding-left: 3.75px;
           color: #fff;
           font-weight: 500;
@@ -69,13 +77,13 @@
         }
       }
       .user-info {
-        width: 340px;
         padding-top: 5px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         font-weight: bolder;
         .user-name {
+          @extend .ellipsisIt;
           font-size: 14px;
           font-weight: 600;
           color: #fff;
