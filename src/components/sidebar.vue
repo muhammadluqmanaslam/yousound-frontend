@@ -108,7 +108,7 @@
                         v-else-if="subMenu.id === 'cart' && badge.cart > 0" 
                         class="notifications __n_cart"
                     >
-                        <span class='__count'>{{ badge.cart }}</span>
+                        <span class="__count">{{ badge.cart }}</span>
                     </span>
                 </v-list-tile-title>
             </v-list-tile>
