@@ -2,11 +2,11 @@
 <v-navigation-drawer permanent app fixed dark class="sidebar">
     <div class="pa-3">
         <div justify-space-between align-center class=" d-flex mb-3">
-            <router-link to="/album">
-                <img src="/static/images/nav_logo_white.png" width="60%">
+            <router-link to="/album" class="sidebar-logo">
+                <img src="/static/images/nav_logo_white.png">
             </router-link>
 
-            <span class="icon cursor-me" @click="searchActive = !searchActive">
+            <span class="icon cursor-me pr-2" @click="searchActive = !searchActive">
                     <svg
                     width="20px"
                     height="20px"
@@ -71,8 +71,7 @@
         </transition>
         <v-list v-for="(parent, i) in tabs" :key="i">
             <h4>
-                <h3 class="px-3">{{ parent.name }}</h3>
-                <!-- {{ username }} -->
+                <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
             </h4>
             <v-list-tile 
                 v-for="(subMenu, ii) in parent.items" 
@@ -90,8 +89,27 @@
                     ></div>
                     <v-icon v-else small color="grey">{{ subMenu.icon }}</v-icon>
                 </v-list-tile-avatar>
-                <v-list-tile-title class="">
-                    {{ subMenu.title }}
+                <v-list-tile-title class="d-flex justify-space-between align-center">
+                    <span>{{ subMenu.title }}</span>
+
+                    <span 
+                        v-if="subMenu.id === 'notifications' && badge.message > 0" 
+                        class="notifications __n_message"
+                    >
+                        <span class="__count">{{ badge.message }}</span>
+                    </span>
+                    <span 
+                        v-else-if="subMenu.id === 'sales' && badge.sell > 0" 
+                        class="notifications __n_sales"
+                    >
+                        <span class="__count">{{ badge.sell }}</span>
+                    </span>
+                    <span 
+                        v-else-if="subMenu.id === 'cart' && badge.cart > 0" 
+                        class="notifications __n_cart"
+                    >
+                        <span class="__count">{{ badge.cart }}</span>
+                    </span>
                 </v-list-tile-title>
             </v-list-tile>
         </v-list>
@@ -132,8 +150,8 @@ export default {
               path: this.username,
             },
             {
-              title: 'Home',
-              id: 'home',
+              title: 'Feed',
+              id: 'feed',
               icon: 'home',
               path: 'Feed',
             },
@@ -149,26 +167,21 @@ export default {
               icon: 'shopping_cart',
               path: 'Cart',
             },
-          ],
-        },
-        {
-          name: 'Admin',
-          items: [
             {
               title: 'Sales',
-              id: 'orders',
+              id: 'sales',
               icon: 'local_shipping',
               path: 'Sell',
             },
             {
               title: 'Upload',
-              id: 'orders',
+              id: 'upload',
               icon: 'file_upload',
               path: 'UploadIndex',
             },
             {
               title: 'Manage',
-              id: 'orders',
+              id: 'manage',
               icon: 'video_library',
               path: 'ManageIndex',
             },
@@ -213,47 +226,24 @@ export default {
     username() {
       return this.$store.state.auth.user.slug
     },
+    badge() {
+      return this.$store.state.activity.badge
+    },
   },
   mounted() {
     //   Set username
     this.tabs.forEach((parent) => parent.items.forEach((item) => {
-      item.id === 'you' ? item.path = this.username : ''
+      if (item.id === 'you') {
+        item.path = this.username
+        item.title = this.username.toUpperCase()
+      }
     }))
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.list__tile {
-    height: 40px !important;
-}
-.avatar .icon {
-    justify-content: flex-start !important;
-}
-#search {
-    color: grey;
-    border: 1px solid grey;
-    width: 100%;
-    border-radius: 6px;
-    margin-bottom: 3px;
-    padding: 5px;
-    transition: opacity .5s;
-}
-.slide-fade-enter-active {
-  transition: all .3s ease;
-}
-.slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateX(10px);
-  opacity: 0;
-}
-.profile-image {
-width: 28px;
-height: 28px;
-border-radius: 100%;
-background-size: cover;
-}
+</style>
+
+<style src="../../static/styles/sidebar.scss" lang="scss" scoped>
 </style>
