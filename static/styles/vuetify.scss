@@ -122,6 +122,10 @@ able.table thead th:not(:first-child) {
   // margin-bottom: 150px;
 }
 
+.tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
+  padding: 0 2px;
+}
+
 /* drop-down menu */
 .list__tile {
   font-size: 14px;
