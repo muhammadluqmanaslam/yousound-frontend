@@ -11,5 +11,5 @@
 export default {}
 </script>
 
-<style src="@/../static/styles/topHeader.scss" lang="scss" scoped>
+<style src="../../static/styles/topHeader.scss" lang="scss" scoped>
 </style>
