@@ -7,7 +7,7 @@
       <v-divider></v-divider>
     </div>
     <div class="side-player-inner">
-      <v-flex xs12 sm4 md4 class="track-detail-section">
+      <div class="track-detail-section">
         <div class="track-cover-container">
           <router-link :to="`/${item.album_type}/${item.slug}`">
             <template v-if="item.album_type == 'playlist'">
@@ -28,12 +28,12 @@
           </router-link>
         </div>
         <div class="track-info-container">
-          <div>
+
             <div class="track-info">
-              <div class="d-flex">
+              <div class="d-flex justify-space-between align-center">
                 <div class="track-index" id="trackIndex">{{ trackIndex }}</div>
 
-                <div class="actions-section">
+                <div class="actions-section flex-none">
                   <v-menu offset-y dark class="dots-wrapper">
                     <v-icon right slot="activator">more_horiz</v-icon>
                     <v-list>
@@ -108,12 +108,12 @@
                 }}</router-link>
                 <template v-for="c in item.collaborators">
                   <span :key="`span-${c.user.id}`">,&nbsp;</span>
-                  <router-link
+                  <!-- <router-link
                     :key="`link-${c.user.id}`"
                     class="user-name"
                     :to="`/${c.user.slug}`"
                     >{{ c.user.display_name }}</router-link
-                  >
+                  > -->
                 </template>
                 <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
               </template>
@@ -128,21 +128,21 @@
                 }}</router-link>
               </template>
             </div>
-          </div>
+
         </div>
-      </v-flex>
+      </div>
 
       <div class="follow-meta">
         <div>
           <template v-if="item.collaborators_count > 0">
             <template v-for="c in item.collaborators">
               <span :key="`span-${c.user.id}`">,&nbsp;</span>
-              <router-link
+              <!-- <router-link
                 :key="`link-${c.user.id}`"
                 class="user-name"
                 :to="`/${c.user.slug}`"
                 >{{ c.user.display_name }}</router-link
-              >
+              > -->
             </template>
           </template>
           <template v-else-if="item.album_type == 'album'">
