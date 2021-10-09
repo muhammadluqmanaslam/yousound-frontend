@@ -4,24 +4,34 @@
   overflow-y: auto;
   background-color: #101010 !important;
   .side-tab {
-    a {
+    /deep/ a {
       position: relative;
       padding: 12px 0 12px 12px !important;
-      height: 37px;
+      height: 36px;
+
+      .__icon {
+        font-size: 20px;
+      }
 
       .notifications {
         flex: none;
         display: flex;
         color: #fff;
-        border-radius: 50%;
-        height: 22px;
-        width: 22px;
         justify-content: center;
         align-items: center;
         flex-direction: row;
         flex-wrap: wrap;
         transition: .3s cubic-bezier(.25,.8,.5,1);
         background: red;
+        border-radius: 20%;
+        width: 28px;
+        height: 20px;
+
+        .__count {
+          margin-top: -2.5px;
+          font-size: 13px;
+          font-weight: 600;
+        }
       }
     }
     .activeTab {
@@ -40,7 +50,7 @@
 
   .subheader {
     padding-right: 16px !important;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     font-size: 14px;
     font-weight: 700;
     color: #777;

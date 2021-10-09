@@ -87,7 +87,7 @@
                         'background-image': 'url(' + currentUser.avatar.thumb.url + ')',
                     }"
                     ></div>
-                    <v-icon v-else small color="grey">{{ subMenu.icon }}</v-icon>
+                    <v-icon v-else color="grey" class="__icon">{{ subMenu.icon }}</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-title class="d-flex justify-space-between align-center">
                     <span>{{ subMenu.title }}</span>
