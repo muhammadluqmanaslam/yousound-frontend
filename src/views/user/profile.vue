@@ -3,37 +3,8 @@
     <div class="page profile-grid-page mx-5">
     <content-top-header>
       <template slot="topHeader">
-        <ul>
-          <template v-for="tab in tabs">
-            <li
-              v-if="isAvailableForGridView(tab)"
-              v-show="['followings', 'followers'].indexOf(tab.id) == -1"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="onTab(tab.id)">{{ tab.title }}</label>
-            </li>
-          </template>
-        </ul>
-      </template>
-    </content-top-header>
 
-      <div class="d-flex">
-        <!-- <div class="page-left">
-          <div class="tab-container pr-3">
-            <div v-if="user" class="user-profile-section pb-2">
-              <div class="user-profile-image-section">
-                <div class="user-profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
-                <div
-                  v-if="show_stream_live_button"
-                  @click="viewStream()"
-                  class="user-profile-image--live"
-                >
-                  <i class="fa fa-circle"></i>
-                  <span class="live">Live</span>
-                </div>
-              </div>
+            <div v-if="user" class="user-profile-section">
               <div
                 class="user-profile-image-section"
                 :class="{ live: show_stream_live_button }"
@@ -54,7 +25,7 @@
 
               <div class="user-info-section">
                 <div class="user-name-section">
-                  <label>
+                  <label class="display-name">
                     {{ user.display_name }}
                     <v-icon
                       v-if="
@@ -65,11 +36,7 @@
                       >fa-check-circle</v-icon
                     >
                   </label>
-                </div>
-                <div class="user-status-section mt-2">
-                  <label class="user-role">{{ user.user_type }}</label>
-                  <label class="vertical-divider"></label>
-                  <label>{{ userLocation }}</label>
+                  <span class="user-role">{{ user.user_type }}</span>
                 </div>
                 <div v-if="followMetaVisible" class="user-status-section mt-2">
                   <label @click="onTab('followings')" class="follower-count"
@@ -95,30 +62,32 @@
                   <template v-if="user.user_type === 'listener'">
                     <v-btn
                       v-if="
-                        currentUser &&
-                        ['listener'].indexOf(currentUser.user_type) == -1 &&
-                        !user.inviter &&
-                        user.request_status === 'pending'
+                      currentUser &&
+                      ['listener'].indexOf(currentUser.user_type) == -1 &&
+                      !user.inviter &&
+                      user.request_status === 'pending'
                       "
                       @click.native="openInviteConfirmDialog()"
-                      class="invite-btn"
+                      class="invite-btn ml-0"
                       >Invite</v-btn
                     >
                   </template>
 
-                  <v-btn v-else @click.native="playSong()" class="play-btn"
-                    ><v-icon>play_arrow</v-icon>Play</v-btn
-                  >
+                  <v-btn v-else @click.native="playSong()" class="play-btn">
+                      <v-icon>play_arrow</v-icon>
+                      <span>Play</span>
+                  </v-btn>
 
                   <v-btn
                     v-if="
-                      currentUser &&
-                      user.id != currentUser.id &&
-                      user.username != PublicRelationsUsername
+                        currentUser &&
+                        user.id != currentUser.id &&
+                        user.username != PublicRelationsUsername
                     "
                     @mouseenter="buttonHover = true"
                     @mouseleave="buttonHover = false"
                     @click.native="followUser()"
+                    class="ml-0 mb-0"
                     :class="{
                       'follow-btn': true,
                       follow: !user.is_following,
@@ -129,9 +98,9 @@
 
                   <v-menu
                     v-if="
-                      currentUser &&
-                      user.id != currentUser.id &&
-                      user.username != PublicRelationsUsername
+                        currentUser &&
+                        user.id != currentUser.id &&
+                        user.username != PublicRelationsUsername
                     "
                     offset-y
                     class="more-menu"
@@ -142,16 +111,15 @@
                     <v-list>
                       <v-list-tile
                         key="message"
-                        @click.native="showMessageDialog()"
+                        @click="showMessageDialog()"
                       >
-                        <v-list-tile-title class="default-menu-item">
-                          <img class="track-status-icon" src="/static/images/ic_download.png" />
+                        <div class="default-menu-item">
                           <label>Message</label>
-                        </v-list-tile-title>
+                        </div>
                       </v-list-tile>
                       <v-list-tile
                         key="view_direct_messages"
-                        @click.native="viewDirectMessages()"
+                        @click="viewDirectMessages()"
                         v-if="enabledViewDirectMessage"
                       >
                         <v-list-tile-title class="default-menu-item">
@@ -165,25 +133,25 @@
                           user.stripe_connected
                         "
                         key="send_love"
-                        @click.native="showLoveDialog()"
+                        @click="showLoveDialog()"
                       >
                         <v-list-tile-title class="default-menu-item">
                           <label>Send Love</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile key="chat" @click.native="goToChat()">
+                      <v-list-tile key="chat" @click="goToChat()">
                         <v-list-tile-title class="default-menu-item">
                           <label>Chat</label>
                         </v-list-tile-title>
                       </v-list-tile>
-                      <v-list-tile @click.native="flagUser()">
+                      <v-list-tile @click="flagUser()">
                         <v-list-tile-title class="default-menu-item">
                           <label>Flag</label>
                         </v-list-tile-title>
                       </v-list-tile>
                       <v-list-tile
                         key="block"
-                        @click.native="openBlockUserConfirmDialog()"
+                        @click="openBlockUserConfirmDialog()"
                       >
                         <v-list-tile-title class="default-menu-item">
                           <label>Block</label>
@@ -191,27 +159,26 @@
                       </v-list-tile>
                     </v-list>
                   </v-menu>
-
-                  <label class="divider"></label>
                 </div>
               </div>
-              <ul>
-                <template v-for="tab in tabs">
-                  <li
-                    v-if="isAvailableForGridView(tab)"
-                    v-show="['followings', 'followers'].indexOf(tab.id) == -1"
-                    :key="tab.id"
-                    :href="`#${tab.id}`"
-                    :class="{ active: isActiveTab(tab.id) }"
-                  >
-                    <label @click="onTab(tab.id)">{{ tab.title }}</label>
-                  </li>
-                </template>
-              </ul>
             </div>
-          </div>
-        </div> -->
+        <ul>
+          <template v-for="tab in tabs">
+            <li
+              v-if="isAvailableForGridView(tab)"
+              v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            </li>
+          </template>
+        </ul>
+      </template>
+    </content-top-header>
 
+      <div class="d-flex">
         <div class="page-content">
           <div v-if="active_tab == 'followings' || active_tab == 'followers'">
             <div v-if="!users || users.length == 0" class="empty-section">
@@ -497,3 +464,4 @@
 </template>
 
 <script type="text/javascript" src="./profile.ctrl.js"></script>
+<style lang="scss" src="../../../static/styles/profile.scss" scoped></style>
