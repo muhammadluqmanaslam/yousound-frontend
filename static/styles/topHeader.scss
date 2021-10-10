@@ -45,6 +45,29 @@
     .tab-container {
       width: auto;
       position: unset;
+      display: flex;
+
+      .user-profile-image-wrapper {
+        display: flex;
+        align-items: center;
+        margin-right: 30px;
+
+        .user-profile-image {
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+          border-radius: 50%;
+          background-color: #FAFAFA;
+          overflow: hidden;
+          background-size: cover;
+          background-position: center;
+          border: solid 1px #e0e0e0;
+        }
+
+        label {
+          font-weight: bold;
+        }
+      }
 
       .tabs {
         .tabs__bar {

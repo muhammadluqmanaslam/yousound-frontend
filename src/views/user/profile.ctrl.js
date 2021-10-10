@@ -172,6 +172,8 @@ export default {
   },
 
   created() {
+    window.addEventListener('scroll', this.handleScroll)
+
     this.slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
     const grid_view =
@@ -192,7 +194,9 @@ export default {
   beforeDestroy() {
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
   },
-
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
     ...mapActions({
       setPlaylist: 'player/setPlaylist',
@@ -200,6 +204,22 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    handleScroll(event) {
+      // console.log(event)
+    },
+    handleScroll2(event) {
+      const profileCard = document.querySelector('.user-profile-section')
+      const navProfileCard = document.querySelector('.user-profile-image-wrapper')
+
+      var y = window.scrollY
+      if (y >= 144) {
+        profileCard.style.display = 'none'
+        navProfileCard.style.display = 'flex'
+      } else if (y >= 144) {
+        profileCard.style.display = 'flex'
+        navProfileCard.style.display = 'none'
+      }
+    },
     isActiveTab(tab) {
       return this.active_tab === tab
     },
