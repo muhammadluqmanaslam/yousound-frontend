@@ -1,0 +1,20 @@
+.notification-page {
+        height: unset;
+        min-height: unset !important;
+    .messages-page {
+        margin-top: -22px;
+        max-height: calc(100vh - 200px);
+    }
+    .activity-page {
+        margin-top: 0;
+
+        /deep/.page-content {
+            margin-top: 0;
+        }
+    }
+
+    .page {
+        min-height: unset !important;
+        overflow: hidden;
+    }
+}
