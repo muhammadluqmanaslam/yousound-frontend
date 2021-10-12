@@ -181,6 +181,27 @@ body {
   }
 }
 
+.app-bold {
+  font-weight: 700;
+  color: #000;
+  font-size: 15px;
+}
+
+.borderTest {
+  border: 1px solid black !important;
+}
+
+.allChildrenCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapFlex {
+  display: flex;
+  flex-flow: wrap;
+}
+
 // Vue Transition
 .slide-fade-enter-active {
   transition: all .3s ease;
@@ -192,6 +213,31 @@ body {
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.dropdown-field {
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 4px;
+  min-width: 29px;
+  padding: 5px 13px;
+  min-height: 42px;
+  
+  // cursor: pointer;
+  // background-color: #fff;
+  // -webkit-transition-duration: .3s;
+  // transition-duration: .3s;
+  // position: relative;
+  // width: 100%;
+  // height: 42px;
+  // min-height: 42px;
+  // padding-left: 12px;
+  // padding-right: 44px;
+  // font-weight: 400;
+  // -webkit-appearance: none;
+  // outline: none;
+  // border: 1px solid rgba(0,0,0,.2);
+  // font-size: 14px;
+  // z-index: 0;
 }
 
 .covers-content {
