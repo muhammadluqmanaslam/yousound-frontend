@@ -29,8 +29,6 @@
 
     <v-flex
       xs12
-      sm10
-      offset-sm1
       class="messages-page-content"
       v-if="currentUser"
     >
@@ -47,6 +45,7 @@
         <template v-else>
           <v-flex xs12 sm3 pa-0 class="conversations">
             <div class="conversations__header">
+              <div class="app-bold">Inbox</div>
               <div class="conversations__count">
                 {{ conversations.length }} messages
               </div>
@@ -134,10 +133,6 @@
             v-if="conversation && conversation.id > 0"
             xs12
             pa-0
-            :class="{
-              sm6: currentUser.user_type === 'artist',
-              sm9: currentUser.user_type !== 'artist',
-            }"
             class="message-content-section"
           >
             <div class="header-section">
@@ -198,6 +193,7 @@
                 @updated="refreshMessages"
               />
             </div>
+
             <div class="send-message-section">
               <input
                 v-model.trim="message.body"
@@ -239,7 +235,7 @@
             </div>
           </v-flex>
 
-          <v-flex
+          <!-- <v-flex
             v-if="
               ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1
             "
@@ -337,7 +333,7 @@
                 </p>
               </div>
             </template>
-          </v-flex>
+          </v-flex> -->
         </template>
       </v-layout>
     </v-flex>
@@ -410,3 +406,4 @@
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style src="../../../static/styles/messages.scss" lang="scss" scoped>
