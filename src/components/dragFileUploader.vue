@@ -1,0 +1,191 @@
+<template>
+  <div v-if="type">
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <li
+            v-if="type == 'mp3'"
+            class="active"
+          >
+            Upload Album
+          </li>
+          <li
+            v-else-if="type == 'video'"
+            class="active"
+          >
+            Upload Video
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
+    <div class="uploaderBox" id="uploaderBox">
+      <div class="uploaderBox__input">
+        <input
+          type="file"
+          id="file"
+          class="uploaderBox__file"
+          :name="uploadFieldName"
+          :accept="accept"
+          @change="filesChange($event.target.files)"
+          multiple
+        />
+        <label for="file">
+          <img v-if="type == 'mp3'" src="/static/images/drop_box.png" class="uploaderBox_image" />
+          <img v-if="type == 'video'" src="/static/images/drop_video.png" class="uploaderBox_image" />
+        </label>
+        <div class="uploaderBox__desc">
+            <div v-if="type == 'mp3'">
+                <span class="uploaderBox__dragndrop"
+                    >Click or Drag & Drop audio files</span
+                >
+                <span class="uploaderBox__filetype"> MP3 audio files only</span>
+            </div>
+            <div v-if="type == 'video'">
+                <span v-if="type == 'video'" class="uploaderBox__dragndrop"
+                    >Click or Drag & Drop video files</span
+                >
+                <span class="uploaderBox__filetype">All popular video formats</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+/* global $:true */
+
+import _ from 'lodash'
+import draggable from 'vuedraggable'
+import contentTopHeader from '@/components/contentTopHeader'
+
+export default {
+  components: {
+    draggable,
+    contentTopHeader,
+  },
+  props: {
+    album: {
+      type: Object,
+    },
+
+    accept: {
+      type: String,
+      default: '*/*',
+    },
+
+    type: {
+      type: String,
+    },
+
+    autoUpload: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
+  data() {
+    return {
+      show_unauthorized_content_dialog: false,
+      show_duplicate_content_dialog: false,
+      currentFile: {
+        track_title: '',
+        artist_name: '',
+      },
+      status: {
+        uploading: 1,
+        success: 2,
+        failed: 3,
+      },
+      currentStatus: null,
+      uploadFieldName: 'files',
+    }
+  },
+
+  computed: {
+    // dragDisabled() {
+    //   const hasEditing = _.find(this.album.tracks, (file) => (file.editing)) == null
+    //   // console.log('dragDisabled', !hasEditing)
+    //   return !hasEditing
+    // }
+  },
+
+  created() {},
+
+  methods: {
+    fileIsPicked(status, fileList) {
+      if (status) this.$emit('filePicked', fileList)
+    },
+    cancelTrack() {
+      const idx = _.findIndex(this.album.tracks, (f) => f === this.currentFile)
+      // console.log('cancelTrack', idx)
+      if (idx > -1) {
+        this.deleteTrack(idx)
+      }
+
+      if (this.show_unauthorized_content_dialog) {
+        this.show_unauthorized_content_dialog = false
+      }
+
+      if (this.show_duplicate_content_dialog) {
+        this.show_duplicate_content_dialog = false
+      }
+    },
+
+    filesChange(fileList) {
+      if (fileList.length) this.fileIsPicked(true, fileList)
+    },
+
+    enableEditing(file) {
+      // console.log('enableEditing', file)
+      file.editing = true
+    },
+
+    disableEditing(file) {
+      // console.log('disableEditing', file)
+      file.editing = false
+    },
+
+    onInputFocus(index, evt) {
+      // console.log('focus', $(evt.target).val())
+      evt.target.select()
+    },
+
+    onInputBlur(index, evt) {
+      // console.log('blur', index, $(evt.target).val())
+      // this.disableEditing(this.album.tracks[index])
+      this.updateTrack(index)
+    },
+    deleteAttachedVideo() {
+      document.querySelector('#file').value = ''
+    },
+  },
+
+  mounted() {
+    const vm = this
+    const uploaderBox = $('.uploaderBox')
+    uploaderBox
+      .on(
+        'drag dragstart dragend dragover dragenter dragleave drop',
+        function (e) {
+          e.preventDefault()
+          e.stopPropagation()
+        }
+      )
+      .on('dragover dragenter', function () {
+        uploaderBox.addClass('is-dragover')
+      })
+      .on('dragleave dragend drop', function () {
+        uploaderBox.removeClass('is-dragover')
+      })
+      .on('drop', function (e) {
+        let droppedFiles = e.originalEvent.dataTransfer.files
+
+        // Register files on dom input after dropping
+        document.querySelector('#file').files = droppedFiles
+        vm.filesChange(droppedFiles)
+      })
+  },
+}
+</script>
