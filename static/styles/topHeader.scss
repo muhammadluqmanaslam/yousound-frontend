@@ -1,37 +1,11 @@
-
-  .page-left {
-    width: 300px;
-    flex: 0 0 auto;
-
-    .tab-container {
-      z-index: 10;
-      position: fixed;
-      width: 300px;
-      ul {
-        li {
-          list-style: none;
-          margin: 15px 0;
-          font-weight: 300;
-          color: #000;
-          &.active {
-            font-weight: 700;
-            color: #000;
-          }
-          label {
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
   .top-menu {
-    @extend .page-left;
     width: 75%;
     position: fixed;
-    z-index: 10;
     background-color: #ffffff;
     top: 0;
     padding: 5px 20px 0px 9px;
+    margin: 0px 0 0 -10px;
+    z-index: 2;
 
     &::after {
       content: "";
@@ -45,7 +19,7 @@
     .tab-container {
       width: auto;
       position: unset;
-      display: flex;
+      // display: flex;
 
       .user-profile-image-wrapper {
         display: flex;
@@ -95,6 +69,7 @@
 
       ul {
         display: flex;
+        align-items: center;
 
         li:not(:last-child) {
           margin-right: 40px;
@@ -102,6 +77,17 @@
 
         li {
           font-size: 15px;
+          list-style: none;
+          margin: 15px 0;
+          font-weight: 300;
+          color: #000;
+          &.active {
+            font-weight: 700;
+            color: #000;
+          }
+          label {
+            cursor: pointer;
+          }
           .genre-dialog-selector {
             width: 50px;
             display: flex;
@@ -120,5 +106,4 @@
         }
       }
     }
-
   }
