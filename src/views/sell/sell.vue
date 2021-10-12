@@ -15,7 +15,7 @@ empty<template>
 
           <li
             v-if="active_tab == 'orders'"
-            class="my-0"
+            class="my-0 d-flex align-center"
           >
             <v-menu
               id="item_filter"
@@ -23,8 +23,8 @@ empty<template>
               style="display: block"
               offset-y
             >
-              <div slot="activator" class="filter__activator py-3">
-                <span>{{ activeFilterName }}</span>
+              <div slot="activator" class="filter__activator dropdown-field py-3">
+                <span class="">{{ activeFilterName }} orders</span>
                 <v-icon right>keyboard_arrow_down</v-icon>
               </div>
               <v-list>
@@ -88,29 +88,28 @@ empty<template>
                           :className="'order-item-profile-avatar'"
                         ></profile-item>
                       </div>
-                      <div class="profile-content">
-                        <a href="#" class="user-name">{{
-                          order.customer.display_name
-                        }}</a>
-                        <label class="order-detail-text">
-                          purchased
-                          <b>${{ order.amount | formatNumber }}</b></label
-                        >
-                      </div>
-                      <div class="profile-actions">
-                        <router-link
-                          :to="`/sell/order/${order.id}`"
-                          class="order-detail-btn"
-                          >View Order Details</router-link
-                        >
-                        <a
-                          class="message-buyer-btn"
-                          @click="showMessageDialog(order)"
-                          >Message Buyer</a
-                        >
-                        <label class="order-date">{{
-                          order.created_at | formatDate
-                        }}</label>
+                      <div>
+                        <div class="profile-content">
+                          <a href="#" class="user-name">{{
+                            order.customer.display_name
+                          }}</a>
+                          <label class="order-detail-text">
+                            purchased
+                            <b>${{ order.amount | formatNumber }}</b></label
+                          >
+                        </div>
+                        <div class="profile-actions">
+                          <router-link
+                            :to="`/sell/order/${order.id}`"
+                            class="order-detail-btn"
+                            >View Order Details</router-link
+                          >
+                          <a
+                            class="message-buyer-btn"
+                            @click="showMessageDialog(order)"
+                            >Message Buyer</a
+                          >
+                        </div>
                       </div>
                     </div>
                     <div class="status-section text-xs-center"></div>
@@ -121,6 +120,7 @@ empty<template>
                   :key="item.id"
                   class="order-section"
                 >
+                <v-container grid-list-xl fill-height class="pa-0">
                   <v-layout
                     v-if="
                       activeFilterItemStatus == '' ||
@@ -128,65 +128,80 @@ empty<template>
                     "
                     row
                   >
-                    <div class="order-content-section relative">
-                      <div
-                        class="product-cover-image"
-                        :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
-                      ></div>
-                      <div class="product-content">
-                        <div class="product-content-row">
-                          <div class="product-name">
-                            {{ item.product.name }} |
-                            {{ item.product_variant.name }}
-                          </div>
+                    <v-flex xs10>
+                      <div class="order-content-section">
+                        <div class="order-content-container">
                           <div
-                            class="product-count"
-                            v-if="!isDigitalProduct(item)"
-                          >
-                            Quantity: <b>{{ item.quantity }}</b>
+                            class="product-cover-image"
+                            :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
+                          ></div>
+                          <div class="product-content">
+                            <div class="product-content-row">
+                              <div class="product-name">
+                                {{ item.product.name }} |
+                                {{ item.product_variant.name }}
+                              </div>
+                            </div>
+                            <div class="product-content-row pt-1">
+                              <div class="product-price">
+                                ${{ item.price | formatNumber }}
+                              </div>
+
+                              <div
+                                class="product-count"
+                                v-if="!isDigitalProduct(item)"
+                              >
+                                Quantity: <b>{{ item.quantity }}</b>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="product-content-row pt-1">
-                          <div class="product-price">
-                            ${{ item.price | formatNumber }}
-                          </div>
-                        </div>
+
+                        <v-spacer></v-spacer>
+
+                        <div class="order-date">{{
+                          order.created_at | formatDate
+                        }}</div>
                       </div>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center digital"
-                      v-if="isDigitalProduct(item)"
-                    >
-                      <p class="order-status-text">
-                        {{ item.product.digital_content_name }}
-                      </p>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      v-else-if="item.status == 'item_ordered'"
-                    >
-                      <p class="order-status-text">Pending</p>
-                      <v-btn
-                        class="order-status-btn ship"
-                        @click.native.stop="openShipConfirmModal(item)"
-                        >Ship</v-btn
+                    </v-flex>
+
+                    <v-flex xs2>
+                      <div
+                        class="order-status-section text-xs-center digital"
+                        v-if="isDigitalProduct(item)"
                       >
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      v-else-if="item.status == 'item_shipped'"
-                    >
-                      <p class="order-status-text">Shipped</p>
-                      <v-btn
-                        class="order-status-btn shipped"
-                        @click.native.stop="openUnshipConfirmModal(item)"
-                        >Unship</v-btn
+                        <p class="order-status-text">
+                          {{ item.product.digital_content_name }}
+                        </p>
+                      </div>
+                      <div
+                        class="order-status-section text-xs-center"
+                        v-else-if="item.status == 'item_ordered'"
                       >
-                    </div>
-                    <div class="order-status-section text-xs-center" v-else>
-                      <p class="order-status-text">Refunded</p>
-                    </div>
+                        <p class="order-status-text">Pending</p>
+                        <v-btn
+                          class="order-status-btn ship"
+                          @click.native.stop="openShipConfirmModal(item)"
+                          >Ship</v-btn
+                        >
+                      </div>
+                      <div
+                        class="order-status-section text-xs-center"
+                        v-else-if="item.status == 'item_shipped'"
+                      >
+                        <p class="order-status-text">Shipped</p>
+                        <v-btn
+                          class="order-status-btn shipped"
+                          @click.native.stop="openUnshipConfirmModal(item)"
+                          >Unship</v-btn
+                        >
+                      </div>
+                      <div class="order-status-section text-xs-center" v-else>
+                        <p class="order-status-text">Refunded</p>
+                      </div>
+                    </v-flex>
                   </v-layout>
+                </v-container>
                 </div>
               </template>
               <template v-else>
@@ -581,3 +596,4 @@ empty<template>
 </template>
 
 <script type="text/javascript" src="./sell.ctrl.js"></script>
+<style src="../../../static/styles/sell.scss" lang="scss" scoped>

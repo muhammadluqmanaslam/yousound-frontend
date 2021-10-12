@@ -54,14 +54,19 @@
       </v-flex>
       <v-flex xs12 class="product-detail" pa-0>
         <p class="product-name">{{ item.name }}</p>
-        <p class="product-user-name">
+        <div class="product-options-count">
+          <span>{{ item.variants.length }} Option</span>
+          <span v-if="item.variants.length > 1">s</span>
+        </div>
+        <p class="product-price">${{ item.price | formatNumber }}</p>
+        <!-- <p class="product-user-name">
           <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.display_name }}</router-link>
           <template v-else-if="item.collaborators_count == 1">
             <router-link :to="'/' + owner.slug">{{ owner.display_name }}</router-link>,&nbsp;
             <router-link :to="'/' + item.collaborators[0].user.slug" v-if="item.collaborators[0]">{{ item.collaborators[0].user.display_name }}</router-link>
           </template>
           <router-link :to="'/' + owner.slug" v-else>Multiple Collaborators</router-link>
-        </p>
+        </p> -->
       </v-flex>
     </v-flex>
 

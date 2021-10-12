@@ -7,10 +7,12 @@ import ProductService from '@/services/product'
 import MeService from '@/services/me'
 import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
     digitalUploader,
+    contentTopHeader,
   },
 
   data() {
