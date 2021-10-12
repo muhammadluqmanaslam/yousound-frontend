@@ -3,6 +3,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   background-color: #101010 !important;
+  // z-index: 11;
   .side-tab {
     /deep/ a {
       position: relative;
@@ -77,24 +78,4 @@
   border-radius: 100%;
   background-size: cover;
   }
-}
-/* width */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #8a8787; 
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #cebdbd; 
 }
