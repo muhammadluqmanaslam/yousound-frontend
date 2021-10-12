@@ -1,0 +1,84 @@
+.upload-page {
+    .upload-tab-container {
+        padding: 30px !important;
+
+        .upload-tab-wrapper {
+            text-align: center;
+            border: 0.75px solid #e9dcdc;
+            padding: 30px;
+            border-radius: 15px;
+            transition: .3s ease-in-out;
+
+            .upload-tab-img {
+                height: 130px;
+                width: 130px;
+                border-radius: 10px;
+                background-size: cover;
+                background-position: center;
+                margin: 0 auto;
+
+
+                &.uploadMusic {
+                    background-image: url('/static/images/up_music.png');
+                }  
+                &.uploadVideo {
+                    background-image: url('/static/images/up_video.png');
+                }  
+                &.uploadLive {
+                    background-image: url('/static/images/up_live.png');
+                }  
+                &.uploadProduct {
+                    background-image: url('/static/images/up_product.png');
+                }  
+            }  
+            .upload-tab-btn {
+                text-transform: capitalize;
+                background-color: transparent;
+                border-radius: 10px;
+                border: 2px solid;
+                width: 100%;
+            }
+
+            .upload-tab-description {
+                margin: 15px 0;
+            }
+
+            &:hover {
+                transform: scale(1.03);
+                border: 1px solid #c9c2c2;
+                .upload-tab-btn {
+                    color: #ffffff;
+                    border: 0;
+                    background-color: #007aff;
+                }
+            }
+        }
+  
+    }  
+    .meta-tab-container {
+        .meta-tab-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+            border: 0.75px solid #e9dcdc;
+            border-radius: 15px;
+
+            .meta-tab-img {
+                height: 70px;
+                width: 70px;
+                background-position: center;
+                background-size: cover;
+                margin-right: 20px;
+
+
+                &.handImg {
+                    background-image: url('/static/images/up_music.png');
+                }
+                &.boardImg {
+                    background-image: url('/static/images/up_music.png');
+                }
+            }
+            .meta-tab-description {}
+        }
+    }
+}
