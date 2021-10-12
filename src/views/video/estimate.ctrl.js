@@ -90,6 +90,9 @@ export default {
   },
 
   methods: {
+    gotoNextView() {
+      this.$emit('gotoNextView', 'initStream')
+    },
     onTab(tab) {
       if (tab.id === this.active_tab) return
 

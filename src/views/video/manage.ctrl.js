@@ -7,6 +7,7 @@ import UserService from '@/services/user'
 
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
+import contentTopHeader from '@/components/contentTopHeader'
 
 import {
   MediaLiveInputTypes,
@@ -26,17 +27,17 @@ export default {
   components: {
     Attach,
     PaymentModal,
+    contentTopHeader,
   },
 
   mixins: [onClickOutside],
 
   data() {
     return {
-      active_tab: 'manage',
+      active_tab: 'live',
       tabs: [
-        { id: 'info', title: 'Intro', path: '/info' },
-        { id: 'edit', title: 'Details', path: '/edit' },
-        { id: 'manage', title: 'Live Stream', path: '' },
+        { id: 'live', title: 'Live Stream', path: '/create' },
+        { id: 'edit', title: 'Edit Event', path: '/edit' },
       ],
       // stream: {
       //   name: '',
@@ -175,7 +176,8 @@ export default {
         const stream_status = _.get(response.body, 'stream.status', '')
         if (stream_status === '') {
           this.$router.push({
-            path: `/user/${this.currentUser.slug}/video/info`,
+            // path: `/user/${this.currentUser.slug}/video/info`,
+            name: 'VideoCreate',
           })
         } else if (['deleted', 'inactive'].indexOf(stream_status) > -1) {
           this.$router.push({
@@ -285,9 +287,9 @@ export default {
     onTab(tab) {
       if (tab.id === this.active_tab) return
 
-      this.$router.push({
-        path: `/user/${this.currentUser.slug}/video${tab.path}`,
-      })
+      // this.$router.push({
+      //   path: `/user/${this.currentUser.slug}/video${tab.path}`,
+      // })
     },
 
     querySelections(v) {

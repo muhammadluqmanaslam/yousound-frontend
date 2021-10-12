@@ -7,6 +7,8 @@ import UserService from '@/services/user'
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
 import DigitalUploader from './components/digital_uploader'
+import contentTopHeader from '@/components/contentTopHeader'
+import dragFileUploader from '@/components/dragFileUploader'
 
 import {
   VideoGenres,
@@ -23,6 +25,8 @@ export default {
     Attach,
     PaymentModal,
     DigitalUploader,
+    contentTopHeader,
+    dragFileUploader,
   },
 
   data() {
@@ -76,10 +80,14 @@ export default {
       users: [],
       friends: [],
       isPageReady: false,
+      videoFile: null,
     }
   },
 
   computed: {
+    videoFileName() {
+      return this.videoFile[0].name || null
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -107,12 +115,6 @@ export default {
       return 100 - this._.sumBy(this.stream.collaborators, 'user_share')
     },
   },
-
-  // watch: {
-  //   '$route' (toPath, fromPath) {
-  //   }
-  // },
-
   created() {
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
@@ -225,14 +227,9 @@ export default {
   },
 
   methods: {
-    onTab(tab) {
-      if (tab.id === this.active_tab) return
-
-      this.$router.push({
-        path: `/user/${this.currentUser.slug}/video${tab.path}`,
-      })
+    pickedFile(file) {
+      this.videoFile = file
     },
-
     openHelpDialog() {
       this.show_help_dialog = true
     },
@@ -398,11 +395,10 @@ export default {
               .then((response) => {
                 this.video = response.body
                 const upload_url = this.video.upload_url
-                const picker = document.getElementById('picker')
 
                 const upload = UpChunk.createUpload({
                   endpoint: upload_url,
-                  file: picker.files[0],
+                  file: this.videoFile,
                   chunkSize: 5120, // Uploads the file in ~5mb chunks
                 })
 
@@ -441,6 +437,13 @@ export default {
         .catch((e) => {
           console.log('error', e)
         })
+    },
+    deleteAttachedVideo() {
+      // remove prev. emmited video file
+      this.videoFile = null
+
+      // delete uploaded file form input in child component
+      this.$nextTick(() => this.$refs.dragFileUploader.deleteAttachedVideo())
     },
   },
 }

@@ -2,7 +2,7 @@
   position: relative;
   padding-top: 37.5px;
   font-size: 12px;
-  text-align: center;
+  // text-align: center;
   &.is-dragover {
     .uploaderBox__input {
       .uploaderBox_image {
@@ -12,12 +12,15 @@
   }
 
   .uploaderBox__input {
-    text-align: center;
+    // text-align: center;
+    border: 4px dashed #c0b9b9;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .uploaderBox_image {
-      height: calc(50vh - 50px);
-      border: 1px solid #e7e7e7;
-      border-radius: 500px;
+      height: 65px;
 
       &:hover {
         opacity: 0.5;
@@ -33,6 +36,7 @@
     font-size: 22.5px;
     color: #000000;
     letter-spacing: 0;
+    margin-right: 20px;
   }
   .uploaderBox__file {
     display: none;
@@ -54,16 +58,14 @@
   }
 
   .uploaderBox__desc {
-    margin-top: 15px;
-    margin-bottom: 30px;
     .uploaderBox__dragndrop {
-      font-size: 24px;
+      font-size: 16px;
       color: #000000;
       letter-spacing: 0;
     }
     .uploaderBox__filetype {
       display: block;
-      font-size: 18px;
+      font-size: 14px;
       color: #777;
       letter-spacing: 0;
     }

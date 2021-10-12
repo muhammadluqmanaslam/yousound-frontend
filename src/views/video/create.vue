@@ -1,54 +1,24 @@
 <template>
   <div class="page video-page create-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Broadcast</h2>
-          <ul class="pr-3">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :class="{ active: tab.id === active_tab }"
-            >
-              <label @click="!tab.disabled && onTab(tab)">{{
-                tab.title
-              }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <li
+            class="active"
+          >
+            <label v-if="activeView == 'intro'">Introduction to YouSound Live</label>
+            <label v-if="activeView == 'initStream'">Create Live Event</label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
 
+    <videoEstimate v-if="activeView == 'intro'" @gotoNextView="gotoNextView" />
+
+    <div v-if="activeView == 'initStream'" class="d-flex">
       <div class="page-content">
-        <h3 class="mt-3 mb-4">Setup</h3>
-
-        <v-divider></v-divider>
-
-        <v-layout row class="mb-3">
-          <v-flex x12 from-group>
-            <v-radio-group v-model="video_type" row>
-              <v-radio
-                :value="VideoTypes.LIVE"
-                label="Broadcast Live"
-                light
-              ></v-radio>
-              <v-radio
-                :value="VideoTypes.UPLOADED"
-                label="Upload Video"
-                light
-                @change="
-                  $router.push({
-                    path: `/user/${currentUser.slug}/video/upload`,
-                  })
-                "
-              ></v-radio>
-            </v-radio-group>
-          </v-flex>
-        </v-layout>
-
-        <v-divider></v-divider>
-
         <form v-on:submit.prevent="openPaymentDialog()">
-          <v-layout row class="mt-5">
+          <v-layout row>
             <v-flex sm5>
               <div class="form-group">
                 <label class="control-label"
@@ -61,6 +31,105 @@
                   v-model="stream.name"
                   maxlength="80"
                   v-validate="'required'"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Thumbnail</label>
+
+                <div class="video-thumbnail-container">
+                  <div class="video-thumbnail-wrapper">
+                    <div
+                      v-if="stream_cover_url"
+                      :style="{
+                        'background-image': 'url(' + stream_cover_url + ')',
+                      }"
+                      class="video-thumbnail"
+                    ></div>
+                    <div v-else class="video-thumbnail">
+                      <!-- <label>PREVIEW</label> -->
+                    </div>
+                  </div>
+
+                  <div class="cover-wrapper">
+                    <input
+                      type="file"
+                      name="stream_cover_file"
+                      id="stream_cover_file"
+                      accept=".png, .jpg, .jpeg"
+                      v-validate="'required'"
+                      @change="imageChanged($event)"
+                    />
+                    <label for="stream_cover_file">Upload</label>
+                    <span>*PNG, JPG, GIF</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Add feature profiles</label>
+                <v-select
+                  :items="friends"
+                  v-model="stream.account_ids"
+                  multiple
+                  item-text="name"
+                  item-value="id"
+                  placeholder="Type name to search"
+                  chips
+                  class="pt-0"
+                  autocomplete
+                  clearable
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      :key="JSON.stringify(data.item)"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.avatar.url" />
+                      </v-avatar>
+                      {{ data.item.display_name }}
+                    </v-chip>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content
+                        v-text="data.item"
+                      ></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-avatar>
+                        <img v-bind:src="data.item.avatar.url" />
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title
+                          v-html="data.item.display_name"
+                        ></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-select>
+              </div>
+
+              <div class="form-group viewer-support">
+                <label class="control-label">Allow viewer support</label>
+                <ul>
+                  <li>
+                    Upload a small file to include anything from music to videos
+                  </li>
+                  <li>
+                    Your viewers will be able to pay $1, $10, $100, or name
+                    their own price for this file.
+                  </li>
+                  <li>
+                    File is only available for the duration of the broadcast &
+                    downloadable on direct message
+                  </li>
+                </ul>
+                <digital-uploader
+                  :digitalContent="digital_content"
+                  accept=".zip, .mp3"
                 />
               </div>
 
@@ -159,107 +228,6 @@
                 <v-btn round dark color="blue" class="px-5" type="submit"
                   >Create Channel</v-btn
                 >
-              </div>
-            </v-flex>
-
-            <v-flex sm7 pl-5>
-              <div class="form-group">
-                <label class="control-label">Thumbnail</label>
-
-                <div class="video-thumbnail-container">
-                  <div class="video-thumbnail-wrapper">
-                    <div
-                      v-if="stream_cover_url"
-                      :style="{
-                        'background-image': 'url(' + stream_cover_url + ')',
-                      }"
-                      class="video-thumbnail"
-                    ></div>
-                    <div v-else class="video-thumbnail">
-                      <!-- <label>PREVIEW</label> -->
-                    </div>
-                  </div>
-
-                  <div class="cover-wrapper">
-                    <input
-                      type="file"
-                      name="stream_cover_file"
-                      id="stream_cover_file"
-                      accept=".png, .jpg, .jpeg"
-                      v-validate="'required'"
-                      @change="imageChanged($event)"
-                    />
-                    <label for="stream_cover_file">Upload</label>
-                    <span>*PNG, JPG, GIF</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Add feature profiles</label>
-                <v-select
-                  :items="friends"
-                  v-model="stream.account_ids"
-                  multiple
-                  item-text="name"
-                  item-value="id"
-                  placeholder="Type name to search"
-                  chips
-                  class="pt-0"
-                  autocomplete
-                  clearable
-                >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      @input="data.parent.selectItem(data.item)"
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.avatar.url" />
-                      </v-avatar>
-                      {{ data.item.display_name }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content
-                        v-text="data.item"
-                      ></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img v-bind:src="data.item.avatar.url" />
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title
-                          v-html="data.item.display_name"
-                        ></v-list-tile-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-select>
-              </div>
-
-              <div class="form-group viewer-support">
-                <label class="control-label">Allow viewer support</label>
-                <ul>
-                  <li>
-                    Upload a small file to include anything from music to videos
-                  </li>
-                  <li>
-                    Your viewers will be able to pay $1, $10, $100, or name
-                    their own price for this file.
-                  </li>
-                  <li>
-                    File is only available for the duration of the broadcast &
-                    downloadable on direct message
-                  </li>
-                </ul>
-                <digital-uploader
-                  :digitalContent="digital_content"
-                  accept=".zip, .mp3"
-                />
               </div>
             </v-flex>
           </v-layout>

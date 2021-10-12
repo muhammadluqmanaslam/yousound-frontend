@@ -1,26 +1,55 @@
 <template>
   <div class="page video-page manage-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Broadcast</h2>
-          <ul class="pr-3">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :class="{ active: tab.id === active_tab }"
+    <content-top-header v-if="isPageReady">>
+      <template slot="topHeader">
+        <ul>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: tab.id == active_tab }"
+          >
+            <label @click="onTab(tab.id)">{{ tab.title }}</label>
+          </li>
+
+          <v-spacer></v-spacer>
+
+          <li class="mr-0">
+            <v-btn
+              color="theme--dark red"
+              class="cancel-btn"
+              @click.native="openStreamDeleteConfirmDialog()"
+              >Stop</v-btn
             >
-              <label @click="onTab(tab)">{{ tab.title }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
+          </li>
+          <li class="mr-0">
+            <v-btn
+              v-if="show_view_stream_button"
+              dark
+              color="green"
+              class="view-btn"
+              @click.native="viewStream()"
+              >Watch</v-btn
+            >
+            <v-btn v-else color="grey lighten-2" class="px-4 view-btn"
+              >Connecting...</v-btn
+            >
+          </li>
+          <li style="margin-right: -23px">
+            <v-btn
+              dark
+              color="blue"
+              class="view-btn"
+              @click.native.stop="openAddMoreTimeDialog()"
+              >Add Time</v-btn
+            >
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
 
+    <div class="d-flex">
       <div class="page-content" v-if="isPageReady">
-        <h3 class="mt-3 mb-4">Live Stream</h3>
-
-        <v-divider></v-divider>
-
         <v-layout row class="panel time-info mt-4">
           <v-flex sm8>
             <v-layout row>
@@ -42,33 +71,6 @@
                 <span>{{ total_viewers }}</span>
               </v-flex>
             </v-layout>
-          </v-flex>
-
-          <v-flex sm4 class="stream-actions">
-            <v-btn
-              color="theme--dark red"
-              class="cancel-btn"
-              @click.native="openStreamDeleteConfirmDialog()"
-              >Stop</v-btn
-            >
-            <v-btn
-              v-if="show_view_stream_button"
-              dark
-              color="green"
-              class="view-btn"
-              @click.native="viewStream()"
-              >Watch</v-btn
-            >
-            <v-btn v-else color="grey lighten-2" class="px-4 view-btn"
-              >Connecting...</v-btn
-            >
-            <v-btn
-              dark
-              color="blue"
-              class="view-btn"
-              @click.native.stop="openAddMoreTimeDialog()"
-              >Add Time</v-btn
-            >
           </v-flex>
         </v-layout>
 

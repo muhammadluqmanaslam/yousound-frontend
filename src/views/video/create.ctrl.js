@@ -7,6 +7,8 @@ import UserService from '@/services/user'
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
 import DigitalUploader from './components/digital_uploader'
+import contentTopHeader from '@/components/contentTopHeader'
+import videoEstimate from '@/views/video/estimate'
 
 import {
   VideoGenres,
@@ -27,10 +29,13 @@ export default {
     Attach,
     PaymentModal,
     DigitalUploader,
+    contentTopHeader,
+    videoEstimate,
   },
 
   data() {
     return {
+      activeView: 'intro',
       active_tab: 'create',
       tabs: [
         { id: 'info', title: 'Intro', path: '/info' },
@@ -251,6 +256,9 @@ export default {
   },
 
   methods: {
+    gotoNextView(view) {
+      this.activeView = view
+    },
     onTab(tab) {
       if (tab.id === this.active_tab) return
 

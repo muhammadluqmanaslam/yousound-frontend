@@ -1,55 +1,35 @@
 <template>
   <div class="page video-page create-page mx-5">
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <li
+            class="active"
+          >
+            <label>Upload Video</label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
     <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Broadcast</h2>
-          <ul class="pr-3">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :class="{ active: tab.id === active_tab }"
-            >
-              <label @click="!tab.disabled && onTab(tab)">{{
-                tab.title
-              }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
-
       <div class="page-content">
-        <h3 class="mt-3 mb-4">Setup</h3>
+        <drag-file-uploader
+          v-if="!videoFile"
+          accept="video/*"
+          type="video"
+          @filePicked="pickedFile"
+          :autoUpload="true"
+          ref="dragFileUploader"
+        ></drag-file-uploader>
 
-        <v-divider></v-divider>
-
-        <v-layout row class="mb-3">
-          <v-flex x12 from-group>
-            <v-radio-group v-model="video_type" row>
-              <v-radio
-                :value="VideoTypes.LIVE"
-                label="Broadcast Live"
-                light
-                @change="
-                  $router.push({
-                    path: `/user/${currentUser.slug}/video/create`,
-                  })
-                "
-              ></v-radio>
-              <v-radio
-                :value="VideoTypes.UPLOADED"
-                label="Upload Video"
-                light
-              ></v-radio>
-            </v-radio-group>
-          </v-flex>
-        </v-layout>
-
-        <v-divider></v-divider>
-
-        <form v-on:submit.prevent="submit()">
-          <v-layout row class="mt-5">
+        <form v-if="videoFile" v-on:submit.prevent="submit()">
+          <v-layout row>
             <v-flex sm5>
+              <div class="mb-4">
+                <span class="app-bold mr-3">{{ videoFileName }}</span> 
+                <span class="red--text app-bold cursor-me" @click="deleteAttachedVideo">delete</span>
+              </div>
               <div class="form-group">
                 <label class="control-label"
                   >Title<span>80 char max</span></label
@@ -61,6 +41,66 @@
                   v-model="stream.name"
                   maxlength="80"
                   v-validate="'required'"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Thumbnail</label>
+
+                <div class="video-thumbnail-container">
+                  <div class="video-thumbnail-wrapper">
+                    <div
+                      v-if="stream_cover_url"
+                      :style="{
+                        'background-image': 'url(' + stream_cover_url + ')',
+                      }"
+                      class="video-thumbnail"
+                    ></div>
+                    <div v-else class="video-thumbnail">
+                      <!-- <label>PREVIEW</label> -->
+                    </div>
+                  </div>
+
+                  <div class="cover-wrapper">
+                    <input
+                      type="file"
+                      name="stream_cover_file"
+                      id="stream_cover_file"
+                      accept=".png, .jpg, .jpeg"
+                      v-validate="'required'"
+                      @change="imageChanged($event)"
+                    />
+                    <label for="stream_cover_file">Upload</label>
+                    <span>*PNG, JPG, GIF</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <h4>Attach Product/Album</h4>
+                <div class="panel">
+                  <attach v-model="stream_assoc" style="width: 100%" />
+                </div>
+              </div>
+
+              <div class="form-group viewer-support mt-3">
+                <label class="control-label">Allow viewer support</label>
+                <ul>
+                  <li>
+                    Upload a small file to include anything from music to videos
+                  </li>
+                  <li>
+                    Your viewers will be able to pay $1, $10, $100, or name
+                    their own price for this file.
+                  </li>
+                  <li>
+                    File is only available for the duration of the broadcast &
+                    downloadable on direct message
+                  </li>
+                </ul>
+                <digital-uploader
+                  :digitalContent="digital_content"
+                  accept=".zip, .mp3"
                 />
               </div>
 
@@ -134,22 +174,6 @@
                 </v-select>
               </div>
 
-              <div class="form-group">
-                <label class="control-label"
-                  >Upload Video<span
-                    >MP4, MOV, WMV, AVI - 500MB MAX</span
-                  ></label
-                >
-                <input
-                  type="file"
-                  accept="video/*"
-                  id="picker"
-                  v-validate="'required|size:512000'"
-                  name="size_field"
-                  data-vv-as="file"
-                />
-              </div>
-
               <div class="text-center mt-5">
                 <p class="regular-checkbox ma-0">
                   <input
@@ -173,68 +197,6 @@
                 <v-btn round dark color="blue" class="px-5" type="submit"
                   >Upload</v-btn
                 >
-              </div>
-            </v-flex>
-
-            <v-flex sm7 pl-5>
-              <div class="form-group">
-                <label class="control-label">Thumbnail</label>
-
-                <div class="video-thumbnail-container">
-                  <div class="video-thumbnail-wrapper">
-                    <div
-                      v-if="stream_cover_url"
-                      :style="{
-                        'background-image': 'url(' + stream_cover_url + ')',
-                      }"
-                      class="video-thumbnail"
-                    ></div>
-                    <div v-else class="video-thumbnail">
-                      <!-- <label>PREVIEW</label> -->
-                    </div>
-                  </div>
-
-                  <div class="cover-wrapper">
-                    <input
-                      type="file"
-                      name="stream_cover_file"
-                      id="stream_cover_file"
-                      accept=".png, .jpg, .jpeg"
-                      v-validate="'required'"
-                      @change="imageChanged($event)"
-                    />
-                    <label for="stream_cover_file">Upload</label>
-                    <span>*PNG, JPG, GIF</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-3">
-                <h4>Attach Product/Album</h4>
-                <div class="panel">
-                  <attach v-model="stream_assoc" style="width: 100%" />
-                </div>
-              </div>
-
-              <div class="form-group viewer-support mt-3">
-                <label class="control-label">Allow viewer support</label>
-                <ul>
-                  <li>
-                    Upload a small file to include anything from music to videos
-                  </li>
-                  <li>
-                    Your viewers will be able to pay $1, $10, $100, or name
-                    their own price for this file.
-                  </li>
-                  <li>
-                    File is only available for the duration of the broadcast &
-                    downloadable on direct message
-                  </li>
-                </ul>
-                <digital-uploader
-                  :digitalContent="digital_content"
-                  accept=".zip, .mp3"
-                />
               </div>
             </v-flex>
           </v-layout>
