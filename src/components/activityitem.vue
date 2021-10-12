@@ -4,19 +4,19 @@
       <v-layout row wrap>
         <v-flex
           xs12
-          md5
+          md12
           :class="{
             md5: activityItem.sender.recent_reposts,
             'no-reposts': !activityItem.sender.recent_reposts,
           }"
           class="activity-item-section"
         >
-          <v-flex xs12 class="activity-item-section-body">
-            <profile-item
-              :user="activityItem.sender"
-              :className="'activity-item-profile-avatar-area'"
-            ></profile-item>
-            <div class="activity-item-content-area">
+          <div class="activity-item-section-body">
+            <v-flex xs10 class="activity-item-content-area">
+              <profile-item
+                :user="activityItem.sender"
+                :className="'activity-item-profile-avatar-area'"
+              ></profile-item>
               <div class="activity-item-content">
                 <router-link
                   class="user-name"
@@ -93,82 +93,88 @@
                     }}</template>
                   </span>
                 </label>
+
+                <div class="activity-time">{{
+                  toLocalTimeString(activityItem.updated_at)
+                }}</div>
+                
               </div>
-              <div class="details">
-                <p v-if="activityItem.action_type == 'comment'">
-                  <template v-if="activityItem.assoc_type == 'Comment'">
-                    {{ activityItem.assoc.body }}
-                  </template>
-                  <template v-else-if="activityItem.assoc_type == 'Post'">
-                    {{ activityItem.assoc.description }}
-                  </template>
-                </p>
+            </v-flex>
 
-                <template v-if="activityItem.assoc">
-                  <template v-if="activityItem.assoc_type == 'Comment'">
-                    <div
-                      v-if="
-                        activityItem.assoc.commentable_type == 'ShopProduct'
-                      "
-                      :style="{
-                        'background-image':
-                          'url(' +
-                          activityItem.assoc.commentable.covers[0].cover.thumb
-                            .url +
-                          ')',
-                      }"
-                      class="actioned-item"
-                    ></div>
-                    <div
-                      v-else-if="activityItem.assoc.commentable_type == 'Album'"
-                      :style="{
-                        'background-image':
-                          'url(' +
-                          activityItem.assoc.commentable.cover.thumb.url +
-                          ')',
-                      }"
-                      class="actioned-item"
-                    ></div>
-                    <div
-                      v-else-if="activityItem.assoc.commentable_type == 'Post'"
-                      :style="{
-                        'background-image':
-                          'url(' +
-                          activityItem.assoc.commentable.cover.thumb.url +
-                          ')',
-                      }"
-                      class="actioned-item"
-                    ></div>
-                  </template>
+            <v-flex xs2 class="details">
+              <p v-if="activityItem.action_type == 'comment'">
+                <template v-if="activityItem.assoc_type == 'Comment'">
+                  {{ activityItem.assoc.body }}
+                </template>
+                <template v-else-if="activityItem.assoc_type == 'Post'">
+                  {{ activityItem.assoc.description }}
+                </template>
+              </p>
 
+              <template v-if="activityItem.assoc">
+                <template v-if="activityItem.assoc_type == 'Comment'">
                   <div
-                    v-if="activityItem.assoc_type == 'Post'"
+                    v-if="
+                      activityItem.assoc.commentable_type == 'ShopProduct'
+                    "
                     :style="{
                       'background-image':
-                        'url(' + activityItem.assoc.cover.thumb.url + ')',
+                        'url(' +
+                        activityItem.assoc.commentable.covers[0].cover.thumb
+                          .url +
+                        ')',
                     }"
                     class="actioned-item"
                   ></div>
-
                   <div
+                    v-else-if="activityItem.assoc.commentable_type == 'Album'"
+                    :style="{
+                      'background-image':
+                        'url(' +
+                        activityItem.assoc.commentable.cover.thumb.url +
+                        ')',
+                    }"
                     class="actioned-item"
-                    v-if="activityItem.assoc_type == 'ShopProduct'"
-                  >
-                    <activity-product-card :object="activityItem.assoc" />
-                  </div>
+                  ></div>
                   <div
+                    v-else-if="activityItem.assoc.commentable_type == 'Post'"
+                    :style="{
+                      'background-image':
+                        'url(' +
+                        activityItem.assoc.commentable.cover.thumb.url +
+                        ')',
+                    }"
                     class="actioned-item"
-                    v-if="activityItem.assoc_type == 'Album'"
-                  >
-                    <activity-album-card :object="activityItem.assoc" />
-                  </div>
+                  ></div>
                 </template>
-              </div>
-            </div>
-          </v-flex>
+
+                <div
+                  v-if="activityItem.assoc_type == 'Post'"
+                  :style="{
+                    'background-image':
+                      'url(' + activityItem.assoc.cover.thumb.url + ')',
+                  }"
+                  class="actioned-item"
+                ></div>
+
+                <div
+                  class="actioned-item"
+                  v-if="activityItem.assoc_type == 'ShopProduct'"
+                >
+                  <activity-product-card :object="activityItem.assoc" />
+                </div>
+                <div
+                  class="actioned-item"
+                  v-if="activityItem.assoc_type == 'Album'"
+                >
+                  <activity-album-card :object="activityItem.assoc" />
+                </div>
+              </template>
+            </v-flex>
+          </div>
         </v-flex>
 
-        <v-flex
+        <!-- <v-flex
           v-if="activityItem.sender.recent_items"
           xs12
           md7
@@ -190,11 +196,8 @@
               v-if="repost.assoc_type == 'Album'"
             ></activity-album-card>
           </div>
-        </v-flex>
+        </v-flex> -->
       </v-layout>
-      <label class="activity-time">{{
-        toLocalTimeString(activityItem.updated_at)
-      }}</label>
     </div>
 
     <!-- <send-message

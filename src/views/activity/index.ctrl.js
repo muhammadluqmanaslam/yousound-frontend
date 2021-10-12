@@ -32,11 +32,6 @@ export default {
   },
 
   methods: {
-    // filterSelected (index) {
-    //   $('#filter_selector .btn__content').html(this.tabs[index].name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-    //   this.active_tab = this.tabs[index].id
-    // },
-
     isActiveTab(tab) {
       return this.active_tab == tab
     },
@@ -48,8 +43,11 @@ export default {
         per_page: this.items_per_page,
         action_types: this.active_tab,
       }
+
+      console.log('params:', params)
       ActivityService.getActivities(params)
         .then((response) => {
+          console.log(response)
           this.activities = this.activities.concat(response.body.activities)
           this.page_index = response.body.pagination.current_page
           this.total_pages = response.body.pagination.total_pages
@@ -65,28 +63,17 @@ export default {
           )
         })
     },
-
     loadMore() {
       this.page_index += 1
       this.loadActivities()
     },
-
-    onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
-    },
-
     setTab(tab) {
       if (!tab) {
         tab = 'any'
       }
-
-      this.active_tab = tab
       this.page_index = 1
       this.total_pages = 1
-      this.activities = []
+      // this.activities = []
       this.$store.dispatch('navigator/goNextState', {
         page: 'activity',
         tab: tab,
@@ -98,9 +85,8 @@ export default {
   },
 
   watch: {
-    $route(toPath, fromPath) {
-      const tab = toPath.hash.substr(1)
-      this.setTab(tab)
+    activities(val) {
+      console.log('activities:', val)
     },
   },
 

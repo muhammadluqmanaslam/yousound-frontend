@@ -22,8 +22,8 @@
       </v-flex>
     </v-flex>
 
-    <v-btn v-if="priceShow">
-      <img src="/static/images/ic_cart-2.svg">
+    <v-btn depressed v-if="priceShow">
+      <img width="12px" src="/static/images/ic_cart-2.svg">
     </v-btn>
 
     <merch-modal
