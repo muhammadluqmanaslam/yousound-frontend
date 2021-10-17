@@ -1,0 +1,87 @@
+.timeline-user {
+  width: 100%;
+  padding: 0 11.25px;
+  .event-info {
+    position: relative;
+    background-color:#ffffff;
+    border-radius: 7px;
+    padding: 20px;
+
+    .event-top-bar {
+        display: flex;
+        justify-content: space-between;
+       .user-info {
+        .track-user-avatar {
+            width: 60px;
+            height: 60px;
+            display: inline-block;
+            vertical-align: middle;
+            border: 1px solid rgba(255,255,255,0.30);
+            border-radius: 100%;
+            background-size: cover;
+            overflow: hidden;
+            background-position: center;
+            // border: 0.75px solid rgba(0, 0, 0, 0.3);
+            .activity-item-profile-cover {
+            left: 5px;
+            top: 65px;
+            }
+        }
+        .activity-section {
+            margin-left: 10px;
+            margin-top: -8px;
+            line-height: 13.5px;
+            display: inline-block;
+            vertical-align: middle;
+            .user-name {
+            font-family: 'Work Sans';
+            font-weight: 600;
+            font-size: 18px;
+            color: #000000;
+            letter-spacing: -1px;
+            text-decoration: none;
+            }
+            .item-status {
+            color: #959595;
+            }
+            .description-text {
+            font-size: 14px;
+            color: #acacac;
+            letter-spacing: 0;
+            display: block;
+            padding-top: 5px;
+            text-transform: capitalize;
+            .items-title {
+                font-weight: 700;
+                color: #333;
+                text-decoration: none;
+                cursor: pointer;
+                font-family: 'Work Sans';
+                letter-spacing: -.5px;
+                padding-left: 2px;
+            }
+            }
+        }
+       }
+
+       .right-section {
+           .track-more-action {
+               .more-btn {
+                   margin: 0;
+                   padding: 0;
+                   min-width: 0;
+
+                   .btn__content {
+                       padding: 0;
+                       background: blue !important;
+
+                       .icon {
+                           margin: 0
+                       }
+                   }
+                }
+            }
+       }
+    }
+  }
+}

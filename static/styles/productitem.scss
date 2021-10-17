@@ -97,4 +97,24 @@
       }
     }
   }
+  .collaborator-content-section {
+    border: 0.75px solid #D7D7D7;
+    border-top: 0;
+    padding: 10px 7.5px;
+
+    .collaborator-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: -7px;
+      
+      .action-btn.release {
+        margin: 0;
+        height: 32px;
+        background: #00a95c !important;
+        text-transform: capitalize;
+        border-radius: 7px;
+      }
+    }
+  }
 }

@@ -107,6 +107,10 @@ able.table thead th:not(:first-child) {
   ul {
     margin-bottom: 0;
     background-color: #f0f0f0 !important;
+
+    .list__tile__title {
+      padding: 0 10px;
+    }
   }
 }
 

@@ -144,13 +144,15 @@ body {
     left: 5.25px;
   }
 }
-
-.cursor-me {
-  cursor: pointer;
-}
-
 .heightAuto {
   height: auto;
+}
+.width100 {
+  width: 100%;
+}
+
+.fa-bg {
+  background-color: #fafafa
 }
 
 .text-capitalize {
@@ -166,6 +168,122 @@ body {
 }
 .no-Btn-bg .btn__content:before {
   background-color: transparent !important;
+}
+
+.edit-address-dialog.dialog {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 0;
+
+    & .first-name, & .last-name, & .street, & .apartment, & .zipcode, & .country {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+    & .city {
+      flex-basis: 100%;
+      max-width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .shipping-address-city-section {
+        width: 70%;
+        margin-right: 10px;
+      }
+      .shipping-address-state-section {
+        width: 20%;
+      }
+    }
+    & .save-btn button {
+      height: 37.5px;
+      box-shadow: none;
+      text-transform: none;
+      margin: 0px;
+      background: #3a92ff !important;
+      border-radius: 75px;
+      font-weight: 600;
+      font-size: 15px;
+      color: #ffffff;
+      letter-spacing: 0;
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+    }
+
+  .shipping-address-section {
+    margin-bottom: 30px;
+    padding: 15px;
+
+    .shipping-action-header {
+      margin-bottom: 20px;
+    }
+
+    .shipping-address-header {
+      font-weight: 600;
+      font-size: 15px;
+      color: #000000;
+      letter-spacing: -0.3px;
+      cursor: pointer;
+      font-family: 'Work Sans';
+      .arrow {
+        width: 0;
+        height: 0;
+        display: inline-block;
+        margin-right: 7.5px;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 7.5px solid #000;
+        // vertical-align: middle;
+        // border-top: 6px solid transparent;
+        // border-bottom: 6px solid transparent;
+        // border-left: 7.5px solid #000;
+        margin-right: 11.25px;
+      }
+      .shipping-address-content {
+        padding-top: 7.5px;
+        font-size: 15px;
+        color: #000000;
+        letter-spacing: 0;
+        display: none;
+        label {
+          display: block;
+          margin-left: 26px;
+          font-family: 'Work Sans';
+          font-weight: 400;
+        }
+      }
+      &.open {
+        .arrow {
+          // vertical-align: middle;
+          border-top: 6px solid transparent;
+          border-bottom: 6px solid transparent;
+          border-left: 7.5px solid #000;
+          margin-right: 9.75px;
+          // margin-right: 5.25px;
+          // border-left: 6px solid transparent;
+          // border-right: 6px solid transparent;
+          // border-top: 7.5px solid #000;
+          // vertical-align: middle;
+        }
+        .shipping-address-content {
+          display: block;
+        }
+      }
+    }
+    .update-shipping-address {
+      font-weight: 500;
+      font-size: 15px;
+      color: #000000;
+      letter-spacing: -0.6px;
+      padding-left: 0;
+      font-family: 'Work Sans';
+      .settings-icon {
+        color: #3a92ff;
+        padding-left: 8px;
+      }
+    }
+  }
 }
 .sidebar {
   overflow-x: hidden;
@@ -220,7 +338,7 @@ body {
   border-radius: 4px;
   min-width: 29px;
   padding: 5px 13px;
-  min-height: 42px;
+  height: 42px;
   
   // cursor: pointer;
   // background-color: #fff;
