@@ -19,10 +19,10 @@
     .tab-container {
       width: auto;
       position: unset;
-      // display: flex;
+      display: flex;
 
       .user-profile-image-wrapper {
-        display: flex;
+        display: none;
         align-items: center;
         margin-right: 30px;
 
@@ -104,6 +104,37 @@
             }
           }
         }
+      }
+    }
+
+    &.__inner {
+      width: 100%;
+      position: relative;
+      top: 50px;
+      z-index: 1;
+      .menu__content {
+        top: 147px !important;
+      }
+
+      ul {
+        display: flex;
+        align-items: center;
+        li {
+          // margin: 5px 0 !important;
+
+          &.tabSelectMenu {
+            margin-right: 40px !important;
+          }
+
+          .input-group {
+            padding-top: 0px;
+            // margin-top: -24px;
+          }
+        }
+      }
+
+      &::after {
+        display: none;
       }
     }
   }
