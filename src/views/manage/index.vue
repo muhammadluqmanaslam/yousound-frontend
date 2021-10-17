@@ -1,7 +1,49 @@
 <template>
-  <div class="page notification-page mx-5">
-    <h1>Manage</h1>
+  <div class="page manage-page mx-5">
+    <content-top-header>
+      <template slot="topHeader">
+          <ul>
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="setTab(tab.id)">{{ tab.title }}</label>
+            </li>
+          </ul>
+      </template>
+    </content-top-header>
+    <content-top-header class="__inner">
+      <template slot="topHeader">
+        <ul>
+            <li class="tabSelectMenu">
+              <v-select
+              v-model="activeInnerFilter"
+              :items="tabFilterOptions"
+              item-text="title"
+              item-value="value"
+              hide-details
+              ></v-select>
+            </li>
+            
+            <div class="allChildrenCenter">
+              <li
+                v-for="tab in getInnerMenuTabs(activeInnerFilter)"
+                :key="tab.id"
+                :href="`#${tab.id}`"
+                :class="{ active: isActiveInnerTab(tab.id) }"
+              >
+                <label @click="setInnerTab(tab.id)">{{ tab.title }}</label>
+              </li>
+            </div>
+        </ul>
+      </template>
+    </content-top-header>
+
+    <manage-product v-if="activeInnerFilter === 'products'" ref="manageProduct" />
+    <manage-album v-if="activeInnerFilter === 'albums'" ref="manageAlbum" />
   </div>
 </template>
 
-// <script type="text/javascript" src="./index.ctrl.js"></script>
+<script type="text/javascript" src="./index.ctrl.js"></script>
