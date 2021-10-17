@@ -1,5 +1,17 @@
 <template>
-  <div>
+  <div class="mt-5">
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <li
+            class="active"
+          >
+            Upload Album
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
     <div class="uploaderBox" id="uploaderBox">
       <div class="uploaderBox__input">
         <input
@@ -161,10 +173,12 @@ import _ from 'lodash'
 
 import TrackService from '@/services/track.js'
 import draggable from 'vuedraggable'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
     draggable,
+    contentTopHeader,
   },
 
   props: {
