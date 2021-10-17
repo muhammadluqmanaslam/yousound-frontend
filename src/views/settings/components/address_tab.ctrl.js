@@ -1,10 +1,20 @@
-import _ from 'lodash'
+import _, { add } from 'lodash'
 import AddressService from '@/services/address'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
 import { Countries, States } from '@/helper'
 
 export default {
+  props: {
+    editDialog: {
+      type: Boolean,
+      default: false,
+    },
+    header: {
+      type: String,
+      default: 'Add or change your default shipping address for all of the physical orders you place',
+    },
+  },
   data() {
     return {
       countries: Countries,
@@ -27,6 +37,18 @@ export default {
   computed: {
     isCountryUS() {
       return this.shipping_address.country === 'United States'
+    },
+    strippedAddress() {
+      const addr = this.shipping_address
+      let stripped = {}
+      stripped.lineOne = addr.first_name + ' ' + addr.last_name
+      stripped.lineTwo = addr.address_line
+      stripped.lineThree = addr.city + ' ' + addr.state
+      stripped.lineFour = addr.postcode
+      stripped.lineFive = addr.country
+
+      return stripped
+      // return Object.values(stripped).join("\r\n")
     },
   },
 

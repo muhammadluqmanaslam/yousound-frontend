@@ -2,15 +2,14 @@
   <div class="main-section">
     <div class="description-section">
       <p>
-        Add or change your default shipping address for all of the physical
-        orders you place
+        {{ header }}
       </p>
     </div>
 
     <div class="content-section">
       <form @submit.prevent="submit()">
         <v-layout row wrap shipping-address-section ma-0>
-          <v-flex xs12 sm6 form-group>
+          <v-flex xs12 sm6 form-group first-name>
             <label class="control-label"
               >First Name<span class="required">*</span></label
             >
@@ -22,7 +21,7 @@
               v-validate="'required'"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+          <v-flex xs12 sm6 form-group last-name>
             <label class="control-label"
               >Last Name<span class="required">*</span></label
             >
@@ -34,7 +33,7 @@
               v-validate="'required'"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+          <v-flex xs12 sm6 form-group street>
             <label class="control-label"
               >Street Address<span class="required">*</span></label
             >
@@ -46,7 +45,7 @@
               v-validate="'required'"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+          <v-flex xs12 sm6 form-group apartment>
             <label class="control-label"
               >Apt., Floor, Unit etc. (Optional)</label
             >
@@ -57,7 +56,7 @@
               v-model="shipping_address.address_line"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group d-flex justify-space-between>
+          <v-flex xs12 sm6 form-group d-flex justify-space-between city>
             <div class="shipping-address-city-section">
               <label class="control-label"
                 >City / Region<span class="required">*</span></label
@@ -98,7 +97,7 @@
               </div>
             </div>
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+          <v-flex xs12 sm6 form-group zipcode>
             <label class="control-label"
               >Zipcode<span class="required">*</span></label
             >
@@ -111,7 +110,7 @@
             />
           </v-flex>
           <v-flex xs12 sm6 form-group></v-flex>
-          <v-flex xs12 sm6 form-group>
+          <v-flex xs12 sm6 form-group country>
             <label class="control-label"
               >Country<span class="required">*</span></label
             >
@@ -128,7 +127,7 @@
             ></v-select>
           </v-flex>
           <v-flex xs12 sm6 form-group></v-flex>
-          <v-flex xs12 sm6 form-group text-xs-right>
+          <v-flex xs12 sm6 form-group text-xs-right save-btn>
             <v-btn type="submit" class="update-btn">Save</v-btn>
           </v-flex>
         </v-layout>
