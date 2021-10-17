@@ -3,9 +3,7 @@
     <content-top-header>
       <template slot="topHeader">
         <ul>
-          <li
-            class="active"
-          >
+          <li class="active">
             <label>Upload Video</label>
           </li>
         </ul>
@@ -27,8 +25,12 @@
           <v-layout row>
             <v-flex sm5>
               <div class="mb-4">
-                <span class="app-bold mr-3">{{ videoFileName }}</span> 
-                <span class="red--text app-bold cursor-me" @click="deleteAttachedVideo">delete</span>
+                <span class="app-bold mr-3">{{ videoFileName }}</span>
+                <span
+                  class="red--text app-bold cursor-pointer"
+                  @click="deleteAttachedVideo"
+                  >delete</span
+                >
               </div>
               <div class="form-group">
                 <label class="control-label"
