@@ -215,7 +215,7 @@ export default {
       if (y >= 144) {
         profileCard.style.display = 'none'
         navProfileCard.style.display = 'flex'
-      } else if (y >= 144) {
+      } else if (y < 144) {
         profileCard.style.display = 'flex'
         navProfileCard.style.display = 'none'
       }
