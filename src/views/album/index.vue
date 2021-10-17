@@ -2,19 +2,17 @@
   <div class="page discover-page mx-5">
     <content-top-header>
       <template slot="topHeader">
-        <ul>
+        <ul class="width100">
           <li
             v-for="tab in tabs"
             :key="tab.id"
             :href="`#${tab.id}`"
             :class="{ active: isActiveTab(tab.id) }"
           >
-            <label @click="isPageReady && onTab(tab.id)">{{
-              tab.title
-            }}</label>
+            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
           </li>
 
-            <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
 
           <li class="my-0 mr-4">
             <v-menu
@@ -34,9 +32,9 @@
                   :key="genre.id"
                   @click.native="filterByGenre(genre)"
                 >
-                    <div class="cursor-me px-3">
-                      {{ genre.name }}
-                    </div>
+                  <div class="cursor-pointer px-3">
+                    {{ genre.name }}
+                  </div>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -62,7 +60,6 @@
               </div>
             </div>
           </li>
-
         </ul>
       </template>
     </content-top-header>
