@@ -12,18 +12,17 @@ empty<template>
             <label @click="onTab(tab.id)">{{ tab.title }}</label>
           </li>
 
-
-          <li
-            v-if="active_tab == 'orders'"
-            class="my-0 d-flex align-center"
-          >
+          <li v-if="active_tab == 'orders'" class="my-0 d-flex align-center">
             <v-menu
               id="item_filter"
               class="filter"
               style="display: block"
               offset-y
             >
-              <div slot="activator" class="filter__activator dropdown-field py-3">
+              <div
+                slot="activator"
+                class="filter__activator dropdown-field py-3"
+              >
                 <span class="">{{ activeFilterName }} orders</span>
                 <v-icon right>keyboard_arrow_down</v-icon>
               </div>
@@ -33,7 +32,9 @@ empty<template>
                   @click="filterItems(filter)"
                   :key="filter.id"
                 >
-                  <v-list-tile-title class="cursor-me pa-3 heightAuto">{{ filter.name }}</v-list-tile-title>
+                  <v-list-tile-title class="cursor-pointer pa-3 heightAuto">{{
+                    filter.name
+                  }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -41,10 +42,7 @@ empty<template>
 
           <v-spacer></v-spacer>
 
-          <li
-            v-if="active_tab == 'orders'"
-            class="my-0 py-3"
-          >
+          <li v-if="active_tab == 'orders'" class="my-0 py-3">
             <div class="export-wrapper">
               <VueCtkDateTimePicker
                 v-model="exportPeriod"
@@ -120,88 +118,88 @@ empty<template>
                   :key="item.id"
                   class="order-section"
                 >
-                <v-container grid-list-xl fill-height class="pa-0">
-                  <v-layout
-                    v-if="
-                      activeFilterItemStatus == '' ||
-                      item.status == activeFilterItemStatus
-                    "
-                    row
-                  >
-                    <v-flex xs10>
-                      <div class="order-content-section">
-                        <div class="order-content-container">
-                          <div
-                            class="product-cover-image"
-                            :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
-                          ></div>
-                          <div class="product-content">
-                            <div class="product-content-row">
-                              <div class="product-name">
-                                {{ item.product.name }} |
-                                {{ item.product_variant.name }}
+                  <v-container grid-list-xl fill-height class="pa-0">
+                    <v-layout
+                      v-if="
+                        activeFilterItemStatus == '' ||
+                        item.status == activeFilterItemStatus
+                      "
+                      row
+                    >
+                      <v-flex xs10>
+                        <div class="order-content-section">
+                          <div class="order-content-container">
+                            <div
+                              class="product-cover-image"
+                              :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
+                            ></div>
+                            <div class="product-content">
+                              <div class="product-content-row">
+                                <div class="product-name">
+                                  {{ item.product.name }} |
+                                  {{ item.product_variant.name }}
+                                </div>
                               </div>
-                            </div>
-                            <div class="product-content-row pt-1">
-                              <div class="product-price">
-                                ${{ item.price | formatNumber }}
-                              </div>
+                              <div class="product-content-row pt-1">
+                                <div class="product-price">
+                                  ${{ item.price | formatNumber }}
+                                </div>
 
-                              <div
-                                class="product-count"
-                                v-if="!isDigitalProduct(item)"
-                              >
-                                Quantity: <b>{{ item.quantity }}</b>
+                                <div
+                                  class="product-count"
+                                  v-if="!isDigitalProduct(item)"
+                                >
+                                  Quantity: <b>{{ item.quantity }}</b>
+                                </div>
                               </div>
                             </div>
                           </div>
+
+                          <v-spacer></v-spacer>
+
+                          <div class="order-date">
+                            {{ order.created_at | formatDate }}
+                          </div>
                         </div>
+                      </v-flex>
 
-                        <v-spacer></v-spacer>
-
-                        <div class="order-date">{{
-                          order.created_at | formatDate
-                        }}</div>
-                      </div>
-                    </v-flex>
-
-                    <v-flex xs2>
-                      <div
-                        class="order-status-section text-xs-center digital"
-                        v-if="isDigitalProduct(item)"
-                      >
-                        <p class="order-status-text">
-                          {{ item.product.digital_content_name }}
-                        </p>
-                      </div>
-                      <div
-                        class="order-status-section text-xs-center"
-                        v-else-if="item.status == 'item_ordered'"
-                      >
-                        <p class="order-status-text">Pending</p>
-                        <v-btn
-                          class="order-status-btn ship"
-                          @click.native.stop="openShipConfirmModal(item)"
-                          >Ship</v-btn
+                      <v-flex xs2>
+                        <div
+                          class="order-status-section text-xs-center digital"
+                          v-if="isDigitalProduct(item)"
                         >
-                      </div>
-                      <div
-                        class="order-status-section text-xs-center"
-                        v-else-if="item.status == 'item_shipped'"
-                      >
-                        <p class="order-status-text">Shipped</p>
-                        <v-btn
-                          class="order-status-btn shipped"
-                          @click.native.stop="openUnshipConfirmModal(item)"
-                          >Unship</v-btn
+                          <p class="order-status-text">
+                            {{ item.product.digital_content_name }}
+                          </p>
+                        </div>
+                        <div
+                          class="order-status-section text-xs-center"
+                          v-else-if="item.status == 'item_ordered'"
                         >
-                      </div>
-                      <div class="order-status-section text-xs-center" v-else>
-                        <p class="order-status-text">Refunded</p>
-                      </div>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
+                          <p class="order-status-text">Pending</p>
+                          <v-btn
+                            class="order-status-btn ship"
+                            @click.native.stop="openShipConfirmModal(item)"
+                            >Ship</v-btn
+                          >
+                        </div>
+                        <div
+                          class="order-status-section text-xs-center"
+                          v-else-if="item.status == 'item_shipped'"
+                        >
+                          <p class="order-status-text">Shipped</p>
+                          <v-btn
+                            class="order-status-btn shipped"
+                            @click.native.stop="openUnshipConfirmModal(item)"
+                            >Unship</v-btn
+                          >
+                        </div>
+                        <div class="order-status-section text-xs-center" v-else>
+                          <p class="order-status-text">Refunded</p>
+                        </div>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
                 </div>
               </template>
               <template v-else>

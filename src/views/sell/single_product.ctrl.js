@@ -10,6 +10,7 @@ import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
 import accordion from '@/components/accordion'
+import ItemService from '@/services/item'
 
 export default {
   components: {
@@ -20,6 +21,7 @@ export default {
 
   data() {
     return {
+      option: '',
       selectedCover: null,
       accordions: [
         {
@@ -58,8 +60,23 @@ export default {
       isPageReady: false,
     }
   },
-
   computed: {
+    options() {
+      var options = []
+      for (let index in this.product.variants) {
+        const variant = this.product.variants[index]
+        if (this.isDigitalProduct || variant.quantity > 0) {
+          const option = {
+            id: variant.id,
+            name: variant.name,
+          }
+          options.push(option)
+        }
+      }
+
+      console.log(options)
+      return options
+    },
     isDigitalProduct() {
       return (
                 this.digital_content_category_ids.indexOf(this.product.category) > -1
@@ -128,22 +145,27 @@ export default {
     },
     covers() {
       let imgs = this.product.covers || []
-      imgs = imgs.map((img) => img.cover.url)
+      let covers = []
+      imgs.forEach((img) => {
+        if (img.cover.url) {
+          covers.push(img.cover.url)
+        }
+      })
 
-      imgs = [
-        'https://d19mruzykfu6hg.cloudfront.net/uploads/shop_product_cover/cover/125/523b9cda-b1a7-4cf0-9fe2-619c63a15f34.jpg',
-        'https://d19mruzykfu6hg.cloudfront.net/uploads/album/cover/42/b5fe3a4c-4221-402d-ab22-4b1a52e474ac.jpg',
-        'https://d19mruzykfu6hg.cloudfront.net/uploads/album/cover/33/73c40199-a5ac-463e-9154-09581f92c987.jpg',
-      ]
+      // imgs = [
+      //   'https://d19mruzykfu6hg.cloudfront.net/uploads/shop_product_cover/cover/125/523b9cda-b1a7-4cf0-9fe2-619c63a15f34.jpg',
+      //   'https://d19mruzykfu6hg.cloudfront.net/uploads/album/cover/42/b5fe3a4c-4221-402d-ab22-4b1a52e474ac.jpg',
+      //   'https://d19mruzykfu6hg.cloudfront.net/uploads/album/cover/33/73c40199-a5ac-463e-9154-09581f92c987.jpg',
+      // ]
 
-      return imgs
+      // return imgs
+      return covers
     },
     initImgSelection() {
       console.log(this.covers)
       return this.covers[0]
     },
   },
-
   created() {
     if (
             this.$store.state.auth.user &&
@@ -222,14 +244,62 @@ export default {
       this.$router.push({ path: '/' })
     }
   },
-
-  methods: {
-    selectCover(img) {
-      this.selectedCover = img
+  watch: {
+    initImgSelection: {
+      handler(newVal, oldVal) {
+        this.selectedCover = newVal
+      },
+      immediate: true,
     },
   },
-  mounted() {
-    // select first cover picture on load
-    this.selectedCover = this.initImgSelection
+  methods: {
+    addToCart() {
+      if (this.option === '' || this.option === null) {
+        this.$store.dispatch('error/showErrorToast', [
+          'Please select valid variant.',
+        ])
+      } else {
+        let pageTrack = ''
+        if (this.$store.state.streamPlayer.frame_mode === 'full') {
+          const streamId = _.get(
+            this.$store.state.streamPlayer.stream,
+            'id',
+            ''
+          )
+          if (streamId !== '') {
+            pageTrack = 'Stream: ' + streamId
+          }
+        }
+        const params = {
+          product_variant_id: this.option,
+          quantity: 1,
+          page_track: pageTrack,
+        }
+        ItemService.addToCart(params)
+          .then((response) => {
+            if (response.body.errors) {
+              this.$store.dispatch('error/showErrorToast', response.body.errors)
+            } else {
+              this.$store.dispatch('error/showSuccessToast', [
+                'Added successfully to Cart.',
+              ])
+            }
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
+      }
+    },
+    changeFeaturedImage(img) {
+      if (this.selectedCover == null) {
+        this.selectedCover = this.initImgSelection
+      } else {
+        this.selectedCover = img
+      }
+    },
   },
+  mounted() {},
 }
