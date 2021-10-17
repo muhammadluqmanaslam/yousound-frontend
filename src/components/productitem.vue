@@ -41,6 +41,21 @@
         </v-flex>
       </div>
     </v-flex>
+    <v-flex v-if="product.collaborators.length > 0" sm12 collaborator-content-section>
+      <div>
+        <div class="app-bold">Collaborators</div>
+        <div class="collaborator-content">
+          <div v-for="(collaborator, i) in product.collaborators" :key="i">
+            {{ collaborator.user.display_name }}
+            <span v-if="$store.state.auth.user.display_name === collaborator.user.display_name">
+              (owner)
+            </span>
+          </div>
+
+          <v-btn depressed dark class="action-btn release" @click.native="releaseButtonAction(product)">Release Now</v-btn>
+        </div>
+      </div>
+    </v-flex>
   </v-flex>
 </template>
 
