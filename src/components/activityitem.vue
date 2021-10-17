@@ -29,9 +29,10 @@
                   class="user-status online"
                   >fa-check-circle</v-icon
                 >&nbsp;
-                <label class="description-text"
-                  >{{ activityItem.message }}
-                  <img
+                <label class="description-text">
+                  {{ activityItem.message }}
+
+                  <!-- <img
                     v-if="activityItem.action_type == 'follow'"
                     src=""
                     class="follow-icon"
@@ -91,7 +92,7 @@
                     <template v-else>{{
                       activityItem.assoc.commentable.name
                     }}</template>
-                  </span>
+                  </span> -->
                 </label>
 
                 <div class="activity-time">{{
@@ -292,7 +293,7 @@ export default {
     doAction() {
       switch (this.activityItem.assoc_type) {
         case 'ShopProduct':
-          this.showMerchModal = true
+          this.showMerchModal = !true
           break
         case 'Album':
           this.$router.push({
