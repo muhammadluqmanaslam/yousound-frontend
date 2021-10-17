@@ -13,6 +13,7 @@ import sendMessage from '@/components/sendmessage'
 import ticketNewDialog from './components/ticket_new_dialog'
 import trackCard from '@/components/trackcard'
 import contentTopHeader from '@/components/contentTopHeader'
+import addressTab from '@/views/settings/components/address_tab'
 
 export default {
   components: {
@@ -22,10 +23,12 @@ export default {
     ticketNewDialog,
     trackCard,
     contentTopHeader,
+    addressTab,
   },
 
   data() {
     return {
+      editDialog: false,
       active_tab: 'cart',
       tabs: [
         { id: 'cart', title: 'Added to Cart' },
@@ -48,6 +51,21 @@ export default {
   },
 
   computed: {
+    shipping_address() {
+      return this.$store.state.auth.user.default_address
+    },
+    strippedAddress() {
+      const addr = this.shipping_address
+      let stripped = {}
+      stripped.lineOne = addr.first_name + ' ' + addr.last_name
+      stripped.lineTwo = addr.address_line
+      stripped.lineThree = addr.city + ' ' + addr.state
+      stripped.lineFour = addr.postcode
+      stripped.lineFive = addr.country
+
+      return stripped
+      // return Object.values(stripped).join("\r\n")
+    },
     currentUser() {
       return this.$store.state.auth.user
     },

@@ -24,130 +24,153 @@
               >Discover</router-link
             >
           </div>
-          <v-card flat v-else>
-            <div class="orders-status-section">
-              <div class="status-row">
-                <label class="status-title">Subtotal</label>
-                <label class="status-title value"
-                  >${{ cartCost.subtotal_cost | formatNumber }}</label
+            <v-card flat v-else>
+              <v-layout>
+                <v-flex
+                  xs10
+                  class="order-item"
+                  v-for="(item, index) in cartItems"
+                  :key="index"
                 >
-              </div>
-              <div class="status-row">
-                <label class="status-title">Shipping</label>
-                <label class="status-title value"
-                  >${{ cartCost.shipping_cost | formatNumber }}</label
-                >
-              </div>
-              <div class="status-row">
-                <label class="status-title">Sales Tax</label>
-                <label class="status-title value"
-                  >${{ cartCost.tax_cost | formatNumber }}</label
-                >
-              </div>
-              <div class="status-row">
-                <label class="status-title">Stripe Fee</label>
-                <label class="status-title value"
-                  >${{ cartCost.fee_cost | formatNumber }}</label
-                >
-              </div>
-              <div class="total-row">
-                <label class="status-title">Total</label>
-                <label class="status-title value"
-                  >${{
-                    (cartCost.total_cost + cartCost.fee_cost) | formatNumber
-                  }}</label
-                >
-              </div>
-              <div class="action-row">
-                <v-btn class="checkout-btn" @click.native="submit()"
-                  >Proceed to Checkout</v-btn
-                >
-              </div>
-            </div>
-            <v-flex
-              class="order-item"
-              v-for="(item, index) in cartItems"
-              :key="index"
-            >
-              <div class="order-section">
-                <v-layout row>
-                  <v-flex
-                    sm12
-                    class="order-content-section pa-0 relative"
-                    :class="{ 'border-top-none': index != 0 }"
-                  >
-                    <div class="product-cover-image">
-                      <activity-product-card
-                        :object="item.product"
-                        :price-show="false"
-                      />
-                    </div>
-                    <div class="product-content">
-                      <div class="product-content-row">
-                        <div class="product-name">
-                          {{ item.product.name }} |
-                          {{ item.product_variant.name }}
-                        </div>
-                        <div
-                          class="product-status"
-                          :class="productStatusStyle(item)"
-                        >
-                          {{ productStatusText(item) }}
-                        </div>
-                      </div>
-                      <div
-                        class="product-content-row justify-space-between pt-2"
+                  <div class="order-section">
+                    <v-layout row>
+                      <v-flex
+                        sm12
+                        class="order-content-section pa-0 relative"
+                        :class="{ 'border-top-none': index != 0 }"
                       >
-                        <div>
-                          By
-                          <router-link
-                            :to="`/${item.product.merchant.slug}`"
-                            class="user-name"
-                            href="#"
-                            >{{
-                              item.product.merchant.display_name
-                            }}</router-link
-                          >
+                        <div class="product-cover-image">
+                          <activity-product-card
+                            :object="item.product"
+                            :price-show="false"
+                          />
                         </div>
-                        <div v-if="!isDigitalProduct(item)">
-                          <v-btn
-                            class="product-count-adjust-btn active"
-                            @click.native="addQuantity(item)"
+                        <div class="product-content">
+                          <div class="product-content-row">
+                            <div class="product-name">
+                              {{ item.product.name }} |
+                              {{ item.product_variant.name }}
+                            </div>
+                            <div
+                              class="product-status"
+                              :class="productStatusStyle(item)"
+                            >
+                              {{ productStatusText(item) }}
+                            </div>
+                          </div>
+                          <div
+                            class="product-content-row justify-space-between pt-2"
                           >
-                            <v-icon>add</v-icon>
-                          </v-btn>
-                          <label class="product-count">{{
-                            item.quantity
-                          }}</label>
-                          <v-btn
-                            class="product-count-adjust-btn"
-                            :class="{ active: item.quantity > 1 }"
-                            :disabled="item.quantity <= 1"
-                            @click.native="removeQuantity(item)"
+                            <div>
+                              By
+                              <router-link
+                                :to="`/${item.product.merchant.slug}`"
+                                class="user-name"
+                                href="#"
+                                >{{
+                                  item.product.merchant.display_name
+                                }}</router-link
+                              >
+                            </div>
+                            <div v-if="!isDigitalProduct(item)">
+                              <v-btn
+                                class="product-count-adjust-btn active"
+                                @click.native="addQuantity(item)"
+                              >
+                                <v-icon>add</v-icon>
+                              </v-btn>
+                              <label class="product-count">{{
+                                item.quantity
+                              }}</label>
+                              <v-btn
+                                class="product-count-adjust-btn"
+                                :class="{ active: item.quantity > 1 }"
+                                :disabled="item.quantity <= 1"
+                                @click.native="removeQuantity(item)"
+                              >
+                                <v-icon>remove</v-icon>
+                              </v-btn>
+                            </div>
+                          </div>
+                          <div
+                            class="product-content-row justify-space-between pt-2"
                           >
-                            <v-icon>remove</v-icon>
-                          </v-btn>
+                            <label class="product-price"
+                              >${{ item.price | formatNumber }}</label
+                            >
+                            <a
+                              class="message-buyer-btn"
+                              @click.self="removeCartItem(item)"
+                              >Remove</a
+                            >
+                            <!-- <a class="order-detail-btn" href="#">Save for later</a> -->
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        class="product-content-row justify-space-between pt-2"
-                      >
-                        <label class="product-price"
-                          >${{ item.price | formatNumber }}</label
-                        >
-                        <a
-                          class="message-buyer-btn"
-                          @click.self="removeCartItem(item)"
-                          >Remove</a
-                        >
-                        <!-- <a class="order-detail-btn" href="#">Save for later</a> -->
-                      </div>
+                      </v-flex>
+                    </v-layout>
+                  </div>
+                </v-flex>
+
+                <v-flex xs2 class="orders-section-container">
+                  <div class="shipping-address-section">
+                    <div class="d-flex justify-space-between shipping-action-header">
+                      <div class="app-bold flex-none">Shipping to:</div>
+                      <div class="app-bold flex-none cursor-pointer" @click="editDialog = true">Edit</div>
                     </div>
-                  </v-flex>
-                </v-layout>
-              </div>
-            </v-flex>
-          </v-card>
+                        <div class="stripped-shipping-address">
+                          <div v-for="(line, i) in strippedAddress" :key="i">
+                            {{ line }}
+                          </div>
+                        </div>
+                        <v-dialog
+                          v-model="editDialog"
+                          content-class="edit-address-dialog"
+                        > 
+                          <address-tab  />
+                        </v-dialog>
+                  </div>
+                  <div class="orders-status-section">
+                      <div class="status-row">
+                      <label class="status-title">Subtotal</label>
+                      <label class="status-title value"
+                        >${{ cartCost.subtotal_cost | formatNumber }}</label
+                      >
+                    </div>
+                    <div class="status-row">
+                    <label class="status-title">Shipping</label>
+                    <label class="status-title value">
+                      ${{ cartCost.shipping_cost | formatNumber }}
+                    </label>
+                    </div>
+                    <div class="status-row">
+                      <label class="status-title">Sales Tax</label>
+                      <label class="status-title value"
+                        >${{ cartCost.tax_cost | formatNumber }}</label
+                      >
+                    </div>
+                    <div class="status-row">
+                      <label class="status-title">Stripe Fee</label>
+                      <label class="status-title value"
+                        >${{ cartCost.fee_cost | formatNumber }}</label
+                      >
+                    </div>
+                    <div class="total-row">
+                      <label class="status-title">Total</label>
+                      <label class="status-title value"
+                        >${{
+                          (cartCost.total_cost + cartCost.fee_cost) | formatNumber
+                        }}</label
+                      >
+                    </div>
+                    <div class="action-row">
+                      <v-btn class="checkout-btn" @click.native="submit()"
+                        >Proceed to Checkout</v-btn
+                      >
+                    </div>
+                  </div>
+                </v-flex>
+              </v-layout>
+            </v-card>
         </template>
 
         <template v-if="active_tab == 'history'">
@@ -377,3 +400,4 @@
 </template>
 
 <script type="text/javascript" src="./cart.ctrl.js"></script>
+<style src="../../../static/styles/cart.scss" lang="scss" scoped>
