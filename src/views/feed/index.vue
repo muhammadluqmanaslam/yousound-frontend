@@ -1,5 +1,5 @@
 <template>
-  <div class="page stream-page mx-5">
+  <div class="page stream-page px-5 fa-bg">
     <content-top-header>
       <template slot="topHeader">
           <ul>
@@ -16,7 +16,6 @@
     </content-top-header>
 
     <div class="d-flex">
-
       <div class="page-content" v-if="currentUser">
         <div v-if="!users || users.length == 0" class="empty-section">
           <p class="empty-title">Your stream is empty</p>
@@ -29,8 +28,9 @@
         </div>
         <div v-else>
           <div v-for="(user, user_index) in users" :key="user_index">
+            <!-- <pre>{{ user }}</pre> -->
             <v-layout row wrap class="covers-content" v-if="user.recent_items">
-              <stream-user :user="user"></stream-user>
+              <timeline :user="user" />
             </v-layout>
           </div>
           <div class="text-xs-center">

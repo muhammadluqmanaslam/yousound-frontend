@@ -1,17 +1,18 @@
 import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
 import UserService from '@/services/user'
+import CommentService from '@/services/comment'
 
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
-import streamUser from '@/components/streamuser'
+import timeline from '@/components/timeline/timeline'
 import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
     trackCard,
     productCard,
-    streamUser,
+    timeline,
     contentTopHeader,
   },
 
@@ -46,6 +47,9 @@ export default {
       const tab = toPath.hash.substr(1)
       this.setTab(tab)
     },
+    users(val) {
+      console.log(val)
+    }
   },
 
   created() {
@@ -64,10 +68,25 @@ export default {
   },
 
   methods: {
+    // loadComments() {
+    //   const params = {
+    //     commentable_type: 'Stream',
+    //     commentable_id: this.album.id,
+    //     page: this.comment_pagination.current_page + 1,
+    //     per_page: this.comment_pagination.per_page,
+    //   }
+
+    //   cosnt requestArr = []
+
+    //   CommentService.getComments(params)
+    //     .then((response) => {
+    //       this.comments = this.comments.concat(response.body.comments)
+    //       this.comment_pagination = response.body.pagination
+    //     })
+    // },
     isActiveTab(tab) {
       return this.activeTab === tab
     },
-
     loadFeeds(filter) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
