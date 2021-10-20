@@ -82,4 +82,24 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.video-js .vjs-big-play-button {
+// position: relative;
+}
+// .video-js::after {
+//   content: "";
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   background: blue;
+//   top: 0;
+//   left: 0;
+//   z-index: 0;
+// }
+// .video-js .vjs-big-play-button::after {
+//   content: "";
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+// }
+</style>

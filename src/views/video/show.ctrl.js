@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       moment: moment,
+      showMoreActive: false,
       stream: {},
       stream_assoc: {
         type: 'Album',
@@ -353,6 +354,13 @@ export default {
       const videoId = this.$route.params.videoId
       console.log('vidoe/show watch', videoId)
       this.loadData(videoId)
+    },
+    showMoreActive(val) {
+      if (val) {
+        document.querySelector('.vid__description').style.height = 'auto'
+      } else {
+        document.querySelector('.vid__description').style.height = '20px'
+      }
     },
   },
 }

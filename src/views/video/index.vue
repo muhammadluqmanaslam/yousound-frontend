@@ -11,7 +11,7 @@
               :href="'#tab-' + i"
             >
               <v-chip class="text-capitalize" @click.native="setTab(genre.id)">
-                {{ genre.name }}
+                {{ genre.name.toLowerCase() }}
               </v-chip>
             </v-tabs-item>
           </v-tabs-bar>
@@ -48,9 +48,13 @@
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
         <v-layout row wrap>
-          <div v-for="video in videos" :key="video.id" class="card-container">
-            <video-box :item="video" />
-          </div>
+          <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3">
+          <!-- <v-flex xs4 v-for="(video, i) in videos.slice(0,3)" :key="i" class="video-container top-3"> -->
+            <video-box :hoverOverlay="false" :item="video" />
+          </v-flex>
+          <!-- <v-flex xs3 v-for="(video, i) in videos.slice(3,videos.length)" :key="i" class="card-container">
+            <video-box :hoverOverlay="false" :item="video" />
+          </v-flex> -->
         </v-layout>
 
         <div class="text-xs-center">
@@ -68,6 +72,8 @@
 </template>
 
 <script src="./index.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped></style>
+
 <style lang="scss" scoped>
 .tabs__bar {
     width: calc(100% + 72px);
