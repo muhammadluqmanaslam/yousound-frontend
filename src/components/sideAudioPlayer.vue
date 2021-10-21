@@ -452,6 +452,7 @@ export default {
       this.trackIndex = index + 1 + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
       console.log('player play track', this.track)
+      this.$store.dispatch('player/setCurrentPlayingTrack', this.track)
 
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
@@ -544,6 +545,9 @@ export default {
       this.isPlaying = false
       this.setPauseStatus(true)
       // this.setPlaying(false)
+
+      // update current track playing
+      this.$store.dispatch('player/setCurrentPlayingTrack', this.track)
     },
 
     skip(direction) {

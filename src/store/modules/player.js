@@ -12,6 +12,7 @@ const state = {
   tracks: [],
   listIndex: -1,
   trackIndex: -1,
+  currentTrackPlaying: {},
   gridShow: false,
   user: null,
 }
@@ -66,6 +67,11 @@ const actions = {
   setTrackIndex({ commit }, trackIndex) {
     // console.log('player action setTrackIndex', trackIndex)
     commit('setTrackIndex', trackIndex)
+  },
+
+  setCurrentPlayingTrack({ commit }, currentTrackPlaying) {
+    console.log('current track', currentTrackPlaying)
+    commit('setCurrentPlayingTrack', currentTrackPlaying)
   },
 
   setGridShow({ commit }, gridShow) {
@@ -124,6 +130,10 @@ const mutations = {
     // } else {
     //   state.trackIndex = trackIndex
     // }
+  },
+
+  setCurrentPlayingTrack(state, currentTrackPlaying) {
+    state.currentTrackPlaying = currentTrackPlaying
   },
 
   setGridShow(state, gridShow) {
