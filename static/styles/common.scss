@@ -163,8 +163,12 @@ body {
   color: #aaaaaa
 }
 
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+}
 .flex-none {
-      flex: none;
+    flex: none;
 }
 .no-Btn-bg::before {
   /* Remove default gover bg color from button */
