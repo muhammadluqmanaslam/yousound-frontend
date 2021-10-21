@@ -200,6 +200,7 @@ export default {
     }),
 
     loadData() {
+      this.$store.dispatch('error/showLoadingActivity', true)
       const vm = this
       this.slug = this.$route.params.slug
       this.comments = []
@@ -217,6 +218,7 @@ export default {
       ])
         .then((values) => {
           this.album = values[0].body
+          console.log(this.album)
           // Vue.set(this, "album", values[0].body)
           // for (let index in this.album.tracks) {
           //   this.buttonHover.push(false)
@@ -234,19 +236,19 @@ export default {
           }
           this.$emit('updateHead')
 
-          setTimeout(function () {
-            vm.changeBackground()
-            var height = $('#album_info_page').height() + 230
-            var screen_height = $(window).height()
-            if (height > screen_height) {
-              height += 50
-            } else {
-              height = screen_height
-            }
-            var canvas = document.getElementById('canvas')
-            canvas.height = height
-            // $('#back_image').css("cssText", "height: " + height + "px !important;")
-          }, 200)
+          // setTimeout(function () {
+          //   vm.changeBackground()
+          //   var height = $('#album_info_page').height() + 230
+          //   var screen_height = $(window).height()
+          //   if (height > screen_height) {
+          //     height += 50
+          //   } else {
+          //     height = screen_height
+          //   }
+          //   var canvas = document.getElementById('canvas')
+          //   canvas.height = height
+          //   // $('#back_image').css("cssText", "height: " + height + "px !important;")
+          // }, 200)
 
           if (this.comments_subscription) {
             this.comments_subscription.unsubscribe()
@@ -306,6 +308,7 @@ export default {
             }
           )
 
+          this.$store.dispatch('error/showLoadingActivity', false)
           this.isPageReady = true
         })
         .catch((reason) => {
@@ -645,23 +648,24 @@ export default {
   },
 
   mounted() {
-    const vm = this
-    $(window)
-      .resize(function () {
-        var height = $('#album_info_page').height() + 230
-        var screen_height = $(window).height()
-        if (height > screen_height) {
-          height += 50
-        } else {
-          height = screen_height
-        }
-        var canvas = document.getElementById('canvas')
-        if (canvas) {
-          $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
-        }
-        $('#back_image').css('cssText', 'height: ' + height + 'px !important;')
-      })
-      .trigger('resize')
+    // const vm = this
+    // $(window)
+    //   .resize(function () {
+    //     var height = $('#album_info_page').height() + 230
+    //     var screen_height = $(window).height()
+    //     if (height > screen_height) {
+    //       height += 50
+    //     } else {
+    //       height = screen_height
+    //     }
+    //     var canvas = document.getElementById('canvas')
+    //     if (canvas) {
+    //       $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
+    //     }
+    //     $('#back_image').css('cssText', 'height: ' + height + 'px !important;')
+    //   })
+    //   .trigger('resize')
+
   },
 
   updated() {},

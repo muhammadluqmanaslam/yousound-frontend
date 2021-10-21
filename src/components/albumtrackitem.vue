@@ -38,6 +38,8 @@
       >
     </label>
     <div class="right-section" @click.stop="">
+      <v-icon v-if="buttonHover  && !(trackIndex == $store.state.player.trackIndex && isPlaying)" color="grey">play_arrow</v-icon>
+      <v-icon v-if="selectedTrackIsPlaying" color="grey">pause</v-icon>
       <v-menu
         v-model="menu"
         offset-y

@@ -48,6 +48,14 @@ export default {
       selectedImage: null,
     }
   },
+  watch: {
+    track: {
+      immediate: true,
+      handler(val) {
+        console.log(val)
+      },
+    },
+  },
 
   computed: {
     currentUser() {
@@ -58,6 +66,20 @@ export default {
       return this.album.tracks[this.trackIndex]
     },
 
+    selectedTrackIsPlaying() {
+      const playerActive = this.$store.state.player.isPlaying
+      const currentTrackPlaying = this.$store.state.player.currentTrackPlaying
+      const current = this.album.tracks[this.trackIndex]
+      if (playerActive) {
+        console.log(current.id)
+        console.log(currentTrackPlaying)
+        if (current.id === currentTrackPlaying.id) {
+          console.log(true);
+          return true
+        }
+      }
+      return false
+    },
     isPlaying() {
       if (this.$store.state.player.isPlaying) {
         return (

@@ -12,6 +12,14 @@ p {
   font-size: 18px;
 }
 
+.sectionCard {
+  border-radius: 3px;
+  background-color: #ffffff;
+  padding: 15px;
+  box-shadow: 0 0 2px 0px #c8c8d9;
+  margin-bottom: 30px;
+}
+
 .page.upload-album-page {
   .input-group__details {
     display: none;
@@ -390,6 +398,10 @@ p {
 }
 
 .page.album-detail-page {
+  position: relative;
+  top: -19px;
+  left: -17px;
+  width: calc(100% + 37px);
   // .background-image {
   //   position: absolute;
   //   top: 0;
@@ -415,52 +427,55 @@ p {
   //     filter: blur(160px);
   //   }
   // }
-  .background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100% !important;
-    // background: #414141;
-    overflow: hidden;
-    // opacity: 0.6;
-    background-color: #000000;
-    opacity: 0.8;
-    div {
-      width: 100%;
-      height: 100%;
-      opacity: 0.6;
-      background-size: cover;
-      -webkit-filter: blur(160px);
-      -moz-filter: blur(160px);
-      -o-filter: blur(160px);
-      -ms-filter: blur(160px);
-      filter: blur(160px);
-    }
-  }
-  .background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100% !important;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
   .album-pages {
-    z-index: 9;
-    margin-top: 30px;
-    margin-bottom: 85px;
+    min-height: 101vh;
+    overflow: hidden;
+    // z-index: 9;
+    position: relative;
+    padding: 65px;
+
+    .background-image {
+      position: absolute;
+      top: -18px;
+      left: -35px;
+      width: 100vw !important;
+      height: calc(100% + 20px);
+      // background: #414141;
+      overflow: hidden;
+      // opacity: 0.6;
+      background-color: #000000;
+      opacity: 0.8;
+      div {
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+        background-size: cover;
+        -webkit-filter: blur(160px);
+        -moz-filter: blur(160px);
+        -o-filter: blur(160px);
+        -ms-filter: blur(160px);
+        filter: blur(160px);
+      }
+    }
+    .background-overlay {
+      position: absolute;
+      top: -18px;
+      left: -35px;
+      width: 100vw !important;
+      height: calc(100% + 20px);
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
     .album-info-page {
-      min-height: calc(100vh - 230px);
+      display: flex;
       z-index: 10;
       .album-image-section {
         display: inline-block;
         vertical-align: top;
         position: relative;
         .album-image {
-          width: 400px;
-          height: 400px;
+          width: 300px;
+          height: 300px;
           background-color: #000;
           background-size: cover;
           overflow: hidden;
@@ -471,8 +486,8 @@ p {
           }
         }
         .album-hover-section {
-          width: 400px;
-          height: 400px;
+          width: 300px;
+          height: 300px;
           background: rgba(0, 0, 0, 0.8);
           position: absolute;
           padding: 0;
@@ -487,40 +502,6 @@ p {
           transition: opacity 0.3s ease-in-out;
           &:hover {
             opacity: 1;
-          }
-          .play-button-section {
-            position: relative;
-            .play-button {
-              border: rgba(255, 255, 255, 0.5) solid 1px;
-              border-radius: 100%;
-              // background: rgba(0, 0, 0, 0.5) !important;
-              background: transparent !important;
-              box-shadow: none;
-              // width: 33.33333333333333%;
-              // height: 33.33333333333333%;
-              // margin-left: 33.33333333333333%;
-              // margin-top: 33.33333333333333%;
-              width: 80px;
-              height: 80px;
-              margin-left: calc(50% - 40px);
-              margin-top: calc(50% - 40px);
-              min-width: 80px;
-              .btn__content {
-                padding: 0;
-              }
-              img {
-                // width: 100%;
-                max-width: 60px;
-              }
-              .icon {
-                &.play {
-                  font-size: 70px;
-                }
-                &.pause {
-                  font-size: 50px;
-                }
-              }
-            }
           }
           .credits-dialog-wrapper {
             position: absolute;
@@ -538,68 +519,6 @@ p {
                 .btn__content {
                   // padding: 0;
                 }
-              }
-            }
-          }
-        }
-        .album-merch-section {
-          margin-top: 30px;
-          cursor: pointer;
-          .title {
-            color: white;
-            font-weight: 300;
-            font-size: 24px !important;
-            letter-spacing: -0.6px !important;
-            border-bottom: 1px solid rgba(215, 215, 215, 0.2);
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-          }
-          .merch-detail-section {
-            margin-top: 10px;
-            background-color: transparent;
-            padding: 0;
-            border-radius: 3px;
-            .merch-avatar {
-              width: 120px;
-              height: 120px;
-              display: inline-block;
-              vertical-align: middle;
-              background-size: cover;
-              background-position: center;
-              overflow: hidden;
-              border-radius: 5px;
-              border: 3px solid white;
-            }
-            .info-section {
-              display: inline-block;
-              vertical-align: middle;
-              padding-left: 10px;
-              .merch-name {
-                display: block;
-                color: white;
-                font-family: 'Work Sans';
-                font-weight: 600;
-                font-size: 20px;
-                letter-spacing: -0.7px;
-                cursor: pointer;
-                width: 250px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-              .merch-price {
-                display: block;
-                color: white;
-                font-size: 24px;
-                letter-spacing: -0.6px;
-                cursor: pointer;
-              }
-              .link-btn {
-                display: block;
-                color: rgba(255, 255, 255, 0.52);
-                font-size: 16px;
-                letter-spacing: -0.6px;
-                cursor: pointer;
               }
             }
           }
@@ -624,9 +543,7 @@ p {
         }
       }
       .album-detail-section {
-        display: inline-block;
-        width: calc(100% - 450px);
-
+        width: 100%;
         .album-info-section {
           position: relative;
           margin: 21px 22.5px 0px 37.5px;
@@ -638,7 +555,7 @@ p {
             letter-spacing: 0.6px;
           }
           .album-name {
-            font-size: 18px;
+            font-size: 38px;
             font-weight: 600;
             color: #ffffff;
             letter-spacing: 0;
@@ -655,7 +572,6 @@ p {
             font-size: 16px;
             color: rgba(255, 255, 255, 0.5);
             letter-spacing: 0.6px;
-            padding-bottom: 30px;
             margin: 0;
 
             .album-sample-clearance {
@@ -786,134 +702,42 @@ p {
             }
           }
         }
-
-        .album-tracks-section {
-          margin-left: 22.5px;
-
-          .album-track-item {
-            padding: 6px 11.25px;
-
-            .track-name {
-              display: inline-block;
-              max-width: 500px;
-              min-width: 75px;
-              padding-left: 3.75px;
-              line-height: 36px;
-              font-size: 14px;
-              color: #ffffff;
-              letter-spacing: 0;
-              vertical-align: middle;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
-
-              .track-index {
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.5);
-                letter-spacing: 0;
-                vertical-align: middle;
-              }
-              .track-user-name {
-                font-weight: 900;
-                color: #ffffff;
-              }
+        .play-button-section {
+          position: relative;
+          .play-button {
+            border: rgba(255, 255, 255, 0.5) solid 1px;
+            border-radius: 100%;
+            // background: rgba(0, 0, 0, 0.5) !important;
+            background: transparent !important;
+            box-shadow: none;
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            margin: 0;
+            margin-top: 20px;
+            .btn__content {
+              padding: 0;
             }
-            .action-btn {
-              background-color: transparent !important;
-              box-shadow: none;
-              margin: 0;
-              color: rgba(255, 255, 255, 0.5);
-              min-width: 36px;
-              .btn__content {
-                padding: 0;
-              }
-              .icon {
-                color: rgba(255, 255, 255, 0.5);
-              }
-              img {
-                height: 11.25px;
-                padding-right: 3.75px;
-              }
+            img {
+              // width: 100%;
+              max-width: 60px;
             }
-            .track-actions {
-              float: right;
-              display: inline-block;
-              opacity: 0;
-              .action-btn {
-                background-color: transparent !important;
-                box-shadow: none;
-                margin: 0;
-                color: rgba(255, 255, 255, 0.5);
-                cursor: default;
-                min-width: 78px;
-                .btn__content {
-                  padding: 0;
-                }
-                .icon {
-                  color: rgba(255, 255, 255, 0.5);
-                }
-                img {
-                  height: 11.25px;
-                  padding-right: 3.75px;
-                }
+            .icon {
+              &.play {
+                font-size: 40px;
               }
-            }
-            .right-section {
-              float: right;
-              .track-more-action {
-                opacity: 0;
-                .more-btn {
-                  width: 37.5px;
-                  min-width: 37.5px;
-                  display: inline-block;
-                  vertical-align: middle;
-                  background-color: transparent !important;
-                  box-shadow: none;
-                  margin: 0;
-                  color: rgba(255, 255, 255, 0.5);
-                  .btn__content {
-                    padding: 0;
-                  }
-                  .icon {
-                    margin: 0;
-                    font-size: 22.5px;
-                  }
-                }
-                .track-menu-item {
-                }
-              }
-              .track-length {
-                display: inline-block;
-                vertical-align: middle;
-                font-size: 15px;
-                color: rgba(255, 255, 255, 0.5);
-                letter-spacing: 0;
-              }
-            }
-            &:hover {
-              background-color: rgba(255, 255, 255, 0.1);
-              .track-actions {
-                opacity: 1;
-              }
-              .right-section {
-                .track-more-action {
-                  opacity: 1;
-                }
-              }
-            }
-            &.selected {
-              background-color: rgba(255, 255, 255, 0.1);
-              .track-actions {
-                opacity: 1;
-              }
-              .right-section {
-                .track-more-action {
-                  opacity: 1;
-                }
+              &.pause {
+                font-size: 40px;
               }
             }
           }
         }
+      }
+
+      .meta-details {
+        color: #ffffff;
+        font-size: 16px;
+        margin: 12px 0 32px;
       }
     }
     .album-comment-page {
@@ -1189,26 +1013,232 @@ p {
         }
       }
     }
-    .album-recent-page {
-      padding-top: 0;
-      padding-bottom: 0px;
-      margin-top: 160px;
-      .recent-title {
-        padding: 0 11.25px 15px 11.25px;
-        margin-bottom: 20px;
-        border-bottom: 0px solid #c3c3c3;
-        font-weight: 700;
-        font-size: 24px;
-        color: #000000;
-        letter-spacing: -1.5px;
-        font-family: 'Work Sans';
-      }
-      .recent-content {
-        .card-container {
-          max-width: 25%;
-          width: 25%;
+    .album-tracks-section {
+
+      .album-track-item {
+        padding: 6px 11.25px;
+
+        .track-name {
+          display: inline-block;
+          max-width: 500px;
+          min-width: 75px;
+          padding-left: 3.75px;
+          line-height: 36px;
+          font-size: 14px;
+          color: #ffffff;
+          letter-spacing: 0;
+          vertical-align: middle;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+
+          .track-index {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0;
+            vertical-align: middle;
+          }
+          .track-user-name {
+            font-weight: 900;
+            color: #ffffff;
+          }
+        }
+        .action-btn {
+          background-color: transparent !important;
+          box-shadow: none;
+          margin: 0;
+          color: rgba(255, 255, 255, 0.5);
+          min-width: 36px;
+          .btn__content {
+            padding: 0;
+          }
+          .icon {
+            color: rgba(255, 255, 255, 0.5);
+          }
+          img {
+            height: 11.25px;
+            padding-right: 3.75px;
+          }
+        }
+        .track-actions {
+          float: right;
+          display: inline-block;
+          opacity: 0;
+          .action-btn {
+            background-color: transparent !important;
+            box-shadow: none;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: default;
+            min-width: 78px;
+            .btn__content {
+              padding: 0;
+            }
+            .icon {
+              color: rgba(255, 255, 255, 0.5);
+            }
+            img {
+              height: 11.25px;
+              padding-right: 3.75px;
+            }
+          }
+        }
+        .right-section {
+          float: right;
+          .track-more-action {
+            opacity: 0;
+            .more-btn {
+              width: 37.5px;
+              min-width: 37.5px;
+              display: inline-block;
+              vertical-align: middle;
+              background-color: transparent !important;
+              box-shadow: none;
+              margin: 0;
+              color: rgba(255, 255, 255, 0.5);
+              .btn__content {
+                padding: 0;
+              }
+              .icon {
+                margin: 0;
+                font-size: 22.5px;
+              }
+            }
+            .track-menu-item {
+            }
+          }
+          .track-length {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0;
+          }
+        }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          .track-actions {
+            opacity: 1;
+          }
+          .right-section {
+            .track-more-action {
+              opacity: 1;
+            }
+          }
+        }
+        &.selected {
+          background-color: rgba(255, 255, 255, 0.1);
+          .track-actions {
+            opacity: 1;
+          }
+          .right-section {
+            .track-more-action {
+              opacity: 1;
+            }
+          }
         }
       }
+    }
+  }
+  .album-recent-page {
+    padding-top: 0;
+    padding-bottom: 0px;
+    // margin-top: 160px;
+    .recent-title {
+      padding: 0 11.25px 15px 11.25px;
+      // margin-bottom: 20px;
+      border-bottom: 0px solid #c3c3c3;
+      font-weight: 700;
+      font-size: 24px;
+      color: #000000;
+      letter-spacing: -1.5px;
+      font-family: 'Work Sans';
+    }
+    .recent-content {
+      .card-container {
+        max-width: 25%;
+        width: 25%;
+      }
+    }
+  }
+
+  .secondary-album-details {
+    // background-color: red;
+    background-color: #fafafa;
+    padding: 65px;
+    padding-top: 40px;
+
+    .album-merch-section {
+      @extend .sectionCard;
+      margin-top: 30px;
+      cursor: pointer;
+      .title {
+        color: white;
+        font-weight: 300;
+        font-size: 24px !important;
+        letter-spacing: -0.6px !important;
+        border-bottom: 1px solid rgba(215, 215, 215, 0.2);
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+      }
+      .merch-detail-section {
+        margin-top: 10px;
+        background-color: transparent;
+        padding: 0;
+        border-radius: 3px;
+        .merch-avatar {
+          width: 100%;
+          height: 200px;
+          display: inline-block;
+          vertical-align: middle;
+          background-size: contain;
+          background-position: center;
+          overflow: hidden;
+          border-radius: 5px;
+          border: 3px solid white;
+        }
+        .info-section {
+          display: inline-block;
+          vertical-align: middle;
+          padding-left: 10px;
+          .merch-name {
+            display: block;
+            font-family: 'Work Sans';
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: -0.7px;
+            cursor: pointer;
+            width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .merch-price {
+            display: block;
+            font-weight: bolder;
+            letter-spacing: -0.6px;
+            font-size: 16px;
+            cursor: pointer;
+          }
+          .merch-status-icon {
+            width: 15px;
+            margin-left: 20px;
+            cursor: pointer;
+          }
+          .link-btn {
+            display: block;
+            color: rgba(255, 255, 255, 0.52);
+            font-size: 16px;
+            letter-spacing: -0.6px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .album-reposted-section {
+      @extend .sectionCard;
+
     }
   }
 }
