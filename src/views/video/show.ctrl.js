@@ -122,6 +122,22 @@ export default {
   },
 
   methods: {
+    gotoAssoc() {
+      const type = this.stream.assoc_type
+      const id = this.stream.assoc.id
+      const slug = this.stream.assoc.slug || ''
+
+      switch (type) {
+        case 'ShopProduct':
+          return this.$router.push({ name: 'SingleProduct', params: { id } })
+        case 'Album':
+          return this.$router.push({ name: 'AlbumDetail', params: { slug } })
+        case 'profile':
+          return this.$router.push(`/${this.stream.user.slug}`)
+        default:
+          return ''
+      }
+    },
     loadData(videoId) {
       const vm = this
       this.unsubscribe()

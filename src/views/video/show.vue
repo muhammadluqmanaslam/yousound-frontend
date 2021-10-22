@@ -2,7 +2,7 @@
   <div class="page video-page show-page mx-5" v-if="isPageReady">
     <div class="page-content">
       <v-layout row>
-        <v-flex sm9 class="vid_col">
+        <v-flex sm8 class="vid_col">
           <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
 
           <div class="content-section">
@@ -70,8 +70,8 @@
                 </div>
 
                 <span class="app-grey--text cursor-pointer showMoreActive" @click="showMoreActive = !showMoreActive">
-                  <b v-if="!showMoreActive" class="show-more">SHOW MORE</b>
-                  <b v-if="showMoreActive" class="show-less">SHOW LESS</b>
+                  <b v-if="!showMoreActive" class="show-more-less show-more">SHOW MORE</b>
+                  <b v-if="showMoreActive" class="show-more-less show-less">SHOW LESS</b>
                 </span>
               </div>
             </div>
@@ -106,8 +106,9 @@
             </div>
             <div class="section__content">
               <div
-                class="attach-container"
+                class="attach-container cursor-pointer"
                 v-if="stream.assoc && stream.assoc.id > 0"
+                @click="gotoAssoc()"
               >
                 <div class="assoc">
                   <div class="assoc__header">
@@ -123,20 +124,47 @@
                       {{ stream.assoc.name }}
                     </div>
                     <div class="assoc__title">
-                      {{ stream.assoc.price }}
+                      <span v-if="stream.assoc.price">${{ stream.assoc.price }}</span>
                     </div>
-                    <div class="assoc__cta" v-if="stream.assoc_type == 'ShopProduct'">
-                      <img src="/static/images/ic_cart_active.svg" width="20" />
+                    <div class="assoc__cta-" v-if="stream.assoc_type == 'ShopProduct'">
+                      <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
+                      <v-btn
+                        round
+                        outline
+                        small
+                        class="text-capitalize ma-0"
+                        >
+                          view
+                        </v-btn>
+                    </div>
+                    <div class="assoc__cta-" v-if="stream.assoc_type == 'Album'">
+                      <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
+                      <v-btn
+                        round
+                        outline
+                        small
+                        class="text-capitalize ma-0"
+                        >
+                          Play
+                        </v-btn>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <template v-for="account in stream.accounts">
-                <div class="user-container" :key="`user-${account.id}`">
-                  <artist-item :artist="account" />
+              
+              <div
+                class="profile-section attach-container"
+                v-if="stream.assoc && stream.assoc.id > 0"
+              >
+                <div v-if="stream.accounts.length" class="assoc">
+                  <template v-for="account in stream.accounts">
+                    <div class="user-container" :key="`user-${account.id}`">
+                      <artist-item :artist="account" />
+                    </div>
+                  </template>
                 </div>
-              </template>
+              </div>
             </div>
           </div>
 
@@ -172,9 +200,9 @@
             </div>
           </div>
         </v-flex>
-        <v-flex sm3 pl-3 class="related_col">
+        <v-flex sm4 pl-3 class="related_col">
           <div class="videos-section">
-            <h4 class="">Related</h4>
+            <h4 class="__title">Related</h4>
             <div class="section__content">
               <template v-for="(video, index) in videos">
                 <div class="video-container" :key="`video-${index}`">
@@ -263,11 +291,45 @@
 <script type="text/javascript" src="./show.ctrl.js"></script>
 
 <style lang="scss" scoped>
+.video-page {
+  .page-content {
+    margin-top: 0;
+  }
+}
 .section {
-  border-top: 1px solid #f3dfdf;
+  border-top: 1px solid #E4E4E4;
 
   &__content {
     display: block;
+
+
+
+  .profile-section {
+    .user-container {
+      padding: 13px;
+    }
+
+    /deep/.artist-cover {
+      border-radius: 0;
+      width: 100px;
+      height: 84px;
+      background-size: contain;
+      margin-right: 15px;
+      padding: 0;
+    }
+    /deep/.artist-info-section {
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+    /deep/.avatar-cover {
+      padding: 0 !important;
+    }
+
+    /deep/.artist-actions {
+      pointer-events: none;
+    }
+  }
   }
 
   &__title {
@@ -284,7 +346,7 @@
 .user-section {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #f3dfdf;
+  border-top: 1px solid #E4E4E4;
   padding: 20px 0;
   padding: 20px 0;
 
@@ -301,21 +363,37 @@
 
     .tag {
       font-size: 20px;
+
+      /deep/.user-status {
+        margin-left: 0px;
+        color: #24AB18;
+      }
     }
     
     .vid__description {
-      height: 20px;
+      height: 30px;
       overflow: hidden;
+    }
+
+    .show-more-less {
+      color: #333;
+      font-size: 13px;
     }
     
   }
 }
 
 .users-section {
+  .section__title {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+
   .section__content {
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
+    padding-bottom: 12px;
   }
 }
 
@@ -323,7 +401,7 @@
 .box {
   position: relative;
   width: 100%;
-  border-top: 1px solid #f3dfdf;
+  border-top: 1px solid #E4E4E4;
   // height: 100%;
 
   &__header {
@@ -346,17 +424,33 @@
       border-top: 1px solid #f3dfdf;
       font-weight: bold;
       padding: 20px 0;
+      border-top: none;
     }
     
     .items {
       position: relative;
       margin-bottom: 10px;
+
+      /deep/.item__image {
+        width: 42px;
+        height: 42px;
+      }
+      /deep/.item__title {
+        a {
+          color: #222
+        }
+
+        span {
+          color: #808080;
+          font-weight: 300;
+        }
+      }
     }
 
     input[type='text'] {
-      border-radius: 32.75px;
-      border: 0;
-      background-color: #fff6f6;
+      border-radius: 4px;
+      background-color: #fff;
+      border: 1px solid #ccc;
     }
     input[type='text']::placeholder {
       color: #000;
@@ -364,14 +458,18 @@
     }
   }
 
+  &__subtitle {
+    margin-top: 4px;
+  }
   &__title {
     display: flex;
     align-items: flex-start;
     width: 100%;
     height: 40px;
     border-bottom: 1px solid #f3dfdf;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 700;
+    margin-top: 0;
   }
 }
 
@@ -396,7 +494,7 @@
   &__image {
     width: 48px;
     height: 48px;
-    border-radius: 50%;
+    border-radius: 0;
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -453,7 +551,7 @@
 
     &__cta {
       display: inline-flex;
-      margin-left: 25px;
+      margin-left: 32px;
 
       img {
         cursor: pointer;
@@ -473,7 +571,7 @@
   display: flex;
   height: 100%;
   border-radius: 5px;
-  border: 1px solid #f3dfdf;
+   border: 1px solid #E4E4E4;
 
   &__header {
     position: relative;
@@ -489,7 +587,8 @@
     position: relative;
     flex: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     padding: 10px;
   }
 
@@ -510,12 +609,12 @@
   }
 
   &__title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
   }
 
   &__subtitle {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   &__cta {
@@ -564,22 +663,27 @@
 .attach-container {
   display: inline-block;
   width: 37.5%;
-  padding: 10px 20px 10px 5px;
+  padding: 16px 20px 10px 5px;
 }
 
 .user-container {
   display: inline-block;
-  width: 12.5%;
   padding: 10px;
 }
 
 .video-container {
   display: inline-block;
-  width: 20%;
+  width: 100%;
   padding: 10px;
 }
 .related_col {
   position: sticky;
   top: 0;
+
+  .videos-section {
+    .__title {
+      margin-left: 10px;
+    }
+  }
 }
 </style>
