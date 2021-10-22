@@ -398,7 +398,7 @@ export default {
 
                 const upload = UpChunk.createUpload({
                   endpoint: upload_url,
-                  file: this.videoFile,
+                  file: this.videoFile[0],
                   chunkSize: 5120, // Uploads the file in ~5mb chunks
                 })
 
@@ -422,10 +422,11 @@ export default {
               })
               .catch((e) => {
                 console.log(e)
+                console.log(e.message)
                 this.$store.dispatch('error/showLoadingActivity', false)
                 this.$store.dispatch(
                   'error/showErrorToast',
-                  e.body.errors || [e.body]
+                  e.message || e.body.errors || [e.body]
                 )
               })
           } else {
