@@ -18,7 +18,7 @@
           <div class="upload-tab-wrapper">
             <div class="upload-tab-img uploadVideo"></div>
             <div class="upload-tab-description">
-              Upload your albums, connnect products, add album credits & assign collaborators
+              Upload videos, connect products, albums & collaborators
             </div>
             <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoUpload'}">Upload Video</v-btn>
           </div>
@@ -28,7 +28,7 @@
           <div class="upload-tab-wrapper">
             <div class="upload-tab-img uploadLive"></div>
             <div class="upload-tab-description">
-              Upload your albums, connnect products, add album credits & assign collaborators
+              Broadcast live video, connect products, albums, collaborators & run pay-per-view
             </div>
             <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoCreate'}">Broadcast Live</v-btn>
           </div>
@@ -38,7 +38,7 @@
           <div class="upload-tab-wrapper">
             <div class="upload-tab-img uploadProduct"></div>
             <div class="upload-tab-description">
-              Upload your albums, connnect products, add album credits & assign collaborators
+              upload products, set splits & recoup costs with collaborators
             </div>
             <v-btn depressed class="upload-tab-btn" :to="{name: 'AddProduct'}">Upload Product</v-btn>
             </div>
