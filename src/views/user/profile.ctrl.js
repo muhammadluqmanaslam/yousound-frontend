@@ -208,15 +208,12 @@ export default {
       // console.log(event)
     },
     handleScroll2(event) {
-      const profileCard = document.querySelector('.user-profile-section')
       const navProfileCard = document.querySelector('.user-profile-image-wrapper')
 
       var y = window.scrollY
       if (y >= 144) {
-        profileCard.style.display = 'none'
         navProfileCard.style.display = 'flex'
       } else if (y < 144) {
-        profileCard.style.display = 'flex'
         navProfileCard.style.display = 'none'
       }
     },
