@@ -61,6 +61,8 @@ export default {
       StreamService.getStreams(params)
         .then((response) => {
           this.videos = this.videos.concat(response.body.streams)
+          // this.videos = [ ...this.videos, ...this.videos]
+          // console.log(this.videos)
           this.pagination = response.body.pagination
           this.videoGenres = response.body.genres
           this.$store.dispatch('error/showLoadingActivity', false)

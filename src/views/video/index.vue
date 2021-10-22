@@ -48,13 +48,13 @@
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
         <v-layout row wrap>
-          <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3">
-          <!-- <v-flex xs4 v-for="(video, i) in videos.slice(0,3)" :key="i" class="video-container top-3"> -->
+          <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+          <v-flex xs4 v-for="(video, i) in videos.slice(0,3)" :key="i" class="video-container top-3">
             <video-box :hoverOverlay="false" :item="video" />
           </v-flex>
-          <!-- <v-flex xs3 v-for="(video, i) in videos.slice(3,videos.length)" :key="i" class="card-container">
+          <v-flex xs3 v-for="(video, i) in videos.slice(3,videos.length)" :key="i" class="card-container">
             <video-box :hoverOverlay="false" :item="video" />
-          </v-flex> -->
+          </v-flex>
         </v-layout>
 
         <div class="text-xs-center">
