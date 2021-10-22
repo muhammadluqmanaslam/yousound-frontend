@@ -203,7 +203,7 @@
 
             <v-layout row wrap class="covers-content" v-else>
               <div
-                class="card-container"
+                class="card-container flex custom-lg5"
                 v-for="(user, index) in users"
                 :key="index"
               >
@@ -238,7 +238,7 @@
 
             <v-layout row wrap class="covers-content" v-else>
               <div
-                class="card-container"
+                class="card-container flex custom-lg5"
                 v-for="(user, index) in users"
                 :key="index"
               >
@@ -276,7 +276,7 @@
 
             <v-layout row wrap class="covers-content" v-else>
               <div
-                class="card-container"
+                class="card-container flex custom-lg5"
                 v-for="(product, index) in products"
                 :key="index"
               >
@@ -293,7 +293,7 @@
 
           <!-- <div v-else-if="active_tab == 'reposted'">
             <v-layout row wrap class="covers-content">
-              <div class="card-container" v-for="(feed, index) in feeds" :key="index" v-else-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
+              <div class="card-container flex custom-lg5" v-for="(feed, index) in feeds" :key="index" v-else-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
                 <track-card :objects="user.recent_items" :objectIndex="index" v-if="feed.assoc_type=='Album'"></track-card>
                 <product-card :dataObject="feed" v-if="feed.assoc_type=='ShopProduct'"></product-card>
               </div>
@@ -392,7 +392,7 @@
 
             <v-layout row wrap class="covers-content" v-else>
               <div
-                class="card-container"
+                class="card-container flex custom-lg5"
                 v-for="(feed, index) in albums"
                 :key="index"
               >
