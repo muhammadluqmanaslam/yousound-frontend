@@ -5,7 +5,7 @@
       :class="{ 'cursor-pointer' : !hoverOverlay }"
       @click="!hoverOverlay ? $router.push(`/video/${item.id}/show`) : ''"
     >
-        <span v-if="durationTag" class="duraion__tag">{{ durationTag }}</span>
+        <span v-if="durationTag" class="duration__tag">{{ durationTag }}</span>
         <div
           class="box__image"
           :style="`background-image: url(${_.get(item, 'cover.url')})`"
@@ -131,16 +131,14 @@ export default {
 
 <style lang="scss" scoped>
 .box {
-  display: flex;
-  align-items: center;
-  // flex-direction: column;
+  //display: flex;
+  //flex-direction: column;
 
   &__content {
     position: relative;
-    width: 40%;
-    margin-right: 20px;
+    width: 100%;
 
-    .duraion__tag {
+    .duration__tag {
       position: absolute;
       bottom: 5px;
       right: 10px;

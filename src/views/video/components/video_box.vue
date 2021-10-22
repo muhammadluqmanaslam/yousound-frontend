@@ -13,6 +13,10 @@
       <router-link :to="`/${video.user.slug}`">
         <div class="box__title">{{ video.user.display_name }}</div>
       </router-link>
+        <div class="box__views__duration_wrapper">
+          <span class="box__views">0 views</span>
+          <span v-if="calcAge" class="ml-1 box__age"> • {{ calcAge }}</span>
+        </div>
     </div>
   </div>
 </template>
@@ -33,6 +37,7 @@ export default {
   }
 
   &__footer {
+    width: 50%;
   }
 
   &__image {
