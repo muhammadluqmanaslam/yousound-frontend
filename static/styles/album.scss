@@ -1143,7 +1143,7 @@ p {
   .album-recent-page {
     padding-top: 0;
     padding-bottom: 0px;
-    // margin-top: 160px;
+
     .recent-title {
       padding: 0 11.25px 15px 11.25px;
       // margin-bottom: 20px;
@@ -1156,8 +1156,17 @@ p {
     }
     .recent-content {
       .card-container {
-        max-width: 25%;
-        width: 25%;
+        min-width: 184px;
+        margin-bottom: 0;
+        padding: 0 20px !important;
+        margin-top: 30px;
+
+        .product-actions {
+          pointer-events: none;
+        }
+        /deep/.product-actions {
+          pointer-events: none;
+        }
       }
     }
   }
@@ -1198,7 +1207,6 @@ p {
           border: 3px solid white;
         }
         .info-section {
-          display: inline-block;
           vertical-align: middle;
           padding-left: 10px;
           .merch-name {
@@ -1238,6 +1246,11 @@ p {
 
     .album-reposted-section {
       @extend .sectionCard;
+
+      & .__title {
+        margin-left: 20px;
+        margin-top: 8px;
+      }
 
     }
   }

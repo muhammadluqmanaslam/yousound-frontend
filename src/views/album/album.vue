@@ -395,11 +395,11 @@
     </v-flex>
 
     <v-layout class="secondary-album-details">
-      <v-flex xs9 album-recent-page v-if="currentUser">
+      <v-flex xs8 album-comment-page v-if="currentUser">
         <h1>Comment Feature</h1>
       </v-flex>
 
-      <v-flex xs3 album-recent-page v-if="currentUser">
+      <v-flex xs4 album-recent-page v-if="currentUser">
         <div class="album-merch-section" v-if="album.products.length">
           <div class="d-flex justify-space-between">
             <h4 class="__title flex-none">
