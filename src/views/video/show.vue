@@ -684,6 +684,18 @@
     .__title {
       margin-left: 10px;
     }
+
+    .video-container {
+      .box {
+        display: flex;
+        align-items: center;
+
+        /deep/ &__content {
+          width: 40%;
+          margin-right: 20px;
+        }
+      }
+    }
   }
 }
 </style>
