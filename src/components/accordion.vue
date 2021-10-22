@@ -133,8 +133,8 @@ input {
 
 input:checked {
   + .tab-label {
-    background: #000000;
-    color: #ffffff;
+    background: #ffffff;
+    color: #000000;
     &::after {
       transform: rotate(90deg);
     }

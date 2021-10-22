@@ -1,5 +1,5 @@
 <template>
-  <div class="page video-page index-page mx-5">
+  <div class="page video-page index-page">
     <content-top-header>
       <template slot="topHeader">
         <v-tabs :scrollable="true">

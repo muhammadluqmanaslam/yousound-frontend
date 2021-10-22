@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer permanent app fixed dark class="sidebar">
+  <v-navigation-drawer permanent app fixed dark width="280" class="sidebar">
     <div class="pa-3">
       <div justify-space-between align-center class="d-flex mb-3">
         <router-link to="/album" class="sidebar-logo">
@@ -88,12 +88,12 @@
                 'background-image': 'url(' + currentUser.avatar.thumb.url + ')',
               }"
             ></div>
-            <v-icon v-else color="grey" class="__icon">{{
+            <v-icon v-else class="__icon">{{
               subMenu.icon
             }}</v-icon>
           </v-list-tile-avatar>
           <v-list-tile-title class="d-flex justify-space-between align-center">
-            <span>{{ subMenu.title }}</span>
+            <span class="__title">{{ subMenu.title }}</span>
 
             <span
               v-if="subMenu.id === 'notifications' && badge.message > 0"
@@ -248,5 +248,4 @@ export default {
 <style lang="scss" scoped>
 </style>
 
-<style src="../../static/styles/sidebar.scss" lang="scss" scoped>
-</style>
+<style src="../../static/styles/sidebar.scss" lang="scss" scoped></style>

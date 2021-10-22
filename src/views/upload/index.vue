@@ -1,6 +1,6 @@
 <template>
   <div class="page upload-page mx-5">
-    <h1 class="px-3">Upload Music, Videos, Products & Broadcast Live!</h1>
+    <h1 class="px-3 __title">Upload Music, Videos, Products & Broadcast Live!</h1>
 
     <v-container fluid grid-list-lg>
       <v-layout row justify-start>

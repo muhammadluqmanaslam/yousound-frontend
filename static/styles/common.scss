@@ -185,6 +185,11 @@ body {
   padding: 20px;
   border-radius: 0;
 
+  .control-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
     & .first-name, & .last-name, & .street, & .apartment, & .zipcode, & .country {
       flex-basis: 100%;
       max-width: 100%;
@@ -203,6 +208,11 @@ body {
         width: 20%;
       }
     }
+
+    input[type="text"] {
+      font-size: 14px;
+    }
+
     & .save-btn button {
       height: 37.5px;
       box-shadow: none;
@@ -290,19 +300,6 @@ body {
         color: #3a92ff;
         padding-left: 8px;
       }
-    }
-  }
-}
-.sidebar {
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: #101010 !important;
-  .side-tab {
-    .activeTab {
-        color: #ffffff !important;
-        font-weight: bold !important;
-        background-color: #424242;
-        border-radius: 6px;
     }
   }
 }
@@ -512,10 +509,8 @@ a {
   display: block;
   font-size: 18px;
   color: #333;
-  letter-spacing: -1px;
   margin-bottom: 0;
   font-weight: 600;
-  font-family: 'Work Sans';
 }
 
 .form-control {
@@ -557,7 +552,6 @@ textarea {
   font-size: 16px;
   color: #000000;
   letter-spacing: 0;
-  font-family: 'Work Sans';
   -webkit-appearance: none;
   height: 42px;
 }
@@ -599,6 +593,7 @@ textarea {
   font-size: 16px;
   vertical-align: super;
   &.online {
+    margin-left: 2px;
     color: #31bb25;
   }
   &.away {
@@ -626,7 +621,7 @@ textarea {
   }
   label {
     vertical-align: middle;
-    font-size: 16px;
+    font-size: 14px;
     color: #000000;
     letter-spacing: 0;
     cursor: pointer;

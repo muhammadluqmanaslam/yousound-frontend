@@ -61,7 +61,7 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        padding-top: 10px;
+        padding-top: 0;
         .track-index {
           font-size: 14px;
           color: #999;
@@ -69,7 +69,8 @@
         }
         .track-name {
           @extend .ellipsisIt;
-          padding-left: 3.75px;
+          padding-left: 0;
+          margin-top: -4px;
           color: #fff;
           font-weight: 500;
           font-size: 14px;
@@ -77,13 +78,14 @@
         }
       }
       .user-info {
-        padding-top: 5px;
+        padding-top: 0;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         font-weight: bolder;
         .user-name {
           @extend .ellipsisIt;
+          border: 0;
           font-size: 14px;
           font-weight: 600;
           color: #fff;

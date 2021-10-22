@@ -25,15 +25,14 @@ p {
     display: none;
   }
   .album-info-section {
-    padding: 37.5px 123.75px 161.25px;
+    padding: 6px 40px 0 40px;
     background-color: #fff;
     .album-info-title {
       margin-bottom: 14px;
-      font-size: 28px;
       color: #000000;
-      letter-spacing: -1px;
-      font-family: 'Work Sans';
-      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -.5px;
+      font-weight: 600;
     }
     .album-image-section {
       width: 300px;
@@ -319,7 +318,7 @@ p {
         min-width: 0px;
         background: #ffffff !important;
         color: #3a92ff;
-        font-size: 18px;
+        font-size: 15px;
         text-transform: none;
         .btn__content {
           padding: 0;
@@ -360,6 +359,9 @@ p {
     .album-action-section {
       margin-top: 20px;
       padding-top: 15px;
+      right: 658px;
+      bottom: 1px;
+
       // border-top: 0.75px solid #979797;
       .delete-album-btn {
         padding-top: 9px;
@@ -376,7 +378,7 @@ p {
         background: #3a92ff !important;
         border-radius: 75px;
         font-weight: 600;
-        font-size: 18px;
+        font-size: 16px;
         color: #ffffff;
         letter-spacing: 0;
       }
@@ -555,13 +557,12 @@ p {
             letter-spacing: 0.6px;
           }
           .album-name {
-            font-size: 38px;
+            font-size: 24px;
             font-weight: 600;
             color: #ffffff;
             letter-spacing: 0;
             line-height: 41.25px;
-            letter-spacing: -0.4px;
-            font-family: 'Work Sans';
+            letter-spacing: 0;
           }
           .album-description {
             font-size: 15px;
@@ -656,14 +657,14 @@ p {
             }
 
             .follow-btn {
-              width: 130px;
-              height: 40px;
+              width: 100px;
+              height: 36px;
               box-shadow: none;
               text-transform: none;
               margin: 8px 0px 8px 0px;
               background-color: transparent !important;
               border-radius: 82px;
-              font-size: 16px;
+              font-size: 14px;
               letter-spacing: 0;
               &.follow {
                 border: 1px solid #1872ff;
@@ -671,9 +672,10 @@ p {
                 color: #fff !important;
               }
               &.following {
-                border: 1px solid #5bad00;
-                background-color: rgba(0, 0, 0, 0.2) !important;
+                border: 1px solid #ffffff;
+                background-color: none !important;
                 color: #fff !important;
+
                 &:hover {
                   border: 1px solid #ff3121;
                   background-color: rgba(255, 42, 26, 0.7) !important;

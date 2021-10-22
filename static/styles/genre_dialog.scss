@@ -1,17 +1,7 @@
 .my-genre-dialog {
+  background-color: #121212;
   max-width: 1250px !important;
   width: 1250px !important;
-  // z-index: 99;
-  // position: fixed;
-  // top: 50%;
-  // left: 50%;
-  // width: 800px;
-  // height: 570px;
-  // margin: -320px 0 0 -400px;
-  // padding: 10px 10px;
-  // border-radius: 5px;
-  // height: 730px;
-  background-color: #080b26;
   padding-left: 40px !important;
   padding-right: 40px !important;
   padding-top: 20px !important;
@@ -38,8 +28,8 @@
   .genre {
     position: relative;
     & > h3 {
-      font-size: 42px;
-      letter-spacing: -1px;
+      font-size: 28px;
+      letter-spacing: 0px;
       line-height: 32px;
       color: #fff;
       font-family: Avenir, Arial !important;
@@ -47,6 +37,7 @@
     }
     & > p {
       // margin: 10px 0 10px 10px;
+      font-size: 16px;
       font-family: Avenir, Arial !important;
     }
     & > .update-btn {
@@ -57,7 +48,7 @@
       box-shadow: none;
       font-family: Avenir, Arial !important;
       font-size: 16px;
-      font-weight: 400;
+      font-weight: 600;
     }
     & > .pgs_area {
       height: 330px;

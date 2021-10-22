@@ -568,8 +568,8 @@ export default {
   padding: 3.75px 15px 0px;
   .messaged-time {
     text-align: center;
-    font-size: 13.5px;
-    color: #9f9f9f;
+    font-size: 13px;
+    color: #7a7a7a;
     letter-spacing: 0;
     margin-bottom: 17.5px;
   }
@@ -597,9 +597,7 @@ export default {
           width: 100%;
           word-break: break-word;
           white-space: pre-line;
-          font-size: 16px;
-          letter-spacing: -0.5px;
-          font-family: 'Work Sans';
+          font-size: 14px;
         }
       }
       &.request {

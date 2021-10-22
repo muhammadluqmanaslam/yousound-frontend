@@ -1,6 +1,12 @@
 .upload-page {
+    h1.__title {
+        font-size: 22px;
+        margin-top: 48px;
+        Margin-bottom: 20px;
+    }
     .upload-tab-container {
         padding: 30px !important;
+
 
         .upload-tab-wrapper {
             text-align: center;
@@ -40,7 +46,8 @@
             }
 
             .upload-tab-description {
-                margin: 15px 0;
+                margin: 24px 0;
+                font-size: 14px;
             }
 
             &:hover {

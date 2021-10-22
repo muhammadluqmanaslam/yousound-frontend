@@ -4,10 +4,14 @@
   }
 
   .orders-section-container {
+    .header-title {
+      font-size: 14px;
+    }
+
     .shipping-address-section {
       border: 1px solid #d5d5d5;
-      margin-bottom: 30px;
-      padding: 15px;
+      margin-bottom: 18px;
+      padding: 14px;
 
       .shipping-action-header {
         margin-bottom: 20px;
@@ -125,7 +129,7 @@
           background: #3a92ff !important;
           border-radius: 75px;
           font-weight: 600;
-          font-size: 15px;
+          font-size: 14px;
           color: #ffffff;
           letter-spacing: 0;
         }
@@ -165,7 +169,7 @@
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              font-size: 15px;
+              font-size: 14px;
               color: #000000;
               letter-spacing: -0.6px;
             }
@@ -212,15 +216,15 @@
               }
             }
             .user-name {
-              font-size: 15px;
-              color: #8e8e8e;
+              font-size: 16px;
+              font-weight: 600;
+              color: #333;
               letter-spacing: 0;
             }
             .product-price {
               font-weight: 700;
-              font-size: 18px;
+              font-size: 14px;
               color: #000000;
-              letter-spacing: 0;
             }
             .order-detail-btn {
               float: right;
@@ -273,7 +277,7 @@
             letter-spacing: 0;
           }
           .order-detail-text {
-            font-size: 15px;
+            font-size: 14px;
             color: #000000;
             letter-spacing: 0;
           }
@@ -286,8 +290,8 @@
           .order-detail-btn {
             padding-right: 11.25px;
             margin-top: 3.75px;
-            font-size: 15px;
-            color: #3a92ff;
+            font-size: 13px;
+            color: #000;
             letter-spacing: 0;
             border-right: 0.75px solid #dbdbdb;
           }
@@ -295,16 +299,16 @@
           .message-buyer-btn {
             padding-left: 11.25px;
             margin-top: 3.75px;
-            font-size: 15px;
-            color: #3a92ff;
+            font-size: 13px;
+            color: #000;
             letter-spacing: 0;
             cursor: pointer;
           }
 
           .order-date {
             padding-left: 36px;
-            font-size: 14px;
-            color: #959595;
+            font-size: 13px;
+            color: #333;
             letter-spacing: 0;
           }
         }
@@ -347,7 +351,7 @@
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              font-size: 15px;
+              font-size: 14px;
               color: #000000;
               letter-spacing: 0;
             }
@@ -359,7 +363,7 @@
             }
             .product-price {
               font-weight: 700;
-              font-size: 18px;
+              font-size: 14px;
               color: #000000;
               letter-spacing: 0;
             }
@@ -440,7 +444,7 @@
             text-align: center;
             white-space: nowrap;
             overflow: hidden;
-            font-size: 16px;
+            font-size: 14px;
           }
           span {
             display: block;
@@ -481,6 +485,8 @@
   }
 
   .ys-dialog {
+    border-radius: 4px;
+  
     width: 800px;
     background-color: #ffffff;
 
@@ -559,12 +565,21 @@
 }
 
 .dialog.tracking-info-dialog {
+  border-radius: 4px;
+
+  .headline {
+    font-size: 18px !important;
+  }
+  .card__text {
+    font-size: 14px;
+  }
   .product {
     display: flex;
     flex: 1 1 0;
     height: 70px;
-    margin: 0 0 20px 0;
+    margin: -20px 0 20px;
     align-items: center;
+
     .product-cover {
       width: 70px;
       height: 70px;
@@ -575,6 +590,7 @@
       margin-left: 10px;
       .product-name {
         font-size: 14px;
+        font-weight: 600;
       }
       .product-owner {
         color: #1976d2;

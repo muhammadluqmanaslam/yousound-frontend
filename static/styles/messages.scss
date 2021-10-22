@@ -1,4 +1,7 @@
 .page.messages-page {
+  margin-left: -65px;
+  margin-right: -65px;
+
   .messages-stop-music-section {
     background: rgba(255, 255, 255, 0.95);
     position: absolute;
@@ -85,6 +88,7 @@
   .messages-page-content {
     // border-top: 0.75px solid #e1e1e1;
     background: #ffffff;
+
     .conversations {
       border-right: 0.75px solid #e1e1e1;
       // border: 1px solid;
@@ -105,13 +109,13 @@
       }
       &__content {
         position: relative;
-        height: calc(100vh - 276px);
+        height: calc(100vh - 200px);
         overflow-x: hidden;
         overflow-y: scroll;
       }
       &__count {
-        color: #b0b0b0;
-        font-size: 14px;
+        color: #333;
+        font-size: 13px;
       }
       &__title {
         font-family: 'Work Sans';
@@ -257,7 +261,7 @@
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
-            font-size: 14px;
+            font-size: 13px;
             color: #333;
             letter-spacing: -0.3px;
             cursor: pointer;
@@ -316,7 +320,7 @@
         padding-left: 12px;
 
         .user-name {
-          padding-top: 16px;
+          padding-top: 14px;
           margin: 0;
           font-weight: 600;
           font-size: 16px;
@@ -366,7 +370,7 @@
       }
       .message-list-section {
         width: calc(100% - 1px);
-        height: calc(100vh - 276px);
+        height: calc(100vh - 200px);
         padding-bottom: 100px;
         overflow-x: hidden;
         overflow-y: scroll;
@@ -414,7 +418,7 @@
           border: none;
           width: 100%;
           padding: 0 15px 0 20px;
-          font-size: 16px;
+          font-size: 15px;
           letter-spacing: -0.2px;
           &:focus,
           &:hover,

@@ -131,12 +131,14 @@ export default {
 
 <style lang="scss" scoped>
 .box {
-  //display: flex;
-  //flex-direction: column;
+  display: flex;
+  align-items: center;
+  // flex-direction: column;
 
   &__content {
     position: relative;
-    width: 100%;
+    width: 40%;
+    margin-right: 20px;
 
     .duraion__tag {
       position: absolute;

@@ -114,8 +114,8 @@
                 <v-flex xs2 class="orders-section-container">
                   <div class="shipping-address-section">
                     <div class="d-flex justify-space-between shipping-action-header">
-                      <div class="app-bold flex-none">Shipping to:</div>
-                      <div class="app-bold flex-none cursor-pointer" @click="editDialog = true">Edit</div>
+                      <div class="header-title app-bold flex-none">Shipping to:</div>
+                      <div class="header-title app-bold flex-none cursor-pointer" @click="editDialog = true">Edit</div>
                     </div>
                         <div class="stripped-shipping-address">
                           <div v-for="(line, i) in strippedAddress" :key="i">

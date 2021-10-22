@@ -1,11 +1,11 @@
 .activity-item {
-  padding-top: 22.5px;
+  padding-top: 14px;
   &:first-child {
     padding-top: 0;
   }
 
   .activity-item-body {
-    padding-bottom: 22.5px;
+    padding-bottom: 14px;
     // border-bottom: 1px solid #E1E1E1;
     position: relative;
     &.last-item {
@@ -22,8 +22,8 @@
 
         .activity-item-profile-avatar-area {
           margin-right: 20px;
-          width: 100px;
-          height: 100px;
+          width: 70px;
+          height: 70px;
           border-radius: 100%;
           background-size: cover;
           background-position: center;
@@ -39,24 +39,21 @@
           .activity-item-content {
             .user-name {
               font-weight: 600;
-              font-size: 20px;
+              font-size: 14px;
               color: #000;
               letter-spacing: 0;
               text-decoration: none;
-              font-family: 'Work Sans';
-              letter-spacing: -0.5px;
             }
             .item-status {
               color: #959595;
             }
             .description-text {
               display: block;
-              font-family: 'Work Sans';
               letter-spacing: -0.5px;
               padding-top: 0px;
               color: #000;
-              font-size: 14px;
-              line-height: 18px;
+              font-size: 13px;
+              line-height: 24px;
               letter-spacing: 0;
               .items-title {
                 color: #000000;
@@ -91,14 +88,14 @@
 
 
         .details {
-          margin-top: 20px;
+          margin-top: 0px;
           p {
             font-size: 14px;
             color: #000000;
             letter-spacing: 0;
           }
           .actioned-item {
-            width: 100px;
+            width: 70px;
             & > a {
               padding-right: 100%;
               padding-bottom: 100%;
@@ -135,13 +132,13 @@
     }
     .activity-time {
       margin-top: 3px;
-      font-size: 14px;
-      color: #aaa;
+      font-size: 13px;
+      color: #5a5a5a;
       letter-spacing: 0;
     }
   }
 }
 
 .activity-item + .activity-item {
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px solid #ececec;
 }

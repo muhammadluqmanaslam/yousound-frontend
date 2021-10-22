@@ -50,7 +50,7 @@
             letter-spacing: 0;
           }
           .order-detail-text {
-            font-size: 16px;
+            font-size: 14px;
             color: #000000;
             letter-spacing: 0;
           }
@@ -58,12 +58,12 @@
 
         .profile-actions {
           .order-detail-btn {
-            padding-right: 11.25px;
+            padding-right: 16px;
             margin-top: 3.75px;
             font-size: 14px;
             letter-spacing: 0;
             border-right: 0.75px solid #dbdbdb;
-            color: #959595;
+            color: #555;
           }
 
           .message-buyer-btn {
@@ -72,7 +72,7 @@
             font-size: 14px;
             letter-spacing: 0;
             cursor: pointer;
-            color: #959595;
+            color: #555;
           }
         }
       }
@@ -133,7 +133,7 @@
         .order-date {
           padding-left: 36px;
           font-size: 14px;
-          color: #959595;
+          color: #555;
           letter-spacing: 0;
         }
       }
@@ -165,7 +165,7 @@
           box-shadow: none !important;
           // border-radius: 75px;
           font-weight: 600;
-          font-size: 15px;
+          font-size: 14px;
           color: #3a92ff;
           letter-spacing: 0;
           &.ship {
@@ -939,7 +939,7 @@
     }
   }
   .option-title {
-    font-size: 20px;
+    font-size: 16px;
     color: #000;
     letter-spacing: -1.1.5px;
     margin-bottom: 7.5px;
@@ -1145,7 +1145,7 @@
       background: #ffffff !important;
       color: #3a92ff;
       text-transform: none;
-      font-size: 20px;
+      font-size: 15px;
       .btn__content {
         padding: 0;
         i {
