@@ -8,6 +8,83 @@ const state = {
 }
 
 const getters = {
+  tabs: () => {
+    const tabs = [
+      {
+        name: '',
+        items: [
+          {
+            title: 'You',
+            id: 'you',
+            icon: 'circle',
+            directPath: true,
+            path: this.username,
+          },
+          {
+            title: 'Feed',
+            id: 'feed',
+            icon: 'home',
+            path: 'Feed',
+          },
+          {
+            title: 'Notifications',
+            id: 'notifications',
+            icon: 'notifications',
+            path: 'NotificationIndex',
+          },
+          {
+            title: 'Cart',
+            id: 'cart',
+            icon: 'shopping_cart',
+            path: 'Cart',
+          },
+          {
+            title: 'Sales',
+            id: 'sales',
+            icon: 'local_shipping',
+            path: 'Sell',
+          },
+          {
+            title: 'Upload',
+            id: 'upload',
+            icon: 'file_upload',
+            path: 'UploadIndex',
+          },
+          {
+            title: 'Manage',
+            id: 'manage',
+            icon: 'video_library',
+            path: 'ManageIndex',
+          },
+        ],
+      },
+      {
+        name: 'Discover',
+        items: [
+          {
+            title: 'Video',
+            id: 'video',
+            icon: 'live_tv',
+            path: 'VideoIndex',
+          },
+          {
+            title: 'Music',
+            id: 'music',
+            icon: 'library_music',
+            path: 'AlbumIndex',
+          },
+          {
+            title: 'Shop',
+            id: 'shop',
+            icon: 'shopping_bag',
+            path: 'ProductIndex',
+          },
+        ],
+      },
+    ]
+
+    return tabs
+  },
   disabledLiveVideo: (state) => {
     return _.get(state.settings, 'disable_live_video', false)
   },
