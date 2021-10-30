@@ -1,40 +1,17 @@
 <template>
-  <div class="mt-5">
-    <content-top-header>
-      <template slot="topHeader">
-        <ul>
-          <li
-            class="active"
-          >
-            Upload Album
-          </li>
-        </ul>
-      </template>
-    </content-top-header>
-
-    <div class="uploaderBox" id="uploaderBox">
-      <div class="uploaderBox__input">
-        <input
+  <div class="page video-page create-page mx-5">
+    <div class="d-flex">
+      <div class="page-content">
+        <drag-file-uploader
+          v-if="!file"
+          accept="mp3/*"
           type="file"
-          id="file"
-          class="uploaderBox__file"
-          :name="uploadFieldName"
-          :accept="accept"
-          @change="filesChange($event.target.files)"
-          multiple
-        />
-        <label for="file">
-          <img src="/static/images/drop_box.png" class="uploaderBox_image" />
-        </label>
+          category="audio"
+          @filePicked="pickedFile"
+          :autoUpload="true"
+          ref="dragFileUploader"
+        ></drag-file-uploader>
       </div>
-      <div class="uploaderBox__desc">
-        <span class="uploaderBox__dragndrop"
-          >Click or Drag & Drop audio files</span
-        >
-        <span class="uploaderBox__filetype"> MP3 audio files only</span>
-      </div>
-    </div>
-
     <div class="track-list-section" v-if="album.tracks.length">
       <h4 class="track-list-title" id="track_list">Track List</h4>
       <div class="track-list-subtitle">
@@ -99,6 +76,8 @@
         </transition-group>
       </draggable>
     </div>
+    </div>
+
 
     <v-dialog
       v-model="show_unauthorized_content_dialog"
@@ -174,11 +153,15 @@ import _ from 'lodash'
 import TrackService from '@/services/track.js'
 import draggable from 'vuedraggable'
 import contentTopHeader from '@/components/contentTopHeader'
+import dragFileUploader from '@/components/dragFileUploader'
+import topbarNotification from '@/components/topbarNotification'
 
 export default {
   components: {
     draggable,
     contentTopHeader,
+    dragFileUploader,
+    topbarNotification,
   },
 
   props: {
@@ -199,6 +182,7 @@ export default {
 
   data() {
     return {
+      topBarContent: 'Connect your Stripe account to start accepting payments',
       show_unauthorized_content_dialog: false,
       show_duplicate_content_dialog: false,
       currentFile: {
@@ -212,6 +196,7 @@ export default {
       },
       currentStatus: null,
       uploadFieldName: 'files',
+      file: null,
     }
   },
 
@@ -238,7 +223,23 @@ export default {
     this.album.tracks = files
   },
 
+  watch: {
+    album: {
+      deep: true,
+      handler(val) {
+        if (val.tracks.length < 1) {
+          this.file = null
+        }
+      },
+    },
+  },
+
   methods: {
+    pickedFile(file) {
+      this.file = file
+      this.filesChange(file)
+      console.log(123)
+    },
     saveTrack(file) {
       TrackService.uploadTrack(file.formData)
         .then((response) => {
@@ -302,6 +303,7 @@ export default {
     },
 
     filesChange(fileList) {
+      console.log(456)
       // console.log('uploader filesChange', fileList)
       const vm = this
       // handle file changes
@@ -404,26 +406,26 @@ export default {
   },
 
   mounted() {
-    const vm = this
-    const uploaderBox = $('.uploaderBox')
-    uploaderBox
-      .on(
-        'drag dragstart dragend dragover dragenter dragleave drop',
-        function (e) {
-          e.preventDefault()
-          e.stopPropagation()
-        }
-      )
-      .on('dragover dragenter', function () {
-        uploaderBox.addClass('is-dragover')
-      })
-      .on('dragleave dragend drop', function () {
-        uploaderBox.removeClass('is-dragover')
-      })
-      .on('drop', function (e) {
-        let droppedFiles = e.originalEvent.dataTransfer.files
-        vm.filesChange(droppedFiles)
-      })
+    // const vm = this
+    // const uploaderBox = $('.uploaderBox')
+    // uploaderBox
+    //   .on(
+    //     'drag dragstart dragend dragover dragenter dragleave drop',
+    //     function (e) {
+    //       e.preventDefault()
+    //       e.stopPropagation()
+    //     }
+    //   )
+    //   .on('dragover dragenter', function () {
+    //     uploaderBox.addClass('is-dragover')
+    //   })
+    //   .on('dragleave dragend drop', function () {
+    //     uploaderBox.removeClass('is-dragover')
+    //   })
+    //   .on('drop', function (e) {
+    //     let droppedFiles = e.originalEvent.dataTransfer.files
+    //     vm.filesChange(droppedFiles)
+    //   })
   },
 }
 </script>
