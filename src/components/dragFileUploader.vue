@@ -1,16 +1,17 @@
 <template>
-  <div v-if="type">
+  <div v-if="category">
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="https://stripe.com" />
     <content-top-header>
       <template slot="topHeader">
         <ul>
           <li
-            v-if="type == 'mp3'"
+            v-if="category == 'audio'"
             class="active"
           >
             Upload Album
           </li>
           <li
-            v-else-if="type == 'video'"
+            v-else-if="category == 'video'"
             class="active"
           >
             Upload Video
@@ -31,18 +32,18 @@
           multiple
         />
         <label for="file">
-          <img v-if="type == 'mp3'" src="/static/images/drop_box.png" class="uploaderBox_image" />
-          <img v-if="type == 'video'" src="/static/images/drop_video.png" class="uploaderBox_image" />
+          <img v-if="category == 'audio'" src="/static/images/drop_box.png" class="uploaderBox_image" />
+          <img v-if="category == 'video'" src="/static/images/drop_video.png" class="uploaderBox_image" />
         </label>
         <div class="uploaderBox__desc">
-            <div v-if="type == 'mp3'">
+            <div v-if="category == 'audio'">
                 <span class="uploaderBox__dragndrop"
                     >Click or Drag & Drop audio files</span
                 >
                 <span class="uploaderBox__filetype"> MP3 audio files only</span>
             </div>
-            <div v-if="type == 'video'">
-                <span v-if="type == 'video'" class="uploaderBox__dragndrop"
+            <div v-if="category == 'video'">
+                <span v-if="category == 'video'" class="uploaderBox__dragndrop"
                     >Click or Drag & Drop video files</span
                 >
                 <span class="uploaderBox__filetype">All popular video formats</span>
@@ -59,11 +60,13 @@
 import _ from 'lodash'
 import draggable from 'vuedraggable'
 import contentTopHeader from '@/components/contentTopHeader'
+import topbarNotification from '@/components/topbarNotification'
 
 export default {
   components: {
     draggable,
     contentTopHeader,
+    topbarNotification,
   },
   props: {
     album: {
@@ -75,7 +78,7 @@ export default {
       default: '*/*',
     },
 
-    type: {
+    category: {
       type: String,
     },
 
@@ -87,6 +90,7 @@ export default {
 
   data() {
     return {
+      topBarContent: 'Connect your Stripe account to start accepting payments',
       show_unauthorized_content_dialog: false,
       show_duplicate_content_dialog: false,
       currentFile: {
