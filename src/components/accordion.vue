@@ -3,7 +3,11 @@
     <div class="tabs">
       <div v-for="(slide, i) in accordions" :key="i" class="tab" :style="i != 0 ? 'margin-top: -1px' : ''">
         <input type="checkbox" :id="`chck${i}`">
-        <label class="tab-label" :for="`chck${i}`">{{ slide.title }}</label>
+        <label class="tab-label" :for="`chck${i}`">
+        <v-icon v-if="leftIcon" color="black" class="_icon_before">{{ leftIcon }}</v-icon>
+          {{ slide.title }}
+        <v-icon v-if="rightIcon" color="black" class="_icon_after">{{ rightIcon }}</v-icon>
+          </label>
         <div class="tab-content">
           {{ slide.content }}
         </div>
@@ -23,7 +27,10 @@ export default {
       type: String,
       default: 'Title',
     },
-    icon: {
+    leftIcon: {
+      type: String,
+    },
+    rightIcon: {
       type: String,
     },
     content: {
@@ -89,22 +96,24 @@ input {
   overflow: hidden;
   &-label {
     display: flex;
-    justify-content: space-between;
     padding: 1em;
     font-weight: bold;
     cursor: pointer;
+    align-items: center;
+
     /* Icon */
     &:hover {
       // background: darkslategrey;
       color: #000000
     }
-    &::after {
-      content: "\276F";
-      width: 1em;
-      height: 1em;
-      text-align: center;
-      transition: all .35s;
-    }
+    // &::after {
+    //   content: "\276F";
+    //   width: 1em;
+    //   height: 1em;
+    //   text-align: center;
+    //   transition: all .35s;
+    //   margin-left: auto;
+    // }
   }
   &-content {
     max-height: 0;
@@ -129,19 +138,31 @@ input {
 .tab-label {
     border-top: 1px solid #e7e2e2;
     border-bottom: 1px solid #e7e2e2;
+
+    .icon {
+      margin-right: 15px;
+      &._icon_after {
+        content: "\276F";
+        width: 1em;
+        height: 1em;
+        text-align: center;
+        transition: all .35s;
+        margin-left: auto;
+      }
+    }
 }
 
 input:checked {
   + .tab-label {
     background: #ffffff;
     color: #000000;
-    &::after {
+    .icon {
       transform: rotate(90deg);
     }
   }
   ~ .tab-content {
     max-height: 100vh;
-    padding: 1em;
+    padding: 3em 1em;
   }
 }
 
