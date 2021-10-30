@@ -205,6 +205,39 @@ export default {
       this.album = album
       this.show_video_only_confirm_dialog = true
     },
+    closeVideoOnlyConfirmDialog() {
+      this.album = {}
+      this.show_video_only_confirm_dialog = false
+    },
+    privateAlbum() {
+      AlbumService.makePrivateAlbum(this.album.id)
+        .then((response) => {
+          this.album.status = 'privated'
+          this.closePrivateConfirmDialog()
+        })
+        .catch((e) => {
+          this.closePrivateConfirmDialog()
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+    videoOnlyAlbum() {
+      AlbumService.makeLiveVideoOnlyAlbum(this.album.id)
+        .then((response) => {
+          this.closeVideoOnlyConfirmDialog()
+          this.album.status = 'published'
+          this.album.is_only_for_live_stream = true
+        })
+        .catch((e) => {
+          this.closeVideoOnlyConfirmDialog()
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
     acceptAlbum(album) {
       AlbumService.acceptCollaboration(album.id).then((response) => {
         this.loadAlbums()

@@ -89,11 +89,12 @@
                             This album has been <br /><span>APPROVED</span>
                         </span>
                         <v-btn
-                            dark
-                            class="text-btn release"
-                            @click.native="releaseButtonAction(album)"
-                            >Release Now</v-btn
+                          dark
+                          class="text-btn release"
+                          @click.native="releaseButtonAction(album)"
                         >
+                          Release Now
+                        </v-btn>
                         </span>
                     </template>
 
@@ -157,7 +158,7 @@
         </v-flex>
       </div>
     </v-flex>
-    <v-flex v-if="album.status == 'collaborated'" sm12 collaborator-content-section>
+    <v-flex v-if="album.status == 'collaborated' || album.status == 'pending'" sm12 collaborator-content-section>
       <div>
         <div class="app-bold">Collaborators</div>
         <div class="collaborator-content">
@@ -168,9 +169,27 @@
                 (owner)
                 </span>
             </span>
+            <!-- <br>
+            <br> -->
+            <!-- <span v-for="(c, i) in usersByStatus" :key="i">
+                <pre>{{ c }}</pre>
+                <pre>{{ album.collaborators.length }}</pre>
+                {{ c.user.display_name }}
+                <span v-if="$store.state.auth.user.display_name === c.user.display_name">
+                (owner)
+                </span>
+            </span> -->
           </div>
 
-          <v-btn depressed dark class="action-btn release" @click.native="releaseButtonAction(product)">Release Now</v-btn>
+          <v-btn 
+            v-if="album.status == 'pending'"
+            depressed 
+            dark 
+            class="action-btn release" 
+            @click.native="releaseButtonAction(product)"
+          >
+            Release Now
+          </v-btn>
         </div>
       </div>
     </v-flex>
