@@ -19,6 +19,7 @@ import trackCard from '@/components/trackcard'
 import userItem from '@/components/useritem'
 import artistItem from '@/components/artistitem'
 import contentTopHeader from '@/components/contentTopHeader'
+import AuthService from '@/services/auth'
 
 // import streamPlayer from '@/components/stream_player'
 
@@ -50,7 +51,8 @@ export default {
       tabs: [
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
         { id: 'artists', title: 'Artists', roles: ['label'] },
-        { id: 'songs', title: 'Albums', roles: ['artist'] },
+        { id: 'songs', title: 'Music', roles: ['artist'] },
+        { id: 'video', title: 'Video', roles: ['artist'] },
         // { id: 'playlists', title: 'Playlists' },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
@@ -398,6 +400,7 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       ProfileService.getItems(this.user.id, tab, params)
         .then((response) => {
+          console.log(response.body);
           this.$store.dispatch('error/showLoadingActivity', false)
           switch (tab) {
             case 'merch':
@@ -406,6 +409,9 @@ export default {
             case 'followers':
             case 'followings':
             case 'artists':
+              this.users = this.users.concat(response.body.users)
+              break
+            case 'video':
               this.users = this.users.concat(response.body.users)
               break
             default:
@@ -716,9 +722,10 @@ export default {
         }
       }
     },
-
-    test() {
-      console.log('Test')
+    signOut() {
+      AuthService.signout()
+      this.$router.push({ path: '/login' })
+      this.$root.$emit(MyEvents.AUTH_SIGNOUT)
     },
   },
 

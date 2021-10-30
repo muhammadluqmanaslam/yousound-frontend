@@ -12,7 +12,7 @@
           ></div>
           <label>{{ user.display_name }}'s</label>
         </div>
-        <ul>
+        <ul class="width100">
           <template v-for="tab in tabs">
             <li
               v-if="isAvailableForGridView(tab)"
@@ -24,6 +24,14 @@
               <label @click="onTab(tab.id)">{{ tab.title }}</label>
             </li>
           </template>
+
+          <v-spacer></v-spacer>
+
+          <li>
+            <v-btn depressed color="transparent" class="text-capitalize no-Btn-bg" @click="signOut">
+              Sign Out
+            </v-btn>
+          </li>
         </ul>
       </template>
     </content-top-header>
@@ -104,87 +112,109 @@
                     <span>Play</span>
                 </v-btn>
 
-                <v-btn
-                  v-if="
+                <div
+                    v-if="
                       currentUser &&
                       user.id != currentUser.id &&
                       user.username != PublicRelationsUsername
-                  "
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
-                  @click.native="followUser()"
-                  class="ml-0 mb-0"
-                  :class="{
-                    'follow-btn': true,
-                    follow: !user.is_following,
-                    following: user.is_following,
-                  }"
-                  >{{ followButtonText }}</v-btn
-                >
+                    "
+                    class="__top_actions"
+                  >
+                  <v-btn
+                    depressed
+                    outline
+                    @mouseenter="buttonHover = true"
+                    @mouseleave="buttonHover = false"
+                    @click.native="followUser()"
+                    class="ml-0 no-Btn-bg sqr-plain-btn"
+                    :class="{
+                      'follow-btn': true,
+                      follow: !user.is_following,
+                      following: user.is_following,
+                    }"
+                    >
+                      {{ followButtonText }}
+                    </v-btn>
 
-                <v-menu
-                  v-if="
-                      currentUser &&
-                      user.id != currentUser.id &&
-                      user.username != PublicRelationsUsername
-                  "
-                  offset-y
-                  class="more-menu"
-                >
-                  <v-btn dark class="more-btn" slot="activator">
-                    <v-icon right>more_horiz</v-icon>
-                  </v-btn>
-                  <v-list>
-                    <v-list-tile
-                      key="message"
+                    <v-btn
+                      depressed
+                      outline
+                      class="no-Btn-bg sqr-plain-btn"
                       @click="showMessageDialog()"
                     >
                       <div class="default-menu-item">
                         <label>Message</label>
                       </div>
-                    </v-list-tile>
-                    <v-list-tile
-                      key="view_direct_messages"
-                      @click="viewDirectMessages()"
-                      v-if="enabledViewDirectMessage"
-                    >
-                      <v-list-tile-title class="default-menu-item">
-                        <label>View Direct Messages</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile
-                      v-if="
-                        currentUser &&
-                        user.id != currentUser.id &&
-                        user.stripe_connected
-                      "
+                    </v-btn>
+
+                    <v-btn
+                      depressed
+                      outline
+                      class="no-Btn-bg sqr-plain-btn"
                       key="send_love"
                       @click="showLoveDialog()"
                     >
-                      <v-list-tile-title class="default-menu-item">
-                        <label>Send Love</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile key="chat" @click="goToChat()">
-                      <v-list-tile-title class="default-menu-item">
-                        <label>Chat</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile @click="flagUser()">
-                      <v-list-tile-title class="default-menu-item">
-                        <label>Flag</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile
-                      key="block"
-                      @click="openBlockUserConfirmDialog()"
-                    >
-                      <v-list-tile-title class="default-menu-item">
-                        <label>Block</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                  </v-list>
-                </v-menu>
+                      <div class="default-menu-item">
+                        <label>Donate</label>
+                      </div>
+                    </v-btn>
+
+                  <v-menu
+                    v-if="
+                        currentUser &&
+                        user.id != currentUser.id &&
+                        user.username != PublicRelationsUsername
+                    "
+                    offset-y
+                    class="more-menu"
+                  >
+                    <v-btn dark class="more-btn" slot="activator">
+                      <v-icon right>more_horiz</v-icon>
+                    </v-btn>
+                    <v-list>
+                      <v-list-tile
+                        key="view_direct_messages"
+                        @click="viewDirectMessages()"
+                        v-if="enabledViewDirectMessage"
+                      >
+                        <v-list-tile-title class="default-menu-item">
+                          <label>View Direct Messages</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile
+                        v-if="
+                          currentUser &&
+                          user.id != currentUser.id &&
+                          user.stripe_connected
+                        "
+                        key="send_love"
+                        @click="showLoveDialog()"
+                      >
+                        <v-list-tile-title class="default-menu-item">
+                          <label>Donate</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <!-- <v-list-tile key="chat" @click="goToChat()">
+                        <v-list-tile-title class="default-menu-item">
+                          <label>Chat</label>
+                        </v-list-tile-title>
+                      </v-list-tile> -->
+                      <v-list-tile @click="flagUser()">
+                        <v-list-tile-title class="default-menu-item">
+                          <label>Flag</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile
+                        key="block"
+                        @click="openBlockUserConfirmDialog()"
+                      >
+                        <v-list-tile-title class="default-menu-item">
+                          <label>Block</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </div>
               </div>
             </div>
           </div>
