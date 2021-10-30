@@ -1,6 +1,7 @@
 <template>
   <v-navigation-drawer permanent app fixed dark width="280" class="sidebar">
-    <div class="pa-3">
+    <!-- <span class="white">{{ isAuthenticated }}</span> -->
+    <div class="pa-3 tabs-auth-wrapper">
       <div justify-space-between align-center class="d-flex mb-3">
         <router-link to="/album" class="sidebar-logo">
           <img src="/static/images/nav_logo_white.png" />
@@ -69,11 +70,18 @@
           />
         </div>
       </transition>
+
+      <div v-if="!isAuthenticated" class="auth-btn-container">
+        <v-btn to="/register" outline class="auth-btn signup">Sign Up</v-btn>
+        <v-btn to="/login" outline class="auth-btn login">Login</v-btn>
+      </div>
+
       <v-list v-for="(parent, i) in tabs" :key="i">
         <h4>
           <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
         </h4>
-        <v-list-tile
+        <div>
+          <v-list-tile
           v-for="(subMenu, ii) in parent.items"
           :key="ii"
           :to="subMenu.directPath ? `/${subMenu.path}` : { name: subMenu.path }"
@@ -115,6 +123,7 @@
             </span>
           </v-list-tile-title>
         </v-list-tile>
+        </div>
       </v-list>
     </div>
 
@@ -130,9 +139,13 @@
 
 <script>
 import sideAudioPlayer from '@/components/sideAudioPlayer'
+import shareModal from '@/components/sharemodal'
+import { mapGetters } from 'vuex'
+
 export default {
   components: {
     sideAudioPlayer,
+    shareModal,
   },
   data() {
     return {
@@ -214,6 +227,18 @@ export default {
       ],
     }
   },
+  watch: {
+    isAuthenticated: {
+      immediate: true,
+      handler(val) {
+        if (!val) {
+          this.tabs = [this.allTabs.find((tab) => tab.name === 'Discover')]
+        } else if (val) {
+          this.tabs = this.allTabs
+        }
+      },
+    },
+  },
   methods: {
     goToSearch() {
       const keyword = this.keyword
@@ -221,6 +246,10 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      isAuthenticated: 'auth/isAuthenticated',
+      allTabs: 'app/tabs',
+    }),
     currentUser() {
       return this.$store.state.auth.user
     },
