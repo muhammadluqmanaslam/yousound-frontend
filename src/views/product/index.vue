@@ -23,7 +23,7 @@
       <div class="page-content" v-if="currentUser">
         <v-layout row wrap>
           <div v-for="feed in products" :key="feed.id" class="card-container">
-            <product-card :dataObject="feed" />
+            <product-card :hideOverlay="true" :dataObject="feed" />
           </div>
         </v-layout>
 

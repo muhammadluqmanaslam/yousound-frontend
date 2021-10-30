@@ -17,42 +17,45 @@
       <v-flex xs12 class="product-cover">
         <p class="product-price">${{ item.price | formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.url + ')'}"/></div>
-        <v-flex xs12 class="product-actions" relative v-if="currentUser">
+        <v-flex xs12 class="product-actions" relative v-if="currentUser && !hideOverlay">
           <div class="product-label">${{ item.price | formatNumber }}</div>
           <v-flex xs12 class="touch-flex" @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"></v-flex>
-          <v-menu
-            v-if="willMenuRender"
-            offset-y
-            class="product-menu"
-          >
-            <v-btn dark slot="activator" @click="is_menu_hover = true">
-              <v-icon right>more_horiz</v-icon>
-            </v-btn>
-            <v-list>
-              <!-- <v-list-tile
-                v-if="item.merchant.id != currentUser.id"
-                @click.native="repostProduct()"
+            <span v-if="!hideMoreOptions">
+              <v-menu
+                v-if="willMenuRender"
+                offset-y
+                class="product-menu"
               >
-                <v-list-tile-title class="product-menu-item">
-                  <img class="product-status-icon" src="/static/images/ic_repeat.png" />
-                  <label>Repost</label>
-                </v-list-tile-title>
-              </v-list-tile> -->
-              <v-list-tile
-                v-if="item.merchant.id != currentUser.id"
-                @click.native="openHideDialog()"
-                class="default-menu-item track-menu-item"
-              >
-                <v-list-tile-title>
-                  <!-- <v-icon>visibility_off</v-icon> -->
-                  <label>Hide</label>
-                </v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
+                <v-btn dark slot="activator" @click="is_menu_hover = true">
+                  <v-icon right>more_horiz</v-icon>
+                </v-btn>
+                <v-list>
+                  <!-- <v-list-tile
+                    v-if="item.merchant.id != currentUser.id"
+                    @click.native="repostProduct()"
+                  >
+                    <v-list-tile-title class="product-menu-item">
+                      <img class="product-status-icon" src="/static/images/ic_repeat.png" />
+                      <label>Repost</label>
+                    </v-list-tile-title>
+                  </v-list-tile> -->
+                  <v-list-tile
+                    v-if="item.merchant.id != currentUser.id"
+                    @click.native="openHideDialog()"
+                    class="default-menu-item track-menu-item"
+                  >
+                    <v-list-tile-title>
+                      <!-- <v-icon>visibility_off</v-icon> -->
+                      <label>Hide</label>
+                    </v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
+            </span>
         </v-flex>
+        <v-flex v-else xs12 class="touch-flex" @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"></v-flex>
       </v-flex>
-      <v-flex xs12 class="product-detail" pa-0>
+      <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
         <p class="product-name">{{ item.name }}</p>
         <div class="product-options-count">
           <span>{{ item.variants.length }} Option</span>
@@ -113,6 +116,18 @@
     },
 
     props: {
+      noMeta: {
+        type: Boolean,
+        default: false,
+      },
+      hideMoreOptions: {
+        type: Boolean,
+        default: false,
+      },
+      hideOverlay: {
+        type: Boolean,
+        default: false,
+      },
       dataObject: {
         type: Object,
       },
