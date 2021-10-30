@@ -1,12 +1,14 @@
 import contentTopHeader from '@/components/contentTopHeader'
 import Activity from '@/views/activity'
 import Messages from '@/views/messages'
+import getPaidToShare from '@/views/getPaidToShare'
 
 export default {
   components: {
     contentTopHeader,
     Activity,
     Messages,
+    getPaidToShare,
   },
   data() {
     return {
@@ -14,10 +16,15 @@ export default {
       tabs: [
         { id: 'activity', title: 'Activity' },
         { id: 'messages', title: 'Messages' },
+        { id: 'paidToShare', title: 'Get Paid To Share' },
       ],
     }
   },
-  computed: {},
+  computed: {
+    badge() {
+      return this.$store.state.activity.badge
+    },
+  },
   methods: {
     isActiveTab(tab) {
       console.log(tab)
@@ -33,8 +40,6 @@ export default {
   },
   watch: {
     $route(toPath, fromPath) {
-      console.log(this.active_tab)
-
       console.log(toPath)
       console.log(fromPath)
       const tab = toPath.hash.substr(1)

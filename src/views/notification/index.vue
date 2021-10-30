@@ -9,7 +9,29 @@
             :href="`#${tab.id}`"
             :class="{ active: isActiveTab(tab.id) }"
           >
-            <label @click="setTab(tab.id)">{{ tab.title }}</label>
+            <label :class="[tab.id]" class="__tabs" @click="setTab(tab.id)">
+              <span class="__tab">{{ tab.title }}</span>
+              <span
+                v-if="tab.id === 'activity'"
+                class="notifications "
+              >
+                <span class="__count">
+                  <!-- {{ typeof badge.activity }} -->
+                  <!-- {{ badge.activity > 99 }} -->
+                  {{ badge.activity > 99 ? badge.activity : '99+' }}
+                </span>
+              </span>
+              <span
+                v-if="tab.id === 'messages'"
+                class="notifications "
+              >
+                <span class="__count">
+                  <!-- {{ typeof badge.message }} -->
+                  <!-- {{ badge.message > 99 }} -->
+                  {{ badge.message > 99 ? badge.message : '99+' }}
+                </span>
+              </span>
+            </label>
           </li>
         </ul>
       </template>
@@ -19,6 +41,7 @@
         <div class="page-content">
           <Activity v-if="currentTab === 'activity'" />
           <Messages v-else-if="currentTab === 'messages'" />
+          <getPaidToShare v-else-if="currentTab === 'paidToShare'" />
         </div>
       </div>
 
