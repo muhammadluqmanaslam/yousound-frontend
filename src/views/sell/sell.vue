@@ -245,54 +245,60 @@ empty<template>
                   :key="item.id"
                   class="order-section"
                 >
-                  <v-layout
-                    v-if="
-                      activeFilterItemStatus == '' ||
-                      item.status == activeFilterItemStatus
-                    "
-                    row
-                  >
-                    <div class="order-content-section relative">
-                      <div
-                        class="product-cover-image"
-                        :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
-                      ></div>
-                      <div class="product-content">
-                        <v-flex sm12 class="product-content-row">
-                          <label class="product-name">{{
-                            item.product.name
-                          }}</label>
-                          <label class="product-count"
-                            >Quantity: <b>{{ item.quantity }}</b></label
-                          >
-                        </v-flex>
-                        <v-flex sm12 class="product-content-row" pt-1>
-                          <label class="product-price"
-                            >${{ item.price | formatNumber }}</label
-                          >
-                        </v-flex>
-                      </div>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      v-if="isCollaborated(item)"
+                  <v-container grid-list-xl fill-height class="pa-0">
+                    <v-layout
+                      v-if="
+                        activeFilterItemStatus == '' ||
+                        item.status == activeFilterItemStatus
+                      "
+                      row
                     >
-                      <p class="order-status-text">Collaborated</p>
-                      <v-chip
-                        label
-                        outline
-                        color="red"
-                        v-if="item.status == 'item_ordered'"
-                        >Unshipped</v-chip
-                      >
-                      <v-chip label outline color="blue" v-else>Shipped</v-chip>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      style="background: transparent"
-                      v-else
-                    ></div>
-                  </v-layout>
+                      <v-flex xs10>
+                        <div class="order-content-section relative">
+                          <div
+                            class="product-cover-image"
+                            :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
+                          ></div>
+                          <div class="product-content">
+                            <v-flex sm12 class="product-content-row">
+                              <label class="product-name">{{
+                                item.product.name
+                              }}</label>
+                              <label class="product-count"
+                                >Quantity: <b>{{ item.quantity }}</b></label
+                              >
+                            </v-flex>
+                            <v-flex sm12 class="product-content-row" pt-1>
+                              <label class="product-price"
+                                >${{ item.price | formatNumber }}</label
+                              >
+                            </v-flex>
+                          </div>
+                        </div>
+                      </v-flex>
+                      <v-flex xs2>
+                        <div
+                          class="order-status-section text-xs-center"
+                          v-if="isCollaborated(item)"
+                        >
+                          <p class="order-status-text">Collaborated</p>
+                          <v-chip
+                            label
+                            outline
+                            color="red"
+                            v-if="item.status == 'item_ordered'"
+                            >Unshipped</v-chip
+                          >
+                          <v-chip label outline color="blue" v-else>Shipped</v-chip>
+                        </div>
+                        <div
+                          class="order-status-section text-xs-center"
+                          style="background: transparent"
+                          v-else
+                        ></div>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
                 </div>
               </template>
             </v-flex>
