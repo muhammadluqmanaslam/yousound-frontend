@@ -23,6 +23,10 @@
   }
 }
 
+.btn {
+  text-transform: unset;
+}
+
 /* v-data-table */
 table.table tbody td:first-child,
 table.table tbody td:not(:first-child),
@@ -110,6 +114,7 @@ able.table thead th:not(:first-child) {
 
     .list__tile__title {
       padding: 0 10px;
+      min-width: 60px;
     }
   }
 }

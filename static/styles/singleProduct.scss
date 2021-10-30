@@ -105,11 +105,35 @@
     }
     .product-actions {
         margin-top: 20px;
+
         & .__actions {
             display: flex;
             align-items: center;
             padding: 10px 20px;
             justify-content: center;
+        }
+        .follow-btn {
+            text-transform: none;
+            box-shadow: none;
+            height: 36px;
+            font-size: 14px;
+            letter-spacing: 0;
+            min-width: 100px;
+            &.follow {
+                border: 1px solid #1872ff;
+                background-color: #1872ff !important;
+                color: #fff !important;
+            }
+            &.following {
+                border: 1px solid #5bad00;
+                background-color: #0000 !important;
+                color: #000 !important;
+                &:hover {
+                border: 0.75px solid #dc3545;
+                background-color: #dc3545 !important;
+                color: #fff !important;
+                }
+            }
         }
     }
 }
