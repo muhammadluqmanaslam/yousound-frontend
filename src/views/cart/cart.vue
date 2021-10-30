@@ -25,19 +25,18 @@
             >
           </div>
             <v-card flat v-else>
-              <v-layout>
-                <v-flex
-                  xs10
-                  class="order-item"
-                  v-for="(item, index) in cartItems"
-                  :key="index"
-                >
-                  <div class="order-section">
-                    <v-layout row>
-                      <v-flex
+              <v-container grid-list-md>
+                <v-layout row wrap>
+                  <v-flex xs10 order-section>
+                    <div
+                      xs10
+                      class="order-item"
+                      v-for="(item, index) in cartItems"
+                      :key="index"
+                    >
+                      <div
                         sm12
                         class="order-content-section pa-0 relative"
-                        :class="{ 'border-top-none': index != 0 }"
                       >
                         <div class="product-cover-image">
                           <activity-product-card
@@ -45,6 +44,7 @@
                             :price-show="false"
                           />
                         </div>
+
                         <div class="product-content">
                           <div class="product-content-row">
                             <div class="product-name">
@@ -106,70 +106,70 @@
                             <!-- <a class="order-detail-btn" href="#">Save for later</a> -->
                           </div>
                         </div>
-                      </v-flex>
-                    </v-layout>
-                  </div>
-                </v-flex>
+                      </div>
+                    </div>
+                  </v-flex>
 
-                <v-flex xs2 class="orders-section-container">
-                  <div class="shipping-address-section">
-                    <div class="d-flex justify-space-between shipping-action-header">
-                      <div class="header-title app-bold flex-none">Shipping to:</div>
-                      <div class="header-title app-bold flex-none cursor-pointer" @click="editDialog = true">Edit</div>
-                    </div>
-                        <div class="stripped-shipping-address">
-                          <div v-for="(line, i) in strippedAddress" :key="i">
-                            {{ line }}
+                  <v-flex xs2 class="orders-section-container">
+                    <div class="shipping-address-section">
+                      <div class="d-flex justify-space-between shipping-action-header">
+                        <div class="header-title app-bold flex-none">Shipping to:</div>
+                        <div class="header-title app-bold flex-none cursor-pointer" @click="editDialog = true">Edit</div>
+                      </div>
+                          <div class="stripped-shipping-address">
+                            <div v-for="(line, i) in strippedAddress" :key="i">
+                              {{ line }}
+                            </div>
                           </div>
-                        </div>
-                        <v-dialog
-                          v-model="editDialog"
-                          content-class="edit-address-dialog"
-                        > 
-                          <address-tab  />
-                        </v-dialog>
-                  </div>
-                  <div class="orders-status-section">
+                          <v-dialog
+                            v-model="editDialog"
+                            content-class="edit-address-dialog"
+                          > 
+                            <address-tab  />
+                          </v-dialog>
+                    </div>
+                    <div class="orders-status-section">
+                        <div class="status-row">
+                        <label class="status-title">Subtotal</label>
+                        <label class="status-title value"
+                          >${{ cartCost.subtotal_cost | formatNumber }}</label
+                        >
+                      </div>
                       <div class="status-row">
-                      <label class="status-title">Subtotal</label>
-                      <label class="status-title value"
-                        >${{ cartCost.subtotal_cost | formatNumber }}</label
-                      >
+                      <label class="status-title">Shipping</label>
+                      <label class="status-title value">
+                        ${{ cartCost.shipping_cost | formatNumber }}
+                      </label>
+                      </div>
+                      <div class="status-row">
+                        <label class="status-title">Sales Tax</label>
+                        <label class="status-title value"
+                          >${{ cartCost.tax_cost | formatNumber }}</label
+                        >
+                      </div>
+                      <div class="status-row">
+                        <label class="status-title">Stripe Fee</label>
+                        <label class="status-title value"
+                          >${{ cartCost.fee_cost | formatNumber }}</label
+                        >
+                      </div>
+                      <div class="total-row">
+                        <label class="status-title">Total</label>
+                        <label class="status-title value"
+                          >${{
+                            (cartCost.total_cost + cartCost.fee_cost) | formatNumber
+                          }}</label
+                        >
+                      </div>
+                      <div class="action-row">
+                        <v-btn class="checkout-btn" @click.native="submit()"
+                          >Proceed to Checkout</v-btn
+                        >
+                      </div>
                     </div>
-                    <div class="status-row">
-                    <label class="status-title">Shipping</label>
-                    <label class="status-title value">
-                      ${{ cartCost.shipping_cost | formatNumber }}
-                    </label>
-                    </div>
-                    <div class="status-row">
-                      <label class="status-title">Sales Tax</label>
-                      <label class="status-title value"
-                        >${{ cartCost.tax_cost | formatNumber }}</label
-                      >
-                    </div>
-                    <div class="status-row">
-                      <label class="status-title">Stripe Fee</label>
-                      <label class="status-title value"
-                        >${{ cartCost.fee_cost | formatNumber }}</label
-                      >
-                    </div>
-                    <div class="total-row">
-                      <label class="status-title">Total</label>
-                      <label class="status-title value"
-                        >${{
-                          (cartCost.total_cost + cartCost.fee_cost) | formatNumber
-                        }}</label
-                      >
-                    </div>
-                    <div class="action-row">
-                      <v-btn class="checkout-btn" @click.native="submit()"
-                        >Proceed to Checkout</v-btn
-                      >
-                    </div>
-                  </div>
-                </v-flex>
-              </v-layout>
+                  </v-flex>
+                </v-layout>
+              </v-container>
             </v-card>
         </template>
 
