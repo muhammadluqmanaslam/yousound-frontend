@@ -17,6 +17,14 @@ export default {
   },
 
   props: {
+    noMeta: {
+      type: Boolean,
+      default: false,
+    },
+    noAction: {
+      type: Boolean,
+      default: false,
+    },
     objects: {
       type: Array,
     },
