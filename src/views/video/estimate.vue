@@ -164,3 +164,4 @@
 </template>
 
 <script src="./estimate.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped>
