@@ -9,6 +9,7 @@ import PaymentModal from '@/components/paymentmodal'
 import DigitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
 import videoEstimate from '@/views/video/estimate'
+import topbarNotification from '@/components/topbarNotification'
 
 import {
   VideoGenres,
@@ -31,11 +32,13 @@ export default {
     DigitalUploader,
     contentTopHeader,
     videoEstimate,
+    topbarNotification,
   },
 
   data() {
     return {
-      activeView: 'intro',
+      topBarContent: 'Connect your Stripe account to start accepting payments',
+      activeView: 'initStream',
       active_tab: 'create',
       tabs: [
         { id: 'info', title: 'Intro', path: '/info' },

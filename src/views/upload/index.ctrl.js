@@ -1,8 +1,13 @@
+import topbarNotification from '@/components/topbarNotification'
 export default {
-  components: {},
+  components: {
+    topbarNotification,
+  },
 
   data() {
-    return {}
+    return {
+      topBarContent: 'Connect your Stripe account to start accepting payments',
+    }
   },
   computed: {},
   methods: {},

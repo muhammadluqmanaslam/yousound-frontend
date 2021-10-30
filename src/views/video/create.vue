@@ -1,5 +1,6 @@
 <template>
   <div class="page video-page create-page mx-5">
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="https://stripe.com" />
     <content-top-header>
       <template slot="topHeader">
         <ul>
@@ -21,9 +22,9 @@
           <v-layout row>
             <v-flex sm5>
               <div class="form-group">
-                <label class="control-label"
-                  >Title of Event<span>80 char max</span></label
-                >
+                <label class="control-label max-char-label">
+                  <span class="__title">Title of Event</span>
+                  <span class="max-char">80 char max</span></label>
                 <input
                   type="text"
                   class="form-control"
@@ -455,3 +456,4 @@
 </template>
 
 <script type="text/javascript" src="./create.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped>

@@ -1,5 +1,6 @@
 <template>
   <div class="page sell-page product-page mx-5">
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="https://stripe.com" />
     <content-top-header>
       <template slot="topHeader">
         <ul>

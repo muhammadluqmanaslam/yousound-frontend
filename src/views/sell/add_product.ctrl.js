@@ -8,15 +8,18 @@ import MeService from '@/services/me'
 import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
+import topbarNotification from '@/components/topbarNotification'
 
 export default {
   components: {
     digitalUploader,
     contentTopHeader,
+    topbarNotification,
   },
 
   data() {
     return {
+      topBarContent: 'Connect your Stripe account to start accepting payments',
       product_categories: [],
       destinations: [
         {
