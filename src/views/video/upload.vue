@@ -1,21 +1,12 @@
 <template>
   <div class="page video-page create-page mx-5">
-    <content-top-header>
-      <template slot="topHeader">
-        <ul>
-          <li class="active">
-            <label>Upload Video</label>
-          </li>
-        </ul>
-      </template>
-    </content-top-header>
-
     <div class="d-flex">
       <div class="page-content">
         <drag-file-uploader
           v-if="!videoFile"
           accept="video/*"
-          type="video"
+          type="file"
+          category="video"
           @filePicked="pickedFile"
           :autoUpload="true"
           ref="dragFileUploader"
@@ -33,9 +24,9 @@
                 >
               </div>
               <div class="form-group">
-                <label class="control-label"
-                  >Title<span>80 char max</span></label
-                >
+                <label class="control-label max-char-label">
+                  <span class="__title">Title</span>
+                  <span class="max-char">80 char max</span></label>
                 <input
                   type="text"
                   class="form-control"
@@ -51,6 +42,7 @@
 
                 <div class="video-thumbnail-container">
                   <div class="video-thumbnail-wrapper">
+                    <!-- {{ stream_cover_url }} -->
                     <div
                       v-if="stream_cover_url"
                       :style="{
@@ -85,7 +77,7 @@
                 </div>
               </div>
 
-              <div class="form-group viewer-support mt-3">
+              <!-- <div class="form-group viewer-support mt-3">
                 <label class="control-label">Allow viewer support</label>
                 <ul>
                   <li>
@@ -104,7 +96,7 @@
                   :digitalContent="digital_content"
                   accept=".zip, .mp3"
                 />
-              </div>
+              </div> -->
 
               <div class="form-group">
                 <label class="control-label">Genre</label>
@@ -426,3 +418,4 @@
 </template>
 
 <script type="text/javascript" src="./upload.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped>
