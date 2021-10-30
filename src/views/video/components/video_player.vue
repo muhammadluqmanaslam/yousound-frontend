@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import { MyEvents } from '@/helper'
+
 export default {
   props: {
     // video: Object,
@@ -27,6 +29,7 @@ export default {
     // console.log(this.video)
     this.$nextTick(() => {
       this.initPlayer()
+      this.pauseMusicOnPlay()
     })
   },
 
@@ -77,6 +80,14 @@ export default {
         vm.player.dispose()
         vm.player = null
       }
+    },
+
+    pauseMusicOnPlay() {
+      const vm = this
+      vm.player.on('play', () => {
+        console.log(1)
+        vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+      })
     },
   },
 }
