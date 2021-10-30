@@ -43,7 +43,7 @@
                             depressed
                             color="transparent ma-0"
                             slot="activator"
-                            @click.native="showShareModal = true"
+                            @click.native="showShareModal = true; modalMode = true"
                           >
                             <img src="/static/images/ic_share.svg" width="20" />
                           </v-btn>
@@ -56,7 +56,7 @@
                           <v-btn
                             depressed
                             color="transparent ma-0"
-                            @click.native="showDownloadModal = true"
+                            @click.native="showDownloadModal = true; modalMode = true"
                             slot="activator"
                           >
                             <img src="/static/images/ic_download.svg" width="20" />
@@ -77,21 +77,6 @@
                           </v-btn>
                           <span>Repost</span>
                         </v-tooltip>
-                      </v-list-tile>
-
-                      <v-list-tile v-if="showDownloadModal">
-                        <download-modal
-                          :item="item"
-                          :track="track"
-                          :dismiss="dismissDownloadDialog"
-                        ></download-modal>
-                      </v-list-tile>
-
-                      <v-list-tile v-if="showShareModal">
-                        <share-modal
-                          :item="item"
-                          :dismiss="dismissShareDialog"
-                        ></share-modal>
                       </v-list-tile>
                     </v-list>
                   </v-menu>
@@ -280,6 +265,21 @@
         </div>
       </div>
     </div>
+
+    <v-dialog v-model="modalMode">
+      <share-modal
+        v-if="showShareModal"
+        :item="item"
+        :dismiss="dismissShareDialog"
+      ></share-modal>
+
+      <download-modal
+        v-if="showDownloadModal"
+        :item="item"
+        :track="track"
+        :dismiss="dismissDownloadDialog"
+      ></download-modal>
+    </v-dialog>
   </div>
 </template>
 
@@ -302,6 +302,7 @@ export default {
 
   data() {
     return {
+      modalMode: false,
       playlist: [],
       index: 0,
       isLoaded: false,
@@ -395,6 +396,15 @@ export default {
     Howler.volume(this.volume / 100)
   },
 
+  watch: {
+    showDownloadModal(val) {
+      this.triggerModalMode(val)
+    },
+    showShareModal(val) {
+      this.triggerModalMode(val)
+    },
+  },
+
   methods: {
     ...mapActions({
       setPlaying: 'player/setPlayingStatus',
@@ -405,6 +415,12 @@ export default {
       this.setPlaylist('next')
       this.play(index)
       this.$forceUpdate()
+    },
+
+    triggerModalMode(val) {
+      if (!val) {
+        this.modalMode = false
+      }
     },
 
     resetPlayer() {
