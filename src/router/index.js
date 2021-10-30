@@ -4,13 +4,14 @@ import vueMethodsPromise from 'vue-methods-promise'
 
 import ProtectPage from '@/views/auth/protect_page'
 import Login from '@/views/auth/login'
+import Auth from '@/views/auth/authTab'
 import ForgotPassword from '@/views/auth/forgot_password'
 import ResetPassword from '@/views/auth/reset_password'
 import Confirmation from '@/views/auth/confirmation'
 import SocialVerification from '@/views/auth/social_verify'
-import InvitedRegister from '@/views/auth/register_by_invited'
-import AttendeeRegister from '@/views/auth/register_by_attendee'
-import ListenerRegister from '@/views/auth/register_by_listener'
+// import InvitedRegister from '@/views/auth/register_by_invited'
+// import AttendeeRegister from '@/views/auth/register_by_attendee'
+// import ListenerRegister from '@/views/auth/register_by_listener'
 // import RegisterAs from '@/views/auth/register_as'
 // import ArtistRegister from '@/views/auth/register_by_artist'
 // import LabelRegister from '@/views/auth/register_by_label'
@@ -111,19 +112,19 @@ export function createRouter(settings) {
     routes = routes.concat([
       {
         path: '/register',
-        name: 'ListenerRegister',
-        component: ListenerRegister,
+        name: 'Register',
+        component: Auth,
       },
       {
         path: '/register/invited/:token',
         name: 'InvitedRegister',
-        component: InvitedRegister,
+        component: Auth,
       },
-      {
-        path: '/register/attendee/:token',
-        name: 'AttendeeRegister',
-        component: AttendeeRegister,
-      },
+      // {
+      //   path: '/register/attendee/:token',
+      //   name: 'AttendeeRegister',
+      //   component: AttendeeRegister,
+      // },
       // { path: '/register', name: 'RegisterAs', component: RegisterAs },
       // { path: '/register/artist', name: 'ArtistRegister', component: ArtistRegister },
       // { path: '/register/label', name: 'LabelRegister', component: LabelRegister },
@@ -165,7 +166,7 @@ export function createRouter(settings) {
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },
     { path: '/sell#orders', name: 'Sell', component: Sell },
     { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail },
-    { path: '/product/add', name: 'AddProduct', component: AddProduct },
+    { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
     { path: '/product/:id', name: 'SingleProduct', component: SingleProduct },
     { path: '/album/:slug', name: 'AlbumDetail', component: AlbumDetail },
@@ -209,7 +210,7 @@ export function createRouter(settings) {
       },
       {
         // path: '/user/:user/video/create',
-        path: '/video/create',
+        path: '/upload/create',
         name: 'VideoCreate',
         component: VideoCreate,
       },
