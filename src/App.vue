@@ -16,12 +16,11 @@
     <v-content>
       <v-container fluid>
         <router-view></router-view>
+        <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
       </v-container>
     </v-content>
 
     <!-- <app-header v-show="$store.getters['navigator/hasHeader']" /> -->
-
-    <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
 
     <stream-player ref="streamPlayer" v-if="currentUser"></stream-player>
 
