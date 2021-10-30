@@ -11,6 +11,7 @@ import digitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
 import accordion from '@/components/accordion'
 import ItemService from '@/services/item'
+import UserService from '@/services/user'
 
 export default {
   components: {
@@ -23,16 +24,6 @@ export default {
     return {
       option: '',
       selectedCover: null,
-      accordions: [
-        {
-          title: 'Size & Fit',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-        },
-        {
-          title: 'Shipping & Returns',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-        },
-      ],
       product_categories: [],
       countries: [],
       states: [],
@@ -58,9 +49,48 @@ export default {
       users: [],
       collaborators_confirm_dialog: false,
       isPageReady: false,
+      buttonHover: false,
     }
   },
   computed: {
+    followButtonText() {
+      if (this.user.is_following) {
+        return this.buttonHover ? 'Unfollow' : 'Following'
+      }
+      return 'Follow'
+    },
+    user() {
+      if (this.product.slug) {
+        return this.product.user
+      } else {
+        return this.product.merchant
+      }
+    },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+    accordions() {
+      const policies = [
+        {
+          title: 'Size & Fit',
+          content: this.product.merchant.size_chart,
+        },
+        {
+          title: 'Shipping Policy',
+          content: this.product.merchant.shipping_policy,
+        },
+        {
+          title: 'Return Policy',
+          content: this.product.merchant.return_policy,
+        },
+        {
+          title: 'Privacy Policy',
+          content: this.product.merchant.privacy_policy,
+        },
+      ]
+
+      return policies
+    },
     options() {
       var options = []
       for (let index in this.product.variants) {
@@ -253,6 +283,27 @@ export default {
     },
   },
   methods: {
+    followUser() {
+      if (this.user.is_following) {
+        UserService.unfollowUser(this.user.id)
+          .then((res) => {
+            this.$store.dispatch('player/updateFollowingStatus', false)
+            this.product.user.is_following = false
+          })
+          .catch((e) => {
+            console.log('unfollowUser error', e)
+          })
+      } else {
+        UserService.followUser(this.user.id)
+          .then((res) => {
+            this.$store.dispatch('player/updateFollowingStatus', true)
+            this.product.user.is_following = true
+          })
+          .catch((e) => {
+            console.log('followUser error', e)
+          })
+      }
+    },
     addToCart() {
       if (this.option === '' || this.option === null) {
         this.$store.dispatch('error/showErrorToast', [
