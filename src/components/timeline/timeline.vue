@@ -67,23 +67,152 @@
 
 
 
-      <v-layout row wrap class="covers-content" mt-2>
-        <div
-          v-for="(feed, index) in user.recent_items"
-          v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
-          :key="index"
+      <v-layout row wrap class="covers-content d-block" mt-2>
+        <!-- <div
+          v-if="['Album', 'ShopProduct', 'Stream'].indexOf(recentItem.assoc_type) > -1"
           class="card-container"
         >
           <track-card
-            v-if="feed.assoc_type == 'Album'"
+            v-if="recentItem.assoc_type == 'Album'"
             :objects="user.recent_items"
             :objectIndex="index"
           />
           <product-card
-            v-if="feed.assoc_type == 'ShopProduct'"
-            :dataObject="feed"
+            v-if="recentItem.assoc_type == 'ShopProduct'"
+            :dataObject="recentItem"
           />
-          <video-box v-if="feed.assoc_type == 'Stream'" :item="feed.assoc" />
+          <video-box v-if="recentItem.assoc_type == 'Stream'" :item="recentItem.assoc" />
+        </div> -->
+        <div
+          v-for="(feed, index) in user.recent_items"
+          v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
+          :key="index"
+          class="show-card-container"
+        >
+          <!-- Show only 1 item (first on list) -->
+          <div v-if="index == 0">
+            <!-- <pre>{{ feed }}</pre> -->
+              <v-container v-if="feed.assoc_type == 'Album'" grid-list-md text-xs-center>
+                <v-layout row wrap align-center>
+                  <v-flex xs6>
+                    <track-card
+                      ref="trackCard"
+                      :noMeta="true"
+                      :noAction="true"
+                      :objects="user.recent_items"
+                      :objectIndex="index"
+                    />
+                  </v-flex>
+                  <v-flex xs6>
+                    <div class="side-action-details">
+                      <div class="__title">
+                        {{ trackItem(user.recent_items, index).album_type }}
+                      </div>
+                      <div class="__subtitle-1">
+                        {{ trackItem(user.recent_items, index).name }}
+                      </div>   
+                      <div class="__subtitle-2">
+                        {{ trackItem(user.recent_items, index).user.display_name }}
+                      </div>   
+                      <v-btn
+                        v-if="!$store.state.player.isPlaying || $store.state.player.isPaused"
+                        @click.native="playSong(index)"
+                        dark
+                        class="song-btn play-button"
+                      >
+                        <v-icon>play_arrow</v-icon>
+                      </v-btn>
+                      <v-btn
+                        v-if="$store.state.player.isPlaying && !$store.state.player.isPaused"
+                        @click.native="pauseSong(index)"
+                        dark
+                        class="song-btn pause-btn play-button"
+                      >
+                        <v-icon>pause</v-icon>
+                      </v-btn>
+                    </div>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+
+              <v-container v-if="feed.assoc_type == 'ShopProduct'" grid-list-md text-xs-center>
+                <v-layout row wrap align-center>
+                  <v-flex xs6>
+                    <product-card
+                      v-if="feed.assoc_type == 'ShopProduct'"
+                      :dataObject="feed"
+                      :noMeta="true"
+                      :hideMoreOptions="true"
+                    />
+                  </v-flex>
+                  <v-flex xs6>
+                    <div class="side-action-details">
+                      <div class="__title">
+                        {{ productItem(feed, index).merchant.display_name }}
+                      </div>
+                      <div class="__subtitle-2">
+                        {{ productItem(feed, index).name }}
+                      </div>   
+                      <div class="__subtitle-1 __price">
+                        ${{ productItem(feed, index).price | formatNumber }}
+                      </div>   
+                      <v-btn
+                        round
+                        large
+                        dark
+                        class="view-product-btn text-capitalize ma-0"
+                        >
+                          view
+                      </v-btn>
+                    </div>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+
+            <video-box v-if="feed.assoc_type == 'Stream'" :item="feed.assoc" />
+
+            <div class="comment">
+              <div class="comment_count_action">
+                <div v-if="feed.assoc.commented" class="comment_count">{{ feed.assoc.commented }} comments</div>
+                <div class="comment_action">
+                  <img
+                    width="20"
+                    class="comment_action-icon share-icon mr-3"
+                    src="/static/images/ic_share.svg"
+                    @click.native="showShareDialog()"
+                  />
+                  <img
+                    width="20"
+                    class="somment_action-icon repost-icon"
+                    src="/static/images/ic_repost.svg"
+                    @click.native="repostItem()"
+                  />
+                </div>
+              </div>
+
+              <div class="comment_box">
+                <div class="box__initComment">
+                  <div class="ci">
+                    <div class="ci__header">
+                      <router-link :to="`/${currentUser.slug}`">
+                        <div
+                          class="ci__image"
+                          :style="`background-image: url(${currentUser.avatar.url})`"
+                        ></div>
+                      </router-link>
+                    </div>
+                    <div class="ci__content">
+                      <input
+                        type="text"
+                        placeholder="Leave a comment..."
+                        @keyup.enter="addComment()"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </v-layout>
     </v-flex>
@@ -97,4 +226,137 @@
 </template>
 
 <script type="text/javascript" src="./timeline.ctrl.js"></script>
-<style src="../../../static/styles/timeline.scss" lang="scss" scoped>
+<style src="../../../static/styles/timeline.scss" lang="scss" scoped></style>
+<style lang="scss" scoped>
+.side-action-details {
+  text-align: left;
+  padding-left: 30px;
+
+  .__title {
+    text-transform: uppercase;
+    font-size: 18px;
+  }
+  .__subtitle-1 {
+    font-weight: 800;
+    font-size: 20px;
+
+    &.__price {
+      margin-top: -10px;
+    }
+  }
+  .__subtitle-2 {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .song-btn {
+    margin: 0 !important;
+    width: 60px !important;
+    height: 60px !important;
+    background: #ddd8d8 !important;
+
+    i {
+      font-size: 40px;
+      color: #000000;
+    }
+  }
+
+  .view-product-btn {
+    margin-top: 20px !important;
+    background-color: #000000 !important;
+    padding: 0 10px;
+  }
+}
+.comment {
+  .comment_count_action {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e4e4e4;
+
+    .comment_count {
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .comment_action {
+      margin-left: auto;
+
+      .share-icon {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+// chat input box
+.ci {
+  display: flex;
+  width: 100%;
+
+  &__header {
+    width: 55px;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  &__image {
+    width: 48px;
+    height: 48px;
+    border-radius: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  input {
+    width: 100%;
+    padding: 5px 10px;
+  }
+}
+.user-section {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #E4E4E4;
+  padding: 20px 0;
+  padding: 20px 0;
+
+  .user__wrapper {
+    display: flex;
+    .user__image {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      margin-right: 10px;
+    }
+
+    .tag {
+      font-size: 20px;
+
+      /deep/.user-status {
+        margin-left: 0px;
+        color: #24AB18;
+      }
+    }
+    
+    .vid__description {
+      height: 30px;
+      overflow: hidden;
+    }
+
+    .show-more-less {
+      color: #333;
+      font-size: 13px;
+    }
+    
+  }
+}
+</style>

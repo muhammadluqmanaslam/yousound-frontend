@@ -29,6 +29,9 @@ export default {
   },
 
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
     recentItem() {
       return this.user.recent_items[0] || { }
     },
@@ -77,6 +80,26 @@ export default {
   created() { },
 
   methods: {
+    playSong(index) {
+      this.$refs.trackCard[index].playSong()
+    },
+    pauseSong(index) {
+      this.$refs.trackCard[index].pauseSong()
+    },
+    trackItem(items, index) {
+      if (items[index].assoc_type) {
+        return items[index].assoc
+      } else {
+        return items[index]
+      }
+    },
+    productItem(item, index) {
+      if (item.assoc_type) {
+        return item.assoc
+      } else {
+        return item
+      }
+    },
     loadComments() {
       const params = {
         commentable_type: 'Stream',
