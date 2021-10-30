@@ -220,7 +220,7 @@
           <p class="track-count">{{ item.tracks.length }} tracks</p>
         </v-flex>
       </v-flex>
-      <v-flex xs12 class="track-detail" pa-0>
+      <v-flex v-if="!noMeta && !noAction" xs12 class="track-detail" pa-0>
         <p class="track-name">
           <router-link :to="`/${item.album_type}/${item.slug}`">{{
             item.name
