@@ -4,13 +4,13 @@
       class="text-xs-center"
       v-if="isPageReady && !show_register_success_dialog"
     >
-      <img class="logo" src="/static/images/nav_logo_primary.png" />
-      <div class="inviter">
+      <!-- <img class="logo" src="/static/images/nav_logo_primary.png" /> -->
+      <div v-if="inviter.display_name" class="inviter">
         You've been invited by<br />
         <user-tag :user="inviter" /><br />
         to get verified
       </div>
-      <h5>Create Your Verified Account</h5>
+      <!-- <h5>Create Your Verified Account</h5> -->
     </div>
 
     <form
@@ -19,25 +19,29 @@
     >
       <v-flex xs12 text-xs-center>
         <div class="avatar-area">
-          <img
-            class="avatar default"
-            src="/static/images/ic_camera.svg"
-            id="avatar"
-            ref="avatar"
-          />
-          <label class="upload-caption">Upload avatar image</label>
-          <div class="avatar-upload">
-            <input
-              type="file"
-              name="avatar_file"
-              id="avatar_file"
-              ref="avatar_file"
-              class="avatar-file"
-              accept="image/*"
-              v-validate="'required'"
-              @change="imageChanged($event)"
+          <span class="avatar-img">
+            <img
+              class="avatar"
+              src="/static/images/user.svg"
+              id="avatar"
+              ref="avatar"
             />
-            <label for="avatar_file">Choose a file</label>
+          </span>
+          <div>
+            <label class="upload-caption">Upload avatar image</label>
+            <div class="avatar-upload">
+              <input
+                type="file"
+                name="avatar_file"
+                id="avatar_file"
+                ref="avatar_file"
+                class="avatar-file"
+                accept="image/*"
+                v-validate="'required'"
+                @change="imageChanged($event)"
+              />
+              <label for="avatar_file">Choose a file</label>
+            </div>
           </div>
         </div>
       </v-flex>
@@ -65,7 +69,7 @@
           hide-details
         />
       </v-flex>
-      <v-flex xs12 text-xs-center>
+      <!-- <v-flex xs12 text-xs-center>
         <v-select
           :items="main_genres"
           item-value="id"
@@ -77,8 +81,8 @@
           autocomplete
           hide-details
         />
-      </v-flex>
-      <v-flex xs12 text-xs-center>
+      </v-flex> -->
+      <!-- <v-flex xs12 text-xs-center>
         <input
           class="username"
           type="text"
@@ -88,8 +92,8 @@
           v-model="user.username"
           v-validate="'required|max:20'"
         />
-      </v-flex>
-      <v-flex xs12 text-xs-center>
+      </v-flex> -->
+      <!-- <v-flex xs12 text-xs-center>
         <input
           class="displayname"
           type="text"
@@ -99,7 +103,7 @@
           v-model="user.display_name"
           v-validate="'required|max:20'"
         />
-      </v-flex>
+      </v-flex> -->
       <v-flex xs12 text-xs-center>
         <input
           class="email"
@@ -123,7 +127,7 @@
         />
       </v-flex>
       <v-flex xs12 text pa-0>
-        <p class="regular-checkbox">
+        <p class="regular-checkbox mb-0">
           <input
             id="terms"
             type="checkbox"
@@ -138,12 +142,26 @@
             ></label
           >
         </p>
+        <p class="regular-checkbox mt-0">
+          <input
+            id="terms"
+            type="checkbox"
+            name="terms"
+            v-model="terms"
+            v-validate="'required'"
+          />
+          <label for="terms">Signup for newsletters</label>
+        </p>
       </v-flex>
       <v-flex xs12 text-xs-center>
         <v-btn block round dark type="submit" class="create-account-button"
           >Create account</v-btn
         >
       </v-flex>
+    <v-flex xs12 text-xs-center mt-3>
+      Already a member?
+      <router-link to="/login">Sign in</router-link>
+    </v-flex>
     </form>
 
     <v-dialog

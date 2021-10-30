@@ -44,18 +44,24 @@ export default {
 
   created() {
     AuthService.clearTokenAndUserInfo()
-    this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
+    // this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
 
     this.token = this.$route.params.token
     this.isPageReady = false
-    this.$store.dispatch('error/showLoadingActivity', true)
     const params = {
       token: this.token,
     }
-    InvitationService.findByToken(params)
+    if (this.token) {
+      console.log(this.token);
+      this.$store.dispatch('error/showLoadingActivity', true)
+      InvitationService.findByToken(params)
       .then((res) => {
         this.inviter = res.body
         this.isPageReady = true
+
+        // send inviter and inform any parent of invite mode
+        this.$emit('invite-mode', this.inviter)
+
         this.$store.dispatch('error/showLoadingActivity', false)
       })
       .catch((err) => {
@@ -66,6 +72,9 @@ export default {
         this.$router.push({ path: '/' })
         this.$store.dispatch('error/showLoadingActivity', false)
       })
+    } else {
+      this.isPageReady = true
+    }
     // this.show_register_success_dialog = true
   },
 

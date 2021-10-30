@@ -1,9 +1,9 @@
 <template>
-  <div class="page auth-page auth-register-page">
-    <div class="text-xs-center">
+  <div class="auth-page auth-register-page">
+    <!-- <div class="text-xs-center">
       <img class="logo" src="/static/images/nav_logo_primary.png" />
       <h4>Create Account</h4>
-    </div>
+    </div> -->
 
     <form v-on:submit.prevent="submit()" autocomplete="off">
       <input
@@ -14,24 +14,28 @@
       />
       <v-flex xs12 text-xs-center>
         <div class="avatar-area">
-          <img
-            class="avatar"
-            src="/static/images/placeholder.png"
-            id="avatar"
-            ref="avatar"
-          />
-          <label class="upload-caption">Upload image</label>
-          <div class="avatar-upload">
-            <input
-              type="file"
-              name="avatar_file"
-              id="avatar_file"
-              ref="avatar_file"
-              class="avatar-file"
-              accept="image/*"
-              @change="imageChanged($event)"
+          <span class="avatar-img">
+            <img
+              class="avatar"
+              src="/static/images/user.svg"
+              id="avatar"
+              ref="avatar"
             />
-            <label for="avatar_file">Choose a file</label>
+          </span>
+          <div>
+            <label class="upload-caption">Upload image</label>
+            <div class="avatar-upload">
+              <input
+                type="file"
+                name="avatar_file"
+                id="avatar_file"
+                ref="avatar_file"
+                class="avatar-file"
+                accept="image/*"
+                @change="imageChanged($event)"
+              />
+              <label for="avatar_file">Choose a file</label>
+            </div>
           </div>
         </div>
       </v-flex>
@@ -54,7 +58,7 @@
           >already taken</label
         >
       </v-flex>
-      <v-flex xs12 text-xs-center>
+      <!-- <v-flex xs12 text-xs-center>
         <input
           class="displayname"
           type="text"
@@ -64,7 +68,7 @@
           v-model="user.display_name"
           v-validate="'required|max:20'"
         />
-      </v-flex>
+      </v-flex> -->
       <v-flex xs12 text-xs-center>
         <input
           class="email"
@@ -88,7 +92,7 @@
         />
       </v-flex>
       <v-flex xs12 text pa-0>
-        <p class="regular-checkbox">
+        <p class="regular-checkbox mb-0">
           <input
             id="terms"
             type="checkbox"
@@ -103,12 +107,26 @@
             ></label
           >
         </p>
+        <p class="regular-checkbox mt-0">
+          <input
+            id="terms"
+            type="checkbox"
+            name="terms"
+            v-model="terms"
+            v-validate="'required'"
+          />
+          <label for="terms">Signup for newsletters</label>
+        </p>
       </v-flex>
       <v-flex xs12 text-xs-center>
         <v-btn block round dark type="submit" class="create-account-button"
           >Create account</v-btn
         >
       </v-flex>
+    <v-flex xs12 text-xs-center mt-3>
+      Already a member?
+      <router-link to="/login">Sign in</router-link>
+    </v-flex>
     </form>
   </div>
 </template>
