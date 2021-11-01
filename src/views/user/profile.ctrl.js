@@ -52,7 +52,7 @@ export default {
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
         { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'songs', title: 'Music', roles: ['artist'] },
-        { id: 'video', title: 'Video', roles: ['artist'] },
+        // { id: 'video', title: 'Video', roles: ['artist'] },
         // { id: 'playlists', title: 'Playlists' },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
