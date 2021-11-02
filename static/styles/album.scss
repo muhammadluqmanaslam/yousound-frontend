@@ -438,7 +438,7 @@ p {
 
     .background-image {
       position: absolute;
-      top: -18px;
+      top: 3px;
       left: -35px;
       width: 100vw !important;
       height: calc(100% + 20px);
@@ -461,7 +461,7 @@ p {
     }
     .background-overlay {
       position: absolute;
-      top: -18px;
+      top: 3px;
       left: -35px;
       width: 100vw !important;
       height: calc(100% + 20px);
@@ -630,8 +630,8 @@ p {
 
           .album-action-section {
             position: absolute;
-            right: -35px;
-            bottom: 5px;
+            left: 69px;
+            bottom: -2px;
 
             #follow_selector {
               .btn {
@@ -667,6 +667,7 @@ p {
               font-size: 14px;
               letter-spacing: 0;
               &.follow {
+                display: none;
                 border: 1px solid #1872ff;
                 background-color: #1872ff !important;
                 color: #fff !important;

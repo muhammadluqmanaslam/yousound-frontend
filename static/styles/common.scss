@@ -526,7 +526,7 @@ a {
 
 .control-label {
   display: block;
-  font-size: 18px;
+  font-size: 14px;
   color: #333;
   margin-bottom: 0;
   font-weight: 600;
@@ -713,7 +713,7 @@ textarea {
   flex-wrap: wrap;
   transition: .3s cubic-bezier(.25,.8,.5,1);
   background: red;
-  border-radius: 20%;
+  border-radius: 3px;
   width: 28px;
   height: 20px;
   margin-right: 10px;

@@ -21,6 +21,7 @@
 
 
   .side-tab {
+    height: 34px;
     /deep/ a {
       position: relative;
       padding: 12px 0 12px 12px !important;
@@ -32,6 +33,9 @@
       }
       .__title {
         color: #bbbbbb;
+        font-weight: 700;
+        font-family: 'Inter', sans-serif;
+
       }
     }
     /deep/.activeTab {

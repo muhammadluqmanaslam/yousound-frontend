@@ -76,7 +76,7 @@
         <v-btn to="/login" outline class="auth-btn login">Login</v-btn>
       </div>
 
-      <v-list v-for="(parent, i) in tabs" :key="i">
+      <v-list v-for="(parent, i) in tabs" :key="i" class="py-1 px-0">
         <h4>
           <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
         </h4>

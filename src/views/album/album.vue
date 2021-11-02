@@ -58,7 +58,7 @@
                 >View Stats</label
               >
             </div>
-            <div class="play-button-section">
+            <span class="play-button-section">
               <v-btn
                 dark
                 class="play-button"
@@ -75,10 +75,10 @@
               >
                 <v-icon class="pause">pause</v-icon>
               </v-btn>
-            </div>
-            <div class="album-action-section">
+            </span>
+            <span class="album-action-section">
               <template v-if="currentUser && album.user.id != currentUser.id">
-                <v-btn
+                <!-- <v-btn
                   v-if="album.collaborators_count == 0"
                   :class="{
                     'follow-btn': true,
@@ -170,7 +170,7 @@
                       </v-list-tile-action>
                     </v-list-tile>
                   </v-list>
-                </v-menu>
+                </v-menu> -->
               </template>
 
               <v-menu offset-y class="more-menu">
@@ -206,7 +206,7 @@
                   </v-list-tile> -->
                 </v-list>
               </v-menu>
-            </div>
+            </span>
           </div>
         </div>
       </div>

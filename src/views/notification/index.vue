@@ -19,6 +19,7 @@
                   <!-- {{ typeof badge.activity }} -->
                   <!-- {{ badge.activity > 99 }} -->
                   {{ badge.activity > 99 ? badge.activity : '99+' }}
+                  <!-- {{ badge.activity > 99 ? badge.activity : '99+' }} -->
                 </span>
               </span>
               <span
@@ -29,6 +30,7 @@
                   <!-- {{ typeof badge.message }} -->
                   <!-- {{ badge.message > 99 }} -->
                   {{ badge.message > 99 ? badge.message : '99+' }}
+                  <!-- {{ badge.message > 99 ? badge.message : '99+' }} -->
                 </span>
               </span>
             </label>
