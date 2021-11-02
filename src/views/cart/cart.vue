@@ -25,9 +25,9 @@
             >
           </div>
             <v-card flat v-else>
-              <v-container grid-list-md>
+              <v-container fluid grid-list-md>
                 <v-layout row wrap>
-                  <v-flex xs10 order-section>
+                  <v-flex xs9 order-section>
                     <div
                       xs10
                       class="order-item"
@@ -110,7 +110,7 @@
                     </div>
                   </v-flex>
 
-                  <v-flex xs2 class="orders-section-container">
+                  <v-flex xs3 class="orders-section-container">
                     <div class="shipping-address-section">
                       <div class="d-flex justify-space-between shipping-action-header">
                         <div class="header-title app-bold flex-none">Shipping to:</div>
