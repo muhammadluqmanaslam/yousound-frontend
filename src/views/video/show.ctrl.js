@@ -190,6 +190,9 @@ export default {
             ].indexOf(values[0].body.status) > -1
           ) {
             this.stream = values[0].body
+
+            console.log(this.stream);
+            console.log(this.stream.assoc);
           } else {
             this.$router.push({ path: '/video' })
           }

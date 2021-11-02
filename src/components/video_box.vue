@@ -183,7 +183,8 @@ export default {
     background-size: cover;
     overflow: hidden;
     background-position: center;
-    // border-radius: 7.5px;
+    border-radius: 0px;
+    margin-top: 14px;
     border: none;
   }
 

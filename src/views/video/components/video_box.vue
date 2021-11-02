@@ -47,7 +47,8 @@ export default {
     background-size: cover;
     overflow: hidden;
     background-position: center;
-    border-radius: 7.5px;
+    border-radius: 0px;
+    margin-top: 14px;
     border: none;
   }
 
@@ -71,10 +72,14 @@ export default {
   }
 
   &__title {
-    margin-top: 3px;
     color: #000000;
-    font-size: 16px;
-    font-weight: 500;
+    margin-top: 0px;
+    font-size: 14px;
+    letter-spacing: 0;
+    font-weight: 400
+  }
+  &__views {
+    font-size: 12px;
   }
 }
 </style>

@@ -60,10 +60,6 @@
                   label="Only For Live Stream"
                   v-model="album.is_only_for_live_stream"
                 ></v-checkbox>
-                <span class="grey--text lighten-2"
-                  >If checked, album will not appear on profile & won't be
-                  reposted when downloaded from broadcast</span
-                >
               </div>
             </div>
             <div class="album-content-section layout row wrap">

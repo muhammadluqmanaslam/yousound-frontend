@@ -75,6 +75,9 @@
 <style src="../../../static/styles/video.scss" lang="scss" scoped></style>
 
 <style lang="scss" scoped>
+.top-menu {
+    margin: 0 !important;
+}
 .tabs__bar {
     width: calc(100% + 72px);
     position: relative;

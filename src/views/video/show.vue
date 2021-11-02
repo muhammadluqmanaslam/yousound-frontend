@@ -2,7 +2,7 @@
   <div class="page video-page show-page mx-5" v-if="isPageReady">
     <div class="page-content">
       <v-layout row>
-        <v-flex sm8 class="vid_col">
+        <v-flex sm10 class="vid_col">
           <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
 
           <div class="content-section">
@@ -121,7 +121,9 @@
                   </div>
                   <div class="assoc__content">
                     <div class="assoc__subtitle">
-                      {{ stream.assoc.name }}
+                      <span class="__name">{{ stream.assoc.name }}</span>
+                      <br>
+                      <span v-if="stream.assoc.user" class="app-bold __user_name">{{ stream.assoc.user.display_name }}</span>
                     </div>
                     <div class="assoc__title">
                       <span v-if="stream.assoc.price">${{ stream.assoc.price }}</span>
@@ -291,6 +293,11 @@
 <script type="text/javascript" src="./show.ctrl.js"></script>
 
 <style lang="scss" scoped>
+.vid_col {
+  -ms-flex-preferred-size: 66.66666666666666%;
+  flex-basis: 100%;
+  max-width: 80%;
+}
 .video-page {
   .page-content {
     margin-top: 0;
@@ -362,7 +369,7 @@
     }
 
     .tag {
-      font-size: 20px;
+      font-size: 16px;
 
       /deep/.user-status {
         margin-left: 0px;
@@ -421,10 +428,10 @@
     position: relative;
 
     .comment__count {
-      border-top: 1px solid #f3dfdf;
-      font-weight: bold;
       padding: 20px 0;
       border-top: none;
+      font-weight: 600;
+      letter-spacing: 0
     }
     
     .items {
@@ -615,6 +622,7 @@
 
   &__subtitle {
     font-size: 14px;
+    padding-bottom: 10px;
   }
 
   &__cta {
