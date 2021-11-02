@@ -5,20 +5,20 @@
         Margin-bottom: 20px;
     }
     .upload-tab-container {
-        padding: 30px !important;
+        padding: 20px !important;
 
 
         .upload-tab-wrapper {
             text-align: center;
-            border: 0.75px solid #e9dcdc;
             padding: 30px;
-            border-radius: 15px;
             transition: .3s ease-in-out;
+            border: .75px solid #d2d2d2;
+            border-radius: 8px;
 
             .upload-tab-img {
-                height: 130px;
-                width: 130px;
-                border-radius: 10px;
+                height: 180px;
+                width: 180px;
+                border-radius: 4px;
                 background-size: cover;
                 background-position: center;
                 margin: 0 auto;
@@ -38,17 +38,18 @@
                 }  
             }  
             .upload-tab-btn {
-                text-transform: capitalize;
-                background-color: transparent;
-                border-radius: 10px;
                 border: 2px solid;
                 width: 100%;
+                text-transform: capitalize;
+                background-color: transparent;
+                border-radius: 4px;
             }
 
             .upload-tab-description {
                 margin: 24px 0;
                 font-size: 14px;
                 height: 87px;
+                font-weight: 500;
             }
 
             &:hover {

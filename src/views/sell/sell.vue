@@ -126,7 +126,7 @@ empty<template>
                       "
                       row
                     >
-                      <v-flex xs10>
+                      <v-flex xs9>
                         <div class="order-content-section">
                           <div class="order-content-container">
                             <div
@@ -163,7 +163,7 @@ empty<template>
                         </div>
                       </v-flex>
 
-                      <v-flex xs2>
+                      <v-flex xs3>
                         <div
                           class="order-status-section text-xs-center digital"
                           v-if="isDigitalProduct(item)"

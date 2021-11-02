@@ -231,14 +231,18 @@
 .side-action-details {
   text-align: left;
   padding-left: 30px;
+  margin-top: -30px;
 
   .__title {
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 13px;
+    color: #777;
+    padding-bottom: 8px
   }
   .__subtitle-1 {
-    font-weight: 800;
-    font-size: 20px;
+    font-weight: 500;
+    font-size: 18px;
+    padding-bottom: 3px;
 
     &.__price {
       margin-top: -10px;
@@ -246,8 +250,9 @@
   }
   .__subtitle-2 {
     text-transform: uppercase;
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 700;
   }
   .song-btn {
     margin: 0 !important;
@@ -272,6 +277,8 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid #e4e4e4;
 
@@ -299,6 +306,7 @@
     flex: 0 0 auto;
     display: flex;
     justify-content: flex-start;
+    padding-left: 20px;
   }
 
   &__content {
@@ -310,7 +318,7 @@
   &__image {
     width: 48px;
     height: 48px;
-    border-radius: 0;
+    border-radius: 100px;
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -318,6 +326,8 @@
   input {
     width: 100%;
     padding: 5px 10px;
+    margin-left: 30px;
+    margin-right: 20px
   }
 }
 .user-section {
