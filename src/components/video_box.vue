@@ -25,10 +25,10 @@
     <div class="box__footer">
       <div class="box__subtitle">
         <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
-          <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.display_name }}</span>
+          <!-- <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.display_name }}</span> -->
         </span>
-        <span v-else class="box__acc">{{ item.user.display_name }}</span>
-        <span> - {{ item.name }}</span>
+        <!-- <span v-else class="box__acc">{{ item.user.display_name }}</span> -->
+        <span>{{ item.name }}</span>
       </div>
       <div class="box__title app-grey--text">
         <div class="box__author">
