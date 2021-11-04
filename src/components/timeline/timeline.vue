@@ -38,15 +38,15 @@
               <v-icon right>more_horiz</v-icon>
             </v-btn>
             <v-list>
-              <v-list-tile key="repost" @click.native="repostItem()">
+              <!-- <v-list-tile key="repost" @click.native="repostItem(feed.assoc.id)">
                 <v-list-tile-title class="default-menu-item">
-                  <!-- <img
+                  <img
                     class="track-status-icon"
                     src="/static/images/ic_repeat.png"
-                  /> -->
+                  />
                   <label>Repost Album</label>
                 </v-list-tile-title>
-              </v-list-tile>
+              </v-list-tile> -->
               <v-list-tile
                 key="share"
                 class="default-menu-item track-menu-item"
@@ -177,15 +177,20 @@
                 <div class="comment_action">
                   <img
                     width="20"
-                    class="comment_action-icon share-icon mr-3"
+                    class="comment_action-icon share-icon mr-3 cursor-pointer"
                     src="/static/images/ic_share.svg"
-                    @click.native="showShareDialog()"
+                    @click="doAction()"
                   />
                   <img
                     width="20"
-                    class="somment_action-icon repost-icon"
+                    class="comment_action-icon repost-icon cursor-pointer"
                     src="/static/images/ic_repost.svg"
-                    @click.native="repostItem()"
+                    @click="repostItem(feed.assoc.id)"
+                  />
+                   <share-modal
+                    v-if="show_share_dialog"
+                    :item="feed.assoc"
+                    :dismiss="closeShareDialog"
                   />
                 </div>
               </div>
@@ -212,7 +217,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>       
         </div>
       </v-layout>
     </v-flex>

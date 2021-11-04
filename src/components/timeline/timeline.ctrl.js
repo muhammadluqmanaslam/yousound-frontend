@@ -4,6 +4,8 @@ import profileItem from '@/components/profileitem'
 import trackCard from '@/components/trackcard'
 import VideoBox from '@/components/video_box'
 import CommentService from '@/services/comment'
+import AlbumService from '@/services/album'
+import shareModal from '@/components/sharemodal'
 // import videoCard from '@/components/videocard'
 
 export default {
@@ -13,6 +15,7 @@ export default {
     profileItem,
     trackCard,
     VideoBox,
+    shareModal,
 // videoCard
   },
 
@@ -25,6 +28,7 @@ export default {
   data() {
     return {
       showMerchModal: false,
+      show_share_dialog: false,
     }
   },
 
@@ -80,6 +84,24 @@ export default {
   created() { },
 
   methods: {
+    repostItem(id) {
+      AlbumService.repostAlbum(id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You just reposted ' + this.recentItem.assoc.name,
+          ])
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+    showShareDialog() {
+      console.log(111);
+      this.show_share_dialog = true
+    },
+    closeShareDialog() {
+      this.show_share_dialog = false
+    },
     playSong(index) {
       this.$refs.trackCard[index].playSong()
     },
@@ -120,7 +142,8 @@ export default {
           this.showMerchModal = true
           break
         case 'Album':
-          this.$router.push({path: 'album/' + this.recentItem.assoc.slug })
+          this.show_share_dialog = true
+          // this.$router.push({path: 'album/' + this.recentItem.assoc.slug })
           break
       }
     },
