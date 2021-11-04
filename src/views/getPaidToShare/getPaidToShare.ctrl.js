@@ -5,6 +5,12 @@ import paymentModal from '@/components/paymentmodal'
 import accordion from '@/components/accordion'
 
 export default {
+  props: {
+    propMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     paymentModal,
     accordion,
