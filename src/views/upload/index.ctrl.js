@@ -1,7 +1,9 @@
 import topbarNotification from '@/components/topbarNotification'
+import getPaid from '@/views/getPaidToShare'
 export default {
   components: {
     topbarNotification,
+    getPaid,
   },
 
   data() {
