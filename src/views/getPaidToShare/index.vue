@@ -1,6 +1,6 @@
 <template>
   <div class="page getpaid-to-share-page">
-    <v-container fluid class="set-price-container border-me">
+    <v-container v-if="!propMode" fluid class="set-price-container border-me">
       <v-layout v-if="currentUser.stripe_connected"  align-center>
         <v-flex xs2 after-divider>
           <router-link to="/settings/#bank-details">
@@ -84,37 +84,60 @@
           <v-layout wrap row justify-center>
             <v-flex xs8>
               <v-layout row wrap>
-                <v-flex xs6 comm-flex>
+                <v-flex xs6 comm-flex _right>
                   <div class="__title">First, grow your community</div>
                   <div class="__content">Invite your friends, build your following and start reposting & sharing great content</div>
                 </v-flex>
-                <v-flex xs6 comm-flex>
+                <v-flex xs6 comm-flex _left>
                   <img
                     src="/static/images/first-comm.png"
                     class="comm-img"
                   />
                 </v-flex>
 
-                <v-flex xs6 comm-flex>
+                <v-flex xs6 comm-flex _left>
                   <img
                     src="/static/images/best-comm.png"
                     class="comm-img"
                   />
                 </v-flex>
-                <v-flex xs6 comm-flex>
+                <v-flex xs6 comm-flex _right>
                   <div class="__title">Best practices for successful releases</div>
                   <div class="__content">Learn how to lauch a product, album, or video on YouSound effectively to build an audience & generate revenue</div>
                 </v-flex>
 
-                <v-flex xs6 comm-flex>
+                <v-flex xs6 comm-flex _left>
                   <div class="__title">Start accepting repost requests.</div>
                   <div class="__content">Artists & brands will request reposts from you through Direct Messages. You can view content & accept, deny, or repost for free. You get paid for accepted reposts every 2 days.</div>
                 </v-flex>
-                <v-flex xs6 comm-flex>
+                <v-flex xs6 comm-flex _right>
                   <img
                     src="/static/images/start-comm.png"
                     class="comm-img"
                   />
+                </v-flex>
+
+                <v-flex xs10 comm-flex requirements>
+                  <div class="">
+                    <div class="mb-2">
+                      <b>Requirements</b>
+                    </div>
+                    <ul>
+                      <li>
+                        Have 4,000 valid watched or listened hours in the last 12 months.
+                      </li>
+                      <li>
+                        Have at least 1,000 followers
+                      </li>
+                      <li>
+                        Have a Stripe account connected
+                      </li>
+                    </ul>
+
+                    <div class="mt-2">
+                      <b>Start uploading & build your community!</b>
+                    </div>
+                  </div>
                 </v-flex>
               </v-layout>
             </v-flex>
@@ -230,11 +253,29 @@
       font-size: 16px;
     }
     .comm-flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       margin-bottom: 20px;
+
+      &._left {
+        // align-items: start;
+        width: 70%;
+      }
+      &._right {
+        // align-items: end;
+        width: 70%;
+      }
 
       img.comm-img {
         width: 70%;
         border-radius: 7px;
+      }
+
+      &.requirements {
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 40px;
       }
     }
   }

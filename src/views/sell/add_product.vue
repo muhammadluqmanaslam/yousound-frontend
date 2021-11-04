@@ -1,6 +1,6 @@
 <template>
   <div class="page sell-page product-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="https://stripe.com" />
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="/settings/#bank-details" />
     <content-top-header>
       <template slot="topHeader">
         <ul>

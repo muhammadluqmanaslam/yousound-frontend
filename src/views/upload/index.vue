@@ -1,6 +1,6 @@
 <template>
   <div class="page upload-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="https://stripe.com" />
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="/settings/#bank-details" />
     <h1 class="px-3 __title">Upload Music, Videos, Products & Broadcast Live!</h1>
 
     <v-container fluid grid-list-lg>
@@ -70,6 +70,10 @@
           </div>
         </v-flex>
       </v-layout>
+    </v-container>
+
+    <v-container>
+      <get-paid propMode />
     </v-container>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="category">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="https://stripe.com" />
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="/settings/#bank-details" />
     <content-top-header>
       <template slot="topHeader">
         <ul>
