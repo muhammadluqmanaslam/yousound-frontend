@@ -56,6 +56,7 @@
         <v-flex v-else xs12 class="touch-flex" @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"></v-flex>
       </v-flex>
       <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
+        <user-tag showAvatar class="tag" :user="item.merchant" />
         <p class="product-name">{{ item.name }}</p>
         <div class="product-options-count">
           <span>{{ item.variants.length }} Option</span>
@@ -107,12 +108,14 @@
   import profileItem from '@/components/profileitem'
   import ProductService from '@/services/product'
   import shareModal from '@/components/sharemodal'
+  import UserTag from '@/components/user_tag'
 
   export default {
     components: {
       merchModal,
       shareModal,
       profileItem,
+      UserTag,
     },
 
     props: {
