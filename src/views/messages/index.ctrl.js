@@ -38,6 +38,7 @@ export default {
       show_conversation_delete_confirm_dialog: false,
       show_block_user_confirm_dialog: false,
       show_repost_payment_modal: false,
+      show_repost_modal: false,
       show_send_love_modal: false,
       showEmojiPicker: false,
       page_index: 0,
@@ -492,6 +493,14 @@ export default {
 
     closeRepostPaymentModal() {
       this.show_repost_payment_modal = false
+    },
+
+    openRepostModal() {
+      this.show_repost_modal = true
+    },
+
+    closeRepostModal() {
+      this.show_repost_modal = false
     },
 
     openSendLoveModal() {

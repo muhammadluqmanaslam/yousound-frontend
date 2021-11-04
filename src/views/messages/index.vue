@@ -1,5 +1,6 @@
 <template>
-  <v-layout row wrap class="page messages-page">
+<div class="page messages-page">
+  <v-layout row wrap>
     <v-flex xs12 sm12 class="messages-stop-music-section" v-if="show_stopPopup">
       <div class="popup-section">
         <img class="popup-image" src="/static/images/earphone.png" />
@@ -214,6 +215,15 @@
                 v-on-click-outside="hideEmojiDialog"
               ></picker>
               <v-btn
+                :ripple="false"
+                depressed
+                width="10"
+                class="repost-btn no-Btn-bg transparent mr-2"
+                @click="openRepostModal()"
+              >
+                <img src="/static/images/ic_repost.svg" width="20" />
+              </v-btn>
+              <v-btn
                 v-if="otherStripeConnected"
                 class="send-love-btn"
                 @click="openSendLoveModal()"
@@ -234,175 +244,182 @@
               >
             </div>
           </v-flex>
-
-          <!-- <v-flex
-            v-if="
-              ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1
-            "
-            xs12
-            sm3
-            pa-0
-            class="requests"
-          >
-            <template v-if="otherStripeConnected">
-              <div class="requests__header">
-                <div class="requests__actions">
-                  <div class="requests__title">Repost Request</div>
-                  <div class="d-flex justify-content-center">
-                    <v-btn
-                      v-if="
-                        ['artist', 'label'].indexOf(currentUser.user_type) > -1
-                      "
-                      @click.native="onTab('album')"
-                      :class="{ 'btn--active': tab == 'album' }"
-                      >Album</v-btn
-                    >
-                    <v-btn
-                      v-if="
-                        ['artist', 'brand', 'label'].indexOf(
-                          currentUser.user_type
-                        ) > -1
-                      "
-                      @click.native="onTab('merch')"
-                      :class="{ 'btn--active': tab == 'merch' }"
-                      >Product</v-btn
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="requests__content">
-                <template v-if="tab == 'album'">
-                  <div
-                    v-for="album in albums"
-                    :key="album.id"
-                    @click="InBanned(album) ? null : selectItem(album)"
-                    class="request-item"
-                    :class="{
-                      selected: item == album,
-                      banned: InBanned(album),
-                    }"
-                  >
-                    <div class="avatar-area">
-                      <div
-                        class="avatar-image"
-                        :style="`background-image: url(${album.cover.thumb.url})`"
-                      ></div>
-                    </div>
-                    <div class="detail-area">
-                      <label class="item-name">{{ album.name }}</label>
-                      <label class="user-name">{{
-                        album.user.display_name
-                      }}</label>
-                    </div>
-                  </div>
-                </template>
-
-                <template v-else-if="tab == 'merch'">
-                  <div
-                    v-for="product in products"
-                    :key="product.id"
-                    @click="InReposted(product) ? null : selectItem(product)"
-                    class="request-item"
-                    :class="{
-                      selected: item == product,
-                      banned: InReposted(product),
-                    }"
-                  >
-                    <div class="avatar-area">
-                      <div
-                        class="avatar-image"
-                        :style="`background-image: url(${product.covers[0].cover.thumb.url})`"
-                      ></div>
-                    </div>
-                    <div class="detail-area">
-                      <label class="item-name">{{ product.name }}</label>
-                      <label class="user-name">{{
-                        product.merchant.display_name
-                      }}</label>
-                    </div>
-                  </div>
-                </template>
-              </div>
-            </template>
-            <template v-else>
-              <div class="requests__body">
-                <h5>Repost Request</h5>
-                <p>
-                  To promote albums and products<br />
-                  receiver must first connect to Stripe
-                </p>
-              </div>
-            </template>
-          </v-flex> -->
         </template>
       </v-layout>
     </v-flex>
-
-    <repost-payment-modal
-      v-if="show_repost_payment_modal"
-      :item="item"
-      :itemType="tab"
-      :receiver="conversation.other"
-      :dismiss="closeRepostPaymentModal"
-      :finish="sendMessage"
-    />
-
-    <send-love-modal
-      v-if="show_send_love_modal"
-      :item="conversation.other"
-      :dismiss="closeSendLoveModal"
-    />
-
-    <v-dialog v-model="show_block_user_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Block a User</v-card-title>
-        <v-card-text
-          >Are you sure you want to block &lt;{{ otherName }}&gt;?</v-card-text
-        >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            class="blue--text darken-1"
-            flat="flat"
-            @click.native="blockUser()"
-            >Ok</v-btn
-          >
-          <v-btn
-            class="blue--text darken-1"
-            flat="flat"
-            @click.native="closeBlockUserConfirmDialog()"
-            >Cancel</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="show_conversation_delete_confirm_dialog">
-      <v-card>
-        <v-card-title class="headline">Delete a Conversation</v-card-title>
-        <v-card-text
-          >If you click OK, all messages under the conversation will be deleted.
-          Click OK to delete a conversation with &lt;{{ otherName }}&gt;, or
-          click Cancel.</v-card-text
-        >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            class="blue--text darken-1"
-            flat="flat"
-            @click.native="deleteEntireMessage()"
-            >Ok</v-btn
-          >
-          <v-btn
-            class="blue--text darken-1"
-            flat="flat"
-            @click.native="closeConversationDeleteConfirmDialog()"
-            >Cancel</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-layout>
+
+
+
+  <v-dialog v-model="show_repost_modal">
+    <v-card class="pa-5">
+      <div
+        v-if="
+          ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1
+        "
+        xs12
+        sm3
+        pa-0
+        class="requests"
+      >
+        <template v-if="otherStripeConnected">
+          <div class="requests__header">
+            <div class="requests__actions">
+              <div class="requests__title">Repost Request</div>
+              <div class="d-flex justify-content-center">
+                <v-btn
+                  v-if="
+                    ['artist', 'label'].indexOf(currentUser.user_type) > -1
+                  "
+                  @click.native="onTab('album')"
+                  :class="{ 'btn--active': tab == 'album' }"
+                  >Album</v-btn
+                >
+                <v-btn
+                  v-if="
+                    ['artist', 'brand', 'label'].indexOf(
+                      currentUser.user_type
+                    ) > -1
+                  "
+                  @click.native="onTab('merch')"
+                  :class="{ 'btn--active': tab == 'merch' }"
+                  >Product</v-btn
+                >
+              </div>
+            </div>
+          </div>
+          <div class="requests__content">
+            <template v-if="tab == 'album'">
+              <div
+                v-for="album in albums"
+                :key="album.id"
+                @click="InBanned(album) ? null : selectItem(album)"
+                class="request-item"
+                :class="{
+                  selected: item == album,
+                  banned: InBanned(album),
+                }"
+              >
+                <div class="avatar-area">
+                  <div
+                    class="avatar-image"
+                    :style="`background-image: url(${album.cover.thumb.url})`"
+                  ></div>
+                </div>
+                <div class="detail-area">
+                  <label class="item-name">{{ album.name }}</label>
+                  <label class="user-name">{{
+                    album.user.display_name
+                  }}</label>
+                </div>
+              </div>
+            </template>
+
+            <template v-else-if="tab == 'merch'">
+              <div
+                v-for="product in products"
+                :key="product.id"
+                @click="InReposted(product) ? null : selectItem(product)"
+                class="request-item"
+                :class="{
+                  selected: item == product,
+                  banned: InReposted(product),
+                }"
+              >
+                <div class="avatar-area">
+                  <div
+                    class="avatar-image"
+                    :style="`background-image: url(${product.covers[0].cover.thumb.url})`"
+                  ></div>
+                </div>
+                <div class="detail-area">
+                  <label class="item-name">{{ product.name }}</label>
+                  <label class="user-name">{{
+                    product.merchant.display_name
+                  }}</label>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div class="requests__body">
+            <h5>Repost Request</h5>
+            <p>
+              To promote albums and products<br />
+              receiver must first connect to Stripe
+            </p>
+          </div>
+        </template>
+      </div>
+    </v-card>
+  </v-dialog>
+
+  <repost-payment-modal
+    v-if="show_repost_payment_modal"
+    :item="item"
+    :itemType="tab"
+    :receiver="conversation.other"
+    :dismiss="closeRepostPaymentModal"
+    :finish="sendMessage"
+  />
+
+  <send-love-modal
+    v-if="show_send_love_modal"
+    :item="conversation.other"
+    :dismiss="closeSendLoveModal"
+  />
+
+  <v-dialog v-model="show_block_user_confirm_dialog">
+    <v-card>
+      <v-card-title class="headline">Block a User</v-card-title>
+      <v-card-text
+        >Are you sure you want to block &lt;{{ otherName }}&gt;?</v-card-text
+      >
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          class="blue--text darken-1"
+          flat="flat"
+          @click.native="blockUser()"
+          >Ok</v-btn
+        >
+        <v-btn
+          class="blue--text darken-1"
+          flat="flat"
+          @click.native="closeBlockUserConfirmDialog()"
+          >Cancel</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="show_conversation_delete_confirm_dialog">
+    <v-card>
+      <v-card-title class="headline">Delete a Conversation</v-card-title>
+      <v-card-text
+        >If you click OK, all messages under the conversation will be deleted.
+        Click OK to delete a conversation with &lt;{{ otherName }}&gt;, or
+        click Cancel.</v-card-text
+      >
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          class="blue--text darken-1"
+          flat="flat"
+          @click.native="deleteEntireMessage()"
+          >Ok</v-btn
+        >
+        <v-btn
+          class="blue--text darken-1"
+          flat="flat"
+          @click.native="closeConversationDeleteConfirmDialog()"
+          >Cancel</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
