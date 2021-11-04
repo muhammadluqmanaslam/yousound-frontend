@@ -1,6 +1,11 @@
 <template>
   <div class="tag">
-    {{ user.display_name }}
+    <div
+      v-if="showAvatar"
+      class="tag__image"
+      :style="`background-image: url(${user.avatar.url})`"
+    ></div>
+    <div>{{ user.display_name }}</div>
     <v-icon
       v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1"
       class="user-status online"
@@ -13,17 +18,28 @@
 export default {
   props: {
     user: Object,
+    showAvatar: Boolean,
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .tag {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   font-weight: 700;
 
+  &__image {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+  }
+
   i {
-    margin-left: -4px;
+    margin-left: 4px;
     vertical-align: super;
     font-size: 0.8em;
     color: #31bb25;
