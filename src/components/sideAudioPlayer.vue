@@ -403,6 +403,21 @@ export default {
     showShareModal(val) {
       this.triggerModalMode(val)
     },
+
+    isPlaying(val) {
+      if (val) {
+        // Pause video on audio play
+        try {
+          // eslint-disable-next-line no-undef
+          var pp = videojs('my_video_player')
+          if (pp.play()) {
+            pp.pause()
+          }
+        } catch (error) {
+          // console.log(error)
+        }
+      }
+    },
   },
 
   methods: {
@@ -746,7 +761,7 @@ export default {
         this.trackIndex = this.index + 1 + ' of ' + this.playlist.length
         // this.trackName = this.playlist[this.index].track.name
         this.track = this.playlist[this.index].track
-        console.log('player setPlaylist track', this.track)
+        // console.log('player setPlaylist track', this.track)
       } else {
         this.$store.dispatch('player/setListIndex', -1)
         this.$store.dispatch('player/setPlayingStatus', false)
