@@ -54,11 +54,11 @@ export default {
         { id: 'songs', title: 'Music', roles: ['artist'] },
         // { id: 'video', title: 'Video', roles: ['artist'] },
         // { id: 'playlists', title: 'Playlists' },
+        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
         { id: 'reposted', title: 'Reposted' },
         { id: 'downloaded', title: 'Downloaded' },
         { id: 'followings', title: 'Following' },
         { id: 'followers', title: 'Followers' },
-        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
       ],
       slug: null,
       user: {

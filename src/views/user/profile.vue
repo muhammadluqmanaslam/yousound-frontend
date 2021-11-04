@@ -232,13 +232,16 @@
             </div>
 
             <v-layout row wrap class="covers-content" v-else>
-              <div
-                class="card-container flex custom-lg5"
+              
+              <v-flex
+                xs12
+                sm2
+                class="card-container"
                 v-for="(user, index) in users"
                 :key="index"
               >
                 <artist-item :artist="user" :key="index"></artist-item>
-              </div>
+              </v-flex>
             </v-layout>
             <v-btn
               v-show="page_index < total_pages"
@@ -267,13 +270,16 @@
             </template>
 
             <v-layout row wrap class="covers-content" v-else>
-              <div
-                class="card-container flex custom-lg5"
+              
+              <v-flex
+                xs12
+                sm2
+                class="card-container"
                 v-for="(user, index) in users"
                 :key="index"
               >
                 <artist-item :artist="user" :key="index"></artist-item>
-              </div>
+              </v-flex>
             </v-layout>
             <v-btn
               v-show="page_index < total_pages"
@@ -305,13 +311,16 @@
             </template>
 
             <v-layout row wrap class="covers-content" v-else>
-              <div
-                class="card-container flex custom-lg5"
+              
+              <v-flex
+                xs12
+                sm2
+                class="card-container"
                 v-for="(product, index) in products"
                 :key="index"
               >
                 <product-card :dataObject="product"></product-card>
-              </div>
+              </v-flex>
             </v-layout>
             <v-btn
               v-show="page_index < total_pages"
@@ -421,13 +430,15 @@
             </template>
 
             <v-layout row wrap class="covers-content" v-else>
-              <div
-                class="card-container flex custom-lg5"
+              <v-flex
+                xs12
+                sm2
+                class="card-container flex"
                 v-for="(feed, index) in albums"
                 :key="index"
               >
                 <track-card :objects="albums" :objectIndex="index"></track-card>
-              </div>
+              </v-flex>
             </v-layout>
             <v-btn
               v-show="page_index < total_pages"
