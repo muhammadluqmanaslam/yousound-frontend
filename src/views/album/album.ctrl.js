@@ -20,6 +20,7 @@ import sampleLicenseDialog from './components/sample_license_dialog'
 import shareModal from '@/components/sharemodal'
 import trackCard from '@/components/trackcard'
 import videoCard from '@/components/videocard'
+import Comments from '@/components/comments'
 
 const ActionCable = require('actioncable')
 
@@ -38,6 +39,7 @@ export default {
     shareModal,
     trackCard,
     videoCard,
+    Comments,
   },
 
   data() {

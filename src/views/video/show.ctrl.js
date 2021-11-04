@@ -14,6 +14,7 @@ import VideoPlayer from './components/video_player'
 import ArtistItem from '@/components/artistitem'
 import PaymentModal from '@/components/paymentmodal'
 import ShareModal from '@/components/sharemodal'
+import Comments from '@/components/comments'
 
 const ActionCable = require('actioncable')
 
@@ -28,6 +29,7 @@ export default {
     UserTag,
     VideoBox,
     VideoPlayer,
+    Comments,
   },
 
   data() {
@@ -43,7 +45,6 @@ export default {
       comments_pagination: {},
       accounts: [],
       videos: [],
-      commentText: '',
       buttonHover: false,
       amount: 1000,
       cable: null,
@@ -296,31 +297,6 @@ export default {
       StreamService.payAttachment(this.stream.id, params)
         .then((res) => {
           this.closePaymentDialog()
-        })
-        .catch((e) => {
-          this.$store.dispatch(
-            'error/showErrorToast',
-            e.body.errors || [e.body]
-          )
-        })
-    },
-
-    addComment() {
-      if (this.commentText === '') return
-
-      const params = {
-        comment: {
-          commentable_type: 'Stream',
-          commentable_id: this.stream.id,
-          body: this.commentText,
-          status: 'published',
-        },
-      }
-
-      CommentService.sendComment(params)
-        .then((res) => {
-          this.comments.unshift(res.body)
-          this.commentText = ''
         })
         .catch((e) => {
           this.$store.dispatch(

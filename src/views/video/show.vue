@@ -1,220 +1,226 @@
 <template>
   <div class="page video-page show-page mx-5" v-if="isPageReady">
     <div class="page-content">
-      <v-layout row>
-        <v-flex sm10 class="vid_col">
-          <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
+      <v-container fluid grid-list-md>
+        <v-layout row wrap>
+          <v-flex xs9 class="vid_col">
+            <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
 
-          <div class="content-section">
-            <div class="meta__content">
-              <div class="meta__title">{{ stream.name }}</div>
+            <div class="content-section">
+              <div class="meta__content">
+                <div class="meta__title">{{ stream.name }}</div>
 
-              <div class="meta__subtitle">
-                {{ stream.viewers_size || 0 }}
-                views &bull;
-                {{ moment(stream.created_at).format('MMM D, YYYY') }}
+                <div class="meta__subtitle">
+                  {{ stream.viewers_size || 0 }}
+                  views &bull;
+                  {{ moment(stream.created_at).format('MMM D, YYYY') }}
+                </div>
               </div>
-            </div>
 
-            <div class="meta__actions">
-              <div
-                class="meta__cta donate"
-                @click="openPaymentDialog()"
-              >
-                <img src="/static/images/ic_dollar.svg" height="21" />
-              </div>
-              <div class="meta__cta repost" @click="repostItem()">
-                <img src="/static/images/ic_repost.svg" height="17" />
-              </div>
-              <div class="meta__cta share" @click="openShareDialog()">
-                <img src="/static/images/ic_share.svg" height="17" />
-              </div>
-              <div class="meta__cta" v-if="currentUser.id === user.id">
-                <v-menu offset-y class="more-menu">
-                  <v-btn icon slot="activator">
-                    <v-icon>more_horiz</v-icon>
-                  </v-btn>
-                  <v-list>
-                    <v-list-tile
-                      class="default-menu-item"
-                      @click.native="deleteStream()"
-                    >
-                      <v-list-tile-title>
-                        <label>Delete</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                    <v-list-tile class="default-menu-item">
-                      <v-list-tile-title>
-                        <label>Report</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                  </v-list>
-                </v-menu>
-              </div>
-            </div>
-          </div>
-
-          <div class="user-section">
-            <div class="user__wrapper">
-              <router-link :to="`/${stream.user.slug}`">
+              <div class="meta__actions">
                 <div
-                  class="user__image"
-                  :style="`background-image: url(${stream.user.avatar.url})`"
-                ></div>
-              </router-link>
-
-              <div>
-                <user-tag class="tag" :user="stream.user" />
-                <div class="vid__description">
-                  {{ stream.description }}
+                  class="meta__cta donate"
+                  @click="openPaymentDialog()"
+                >
+                  <img src="/static/images/ic_dollar.svg" height="21" />
                 </div>
-
-                <span class="app-grey--text cursor-pointer showMoreActive" @click="showMoreActive = !showMoreActive">
-                  <b v-if="!showMoreActive" class="show-more-less show-more">SHOW MORE</b>
-                  <b v-if="showMoreActive" class="show-more-less show-less">SHOW LESS</b>
-                </span>
+                <div class="meta__cta repost" @click="repostItem()">
+                  <img src="/static/images/ic_repost.svg" height="17" />
+                </div>
+                <div class="meta__cta share" @click="openShareDialog()">
+                  <img src="/static/images/ic_share.svg" height="17" />
+                </div>
+                <div class="meta__cta" v-if="currentUser.id === user.id">
+                  <v-menu offset-y class="more-menu">
+                    <v-btn icon slot="activator">
+                      <v-icon>more_horiz</v-icon>
+                    </v-btn>
+                    <v-list>
+                      <v-list-tile
+                        class="default-menu-item"
+                        @click.native="deleteStream()"
+                      >
+                        <v-list-tile-title>
+                          <label>Delete</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                      <v-list-tile class="default-menu-item">
+                        <v-list-tile-title>
+                          <label>Report</label>
+                        </v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </div>
               </div>
             </div>
 
+            <div class="user-section">
+              <div class="user__wrapper">
+                <router-link :to="`/${stream.user.slug}`">
+                  <div
+                    class="user__image"
+                    :style="`background-image: url(${stream.user.avatar.url})`"
+                  ></div>
+                </router-link>
 
-            <div class="meta__cta follow">
-              <v-btn
-                v-if="currentUser && stream.user.id != currentUser.id"
-                :class="{
-                  'follow-btn': true,
-                  follow: !stream.user.is_following,
-                  following: stream.user.is_following,
-                }"
-                @mouseenter="buttonHover = true"
-                @mouseleave="buttonHover = false"
-                @click.native="followUser()"
-                >{{ followButtonText }}</v-btn
-              >
+                <div>
+                  <user-tag class="tag" :user="stream.user" />
+                  <div class="vid__description">
+                    {{ stream.description }}
+                  </div>
+
+                  <span class="app-grey--text cursor-pointer showMoreActive" @click="showMoreActive = !showMoreActive">
+                    <b v-if="!showMoreActive" class="show-more-less show-more">SHOW MORE</b>
+                    <b v-if="showMoreActive" class="show-more-less show-less">SHOW LESS</b>
+                  </span>
+                </div>
+              </div>
+
+
+              <div class="meta__cta follow">
+                <v-btn
+                  v-if="currentUser && stream.user.id != currentUser.id"
+                  :class="{
+                    'follow-btn': true,
+                    follow: !stream.user.is_following,
+                    following: stream.user.is_following,
+                  }"
+                  @mouseenter="buttonHover = true"
+                  @mouseleave="buttonHover = false"
+                  @click.native="followUser()"
+                  >{{ followButtonText }}</v-btn
+                >
+              </div>
+
             </div>
 
-          </div>
-
-          <div class="section users-section" v-if="showFeaturedSection">
-            <div class="section__header">
-              <h4 class="section__title">Featured content and people</h4>
-              <span
-                class="section__subtitle"
-                v-if="currentUser.id === user.id"
-                @click="openFeaturedDialog()"
-                >Edit attachment</span
-              >
-            </div>
-            <div class="section__content">
-              <div
-                class="attach-container cursor-pointer"
-                v-if="stream.assoc && stream.assoc.id > 0"
-                @click="gotoAssoc()"
-              >
-                <div class="assoc">
-                  <div class="assoc__header">
-                    <div class="assoc__image-wrapper">
-                      <div
-                        class="assoc__image"
-                        :style="`background-image: url(${assocImage})`"
-                      ></div>
+            <div class="section users-section" v-if="showFeaturedSection">
+              <div class="section__header">
+                <h4 class="section__title">Featured content and people</h4>
+                <span
+                  class="section__subtitle"
+                  v-if="currentUser.id === user.id"
+                  @click="openFeaturedDialog()"
+                  >Edit attachment</span
+                >
+              </div>
+              <div class="section__content">
+                <div
+                  class="attach-container cursor-pointer"
+                  v-if="stream.assoc && stream.assoc.id > 0"
+                  @click="gotoAssoc()"
+                >
+                  <div class="assoc">
+                    <div class="assoc__header">
+                      <div class="assoc__image-wrapper">
+                        <div
+                          class="assoc__image"
+                          :style="`background-image: url(${assocImage})`"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="assoc__content">
+                      <div class="assoc__subtitle">
+                        <span class="__name">{{ stream.assoc.name }}</span>
+                        <br>
+                        <span v-if="stream.assoc.user" class="app-bold __user_name">{{ stream.assoc.user.display_name }}</span>
+                      </div>
+                      <div class="assoc__title">
+                        <span v-if="stream.assoc.price">${{ stream.assoc.price }}</span>
+                      </div>
+                      <div class="assoc__cta-" v-if="stream.assoc_type == 'ShopProduct'">
+                        <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
+                        <v-btn
+                          round
+                          outline
+                          small
+                          class="text-capitalize ma-0"
+                          >
+                            view
+                          </v-btn>
+                      </div>
+                      <div class="assoc__cta-" v-if="stream.assoc_type == 'Album'">
+                        <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
+                        <v-btn
+                          round
+                          outline
+                          small
+                          class="text-capitalize ma-0"
+                          >
+                            Play
+                          </v-btn>
+                      </div>
                     </div>
                   </div>
-                  <div class="assoc__content">
-                    <div class="assoc__subtitle">
-                      <span class="__name">{{ stream.assoc.name }}</span>
-                      <br>
-                      <span v-if="stream.assoc.user" class="app-bold __user_name">{{ stream.assoc.user.display_name }}</span>
-                    </div>
-                    <div class="assoc__title">
-                      <span v-if="stream.assoc.price">${{ stream.assoc.price }}</span>
-                    </div>
-                    <div class="assoc__cta-" v-if="stream.assoc_type == 'ShopProduct'">
-                      <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                      <v-btn
-                        round
-                        outline
-                        small
-                        class="text-capitalize ma-0"
-                        >
-                          view
-                        </v-btn>
-                    </div>
-                    <div class="assoc__cta-" v-if="stream.assoc_type == 'Album'">
-                      <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                      <v-btn
-                        round
-                        outline
-                        small
-                        class="text-capitalize ma-0"
-                        >
-                          Play
-                        </v-btn>
-                    </div>
+                </div>
+
+                
+                <div
+                  class="profile-section attach-container"
+                  v-if="stream.assoc && stream.assoc.id > 0"
+                >
+                  <div v-if="stream.accounts.length" class="assoc">
+                    <template v-for="account in stream.accounts">
+                      <div class="user-container" :key="`user-${account.id}`">
+                        <artist-item :artist="account" />
+                      </div>
+                    </template>
                   </div>
                 </div>
               </div>
-
-              
-              <div
-                class="profile-section attach-container"
-                v-if="stream.assoc && stream.assoc.id > 0"
-              >
-                <div v-if="stream.accounts.length" class="assoc">
-                  <template v-for="account in stream.accounts">
-                    <div class="user-container" :key="`user-${account.id}`">
-                      <artist-item :artist="account" />
-                    </div>
-                  </template>
-                </div>
+            </div>
+          </v-flex>
+          <v-flex xs3 pl-3 class="related_col">
+            <div class="videos-section">
+              <h4 class="__title">Related</h4>
+              <div class="section__content">
+                <template v-for="(video, index) in videos">
+                  <div class="video-container" :key="`video-${index}`">
+                    <video-box :video="video" />
+                  </div>
+                </template>
               </div>
             </div>
-          </div>
+          </v-flex>
 
-          <div class="box">
-            <!-- <div class="box__header">
-              <div class="box__title">Join the conversation</div>
-            </div> -->
-            <div class="box__content">
-            <div class="box__initComment">
-              <div class="ci">
-                <div class="ci__header">
-                  <router-link :to="`/${currentUser.slug}`">
-                    <div
-                      class="ci__image"
-                      :style="`background-image: url(${currentUser.avatar.url})`"
-                    ></div>
-                  </router-link>
-                </div>
-                <div class="ci__content">
-                  <input
-                    type="text"
-                    v-model.trim="commentText"
-                    placeholder="Leave a comment..."
-                    @keyup.enter="addComment()"
-                  />
-                </div>
-              </div>
+          <v-flex xs9>
+            <comments :item="stream" :comments="comments" />
+          </v-flex>
+          <v-flex xs3>
+            <div class="album-reposted-section">
+              <h4 class="__title">
+                Reposted by {{ stream.user.display_name }}
+              </h4>
+              <v-layout row wrap class="recent-content">
+                <!-- <template v-for="(feed, index) in album.user.recent_items">
+                  <div
+                    v-if="
+                      ['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1
+                    "
+                    :key="feed.id"
+                    class="card-container"
+                  >
+                    <track-card
+                      :objects="album.user.recent_items"
+                      :objectIndex="index"
+                      v-if="feed.assoc_type == 'Album'"
+                    />
+                    <product-card
+                      :dataObject="feed"
+                      v-if="feed.assoc_type == 'ShopProduct'"
+                    />
+                    <video-card
+                      :dataObject="feed"
+                      v-if="feed.assoc_type == 'Stream'"
+                    />
+                  </div>
+                </template> -->
+              </v-layout>
             </div>
-
-            <div class="comment__count">{{ comments.length }} comments</div>
-
-            <chat :items="comments"></chat>
-            </div>
-          </div>
-        </v-flex>
-        <v-flex sm4 pl-3 class="related_col">
-          <div class="videos-section">
-            <h4 class="__title">Related</h4>
-            <div class="section__content">
-              <template v-for="(video, index) in videos">
-                <div class="video-container" :key="`video-${index}`">
-                  <video-box :video="video" />
-                </div>
-              </template>
-            </div>
-          </div>
-        </v-flex>
-      </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </div>
 
     <!-- <div class="meta">
@@ -234,7 +240,7 @@
     >
       <v-card>
         <v-card-text>
-          <div class="headline mb-2">Add albms & products to your video</div>
+          <div class="headline mb-2">Add albmus & products to your video</div>
           <v-divider />
           <div
             class="mt-3 pa-3"
@@ -294,9 +300,9 @@
 
 <style lang="scss" scoped>
 .vid_col {
-  -ms-flex-preferred-size: 66.66666666666666%;
-  flex-basis: 100%;
-  max-width: 80%;
+  // -ms-flex-preferred-size: 66.66666666666666%;
+  // flex-basis: 100%;
+  // max-width: 80%;
 }
 .video-page {
   .page-content {
@@ -401,114 +407,6 @@
     overflow-x: auto;
     white-space: nowrap;
     padding-bottom: 12px;
-  }
-}
-
-// comments list
-.box {
-  position: relative;
-  width: 100%;
-  border-top: 1px solid #E4E4E4;
-  // height: 100%;
-
-  &__header {
-    display: flex;
-    align-items: center;
-    height: 60px;
-  }
-
-  &__initComment {
-    display: flex;
-    align-items: flex-end;
-    height: 55px;
-    margin: 15px 0;
-  }
-
-  &__content {
-    position: relative;
-
-    .comment__count {
-      padding: 20px 0;
-      border-top: none;
-      font-weight: 600;
-      letter-spacing: 0
-    }
-    
-    .items {
-      position: relative;
-      margin-bottom: 10px;
-
-      /deep/.item__image {
-        width: 42px;
-        height: 42px;
-      }
-      /deep/.item__title {
-        a {
-          color: #222
-        }
-
-        span {
-          color: #808080;
-          font-weight: 300;
-        }
-      }
-    }
-
-    input[type='text'] {
-      border-radius: 4px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-    }
-    input[type='text']::placeholder {
-      color: #000;
-      font-size: 14px;
-    }
-  }
-
-  &__subtitle {
-    margin-top: 4px;
-  }
-  &__title {
-    display: flex;
-    align-items: flex-start;
-    width: 100%;
-    height: 40px;
-    border-bottom: 1px solid #f3dfdf;
-    font-size: 14px;
-    font-weight: 700;
-    margin-top: 0;
-  }
-}
-
-// chat input box
-.ci {
-  display: flex;
-  width: 100%;
-
-  &__header {
-    width: 55px;
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  &__content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  &__image {
-    width: 48px;
-    height: 48px;
-    border-radius: 0;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  input {
-    width: 100%;
-    padding: 5px 10px;
   }
 }
 
@@ -623,6 +521,10 @@
   &__subtitle {
     font-size: 14px;
     padding-bottom: 10px;
+
+    .__name {
+      white-space: break-spaces;
+    }
   }
 
   &__cta {
