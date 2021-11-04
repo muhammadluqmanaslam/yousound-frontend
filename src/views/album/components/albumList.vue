@@ -119,7 +119,7 @@
                         </span>
                     </span>
 
-                    <span v-if="acceptButtonAction" class="collaboration-actions">
+                    <span v-if="acceptButtonAction && (!usersByStatus.denied && !usersByStatus.accepted)" class="collaboration-actions">
                         <v-btn
                         dark
                         class="text-btn accept"
