@@ -314,7 +314,7 @@
               
               <v-flex
                 xs12
-                sm2
+                sm4
                 class="card-container"
                 v-for="(product, index) in products"
                 :key="index"
@@ -432,8 +432,7 @@
             <v-layout row wrap class="covers-content" v-else>
               <v-flex
                 xs12
-                sm2
-                class="card-container flex"
+                class="card-container custom-lg5"
                 v-for="(feed, index) in albums"
                 :key="index"
               >

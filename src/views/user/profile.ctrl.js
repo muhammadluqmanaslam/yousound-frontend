@@ -314,16 +314,16 @@ export default {
             // this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
           }
 
-          // put 'merch' tab first for brand
-          if (this.user.user_type === 'brand') {
-            if (this.tabs[7].id === 'merch') {
-              this.tabs.unshift(this.tabs.pop())
-            }
-          } else {
-            if (this.tabs[7].id !== 'merch') {
-              this.tabs.push(this.tabs.shift())
-            }
-          }
+          // // put 'merch' tab first for brand
+          // if (this.user.user_type === 'brand') {
+          //   if (this.tabs[7].id === 'merch') {
+          //     this.tabs.unshift(this.tabs.pop())
+          //   }
+          // } else {
+          //   if (this.tabs[7].id !== 'merch') {
+          //     this.tabs.push(this.tabs.shift())
+          //   }
+          // }
 
           if (tab) {
             this.active_tab = tab
@@ -333,6 +333,9 @@ export default {
               case 'artist':
                 this.active_tab = 'songs'
                 this.slide_tab = 'songs'
+
+                // this.active_tab = 'followings'
+                // this.slide_tab = 'followings'
                 break
               case 'label':
                 this.active_tab = 'artists'
