@@ -2,7 +2,7 @@
   <div v-if="currentUser.stripe_connected" class="top-bar">}
       <div class="top-bar-notification">
           <span v-if="content" class="top-bar__content">{{ content }}</span>
-        <v-btn v-if="cta" target="_blank" :href="cta" outline dark class="top-bar__cta">{{ ctaTitle }}</v-btn>
+        <v-btn v-if="cta" :to="cta" outline dark class="top-bar__cta">{{ ctaTitle }}</v-btn>
       </div>
   </div>
 </template>
