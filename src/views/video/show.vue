@@ -293,6 +293,12 @@
       type="Stream"
       :dismiss="closeShareDialog"
     ></share-modal>
+
+    <merch-modal
+      v-if="showMerchModal"
+      :item="stream.assoc"
+      :dismiss="dimissMerchDialog"
+    />
   </div>
 </template>
 

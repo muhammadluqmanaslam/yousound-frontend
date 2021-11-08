@@ -15,6 +15,7 @@ import ArtistItem from '@/components/artistitem'
 import PaymentModal from '@/components/paymentmodal'
 import ShareModal from '@/components/sharemodal'
 import Comments from '@/components/comments'
+import merchModal from '@/components/merchmodal'
 
 const ActionCable = require('actioncable')
 
@@ -30,6 +31,7 @@ export default {
     VideoBox,
     VideoPlayer,
     Comments,
+    merchModal,
   },
 
   data() {
@@ -53,6 +55,7 @@ export default {
       show_payment_dialog: false,
       show_share_dialog: false,
       isPageReady: false,
+      showMerchModal: false,
     }
   },
 
@@ -123,6 +126,12 @@ export default {
   },
 
   methods: {
+    showMerchDialog() {
+      this.showMerchModal = true
+    },
+    dimissMerchDialog() {
+      this.showMerchModal = false
+    },
     gotoAssoc() {
       const type = this.stream.assoc_type
       const id = this.stream.assoc.id
@@ -130,7 +139,7 @@ export default {
 
       switch (type) {
         case 'ShopProduct':
-          return this.$router.push({ name: 'SingleProduct', params: { id } })
+          return this.showMerchDialog()
         case 'Album':
           return this.$router.push({ name: 'AlbumDetail', params: { slug } })
         case 'profile':
