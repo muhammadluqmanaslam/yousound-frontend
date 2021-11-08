@@ -12,12 +12,14 @@ import contentTopHeader from '@/components/contentTopHeader'
 import accordion from '@/components/accordion'
 import ItemService from '@/services/item'
 import UserService from '@/services/user'
+import Comments from '@/components/comments'
 
 export default {
   components: {
     digitalUploader,
     contentTopHeader,
     accordion,
+    Comments,
   },
 
   data() {
@@ -50,6 +52,7 @@ export default {
       collaborators_confirm_dialog: false,
       isPageReady: false,
       buttonHover: false,
+      comments: [],
     }
   },
   computed: {
@@ -236,6 +239,7 @@ export default {
                   this.users = values[0].body.users
 
                   this.product = values[1].body
+                  console.log(this.product);
 
                   console.log(this.product);
                   this.product.category = _.get(this.product, 'category.id', '')

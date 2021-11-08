@@ -123,6 +123,53 @@
               <accordion :accordions="accordions" />
             </div>
           </v-flex>
+
+
+          <v-flex xs8>
+            <comments :item="product" :comments="comments" />
+          </v-flex>
+
+          <v-flex xs4>
+            <!-- <div class="album-merch-section">
+              <div class="d-flex justify-space-between">
+                <h4 class="__title flex-none">
+                  Shop {{ product.merchant.display_name }}
+                </h4>
+                <label class="link-btn flex-none" @click="goToArtistProfile()">
+                  View All
+                </label>
+              </div>
+              <div class="merch-detail-section" @click.self="showMerchDialog()">
+                <div
+                  class="merch-avatar"
+                  :style="`background-image: url(${album.products[0].covers[0].cover.thumb.url})`"
+                  @click.self="showMerchDialog()"
+                ></div>
+                <div class="info-section" @click.self="showMerchDialog()">
+                  <label class="product-name" @click.self="showMerchDialog()">{{
+                    album.products[0].name
+                  }}</label>
+
+                  <br>
+
+                  <label class="merch-name" @click.self="showMerchDialog()">
+                    {{ album.products[0].merchant.display_name }}
+                  </label>
+
+
+                  <div class="flex-space-between">
+                    <label class="merch-price" @click.self="showMerchDialog()">
+                      ${{ album.products[0].price | formatNumber }}
+                    </label>
+                    <div>
+                      <img class="merch-status-icon" src="/static/images/ic_share.svg" />
+                      <img class="merch-status-icon" src="/static/images/ic_repost.svg" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+          </v-flex>
         </v-layout>
       </v-container>
     </div>
