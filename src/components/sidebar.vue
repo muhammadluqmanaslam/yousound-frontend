@@ -170,7 +170,7 @@ export default {
               path: 'Feed',
             },
             {
-              title: 'Notifications',
+              title: 'Activity',
               id: 'notifications',
               icon: 'notifications',
               path: 'NotificationIndex',

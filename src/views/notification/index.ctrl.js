@@ -14,7 +14,7 @@ export default {
     return {
       currentTab: 'activity',
       tabs: [
-        { id: 'activity', title: 'Activity' },
+        { id: 'activity', title: 'Notifications' },
         { id: 'messages', title: 'Messages' },
         { id: 'paidToShare', title: 'Get Paid To Share' },
       ],
