@@ -1,9 +1,11 @@
 import _ from 'lodash'
 // import { mapGetters } from 'vuex'
 import activityItem from '@/components/activityitem'
+import contentTopHeader from '@/components/contentTopHeader'
 import manageProduct from '@/views/product/components/manageProduct'
 import manageAlbum from '@/views/album/components/manageAlbum'
-import contentTopHeader from '@/components/contentTopHeader'
+import payments from '@/views/payments'
+import settings from '@/views/settings'
 
 export default {
   components: {
@@ -11,6 +13,8 @@ export default {
     contentTopHeader,
     manageProduct,
     manageAlbum,
+    payments,
+    settings,
   },
 
   data() {

@@ -14,7 +14,7 @@
           </ul>
       </template>
     </content-top-header>
-    <content-top-header class="__inner">
+    <content-top-header class="__inner" v-if="active_tab === 'content'">
       <template slot="topHeader">
         <ul>
             <li class="tabSelectMenu">
@@ -41,8 +41,18 @@
       </template>
     </content-top-header>
 
-    <manage-product v-if="activeInnerFilter === 'products'" ref="manageProduct" />
-    <manage-album v-if="activeInnerFilter === 'albums'" ref="manageAlbum" />
+    <div v-if="active_tab === 'content'">
+      <manage-product v-if="activeInnerFilter === 'products'" ref="manageProduct" />
+      <manage-album v-if="activeInnerFilter === 'albums'" ref="manageAlbum" />
+    </div>
+
+    <div v-else-if="active_tab === 'payment'">
+      <payments isComp />
+    </div>
+
+    <div v-else-if="active_tab === 'setting'">
+      <settings isComp />
+    </div>
   </div>
 </template>
 

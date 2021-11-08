@@ -10,14 +10,19 @@ import ProductModal from './components/product'
 import SendMessage from '@/components/sendmessage'
 import ShareModal from '@/components/sharemodal'
 import UserCard from '@/components/user_card'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
+  props: {
+    isComp: Boolean,
+  },
   components: {
     OrderRefundDialog,
     ProductModal,
     SendMessage,
     ShareModal,
     UserCard,
+    contentTopHeader,
   },
 
   data() {
