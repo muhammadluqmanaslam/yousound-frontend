@@ -1,5 +1,5 @@
 <template>
-  <div class="page auth-page auth-register-page">
+  <div class="auth-page auth-register-page">
     <div
       class="text-xs-center"
       v-if="isPageReady && !show_register_success_dialog"
