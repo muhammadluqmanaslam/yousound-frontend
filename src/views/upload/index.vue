@@ -45,10 +45,12 @@
             </div>
         </v-flex>
       </v-layout>
+
+      <hr class="mt-5 divider" />
     </v-container>
 
 
-    <v-container grid-list-lg>
+    <!-- <v-container grid-list-lg>
       <v-layout row>
         <v-flex xs6 class="meta-tab-container">
           <div class="meta-tab-wrapper">
@@ -70,7 +72,7 @@
           </div>
         </v-flex>
       </v-layout>
-    </v-container>
+    </v-container> -->
 
     <v-container>
       <get-paid propMode />
