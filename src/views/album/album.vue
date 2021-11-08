@@ -396,8 +396,6 @@
 
     <v-layout class="secondary-album-details">
       <v-flex xs8 album-comment-page v-if="currentUser">
-        <h1>Comment Feature</h1>
-
         <comments :item="album" :comments="comments" />
       </v-flex>
 
