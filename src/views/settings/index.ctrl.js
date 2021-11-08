@@ -12,11 +12,15 @@ import genreTab from './components/genre_tab'
 import policyTab from './components/policy_tab'
 import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
+import contentTopHeader from '@/components/contentTopHeader'
 
 // import { MyEvents } from '@/helper'
 // const ActionCable = require('actioncable')
 
 export default {
+  props: {
+    isComp: Boolean,
+  },
   components: {
     trackCard,
     profileItem,
@@ -25,6 +29,7 @@ export default {
     policyTab,
     priceTab,
     verifyTab,
+    contentTopHeader,
   },
 
   data() {
@@ -136,10 +141,12 @@ export default {
 
     onTab(tab) {
       if (this.active_tab !== tab) {
-        this.$router.push({
-          path: this.$route.path,
-          hash: tab,
-        })
+        // this.$router.push({
+        //   path: this.$route.path,
+        //   hash: tab,
+        // })
+
+        this.setTab(tab)
       }
     },
 
