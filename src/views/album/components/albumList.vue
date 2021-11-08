@@ -71,6 +71,13 @@
                 @click.native="privateButtonAction(album)"
                 >Make Private</v-btn
                 >
+                <v-btn
+                v-if="editButtonAction"
+                dark
+                class="text-btn"
+                @click.native="editProduct()"
+                >Edit</v-btn
+                >
             </template>
 
             <template v-else>
@@ -278,6 +285,9 @@ export default {
   },
 
   methods: {
+    editProduct() {
+      this.$router.push({ path: `/album/${this.album.slug}/edit` })
+    },
     showPromoteDialog() {
       this.isShowPromoteModal = true
     },
