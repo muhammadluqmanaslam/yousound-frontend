@@ -96,7 +96,6 @@ export default {
         })
     },
     showShareDialog() {
-      console.log(111);
       this.show_share_dialog = true
     },
     closeShareDialog() {

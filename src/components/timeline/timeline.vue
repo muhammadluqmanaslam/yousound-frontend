@@ -161,6 +161,7 @@
                         large
                         dark
                         class="view-product-btn text-capitalize ma-0"
+                        @click="$router.push({name: 'SingleProduct', params: { id: productItem(feed, index).id}})"
                         >
                           view
                       </v-btn>
@@ -179,7 +180,7 @@
                     width="20"
                     class="comment_action-icon share-icon mr-3 cursor-pointer"
                     src="/static/images/ic_share.svg"
-                    @click="doAction()"
+                    @click="showShareDialog()"
                   />
                   <img
                     width="20"
