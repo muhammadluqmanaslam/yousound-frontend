@@ -14,7 +14,7 @@
   >
     <sidebar />
     <v-content>
-      <v-container fluid>
+      <v-container fluid class="app-container">
         <router-view></router-view>
         <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
       </v-container>
