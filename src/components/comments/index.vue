@@ -7,23 +7,23 @@
     <div class="box__content">
     <div class="box__initComment">
         <div class="ci">
-        <div class="ci__header">
-            <router-link :to="`/${currentUser.slug}`">
-            <div
-                class="ci__image"
-                :style="`background-image: url(${currentUser.avatar.url})`"
-            ></div>
-            </router-link>
-        </div>
+          <div class="ci__header">
+              <router-link :to="`/${currentUser.slug}`">
+              <div
+                  class="ci__image"
+                  :style="`background-image: url(${currentUser.avatar.url})`"
+              ></div>
+              </router-link>
+          </div>
 
-        <div class="ci__content">
-            <input
-            v-model.trim="commentText"
-            type="text"
-            placeholder="Leave a comment..."
-            @keyup.enter="addComment()"
-            />
-        </div>
+          <div class="ci__content">
+              <input
+              v-model.trim="commentText"
+              type="text"
+              placeholder="Leave a comment..."
+              @keyup.enter="addComment()"
+              />
+          </div>
         </div>
     </div>
 
