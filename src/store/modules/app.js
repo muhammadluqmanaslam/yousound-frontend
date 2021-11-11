@@ -43,12 +43,14 @@ const getters = {
             id: 'sales',
             icon: 'local_shipping',
             path: 'Sell',
+            allowedUser: ['artist'],
           },
           {
             title: 'Upload',
             id: 'upload',
             icon: 'file_upload',
             path: 'UploadIndex',
+            allowedUser: ['artist'],
           },
           {
             title: 'Manage',
