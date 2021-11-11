@@ -47,7 +47,7 @@
           </v-card>
         </div>
 
-        <div v-if="active_tab == 'private'">
+        <div v-if="active_tab == 'privated'">
           <div
             v-if="!private_albums || private_albums.length == 0"
             class="empty-section"
