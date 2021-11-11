@@ -1,5 +1,9 @@
 <template>
-  <div class="tag">
+  <div
+    class="tag" 
+    :class="{'cursor-pointer' : clickUser}"
+     @click="clickUser ? gotoUser() : ''"
+  >
     <div
       v-if="showAvatar"
       class="tag__image"
@@ -19,6 +23,15 @@ export default {
   props: {
     user: Object,
     showAvatar: Boolean,
+    clickUser: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  methods: {
+    gotoUser() {
+      this.$router.push(`/${this.user.slug}`)
+    },
   },
 }
 </script>
