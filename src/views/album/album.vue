@@ -211,15 +211,15 @@
         </div>
       </div>
 
-          <div class="album-tracks-section">
-            <album-track-item
-              v-for="(track, index) in album.tracks"
-              :key="index"
-              :album="album"
-              :trackIndex="index"
-              :showStats="showStats"
-            ></album-track-item>
-          </div>
+      <div class="album-tracks-section">
+        <album-track-item
+          v-for="(track, index) in album.tracks"
+          :key="index"
+          :album="album"
+          :trackIndex="index"
+          :showStats="showStats"
+        ></album-track-item>
+      </div>
 
       <v-flex
         xs12
@@ -394,85 +394,87 @@
       </v-flex>
     </v-flex>
 
-    <v-layout class="secondary-album-details">
-      <v-flex xs8 album-comment-page v-if="currentUser">
-        <comments :item="album" :comments="comments" />
-      </v-flex>
+    <v-container fluid grid-list-xl px-0>
+      <v-layout class="secondary-album-details">
+        <v-flex xs8 album-comment-page v-if="currentUser">
+          <h1>Comments</h1>
+          <comments :item="album" :comments="comments" />
+        </v-flex>
 
-      <v-flex xs4 album-recent-page v-if="currentUser">
-        <div class="album-merch-section" v-if="album.products.length">
-          <div class="d-flex justify-space-between">
-            <h4 class="__title flex-none">
-              Shop {{ album.user.display_name }}
-            </h4>
-            <label class="link-btn flex-none" @click="goToArtistProfile()">
-              View All
-            </label>
-          </div>
-          <div class="merch-detail-section" @click.self="showMerchDialog()">
-            <div
-              class="merch-avatar"
-              :style="`background-image: url(${album.products[0].covers[0].cover.thumb.url})`"
-              @click.self="showMerchDialog()"
-            ></div>
-            <div class="info-section" @click.self="showMerchDialog()">
-              <label class="product-name" @click.self="showMerchDialog()">{{
-                album.products[0].name
-              }}</label>
-
-              <br>
-
-              <label class="merch-name" @click.self="showMerchDialog()">
-                {{ album.products[0].merchant.display_name }}
+        <v-flex xs4 album-recent-page v-if="currentUser">
+          <div class="album-merch-section" v-if="album.products.length">
+            <div class="d-flex justify-space-between">
+              <h4 class="__title flex-none">
+                Shop {{ album.user.display_name }}
+              </h4>
+              <label class="link-btn flex-none" @click="goToArtistProfile()">
+                View All
               </label>
+            </div>
+            <div class="merch-detail-section" @click.self="showMerchDialog()">
+              <div
+                class="merch-avatar"
+                :style="`background-image: url(${album.products[0].covers[0].cover.thumb.url})`"
+                @click.self="showMerchDialog()"
+              ></div>
+              <div class="info-section" @click.self="showMerchDialog()">
+                <label class="product-name" @click.self="showMerchDialog()">{{
+                  album.products[0].name
+                }}</label>
 
+                <br>
 
-              <div class="flex-space-between">
-                <label class="merch-price" @click.self="showMerchDialog()">
-                  ${{ album.products[0].price | formatNumber }}
+                <label class="merch-name" @click.self="showMerchDialog()">
+                  {{ album.products[0].merchant.display_name }}
                 </label>
-                <div>
-                  <img class="merch-status-icon" src="/static/images/ic_share.svg" />
-                  <img class="merch-status-icon" src="/static/images/ic_repost.svg" />
+
+
+                <div class="flex-space-between">
+                  <label class="merch-price" @click.self="showMerchDialog()">
+                    ${{ album.products[0].price | formatNumber }}
+                  </label>
+                  <div>
+                    <img class="merch-status-icon" src="/static/images/ic_share.svg" />
+                    <img class="merch-status-icon" src="/static/images/ic_repost.svg" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="album-reposted-section">
-          <h4 class="__title">
-            Reposted by {{ album.user.display_name }}
-          </h4>
-          <v-layout row wrap class="recent-content">
-            <template v-for="(feed, index) in album.user.recent_items">
-              <div
-                v-if="
-                  ['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1
-                "
-                :key="feed.id"
-                class="card-container"
-              >
-                <track-card
-                  :objects="album.user.recent_items"
-                  :objectIndex="index"
-                  v-if="feed.assoc_type == 'Album'"
-                />
-                <product-card
-                  :dataObject="feed"
-                  v-if="feed.assoc_type == 'ShopProduct'"
-                />
-                <video-card
-                  :dataObject="feed"
-                  v-if="feed.assoc_type == 'Stream'"
-                />
-              </div>
-            </template>
-          </v-layout>
-        </div>
-      </v-flex>
-
-    </v-layout>
+          <div class="album-reposted-section">
+            <h4 class="__title">
+              Reposted by {{ album.user.display_name }}
+            </h4>
+            <v-layout row wrap class="recent-content">
+              <template v-for="(feed, index) in album.user.recent_items">
+                <div
+                  v-if="
+                    ['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1
+                  "
+                  :key="feed.id"
+                  class="card-container"
+                >
+                  <track-card
+                    :objects="album.user.recent_items"
+                    :objectIndex="index"
+                    v-if="feed.assoc_type == 'Album'"
+                  />
+                  <product-card
+                    :dataObject="feed"
+                    v-if="feed.assoc_type == 'ShopProduct'"
+                  />
+                  <video-card
+                    :dataObject="feed"
+                    v-if="feed.assoc_type == 'Stream'"
+                  />
+                </div>
+              </template>
+            </v-layout>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <div class="credits-dialog-wrapper">
       <v-dialog
