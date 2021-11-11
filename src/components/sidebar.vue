@@ -87,6 +87,7 @@
           :to="subMenu.directPath ? `/${subMenu.path}` : { name: subMenu.path }"
           active-class="activeTab"
           class="side-tab"
+          :class="{'d-none' : subMenu.allowedUser && !subMenu.allowedUser.includes(currentUser.user_type)}"
         >
           <v-list-tile-avatar>
             <div
@@ -235,6 +236,9 @@ export default {
           this.tabs = [this.allTabs.find((tab) => tab.name === 'Discover')]
         } else if (val) {
           this.tabs = this.allTabs
+
+          // reset username
+          this.setUsername()
         }
       },
     },
@@ -243,6 +247,17 @@ export default {
     goToSearch() {
       const keyword = this.keyword
       this.$router.push({ path: '/search', query: { q: keyword } })
+    },
+    setUsername() {
+      this.tabs.forEach((parent) =>
+        parent.items.forEach((item) => {
+          if (item.id === 'you') {
+            item.path = this.username
+            console.log(this.username)
+            item.title = this.username.toUpperCase()
+          }
+        })
+      )
     },
   },
   computed: {
@@ -261,15 +276,7 @@ export default {
     },
   },
   mounted() {
-    //   Set username
-    this.tabs.forEach((parent) =>
-      parent.items.forEach((item) => {
-        if (item.id === 'you') {
-          item.path = this.username
-          item.title = this.username.toUpperCase()
-        }
-      })
-    )
+    this.setUsername()
   },
 }
 </script>
