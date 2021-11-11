@@ -109,13 +109,13 @@
         </p>
         <p class="regular-checkbox mt-0">
           <input
-            id="terms"
+            id="newsletter_terms"
             type="checkbox"
-            name="terms"
-            v-model="terms"
+            name="newsletter_terms"
+            v-model="newsletter_terms"
             v-validate="'required'"
           />
-          <label for="terms">Signup for newsletters</label>
+          <label for="newsletter_terms">Signup for newsletters</label>
         </p>
       </v-flex>
       <v-flex xs12 text-xs-center>

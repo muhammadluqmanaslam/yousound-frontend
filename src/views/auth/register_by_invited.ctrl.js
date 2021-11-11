@@ -19,6 +19,7 @@ export default {
       UserTypeOptions: UserTypeOptions,
       token: '',
       terms: false,
+      newsletter_terms: false,
       user: {
         email: '',
         password: '',

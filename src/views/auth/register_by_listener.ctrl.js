@@ -8,6 +8,7 @@ export default {
     return {
       is_username_available: true,
       terms: false,
+      newsletter_terms: false,
       user: {
         email: '',
         password: '',
