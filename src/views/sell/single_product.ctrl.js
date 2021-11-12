@@ -200,26 +200,26 @@ export default {
     },
   },
   created() {
-    if (
-            this.$store.state.auth.user &&
-            ['artist', 'brand', 'label'].indexOf(
-                this.$store.state.auth.user.user_type
-            ) > -1
-        ) {
-      this.prod_id = this.$route.params.id
+    // if (
+    //         this.$store.state.auth.user &&
+    //         ['artist', 'brand', 'label'].indexOf(
+    //             this.$store.state.auth.user.user_type
+    //         ) > -1
+    //     ) {
+    this.prod_id = this.$route.params.id
             // const params = {
             //   filter: 'artist',
             //   page: 1,
             //   per_page: 30,
             // }
-      var params = {
-        stripe_connected: true,
-        page: 1,
-        per_page: 30,
-      }
-      this.isPageReady = false
-      this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([
+    var params = {
+      stripe_connected: true,
+      page: 1,
+      per_page: 30,
+    }
+    this.isPageReady = false
+    this.$store.dispatch('error/showLoadingActivity', true)
+    Promise.all([
                 // CategoryService.getCategories(),
                 // UserService.searchUsers(params),
                 // ProfileService.getItems(
@@ -227,56 +227,56 @@ export default {
                 //   'followings',
                 //   params
                 // ),
-        MeService.mutualUsers(params),
-        ProductService.getProduct(this.prod_id),
-      ])
-                .then((values) => {
-                  this.product_categories = this.$store.state.app.product_categories
-                  this.digital_content_category_ids = this.$store.getters[
-                        'app/digitalCategoryIds'
-                    ]
+      MeService.mutualUsers(params),
+      ProductService.getProduct(this.prod_id),
+    ])
+        .then((values) => {
+          this.product_categories = this.$store.state.app.product_categories
+          this.digital_content_category_ids = this.$store.getters[
+                'app/digitalCategoryIds'
+            ]
 
-                  this.users = values[0].body.users
+          this.users = values[0].body.users
 
-                  this.product = values[1].body
-                  console.log(this.product);
+          this.product = values[1].body
+          console.log(this.product)
 
-                  console.log(this.product);
-                  this.product.category = _.get(this.product, 'category.id', '')
-                  this.product.creator_recoup_cost /= 100
-                  this.product_image1_url = this.product.covers[0].cover.url
-                  this.product_image2_url = this.product.covers[1].cover.url
-                  this.product_image3_url = this.product.covers[2].cover.url
-                  this.product.price /= 100
-                  for (let index in this.product.variants) {
-                    this.product.variants[index].price /= 100
-                  }
-                  for (let index in this.product.shipments) {
-                    this.product.shipments[index].shipment_alone_price /= 100
-                    this.product.shipments[index].shipment_with_price /= 100
-                  }
+          console.log(this.product)
+          this.product.category = _.get(this.product, 'category.id', '')
+          this.product.creator_recoup_cost /= 100
+          this.product_image1_url = this.product.covers[0].cover.url
+          this.product_image2_url = this.product.covers[1].cover.url
+          this.product_image3_url = this.product.covers[2].cover.url
+          this.product.price /= 100
+          for (let index in this.product.variants) {
+            this.product.variants[index].price /= 100
+          }
+          for (let index in this.product.shipments) {
+            this.product.shipments[index].shipment_alone_price /= 100
+            this.product.shipments[index].shipment_with_price /= 100
+          }
 
-                  if (this.product.digital_content_url) {
-                    this.digital_content.file = {
-                      name: this.product.digital_content_name,
-                    }
-                  }
+          if (this.product.digital_content_url) {
+            this.digital_content.file = {
+              name: this.product.digital_content_name,
+            }
+          }
 
-                  this.isPageReady = true
-                  this.$store.dispatch('error/showLoadingActivity', false)
+          this.isPageReady = true
+          this.$store.dispatch('error/showLoadingActivity', false)
 
-                  MeService.mutualUsers({ ...params, per_page: -1 }).then(
-                        (response) => (this.users = response.body.users)
-                    )
-                })
-                .catch((reason) => {
-                  console.log(reason)
-                  this.$store.dispatch('error/showLoadingActivity', false)
-                  this.$store.dispatch('error/showErrorToast', reason)
-                })
-    } else {
-      this.$router.push({ path: '/' })
-    }
+          MeService.mutualUsers({ ...params, per_page: -1 }).then(
+                (response) => (this.users = response.body.users)
+            )
+        })
+        .catch((reason) => {
+          console.log(reason)
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', reason)
+        })
+    // } else {
+    //   this.$router.push({ path: '/' })
+    // }
   },
   watch: {
     initImgSelection: {

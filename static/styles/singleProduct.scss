@@ -125,13 +125,14 @@
                 color: #fff !important;
             }
             &.following {
-                border: 1px solid #5bad00;
-                background-color: #0000 !important;
-                color: #000 !important;
-                &:hover {
-                border: 0.75px solid #dc3545;
-                background-color: #dc3545 !important;
-                color: #fff !important;
+                    border: 1px solid #5bad00;
+                    background-color: #0000 !important;
+                    color: #000 !important;
+                    &:hover {
+                    border: 0.75px solid #dc3545;
+                    background-color: #dc3545 !important;
+                    color: #fff !important;
+                    margin-right: 30px
                 }
             }
         }
