@@ -2,7 +2,7 @@
   <div class="page video-page manage-page mx-5">
     <content-top-header v-if="isPageReady">>
       <template slot="topHeader">
-        <ul>
+        <ul class="width100">
           <li
             v-for="tab in tabs"
             :key="tab.id"
@@ -308,3 +308,4 @@
 </template>
 
 <script type="text/javascript" src="./manage.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped></style>

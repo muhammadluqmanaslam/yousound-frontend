@@ -122,7 +122,6 @@
                   >
                   <v-btn
                     depressed
-                    outline
                     @mouseenter="buttonHover = true"
                     @mouseleave="buttonHover = false"
                     @click.native="followUser()"
