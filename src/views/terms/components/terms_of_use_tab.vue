@@ -1,5 +1,5 @@
 <template>
-  <div class="main-section">
+  <div class="page main-section">
     <h2>Terms of Service</h2>
 
     <div class="article-body content-body wikistyle markdown-format">
