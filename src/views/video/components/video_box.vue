@@ -26,6 +26,45 @@ export default {
   props: {
     video: Object,
   },
+  // components: {
+  //   VideoDetailBox,
+  // },
+  computed: {
+    calcAge() {
+      const d = new Date()
+      let created
+      if (this.video.assoc != null) {
+        created = new Date(this.video.assoc.created_at)
+      } else {
+        return null
+      }
+      let relative
+
+      const vid_dd = created.getDay()
+      const vid_mm = created.getMonth()
+      const vid_yy = created.getFullYear()
+
+      const dd = d.getDay()
+      const mm = d.getMonth()
+      const yy = d.getFullYear()
+
+      if (yy > vid_yy) {
+        const duration = yy - vid_yy
+        const rel_str = duration > 1 ? 'years' : 'year'
+        relative = `${duration} ${rel_str} ago`
+      } else if (mm > vid_mm) {
+        const duration = yy - vid_yy
+        const rel_str = duration > 1 ? 'months' : 'month'
+        relative = `${duration} ${rel_str} ago`
+      } else if (dd > vid_dd) {
+        const duration = dd - vid_dd
+        const rel_str = duration > 1 ? 'days' : 'day'
+        relative = `${duration} ${rel_str} ago`
+      }
+
+      return relative || null
+    },
+  },
 }
 </script>
 

@@ -122,7 +122,8 @@ export default {
     //   id will always be updated in future
       const status = id || this.albumTab
 
-      console.log(status);
+      // this.albums.map((a) => console.log(a.status))
+      // this.albums.map((a) => console.log(a.is_only_for_live_stream))
 
     //   update albumTab with valid instance
       this.albumTab = status
@@ -341,10 +342,10 @@ export default {
     },
   },
   created() {
-    if (this.$store.state.auth.user.user_type !== 'artist') {
-      this.$router.push({ path: '/' })
-      return
-    }
+    // if (this.$store.state.auth.user.user_type !== 'artist') {
+    //   this.$router.push({ path: '/' })
+    //   return
+    // }
 
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)

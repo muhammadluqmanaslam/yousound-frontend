@@ -1,5 +1,5 @@
 <template>
-  <div class="page stream-page px-5 fa-bg">
+  <div class="page stream-page px-5">
     <content-top-header>
       <template slot="topHeader">
           <ul>
@@ -18,7 +18,7 @@
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
         <div v-if="!users || users.length == 0" class="empty-section">
-          <p class="empty-title">Your stream is empty</p>
+          <p class="empty-title">Your feed is empty</p>
           <p class="empty-description">
             Follow people to discover new music &amp; products.
           </p>

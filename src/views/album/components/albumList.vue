@@ -47,15 +47,8 @@
                 v-if="deleteButtonAction"
                 dark
                 class="text-btn"
-                @click.native="deleteButtonAction(album)"
+                @click.native="show_album_delete_confirm_dialog = true"
                 >Delete</v-btn
-                >
-                <v-btn
-                v-if="publishButtonAction"
-                dark
-                class="text-btn"
-                @click.native="publishButtonAction(album)"
-                >Make Public</v-btn
                 >
                 <v-btn
                 v-if="videoOnlyButtonAction"
@@ -64,12 +57,19 @@
                 @click.native="videoOnlyButtonAction(album)"
                 >Make Live Video Only</v-btn
                 >
+                <!-- <v-btn
+                v-if="publishButtonAction && album.status == 'privated'"
+                dark
+                class="text-btn"
+                @click.native="publishButtonAction(album)"
+                >Make Public</v-btn
+                > -->
                 <v-btn
                 v-if="privateButtonAction"
                 dark
                 class="text-btn"
-                @click.native="privateButtonAction(album)"
-                >Make Private</v-btn
+                @click="toggle_album_status_dialog = true"
+                >{{ buttonText }} </v-btn
                 >
                 <v-btn
                 v-if="editButtonAction"
@@ -201,12 +201,95 @@
       </div>
     </v-flex>
 
+
+
+    <v-dialog v-model="toggle_album_status_dialog">
+      <v-card>
+        <v-card-title class="headline">Make album private</v-card-title>
+        <v-card-text v-if="album.status == 'published'">
+          If you make this album private it will be removed from public feeds
+          and reposts. Click OK to private, or click Cancel.
+        </v-card-text>
+        <v-card-text v-if="album.status == 'privated'">
+          If you click OK, the album will be published. Click OK to publish, or
+          click Cancel.
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="toggleAlbumStatus()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="toggle_album_status_dialog = false"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_video_only_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline"
+          >Make an album available only for live</v-card-title
+        >
+        <v-card-text
+          >If you click OK, the album will be available only for live
+          video.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="videoOnlyAlbum()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="show_video_only_confirm_dialog = false"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="show_album_delete_confirm_dialog">
+      <v-card>
+        <v-card-title class="headline">Delete an Album</v-card-title>
+        <v-card-text
+          >If you click OK, your followers won't see the album any more. Click
+          OK to delete &lt;{{ album.name }}&gt;, or click Cancel.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="deleteAlbum()"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="show_album_delete_confirm_dialog = false"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-flex>
 </template>
 
 <script type="text/javascript">
 import _ from 'lodash'
 import promoteModal from '@/components/promotemodal'
+import AlbumService from '@/services/album'
 
 export default {
   components: {
@@ -263,10 +346,20 @@ export default {
   data() {
     return {
       isShowPromoteModal: false,
+      toggle_album_status_dialog: false,
+      show_album_delete_confirm_dialog: false,
+      show_video_only_confirm_dialog: false,
     }
   },
 
   computed: {
+    buttonText() {
+      if (this.album.status === 'published') {
+        return 'Make Private'
+      } else if (this.album.status === 'privated') {
+        return 'Make Public'
+      }
+    },
     usersCountByStatus() {
       console.log(_.countBy(this.album.collaborators, 'status'))
       return _.countBy(this.album.collaborators, 'status')
@@ -285,6 +378,55 @@ export default {
   },
 
   methods: {
+    deleteAlbum() {
+      AlbumService.deleteAlbum(this.album.id)
+        .then((response) => {
+          _.remove(this.albums, (item) => {
+            return item.id === this.album.id
+          })
+          const arr = this.albums.slice()
+          this.albums = arr
+          this.show_album_delete_confirm_dialog = false
+        })
+        .catch((e) => {
+          this.show_album_delete_confirm_dialog = false
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+    toggleAlbumStatus(album) {
+      const status = this.album.status
+      const toggle = status === 'published' ? AlbumService.makePrivateAlbum(this.album.id) : AlbumService.makePublicAlbum(this.album.id)
+
+      toggle.then((response) => {
+        this.album.status = status === 'published' ? 'privated' : 'published'
+        this.toggle_album_status_dialog = false
+      })
+      .catch((e) => {
+        this.toggle_album_status_dialog = false
+        this.$store.dispatch(
+          'error/showErrorToast',
+          e.body.errors || [e.body]
+        )
+      })
+    },
+    videoOnlyAlbum() {
+      AlbumService.makeLiveVideoOnlyAlbum(this.album.id)
+        .then((response) => {
+          this.show_video_only_confirm_dialog = false
+          this.album.status = 'published'
+          this.album.is_only_for_live_stream = true
+        })
+        .catch((e) => {
+          this.show_video_only_confirm_dialog = false
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
     editProduct() {
       this.$router.push({ path: `/album/${this.album.slug}/edit` })
     },

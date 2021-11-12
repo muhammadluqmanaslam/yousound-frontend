@@ -20,6 +20,8 @@ body {
     text-align: center;
     line-height: 28px;
     background-color: transparent;
+    // position: absolute;
+    width: 100%;
     a {
       font-family: Arial;
       font-weight: 500;
@@ -310,6 +312,17 @@ body {
   }
 }
 
+.app-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .page {
+    flex: 1;
+  }
+}
+
 .app-bold {
   font-weight: 700;
   color: #000;
@@ -324,6 +337,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.d-none {
+  display: none;
 }
 
 .wrapFlex {
