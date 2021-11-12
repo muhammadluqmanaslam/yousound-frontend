@@ -31,7 +31,7 @@ export default {
         },
       ],
       tabs: [
-        { id: 'content', title: 'Content' },
+        { id: 'content', title: 'Content', allowedUser: ['artist'] },
         { id: 'payment', title: 'Payments' },
         { id: 'setting', title: 'Settings' },
       ],
@@ -44,6 +44,9 @@ export default {
   },
 
   computed: {
+    userType() {
+      return this.$store.getters['auth/userType']
+    },
     productMenuTabs() {
       const tabs = [
         { id: 'inventory', title: 'Inventory' },
@@ -55,9 +58,9 @@ export default {
     albumsMenuTabs() {
       const tabs = [
         { id: 'published', title: 'Published' },
-        { id: 'private', title: 'Private' },
+        { id: 'privated', title: 'Private' },
         { id: 'exclusives', title: 'Video Exclusives' },
-        { id: 'video_only', title: 'Video Attachments' },
+        // { id: 'video_only', title: 'Video Attachments' },
         { id: 'collaborated', title: 'Collaborations' },
         { id: 'pending', title: 'Pending Collaborations' },
       ]
@@ -111,13 +114,21 @@ export default {
     },
     activeInnerFilter(val) {
       const id = this.getInnerMenuTabs(val)[0].id || ''
-      console.log(id);
+      // console.log(id);
       this.activeInnerTab = id
     },
   },
   created() {
     // const tab = this.$route.hash.substr(1)
     // this.setTab(tab)
+
+    this.tabs = this.tabs.filter((tab) => {
+      return !(tab.allowedUser && !tab.allowedUser.includes(this.userType))
+    })
+
+    if (this.userType === 'listener') {
+      this.active_tab = 'payment'
+    }
   },
   mounted() {
     this.setInnerTab(this.activeInnerTab)

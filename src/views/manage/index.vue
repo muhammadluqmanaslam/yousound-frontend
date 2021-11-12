@@ -14,7 +14,7 @@
           </ul>
       </template>
     </content-top-header>
-    <content-top-header class="__inner" v-if="active_tab === 'content'">
+    <content-top-header class="__inner" v-if="active_tab === 'content' && userType == 'artist'">
       <template slot="topHeader">
         <ul>
             <li class="tabSelectMenu">
