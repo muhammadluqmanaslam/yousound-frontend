@@ -1117,8 +1117,12 @@
   .collaborator-section {
     margin: 7.5px;
     padding: 15px 0;
-    border-top: 0.75px solid rgba(0, 0, 0, 0.2);
+    // border-top: 0.75px solid rgba(0, 0, 0, 0.2);
     border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
+    
+    &.first-child {
+      border-top: 0.75px solid rgba(0, 0, 0, 0.2);
+    }
     .creator-wrapper {
       padding: 0 24px 20px 0;
       & > .flex {

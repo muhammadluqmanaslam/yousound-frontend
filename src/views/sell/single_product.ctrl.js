@@ -13,6 +13,7 @@ import accordion from '@/components/accordion'
 import ItemService from '@/services/item'
 import UserService from '@/services/user'
 import Comments from '@/components/comments'
+import UserTag from '@/components/user_tag'
 
 export default {
   components: {
@@ -20,6 +21,7 @@ export default {
     contentTopHeader,
     accordion,
     Comments,
+    UserTag,
   },
 
   data() {

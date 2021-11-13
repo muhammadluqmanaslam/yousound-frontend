@@ -1,6 +1,6 @@
 <template>
   <div class="page upload-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="/settings/#bank-details" />
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
     <h1 class="px-3 __title">Upload Music, Videos, Products & Broadcast Live!</h1>
 
     <v-container fluid grid-list-lg>

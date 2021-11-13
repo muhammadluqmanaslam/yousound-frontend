@@ -49,13 +49,7 @@
               <div class="product-category">{{ productCategoryName }}</div>
               <div class="product-name">{{ product.name }}</div>
               <div class="product-merchant">
-                <div
-                  class="__avatar"
-                  :style="{
-                    'background-image': `url(${product.merchant.avatar.thumb.url})`,
-                  }"
-                ></div>
-                <span class="__owner">{{ product.merchant.display_name }}</span>
+                <user-tag showAvatar class="tag" :user="product.merchant" />
               </div>
               <div class="product-price">${{ product.price }}</div>
 
