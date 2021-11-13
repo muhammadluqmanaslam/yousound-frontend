@@ -122,6 +122,10 @@ export default {
     // const tab = this.$route.hash.substr(1)
     // this.setTab(tab)
 
+    // Get inbound tab navigation
+    const tab = this.$route.params.tab || this.active_tab
+    this.setTab(tab)
+
     this.tabs = this.tabs.filter((tab) => {
       return !(tab.allowedUser && !tab.allowedUser.includes(this.userType))
     })
