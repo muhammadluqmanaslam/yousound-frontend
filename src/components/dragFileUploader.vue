@@ -1,6 +1,6 @@
 <template>
   <div v-if="category">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="/settings/#bank-details" />
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
     <content-top-header>
       <template slot="topHeader">
         <ul>

@@ -23,7 +23,7 @@
             To start accepting payments connect to Stripe.com
           </p>
           <v-btn
-            to="/settings/#bank-details"
+            :to="{ name: 'ManageIndex', params: { tab: 'payment'}}"
             class="stripe-connect-btn"
             dark
             round

@@ -1,6 +1,6 @@
 <template>
   <div class="page video-page create-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="/settings/#bank-details" />
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
     <content-top-header>
       <template slot="topHeader">
         <ul>

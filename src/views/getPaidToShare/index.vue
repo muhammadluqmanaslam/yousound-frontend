@@ -3,8 +3,8 @@
     <v-container v-if="!propMode" fluid class="set-price-container border-me">
       <v-layout v-if="currentUser.stripe_connected"  align-center>
         <v-flex xs2 after-divider>
-          <router-link to="/settings/#bank-details">
-            View Stripe Account
+          <router-link :to="{ name: 'ManageIndex', params: { tab: 'payment'}}">
+            View Stripe connection
           </router-link>
         </v-flex>
 

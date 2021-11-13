@@ -1,6 +1,6 @@
 <template>
   <div class="page sell-page product-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" cta="/settings/#bank-details" />
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
     <content-top-header>
       <template slot="topHeader">
         <ul>
@@ -433,7 +433,10 @@
                   </div>
                 </v-flex>
               </v-flex>
-              <v-flex xs12 class="collaborator-section">
+
+              <div class="divider"></div>
+
+              <v-flex xs12 class="collaborator-section first-child">
                 <v-flex xs12>
                   <h4 class="option-title">Collaborators</h4>
                 </v-flex>
@@ -473,6 +476,110 @@
                         v-model="product.creator_recoup_cost"
                       />
                     </v-flex>
+                  </v-layout>
+                  <v-layout
+                    row
+                    collaborator-wrapper
+                    v-for="(collaborator, index) in product.collaborators"
+                    :key="index"
+                  >
+                    <v-flex xs12 sm6>
+                      <label class="control-label"
+                        >Collaborators<label class="required">*</label></label
+                      >
+                      <v-select
+                        :items="users"
+                        v-model="collaborator.user_id"
+                        item-text="username"
+                        item-value="id"
+                        chips
+                        class="pt-0"
+                        autocomplete
+                        no-data-text="No collaborator available"
+                        clearable
+                      >
+                        <template slot="selection" slot-scope="data">
+                          <v-chip
+                            @input="data.parent.selectItem(data.item)"
+                            :selected="data.selected"
+                            :key="JSON.stringify(data.item)"
+                            class="chip--select-multi"
+                          >
+                            <v-avatar>
+                              <img :src="data.item.avatar.thumb.url" />
+                            </v-avatar>
+                            {{ data.item.username }}
+                          </v-chip>
+                        </template>
+                        <template slot="item" slot-scope="data">
+                          <template v-if="typeof data.item !== 'object'">
+                            <v-list-tile-content
+                              v-text="data.item"
+                            ></v-list-tile-content>
+                          </template>
+                          <template v-else>
+                            <v-list-tile-avatar>
+                              <img v-bind:src="data.item.avatar.thumb.url" />
+                            </v-list-tile-avatar>
+                            <v-list-tile-content>
+                              <v-list-tile-title
+                                v-html="data.item.username"
+                              ></v-list-tile-title>
+                            </v-list-tile-content>
+                          </template>
+                        </template>
+                      </v-select>
+                      <!-- <input type="text" class="form-control" v-model="collaborator.user_id"> -->
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <label class="control-label"
+                        >Profit Share<label class="required">*</label></label
+                      >
+                      <v-select
+                        v-bind:items="profit_share_types"
+                        v-model="collaborator.user_share"
+                        item-text="name"
+                        item-value="id"
+                        class="pt-0"
+                        autocomplete
+                      ></v-select>
+                    </v-flex>
+                    <v-icon class="clear-btn" @click="deleteCollaborator(index)"
+                      >clear</v-icon
+                    >
+                  </v-layout>
+                </v-flex>
+              </v-flex>
+
+              <v-flex xs12 class="collaborator-section">
+                <v-flex xs12>
+                  <h4 class="option-title">Seller Policies</h4>
+                </v-flex>
+                <v-flex xs12>
+                  <v-btn
+                    class="add-option-btn ma-0"
+                    @click.native="showPolicyActive = !showPolicyActive"
+                  >
+                    <span v-if="!showPolicyActive">
+                      <v-icon>add</v-icon> Show
+                    </span>
+                    <span v-else>
+                      <v-icon>remove</v-icon> Hide
+                    </span>
+                  </v-btn>
+                </v-flex>
+                <v-flex xs12 pa-0>
+                  <v-layout
+                    row
+                    creator-wrapper
+                    mt-1
+                    v-if="showPolicyActive == true"
+                  >
+                    
+                    <policy-tab
+                      :user="user"
+                      :updateUser="updateUser"
+                    />
                   </v-layout>
                   <v-layout
                     row
