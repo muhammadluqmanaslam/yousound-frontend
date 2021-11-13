@@ -19,21 +19,20 @@
     </content-top-header>
 
     <div class="d-flex">
-      <div class="page-content">
-        <div v-if="active_tab == 'albums'">
-          <v-layout row wrap class="covers-content">
-            <div
-              v-for="(feed, index) in result.albums"
-              :key="`album-${feed.id}`"
-              class="card-container"
-            >
-              <track-card
-                :objects="result.albums"
-                :objectIndex="index"
-              ></track-card>
-            </div>
-          </v-layout>
-        </div>
+      <v-container grid-list-md fluid page-content px-0>
+        <v-layout v-if="active_tab == 'albums'" row wrap class="covers-content">
+          <v-flex
+            v-for="(feed, index) in result.albums"
+            :key="`album-${feed.id}`"
+            class="card-container custom-lg5"
+            xs12
+          >
+            <track-card
+              :objects="result.albums"
+              :objectIndex="index"
+            ></track-card>
+          </v-flex>
+        </v-layout>
 
         <!-- <div v-if="active_tab == 'playlists'">
           <v-layout row wrap class="covers-content">
@@ -50,42 +49,38 @@
           </v-layout>
         </div> -->
 
-        <div v-if="active_tab == 'products'">
-          <v-layout row wrap class="covers-content">
-            <div
-              v-for="(feed, index) in result.products"
-              :key="`product-${feed.id}`"
-              class="card-container"
-            >
-              <product-card :dataObject="feed"></product-card>
-            </div>
-          </v-layout>
-        </div>
+        <v-layout v-if="active_tab == 'products'" row wrap class="covers-content">
+          <v-flex
+            v-for="(feed, index) in result.products"
+            :key="`product-${feed.id}`"
+            class="card-container"
+          >
+            <product-card :dataObject="feed"></product-card>
+          </v-flex>
+        </v-layout>
 
-        <div v-if="active_tab == 'live_videos'">
-          <v-layout row wrap class="covers-content">
-            <div
-              v-for="(feed, index) in result.streams"
-              :key="`video-${feed.id}`"
-              class="card-container"
-            >
-              <video-box :item="feed" />
-            </div>
-          </v-layout>
-        </div>
+        <v-layout v-if="active_tab == 'live_videos'" row wrap class="covers-content">
+          <div
+            v-for="(feed, index) in result.streams"
+            :key="`video-${feed.id}`"
+            class="card-container"
+            xs3
+          >
+            <video-box :item="feed" />
+          </div>
+        </v-layout>
 
-        <div v-if="active_tab == 'users'">
-          <v-layout row wrap class="covers-content">
-            <div
-              v-for="(user, index) in result.users"
-              :key="`user-${user.id}`"
-              class="card-container"
-            >
-              <artist-item :artist="user"></artist-item>
-            </div>
-          </v-layout>
-        </div>
-      </div>
+        <v-layout v-if="active_tab == 'users'" row wrap class="covers-content">
+          <v-flex
+            v-for="(user, index) in result.users"
+            :key="`user-${user.id}`"
+            class="card-container"
+            xs2
+          >
+            <artist-item :artist="user"></artist-item>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </div>
   </div>
 </template>
