@@ -187,13 +187,13 @@
           <v-flex xs9>
             <comments :item="stream" :comments="comments" />
           </v-flex>
-          <v-flex xs3>
+          <!-- <v-flex xs3>
             <div class="album-reposted-section">
               <h4 class="__title">
                 Reposted by {{ stream.user.display_name }}
               </h4>
               <v-layout row wrap class="recent-content">
-                <!-- <template v-for="(feed, index) in album.user.recent_items">
+                <template v-for="(feed, index) in album.user.recent_items">
                   <div
                     v-if="
                       ['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1
@@ -215,10 +215,10 @@
                       v-if="feed.assoc_type == 'Stream'"
                     />
                   </div>
-                </template> -->
+                </template>
               </v-layout>
             </div>
-          </v-flex>
+          </v-flex> -->
         </v-layout>
       </v-container>
     </div>
