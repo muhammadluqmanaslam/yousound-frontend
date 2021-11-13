@@ -9,17 +9,22 @@ import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
 import topbarNotification from '@/components/topbarNotification'
+import policyTab from '@/views/settings/components/policy_tab'
+import UserService from '@/services/user'
 
 export default {
   components: {
     digitalUploader,
     contentTopHeader,
     topbarNotification,
+    policyTab,
   },
 
   data() {
     return {
+      user: {},
       topBarContent: 'Connect your Stripe account to start accepting payments',
+      showPolicyActive: false,
       product_categories: [],
       destinations: [
         {
@@ -209,6 +214,22 @@ export default {
   },
 
   methods: {
+    updateUser(params) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+          AuthService.setUser(response.body)
+        })
+        .catch((e) => {
+          const errors = e.body.errors
+            ? _.map(e.body.errors, (msg) => `Email ${msg.detail}`)
+            : [e.body]
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', errors)
+        })
+    },
     imageChanged(index, e) {
       if (index === 'product_image1') {
         this.product.image1 = e.target.files[0]

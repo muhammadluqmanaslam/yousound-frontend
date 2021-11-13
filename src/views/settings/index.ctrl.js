@@ -42,7 +42,7 @@ export default {
         { id: 'repost-price', title: 'Repost Price' },
         { id: 'shipping-address', title: 'Shipping Address' },
         { id: 'blocked', title: 'Blocked' },
-        { id: 'seller-policies', title: 'Seller Policies' },
+        // { id: 'seller-policies', title: 'Seller Policies' },
         // { id: 'verify-status', title: 'Verification Status' }
       ],
       active_tab: 'info',

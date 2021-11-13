@@ -52,7 +52,7 @@
             </span>
           </div>
 
-          <v-btn depressed dark class="action-btn release" @click.native="releaseButtonAction(product)">Release Now</v-btn>
+          <v-btn v-if="product.status == 'pending'" depressed dark class="action-btn release" @click.native="releaseButtonAction(product)">Release Now</v-btn>
         </div>
       </div>
     </v-flex>
