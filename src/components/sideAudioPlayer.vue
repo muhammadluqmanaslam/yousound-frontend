@@ -410,7 +410,7 @@ export default {
         try {
           // eslint-disable-next-line no-undef
           var pp = videojs('my_video_player')
-          if (pp.play()) {
+          if (!pp.paused()) {
             pp.pause()
           }
         } catch (error) {
