@@ -114,10 +114,10 @@ export default {
 
     this.getUserInfo()
     const tab = this.$route.hash.substr(1) || 'info'
-    this.$store.dispatch('navigator/goNextState', {
-      page: 'settings',
-      tab: tab,
-    })
+    // this.$store.dispatch('navigator/goNextState', {
+    //   page: 'settings',
+    //   tab: tab,
+    // })
     this.setTab(tab)
 
     MeService.stripeEmail().then((res) => (this.stripeEmail = res.body.email))
