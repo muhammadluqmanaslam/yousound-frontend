@@ -22,7 +22,7 @@
                   class="user-name"
                   :to="'/' + activityItem.sender.slug"
                 >
-                  {{ activityItem.sender.display_name }}
+                  {{ activityItem.sender.display_name || activityItem.sender.username }}
                 </router-link>
                 <v-icon
                   v-if="activityItem.sender.user_type == 'artist'"
