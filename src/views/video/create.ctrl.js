@@ -93,6 +93,9 @@ export default {
     currentUser() {
       return this.$store.state.auth.user
     },
+    isOnLive() {
+      return this.currentUser.enabled_live_video
+    },
 
     MediaLiveInputTypes() {
       return MediaLiveInputTypes
@@ -148,6 +151,10 @@ export default {
   // },
 
   created() {
+    // re-navigate user away when user is on live
+    if (this.isOnLive) {
+      this.$router.push({name: 'VideoManage'})
+    }
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
       tab: 'create',

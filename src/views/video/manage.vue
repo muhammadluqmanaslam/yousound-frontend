@@ -29,7 +29,7 @@
               color="green"
               class="view-btn"
               @click.native="viewStream()"
-              >Watch</v-btn
+              >Watch / Chat</v-btn
             >
             <v-btn v-else color="grey lighten-2" class="px-4 view-btn"
               >Connecting...</v-btn
