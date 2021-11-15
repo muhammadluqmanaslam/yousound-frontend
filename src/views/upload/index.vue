@@ -4,45 +4,60 @@
     <h1 class="px-3 __title">Upload Music, Videos, Products & Broadcast Live!</h1>
 
     <v-container fluid grid-list-lg>
-      <v-layout row justify-start>
-        <v-flex xs6 sm6 md3 lg3 class="upload-tab-container">
+      <v-layout row wrap justify-start>
+        <v-flex xs12 sm6 class="upload-tab-container">
           <div class="upload-tab-wrapper">
             <div class="upload-tab-img uploadMusic"></div>
-            <div class="upload-tab-description">
-              Upload your albums, connnect products, add album credits & assign collaborators
+
+            <div class="text-left">
+              <h3>Music</h3>
+              <div class="upload-tab-description">
+                Upload your albums, connnect products, add album credits & assign collaborators
+              </div>
+              <v-btn depressed class="upload-tab-btn" :to="'/upload/album'">Upload Music</v-btn>
             </div>
-            <v-btn depressed class="upload-tab-btn" :to="'/upload/album'">Upload Music</v-btn>
           </div>
         </v-flex>
 
-        <v-flex xs6 sm6 md3 lg3 class="upload-tab-container">
-          <div class="upload-tab-wrapper">
-            <div class="upload-tab-img uploadVideo"></div>
-            <div class="upload-tab-description">
-              Upload videos, connect products, albums & collaborators
-            </div>
-            <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoUpload'}">Upload Video</v-btn>
-          </div>
-        </v-flex>
-
-        <v-flex xs6 sm6 md3 lg3 class="upload-tab-container">
-          <div class="upload-tab-wrapper">
-            <div class="upload-tab-img uploadLive"></div>
-            <div class="upload-tab-description">
-              Broadcast live video, connect products, albums, collaborators & run pay-per-view
-            </div>
-            <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoCreate'}">Broadcast Live</v-btn>
-          </div>
-        </v-flex>
-
-        <v-flex xs6 sm6 md3 lg3 class="upload-tab-container">
+        <v-flex xs12 sm6 class="upload-tab-container">
           <div class="upload-tab-wrapper">
             <div class="upload-tab-img uploadProduct"></div>
-            <div class="upload-tab-description">
-              upload products, set splits & recoup costs with collaborators
+            <div class="text-left">
+              <h3>Product</h3>
+              <div class="upload-tab-description">
+                Upload products, set splits & recoup costs with collaborators
+              </div>
+              <v-btn depressed class="upload-tab-btn" :to="{name: 'AddProduct'}">Upload Product</v-btn>
             </div>
-            <v-btn depressed class="upload-tab-btn" :to="{name: 'AddProduct'}">Upload Product</v-btn>
             </div>
+        </v-flex>
+
+        <v-flex xs12 sm6 class="upload-tab-container">
+          <div class="upload-tab-wrapper">
+            <div class="upload-tab-img uploadVideo"></div>
+
+            <div class="text-left">
+              <h3>Video</h3>
+              <div class="upload-tab-description">
+                Upload videos, connect products, albums & collaborators
+              </div>
+              <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoUpload'}">Upload Video</v-btn>
+            </div>
+          </div>
+        </v-flex>
+
+        <v-flex xs12 sm6 class="upload-tab-container">
+          <div class="upload-tab-wrapper">
+            <div class="upload-tab-img uploadLive"></div>
+
+            <div class="text-left">
+              <h3>Live Video</h3>
+              <div class="upload-tab-description">
+                Broadcast live video, connect products, albums, collaborators & run pay-per-view
+              </div>
+              <v-btn depressed class="upload-tab-btn" :to="{name: isOnLive ? 'VideoManage': 'VideoCreate'}">Broadcast Live</v-btn>
+            </div>
+          </div>
         </v-flex>
       </v-layout>
 
