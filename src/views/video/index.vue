@@ -6,9 +6,9 @@
           <v-tabs-bar>
             <v-tabs-item
               v-model="selectedTab"
-              v-for="(genre, i) in available_genres"
-              :key="i"
-              :href="'#tab-' + i"
+              v-for="(genre, idx) in available_genres"
+              :key="idx"
+              :href="'#tab-' + idx"
             >
               <v-chip class="text-capitalize" @click.native="setTab(genre.id)">
                 {{ genre.name.toLowerCase() }}
@@ -49,10 +49,10 @@
       <div class="page-content" v-if="currentUser">
         <v-layout row wrap>
           <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-          <v-flex xs4 v-for="(video, i) in videos.slice(0,3)" :key="i" class="video-container top-3">
+          <v-flex xs4 v-for="(video, i) in videos.slice(0,3)" :key="video.name" class="video-container top-3">
             <video-box :hoverOverlay="false" :item="video" />
           </v-flex>
-          <v-flex xs3 v-for="(video, i) in videos.slice(3,videos.length)" :key="i" class="card-container">
+          <v-flex xs3 v-for="(video, ii) in videos.slice(3,videos.length)" :key="video.name" class="card-container">
             <video-box :hoverOverlay="false" :item="video" />
           </v-flex>
         </v-layout>
