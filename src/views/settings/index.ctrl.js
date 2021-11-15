@@ -39,7 +39,7 @@ export default {
         { id: 'info', title: 'Profile' },
         { id: 'password', title: 'Password' },
         { id: 'bank-details', title: 'Bank Details' },
-        { id: 'repost-price', title: 'Repost Price' },
+        // { id: 'repost-price', title: 'Repost Price' },
         { id: 'shipping-address', title: 'Shipping Address' },
         { id: 'blocked', title: 'Blocked' },
         // { id: 'seller-policies', title: 'Seller Policies' },
