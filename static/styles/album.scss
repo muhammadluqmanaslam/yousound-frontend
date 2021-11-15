@@ -18,7 +18,7 @@ p {
   padding: 15px;
   box-shadow: 0 0 2px 0px #c8c8d9;
   margin-bottom: 30px;
-  max-height: 540px
+  // max-height: 540px
 }
 
 .page.upload-album-page {
@@ -1162,8 +1162,8 @@ p {
       .card-container {
         min-width: 184px;
         margin-bottom: 0;
-        padding: 0 20px !important;
-        margin-top: 30px;
+        padding: 0 15px !important;
+        // margin-top: 30px;
 
         .product-actions {
           pointer-events: none;
