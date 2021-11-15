@@ -57,13 +57,16 @@ export default {
     strippedAddress() {
       const addr = this.shipping_address
       let stripped = {}
-      stripped.lineOne = addr.first_name + ' ' + addr.last_name
-      stripped.lineTwo = addr.address_line
-      stripped.lineThree = addr.city + ' ' + addr.state
-      stripped.lineFour = addr.postcode
-      stripped.lineFive = addr.country
 
-      return stripped
+      if (addr) {
+        stripped.lineOne = addr.first_name + ' ' + addr.last_name
+        stripped.lineTwo = addr.address_line
+        stripped.lineThree = addr.city + ' ' + addr.state
+        stripped.lineFour = addr.postcode
+        stripped.lineFive = addr.country
+      }
+
+      return stripped || ''
       // return Object.values(stripped).join("\r\n")
     },
     currentUser() {
