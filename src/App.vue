@@ -150,6 +150,33 @@ export default {
 
   watch: {
     $route(to, from) {
+      let videoId
+
+      if (to.name === 'VideoShow') {
+        videoId = to.params.videoId
+        const nodeDetails = this.$store.state.streamPlayer.nodeDetails
+
+        if (nodeDetails.videoId && videoId !== nodeDetails.videoId) {
+          // eslint-disable-next-line no-undef
+          let pp = videojs('my_video_player')
+
+          if (pp.isInPictureInPicture()) {
+            pp.exitPictureInPicture()
+          }
+          // close current player node
+          pp.dispose()
+          console.log('new')
+        }
+      }
+      if (from.name === 'VideoShow') {
+        videoId = from.params.videoId
+        const nodeDetails = {}
+        nodeDetails.parent = document.getElementById('my_video_player')
+        nodeDetails.videoId = videoId
+
+        this.$store.dispatch('streamPlayer/setPipParentNode', nodeDetails)
+      }
+
       const toPath = to.path.split('/')
       var type = toPath[1]
       if (this.$store.state.auth.token) {
