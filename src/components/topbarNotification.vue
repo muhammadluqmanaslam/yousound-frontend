@@ -42,13 +42,11 @@ export default {
           document.body.style.paddingTop = '40px'
         }
       }
-      console.log('adjust')
     },
     resetAdjust() {
       const bodyContent = document.querySelector('.top-menu') || document.querySelector('.page-content') || document.querySelector('.content--wrap')
       bodyContent.style.top = this.defBody
       document.body.style.paddingTop = this.defbodyContent
-      console.log('destroy')
     },
   },
   mounted() {
