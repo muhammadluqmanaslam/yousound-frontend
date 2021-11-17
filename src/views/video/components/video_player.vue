@@ -21,21 +21,37 @@ export default {
   data() {
     return {
       player: null,
+      pipMode: false,
     }
   },
 
-  created() {
+  mounted() {
     console.log('video_player created')
-    // console.log(this.video)
     this.$nextTick(() => {
-      this.initPlayer()
-      this.pauseMusicOnPlay()
+      if (!this.pipMode && this.allVideosCount < 1) {
+        // no player in DOM, init a new player
+        this.initPlayer()
+      } else {
+        // there is a player in DOM, update original div wrapper
+        // this is a fix for the DOM dissapearing when video page is re-visited
+        let nodeDetails = this.$store.state.streamPlayer.nodeDetails
+        let glitchedVid = document.getElementById('my_video_player')
+
+        glitchedVid.replaceWith(nodeDetails.parent)
+      }
     })
   },
+  created() {},
 
   beforeDestroy() {
-    console.log('video_player beforeDestroy')
-    this.closePlayer()
+    const vm = this
+    if (!vm.player.paused()) {
+      // player is playing, toggle pipmode
+      this.togglePip()
+    } else {
+      // player is not playing, close player
+      this.closePlayer()
+    }
   },
 
   watch: {
@@ -52,13 +68,9 @@ export default {
       ])
     },
   },
-
   methods: {
     initPlayer() {
       const vm = this
-      // console.log('video_player init', this.src)
-      // console.log(document.getElementById('my_video_player'))
-      // console.log(vm.player)
       vm.player =
         vm.player ||
         window.videojs('my_video_player', {
@@ -71,7 +83,9 @@ export default {
             },
           ],
         })
-      // console.log(vm.player)
+
+      // register method
+      this.pauseMusicOnPlay()
     },
 
     closePlayer() {
@@ -85,9 +99,28 @@ export default {
     pauseMusicOnPlay() {
       const vm = this
       vm.player.on('play', () => {
-        console.log(1)
         vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
       })
+    },
+    async togglePip() {
+      const vm = this
+      console.log('activate pip')
+      vm.pipMode = true
+      await vm.player.requestPictureInPicture()
+
+      // resume player play
+      // fix for sudden pause of pip on activation
+      vm.player.play()
+    },
+  },
+
+  computed: {
+    allVideos() {
+      // eslint-disable-next-line no-undef
+      return videojs.getAllPlayers()
+    },
+    allVideosCount() {
+      return this.allVideos.length
     },
   },
 }

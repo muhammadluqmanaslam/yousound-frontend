@@ -6,6 +6,7 @@ function initialState() {
     play_mode: 'stopped', // 'stopped', 'playing', 'paused'
     frame_mode: 'minimized', // 'full', 'normal', 'minimized'
     status: 'inactive',
+    nodeDetails: {},
   }
 }
 
@@ -63,6 +64,14 @@ const actions = {
 
   setStatus({ commit }, status) {
     commit('setStatus', status)
+  },
+
+  setPipParentNode({commit}, node) {
+    commit('setPipParentNode', node)
+  },
+
+  getOwnStreams({commit}, node) {
+    commit('setOwnStreams', node)
   },
 }
 
@@ -130,6 +139,11 @@ const mutations = {
     Object.keys(s).forEach((key) => {
       state[key] = s[key]
     })
+  },
+
+  setPipParentNode(state, nodeDetails) {
+    console.log(nodeDetails)
+    state.nodeDetails = nodeDetails
   },
 }
 
