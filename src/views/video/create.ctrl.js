@@ -152,9 +152,10 @@ export default {
 
   created() {
     // re-navigate user away when user is on live
-    if (this.isOnLive) {
-      this.$router.push({name: 'VideoManage'})
-    }
+    console.log(this.isOnLive)
+    // if (this.isOnLive) {
+    //   this.$router.push({name: 'VideoManage'})
+    // }
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
       tab: 'create',
