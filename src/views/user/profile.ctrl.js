@@ -20,6 +20,8 @@ import userItem from '@/components/useritem'
 import artistItem from '@/components/artistitem'
 import contentTopHeader from '@/components/contentTopHeader'
 import AuthService from '@/services/auth'
+import StreamService from '@/services/stream'
+import VideoBox from '@/components/video_box'
 
 // import streamPlayer from '@/components/stream_player'
 
@@ -38,6 +40,7 @@ export default {
     carousel3d,
     slide,
     contentTopHeader,
+    VideoBox,
     // streamPlayer
   },
 
@@ -52,7 +55,7 @@ export default {
         { id: 'catalog', title: 'Catalog', roles: ['label'] },
         { id: 'artists', title: 'Artists', roles: ['label'] },
         { id: 'songs', title: 'Music', roles: ['artist'] },
-        // { id: 'video', title: 'Video', roles: ['artist'] },
+        { id: 'video', title: 'Video', roles: ['artist'] },
         // { id: 'playlists', title: 'Playlists' },
         { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
         { id: 'reposted', title: 'Reposted' },
@@ -89,6 +92,7 @@ export default {
       users: [],
       buttonHover: false,
       isPageReady: false,
+      ownVideos: [],
     }
   },
 
@@ -175,6 +179,7 @@ export default {
 
   created() {
     window.addEventListener('scroll', this.handleScroll)
+    this.ownStream()
 
     this.slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
@@ -206,10 +211,32 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
-    handleScroll(event) {
-      // console.log(event)
+    ownStream(tab, page) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      const params = {
+        genre_id: 0, // default for all videos
+        only_follows: this.only_follows,
+        page: 1, // get page 1
+      }
+      StreamService.getStreams(params)
+        .then((response) => {
+          console.log(response.body.streams)
+          this.ownVideos = response.body.streams.filter((str) => this.user.display_name == str.user.display_name)
+          // this.ownVideos = this.ownVideos.concat(response.body.streams)
+          // this.ownVideos = [ ...this.ownVideos, ...this.ownVideos]
+          this.pagination = response.body.pagination
+          this.videoGenres = response.body.genres
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch(() => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
-    handleScroll2(event) {
+
+    loadMore() {
+      this.loadData(this.pagination.current_page + 1)
+    },
+    handleScroll(event) {
       const navProfileCard = document.querySelector('.user-profile-image-wrapper')
 
       var y = window.scrollY
@@ -371,7 +398,10 @@ export default {
             })
           }
 
-          this.getItems(this.active_tab, false)
+          if (this.active_tab !== 'video') {
+            // temp implementation because there is no video 'getItems' yet
+            this.getItems(this.active_tab, false)
+          }
           this.isPageReady = false
         })
         .catch((e) => {
@@ -445,6 +475,8 @@ export default {
           this.total_pages = response.body.pagination.total_pages
         })
         .catch((e) => {
+          console.log(e)
+          console.log(e.message)
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
             'error/showErrorToast',

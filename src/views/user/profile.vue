@@ -1,5 +1,5 @@
 <template>
-  <div v-scroll="handleScroll2">
+  <div v-scroll="handleScroll">
     <div class="page profile-grid-page mx-5">
     <content-top-header>
       <template slot="topHeader">
@@ -337,6 +337,15 @@
               </div>
             </v-layout>
           </div> -->
+
+
+          <div v-else-if="active_tab == 'video'">
+            <v-layout row wrap>
+              <v-flex xs3 v-for="(video) in ownVideos" :key="video.name" class="card-container">
+                <video-box :hoverOverlay="false" :item="video" />
+              </v-flex>
+            </v-layout>
+          </div>
 
           <div v-else>
             <template v-if="!albums || albums.length == 0">
