@@ -14,9 +14,9 @@ export default {
     return {
       currentTab: 'activity',
       tabs: [
-        { id: 'activity', title: 'Notifications' },
+        // { id: 'activity', title: 'Notifications' },
         { id: 'messages', title: 'Messages' },
-        { id: 'paidToShare', title: 'Get Paid To Share' },
+        { id: 'paidToShare', title: 'Repost Request' },
       ],
     }
   },
@@ -48,7 +48,7 @@ export default {
   },
 
   created() {
-    const tab = this.$route.hash.substr(1) || 'activity'
+    const tab = this.$route.hash.substr(1) || 'messages'
     this.setTab(tab)
   },
 }

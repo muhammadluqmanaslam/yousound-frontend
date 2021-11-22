@@ -36,7 +36,7 @@ export default {
     return {
       dialog: false,
       tabs: [
-        { id: 'info', title: 'Profile' },
+        { id: 'info', title: 'Account' },
         { id: 'password', title: 'Password' },
         { id: 'bank-details', title: 'Bank Details' },
         // { id: 'repost-price', title: 'Repost Price' },
