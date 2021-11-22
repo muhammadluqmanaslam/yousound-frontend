@@ -9,7 +9,7 @@
       class="tag__image"
       :style="`background-image: url(${user.avatar.url})`"
     ></div>
-    <div>{{ user.display_name }}</div>
+    <div class="text-capitalize">{{ user.username }}</div>
     <v-icon
       v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1"
       class="user-status online"
