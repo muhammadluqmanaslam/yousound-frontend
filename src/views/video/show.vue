@@ -49,6 +49,16 @@
                           <label>Report</label>
                         </v-list-tile-title>
                       </v-list-tile>
+
+                      <!-- <v-list-tile
+                        v-if="album.user.display_name === currentUser.display_name"
+                        class="default-menu-item"
+                        :to="{ name: 'VideoEdit', params: { slug: stream.slug }}"
+                      >
+                        <v-list-tile-title>
+                          <label>Edit Video</label>
+                        </v-list-tile-title>
+                      </v-list-tile> -->
                     </v-list>
                   </v-menu>
                 </div>

@@ -50,57 +50,88 @@
 
     <div class="d-flex">
       <div class="page-content" v-if="isPageReady">
-        <v-layout row class="panel time-info mt-4">
-          <v-flex sm8>
-            <v-layout row>
-              <!-- <v-flex sm4>
-                <label>Remaining time</label>
-                <span v-if="currentUser.enabled_live_video_free">--</span>
-                <span v-else>{{ remainingSeconds | timeInHours }}</span>
-              </v-flex> -->
-              <v-flex sm4>
-                <label>Broadcast time</label>
-                <span>{{ broadcastSeconds | timeInHours }}</span>
-              </v-flex>
-              <v-flex sm4>
-                <label>Watching now</label>
-                <span>{{ active_viewers }}</span>
-              </v-flex>
-              <v-flex sm4>
-                <label>Total viewers</label>
-                <span>{{ total_viewers }}</span>
-              </v-flex>
-            </v-layout>
-          </v-flex>
-        </v-layout>
+        <v-container fluid grid-list-lg px-0>
+          <v-layout row wrap>
+            <v-flex xs6>
+              <div class="stream-info">
+                <!-- <div class="loading" v-if="!isRunning">
+                  <i class="fa fa-spinner fa-pulse fa-3x"></i>
+                </div> -->
+                <p>
+                  Add the <b>URL</b> and <b>Stream Key</b> to your video broadcast
+                  Software’s <b>Stream Settings</b>
+                </p>
+                <div>
+                  <label
+                    >URL: {{ streamUrl
+                    }}<v-btn class="clipboard-btn" v-clipboard:copy="streamUrl">
+                      <v-icon>fa-clipboard</v-icon>
+                    </v-btn></label
+                  >
+                </div>
+                <div>
+                  <label>
+                    Stream Key: {{ streamKey }}
+                    <v-btn class="clipboard-btn" v-clipboard:copy="streamKey">
+                      <v-icon>fa-clipboard</v-icon>
+                    </v-btn></label
+                  >
+                </div>
+              </div>
+            </v-flex>
 
-        <div class="panel stream-info mt-4">
-          <v-flex>
-            <!-- <div class="loading" v-if="!isRunning">
-              <i class="fa fa-spinner fa-pulse fa-3x"></i>
-            </div> -->
-            <p>
-              Add the <b>URL</b> and <b>Stream Key</b> to your video broadcast
-              Software’s <b>Stream Settings</b>
-            </p>
-            <div>
-              <label
-                >URL: {{ streamUrl
-                }}<v-btn class="clipboard-btn" v-clipboard:copy="streamUrl">
-                  <v-icon>fa-clipboard</v-icon>
-                </v-btn></label
-              >
-            </div>
-            <div>
-              <label>
-                Stream Key: {{ streamKey }}
-                <v-btn class="clipboard-btn" v-clipboard:copy="streamKey">
-                  <v-icon>fa-clipboard</v-icon>
-                </v-btn></label
-              >
-            </div>
-          </v-flex>
-        </div>
+            <v-flex sm6>
+              <div class="time-info">
+                <v-layout row wrap>
+                  <!-- <v-flex sm4>
+                    <label>Remaining time</label>
+                    <span v-if="currentUser.enabled_live_video_free">--</span>
+                    <span v-else>{{ remainingSeconds | timeInHours }}</span>
+                  </v-flex> -->
+                  <v-flex class="custom-lg5">
+                    <label>Broadcast time</label>
+                    <span>{{ broadcastSeconds | timeInHours }}</span>
+                  </v-flex>
+                  <v-flex class="custom-lg5">
+                    <label>Watching now</label>
+                    <span>{{ active_viewers }}</span>
+                  </v-flex>
+                  <v-flex class="custom-lg5">
+                    <label>Total viewers</label>
+                    <span>{{ total_viewers }}</span>
+                  </v-flex>
+                  <v-flex class="custom-lg5">
+                    <label>Repost</label>
+                    <span>{{ 0 }}</span>
+                  </v-flex>
+                  <v-flex class="custom-lg5">
+                    <label>Shares</label>
+                    <span>{{ 0 }}</span>
+                  </v-flex>
+
+                  <p></p>
+
+                  <v-flex class="custom-lg5">
+                    <label>Donations</label>
+                    <span>${{ 0 }}</span>
+                  </v-flex>
+                  <v-flex class="custom-lg5">
+                    <label>PPV Sales</label>
+                    <span>${{ 0 }}</span>
+                  </v-flex>
+                  <v-flex class="custom-lg5">
+                    <label>Follows</label>
+                    <span>{{ 0 }}</span>
+                  </v-flex>
+                  <v-flex xs3>
+                    <label>Attachment Views</label>
+                    <span>{{ 0 }}</span>
+                  </v-flex>
+                </v-layout>
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-container>
 
         <v-layout row mt-3>
           <v-flex sm6>

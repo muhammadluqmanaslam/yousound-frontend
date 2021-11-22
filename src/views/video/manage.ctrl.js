@@ -177,7 +177,7 @@ export default {
         if (stream_status === '') {
           this.$router.push({
             // path: `/user/${this.currentUser.slug}/video/info`,
-            name: 'VideoCreate',
+            // name: 'VideoCreate',
           })
         } else if (['deleted', 'inactive'].indexOf(stream_status) > -1) {
           this.$router.push({
