@@ -16,7 +16,7 @@
     }
     .product-content {
       position: absolute;
-      top: 15px;
+      top: 18px;
       left: 93.75px;
       width: calc(100% - 93.75px);
       padding-right: 22.5px;
@@ -83,6 +83,15 @@
           font-size: 14px;
           color: #3A92FF;
           letter-spacing: 0;
+
+          &.to-right {
+            float: left;
+            color: #272727;
+            left: -10px;
+            cursor: pointer;
+            font-size: 13px;
+          }
+
           .btn__content {
             padding: 0;
           }
@@ -107,6 +116,7 @@
       align-items: center;
       justify-content: space-between;
       margin-top: -7px;
+      min-height: 50px;
       
       .action-btn.release {
         margin: 0;

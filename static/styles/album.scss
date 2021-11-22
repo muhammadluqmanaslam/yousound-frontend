@@ -1162,7 +1162,7 @@ p {
       .card-container {
         min-width: 184px;
         margin-bottom: 0;
-        padding: 0 15px !important;
+        padding: 0 !important;
         // margin-top: 30px;
 
         .product-actions {
@@ -1252,8 +1252,8 @@ p {
       @extend .sectionCard;
 
       & .__title {
-        margin-left: 20px;
-        margin-top: 8px;
+        // margin-left: 20px;
+        // margin-top: 8px;
       }
 
     }
