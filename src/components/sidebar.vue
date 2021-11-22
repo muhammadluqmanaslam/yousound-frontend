@@ -3,7 +3,7 @@
     <!-- <span class="white">{{ isAuthenticated }}</span> -->
     <div class="pa-3 tabs-auth-wrapper">
       <div justify-space-between align-center class="d-flex mb-3">
-        <router-link to="/album" class="sidebar-logo">
+        <router-link :to="{ name: 'AlbumIndex' }" class="sidebar-logo">
           <img src="/static/images/nav_logo_white.png" />
         </router-link>
 

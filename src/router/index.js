@@ -150,7 +150,7 @@ export function createRouter(settings) {
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/video', name: 'VideoIndex', component: VideoIndex },
     // { path: '/discover', name: 'Discover', component: Discover },
-    { path: '/album', name: 'AlbumIndex', component: AlbumIndex },
+    { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex },
     { path: '/product', name: 'ProductIndex', component: ProductIndex },
     {
       path: '/search',

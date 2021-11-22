@@ -27,7 +27,7 @@ const getters = {
             path: 'Feed',
           },
           {
-            title: 'Activity',
+            title: 'Messages',
             id: 'notifications',
             icon: 'notifications',
             path: 'NotificationIndex',
