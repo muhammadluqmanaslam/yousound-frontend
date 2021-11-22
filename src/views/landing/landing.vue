@@ -889,7 +889,7 @@ export default {
 
   created() {
     if (this.currentUser) {
-      this.$router.push({ path: '/album' })
+      this.$router.push({ name: 'AlbumIndex' })
     } else {
       this.$store.dispatch('navigator/goNextState', {
         page: 'landing',
