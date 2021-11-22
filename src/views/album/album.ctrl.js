@@ -344,13 +344,10 @@ export default {
         // canvas.height = imageObj.height
         cctx.drawImage(imageObj, 0, 0)
         StackBlur.image(imageObj, canvas, 70, false)
-        var height = $('#album_info_page').height() + 230
-        var screen_height = $(window).height()
-        if (height > screen_height) {
-          height += 50
-        } else {
-          height = screen_height
-        }
+
+        var wrapper_height = $('.album-pages').height() + 130
+        const height = wrapper_height
+
         if (canvas) {
           $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
         }
@@ -647,13 +644,9 @@ export default {
     const vm = this
     $(window)
       .resize(function () {
-        var height = $('#album_info_page').height() + 230
-        var screen_height = $(window).height()
-        if (height > screen_height) {
-          height += 50
-        } else {
-          height = screen_height
-        }
+        var wrapper_height = $('.album-pages').height() + 130
+        const height = wrapper_height
+
         var canvas = document.getElementById('canvas')
         if (canvas) {
           $('#canvas').css('cssText', 'height: ' + height + 'px !important;')

@@ -55,12 +55,6 @@
                   >Change</label
                 >
               </div>
-              <div>
-                <v-checkbox
-                  label="Only For Live Stream"
-                  v-model="album.is_only_for_live_stream"
-                ></v-checkbox>
-              </div>
             </div>
             <div class="album-content-section layout row wrap">
               <v-flex xs12 form-group>
@@ -143,6 +137,17 @@
                   no-data-text="No genres found"
                   autocomplete
                 /> -->
+              </v-flex>
+              <v-flex xs12 form-group>
+                <label class="control-label"
+                  >Only For Live Stream?<label class="required">*</label></label
+                >                
+                <div>
+                  <v-checkbox
+                    label="Only For Live Stream"
+                    v-model="album.is_only_for_live_stream"
+                  ></v-checkbox>
+                </div>
               </v-flex>
               <v-flex xs12 form-group>
                 <label class="control-label">This album includes</label>

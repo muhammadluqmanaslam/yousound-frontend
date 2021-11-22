@@ -198,6 +198,17 @@
                       <label>Share</label>
                     </v-list-tile-title>
                   </v-list-tile>
+
+                  <v-list-tile
+                    v-if="album.user.display_name === currentUser.display_name"
+                    key="edit"
+                    class="default-menu-item"
+                    :to="{ name: 'AlbumEdit', params: { slug: album.slug }}"
+                  >
+                    <v-list-tile-title>
+                      <label>Edit Album</label>
+                    </v-list-tile-title>
+                  </v-list-tile>
                   <!-- <v-list-tile key="flag" class="default-menu-item">
                     <v-list-tile-title>
                       <img class="track-status-icon" src="/static/images/ic_flag.png" />
@@ -394,10 +405,9 @@
       </v-flex>
     </v-flex>
 
-    <v-container fluid grid-list-xl px-0>
+    <v-container fluid grid-list-md px-0>
       <v-layout class="secondary-album-details">
         <v-flex xs8 album-comment-page v-if="currentUser">
-          <h1>Comments</h1>
           <comments :item="album" :comments="comments" />
         </v-flex>
 
