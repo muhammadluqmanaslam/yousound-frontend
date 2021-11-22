@@ -4,6 +4,11 @@ import albumList from '@/views/album/components/albumList'
 import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
+  props: {
+    textBtnToRight: {
+      type: Boolean,
+    },
+  },
   components: {
     contentTopHeader,
     albumList,

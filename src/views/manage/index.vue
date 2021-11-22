@@ -43,7 +43,11 @@
 
     <div v-if="active_tab === 'content'">
       <manage-product v-if="activeInnerFilter === 'products'" ref="manageProduct" />
-      <manage-album v-if="activeInnerFilter === 'albums'" ref="manageAlbum" />
+      <manage-album 
+        v-if="activeInnerFilter === 'albums'" 
+        ref="manageAlbum" 
+        :textBtnToRight="activeInnerFilter == 'albums' && (activeInnerTab == 'published' || activeInnerTab == 'privated')" 
+      />
     </div>
 
     <div v-else-if="active_tab === 'payment'">

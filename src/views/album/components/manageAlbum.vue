@@ -15,6 +15,7 @@
             :privateButtonAction="openPrivateConfirmDialog"
             :acceptButtonAction="acceptAlbum"
             :denyButtonAction="denyAlbum"
+            :textBtnToRight="textBtnToRight"
             ></album-list>
         </div>
 

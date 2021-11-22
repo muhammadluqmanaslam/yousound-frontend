@@ -47,6 +47,7 @@
                 v-if="deleteButtonAction"
                 dark
                 class="text-btn"
+                :class="{'to-right': textBtnToRight}"
                 @click.native="show_album_delete_confirm_dialog = true"
                 >Delete</v-btn
                 >
@@ -54,6 +55,7 @@
                 v-if="videoOnlyButtonAction"
                 dark
                 class="text-btn"
+                :class="{'to-right': textBtnToRight}"
                 @click.native="videoOnlyButtonAction(album)"
                 >Make Live Video Only</v-btn
                 >
@@ -68,6 +70,7 @@
                 v-if="privateButtonAction"
                 dark
                 class="text-btn"
+                :class="{'to-right': textBtnToRight}"
                 @click="toggle_album_status_dialog = true"
                 >{{ buttonText }} </v-btn
                 >
@@ -75,6 +78,7 @@
                 v-if="editButtonAction"
                 dark
                 class="text-btn"
+                :class="{'to-right': textBtnToRight}"
                 @click.native="editProduct()"
                 >Edit</v-btn
                 >
@@ -114,6 +118,7 @@
                         </span>
                         <span v-if="usersCountByStatus.denied > 0">
                         <span class="denied-title">Denied</span>
+                        <!-- {{ usersByStatus.denied }} -->
                         <span v-for="(c, i) in usersByStatus.denied" :key="i">
                             {{ c.user.display_name }}
                         </span>
@@ -189,7 +194,7 @@
           </div>
 
           <v-btn 
-            v-if="album.status == 'pending'"
+            v-if="album.status == 'pending' && usersByStatus.denied > 0"
             depressed 
             dark 
             class="action-btn release" 
@@ -297,6 +302,10 @@ export default {
   },
 
   props: {
+    textBtnToRight: {
+      type: Boolean,
+    },
+
     album: {
       type: Object,
     },
