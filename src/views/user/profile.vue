@@ -125,9 +125,8 @@
                     @mouseenter="buttonHover = true"
                     @mouseleave="buttonHover = false"
                     @click.native="followUser()"
-                    class="ml-0 no-Btn-bg sqr-plain-btn"
+                    class="follow-btn ml-0 no-Btn-bg sqr-plain-btn"
                     :class="{
-                      'follow-btn': true,
                       follow: !user.is_following,
                       following: user.is_following,
                     }"
