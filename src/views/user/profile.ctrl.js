@@ -403,6 +403,7 @@ export default {
             this.getItems(this.active_tab, false)
           }
           this.isPageReady = false
+          this.$store.dispatch('error/showLoadingActivity', false)
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
