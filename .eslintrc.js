@@ -33,5 +33,7 @@ module.exports = {
       },
     ],
     'standard/computed-property-even-spacing': 'off',
+    "quotes": "off", // to be on when app is upgraded and prettier is installed
+    "semi": 0 // to be on when app is upgraded and prettier is installed
   },
 }
