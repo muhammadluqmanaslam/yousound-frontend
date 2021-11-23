@@ -8,7 +8,7 @@
         :style="{ 'background-image': 'url(' + user.avatar.thumb.url + ')' }"
       ></div
     ></router-link>
-    <div class="user-name">{{ user.display_name }}</div>
+    <div class="user-name">{{ user.username }}</div>
     <v-btn
       class="text-btn error px-2"
       @click.native="deleteFunc(user)"
@@ -55,7 +55,7 @@ export default {
 
     deleteText: {
       type: String,
-      default: 'remove',
+      default: "remove",
     },
 
     acceptFunc: {
@@ -68,8 +68,8 @@ export default {
 
     status: {
       type: String,
-      default: '',
+      default: "",
     },
   },
-}
+};
 </script>

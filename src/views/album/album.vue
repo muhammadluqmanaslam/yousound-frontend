@@ -1,6 +1,5 @@
 <template>
   <v-layout v-if="isPageReady" row wrap class="page album-detail-page">
-
     <v-flex xs12 class="album-pages" v-if="isPageReady">
       <canvas id="canvas" class="background-image"></canvas>
       <div id="back_image" class="background-overlay"></div>
@@ -9,12 +8,18 @@
           <div
             class="album-image"
             :style="`background-image: url(${coverImageURL})`"
-          >
-          </div>
+          ></div>
           <div class="meta-details">
-            <span class="album-plays">{{ album.played.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} plays</span>
+            <span class="album-plays"
+              >{{
+                album.played.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }}
+              plays</span
+            >
             <span class="mx-2">&bull;</span>
-            <span class="cursor-pointer" @click="dialog = true">Album Credits</span>
+            <span class="cursor-pointer" @click="dialog = true"
+              >Album Credits</span
+            >
           </div>
         </div>
         <div class="album-detail-section">
@@ -24,7 +29,7 @@
             <div class="album-detail">
               by
               <router-link :to="'/' + album.user.slug" class="album-detail">{{
-                album.user.display_name
+                album.user.username
               }}</router-link>
               <template v-for="collaborator in album.collaborators">
                 <div :key="`${collaborator.id}`" class="d-inline-block">
@@ -32,7 +37,7 @@
                   <router-link
                     :to="'/' + collaborator.user.slug"
                     class="album-detail"
-                    >{{ collaborator.user.display_name }}</router-link
+                    >{{ collaborator.user.username }}</router-link
                   >
                 </div>
               </template>
@@ -111,7 +116,7 @@
                         <img :src="album.user.avatar.thumb.url" />
                       </v-list-tile-avatar>
                       <v-list-tile-content>
-                        {{ album.user.display_name }}
+                        {{ album.user.username }}
                       </v-list-tile-content>
                       <v-list-tile-action>
                         <template v-if="album.user.is_following">
@@ -144,7 +149,7 @@
                         <img :src="collaborator.user.avatar.thumb.url" />
                       </v-list-tile-avatar>
                       <v-list-tile-content>
-                        {{ collaborator.user.display_name }}
+                        {{ collaborator.user.username }}
                       </v-list-tile-content>
                       <v-list-tile-action>
                         <template v-if="collaborator.user.is_following">
@@ -200,10 +205,10 @@
                   </v-list-tile>
 
                   <v-list-tile
-                    v-if="album.user.display_name === currentUser.display_name"
+                    v-if="album.user.username === currentUser.username"
                     key="edit"
                     class="default-menu-item"
-                    :to="{ name: 'AlbumEdit', params: { slug: album.slug }}"
+                    :to="{ name: 'AlbumEdit', params: { slug: album.slug } }"
                   >
                     <v-list-tile-title>
                       <label>Edit Album</label>
@@ -239,7 +244,7 @@
         album-comment-page
         v-if="false && currentUser"
       >
-        <h4 class="comment-title">Talk to {{ album.user.display_name }}</h4>
+        <h4 class="comment-title">Talk to {{ album.user.username }}</h4>
         <label class="description"
           >Comments are only seen by the artist and people you @mention, unless
           artist makes your comment public.</label
@@ -293,7 +298,7 @@
                   <div class="comment-content relative">
                     <router-link :to="'/' + comment.user.slug"
                       ><label class="user-name"
-                        >{{ comment.user.display_name }}
+                        >{{ comment.user.username }}
                         <v-icon
                           class="user-status online"
                           v-if="comment.user.user_type == 'artist'"
@@ -414,9 +419,7 @@
         <v-flex xs4 album-recent-page v-if="currentUser">
           <div class="album-merch-section" v-if="album.products.length">
             <div class="d-flex justify-space-between">
-              <h4 class="__title flex-none">
-                Shop {{ album.user.display_name }}
-              </h4>
+              <h4 class="__title flex-none">Shop {{ album.user.username }}</h4>
               <label class="link-btn flex-none" @click="goToArtistProfile()">
                 View All
               </label>
@@ -432,20 +435,25 @@
                   album.products[0].name
                 }}</label>
 
-                <br>
+                <br />
 
                 <label class="merch-name" @click.self="showMerchDialog()">
-                  {{ album.products[0].merchant.display_name }}
+                  {{ album.products[0].merchant.username }}
                 </label>
-
 
                 <div class="flex-space-between">
                   <label class="merch-price" @click.self="showMerchDialog()">
                     ${{ album.products[0].price | formatNumber }}
                   </label>
                   <div>
-                    <img class="merch-status-icon" src="/static/images/ic_share.svg" />
-                    <img class="merch-status-icon" src="/static/images/ic_repost.svg" />
+                    <img
+                      class="merch-status-icon"
+                      src="/static/images/ic_share.svg"
+                    />
+                    <img
+                      class="merch-status-icon"
+                      src="/static/images/ic_repost.svg"
+                    />
                   </div>
                 </div>
               </div>
@@ -453,14 +461,14 @@
           </div>
 
           <div class="album-reposted-section">
-            <h4 class="__title">
-              Reposted by {{ album.user.display_name }}
-            </h4>
+            <h4 class="__title">Reposted by {{ album.user.username }}</h4>
             <v-layout row wrap class="recent-content">
               <template v-for="(feed, index) in album.user.recent_items">
                 <div
                   v-if="
-                    ['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1
+                    ['Album', 'ShopProduct', 'Stream'].indexOf(
+                      feed.assoc_type
+                    ) > -1
                   "
                   :key="feed.id"
                   class="card-container"
@@ -509,15 +517,9 @@
                 album.released_at | formatDate
               }}</label>
             </v-flex>
-            <v-flex
-              xs12
-              sm12
-              v-if="album.location && album.location != ''"
-            >
+            <v-flex xs12 sm12 v-if="album.location && album.location != ''">
               <label class="album-info-label">Location: </label>
-              <label class="album-info-text">{{
-                album.location
-              }}</label>
+              <label class="album-info-text">{{ album.location }}</label>
             </v-flex>
             <v-flex xs12 sm12>
               <label class="album-info-label">Genre: </label>
@@ -526,22 +528,15 @@
             <v-flex
               xs12
               sm12
-              v-if="
-                album.collaborators && album.collaborators.length > 0
-              "
+              v-if="album.collaborators && album.collaborators.length > 0"
             >
               <label class="album-info-label">Collaborators: </label>
               <label class="album-info-text">
                 <template v-for="c in album.collaborators">
-                  <div
-                    class="collaborator-info"
-                    :key="`collaborator-${c.id}`"
-                  >
-                    <router-link
-                      class="user-name"
-                      :to="`/${c.user.slug}`"
-                      >{{ c.user.display_name }}</router-link
-                    >
+                  <div class="collaborator-info" :key="`collaborator-${c.id}`">
+                    <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                      c.user.username
+                    }}</router-link>
                     <span> - {{ c.user_role }}</span>
                   </div>
                 </template>
@@ -551,30 +546,21 @@
               <label class="album-info-label">Contributors: </label>
               <label class="album-info-text">
                 <div class="contributor-info">
-                  <router-link
-                    class="user-name"
-                    :to="`/${album.user.slug}`"
-                    >{{ album.user.display_name }}</router-link
-                  >
+                  <router-link class="user-name" :to="`/${album.user.slug}`">{{
+                    album.user.username
+                  }}</router-link>
                   <span> - Uploader</span>
                 </div>
               </label>
               <label
                 class="album-info-text"
-                v-if="
-                  album.contributors && album.contributors.length > 0
-                "
+                v-if="album.contributors && album.contributors.length > 0"
               >
                 <template v-for="c in album.contributors">
-                  <div
-                    class="contributor-info"
-                    :key="`contributor-${c.id}`"
-                  >
-                    <router-link
-                      class="user-name"
-                      :to="`/${c.user.slug}`"
-                      >{{ c.user.display_name }}</router-link
-                    >
+                  <div class="contributor-info" :key="`contributor-${c.id}`">
+                    <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                      c.user.username
+                    }}</router-link>
                     <span> - {{ c.user_role }}</span>
                   </div>
                 </template>
@@ -596,32 +582,26 @@
                     >:&nbsp;<router-link
                       class="user-name"
                       :to="`/${s.sample_user.slug}`"
-                      >{{ s.sample_user.display_name }}</router-link
+                      >{{ s.sample_user.username }}</router-link
                     >
                     <span> - {{ s.sample_track.name }}</span>
                   </div>
                 </template>
               </label>
             </v-flex>
-            <v-flex
-              xs12
-              sm12
-              v-if="album.labels && album.labels.length > 0"
-            >
+            <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
               <label class="album-info-label">Label: </label>
               <label class="album-info-text">
                 <router-link
                   class="user-name"
                   :to="`/${album.labels[0].user.slug}`"
-                  >{{ album.labels[0].user.display_name }}</router-link
+                  >{{ album.labels[0].user.username }}</router-link
                 >
               </label>
             </v-flex>
             <v-flex xs12 sm12>
               <div class="album-info-label">About the album:</div>
-              <label class="album-info-text">{{
-                album.description
-              }}</label>
+              <label class="album-info-text">{{ album.description }}</label>
             </v-flex>
           </v-card-text>
         </v-card>
@@ -629,8 +609,8 @@
     </div>
 
     <v-dialog
-    v-model="show_sample_clearance_license_modal"
-    content-class="my-dialog-1 large"
+      v-model="show_sample_clearance_license_modal"
+      content-class="my-dialog-1 large"
     >
       <sample-license-dialog :dismiss="closeSampleClearanceLicenseModal" />
     </v-dialog>

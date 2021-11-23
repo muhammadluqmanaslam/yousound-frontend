@@ -3,7 +3,7 @@
     <v-flex xs12 class="product-info" pa-0>
       <!-- <v-flex xs12 class="product-user" pa-0>
         <profile-item :user="publisher" :className="'product-user-avatar'"></profile-item>
-        <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.display_name }}</p></router-link>
+        <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.username }}</p></router-link>
         <div class="product-posted-at">
           <img class="product-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
         </div>
@@ -35,9 +35,9 @@
 </template>
 
 <script type="text/javascript">
-import merchModal from '@/components/merchmodal'
-import profileItem from '@/components/profileitem'
-import ProductService from '@/services/product'
+import merchModal from "@/components/merchmodal";
+import profileItem from "@/components/profileitem";
+import ProductService from "@/services/product";
 
 export default {
   components: {
@@ -60,15 +60,15 @@ export default {
     return {
       dialog: false,
       showMerchModal: false,
-    }
+    };
   },
 
   computed: {
     item() {
       if (this.object.assoc_type) {
-        return this.object.assoc
+        return this.object.assoc;
       } else {
-        return this.object
+        return this.object;
       }
     },
 
@@ -97,29 +97,34 @@ export default {
     // }
   },
 
-  created() {
-  },
+  created() {},
 
   methods: {
     dimissMerchModal() {
-      this.showMerchModal = false
+      this.showMerchModal = false;
     },
 
     showModal() {
-      this.showMerchModal = true
+      this.showMerchModal = true;
     },
 
     repostProduct() {
-      this.dialog = false
-      ProductService.repostProduct(this.item.id).then(response => {
-        this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
-      }).catch(e => {
-        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      })
+      this.dialog = false;
+      ProductService.repostProduct(this.item.id)
+        .then((response) => {
+          this.$store.dispatch("error/showSuccessToast", [
+            "You just reposted " + this.item.name,
+          ]);
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
     },
   },
 
-  mounted() {
-  },
-}
+  mounted() {},
+};
 </script>

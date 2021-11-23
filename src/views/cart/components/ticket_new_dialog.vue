@@ -5,7 +5,7 @@
       <v-flex xs7 pr-2>
         <div class="user-avatar" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
         <div class="user-name">
-          <label>{{ user.display_name }}</label>
+          <label>{{ user.username }}</label>
           <v-icon class="user-status online" v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1">fa-check-circle</v-icon>
         </div>
         <h3>Open Case / File complaint</h3>
@@ -61,94 +61,99 @@
 </template>
 
 <script type="text/javascript">
-  import _ from 'lodash'
-  import ItemService from '@/services/item'
-  import TicketService from '@/services/ticket'
+import _ from "lodash";
+import ItemService from "@/services/item";
+import TicketService from "@/services/ticket";
 
-  export default {
-    props: {
-      item: {
-        type: Object,
-        required: true,
-      },
-
-      dismiss: {
-        type: Function,
-        required: true,
-      },
+export default {
+  props: {
+    item: {
+      type: Object,
+      required: true,
     },
 
-    data() {
-      return {
-        ticket_reasons: [
-          'Incorrect size',
-          'Product damaged',
-          'Product not received',
-          'Incorrect product',
-          'Other',
-        ],
-        ticket: {
-          reason: '',
-          description: '',
-        },
-        user: {
-          avatar: {},
-        },
-        product: {
-          covers: [
-            {
-              cover: {},
-            },
-          ],
-        },
-        hasTicket: false,
-        isDialogReady: false,
-      }
+    dismiss: {
+      type: Function,
+      required: true,
     },
+  },
 
-    computed: {
-      canSend() {
-        // let b = this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
-        // console.log('canSend', b)
-        return this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
+  data() {
+    return {
+      ticket_reasons: [
+        "Incorrect size",
+        "Product damaged",
+        "Product not received",
+        "Incorrect product",
+        "Other",
+      ],
+      ticket: {
+        reason: "",
+        description: "",
       },
-    },
-
-    methods: {
-      sendTicket() {
-        const params = {
-          ticket: {
-            reason: this.ticket.reason,
-            description: this.ticket.description,
-            item_id: this.item.id,
+      user: {
+        avatar: {},
+      },
+      product: {
+        covers: [
+          {
+            cover: {},
           },
-        }
-
-        TicketService.createTicket(params).then(response => {
-          this.dismiss()
-        })
+        ],
       },
+      hasTicket: false,
+      isDialogReady: false,
+    };
+  },
+
+  computed: {
+    canSend() {
+      // let b = this.ticket.reason.trim() !== '' && this.ticket.description.trim() !== ''
+      // console.log('canSend', b)
+      return (
+        this.ticket.reason.trim() !== "" &&
+        this.ticket.description.trim() !== ""
+      );
     },
+  },
 
-    created() {
-      // console.log('ticket_new_dialog', this.item)
-      this.user = _.get(this.item, 'product.merchant', {avatar: {}})
-      this.product = _.get(this.item, 'product', {covers: [{cover: {}}]})
+  methods: {
+    sendTicket() {
+      const params = {
+        ticket: {
+          reason: this.ticket.reason,
+          description: this.ticket.description,
+          item_id: this.item.id,
+        },
+      };
 
-      this.isDialogReady = false
-      this.hasTicket = false
-      this.$store.dispatch('error/showLoadingActivity', true)
-      ItemService.tickets(this.item.id).then(response => {
+      TicketService.createTicket(params).then((response) => {
+        this.dismiss();
+      });
+    },
+  },
+
+  created() {
+    // console.log('ticket_new_dialog', this.item)
+    this.user = _.get(this.item, "product.merchant", { avatar: {} });
+    this.product = _.get(this.item, "product", { covers: [{ cover: {} }] });
+
+    this.isDialogReady = false;
+    this.hasTicket = false;
+    this.$store.dispatch("error/showLoadingActivity", true);
+    ItemService.tickets(this.item.id)
+      .then((response) => {
         if (response.body.tickets.length > 0) {
-          this.ticket = response.body.tickets[0]
-          this.hasTicket = true
+          this.ticket = response.body.tickets[0];
+          this.hasTicket = true;
         }
-        this.isDialogReady = true
-        this.$store.dispatch('error/showLoadingActivity', false)
-      }).catch(e => {
-        this.isDialogReady = true
-        this.$store.dispatch('error/showLoadingActivity', false)
+        this.isDialogReady = true;
+        this.$store.dispatch("error/showLoadingActivity", false);
       })
-    },
-  }
+      .catch((e) => {
+        this.isDialogReady = true;
+        this.$store.dispatch("error/showLoadingActivity", false);
+      });
+  },
+};
 </script>

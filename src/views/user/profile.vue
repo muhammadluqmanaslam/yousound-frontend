@@ -1,40 +1,45 @@
 <template>
   <div v-scroll="handleScroll">
     <div class="page profile-grid-page mx-5">
-    <content-top-header>
-      <template slot="topHeader">
-        <div class="user-profile-image-wrapper">
-          <div
-            class="user-profile-image"
-            :style="{
-              'background-image': 'url(' + user.avatar.url + ')',
-            }"
-          ></div>
-          <label>{{ user.display_name }}'s</label>
-        </div>
-        <ul class="width100">
-          <template v-for="tab in tabs">
-            <li
-              v-if="isAvailableForGridView(tab)"
-              v-show="['followings', 'followers'].indexOf(tab.id) == -1"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+      <content-top-header>
+        <template slot="topHeader">
+          <div class="user-profile-image-wrapper">
+            <div
+              class="user-profile-image"
+              :style="{
+                'background-image': 'url(' + user.avatar.url + ')',
+              }"
+            ></div>
+            <label>{{ user.username }}'s</label>
+          </div>
+          <ul class="width100">
+            <template v-for="tab in tabs">
+              <li
+                v-if="isAvailableForGridView(tab)"
+                v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+                :key="tab.id"
+                :href="`#${tab.id}`"
+                :class="{ active: isActiveTab(tab.id) }"
+              >
+                <label @click="onTab(tab.id)">{{ tab.title }}</label>
+              </li>
+            </template>
+
+            <v-spacer></v-spacer>
+
+            <li>
+              <v-btn
+                depressed
+                color="transparent"
+                class="text-capitalize no-Btn-bg"
+                @click="signOut"
+              >
+                Sign Out
+              </v-btn>
             </li>
-          </template>
-
-          <v-spacer></v-spacer>
-
-          <li>
-            <v-btn depressed color="transparent" class="text-capitalize no-Btn-bg" @click="signOut">
-              Sign Out
-            </v-btn>
-          </li>
-        </ul>
-      </template>
-    </content-top-header>
+          </ul>
+        </template>
+      </content-top-header>
 
       <div class="d-flex">
         <div class="page-content">
@@ -43,9 +48,7 @@
               class="user-profile-image-section"
               :class="{ live: show_stream_live_button }"
               @click="
-                show_stream_live_button &&
-                  !view_stream_clicked &&
-                  viewStream()
+                show_stream_live_button && !view_stream_clicked && viewStream()
               "
             >
               <div
@@ -60,11 +63,10 @@
             <div class="user-info-section">
               <div class="user-name-section">
                 <label class="display-name">
-                  {{ user.display_name }}
+                  {{ user.username }}
                   <v-icon
                     v-if="
-                      ['artist', 'label', 'brand'].indexOf(user.user_type) >
-                      -1
+                      ['artist', 'label', 'brand'].indexOf(user.user_type) > -1
                     "
                     class="user-status online"
                     >fa-check-circle</v-icon
@@ -80,14 +82,12 @@
                 <label @click="onTab('followers')" class="follower-count"
                   ><strong>{{ user.followers }}</strong> Followers</label
                 >
-                <template
-                  v-if="user.user_type === 'listener' && user.inviter"
-                >
+                <template v-if="user.user_type === 'listener' && user.inviter">
                   <label class="vertical-divider"></label>
                   <label class="user-inviter-name">
                     Invited by
                     <router-link :to="`/${user.inviter.slug}`">{{
-                      user.inviter.display_name
+                      user.inviter.username
                     }}</router-link>
                   </label>
                 </template>
@@ -96,10 +96,10 @@
                 <template v-if="user.user_type === 'listener'">
                   <v-btn
                     v-if="
-                    currentUser &&
-                    ['listener'].indexOf(currentUser.user_type) == -1 &&
-                    !user.inviter &&
-                    user.request_status === 'pending'
+                      currentUser &&
+                      ['listener'].indexOf(currentUser.user_type) == -1 &&
+                      !user.inviter &&
+                      user.request_status === 'pending'
                     "
                     @click.native="openInviteConfirmDialog()"
                     class="invite-btn ml-0"
@@ -108,18 +108,18 @@
                 </template>
 
                 <v-btn v-else @click.native="playSong()" class="play-btn">
-                    <v-icon>play_arrow</v-icon>
-                    <span>Play</span>
+                  <v-icon>play_arrow</v-icon>
+                  <span>Play</span>
                 </v-btn>
 
                 <div
-                    v-if="
-                      currentUser &&
-                      user.id != currentUser.id &&
-                      user.username != PublicRelationsUsername
-                    "
-                    class="__top_actions"
-                  >
+                  v-if="
+                    currentUser &&
+                    user.id != currentUser.id &&
+                    user.username != PublicRelationsUsername
+                  "
+                  class="__top_actions"
+                >
                   <v-btn
                     depressed
                     @mouseenter="buttonHover = true"
@@ -131,38 +131,38 @@
                       follow: !user.is_following,
                       following: user.is_following,
                     }"
-                    >
-                      {{ followButtonText }}
-                    </v-btn>
+                  >
+                    {{ followButtonText }}
+                  </v-btn>
 
-                    <v-btn
-                      depressed
-                      outline
-                      class="no-Btn-bg sqr-plain-btn"
-                      @click="showMessageDialog()"
-                    >
-                      <div class="default-menu-item">
-                        <label>Message</label>
-                      </div>
-                    </v-btn>
+                  <v-btn
+                    depressed
+                    outline
+                    class="no-Btn-bg sqr-plain-btn"
+                    @click="showMessageDialog()"
+                  >
+                    <div class="default-menu-item">
+                      <label>Message</label>
+                    </div>
+                  </v-btn>
 
-                    <v-btn
-                      depressed
-                      outline
-                      class="no-Btn-bg sqr-plain-btn"
-                      key="send_love"
-                      @click="showLoveDialog()"
-                    >
-                      <div class="default-menu-item">
-                        <label>Donate</label>
-                      </div>
-                    </v-btn>
+                  <v-btn
+                    depressed
+                    outline
+                    class="no-Btn-bg sqr-plain-btn"
+                    key="send_love"
+                    @click="showLoveDialog()"
+                  >
+                    <div class="default-menu-item">
+                      <label>Donate</label>
+                    </div>
+                  </v-btn>
 
                   <v-menu
                     v-if="
-                        currentUser &&
-                        user.id != currentUser.id &&
-                        user.username != PublicRelationsUsername
+                      currentUser &&
+                      user.id != currentUser.id &&
+                      user.username != PublicRelationsUsername
                     "
                     offset-y
                     class="more-menu"
@@ -231,7 +231,6 @@
             </div>
 
             <v-layout row wrap class="covers-content" v-else>
-              
               <v-flex
                 xs12
                 sm2
@@ -269,7 +268,6 @@
             </template>
 
             <v-layout row wrap class="covers-content" v-else>
-              
               <v-flex
                 xs12
                 sm2
@@ -310,7 +308,6 @@
             </template>
 
             <v-layout row wrap class="covers-content" v-else>
-              
               <v-flex
                 xs12
                 sm4
@@ -338,10 +335,14 @@
             </v-layout>
           </div> -->
 
-
           <div v-else-if="active_tab == 'video'">
             <v-layout row wrap>
-              <v-flex xs3 v-for="(video) in ownVideos" :key="video.name" class="card-container">
+              <v-flex
+                xs3
+                v-for="video in ownVideos"
+                :key="video.name"
+                class="card-container"
+              >
                 <video-box :hoverOverlay="false" :item="video" />
               </v-flex>
             </v-layout>

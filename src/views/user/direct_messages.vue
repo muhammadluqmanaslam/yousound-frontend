@@ -50,7 +50,7 @@
                   ></router-link>
                 </div>
                 <div class="detail-area">
-                  <label class="user-name">{{ conv.other.display_name }}</label>
+                  <label class="user-name">{{ conv.other.username }}</label>
                   <label class="short-message">{{
                     conv.last_message.body
                   }}</label>
@@ -73,7 +73,7 @@
           >
             <div class="header-section">
               <p class="user-name">
-                {{ conversation.other.display_name }}
+                {{ conversation.other.username }}
                 <v-icon
                   v-if="conversation.other.user_type == 'artist'"
                   class="user-status"

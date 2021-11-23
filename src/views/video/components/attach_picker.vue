@@ -36,7 +36,7 @@
           </div>
           <div class="media__content">
             <label class="media__title">{{ album.name }}</label>
-            <label class="media__subtitle">{{ album.user.display_name }}</label>
+            <label class="media__subtitle">{{ album.user.username }}</label>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
           <div class="media__content">
             <label class="media__title">{{ product.name }}</label>
             <label class="media__subtitle">{{
-              product.merchant.display_name
+              product.merchant.username
             }}</label>
           </div>
         </div>
@@ -110,7 +110,7 @@
               ></div>
               <div class="media__content">
                 <label class="media__title">
-                  {{ user.display_name }}
+                  {{ user.username }}
                   <v-icon v-if="user.user_type == 'artist'"
                     class="user-status"
                     :class="{'online': user.status == 'active'}"
@@ -125,10 +125,10 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from "lodash";
 // import AlbumService from '@/services/album'
 // import ProductService from '@/services/product'
-import MeService from '@/services/me'
+import MeService from "@/services/me";
 
 export default {
   props: {
@@ -144,39 +144,39 @@ export default {
 
   data() {
     return {
-      active_tab: 'Album',
+      active_tab: "Album",
       item: {
-        type: 'Album',
+        type: "Album",
         value: null,
       },
       albums: [],
       products: [],
-      userSearchKeyword: '',
-    }
+      userSearchKeyword: "",
+    };
   },
 
   computed: {
     attachId() {
-      return _.get(this.item.value, 'id', 0)
+      return _.get(this.item.value, "id", 0);
     },
   },
 
   methods: {
     onTab(tab) {
-      this.active_tab = tab
+      this.active_tab = tab;
     },
 
     selectItem(type, value) {
       this.item = {
         type: type,
         value: value,
-      }
-      this.$emit('input', this.item)
-      this.dismiss()
+      };
+      this.$emit("input", this.item);
+      this.dismiss();
     },
 
     loadUsers() {
-      console.log('loadUsers')
+      console.log("loadUsers");
     },
   },
 
@@ -184,11 +184,11 @@ export default {
     this.item = {
       type: this._props.value.type,
       value: this._props.value.value,
-    }
+    };
 
-    this.active_tab = this.item.type
+    this.active_tab = this.item.type;
 
-    this.$store.dispatch('error/showLoadingActivity', true)
+    this.$store.dispatch("error/showLoadingActivity", true);
     Promise.all([
       // AlbumService.getAlbums({
       //   statuses: 'published, collaborated',
@@ -203,17 +203,17 @@ export default {
       MeService.videoAttachProducts(),
     ])
       .then((values) => {
-        this.albums = values[0].body
-        this.products = values[1].body
-        this.$store.dispatch('error/showLoadingActivity', false)
+        this.albums = values[0].body;
+        this.products = values[1].body;
+        this.$store.dispatch("error/showLoadingActivity", false);
       })
       .catch((reason) => {
-        console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', [reason])
-      })
+        console.log(reason);
+        this.$store.dispatch("error/showLoadingActivity", false);
+        this.$store.dispatch("error/showErrorToast", [reason]);
+      });
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

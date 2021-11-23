@@ -16,9 +16,7 @@
           {{ item.name }}
         </p>
         <p class="my-card__subtitle">
-          <router-link :to="'/' + owner.slug">{{
-            owner.display_name
-          }}</router-link>
+          <router-link :to="'/' + owner.slug">{{ owner.username }}</router-link>
         </p>
       </v-flex>
     </v-flex>
@@ -33,7 +31,7 @@
 
 <script type="text/javascript">
 // import _ from 'lodash'
-import merchModal from '@/components/merchmodal'
+import merchModal from "@/components/merchmodal";
 
 export default {
   components: {
@@ -49,20 +47,20 @@ export default {
   data() {
     return {
       show_merch_dialog: false,
-    }
+    };
   },
 
   computed: {
     currentUser() {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.user;
     },
 
     itemCover() {
-      return this.item.covers[0].cover.url
+      return this.item.covers[0].cover.url;
     },
 
     owner() {
-      return this.item.merchant
+      return this.item.merchant;
     },
   },
 
@@ -70,12 +68,12 @@ export default {
 
   methods: {
     openMerchDialog() {
-      this.show_merch_dialog = true
+      this.show_merch_dialog = true;
     },
 
     closeMerchDialog() {
-      this.show_merch_dialog = false
+      this.show_merch_dialog = false;
     },
   },
-}
+};
 </script>

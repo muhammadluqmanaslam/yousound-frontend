@@ -11,12 +11,12 @@
     <div class="box__footer">
       <div class="box__subtitle">{{ video.name }}</div>
       <router-link :to="`/${video.user.slug}`">
-        <div class="box__title">{{ video.user.display_name }}</div>
+        <div class="box__title">{{ video.user.username }}</div>
       </router-link>
-        <div class="box__views__duration_wrapper">
-          <span class="box__views">0 views</span>
-          <span v-if="calcAge" class="ml-1 box__age"> • {{ calcAge }}</span>
-        </div>
+      <div class="box__views__duration_wrapper">
+        <span class="box__views">0 views</span>
+        <span v-if="calcAge" class="ml-1 box__age"> • {{ calcAge }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -31,41 +31,41 @@ export default {
   // },
   computed: {
     calcAge() {
-      const d = new Date()
-      let created
+      const d = new Date();
+      let created;
       if (this.video.assoc != null) {
-        created = new Date(this.video.assoc.created_at)
+        created = new Date(this.video.assoc.created_at);
       } else {
-        return null
+        return null;
       }
-      let relative
+      let relative;
 
-      const vid_dd = created.getDay()
-      const vid_mm = created.getMonth()
-      const vid_yy = created.getFullYear()
+      const vid_dd = created.getDay();
+      const vid_mm = created.getMonth();
+      const vid_yy = created.getFullYear();
 
-      const dd = d.getDay()
-      const mm = d.getMonth()
-      const yy = d.getFullYear()
+      const dd = d.getDay();
+      const mm = d.getMonth();
+      const yy = d.getFullYear();
 
       if (yy > vid_yy) {
-        const duration = yy - vid_yy
-        const rel_str = duration > 1 ? 'years' : 'year'
-        relative = `${duration} ${rel_str} ago`
+        const duration = yy - vid_yy;
+        const rel_str = duration > 1 ? "years" : "year";
+        relative = `${duration} ${rel_str} ago`;
       } else if (mm > vid_mm) {
-        const duration = yy - vid_yy
-        const rel_str = duration > 1 ? 'months' : 'month'
-        relative = `${duration} ${rel_str} ago`
+        const duration = yy - vid_yy;
+        const rel_str = duration > 1 ? "months" : "month";
+        relative = `${duration} ${rel_str} ago`;
       } else if (dd > vid_dd) {
-        const duration = dd - vid_dd
-        const rel_str = duration > 1 ? 'days' : 'day'
-        relative = `${duration} ${rel_str} ago`
+        const duration = dd - vid_dd;
+        const rel_str = duration > 1 ? "days" : "day";
+        relative = `${duration} ${rel_str} ago`;
       }
 
-      return relative || null
+      return relative || null;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -115,7 +115,7 @@ export default {
     margin-top: 0px;
     font-size: 14px;
     letter-spacing: 0;
-    font-weight: 400
+    font-weight: 400;
   }
   &__views {
     font-size: 12px;

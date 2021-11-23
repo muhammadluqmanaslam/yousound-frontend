@@ -463,7 +463,7 @@
                   >Creator<label class="required">*</label></label
                 >
                 <label class="creator-name">{{
-                  $store.state.auth.user.display_name
+                  $store.state.auth.user.username
                 }}</label>
               </v-flex>
               <v-flex xs6 sm3>

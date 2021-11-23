@@ -34,7 +34,7 @@
           <div class="user-info">
             <template v-if="item.collaborators_count > 0">
               <router-link class="user-name" :to="'/' + item.user.slug">{{
-                item.user.display_name
+                item.user.username
               }}</router-link>
               <template v-for="c in item.collaborators">
                 <span :key="`span-${c.user.id}`">,&nbsp;</span>
@@ -42,14 +42,14 @@
                   :key="`link-${c.user.id}`"
                   class="user-name"
                   :to="`/${c.user.slug}`"
-                  >{{ c.user.display_name }}</router-link
+                  >{{ c.user.username }}</router-link
                 >
               </template>
               <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
             </template>
             <template v-else-if="item.album_type == 'album'">
               <router-link class="user-name" :to="'/' + item.user.slug">{{
-                item.user.display_name
+                item.user.username
               }}</router-link>
               <v-btn
                 v-if="currentUser && item.user.id != currentUser.id"
@@ -66,7 +66,7 @@
             </template>
             <template v-else>
               <router-link class="user-name" :to="'/' + track.user.slug">{{
-                track.user.display_name
+                track.user.username
               }}</router-link>
               <v-btn
                 v-if="currentUser && track.user.id != currentUser.id"

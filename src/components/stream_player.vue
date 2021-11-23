@@ -160,7 +160,7 @@
                 'background-image': 'url(' + user.avatar.thumb.url + ')',
               }"
             ></div>
-            <div class="name">{{ user.display_name }}</div>
+            <div class="name">{{ user.username }}</div>
           </div>
           <div class="stream-sector__header__right">
             <div class="time">{{ time | timeInHours }}</div>
@@ -232,7 +232,7 @@
                   ></div>
                   <div class="media__content">
                     <div class="media__title">
-                      {{ stream.assoc.display_name }}
+                      {{ stream.assoc.username }}
                     </div>
                     <div class="media__description">
                       {{ stream.assoc.followers }} followers
@@ -272,7 +272,7 @@
               }"
             ></div>
             <div class="user-info">
-              <div class="name">{{ user.display_name }}</div>
+              <div class="name">{{ user.username }}</div>
               <div>
                 <v-btn
                   round
@@ -377,7 +377,7 @@
               <!-- <div class="media__image--hover" @click="removeItem()"><v-icon>delete</v-icon></div> -->
             </div>
             <div class="media__content">
-              <div class="media__title">{{ stream.assoc.display_name }}</div>
+              <div class="media__title">{{ stream.assoc.username }}</div>
               <div class="media__description">
                 {{ stream.assoc.followers }} followers
               </div>
@@ -429,7 +429,7 @@
                 </div>
                 <div class="detail-area">
                   <label class="item-name">{{ album.name }}</label>
-                  <label class="user-name">{{ album.user.display_name }}</label>
+                  <label class="user-name">{{ album.user.username }}</label>
                 </div>
               </div>
             </div>
@@ -450,7 +450,7 @@
                 <div class="detail-area">
                   <label class="item-name">{{ product.name }}</label>
                   <label class="user-name">{{
-                    product.merchant.display_name
+                    product.merchant.username
                   }}</label>
                 </div>
               </div>
@@ -479,10 +479,10 @@
           <div class="box__content">
             <div class="box__title">{{ stream.name }}</div>
             <div class="box__subtitle">
-              {{ _.get(stream, 'user.display_name') }}
+              {{ _.get(stream, "user.username") }}
               <v-icon>fa-check-circle</v-icon>
             </div>
-            <label>{{ _.get(stream, 'genre.name') }}</label>
+            <label>{{ _.get(stream, "genre.name") }}</label>
           </div>
           <div
             class="box__image"

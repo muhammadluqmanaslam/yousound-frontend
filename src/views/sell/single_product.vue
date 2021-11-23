@@ -68,7 +68,13 @@
                 ></v-select>
               </div>
 
-              <v-btn round block dark class="product-addTobag" @click="product.stock > 0 ? addToCart() : ''">
+              <v-btn
+                round
+                block
+                dark
+                class="product-addTobag"
+                @click="product.stock > 0 ? addToCart() : ''"
+              >
                 <span v-if="product.stock > -1">Add to Bag</span>
                 <span v-else>Out of Stock</span>
               </v-btn>
@@ -78,18 +84,18 @@
               </div>
 
               <div class="product-actions">
-
-              <v-btn
-                v-if="product.merchant.id != currentUser.id"
-                class="follow-btn"
-                :class="{
-                  follow: !product.merchant.is_following,
-                  following: product.merchant.is_following,
-                }"
-                @mouseenter="buttonHover = true"
-                @mouseleave="buttonHover = false"
-                @click.native="followUser()"
-                >{{ followButtonText }}</v-btn>
+                <v-btn
+                  v-if="product.merchant.id != currentUser.id"
+                  class="follow-btn"
+                  :class="{
+                    follow: !product.merchant.is_following,
+                    following: product.merchant.is_following,
+                  }"
+                  @mouseenter="buttonHover = true"
+                  @mouseleave="buttonHover = false"
+                  @click.native="followUser()"
+                  >{{ followButtonText }}</v-btn
+                >
 
                 <v-tooltip top>
                   <span slot="activator" class="__actions pl-0">
@@ -118,7 +124,6 @@
             </div>
           </v-flex>
 
-
           <v-flex xs8>
             <comments :item="product" :comments="comments" />
           </v-flex>
@@ -127,7 +132,7 @@
             <!-- <div class="album-merch-section">
               <div class="d-flex justify-space-between">
                 <h4 class="__title flex-none">
-                  Shop {{ product.merchant.display_name }}
+                  Shop {{ product.merchant.username }}
                 </h4>
                 <label class="link-btn flex-none" @click="goToArtistProfile()">
                   View All
@@ -147,7 +152,7 @@
                   <br>
 
                   <label class="merch-name" @click.self="showMerchDialog()">
-                    {{ album.products[0].merchant.display_name }}
+                    {{ album.products[0].merchant.username }}
                   </label>
 
 

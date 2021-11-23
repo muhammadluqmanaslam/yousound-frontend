@@ -65,7 +65,7 @@
           name="display_name"
           autocomplete="off"
           placeholder="Display Name"
-          v-model="user.display_name"
+          v-model="user.username"
           v-validate="'required|max:20'"
         />
       </v-flex> -->
@@ -123,10 +123,10 @@
           >Create account</v-btn
         >
       </v-flex>
-    <v-flex xs12 text-xs-center mt-3>
-      Already a member?
-      <router-link to="/login">Sign in</router-link>
-    </v-flex>
+      <v-flex xs12 text-xs-center mt-3>
+        Already a member?
+        <router-link to="/login">Sign in</router-link>
+      </v-flex>
     </form>
   </div>
 </template>

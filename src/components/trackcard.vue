@@ -230,17 +230,17 @@
           <router-link
             :to="'/' + owner.slug"
             v-if="item.collaborators_count == 0"
-            >{{ owner.display_name }}</router-link
+            >{{ owner.username }}</router-link
           >
           <template v-else-if="item.collaborators_count == 1">
             <router-link :to="'/' + owner.slug">{{
-              owner.display_name
+              owner.username
             }}</router-link
             >,&nbsp;
             <router-link
               :to="'/' + item.collaborators[0].user.slug"
               v-if="item.collaborators && item.collaborators[0]"
-              >{{ item.collaborators[0].user.display_name }}</router-link
+              >{{ item.collaborators[0].user.username }}</router-link
             >
           </template>
           <router-link :to="`/${item.album_type}/${item.slug}`" v-else

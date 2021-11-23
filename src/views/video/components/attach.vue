@@ -21,7 +21,7 @@
         <attach-card
           v-if="stream_assoc.type == 'User'"
           :image="_.get(stream_assoc.value, 'avatar.thumb.url', '')"
-          :title="stream_assoc.value.display_name"
+          :title="stream_assoc.value.username"
           :subtitle="`${stream_assoc.value.followers} followers`"
         />
       </template>
@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import AttachCard from './attach_card'
-import AttachPicker from './attach_picker'
+import AttachCard from "./attach_card";
+import AttachPicker from "./attach_picker";
 
 export default {
   components: {
@@ -65,36 +65,36 @@ export default {
   data() {
     return {
       stream_assoc: {
-        type: 'Album',
+        type: "Album",
         value: null,
       },
       show_attach_picker: false,
-    }
+    };
   },
 
   watch: {
     value(newVal) {
       // console.log('attach value', newVal)
-      this.stream_assoc = newVal
+      this.stream_assoc = newVal;
     },
   },
 
   methods: {
     openAttachPicker() {
-      this.show_attach_picker = true
+      this.show_attach_picker = true;
     },
 
     closeAttachPicker() {
-      this.show_attach_picker = false
-      this.$emit('input', this.stream_assoc)
+      this.show_attach_picker = false;
+      this.$emit("input", this.stream_assoc);
     },
 
     removeAttach() {
       this.stream_assoc = {
-        type: 'Album',
+        type: "Album",
         value: null,
-      }
-      this.$emit('input', this.stream_assoc)
+      };
+      this.$emit("input", this.stream_assoc);
     },
   },
 
@@ -102,9 +102,9 @@ export default {
     this.stream_assoc = {
       type: this._props.value.type,
       value: this._props.value.value,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

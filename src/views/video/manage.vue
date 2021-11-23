@@ -1,6 +1,7 @@
 <template>
   <div class="page video-page manage-page mx-5">
-    <content-top-header v-if="isPageReady">>
+    <content-top-header v-if="isPageReady"
+      >>
       <template slot="topHeader">
         <ul class="width100">
           <li
@@ -58,8 +59,8 @@
                   <i class="fa fa-spinner fa-pulse fa-3x"></i>
                 </div> -->
                 <p>
-                  Add the <b>URL</b> and <b>Stream Key</b> to your video broadcast
-                  Software’s <b>Stream Settings</b>
+                  Add the <b>URL</b> and <b>Stream Key</b> to your video
+                  broadcast Software’s <b>Stream Settings</b>
                 </p>
                 <div>
                   <label
@@ -151,7 +152,7 @@
             <div class="panel share-view d-flex pa-3">
               <div class="share-social-section">
                 <social-sharing
-                  :title="`${currentUser.display_name} is Broadcasting Live!`"
+                  :title="`${currentUser.username} is Broadcasting Live!`"
                   :url="profileUrl"
                   inline-template
                 >

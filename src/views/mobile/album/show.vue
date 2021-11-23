@@ -20,7 +20,7 @@
               {{ album.name }}
             </div>
             <div class="media__subtitle">
-              {{ album.user.display_name }}
+              {{ album.user.username }}
               <v-icon v-if="isAlbumUserVerified">fa-check-circle</v-icon>
             </div>
           </div>
@@ -40,7 +40,7 @@
               <v-list-tile-content>
                 <v-list-tile-title v-html="track.name"></v-list-tile-title>
                 <v-list-tile-sub-title
-                  v-html="album.user.display_name"
+                  v-html="album.user.username"
                 ></v-list-tile-sub-title>
                 <!-- <v-list-tile-sub-title v-html="track.index"></v-list-tile-sub-title> -->
               </v-list-tile-content>
@@ -182,7 +182,7 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background: url('/static/images/album.jpg') no-repeat center center;
+        background: url("/static/images/album.jpg") no-repeat center center;
         background-size: contain;
       }
       .tag {

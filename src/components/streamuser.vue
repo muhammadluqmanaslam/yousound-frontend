@@ -8,7 +8,7 @@
         ></profile-item>
         <div class="activity-section">
           <router-link class="user-name" :to="'/' + user.slug">{{
-            user.display_name
+            user.username
           }}</router-link
           >&nbsp;
           <v-icon
@@ -56,11 +56,11 @@
 </template>
 
 <script type="text/javascript">
-import merchModal from '@/components/merchmodal'
-import productCard from '@/components/productcard'
-import profileItem from '@/components/profileitem'
-import trackCard from '@/components/trackcard'
-import VideoBox from '@/components/video_box'
+import merchModal from "@/components/merchmodal";
+import productCard from "@/components/productcard";
+import profileItem from "@/components/profileitem";
+import trackCard from "@/components/trackcard";
+import VideoBox from "@/components/video_box";
 // import videoCard from '@/components/videocard'
 
 export default {
@@ -82,52 +82,52 @@ export default {
   data() {
     return {
       showMerchModal: false,
-    }
+    };
   },
 
   computed: {
     recentItem() {
-      return this.user.recent_items[0] || {}
+      return this.user.recent_items[0] || {};
     },
 
     actionText() {
-      let _text = ''
+      let _text = "";
       switch (this.recentItem.feed_type) {
-        case 'release':
-          if (this.recentItem.assoc_type === 'Stream') {
-            _text = 'broadcasted'
+        case "release":
+          if (this.recentItem.assoc_type === "Stream") {
+            _text = "broadcasted";
           } else if (
-            this.recentItem.assoc_type === 'Album' &&
-            this.recentItem.assoc.album_type === 'playlist'
+            this.recentItem.assoc_type === "Album" &&
+            this.recentItem.assoc.album_type === "playlist"
           ) {
-            _text = 'created playlist'
+            _text = "created playlist";
           } else {
-            _text = 'released'
+            _text = "released";
           }
-          break
-        case 'repost':
-          _text = 'reposted'
-          break
-        case 'unrepost':
-          _text = 'unreposted'
-          break
-        case 'follow':
-          _text = 'followed'
-          break
-        case 'unfollow':
-          _text = 'unfollowed'
-          break
-        case 'download':
-          _text = 'downloaded'
-          break
+          break;
+        case "repost":
+          _text = "reposted";
+          break;
+        case "unrepost":
+          _text = "unreposted";
+          break;
+        case "follow":
+          _text = "followed";
+          break;
+        case "unfollow":
+          _text = "unfollowed";
+          break;
+        case "download":
+          _text = "downloaded";
+          break;
         // case 'play':
         //   _text = 'played'
         //   break
         default:
-          _text = this.recentItem.feed_type
-          break
+          _text = this.recentItem.feed_type;
+          break;
       }
-      return _text
+      return _text;
     },
   },
 
@@ -136,18 +136,18 @@ export default {
   methods: {
     doAction() {
       switch (this.recentItem.assoc_type) {
-        case 'ShopProduct':
-          this.showMerchModal = true
-          break
-        case 'Album':
-          this.$router.push({ path: 'album/' + this.recentItem.assoc.slug })
-          break
+        case "ShopProduct":
+          this.showMerchModal = true;
+          break;
+        case "Album":
+          this.$router.push({ path: "album/" + this.recentItem.assoc.slug });
+          break;
       }
     },
 
     dimissMerchModal() {
-      this.showMerchModal = false
+      this.showMerchModal = false;
     },
   },
-}
+};
 </script>

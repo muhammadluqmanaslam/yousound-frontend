@@ -88,7 +88,7 @@
             ></div
           ></router-link>
           <label class="user-name" @click="onSelectUser(user)">
-            {{ user.display_name }}
+            {{ user.username }}
             <v-icon
               v-if="user.user_type == 'artist'"
               class="user-status"
@@ -103,8 +103,8 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import UserService from '@/services/user'
+import _ from "lodash";
+import UserService from "@/services/user";
 
 export default {
   props: {
@@ -130,24 +130,24 @@ export default {
 
   data() {
     return {
-      keyword: '',
+      keyword: "",
       users: [],
       page_index: 1,
       total_pages: 1,
       items_per_page: 20 * 5,
-    }
+    };
   },
 
   computed: {
     filtered_users() {
       return _.filter(this.users, (user) => {
-        return user.user_type === this.type
-      })
+        return user.user_type === this.type;
+      });
     },
   },
 
   created() {
-    this.loadUsers()
+    this.loadUsers();
   },
 
   methods: {
@@ -155,26 +155,26 @@ export default {
       var params = {
         page: this.page_index,
         per_page: this.items_per_page,
-      }
+      };
       if (this.keyword.length) {
-        params['q'] = this.keyword
+        params["q"] = this.keyword;
       }
       UserService.searchUsers(params)
         .then((response) => {
-          this.users = response.body.users
+          this.users = response.body.users;
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     onSelectUser(user) {
-      this.dismiss()
-      this.selectUser(user)
+      this.dismiss();
+      this.selectUser(user);
     },
   },
-}
+};
 </script>

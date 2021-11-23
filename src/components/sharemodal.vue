@@ -13,7 +13,7 @@
         ></router-link>
         <router-link :to="'/' + user.slug"
           ><label class="user-name"
-            >{{ user.display_name }}
+            >{{ user.username }}
             <v-icon
               class="user-status"
               v-bind:class="{ online: user.status == 'active' }"
@@ -82,9 +82,9 @@
 </template>
 
 <script type="text/javascript">
-import AlbumService from '@/services/album'
-import UserService from '@/services/user'
-import { MyEvents } from '@/helper'
+import AlbumService from "@/services/album";
+import UserService from "@/services/user";
+import { MyEvents } from "@/helper";
 
 export default {
   props: {
@@ -105,142 +105,142 @@ export default {
     return {
       donate_amount: null,
       buttonHover: false,
-      shareUrl: '',
-    }
+      shareUrl: "",
+    };
   },
 
   computed: {
     followButtonText() {
       if (this.user.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
+        return this.buttonHover ? "Unfollow" : "Following";
       }
-      return 'Follow'
+      return "Follow";
     },
 
     itemType() {
       switch (this.type) {
-        case 'Stream':
-          return 'Stream'
+        case "Stream":
+          return "Stream";
         default:
           if (this.item.slug) {
-            return 'Album'
+            return "Album";
           } else {
-            return 'ShopProduct'
+            return "ShopProduct";
           }
       }
     },
 
     user() {
       if (this.item.slug) {
-        return this.item.user
+        return this.item.user;
       } else {
-        return this.item.merchant
+        return this.item.merchant;
       }
     },
 
     itemCover() {
       if (this.item.slug) {
-        return this.item.cover.url
+        return this.item.cover.url;
       } else {
-        var coverURL = ''
+        var coverURL = "";
         for (let index in this.item.covers) {
-          const cover = this.item.covers[index].cover
+          const cover = this.item.covers[index].cover;
           if (cover.url) {
-            coverURL = cover.url
-            break
+            coverURL = cover.url;
+            break;
           }
         }
-        return coverURL
+        return coverURL;
       }
     },
   },
 
   created() {
     switch (this.itemType) {
-      case 'Stream':
-        this.shareUrl = window.location.origin + '/video/' + this.item.slug
-        break
-      case 'Album':
-        this.shareUrl = window.location.origin + '/album/' + this.item.slug
-        break
-      case 'ShopProduct':
-        this.shareUrl = window.location.origin + '/product/' + this.item.id
-        break
+      case "Stream":
+        this.shareUrl = window.location.origin + "/video/" + this.item.slug;
+        break;
+      case "Album":
+        this.shareUrl = window.location.origin + "/album/" + this.item.slug;
+        break;
+      case "ShopProduct":
+        this.shareUrl = window.location.origin + "/product/" + this.item.id;
+        break;
     }
   },
 
   methods: {
     donateAmount(amount) {
-      this.donate_amount = amount
+      this.donate_amount = amount;
     },
 
     dismissModal() {
-      console.log('touched')
+      console.log("touched");
     },
 
     followUser() {
       if (this.item.user.is_following) {
         UserService.unfollowUser(this.item.user.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.item.user.display_name,
-            ])
-            this.item.user.is_following = false
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just unfollowed " + this.item.user.username,
+            ]);
+            this.item.user.is_following = false;
             // this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, false)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, false);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       } else {
         UserService.followUser(this.item.user.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.item.user.display_name,
-            ])
-            this.item.user.is_following = true
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just followed " + this.item.user.username,
+            ]);
+            this.item.user.is_following = true;
             // this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, true)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, true);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       }
     },
 
     downloadItem() {
-      this.dismiss()
+      this.dismiss();
       AlbumService.downloadAlbum(this.item.id)
         .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            'You just download ' + this.item.name,
-          ])
+          this.$store.dispatch("error/showSuccessToast", [
+            "You just download " + this.item.name,
+          ]);
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     onCopy: function (e) {
-      this.$store.dispatch('error/showSuccessToast', [
-        'You just copied: ' + e.text,
-      ])
+      this.$store.dispatch("error/showSuccessToast", [
+        "You just copied: " + e.text,
+      ]);
       // alert('You just copied: ' + e.text)
     },
 
     onError: function (e) {
-      this.$store.dispatch('error/showErrorToast', ['Failed to copy link'])
+      this.$store.dispatch("error/showErrorToast", ["Failed to copy link"]);
       // alert('Failed to copy link')
     },
   },
-}
+};
 </script>

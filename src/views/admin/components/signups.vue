@@ -51,7 +51,7 @@
                   {{ props.item.request_role | capitalize }}
                 </td>
                 <td class="text-xs-left">
-                  {{ _.get(props.item, 'genre.name', '') }}
+                  {{ _.get(props.item, "genre.name", "") }}
                 </td>
                 <td class="text-xs-left">
                   {{ props.item.created_at | formatDate }}
@@ -60,7 +60,7 @@
                   <router-link
                     v-if="props.item.inviter"
                     :to="`/${props.item.inviter.slug}`"
-                    >{{ props.item.inviter.display_name }}</router-link
+                    >{{ props.item.inviter.username }}</router-link
                   >
                 </td>
                 <td class="text-xs-right">
@@ -104,7 +104,7 @@
                   {{ props.item.request_role | capitalize }}
                 </td>
                 <td class="text-xs-left">
-                  {{ _.get(props.item, 'genre.name', '') }}
+                  {{ _.get(props.item, "genre.name", "") }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.created_at | formatDate }}
@@ -123,7 +123,7 @@
                   <router-link
                     v-if="props.item.inviter"
                     :to="`/${props.item.inviter.slug}`"
-                    >{{ props.item.inviter.display_name }}</router-link
+                    >{{ props.item.inviter.username }}</router-link
                   >
                 </td>
                 <td class="text-xs-right">
@@ -173,9 +173,7 @@
                   {{ props.item.approved_at | formatDate }}
                 </td>
                 <td class="text-xs-left">
-                  {{
-                    props.item.approver ? props.item.approver.display_name : ''
-                  }}
+                  {{ props.item.approver ? props.item.approver.username : "" }}
                 </td>
                 <td class="text-xs-left">
                   <v-btn

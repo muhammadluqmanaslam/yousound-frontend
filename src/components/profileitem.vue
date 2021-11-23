@@ -30,7 +30,7 @@
           </div>
           <div class="profile-cover-content">
             <router-link class="user-name" :to="'/' + user.slug">{{
-              user.display_name
+              user.username
             }}</router-link
             >&nbsp;
             <v-icon
@@ -83,9 +83,9 @@
 </template>
 
 <script type="text/javascript">
-import UserService from '@/services/user'
-import sendMessage from '@/components/sendmessage'
-import { MyEvents } from '@/helper'
+import UserService from "@/services/user";
+import sendMessage from "@/components/sendmessage";
+import { MyEvents } from "@/helper";
 
 export default {
   components: {
@@ -105,15 +105,15 @@ export default {
     return {
       showSendMessage: false,
       buttonHover: false,
-    }
+    };
   },
 
   computed: {
     followButtonText() {
       if (this.user.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
+        return this.buttonHover ? "Unfollow" : "Following";
       }
-      return 'Follow'
+      return "Follow";
     },
   },
 
@@ -121,11 +121,11 @@ export default {
 
   methods: {
     showMessageDialog() {
-      this.showSendMessage = true
+      this.showSendMessage = true;
     },
 
     dismissMessageModal() {
-      this.showSendMessage = false
+      this.showSendMessage = false;
     },
 
     blockUser() {},
@@ -134,37 +134,37 @@ export default {
       if (this.user.is_following) {
         UserService.unfollowUser(this.user.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.user.display_name,
-            ])
-            this.user.is_following = false
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just unfollowed " + this.user.username,
+            ]);
+            this.user.is_following = false;
             // this.$store.dispatch('player/setUpdatedUser', this.user)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       } else {
         UserService.followUser(this.user.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.user.display_name,
-            ])
-            this.user.is_following = true
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just followed " + this.user.username,
+            ]);
+            this.user.is_following = true;
             // this.$store.dispatch('player/setUpdatedUser', this.user)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       }
     },
   },
-}
+};
 </script>

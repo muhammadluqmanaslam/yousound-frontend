@@ -14,7 +14,7 @@
     <!--<p class="popup-title">You are about to listen to</p>-->
     <!--<div class="artist-section">-->
     <!--<div class="user-avatar-image" :style="`background-image: url(${$store.state.auth.user.avatar.url})`"></div>-->
-    <!--<label class="user-name">{{ $store.state.auth.user.display_name }}-->
+    <!--<label class="user-name">{{ $store.state.auth.user.username }}-->
     <!--<v-icon class="user-status" -->
     <!--v-bind:class="{'online': $store.state.auth.user.status == 'active'}" -->
     <!--v-if="$store.state.auth.user.user_type == 'artist'"-->
@@ -83,7 +83,7 @@
                 </div>
                 <div class="detail-area">
                   <label class="item-name">{{ album.name }}</label>
-                  <label class="user-name">{{ album.user.display_name }}</label>
+                  <label class="user-name">{{ album.user.username }}</label>
                 </div>
               </div>
             </div>
@@ -104,7 +104,7 @@
                 <div class="detail-area">
                   <label class="item-name">{{ product.name }}</label>
                   <label class="user-name">{{
-                    product.merchant.display_name
+                    product.merchant.username
                   }}</label>
                 </div>
               </div>
@@ -147,7 +147,7 @@
                     }"
                   ></div>
                   <label class="user-name" @click="onSelectUser(user)">
-                    {{ user.display_name }}
+                    {{ user.username }}
                     <v-icon
                       v-if="user.user_type == 'artist'"
                       class="user-status"
@@ -165,7 +165,7 @@
     </transition>
 
     <v-flex xs12 sm10 offset-sm1 v-if="user">
-      <h2 class="page-title">{{ user.display_name }}</h2>
+      <h2 class="page-title">{{ user.username }}</h2>
       <label class="chat-room">CHAT ROOM ({{ room.online.length }})</label>
       <v-btn
         v-if="show_stream_live_button"
@@ -241,9 +241,7 @@
               <div class="chat-section">
                 <div class="info-section">
                   <router-link :to="'/' + message.from" class="item-user">{{
-                    message.fromUser
-                      ? message.fromUser.display_name
-                      : message.from
+                    message.fromUser ? message.fromUser.username : message.from
                   }}</router-link>
                   <label class="messaged-time">{{
                     moment(message.time).calendar()
@@ -276,7 +274,7 @@
                         :to="'/' + albumLinks[message.text].user.slug"
                         class="item-user"
                         >{{
-                          albumLinks[message.text].user.display_name
+                          albumLinks[message.text].user.username
                         }}</router-link
                       >
                     </div>
@@ -298,7 +296,7 @@
                         :to="'/' + merchLinks[message.text].merchant.slug"
                         class="item-user"
                         >{{
-                          merchLinks[message.text].merchant.display_name
+                          merchLinks[message.text].merchant.username
                         }}</router-link
                       >
                     </div>
@@ -313,7 +311,7 @@
                     />
                     <div class="info-section" v-if="!!userLinks[message.text]">
                       <label class="item-title">{{
-                        userLinks[message.text].display_name
+                        userLinks[message.text].username
                       }}</label>
                       <br />
                       <router-link
@@ -414,7 +412,7 @@
                 </div>
                 <div class="detail-area">
                   <router-link :to="'/' + adminUser.slug" class="user-name">{{
-                    adminUser.display_name
+                    adminUser.username
                   }}</router-link>
                 </div>
               </div>
@@ -447,7 +445,7 @@
                     v-if="onlineUser"
                     :to="'/' + onlineUser.slug"
                     class="user-name"
-                    >{{ onlineUser.display_name }}</router-link
+                    >{{ onlineUser.username }}</router-link
                   >
                 </div>
               </div>
@@ -478,7 +476,7 @@
                     v-if="idleUser"
                     :to="'/' + idleUser.slug"
                     class="user-name"
-                    >{{ idleUser.display_name }}</router-link
+                    >{{ idleUser.username }}</router-link
                   >
                 </div>
               </div>

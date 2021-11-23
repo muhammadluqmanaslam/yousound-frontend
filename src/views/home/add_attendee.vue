@@ -1,7 +1,7 @@
 <template>
   <div
     class="page attendee-page attendee-add-page"
-    style="padding-top: 0px; min-height: 100%;"
+    style="padding-top: 0px; min-height: 100%"
   >
     <v-layout column wrap align-center>
       <v-flex xs12 sm4 pa-0 class="text-xs-center">
@@ -22,7 +22,7 @@
             class="my-2"
             placeholder="Artist / Brand / Label Name"
             name="display_name"
-            v-model="attendee.display_name"
+            v-model="attendee.username"
             v-validate="'required|max:255'"
           />
           <input
@@ -71,7 +71,7 @@
             <img class="site-logo" src="/static/images/nav_logo_primary.png" />
           </div>
           <v-divider
-            style="width: 50px; margin: 30px auto 50px auto;"
+            style="width: 50px; margin: 30px auto 50px auto"
           ></v-divider>
           <div class="mb-5">
             <img class="page-logo" src="/static/images/ic_verified.png" />

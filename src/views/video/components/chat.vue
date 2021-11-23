@@ -13,7 +13,7 @@
         <div class="item__content">
           <div class="item__title">
             <router-link :to="`/${item.user.slug}`">
-              {{ item.user.display_name }}
+              {{ item.user.username }}
             </router-link>
             <span>{{ toLocalTimeString(item.created_at) }}</span>
           </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { Utils } from '@/helper'
+import { Utils } from "@/helper";
 
 export default {
   props: {
@@ -35,9 +35,9 @@ export default {
   data() {
     return {
       toLocalTimeString: Utils.toLocalTimeString,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -46,7 +46,7 @@
                 <img v-bind:src="user.avatar.url"/>
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title v-html="user.display_name"></v-list-tile-title>
+                <v-list-tile-title v-html="user.username"></v-list-tile-title>
                 <v-list-tile-sub-title>Uploader</v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -59,7 +59,7 @@
                 <img v-bind:src="c.user.avatar.url"/>
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title v-html="c.user.display_name"></v-list-tile-title>
+                <v-list-tile-title v-html="c.user.username"></v-list-tile-title>
                 <v-list-tile-sub-title v-html="c.user_role"></v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -77,7 +77,7 @@
                 <img v-bind:src="c.user.avatar.url"/>
               </v-list-tile-avatar>
               <v-list-tile-content>
-                <v-list-tile-title v-html="c.user.display_name"></v-list-tile-title>
+                <v-list-tile-title v-html="c.user.username"></v-list-tile-title>
                 <v-list-tile-sub-title v-html="c.user_role"></v-list-tile-sub-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -186,7 +186,7 @@
             <label class="album-info-text">
               <template v-for="c in album.collaborators">
                 <div class="collaborator-info">
-                  <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
+                  <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.username }}</router-link> - {{ c.user_role }}</div>
               </template>
             </label>
           </v-flex>
@@ -194,12 +194,12 @@
             <label class="album-info-label">Contributors: </label>
             <label class="album-info-text">
               <div class="contributor-info">
-                <router-link class="user-name" :to="`/${album.user.slug}`">{{ album.user.display_name }}</router-link> - Uploader</div>
+                <router-link class="user-name" :to="`/${album.user.slug}`">{{ album.user.username }}</router-link> - Uploader</div>
             </label>
             <label class="album-info-text" v-if="album.contributors && album.contributors.length > 0">
               <template v-for="c in album.contributors">
                 <div class="contributor-info">
-                  <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.display_name }}</router-link> - {{ c.user_role }}</div>
+                  <router-link class="user-name" :to="`/${c.user.slug}`">{{ c.user.username }}</router-link> - {{ c.user_role }}</div>
               </template>
             </label>
           </v-flex>
@@ -208,7 +208,7 @@
             <label class="album-info-text" v-if="album.samplings && album.samplings.length > 0">
               <template v-for="s in album.samplings">
                 <div class="sampling-info">
-                  <label>{{ s.sampling_track.name }}</label>:&nbsp;<router-link class="user-name" :to="`/${s.sample_user.slug}`">{{ s.sample_user.display_name }}</router-link>
+                  <label>{{ s.sampling_track.name }}</label>:&nbsp;<router-link class="user-name" :to="`/${s.sample_user.slug}`">{{ s.sample_user.username }}</router-link>
                   <span> - {{ s.sample_track.name }}</span>
                 </div>
               </template>
@@ -217,7 +217,7 @@
           <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
             <label class="album-info-label">Label: </label>
             <label class="album-info-text">
-              <router-link class="user-name" :to="`/${album.labels[0].user.slug}`">{{ album.labels[0].user.display_name }}</router-link>
+              <router-link class="user-name" :to="`/${album.labels[0].user.slug}`">{{ album.labels[0].user.username }}</router-link>
             </label>
           </v-flex>
           <v-flex xs12 sm12>

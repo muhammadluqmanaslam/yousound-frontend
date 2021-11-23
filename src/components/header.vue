@@ -228,7 +228,7 @@
               </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ currentUser.display_name }}
+                  {{ currentUser.username }}
                   <v-icon
                     class="user-status online"
                     v-if="

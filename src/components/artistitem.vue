@@ -28,7 +28,7 @@
           </div>
         </v-flex>
         <div class="artist-name">
-          {{ artist.display_name }}
+          {{ artist.username }}
           <v-icon
             v-if="artist.user_type !== 'listener'"
             class="user-status"
@@ -42,8 +42,8 @@
 </template>
 
 <script type="text/javascript">
-import UserService from '@/services/user'
-import { MyEvents, PublicRelationsUsername } from '@/helper'
+import UserService from "@/services/user";
+import { MyEvents, PublicRelationsUsername } from "@/helper";
 
 export default {
   components: {},
@@ -58,32 +58,32 @@ export default {
     return {
       PublicRelationsUsername: PublicRelationsUsername,
       buttonHover: false,
-    }
+    };
   },
 
   computed: {
     currentUser() {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.user;
     },
 
     followButtonText() {
       if (this.artist.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
+        return this.buttonHover ? "Unfollow" : "Following";
       }
-      return 'Follow'
+      return "Follow";
     },
 
     followButtonVisible() {
       return (
         this.currentUser &&
         this.currentUser.id !== this.artist.id &&
-        ['admin', 'superadmin'].indexOf(this.artist.user_type) === -1 &&
+        ["admin", "superadmin"].indexOf(this.artist.user_type) === -1 &&
         this.artist.username !== PublicRelationsUsername
-      )
+      );
     },
 
     canViewProfile() {
-      return ['admin', 'superadmin'].indexOf(this.artist.user_type) === -1
+      return ["admin", "superadmin"].indexOf(this.artist.user_type) === -1;
     },
   },
 
@@ -91,18 +91,18 @@ export default {
 
   methods: {
     showMessageDialog() {
-      this.showSendMessage = true
+      this.showSendMessage = true;
     },
 
     dismissMessageModal() {
-      this.showSendMessage = false
+      this.showSendMessage = false;
     },
 
     imageURL(item) {
       if (item.cover) {
-        return item.cover.thumb.url
+        return item.cover.thumb.url;
       } else {
-        return item.covers[0].cover.thumb.url
+        return item.covers[0].cover.thumb.url;
       }
     },
 
@@ -112,38 +112,38 @@ export default {
       if (this.artist.is_following) {
         UserService.unfollowUser(this.artist.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.artist.display_name,
-            ])
-            this.artist.is_following = false
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just unfollowed " + this.artist.username,
+            ]);
+            this.artist.is_following = false;
             // this.$store.dispatch('player/setUpdatedUser', this.artist)
             // this.$root.$emit(MyEvents.USER_FOLLOW, { id: this.artist.id, is_following: false })
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, false)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, false);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       } else {
         UserService.followUser(this.artist.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.artist.display_name,
-            ])
-            this.artist.is_following = true
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just followed " + this.artist.username,
+            ]);
+            this.artist.is_following = true;
             // this.$store.dispatch('player/setUpdatedUser', this.artist)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, true)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, true);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       }
     },
   },
-}
+};
 </script>

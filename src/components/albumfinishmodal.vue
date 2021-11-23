@@ -52,7 +52,7 @@
                 <div class="card__content">
                   <div class="album-name pt-2">{{ item.name }}</div>
                   <div class="album-artist-name">
-                    {{ item.user.display_name }}
+                    {{ item.user.username }}
                   </div>
                   <div class="album-tracks-count">
                     {{ item.tracks.length }} tracks
@@ -143,7 +143,7 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
+import _ from "lodash";
 
 export default {
   props: {
@@ -166,56 +166,56 @@ export default {
   data() {
     return {
       showPromoteMessage: false,
-      albumURL: '',
-    }
+      albumURL: "",
+    };
   },
 
   computed: {
     itemProduct() {
-      return _.get(this.item, 'products[0]')
+      return _.get(this.item, "products[0]");
     },
 
     itemCover() {
       if (this.item.slug) {
-        return this.item.cover.url
+        return this.item.cover.url;
       } else {
-        var coverURL = ''
+        var coverURL = "";
         for (let index in this.item.covers) {
-          const cover = this.item.covers[index].cover
+          const cover = this.item.covers[index].cover;
           if (cover.url) {
-            coverURL = cover.url
-            break
+            coverURL = cover.url;
+            break;
           }
         }
-        return coverURL
+        return coverURL;
       }
     },
   },
 
   created() {
     if (this.item.slug) {
-      this.albumURL = window.location.origin + '/album/' + this.item.slug
+      this.albumURL = window.location.origin + "/album/" + this.item.slug;
     } else {
-      this.albumURL = window.location.origin + '/product/' + this.item.id
+      this.albumURL = window.location.origin + "/product/" + this.item.id;
     }
   },
 
   methods: {
     showPromoteModal() {
-      this.promote()
+      this.promote();
     },
 
     onCopy: function (e) {
-      this.$store.dispatch('error/showSuccessToast', [
-        'You just copied: ' + e.text,
-      ])
+      this.$store.dispatch("error/showSuccessToast", [
+        "You just copied: " + e.text,
+      ]);
       // alert('You just copied: ' + e.text)
     },
 
     onError: function (e) {
-      this.$store.dispatch('error/showErrorToast', ['Failed to copy link'])
+      this.$store.dispatch("error/showErrorToast", ["Failed to copy link"]);
       // alert('Failed to copy link')
     },
   },
-}
+};
 </script>

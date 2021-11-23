@@ -26,7 +26,8 @@
               <div class="form-group">
                 <label class="control-label max-char-label">
                   <span class="__title">Title</span>
-                  <span class="max-char">80 char max</span></label>
+                  <span class="max-char">80 char max</span></label
+                >
                 <input
                   type="text"
                   class="form-control"
@@ -145,7 +146,7 @@
                       <v-avatar>
                         <img :src="data.item.avatar.url" />
                       </v-avatar>
-                      {{ data.item.display_name }}
+                      {{ data.item.username }}
                     </v-chip>
                   </template>
                   <template slot="item" slot-scope="data">
@@ -160,7 +161,7 @@
                       </v-list-tile-avatar>
                       <v-list-tile-content>
                         <v-list-tile-title
-                          v-html="data.item.display_name"
+                          v-html="data.item.username"
                         ></v-list-tile-title>
                       </v-list-tile-content>
                     </template>
@@ -301,9 +302,7 @@
                 <label class="control-label"
                   >Creator<span class="required">*</span></label
                 >
-                <label class="creator-name">{{
-                  currentUser.display_name
-                }}</label>
+                <label class="creator-name">{{ currentUser.username }}</label>
               </v-flex>
               <v-flex xs6 sm3>
                 <label class="control-label"

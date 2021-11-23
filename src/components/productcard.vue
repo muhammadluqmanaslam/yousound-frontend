@@ -9,7 +9,7 @@
       <!-- <v-flex xs12 class="product-user" v-if="false" pa-0>
         <router-link :to="'/' + publisher.slug"><div class="product-user-avatar" :style="{'background-image': 'url(' + publisher.avatar.thumb.url + ')'}"/></div></router-link>
         <profile-item :user="publisher" :className="'product-user-avatar'"></profile-item>
-        <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.display_name }}</p></router-link>
+        <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.username }}</p></router-link>
         <div class="product-posted-at">
           <img class="product-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
         </div>
@@ -64,10 +64,10 @@
         </div>
         <p class="product-price">${{ item.price | formatNumber }}</p>
         <!-- <p class="product-user-name">
-          <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.display_name }}</router-link>
+          <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.username }}</router-link>
           <template v-else-if="item.collaborators_count == 1">
-            <router-link :to="'/' + owner.slug">{{ owner.display_name }}</router-link>,&nbsp;
-            <router-link :to="'/' + item.collaborators[0].user.slug" v-if="item.collaborators[0]">{{ item.collaborators[0].user.display_name }}</router-link>
+            <router-link :to="'/' + owner.slug">{{ owner.username }}</router-link>,&nbsp;
+            <router-link :to="'/' + item.collaborators[0].user.slug" v-if="item.collaborators[0]">{{ item.collaborators[0].user.username }}</router-link>
           </template>
           <router-link :to="'/' + owner.slug" v-else>Multiple Collaborators</router-link>
         </p> -->
@@ -104,143 +104,155 @@
 </template>
 
 <script type="text/javascript">
-  import merchModal from '@/components/merchmodal'
-  import profileItem from '@/components/profileitem'
-  import ProductService from '@/services/product'
-  import shareModal from '@/components/sharemodal'
-  import UserTag from '@/components/user_tag'
+import merchModal from "@/components/merchmodal";
+import profileItem from "@/components/profileitem";
+import ProductService from "@/services/product";
+import shareModal from "@/components/sharemodal";
+import UserTag from "@/components/user_tag";
 
-  export default {
-    components: {
-      merchModal,
-      shareModal,
-      profileItem,
-      UserTag,
+export default {
+  components: {
+    merchModal,
+    shareModal,
+    profileItem,
+    UserTag,
+  },
+
+  props: {
+    noMeta: {
+      type: Boolean,
+      default: false,
+    },
+    hideMoreOptions: {
+      type: Boolean,
+      default: false,
+    },
+    hideOverlay: {
+      type: Boolean,
+      default: false,
+    },
+    dataObject: {
+      type: Object,
     },
 
-    props: {
-      noMeta: {
-        type: Boolean,
-        default: false,
-      },
-      hideMoreOptions: {
-        type: Boolean,
-        default: false,
-      },
-      hideOverlay: {
-        type: Boolean,
-        default: false,
-      },
-      dataObject: {
-        type: Object,
-      },
+    hideButtonAction: {
+      type: Function,
+    },
+  },
 
-      hideButtonAction: {
-        type: Function,
-      },
+  data() {
+    return {
+      showMerchModal: false,
+      showShareModal: false,
+      show_hide_dialog: false,
+      is_component_hover: false,
+      is_menu_hover: false,
+    };
+  },
+
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
     },
 
-    data() {
-      return {
-        showMerchModal: false,
-        showShareModal: false,
-        show_hide_dialog: false,
-        is_component_hover: false,
-        is_menu_hover: false,
+    willMenuRender() {
+      // console.log('willMenuRender', this.item.id, this.is_component_hover, this.is_menu_hover)
+      return this.is_menu_hover || this.is_component_hover;
+    },
+
+    // publisher() {
+    //   if (this.dataObject.assoc_type) {
+    //     return this.dataObject.publisher
+    //   } else {
+    //     return this.dataObject.merchant
+    //   }
+    // },
+
+    item() {
+      if (this.dataObject.assoc_type) {
+        return this.dataObject.assoc;
+      } else {
+        return this.dataObject;
       }
     },
 
-    computed: {
-      currentUser() {
-        return this.$store.state.auth.user
-      },
+    owner() {
+      if (this.dataObject.assoc_type) {
+        return this.dataObject.assoc.merchant;
+      } else {
+        return this.dataObject.merchant;
+      }
+    },
+  },
 
-      willMenuRender() {
-        // console.log('willMenuRender', this.item.id, this.is_component_hover, this.is_menu_hover)
-        return this.is_menu_hover || this.is_component_hover
-      },
-
-      // publisher() {
-      //   if (this.dataObject.assoc_type) {
-      //     return this.dataObject.publisher
-      //   } else {
-      //     return this.dataObject.merchant
-      //   }
-      // },
-
-      item() {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.assoc
-        } else {
-          return this.dataObject
-        }
-      },
-
-      owner() {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.assoc.merchant
-        } else {
-          return this.dataObject.merchant
-        }
-      },
+  methods: {
+    openMerchDialog() {
+      this.showMerchModal = true;
     },
 
-    methods: {
-      openMerchDialog() {
-        this.showMerchModal = true
-      },
+    closeMerchDialog() {
+      this.showMerchModal = false;
+    },
 
-      closeMerchDialog() {
-        this.showMerchModal = false
-      },
+    openShareDialog() {
+      this.showMerchModal = false;
+      this.showShareModal = true;
+    },
 
-      openShareDialog() {
-        this.showMerchModal = false
-        this.showShareModal = true
-      },
+    closeShareDialog() {
+      this.showShareModal = false;
+    },
 
-      closeShareDialog() {
-        this.showShareModal = false
-      },
+    openHideDialog() {
+      this.menu = false;
+      this.submenu = false;
+      this.show_hide_dialog = true;
+    },
 
-      openHideDialog() {
-        this.menu = false
-        this.submenu = false
-        this.show_hide_dialog = true
-      },
+    hideProduct() {
+      this.menu = false;
+      this.submenu = false;
+      this.show_hide_dialog = false;
 
-      hideProduct() {
-        this.menu = false
-        this.submenu = false
-        this.show_hide_dialog = false
-
-        ProductService.hideProduct(this.item.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just hid ' + this.item.name])
+      ProductService.hideProduct(this.item.id)
+        .then((response) => {
+          this.$store.dispatch("error/showSuccessToast", [
+            "You just hid " + this.item.name,
+          ]);
           if (this.hideButtonAction) {
-            this.hideButtonAction(this.objects[this.objectIndex])
+            this.hideButtonAction(this.objects[this.objectIndex]);
           }
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
-      },
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
 
-      repostProduct() {
-        ProductService.repostProduct(this.item.id).then(response => {
+    repostProduct() {
+      ProductService.repostProduct(this.item.id)
+        .then((response) => {
           if (response.body.errors) {
-            this.$store.dispatch('error/showErrorToast', response.body.errors)
+            this.$store.dispatch("error/showErrorToast", response.body.errors);
           } else {
-            this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just reposted " + this.item.name,
+            ]);
           }
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
         })
-      },
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
     },
+  },
 
-    created() {
-    },
+  created() {},
 
-    mounted() {
-    },
-  }
+  mounted() {},
+};
 </script>

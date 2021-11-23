@@ -122,7 +122,7 @@
                       <v-avatar>
                         <img :src="data.item.avatar.url" />
                       </v-avatar>
-                      {{ data.item.display_name }}
+                      {{ data.item.username }}
                     </v-chip>
                   </template>
                   <template slot="item" slot-scope="data">
@@ -137,7 +137,7 @@
                       </v-list-tile-avatar>
                       <v-list-tile-content>
                         <v-list-tile-title
-                          v-html="data.item.display_name"
+                          v-html="data.item.username"
                         ></v-list-tile-title>
                       </v-list-tile-content>
                     </template>

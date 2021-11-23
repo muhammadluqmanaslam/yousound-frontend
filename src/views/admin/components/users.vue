@@ -118,7 +118,7 @@
               v-if="props.item.inviter"
               :to="`/${props.item.inviter.slug}`"
             >
-              {{ props.item.inviter.display_name }}
+              {{ props.item.inviter.username }}
             </router-link>
           </td>
           <td class="text-xs-left">
@@ -126,7 +126,7 @@
               v-if="props.item.approver"
               :to="`/${props.item.approver.slug}`"
             >
-              {{ props.item.approver.display_name }}
+              {{ props.item.approver.username }}
             </router-link>
           </td>
           <td class="text-xs-left">{{ props.item.status }}</td>
@@ -323,7 +323,7 @@
           <!-- <div class="headline">Delete a user permanetly</div> -->
           <div>
             Do you really want to delete
-            <b>{{ _.get(user, 'display_name', 'User') }}</b
+            <b>{{ _.get(user, "display_name", "User") }}</b
             >?
           </div>
         </v-card-text>

@@ -1,6 +1,5 @@
 <template>
   <v-flex xs12 class="product-item">
-
     <promote-modal
       v-if="isShowPromoteModal"
       :item="album"
@@ -8,7 +7,10 @@
       :success="saveAndFinish"
     />
     <v-flex sm12 product-content-section pa-0 relative>
-      <div class="product-image" :style="{ 'background-image': 'url(' + album.cover.url + ')' }"></div>
+      <div
+        class="product-image"
+        :style="{ 'background-image': 'url(' + album.cover.url + ')' }"
+      ></div>
       <div class="product-content">
         <v-flex sm12 class="product-content-row" pr-0>
           <label class="product-name">{{ album.name }}</label>
@@ -40,164 +42,173 @@
           <label class="product-category-text">Category: {{ album.category ? album.category.name : '' }}</label>
         </v-flex> -->
 
-
         <v-flex xs12 class="product-content-row">
-            <template v-if="album.collaborators_count === 0">
-                <v-btn
-                v-if="deleteButtonAction"
-                dark
-                class="text-btn"
-                :class="{'to-right': textBtnToRight}"
-                @click.native="show_album_delete_confirm_dialog = true"
-                >Delete</v-btn
-                >
-                <v-btn
-                v-if="videoOnlyButtonAction"
-                dark
-                class="text-btn"
-                :class="{'to-right': textBtnToRight}"
-                @click.native="videoOnlyButtonAction(album)"
-                >Make Live Video Only</v-btn
-                >
-                <!-- <v-btn
+          <template v-if="album.collaborators_count === 0">
+            <v-btn
+              v-if="deleteButtonAction"
+              dark
+              class="text-btn"
+              :class="{ 'to-right': textBtnToRight }"
+              @click.native="show_album_delete_confirm_dialog = true"
+              >Delete</v-btn
+            >
+            <v-btn
+              v-if="videoOnlyButtonAction"
+              dark
+              class="text-btn"
+              :class="{ 'to-right': textBtnToRight }"
+              @click.native="videoOnlyButtonAction(album)"
+              >Make Live Video Only</v-btn
+            >
+            <!-- <v-btn
                 v-if="publishButtonAction && album.status == 'privated'"
                 dark
                 class="text-btn"
                 @click.native="publishButtonAction(album)"
                 >Make Public</v-btn
                 > -->
-                <v-btn
-                v-if="privateButtonAction"
-                dark
-                class="text-btn"
-                :class="{'to-right': textBtnToRight}"
-                @click="toggle_album_status_dialog = true"
-                >{{ buttonText }} </v-btn
-                >
-                <v-btn
-                v-if="editButtonAction"
-                dark
-                class="text-btn"
-                :class="{'to-right': textBtnToRight}"
-                @click.native="editProduct()"
-                >Edit</v-btn
-                >
-            </template>
+            <v-btn
+              v-if="privateButtonAction"
+              dark
+              class="text-btn"
+              :class="{ 'to-right': textBtnToRight }"
+              @click="toggle_album_status_dialog = true"
+              >{{ buttonText }}
+            </v-btn>
+            <v-btn
+              v-if="editButtonAction"
+              dark
+              class="text-btn"
+              :class="{ 'to-right': textBtnToRight }"
+              @click.native="editProduct()"
+              >Edit</v-btn
+            >
+          </template>
 
-            <template v-else>
-                <span
-                v-if="album.status == 'pending'"
-                class="collaboration-status"
-                >
-                    <template
-                        v-if="
-                        album.user.id === this.$store.state.auth.user.id &&
-                        usersCountByStatus.accepted === album.collaborators_count
-                        "
-                    >
-                        <span class="approve-wrapper">
-                        <span class="approved-text">
-                            This album has been <br /><span>APPROVED</span>
-                        </span>
-                        <v-btn
-                          dark
-                          class="text-btn release"
-                          @click.native="releaseButtonAction(album)"
-                        >
-                          Release Now
-                        </v-btn>
-                        </span>
-                    </template>
-
-                    <span v-else class="status-overview">
-                        <span v-if="usersCountByStatus.accepted > 0">
-                        <span class="accepted-title">Accepted</span>
-                        <span v-for="(c, i) in usersByStatus.accepted" :key="i">
-                            {{ c.user.display_name }}
-                        </span>
-                        </span>
-                        <span v-if="usersCountByStatus.denied > 0">
-                        <span class="denied-title">Denied</span>
-                        <!-- {{ usersByStatus.denied }} -->
-                        <span v-for="(c, i) in usersByStatus.denied" :key="i">
-                            {{ c.user.display_name }}
-                        </span>
-                        </span>
-                        <span v-if="usersCountByStatus.pending > 0">
-                            <span class="pending-title">Waiting for approval</span>
-                            <span v-for="(c, i) in usersByStatus.pending" :key="i">
-                                {{ c.user.display_name }}
-                            </span>
-                        </span>
-                    </span>
-
-                    <span v-if="acceptButtonAction && (!usersByStatus.denied && !usersByStatus.accepted)" class="collaboration-actions">
-                        <v-btn
-                        dark
-                        class="text-btn accept"
-                        @click.native="acceptButtonAction(album)"
-                        >Accept</v-btn
-                        >
-                        <v-btn
-                        dark
-                        class="text-btn deny"
-                        @click.native="denyButtonAction(album)"
-                        >Deny</v-btn
-                        >
-                    </span>
-                </span>
-
-                <v-btn
+          <template v-else>
+            <span v-if="album.status == 'pending'" class="collaboration-status">
+              <template
                 v-if="
-                    deleteButtonAction &&
-                    this.$store.state.auth.user.id === album.user.id
+                  album.user.id === this.$store.state.auth.user.id &&
+                  usersCountByStatus.accepted === album.collaborators_count
                 "
-                dark
-                class="text-btn"
-                @click.native="deleteButtonAction(album)"
-                >Delete</v-btn
-                >
-                <span
-                v-if="
-                    deleteButtonAction &&
-                    this.$store.state.auth.user.id === album.user.id
-                "
-                >
-                    <label class="btn-divider"></label>
-                    <label class="product-category-text">{{ album.tracks.length }} tracks</label>
+              >
+                <span class="approve-wrapper">
+                  <span class="approved-text">
+                    This album has been <br /><span>APPROVED</span>
+                  </span>
+                  <v-btn
+                    dark
+                    class="text-btn release"
+                    @click.native="releaseButtonAction(album)"
+                  >
+                    Release Now
+                  </v-btn>
                 </span>
-            </template>
+              </template>
+
+              <span v-else class="status-overview">
+                <span v-if="usersCountByStatus.accepted > 0">
+                  <span class="accepted-title">Accepted</span>
+                  <span v-for="(c, i) in usersByStatus.accepted" :key="i">
+                    {{ c.user.username }}
+                  </span>
+                </span>
+                <span v-if="usersCountByStatus.denied > 0">
+                  <span class="denied-title">Denied</span>
+                  <!-- {{ usersByStatus.denied }} -->
+                  <span v-for="(c, i) in usersByStatus.denied" :key="i">
+                    {{ c.user.username }}
+                  </span>
+                </span>
+                <span v-if="usersCountByStatus.pending > 0">
+                  <span class="pending-title">Waiting for approval</span>
+                  <span v-for="(c, i) in usersByStatus.pending" :key="i">
+                    {{ c.user.username }}
+                  </span>
+                </span>
+              </span>
+
+              <span
+                v-if="
+                  acceptButtonAction &&
+                  !usersByStatus.denied &&
+                  !usersByStatus.accepted
+                "
+                class="collaboration-actions"
+              >
+                <v-btn
+                  dark
+                  class="text-btn accept"
+                  @click.native="acceptButtonAction(album)"
+                  >Accept</v-btn
+                >
+                <v-btn
+                  dark
+                  class="text-btn deny"
+                  @click.native="denyButtonAction(album)"
+                  >Deny</v-btn
+                >
+              </span>
+            </span>
+
+            <v-btn
+              v-if="
+                deleteButtonAction &&
+                this.$store.state.auth.user.id === album.user.id
+              "
+              dark
+              class="text-btn"
+              @click.native="deleteButtonAction(album)"
+              >Delete</v-btn
+            >
+            <span
+              v-if="
+                deleteButtonAction &&
+                this.$store.state.auth.user.id === album.user.id
+              "
+            >
+              <label class="btn-divider"></label>
+              <label class="product-category-text"
+                >{{ album.tracks.length }} tracks</label
+              >
+            </span>
+          </template>
         </v-flex>
       </div>
     </v-flex>
-    <v-flex v-if="album.status == 'collaborated' || album.status == 'pending'" sm12 collaborator-content-section>
+    <v-flex
+      v-if="album.status == 'collaborated' || album.status == 'pending'"
+      sm12
+      collaborator-content-section
+    >
       <div>
         <div class="app-bold">Collaborators</div>
         <div class="collaborator-content">
           <div>
             <span v-for="(c, i) in usersByStatus.accepted" :key="i">
-                {{ c.user.display_name }}
-                <span v-if="$store.state.auth.user.display_name === c.user.display_name">
+              {{ c.user.username }}
+              <span v-if="$store.state.auth.user.username === c.user.username">
                 (owner)
-                </span>
+              </span>
             </span>
             <!-- <br>
             <br> -->
             <!-- <span v-for="(c, i) in usersByStatus" :key="i">
                 <pre>{{ c }}</pre>
                 <pre>{{ album.collaborators.length }}</pre>
-                {{ c.user.display_name }}
-                <span v-if="$store.state.auth.user.display_name === c.user.display_name">
+                {{ c.user.username }}
+                <span v-if="$store.state.auth.user.username === c.user.username">
                 (owner)
                 </span>
             </span> -->
           </div>
 
-          <v-btn 
+          <v-btn
             v-if="album.status == 'pending' && usersByStatus.denied > 0"
-            depressed 
-            dark 
-            class="action-btn release" 
+            depressed
+            dark
+            class="action-btn release"
             @click.native="releaseButtonAction(product)"
           >
             Release Now
@@ -205,8 +216,6 @@
         </div>
       </div>
     </v-flex>
-
-
 
     <v-dialog v-model="toggle_album_status_dialog">
       <v-card>
@@ -292,9 +301,9 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import promoteModal from '@/components/promotemodal'
-import AlbumService from '@/services/album'
+import _ from "lodash";
+import promoteModal from "@/components/promotemodal";
+import AlbumService from "@/services/album";
 
 export default {
   components: {
@@ -358,31 +367,31 @@ export default {
       toggle_album_status_dialog: false,
       show_album_delete_confirm_dialog: false,
       show_video_only_confirm_dialog: false,
-    }
+    };
   },
 
   computed: {
     buttonText() {
-      if (this.album.status === 'published') {
-        return 'Make Private'
-      } else if (this.album.status === 'privated') {
-        return 'Make Public'
+      if (this.album.status === "published") {
+        return "Make Private";
+      } else if (this.album.status === "privated") {
+        return "Make Public";
       }
     },
     usersCountByStatus() {
-      console.log(_.countBy(this.album.collaborators, 'status'))
-      return _.countBy(this.album.collaborators, 'status')
+      console.log(_.countBy(this.album.collaborators, "status"));
+      return _.countBy(this.album.collaborators, "status");
     },
 
     usersByStatus() {
-      console.log(_.groupBy(this.album.collaborators, 'status'))
-      return _.groupBy(this.album.collaborators, 'status')
+      console.log(_.groupBy(this.album.collaborators, "status"));
+      return _.groupBy(this.album.collaborators, "status");
     },
   },
 
   watch: {
     album(val) {
-      console.log(this.album)
+      console.log(this.album);
     },
   },
 
@@ -391,65 +400,69 @@ export default {
       AlbumService.deleteAlbum(this.album.id)
         .then((response) => {
           _.remove(this.albums, (item) => {
-            return item.id === this.album.id
-          })
-          const arr = this.albums.slice()
-          this.albums = arr
-          this.show_album_delete_confirm_dialog = false
+            return item.id === this.album.id;
+          });
+          const arr = this.albums.slice();
+          this.albums = arr;
+          this.show_album_delete_confirm_dialog = false;
         })
         .catch((e) => {
-          this.show_album_delete_confirm_dialog = false
+          this.show_album_delete_confirm_dialog = false;
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
     toggleAlbumStatus(album) {
-      const status = this.album.status
-      const toggle = status === 'published' ? AlbumService.makePrivateAlbum(this.album.id) : AlbumService.makePublicAlbum(this.album.id)
+      const status = this.album.status;
+      const toggle =
+        status === "published"
+          ? AlbumService.makePrivateAlbum(this.album.id)
+          : AlbumService.makePublicAlbum(this.album.id);
 
-      toggle.then((response) => {
-        this.album.status = status === 'published' ? 'privated' : 'published'
-        this.toggle_album_status_dialog = false
-      })
-      .catch((e) => {
-        this.toggle_album_status_dialog = false
-        this.$store.dispatch(
-          'error/showErrorToast',
-          e.body.errors || [e.body]
-        )
-      })
+      toggle
+        .then((response) => {
+          this.album.status = status === "published" ? "privated" : "published";
+          this.toggle_album_status_dialog = false;
+        })
+        .catch((e) => {
+          this.toggle_album_status_dialog = false;
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
     },
     videoOnlyAlbum() {
       AlbumService.makeLiveVideoOnlyAlbum(this.album.id)
         .then((response) => {
-          this.show_video_only_confirm_dialog = false
-          this.album.status = 'published'
-          this.album.is_only_for_live_stream = true
+          this.show_video_only_confirm_dialog = false;
+          this.album.status = "published";
+          this.album.is_only_for_live_stream = true;
         })
         .catch((e) => {
-          this.show_video_only_confirm_dialog = false
+          this.show_video_only_confirm_dialog = false;
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
     editProduct() {
-      this.$router.push({ path: `/album/${this.album.slug}/edit` })
+      this.$router.push({ path: `/album/${this.album.slug}/edit` });
     },
     showPromoteDialog() {
-      this.isShowPromoteModal = true
+      this.isShowPromoteModal = true;
     },
 
     dismissPromoteDialog() {
-      this.isShowPromoteModal = false
+      this.isShowPromoteModal = false;
     },
 
     saveAndFinish() {
-      this.dismissPromoteDialog()
+      this.dismissPromoteDialog();
     },
   },
-}
+};
 </script>

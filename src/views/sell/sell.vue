@@ -89,7 +89,7 @@ empty<template>
                       <div>
                         <div class="profile-content">
                           <a href="#" class="user-name">{{
-                            order.customer.display_name
+                            order.customer.username
                           }}</a>
                           <label class="order-detail-text">
                             purchased
@@ -214,7 +214,7 @@ empty<template>
                       </div>
                       <div class="profile-content">
                         <a href="#" class="user-name">{{
-                          order.customer.display_name
+                          order.customer.username
                         }}</a>
                         <label class="order-detail-text">
                           purchased
@@ -289,7 +289,9 @@ empty<template>
                             v-if="item.status == 'item_ordered'"
                             >Unshipped</v-chip
                           >
-                          <v-chip label outline color="blue" v-else>Shipped</v-chip>
+                          <v-chip label outline color="blue" v-else
+                            >Shipped</v-chip
+                          >
                         </div>
                         <div
                           class="order-status-section text-xs-center"

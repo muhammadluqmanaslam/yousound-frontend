@@ -46,8 +46,8 @@
         <div class="app-bold">Collaborators</div>
         <div class="collaborator-content">
           <div v-for="(collaborator, i) in product.collaborators" :key="i">
-            {{ collaborator.user.display_name }}
-            <span v-if="$store.state.auth.user.display_name === collaborator.user.display_name">
+            {{ collaborator.user.username }}
+            <span v-if="$store.state.auth.user.username === collaborator.user.username">
               (owner)
             </span>
           </div>
@@ -60,89 +60,87 @@
 </template>
 
 <script type="text/javascript">
-  /* global $:true */
-  // import ProductService from '@/services/product'
-  import promoteModal from '@/components/promotemodal'
+/* global $:true */
+// import ProductService from '@/services/product'
+import promoteModal from "@/components/promotemodal";
 
-  export default {
-    components: {
-      promoteModal,
+export default {
+  components: {
+    promoteModal,
+  },
+
+  props: {
+    product: {
+      type: Object,
     },
 
-    props: {
-      product: {
-        type: Object,
-      },
-
-      index: {
-        type: Number,
-      },
-
-      acceptItem: {
-        type: Function,
-      },
-
-      denyItem: {
-        type: Function,
-      },
-
-      deleteItem: {
-        type: Function,
-      },
-
-      status: {
-        type: String,
-      },
-
-      showPromoteButton: {
-        type: Boolean,
-        default: true,
-      },
+    index: {
+      type: Number,
     },
 
-    data() {
-      return {
-        showPromoteMessage: false,
-        dialog: false,
+    acceptItem: {
+      type: Function,
+    },
+
+    denyItem: {
+      type: Function,
+    },
+
+    deleteItem: {
+      type: Function,
+    },
+
+    status: {
+      type: String,
+    },
+
+    showPromoteButton: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
+  data() {
+    return {
+      showPromoteMessage: false,
+      dialog: false,
+    };
+  },
+
+  computed: {
+    count() {
+      var count = 0;
+      for (let index in this.product.variants) {
+        const variant = this.product.variants[index];
+        count += variant.quantity;
       }
+      return count;
+    },
+  },
+
+  created() {},
+
+  methods: {
+    editProduct() {
+      this.$router.push({ path: "/product/edit/" + this.product.id });
     },
 
-    computed: {
-      count() {
-        var count = 0
-        for (let index in this.product.variants) {
-          const variant = this.product.variants[index]
-          count += variant.quantity
-        }
-        return count
-      },
+    showPromoteModal() {
+      this.showPromoteMessage = true;
+      $("body").css("overflow", "scroll");
     },
 
-    created() {
+    dismissPromoteModal() {
+      this.showPromoteMessage = false;
+      $("body").css("overflow", "scroll");
     },
 
-    methods: {
-      editProduct() {
-        this.$router.push({path: '/product/edit/' + this.product.id})
-      },
-
-      showPromoteModal() {
-        this.showPromoteMessage = true
-        $('body').css('overflow', 'scroll')
-      },
-
-      dismissPromoteModal() {
-        this.showPromoteMessage = false
-        $('body').css('overflow', 'scroll')
-      },
-
-      saveAndFinish(users) {
-        $('body').css('overflow', 'scroll')
-        this.showPromoteMessage = false
-      },
+    saveAndFinish(users) {
+      $("body").css("overflow", "scroll");
+      this.showPromoteMessage = false;
     },
+  },
 
-    mounted() {
-    },
-  }
+  mounted() {},
+};
 </script>

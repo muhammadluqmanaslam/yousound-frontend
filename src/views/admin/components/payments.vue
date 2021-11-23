@@ -41,7 +41,7 @@
                         'url(' + props.item.sender.avatar.url + ')',
                     }"
                   ></div>
-                  {{ props.item.sender.display_name }}
+                  {{ props.item.sender.username }}
                 </td>
                 <td class="text-xs-left">
                   <div
@@ -51,7 +51,7 @@
                         'url(' + props.item.receiver.avatar.url + ')',
                     }"
                   ></div>
-                  {{ props.item.receiver.display_name }}
+                  {{ props.item.receiver.username }}
                 </td>
                 <td class="text-xs-center">
                   ${{
@@ -93,7 +93,7 @@
                         'url(' + props.item.sender.avatar.url + ')',
                     }"
                   ></div>
-                  {{ props.item.sender.display_name }}
+                  {{ props.item.sender.username }}
                 </td>
                 <td class="text-xs-left">
                   <div
@@ -103,7 +103,7 @@
                         'url(' + props.item.receiver.avatar.url + ')',
                     }"
                   ></div>
-                  {{ props.item.receiver.display_name }}
+                  {{ props.item.receiver.username }}
                 </td>
                 <td class="text-xs-center">{{ props.item.sent_amount }}</td>
                 <td class="text-xs-center">{{ props.item.received_amount }}</td>

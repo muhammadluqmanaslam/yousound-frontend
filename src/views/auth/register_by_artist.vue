@@ -60,7 +60,7 @@
             type="text"
             name="display_name"
             placeholder="Display Name"
-            v-model="user.display_name"
+            v-model="user.username"
             v-validate="'required|max:20'"
           />
         </v-flex>

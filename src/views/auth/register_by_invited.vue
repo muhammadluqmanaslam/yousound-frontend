@@ -5,7 +5,7 @@
       v-if="isPageReady && !show_register_success_dialog"
     >
       <!-- <img class="logo" src="/static/images/nav_logo_primary.png" /> -->
-      <div v-if="inviter.display_name" class="inviter">
+      <div v-if="inviter.username" class="inviter">
         You've been invited by<br />
         <user-tag :user="inviter" /><br />
         to get verified
@@ -100,7 +100,7 @@
           name="display_name"
           placeholder="Display Name"
           autocomplete="off"
-          v-model="user.display_name"
+          v-model="user.username"
           v-validate="'required|max:20'"
         />
       </v-flex> -->
@@ -158,10 +158,10 @@
           >Create account</v-btn
         >
       </v-flex>
-    <v-flex xs12 text-xs-center mt-3>
-      Already a member?
-      <router-link to="/login">Sign in</router-link>
-    </v-flex>
+      <v-flex xs12 text-xs-center mt-3>
+        Already a member?
+        <router-link to="/login">Sign in</router-link>
+      </v-flex>
     </form>
 
     <v-dialog

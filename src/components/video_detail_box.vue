@@ -5,9 +5,9 @@
       <label>{{ item.started_at | formatDateFromNow }}</label>
     </div>
     <div class="box__content">
-      <div class="box__title">{{ _.get(item, 'user.display_name') }}</div>
+      <div class="box__title">{{ _.get(item, "user.username") }}</div>
       <div class="box__subtitle">{{ item.name }}</div>
-      <label>{{ _.get(item, 'genre.name') }}</label>
+      <label>{{ _.get(item, "genre.name") }}</label>
     </div>
     <div class="box__footer" v-if="item.view_price > 0">
       <!-- <v-btn block dark>Pay ${{ item.view_price | formatNumber }}</v-btn> -->
@@ -23,7 +23,7 @@ export default {
   },
 
   methods: {},
-}
+};
 </script>
 
 <style lang="scss" scoped>

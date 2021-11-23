@@ -22,7 +22,7 @@
           v-on:keyup.enter="onKeyEnter"
         ></v-text-field>
       </v-tabs-bar>
-      <v-tabs-items style="border: none;">
+      <v-tabs-items style="border: none">
         <v-tabs-content key="published" id="published">
           <v-card flat v-if="albums_tab == 'published'">
             <v-data-table
@@ -44,7 +44,7 @@
                   ></div>
                   {{ props.item.name }}
                 </td>
-                <td class="text-xs-left">{{ props.item.user.display_name }}</td>
+                <td class="text-xs-left">{{ props.item.user.username }}</td>
                 <td class="text-xs-center">{{ props.item.played }}</td>
                 <td class="text-xs-center">{{ props.item.downloaded }}</td>
                 <td class="text-xs-center">{{ props.item.reposted }}</td>
@@ -130,7 +130,7 @@
                   ></div>
                   {{ props.item.name }}
                 </td>
-                <td class="text-xs-left">{{ props.item.user.display_name }}</td>
+                <td class="text-xs-left">{{ props.item.user.username }}</td>
                 <td class="text-xs-center">{{ props.item.played }}</td>
                 <td class="text-xs-center">{{ props.item.downloaded }}</td>
                 <td class="text-xs-center">{{ props.item.reposted }}</td>
@@ -217,7 +217,7 @@
                   {{ props.item.name }}
                 </td>
                 <td class="text-xs-left">
-                  {{ props.item.merchant.display_name }}
+                  {{ props.item.merchant.username }}
                 </td>
                 <td class="text-xs-center">{{ props.item.sold }}</td>
                 <td class="text-xs-center">

@@ -10,7 +10,7 @@
           <div class="activity-section">
             <!-- <pre>{{ user }}</pre> -->
             <router-link class="user-name" :to="'/' + user.slug">{{
-              user.display_name
+              user.username
             }}</router-link
             >&nbsp;
             <v-icon
@@ -34,7 +34,13 @@
             class="track-more-action"
             :close-on-content-click="false"
           >
-            <v-btn depressed :ripple="false" color="transparent" class="no-Btn-bg more-btn" slot="activator">
+            <v-btn
+              depressed
+              :ripple="false"
+              color="transparent"
+              class="no-Btn-bg more-btn"
+              slot="activator"
+            >
               <v-icon right>more_horiz</v-icon>
             </v-btn>
             <v-list>
@@ -65,8 +71,6 @@
         </div>
       </div>
 
-
-
       <v-layout row wrap class="covers-content d-block" mt-2>
         <!-- <div
           v-if="['Album', 'ShopProduct', 'Stream'].indexOf(recentItem.assoc_type) > -1"
@@ -85,96 +89,119 @@
         </div> -->
         <div
           v-for="(feed, index) in user.recent_items"
-          v-if="['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1"
+          v-if="
+            ['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1
+          "
           :key="index"
           class="show-card-container"
         >
           <!-- Show only 1 item (first on list) -->
           <div v-if="index == 0">
             <!-- <pre>{{ feed }}</pre> -->
-              <v-container v-if="feed.assoc_type == 'Album'" grid-list-md text-xs-center>
-                <v-layout row wrap align-center>
-                  <v-flex xs6>
-                    <track-card
-                      ref="trackCard"
-                      :noMeta="true"
-                      :noAction="true"
-                      :objects="user.recent_items"
-                      :objectIndex="index"
-                    />
-                  </v-flex>
-                  <v-flex xs6>
-                    <div class="side-action-details">
-                      <div class="__title">
-                        {{ trackItem(user.recent_items, index).album_type }}
-                      </div>
-                      <div class="__subtitle-1">
-                        {{ trackItem(user.recent_items, index).name }}
-                      </div>   
-                      <div class="__subtitle-2">
-                        {{ trackItem(user.recent_items, index).user.display_name }}
-                      </div>   
-                      <v-btn
-                        v-if="!$store.state.player.isPlaying || $store.state.player.isPaused"
-                        @click.native="playSong(index)"
-                        dark
-                        class="song-btn play-button"
-                      >
-                        <v-icon>play_arrow</v-icon>
-                      </v-btn>
-                      <v-btn
-                        v-if="$store.state.player.isPlaying && !$store.state.player.isPaused"
-                        @click.native="pauseSong(index)"
-                        dark
-                        class="song-btn pause-btn play-button"
-                      >
-                        <v-icon>pause</v-icon>
-                      </v-btn>
+            <v-container
+              v-if="feed.assoc_type == 'Album'"
+              grid-list-md
+              text-xs-center
+            >
+              <v-layout row wrap align-center>
+                <v-flex xs6>
+                  <track-card
+                    ref="trackCard"
+                    :noMeta="true"
+                    :noAction="true"
+                    :objects="user.recent_items"
+                    :objectIndex="index"
+                  />
+                </v-flex>
+                <v-flex xs6>
+                  <div class="side-action-details">
+                    <div class="__title">
+                      {{ trackItem(user.recent_items, index).album_type }}
                     </div>
-                  </v-flex>
-                </v-layout>
-              </v-container>
+                    <div class="__subtitle-1">
+                      {{ trackItem(user.recent_items, index).name }}
+                    </div>
+                    <div class="__subtitle-2">
+                      {{ trackItem(user.recent_items, index).user.username }}
+                    </div>
+                    <v-btn
+                      v-if="
+                        !$store.state.player.isPlaying ||
+                        $store.state.player.isPaused
+                      "
+                      @click.native="playSong(index)"
+                      dark
+                      class="song-btn play-button"
+                    >
+                      <v-icon>play_arrow</v-icon>
+                    </v-btn>
+                    <v-btn
+                      v-if="
+                        $store.state.player.isPlaying &&
+                        !$store.state.player.isPaused
+                      "
+                      @click.native="pauseSong(index)"
+                      dark
+                      class="song-btn pause-btn play-button"
+                    >
+                      <v-icon>pause</v-icon>
+                    </v-btn>
+                  </div>
+                </v-flex>
+              </v-layout>
+            </v-container>
 
-              <v-container v-if="feed.assoc_type == 'ShopProduct'" grid-list-md text-xs-center>
-                <v-layout row wrap align-center>
-                  <v-flex xs6>
-                    <product-card
-                      v-if="feed.assoc_type == 'ShopProduct'"
-                      :dataObject="feed"
-                      :noMeta="true"
-                      :hideMoreOptions="true"
-                    />
-                  </v-flex>
-                  <v-flex xs6>
-                    <div class="side-action-details">
-                      <div class="__title">
-                        {{ productItem(feed, index).merchant.display_name }}
-                      </div>
-                      <div class="__subtitle-2">
-                        {{ productItem(feed, index).name }}
-                      </div>   
-                      <div class="__subtitle-1 __price">
-                        ${{ productItem(feed, index).price | formatNumber }}
-                      </div>   
-                      <v-btn
-                        round
-                        large
-                        dark
-                        class="view-product-btn text-capitalize ma-0"
-                        @click="$router.push({name: 'SingleProduct', params: { id: productItem(feed, index).id}})"
-                        >
-                          view
-                      </v-btn>
+            <v-container
+              v-if="feed.assoc_type == 'ShopProduct'"
+              grid-list-md
+              text-xs-center
+            >
+              <v-layout row wrap align-center>
+                <v-flex xs6>
+                  <product-card
+                    v-if="feed.assoc_type == 'ShopProduct'"
+                    :dataObject="feed"
+                    :noMeta="true"
+                    :hideMoreOptions="true"
+                  />
+                </v-flex>
+                <v-flex xs6>
+                  <div class="side-action-details">
+                    <div class="__title">
+                      {{ productItem(feed, index).merchant.username }}
                     </div>
-                  </v-flex>
-                </v-layout>
-              </v-container>
+                    <div class="__subtitle-2">
+                      {{ productItem(feed, index).name }}
+                    </div>
+                    <div class="__subtitle-1 __price">
+                      ${{ productItem(feed, index).price | formatNumber }}
+                    </div>
+                    <v-btn
+                      round
+                      large
+                      dark
+                      class="view-product-btn text-capitalize ma-0"
+                      @click="
+                        $router.push({
+                          name: 'SingleProduct',
+                          params: { id: productItem(feed, index).id },
+                        })
+                      "
+                    >
+                      view
+                    </v-btn>
+                  </div>
+                </v-flex>
+              </v-layout>
+            </v-container>
 
             <video-box v-if="feed.assoc_type == 'Stream'" :item="feed.assoc" />
 
             <div class="comment">
               <div class="comment_count_action">
-                <div v-if="feed.assoc.commented" class="comment_count">{{ feed.assoc.commented }} comments</div>
+                <div v-if="feed.assoc.commented" class="comment_count">
+                  {{ feed.assoc.commented }} comments
+                </div>
                 <div class="comment_action">
                   <img
                     width="20"
@@ -188,7 +215,7 @@
                     src="/static/images/ic_repost.svg"
                     @click="repostItem(feed.assoc.id)"
                   />
-                   <share-modal
+                  <share-modal
                     v-if="show_share_dialog"
                     :item="feed.assoc"
                     :dismiss="closeShareDialog"
@@ -218,7 +245,7 @@
                 </div>
               </div>
             </div>
-          </div>       
+          </div>
         </div>
       </v-layout>
     </v-flex>
@@ -243,7 +270,7 @@
     text-transform: uppercase;
     font-size: 13px;
     color: #777;
-    padding-bottom: 8px
+    padding-bottom: 8px;
   }
   .__subtitle-1 {
     font-weight: 500;
@@ -333,13 +360,13 @@
     width: 100%;
     padding: 5px 10px;
     margin-left: 30px;
-    margin-right: 20px
+    margin-right: 20px;
   }
 }
 .user-section {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #E4E4E4;
+  border-top: 1px solid #e4e4e4;
   padding: 20px 0;
   padding: 20px 0;
 
@@ -359,10 +386,10 @@
 
       /deep/.user-status {
         margin-left: 0px;
-        color: #24AB18;
+        color: #24ab18;
       }
     }
-    
+
     .vid__description {
       height: 30px;
       overflow: hidden;
@@ -372,7 +399,6 @@
       color: #333;
       font-size: 13px;
     }
-    
   }
 }
 </style>

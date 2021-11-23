@@ -34,7 +34,7 @@
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">{{ props.item.full_name }}</td>
-                <td class="text-xs-left">{{ props.item.display_name }}</td>
+                <td class="text-xs-left">{{ props.item.username }}</td>
                 <td class="text-xs-left">{{ props.item.email }}</td>
                 <td class="text-xs-left">{{ props.item.account_type }}</td>
                 <td class="text-xs-left">{{ props.item.referred_by }}</td>
@@ -52,7 +52,7 @@
                   </template>
                   <template v-else-if="props.item.status === 'invited'">
                     Invited by
-                    {{ _.get(props.item, 'inviter.display_name', '--') }}
+                    {{ _.get(props.item, "inviter.username", "--") }}
                   </template>
                   <template v-else>
                     {{ props.item.status | capitalize }}

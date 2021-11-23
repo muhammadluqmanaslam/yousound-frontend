@@ -17,9 +17,7 @@
           {{ item.name }}
         </p>
         <p class="my-card__subtitle">
-          <router-link :to="'/' + owner.slug">{{
-            owner.display_name
-          }}</router-link>
+          <router-link :to="'/' + owner.slug">{{ owner.username }}</router-link>
         </p>
       </v-flex>
     </v-flex>
@@ -28,7 +26,7 @@
 
 <script type="text/javascript">
 // import _ from 'lodash'
-import { Filter } from '@/helper'
+import { Filter } from "@/helper";
 
 export default {
   components: {},
@@ -40,19 +38,19 @@ export default {
   },
 
   data() {
-    return {}
+    return {};
   },
 
   computed: {
     owner() {
-      return this.item.user
+      return this.item.user;
     },
 
     itemPrice() {
       if (this.item.price > 0) {
-        return `$${Filter.formatNumber(this.item.price)}`
+        return `$${Filter.formatNumber(this.item.price)}`;
       } else {
-        return 'Free'
+        return "Free";
       }
     },
   },
@@ -60,5 +58,5 @@ export default {
   created() {},
 
   methods: {},
-}
+};
 </script>

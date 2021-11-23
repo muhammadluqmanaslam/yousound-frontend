@@ -1,13 +1,17 @@
 <template>
   <div class="page video-page create-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
+    <topbarNotification
+      :content="topBarContent"
+      ctaTitle="Connect"
+      :cta="{ name: 'ManageIndex', params: { tab: 'payment' } }"
+    />
     <content-top-header>
       <template slot="topHeader">
         <ul>
-          <li
-            class="active"
-          >
-            <label v-if="activeView == 'intro'">Introduction to YouSound Live</label>
+          <li class="active">
+            <label v-if="activeView == 'intro'"
+              >Introduction to YouSound Live</label
+            >
             <label v-if="activeView == 'initStream'">Create Live Event</label>
           </li>
         </ul>
@@ -24,7 +28,8 @@
               <div class="form-group">
                 <label class="control-label max-char-label">
                   <span class="__title">Title of Event</span>
-                  <span class="max-char">80 char max</span></label>
+                  <span class="max-char">80 char max</span></label
+                >
                 <input
                   type="text"
                   class="form-control"
@@ -90,7 +95,7 @@
                       <v-avatar>
                         <img :src="data.item.avatar.url" />
                       </v-avatar>
-                      {{ data.item.display_name }}
+                      {{ data.item.username }}
                     </v-chip>
                   </template>
                   <template slot="item" slot-scope="data">
@@ -105,7 +110,7 @@
                       </v-list-tile-avatar>
                       <v-list-tile-content>
                         <v-list-tile-title
-                          v-html="data.item.display_name"
+                          v-html="data.item.username"
                         ></v-list-tile-title>
                       </v-list-tile-content>
                     </template>
@@ -339,9 +344,7 @@
                 <label class="control-label"
                   >Creator<span class="required">*</span></label
                 >
-                <label class="creator-name">{{
-                  currentUser.display_name
-                }}</label>
+                <label class="creator-name">{{ currentUser.username }}</label>
               </v-flex>
               <v-flex xs6 sm3>
                 <label class="control-label"

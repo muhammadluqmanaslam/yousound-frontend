@@ -24,7 +24,7 @@
             class="my-2"
             placeholder="Artist / Brand / Label Name"
             name="display_name"
-            v-model="attendee.display_name"
+            v-model="attendee.username"
             v-validate="'required|max:255'"
           >
           <input

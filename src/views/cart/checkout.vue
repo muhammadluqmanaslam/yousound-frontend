@@ -128,7 +128,7 @@
                         :to="`/${item.product.merchant.slug}`"
                         class="user-name"
                         href="#"
-                        >{{ item.product.merchant.display_name }}</router-link
+                        >{{ item.product.merchant.username }}</router-link
                       >
                     </div>
                     <div v-if="!isDigitalProduct(item)">

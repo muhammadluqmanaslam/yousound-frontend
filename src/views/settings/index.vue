@@ -1,17 +1,17 @@
 <template>
-  <div row wrap class="page settings-page" :class="{'mx-5': !isComp}">
-    <content-top-header :class="{__inner: isComp}">
+  <div row wrap class="page settings-page" :class="{ 'mx-5': !isComp }">
+    <content-top-header :class="{ __inner: isComp }">
       <template slot="topHeader">
-          <ul>
-            <li
-              v-for="tab in availableTabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="onTab(tab.id)">{{ tab.title }}</label>
-            </li>
-          </ul>
+        <ul>
+          <li
+            v-for="tab in availableTabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="onTab(tab.id)">{{ tab.title }}</label>
+          </li>
+        </ul>
       </template>
     </content-top-header>
     <!-- <div class="page-left">
@@ -46,10 +46,7 @@
                     'background-image': 'url(' + profile.image + ')',
                   }"
                 ></div>
-                <div
-                  class="profile-image-upload-section"
-                  v-if="!profile.image"
-                >
+                <div class="profile-image-upload-section" v-if="!profile.image">
                   <input
                     type="file"
                     name="profile_image_file"
@@ -62,10 +59,7 @@
                     <v-icon class="camera">photo_camera</v-icon>Add
                   </label>
                 </div>
-                <div
-                  class="profile-image-change-section"
-                  v-if="profile.image"
-                >
+                <div class="profile-image-change-section" v-if="profile.image">
                   <input
                     type="file"
                     name="profile_image_file"
@@ -93,14 +87,14 @@
               <label class="control-label"
                 >Display Name<label class="required">*</label></label
               >
-              <!-- <input type="text" class="form-control" v-model="profile.display_name"> -->
+              <!-- <input type="text" class="form-control" v-model="profile.username"> -->
               <div
                 class="form-group"
                 :class="{ 'has-error': errors.has('display_name') }"
               >
                 <input
                   class="form-control"
-                  v-model="profile.display_name"
+                  v-model="profile.username"
                   v-validate="'required'"
                   :class="{
                     input: true,
@@ -113,7 +107,7 @@
                   class="text-danger text-xs-left"
                   v-if="errors.has('display_name')"
                 >
-                  {{ errors.first('display_name') }}
+                  {{ errors.first("display_name") }}
                 </p>
               </div>
             </v-flex>
@@ -135,11 +129,8 @@
                   type="email"
                   placeholder="Email"
                 />
-                <p
-                  class="text-danger text-xs-left"
-                  v-if="errors.has('email')"
-                >
-                  {{ errors.first('email') }}
+                <p class="text-danger text-xs-left" v-if="errors.has('email')">
+                  {{ errors.first("email") }}
                 </p>
               </div>
             </v-flex>
@@ -231,7 +222,7 @@
                       class="text-danger text-xs-left"
                       v-if="errors.has('password')"
                     >
-                      {{ errors.first('password') }}
+                      {{ errors.first("password") }}
                     </p>
                   </div>
                 </v-flex>
@@ -259,7 +250,7 @@
                       class="text-danger text-xs-left"
                       v-if="errors.has('new_password')"
                     >
-                      {{ errors.first('new_password') }}
+                      {{ errors.first("new_password") }}
                     </p>
                   </div>
                 </v-flex>
@@ -289,7 +280,7 @@
                       class="text-danger text-xs-left"
                       v-if="errors.has('confirmed_password')"
                     >
-                      {{ errors.first('confirmed_password') }}
+                      {{ errors.first("confirmed_password") }}
                     </p>
                   </div>
                 </v-flex>
@@ -320,11 +311,7 @@
             <v-flex xs12 form-group stripe>
               <img src="/static/images/stripe-logo-blue.png" />
               <div v-if="!currentUser.stripe_connected">
-                <v-btn
-                  :href="stripeLink"
-                  target="_self"
-                  class="update-btn"
-                  dark
+                <v-btn :href="stripeLink" target="_self" class="update-btn" dark
                   >Connect Stripe</v-btn
                 >
               </div>
@@ -360,8 +347,8 @@
                 Do you really want to disconnect stripe?
               </div>
               <div>
-                Your products will be deleted permanetly when you disconnect
-                to stripe.
+                Your products will be deleted permanetly when you disconnect to
+                stripe.
               </div>
             </v-card-text>
             <v-card-actions>
@@ -406,7 +393,7 @@
               ></div>
               <!-- <profile-item :user="blockedUser" :className="'blocked-user-profile-image'"></profile-item> -->
               <label class="blocked-user-name">{{
-                blockedUser.display_name
+                blockedUser.username
               }}</label>
               <v-btn
                 class="unblock-btn"

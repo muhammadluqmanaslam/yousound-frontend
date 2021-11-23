@@ -13,15 +13,12 @@
                 <div class="meta__subtitle">
                   {{ stream.viewers_size || 0 }}
                   views &bull;
-                  {{ moment(stream.created_at).format('MMM D, YYYY') }}
+                  {{ moment(stream.created_at).format("MMM D, YYYY") }}
                 </div>
               </div>
 
               <div class="meta__actions">
-                <div
-                  class="meta__cta donate"
-                  @click="openPaymentDialog()"
-                >
+                <div class="meta__cta donate" @click="openPaymentDialog()">
                   <img src="/static/images/ic_dollar.svg" height="21" />
                 </div>
                 <div class="meta__cta repost" @click="repostItem()">
@@ -51,7 +48,7 @@
                       </v-list-tile>
 
                       <!-- <v-list-tile
-                        v-if="album.user.display_name === currentUser.display_name"
+                        v-if="album.user.username === currentUser.username"
                         class="default-menu-item"
                         :to="{ name: 'VideoEdit', params: { slug: stream.slug }}"
                       >
@@ -80,13 +77,19 @@
                     {{ stream.description }}
                   </div>
 
-                  <span class="app-grey--text cursor-pointer showMoreActive" @click="showMoreActive = !showMoreActive">
-                    <b v-if="!showMoreActive" class="show-more-less show-more">SHOW MORE</b>
-                    <b v-if="showMoreActive" class="show-more-less show-less">SHOW LESS</b>
+                  <span
+                    class="app-grey--text cursor-pointer showMoreActive"
+                    @click="showMoreActive = !showMoreActive"
+                  >
+                    <b v-if="!showMoreActive" class="show-more-less show-more"
+                      >SHOW MORE</b
+                    >
+                    <b v-if="showMoreActive" class="show-more-less show-less"
+                      >SHOW LESS</b
+                    >
                   </span>
                 </div>
               </div>
-
 
               <div class="meta__cta follow">
                 <v-btn
@@ -102,7 +105,6 @@
                   >{{ followButtonText }}</v-btn
                 >
               </div>
-
             </div>
 
             <div class="section users-section" v-if="showFeaturedSection">
@@ -133,39 +135,40 @@
                     <div class="assoc__content">
                       <div class="assoc__subtitle">
                         <span class="__name">{{ stream.assoc.name }}</span>
-                        <br>
-                        <span v-if="stream.assoc.user" class="app-bold __user_name">{{ stream.assoc.user.display_name }}</span>
+                        <br />
+                        <span
+                          v-if="stream.assoc.user"
+                          class="app-bold __user_name"
+                          >{{ stream.assoc.user.username }}</span
+                        >
                       </div>
                       <div class="assoc__title">
-                        <span v-if="stream.assoc.price">${{ stream.assoc.price }}</span>
+                        <span v-if="stream.assoc.price"
+                          >${{ stream.assoc.price }}</span
+                        >
                       </div>
-                      <div class="assoc__cta-" v-if="stream.assoc_type == 'ShopProduct'">
+                      <div
+                        class="assoc__cta-"
+                        v-if="stream.assoc_type == 'ShopProduct'"
+                      >
                         <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                        <v-btn
-                          round
-                          outline
-                          small
-                          class="text-capitalize ma-0"
-                          >
-                            view
-                          </v-btn>
+                        <v-btn round outline small class="text-capitalize ma-0">
+                          view
+                        </v-btn>
                       </div>
-                      <div class="assoc__cta-" v-if="stream.assoc_type == 'Album'">
+                      <div
+                        class="assoc__cta-"
+                        v-if="stream.assoc_type == 'Album'"
+                      >
                         <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                        <v-btn
-                          round
-                          outline
-                          small
-                          class="text-capitalize ma-0"
-                          >
-                            Play
-                          </v-btn>
+                        <v-btn round outline small class="text-capitalize ma-0">
+                          Play
+                        </v-btn>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                
                 <div
                   class="profile-section attach-container"
                   v-if="stream.assoc && stream.assoc.id > 0"
@@ -200,7 +203,7 @@
           <!-- <v-flex xs3>
             <div class="album-reposted-section">
               <h4 class="__title">
-                Reposted by {{ stream.user.display_name }}
+                Reposted by {{ stream.user.username }}
               </h4>
               <v-layout row wrap class="recent-content">
                 <template v-for="(feed, index) in album.user.recent_items">
@@ -326,39 +329,37 @@
   }
 }
 .section {
-  border-top: 1px solid #E4E4E4;
+  border-top: 1px solid #e4e4e4;
 
   &__content {
     display: block;
 
+    .profile-section {
+      .user-container {
+        padding: 13px;
+      }
 
+      /deep/.artist-cover {
+        border-radius: 0;
+        width: 100px;
+        height: 84px;
+        background-size: contain;
+        margin-right: 15px;
+        padding: 0;
+      }
+      /deep/.artist-info-section {
+        display: flex;
+        align-items: center;
+        margin: 0;
+      }
+      /deep/.avatar-cover {
+        padding: 0 !important;
+      }
 
-  .profile-section {
-    .user-container {
-      padding: 13px;
+      /deep/.artist-actions {
+        pointer-events: none;
+      }
     }
-
-    /deep/.artist-cover {
-      border-radius: 0;
-      width: 100px;
-      height: 84px;
-      background-size: contain;
-      margin-right: 15px;
-      padding: 0;
-    }
-    /deep/.artist-info-section {
-      display: flex;
-      align-items: center;
-      margin: 0;
-    }
-    /deep/.avatar-cover {
-      padding: 0 !important;
-    }
-
-    /deep/.artist-actions {
-      pointer-events: none;
-    }
-  }
   }
 
   &__title {
@@ -375,7 +376,7 @@
 .user-section {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #E4E4E4;
+  border-top: 1px solid #e4e4e4;
   padding: 20px 0;
   padding: 20px 0;
 
@@ -395,10 +396,10 @@
 
       /deep/.user-status {
         margin-left: 0px;
-        color: #24AB18;
+        color: #24ab18;
       }
     }
-    
+
     .vid__description {
       height: 30px;
       overflow: hidden;
@@ -408,7 +409,6 @@
       color: #333;
       font-size: 13px;
     }
-    
   }
 }
 
@@ -486,13 +486,12 @@
       }
     }
   }
-
 }
 .assoc {
   display: flex;
   height: 100%;
   border-radius: 5px;
-   border: 1px solid #E4E4E4;
+  border: 1px solid #e4e4e4;
 
   &__header {
     position: relative;

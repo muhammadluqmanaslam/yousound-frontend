@@ -20,7 +20,7 @@
         </router-link>
         <router-link :to="'/' + trackUser.slug">
           <label class="user-name">
-            {{ trackUser.display_name }}
+            {{ trackUser.username }}
             <v-icon
               v-if="trackUser.user_type == 'artist'"
               class="user-status"
@@ -101,13 +101,13 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import AlbumService from '@/services/album'
-import TrackService from '@/services/track'
-import UserService from '@/services/user'
-import PaymentModal from '@/components/paymentmodal'
+import _ from "lodash";
+import AlbumService from "@/services/album";
+import TrackService from "@/services/track";
+import UserService from "@/services/user";
+import PaymentModal from "@/components/paymentmodal";
 // import { Utils } from '@/helper'
-import { Filter, MyEvents } from '@/helper'
+import { Filter, MyEvents } from "@/helper";
 
 export default {
   components: {
@@ -135,39 +135,39 @@ export default {
       donate_amount: 0,
       showPaymentModal: false,
       buttonHover: false,
-    }
+    };
   },
 
   computed: {
     currentUser() {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.user;
     },
 
     trackUser() {
-      if (this.item.album_type === 'album') {
-        return this.item.user
+      if (this.item.album_type === "album") {
+        return this.item.user;
       } else {
-        return this.track ? this.track.user : this.item.user
+        return this.track ? this.track.user : this.item.user;
       }
     },
 
     coverUrl() {
       if (this.track) {
-        return _.get(this.track, 'album.cover.url')
+        return _.get(this.track, "album.cover.url");
       } else {
-        return _.get(this.item, 'cover.url')
+        return _.get(this.item, "cover.url");
       }
     },
 
     followButtonText() {
       if (this.trackUser.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
+        return this.buttonHover ? "Unfollow" : "Following";
       }
-      return 'Follow'
+      return "Follow";
     },
 
     donate_amount_by_cent() {
-      return this.donate_amount * 100
+      return this.donate_amount * 100;
     },
   },
 
@@ -175,68 +175,68 @@ export default {
 
   methods: {
     donateAmount(amount) {
-      this.donate_amount = amount
+      this.donate_amount = amount;
     },
 
     followUser() {
       if (this.trackUser.is_following) {
         UserService.unfollowUser(this.trackUser.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.trackUser.display_name,
-            ])
-            this.track.user.is_following = false
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just unfollowed " + this.trackUser.username,
+            ]);
+            this.track.user.is_following = false;
             // this.$store.dispatch('player/setUpdatedUser', this.trackUser)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.trackUser.id, false)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.trackUser.id, false);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       } else {
         UserService.followUser(this.trackUser.id)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.trackUser.display_name,
-            ])
-            this.track.user.is_following = true
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just followed " + this.trackUser.username,
+            ]);
+            this.track.user.is_following = true;
             // this.$store.dispatch('player/setUpdatedUser', this.trackUser)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.trackUser.id, true)
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.trackUser.id, true);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       }
     },
 
     showPaymentDialog() {
       if (this.donate_amount > 0) {
-        this.showPaymentModal = true
+        this.showPaymentModal = true;
       } else {
-        this.downloadItem()
+        this.downloadItem();
       }
     },
 
     hidePaymentDialog() {
-      this.showPaymentModal = false
+      this.showPaymentModal = false;
     },
 
     downloadItem() {
-      this.dismiss()
+      this.dismiss();
       if (this.track) {
-        TrackService.downloadTrack(this.track.id)
+        TrackService.downloadTrack(this.track.id);
 
-        var a = document.createElement('A')
-        a.href = this.track.audio_download_url
-        a.download = ''
-        document.body.appendChild(a)
-        a.click()
-        document.body.removeChild(a)
+        var a = document.createElement("A");
+        a.href = this.track.audio_download_url;
+        a.download = "";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
 
         // window.download(this.track.audio.url, Utils.getFilenameWithExtension(this.track.name)
         // const filename = Utils.getFilenameWithExtension(this.track.name)
@@ -249,47 +249,47 @@ export default {
         AlbumService.downloadAlbum(this.item.id)
           .then((response) => {
             // this.$store.dispatch('error/showSuccessToast', ['You just download ' + this.item.name])
-            var a = document.createElement('A')
-            a.href = response.body.url
-            a.download = ''
-            document.body.appendChild(a)
-            a.click()
-            document.body.removeChild(a)
+            var a = document.createElement("A");
+            a.href = response.body.url;
+            a.download = "";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       }
     },
 
     sendLove(token) {
-      this.dismiss()
+      this.dismiss();
       const params = {
         amount: this.donate_amount_by_cent,
-        description: 'Donation',
-      }
+        description: "Donation",
+      };
       if (token) {
-        params['payment_token'] = token.id
+        params["payment_token"] = token.id;
       }
       UserService.donateMoney(this.trackUser.slug, params)
         .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
+          this.$store.dispatch("error/showSuccessToast", [
             `You've sent user $${Filter.formatNumber(
               this.donate_amount_by_cent
             )}`,
-          ])
-          this.downloadItem()
+          ]);
+          this.downloadItem();
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
   },
-}
+};
 </script>

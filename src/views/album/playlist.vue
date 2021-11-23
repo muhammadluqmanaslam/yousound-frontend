@@ -111,7 +111,7 @@
               <router-link
                 :to="'/' + playlist.user.slug"
                 class="album-detail"
-                >{{ playlist.user.display_name }}</router-link
+                >{{ playlist.user.username }}</router-link
               >
               • 2017 – {{ playlist.tracks.length }} Songs, 40:22
             </p>
@@ -155,7 +155,7 @@
         album-comment-page
         v-if="false && currentUser"
       >
-        <h4 class="comment-title">Talk to {{ playlist.user.display_name }}</h4>
+        <h4 class="comment-title">Talk to {{ playlist.user.username }}</h4>
         <label class="description"
           >Comments are only seen by the artist and people you @mention, unless
           artist makes your comment public.</label
@@ -208,7 +208,7 @@
                   <div class="comment-content relative">
                     <router-link :to="'/' + comment.user.slug"
                       ><label class="user-name"
-                        >{{ comment.user.display_name }}
+                        >{{ comment.user.username }}
                         <v-icon
                           class="user-status online"
                           v-if="comment.user.user_type == 'artist'"
@@ -345,7 +345,7 @@
 
       <v-flex xs12 sm10 offset-sm1 album-recent-page v-if="currentUser">
         <h4 class="recent-title">
-          {{ playlist.user.display_name }}'s recent reposts
+          {{ playlist.user.username }}'s recent reposts
         </h4>
         <v-layout row wrap class="recent-content">
           <div

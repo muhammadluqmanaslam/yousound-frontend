@@ -32,17 +32,17 @@
           ></profile-item>
           <div v-if="item.collaborators_count == 0" class="profile-content">
             <router-link :to="`/${item.merchant.slug}`" class="user-name">{{
-              item.merchant.display_name
+              item.merchant.username
             }}</router-link>
           </div>
           <div v-else class="profile-content">
             <div class="profile-title">Multiple Collaborators</div>
             <router-link :to="`/${item.merchant.slug}`" class="user-name">{{
-              item.merchant.display_name
+              item.merchant.username
             }}</router-link>
             <template v-for="c in item.collaborators">
               ,&nbsp;<router-link :to="`/${c.user.slug}`" class="user-name">{{
-                c.user.display_name
+                c.user.username
               }}</router-link>
             </template>
           </div>
@@ -276,23 +276,27 @@
 </template>
 
 <style lang="stylus">
-#carousel-view
-  .fade
-    &-enter-active, &-leave-active, &-leave-to
-      transition: .5s ease-out
-      position: absolute
-      top: 0
-      left: 0
+#carousel-view {
+  .fade {
+    &-enter-active, &-leave-active, &-leave-to {
+      transition: 0.5s ease-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
-    &-enter, &-leave, &-leave-to
-      opacity: 0
+    &-enter, &-leave, &-leave-to {
+      opacity: 0;
+    }
+  }
+}
 </style>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import profileItem from '@/components/profileitem'
-import ItemService from '@/services/item'
-import ProductService from '@/services/product'
+import _ from "lodash";
+import profileItem from "@/components/profileitem";
+import ItemService from "@/services/item";
+import ProductService from "@/services/product";
 
 export default {
   components: {
@@ -317,122 +321,125 @@ export default {
     return {
       showPolicySection: false,
       option: null,
-    }
+    };
   },
 
   computed: {
     policyButtonText() {
-      return this.showPolicySection ? 'Close' : 'Size Chart & Seller Policies'
+      return this.showPolicySection ? "Close" : "Size Chart & Seller Policies";
     },
 
     isDigitalProduct() {
-      return _.get(this.item, 'category.is_digital', false)
+      return _.get(this.item, "category.is_digital", false);
     },
 
     options() {
-      var options = []
+      var options = [];
       // const defaultOption = {
       //   id: '',
       //   name: '-----'
       // }
       // options.push(defaultOption)
       for (let index in this.item.variants) {
-        const variant = this.item.variants[index]
+        const variant = this.item.variants[index];
         if (this.isDigitalProduct || variant.quantity > 0) {
           const option = {
             id: variant.id,
             name: variant.name,
-          }
-          options.push(option)
+          };
+          options.push(option);
         }
       }
-      return options
+      return options;
     },
 
     price() {
-      if (this.option !== '') {
+      if (this.option !== "") {
         for (let index in this.item.variants) {
-          const variant = this.item.variants[index]
+          const variant = this.item.variants[index];
           if (variant.id === this.option) {
-            return variant.price
+            return variant.price;
           }
         }
       }
-      return this.item.price
+      return this.item.price;
     },
 
     covers() {
-      var covers = []
+      var covers = [];
       for (let index in this.item.covers) {
-        const cover = this.item.covers[index]
+        const cover = this.item.covers[index];
         if (cover.cover.url) {
-          covers.push(cover)
+          covers.push(cover);
         }
       }
-      return covers
+      return covers;
     },
 
     canAdd() {
       const stripe_connected = _.get(
         this.item,
-        'merchant.stripe_connected',
+        "merchant.stripe_connected",
         false
-      )
-      const product_stock_status = _.get(this.item, 'stock_status', 'inactive')
+      );
+      const product_stock_status = _.get(this.item, "stock_status", "inactive");
       return (
-        this.option === '' ||
+        this.option === "" ||
         this.option === null ||
         !stripe_connected ||
-        product_stock_status !== 'active'
-      )
+        product_stock_status !== "active"
+      );
     },
   },
 
   created() {
     // this.option = _.get(_.find(this.item.variants, (v) => (v.quantity > 0)), 'id', null)
-    this.option = _.get(this.options, '[0].id', null)
+    this.option = _.get(this.options, "[0].id", null);
   },
 
   methods: {
     addToCart() {
-      if (this.option === '' || this.option === null) {
-        this.$store.dispatch('error/showErrorToast', [
-          'Please select valid variant.',
-        ])
+      if (this.option === "" || this.option === null) {
+        this.$store.dispatch("error/showErrorToast", [
+          "Please select valid variant.",
+        ]);
       } else {
-        let pageTrack = ''
-        if (this.$store.state.streamPlayer.frame_mode === 'full') {
+        let pageTrack = "";
+        if (this.$store.state.streamPlayer.frame_mode === "full") {
           const streamId = _.get(
             this.$store.state.streamPlayer.stream,
-            'id',
-            ''
-          )
-          if (streamId !== '') {
-            pageTrack = 'Stream: ' + streamId
+            "id",
+            ""
+          );
+          if (streamId !== "") {
+            pageTrack = "Stream: " + streamId;
           }
         }
         const params = {
           product_variant_id: this.option,
           quantity: 1,
           page_track: pageTrack,
-        }
+        };
         ItemService.addToCart(params)
           .then((response) => {
             if (response.body.errors) {
-              this.$store.dispatch('error/showErrorToast', response.body.errors)
+              this.$store.dispatch(
+                "error/showErrorToast",
+                response.body.errors
+              );
             } else {
-              this.dismiss()
-              this.$store.dispatch('error/showSuccessToast', [
-                'Added successfully to Cart.',
-              ])
+              this.dismiss();
+              this.$store.dispatch("error/showSuccessToast", [
+                "Added successfully to Cart.",
+              ]);
             }
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       }
     },
 
@@ -440,28 +447,28 @@ export default {
       ProductService.repostProduct(this.item.id)
         .then((response) => {
           if (response.body.errors) {
-            this.$store.dispatch('error/showErrorToast', response.body.errors)
+            this.$store.dispatch("error/showErrorToast", response.body.errors);
           } else {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just reposted ' + this.item.name,
-            ])
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just reposted " + this.item.name,
+            ]);
           }
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     togglePolicy() {
-      this.showPolicySection = !this.showPolicySection
+      this.showPolicySection = !this.showPolicySection;
     },
 
     zoomOut() {
-      console.log('test')
+      console.log("test");
     },
   },
-}
+};
 </script>

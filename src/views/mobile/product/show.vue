@@ -22,7 +22,7 @@
               ${{ product.price | formatNumber }}
             </div>
             <div class="media__subtitle">
-              <label>{{ product.merchant.display_name }}</label>
+              <label>{{ product.merchant.username }}</label>
               <v-icon v-if="isProductMerchantVerified">fa-check-circle</v-icon>
             </div>
           </div>
@@ -58,12 +58,12 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import mobileHeader from '@/views/mobile/components/header'
-import mobileFooter from '@/views/mobile/components/footer'
-import mobileMenu from '@/views/mobile/components/menu'
+import _ from "lodash";
+import mobileHeader from "@/views/mobile/components/header";
+import mobileFooter from "@/views/mobile/components/footer";
+import mobileMenu from "@/views/mobile/components/menu";
 
-import ProductService from '@/services/product'
+import ProductService from "@/services/product";
 
 export default {
   components: {
@@ -78,39 +78,39 @@ export default {
       product: null,
       showMenu: false,
       loading: true,
-    }
+    };
   },
 
   computed: {
     isProductMerchantVerified() {
-      const userType = _.get(this.product, 'merchant.user_type')
-      return ['artist', 'label', 'brand'].indexOf(userType) > -1
+      const userType = _.get(this.product, "merchant.user_type");
+      return ["artist", "label", "brand"].indexOf(userType) > -1;
     },
   },
 
   methods: {
     openMenu() {
-      this.showMenu = true
+      this.showMenu = true;
     },
 
     closeMenu() {
-      this.showMenu = false
+      this.showMenu = false;
     },
   },
 
   created() {
-    this.slug = this.$route.params.slug
-    const self = this
-    document.location = `ys://product/${this.slug}`
+    this.slug = this.$route.params.slug;
+    const self = this;
+    document.location = `ys://product/${this.slug}`;
     setTimeout(function () {
-      self.loading = true
+      self.loading = true;
       ProductService.getProduct(self.slug).then((res) => {
-        self.product = res.body
-        self.loading = false
-      })
-    }, 300)
+        self.product = res.body;
+        self.loading = false;
+      });
+    }, 300);
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -170,7 +170,7 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        background: url('/static/images/album.jpg') no-repeat center center;
+        background: url("/static/images/album.jpg") no-repeat center center;
         background-size: contain;
       }
     }

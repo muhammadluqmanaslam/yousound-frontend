@@ -8,7 +8,7 @@
           :style="{ 'background-image': 'url(' + item.avatar.url + ')' }"
         ></div>
         <div class="info-section">
-          <div class="user-name">{{ item.display_name }}</div>
+          <div class="user-name">{{ item.username }}</div>
           <div>
             <label>{{ userFullName }}</label>
           </div>
@@ -288,7 +288,8 @@
           <label>Do you sell music related products or services?</label>
           <span
             :class="{
-              'red--text text--darken-2': !item.will_sell_music_related_products,
+              'red--text text--darken-2':
+                !item.will_sell_music_related_products,
             }"
             >{{
               getNameById(

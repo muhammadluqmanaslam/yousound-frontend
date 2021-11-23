@@ -34,11 +34,18 @@
         class="track-user-name"
         :to="`/${track.user.slug}`"
       >
-        - {{ track.user.display_name }}</router-link
+        - {{ track.user.username }}</router-link
       >
     </label>
     <div class="right-section" @click.stop="">
-      <v-icon v-if="buttonHover  && !(trackIndex == $store.state.player.trackIndex && isPlaying)" color="grey">play_arrow</v-icon>
+      <v-icon
+        v-if="
+          buttonHover &&
+          !(trackIndex == $store.state.player.trackIndex && isPlaying)
+        "
+        color="grey"
+        >play_arrow</v-icon
+      >
       <v-icon v-if="selectedTrackIsPlaying" color="grey">pause</v-icon>
       <v-menu
         v-model="menu"

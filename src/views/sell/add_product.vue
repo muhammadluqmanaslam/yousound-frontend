@@ -1,12 +1,14 @@
 <template>
   <div class="page sell-page product-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
+    <topbarNotification
+      :content="topBarContent"
+      ctaTitle="Connect"
+      :cta="{ name: 'ManageIndex', params: { tab: 'payment' } }"
+    />
     <content-top-header>
       <template slot="topHeader">
         <ul>
-          <li
-            class="active"
-          >
+          <li class="active">
             <label>Upload Product</label>
           </li>
         </ul>
@@ -18,7 +20,9 @@
         <v-layout row wrap>
           <v-dialog v-model="collaborators_confirm_dialog">
             <v-card>
-              <v-card-title class="headline">Confirm Collaborators</v-card-title>
+              <v-card-title class="headline"
+                >Confirm Collaborators</v-card-title
+              >
               <v-card-text
                 >Make sure to add any collaborators to your product, once it's
                 uploaded you won't be able to add collaborators</v-card-text
@@ -48,7 +52,11 @@
                     <label class="control-label"
                       >Product Name<label class="required">*</label></label
                     >
-                    <input type="text" class="form-control" v-model="product.name" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="product.name"
+                    />
                   </v-flex>
                   <v-flex xs12 form-group>
                     <label class="control-label">Description</label>
@@ -88,7 +96,8 @@
                       v-model="product.show_status"
                     ></v-checkbox>
                     <span class="grey--text lighten-2"
-                      >(product will not appear on user profile if checked)</span
+                      >(product will not appear on user profile if
+                      checked)</span
                     >
                   </v-flex>
                 </v-flex>
@@ -165,7 +174,10 @@
                   <v-flex xs12 price-option-section form-group>
                     <h4 class="option-title">
                       Options ({{ product.shipments.length }})
-                      <v-btn class="add-option-btn" @click.native="addShipment()">
+                      <v-btn
+                        class="add-option-btn"
+                        @click.native="addShipment()"
+                      >
                         <v-icon>add</v-icon>
                       </v-btn>
                     </h4>
@@ -245,7 +257,9 @@
                       />
                     </v-flex>
                     <v-flex xs12 sm4>
-                      <label class="control-label" v-if="product.is_vat">Tax</label>
+                      <label class="control-label" v-if="product.is_vat"
+                        >Tax</label
+                      >
                       <label class="control-label" v-else>State Tax</label>
                       <vue-numeric
                         currency="%"
@@ -313,7 +327,8 @@
                               @change="imageChanged('product_image1', $event)"
                             />
                             <label for="product_image_file">
-                              <v-icon class="camera">photo_camera</v-icon>Add Image
+                              <v-icon class="camera">photo_camera</v-icon>Add
+                              Image
                             </label>
                           </div>
                         </div>
@@ -359,7 +374,8 @@
                               @change="imageChanged('product_image2', $event)"
                             />
                             <label for="product_image_file2">
-                              <v-icon class="camera">photo_camera</v-icon>Add Image
+                              <v-icon class="camera">photo_camera</v-icon>Add
+                              Image
                             </label>
                           </div>
                         </div>
@@ -405,7 +421,8 @@
                               @change="imageChanged('product_image3', $event)"
                             />
                             <label for="product_image_file3">
-                              <v-icon class="camera">photo_camera</v-icon>Add Image
+                              <v-icon class="camera">photo_camera</v-icon>Add
+                              Image
                             </label>
                           </div>
                         </div>
@@ -452,14 +469,16 @@
                   <v-layout
                     row
                     creator-wrapper
-                    v-if="product.collaborators && product.collaborators.length > 0"
+                    v-if="
+                      product.collaborators && product.collaborators.length > 0
+                    "
                   >
                     <v-flex xs12 sm6>
                       <label class="control-label"
                         >Creator<label class="required">*</label></label
                       >
                       <label class="creator-name">{{
-                        $store.state.auth.user.display_name
+                        $store.state.auth.user.username
                       }}</label>
                     </v-flex>
                     <v-flex xs6 sm3>
@@ -563,9 +582,7 @@
                     <span v-if="!showPolicyActive">
                       <v-icon>add</v-icon> Show
                     </span>
-                    <span v-else>
-                      <v-icon>remove</v-icon> Hide
-                    </span>
+                    <span v-else> <v-icon>remove</v-icon> Hide </span>
                   </v-btn>
                 </v-flex>
                 <v-flex xs12 pa-0>
@@ -575,11 +592,7 @@
                     mt-1
                     v-if="showPolicyActive == true"
                   >
-                    
-                    <policy-tab
-                      :user="user"
-                      :updateUser="updateUser"
-                    />
+                    <policy-tab :user="user" :updateUser="updateUser" />
                   </v-layout>
                   <v-layout
                     row
@@ -661,7 +674,9 @@
                   :disabled="!isAvailableToAddProduct"
                   >Save</v-btn
                 >
-                <a @click="cancelToSaveProduct()" class="cancel-button">Cancel</a>
+                <a @click="cancelToSaveProduct()" class="cancel-button"
+                  >Cancel</a
+                >
               </v-flex>
             </v-layout>
           </v-flex>
