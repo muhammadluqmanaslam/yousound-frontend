@@ -74,7 +74,8 @@
 }
 
 .track-list-section {
-  padding: 36px 40px 0 40px;
+  // padding: 36px 40px 0 40px;
+  margin-top: 36px;
   background-color: #fff;
   text-align: left;
   .track-list-title {
@@ -107,7 +108,6 @@
         position: relative;
         height: 40px;
         margin-left: 30px;
-        margin-right: 26.25px;
         background: #ffffff;
         border: 0.75px solid #d6d6d6;
         border-radius: 3.75px;
