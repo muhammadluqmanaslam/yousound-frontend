@@ -1,7 +1,7 @@
 <template>
   <div class="video-page create-page mx-5">
     <div class="d-flex">
-      <div class="page-content">
+      <div class="page-content" v-if="!file">
         <drag-file-uploader
           v-if="!file"
           accept="mp3/*"
