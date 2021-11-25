@@ -1,292 +1,135 @@
 <template>
-  <div class="page getpaid-to-share-page">
-    <v-container v-if="!propMode" fluid class="set-price-container border-me">
-      <v-layout v-if="currentUser.stripe_connected"  align-center>
-        <v-flex xs2 after-divider>
-          <router-link :to="{ name: 'ManageIndex', params: { tab: 'payment'}}">
-            View Stripe connection
-          </router-link>
-        </v-flex>
+  <div class="page partners-page mx-5">
+    <v-container fluid grid-list-lg>
+        <v-layout wrap align-center justify-center>
+            <v-flex xs5 layer-flex flex-text>
+                <h3 class="mb-2">Repost Requests</h3>
+                <h1>Get paid  <br> to share.</h1>
 
-        <v-flex xs7>
-          <div class="repost-price-info-box">
-            <div class="mr-1">
-              You've upgraded to
-              <b>${{ currentUser.max_repost_price | formatNumber }} </b>
-            </div>
-            <div v-if="currentUser.repost_price_end_at">
-              Upgraded until
-              <b>{{ currentUser.repost_price_end_at | formatDate }}</b>
-            </div>
-          </div>
-        </v-flex>
+                <span>
+                <v-btn class="black white--text mt-4">
+                    <v-icon class="mr-2">south</v-icon>
+                    <span>Upgrade</span>
+                </v-btn>
+                </span>
+            </v-flex>
+            <v-flex xs5 layer-flex flex-img>
+                <img
+                width="100%"
+                src="/static/images/re_share.svg"
+                />
+            </v-flex>
+        </v-layout>
 
-        <v-flex xs3>
-          <div class="content-section">
-          <div class="">
-            <!-- <label class="normal-text">repost price</label> -->
-            <div class="repost-price-select">
-              <v-select
-                v-model="repost_price"
-                :items="repost_prices"
-                item-text="name"
-                item-value="value"
-                label="Price"
-                content-class="GLOBAL-repost-price-select"
-                class="pa-0 white __v-select"
-                single-line
-                auto
-                dirty
-                text-field
-                hide-details
-              />
-            </div>
-            <v-btn 
-              @click.native="openRepostPriceConfirmModal()"
-              class="update-btn"
-              :disabled="repost_price == currentUser.repost_price"
+        <v-layout wrap align-center justify-center>
+            <v-flex xs6 layer-flex flex-img>
+                <img
+                    width="80%"
+                    src="/static/images/re_upgrade.svg"
+                />
+            </v-flex>
+            <v-flex xs5 layer-flex flex-text>
+                <h2>Upgrade to remove ads & get paid to share.</h2>
+            </v-flex>
+        </v-layout>
+
+        <h1 class="text-center my-5">Choose the right plan for you</h1>
+
+        <v-layout wrap align-center justify-space-between pt-5>
+            <v-flex
+              v-for="(plan, i) in plans"
+              :key="i" 
+              xs4
+              plan-layer
+              flex-text
             >
-              Set
-            </v-btn>
-          </div>
-    </div>
-        </v-flex>
-      </v-layout>
-      <v-layout v-else align-center>
-        <v-flex xs2 after-divider>
-          <div class="cursor-pointer">
-            <a target="_blank" href="https://stripe.com">
-              Connect Stripe Account
-            </a>
-            
-          </div>
-        </v-flex>
+            <div class="plan-card" :class="plan.value">
+                <h2>{{ plan.title }}</h2>
+                <ul>
+                  <li
+                    v-for="(b, j) in plan.benefits"
+                    :key="j"
+                  >
+                    <div>
+                      <v-icon>check</v-icon>
+                    </div>
 
-        <v-flex xs7>
-          <div class="repost-price-info-box">
-            <div class="mr-1">
-              You have not upgraded yet
+                    <div>
+                      <span>
+                        {{ b }}
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+
+                <v-spacer></v-spacer>
+
+                <div>
+                  <span class="__currency">$</span>
+                  <span class="__price">{{ plan.price }}</span>
+                  <span class="__duration">/month</span>
+                </div>
+
+                <v-btn depressed class="width100 mx-0 choose__btn">Choose</v-btn>
             </div>
-          </div>
-        </v-flex>
-      </v-layout>
+
+            </v-flex>
+        </v-layout>
     </v-container>
 
-    <div class="body-section-wrapper">
-      <div class="__intro-title">
-        Get Paid to Share
-        <br>
-        albums, products & videos
-      </div>
-
-      <div class="sections">
-        <v-container grid-list-md sections-container>
-          <v-layout wrap row justify-center>
-            <v-flex xs8>
-              <v-layout row wrap>
-                <v-flex xs6 comm-flex _right>
-                  <div class="__title">First, grow your community</div>
-                  <div class="__content">Invite your friends, build your following and start reposting & sharing great content</div>
-                </v-flex>
-                <v-flex xs6 comm-flex _left>
-                  <img
-                    src="/static/images/first-comm.png"
-                    class="comm-img"
-                  />
-                </v-flex>
-
-                <v-flex xs6 comm-flex _left>
-                  <img
-                    src="/static/images/best-comm.png"
-                    class="comm-img"
-                  />
-                </v-flex>
-                <v-flex xs6 comm-flex _right>
-                  <div class="__title">Best practices for successful releases</div>
-                  <div class="__content">Learn how to lauch a product, album, or video on YouSound effectively to build an audience & generate revenue</div>
-                </v-flex>
-
-                <v-flex xs6 comm-flex _left>
-                  <div class="__title">Start accepting repost requests.</div>
-                  <div class="__content">Artists & brands will request reposts from you through Direct Messages. You can view content & accept, deny, or repost for free. You get paid for accepted reposts every 2 days.</div>
-                </v-flex>
-                <v-flex xs6 comm-flex _right>
-                  <img
-                    src="/static/images/start-comm.png"
-                    class="comm-img"
-                  />
-                </v-flex>
-
-                <v-flex xs10 comm-flex requirements>
-                  <div class="">
-                    <div class="mb-2">
-                      <b>Requirements</b>
-                    </div>
-                    <ul>
-                      <li>
-                        Have 4,000 valid watched or listened hours in the last 12 months.
-                      </li>
-                      <li>
-                        Have at least 1,000 followers
-                      </li>
-                      <li>
-                        Have a Stripe account connected
-                      </li>
-                    </ul>
-
-                    <div class="mt-2">
-                      <b>Start uploading & build your community!</b>
-                    </div>
-                  </div>
-                </v-flex>
-              </v-layout>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </div>
-    </div>
 
     <div class="section-faq">
       <div class="__intro-title">FAQ</div>
       <accordion :accordions="accordions" leftIcon="add" />
     </div>
-
-  <v-dialog v-model="show_repost_price_confirm_modal">
-    <v-card>
-      <v-card-title class="headline">Upgrade Repost Price</v-card-title>
-      <v-card-text>
-        In order to upgrade your Repost Price you need to pay an annual fee
-        equal to the price you want to upgrade to.<br />
-        <template v-if="proration.add_amount > 0"
-          >You have to pay additional ${{
-            proration.add_amount | formatNumber
-          }}</template
-        >
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-          class="blue--text darken-1"
-          flat="flat"
-          @click.native="openPaymentModal()"
-          >Ok</v-btn
-        >
-        <v-btn
-          class="blue--text darken-1"
-          flat="flat"
-          @click.native="closeRepostPriceConfirmModal()"
-          >Cancel</v-btn
-        >
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
-
-  <payment-modal
-    v-if="show_payment_modal"
-    :amount="proration.add_amount"
-    :dismiss="closePaymentModal"
-    :finish="setRepostPrice"
-  />
   </div>
 </template>
-
 
 <script type="text/javascript" src="./getPaidToShare.ctrl.js"></script>
 
 <style lang="scss" scoped>
-.set-price-container {
-  background-color: #f0f0f0;
+.plan-card {
+  display: flex;
+    flex-direction: column;
+    min-height: 380px;
+    padding: 30px;
+    border-radius: 24px;
+    background: #F7F7F7;
+    border: 1px solid #e3dede;
 
-  .__v-select {
-    /deep/.input-group__details {
-      display: none;
+    .__currency {}
+    .__price {
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
     }
-  }
+    .__duration {}
 
-  .after-divider::after {
-    right: 43px;
-  }
-
-  .update-btn {
-    height: 37.5px;
-    // width: 112.5px;
-    box-shadow: none;
-    text-transform: none;
-    margin: 0;
-    background-color: #3a92ff !important;
-    border-radius: 75px;
-    font-weight: 600;
-    font-size: 15px;
-    color: #ffffff;
-    letter-spacing: 0;
-    margin-top: 0;
-
-    .btn__content {
-    padding: 0 22.5px;
+    .choose__btn {
+      background-color: #5D5FEF !important;
+      color: #ffffff;
     }
-  }
-  .repost-price-info-box {
-    display: flex;
-    text-align: center;
-    border-radius: 5px;
-  }
-}
-.content-section {
-    .repost-price-select {
-        display: inline-block;
-        width: 200px;
-        margin-right: 10px;
-    }
-}
 
-.body-section-wrapper {
-  .__intro-title {
-    text-align: center;
-    margin: 100px 0;
-    font-size: 1.8em;
-    font-weight: 800;
-    line-height: 1;
-  }
-  .sections-container {
-    .__title {
-      font-weight: 800;
-      font-size: 16px;
-    }
-    .comm-flex {
+    li {
+      list-style: none;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-bottom: 20px;
 
-      &._left {
-        // align-items: start;
-        width: 70%;
-      }
-      &._right {
-        // align-items: end;
-        width: 70%;
-      }
-
-      img.comm-img {
-        width: 70%;
-        border-radius: 7px;
-      }
-
-      &.requirements {
-        border: 1px solid;
-        border-radius: 5px;
-        padding: 40px;
+      .icon {
+        margin-right: 10px;
+        font-size: 14px;
       }
     }
-  }
-}
-.section-faq {
-  .__intro-title {
-    text-align: center;
-    margin: 60px 0;
-    font-size: 1.8em;
-    font-weight: 800;
-    line-height: 1;
-  }
+
+    &.plus {
+      color: #ffffff;
+      margin-top: -80px;
+      background: linear-gradient(180deg, #3B2B9D 0%, rgba(21, 12, 73, 0.85) 0.01%, rgba(23, 5, 132, 0.927083) 99.99%);
+      border: 1px solid #302379;
+
+      .icon {
+        color: #ffffff;
+      }
+    }
 }
 </style>
+<style src="../../../static/styles/partners.scss" lang="scss" scoped>

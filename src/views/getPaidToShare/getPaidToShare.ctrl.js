@@ -3,6 +3,7 @@ import UserService from '@/services/user'
 
 import paymentModal from '@/components/paymentmodal'
 import accordion from '@/components/accordion'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -48,28 +49,53 @@ export default {
       isPageReady: false,
       accordions: [
         {
-          title: 'How much does it cost?',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+          title: 'What is a repost request?',
+          content: 'Verified artists & brands can pay you to share their albums, videos & products to your followers.  Artists and brands will send you a Direct Message and tap the Repost Request button to attach their content for you to share',
         },
         {
-          title: 'How often do I pay for my repost price?',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+          title: 'What if I don’t accept a request?',
+          content: 'Accepted requests will stay on your feed for 7 days and you will receive payment in 2 days.  If you don’t respond to a request in 3 days it’s automatically cancelled and the sender is never charged.',
         },
         {
-          title: 'Can I change my price any time?',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+          title: 'How do I start accepting Repost Requests?',
+          content: 'You must have a monthly subscription that will remove audio & video ads and allow you to get paid to share.',
         },
         {
-          title: 'How many followers should I have?',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+          title: 'What is the difference between Plus & Pro?',
+          content: 'You can charge up to 5k per repost with the <b>Plus</b> subscription plan, or up to 100k per repost for a <b>Pro</b> subscription plan. ',
+        },
+      ],
+      plans: [
+        {
+          title: 'Basic',
+          price: '9.99',
+          benefits: [
+            '1 account',
+            'Ad-free music &  video',
+          ],
+          value: 'basic',
         },
         {
-          title: 'How long do my accepted reposts last for ?',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+          title: 'Plus',
+          price: '19.99',
+          benefits: [
+            '1 account',
+            'Ad-free music &  video',
+            'Stats + Analytics',
+            'Make money sharing content. You can charge up to $5K per repost.',
+          ],
+          value: 'plus',
         },
         {
-          title: 'How much should I charge?',
-          content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+          title: 'Pro',
+          price: '19.99',
+          benefits: [
+            '1 account',
+            'Ad-free music &  video',
+            'Stats + Analytics',
+            'Make money sharing content. You can charge up to $100k per repost.',
+          ],
+          value: 'pro',
         },
       ],
     }
