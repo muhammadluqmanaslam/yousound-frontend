@@ -61,9 +61,45 @@
         </v-flex>
       </v-layout>
 
-      <hr class="mt-5 divider" />
+      <!-- <hr class="mt-5 divider" /> -->
     </v-container>
 
+
+    <v-container grid-list-lg px-0>
+      <v-layout row>
+        <v-flex xs6 class="meta-tab-container pl-0">
+          <h1>Share to the world</h1>
+
+          <div class="meta-tab-wrapper pl-0">
+            <div class="meta-tab-img partnerImg"></div>
+            <div class="meta-tab-description">
+              <div class="app-bold">Become YouSound Partner</div>
+               <div class="mb-3">Earn revenue from audio & video streams & user subscriptions.</div>
+
+               <router-link to="/partners">
+                 <b>Learn More</b>
+               </router-link>
+            </div>
+          </div>
+        </v-flex>
+
+        <v-flex xs6 class="meta-tab-container px-0">
+          <h1>Maximize your content</h1>
+
+          <div class="meta-tab-wrapper pr-0">
+            <div class="meta-tab-img growthImg"></div>
+            <div class="meta-tab-description">
+              <div class="app-bold">Measure your growth</div>
+               <div class="mb-3">Visit your dashboard to keep track of all your analytics.</div>
+
+               <router-link to="/dashboard">
+                 <b>Goto Dashboard</b>
+               </router-link>
+            </div>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <!-- <v-container grid-list-lg>
       <v-layout row>

@@ -45,7 +45,8 @@
                 background-color: transparent;
                 border-radius: 80px;
                 margin-left: 0;
-                background-color: #007aff;
+                // background-color: #007aff;
+                background-color: #000000;
                 color: #ffffff;
                 font-weight: 800;
             }
@@ -73,22 +74,24 @@
             display: flex;
             align-items: center;
             padding: 30px;
-            border: 0.75px solid #e9dcdc;
+            // border: 0.75px solid #e9dcdc;
             border-radius: 15px;
 
             .meta-tab-img {
-                height: 70px;
-                width: 70px;
-                background-position: center;
-                background-size: cover;
+                height: 170px;
+                width: 170px;
+                background-position: left;
+                background-size: contain;
                 margin-right: 20px;
 
 
-                &.handImg {
-                    background-image: url('/static/images/up_music.png');
+                &.partnerImg {
+                    background-image: url('/static/images/up_partner.png');
+                    margin-left: -10px;
                 }
-                &.boardImg {
-                    background-image: url('/static/images/up_music.png');
+                &.growthImg {
+                    background-image: url('/static/images/up_growth.png');
+                    margin-left: -20px;
                 }
             }
             .meta-tab-description {}
