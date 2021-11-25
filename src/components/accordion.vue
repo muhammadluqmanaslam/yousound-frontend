@@ -8,8 +8,8 @@
           {{ slide.title }}
         <v-icon v-if="rightIcon" color="black" class="_icon_after">{{ rightIcon }}</v-icon>
           </label>
-        <div class="tab-content">
-          {{ slide.content }}
+        <div class="tab-content" v-html="slide.content">
+          <!-- {{ slide.content }} -->
         </div>
       </div>
     </div>
