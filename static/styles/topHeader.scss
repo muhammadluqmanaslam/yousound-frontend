@@ -74,7 +74,6 @@
               .chip {
                 background-color: #030303;
                 color: #ffffff;
-                // text
               }
             }
           }
@@ -105,14 +104,13 @@
           .genre-dialog-selector {
             width: 50px;
             display: flex;
-            justify-content: flex-end;
             .tooltip {
-              right: 100px;
+              right: -210px;
               bottom: -12px;
 
               .tooltip-arrow {
-                transform: rotate(270deg);
-                right: -72px !important;
+                transform: rotate(90deg);
+                left: -3px !important;
                 bottom: 34px !important
               }
             }

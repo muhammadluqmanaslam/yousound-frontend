@@ -146,6 +146,16 @@ body {
     left: 5.25px;
   }
 }
+
+.section-faq {
+  .__intro-title {
+    text-align: center;
+    margin: 60px 0;
+    font-size: 1.8em;
+    font-weight: 800;
+    line-height: 1;
+  }
+}
 .heightAuto {
   height: auto;
 }
@@ -162,6 +172,10 @@ body {
 
 .text-capitalize {
   text-transform: capitalize;
+}
+
+.text-center {
+  text-align: center;
 }
 .text-left {
   text-align: left;
