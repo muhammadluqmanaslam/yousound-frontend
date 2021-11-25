@@ -150,32 +150,8 @@ export default {
 
   watch: {
     $route(to, from) {
-      let videoId
-
-      if (to.name === 'VideoShow') {
-        videoId = to.params.videoId
-        const nodeDetails = this.$store.state.streamPlayer.nodeDetails
-
-        if (nodeDetails.videoId && videoId !== nodeDetails.videoId) {
-          // eslint-disable-next-line no-undef
-          let pp = videojs('my_video_player')
-
-          if (pp.isInPictureInPicture()) {
-            pp.exitPictureInPicture()
-          }
-          // close current player node
-          pp.dispose()
-          console.log('new')
-        }
-      }
-      if (from.name === 'VideoShow') {
-        videoId = from.params.videoId
-        const nodeDetails = {}
-        nodeDetails.parent = document.getElementById('my_video_player')
-        nodeDetails.videoId = videoId
-
-        this.$store.dispatch('streamPlayer/setPipParentNode', nodeDetails)
-      }
+      const parentNode = document.getElementById('my_video_player')
+      this.$nextTick(() => this.watchPip(to, from, parentNode))
 
       const toPath = to.path.split('/')
       var type = toPath[1]
@@ -327,6 +303,63 @@ export default {
 
     closeLoginDialog() {
       this.show_login_dialog = false
+    },
+
+    watchPip(to, from, parentNode) {
+      let videoId
+      const stream_pipMode = this.$store.state.streamPlayer.pipMode
+
+      if (to.name === 'VideoShow') {
+        // eslint-disable-next-line no-undef
+        const pp = videojs('my_video_player')
+
+        videoId = to.params.videoId
+        const nodeDetails = this.$store.state.streamPlayer.nodeDetails
+
+        if (from.name === 'VideoShow' || (nodeDetails.videoId && videoId !== nodeDetails.videoId)) {
+          if (stream_pipMode) {
+            pp.exitPictureInPicture()
+            pp.dispose()
+          }
+          // close current player node
+        } else {
+          // it is new video page, dispose previous video
+          // pp.dispose()
+        }
+      } else if (from.name === 'VideoShow') {
+        // Save pip details if in store
+        if (stream_pipMode) {
+          videoId = from.params.videoId
+          const nodeDetails = {}
+          nodeDetails.parent = parentNode
+          nodeDetails.videoId = videoId
+
+          try {
+            this.$store.dispatch('streamPlayer/setPipParentNode', nodeDetails)
+          } catch (error) {
+            return error
+          }
+        }
+      } else {
+        // Close video when pip is closed
+        this.closeVideoInDOM()
+      }
+    },
+
+    closeVideoInDOM() {
+      try {
+        // eslint-disable-next-line no-undef
+        const pp = videojs('my_video_player')
+
+        if (pp && !pp.isInPictureInPicture()) {
+          pp.dispose()
+
+          // reset store
+          this.$store.dispatch('streamPlayer/setPipParentNode', {})
+        }
+      } catch (error) {
+        return error
+      }
     },
   },
 

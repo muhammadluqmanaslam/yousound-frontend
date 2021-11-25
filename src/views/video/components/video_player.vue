@@ -22,20 +22,40 @@ export default {
     return {
       player: null,
       pipMode: false,
+      videoId: null,
     }
   },
 
   mounted() {
-    console.log('video_player created')
+    this.videoId = this.$route.params.videoId
+
+    // console.log('video_player created')
     this.$nextTick(() => {
       if (!this.pipMode && this.allVideosCount < 1) {
+        console.log('init player');
+
+        console.log(this.allVideos);
         // no player in DOM, init a new player
         this.initPlayer()
+        let vm = this
+        vm.player.exitPictureInPicture()
       } else {
+        const nodeDetails2 = this.$store.state.streamPlayer.nodeDetails
+        console.log('nodeDetails :', nodeDetails2);
+
+        console.log('player already init');
+        console.log(this.$store.state.streamPlayer.nodeDetails);
+
+        console.log(this.allVideos);
         // there is a player in DOM, update original div wrapper
         // this is a fix for the DOM dissapearing when video page is re-visited
         let nodeDetails = this.$store.state.streamPlayer.nodeDetails
         let glitchedVid = document.getElementById('my_video_player')
+
+        console.log('nodeDetails', nodeDetails);
+        console.log('glitchedVid', glitchedVid);
+
+        console.log('replace');
 
         glitchedVid.replaceWith(nodeDetails.parent)
       }
@@ -44,13 +64,17 @@ export default {
   created() {},
 
   beforeDestroy() {
-    const vm = this
-    if (!vm.player.paused()) {
-      // player is playing, toggle pipmode
-      this.togglePip()
-    } else {
-      // player is not playing, close player
-      this.closePlayer()
+    try {
+      const vm = this
+      if (vm.player && !vm.player.paused()) {
+        // player is playing, toggle pipmode
+        this.togglePip()
+      } else {
+        // player is not playing, close player
+        this.closePlayer()
+      }
+    } catch (error) {
+      return error
     }
   },
 
@@ -93,6 +117,9 @@ export default {
       if (vm.player) {
         vm.player.dispose()
         vm.player = null
+
+        // reset store
+        this.$store.dispatch('streamPlayer/setPipParentNode', {})
       }
     },
 
@@ -106,6 +133,9 @@ export default {
       const vm = this
       console.log('activate pip')
       vm.pipMode = true
+
+      // ontoggle, set pipMode status in store
+      vm.$store.dispatch('streamPlayer/setPipPipMode', true)
       await vm.player.requestPictureInPicture()
 
       // resume player play

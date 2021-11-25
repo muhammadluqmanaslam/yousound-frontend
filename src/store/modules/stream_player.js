@@ -7,6 +7,7 @@ function initialState() {
     frame_mode: 'minimized', // 'full', 'normal', 'minimized'
     status: 'inactive',
     nodeDetails: {},
+    pipMode: false,
   }
 }
 
@@ -70,8 +71,8 @@ const actions = {
     commit('setPipParentNode', node)
   },
 
-  getOwnStreams({commit}, node) {
-    commit('setOwnStreams', node)
+  setPipPipMode({commit}, node) {
+    commit('setPipPipMode', node)
   },
 }
 
@@ -142,8 +143,15 @@ const mutations = {
   },
 
   setPipParentNode(state, nodeDetails) {
-    console.log(nodeDetails)
+    console.log('pip dom toggle')
+    console.log('Store nodeDetails:--- ', nodeDetails);
+
     state.nodeDetails = nodeDetails
+  },
+
+  setPipPipMode(state, status) {
+    console.log('pip:', status)
+    state.pipMode = status
   },
 }
 
