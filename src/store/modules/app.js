@@ -87,6 +87,36 @@ const getters = {
 
     return tabs
   },
+  accordions: () => {
+    const accordions = [
+      {
+        title: 'How much does it cost?',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+      },
+      {
+        title: 'How often do I pay for my repost price?',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+      },
+      {
+        title: 'Can I change my price any time?',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+      },
+      {
+        title: 'How many followers should I have?',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+      },
+      {
+        title: 'How long do my accepted reposts last for ?',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+      },
+      {
+        title: 'How much should I charge?',
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+      },
+    ]
+
+    return accordions
+  },
   disabledLiveVideo: (state) => {
     return _.get(state.settings, 'disable_live_video', false)
   },
