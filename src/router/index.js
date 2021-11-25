@@ -66,6 +66,7 @@ import VideoUpload from '@/views/video/upload'
 import VideoEdit from '@/views/video/edit'
 import VideoShow from '@/views/video/show'
 import VideoDelete from '@/views/video/delete'
+import Partners from '@/views/partners/'
 
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
@@ -187,6 +188,7 @@ export function createRouter(settings) {
     { path: '/verified', name: 'UserGetVerified', component: UserGetVerified },
     { path: '/payments', name: 'PaymentIndex', component: PaymentIndex },
     { path: '/settings', name: 'UserSettings', component: UserSettings },
+    { path: '/partners', name: 'Partners', component: Partners },
     { path: '/:slug', name: 'UserProfile', component: UserProfile },
     { path: '/user/:user/chat', name: 'Chat', component: Chat },
     {
