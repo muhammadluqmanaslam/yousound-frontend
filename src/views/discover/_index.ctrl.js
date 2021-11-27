@@ -7,10 +7,6 @@ import SearchService from '@/services/search'
 import genreDialog from '@/components/genre_dialog'
 import productCard from '@/components/productcard'
 import trackCard from '@/components/trackcard'
-import contentTopHeader from '@/components/contentTopHeader'
-import discoverAlbum from '@/views/album'
-import discoverVideo from '@/views/video'
-import discoverProduct from '@/views/product'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -20,19 +16,16 @@ export default {
     genreDialog,
     productCard,
     trackCard,
-    contentTopHeader,
-    discoverAlbum,
-    discoverVideo,
-    discoverProduct,
   },
 
   data() {
     return {
       activeTab: '',
       tabs: [
-        { id: 'discover', title: 'Discover' },
-        { id: 'music', title: 'Music' },
-        { id: 'video', title: 'Video' },
+        { id: 'recommended', title: 'Recommended' },
+        { id: 'new', title: 'New Releases' },
+        { id: 'popular', title: 'Popular' },
+        // { id: 'playlist', title: 'Playlists' },
         { id: 'merch', title: 'Shop' },
       ],
       seed: '',
@@ -276,19 +269,15 @@ export default {
     },
 
     onTab(tab) {
-      if (tab === 'discover') {
-        this.$router.push('/discover')
-      } else {
-        this.$router.push({
-          path: this.$route.path,
-          hash: tab,
-        })
-      }
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab,
+      })
     },
 
     setTab(tab) {
       if (!tab) {
-        tab = 'discover'
+        tab = 'recommended'
       }
 
       // console.log(tab, this.activeTab)

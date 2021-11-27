@@ -28,6 +28,7 @@ import LandingPage from '@/views/landing/landing'
 import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
 // import Discover from '@/views/discover/index'
+import DiscoverIndex from '@/views/discover/'
 import SearchPage from '@/views/search/search'
 import Feed from '@/views/feed/index'
 import ActivityIndex from '@/views/activity/index'
@@ -151,6 +152,7 @@ export function createRouter(settings) {
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/video', name: 'VideoIndex', component: VideoIndex },
     // { path: '/discover', name: 'Discover', component: Discover },
+    { path: '/discover', name: 'DiscoverIndex', component: DiscoverIndex },
     { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex },
     { path: '/product', name: 'ProductIndex', component: ProductIndex },
     {
