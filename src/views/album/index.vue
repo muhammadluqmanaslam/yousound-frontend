@@ -1,50 +1,15 @@
 <template>
-  <div class="page discover-page mx-5">
-    <content-top-header>
+  <div class="page albums-page mx-5" :class="{ isComp: isComp}">
+    <content-top-header v-if="!isComp">
       <template slot="topHeader">
         <ul class="width100">
-          <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            :class="{ active: isActiveTab(tab.id) }"
-          >
-            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
-          </li>
+          <li class="my-0 mr-2"
 
-          <v-spacer></v-spacer>
-
-          <li class="my-0 mr-4">
-            <v-menu
-              content-class="filter-menu__content"
-              id="genre_selector"
-              class="filter_menu"
-              style="display: block"
-              offset-y
-            >
-              <div slot="activator" class="genre-filter py-3">
-                <span class="mr-3">{{ selectedGenreName }}</span>
-                <v-icon right>keyboard_arrow_down</v-icon>
-              </div>
-              <v-list>
-                <v-list-tile
-                  v-for="genre in genres"
-                  :key="genre.id"
-                  @click.native="filterByGenre(genre)"
-                >
-                  <div class="cursor-pointer px-3">
-                    {{ genre.name }}
-                  </div>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-          </li>
-
-          <li class="my-0 ml-5 mr-2">
-            <div
-              class="genre-dialog-selector py-3"
               @mouseenter="hover_on_genre_button = true"
               @mouseleave="hover_on_genre_button = false"
+          >
+            <div
+              class="genre-dialog-selector py-3"
               @click="openGenreSelectorDialog()"
             >
               <div class="genre-filter">
@@ -60,6 +25,40 @@
               </div>
             </div>
           </li>
+
+          <li class="width100 my-2">
+            <v-tabs :scrollable="true">
+              <v-tabs-bar>
+                <v-tabs-item
+                  v-for="(genre, idx) in genres"
+                  :key="idx"
+                  :href="'#tab-' + idx"
+                >
+                  <v-chip class="text-capitalize" @click.native="filterByGenre(genre)">
+                    {{ genre.name.toLowerCase() }}
+                  </v-chip>
+                </v-tabs-item>
+              </v-tabs-bar>
+            </v-tabs>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
+    <content-top-header class="__inner">
+      <template slot="topHeader">
+        <ul>
+          <li v-if="isComp">
+            <h1>Music</h1>
+          </li>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
+          </li>
         </ul>
       </template>
     </content-top-header>
@@ -69,7 +68,7 @@
         <v-flex
           v-for="(feed, index) in filtered_feeds"
           :key="index"
-          class="card-container custom-lg5"
+          class="card-container feed-card custom-lg5"
           xs12
         >
           <track-card
@@ -80,7 +79,7 @@
         </v-flex>
       </v-layout>
 
-      <div class="text-xs-center">
+      <div v-if="!isComp" class="text-xs-center">
         <v-btn
           v-if="isPageReady"
           v-show="page_index < total_pages"
@@ -103,4 +102,22 @@
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.feed-card {
+  margin-left: -16px;
+  margin-right: 13px;
+}
+.top-menu {
+    margin: 0 !important;
+.tabs__bar {
+    .tabs__li {
+      .tabs__item--active {
+        .chip {
+          background-color: #030303;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
+</style>

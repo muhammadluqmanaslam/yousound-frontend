@@ -12,6 +12,10 @@ const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
 
 export default {
+  props: {
+    isComp: Boolean,
+    listLimit: Number,
+  },
   components: {
     genreDialog,
     trackCard,
@@ -22,7 +26,7 @@ export default {
     return {
       activeTab: '',
       tabs: [
-        { id: 'recommended', title: 'Recommended' },
+        { id: 'recommended', title: 'Staff Picks' },
         { id: 'new', title: 'New Releases' },
         { id: 'popular', title: 'Popular' },
         // { id: 'playlist', title: 'Playlists' },
@@ -66,11 +70,14 @@ export default {
 
     filtered_feeds() {
       if (this.selected_genre) {
-        return _.filter(this.feeds, (feed) =>
+        const feeds = _.filter(this.feeds, (feed) =>
           _.find(feed.genres, (genre) => genre.id === this.selected_genre.id)
         )
+        // this will return a a prop limit if available
+        return feeds.slice(0, this.listLimit || this.feeds.length)
       } else {
-        return this.feeds
+        // this will return a a prop limit if available
+        return this.feeds.slice(0, this.listLimit || this.feeds.length)
       }
     },
   },
