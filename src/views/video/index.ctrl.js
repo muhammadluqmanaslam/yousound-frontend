@@ -5,6 +5,10 @@ import contentTopHeader from '@/components/contentTopHeader'
 // import VideoDetailBox from '@/components/video_detail_box'
 
 export default {
+  props: {
+    isComp: Boolean,
+    listLimit: Number,
+  },
   components: {
     VideoBox,
     contentTopHeader,
@@ -22,6 +26,11 @@ export default {
       },
       videoGenres: [],
       isPageReady: false,
+      tabs: [
+        { id: 'new', title: 'New' },
+        { id: 'popular', title: 'Popular' },
+        { id: 'live', title: 'Live' },
+      ],
     }
   },
 
@@ -51,6 +60,16 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+
+    onTab(tab) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab,
+      })
+    },
     loadData(tab, page) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
@@ -61,8 +80,13 @@ export default {
       StreamService.getStreams(params)
         .then((response) => {
           this.videos = this.videos.concat(response.body.streams)
+
+          // this will return a a prop limit if available
+          this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
+
+          // this.videos.filter((v) => )
           // this.videos = [ ...this.videos, ...this.videos]
-          // console.log(this.videos)
+          console.log(this.videos)
           this.pagination = response.body.pagination
           this.videoGenres = response.body.genres
           this.$store.dispatch('error/showLoadingActivity', false)

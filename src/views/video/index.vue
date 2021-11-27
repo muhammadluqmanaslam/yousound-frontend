@@ -1,6 +1,6 @@
 <template>
-  <div class="page video-page index-page">
-    <content-top-header>
+  <div class="page video-page index-page" :class="{ isComp: isComp}">
+    <content-top-header v-if="!isComp">
       <template slot="topHeader">
         <v-tabs :scrollable="true">
           <v-tabs-bar>
@@ -45,6 +45,24 @@
       </template>
     </content-top-header>
 
+    <content-top-header class="__inner" v-if="isComp">
+      <template slot="topHeader">
+        <ul>
+          <li v-if="isComp">
+            <h1>Video</h1>
+          </li>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
         <v-layout row wrap>
@@ -57,7 +75,7 @@
           </v-flex>
         </v-layout>
 
-        <div class="text-xs-center">
+        <div v-if="!isComp" class="text-xs-center">
           <v-btn
             v-if="isPageReady"
             v-show="pagination.current_page < pagination.total_pages"

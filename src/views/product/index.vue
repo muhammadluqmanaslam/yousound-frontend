@@ -1,6 +1,6 @@
 <template>
-  <div class="page discover-page product-index-page mx-5">
-    <content-top-header>
+  <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
+    <content-top-header v-if="!isComp">
       <template slot="topHeader">
         <v-tabs :scrollable="true">
           <v-tabs-bar>
@@ -17,6 +17,24 @@
           </v-tabs-bar>
         </v-tabs>
         </template>
+    </content-top-header>
+
+    <content-top-header class="__inner" v-if="isComp">
+      <template slot="topHeader">
+        <ul>
+          <li v-if="isComp">
+            <h1>Shop</h1>
+          </li>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
+          </li>
+        </ul>
+      </template>
     </content-top-header>
 
     <div class="d-flex">

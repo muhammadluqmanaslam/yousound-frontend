@@ -11,6 +11,10 @@ const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
 
 export default {
+  props: {
+    isComp: Boolean,
+    listLimit: Number,
+  },
   components: {
     productCard,
     contentTopHeader,
@@ -28,6 +32,9 @@ export default {
       products: [],
       feeds: [],
       isPageReady: false,
+      tabs: [
+        { id: 'new', title: 'New Arrivals' },
+      ],
     }
   },
 
@@ -58,6 +65,16 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+
+    onTab(tab) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab,
+      })
+    },
     isActiveCategory(category) {
       return _.get(this.selected_category, 'id', 'any') === category.id
     },
@@ -82,6 +99,10 @@ export default {
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.products = this.products.concat(response.body.products)
+
+          // this will return a a prop limit if available
+          this.products = this.products.slice(0, this.listLimit || this.products.length)
+
           // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
           const categories = response.body.categories.map((c) => ({
             id: c,
@@ -103,6 +124,10 @@ export default {
                 values[1].body.products,
                 values[2].body.products
               )
+
+              // this will return a a prop limit if available
+              vm.products = this.products.slice(0, this.listLimit || this.products.length)
+
               vm.page_index =
                 values[2].body.pagination.total_pages > 4
                   ? 4
