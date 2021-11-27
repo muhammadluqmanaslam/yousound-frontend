@@ -61,26 +61,32 @@ const getters = {
         ],
       },
       {
-        name: 'Discover',
+        name: '',
         items: [
           {
-            title: 'Video',
-            id: 'video',
-            icon: 'live_tv',
-            path: 'VideoIndex',
-          },
-          {
-            title: 'Music',
+            title: 'Discover',
             id: 'music',
             icon: 'library_music',
-            path: 'AlbumIndex',
+            path: 'DiscoverIndex',
           },
-          {
-            title: 'Shop',
-            id: 'shop',
-            icon: 'shopping_bag',
-            path: 'ProductIndex',
-          },
+          // {
+          //   title: 'Video',
+          //   id: 'video',
+          //   icon: 'live_tv',
+          //   path: 'VideoIndex',
+          // },
+          // {
+          //   title: 'Music',
+          //   id: 'music',
+          //   icon: 'library_music',
+          //   path: 'AlbumIndex',
+          // },
+          // {
+          //   title: 'Shop',
+          //   id: 'shop',
+          //   icon: 'shopping_bag',
+          //   path: 'ProductIndex',
+          // },
         ],
       },
     ]
