@@ -63,6 +63,50 @@
       </template>
     </content-top-header>
 
+    <div
+      v-if="isSingleTab"
+      class="d-flex align-center tabs-wrapper" 
+      :class="{isSingleTab: isSingleTab}"
+    >
+      <span class="my-0 mr-2"
+
+          @mouseenter="hover_on_genre_button = true"
+          @mouseleave="hover_on_genre_button = false"
+      >
+        <div
+          class="genre-dialog-selector py-3"
+          @click="openGenreSelectorDialog()"
+        >
+          <div class="genre-filter">
+            <img src="/static/images/ic_filter.svg" />
+          </div>
+          <div v-show="showGenreTooltip" class="tooltip">
+            <div class="tooltip-arrow"></div>
+            <div class="tooltip-inner">
+              Set your Genre Filters<br />
+              & customize your experience
+              <a @click.stop="got_genre_tooltip = true">Got it!</a>
+            </div>
+          </div>
+        </div>
+      </span>
+      <div class="width100 my-2">
+        <v-tabs :scrollable="true">
+          <v-tabs-bar>
+            <v-tabs-item
+              v-for="(genre, idx) in genres"
+              :key="idx"
+              :href="'#tab-' + idx"
+            >
+              <v-chip class="text-capitalize" @click.native="filterByGenre(genre)">
+                {{ genre.name.toLowerCase() }}
+              </v-chip>
+            </v-tabs-item>
+          </v-tabs-bar>
+        </v-tabs>
+      </div>
+    </div>
+
     <div class="page-content" v-if="currentUser">
       <v-layout row wrap>
         <v-flex

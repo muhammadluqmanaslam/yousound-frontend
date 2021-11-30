@@ -70,10 +70,14 @@ export default {
     },
 
     onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
+      if (this.isComp) {
+        this.setTab(tab)
+      } else {
+        this.$router.push({
+          path: this.$route.path,
+          hash: tab,
+        })
+      }
     },
     isActiveCategory(category) {
       return _.get(this.selected_category, 'id', 'any') === category.id

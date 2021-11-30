@@ -19,7 +19,7 @@
         </template>
     </content-top-header>
 
-    <content-top-header class="__inner" v-if="isComp">
+    <content-top-header class="__inner ma-0" v-if="isComp">
       <template slot="topHeader">
         <ul>
           <li v-if="isComp">

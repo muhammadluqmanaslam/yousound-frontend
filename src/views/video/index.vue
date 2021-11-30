@@ -48,7 +48,7 @@
     <content-top-header class="__inner" v-if="isComp">
       <template slot="topHeader">
         <ul>
-          <li v-if="isComp">
+          <li>
             <h1>Video</h1>
           </li>
           <li
@@ -62,6 +62,30 @@
         </ul>
       </template>
     </content-top-header>
+
+    
+    <div
+      v-if="isSingleTab"
+      class="d-flex align-center tabs-wrapper" 
+      :class="{isSingleTab: isSingleTab}"
+    >
+      <div class="width100 my-2">
+        <v-tabs>
+        <v-tabs-bar>
+          <v-tabs-item
+            v-model="selectedTab"
+            v-for="(genre, idx) in available_genres"
+            :key="idx"
+            :href="'#tab-' + idx"
+          >
+            <v-chip class="text-capitalize" @click.native="setTab(genre.id)">
+              {{ genre.name.toLowerCase() }}
+            </v-chip>
+          </v-tabs-item>
+        </v-tabs-bar>
+        </v-tabs>
+      </div>
+    </div>
 
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
@@ -99,7 +123,6 @@
 .tabs__bar {
     width: calc(100% + 72px);
     position: relative;
-    left: -41px;
     .tabs__li {
       margin: 0 !important;
       .tabs__item--active {

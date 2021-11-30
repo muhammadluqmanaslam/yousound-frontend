@@ -15,6 +15,7 @@ export default {
   props: {
     isComp: Boolean,
     listLimit: Number,
+    isSingleTab: Boolean,
   },
   components: {
     genreDialog,
@@ -241,10 +242,14 @@ export default {
     },
 
     onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
+      if (this.isComp) {
+        this.setTab(tab)
+      } else {
+        this.$router.push({
+          path: this.$route.path,
+          hash: tab,
+        })
+      }
     },
 
     setTab(tab) {
