@@ -50,6 +50,9 @@ export default {
       products: [],
       feeds: [],
       isPageReady: false,
+      currentTabs: [],
+      isComp: true,
+      isSingleTab: false,
     }
   },
 
@@ -109,8 +112,10 @@ export default {
 
     // this.seed = parseInt(Date.now() * Math.random())
     this.seed = Math.random()
-    const tab = this.$route.hash.substr(1)
+    // const tab = this.$route.hash.substr(1)
+    const tab = 'discover'
     this.setTab(tab)
+    this.onTab(tab)
   },
 
   methods: {
@@ -276,13 +281,15 @@ export default {
     },
 
     onTab(tab) {
+      this.activeTab = tab
+      const defTabs = this.tabs.map((t) => t.id)
+
       if (tab === 'discover') {
-        this.$router.push('/discover')
+        this.currentTabs = defTabs
+        this.isSingleTab = false
       } else {
-        this.$router.push({
-          path: this.$route.path,
-          hash: tab,
-        })
+        this.isSingleTab = true
+        this.currentTabs = defTabs.filter((t) => t === tab)
       }
     },
 
