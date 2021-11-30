@@ -98,6 +98,15 @@ body {
         .top-menu.__inner {
           top: 5px;
         }
+        .isSingleTab {
+          &.tabs-wrapper {
+            .tooltip {
+              left: -39px;
+              right: unset;
+              z-index: 1;
+            }
+          }
+        }
         .page-content {
           margin-top: 20px
         }
