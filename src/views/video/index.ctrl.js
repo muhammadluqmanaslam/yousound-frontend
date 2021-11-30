@@ -8,6 +8,7 @@ export default {
   props: {
     isComp: Boolean,
     listLimit: Number,
+    isSingleTab: Boolean,
   },
   components: {
     VideoBox,
@@ -59,16 +60,28 @@ export default {
     },
   },
 
+  watch: {
+    $route(toPath, fromPath) {
+      this.only_follows = toPath.hash.substr(1) === 'follows'
+        // console.log('$route', this.only_follows)
+      this.setTab(-1)
+    },
+  },
+
   methods: {
     isActiveTab(tab) {
       return this.activeTab === tab
     },
 
     onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
+      if (this.isComp) {
+        this.setTab(tab)
+      } else {
+        this.$router.push({
+          path: this.$route.path,
+          hash: tab,
+        })
+      }
     },
     loadData(tab, page) {
       this.$store.dispatch('error/showLoadingActivity', true)
@@ -90,6 +103,7 @@ export default {
           this.pagination = response.body.pagination
           this.videoGenres = response.body.genres
           this.$store.dispatch('error/showLoadingActivity', false)
+          this.isPageReady = true
         })
         .catch(() => {
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -107,14 +121,6 @@ export default {
         this.pagination.current_page = 0
         this.loadData(this.activeTab, this.pagination.current_page)
       }
-    },
-  },
-
-  watch: {
-    $route(toPath, fromPath) {
-      this.only_follows = toPath.hash.substr(1) === 'follows'
-      // console.log('$route', this.only_follows)
-      this.setTab(-1)
     },
   },
 
