@@ -2,17 +2,18 @@
 import StreamService from '@/services/stream'
 import VideoBox from '@/components/video_box'
 import contentTopHeader from '@/components/contentTopHeader'
+import discoverNav from '@/components/discoverNav'
 // import VideoDetailBox from '@/components/video_detail_box'
 
 export default {
   props: {
     isComp: Boolean,
     listLimit: Number,
-    isSingleTab: Boolean,
   },
   components: {
     VideoBox,
     contentTopHeader,
+    discoverNav,
   },
 
   data() {
@@ -21,6 +22,7 @@ export default {
       activeTab: 0,
       only_follows: false,
       videos: [],
+      items_per_page: 1 * 50,
       pagination: {
         current_page: 1,
         total_pages: 0,
@@ -70,25 +72,29 @@ export default {
 
   methods: {
     isActiveTab(tab) {
-      return this.activeTab === tab
+      return this.selectedTab === tab
     },
 
     onTab(tab) {
       if (this.isComp) {
-        this.setTab(tab)
+        this.$router.push({name: 'VideoIndex', params: {filter: tab}})
       } else {
-        this.$router.push({
-          path: this.$route.path,
-          hash: tab,
-        })
+        this.selectedTab = tab
+        this.filterVideos(tab)
       }
     },
+
+    filterVideos(filter) {
+      console.log(filter)
+    },
+
     loadData(tab, page) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
         genre_id: tab,
         only_follows: this.only_follows,
         page: page,
+        per_page: this.items_per_page,
       }
       StreamService.getStreams(params)
         .then((response) => {
@@ -125,7 +131,14 @@ export default {
   },
 
   created() {
+    const paramFilter = this.$route.params.filter || ''
+
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })
     this.loadData(this.activeTab, this.pagination.current_page)
+
+    if (paramFilter) {
+      this.selectedTab = paramFilter
+      this.onTab(this.selectedTab)
+    }
   },
 }

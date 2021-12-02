@@ -6,6 +6,7 @@ import SearchService from '@/services/search'
 
 import productCard from '@/components/productcard'
 import contentTopHeader from '@/components/contentTopHeader'
+import discoverNav from '@/components/discoverNav'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -18,15 +19,17 @@ export default {
   components: {
     productCard,
     contentTopHeader,
+    discoverNav,
   },
 
   data() {
     return {
-      selectedTab: 0,
+      selectedTab: 'any',
+      activeTab: 'new',
       seed: '',
       page_index: 1,
       total_pages: 1,
-      items_per_page: 1 * 10,
+      items_per_page: 1 * 50,
       categories: [],
       selected_category: null,
       products: [],
@@ -62,6 +65,19 @@ export default {
     // this.seed = parseInt(Date.now() * Math.random())
     this.seed = Math.random()
     this.loadFeeds(1)
+
+    // set active tab
+    if (this.pageName) {
+      this.activeTab = this.pageName
+    }
+
+    const paramFilter = this.$route.params.filter || ''
+    if (paramFilter) {
+      this.activeTab = paramFilter
+      this.onTab(this.activeTab)
+    }
+
+    this.filterByCategory(this.selectedTab)
   },
 
   methods: {
@@ -71,7 +87,7 @@ export default {
 
     onTab(tab) {
       if (this.isComp) {
-        this.setTab(tab)
+        this.$router.push({ name: 'ProductIndex', params: { filter: tab } })
       } else {
         this.$router.push({
           path: this.$route.path,
@@ -79,6 +95,11 @@ export default {
         })
       }
     },
+
+    filterVideos(filter) {
+      console.log(filter)
+    },
+
     isActiveCategory(category) {
       return _.get(this.selected_category, 'id', 'any') === category.id
     },
@@ -149,6 +170,7 @@ export default {
     },
 
     filterByCategory(category) {
+      console.log(category)
       if (this.selected_category === category) return
 
       $('#category_selector .btn__content').html(

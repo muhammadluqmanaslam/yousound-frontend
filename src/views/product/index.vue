@@ -1,25 +1,8 @@
 <template>
   <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
-    <content-top-header v-if="!isComp">
-      <template slot="topHeader">
-        <v-tabs :scrollable="true">
-          <v-tabs-bar>
-            <v-tabs-item
-              v-model="selectedTab"
-              v-for="(category, i) in categories"
-              :key="i"
-              :href="'#tab-' + i"
-            >
-              <v-chip class="text-capitalize" @click="filterByCategory(category)">
-                {{ category.name }}
-              </v-chip>
-            </v-tabs-item>
-          </v-tabs-bar>
-        </v-tabs>
-        </template>
-    </content-top-header>
+    <discover-nav v-if="!isComp" pageName="merch" />
 
-    <content-top-header class="__inner ma-0" v-if="isComp">
+    <content-top-header class="__inner __doubleUl ma-0 px-0">
       <template slot="topHeader">
         <ul>
           <li v-if="isComp">
@@ -33,27 +16,55 @@
           >
             <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
           </li>
+          <li
+            v-if="isComp" 
+            class="cursor-pointer"
+            @click="$router.push({name: 'ProductIndex'})"
+          >
+            View All
+          </li>
+        </ul>
+
+        <ul class="width100">
+          <li class="width100">
+            <v-tabs :scrollable="true">
+              <v-tabs-bar style="margin-left: 0">
+                <v-tabs-item
+                  v-model="selectedTab"
+                  v-for="(category, i) in categories"
+                  :key="i"
+                  :href="'#tab-' + i"
+                >
+                  <v-chip class="text-capitalize" @click="filterByCategory(category)">
+                    {{ category.name }}
+                  </v-chip>
+                </v-tabs-item>
+              </v-tabs-bar>
+            </v-tabs>
+          </li>
         </ul>
       </template>
     </content-top-header>
 
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
-        <v-layout row wrap>
-          <div v-for="feed in products" :key="feed.id" class="card-container">
-            <product-card :hideOverlay="true" :dataObject="feed" />
-          </div>
-        </v-layout>
+        <v-container fluid grid-list-md pl-0 style="margin-left: -10px">
+          <v-layout row wrap>
+            <v-flex sm12 md6 lg3 v-for="feed in products" :key="feed.id">
+              <product-card :hideOverlay="true" :dataObject="feed" />
+            </v-flex>
+          </v-layout>
 
-        <div class="text-xs-center">
-          <v-btn
-            v-if="isPageReady"
-            v-show="page_index < total_pages"
-            @click.native="loadMore()"
-            class="loadmore-btn"
-            >Load More</v-btn
-          >
-        </div>
+          <div v-if="!isComp" class="text-xs-center">
+            <v-btn
+              v-if="isPageReady"
+              v-show="page_index < total_pages"
+              @click.native="loadMore()"
+              class="loadmore-btn"
+              >Load More</v-btn
+            >
+          </div>
+        </v-container>
       </div>
     </div>
   </div>

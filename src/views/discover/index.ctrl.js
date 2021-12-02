@@ -7,10 +7,10 @@ import SearchService from '@/services/search'
 import genreDialog from '@/components/genre_dialog'
 import productCard from '@/components/productcard'
 import trackCard from '@/components/trackcard'
-import contentTopHeader from '@/components/contentTopHeader'
 import discoverAlbum from '@/views/album'
 import discoverVideo from '@/views/video'
 import discoverProduct from '@/views/product'
+import discoverNav from '@/components/discoverNav'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -20,10 +20,10 @@ export default {
     genreDialog,
     productCard,
     trackCard,
-    contentTopHeader,
     discoverAlbum,
     discoverVideo,
     discoverProduct,
+    discoverNav,
   },
 
   data() {
@@ -52,7 +52,6 @@ export default {
       isPageReady: false,
       currentTabs: [],
       isComp: true,
-      isSingleTab: false,
     }
   },
 
@@ -115,7 +114,11 @@ export default {
     // const tab = this.$route.hash.substr(1)
     const tab = 'discover'
     this.setTab(tab)
-    this.onTab(tab)
+
+    // set active tab
+    if (this.pageName) {
+      this.activeTab = this.pageName
+    }
   },
 
   methods: {
@@ -278,19 +281,6 @@ export default {
       })
       const arr = this.feeds.slice()
       this.feeds = arr
-    },
-
-    onTab(tab) {
-      this.activeTab = tab
-      const defTabs = this.tabs.map((t) => t.id)
-
-      if (tab === 'discover') {
-        this.currentTabs = defTabs
-        this.isSingleTab = false
-      } else {
-        this.isSingleTab = true
-        this.currentTabs = defTabs.filter((t) => t === tab)
-      }
     },
 
     setTab(tab) {

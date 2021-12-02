@@ -17,6 +17,7 @@
 
           <li class="mr-0">
             <v-btn
+              depressed
               color="theme--dark red"
               class="cancel-btn"
               @click.native="openStreamDeleteConfirmDialog()"
@@ -26,18 +27,20 @@
           <li class="mr-0">
             <v-btn
               v-if="show_view_stream_button"
+              depressed
               dark
               color="green"
               class="view-btn"
               @click.native="viewStream()"
               >Watch / Chat</v-btn
             >
-            <v-btn v-else color="grey lighten-2" class="px-4 view-btn"
+            <v-btn depressed v-else color="grey lighten-2" class="px-4 view-btn"
               >Connecting...</v-btn
             >
           </li>
           <li style="margin-right: -23px">
             <v-btn
+              depressed
               dark
               color="blue"
               class="view-btn"
@@ -54,14 +57,15 @@
         <v-container fluid grid-list-lg px-0>
           <v-layout row wrap>
             <v-flex xs6>
-              <div class="stream-info">
+              <div class="app-bold mb-2">Setup Live Broadcast</div>
+              <div class="wrapper-info stream-info">
                 <!-- <div class="loading" v-if="!isRunning">
                   <i class="fa fa-spinner fa-pulse fa-3x"></i>
                 </div> -->
-                <p>
+                <div class="divide">
                   Add the <b>URL</b> and <b>Stream Key</b> to your video
                   broadcast Software’s <b>Stream Settings</b>
-                </p>
+                </div>
                 <div>
                   <label
                     >URL: {{ streamUrl
@@ -82,7 +86,8 @@
             </v-flex>
 
             <v-flex sm6>
-              <div class="time-info">
+              <div class="app-bold mb-2">Analytics</div>
+              <div class="wrapper-info time-info">
                 <v-layout row wrap>
                   <!-- <v-flex sm4>
                     <label>Remaining time</label>
@@ -134,7 +139,66 @@
           </v-layout>
         </v-container>
 
-        <v-layout row mt-3>
+        <v-container fluid grid-list-xs px-0>
+        <v-layout wrap row mt-3>
+          <v-flex sm12>
+            <div class="app-bold mb-2">Broadcast Info</div>
+
+            <div class="wrapper-info detail-info pa-3 mr-3">
+              <div class="detail-info-top">
+                <div class="mr-3">
+                  <b>Details</b>
+                </div>
+                <div>Edit</div>
+              </div>
+
+              <div class="stream-details">
+                <div class="stream-bg"></div>
+                <div class="stream-info">
+                  <h3>Title</h3>
+
+                  <div class="d-flex">
+                    <div class="mr-3">
+                      <span class="meta-title">Genre:</span>
+                      <b>----</b>
+                    </div>
+
+                    <div class="mr-3">
+                      <span class="meta-title">Cost:</span>
+                      <b>----</b>
+                    </div>
+
+                    <div class="mr-3">
+                      <span class="meta-title">Capacity:</span>
+                      <b>----</b>
+                    </div>
+                  </div>
+
+                  <div>---</div>
+                </div>
+              </div>
+
+              <div class="divide"></div>
+
+              <div class="feature-info">
+                <div class="feature-info-top">
+                  <div class="mr-3">
+                    <b>Features Profiles</b>
+                  </div>
+                  <div>Add</div>
+                </div>
+
+              <div class="feature-users">
+                <div>
+                  <v-chip v-for="(u, i) in users" :key="i">
+                    {{ u.username }}
+                  </v-chip>
+                </div>
+              </div>
+              </div>
+            </div>
+          </v-flex>
+
           <v-flex sm6>
             <h4>Attach Product/Album</h4>
             <div class="panel pa-3 mr-3">
@@ -186,6 +250,7 @@
             </div>
           </v-flex>
         </v-layout>
+        </v-container>
 
         <!-- <div class="divider mt-5 mb-5"></div>
 

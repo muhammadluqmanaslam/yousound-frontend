@@ -7,6 +7,7 @@ import SearchService from '@/services/search'
 import genreDialog from '@/components/genre_dialog'
 import trackCard from '@/components/trackcard'
 import contentTopHeader from '@/components/contentTopHeader'
+import discoverNav from '@/components/discoverNav'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -15,12 +16,12 @@ export default {
   props: {
     isComp: Boolean,
     listLimit: Number,
-    isSingleTab: Boolean,
   },
   components: {
     genreDialog,
     trackCard,
     contentTopHeader,
+    discoverNav,
   },
 
   data() {
@@ -39,7 +40,7 @@ export default {
       hover_on_genre_tooltip: false,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 1 * 10,
+      items_per_page: 1 * 50,
       genres: [],
       selected_genre: null,
       categories: [],
@@ -243,7 +244,7 @@ export default {
 
     onTab(tab) {
       if (this.isComp) {
-        this.setTab(tab)
+        this.$router.push({name: 'AlbumIndex', params: {filter: tab}})
       } else {
         this.$router.push({
           path: this.$route.path,
@@ -257,8 +258,15 @@ export default {
         tab = 'recommended'
       }
 
+      const paramFilter = this.$route.params.filter || ''
+
+      if (paramFilter) {
+        this.activeTab = paramFilter
+      } else {
+        this.activeTab = tab
+      }
+
       // console.log(tab, this.activeTab)
-      this.activeTab = tab
       this.page_index = 1
       this.total_pages = 1
       this.feeds = []

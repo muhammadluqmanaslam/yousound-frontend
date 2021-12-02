@@ -1,8 +1,30 @@
 <template>
   <div class="page albums-page mx-5" :class="{ isComp: isComp}">
-    <content-top-header v-if="!isComp">
+    <discover-nav v-if="!isComp" pageName="music" />
+
+    <content-top-header class="__inner __doubleUl" :class="{'pl-0': isComp}">
       <template slot="topHeader">
-        <ul class="width100">
+        <ul>
+          <li v-if="isComp">
+            <h1>Music</h1>
+          </li>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ active: isActiveTab(tab.id) }"
+          >
+            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
+          </li>
+          <li
+            v-if="isComp" 
+            class="cursor-pointer"
+            @click="$router.push({name: 'AlbumIndex'})"
+          >
+            View All
+          </li>
+        </ul>
+        <ul v-if="!isComp" class="width100">
           <li class="my-0 mr-2"
 
               @mouseenter="hover_on_genre_button = true"
@@ -41,71 +63,10 @@
               </v-tabs-bar>
             </v-tabs>
           </li>
-        </ul>
+        </ul>      
       </template>
     </content-top-header>
 
-    <content-top-header class="__inner">
-      <template slot="topHeader">
-        <ul>
-          <li v-if="isComp">
-            <h1>Music</h1>
-          </li>
-          <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            :class="{ active: isActiveTab(tab.id) }"
-          >
-            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
-          </li>
-        </ul>
-      </template>
-    </content-top-header>
-
-    <div
-      v-if="isSingleTab"
-      class="d-flex align-center tabs-wrapper" 
-      :class="{isSingleTab: isSingleTab}"
-    >
-      <span class="my-0 mr-2"
-
-          @mouseenter="hover_on_genre_button = true"
-          @mouseleave="hover_on_genre_button = false"
-      >
-        <div
-          class="genre-dialog-selector py-3"
-          @click="openGenreSelectorDialog()"
-        >
-          <div class="genre-filter">
-            <img src="/static/images/ic_filter.svg" />
-          </div>
-          <div v-show="showGenreTooltip" class="tooltip">
-            <div class="tooltip-arrow"></div>
-            <div class="tooltip-inner">
-              Set your Genre Filters<br />
-              & customize your experience
-              <a @click.stop="got_genre_tooltip = true">Got it!</a>
-            </div>
-          </div>
-        </div>
-      </span>
-      <div class="width100 my-2">
-        <v-tabs :scrollable="true">
-          <v-tabs-bar>
-            <v-tabs-item
-              v-for="(genre, idx) in genres"
-              :key="idx"
-              :href="'#tab-' + idx"
-            >
-              <v-chip class="text-capitalize" @click.native="filterByGenre(genre)">
-                {{ genre.name.toLowerCase() }}
-              </v-chip>
-            </v-tabs-item>
-          </v-tabs-bar>
-        </v-tabs>
-      </div>
-    </div>
 
     <div class="page-content" v-if="currentUser">
       <v-layout row wrap>
@@ -152,12 +113,75 @@
   margin-right: 13px;
 }
 .top-menu {
-    margin: 0 !important;
-.tabs__bar {
+  margin: 0 !important;
+
+  .tabs__bar {
     .tabs__li {
       .tabs__item--active {
         .chip {
           background-color: #030303;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .genre-dialog-selector {
+    width: 50px;
+    display: flex;
+
+    .genre-filter img {
+      width: 25px;
+    }
+
+    .tooltip {
+      position: absolute;
+      display: block;
+      bottom: 57px;
+      left: -28px;
+      z-index: 9;
+      width: 240px;
+      padding: 0 0 10px 0;
+      background-color: transparent;
+      text-transform: initial;
+      letter-spacing: -0.1px;
+      .tooltip-arrow {
+        position: absolute;
+        bottom: 0px;
+        right: 180px;
+        width: 0;
+        height: 0;
+        margin: -2px;
+        border-style: solid;
+        // border-color: rgba(0, 0, 0, 0.2);
+        border-color: #1e1e1e;
+        border-width: 12px 12px 0;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+        border-bottom-color: transparent !important;
+        // transform: rotate(90deg);
+      }
+      .tooltip-inner {
+        position: relative;
+        padding: 12px 12px 12px 12px;
+        border-radius: 5px;
+        // background-color: rgba(0, 0, 0, 0.2);
+        background-color: #1e1e1e;
+        color: #ffffff;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
+        width: 285px;
+        margin-left: 12px;
+        padding-left: 15px;
+        a {
+          position: absolute;
+          top: 15px;
+          right: 10px;
+          padding: 5px 7px;
+          border-radius: 5px;
+          background-color: #4389f7;
           color: #ffffff;
         }
       }
