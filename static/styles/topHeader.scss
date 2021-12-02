@@ -101,20 +101,6 @@
           label {
             cursor: pointer;
           }
-          .genre-dialog-selector {
-            width: 50px;
-            display: flex;
-            .tooltip {
-              right: -210px;
-              bottom: -12px;
-
-              .tooltip-arrow {
-                transform: rotate(90deg);
-                left: -3px !important;
-                bottom: 34px !important
-              }
-            }
-          }
         }
       }
     }
@@ -144,9 +130,28 @@
           }
         }
       }
+      &.__doubleUl {
+        .tab-container {
+          display: block;
+
+
+          li {
+            margin-top: 0;
+            margin-bottom: 0
+          }
+
+          /deep/.tabs {
+            .tabs__bar {
+              margin-left: -66px;
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
 
       &::after {
         display: none;
       }
+
     }
   }
