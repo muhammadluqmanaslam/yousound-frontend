@@ -3,8 +3,8 @@
     <v-container fluid grid-list-lg>
         <v-layout wrap align-center justify-center>
             <v-flex xs5 layer-flex flex-text>
-                <h3 class="mb-2">Repost Requests</h3>
                 <h1>Get paid  <br> to share.</h1>
+                <h3 class="mt-2">Upgrade to remove ads & accept Repost <br /> Requests.</h3>
 
                 <span>
                 <v-btn class="black white--text mt-4">
@@ -16,20 +16,8 @@
             <v-flex xs5 layer-flex flex-img>
                 <img
                 width="100%"
-                src="/static/images/re_share.svg"
+                src="/static/images/re_sharebg.svg"
                 />
-            </v-flex>
-        </v-layout>
-
-        <v-layout wrap align-center justify-center>
-            <v-flex xs6 layer-flex flex-img>
-                <img
-                    width="80%"
-                    src="/static/images/re_upgrade.svg"
-                />
-            </v-flex>
-            <v-flex xs5 layer-flex flex-text>
-                <h2>Upgrade to remove ads & get paid to share.</h2>
             </v-flex>
         </v-layout>
 
@@ -64,7 +52,7 @@
 
                 <v-spacer></v-spacer>
 
-                <div>
+                <div class="plan-card_price">
                   <span class="__currency">$</span>
                   <span class="__price">{{ plan.price }}</span>
                   <span class="__duration">/month</span>
@@ -97,13 +85,17 @@
     background: #F7F7F7;
     border: 1px solid #e3dede;
 
-    .__currency {}
-    .__price {
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 1;
+    &_price {
+      letter-spacing: -2px;
+      font-weight: bolder;
+      font-size: 2em;
+
+      .__currency {}
+      .__price {
+        line-height: 1;
+      }
+      .__duration {}
     }
-    .__duration {}
 
     .choose__btn {
       background-color: #5D5FEF !important;
@@ -113,6 +105,8 @@
     li {
       list-style: none;
       display: flex;
+      margin-bottom: 10px;
+      font-size: 1.1em;
 
       .icon {
         margin-right: 10px;

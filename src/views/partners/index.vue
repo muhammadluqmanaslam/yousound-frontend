@@ -3,8 +3,8 @@
     <v-container fluid grid-list-md>
         <v-layout wrap align-center justify-center>
             <v-flex xs5 layer-flex flex-text>
-                <h3 class="mb-2">YouSound Partners</h3>
-                <h1>Grow your <br> audience & <br> revenue.</h1>
+                <!-- <h3 class="mb-2">YouSound Partners</h3> -->
+                <h1>YouSound <br>Partners</h1>
 
                 <span>
                 <v-btn class="black white--text mt-4">
@@ -16,7 +16,7 @@
             <v-flex xs5 layer-flex flex-img>
                 <img
                 width="100%"
-                src="/static/images/up_partner.svg"
+                src="/static/images/up_partnerbg.svg"
                 />
             </v-flex>
         </v-layout>
@@ -25,7 +25,7 @@
             <v-flex xs6 layer-flex flex-img>
                 <img
                     width="80%"
-                    src="/static/images/up_growth.svg"
+                    src="/static/images/up_growthbg.svg"
                 />
             </v-flex>
             <v-flex xs5 layer-flex flex-text>
@@ -44,12 +44,12 @@
 
                 <ul>
                     <li>Sell physical products
-                    <li>Broadcast Live Video</li>
+                    <li>Broadcast Live</li>
                 </ul>
             </v-flex>
             <v-flex xs5 layer-flex flex-img>
                 <img
-                src="/static/images/up_features.svg"
+                src="/static/images/up_featuresbg.svg"
                 />
             </v-flex>
         </v-layout>

@@ -100,34 +100,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-
-    <!-- <v-container grid-list-lg>
-      <v-layout row>
-        <v-flex xs6 class="meta-tab-container">
-          <div class="meta-tab-wrapper">
-            <div class="meta-tab-img handImg"></div>
-            <div class="meta-tab-description">
-              <div class="app-bold">Best practices for successful releases</div>
-               <div>Learn how to lauch a product, album, or video on YouSound effectively to build an audience & generate revenue</div>
-            </div>
-          </div>
-        </v-flex>
-
-        <v-flex xs6 class="meta-tab-container">
-          <div class="meta-tab-wrapper">
-            <div class="meta-tab-img boardImg"></div>
-            <div class="meta-tab-description">
-              <div class="app-bold">Earn revenue as a YouSound Partner</div>
-               <div>Learn how to become a YouSound partner to start earning money from your album & video streams.</div>
-            </div>
-          </div>
-        </v-flex>
-      </v-layout>
-    </v-container> -->
-
-    <v-container>
-      <get-paid propMode />
-    </v-container>
   </div>
 </template>
 
