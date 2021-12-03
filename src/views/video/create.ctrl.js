@@ -86,6 +86,7 @@ export default {
       users: [],
       friends: [],
       isPageReady: false,
+      user: {},
     }
   },
 
@@ -93,8 +94,14 @@ export default {
     currentUser() {
       return this.$store.state.auth.user
     },
-    isOnLive() {
-      return this.currentUser.enabled_live_video
+    isStreaming() {
+      return (
+        _.get(this.user.stream, 'status', '') === 'running' &&
+        _.get(this.user.stream, 'notified', false) &&
+        (_.get(this.$store.state.streamPlayer.stream, 'user.slug', '') !==
+          this.user.slug ||
+          !this.$store.getters['streamPlayer/hasFrame'])
+      )
     },
 
     MediaLiveInputTypes() {
@@ -150,12 +157,15 @@ export default {
   //   }
   // },
 
-  created() {
+  async created() {
+    await this.getUser()
+
     // re-navigate user away when user is on live
-    console.log(this.isOnLive)
-    // if (this.isOnLive) {
-    //   this.$router.push({name: 'VideoManage'})
-    // }
+    console.log(this.isStreaming)
+    if (this.isStreaming) {
+      this.$router.push({name: 'VideoManage'})
+    }
+
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
       tab: 'create',
@@ -267,6 +277,24 @@ export default {
   },
 
   methods: {
+    getUser() {
+      UserService.getUserInfo(this.currentUser.username)
+        .then((response) => {
+          if (response.body.status !== 'active') {
+            this.$store.dispatch('error/showErrorToast', [
+              'User does not exist',
+            ])
+            this.$router.push({ path: '/' })
+            return
+          }
+
+          // console.log('profile init')
+          this.user = response.body
+        }).catch((e) => {
+          this.$store.dispatch('error/showErrorToast', ['Error fetching user'])
+        })
+    },
+
     gotoNextView(view) {
       this.activeView = view
     },

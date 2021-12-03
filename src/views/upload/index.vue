@@ -56,7 +56,7 @@
                 Broadcast live video, connect products, albums, collaborators & run pay-per-view
               </div>
               <!-- <v-btn v-if="isOnLive" depressed class="upload-tab-btn" :to="{name: 'VideoManage'}">Broadcast Live2</v-btn> -->
-              <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoCreate'}">Broadcast Live1</v-btn>
+              <v-btn depressed class="upload-tab-btn" :to="{name: broadcastLink }">Broadcast Live</v-btn>
             </div>
           </div>
         </v-flex>
