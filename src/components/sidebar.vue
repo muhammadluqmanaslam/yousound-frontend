@@ -104,23 +104,25 @@
           <v-list-tile-title class="d-flex justify-space-between align-center">
             <span class="__title">{{ subMenu.title }}</span>
 
-            <span
+            <span 
               v-if="subMenu.id === 'notifications' && badge.message > 0"
-              class="notifications __n_message"
+              class="dot_notifications"
             >
-              <span class="__count">{{ badge.message }}</span>
+              <v-icon size="1">circle</v-icon>
             </span>
-            <span
+
+            <span 
               v-else-if="subMenu.id === 'sales' && badge.sell > 0"
-              class="notifications __n_sales"
+              class="dot_notifications"
             >
-              <span class="__count">{{ badge.sell }}</span>
+              <v-icon size="1">circle</v-icon>
             </span>
-            <span
+
+            <span 
               v-else-if="subMenu.id === 'cart' && badge.cart > 0"
-              class="notifications __n_cart"
+              class="dot_notifications"
             >
-              <span class="__count">{{ badge.cart }}</span>
+              <v-icon size="1">circle</v-icon>
             </span>
           </v-list-tile-title>
         </v-list-tile>
@@ -162,7 +164,7 @@ export default {
               id: 'you',
               icon: 'circle',
               directPath: true,
-              path: this.username,
+              path: 'dashboard',
             },
             {
               title: 'Feed',
@@ -171,9 +173,9 @@ export default {
               path: 'Feed',
             },
             {
-              title: 'Activity',
+              title: 'Messages',
               id: 'notifications',
-              icon: 'notifications',
+              icon: 'mode_comment',
               path: 'NotificationIndex',
             },
             {
@@ -182,24 +184,24 @@ export default {
               icon: 'shopping_cart',
               path: 'Cart',
             },
-            {
-              title: 'Sales',
-              id: 'sales',
-              icon: 'local_shipping',
-              path: 'Sell',
-            },
-            {
-              title: 'Upload',
-              id: 'upload',
-              icon: 'file_upload',
-              path: 'UploadIndex',
-            },
-            {
-              title: 'Manage',
-              id: 'manage',
-              icon: 'video_library',
-              path: 'ManageIndex',
-            },
+            // {
+            //   title: 'Sales',
+            //   id: 'sales',
+            //   icon: 'local_shipping',
+            //   path: 'Sell',
+            // },
+            // {
+            //   title: 'Upload',
+            //   id: 'upload',
+            //   icon: 'file_upload',
+            //   path: 'UploadIndex',
+            // },
+            // {
+            //   title: 'Manage',
+            //   id: 'manage',
+            //   icon: 'video_library',
+            //   path: 'ManageIndex',
+            // },
           ],
         },
         {
@@ -252,8 +254,7 @@ export default {
       this.tabs.forEach((parent) =>
         parent.items.forEach((item) => {
           if (item.id === 'you') {
-            item.path = this.username
-            console.log(this.username)
+            // item.path = this.username
             item.title = this.username.toUpperCase()
           }
         })

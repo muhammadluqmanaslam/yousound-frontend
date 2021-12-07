@@ -18,7 +18,7 @@ const getters = {
             id: 'you',
             icon: 'circle',
             directPath: true,
-            path: this.username,
+            path: 'dashboard',
           },
           {
             title: 'Feed',
@@ -29,7 +29,7 @@ const getters = {
           {
             title: 'Messages',
             id: 'notifications',
-            icon: 'notifications',
+            icon: 'mode_comment',
             path: 'NotificationIndex',
           },
           {
@@ -38,26 +38,26 @@ const getters = {
             icon: 'shopping_cart',
             path: 'Cart',
           },
-          {
-            title: 'Sales',
-            id: 'sales',
-            icon: 'local_shipping',
-            path: 'Sell',
-            allowedUser: ['artist'],
-          },
-          {
-            title: 'Upload',
-            id: 'upload',
-            icon: 'file_upload',
-            path: 'UploadIndex',
-            allowedUser: ['artist'],
-          },
-          {
-            title: 'Manage',
-            id: 'manage',
-            icon: 'video_library',
-            path: 'ManageIndex',
-          },
+          // {
+          //   title: 'Sales',
+          //   id: 'sales',
+          //   icon: 'local_shipping',
+          //   path: 'Sell',
+          //   allowedUser: ['artist'],
+          // },
+          // {
+          //   title: 'Upload',
+          //   id: 'upload',
+          //   icon: 'file_upload',
+          //   path: 'UploadIndex',
+          //   allowedUser: ['artist'],
+          // },
+          // {
+          //   title: 'Manage',
+          //   id: 'manage',
+          //   icon: 'video_library',
+          //   path: 'ManageIndex',
+          // },
         ],
       },
       {

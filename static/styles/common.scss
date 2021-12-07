@@ -778,6 +778,25 @@ textarea {
   }
 }
 
+.dot_notifications {
+  flex: none;
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  transition: .3s cubic-bezier(.25,.8,.5,1);
+  border-radius: 3px;
+  width: 28px;
+  height: 20px;
+  margin-right: 10px;
+  .icon {
+    font-size: 5px;
+    color: #5487ff !important;
+  }
+}
+
 .card-container {
   min-width: 200px;
   margin-bottom: 18px;
