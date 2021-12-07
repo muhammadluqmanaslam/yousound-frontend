@@ -1,8 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-
-import { Utils } from '@/helper'
-
+import { Utils, Storage, MyCookies } from '@/helper'
 import AuthService from '@/services/auth'
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
@@ -14,8 +12,7 @@ import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
 import collaborateProduct from './components/collaborate_product'
 import contentTopHeader from '@/components/contentTopHeader'
-
-import { Storage, MyCookies } from '@/helper'
+import dashboardNav from '@/components/dashboardNav'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -27,6 +24,7 @@ export default {
     profileItem,
     sendMessage,
     contentTopHeader,
+    dashboardNav,
   },
 
   data() {
@@ -39,7 +37,7 @@ export default {
         // { id: 'pendings', title: 'Pending collaborations' },
       ],
       filters: [
-        { id: '', name: 'All' },
+        { id: 'all', name: 'All' },
         { id: 'creator_unshipped', name: 'Unshipped' },
         { id: 'creator_shipped', name: 'Shipped' },
         { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
@@ -178,6 +176,8 @@ export default {
         this.products = values[1].body
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
+
+        this.filterItems(this.filters[0])
       })
       .catch((reason) => {
         console.log(reason)
@@ -187,8 +187,8 @@ export default {
   },
 
   methods: {
-    isActiveTab(tab) {
-      return this.active_tab == tab
+    isActiveTab(filter) {
+      return this.active_tab == filter
     },
 
     loadProducts() {

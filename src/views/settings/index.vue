@@ -1,6 +1,8 @@
 <template>
-  <div row wrap class="page settings-page" :class="{ 'mx-5': !isComp }">
-    <content-top-header :class="{ __inner: isComp }">
+  <div row wrap class="page settings-page mx-5">
+    <dashboard-nav name="settings" />
+
+    <content-top-header class="__inner mt-3">
       <template slot="topHeader">
         <ul>
           <li

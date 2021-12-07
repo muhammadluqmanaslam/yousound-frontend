@@ -1,43 +1,17 @@
-empty<template>
+<template>
   <div row wrap class="page sell-page mx-5">
-    <content-top-header>
-      <template slot="topHeader">
-        <ul class="pr-3">
-          <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            :class="{ active: isActiveTab(tab.id) }"
-          >
-            <label @click="onTab(tab.id)">{{ tab.title }}</label>
-          </li>
+    <dashboard-nav name="sales" />
 
-          <li v-if="active_tab == 'orders'" class="my-0 d-flex align-center">
-            <v-menu
-              id="item_filter"
-              class="filter"
-              style="display: block"
-              offset-y
-            >
-              <div
-                slot="activator"
-                class="filter__activator dropdown-field py-3"
-              >
-                <span class="">{{ activeFilterName }} orders</span>
-                <v-icon right>keyboard_arrow_down</v-icon>
-              </div>
-              <v-list>
-                <v-list-tile
-                  v-for="filter in filters"
-                  @click="filterItems(filter)"
-                  :key="filter.id"
-                >
-                  <v-list-tile-title class="cursor-pointer pa-3 heightAuto">{{
-                    filter.name
-                  }}</v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
+    <content-top-header class="__inner mt-3">
+      <template slot="topHeader">
+        <ul class="pr-3 width100">
+          <li
+            v-for="filter in filters"
+            :key="filter.id"
+            :href="`#${filter.id}`"
+            :class="{ active: activeFilter.id == filter.id }"
+          >
+            <label @click="filterItems(filter)">{{ filter.name }}</label>
           </li>
 
           <v-spacer></v-spacer>

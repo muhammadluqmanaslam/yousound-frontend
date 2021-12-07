@@ -1,20 +1,8 @@
 <template>
   <div class="page manage-page mx-5">
-    <content-top-header>
-      <template slot="topHeader">
-          <ul>
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="setTab(tab.id)">{{ tab.title }}</label>
-            </li>
-          </ul>
-      </template>
-    </content-top-header>
-    <content-top-header class="__inner" v-if="active_tab === 'content' && userType == 'artist'">
+    <dashboard-nav name="manage" />
+
+    <content-top-header class="__inner mt-3" v-if="userType == 'artist'">
       <template slot="topHeader">
         <ul>
             <li class="tabSelectMenu">
@@ -48,14 +36,6 @@
         ref="manageAlbum" 
         :textBtnToRight="activeInnerFilter == 'albums' && (activeInnerTab == 'published' || activeInnerTab == 'privated')" 
       />
-    </div>
-
-    <div v-else-if="active_tab === 'payment'">
-      <payments isComp />
-    </div>
-
-    <div v-else-if="active_tab === 'setting'">
-      <settings isComp />
     </div>
   </div>
 </template>

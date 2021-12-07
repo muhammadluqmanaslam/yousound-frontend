@@ -6,6 +6,7 @@ import manageProduct from '@/views/product/components/manageProduct'
 import manageAlbum from '@/views/album/components/manageAlbum'
 import payments from '@/views/payments'
 import settings from '@/views/settings'
+import dashboardNav from '@/components/dashboardNav'
 
 export default {
   components: {
@@ -15,6 +16,7 @@ export default {
     manageAlbum,
     payments,
     settings,
+    dashboardNav,
   },
 
   data() {
@@ -29,11 +31,6 @@ export default {
         {
           title: 'Products', value: 'products',
         },
-      ],
-      tabs: [
-        { id: 'content', title: 'Content', allowedUser: ['artist'] },
-        { id: 'payment', title: 'Payments' },
-        { id: 'setting', title: 'Settings' },
       ],
       page_index: 1,
       total_pages: 1,
@@ -71,9 +68,6 @@ export default {
     },
   },
   methods: {
-    setTab(id) {
-      this.active_tab = id
-    },
     setInnerTab(id) {
       this.activeInnerTab = id
 
@@ -108,10 +102,6 @@ export default {
     },
   },
   watch: {
-    $route(toPath, fromPath) {
-      const tab = toPath.hash.substr(1)
-      this.setTab(tab)
-    },
     activeInnerFilter(val) {
       const id = this.getInnerMenuTabs(val)[0].id || ''
       // console.log(id);
@@ -120,11 +110,6 @@ export default {
   },
   created() {
     // const tab = this.$route.hash.substr(1)
-    // this.setTab(tab)
-
-    // Get inbound tab navigation
-    const tab = this.$route.params.tab || this.active_tab
-    this.setTab(tab)
 
     this.tabs = this.tabs.filter((tab) => {
       return !(tab.allowedUser && !tab.allowedUser.includes(this.userType))

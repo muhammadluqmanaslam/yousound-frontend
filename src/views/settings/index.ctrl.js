@@ -13,6 +13,7 @@ import policyTab from './components/policy_tab'
 import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
 import contentTopHeader from '@/components/contentTopHeader'
+import dashboardNav from '@/components/dashboardNav'
 
 // import { MyEvents } from '@/helper'
 // const ActionCable = require('actioncable')
@@ -30,6 +31,7 @@ export default {
     priceTab,
     verifyTab,
     contentTopHeader,
+    dashboardNav,
   },
 
   data() {
