@@ -35,6 +35,7 @@ export default {
         { id: 'video', title: 'Video' },
         { id: 'merch', title: 'Shop' },
       ],
+      keyword: '',
       seed: '',
       show_genre_selector_dialog: false,
       got_genre_tooltip: false,
@@ -122,6 +123,10 @@ export default {
   },
 
   methods: {
+    goToSearch() {
+      const keyword = this.keyword
+      this.$router.push({ path: '/search', query: { q: keyword } })
+    },
     isActiveTab(tab) {
       return this.activeTab === tab
     },

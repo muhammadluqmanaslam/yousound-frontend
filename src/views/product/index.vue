@@ -8,14 +8,19 @@
           <li v-if="isComp">
             <h1>Shop</h1>
           </li>
-          <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            :class="{ active: isActiveTab(tab.id) }"
-          >
-            <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
-          </li>
+          <template v-if="!isComp">
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
+            </li>
+          </template>
+
+          <v-spacer v-if="isComp"></v-spacer>
+
           <li
             v-if="isComp" 
             class="cursor-pointer"
