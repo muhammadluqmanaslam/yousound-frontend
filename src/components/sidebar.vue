@@ -1,75 +1,19 @@
 <template>
-  <v-navigation-drawer permanent app fixed dark width="280" class="sidebar">
+  <v-navigation-drawer permanent app fixed dark :mini-variant="mini" mobile-break-point width="280" class="sidebar">
     <!-- <span class="white">{{ isAuthenticated }}</span> -->
     <div class="pa-3 tabs-auth-wrapper">
       <div justify-space-between align-center class="d-flex mb-3">
         <router-link :to="{ name: 'AlbumIndex' }" class="sidebar-logo">
-          <img src="/static/images/nav_logo_white.png" />
+          <img v-if="mini" class="_mini" src="/static/images/nav_logo_white_mini.png" />
+          <img v-else src="/static/images/nav_logo_white.png" />
         </router-link>
 
         <span
           class="icon cursor-pointer pr-2"
           @click="searchActive = !searchActive"
         >
-          <svg
-            width="20px"
-            height="20px"
-            viewBox="0 0 28 28"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-          >
-            <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
-            <title>Group 22</title>
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <g
-              id="Design"
-              stroke="none"
-              stroke-width="1"
-              fill="none"
-              fill-rule="evenodd"
-            >
-              <g
-                id="searchIcon"
-                transform="translate(-732.000000, -61.000000)"
-                stroke="#FFFFFF"
-                stroke-width="1.5999999"
-              >
-                <g id="Group-29" transform="translate(710.000000, 50.000000)">
-                  <g id="Group-22" transform="translate(23.000000, 12.000000)">
-                    <circle
-                      id="Oval-2"
-                      cx="11.375"
-                      cy="11.375"
-                      r="11.375"
-                    ></circle>
-                    <path
-                      d="M19.5,19.5 L25.59375,25.59375"
-                      id="Line"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    ></path>
-                  </g>
-                </g>
-              </g>
-            </g>
-          </svg>
         </span>
       </div>
-
-      <transition name="slide-fade">
-        <div v-show="searchActive" class="search-box">
-          <input
-            class="search-field"
-            type="search"
-            id="search"
-            v-model="keyword"
-            placeholder="Search artist, song or keyword"
-            @keyup.enter="goToSearch()"
-          />
-        </div>
-      </transition>
 
       <div v-if="!isAuthenticated" class="auth-btn-container">
         <v-btn to="/register" outline class="auth-btn signup">Sign Up</v-btn>
@@ -101,7 +45,7 @@
               subMenu.icon
             }}</v-icon>
           </v-list-tile-avatar>
-          <v-list-tile-title class="d-flex justify-space-between align-center">
+          <v-list-tile-title v-if="!mini" class="d-flex justify-space-between align-center">
             <span class="__title">{{ subMenu.title }}</span>
 
             <span 
@@ -130,12 +74,20 @@
       </v-list>
     </div>
 
+    <v-spacer></v-spacer>
+
     <transition name="slide-fade">
       <side-audio-player
         ref="audioPlayer"
+        :isMini="mini"
         v-show="$store.getters['navigator/hasAudioPlayer']"
       ></side-audio-player>
     </transition>
+
+    <div class="toggle-sidebar">
+      <img class="cursor-pointer" :class="{inversed: !mini}" @click.stop="mini = !mini" src="/static/images/slide-right.svg" />
+      
+    </div>
   </v-navigation-drawer>
 </template>
 
@@ -152,8 +104,8 @@ export default {
   },
   data() {
     return {
+      mini: false,
       selectedTab: 1,
-      keyword: '',
       searchActive: false,
       tabs: [
         {
@@ -231,6 +183,16 @@ export default {
     }
   },
   watch: {
+    onMobile(val) {
+      console.log(val);
+
+      // trigger mini on mobile or screen width reduction
+      if (!val) {
+        this.mini = true
+      } else {
+        this.mini = false
+      }
+    },
     isAuthenticated: {
       immediate: true,
       handler(val) {
@@ -246,10 +208,6 @@ export default {
     },
   },
   methods: {
-    goToSearch() {
-      const keyword = this.keyword
-      this.$router.push({ path: '/search', query: { q: keyword } })
-    },
     setUsername() {
       this.tabs.forEach((parent) =>
         parent.items.forEach((item) => {
@@ -266,6 +224,9 @@ export default {
       isAuthenticated: 'auth/isAuthenticated',
       allTabs: 'app/tabs',
     }),
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndUp;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },

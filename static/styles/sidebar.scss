@@ -64,6 +64,11 @@
     width: 48%;
     margin-top: 4px;
     margin-left: 14px;
+
+    &._mini {
+      width: 100%;
+      margin: 0;
+    }
   }
 
   .subheader {
@@ -81,19 +86,36 @@
   .avatar .icon {
       justify-content: flex-start !important;
   }
-  #search {
-      color: #ffffff;
-      border: 1px solid grey;
-      width: 100%;
-      border-radius: 6px;
-      margin-bottom: 3px;
-      padding: 5px;
-      transition: opacity .5s;
-  }
   .profile-image {
   width: 28px;
   height: 28px;
   border-radius: 100%;
   background-size: cover;
+  }
+
+  .toggle-sidebar {
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+
+    img {
+      &.inversed {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  &.navigation-drawer--mini-variant {
+    display: flex;
+    flex-direction: column;
+
+    .list__tile {
+      .avatar {
+        width: auto !important;
+      }
+    }
+    .toggle-sidebar {
+      left: 16px;
+    }
   }
 }

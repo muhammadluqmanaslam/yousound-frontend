@@ -5,7 +5,7 @@
     </div>
     <div class="side-player-inner">
       <div class="track-detail-section">
-        <div class="track-cover-container">
+        <div class="track-cover-container" :style="{width: isMini ? '100%' : ''}">
           <router-link :to="`/${item.album_type}/${item.slug}`">
             <template v-if="item.album_type == 'playlist'">
               <div
@@ -27,9 +27,9 @@
         <div class="track-info-container">
           <div class="track-info">
             <div class="d-flex justify-space-between align-center">
-              <div class="track-index" id="trackIndex">{{ trackIndex }}</div>
+              <div v-if="!isMini" class="track-index" id="trackIndex">{{ trackIndex }}</div>
 
-              <div class="actions-section flex-none">
+              <div class="actions-section flex-none" :class="{_mini: isMini}">
                 <v-menu offset-y dark class="dots-wrapper">
                   <v-icon right slot="activator">more_horiz</v-icon>
                   <v-list>
@@ -87,11 +87,11 @@
                 </v-menu>
               </div>
             </div>
-            <div>
+            <div v-if="!isMini">
               <label class="track-name" id="trackName">{{ track.name }}</label>
             </div>
           </div>
-          <div class="user-info">
+          <div v-if="!isMini" class="user-info">
             <template v-if="item.collaborators_count > 0">
               <router-link class="user-name" :to="'/' + item.user.slug">{{
                 item.user.username
@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <div class="follow-meta">
+      <div v-if="!isMini" class="follow-meta">
         <div>
           <template v-if="item.collaborators_count > 0">
             <template v-for="c in item.collaborators">
@@ -171,6 +171,7 @@
     </div>
 
     <div
+      v-if="!isMini"
       class="player-section-container"
       :class="{ 'd-block': isLoaded, 'd-flex': !isLoaded }"
     >
@@ -300,6 +301,10 @@ import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
 
 export default {
+  props: {
+    isMini: Boolean,
+  },
+
   components: {
     downloadModal,
     shareModal,

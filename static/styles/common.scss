@@ -222,6 +222,24 @@ body {
   text-transform: capitalize;
 }
 
+.search-box {
+  border: 1px solid #e9e6e6;
+  border-radius: 6px;
+  margin-bottom: 3px;
+  width: 100%;
+  transition: opacity .5s;
+  padding: 5px;
+  #search {
+    padding: 5px;
+    width: 97%;
+
+    &:focus-visible {
+      outline: 0;
+    }
+  }
+}
+
+
 .edit-address-dialog.dialog {
   position: relative;
   overflow: hidden;

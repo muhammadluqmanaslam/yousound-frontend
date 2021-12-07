@@ -288,6 +288,12 @@
         filter: invert(1);
       }
     }
+
+    &._mini {
+      position: absolute;
+      bottom: -10px;
+      left: 25px;
+    }
   }
 }
 @-webkit-keyframes sk-scaleout {
