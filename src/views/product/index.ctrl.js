@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       selectedTab: 'any',
-      activeTab: 'new',
+      activeTab: '',
       seed: '',
       page_index: 1,
       total_pages: 1,

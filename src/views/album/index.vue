@@ -137,8 +137,8 @@
     .tooltip {
       position: absolute;
       display: block;
-      bottom: 57px;
-      left: -28px;
+      bottom: -63px;
+      left: -13px;
       z-index: 9;
       width: 240px;
       padding: 0 0 10px 0;
@@ -147,8 +147,8 @@
       letter-spacing: -0.1px;
       .tooltip-arrow {
         position: absolute;
-        bottom: 0px;
-        right: 180px;
+        top: -9px;
+        left: 23px;
         width: 0;
         height: 0;
         margin: -2px;
@@ -159,7 +159,7 @@
         border-left-color: transparent !important;
         border-right-color: transparent !important;
         border-bottom-color: transparent !important;
-        // transform: rotate(90deg);
+        transform: rotate(180deg);
       }
       .tooltip-inner {
         position: relative;

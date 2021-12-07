@@ -1,7 +1,6 @@
 <template>
   <div class="page video-page manage-page mx-5">
-    <content-top-header v-if="isPageReady"
-      >>
+    <content-top-header v-if="isPageReady">
       <template slot="topHeader">
         <ul class="width100">
           <li

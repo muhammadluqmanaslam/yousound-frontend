@@ -25,7 +25,7 @@
           </li>
         </ul>
 
-        <ul class="width100">
+        <ul v-if="!isComp" class="width100">
           <li class="width100">
             <v-tabs :scrollable="true">
               <v-tabs-bar style="margin-left: 0">

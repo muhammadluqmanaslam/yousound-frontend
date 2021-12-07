@@ -24,19 +24,6 @@
                 <label @click="onTab(tab.id)">{{ tab.title }}</label>
               </li>
             </template>
-
-            <v-spacer></v-spacer>
-
-            <li>
-              <v-btn
-                depressed
-                color="transparent"
-                class="text-capitalize no-Btn-bg"
-                @click="signOut"
-              >
-                Sign Out
-              </v-btn>
-            </li>
           </ul>
         </template>
       </content-top-header>
