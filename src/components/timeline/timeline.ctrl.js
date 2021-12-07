@@ -79,11 +79,20 @@ export default {
       }
       return _text
     },
+    playingIndexId() {
+      let listIndex = this.$store.state.player.list[this.$store.state.player.listIndex]
+
+      if (listIndex !== undefined) {
+        return listIndex.id
+      }
+      return null
+    },
   },
 
   created() { },
 
   methods: {
+    setIsPlaying() {},
     repostItem(id) {
       AlbumService.repostAlbum(id)
         .then((response) => {

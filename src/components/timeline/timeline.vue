@@ -111,6 +111,7 @@
                     :noAction="true"
                     :objects="user.recent_items"
                     :objectIndex="index"
+                    :is-playing-status="setIsPlaying"
                   />
                 </v-flex>
                 <v-flex xs6>
@@ -126,8 +127,7 @@
                     </div>
                     <v-btn
                       v-if="
-                        !$store.state.player.isPlaying ||
-                        $store.state.player.isPaused
+                        !(playingIndexId && playingIndexId === user.recent_items[index].id)
                       "
                       @click.native="playSong(index)"
                       dark
@@ -137,8 +137,7 @@
                     </v-btn>
                     <v-btn
                       v-if="
-                        $store.state.player.isPlaying &&
-                        !$store.state.player.isPaused
+                        (playingIndexId && playingIndexId === user.recent_items[index].id)
                       "
                       @click.native="pauseSong(index)"
                       dark
