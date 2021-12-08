@@ -15,7 +15,7 @@
                     <v-spacer></v-spacer>
 
                     <li>
-                        <v-btn depressed class="upload-btn">Upload</v-btn>
+                        <v-btn depressed to="/upload" class="upload-btn">Upload</v-btn>
                     </li>
                     <li>
                         <router-link :to="`/${currentUser.slug}`">
