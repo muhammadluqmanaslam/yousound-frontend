@@ -27,11 +27,17 @@
           >
         </div>
         <div v-else>
-          <div v-for="(user, user_index) in users" :key="user_index">
+          <div>
             <!-- <pre>{{ user }}</pre> -->
-            <v-layout row wrap class="covers-content" v-if="user.recent_items">
-              <timeline :user="user" />
-            </v-layout>
+            <v-container fluid grid-list-md pl-0>
+              <v-layout row wrap class="covers-content">
+                <!-- <template v-if="user.recent_items"> -->
+                  <v-flex xs12 md6 v-for="(user, user_index) in users" :key="user_index">
+                    <timeline :user="user" />
+                  </v-flex>
+                <!-- </template> -->
+              </v-layout>
+            </v-container>
           </div>
           <div class="text-xs-center">
             <v-btn

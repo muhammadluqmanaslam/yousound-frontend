@@ -1,6 +1,6 @@
 <template>
   <v-flex class="timeline-user">
-    <v-flex xs6 class="event-info">
+    <div class="event-info">
       <div class="event-top-bar" pa-0>
         <div class="user-info">
           <profile-item
@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <v-layout row wrap class="covers-content d-block" mt-2>
+      <v-layout row wrap class="covers-content d-block" mt-2 pb-5>
         <!-- <div
           v-if="['Album', 'ShopProduct', 'Stream'].indexOf(recentItem.assoc_type) > -1"
           class="card-container"
@@ -247,7 +247,7 @@
           </div>
         </div>
       </v-layout>
-    </v-flex>
+    </div>
 
     <merch-modal
       v-if="showMerchModal && user.recent_items[0].assoc_type === 'ShopProduct'"
