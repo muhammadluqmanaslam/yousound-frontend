@@ -13,4 +13,13 @@
             margin-left: 24px;
         }
     }
+
+    .choose__btn {
+        background-color: #5D5FEF !important;
+        color: #ffffff;
+
+        &.__rounded {
+            border-radius: 40px !important;
+        }
+    }
 }
