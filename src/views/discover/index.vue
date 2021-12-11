@@ -1,5 +1,5 @@
 <template>
-  <div class="page discover-page mx-5">
+  <div class="page discover-page page-toolbar-top-space mx-5">
     <discover-nav pageName="discover" />
 
     <div class="d-flex">
