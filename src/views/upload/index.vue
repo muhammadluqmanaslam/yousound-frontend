@@ -1,7 +1,7 @@
 <template>
   <div class="page upload-page mx-5">
     <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
-    <h1 class="px-3 __title">Upload Music, Videos, Products & Broadcast Live!</h1>
+    <h1 class="px-3 __title">Upload, Videos, Products & Broadcast Live!</h1>
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap justify-start>
@@ -12,9 +12,9 @@
             <div class="text-left">
               <h3>Music</h3>
               <div class="upload-tab-description">
-                Upload your albums, connnect products, add album credits & assign collaborators
+                Upload your albums, connect products, assign collaborators
               </div>
-              <v-btn depressed class="upload-tab-btn" :to="'/upload/album'">Upload Music</v-btn>
+              <v-btn depressed class="upload-tab-btn" :to="'/upload/album'">Upload</v-btn>
             </div>
           </div>
         </v-flex>
@@ -27,7 +27,7 @@
               <div class="upload-tab-description">
                 Upload products, set splits & recoup costs with collaborators
               </div>
-              <v-btn depressed class="upload-tab-btn" :to="{name: 'AddProduct'}">Upload Product</v-btn>
+              <v-btn depressed class="upload-tab-btn" :to="{name: 'AddProduct'}">Upload</v-btn>
             </div>
             </div>
         </v-flex>
@@ -41,7 +41,7 @@
               <div class="upload-tab-description">
                 Upload videos, connect products, albums & collaborators
               </div>
-              <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoUpload'}">Upload Video</v-btn>
+              <v-btn depressed class="upload-tab-btn" :to="{name: 'VideoUpload'}">Upload</v-btn>
             </div>
           </div>
         </v-flex>
@@ -53,10 +53,10 @@
             <div class="text-left">
               <h3>Live Video</h3>
               <div class="upload-tab-description">
-                Broadcast live video, connect products, albums, collaborators & run pay-per-view
+                Broadcast live RMTP, connect products, & run pay-per-view
               </div>
               <!-- <v-btn v-if="isOnLive" depressed class="upload-tab-btn" :to="{name: 'VideoManage'}">Broadcast Live2</v-btn> -->
-              <v-btn depressed class="upload-tab-btn" :to="{name: broadcastLink }">Broadcast Live</v-btn>
+              <v-btn depressed class="upload-tab-btn" :to="{name: broadcastLink }">Broadcast</v-btn>
             </div>
           </div>
         </v-flex>
@@ -66,10 +66,10 @@
     </v-container>
 
 
-    <v-container grid-list-lg px-0>
+    <v-container fluid grid-list-lg px-4>
+          <h1>Maximize your content</h1>
       <v-layout row>
         <v-flex xs6 class="meta-tab-container pl-0">
-          <h1>Share to the world</h1>
 
           <div class="meta-tab-wrapper pl-0">
             <div class="meta-tab-img partnerImg"></div>
@@ -85,7 +85,6 @@
         </v-flex>
 
         <v-flex xs6 class="meta-tab-container px-0">
-          <h1>Maximize your content</h1>
 
           <div class="meta-tab-wrapper pr-0">
             <div class="meta-tab-img growthImg"></div>
@@ -94,7 +93,7 @@
                <div class="mb-3">Visit your dashboard to keep track of all your analytics.</div>
 
                <router-link to="/dashboard">
-                 <b>Goto Dashboard</b>
+                 <b>View Dashboard</b>
                </router-link>
             </div>
           </div>

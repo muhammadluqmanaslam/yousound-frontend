@@ -24,7 +24,7 @@
                 border-radius: 4px;
                 background-size: contain;
                 background-position: center;
-                margin-right: 40px;
+                margin: 20px;
 
 
                 &.uploadMusic {
@@ -51,6 +51,7 @@
                 background-color: #000000;
                 color: #ffffff;
                 font-weight: 800;
+                min-width: 110px;
             }
 
             .upload-tab-description {
@@ -80,20 +81,18 @@
             border-radius: 15px;
 
             .meta-tab-img {
-                height: 170px;
-                width: 170px;
+                height: 80px;
+                width: 80px;
                 background-position: left;
                 background-size: contain;
                 margin-right: 20px;
 
 
                 &.partnerImg {
-                    background-image: url('/static/images/up_partner.svg');
-                    margin-left: -10px;
+                    background-image: url('/static/images/handshake.svg');
                 }
                 &.growthImg {
-                    background-image: url('/static/images/up_growth.svg');
-                    margin-left: -20px;
+                    background-image: url('/static/images/edit-curves.svg');
                 }
             }
             .meta-tab-description {}
