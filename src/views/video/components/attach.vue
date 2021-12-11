@@ -30,7 +30,7 @@
       </template>
     </div>
 
-    <div class="attach__footer">
+    <div v-if="!hideMetaActions" class="attach__footer">
       <template v-if="stream_assoc.value">
         <span class="attach__cta" @click="openAttachPicker()">Change</span>
         <span class="attach__cta danger" @click="removeAttach()">Remove</span>
@@ -59,6 +59,7 @@ export default {
   },
 
   props: {
+    hideMetaActions: Boolean,
     value: Object,
   },
 
