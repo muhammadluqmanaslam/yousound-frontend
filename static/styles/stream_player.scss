@@ -762,10 +762,17 @@
       border: none;
     }
 
+    
     label {
       display: block;
       color: #888;
       font-size: 12px;
+      font-weight: bolder;
+      margin-top: 13px;
+
+      &.stream-genre {
+        margin-top: 0;
+      }
     }
 
     .btn {
@@ -802,13 +809,13 @@
     }
 
     &__title {
-      margin-top: 15px;
-      font-size: 16px;
-      font-weight: 500;
+      margin-top: 10px;
+      font-size: 1.3px;
+      font-weight: 900;
     }
 
     &__subtitle {
-      margin-bottom: 15px;
+      margin-bottom: 0px;
       font-size: 16px;
       font-weight: 700;
       i {

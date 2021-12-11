@@ -4,10 +4,12 @@ import AuthService from '@/services/auth'
 import PaymentService from '@/services/payment'
 import StreamService from '@/services/stream'
 import UserService from '@/services/user'
+// import MeService from '@/services/me'
 
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
 import contentTopHeader from '@/components/contentTopHeader'
+import userTag from '@/components/user_tag'
 
 import {
   MediaLiveInputTypes,
@@ -18,6 +20,7 @@ import {
   // StreamHourlyPrice,
   StreamViewersLimits,
   StreamCosts,
+  StreamViewPrices,
   StreamStatuses,
 } from '@/helper'
 
@@ -28,25 +31,19 @@ export default {
     Attach,
     PaymentModal,
     contentTopHeader,
+    userTag,
   },
 
   mixins: [onClickOutside],
 
   data() {
     return {
+      stream_cover_url: '',
       active_tab: 'live',
       tabs: [
         { id: 'live', title: 'Live Stream', path: '/create' },
-        { id: 'edit', title: 'Edit Event', path: '/edit' },
+        // { id: 'edit', title: 'Edit Event', path: '/edit' },
       ],
-      // stream: {
-      //   name: '',
-      //   description: '',
-      //   ml_input_type: 'RTMP_PUSH',
-      //   ml_input_codec: 'AVC',
-      //   ml_input_resolution: 'HD',
-      //   ml_input_maximum_bitrate: 'MAX_10_MBPS'
-      // },
       // show_deposit_dialog: false,
       show_stream_delete_confirm_dialog: false,
       show_create_failed_dialog: false,
@@ -54,11 +51,9 @@ export default {
       show_add_more_time_caution_dialog: false,
       show_payment_dialog: false,
       show_view_stream_button: false,
-      stream_assoc: {
-        type: 'Album',
-        value: null,
-      },
+      stream_assoc: {},
       viewers_limits: StreamViewersLimits,
+      view_prices: StreamViewPrices,
       costs: StreamCosts,
       streamCost: 1000,
       viewers_limit: 0,
@@ -84,11 +79,30 @@ export default {
       cable: null,
       stream_subscription: null,
       isPageReady: false,
+      edit_stream_details_active: false,
+      saveDetailsLoader: false,
+      add_account_active: false,
+      users: [],
+      selectedAccounts: [],
+      search_user: '',
+      searchUserLoader: true,
     }
   },
 
   computed: {
+    stream() {
+      return this.currentUser.stream || {}
+    },
+    assoc() {
+      return this.stream_assoc.assoc
+    },
+    featuredUsers() {
+      return this.stream_assoc.accounts || []
+    },
     currentUser() {
+      // console.log(this.temp.stream);
+      // console.log("i", this.$store.state.auth.user);
+      // return this.temp
       return this.$store.state.auth.user
     },
 
@@ -142,18 +156,28 @@ export default {
   },
 
   watch: {
+    search_user(val) {
+      this.getUsers()
+    },
     searchGuests(val) {
       val && this.querySelections(val)
     },
   },
 
   created() {
+    // Redirect away if user is not on live
+    if (!this.isRunning) {
+      this.$router.push({ name: "VideoCreate" })
+    }
+
     // for (let i = 1; i <= 24; i++) {
     //   this.periods.push({
     //     id: i * 3600,
     //     name: `${i}hours / $${(i * StreamHourlyPrice) / 100}`,
     //   })
     // }
+
+    this.getUsers()
 
     this.isPageReady = false
     this.$store.dispatch('error/showLoadingActivity', true)
@@ -168,6 +192,7 @@ export default {
           type: _.get(response.body, 'stream.assoc_type', 'Album'),
           value: _.get(response.body, 'stream.assoc'),
         }
+        this.users = response.body.stream.accounts
         if (this.stream_assoc.type === '') {
           this.stream_assoc.type = 'Album'
         }
@@ -284,6 +309,91 @@ export default {
   },
 
   methods: {
+    removeAccount(u) {
+      this.users = this.stream.accounts.filter((user) => user.id !== u.id)
+
+      this.updateUsersList()
+    },
+    async updateUsersList() {
+      if (this.users.length <= stream.accounts.length) return
+
+      const users = [...this.users, this.selectedAccounts]
+
+      const params = {
+        stream: {
+          accounts: users,
+        },
+      }
+      this.searchUserLoader = true
+      await StreamService.updateStream(this.currentUser.stream.id, params).then(()=> {
+        this.searchUserLoader = false
+        this.users = [...this.users, this.selectedAccounts]
+      })
+    },
+    async getUsers() {
+      this.searchUserLoader = true
+
+      const params = {
+        stripe_connected: true,
+        q: this.search_user,
+        per_page: 30,
+        page: 1,
+      }
+      // Promise.all([MeService.mutualUsers(params)])
+      await UserService.searchUsers(params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.users = response.body.users
+          this.searchUserLoader = false
+        })
+      .catch((reason) => {
+        console.log(reason)
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', reason)
+        this.searchUserLoader = false
+      })
+    },
+    async saveStreamDetails() {
+      const params = {
+        stream: {
+          view_price: this.stream.view_price,
+          description: this.stream.description,
+          viewers_limit: this.stream.viewers_limit,
+          cover: this.stream.cover,
+        },
+      }
+      this.saveDetailsLoader = true
+      await StreamService.updateStream(this.currentUser.stream.id, params).then(() => {
+        this.edit_stream_details_active = false;
+        this.saveDetailsLoader = false
+      })
+    },
+    imageChanged(e) {
+      if (e.target.files.length > 0) {
+        this.stream.cover = e.target.files[0]
+        var reader = new FileReader()
+        reader.addEventListener(
+          'load',
+          (event) => {
+            this.stream.cover = event.target.result
+          },
+          false
+        )
+        reader.readAsDataURL(this.stream.cover)
+      } else {
+        this.stream.cover = null
+        this.stream_cover_url = null
+      }
+    },
+    addStreamAttach() {
+      this.$refs.streamAttach.openAttachPicker()
+    },
+    changeStreamAttach() {
+      this.$refs.streamAttach.openAttachPicker()
+    },
+    removeStreamAttach() {
+      this.$refs.streamAttach.removeAttach()
+    },
     onTab(tab) {
       if (tab.id === this.active_tab) return
 

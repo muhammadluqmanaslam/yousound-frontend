@@ -148,32 +148,32 @@
                 <div class="mr-3">
                   <b>Details</b>
                 </div>
-                <div>Edit</div>
+                <div class="cursor-pointer" @click="editStreamDetailsActive = true">Edit</div>
               </div>
 
-              <div class="stream-details">
+              <div v-if="stream" class="stream-details">
                 <div class="stream-bg"></div>
                 <div class="stream-info">
-                  <h3>Title</h3>
+                  <h3>{{ stream.name }}</h3>
 
                   <div class="d-flex">
-                    <div class="mr-3">
+                    <div v-if="stream.genre" class="mr-3">
                       <span class="meta-title">Genre:</span>
-                      <b>----</b>
+                      <b>{{ stream.genre.name }}</b>
                     </div>
 
                     <div class="mr-3">
                       <span class="meta-title">Cost:</span>
-                      <b>----</b>
+                      <b>{{ stream.view_price }}</b>
                     </div>
 
                     <div class="mr-3">
                       <span class="meta-title">Capacity:</span>
-                      <b>----</b>
+                      <b>{{ stream.viewers_limit }}</b>
                     </div>
                   </div>
 
-                  <div>---</div>
+                  <div>{{ stream.description }}</div>
                 </div>
               </div>
 
@@ -182,23 +182,109 @@
               <div class="feature-info">
                 <div class="feature-info-top">
                   <div class="mr-3">
-                    <b>Features Profiles</b>
+                    <b>Feature Profiles</b>
                   </div>
-                  <div>Add</div>
+                  <div class="cursor-pointer" @click="add_account_active = true">Add Profile</div>
                 </div>
 
-              <div class="feature-users">
-                <div>
-                  <v-chip v-for="(u, i) in users" :key="i">
-                    {{ u.username }}
+              <div class="featured-users">
+                <div v-if="featuredUsers">
+                  <v-chip v-for="(u, i) in featuredUsers" :key="i">
+                    <span class="remove-acc" @click="removeAccount(u)">
+                      <v-icon class="mr-1" color="white">close</v-icon>
+                      <span>Remove</span>
+                    </span>
+                    <user-tag showAvatar :clickUser="false" class="tag" :user="u" />
                   </v-chip>
                 </div>
               </div>
+
+              <div class="divide"></div>
+
+              <div class="attachment-details">
+                <div class="attachment-info-top">
+                  <div class="mr-3">
+                    <b>Attachment</b>
+                  </div>
+                  <div v-if="assoc" class="cursor-pointer mr-3" @click="changeStreamAttach">Change</div>
+                  <div v-if="assoc" class="cursor-pointer red--text" @click="removeStreamAttach">Remove</div>
+                  <div v-if="!assoc" class="cursor-pointer" @click="addStreamAttach">Add</div>
+                </div>
+
+                <div class="dflex">
+                  <!-- <div class="attachment-bg"></div> -->
+                  <attach
+                    v-model="stream_assoc"
+                    @input="saveAttach()"
+                    ref="streamAttach"
+                    class="mr-3"
+                    hideMetaActions
+                  />
+
+                  <div v-if="stream" class="attachment-info">
+                    <h3>{{ stream_assoc.name }}</h3>
+
+                    <div class="d-flex">
+                      <div class="mr-3">
+                        <span v-if="stream.assoc_type === 'Album'" class="meta-title">
+                          {{ stream_assoc.tracks.length }} {{ `${stream_assoc.tracks.length > 1 ? 'Tracks' : 'Track'}` }}
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="divide"></div>
+
+              <div class="share-social-info">
+                <div class="share-social-info-top">
+                  <div class="mr-3">
+                    <b>Share</b>
+                  </div>
+                </div>
+                  <div class="dflex">
+                    <social-sharing
+                      :title="`${currentUser.username} is Broadcasting Live!`"
+                      :url="profileUrl"
+                      inline-template
+                    >
+                      <div class="share-social-section">
+                        <network network="facebook">
+                          <!-- <i class="fa fa-fw fa-facebook"></i> Facebook -->
+                          <v-btn depressed class="social-share-btn">
+                            <v-icon>fa-facebook</v-icon>
+                          </v-btn>
+                        </network>
+                        <network network="twitter">
+                          <!-- <i class="fa fa-fw fa-twitter"></i> Twitter -->
+                          <v-btn class="social-share-btn"
+                            ><v-icon>fa-twitter</v-icon></v-btn
+                          >
+                        </network>
+                      </div>
+                    </social-sharing>
+
+                    <div class="input-section">
+                      <input
+                        type="text"
+                        class="form-control"
+                        v-model="profileUrl"
+                        readonly
+                      />
+                      <v-btn class="clipboard-btn" v-clipboard:copy="profileUrl">
+                        <v-icon>fa-clipboard</v-icon>
+                      </v-btn>
+                    </div>
+                  </div>
+              </div>
+              
               </div>
             </div>
           </v-flex>
 
-          <v-flex sm6>
+          <!-- <v-flex sm6>
             <h4>Attach Product/Album</h4>
             <div class="panel pa-3 mr-3">
               <attach
@@ -221,13 +307,11 @@
                 >
                   <div class="social-section">
                     <network network="facebook">
-                      <!-- <i class="fa fa-fw fa-facebook"></i> Facebook -->
                       <v-btn class="social-share-btn"
                         ><v-icon>fa-facebook</v-icon></v-btn
                       >
                     </network>
                     <network network="twitter">
-                      <!-- <i class="fa fa-fw fa-twitter"></i> Twitter -->
                       <v-btn class="social-share-btn"
                         ><v-icon>fa-twitter</v-icon></v-btn
                       >
@@ -247,7 +331,7 @@
                 </v-btn>
               </div>
             </div>
-          </v-flex>
+          </v-flex> -->
         </v-layout>
         </v-container>
 
@@ -389,6 +473,144 @@
               >
               <v-spacer></v-spacer>
             </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-dialog
+          v-model="edit_stream_details_active"
+          content-class="edit-stream-details-dialog"
+        >
+          <v-card class="pa-4">
+            <v-card-text>
+              <v-container grid-list-lg>
+                <v-layout wrap>
+                  <v-flex xs12 sm6>
+                    <div class="form-group">
+                      <label class="control-label">Pay Per View?</label>
+                      <!-- <input
+                        type="text"
+                        class="form-control"
+                        name="view_price"
+                        :value="stream.view_price"
+                        disabled
+                      /> -->
+                      <v-select
+                        v-model="stream.view_price"
+                        :items="view_prices"
+                        v-validate="'required'"
+                        item-text="name"
+                        item-value="id"
+                        class="pt-0"
+                      />
+                    </div>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <div class="form-group">
+                      <label class="control-label">Event Capacity</label>
+                      <v-select
+                        v-model="stream.viewers_limit"
+                        :items="viewers_limits"
+                        v-validate="'required'"
+                        item-text="name"
+                        item-value="id"
+                        class="pt-0"
+                      />
+                    </div>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <div class="form-group">
+                      <label class="control-label"
+                        >Description<span class="ml-1 meta-annotate">160 char max</span></label
+                      >
+                      <textarea
+                        v-model="stream.description"
+                        class="form-control"
+                        maxlength="160"
+                      />
+                    </div>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <div class="form-group">
+                      <label class="control-label">Thumbnail</label>
+
+                      <div class="video-thumbnail-container">
+                        <div class="video-thumbnail-wrapper">
+                          <div
+                            v-if="stream_cover_url"
+                            :style="{
+                              'background-image': 'url(' + stream.cover.thumb.url || stream.cover + ')',
+                            }"
+                            class="video-thumbnail"
+                          ></div>
+                          <div v-else class="video-thumbnail">
+                            <!-- <label>PREVIEW</label> -->
+                          </div>
+                        </div>
+
+                        <div class="cover-wrapper">
+                          <input
+                            type="file"
+                            name="stream_cover_file"
+                            id="stream_cover_file"
+                            accept=".png, .jpg, .jpeg"
+                            v-validate="'required'"
+                            @change="imageChanged($event)"
+                          />
+                          <label for="stream_cover_file">Upload</label>
+                          <span class="meta-annotate">*PNG, JPG, GIF</span>
+                        </div>
+                      </div>
+                    </div>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <div class="text-center width100">
+                <v-btn
+                  dark
+                  round
+                  color="blue"
+                  class="px-4"
+                  @click.native="saveStreamDetails()"
+                  :loading="saveDetailsLoader"
+                >Save</v-btn>
+              </div>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <v-dialog
+          v-model="add_account_active"
+          content-class="add-users-dialog"
+        >
+          <v-card class="pa-4">
+            <v-card-text>
+              <input type="text" v-model="search_user" class="width100 mb-3 pa-2" placeholder="Search User">
+
+              <div class="search_user-results featured-users">
+                <v-chip v-for="(u, i) in users" :key="i">
+                  <span class="add-acc __acc" @click="addAccount(u)">
+                    <v-icon class="mr-1" color="white">add</v-icon>
+                    <!-- <span>Add</span> -->
+                  </span>
+                  <user-tag showAvatar :clickUser="false" class="tag" :user="u" />
+                </v-chip>
+              </div>
+              <div class="text-center">
+                <v-btn
+                  dark
+                  round
+                  color="blue"
+                  class="px-4 mt-3"
+                  @click.native="updateUsersList()"
+                  :loading="searchUserLoader"
+                >Add</v-btn>
+              </div>
+            </v-card-text>
           </v-card>
         </v-dialog>
 
