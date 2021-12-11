@@ -1,14 +1,21 @@
 <template>
   <div class="top-menu">
-    <div class="tab-container">
+    <!-- <div class="tab-container"> -->
+    <v-toolbar app :fixed="!absolute" :flat="absolute" class="tab-container" :class="{__absolute: absolute}" height="73">
+      <!-- {{ absolute }} -->
         <!-- ancestoral element to all top headers -->
         <slot name="topHeader"></slot>
-    </div>
+    </v-toolbar>
+    <!-- </div> -->
 </div>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    absolute: Boolean,
+  },
+}
 </script>
 
 <style src="../../static/styles/topHeader.scss" lang="scss" scoped>

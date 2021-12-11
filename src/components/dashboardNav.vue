@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-nav">
+    <v-toolbar fixed app flat color="white" height="73">
         <content-top-header>
             <template slot="topHeader">
                 <ul class="width100">
@@ -35,6 +36,7 @@
                 </ul>
             </template>
         </content-top-header>
+    </v-toolbar>
   </div>
 </template>
 

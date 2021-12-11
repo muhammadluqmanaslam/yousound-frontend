@@ -1,38 +1,39 @@
   .top-menu {
-    min-width: 76%;
-    position: fixed;
-    background-color: #ffffff;
-    top: 0;
+    width: 100%;
+    // position: fixed;
+    // background-color: #ffffff;
+    // top: 0;
     padding: 5px 20px 0px 9px;
-    margin: 0px 0 0 -10px;
-    z-index: 2;
+    // margin: 0px 0 0 -10px;
+    // z-index: 2;
 
     &::after {
-      content: "";
-      min-width: calc(100% + 124px);
-      height: 1px;
-      position: absolute;
-      background-color: #d6d6d6;
-      left: -62px;
+      // content: "";
+      // min-width: calc(100% + 124px);
+      // height: 1px;
+      // position: absolute;
+      // background-color: #d6d6d6;
+      // left: -62px;
     }
 
-      .__tabs {
-          display: flex;
-          align-items: center;
-
-          .notifications {
-              margin-left: 10px;
-
-              .__count {
-                margin-top: 0;
-              }
-          }
-      }
 
     .tab-container {
-      width: auto;
-      position: unset;
-      display: flex;
+      background-color: #ffffff;
+
+      &.__absolute {
+        padding-left: 0 !important;
+        /deep/.toolbar__content {
+          padding: 0;
+        }
+
+      }
+      &.toolbar--fixed {
+        box-shadow: 0 0 0 1px #d6d6d6;
+      }
+      
+      // width: auto;
+      // position: unset;
+      // display: flex;
 
       .user-profile-image-wrapper {
         display: none;
@@ -80,26 +81,44 @@
         }
       }
 
-      ul {
-        display: flex;
-        align-items: center;
+      /deep/.toolbar__content {
+        padding: 0 50px;
 
-        li:not(:last-child) {
-          margin-right: 40px;
-        }
+        ul {
+          display: flex;
+          align-items: center;
+          width: 100%;
 
-        li {
-          font-size: 15px;
-          list-style: none;
-          margin: 15px 0;
-          font-weight: 300;
-          color: #000;
-          &.active {
-            font-weight: 700;
-            color: #000;
+          li:not(:last-child) {
+            margin-right: 40px;
           }
-          label {
-            cursor: pointer;
+
+          li {
+            font-size: 15px;
+            list-style: none;
+            margin: 15px 0;
+            font-weight: 300;
+            color: #000;
+            &.active {
+              font-weight: 700;
+              color: #000;
+            }
+            label {
+              cursor: pointer;
+            }
+
+            .__tabs {
+                display: flex;
+                align-items: center;
+
+                .notifications {
+                    margin-left: 10px;
+
+                    .__count {
+                      margin-top: 0;
+                    }
+                }
+            }
           }
         }
       }
@@ -108,7 +127,6 @@
     &.__inner {
       width: 100%;
       position: relative;
-      top: 50px;
       z-index: 1;
       .menu__content {
         top: 147px !important;
