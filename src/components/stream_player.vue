@@ -472,17 +472,17 @@
         content-class="stream-view-confirm-dialog"
       >
         <div class="box">
-          <div class="box__header">
-            <div class="box__caption">Live</div>
-            <label>{{ stream.started_at | formatDateFromNow }}</label>
-          </div>
+          <div class="box__caption">Live</div>
           <div class="box__content">
             <div class="box__title">{{ stream.name }}</div>
             <div class="box__subtitle">
               {{ _.get(stream, "user.username") }}
               <v-icon>fa-check-circle</v-icon>
             </div>
-            <label>{{ _.get(stream, "genre.name") }}</label>
+            <label class="stream-genre">{{ _.get(stream, "genre.name") }}</label>
+          </div>
+          <div class="box__header">
+            <label>{{ stream.started_at | formatDateFromNow }}</label>
           </div>
           <div
             class="box__image"

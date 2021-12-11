@@ -280,7 +280,10 @@ export default {
             vm.player = this
 
             vm.$store.dispatch('streamPlayer/setStatus', 'active')
-            vm.player.requestFullscreen()
+
+            // change to full screen
+            // vm.player.requestFullscreen()
+
             // console.log(vm.$refs.myVideo)
             // console.log(vm.$refs.closeButton)
             // vm.$refs.myVideo.parentNode.appendChild(vm.$refs.closeButton)
@@ -446,7 +449,10 @@ export default {
             })
           }
         }
-      )*/
+      ) */
+
+      // navigate to own video page
+      this.$router.push({name: 'VideoShow', params: { videoId: this.stream.id }})
     },
 
     getMetrics() {
