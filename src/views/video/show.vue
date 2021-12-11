@@ -47,15 +47,15 @@
                         </v-list-tile-title>
                       </v-list-tile>
 
-                      <!-- <v-list-tile
-                        v-if="album.user.username === currentUser.username"
+                      <v-list-tile
+                        v-if="stream.user.username === currentUser.username"
                         class="default-menu-item"
                         :to="{ name: 'VideoEdit', params: { slug: stream.slug }}"
                       >
                         <v-list-tile-title>
                           <label>Edit Video</label>
                         </v-list-tile-title>
-                      </v-list-tile> -->
+                      </v-list-tile>
                     </v-list>
                   </v-menu>
                 </div>
