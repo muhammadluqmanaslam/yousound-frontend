@@ -1,10 +1,12 @@
 <template>
-  <div v-if="currentUser.stripe_connected" class="top-bar">}
-      <div class="top-bar-notification">
-          <span v-if="content" class="top-bar__content">{{ content }}</span>
-        <v-btn v-if="cta" :to="cta" outline dark class="top-bar__cta">{{ ctaTitle }}</v-btn>
-      </div>
-  </div>
+    <v-toolbar fixed app flat color="white">
+    <div v-if="currentUser.stripe_connected" class="top-bar">
+        <div class="top-bar-notification">
+            <span v-if="content" class="top-bar__content">{{ content }}</span>
+          <v-btn v-if="cta" :to="cta" outline dark class="top-bar__cta">{{ ctaTitle }}</v-btn>
+        </div>
+    </div>
+    </v-toolbar>
 </template>
 
 <script>
@@ -60,16 +62,13 @@ export default {
 
 <style lang="scss" scoped>
 .top-bar {
-    content: "";
     background-color: #3a92ff;
-    position: fixed;
-    top: 0;
     width: 100%;
-    height: 45px;
-    left: 0;
+    height: 100%;
     z-index: 4;
     display: flex;
     align-items: center;
+    margin: 0 !important;
 
     &-notification {
         width: calc(100% - 358px);
