@@ -2,7 +2,7 @@
   <div class="page video-page index-page" :class="{ isComp: isComp}">
     <discover-nav v-if="!isComp" class="mx-4" pageName="video" />
 
-    <content-top-header class="__inner __doubleUl" :class="{'pl-0': isComp}">
+    <content-top-header absolute class="__inner __doubleUl" :class="{'pl-0': isComp}">
       <template slot="topHeader">
         <ul :class="{'mx-3': !isComp}">
           <li v-if="isComp">

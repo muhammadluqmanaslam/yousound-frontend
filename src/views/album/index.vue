@@ -2,7 +2,7 @@
   <div class="page albums-page mx-5" :class="{ isComp: isComp}">
     <discover-nav v-if="!isComp" pageName="music" />
 
-    <content-top-header class="__inner __doubleUl" :class="{'pl-0': isComp}">
+    <content-top-header absolute class="__inner __doubleUl" :class="{'pl-0': isComp}">
       <template slot="topHeader">
         <ul>
           <li v-if="isComp">

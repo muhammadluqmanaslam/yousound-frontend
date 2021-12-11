@@ -2,7 +2,7 @@
   <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
     <discover-nav v-if="!isComp" pageName="merch" />
 
-    <content-top-header class="__inner __doubleUl ma-0 px-0">
+    <content-top-header absolute class="__inner __doubleUl ma-0 px-0">
       <template slot="topHeader">
         <ul>
           <li v-if="isComp">
