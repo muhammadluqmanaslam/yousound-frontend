@@ -20,6 +20,16 @@
         <v-btn to="/login" outline class="auth-btn login">Login</v-btn>
       </div>
 
+      <div v-if="currentUser.stream !== null && store.state.streamPlayer == 'active'" class="live-notice" :class="{'pl-0': mini}" @click="$rotuer.push({name: 'VideoManage'})">
+        <!-- <router-link :to="{name: 'VideoManage'}"> -->
+          <b v-if="!mini" class="__text">View live broadcast</b>
+          <span class="icon_wrapper" :class="{dflex: mini}">
+            <v-icon>circle</v-icon>
+            <span class="icon_text">LIVE</span>
+          </span>
+        <!-- </router-link> -->
+      </div>
+
       <v-list v-for="(parent, i) in tabs" :key="i" class="py-1 px-0">
         <h4>
           <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
@@ -136,6 +146,12 @@ export default {
               icon: 'shopping_cart',
               path: 'Cart',
             },
+            {
+              title: 'Discover',
+              id: 'music',
+              icon: 'library_music',
+              path: 'DiscoverIndex',
+            },
             // {
             //   title: 'Sales',
             //   id: 'sales',
@@ -156,29 +172,29 @@ export default {
             // },
           ],
         },
-        {
-          name: 'Discover',
-          items: [
-            {
-              title: 'Video',
-              id: 'video',
-              icon: 'live_tv',
-              path: 'VideoIndex',
-            },
-            {
-              title: 'Music',
-              id: 'music',
-              icon: 'library_music',
-              path: 'AlbumIndex',
-            },
-            {
-              title: 'Shop',
-              id: 'shop',
-              icon: 'shopping_bag',
-              path: 'ProductIndex',
-            },
-          ],
-        },
+        // {
+        //   name: 'Discover',
+        //   items: [
+        //     {
+        //       title: 'Video',
+        //       id: 'video',
+        //       icon: 'live_tv',
+        //       path: 'VideoIndex',
+        //     },
+        //     {
+        //       title: 'Music',
+        //       id: 'music',
+        //       icon: 'library_music',
+        //       path: 'AlbumIndex',
+        //     },
+        //     {
+        //       title: 'Shop',
+        //       id: 'shop',
+        //       icon: 'shopping_bag',
+        //       path: 'ProductIndex',
+        //     },
+        //   ],
+        // },
       ],
     }
   },

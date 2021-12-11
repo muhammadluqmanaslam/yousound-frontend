@@ -24,9 +24,40 @@
     }
   }
 
+  .live-notice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    padding-left: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+
+    .__text {
+      font-size: 14px;
+    }
+    .icon_wrapper {
+      background-color: red;
+      border-radius: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 65px;
+      height: 21px;
+
+      .icon {
+        font-size: 10px;
+      }
+      .icon_text {
+        font-weight: bolder;
+        font-size: 10px;
+      }
+    }
+  }
+
 
   .side-tab {
-    height: 34px;
+    height: 40px;
     /deep/ a {
       position: relative;
       padding: 12px 0 12px 12px !important;

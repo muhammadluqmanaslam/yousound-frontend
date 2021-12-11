@@ -38,6 +38,12 @@ const getters = {
             icon: 'shopping_cart',
             path: 'Cart',
           },
+          {
+            title: 'Discover',
+            id: 'music',
+            icon: 'library_music',
+            path: 'DiscoverIndex',
+          },
           // {
           //   title: 'Sales',
           //   id: 'sales',
@@ -60,35 +66,35 @@ const getters = {
           // },
         ],
       },
-      {
-        name: '',
-        items: [
-          {
-            title: 'Discover',
-            id: 'music',
-            icon: 'library_music',
-            path: 'DiscoverIndex',
-          },
-          // {
-          //   title: 'Video',
-          //   id: 'video',
-          //   icon: 'live_tv',
-          //   path: 'VideoIndex',
-          // },
-          // {
-          //   title: 'Music',
-          //   id: 'music',
-          //   icon: 'library_music',
-          //   path: 'AlbumIndex',
-          // },
-          // {
-          //   title: 'Shop',
-          //   id: 'shop',
-          //   icon: 'shopping_bag',
-          //   path: 'ProductIndex',
-          // },
-        ],
-      },
+      // {
+      //   name: '',
+      //   items: [
+      //     {
+      //       title: 'Discover',
+      //       id: 'music',
+      //       icon: 'library_music',
+      //       path: 'DiscoverIndex',
+      //     },
+      //     {
+      //       title: 'Video',
+      //       id: 'video',
+      //       icon: 'live_tv',
+      //       path: 'VideoIndex',
+      //     },
+      //     {
+      //       title: 'Music',
+      //       id: 'music',
+      //       icon: 'library_music',
+      //       path: 'AlbumIndex',
+      //     },
+      //     {
+      //       title: 'Shop',
+      //       id: 'shop',
+      //       icon: 'shopping_bag',
+      //       path: 'ProductIndex',
+      //     },
+      //   ],
+      // },
     ]
 
     return tabs
