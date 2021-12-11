@@ -387,6 +387,10 @@ body {
   border: 1px solid black !important;
 }
 
+.dflex {
+  display: flex;
+}
+
 .allChildrenCenter {
   display: flex;
   align-items: center;
@@ -413,6 +417,10 @@ body {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.page-toolbar-top-space {
+  padding-top: 73px;
 }
 
 // Vue Transition
@@ -810,8 +818,8 @@ textarea {
   height: 20px;
   margin-right: 10px;
   .icon {
-    font-size: 5px;
-    color: #5487ff !important;
+    font-size: 10px;
+    color: #39b5ff !important;
   }
 }
 
