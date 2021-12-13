@@ -20,7 +20,7 @@
         <v-btn to="/login" outline class="auth-btn login">Login</v-btn>
       </div>
 
-      <div v-if="currentUser.stream !== null && store.state.streamPlayer == 'active'" class="live-notice" :class="{'pl-0': mini}" @click="$rotuer.push({name: 'VideoManage'})">
+      <div v-if="currentUser.stream !== null && $store.state.streamPlayer == 'active'" class="live-notice" :class="{'pl-0': mini}" @click="$rotuer.push({name: 'VideoManage'})">
         <!-- <router-link :to="{name: 'VideoManage'}"> -->
           <b v-if="!mini" class="__text">View live broadcast</b>
           <span class="icon_wrapper" :class="{dflex: mini}">
