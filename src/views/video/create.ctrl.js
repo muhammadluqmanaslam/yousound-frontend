@@ -240,10 +240,10 @@ export default {
         })
 
       if (this.currentUser.enabled_live_video_free) {
-        this.periods.push({
-          id: 1,
-          name: '1hour / FREE',
-        })
+        // this.periods.push({
+        //   id: 1,
+        //   name: '1hour / FREE',
+        // })
       } else {
         // if (this.currentUser.stream_rolled_time > 0) {
         //   this.periods.push({
