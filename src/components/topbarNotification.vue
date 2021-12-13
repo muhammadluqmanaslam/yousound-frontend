@@ -1,11 +1,11 @@
 <template>
-    <v-toolbar fixed app flat color="white">
-    <div v-if="currentUser.stripe_connected" class="top-bar">
-        <div class="top-bar-notification">
-            <span v-if="content" class="top-bar__content">{{ content }}</span>
-          <v-btn v-if="cta" :to="cta" outline dark class="top-bar__cta">{{ ctaTitle }}</v-btn>
-        </div>
-    </div>
+    <v-toolbar v-if="currentUser.stripe_connected" fixed app flat color="white">
+      <div class="top-bar">
+          <div class="top-bar-notification">
+              <span v-if="content" class="top-bar__content">{{ content }}</span>
+            <v-btn v-if="cta" :to="cta" outline dark class="top-bar__cta">{{ ctaTitle }}</v-btn>
+          </div>
+      </div>
     </v-toolbar>
 </template>
 
