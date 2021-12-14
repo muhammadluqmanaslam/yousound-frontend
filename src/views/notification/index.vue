@@ -1,5 +1,5 @@
 <template>
-  <div class="page notification-page mx-5">
+  <div class="page notification-page" :class="{'mx-5': currentTab != 'messages' }">
     <content-top-header>
       <template slot="topHeader">
         <ul>
@@ -7,10 +7,14 @@
             v-for="tab in tabs"
             :key="tab.id"
             :href="`#${tab.id}`"
-            :class="{ active: isActiveTab(tab.id) }"
+            class="nav-li"
+            :class="[{ active: isActiveTab(tab.id) }, `nav-${tab.id}`]"
           >
-            <label :class="[tab.id]" class="__tabs" @click="setTab(tab.id)">
-              <span class="__tab">{{ tab.title }}</span>
+            <label class="nav-label __tabs" :class="[tab.id]" @click="setTab(tab.id)">
+              <span class="__tab dflex align-center">
+                <img :src="tab.icon" width="23" class="li-icon">
+                {{ tab.title }}
+              </span>
               <span
                 v-if="tab.id === 'activity'"
                 class="notifications "
@@ -18,7 +22,7 @@
                 <span class="__count">
                   <!-- {{ typeof badge.activity }} -->
                   <!-- {{ badge.activity > 99 }} -->
-                  {{ badge.activity > 99 ? badge.activity : '99+' }}
+                  {{ badge.activity < 99 ? badge.activity : '99+' }}
                   <!-- {{ badge.activity > 99 ? badge.activity : '99+' }} -->
                 </span>
               </span>
@@ -29,7 +33,7 @@
                 <span class="__count">
                   <!-- {{ typeof badge.message }} -->
                   <!-- {{ badge.message > 99 }} -->
-                  {{ badge.message > 99 ? badge.message : '99+' }}
+                  {{ badge.message < 99 ? badge.message : '99+' }}
                   <!-- {{ badge.message > 99 ? badge.message : '99+' }} -->
                 </span>
               </span>
@@ -39,13 +43,11 @@
       </template>
     </content-top-header>
 
-      <div class="d-flex">
-        <div class="page-content">
-          <Activity v-if="currentTab === 'activity'" />
-          <Messages v-else-if="currentTab === 'messages'" />
-          <getPaidToShare v-else-if="currentTab === 'paidToShare'" />
-        </div>
-      </div>
+    <div class="page-content">
+      <Activity v-if="currentTab === 'activity'" />
+      <Messages v-else-if="currentTab === 'messages'" class="mt-1" />
+      <getPaidToShare v-else-if="currentTab === 'paidToShare'" />
+    </div>
 
 
   </div>
