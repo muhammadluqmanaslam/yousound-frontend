@@ -2,7 +2,7 @@
     <div class="page dashboard-page mx-5">
         <dashboard-nav name="dashboard" />
 
-        <content-top-header class="__inner">
+        <content-top-header absolute class="__inner">
         <template slot="topHeader">
             <ul class="width100">
                 <li

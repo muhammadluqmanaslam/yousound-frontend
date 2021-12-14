@@ -2,10 +2,6 @@ import contentTopHeader from '@/components/contentTopHeader'
 import dashboardNav from '@/components/dashboardNav'
 
 export default {
-  props: {
-    isComp: Boolean,
-    listLimit: Number,
-  },
   components: {
     contentTopHeader,
     dashboardNav,
