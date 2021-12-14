@@ -73,6 +73,10 @@ export default {
   },
 
   computed: {
+    isSidebarMini() {
+      return this.$store.state.app.sideBarMini;
+    },
+
     currentUser() {
       return this.$store.state.auth.user
     },

@@ -30,13 +30,42 @@
           </li>
         </ul>
         <ul v-if="!isComp" class="width100">
-          <li class="my-0 mr-2"
+          <v-spacer></v-spacer>
 
-              @mouseenter="hover_on_genre_button = true"
-              @mouseleave="hover_on_genre_button = false"
-          >
+          <li class="my-0">
+            <v-menu
+              content-class="filter-menu__content"
+              id="genre_selector"
+              class="filter_menu"
+              style="display: block"
+              offset-y
+            >
+              <div slot="activator" class="genre-filter py-3">
+                <span class="mr-3">Genre:</span>
+                <span class="">{{ selectedGenreName }}</span>
+                <v-icon right>keyboard_arrow_down</v-icon>
+              </div>
+              <v-list>
+                <v-list-tile
+                  v-for="genre in genres"
+                  :key="genre.id"
+                  @click.native="filterByGenre(genre)"
+                >
+                  <div class="cursor-pointer px-3">
+                    {{ genre.name }}
+                  </div>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </li>
+
+          <li class="after-divider"></li>
+
+          <li class="my-0 mr-2">
             <div
               class="genre-dialog-selector py-3"
+              @mouseenter="hover_on_genre_button = true"
+              @mouseleave="hover_on_genre_button = false"
               @click="openGenreSelectorDialog()"
             >
               <div class="genre-filter">
@@ -51,22 +80,6 @@
                 </div>
               </div>
             </div>
-          </li>
-
-          <li class="width100 my-2">
-            <v-tabs :scrollable="true">
-              <v-tabs-bar>
-                <v-tabs-item
-                  v-for="(genre, idx) in genres"
-                  :key="idx"
-                  :href="'#tab-' + idx"
-                >
-                  <v-chip class="text-capitalize" @click.native="filterByGenre(genre)">
-                    {{ genre.name.toLowerCase() }}
-                  </v-chip>
-                </v-tabs-item>
-              </v-tabs-bar>
-            </v-tabs>
           </li>
         </ul>      
       </template>
@@ -113,6 +126,12 @@
 <script type="text/javascript" src="./index.ctrl.js"></script>
 
 <style lang="scss" scoped>
+.vertical-divider {
+  margin: 0px;
+  font-size: 14px;
+  background-color: #000000;
+  border-left: 1px solid #000000;
+}
 .feed-card {
   // margin-left: -16px;
   // margin-right: 13px;
@@ -132,6 +151,7 @@
   }
 
   .genre-dialog-selector {
+    position: relative;
     width: 50px;
     display: flex;
 
@@ -143,7 +163,7 @@
       position: absolute;
       display: block;
       bottom: -63px;
-      left: -13px;
+      right: 48px;
       z-index: 9;
       width: 240px;
       padding: 0 0 10px 0;
@@ -153,7 +173,7 @@
       .tooltip-arrow {
         position: absolute;
         top: -9px;
-        left: 23px;
+        right: -20px;
         width: 0;
         height: 0;
         margin: -2px;

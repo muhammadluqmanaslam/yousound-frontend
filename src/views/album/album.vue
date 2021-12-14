@@ -1,5 +1,5 @@
 <template>
-  <v-layout v-if="isPageReady" row wrap class="page album-detail-page">
+  <v-layout v-if="isPageReady" row wrap class="page no-top-nav album-detail-page">
     <v-flex xs12 class="album-pages" v-if="isPageReady">
       <canvas id="canvas" class="background-image"></canvas>
       <div id="back_image" class="background-overlay"></div>

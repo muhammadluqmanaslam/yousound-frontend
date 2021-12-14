@@ -63,12 +63,13 @@
               </v-icon>
             </span>
           </v-list-tile-avatar>
-          <v-list-tile-title v-if="!mini" class="d-flex justify-space-between align-center">
-            <span class="__title">{{ subMenu.title }}</span>
+          <v-list-tile-title class="d-flex justify-space-between align-center">
+            <span v-if="!mini" class="__title">{{ subMenu.title }}</span>
 
             <span 
               v-if="subMenu.id === 'notifications' && badge.message > 0"
               class="dot_notifications"
+              :class="{'mr-0 ml-1': mini}"
             >
               <v-icon size="1">circle</v-icon>
             </span>
@@ -76,6 +77,7 @@
             <span 
               v-else-if="subMenu.id === 'sales' && badge.sell > 0"
               class="dot_notifications"
+              :class="{'mr-0 ml-1': mini}"
             >
               <v-icon size="1">circle</v-icon>
             </span>
@@ -83,6 +85,7 @@
             <span 
               v-else-if="subMenu.id === 'cart' && badge.cart > 0"
               class="dot_notifications"
+              :class="{'mr-0 ml-1': mini}"
             >
               <v-icon size="1">circle</v-icon>
             </span>
@@ -207,6 +210,10 @@ export default {
     }
   },
   watch: {
+    mini(val) {
+      // inform store of Mini's update
+      this.$store.dispatch('app/toggleSideBarMini', val)
+    },
     onMobile(val) {
       console.log(val);
 

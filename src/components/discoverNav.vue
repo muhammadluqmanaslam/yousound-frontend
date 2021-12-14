@@ -50,6 +50,7 @@ export default {
   },
   data() {
     return {
+      keyword: '',
       activeTab: '',
       tabs: [
         { id: 'discover', title: 'Discover', icon: require('../../static/images/discover.svg') },
@@ -61,6 +62,10 @@ export default {
   },
 
   methods: {
+    goToSearch() {
+      const keyword = this.keyword
+      this.$router.push({ path: '/search', query: { q: keyword } })
+    },
     isActiveTab(tab) {
       return this.activeTab === tab
     },

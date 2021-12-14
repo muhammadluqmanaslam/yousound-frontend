@@ -39,7 +39,7 @@
       // position: unset;
       // display: flex;
 
-      .user-profile-image-wrapper {
+      /deep/.user-profile-image-wrapper {
         display: none;
         align-items: center;
         margin-right: 30px;

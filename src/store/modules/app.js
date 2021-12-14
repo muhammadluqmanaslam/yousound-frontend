@@ -5,6 +5,7 @@ const state = {
   genres: [],
   product_categories: [],
   public_relations_user: {},
+  sideBarMini: false,
 }
 
 const getters = {
@@ -41,7 +42,7 @@ const getters = {
           {
             title: 'Discover',
             id: 'music',
-            icon: 'library_music',
+            icon: 'search',
             path: 'DiscoverIndex',
           },
           // {
@@ -166,6 +167,9 @@ const actions = {
   setPublicRelationsUser({ commit }, user) {
     commit('setPublicRelationsUser', user)
   },
+  toggleSideBarMini({ commit }, status) {
+    commit('toggleSideBarMini', status)
+  },
 }
 
 const mutations = {
@@ -183,6 +187,10 @@ const mutations = {
 
   setPublicRelationsUser(state, user) {
     state.public_relations_user = user
+  },
+
+  toggleSideBarMini(state, status) {
+    state.sideBarMini = status
   },
 }
 
