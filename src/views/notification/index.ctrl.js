@@ -15,8 +15,8 @@ export default {
       currentTab: 'activity',
       tabs: [
         // { id: 'activity', title: 'Notifications' },
-        { id: 'messages', title: 'Messages' },
-        { id: 'paidToShare', title: 'Repost Request' },
+        { id: 'messages', title: 'Messages', icon: require('../../../static/images/messages.svg') },
+        { id: 'paidToShare', title: 'Repost Request', icon: require('../../../static/images/ic_repost.svg') },
       ],
     }
   },

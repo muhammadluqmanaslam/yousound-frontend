@@ -20,10 +20,10 @@ export default {
     return {
       activeTab: '',
       tabs: [
-        { id: 'any', title: 'Everything' },
-        { id: 'uploaded', title: 'Albums' },
-        { id: 'merch', title: 'Products' },
-        { id: 'video', title: 'Video' },
+        { id: 'any', title: 'Everything', icon: require('../../../static/images/grid-interface.svg') },
+        { id: 'uploaded', title: 'Music', icon: require('../../../static/images/music.svg') },
+        { id: 'merch', title: 'Shop', icon: require('../../../static/images/video.svg') },
+        { id: 'video', title: 'Video', icon: require('../../../static/images/shop.svg') },
         // { id: 'reposted', title: 'Reposts' },
         // { id: 'playlist', title: 'Playlists' },
       ],

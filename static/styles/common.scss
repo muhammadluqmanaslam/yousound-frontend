@@ -222,17 +222,31 @@ body {
   text-transform: capitalize;
 }
 
+li.search-li {
+  flex-grow: 1;
+}
 .global-search-box {
   border: 1px solid #e9e6e6;
-  border-radius: 6px;
-  margin-bottom: 3px;
-  width: 100%;
   transition: opacity .5s;
   padding: 5px;
-  #search {
-    padding: 5px;
-    width: 97%;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
 
+  .icon {
+    margin-right: 30px;
+    margin-left: 10px;
+  }
+  
+  input#search {
+    width: 100%;
+    margin-left: -28px;
+    
+    &[type='search']::placeholder {
+      color: #000;
+      font-size: 14px;
+      // font-weight: bold;
+    }
     &:focus-visible {
       outline: 0;
     }

@@ -7,9 +7,13 @@
             v-for="tab in tabs"
             :key="tab.id"
             :href="`#${tab.id}`"
-            :class="{ active: isActiveTab(tab.id) }"
+              class="nav-li"
+            :class="[{ active: isActiveTab(tab.id)}, `nav-${tab.id}`]"
           >
-            <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            <label class="nav-label" @click="onTab(tab.id)">
+              <img :src="tab.icon" width="23" class="li-icon">
+              {{ tab.title }}
+            </label>
           </li>
         </ul>
       </template>

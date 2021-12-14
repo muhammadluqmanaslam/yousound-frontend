@@ -29,8 +29,8 @@ export default {
       activeTab: '',
       tabs: [
         { id: 'recommended', title: 'Staff Picks' },
-        { id: 'new', title: 'New Releases' },
-        { id: 'popular', title: 'Popular' },
+        { id: 'new', title: 'Trending' },
+        { id: 'popular', title: 'New Arrivals' },
         // { id: 'playlist', title: 'Playlists' },
       ],
       seed: '',

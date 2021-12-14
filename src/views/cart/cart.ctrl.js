@@ -31,8 +31,8 @@ export default {
       editDialog: false,
       active_tab: 'cart',
       tabs: [
-        { id: 'cart', title: 'Added to Cart' },
-        { id: 'history', title: 'Order History' },
+        { id: 'cart', title: 'Cart', icon: require('../../../static/images/cart.svg') },
+        { id: 'history', title: 'Order History', icon: require('../../../static/images/time-clock.svg') },
       ],
       showSendMessage: false,
       show_address_confirm_dialog: false,
