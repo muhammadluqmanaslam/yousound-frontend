@@ -23,19 +23,19 @@ const getters = {
           {
             title: 'Feed',
             id: 'feed',
-            icon: 'home',
+            icon: require('../../../static/images/home.svg'),
             path: 'Feed',
           },
           {
             title: 'Messages',
             id: 'notifications',
-            icon: 'mode_comment',
+            icon: require('../../../static/images/messages.svg'),
             path: 'NotificationIndex',
           },
           {
             title: 'Cart',
             id: 'cart',
-            icon: 'shopping_cart',
+            icon: require('../../../static/images/cart.svg'),
             path: 'Cart',
           },
           {

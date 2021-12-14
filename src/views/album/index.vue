@@ -114,8 +114,8 @@
 
 <style lang="scss" scoped>
 .feed-card {
-  margin-left: -16px;
-  margin-right: 13px;
+  // margin-left: -16px;
+  // margin-right: 13px;
 }
 .top-menu {
   margin: 0 !important;

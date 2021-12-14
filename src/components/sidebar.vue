@@ -51,9 +51,17 @@
                 'background-image': 'url(' + currentUser.avatar.thumb.url + ')',
               }"
             ></div>
-            <v-icon v-else class="__icon">{{
-              subMenu.icon
-            }}</v-icon>
+            <span v-else>
+              <img
+                v-if="subMenu.icon.length > 50" 
+                :src="subMenu.icon"
+                class="icon _icon_img"
+              />
+
+              <v-icon v-else class="__icon">
+                {{ subMenu.icon }}
+              </v-icon>
+            </span>
           </v-list-tile-avatar>
           <v-list-tile-title v-if="!mini" class="d-flex justify-space-between align-center">
             <span class="__title">{{ subMenu.title }}</span>
