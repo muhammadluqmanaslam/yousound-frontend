@@ -10,26 +10,27 @@
           <div class="ci__header">
               <router-link :to="`/${currentUser.slug}`">
               <div
-                  class="ci__image"
-                  :style="`background-image: url(${currentUser.avatar.url})`"
+                class="ci__image"
+                :class="{roundAvatar: roundAvatar}"
+                :style="`background-image: url(${currentUser.avatar.url})`"
               ></div>
               </router-link>
           </div>
 
           <div class="ci__content">
               <input
-              v-model.trim="commentText"
-              type="text"
-              placeholder="Leave a comment..."
-              @keyup.enter="addComment()"
+                v-model.trim="commentText"
+                type="text"
+                placeholder="Leave a comment..."
+                @keyup.enter="addComment()"
               />
           </div>
         </div>
     </div>
 
-    <div class="comment__count">{{ comments.length }} comments</div>
+    <div v-if="!hideCommentCount" class="comment__count">{{ comments.length }} comments</div>
 
-    <chat :items="comments"></chat>
+    <chat v-if="!hideComments" :items="comments"></chat>
     </div>
     </div>
   </div>
@@ -139,6 +140,10 @@
     border-radius: 0;
     background-size: contain;
     background-repeat: no-repeat;
+
+    &.roundAvatar {
+      border-radius: 100px;
+    }
   }
 
   input {

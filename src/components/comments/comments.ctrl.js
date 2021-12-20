@@ -5,6 +5,9 @@ export default {
   props: {
     comments: Array,
     item: Object,
+    roundAvatar: Boolean,
+    hideComments: Boolean,
+    hideCommentCount: Boolean,
   },
   components: {
     Chat,
