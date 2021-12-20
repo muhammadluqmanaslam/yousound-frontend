@@ -30,20 +30,11 @@
         <!-- <span v-else class="box__acc">{{ item.user.username }}</span> -->
         <span>{{ item.name }}</span>
       </div>
-      <div class="box__title app-grey--text">
+      <div class="box__title">
         <div class="box__author">
-          <router-link :to="`/${_.get(item, 'user.slug')}`">
-            {{ _.get(item, "user.username") }}
-
-            <v-icon
-              v-if="item.user.user_type == 'artist'"
-              class="user-status online"
-            >
-              fa-check-circle
-            </v-icon>
-          </router-link>
+          <user-tag :user="item.user"  />
         </div>
-        <div class="box__views__duration_wrapper">
+        <div class="box__views__duration_wrapper app-grey--text">
           <span class="box__views">0 views</span>
           <span v-if="calcAge" class="ml-1 box__age"> • {{ calcAge }}</span>
         </div>
@@ -54,10 +45,12 @@
 
 <script>
 import VideoDetailBox from "./video_detail_box";
+import UserTag from '@/components/user_tag';
 
 export default {
   components: {
     VideoDetailBox,
+    UserTag,
   },
 
   props: {
@@ -232,9 +225,14 @@ export default {
 
   &__subtitle {
     margin-top: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 14px;
     color: #000000;
-    font-size: 16px;
-    font-weight: 500;
+    letter-spacing: -0.3px;
+    text-align: left;
+    margin-left: 0;
   }
 
   &__content:hover {
