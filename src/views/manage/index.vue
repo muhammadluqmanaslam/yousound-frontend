@@ -2,7 +2,7 @@
   <div class="page manage-page mx-5">
     <dashboard-nav name="manage" />
 
-    <content-top-header class="__inner mt-3" v-if="userType == 'artist'">
+    <content-top-header absolute class="__inner my-3 px-0" v-if="userType == 'artist'">
       <template slot="topHeader">
         <ul>
             <li class="tabSelectMenu">
@@ -12,6 +12,7 @@
               item-text="title"
               item-value="value"
               hide-details
+              class="pt-0"
               ></v-select>
             </li>
             
