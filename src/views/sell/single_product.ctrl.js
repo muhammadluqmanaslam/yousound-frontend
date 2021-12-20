@@ -14,6 +14,7 @@ import ItemService from '@/services/item'
 import UserService from '@/services/user'
 import Comments from '@/components/comments'
 import UserTag from '@/components/user_tag'
+import ShareModal from '@/components/sharemodal'
 
 export default {
   components: {
@@ -22,10 +23,12 @@ export default {
     accordion,
     Comments,
     UserTag,
+    ShareModal,
   },
 
   data() {
     return {
+      share_dialog: false,
       option: '',
       selectedCover: null,
       product_categories: [],
@@ -289,24 +292,57 @@ export default {
     },
   },
   methods: {
+    closeShareDialog() {
+      this.share_dialog = false
+    },
+    repostProduct() {
+      ProductService.repostProduct(this.product.id)
+        .then((response) => {
+          this.$store.dispatch("error/showSuccessToast", [
+            "You just reposted " + this.product.name,
+          ]);
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
     followUser() {
       if (this.user.is_following) {
         UserService.unfollowUser(this.user.id)
           .then((res) => {
             this.$store.dispatch('player/updateFollowingStatus', false)
-            this.product.user.is_following = false
+            this.product.merchant.is_following = false
+
+            this.$store.dispatch("error/showSuccessToast", [
+              "You have unfollowed " + this.product.merchant.username,
+            ]);
           })
           .catch((e) => {
             console.log('unfollowUser error', e)
+
+            this.$store.dispatch("error/showErrorToast", [
+              "There was an issue following " + this.product.merchant.username,
+            ]);
           })
       } else {
         UserService.followUser(this.user.id)
           .then((res) => {
             this.$store.dispatch('player/updateFollowingStatus', true)
-            this.product.user.is_following = true
+            this.product.merchant.is_following = true
+
+            this.$store.dispatch("error/showSuccessToast", [
+              "You have followed " + this.product.merchant.username,
+            ]);
           })
           .catch((e) => {
             console.log('followUser error', e)
+
+            this.$store.dispatch("error/showErrorToast", [
+              "There was an issue following " + this.product.merchant.username,
+            ]);
           })
       }
     },

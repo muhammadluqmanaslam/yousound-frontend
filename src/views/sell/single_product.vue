@@ -51,7 +51,7 @@
               <div class="product-merchant">
                 <user-tag showAvatar class="tag" :user="product.merchant" />
               </div>
-              <div class="product-price">${{ product.price }}</div>
+              <div class="product-price">${{ product.price * 100 | formatNumber }}</div>
 
               <div class="product-options">
                 <!-- <div class="product-options"> -->
@@ -94,8 +94,9 @@
                   @mouseenter="buttonHover = true"
                   @mouseleave="buttonHover = false"
                   @click.native="followUser()"
-                  >{{ followButtonText }}</v-btn
                 >
+                    {{ followButtonText }}
+                  </v-btn>
 
                 <v-tooltip top>
                   <span slot="activator" class="__actions pl-0">
@@ -103,6 +104,7 @@
                       src="/static/images/ic_share.svg"
                       width="20"
                       class="cursor-pointer"
+                      @click="share_dialog = true"
                     />
                   </span>
                   <span>Share</span>
@@ -114,6 +116,7 @@
                       src="/static/images/ic_repost.svg"
                       width="20"
                       class="cursor-pointer"
+                      @click="repostProduct"
                     />
                   </span>
                   <span>Repost</span>
@@ -172,6 +175,13 @@
         </v-layout>
       </v-container>
     </div>
+
+    
+    <share-modal
+      v-if="share_dialog"
+      :item="product"
+      :dismiss="closeShareDialog"
+    />
   </div>
 </template>
 
