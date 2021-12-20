@@ -19,9 +19,13 @@
                 v-show="['followings', 'followers'].indexOf(tab.id) == -1"
                 :key="tab.id"
                 :href="`#${tab.id}`"
-                :class="{ active: isActiveTab(tab.id) }"
+                class="nav-li"
+                :class="[{ active: isActiveTab(tab.id) }, `nav-${tab.id}`]"
               >
-                <label @click="onTab(tab.id)">{{ tab.title }}</label>
+                <label class="nav-label"  @click="onTab(tab.id)">
+                  <img :src="tab.icon" width="23" class="li-icon">
+                  {{ tab.title }}
+                </label>
               </li>
             </template>
           </ul>
