@@ -58,6 +58,7 @@ export default {
       daysFilter: 7,
       tabs: [
         { id: 'dashboard', title: 'Dashboard', pathName: 'Dashboard' },
+        { id: 'activity', title: 'Activity', pathName: 'Dashboard' },
         { id: 'sales', title: 'Sales', pathName: 'Sell' },
         { id: 'manage', title: 'Manage', pathName: 'ManageIndex' },
         { id: 'payments', title: 'Payments', pathName: 'PaymentIndex' },
