@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer permanent app fixed dark :mini-variant="mini" mobile-break-point width="280" class="sidebar">
+  <v-navigation-drawer permanent app fixed dark :mini-variant="mini" mobile-break-point :width="sideBarWidth" class="sidebar">
     <!-- <span class="white">{{ isAuthenticated }}</span> -->
     <div class="pa-3 tabs-auth-wrapper">
       <div justify-space-between align-center class="d-flex mb-3">
@@ -20,79 +20,81 @@
         <v-btn to="/login" outline class="auth-btn login">Login</v-btn>
       </div>
 
-      <div v-if="currentUser.stream !== null && $store.state.streamPlayer == 'active'" class="live-notice" :class="{'pl-0': mini}" @click="$rotuer.push({name: 'VideoManage'})">
-        <!-- <router-link :to="{name: 'VideoManage'}"> -->
+      <div v-if="currentUser && currentUser.stream !== null && $store.state.streamPlayer == 'active'" class="live-notice" :class="{'pl-0': mini}" @click="$rotuer.push({name: 'VideoManage'})">
           <b v-if="!mini" class="__text">View live broadcast</b>
           <span class="icon_wrapper" :class="{dflex: mini}">
             <v-icon>circle</v-icon>
             <span class="icon_text">LIVE</span>
           </span>
-        <!-- </router-link> -->
       </div>
 
-      <v-list v-for="(parent, i) in tabs" :key="i" class="py-1 px-0">
-        <h4>
-          <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
-        </h4>
-        <div>
-          <v-list-tile
-          v-for="(subMenu, ii) in parent.items"
-          :key="ii"
-          :to="subMenu.directPath ? `/${subMenu.path}` : { name: subMenu.path }"
-          active-class="activeTab"
-          class="side-tab"
-          :class="{'d-none' : subMenu.allowedUser && !subMenu.allowedUser.includes(currentUser.user_type)}"
-        >
-          <v-list-tile-avatar>
-            <div
-              v-if="subMenu.id === 'you'"
-              class="profile-image"
-              :style="{
-                'background-image': 'url(' + currentUser.avatar.thumb.url + ')',
-              }"
-            ></div>
-            <span v-else>
-              <img
-                v-if="subMenu.icon.length > 50" 
-                :src="subMenu.icon"
-                class="icon _icon_img"
-              />
+      <!-- isAuthenticated: {{ isAuthenticated }} -->
 
-              <v-icon v-else class="__icon">
-                {{ subMenu.icon }}
-              </v-icon>
-            </span>
-          </v-list-tile-avatar>
-          <v-list-tile-title class="d-flex justify-space-between align-center">
-            <span v-if="!mini" class="__title">{{ subMenu.title }}</span>
+      <template v-if="isAuthenticated">
+        <v-list v-for="(parent, i) in tabs" :key="i" class="py-1 px-0">
+          <h4>
+            <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
+          </h4>
+          <div>
+            <v-list-tile
+            v-for="(subMenu, ii) in parent.items"
+            :key="ii"
+            :to="subMenu.directPath ? `/${subMenu.path}` : { name: subMenu.path }"
+            active-class="activeTab"
+            class="side-tab"
+            :class="{'d-none' : subMenu.allowedUser && !subMenu.allowedUser.includes(currentUser.user_type)}"
+          >
+            <v-list-tile-avatar>
+              <div
+                v-if="subMenu.id === 'you'"
+                class="profile-image"
+                :style="{
+                  'background-image': 'url(' + currentUser.avatar.thumb.url + ')',
+                }"
+              ></div>
+              <span v-else>
+                <img
+                  v-if="subMenu.icon.length > 50" 
+                  :src="subMenu.icon"
+                  class="icon _icon_img"
+                />
 
-            <span 
-              v-if="subMenu.id === 'notifications' && badge.message > 0"
-              class="dot_notifications"
-              :class="{'mr-0 ml-1': mini}"
-            >
-              <v-icon size="1">circle</v-icon>
-            </span>
+                <v-icon v-else class="__icon">
+                  {{ subMenu.icon }}
+                </v-icon>
+              </span>
+            </v-list-tile-avatar>
+            <v-list-tile-title class="d-flex justify-space-between align-center">
+              <span v-if="!mini" class="__title">{{ subMenu.title }}</span>
 
-            <span 
-              v-else-if="subMenu.id === 'sales' && badge.sell > 0"
-              class="dot_notifications"
-              :class="{'mr-0 ml-1': mini}"
-            >
-              <v-icon size="1">circle</v-icon>
-            </span>
+              <span 
+                v-if="subMenu.id === 'notifications' && badge.message > 0"
+                class="dot_notifications"
+                :class="{'mr-0 ml-1': mini}"
+              >
+                <v-icon size="1">circle</v-icon>
+              </span>
 
-            <span 
-              v-else-if="subMenu.id === 'cart' && badge.cart > 0"
-              class="dot_notifications"
-              :class="{'mr-0 ml-1': mini}"
-            >
-              <v-icon size="1">circle</v-icon>
-            </span>
-          </v-list-tile-title>
-        </v-list-tile>
-        </div>
-      </v-list>
+              <span 
+                v-else-if="subMenu.id === 'sales' && badge.sell > 0"
+                class="dot_notifications"
+                :class="{'mr-0 ml-1': mini}"
+              >
+                <v-icon size="1">circle</v-icon>
+              </span>
+
+              <span 
+                v-else-if="subMenu.id === 'cart' && badge.cart > 0"
+                class="dot_notifications"
+                :class="{'mr-0 ml-1': mini}"
+              >
+                <v-icon size="1">circle</v-icon>
+              </span>
+            </v-list-tile-title>
+          </v-list-tile>
+          </div>
+        </v-list>
+      </template>
     </div>
 
     <v-spacer></v-spacer>
@@ -116,7 +118,7 @@
 <script>
 import sideAudioPlayer from '@/components/sideAudioPlayer'
 import shareModal from '@/components/sharemodal'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   components: {
@@ -228,7 +230,7 @@ export default {
       immediate: true,
       handler(val) {
         if (!val) {
-          this.tabs = [this.allTabs.find((tab) => tab.name === 'Discover')]
+          // this.tabs = [this.allTabs.find((tab) => tab.name === 'Discover')]
         } else if (val) {
           this.tabs = this.allTabs
 
@@ -240,20 +242,23 @@ export default {
   },
   methods: {
     setUsername() {
-      this.tabs.forEach((parent) =>
-        parent.items.forEach((item) => {
-          if (item.id === 'you') {
-            // item.path = this.username
-            item.title = this.username.toUpperCase()
-          }
-        })
-      )
+      // this.tabs.forEach((parent) =>
+      //   parent.items.forEach((item) => {
+      //     if (item.id === 'you') {
+      //       // item.path = this.username
+      //       item.title = this.username.toUpperCase()
+      //     }
+      //   })
+      // )
     },
   },
   computed: {
     ...mapGetters({
       isAuthenticated: 'auth/isAuthenticated',
       allTabs: 'app/tabs',
+    }),
+    ...mapState({
+      sideBarWidth: state => state.app.sideBarWidth,
     }),
     onMobile() {
       return this.$vuetify.breakpoint.smAndUp;

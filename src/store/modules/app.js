@@ -6,6 +6,7 @@ const state = {
   product_categories: [],
   public_relations_user: {},
   sideBarMini: false,
+  sideBarWidth: 280,
 }
 
 const getters = {
