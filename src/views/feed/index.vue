@@ -26,9 +26,9 @@
           <p class="empty-description">
             Follow people to discover new music &amp; products.
           </p>
-          <router-link to="/album" class="empty-discover-btn"
-            >Discover</router-link
-          >
+          <router-link :to="{name: 'DiscoverIndex'}" class="empty-discover-btn">
+            Discover
+          </router-link>
         </div>
         <div v-else>
           <div>

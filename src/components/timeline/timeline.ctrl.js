@@ -6,6 +6,7 @@ import VideoBox from '@/components/video_box'
 import CommentService from '@/services/comment'
 import AlbumService from '@/services/album'
 import shareModal from '@/components/sharemodal'
+import Comments from '@/components/comments'
 // import videoCard from '@/components/videocard'
 
 export default {
@@ -16,7 +17,8 @@ export default {
     trackCard,
     VideoBox,
     shareModal,
-// videoCard
+    Comments
+    // videoCard
   },
 
   props: {
@@ -27,6 +29,7 @@ export default {
 
   data() {
     return {
+      comments: [],
       showMerchModal: false,
       show_share_dialog: false,
     }
@@ -155,7 +158,6 @@ export default {
           break
       }
     },
-
     dimissMerchModal() {
       this.showMerchModal = false
     },

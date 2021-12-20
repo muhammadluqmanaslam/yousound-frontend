@@ -223,25 +223,7 @@
               </div>
 
               <div class="comment_box">
-                <div class="box__initComment">
-                  <div class="ci">
-                    <div class="ci__header">
-                      <router-link :to="`/${currentUser.slug}`">
-                        <div
-                          class="ci__image"
-                          :style="`background-image: url(${currentUser.avatar.url})`"
-                        ></div>
-                      </router-link>
-                    </div>
-                    <div class="ci__content">
-                      <input
-                        type="text"
-                        placeholder="Leave a comment..."
-                        @keyup.enter="addComment()"
-                      />
-                    </div>
-                  </div>
-                </div>
+                <comments :item="feed.assoc" :comments="comments" roundAvatar hideCommentCount hideComments />
               </div>
             </div>
           </div>

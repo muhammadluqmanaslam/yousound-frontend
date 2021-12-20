@@ -30,7 +30,7 @@ export default {
       show_help_dialog: false,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 5,
+      items_per_page: 10,
       users: [],
       isPageReady: false,
     }
