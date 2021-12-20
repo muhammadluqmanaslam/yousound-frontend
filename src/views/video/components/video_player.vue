@@ -160,6 +160,13 @@ export default {
 .video-js .vjs-big-play-button {
 // position: relative;
 }
+.video-js.vjs-fluid {
+  max-height: 522px;
+  padding-top: 56.25%;
+  video {
+    max-height: 522px;
+  }
+}
 // .video-js::after {
 //   content: "";
 //   position: absolute;
