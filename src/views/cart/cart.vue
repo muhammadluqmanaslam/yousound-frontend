@@ -38,7 +38,7 @@
                     v-for="(item, index) in cartItems"
                     :key="index"
                   >
-                    <div sm12 class="order-content-section pa-0 relative">
+                    <div sm12 class="order-content-section pa-0">
                       <div class="product-cover-image">
                         <activity-product-card
                           :object="item.product"
@@ -53,50 +53,53 @@
                             {{ item.product_variant.name }}
                           </div>
                           <div
+                            class="product-content-row justify-space-between pt-2"
+                          >
+                            <div>
+                              By
+                              <router-link
+                                :to="`/${item.product.merchant.slug}`"
+                                class="user-name"
+                                href="#"
+                                >{{ item.product.merchant.username }}</router-link
+                              >
+                            </div>
+                          </div>
+                          <label class="product-price">
+                            ${{ item.price | formatNumber }}
+                          </label>
+                        </div>
+
+                        <v-spacer></v-spacer>
+
+                        <div
+                          class="product-action-row justify-space-between"
+                        >
+                        <div
                             class="product-status"
                             :class="productStatusStyle(item)"
                           >
                             {{ productStatusText(item) }}
                           </div>
-                        </div>
-                        <div
-                          class="product-content-row justify-space-between pt-2"
-                        >
-                          <div>
-                            By
-                            <router-link
-                              :to="`/${item.product.merchant.slug}`"
-                              class="user-name"
-                              href="#"
-                              >{{ item.product.merchant.username }}</router-link
-                            >
-                          </div>
-                          <div v-if="!isDigitalProduct(item)">
-                            <v-btn
-                              class="product-count-adjust-btn active"
-                              @click.native="addQuantity(item)"
-                            >
-                              <v-icon>add</v-icon>
-                            </v-btn>
-                            <label class="product-count">{{
-                              item.quantity
-                            }}</label>
-                            <v-btn
-                              class="product-count-adjust-btn"
-                              :class="{ active: item.quantity > 1 }"
-                              :disabled="item.quantity <= 1"
-                              @click.native="removeQuantity(item)"
-                            >
-                              <v-icon>remove</v-icon>
-                            </v-btn>
-                          </div>
-                        </div>
-                        <div
-                          class="product-content-row justify-space-between pt-2"
-                        >
-                          <label class="product-price"
-                            >${{ item.price | formatNumber }}</label
-                          >
+                            <div v-if="!isDigitalProduct(item)">
+                              <v-btn
+                                class="product-count-adjust-btn active"
+                                @click.native="addQuantity(item)"
+                              >
+                                <v-icon>add</v-icon>
+                              </v-btn>
+                              <label class="product-count">{{
+                                item.quantity
+                              }}</label>
+                              <v-btn
+                                class="product-count-adjust-btn"
+                                :class="{ active: item.quantity > 1 }"
+                                :disabled="item.quantity <= 1"
+                                @click.native="removeQuantity(item)"
+                              >
+                                <v-icon>remove</v-icon>
+                              </v-btn>
+                            </div>
                           <a
                             class="message-buyer-btn"
                             @click.self="removeCartItem(item)"
