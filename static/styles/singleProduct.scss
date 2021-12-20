@@ -105,11 +105,14 @@
     }
     .product-actions {
         margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         & .__actions {
             display: flex;
             align-items: center;
-            padding: 10px 20px;
+            // padding: 10px 20px;
             justify-content: center;
         }
         .follow-btn {
