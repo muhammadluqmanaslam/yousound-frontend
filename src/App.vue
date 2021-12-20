@@ -14,6 +14,37 @@
   >
     <sidebar />
     <v-content>
+      <v-flex
+        xs12
+        text-xs-center
+        loading-section
+        :style="{'padding-left': !sideBarMini ? `${sideBarWidth}px` : 0 }"
+        v-if="$store.getters['error/isLoading']"
+      >
+        <app-loader />
+          <!-- <v-progress-circular
+            v-if="$store.state.error.progressBar.value >= 0"
+            :size="50"
+            :rotate="-90"
+            :value="$store.state.error.progressBar.value"
+            class="loading-activity"
+            v-bind:class="{
+              'primary--text': !$store.getters['navigator/isPrimaryTheme'],
+              'white-activity': $store.getters['navigator/isPrimaryTheme'],
+            }"
+            >{{ $store.state.error.progressBar.value }}</v-progress-circular
+          >
+          <v-progress-circular
+            v-else
+            indeterminate
+            :size="50"
+            class="loading-activity"
+            v-bind:class="{
+              'primary--text': !$store.getters['navigator/isPrimaryTheme'],
+              'white-activity': $store.getters['navigator/isPrimaryTheme'],
+            }"
+          /> -->
+      </v-flex>
       <v-container fluid class="app-container">
         <router-view></router-view>
         <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
@@ -30,36 +61,6 @@
     ></audio-player> -->
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit" />
-
-    <v-flex
-      xs12
-      text-xs-center
-      loading-section
-      v-if="$store.getters['error/isLoading']"
-    >
-      <v-progress-circular
-        v-if="$store.state.error.progressBar.value >= 0"
-        :size="50"
-        :rotate="-90"
-        :value="$store.state.error.progressBar.value"
-        class="loading-activity"
-        v-bind:class="{
-          'primary--text': !$store.getters['navigator/isPrimaryTheme'],
-          'white-activity': $store.getters['navigator/isPrimaryTheme'],
-        }"
-        >{{ $store.state.error.progressBar.value }}</v-progress-circular
-      >
-      <v-progress-circular
-        v-else
-        indeterminate
-        :size="50"
-        class="loading-activity"
-        v-bind:class="{
-          'primary--text': !$store.getters['navigator/isPrimaryTheme'],
-          'white-activity': $store.getters['navigator/isPrimaryTheme'],
-        }"
-      />
-    </v-flex>
 
     <v-snackbar
       v-model="showError"
@@ -101,8 +102,10 @@ import audioPlayer from '@/components/player'
 import streamPlayer from '@/components/stream_player'
 import loginDialog from '@/components/login_dialog'
 import Sidebar from './components/sidebar'
+import AppLoader from '@/components/appLoader'
 
 import { MyEvents, PublicRelationsUsername } from '@/helper'
+import { mapState } from 'vuex'
 
 const ActionCable = require('actioncable')
 
@@ -117,6 +120,7 @@ export default {
     audioPlayer,
     streamPlayer,
     Sidebar,
+    AppLoader,
   },
 
   data() {
@@ -129,6 +133,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      sideBarWidth: state => state.app.sideBarWidth,
+      sideBarMini: state => state.app.sideBarMini,
+    }),
     currentUser() {
       return this.$store.state.auth.user
     },
