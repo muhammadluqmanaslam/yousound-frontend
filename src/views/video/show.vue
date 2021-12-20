@@ -18,7 +18,7 @@
               </div>
 
               <div class="meta__actions">
-                <div class="meta__cta donate" @click="openPaymentDialog()">
+                <div class="meta__cta donate" @click="showLoveDialog()">
                   <img src="/static/images/ic_dollar.svg" height="21" />
                 </div>
                 <div class="meta__cta repost" @click="repostItem()">
@@ -144,7 +144,7 @@
                       </div>
                       <div class="assoc__title">
                         <span v-if="stream.assoc.price"
-                          >${{ stream.assoc.price }}</span
+                          >${{ stream.assoc.price | formatNumber }}</span
                         >
                       </div>
                       <div
@@ -299,6 +299,12 @@
         :finish="payAttachment"
       />
     </v-dialog>
+
+    <send-love-modal
+      v-if="showSendLoveModal"
+      :item="user"
+      :dismiss="dismissLoveDialog"
+    />
 
     <share-modal
       v-if="show_share_dialog"

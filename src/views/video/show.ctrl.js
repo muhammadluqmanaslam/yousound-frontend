@@ -16,6 +16,7 @@ import PaymentModal from '@/components/paymentmodal'
 import ShareModal from '@/components/sharemodal'
 import Comments from '@/components/comments'
 import merchModal from '@/components/merchmodal'
+import sendLoveModal from '@/components/sendlovemodal'
 
 const ActionCable = require('actioncable')
 
@@ -32,11 +33,13 @@ export default {
     VideoPlayer,
     Comments,
     merchModal,
+    sendLoveModal,
   },
 
   data() {
     return {
       moment: moment,
+      showSendLoveModal: false,
       showMoreActive: false,
       stream: {},
       stream_assoc: {
@@ -126,6 +129,12 @@ export default {
   },
 
   methods: {
+    showLoveDialog() {
+      this.showSendLoveModal = true
+    },
+    dismissLoveDialog() {
+      this.showSendLoveModal = false
+    },
     showMerchDialog() {
       this.showMerchModal = true
     },
