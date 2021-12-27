@@ -44,7 +44,7 @@
           currency="$"
           separator=","
           :precision="2"
-          :min="10"
+          :min="1"
           class="donate-amount"
         ></vue-numeric>
         <v-select
