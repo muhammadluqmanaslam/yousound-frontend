@@ -8,9 +8,16 @@
                     v-for="tab in tabs"
                     :key="tab.id"
                     :href="`#${tab.id}`"
-                    :class="{ active: name === tab.id }"
+                    class="nav-li"
+                    :class="[{ active: name === tab.id }, `nav-${tab.id}`]"
                     >
-                    <label @click="setTab(tab.pathName)">{{ tab.title }}</label>
+                      <label
+                        class="nav-label"
+                        @click="setTab(tab.pathName)"
+                      >
+                        <img :src="tab.icon" width="23" class="li-icon">
+                        {{ tab.title }}
+                      </label>
                     </li>
 
                     <v-spacer></v-spacer>
@@ -57,12 +64,12 @@ export default {
       activeTab: '',
       daysFilter: 7,
       tabs: [
-        { id: 'dashboard', title: 'Dashboard', pathName: 'Dashboard' },
-        { id: 'activity', title: 'Activity', pathName: 'Dashboard' },
-        { id: 'sales', title: 'Sales', pathName: 'Sell' },
-        { id: 'manage', title: 'Manage', pathName: 'ManageIndex' },
-        { id: 'payments', title: 'Payments', pathName: 'PaymentIndex' },
-        { id: 'settings', title: 'Settings', pathName: 'UserSettings' },
+        { id: 'dashboard', title: 'Dashboard', pathName: 'Dashboard', icon: require('../../static/images/edit-curves.svg') },
+        { id: 'activity', title: 'Activity', pathName: 'Dashboard', icon: require('../../static/images/grid-interface.svg') },
+        { id: 'sales', title: 'Sales', pathName: 'Sell', icon: require('../../static/images/delivery.svg') },
+        { id: 'manage', title: 'Manage', pathName: 'ManageIndex', icon: require('../../static/images/file-copies.svg') },
+        { id: 'payments', title: 'Payments', pathName: 'PaymentIndex', icon: require('../../static/images/credit-card.svg') },
+        { id: 'settings', title: 'Settings', pathName: 'UserSettings', icon: require('../../static/images/settings-gear.svg') },
       ],
     }
   },
@@ -100,11 +107,13 @@ export default {
 .dashboard-nav {
     .upload-btn {
       box-shadow: none;
-      text-transform: none;
       margin: 0;
       background: #0151ff !important;
       color: #ffffff;
       margin-top: 0;
+      border-radius: 7px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
 }
 </style>
