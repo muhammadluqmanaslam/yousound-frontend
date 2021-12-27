@@ -7,7 +7,7 @@ import manageAlbum from '@/views/album/components/manageAlbum'
 import manageVideo from '@/views/video/components/manageVideo'
 import payments from '@/views/payments'
 import settings from '@/views/settings'
-import dashboardNav from '@/components/dashboardNav'
+import dashboardNav from '@/components/dashboardnav'
 
 export default {
   components: {

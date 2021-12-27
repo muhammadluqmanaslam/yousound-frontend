@@ -12,7 +12,7 @@ import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
 import collaborateProduct from './components/collaborate_product'
 import contentTopHeader from '@/components/contentTopHeader'
-import dashboardNav from '@/components/dashboardNav'
+import dashboardNav from '@/components/dashboardnav'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -487,5 +487,5 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() { },
 }

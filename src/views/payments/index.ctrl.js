@@ -11,7 +11,7 @@ import SendMessage from '@/components/sendmessage'
 import ShareModal from '@/components/sharemodal'
 import UserCard from '@/components/user_card'
 import contentTopHeader from '@/components/contentTopHeader'
-import dashboardNav from '@/components/dashboardNav'
+import dashboardNav from '@/components/dashboardnav'
 
 export default {
   props: {

@@ -1,5 +1,5 @@
 import contentTopHeader from '@/components/contentTopHeader'
-import dashboardNav from '@/components/dashboardNav'
+import dashboardNav from '@/components/dashboardnav'
 
 export default {
   components: {
@@ -8,7 +8,16 @@ export default {
   },
   data() {
     return {
+      activeInnerFilter: 'dashboard',
       daysFilter: 7,
+      tabs: [
+        { id: 'overview', title: 'Overview'},
+        { id: 'music', title: 'Music'},
+        { id: 'videos', title: 'Videos'},
+        { id: 'products', title: 'Products'},
+        { id: 'repostRequests', title: 'Repost Requests'},
+        { id: 'topCreator', title: 'Top 10 Creators'},
+      ],
       tabFilterOptions: [
         {
           title: 'Last 2 Days', value: 2,
@@ -35,19 +44,32 @@ export default {
     },
   },
 
+  watch: {
+    activeInnerFilter(val) {
+      this.getInnerMenuTabs(val)
+    },
+  },
+
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
     isActiveInnerTab(tab) {
       return this.activeInnerTab === tab
     },
+    setInnerTab(id) {
+      this.activeInnerFilter = tab.id
+    },
     getInnerMenuTabs(filter) {
-      switch (filter) {
-        case 'dashboard':
-          return this.dashboardTabs
-        case 'sales':
-          return this.albumsMenuTabs
-        default:
-          []
-      }
+      // const tab = this
+      // switch (filter) {
+      //   case 'dashboard':
+      //     return this.dashboardTabs
+      //   case 'sales':
+      //     return this.albumsMenuTabs
+      //   default:
+      //     []
+      // }
     },
   },
 }
