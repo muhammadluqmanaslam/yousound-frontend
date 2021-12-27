@@ -14,7 +14,7 @@ export default {
 
 <style scoped>
 .app-loader {
-	background-color: #ede5e5;
+	background-color: #f0f0f0;
 	display: -webkit-flex;
 	display:         flex;
 	-webkit-flex-flow: row wrap;
