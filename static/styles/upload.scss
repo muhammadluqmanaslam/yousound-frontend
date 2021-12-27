@@ -15,7 +15,7 @@
             border: .75px solid #d2d2d2;
             border-radius: 8px;
             display: flex;
-            height: 140px;
+            min-height: 150px;
             align-items: center;
 
             .upload-tab-img {
@@ -48,8 +48,8 @@
                 border-radius: 80px;
                 margin-left: 0;
                 // background-color: #007aff;
-                background-color: #000000;
-                color: #ffffff;
+                background-color: transparent;
+                color: #000;
                 font-weight: 800;
                 min-width: 110px;
             }

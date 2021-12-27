@@ -1,5 +1,7 @@
 .partners-page {
     .layer-flex {
+        margin-bottom: 20px;
+
         h1 {
             font-size: 4.7em;
             line-height: 1;
@@ -14,12 +16,21 @@
         }
     }
 
+    .section-intro {
+        .b-h1 {
+            font-size: 2.7em;
+        }
+    }
+
     .choose__btn {
         background-color: #5D5FEF !important;
         color: #ffffff;
+        min-height: 48px;
 
         &.__rounded {
-            border-radius: 40px !important;
+            border-radius: 5px !important;
+            font-size: 16px;
+            font-weight: 800;
         }
     }
 }

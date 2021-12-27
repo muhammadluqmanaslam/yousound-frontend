@@ -221,6 +221,29 @@ body {
 .sqr-plain-btn {
   text-transform: capitalize;
 }
+.text-btn {
+  position: relative;
+  box-shadow: none !important;
+  min-width: max-content;
+  background: transparent !important;
+
+  .btn__content {
+    // padding: 0;
+  }
+  
+  &:hover {
+    .btn__content:before {
+      background-color: transparent;
+    }
+  }
+}
+
+.btn-divider {
+  height: 22.5px;
+  width: 0.75px;
+  background-color: #DBDBDB;
+  display: inline-flex;
+}
 
 li.search-li {
   flex-grow: 1;
