@@ -6,7 +6,7 @@
       :success="saveAndFinish"></promote-modal>
 
     <v-flex sm12 product-content-section pa-0 relative>
-      <div class="product-image" :style="{'background-image': 'url(' + product.covers[0].cover.thumb.url + ')'}"/></div>
+      <div class="product-image" :style="{'background-image': 'url(' + product.covers[0].cover.thumb.url + ')'}"></div>
       <div class="product-content">
         <v-flex sm12 class="product-content-row" pr-0>
           <label class="product-name">{{ product.name }}</label>

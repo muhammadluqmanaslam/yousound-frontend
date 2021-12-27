@@ -115,7 +115,7 @@ export default {
       for (let i in this.prices) {
         arr.push({
           name: `$${this.prices[i] / 100}${this.prices[i] > this.currentUser.max_repost_price ? ' Upgrade' : ''
-                        }`,
+            }`,
           value: this.prices[i],
         })
       }
@@ -142,19 +142,19 @@ export default {
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getRepostPriceProration(this.currentUser.id, params)
-                .then((response) => {
-                  this.$store.dispatch('error/showLoadingActivity', false)
-                  this.proration = response.body
-                    // console.log(this.proration)
-                  if (this.proration.add_amount > 0) {
-                    this.show_repost_price_confirm_modal = true
-                  } else {
-                    this.setRepostPrice(null)
-                  }
-                })
-                .catch((e) => {
-                  this.$store.dispatch('error/showLoadingActivity', false)
-                })
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.proration = response.body
+          // console.log(this.proration)
+          if (this.proration.add_amount > 0) {
+            this.show_repost_price_confirm_modal = true
+          } else {
+            this.setRepostPrice(null)
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
 
     closeRepostPriceConfirmModal() {
@@ -179,24 +179,24 @@ export default {
         repost_price: this.repost_price,
         payment_amount: this.proration.add_amount,
       }
-            // console.log('setRepostPrice', params)
+      // console.log('setRepostPrice', params)
       if (token) {
         params['payment_token'] = token.id
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.setRepostPrice(this.currentUser.id, params)
-                .then((response) => {
-                  this.$store.dispatch('error/showLoadingActivity', false)
-                  this.$store.dispatch('error/showSuccessToast', ['Saved'])
-                  AuthService.setUser(response.body)
-                })
-                .catch((e) => {
-                  this.$store.dispatch('error/showLoadingActivity', false)
-                  this.$store.dispatch(
-                        'error/showErrorToast',
-                        e.body.errors || [e.body]
-                    )
-                })
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+          AuthService.setUser(response.body)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     learnMore() {

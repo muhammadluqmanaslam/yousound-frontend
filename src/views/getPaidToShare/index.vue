@@ -40,7 +40,11 @@
             </v-flex>
         </v-layout>
 
-        <h1 class="mt-5">How?</h1>
+        <div class="section-intro">
+          <h1 class="b-h1 mt-5">How?</h1>
+        </div>
+
+
         <div>
           Verified artists & brands can pay you to share their albums, videos & products to your followers with Repost Requests.   Artists and brands will send you a Direct Message and attach their content for you to share. Before the message is sent artists & brands will pay the repost price you set. 
           <br />
@@ -72,8 +76,8 @@
 .plan-card {
   display: flex;
     flex-direction: column;
-    min-height: 380px;
-    padding: 30px;
+    min-height: 400px;
+    padding: 60px;
     border-radius: 24px;
     background: #F7F7F7;
     border: 1px solid #e3dede;

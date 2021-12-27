@@ -86,7 +86,7 @@
               <div class="product-actions">
                 <v-btn
                   v-if="product.merchant.id != currentUser.id"
-                  class="follow-btn"
+                  class="follow-btn mt-3"
                   :class="{
                     follow: !product.merchant.is_following,
                     following: product.merchant.is_following,
@@ -103,7 +103,7 @@
                     <img
                       src="/static/images/ic_share.svg"
                       width="20"
-                      class="cursor-pointer"
+                      class="cursor-pointer mt-3"
                       @click="share_dialog = true"
                     />
                   </span>
@@ -115,7 +115,7 @@
                     <img
                       src="/static/images/ic_repost.svg"
                       width="20"
-                      class="cursor-pointer"
+                      class="cursor-pointer mt-3"
                       @click="repostProduct"
                     />
                   </span>

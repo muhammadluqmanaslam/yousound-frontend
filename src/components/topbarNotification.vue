@@ -70,6 +70,10 @@ export default {
     align-items: center;
     margin: 0 !important;
 
+    .top-bar-notification {
+      width: calc(100% - 40px);
+    }
+
     &-notification {
         width: calc(100% - 358px);
         margin-left: auto;
@@ -80,6 +84,8 @@ export default {
         position: relative;
         width: 100%;
         color: #ffffff;
+        font-size: 16px;
+        font-weight: 400;
     }
     &__cta {
         height: 28px;
