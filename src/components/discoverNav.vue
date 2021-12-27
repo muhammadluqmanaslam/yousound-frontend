@@ -19,19 +19,7 @@
               <v-spacer></v-spacer>
 
               <li class="search-li">
-                <transition name="slide-fade">
-                  <div class="global-search-box">
-                    <v-icon>search</v-icon>
-                    <input
-                      v-model="keyword"
-                      class="search-field"
-                      type="search"
-                      id="search"
-                      placeholder="Search artist, song or keyword"
-                      @keyup.enter="goToSearch()"
-                    />
-                  </div>
-                </transition>
+                <search-input />
               </li>
           </ul>
       </template>
@@ -41,16 +29,17 @@
 
 <script>
 import contentTopHeader from '@/components/contentTopHeader'
+import SearchInput from '@/components/searchInput'
 export default {
   props: {
     pageName: String,
   },
   components: {
     contentTopHeader,
+    SearchInput,
   },
   data() {
     return {
-      keyword: '',
       activeTab: '',
       tabs: [
         { id: 'discover', title: 'Discover', icon: require('../../static/images/discover.svg') },
@@ -62,10 +51,6 @@ export default {
   },
 
   methods: {
-    goToSearch() {
-      const keyword = this.keyword
-      this.$router.push({ path: '/search', query: { q: keyword } })
-    },
     isActiveTab(tab) {
       return this.activeTab === tab
     },

@@ -6,6 +6,7 @@ import productCard from '@/components/productcard'
 import VideoBox from '@/components/video_box'
 import videoCard from '@/components/videocard'
 import contentTopHeader from '@/components/contentTopHeader'
+import searchInput from '@/components/searchInput'
 
 export default {
   components: {
@@ -15,6 +16,7 @@ export default {
     VideoBox,
     videoCard,
     contentTopHeader,
+    searchInput,
   },
 
   data() {

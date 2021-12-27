@@ -14,6 +14,12 @@
               <span>({{ searchResultCount(tab.id) }})</span>
             </label>
           </li>
+
+          <v-spacer></v-spacer>
+
+          <li class="search-li">
+            <search-input />
+          </li>
         </ul>
       </template>
     </content-top-header>
