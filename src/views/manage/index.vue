@@ -37,6 +37,7 @@
         ref="manageAlbum" 
         :textBtnToRight="activeInnerFilter == 'albums' && (activeInnerTab == 'published' || activeInnerTab == 'privated')" 
       />
+      <manage-video v-if="activeInnerFilter === 'videos'" ref="manageVideo" />
     </div>
   </div>
 </template>

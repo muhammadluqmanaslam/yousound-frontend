@@ -4,6 +4,7 @@ import activityItem from '@/components/activityitem'
 import contentTopHeader from '@/components/contentTopHeader'
 import manageProduct from '@/views/product/components/manageProduct'
 import manageAlbum from '@/views/album/components/manageAlbum'
+import manageVideo from '@/views/video/components/manageVideo'
 import payments from '@/views/payments'
 import settings from '@/views/settings'
 import dashboardNav from '@/components/dashboardNav'
@@ -14,6 +15,7 @@ export default {
     contentTopHeader,
     manageProduct,
     manageAlbum,
+    manageVideo,
     payments,
     settings,
     dashboardNav,
@@ -22,7 +24,7 @@ export default {
   data() {
     return {
       active_tab: 'content',
-      activeInnerFilter: 'albums',
+      activeInnerFilter: 'videos',
       activeInnerTab: 'published',
       tabFilterOptions: [
         {
@@ -30,6 +32,9 @@ export default {
         },
         {
           title: 'Products', value: 'products',
+        },
+        {
+          title: 'Videos', value: 'videos',
         },
       ],
       page_index: 1,
@@ -43,6 +48,10 @@ export default {
   computed: {
     userType() {
       return this.$store.getters['auth/userType']
+    },
+    videosMenuTabs() {
+      const tabs = []
+      return tabs
     },
     productMenuTabs() {
       const tabs = [
@@ -80,6 +89,10 @@ export default {
           this.$refs.manageAlbum.setAlbumFilter(id)
           break
 
+        case 'videos':
+          this.$refs.manageVideo.setVideoFilter(id)
+          break
+
         default:
           return
       }
@@ -90,6 +103,8 @@ export default {
           return this.productMenuTabs
         case 'albums':
           return this.albumsMenuTabs
+        case 'videos':
+          return this.videosMenuTabs
         default:
           []
       }
@@ -111,9 +126,9 @@ export default {
   created() {
     // const tab = this.$route.hash.substr(1)
 
-    this.tabs = this.tabs.filter((tab) => {
-      return !(tab.allowedUser && !tab.allowedUser.includes(this.userType))
-    })
+    // this.tabs = this.tabs.filter((tab) => {
+    //   return !(tab.allowedUser && !tab.allowedUser.includes(this.userType))
+    // })
 
     if (this.userType === 'listener') {
       this.active_tab = 'payment'
