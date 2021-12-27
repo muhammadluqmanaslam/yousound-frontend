@@ -29,7 +29,7 @@ export default {
     // console.log('login created', myAlert)
 
     if (AuthService.isAuthenticated()) {
-      this.$router.push({ path: '/album' })
+      this.$router.push({ name: 'DiscoverIndex' })
       return
     }
 
@@ -74,7 +74,7 @@ export default {
           this.$root.$emit(MyEvents.AUTH_SIGNIN)
 
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$router.push({ path: '/album' })
+          this.$router.push({ name: 'DiscoverIndex' })
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
