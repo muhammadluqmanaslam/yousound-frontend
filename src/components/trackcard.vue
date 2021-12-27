@@ -50,7 +50,7 @@
             <v-icon>pause</v-icon>
           </v-btn>
           <v-menu
-            v-if="currentUser && willMenuRender"
+            v-if="(currentUser && willMenuRender) && !hideMoreMenu"
             v-model="menu"
             offset-y
             :close-on-content-click="false"
@@ -217,7 +217,7 @@
               </v-list>
             </v-card>
           </v-menu>
-          <p class="track-count">{{ item.tracks.length }} tracks</p>
+          <p v-if="!hideTrackLength" class="track-count">{{ item.tracks.length }} tracks</p>
         </v-flex>
       </v-flex>
       <v-flex v-if="!noMeta && !noAction" xs12 class="track-detail" pa-0>

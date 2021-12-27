@@ -25,6 +25,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideTrackLength: {
+      type: Boolean,
+      default: false,
+    },
+    hideMoreMenu: {
+      type: Boolean,
+      default: false,
+    },
     objects: {
       type: Array,
     },
