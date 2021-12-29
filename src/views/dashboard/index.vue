@@ -2,7 +2,7 @@
     <div class="page dashboard-page mx-5">
         <dashboard-nav name="dashboard" />
 
-        <content-top-header absolute class="__inner pl-0">
+        <content-top-header absolute class="__inner pl-0 my-3">
             <template slot="topHeader">
                 <ul class="width100">
                     <li
@@ -10,20 +10,12 @@
                     :key="tab.id"
                     :href="`#${tab.id}`"
                     class="nav-li"
-                    :class="[{ active: isActiveTab(tab.id) }, `nav-${tab.id}`]"
+                    :class="[{ 'active d-nav-active': isActiveTab(tab.id) }, `nav-${tab.id}`]"
                     >
-                    <label class="nav-label black--text" @click="onTab(tab.id)">
+                    <label class="nav-label black--text" @click="setInnerMenuTabs(tab.id)">
                         {{ tab.title }}
                     </label>
                     </li>
-                    <!-- <li
-                        v-for="tab in getInnerMenuTabs(activeInnerFilter)"
-                        :key="tab.id"
-                        :href="`#${tab.id}`"
-                        :class="{ active: isActiveInnerTab(tab.id) }"
-                    >
-                        <label @click="setInnerTab(tab.id)">{{ tab.title }}</label>
-                    </li> -->
 
                     <v-spacer></v-spacer>
 
@@ -39,6 +31,25 @@
                 </ul>
             </template>
         </content-top-header>
+
+        <v-container fluid grid-list-lg>
+            <v-layout row wrap class="inner-tab-actions">
+                <v-flex 
+                    v-for="(action, i) in setInnerTab()" 
+                    :key="i"
+                    xs12
+                    :sm="`sm${action.size}`"
+                    class="inner-tab-action"
+                    :class="[{'inner-tab-active': isActiveInnerTab(action.id)}, action.size == 'custom' ? 'custom-lg5' : action.size ? `sm${action.size}` : '']"
+                    @click="activeInnerTab = action.id"
+                >
+                    <div class="action_content">
+                        <div>{{ action.value }}</div>
+                        <div>{{ action.title }}</div>
+                    </div>
+                </v-flex>
+            </v-layout>
+        </v-container>
     </div>  
 </template>
 

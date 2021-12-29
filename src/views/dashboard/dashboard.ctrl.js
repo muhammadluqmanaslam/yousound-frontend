@@ -8,7 +8,8 @@ export default {
   },
   data() {
     return {
-      activeInnerFilter: 'dashboard',
+      activeTab: 'overview',
+      activeInnerTab: 'earnings',
       daysFilter: 7,
       tabs: [
         { id: 'overview', title: 'Overview'},
@@ -18,7 +19,34 @@ export default {
         { id: 'repostRequests', title: 'Repost Requests'},
         { id: 'topCreator', title: 'Top 10 Creators'},
       ],
+      innerTabs: [
+        {
+          parent: 'overview',
+          tabs: [
+            { id: 'earnings', title: 'Earnings', value: 1000, size: 'custom' },
+            { id: 'followers', title: 'Followers', value: 2000, size: 'custom' },
+            { id: 'shares', title: 'Shares', value: 3000, size: 'custom' },
+            { id: 'comments', title: 'Comments', value: 4000, size: 'custom' },
+            { id: 'reposts', title: 'Reposts', value: 5000, size: 'custom' },
+            { id: 'subscriptionRevenue', title: 'Subscription Revenue', value: 6000, size: 4 },
+            { id: 'subscribersList', title: 'Subscribers List', value: 7000, size: 4 },
+            { id: 'adRevenue', title: 'Ad Revenue', value: 8000, size: 4 },
+          ],
+        },
+        {
+          parent: 'music',
+          tabs: [
+            { id: 'social', title: 'Social' },
+            { id: 'albums', title: 'Albums' },
+            { id: 'videos', title: 'Videos' },
+            { id: 'products', title: 'Products' }
+          ],
+        },
+      ],
       tabFilterOptions: [
+        {
+          title: 'All Time', value: 0,
+        },
         {
           title: 'Last 2 Days', value: 2,
         },
@@ -33,21 +61,6 @@ export default {
     currentUser() {
       return this.$store.state.auth.user
     },
-    dashboardTabs() {
-      const tabs = [
-        { id: 'social', title: 'Social' },
-        { id: 'albums', title: 'Albums' },
-        { id: 'videos', title: 'Videos' },
-        { id: 'products', title: 'Products' },
-      ]
-      return tabs
-    },
-  },
-
-  watch: {
-    activeInnerFilter(val) {
-      this.getInnerMenuTabs(val)
-    },
   },
 
   methods: {
@@ -55,13 +68,21 @@ export default {
       return this.activeTab === tab
     },
     isActiveInnerTab(tab) {
+      // this.activeInnerTab = tab
+      // const innerTab = this.setInnerTab()
+
+      // console.log(this.activeInnerTab === innerTab.id);
+
       return this.activeInnerTab === tab
     },
-    setInnerTab(id) {
-      this.activeInnerFilter = tab.id
+    setInnerTab() {
+      const inner = this.innerTabs.find((inner) => inner.parent === this.activeTab)
+      return inner.tabs
     },
-    getInnerMenuTabs(filter) {
-      // const tab = this
+    setInnerMenuTabs(filter) {
+      const selected = this.tabs.find((f) => f.id === filter)
+      this.activeTab = selected.id
+
       // switch (filter) {
       //   case 'dashboard':
       //     return this.dashboardTabs

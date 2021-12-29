@@ -1,1 +1,27 @@
-.dashboard-page {}
+.dashboard-page {
+    .d-nav-active {
+        background: #000000;
+        border-radius: 50px;
+        
+        label {
+            color: #ffffff !important;
+            padding: 5px 20px !important;
+            font-weight: 500;
+        }
+    }
+
+    .inner-tab-action {
+        .action_content {
+            text-align: left;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #cccccc;
+        }
+
+        &.inner-tab-active {
+            .action_content {
+                border: 1px solid #5F78FF;
+            }
+        }
+    }
+}
