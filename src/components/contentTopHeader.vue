@@ -1,7 +1,7 @@
 <template>
   <div class="top-menu">
     <!-- <div class="tab-container"> -->
-    <v-toolbar app :fixed="!absolute" :flat="absolute" class="tab-container" :class="{__absolute: absolute}" height="73">
+    <v-toolbar app :fixed="!absolute" :flat="absolute" class="tab-container" :class="{__absolute: absolute}" :height="height">
       <!-- {{ absolute }} -->
         <!-- ancestoral element to all top headers -->
         <slot name="topHeader"></slot>
@@ -14,6 +14,9 @@
 export default {
   props: {
     absolute: Boolean,
+    height: {
+      default: 73,
+    },
   },
 }
 </script>
