@@ -276,6 +276,19 @@ li.search-li {
   }
 }
 
+.chart-wrapper {
+    border: 1px solid #cccccc;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.apexcharts-canvas {
+  // width: 100% !important;
+  svg {
+    // width: 100% !important;
+  }
+}
+
 
 .edit-address-dialog.dialog {
   position: relative;
