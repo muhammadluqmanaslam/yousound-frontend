@@ -15,7 +15,7 @@ export default {
       activeChart: '',
       selectedInnerTab: {},
       selectedChart: {},
-      daysFilter: 7,
+      daysFilter: 0,
       tabs: [
         { id: 'overview', title: 'Overview'},
         { id: 'music', title: 'Music'},
@@ -86,16 +86,7 @@ export default {
               title: 'Listening Now',
               value: 1000,
               size: 'custom',
-              breakdown: [
-                {
-                  title: 'All',
-                  value: 'all',
-                  series: [{
-                    name: 'series-1',
-                    data: [0, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
-                  }],
-                },
-              ],
+              breakdown: null,
             },
             { id: 'followers', title: 'Followers', value: 2000, size: 'custom' },
             { id: 'shares', title: 'Shares', value: 3000, size: 'custom' },
@@ -106,16 +97,144 @@ export default {
             { id: 'adRevenue', title: 'Ad Revenue', value: 8000, size: 4 },
           ],
         },
+        {
+          parent: 'videos',
+          header: 'Watching Now',
+          tabs: [
+            {
+              id: 'watching',
+              title: 'watching Now',
+              value: 28392,
+              size: 'custom',
+              breakdown: null,
+            },
+            {
+              id: 'views',
+              title: 'Views',
+              value: 12000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [10, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            { id: 'pageViews',
+              title: 'Page Views',
+              value: 13000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [20, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'avgWatchTime',
+              title: 'Average Watch Time',
+              value: '2:59',
+              size: 'custom',
+              breakdown: null,
+            },
+            { id: 'uploads',
+              title: 'Uploads',
+              value: 20,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [40, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'avgCompletionRate',
+              title: 'Average Completion Rate',
+              value: '30%',
+              size: 'custom',
+              breakdown: null,
+            },
+            { id: 'shares',
+              title: 'Shares',
+              value: 345678932,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [60, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'reposts',
+              title: 'Reposts',
+              value: 43456554345,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [70, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'comments',
+              title: 'Comments',
+              value: 18000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [80, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'hides',
+              title: 'Hides',
+              value: 420,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [0, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+          ],
+        },
       ],
       tabFilterOptions: [
         {
           title: 'All Time', value: 0,
         },
         {
-          title: 'Last 2 Days', value: 2,
+          title: 'Today', value: 1,
         },
         {
-          title: 'Last 7 Days', value: 7,
+          title: 'Month', value: 2,
+        },
+        {
+          title: 'Year', value: 3,
         },
       ],
       chartOptions: {
@@ -176,6 +295,161 @@ export default {
           },
         },
       },
+      summaryTabs: [
+        {
+          parent: 'overview',
+          tabs: null,
+        },
+        {
+          parent: 'music',
+          tabs: [
+            {
+              header: 'Top Albums',
+              avatarType: 'square',
+              data: [],
+            },
+            {
+              header: 'Plays by Countries',
+              type: 'pie',
+              data: [],
+            },
+            {
+              header: 'Top Listeners',
+              avatarType: 'round',
+              data: [],
+            },
+          ],
+        },
+        {
+          parent: 'videos',
+          tabs: [
+            {
+              header: 'Top Videos',
+              avatarType: 'square',
+              data: [],
+            },
+            {
+              header: 'Plays by Countries',
+              type: 'pie',
+              data: [],
+            },
+            {
+              header: 'Top Viewers',
+              avatarType: 'round',
+              data: [],
+            },
+          ],
+        },
+        {
+          parent: 'products',
+          tabs: [
+            {
+              header: 'Top Products',
+              data: [],
+            },
+            {
+              header: 'Top Countriess',
+              data: [],
+            },
+            {
+              header: 'Top Customers',
+              data: [],
+            },
+          ],
+          headers: [
+            {
+              text: 'External Traffic Source',
+              align: 'left',
+              sortable: false,
+              value: 'name',
+            },
+            {
+              text: 'Visits',
+              align: 'left',
+              sortable: false,
+              value: 'visits',
+            },
+            {
+              text: 'New Visitors',
+              align: 'left',
+              sortable: false,
+              value: 'newVisitors',
+            },
+            {
+              text: 'Product Page Visited',
+              align: 'left',
+              sortable: false,
+              value: 'videoPageVisited',
+            },
+          ],
+        },
+        {
+          parent: 'repostRequests',
+          tabs: null,
+          headers: [
+            {
+              text: 'Content you reposted',
+              align: 'left',
+              sortable: false,
+              value: 'contentReposted',
+            },
+            {
+              text: 'Reposted By',
+              align: 'left',
+              sortable: false,
+              value: 'repostedBy',
+            },
+            {
+              text: 'Plays/View',
+              align: 'left',
+              sortable: false,
+              value: 'playView',
+            },
+            {
+              text: 'User Reached',
+              align: 'left',
+              sortable: false,
+              value: 'albumPageVisited',
+            },
+            {
+              text: 'You Received',
+              align: 'left',
+              sortable: false,
+              value: 'amountReceived',
+            },
+          ],
+        },
+        {
+          parent: 'topCreator',
+          tabs: null,
+          headers: [
+            {
+              text: 'Top 10 Creators',
+              align: 'left',
+              sortable: false,
+              value: 'name',
+            },
+            {
+              text: "You’ve played/viewed",
+              align: 'left',
+              sortable: false,
+              value: 'visits',
+            },
+            {
+              text: 'Subscription Share',
+              align: 'left',
+              sortable: false,
+              value: 'subscriptionShare',
+            },
+            {
+              text: 'Album Page Visited',
+              align: 'left',
+              sortable: false,
+              value: 'albumPageVisited',
+            },
+          ],
+        },
+      ],
       headers: [
         {
           text: 'External Traffic Source',
@@ -187,102 +461,82 @@ export default {
           text: 'Visits',
           align: 'left',
           sortable: false,
-          value: 'name',
+          value: 'visits',
         },
         {
           text: 'New Visitors',
           align: 'left',
           sortable: false,
-          value: 'name',
+          value: 'newVisitors',
         },
         {
           text: 'Album Page Visited',
           align: 'left',
           sortable: false,
-          value: 'name',
+          value: 'albumPageVisited',
         },
       ],
       desserts: [
         {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%'
+          name: 'google.com',
+          visits: 159000,
+          newVisitors: '40%',
+          albumPageVisited: '1000',
         },
         {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%'
+          name: 'google.com',
+          visits: 237000,
+          newVisitors: '40%',
+          albumPageVisited: '1000',
         },
         {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%'
+          name: 'google.com',
+          visits: 262000,
+          newVisitors: '60%',
+          albumPageVisited: '7000',
         },
         {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%'
+          name: 'google.com',
+          visits: 305000,
+          newVisitors: '40%',
+          albumPageVisited: '8000',
         },
         {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%'
+          name: 'google.com',
+          visits: 356000,
+          newVisitors: '30%',
+          albumPageVisited: '16000',
         },
         {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%'
+          name: 'google.com',
+          visits: 375000,
+          newVisitors: '00%',
+          albumPageVisited: '0000',
         },
         {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%'
+          name: 'google.com',
+          visits: 392000,
+          newVisitors: '100%',
+          albumPageVisited: '2000',
         },
         {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%'
+          name: 'google.com',
+          visits: 408000,
+          newVisitors: '60%',
+          albumPageVisited: '45000',
         },
         {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%'
+          name: 'google.com',
+          visits: 452000,
+          newVisitors: '40%',
+          albumPageVisited: '22000',
         },
         {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%'
-        }
+          name: 'google.com',
+          visits: 518000,
+          newVisitors: '10%',
+          albumPageVisited: '6000',
+        },
       ],
     }
   },
@@ -304,6 +558,15 @@ export default {
       this.selectedChart = inner.tabs[0].breakdown[0]
       this.activeInnerTab = inner.tabs[0].id
       this.activeChart = inner.tabs[0].breakdown[0].value
+
+      // switch (val) {
+      //   case 'overview':
+
+      //     break;
+
+      //   default:
+      //     break;
+      // }
     },
   },
 
@@ -326,17 +589,33 @@ export default {
       return inner.tabs
     },
     setActiveChart(tab) {
-      this.activeChart = tab.value
+      console.log('tab:', tab);
       this.selectedChart = tab
+      if (tab == null) return
+      this.activeChart = tab.value
     },
-    getChartDetails(action) {
+    setChartDetails(action) {
+      console.log('action:', action);
       this.activeInnerTab = action.id
       this.selectedInnerTab = action
 
       // For Menus that do not have further inner tab selection
       if (this.showChartHeader.indexOf(this.activeTab) < 0) {
-        this.setActiveChart(action.breakdown[0])
+        // Just select first item in breakdown series
+        if (action.breakdown) {
+          this.setActiveChart(action.breakdown[0])
+        } else {
+          this.setActiveChart(action.breakdown)
+        }
       }
+
+      // this.setActiveChart(action.breakdown[0])
+    },
+    getsummaryTabs() {
+      const tab = this.activeTab
+      const col = this.summaryTabs.find((col) => col.parent === tab)
+
+      return col.tabs || null
     },
   },
 

@@ -32,7 +32,8 @@
             </template>
         </content-top-header>
 
-        <v-container fluid grid-list-lg>
+        <!-- Button Actions -->
+        <v-container fluid grid-list-lg pl-0>
             <v-layout row wrap class="inner-tab-actions">
                 <v-flex 
                     v-for="(action, i) in getInnerTab()" 
@@ -41,7 +42,7 @@
                     :sm="`sm${action.size}`"
                     class="inner-tab-action"
                     :class="[{'inner-tab-active': isActiveInnerTab(action.id)}, action.size == 'custom' ? 'custom-lg5' : action.size ? `sm${action.size}` : '']"
-                    @click="getChartDetails(action)"
+                    @click="setChartDetails(action)"
                 >
                     <div class="action_content">
                         <div>{{ action.value }}</div>
@@ -51,8 +52,8 @@
             </v-layout>
         </v-container>
 
-        <v-container fluid>
-            <div class="graph-chart chart-wrapper">
+        <v-container fluid pl-0>
+            <div class="pie-chart chart-wrapper">
                 <div class="chart-header">
                     <content-top-header v-if="showChartHeader.indexOf(activeTab) > -1" absolute height="20" class="__inner pl-0">
                         <template slot="topHeader">
@@ -79,98 +80,73 @@
                     <h2 v-else>{{ selectedInnerTab.header }}</h2>
                 </div>
 
-                <!-- selectedInnerTab: {{ selectedInnerTab }} <br> <br>
-                activeInnerTab: {{ activeInnerTab }} <br>
-                selectedChart: {{ selectedChart }} <br>
-                activeChart: {{ activeChart }} <br> -->
+                <!-- selectedInnerTab: {{ selectedInnerTab }} <br> <br> -->
+                <!-- activeInnerTab: {{ activeInnerTab }} <br> -->
+                <!-- selectedChart: {{ selectedChart }} <br> -->
+                <!-- activeChart: {{ activeChart }} <br> -->
 
-                <div id="chart" :class="[activeInnerTab ? `${activeInnerTab}-chart` : '']">
+
+                <div v-if="selectedChart == null" class="no-chart allChildrenCenter">
+                    No timeline data available
+                </div>
+
+                <div v-else id="chart" :class="[activeInnerTab ? `${activeInnerTab}-chart` : '']">
                     <chart type="area" height="250" width="100%" :options="chartOptions" :series="selectedChart.series"></chart>
                 </div>
             </div>
 
-            <div class="col-summary-section">
-                <v-container fluid grid-list-lg>
+            <div v-if="getsummaryTabs()" class="col-summary-section">
+                <v-container fluid grid-list-lg px-0>
                     <v-layout row wrap  justify-space-between>
-                        <v-flex xs3 col-summary>
+                        <v-flex v-for="(col, i) in getsummaryTabs()" :key="i" xs3 col-summary>
                             <div class="col-summary-frame">
                                 <div class="col-summary-frame-header">
-                                    <h4>Top Albums</h4>
+                                    <h4>{{ col.header }}</h4>
                                 </div>
-                                <div class="col-summary-frame-body">
-                                    <div v-for="(item, i) in 7" :key="i" class="col-listing __square">
-                                        <div class="_thumbnail"></div>
-                                        <div class="_title">Album Name</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </v-flex>
-
-                        <v-flex xs3 col-summary>
-                            <div class="col-summary-frame">
-                                <div class="col-summary-frame-header">
-                                    <h4>Plays by Country</h4>
-                                </div>
-                                <div class="col-summary-frame-body">
+                                
+                                <div v-if="col.type == 'pie'" class="col-summary-frame-body">
                                     <div id="chart" class="pie-chart">
                                         <chart type="donut" height="500" :options="pieChartOptions" :series="pieSeries"></chart>
 
                                         {{ chartOptions.color }}
                                     </div>
                                 </div>
-                            </div>
-                        </v-flex>
 
-                        
-                        <v-flex xs3 col-summary>
-                            <div class="col-summary-frame">
-                                <div class="col-summary-frame-header">
-                                    <h4>Top Listeners</h4>
-                                </div>
-                                <div class="col-summary-frame-body">
-                                    <div v-for="(item, i) in 7" :key="i" class="col-listing __round">
+                                <div v-else class="col-summary-frame-body">
+                                    <div v-for="(item, i) in 7" :key="i" class="col-listing" :class="[col.avatarType == 'square' ? '__square' : col.avatarType == 'round' ? '__round' : '' ]">
                                         <div class="_thumbnail"></div>
-                                        <div class="_title">Album Name</div>
+                                        <div class="_title">First Last</div>
                                     </div>
                                 </div>
                             </div>
                         </v-flex>
                     </v-layout>
                 </v-container>
-
-                <v-container fluid>
-                    <template>
-                        <v-data-table
-                            :headers="headers"
-                            :items="desserts"
-                            class="elevation-1"
-                        >
-
-                            <template v-slot:[`item.name`]="{ item }">
-                                {{ item }}
-                                <!-- <v-img
-                                :src="item.image || require('@/assets/imgUpload.jpg')"
-                                height="50px"
-                                width="50px"
-                                style="margin: 0 auto"
-                                ></v-img> -->
-                            </template>
-                            <!-- <template v-slot:items="props">
-                            <td>{{ props.item.name }}</td>
-                            <td class="text-xs-right">{{ props.item.calories }}</td>
-                            <td class="text-xs-right">{{ props.item.fat }}</td>
-                            <td class="text-xs-right">{{ props.item.carbs }}</td>
-                            <td class="text-xs-right">{{ props.item.protein }}</td>
-                            <td class="text-xs-right">{{ props.item.iron }}</td>
-                            </template> -->
-
-                            <div>
-                                123
-                            </div>
-                        </v-data-table>
-                    </template>
-                </v-container>
             </div>
+            <v-container fluid data-table>
+                <template>
+                    <v-data-table
+                        :headers="headers"
+                        :items="desserts"
+                        class="elevation-1"
+                    >
+                        <template slot="items" slot-scope="props">
+                            <td>
+                                <span class="ml-3">{{ props.item.name }}</span>
+                            </td>
+                            <td>
+                                <span class="ml-3">{{ props.item.visits | formatNumberWithComma }}</span>
+                            </td>
+                            <td>
+                                <span class="ml-3">{{ props.item.newVisitors }}</span>
+                            </td>
+                            <td>
+                                <span class="ml-3">{{ props.item.albumPageVisited | formatNumberWithComma }}</span>
+                            </td>
+                        </template>
+                    </v-data-table>
+                </template>
+            </v-container>
         </v-container>
     </div>  
 </template>
