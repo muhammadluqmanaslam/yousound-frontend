@@ -554,19 +554,17 @@ export default {
     activeTab(val) {
       // find and select first index of breakdown on menu change
       const inner = this.innerTabs.find((inner) => inner.parent === val)
-      this.selectedInnerTab = inner
-      this.selectedChart = inner.tabs[0].breakdown[0]
-      this.activeInnerTab = inner.tabs[0].id
-      this.activeChart = inner.tabs[0].breakdown[0].value
+      const action = inner.tabs[0]
 
-      // switch (val) {
-      //   case 'overview':
-
-      //     break;
-
-      //   default:
-      //     break;
-      // }
+      this.activeInnerTab = action.id
+      if (action.breakdown) {
+        this.selectedChart = action.breakdown[0] || null
+        this.activeChart = action.breakdown[0].value
+      } else {
+        this.selectedChart = action.breakdown
+        this.activeChart = 'all'
+      }
+      this.setChartDetails(action)
     },
   },
 
@@ -589,13 +587,11 @@ export default {
       return inner.tabs
     },
     setActiveChart(tab) {
-      console.log('tab:', tab);
       this.selectedChart = tab
       if (tab == null) return
       this.activeChart = tab.value
     },
     setChartDetails(action) {
-      console.log('action:', action);
       this.activeInnerTab = action.id
       this.selectedInnerTab = action
 
@@ -624,7 +620,7 @@ export default {
     // change default from activeInnerTab: '' above
     const innerTab = this.getInnerTab()
     const initSelection = innerTab.find((f) => f.id === this.activeInnerTab)
-    this.getChartDetails(initSelection)
+    this.setChartDetails(initSelection)
 
     this.selectedChart = this.selectedInnerTab.breakdown[0]
     this.activeChart = this.selectedInnerTab.breakdown[0].value
