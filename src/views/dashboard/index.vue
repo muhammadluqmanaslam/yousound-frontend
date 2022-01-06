@@ -39,23 +39,25 @@
                     v-for="(action, i) in getInnerTab()" 
                     :key="i"
                     xs12
-                    :sm="`sm${action.size}`"
                     class="inner-tab-action"
                     :class="[{'inner-tab-active': isActiveInnerTab(action.id)}, action.size == 'custom' ? 'custom-lg5' : action.size ? `sm${action.size}` : '']"
                     @click="setChartDetails(action)"
                 >
                     <div class="action_content">
-                        <div>{{ action.value }}</div>
-                        <div>{{ action.title }}</div>
+                        <div class="action_value">
+                            <span v-if="typeof action.value == 'number'">{{ action.value | formatNumberWithComma }}</span>
+                            <span v-else>{{ action.value }}</span>
+                        </div>
+                        <div class="action_title">{{ action.title }}</div>
                     </div>
                 </v-flex>
             </v-layout>
         </v-container>
 
         <v-container fluid pl-0>
-            <div class="pie-chart chart-wrapper">
+            <div class="graph-chart chart-wrapper">
                 <div class="chart-header">
-                    <content-top-header v-if="showChartHeader.indexOf(activeTab) > -1" absolute height="20" class="__inner pl-0">
+                    <content-top-header v-if="showChartHeader.indexOf(activeTab) > -1 && selectedInnerTab.breakdown.length > 1" absolute height="20" class="__inner pl-0 ml-3">
                         <template slot="topHeader">
                             <ul class="chart-header-tabs width100">
                                 <li
@@ -72,12 +74,12 @@
 
                                 <v-spacer></v-spacer>
                                 <li>
-                                    <h2>${{ selectedInnerTab.value | formatNumberWithComma }}</h2>
+                                    <h2>{{ selectedInnerTab.value | formatNumberWithComma }}</h2>
                                 </li>
                             </ul>
                         </template>
                     </content-top-header>
-                    <h2 v-else>{{ selectedInnerTab.header }}</h2>
+                    <h2 v-else>{{ selectedInnerTab.title }}</h2>
                 </div>
 
                 <!-- selectedInnerTab: {{ selectedInnerTab }} <br> <br> -->
@@ -95,10 +97,10 @@
                 </div>
             </div>
 
-            <div v-if="getsummaryTabs()" class="col-summary-section">
+            <div v-if="getSummaryTabs()" class="col-summary-section">
                 <v-container fluid grid-list-lg px-0>
                     <v-layout row wrap  justify-space-between>
-                        <v-flex v-for="(col, i) in getsummaryTabs()" :key="i" xs3 col-summary>
+                        <v-flex v-for="(col, i) in getSummaryTabs()" :key="i" xs3 col-summary>
                             <div class="col-summary-frame">
                                 <div class="col-summary-frame-header">
                                     <h4>{{ col.header }}</h4>
@@ -123,27 +125,16 @@
                     </v-layout>
                 </v-container>
             </div>
-            <v-container fluid data-table>
+
+            <v-container v-if="getDataTables()" fluid data-table px-0 mt-5>
                 <template>
                     <v-data-table
-                        :headers="headers"
-                        :items="desserts"
+                        v-for="(table, i) in getDataTables()"
+                        :key="i"
+                        :headers="table.headers"
+                        :items="table.data"
                         class="elevation-1"
                     >
-                        <template slot="items" slot-scope="props">
-                            <td>
-                                <span class="ml-3">{{ props.item.name }}</span>
-                            </td>
-                            <td>
-                                <span class="ml-3">{{ props.item.visits | formatNumberWithComma }}</span>
-                            </td>
-                            <td>
-                                <span class="ml-3">{{ props.item.newVisitors }}</span>
-                            </td>
-                            <td>
-                                <span class="ml-3">{{ props.item.albumPageVisited | formatNumberWithComma }}</span>
-                            </td>
-                        </template>
                     </v-data-table>
                 </template>
             </v-container>

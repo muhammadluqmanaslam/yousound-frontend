@@ -20,6 +20,13 @@
             cursor: pointer;
             padding: 10px;
             border: 1px solid #cccccc;
+
+            .action_value {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .action_title {}
         }
 
         &.inner-tab-active {

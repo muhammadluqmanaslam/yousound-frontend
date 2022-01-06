@@ -84,17 +84,136 @@ export default {
             {
               id: 'listening',
               title: 'Listening Now',
-              value: 1000,
+              value: 28392,
               size: 'custom',
               breakdown: null,
             },
-            { id: 'followers', title: 'Followers', value: 2000, size: 'custom' },
-            { id: 'shares', title: 'Shares', value: 3000, size: 'custom' },
-            { id: 'comments', title: 'Comments', value: 4000, size: 'custom' },
-            { id: 'reposts', title: 'Reposts', value: 5000, size: 'custom' },
-            { id: 'subscriptionRevenue', title: 'Subscription Revenue', value: 6000, size: 4 },
-            { id: 'subscribersList', title: 'Subscribers List', value: 7000, size: 4 },
-            { id: 'adRevenue', title: 'Ad Revenue', value: 8000, size: 4 },
+            {
+              id: 'plays',
+              title: 'Plays',
+              value: 12000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [10, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            {
+              id: 'pageViews',
+              title: 'Page Views',
+              value: 13000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [20, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ]
+            },
+            {
+              id: 'avgWatchTime',
+              title: 'Average Watch Time',
+              value: '3:59',
+              size: 'custom',
+              breakdown: null,
+            },
+            {
+              id: 'uploads',
+              title: 'Uploads',
+              value: 20,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [40, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ]
+            },
+            {
+              id: 'downloads',
+              title: 'Downloads',
+              value: 26789208763,
+              size: 'custom',
+              breakdown: null,
+            },
+            {
+              id: 'shares',
+              title: 'Shares',
+              value: 345678932,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [60, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            {
+              id: 'reposts',
+              title: 'Reposts',
+              value: 43456554345,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [70, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            {
+              id: 'comments',
+              title: 'Comments',
+              value: 18000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [80, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            {
+              id: 'hides',
+              title: 'Hides',
+              value: 420,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [0, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
           ],
         },
         {
@@ -103,7 +222,7 @@ export default {
           tabs: [
             {
               id: 'watching',
-              title: 'watching Now',
+              title: 'Watching Now',
               value: 28392,
               size: 'custom',
               breakdown: null,
@@ -222,6 +341,224 @@ export default {
               ] },
           ],
         },
+        {
+          parent: 'products',
+          tabs: [
+            {
+              id: 'sales',
+              title: 'Sales',
+              value: 283121392,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [0, 10, 45, 50, 80, 60, 70, 45, 10, 0, 0, 0],
+                  }],
+                },
+                {
+                  title: 'Physical Sales',
+                  value: 'sales',
+                  series: [{
+                    name: 'series-1',
+                    data: [30, 40, 45, 50, 49, 60, 70, 81, 0, 0, 0, 0],
+                  }],
+                },
+                {
+                  title: 'Digital Sales',
+                  value: 'digitalSales',
+                  series: [{
+                    name: 'series-1',
+                    data: [30, 40, 45, 50, 70, 81, 49, 60, 0, 0],
+                  }],
+                },
+              ],
+            },
+            {
+              id: 'unshippedOrders',
+              title: 'Unshipped Orders',
+              value: 12000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [10, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            { id: 'productViews',
+              title: 'Product Views',
+              value: 13000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [20, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'uniqueViews',
+              title: 'Unique Views',
+              value: 9842,
+              size: 'custom',
+              breakdown: null,
+            },
+            { id: 'products',
+              title: 'Products',
+              value: 200,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [40, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'conversionRate',
+              title: 'Conversion Rate',
+              value: '30%',
+              size: 'custom',
+              breakdown: null,
+            },
+            { id: 'shares',
+              title: 'Shares',
+              value: 3456789321,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [60, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            { id: 'reposts',
+              title: 'Reposts',
+              value: 18000,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [80, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'comments',
+              title: 'Comments',
+              value: 420,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [0, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            { id: 'hides',
+              title: 'Hides',
+              value: 420,
+              size: 'custom',
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [0, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          parent: 'repostRequests',
+          tabs: [
+            {
+              id: 'revenueFromShare',
+              title: 'Revenue from you sharing content',
+              value: 283121392,
+              size: 3,
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [0, 10, 45, 50, 80, 60, 70, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            {
+              id: 'usersReachedFromShared',
+              title: 'Users reached from you sharing content',
+              value: 12000,
+              size: 3,
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [10, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+            { id: 'repostCost',
+              title: 'You spent on repost requests',
+              value: 13000,
+              size: 3,
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [20, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ] },
+            { id: 'usersReached',
+              title: 'Users your content reached',
+              value: 9842,
+              size: 3,
+              breakdown: [
+                {
+                  title: 'All',
+                  value: 'all',
+                  series: [{
+                    name: 'series-1',
+                    data: [20, 30, 45, 70, 80, 60, 30, 45, 10, 0, 0, 0],
+                  }],
+                },
+              ],
+            },
+          ],
+        },
       ],
       tabFilterOptions: [
         {
@@ -298,11 +635,11 @@ export default {
       summaryTabs: [
         {
           parent: 'overview',
-          tabs: null,
+          colTabs: null,
         },
         {
           parent: 'music',
-          tabs: [
+          colTabs: [
             {
               header: 'Top Albums',
               avatarType: 'square',
@@ -319,10 +656,102 @@ export default {
               data: [],
             },
           ],
+          dataTables: [
+            {
+              headers: [
+                {
+                  text: 'External Traffic Source',
+                  align: 'left',
+                  sortable: false,
+                  value: 'name',
+                },
+                {
+                  text: 'Visits',
+                  align: 'left',
+                  sortable: false,
+                  value: 'visits',
+                },
+                {
+                  text: 'New Visitors',
+                  align: 'left',
+                  sortable: false,
+                  value: 'newVisitors',
+                },
+                {
+                  text: 'Album Page Visited',
+                  align: 'left',
+                  sortable: false,
+                  value: 'videoPageVisited',
+                },
+              ],
+              data: [
+                {
+                  name: 'google.com',
+                  visits: 159000,
+                  newVisitors: '40%',
+                  albumPageVisited: '1000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 237000,
+                  newVisitors: '40%',
+                  albumPageVisited: '1000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 262000,
+                  newVisitors: '60%',
+                  albumPageVisited: '7000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 305000,
+                  newVisitors: '40%',
+                  albumPageVisited: '8000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 356000,
+                  newVisitors: '30%',
+                  albumPageVisited: '16000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 375000,
+                  newVisitors: '00%',
+                  albumPageVisited: '0000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 392000,
+                  newVisitors: '100%',
+                  albumPageVisited: '2000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 408000,
+                  newVisitors: '60%',
+                  albumPageVisited: '45000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 452000,
+                  newVisitors: '40%',
+                  albumPageVisited: '22000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 518000,
+                  newVisitors: '10%',
+                  albumPageVisited: '6000',
+                },
+              ],
+            },
+          ],
         },
         {
           parent: 'videos',
-          tabs: [
+          colTabs: [
             {
               header: 'Top Videos',
               avatarType: 'square',
@@ -339,20 +768,205 @@ export default {
               data: [],
             },
           ],
+          dataTables: [
+            {
+              headers: [
+                {
+                  text: 'External Traffic Source',
+                  align: 'left',
+                  sortable: false,
+                  value: 'name',
+                },
+                {
+                  text: 'Visits',
+                  align: 'left',
+                  sortable: false,
+                  value: 'visits',
+                },
+                {
+                  text: 'New Visitors',
+                  align: 'left',
+                  sortable: false,
+                  value: 'newVisitors',
+                },
+                {
+                  text: 'Product Page Visited',
+                  align: 'left',
+                  sortable: false,
+                  value: 'videoPageVisited',
+                },
+              ],
+              data: [
+                {
+                  name: 'google.com',
+                  visits: 159000,
+                  newVisitors: '40%',
+                  albumPageVisited: '1000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 237000,
+                  newVisitors: '40%',
+                  albumPageVisited: '1000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 262000,
+                  newVisitors: '60%',
+                  albumPageVisited: '7000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 305000,
+                  newVisitors: '40%',
+                  albumPageVisited: '8000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 356000,
+                  newVisitors: '30%',
+                  albumPageVisited: '16000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 375000,
+                  newVisitors: '00%',
+                  albumPageVisited: '0000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 392000,
+                  newVisitors: '100%',
+                  albumPageVisited: '2000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 408000,
+                  newVisitors: '60%',
+                  albumPageVisited: '45000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 452000,
+                  newVisitors: '40%',
+                  albumPageVisited: '22000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 518000,
+                  newVisitors: '10%',
+                  albumPageVisited: '6000',
+                },
+              ],
+            },
+
+            {
+              headers: [
+                {
+                  text: 'External Traffic Source',
+                  align: 'left',
+                  sortable: false,
+                  value: 'name',
+                },
+                {
+                  text: 'Visits',
+                  align: 'left',
+                  sortable: false,
+                  value: 'visits',
+                },
+                {
+                  text: 'New Visitors',
+                  align: 'left',
+                  sortable: false,
+                  value: 'newVisitors',
+                },
+                {
+                  text: 'Product Page Visited',
+                  align: 'left',
+                  sortable: false,
+                  value: 'videoPageVisited',
+                },
+              ],
+              data: [
+                {
+                  name: 'google.com',
+                  visits: 159000,
+                  newVisitors: '40%',
+                  albumPageVisited: '1000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 237000,
+                  newVisitors: '40%',
+                  albumPageVisited: '1000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 262000,
+                  newVisitors: '60%',
+                  albumPageVisited: '7000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 305000,
+                  newVisitors: '40%',
+                  albumPageVisited: '8000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 356000,
+                  newVisitors: '30%',
+                  albumPageVisited: '16000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 375000,
+                  newVisitors: '00%',
+                  albumPageVisited: '0000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 392000,
+                  newVisitors: '100%',
+                  albumPageVisited: '2000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 408000,
+                  newVisitors: '60%',
+                  albumPageVisited: '45000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 452000,
+                  newVisitors: '40%',
+                  albumPageVisited: '22000',
+                },
+                {
+                  name: 'google.com',
+                  visits: 518000,
+                  newVisitors: '10%',
+                  albumPageVisited: '6000',
+                },
+              ],
+            },
+          ],
         },
         {
           parent: 'products',
-          tabs: [
+          colTabs: [
             {
               header: 'Top Products',
               data: [],
             },
             {
-              header: 'Top Countriess',
+              header: 'Top Countries',
+              type: 'pie',
               data: [],
             },
             {
               header: 'Top Customers',
+              avatarType: 'round',
               data: [],
             },
           ],
@@ -385,7 +999,7 @@ export default {
         },
         {
           parent: 'repostRequests',
-          tabs: null,
+          colTabs: null,
           headers: [
             {
               text: 'Content you reposted',
@@ -421,7 +1035,7 @@ export default {
         },
         {
           parent: 'topCreator',
-          tabs: null,
+          colTabs: null,
           headers: [
             {
               text: 'Top 10 Creators',
@@ -448,94 +1062,6 @@ export default {
               value: 'albumPageVisited',
             },
           ],
-        },
-      ],
-      headers: [
-        {
-          text: 'External Traffic Source',
-          align: 'left',
-          sortable: false,
-          value: 'name',
-        },
-        {
-          text: 'Visits',
-          align: 'left',
-          sortable: false,
-          value: 'visits',
-        },
-        {
-          text: 'New Visitors',
-          align: 'left',
-          sortable: false,
-          value: 'newVisitors',
-        },
-        {
-          text: 'Album Page Visited',
-          align: 'left',
-          sortable: false,
-          value: 'albumPageVisited',
-        },
-      ],
-      desserts: [
-        {
-          name: 'google.com',
-          visits: 159000,
-          newVisitors: '40%',
-          albumPageVisited: '1000',
-        },
-        {
-          name: 'google.com',
-          visits: 237000,
-          newVisitors: '40%',
-          albumPageVisited: '1000',
-        },
-        {
-          name: 'google.com',
-          visits: 262000,
-          newVisitors: '60%',
-          albumPageVisited: '7000',
-        },
-        {
-          name: 'google.com',
-          visits: 305000,
-          newVisitors: '40%',
-          albumPageVisited: '8000',
-        },
-        {
-          name: 'google.com',
-          visits: 356000,
-          newVisitors: '30%',
-          albumPageVisited: '16000',
-        },
-        {
-          name: 'google.com',
-          visits: 375000,
-          newVisitors: '00%',
-          albumPageVisited: '0000',
-        },
-        {
-          name: 'google.com',
-          visits: 392000,
-          newVisitors: '100%',
-          albumPageVisited: '2000',
-        },
-        {
-          name: 'google.com',
-          visits: 408000,
-          newVisitors: '60%',
-          albumPageVisited: '45000',
-        },
-        {
-          name: 'google.com',
-          visits: 452000,
-          newVisitors: '40%',
-          albumPageVisited: '22000',
-        },
-        {
-          name: 'google.com',
-          visits: 518000,
-          newVisitors: '10%',
-          albumPageVisited: '6000',
         },
       ],
     }
@@ -607,11 +1133,17 @@ export default {
 
       // this.setActiveChart(action.breakdown[0])
     },
-    getsummaryTabs() {
+    getSummaryTabs() {
       const tab = this.activeTab
       const col = this.summaryTabs.find((col) => col.parent === tab)
 
-      return col.tabs || null
+      return col.colTabs || null
+    },
+    getDataTables() {
+      const tab = this.activeTab
+      const col = this.summaryTabs.find((col) => col.parent === tab)
+
+      return col.dataTables || null
     },
   },
 
