@@ -62,4 +62,11 @@
       text-transform: uppercase;
     }
 }
+@media (max-width: 810px) {
+  .dashboard-nav {
+    /deep/.toolbar__content {
+      padding-left: 0 !important;
+    }
+  }
+}
 </style>

@@ -901,11 +901,33 @@ textarea {
   }
 }
 
+.input-txt-center {
+  .input-group__selections {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
+@media (max-width: 810px) {
+  .app-container {
+    overflow-x: hidden;
+  }
+}
+
 @media (min-width: 810px) {
   .card-container {
     flex-basis: 50%;
     max-width: 50%;
     width: 50%;
+  }
+  
+  .page {
+    &.side-space {
+      margin-right: 48px;
+      margin-left: 48px;
+    }
   }
 }
 

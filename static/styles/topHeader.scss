@@ -86,7 +86,6 @@
       }
 
       /deep/.toolbar__content {
-        padding: 0 50px;
 
         ul {
           display: flex;
@@ -196,3 +195,16 @@
 
     }
   }
+
+@media (max-width: 810px) {
+  .top-menu {
+    /deep/.toolbar__content {
+      padding: 0 50px;
+    }
+
+    &.__inner {
+      overflow-x: scroll;
+      overflow-y: hidden;
+    }
+  }
+}
