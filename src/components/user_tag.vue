@@ -9,9 +9,9 @@
       class="tag__image"
       :style="`background-image: url(${user.avatar.url})`"
     ></div>
-    <div class="text-capitalize">{{ user.username }}</div>
+    <div v-if="!hideName" class="text-capitalize">{{ user.username }}</div>
     <v-icon
-      v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1"
+      v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1 && !hideTick"
       class="user-status online"
       >fa-check-circle</v-icon
     >
@@ -23,6 +23,8 @@ export default {
   props: {
     user: Object,
     showAvatar: Boolean,
+    hideName: Boolean,
+    hideTick: Boolean,
     clickUser: {
       type: Boolean,
       default: true,
