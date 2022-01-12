@@ -71,7 +71,7 @@
             <!-- Charts -->
             <v-container fluid px-0>
                 <!-- Graph Chart -->
-                <div class="graph-chart chart-wrapper">
+                <div class="graph-chart chart-wrapper" style="display: inline-block; width: -webkit-fill-available;">
                     <div class="chart-header">
                         <content-top-header v-if="showChartHeader.indexOf(activeTab) > -1 && selectedInnerTab.breakdown.length > 1" absolute :height="!onMobile ? 20: ''" class="__inner pl-0 ml-3">
                             <template slot="topHeader">
@@ -109,7 +109,7 @@
                     </div>
 
                     <div v-else id="chart" :class="[activeInnerTab ? `${activeInnerTab}-chart` : '']">
-                        <chart type="area" height="250" width="100%" :options="chartOptions" :series="selectedChart.series"></chart>
+                        <chart type="area" height="250" width="1200" :options="chartOptions" :series="selectedChart.series" style="width: inherit;"></chart>
                     </div>
                 </div>
             </v-container>
@@ -118,7 +118,7 @@
         <div v-if="getSummaryTabs()" class="col-summary-section">
             <v-container fluid grid-list-lg px-0>
                 <v-layout row wrap  justify-space-between>
-                    <v-flex v-for="(col, i) in getSummaryTabs()" :key="i" xs3 col-summary>
+                    <v-flex xs12 sm3 v-for="(col, i) in getSummaryTabs()" :key="i" col-summary>
                         <div class="col-summary-frame">
                             <div class="col-summary-frame-header">
                                 <h4>{{ col.header }}</h4>
@@ -154,6 +154,38 @@
                     :items="table.data"
                     class="elevation-1"
                 >
+
+                    <!-- For Music -->
+                    <template v-if="activeTab === 'music'" slot="items" slot-scope="props">
+                        <td>
+                            <span class="ml-3">{{ props.item.name }}</span>
+                        </td>
+                        <td>
+                            <span class="ml-3">{{ props.item.visits | formatNumberWithComma }}</span>
+                        </td>
+                        <td>
+                            <span class="ml-3">{{ props.item.newVisitors }}</span>
+                        </td>
+                        <td>
+                            <span class="ml-3">{{ props.item.albumPageVisited | formatNumberWithComma }}</span>
+                        </td>
+                    </template>
+
+                    <!-- For Videos -->
+                    <template v-if="activeTab === 'videos'" slot="items" slot-scope="props">
+                        <td>
+                            <span class="ml-3">{{ props.item.name }}</span>
+                        </td>
+                        <td>
+                            <span class="ml-3">{{ props.item.visits | formatNumberWithComma }}</span>
+                        </td>
+                        <td>
+                            <span class="ml-3">{{ props.item.newVisitors }}</span>
+                        </td>
+                        <td>
+                            <span class="ml-3">{{ props.item.albumPageVisited | formatNumberWithComma }}</span>
+                        </td>
+                    </template>
                 </v-data-table>
             </template>
         </v-container>

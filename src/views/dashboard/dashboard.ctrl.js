@@ -576,11 +576,25 @@ export default {
       ],
       chartOptions: {
         chart: {
+          type: 'area',
           id: 'own-id',
           zoom: {
             enabled: false,
           },
+
+          toolbar: {
+            show: false,
+          },
         },
+        // fill: {
+        //   type: "gradient",
+        //   gradient: {
+        //     shadeIntensity: 1,
+        //     opacityFrom: 0.7,
+        //     opacityTo: 0.9,
+        //     stops: [0, 90, 100]
+        //   }
+        // },
         xaxis: {
           type: 'category',
           categories: [
@@ -1159,5 +1173,11 @@ export default {
 
     this.selectedChart = this.selectedInnerTab.breakdown[0]
     this.activeChart = this.selectedInnerTab.breakdown[0].value
+  },
+  mounted() {
+    // console.log(chart);
+    // console.log(chart.render());
+    // chart.methods.refresh();
+    // console.log(chart.methods.refresh());
   },
 }
