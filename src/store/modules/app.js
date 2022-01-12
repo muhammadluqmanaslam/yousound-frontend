@@ -23,6 +23,18 @@ const getters = {
             path: 'dashboard',
           },
           {
+            title: 'Discover',
+            id: 'music',
+            icon: require('../../../static/images/search.svg'),
+            path: 'DiscoverIndex',
+          },
+          {
+            title: 'Activity',
+            id: 'activity',
+            icon: require('../../../static/images/ic_alarm.svg'),
+            path: 'ActivityIndex',
+          },
+          {
             title: 'Feed',
             id: 'feed',
             icon: require('../../../static/images/home.svg'),
@@ -39,12 +51,6 @@ const getters = {
             id: 'cart',
             icon: require('../../../static/images/cart.svg'),
             path: 'Cart',
-          },
-          {
-            title: 'Discover',
-            id: 'music',
-            icon: 'search',
-            path: 'DiscoverIndex',
           },
           // {
           //   title: 'Sales',
