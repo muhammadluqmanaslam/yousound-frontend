@@ -409,7 +409,7 @@ li.search-li {
       padding-left: 0;
       font-family: 'Work Sans';
       .settings-icon {
-        color: #3a92ff;
+        color: hsl(213, 100%, 61%);
         padding-left: 8px;
       }
     }
@@ -431,6 +431,12 @@ li.search-li {
   font-weight: 700;
   color: #000;
   font-size: 15px;
+}
+
+.flipX {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+
 }
 
 .borderTest {
@@ -723,6 +729,9 @@ textarea {
 
 .border-me {
   border: 1px solid #d2d2d247;
+}
+.border-dark {
+  border: 1px solid #000000;
 }
 .border-top {
   border-top: 1px solid #d2d2d247;
