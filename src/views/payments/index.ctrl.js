@@ -29,6 +29,9 @@ export default {
 
   data() {
     return {
+      replaceTopMenu: [
+        { id: 'payments', title: 'Payments', pathName: 'PaymentIndex', icon: require('../../../static/images/credit-card.svg') },
+      ],
       active_tab: 'received',
       tabs: [
         { id: 'received', title: 'Received' },

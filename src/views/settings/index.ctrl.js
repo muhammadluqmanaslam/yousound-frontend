@@ -36,6 +36,9 @@ export default {
 
   data() {
     return {
+      replaceTopMenu: [
+        { id: 'settings', title: 'Settings', pathName: 'UserSettings', icon: require('../../../static/images/settings-gear.svg') },
+      ],
       dialog: false,
       tabs: [
         { id: 'info', title: 'Account' },

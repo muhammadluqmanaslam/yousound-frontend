@@ -1,6 +1,6 @@
 <template>
   <div class="page payments-page" :class="{'mx-5': !isComp}">
-    <dashboard-nav name="payments" />
+    <dashboard-nav name="payments" :replaceMenuWith="replaceTopMenu" />
 
     <content-top-header class="__inner mt-3">
       <template slot="topHeader">

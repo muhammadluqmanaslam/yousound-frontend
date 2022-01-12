@@ -1,6 +1,6 @@
 <template>
   <div class="page manage-page mx-5">
-    <dashboard-nav name="manage" />
+    <dashboard-nav name="manage" :replaceMenuWith="replaceTopMenu" />
 
     <content-top-header absolute class="__inner my-3 px-0" v-if="userType == 'artist'">
       <template slot="topHeader">

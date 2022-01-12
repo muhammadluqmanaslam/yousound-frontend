@@ -26,19 +26,63 @@
                         <v-btn depressed to="/upload" class="upload-btn">Upload</v-btn>
                     </li>
                     <li>
-                        <router-link :to="`/${currentUser.slug}`">
-                            <div class="black--text">View Profile</div>
-                        </router-link>
-                    </li>
-                    <li>
-                        <v-btn
-                            depressed
-                            color="transparent"
-                            class="text-capitalize no-Btn-bg"
-                            @click="signOut"
-                        >
-                            Sign Out
+                        <v-menu
+                        v-if="currentUser"
+                        bottom
+                        left
+                        offset-y
+                        :nudge-top="-5"
+                        :nudge-left="0"
+                        class="profile-menu"
+                        content-class="profile-menu__content"
+                      >
+                        <v-btn icon class="border-dark" slot="activator">
+                          <v-icon>more_horiz</v-icon>
                         </v-btn>
+                        <v-list class="pa-0">
+                          <v-list-tile
+                            v-for="(menu, i) in dropdownMenu"
+                            :key="i"
+                            @click="setMenuAction(menu)"
+                          >
+                            <v-list-tile-content>
+                              <div class="dflex align-center px-4" :class="[`${menu.id}-menu`]">
+                                <user-tag v-if="menu.id == 'profile'" :user="currentUser" showAvatar hideName hideTick />
+                                <span v-else>
+                                  <img
+                                    v-if="menu.icon.length > 50" 
+                                    :src="menu.icon"
+                                    :width="[menu.id !== 'signOut' ? 23 : 18 ]"
+                                    class="icon _icon_img mr-2"
+                                    :class="[menu.id == 'signOut' ? 'flipX' : '' ]"
+                                  />
+
+                                  <v-icon v-else class="__icon">
+                                    {{ subMenu.icon }}
+                                  </v-icon>
+                                  </span>
+                                <div class="black--text">{{ menu.title }}</div>
+                              </div>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                          <!-- <v-list-tile
+                            key="profile"
+                            :to="`/${currentUser.slug}`"
+                          >
+                            <v-list-tile-content>
+                              <div class="black--text">View Profile</div>
+                            </v-list-tile-content>
+                          </v-list-tile>
+                          <v-list-tile
+                            key="signout"
+                            @click="signOut"
+                          >
+                            <v-list-tile-content>
+                                <div>Sign Out</div>
+                            </v-list-tile-content>
+                          </v-list-tile> -->
+                        </v-list>
+                      </v-menu>
                     </li>
                 </ul>
             </template>
@@ -57,7 +101,7 @@
       background: #0151ff !important;
       color: #ffffff;
       margin-top: 0;
-      border-radius: 7px;
+      border-radius: 100px;
       font-weight: 800;
       text-transform: uppercase;
     }
