@@ -64,7 +64,7 @@
                 </v-icon>
               </span>
             </v-list-tile-avatar>
-            <v-list-tile-title class="d-flex justify-space-between align-center">
+            <v-list-tile-title v-if="!mini" class="d-flex justify-space-between align-center">
               <span v-if="!mini" class="__title">{{ subMenu.title }}</span>
 
               <span 
