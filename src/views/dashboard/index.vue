@@ -12,7 +12,7 @@
                     class="nav-li"
                     :class="[{ 'active d-nav-active': isActiveTab(tab.id) }, `nav-${tab.id}`]"
                     >
-                    <label class="nav-label black--text" @click="setInnerMenuTabs(tab.id)">
+                    <label class="nav-label black--text" @click="setTopMenu(tab.id)">
                         {{ tab.title }}
                     </label>
                     </li>
@@ -146,48 +146,34 @@
 
         <!-- Data Table Chart -->
         <v-container v-if="getDataTables()" fluid data-table px-0 mt-5>
-            <template>
+            <div
+                v-for="(table, i) in getDataTables()"
+                :key="i"
+            >
+                <h4 class="data-table-title mb-3">{{ table.title }}</h4>
                 <v-data-table
-                    v-for="(table, i) in getDataTables()"
-                    :key="i"
                     :headers="table.headers"
                     :items="table.data"
                     class="elevation-1"
                 >
+                <!-- {{ props }} -->
 
-                    <!-- For Music -->
-                    <template v-if="activeTab === 'music'" slot="items" slot-scope="props">
-                        <td>
-                            <span class="ml-3">{{ props.item.name }}</span>
-                        </td>
-                        <td>
-                            <span class="ml-3">{{ props.item.visits | formatNumberWithComma }}</span>
-                        </td>
-                        <td>
-                            <span class="ml-3">{{ props.item.newVisitors }}</span>
-                        </td>
-                        <td>
-                            <span class="ml-3">{{ props.item.albumPageVisited | formatNumberWithComma }}</span>
-                        </td>
-                    </template>
+                    <!-- <template slot="data" slot-scope="{ item }">
+                        {{ item }}
+                    </template> -->
 
-                    <!-- For Videos -->
-                    <template v-if="activeTab === 'videos'" slot="items" slot-scope="props">
-                        <td>
-                            <span class="ml-3">{{ props.item.name }}</span>
-                        </td>
-                        <td>
-                            <span class="ml-3">{{ props.item.visits | formatNumberWithComma }}</span>
-                        </td>
-                        <td>
-                            <span class="ml-3">{{ props.item.newVisitors }}</span>
-                        </td>
-                        <td>
-                            <span class="ml-3">{{ props.item.albumPageVisited | formatNumberWithComma }}</span>
+
+
+                    <!-- For Overview -->
+                    <template slot="items" slot-scope="props">
+                        <td v-for="header in table.headers" :key="header.value">
+                            <span class="ml-3">
+                                {{ props.item[header.value] }}
+                            </span>
                         </td>
                     </template>
                 </v-data-table>
-            </template>
+            </div>
         </v-container>
     </div>  
 </template>

@@ -22,7 +22,7 @@ export default {
         { id: 'videos', title: 'Videos'},
         { id: 'products', title: 'Products'},
         { id: 'repostRequests', title: 'Repost Requests'},
-        { id: 'topCreator', title: 'Top 10 Creators'},
+        // { id: 'topCreator', title: 'Top 10 Creators'},
       ],
       innerTabs: [
         {
@@ -650,6 +650,43 @@ export default {
         {
           parent: 'overview',
           colTabs: null,
+          dataTables: [
+            {
+              title: 'The creators your subscription is supporting this month',
+              headers: [
+                {
+                  text: 'Top 10 Creators',
+                  align: 'left',
+                  sortable: false,
+                  value: 'user',
+                },
+                {
+                  text: 'You’ve played/viewed',
+                  align: 'left',
+                  sortable: false,
+                  value: 'playedViewed',
+                },
+                {
+                  text: 'Subscription share',
+                  align: 'left',
+                  sortable: false,
+                  value: 'subscriptionShare',
+                },
+              ],
+              data: [
+                {
+                  user: 'mario',
+                  playedViewed: 123,
+                  subscriptionShare: 40,
+                },
+                {
+                  user: 'luigi',
+                  playedViewed: 456,
+                  subscriptionShare: 80,
+                },
+              ],
+            },
+          ],
         },
         {
           parent: 'music',
@@ -1097,6 +1134,7 @@ export default {
     activeTab(val) {
       // find and select first index of breakdown on menu change
       const inner = this.innerTabs.find((inner) => inner.parent === val)
+      console.log(inner);
       const action = inner.tabs[0]
 
       this.activeInnerTab = action.id
@@ -1121,7 +1159,7 @@ export default {
     isActiveChart(tab) {
       return this.activeChart === tab
     },
-    setInnerMenuTabs(filter) {
+    setTopMenu(filter) {
       const selected = this.tabs.find((f) => f.id === filter)
       this.activeTab = selected.id
     },
