@@ -1,5 +1,5 @@
 <template>
-  <div class="app-loader">
+  <div class="app-loader" :style="{'background-color': bgColor}">
     <div class="loader-def center">
         <span></span>
     </div>
@@ -8,13 +8,17 @@
 
 <script>
 export default {
-
+  props: {
+    bgColor: {
+      type: String,
+      default: '#f0f0f0',
+    },
+  },
 }
 </script>
 
 <style scoped>
 .app-loader {
-	background-color: #f0f0f0;
 	display: -webkit-flex;
 	display:         flex;
 	-webkit-flex-flow: row wrap;
