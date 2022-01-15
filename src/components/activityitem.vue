@@ -18,19 +18,26 @@
                 :className="'activity-item-profile-avatar-area'"
               ></profile-item>
               <div class="activity-item-content">
-                <router-link
-                  class="user-name"
-                  :to="'/' + activityItem.sender.slug"
-                >
-                  {{ activityItem.sender.display_name || activityItem.sender.username }}
-                </router-link>
-                <v-icon
-                  v-if="activityItem.sender.user_type == 'artist'"
-                  class="user-status online"
-                  >fa-check-circle</v-icon
-                >&nbsp;
-                <label class="description-text">
-                  {{ activityItem.message }}
+                <div :class="{'d-block': onMobile, 'dflex align-center': !onMobile}">
+                  <user-tag class="user-name white--text" :user="activityItem.sender" />
+                  <span v-if="!onMobile" class="mx-2 white--text">●</span>
+                  <span class="activity-time">{{ toLocalTimeString(activityItem.updated_at) | formatDateFromNow }}</span>
+                </div>
+                <!-- <v-btn
+                :class="{
+                  'follow-btn': true,
+                  follow: !activityItem.sender.is_following,
+                  following: activityItem.sender.is_following,
+                }"
+                @click.native="followUser()"
+                @mouseenter="buttonHover = true"
+                @mouseleave="buttonHover = false"
+                >{{ followButtonText }}</v-btn
+              > -->
+
+                <label class="description-text align-center">
+                  <img v-if="activityIcon" :src="activityIcon" width="10" class="mr-2">
+                  <span>{{ activityItem.message | capitalize }}</span>
 
                   <!-- <img
                     v-if="activityItem.action_type == 'follow'"
@@ -93,16 +100,11 @@
                       activityItem.assoc.commentable.name
                     }}</template>
                   </span> -->
-                </label>
-
-                <div class="activity-time">{{
-                  toLocalTimeString(activityItem.updated_at)
-                }}</div>
-                
+                </label>                
               </div>
             </v-flex>
 
-            <v-flex xs2 class="details">
+            <v-flex v-if="activityItem.action_type == 'comment' || activityItem.assoc" xs2 class="details">
               <p v-if="activityItem.action_type == 'comment'">
                 <template v-if="activityItem.assoc_type == 'Comment'">
                   {{ activityItem.assoc.body }}
@@ -112,7 +114,7 @@
                 </template>
               </p>
 
-              <template v-if="activityItem.assoc">
+              <!-- <template v-if="activityItem.assoc">
                 <template v-if="activityItem.assoc_type == 'Comment'">
                   <div
                     v-if="
@@ -170,7 +172,7 @@
                 >
                   <activity-album-card :object="activityItem.assoc" />
                 </div>
-              </template>
+              </template> -->
             </v-flex>
           </div>
         </v-flex>
@@ -221,6 +223,7 @@ import profileItem from '@/components/profileitem'
 import merchModal from '@/components/merchmodal'
 import activityAlbumCard from '@/components/activityalbumcard'
 import activityProductCard from '@/components/activityproductcard'
+import userTag from './user_tag'
 
 export default {
   components: {
@@ -228,6 +231,7 @@ export default {
     merchModal,
     activityAlbumCard,
     activityProductCard,
+    userTag,
   },
 
   props: {
@@ -244,6 +248,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     toLocalTimeString() {
       return Utils.toLocalTimeString
     },
@@ -266,6 +273,27 @@ export default {
       } else {
         return 'commented'
       }
+    },
+    activityIcon() {
+      switch (this.activityItem.action_type) {
+        case 'repost':
+          return require('../../static/images/repost_blue.svg');
+        case 'comment':
+          return require('../../static/images/comment.svg');
+        case 'order_product':
+          return require('../../static/images/dollar.svg');
+        case 'donation':
+          return require('../../static/images/dollar.svg');
+        default:
+          return null
+      }
+    },
+
+    followButtonText() {
+      if (this.activityItem.sender.is_following) {
+        return this.buttonHover ? "Unfollow" : "Following";
+      }
+      return "Follow";
     },
   },
 
@@ -321,3 +349,4 @@ export default {
   },
 }
 </script>
+<style src="../../static/styles/activityitem.scss" lang="scss" scoped></style>

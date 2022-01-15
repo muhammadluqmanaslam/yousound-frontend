@@ -1,35 +1,177 @@
 <template>
-  <div class="page activity-page">
-    <div class="d-flex">
-      <div class="page-content" v-if="currentUser && isPageReady">
-        <div v-if="!activities || activities.length == 0" class="empty-section">
-          <p class="empty-title">No Activity</p>
-          <p class="empty-description">
-            This is where you'll see who followed, commented, and other
-            activity.
-          </p>
-          <router-link to="/album" class="empty-discover-btn"
-            >Discover</router-link
-          >
-        </div>
-        <template v-else>
+  <div class="page no-top-nav activity-page">
+    <div class="click-outside-decoy" @click="closeActivityPopup"></div>
+    <app-loader v-if="loading" bgColor="#32353F" />
+
+    <div class="page-content" v-if="currentUser && isPageReady">
+      <div v-if="!activities || activities.length == 0" class="empty-section">
+        <p class="empty-title">No Activity</p>
+        <p class="empty-description">
+          This is where you'll see who followed, commented, and other
+          activity.
+        </p>
+        <router-link to="/album" class="empty-discover-btn"
+          >Discover</router-link
+        >
+      </div>
+      <div v-else class="activity-item-wrapper">
+        <div class="activity-item-parent">
+          <div
+            v-if="
+              ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1
+            "
+           class="invite-header"
+           >
+            <div class="dflex align-center">
+              <div class="mr-2 round-avatar __logo" :style="{'background-image': 'url(' + youLogo + ')'}" width="30"> </div>
+              <span class="__text">Invite your friends!</span>
+            </div>
+            <v-btn depressed class="btn-pill" @click="show_invite_dialog = true">Invite</v-btn>
+          </div>
           <activity-item
             v-for="(activity, index) in activities"
             :key="index"
             :activityItem="activity"
           />
-          <div class="text-xs-center">
+
+          <!-- <div class="text-xs-center">
             <v-btn
               v-if="page_index < total_pages"
               @click.native="loadMore()"
               class="loadmore-btn"
               >Load More</v-btn
             >
-          </div>
-        </template>
+          </div> -->
+        </div>
       </div>
     </div>
+    <v-dialog
+      v-model="show_invite_dialog"
+      content-class="invite-dialog"
+      width="440"
+    >
+      <v-card>
+        <v-card-title class="headline">Invite Artist/Brand</v-card-title>
+        <v-card-text
+          >Link expires in 72 hours and can only be used once</v-card-text
+        >
+        <v-card-actions>
+          <v-btn dark block color="black" @click.native="createInvitation()"
+            ><v-icon class="mr-3">fa-link</v-icon> Copy Link</v-btn
+          >
+        </v-card-actions>
+        <div v-show="link_copied" class="link-copied">link has been copied</div>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style lang="scss" scoped>
+.activity-page {
+  z-index: 10;
+  margin-left: 20px;
+  top: 10%;
+  position: fixed;
+  width: 35%;
+  height: 80%;
+  background-color: #32353F;
+  border-radius: 10px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -9px;
+      top: 15.5vh;
+      width: 20px;
+      height: 20px;
+      background: #32353F;
+      transform: rotateZ(45deg);
+    }
+
+    .invite-header {
+      padding: 25px 0;
+      position: relative;
+
+      &::after {
+        content: '';
+        width: calc(100% + 120px);
+        position: absolute;
+        bottom: 0;
+        left: -60px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      & .__logo {
+        background-color: black;
+        background-size: 68%;
+      }
+
+      & .__text {
+        color: #ffffff;
+        font-size: 15px;
+      }
+    }
+
+    .activity-item-parent {
+      position: relative;
+      padding: 0px 10%;
+      top: 10px;
+      margin: auto 0;
+      height: 685px;
+      width: 94%;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .invite-header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* width */
+      &::-webkit-scrollbar {
+        opacity: 1;
+        width: 5px;
+        position: absolute;
+        left: -90px;
+        margin-right: 80px;
+
+        /* Track */
+        &-track {
+          background: transparent;
+        }
+
+        /* Handle */
+        &-thumb {
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 48px;
+          
+
+          /* Handle on hover */
+          &:hover {
+            background: #555;
+          }
+        }
+      }
+      
+      &:hover {
+        .activity-item-parent::-webkit-scrollbar {
+          opacity: 1;
+        }
+      }
+    }
+}
+@media (max-width: 810px) {
+  .activity-page {
+    width: 72%;
+
+    &::before {
+      top: 16vh;
+    }
+    .activity-item-parent {
+      padding: 0 10px;
+    }
+  }
+
+}
+</style>

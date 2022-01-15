@@ -2,14 +2,21 @@ import _ from 'lodash'
 // import { mapGetters } from 'vuex'
 import ActivityService from '@/services/activity'
 import activityItem from '@/components/activityitem'
+import AppLoader from '@/components/appLoader'
+import InvitationService from '@/services/invitation'
 
 export default {
   components: {
     activityItem,
+    AppLoader,
   },
 
   data() {
     return {
+      loading: true,
+      show_invite_dialog: false,
+      link_copied: false,
+      youLogo: require('../../../static/images/nav_logo_white_mini.png'),
       active_tab: 'any',
       tabs: [
         { id: 'any', title: 'Everything' },
@@ -25,6 +32,14 @@ export default {
     }
   },
 
+  watch: {
+    show_invite_dialog(val) {
+      if (val === true) {
+        this.link_copied = false
+      }
+    },
+  },
+
   computed: {
     currentUser() {
       return this.$store.state.auth.user
@@ -37,7 +52,7 @@ export default {
     },
 
     loadActivities() {
-      this.$store.dispatch('error/showLoadingActivity', true)
+      this.loading = true
       const params = {
         page: this.page_index,
         per_page: this.items_per_page,
@@ -51,11 +66,11 @@ export default {
           this.activities = this.activities.concat(response.body.activities)
           this.page_index = response.body.pagination.current_page
           this.total_pages = response.body.pagination.total_pages
-          this.$store.dispatch('error/showLoadingActivity', false)
+          this.loading = false
           this.isPageReady = true
         })
         .catch((e) => {
-          this.$store.dispatch('error/showLoadingActivity', false)
+          this.loading = false
           this.isPageReady = true
           this.$store.dispatch(
             'error/showErrorToast',
@@ -81,6 +96,18 @@ export default {
       this.$nextTick(() => {
         this.loadActivities(this.activeTab, 1)
       })
+    },
+    createInvitation() {
+      InvitationService.createInvitation()
+        .then((res) => {
+          // console.log('createInvitation', res.body)
+          this.$copyText(res.body.url)
+          this.link_copied = true
+        })
+        .catch((err) => console.log(err))
+    },
+    closeActivityPopup() {
+      this.$store.dispatch('app/toggleActivityPopup', false)
     },
   },
 
