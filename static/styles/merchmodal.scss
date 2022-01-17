@@ -7,6 +7,10 @@
   height: 100vh;
   padding: 0;
   z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   .dismiss-section {
     position: absolute;
     height: 100%;
@@ -15,6 +19,7 @@
     left: 0;
   }
   .popup-section {
+    width: 70%;
     max-width: 1080px;
     margin-top: calc(50vh - 385px);
     margin-left: auto;
@@ -224,6 +229,12 @@
           }
         }
       }
+    }
+
+    .product-description {
+      max-height: 100px;
+      overflow-y: auto;
+      padding: 10px;
     }
   }
 }
