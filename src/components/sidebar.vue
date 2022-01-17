@@ -16,11 +16,19 @@
       </div>
 
       <div v-if="!isAuthenticated" class="auth-btn-container">
-        <v-btn to="/register" outline class="auth-btn signup">Sign Up</v-btn>
-        <v-btn to="/login" outline class="auth-btn login">Login</v-btn>
+        <ul class="signed-out-menu">
+          <li class="cursor-pointer login" @click="$router.push('/login')">
+            <img class="mr-2" src="/static/images/sign-in.svg" width="20" />
+            <span v-if="!mini" class="width100">Sign In</span>
+          </li>
+          <li class="cursor-pointer discover" @click="$router.push({name: 'DiscoverIndex'})">
+            <img class="mr-2 invert-color" src="/static/images/search.svg" width="20" />
+            <span v-if="!mini">Discover</span>
+          </li>
+        </ul>
       </div>
 
-      <div v-if="currentUser && currentUser.stream !== null && $store.state.streamPlayer == 'active'" class="live-notice" :class="{'pl-0': mini}" @click="$rotuer.push({name: 'VideoManage'})">
+      <div v-if="currentUser && currentUser.stream !== null && $store.state.streamPlayer == 'active'" class="live-notice" :class="{'pl-0': mini}" @click="$router.push({name: 'VideoManage'})">
           <b v-if="!mini" class="__text">View live broadcast</b>
           <span class="icon_wrapper" :class="{dflex: mini}">
             <v-icon>circle</v-icon>
@@ -39,10 +47,10 @@
             <v-list-tile
             v-for="(subMenu, ii) in parent.items"
             :key="ii"
-            :to="subMenu.directPath ? `/${subMenu.path}` : { name: subMenu.path }"
-            active-class="activeTab"
+            :active-class="subMenu.path ? 'activeTab' : ''"
             class="side-tab"
-            :class="{'d-none' : subMenu.allowedUser && !subMenu.allowedUser.includes(currentUser.user_type)}"
+            :class="[$route.name == subMenu.path ? 'activeTab' : '', {'d-none' : subMenu.allowedUser && !subMenu.allowedUser.includes(currentUser.user_type)}]"
+            @click="menuAction(subMenu)"
           >
             <v-list-tile-avatar>
               <div
@@ -217,14 +225,13 @@ export default {
       this.$store.dispatch('app/toggleSideBarMini', val)
     },
     onMobile(val) {
-      console.log(val);
-
       // trigger mini on mobile or screen width reduction
       if (!val) {
-        this.mini = true
-      } else {
         this.mini = false
+      } else {
+        this.mini = true
       }
+      console.log('mini:', this.mini);
     },
     isAuthenticated: {
       immediate: true,
@@ -241,6 +248,17 @@ export default {
     },
   },
   methods: {
+    menuAction(subMenu) {
+      if (subMenu.id === 'activity') {
+        const status = this.$store.state.app.toggleActivity;
+
+        this.$store.dispatch('app/toggleActivityPopup', !status)
+      } else if (subMenu.directPath) {
+        this.$router.push(`/${subMenu.path}`)
+      } else {
+        this.$router.push({ name: subMenu.path })
+      }
+    },
     setUsername() {
       // this.tabs.forEach((parent) =>
       //   parent.items.forEach((item) => {
@@ -261,7 +279,7 @@ export default {
       sideBarWidth: state => state.app.sideBarWidth,
     }),
     onMobile() {
-      return this.$vuetify.breakpoint.smAndUp;
+      return this.$vuetify.breakpoint.smAndDown;
     },
     currentUser() {
       return this.$store.state.auth.user
@@ -275,6 +293,9 @@ export default {
   },
   mounted() {
     this.setUsername()
+    if (this.onMobile) {
+      this.mini = true
+    }
   },
 }
 </script>

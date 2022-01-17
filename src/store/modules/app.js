@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 const state = {
+  toggleActivity: false,
   settings: {},
   genres: [],
   product_categories: [],
@@ -32,7 +33,7 @@ const getters = {
             title: 'Activity',
             id: 'activity',
             icon: require('../../../static/images/ic_alarm.svg'),
-            path: 'ActivityIndex',
+            path: '',
           },
           {
             title: 'Feed',
@@ -159,6 +160,9 @@ const getters = {
 }
 
 const actions = {
+  toggleActivityPopup({ commit }, status) {
+    commit('toggleActivityPopup', status)
+  },
   setSettings({ commit }, settings) {
     commit('setSettings', settings)
   },
@@ -180,6 +184,9 @@ const actions = {
 }
 
 const mutations = {
+  toggleActivityPopup(state, status) {
+    state.toggleActivity = status
+  },
   setSettings(state, settings) {
     state.settings = settings
   },

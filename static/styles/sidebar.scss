@@ -22,6 +22,25 @@
         color: #000000;
       }
     }
+    .signed-out-menu {
+      width: 100%;
+      list-style: none;
+
+      li {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 6px;
+        color: #ffffff;
+        margin-bottom: 7px;
+        
+        &.login {
+          text-align: center;
+          background-color: #2B5CFF;
+        }
+      }
+    }
   }
 
   .live-notice {
@@ -82,17 +101,19 @@
 
       }
     }
-    /deep/.activeTab {
-        color: #ffffff !important;
-        font-weight: bold !important;
-        background-color: #323540;
-        border-radius: 6px;
-
-        .__icon {
+    &.activeTab {
+        /deep/.list__tile--link {
           color: #ffffff !important;
-        }
-        .__title {
-          color: #ffffff;
+          font-weight: bold !important;
+          background-color: #323540;
+          border-radius: 6px;
+
+          .__icon {
+            color: #ffffff !important;
+          }
+          .__title {
+            color: #ffffff;
+          }
         }
     }
   }
