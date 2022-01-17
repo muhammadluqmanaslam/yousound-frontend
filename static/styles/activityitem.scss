@@ -1,5 +1,6 @@
 .activity-item {
   padding-top: 14px;
+
   &:first-child {
     padding-top: 0;
   }
@@ -44,14 +45,20 @@
               letter-spacing: 0;
               text-decoration: none;
             }
+            .activity-time {
+              margin-top: 3px;
+              font-size: 13px;
+              color: #5a5a5a;
+              letter-spacing: 0;
+            }
             .item-status {
               color: #959595;
             }
             .description-text {
-              display: block;
+              display: flex;
               letter-spacing: -0.5px;
               padding-top: 0px;
-              color: #000;
+              color: #7f8087;
               font-size: 13px;
               line-height: 24px;
               letter-spacing: 0;
@@ -130,15 +137,9 @@
         // }
       }
     }
-    .activity-time {
-      margin-top: 3px;
-      font-size: 13px;
-      color: #5a5a5a;
-      letter-spacing: 0;
-    }
   }
 }
 
 .activity-item + .activity-item {
-  border-top: 1px solid #ececec;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }

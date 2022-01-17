@@ -14,6 +14,10 @@
   >
     <sidebar />
     <v-content>
+      <transition name="slide-fade">
+        <activity-popup v-if="$store.state.app.toggleActivity" />
+      </transition>
+
       <v-flex
         xs12
         text-xs-center
@@ -103,6 +107,7 @@ import streamPlayer from '@/components/stream_player'
 import loginDialog from '@/components/login_dialog'
 import Sidebar from './components/sidebar'
 import AppLoader from '@/components/appLoader'
+import activityPopup from '@/views/activity'
 
 import { MyEvents, PublicRelationsUsername } from '@/helper'
 import { mapState } from 'vuex'
@@ -121,6 +126,7 @@ export default {
     streamPlayer,
     Sidebar,
     AppLoader,
+    activityPopup,
   },
 
   data() {
