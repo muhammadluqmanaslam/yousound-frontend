@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <v-layout row wrap class="covers-content d-block" mt-2 pb-5>
+      <v-layout row wrap class="event-body covers-content d-block" mt-2 pb-5>
         <!-- <div
           v-if="['Album', 'ShopProduct', 'Stream'].indexOf(recentItem.assoc_type) > -1"
           class="card-container"
@@ -180,12 +180,7 @@
                       large
                       dark
                       class="view-product-btn text-capitalize ma-0"
-                      @click="
-                        $router.push({
-                          name: 'SingleProduct',
-                          params: { id: productItem(feed, index).id },
-                        })
-                      "
+                      @click="showMerchModal = true"
                     >
                       view
                     </v-btn>
@@ -199,6 +194,9 @@
             <div class="comment">
               <div class="comment_count_action">
                 <div v-if="feed.assoc.commented" class="comment_count">
+                  <div class="commenters-group">
+                    <user-tag v-for="(u, i) in commenters" :key="i" :user="u" class="commenter" showAvatar hideName hideTick />
+                  </div>
                   {{ feed.assoc.commented }} comments
                 </div>
                 <div class="comment_action">
@@ -297,8 +295,9 @@
     border-bottom: 1px solid #e4e4e4;
 
     .comment_count {
-      font-weight: 800;
       letter-spacing: -1px;
+      display: flex;
+      align-items: center;
     }
 
     .comment_action {

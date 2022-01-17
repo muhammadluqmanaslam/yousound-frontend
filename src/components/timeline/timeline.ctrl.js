@@ -7,6 +7,7 @@ import CommentService from '@/services/comment'
 import AlbumService from '@/services/album'
 import shareModal from '@/components/sharemodal'
 import Comments from '@/components/comments'
+import UserTag from '@/components/user_tag'
 // import videoCard from '@/components/videocard'
 
 export default {
@@ -17,7 +18,8 @@ export default {
     trackCard,
     VideoBox,
     shareModal,
-    Comments
+    Comments,
+    UserTag,
     // videoCard
   },
 
@@ -32,10 +34,33 @@ export default {
       comments: [],
       showMerchModal: false,
       show_share_dialog: false,
+      // commenters: [], replace when data is ready
     }
   },
 
   computed: {
+    commenters() {
+      return [
+        {
+          username: 'user-1',
+          avatar: {
+            url: 'https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg',
+          },
+        },
+        {
+          username: 'user-2',
+          avatar: {
+            url: 'https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg',
+          },
+        },
+        {
+          username: 'user-3',
+          avatar: {
+            url: 'https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg',
+          },
+        },
+      ]
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
