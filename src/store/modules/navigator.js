@@ -34,7 +34,7 @@ const getters = {
   },
 
   hasFooter: (state) => {
-    return ['landing', ''].indexOf(state.current.page) === -1
+    return ['landing', 'register', 'login', ''].indexOf(state.current.page) === -1
   },
 
   hasAudioPlayer: (state) => {
