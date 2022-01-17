@@ -1,6 +1,101 @@
 <template>
-  <div class="auth-tab allChildrenCenter minHeightScreen">
-    <v-container tab-container>
+  <div class="page auth-page auth-tab no-top-nav no-side-space">
+    <v-container grid-list-item auth-card allChildrenCenter px-0>
+      <v-layout wrap row auth-card-wrapper justify-center>
+        <v-flex v-if="!onMobile" xs12 sm6 auth-card-child left-card sign-in-info>
+          <div v-if="!onMobile">
+            <h1 class="mb-3">Sign up</h1>
+
+          <div class="switch-btn-wrapper">
+            <v-btn
+              round
+              depressed
+              class="ml-0 switch-btn transparent white--text"
+              :class="{'white black--text': activeTab == 'everyone'}"
+              :disabled="register_success"
+              @click="activeTab = 'everyone'"
+            >
+              Listener
+            </v-btn>
+
+            <v-btn
+              round
+              depressed
+              class="ml-0 switch-btn transparent white--text"
+              :class="{'white black--text': activeTab == 'artistBrand'}"
+              :disabled="register_success"
+              @click="activeTab = 'artistBrand'"
+            >
+              Artist/Brand
+            </v-btn>
+          </div>
+
+          <div class="list-wrapper">
+            <ul v-if="activeTab == 'everyone'">
+              <li>Listen, watch & shop</li>
+              <li>Support creators directly</li>
+              <li>Get paid to share</li>
+            </ul>
+
+            <ul v-if="activeTab == 'artistBrand'">
+              <li>Upload albums & videos</li>
+              <li>Sell digital & physical products</li>
+              <li>Collaborate with creators</li>
+            </ul>
+          </div>
+
+          </div>
+          <v-spacer></v-spacer>
+          <div class="text-xs-center auth-img-wrapper">
+            <img width="70%" src="/static/images/auth-img-1.svg" alt="">
+          </div>
+        </v-flex>
+
+        <v-flex v-if="!register_success" xs12 sm6 auth-card-child right-card sign-in-info>
+          <div v-if="onMobile" class="switch-btn-wrapper __collapsed">
+            <v-btn
+              depressed
+              class="ml-0 switch-btn "
+              :class="[activeTab == 'everyone' ? 'black white--text' : 'border-dark black--text']"
+              @click="activeTab = 'everyone'"
+            >
+              Listener
+            </v-btn>
+
+            <v-btn
+              depressed
+              class="ml-0 switch-btn"
+              :class="[activeTab == 'artistBrand' ? 'black white--text' : 'border-dark black--text']"
+              @click="activeTab = 'artistBrand'"
+            >
+              Artist/Brand
+            </v-btn>
+          </div>
+
+          <div v-if="activeTab == 'everyone'">
+            <h3 class="text-xs-center">Create listener account</h3>
+            <ListenerRegister />
+          </div>
+
+          <div v-if="activeTab == 'artistBrand'">
+            <h3 class="text-xs-center">Create artist/brand account</h3>
+            <InviteRegister @invite-mode="setInviteMode" />
+          </div>
+        </v-flex>
+
+        <v-flex v-else xs12 sm6 auth-card-child right-card sign-in-info>
+          <div class="text-xs-center">
+          <b>Check your email for confirmation</b>
+
+          <br>
+        
+          <v-btn round depressed class="app-blue white--text">Open email</v-btn>
+        </div>
+        </v-flex>
+      </v-layout>
+    </v-container>
+
+    <!-- <v-container tab-container>
       <div
         v-if="inviteMode"
         class="invite-info"
@@ -62,7 +157,6 @@
           </div>
         </v-flex>
         <v-flex xs6 class="form-section" :class="{ inviteMode: inviteMode }">
-          <!-- activeTab: {{ activeTab }} -->
           <v-tabs fixed centered v-model="activeTab" class="form-tabs">
             <v-tabs-bar class="">
               <v-tabs-slider class="yellow"></v-tabs-slider>
@@ -93,7 +187,7 @@
           </v-tabs>
         </v-flex>
       </v-layout>
-    </v-container>
+    </v-container> -->
   </div>
 </template>
 

@@ -28,7 +28,8 @@ export default {
   data() {
     return {
       sideLists: [],
-      activeTab: '',
+      register_success: false,
+      activeTab: 'everyone',
       inviter: {},
       inviter2: {
         id: 46,
@@ -71,6 +72,9 @@ export default {
     },
   },
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     everyOneContent() {
       const sideContent = [
         {

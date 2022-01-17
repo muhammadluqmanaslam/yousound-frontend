@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       is_username_available: true,
+      register_success: false,
       terms: false,
       newsletter_terms: false,
       user: {

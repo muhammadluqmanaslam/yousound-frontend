@@ -16,152 +16,188 @@
     <form
       v-if="isPageReady && !show_register_success_dialog"
       v-on:submit.prevent="submit()"
-    >
-      <v-flex xs12 text-xs-center>
-        <div class="avatar-area">
-          <span class="avatar-img">
-            <img
-              class="avatar"
-              src="/static/images/user.svg"
-              id="avatar"
-              ref="avatar"
-            />
-          </span>
-          <div>
-            <label class="upload-caption">Upload avatar image</label>
-            <div class="avatar-upload">
-              <input
-                type="file"
-                name="avatar_file"
-                id="avatar_file"
-                ref="avatar_file"
-                class="avatar-file"
-                accept="image/*"
-                v-validate="'required'"
-                @change="imageChanged($event)"
-              />
-              <label for="avatar_file">Choose a file</label>
+      class="auth-form register-form"
+      >
+      <v-container fluid grid-list-item px-0>
+        <v-layout wrap justify-center>
+          <v-flex xs12 sm8 text-xs-center>
+            <div class="avatar-area">
+              <span class="avatar-img">
+                <img
+                  class="avatar"
+                  src="/static/images/user-new.svg"
+                  id="avatar"
+                  ref="avatar"
+                />
+              </span>
+              <div>
+                <div class="avatar-upload">
+                  <input
+                    type="file"
+                    name="avatar_file"
+                    id="avatar_file"
+                    ref="avatar_file"
+                    class="avatar-file"
+                    accept="image/*"
+                    v-validate="'required'"
+                    @change="imageChanged($event)"
+                  />
+                  <label for="avatar_file">Choose profile image</label>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </v-flex>
-      <v-flex xs12 text-xs-center relative>
-        <input
-          class="instagram_username"
-          type="text"
-          name="instagram_username"
-          placeholder="Instagram username"
-          autocomplete="off"
-          v-model="user.social_user_name"
-          v-validate="'required'"
-        />
-        <img src="/static/images/ic_instagram.png" />
-      </v-flex>
-      <v-flex xs12 text-xs-center>
-        <v-select
-          :items="UserTypeOptions"
-          item-value="value"
-          item-text="text"
-          v-model="user.request_role"
-          v-validate="'required'"
-          name="account_type"
-          placeholder="Select account type"
-          hide-details
-        />
-      </v-flex>
-      <!-- <v-flex xs12 text-xs-center>
-        <v-select
-          :items="main_genres"
-          item-value="id"
-          item-text="name"
-          v-model="user.genre_id"
-          v-validate="'required'"
-          name="main_genre"
-          placeholder="Main music genre"
-          autocomplete
-          hide-details
-        />
-      </v-flex> -->
-      <!-- <v-flex xs12 text-xs-center>
-        <input
-          class="username"
-          type="text"
-          name="username"
-          placeholder="Username"
-          autocomplete="off"
-          v-model="user.username"
-          v-validate="'required|max:20'"
-        />
-      </v-flex> -->
-      <!-- <v-flex xs12 text-xs-center>
-        <input
-          class="displayname"
-          type="text"
-          name="display_name"
-          placeholder="Display Name"
-          autocomplete="off"
-          v-model="user.username"
-          v-validate="'required|max:20'"
-        />
-      </v-flex> -->
-      <v-flex xs12 text-xs-center>
-        <input
-          class="email"
-          type="email"
-          name="email"
-          placeholder="Email"
-          autocomplete="off"
-          v-model="user.email"
-          v-validate="'required|email'"
-        />
-      </v-flex>
-      <v-flex xs12 text-xs-center>
-        <input
-          class="password"
-          type="password"
-          name="password"
-          placeholder="Password"
-          autocomplete="off"
-          v-model="user.password"
-          v-validate="'required|min:5|max:16'"
-        />
-      </v-flex>
-      <v-flex xs12 text pa-0>
-        <p class="regular-checkbox mb-0">
-          <input
-            id="terms"
-            type="checkbox"
-            name="terms"
-            v-model="terms"
-            v-validate="'required'"
-          />
-          <label for="terms"
-            >Accept
-            <router-link class="forgot-password" to="#"
-              >Terms & Conditions</router-link
-            ></label
-          >
-        </p>
-        <p class="regular-checkbox mt-0">
-          <input
-            id="newsletter_terms"
-            type="newsletter_terms"
-            name="newsletter_terms"
-            v-model="newsletter_terms"
-            v-validate="'required'"
-          />
-          <label for="newsletter_terms">Signup for newsletters</label>
-        </p>
-      </v-flex>
-      <v-flex xs12 text-xs-center>
-        <v-btn block round dark type="submit" class="create-account-button"
-          >Create account</v-btn
-        >
-      </v-flex>
-      <v-flex xs12 text-xs-center mt-3>
-        Already a member?
-        <router-link to="/login">Sign in</router-link>
-      </v-flex>
+          </v-flex>
+
+          <v-flex xs12 sm8 text-xs-center>
+            <v-select
+              v-model="user.request_role"
+              :items="UserTypeOptions"
+              item-value="value"
+              item-text="text"
+              v-validate="'required'"
+              name="account_type"
+              class="account_type"
+              placeholder="Choose account type"
+              hide-details
+            />
+          </v-flex>
+
+          <v-flex xs12 sm8 text-xs-center relative>
+            <input
+              type="text"
+              name="username"
+              placeholder="@username"
+              v-model="user.username"
+              v-validate="{
+                required: true,
+                min: 3,
+                max: 20,
+                regex: /^[A-Za-z0-9_.]+$/,
+              }"
+              @blur="onBlur"
+              class="username"
+            />
+            <label v-if="!is_username_available" class="error--text"
+              >already taken</label
+            >
+          </v-flex>
+
+          <!-- <v-flex xs12 text-xs-center relative>
+            <input
+              class="instagram_username"
+              type="text"
+              name="instagram_username"
+              placeholder="Instagram username"
+              autocomplete="off"
+              v-model="user.social_user_name"
+              v-validate="'required'"
+            />
+            <img src="/static/images/ic_instagram.png" />
+          </v-flex> -->
+          <!-- <v-flex xs12 text-xs-center>
+            <v-select
+              :items="main_genres"
+              item-value="id"
+              item-text="name"
+              v-model="user.genre_id"
+              v-validate="'required'"
+              name="main_genre"
+              placeholder="Main music genre"
+              autocomplete
+              hide-details
+            />
+          </v-flex> -->
+          <!-- <v-flex xs12 text-xs-center>
+            <input
+              class="username"
+              type="text"
+              name="username"
+              placeholder="Username"
+              autocomplete="off"
+              v-model="user.username"
+              v-validate="'required|max:20'"
+            />
+          </v-flex> -->
+          <!-- <v-flex xs12 text-xs-center>
+            <input
+              class="displayname"
+              type="text"
+              name="display_name"
+              placeholder="Display Name"
+              autocomplete="off"
+              v-model="user.username"
+              v-validate="'required|max:20'"
+            />
+          </v-flex> -->
+          <v-flex xs12 sm8 text-xs-center>
+            <input
+              class="email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              autocomplete="off"
+              v-model="user.email"
+              v-validate="'required|email'"
+            />
+          </v-flex>
+
+          <v-flex xs12 sm8 text-xs-center>
+            <input
+              class="password"
+              type="password"
+              name="password"
+              placeholder="Password"
+              autocomplete="off"
+              v-model="user.password"
+              v-validate="'required|min:5|max:16'"
+            />
+          </v-flex>
+          
+          <v-flex xs12 sm8 text-xs-center>
+            <div class="dflex justify-space-between align-center mt-2">
+              <p class="regular-checkbox ma-0">
+                <input
+                  v-model="terms"
+                  id="terms"
+                  type="checkbox"
+                  name="terms"
+                  v-validate="'required'"
+                />
+                
+                <label for="terms">
+                  <span>Accept Terms</span>
+
+                </label>
+              </p>
+
+              <router-link class="forgot-password terms-text" to="/terms">
+                Terms & Conditions
+              </router-link>
+            </div>
+            <!-- <p class="regular-checkbox mt-0">
+              <input
+                id="newsletter_terms"
+                type="checkbox"
+                name="newsletter_terms"
+                v-model="newsletter_terms"
+                v-validate="'required'"
+              />
+              <label for="newsletter_terms">Signup for newsletters</label>
+            </p> -->
+          </v-flex>
+
+          <v-flex xs12 sm8 text-xs-center mt-3>
+            <v-btn block round dark type="submit" class="create-account-button"
+              >Create account</v-btn
+            >
+          </v-flex>
+
+          <v-flex xs12 text-xs-center mt-3>
+            Already a member?
+            <router-link class="terms-text" to="/login">Sign in</router-link>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </form>
 
     <v-dialog

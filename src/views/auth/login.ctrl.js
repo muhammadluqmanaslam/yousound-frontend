@@ -17,7 +17,11 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+  },
 
   created() {
     let myAlert = null

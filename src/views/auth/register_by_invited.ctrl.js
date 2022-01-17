@@ -16,6 +16,7 @@ export default {
 
   data() {
     return {
+      is_username_available: true,
       UserTypeOptions: UserTypeOptions,
       token: '',
       terms: false,
@@ -150,6 +151,20 @@ export default {
         false
       )
       reader.readAsDataURL(this.user.avatar_file)
+    },
+
+    onBlur(e) {
+      // console.log('onBlur', e)
+      const params = {
+        username: this.user.username,
+      }
+      AuthService.isUsernameAvailable(params)
+        .then((res) => {
+          this.is_username_available = true
+        })
+        .catch((e) => {
+          this.is_username_available = false
+        })
     },
   },
 }

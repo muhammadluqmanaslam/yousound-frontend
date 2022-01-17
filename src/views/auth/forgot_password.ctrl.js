@@ -18,6 +18,8 @@ export default {
 
   methods: {
     submit() {
+      if (!this.email) return
+
       var params = new FormData()
       params.append('email', this.email)
       AuthService.requestResetPassword(params)
