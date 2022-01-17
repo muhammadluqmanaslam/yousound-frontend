@@ -163,5 +163,12 @@ main.content {
   padding-top: 53px !important;
 }
 .page.no-top-nav {
-  margin-top: -53px;
+  margin-top: -69px;
+}
+.page.no-side-space {
+  margin-left: -18px;
+  margin-right: -18px;
+}
+.container.grid-list-md :not(:only-child) .layout:last-child {
+  margin-bottom: auto;
 }

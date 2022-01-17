@@ -211,6 +211,59 @@ body {
 .flex-none {
     flex: none;
 }
+
+img.invert-color {
+  filter: invert(1);
+}
+
+.white {
+  background-color: #ffffff !important;
+}
+.white--text {
+  color: #ffffff !important;
+}
+.black {
+  background-color: #000000 !important;
+}
+.black--text {
+  color: #000000 !important;
+}
+.app-blue {
+  background-color: #2346FF !important;
+}
+.app-blue--text {
+  color: #2346FF !important;
+}
+
+.click-outside-decoy {
+  background: transparent;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.round-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  background-size: contain;
+  background-position: center;
+}
+
+.btn-pill {
+  box-shadow: none;
+  margin: 0;
+  background: #0151ff !important;
+  margin-top: 0;
+  border-radius: 100px;
+  font-weight: 800;
+  text-transform: uppercase;
+  .btn__content {
+    color: #ffffff;
+  }
+}
 .no-Btn-bg::before {
   /* Remove default gover bg color from button */
    background-color: transparent !important;
@@ -920,6 +973,13 @@ textarea {
 
 
 @media (max-width: 810px) {
+  .reverse-column-m {
+    flex-direction: column-reverse;
+  }
+  .block-n-reverse-column-m {
+    display: block;
+    flex-direction: column-reverse;
+  }
   .app-container {
     overflow-x: hidden;
   }
