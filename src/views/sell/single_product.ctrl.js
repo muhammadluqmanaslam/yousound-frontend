@@ -173,13 +173,13 @@ export default {
 
     productCategoryName() {
       return _.get(
-                _.find(
-                    this.product_categories,
-                    (pc) => pc.id === this.product.category
-                ),
-                'name',
-                ''
-            )
+          _.find(
+              this.product_categories,
+              (pc) => pc.id === this.product.category
+          ),
+          'name',
+          ''
+      )
     },
     covers() {
       let imgs = this.product.covers || []
