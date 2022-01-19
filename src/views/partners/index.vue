@@ -38,7 +38,7 @@
             </v-flex>
         </v-layout>
 
-        <v-layout wrap align-center justify-center>
+        <!-- <v-layout wrap align-center justify-center>
             <v-flex xs4 layer-flex flex-text>
                 <h2>Unlock Features</h2>
 
@@ -52,7 +52,7 @@
                 src="/static/images/up_featuresbg.svg"
                 />
             </v-flex>
-        </v-layout>
+        </v-layout> -->
     </v-container>
 
 

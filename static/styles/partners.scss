@@ -19,7 +19,12 @@
     .section-intro {
         .b-h1 {
             font-size: 2.7em;
+            width: 80%;
         }
+    }
+
+    .b-body-text {
+        font-size: 18px;
     }
 
     .choose__btn {
@@ -29,7 +34,7 @@
 
         &.__rounded {
             border-radius: 5px !important;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 800;
         }
     }
