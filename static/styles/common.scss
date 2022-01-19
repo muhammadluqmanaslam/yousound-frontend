@@ -329,6 +329,11 @@ li.search-li {
   }
 }
 
+.attach-icon {
+  margin-right: 5px;
+  transform: rotate(-60deg);
+}
+
 .chart-wrapper {
     border: 1px solid #cccccc;
     padding: 20px;
@@ -982,6 +987,14 @@ textarea {
   }
   .app-container {
     overflow-x: hidden;
+
+    
+  .page {
+    &.mx-5 {
+      margin: 0 !important;
+    }
+  }
+
   }
 }
 
