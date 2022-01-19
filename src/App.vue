@@ -184,6 +184,11 @@ export default {
           })
         }
       }
+
+      // deactivate activity popup on route change
+      if (this.$store.state.app.toggleActivity) {
+        this.$store.dispatch('app/toggleActivityPopup', false)
+      }
     },
   },
 
