@@ -31,7 +31,7 @@ export default {
       if (this.isStreaming) {
         return 'VideoManage'
       } else {
-        return 'VideoCreate'
+        return 'CreateLive'
       }
     },
   },

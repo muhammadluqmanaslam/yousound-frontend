@@ -51,6 +51,7 @@ import ManageIndex from '@/views/manage'
 import AlbumStats from '@/views/album/album_stats'
 import AlbumsManage from '@/views/album/manage'
 import LabelsManage from '@/views/label/manage'
+import CreateLive from '@/views/video/live'
 import UploadIndex from '@/views/upload'
 import UploadAlbum from '@/views/album/upload_album'
 import AlbumEdit from '@/views/album/album_edit'
@@ -185,6 +186,7 @@ export function createRouter(settings) {
     { path: '/album/:slug/stats', name: 'AlbumStats', component: AlbumStats },
     { path: '/albums', name: 'AlbumsManage', component: AlbumsManage },
     { path: '/labels', name: 'LabelsManage', component: LabelsManage },
+    { path: '/live/', name: 'CreateLive', component: CreateLive },
     { path: '/upload/', name: 'UploadIndex', component: UploadIndex },
     { path: '/upload/album', name: 'UploadAlbum', component: UploadAlbum },
     { path: '/album/:slug/edit', name: 'AlbumEdit', component: AlbumEdit },

@@ -164,6 +164,8 @@ export default {
     console.log(this.isStreaming)
     if (this.isStreaming) {
       this.$router.push({name: 'VideoManage'})
+    } else if (this.user.free_stream_seconds && this.user.free_stream_seconds > 0) {
+      this.$router.push({name: 'CreateLive'})
     }
 
     this.$store.dispatch('navigator/goNextState', {
