@@ -1,7 +1,7 @@
 <template>
-  <div class="page partners-page mx-5">
+  <div class="page partners-page mx-5 mt-5 pt-5">
     <v-container fluid grid-list-lg>
-        <v-layout wrap align-center justify-center>
+        <v-layout wrap align-center justify-space-between>
             <v-flex xs5 layer-flex flex-text>
                 <h1>Get paid  <br> to share.</h1>
                 <!-- <h3 class="mt-2">Upgrade to remove ads & accept Repost <br /> Requests.</h3> -->
@@ -14,42 +14,22 @@
             </v-flex>
             <v-flex xs5 layer-flex flex-img>
                 <img
-                width="100%"
-                src="/static/images/re_sharebg.svg"
+                  width="100%"
+                  src="/static/images/re_sharebg.svg"
                 />
-            </v-flex>
-        </v-layout>
-
-
-
-        <v-layout wrap align-center justify-center>
-            <v-flex xs6 layer-flex flex-img>
-                <img
-                  width="60%"
-                  src="/static/images/re_whyBg.svg"
-                />
-            </v-flex>
-            <v-flex xs5 layer-flex flex-text>
-                <h2>Why?</h2>
-
-                <ul>
-                  <li>Sharing is valuable</li>
-                  <li>Content is experienced when it’s shared </li>
-                  <li>You are part of the sharing process</li>
-                </ul>
             </v-flex>
         </v-layout>
 
         <div class="section-intro">
-          <h1 class="b-h1 mt-5">How?</h1>
+          <h1 class="b-h1 mt-5 mb-3 text-xs-center">How?</h1>
         </div>
 
 
-        <div>
-          Verified artists & brands can pay you to share their albums, videos & products to your followers with Repost Requests.   Artists and brands will send you a Direct Message and attach their content for you to share. Before the message is sent artists & brands will pay the repost price you set. 
+        <div class="b-body-text">
+          With <b>Repost Requests</b>, verified artists & brands can pay you to share their albums, videos & products to your followers. Artists and brands will send you a direct message with their content attached for you to share. Before the message is sent they will pay the repost price you set.
           <br />
           <br />
-          When you receive the message you can view the content & decide if you want to repost or deny. Accepted requests will stay on your feed for 7 days and you will receive payment in 2 days. You can charge up to <b>5k per repost</b> with the <b>Plus</b> subscription plan, or up to <b>100k per repost</b> with a <b>Pro</b> subscription plan.
+          You can charge up to <b>5k per repost</b> with the <b>Pro</b> subscription or up to <b>100k per repost</b> with a <b>Plus</b> subscription.
         </div>
 
         <br>
@@ -57,16 +37,16 @@
 
         <h2>Go ad-free.  Support Creators.  Get Paid.</h2>
 
-        <v-btn depressed class="choose__btn __rounded white--text mt-4" to="/plans">
+        <v-btn depressed class="choose__btn __rounded white--text mt-4 ml-0" to="/plans">
             <span>Choose Plan</span>
         </v-btn>
     </v-container>
 
 
-    <div class="section-faq">
+    <!-- <div class="section-faq">
       <div class="__intro-title">FAQ</div>
       <accordion :accordions="accordions" leftIcon="add" />
-    </div>
+    </div> -->
   </div>
 </template>
 
