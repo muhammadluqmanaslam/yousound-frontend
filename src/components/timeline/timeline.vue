@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <v-layout row wrap class="event-body covers-content d-block" mt-2 pb-5>
+      <div row wrap class="event-body covers-content d-block" mt-2 pb-5>
         <!-- <div
           v-if="['Album', 'ShopProduct', 'Stream'].indexOf(recentItem.assoc_type) > -1"
           class="card-container"
@@ -145,6 +145,35 @@
                     >
                       <v-icon>pause</v-icon>
                     </v-btn>
+                  </div>
+                </v-flex>
+              </v-layout>
+            </v-container>
+
+            <v-container
+              v-if="feed.assoc_type == 'Thought'"
+              grid-list-md
+              thought-feed
+            >
+              <v-layout row wrap align-center>
+                <v-flex xs12>
+                  <div class="avatar-wrapper">
+                    <user-tag :user="user" showAvatar hideTick width="70px" height="70px" />
+                  </div>
+                  <div class="thought-context text-xs-center mt-3">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Com sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.
+                  </div>
+                  <div class="attach-container">
+                    <div class="__cover" :style="{ 'background-image': 'url(' + attachCover + ')' }"></div>
+
+                    <div class="__details">
+                        <div class="_meta-title">
+                          <v-icon class="attach-icon">attachment</v-icon>
+                          <span>Attachment</span>
+                        </div>
+                        <div class="_title"></div>
+                        <div class="_info"></div>
+                    </div>
                   </div>
                 </v-flex>
               </v-layout>
@@ -226,7 +255,7 @@
             </div>
           </div>
         </div>
-      </v-layout>
+      </div>
     </div>
 
     <merch-modal
@@ -288,10 +317,12 @@
   .comment_count_action {
     display: flex;
     justify-content: space-between;
+    padding-top: 16px;
     padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
     margin-bottom: 20px;
+    border-top: 1px solid #e4e4e4;
     border-bottom: 1px solid #e4e4e4;
 
     .comment_count {

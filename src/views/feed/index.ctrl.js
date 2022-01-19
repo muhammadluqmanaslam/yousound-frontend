@@ -7,6 +7,7 @@ import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
 import timeline from '@/components/timeline/timeline'
 import contentTopHeader from '@/components/contentTopHeader'
+import postThought from '@/components/thought'
 
 export default {
   components: {
@@ -14,6 +15,7 @@ export default {
     productCard,
     timeline,
     contentTopHeader,
+    postThought,
   },
 
   data() {
@@ -68,6 +70,10 @@ export default {
   },
 
   methods: {
+    postThoughtActive() {
+      // trigger child component (post thought) modal
+      this.$refs.postThought.initPostThought()
+    },
     // loadComments() {
     //   const params = {
     //     commentable_type: 'Stream',

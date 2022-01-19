@@ -15,6 +15,20 @@
                 {{ tab.title }}
               </label>
             </li>
+
+            <v-spacer></v-spacer>
+
+            <li>
+              <v-btn
+                round
+                depressed 
+                class="post-thought-btn white--text"
+                @click="postThoughtActive" 
+              >
+                <img :src="require('../../../static/images/post-thought.svg')" width="17" class="mr-2" />
+                <span>Post thoughts</span>
+              </v-btn>
+            </li>
           </ul>
       </template>
     </content-top-header>
@@ -84,7 +98,14 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <post-thought ref="postThought" />
   </div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style lang="scss" scoped>
+.post-thought-btn {
+  background: #0386FF !important;
+}
+</style>

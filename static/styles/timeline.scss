@@ -92,6 +92,35 @@
 
     .event-body {
         padding: 0 20px;
+       
+       .thought-feed {
+           .attach-container {
+               display: flex;
+               margin-top: 50px;
+
+               .__cover {
+                    width: 120px;
+                    height: 70px;
+                    border-radius: 10px;
+                    background-color: grey;
+                    margin-right: 20px;
+                    background-position: center;
+                    background-size: cover;
+                }
+               .__details {
+                    display: flex;
+
+                    ._meta-title {
+                        font-size: 13px;
+                        color: #888888;
+
+                        .attach-icon {
+                            color: #888888;
+                        }
+                    }
+                }
+           }
+       }
     }
 
     .commenters-group {

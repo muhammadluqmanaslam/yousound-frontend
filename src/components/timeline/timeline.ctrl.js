@@ -39,6 +39,16 @@ export default {
   },
 
   computed: {
+    attachCover() {
+      switch (this.recentItem.type) {
+        case 'ShopProduct':
+          return this.recentItem.value.covers[0].cover.thumb.url
+        case 'Album':
+          return this.recentItem.value.cover.thumb.url
+        default:
+          break;
+      }
+    },
     commenters() {
       return [
         {
