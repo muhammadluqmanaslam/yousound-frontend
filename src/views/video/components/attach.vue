@@ -1,6 +1,6 @@
 <template>
   <div class="attach">
-    <div class="attach__content">
+    <div v-if="!dataOnlyMode" class="attach__content">
       <template v-if="stream_assoc.value">
         <attach-card
           v-if="stream_assoc.type == 'Album'"
@@ -33,10 +33,10 @@
     <div v-if="!hideMetaActions" class="attach__footer">
       <template v-if="stream_assoc.value">
         <span class="attach__cta" @click="openAttachPicker()">Change</span>
-        <span class="attach__cta danger" @click="removeAttach()">Remove</span>
+        <span v-if="!dataOnlyMode" class="attach__cta danger" @click="removeAttach()">Remove</span>
       </template>
       <template v-else>
-        <span class="attach__cta" @click="openAttachPicker()">Add</span>
+        <span class="attach__cta" @click="openAttachPicker()">{{ ctaTitle }}</span>
       </template>
     </div>
 
@@ -61,6 +61,11 @@ export default {
   props: {
     hideMetaActions: Boolean,
     value: Object,
+    dataOnlyMode: Boolean,
+    ctaTitle: {
+      type: String,
+      default: 'Add',
+    },
   },
 
   data() {
