@@ -66,11 +66,27 @@
             <h3>Choose option</h3>
         </div>
 
-        <div class="wrapper-info mb-3">
-            <b class="mr-2">Unused time:</b>
-            <span class="">You have</span>
-            <b class="">{{ currentUser.free_stream_seconds | timeInHours }}</b>
-            <span>left</span>
+        <div class="wrapper-info dflex justify-space-between align-center mb-3">
+            <div>
+                <b class="mr-2">Unused time:</b>
+                <span class="">You have</span>
+                <b class="">{{ currentUser.free_stream_seconds | timeInHours }}</b>
+                <span>left</span>
+            </div>
+
+            <div>
+                <span class="mr-1">Add more time below, or</span>
+
+                <v-btn
+                    depressed
+                    round
+                    :disabled="currentUser.free_stream_seconds && currentUser.free_stream_seconds < 1"
+                    class="app-blue-2 white--text"
+                    :to="{name: 'VideoCreate'}"
+                >
+                    <b>Use remaining time</b>
+                </v-btn>
+            </div>
         </div>
 
         <v-container fluid grid-list-lg px-0>
@@ -195,7 +211,7 @@
     }
   }
   .choose__btn {
-    background-color: #5D5FEF !important;
+    background-color: #1F78FF !important;
     color: #ffffff;
   }  
   li {
