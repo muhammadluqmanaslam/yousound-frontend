@@ -979,6 +979,18 @@ textarea {
   }
 }
 
+.row-reverse {
+  flex-direction: row-reverse !important;
+
+  &._pad-first-flex {
+    .flex {
+      &:first-child {
+        padding-left: 60px;
+      }
+    }
+  }
+}
+
 
 @media (max-width: 810px) {
   .reverse-column-m {
