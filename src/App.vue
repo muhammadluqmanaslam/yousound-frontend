@@ -12,7 +12,8 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <sidebar />
+    <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1" />
+
     <v-content>
       <transition name="slide-fade">
         <activity-popup v-if="$store.state.app.toggleActivity" />
