@@ -63,7 +63,16 @@
           <!-- <v-spacer class="d-md-block d-none"></v-spacer> -->
           <v-spacer class=""></v-spacer>
 
-          <v-btn class="login_text" elevation="0" :to="{name: 'Login'}"> Sign in </v-btn>
+          <v-btn v-if="!isAuthenticated" class="login_text" elevation="0" :to="{name: 'Login'}"> Sign in </v-btn>
+
+          <v-btn
+            else
+            class="login_text"
+            elevation="0"
+            :to="{name: 'DiscoverIndex'}"
+          >
+            Discover
+          </v-btn>
         </v-toolbar-items>
       </v-container>
     </v-toolbar>
@@ -95,17 +104,28 @@
       </v-list>
 
       <v-btn
+        v-if="!isAuthenticated"
         class="login_text_mobile d-sm-flex d-none justify-md-center align-md-center"
         elevation="0"
         :to="{name: 'Login'}"
       >
         Sign in
       </v-btn>
+      <v-btn
+        else
+        class="login_text_mobile d-sm-flex d-none justify-md-center align-md-center"
+        elevation="0"
+        :to="{name: 'DiscoverIndex'}"
+      >
+        Discover
+      </v-btn>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
+import AuthService from '@/services/auth'
+
 // import Popup from './Popup.vue'
 export default {
   data: () => ({
@@ -115,6 +135,11 @@ export default {
       { text: "Go Ad-Free", route: "/landing3" },
     ],
   }),
+  computed: {
+    isAuthenticated() {
+      return AuthService.isAuthenticated()
+    },
+  },
 };
 </script>
 
