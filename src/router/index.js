@@ -23,7 +23,9 @@ import OverviewPage from '@/views/overview/index'
 import AdminPage from '@/views/admin/admin'
 // import MainLandingPage from '@/views/home/main_landing'
 // import Landing1Page from '@/views/home/landing'
-import LandingPage from '@/views/landing/landing'
+import LandingPage from '@/views/landingPages/landing1'
+import LandingPage2 from '@/views/landingPages/landing2'
+import LandingPage3 from '@/views/landingPages/landing3'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
@@ -77,6 +79,8 @@ Vue.use(Router)
 export function createRouter(settings) {
   let routes = [
     { path: '/', name: 'LandingPage', component: LandingPage },
+    { path: '/landing2', name: 'LandingPage2', component: LandingPage2 },
+    { path: '/landing3', name: 'LandingPage3', component: LandingPage3 },
     // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
     // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
