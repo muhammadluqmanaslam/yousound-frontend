@@ -4,7 +4,7 @@ lan<template>
       <h3 class="title">Choose a plan</h3>
       <v-container fluid px-0>
         <v-layout wrap row justify-space-between mt-4>
-          <plan v-for="(plan, n) in plansData" :key="n" :plan="plan" class=""></plan>
+          <plan v-for="(plan, n) in plansData" :key="n" :plan="plan" :id="plan.id"></plan>
         </v-layout>
       </v-container>
     </div>
@@ -24,6 +24,7 @@ export default {
           list: ["1 account", "Ad-free music & video", "Analytics"],
           active: false,
           price: "9.99",
+          id: "basic",
         },
         {
           title: "Plus",
@@ -37,6 +38,7 @@ export default {
           ],
           active: true,
           price: "29.99",
+          id: "plus",
         },
         {
           title: "Pro",
@@ -50,6 +52,7 @@ export default {
           ],
           active: false,
           price: "99.99",
+          id: "pro",
         },
       ],
     };

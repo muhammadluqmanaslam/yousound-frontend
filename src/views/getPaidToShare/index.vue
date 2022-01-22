@@ -7,7 +7,11 @@
                 <!-- <h3 class="mt-2">Upgrade to remove ads & accept Repost <br /> Requests.</h3> -->
 
                 <span>
-                <v-btn depressed class="choose__btn __rounded white--text mt-4" to="/plans">
+                <v-btn
+                  depressed
+                  class="choose__btn __rounded white--text mt-4" 
+                  :to="'/landing3#plans'"
+                >
                     <span>Choose Plan</span>
                 </v-btn>
                 </span>
@@ -37,7 +41,11 @@
 
         <h2>Go ad-free.  Support Creators.  Get Paid.</h2>
 
-        <v-btn depressed class="choose__btn __rounded white--text mt-4 ml-0" to="/plans">
+        <v-btn
+          depressed
+          class="choose__btn __rounded white--text mt-4 ml-0" 
+          :to="'/landing3#plans'"
+        >
             <span>Choose Plan</span>
         </v-btn>
     </v-container>
