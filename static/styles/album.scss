@@ -13,10 +13,10 @@ p {
 }
 
 .sectionCard {
-  border-radius: 3px;
+  // border-radius: 3px;
+  // box-shadow: 0 0 2px 0px #c8c8d9;
   background-color: #ffffff;
   padding: 15px;
-  box-shadow: 0 0 2px 0px #c8c8d9;
   margin-bottom: 30px;
   // max-height: 540px
 }
@@ -1177,85 +1177,154 @@ p {
 
   .secondary-album-details {
     // background-color: red;
-    background-color: #fafafa;
-    padding: 65px;
-    padding-top: 40px;
+    // padding: 65px;
+    // padding-top: 40px;
 
-    .album-merch-section {
-      @extend .sectionCard;
-      margin-top: 30px;
-      cursor: pointer;
-      .title {
-        color: white;
-        font-weight: 300;
-        font-size: 24px !important;
-        letter-spacing: -0.6px !important;
-        border-bottom: 1px solid rgba(215, 215, 215, 0.2);
-        padding-bottom: 8px;
-        margin-bottom: 16px;
-      }
-      .merch-detail-section {
-        margin-top: 10px;
-        background-color: transparent;
-        padding: 0;
-        border-radius: 3px;
-        .merch-avatar {
-          width: 100%;
-          height: 200px;
-          display: inline-block;
-          vertical-align: middle;
-          background-size: contain;
-          background-position: center;
-          overflow: hidden;
-          border-radius: 5px;
-          border: 3px solid white;
-        }
-        .info-section {
-          vertical-align: middle;
-          padding-left: 10px;
-          .merch-name {
-            display: block;
-            font-family: 'Work Sans';
-            font-weight: 600;
-            font-size: 18px;
-            letter-spacing: -0.7px;
-            cursor: pointer;
-            width: 250px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          .merch-price {
-            display: block;
-            font-weight: bolder;
-            letter-spacing: -0.6px;
-            font-size: 16px;
-            cursor: pointer;
-          }
-          .merch-status-icon {
-            width: 15px;
-            margin-left: 20px;
-            cursor: pointer;
-          }
-          .link-btn {
-            display: block;
-            color: rgba(255, 255, 255, 0.52);
-            font-size: 16px;
-            letter-spacing: -0.6px;
-            cursor: pointer;
-          }
-        }
-      }
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.2);;
     }
+    
+    .album-comment-page {
+      padding: 30px 20%;
+      background-color: #fafafa;
+      // background-color: red;
+    }
+    .album-recent-page {
+      padding: 30px 20%;
+      .album-merch-section {
+        @extend .sectionCard;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        cursor: pointer;
 
-    .album-reposted-section {
-      @extend .sectionCard;
+        .title {
+          color: white;
+          font-weight: 300;
+          font-size: 24px !important;
+          letter-spacing: -0.6px !important;
+          border-bottom: 1px solid rgba(215, 215, 215, 0.2);
+          padding-bottom: 8px;
+          margin-bottom: 16px;
+        }
+        .merch-detail-section {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 10px;
+          background-color: transparent;
+          padding: 0;
+          border-radius: 3px;
+          .merch-avatar {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            vertical-align: middle;
+            background-size: contain;
+            background-position: center;
+            overflow: hidden;
+            border-radius: 5px;
+            border: 3px solid white;
+          }
+          .info-section {
+            vertical-align: middle;
+            padding-left: 10px;
+            
+            .side-action-details {
+              text-align: left;
+              padding-left: 30px;
+              margin-top: -30px;
 
-      & .__title {
-        // margin-left: 20px;
-        // margin-top: 8px;
+              .__title {
+                text-transform: uppercase;
+                font-size: 13px;
+                color: #777;
+                padding-bottom: 8px;
+              }
+              .__subtitle-1 {
+                font-weight: 500;
+                font-size: 18px;
+                padding-bottom: 3px;
+
+                &.__price {
+                  margin-top: -10px;
+                }
+              }
+              .__subtitle-2 {
+                text-transform: uppercase;
+                font-size: 14px;
+                margin-bottom: 20px;
+                font-weight: 700;
+              }
+              .song-btn {
+                margin: 0 !important;
+                width: 60px !important;
+                height: 60px !important;
+                background: #ddd8d8 !important;
+
+                i {
+                  font-size: 40px;
+                  color: #000000;
+                }
+              }
+
+              .view-product-btn {
+                margin-top: 20px !important;
+                background-color: #000000 !important;
+                padding: 0 10px;
+              }
+            }
+            .merch-name {
+              display: block;
+              font-family: 'Work Sans';
+              font-weight: 600;
+              font-size: 18px;
+              letter-spacing: -0.7px;
+              cursor: pointer;
+              width: 250px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .merch-price {
+              display: block;
+              font-weight: bolder;
+              letter-spacing: -0.6px;
+              font-size: 16px;
+              cursor: pointer;
+            }
+            .merch-status-icon {
+              width: 15px;
+              margin-left: 20px;
+              cursor: pointer;
+            }
+            .link-btn {
+              display: block;
+              color: rgba(255, 255, 255, 0.52);
+              font-size: 16px;
+              letter-spacing: -0.6px;
+              cursor: pointer;
+            }
+          }
+        }
       }
 
+      .album-reposted-section {
+        @extend .sectionCard;
+        
+        .no-list {
+          color: rgba(0, 0, 0, 0.5);;
+
+        }
+
+        & .__title {
+          // font-size: 1.2em;
+          // margin-left: 20px;
+          // margin-top: 8px;
+        }
+
+      }
     }
   }
 }

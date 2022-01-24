@@ -21,6 +21,7 @@ import shareModal from '@/components/sharemodal'
 import trackCard from '@/components/trackcard'
 import videoCard from '@/components/videocard'
 import Comments from '@/components/comments'
+import featuredProduct from '@/components/featuredProduct'
 
 const ActionCable = require('actioncable')
 
@@ -40,6 +41,7 @@ export default {
     trackCard,
     videoCard,
     Comments,
+    featuredProduct,
   },
 
   data() {
@@ -182,6 +184,8 @@ export default {
     // console.log('last', this.$store.getters['navigator/last'])
 
     this.loadData()
+
+    console.log('alb', this.album);
   },
 
   beforeDestroy() {
@@ -201,6 +205,7 @@ export default {
     loadData() {
       const vm = this
       this.slug = this.$route.params.slug
+      console.log('slug: ', this.slug);
       this.comments = []
       this.comment_pagination = {
         count: 0,
@@ -216,6 +221,7 @@ export default {
       ])
         .then((values) => {
           this.album = values[0].body
+
           // Vue.set(this, "album", values[0].body)
           // for (let index in this.album.tracks) {
           //   this.buttonHover.push(false)
