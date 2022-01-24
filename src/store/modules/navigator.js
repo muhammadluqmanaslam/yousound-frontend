@@ -34,7 +34,7 @@ const getters = {
   },
 
   hasNoSidebar: (state) => {
-    return ['LandingPage', 'LandingPage2', 'LandingPage3']
+    return ['Home', 'Creators', 'AdFree']
   },
   hasFooter: (state) => {
     return ['landing', 'register', 'login', ''].indexOf(state.current.page) === -1
