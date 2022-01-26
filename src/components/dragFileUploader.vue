@@ -8,7 +8,10 @@
             v-if="category == 'audio'"
             class="active"
           >
-            Upload Album
+            <span class="dflex align-center">
+              <img src="/static/images/up_music.svg" width="23" class="mr-2">
+              <span>Upload Album</span>
+            </span>
           </li>
           <li
             v-else-if="category == 'video'"
@@ -32,15 +35,15 @@
           multiple
         />
         <label for="file">
-          <img v-if="category == 'audio'" src="/static/images/drop_box.png" class="uploaderBox_image" />
+          <!-- <img v-if="category == 'audio'" src="/static/images/drop_box.png" class="uploaderBox_image" /> -->
           <img v-if="category == 'video'" src="/static/images/drop_video.png" class="uploaderBox_image" />
         </label>
         <div class="uploaderBox__desc">
             <div v-if="category == 'audio'">
-                <span class="uploaderBox__dragndrop"
-                    >Click or Drag & Drop audio files</span
-                >
-                <span class="uploaderBox__filetype"> MP3 audio files only</span>
+                <b class="uploaderBox__dragndrop">
+                  Drag and drop audio files
+                </b>
+                <!-- <span class="uploaderBox__filetype"> MP3 audio files only</span> -->
             </div>
             <div v-if="category == 'video'">
                 <span v-if="category == 'video'" class="uploaderBox__dragndrop"

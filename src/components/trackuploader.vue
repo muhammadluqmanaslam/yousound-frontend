@@ -1,22 +1,21 @@
 <template>
   <div class="video-page create-page mx-5">
-    <div class="d-flex">
-      <div class="page-content" v-if="!file">
-        <drag-file-uploader
-          v-if="!file"
-          accept="mp3/*"
-          type="file"
-          category="audio"
-          @filePicked="pickedFile"
-          :autoUpload="true"
-          ref="dragFileUploader"
-        ></drag-file-uploader>
-      </div>
+    <div class="page-content">
+      <drag-file-uploader
+        accept="mp3/*"
+        type="file"
+        category="audio"
+        @filePicked="pickedFile"
+        :autoUpload="true"
+        ref="dragFileUploader"
+      ></drag-file-uploader>
+    </div>
+
     <div class="track-list-section" v-if="album.tracks.length">
       <h4 class="track-list-title" id="track_list">Track List</h4>
-      <div class="track-list-subtitle">
+      <!-- <div class="track-list-subtitle">
         Highlight track title to rename<span class="required">*</span>
-      </div>
+      </div> -->
       <draggable
         v-model="album.tracks"
         handle=".item-handle"
@@ -31,7 +30,7 @@
             <label class="item-index">{{ index + 1 }}</label>
             <div class="item-section">
               <!-- <div class="item-progress" style="display:none;"></div> -->
-              <v-icon class="item-handle">reorder</v-icon>
+              <img class="item-handle" width="18" src="/static/images/t-menu.svg" alt="">
               <input
                 v-model="file.file_name"
                 type="text"
@@ -59,25 +58,25 @@
                 :size="20"
                 class="primary--text loading"
               ></v-progress-circular>
-              <v-icon class="done" v-if="file.status == status.success"
-                >done</v-icon
-              >
-              <v-icon class="failed" v-if="file.status == status.failed"
-                >error_outline</v-icon
-              >
             </div>
-            <v-icon
-              class="clear-btn"
-              @click="deleteTrack(index)"
-              v-if="file.status != status.uploading"
-              >clear</v-icon
-            >
+              <span class="action-btns">
+                <v-icon class="done" v-if="file.status == status.success"
+                  >done</v-icon
+                >
+                <v-icon class="failed" v-if="file.status == status.failed"
+                  >error_outline</v-icon
+                >
+              <v-icon
+                class="clear-btn"
+                @click="deleteTrack(index)"
+                v-if="file.status != status.uploading"
+                >clear</v-icon
+              >
+              </span>
           </div>
         </transition-group>
       </draggable>
     </div>
-    </div>
-
 
     <v-dialog
       v-model="show_unauthorized_content_dialog"

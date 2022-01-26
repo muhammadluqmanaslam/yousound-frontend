@@ -144,14 +144,6 @@ export default {
             this.genres = _.flatMap(this.$store.state.app.genres, 'children')
             this.products = values[0].body
 
-            // this.followings = _.cloneDeep(values[2].body.users)
-            // this.users = _.cloneDeep(values[2].body.users)
-            // this.users.unshift(this.currentUser)
-            // this.artists = _.filter(
-            //   this.followings,
-            //   (user) => user.user_type === 'artist'
-            // )
-            // this.artists = _.cloneDeep(values[3].body.users)
             this.potential_collaborators = _.cloneDeep(values[2].body.users)
             this.potential_contributors = _.cloneDeep(values[2].body.users)
             this.potential_contributors.unshift(this.currentUser)
@@ -167,11 +159,7 @@ export default {
               this.album.released_at = moment().format('YYYY-MM-DD')
             }
             this.album.enabled_sample = this.album.enabled_sample.toString()
-            // if (this.album.genres.length > 0) {
-            //   // this.genre = this.album.genres[0].id
-            //   // this.genre = this.album.genres[0]
-            //   // this.$store.dispatch('genreSelector/setGenres', this.album.genres)
-            // }
+
             this.$store.dispatch('genreSelector/setGenres', this.album.genres)
             if (this.album.products.length > 0) {
               this.selected_product = this.album.products[0].id

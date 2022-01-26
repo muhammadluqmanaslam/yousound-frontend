@@ -120,56 +120,170 @@ export default {
   },
 
   created() {
+    const slug = this.$route.params.slug
+
     this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })
     if (this.currentUser && this.currentUser.user_type === 'artist') {
-      this.album.released_at = moment().format('YYYY-MM-DD')
-      this.isPageReady = false
-      this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([
-        // UserService.searchUsers(params),
-        ProductService.getProducts({
-          statuses: 'published, collaborated',
-          stock_statuses: 'active',
-          user_statuses: 'accepted',
-        }),
-        // ProfileService.getItems(this.currentUser.id, 'followings', params),
-        // ProfileService.getItems(
-        //   this.currentUser.id,
-        //   'sample_followings',
-        //   params
-        // ),
-        MeService.mutualUsers({
-          per_page: -1,
-        }),
-        ProfileService.getItems(this.currentUser.id, 'sample_followings', {
-          per_page: -1,
-        }),
-      ])
-        .then((values) => {
-          this.products = values[0].body
-          this.$store.dispatch('genreSelector/setGenres', [])
 
-          this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+      // check if its edit mode or create mode
+      if (slug) {
+        const vm = this
+        this.isPageReady = false
+        this.$store.dispatch('error/showLoadingActivity', true)
+        this.slug = this.$route.params.slug
+        Promise.all([
+          // UserService.searchUsers(params)
+          ProductService.getProducts({
+            statuses: 'published, collaborated',
+            stock_statuses: 'active',
+            user_statuses: 'accepted',
+          }),
+          AlbumService.getAlbum(this.slug),
+          MeService.mutualUsers({
+            per_page: -1,
+          }),
+          ProfileService.getItems(this.currentUser.id, 'sample_followings', {
+            per_page: -1,
+          }),
+        ])
+          .then((values) => {
+            this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+            this.products = values[0].body
 
-          // this.followings = _.cloneDeep(values[1].body.users)
-          // this.users = _.cloneDeep(values[1].body.users)
-          // this.users.unshift(this.currentUser)
-          // // this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
-          // this.artists = _.cloneDeep(values[2].body.users)
+            this.potential_collaborators = _.cloneDeep(values[2].body.users)
+            this.potential_contributors = _.cloneDeep(values[2].body.users)
+            this.potential_contributors.unshift(this.currentUser)
+            this.artists = values[3].body.users
 
-          this.potential_collaborators = _.cloneDeep(values[1].body.users)
-          this.potential_contributors = _.cloneDeep(values[1].body.users)
-          this.potential_contributors.unshift(this.currentUser)
-          this.artists = values[2].body.users
+            this.album = values[1].body
+            this.album_image_url = this.album.cover.url
+            if (this.album.released_at) {
+              this.album.released_at = moment(this.album.released_at).format(
+                'YYYY-MM-DD'
+              )
+            } else {
+              this.album.released_at = moment().format('YYYY-MM-DD')
+            }
+            this.album.enabled_sample = this.album.enabled_sample.toString()
 
-          this.isPageReady = true
-          this.$store.dispatch('error/showLoadingActivity', false)
-        })
-        .catch((reason) => {
-          // console.log(reason)
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', reason)
-        })
+            this.$store.dispatch('genreSelector/setGenres', this.album.genres)
+            if (this.album.products.length > 0) {
+              this.selected_product = this.album.products[0].id
+            }
+            if (this.album.collaborators.length > 0) {
+              this.collaborators = this.album.collaborators
+            }
+            if (this.album.contributors.length > 0) {
+              this.contributors = this.album.contributors
+            }
+            if (this.album.samplings.length > 0) {
+              this.samplings = this.album.samplings
+              _.each(this.samplings, (sampling) => {
+                let artists = _.cloneDeep(this.artists)
+                _.each(artists, (u) => {
+                  u.sampling_id = sampling.id
+                })
+                sampling.artists = artists
+              })
+
+              let users_ids = _.chain(this.samplings)
+                .map('sample_user_id')
+                .uniq()
+                .value()
+              let fns = _.map(users_ids, (user_id) =>
+                AlbumService.getAlbums({
+                  statuses: 'published, collaborated',
+                  user_statuses: 'accepted',
+                  user_id: user_id,
+                  enabled_sample: true,
+                })
+              )
+              Promise.all(fns).then((values) => {
+                for (let i = 0; i < values.length; i++) {
+                  let samplings = _.filter(
+                    this.samplings,
+                    (s) => s.sample_user_id === users_ids[i]
+                  )
+                  _.each(samplings, (sampling) => {
+                    let albums = values[i].body
+                    _.each(albums, (a) => {
+                      a.sampling_id = sampling.id
+                    })
+                    sampling.artist_albums = albums
+                    sampling.artist_album_tracks = _.find(
+                      albums,
+                      (a) => a.id === sampling.sample_album_id
+                    ).tracks
+                    // console.log('samplings', this.samplings)
+                  })
+                }
+
+                this.isPageReady = true
+                this.$store.dispatch('error/showLoadingActivity', false)
+              })
+            } else {
+              this.isPageReady = true
+              this.$store.dispatch('error/showLoadingActivity', false)
+            }
+            // console.log('album_edit created', this.users)
+            setTimeout(function () {
+              $('#album_image').css(
+                'background-image',
+                'url(' + vm.album.cover.url + ')'
+              )
+            }, 200)
+          })
+          .catch((reason) => {
+            console.log(reason)
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showErrorToast', reason)
+            // this.isPageReady = true
+          }) 
+      } else {
+        this.album.released_at = moment().format('YYYY-MM-DD')
+        this.isPageReady = false
+        this.$store.dispatch('error/showLoadingActivity', true)
+        Promise.all([
+          // UserService.searchUsers(params),
+          ProductService.getProducts({
+            statuses: 'published, collaborated',
+            stock_statuses: 'active',
+            user_statuses: 'accepted',
+          }),
+
+          MeService.mutualUsers({
+            per_page: -1,
+          }),
+          ProfileService.getItems(this.currentUser.id, 'sample_followings', {
+            per_page: -1,
+          }),
+        ])
+          .then((values) => {
+            this.products = values[0].body
+            this.$store.dispatch('genreSelector/setGenres', [])
+  
+            this.genres = _.flatMap(this.$store.state.app.genres, 'children')
+  
+            // this.followings = _.cloneDeep(values[1].body.users)
+            // this.users = _.cloneDeep(values[1].body.users)
+            // this.users.unshift(this.currentUser)
+            // // this.artists = _.filter(this.followings, (user) => (user.user_type === 'artist'))
+            // this.artists = _.cloneDeep(values[2].body.users)
+  
+            this.potential_collaborators = _.cloneDeep(values[1].body.users)
+            this.potential_contributors = _.cloneDeep(values[1].body.users)
+            this.potential_contributors.unshift(this.currentUser)
+            this.artists = values[2].body.users
+  
+            this.isPageReady = true
+            this.$store.dispatch('error/showLoadingActivity', false)
+          })
+          .catch((reason) => {
+            // console.log(reason)
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showErrorToast', reason)
+          })
+      }
     } else {
       this.$router.push({ path: '/' })
     }

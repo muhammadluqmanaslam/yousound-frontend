@@ -208,7 +208,7 @@
                     v-if="album.user.username === currentUser.username"
                     key="edit"
                     class="default-menu-item"
-                    :to="{ name: 'AlbumEdit', params: { slug: album.slug } }"
+                    :to="{ name: 'UploadAlbum', params: { slug: album.slug } }"
                   >
                     <v-list-tile-title>
                       <label>Edit Album</label>

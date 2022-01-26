@@ -26,7 +26,6 @@ p {
     display: none;
   }
   .album-info-section {
-    padding: 6px 40px 0 40px;
     background-color: #fff;
     .album-info-title {
       margin-bottom: 14px;
@@ -36,14 +35,13 @@ p {
       font-weight: 600;
     }
     .album-image-section {
-      width: 300px;
+      width: 100%;
       .image-section {
-        background: #3a92ff;
-        border: 0.75px solid #d2d2d2;
+        background: #f9f9f9;
+        border: 0.75px solid #d8d8d8;
         border-radius: 3.75px;
         width: 100%;
-        padding-bottom: 100%;
-        margin-top: 4.5px;
+        height: 216px;
         position: relative;
         .loading-activity {
           position: absolute;
@@ -65,7 +63,9 @@ p {
           background-position: center;
         }
         .album-image-upload-section {
-          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           width: 100%;
           height: 100%;
           text-align: center;
@@ -82,10 +82,10 @@ p {
             height: 100%;
             font-weight: 600;
             font-size: 15px;
-            color: #ffffff;
+            // color: #ffffff;
             letter-spacing: 0;
             .camera {
-              color: #ffffff;
+              color: #000000;
               font-size: 28.5px;
               display: block;
               margin-top: calc(50% - 22.5px);
@@ -93,9 +93,9 @@ p {
           }
           .add-album-image-file:focus + label,
           .add-album-image-file + label:hover {
-            color: rgba(255, 255, 255, 0.5);
+            // color: rgba(255, 255, 255, 0.5);
             .camera {
-              color: rgba(255, 255, 255, 0.5);
+              // color: rgba(255, 255, 255, 0.5);
             }
           }
         }
@@ -128,10 +128,11 @@ p {
       }
     }
     .album-content-section {
-      padding: 0 0 0 22.5px;
-      width: calc(100% - 300px);
+      label.control-label {
+        margin-bottom: 8px;
+      }
       .album-description {
-        height: 129px;
+        height: 216px;
         padding: 7.5px 11.25px;
         background: #ffffff;
         border: 0.75px solid #d2d2d2;
@@ -141,8 +142,7 @@ p {
         }
       }
       .form-group {
-        margin-bottom: 32px;
-
+        // margin-bottom: 32px;
         &.enabled-sample-wrapper {
           label.control-label {
             display: inline-block;
@@ -168,10 +168,11 @@ p {
         }
       }
       .album-content-wrapper {
-        // display: flex;
+        display: flex;
+      flex-wrap: wrap;
         & > div {
-          display: inline-block;
-          margin-right: 30px;
+          // display: inline-block;
+          // margin-right: 30px;
         }
         & > div:nth-child(1) {
           width: 125px;
@@ -334,7 +335,7 @@ p {
       }
       .clear-btn {
         // padding-top: 18.75px;
-        color: #c1c1c1;
+        color: #000000;
         cursor: pointer;
       }
       .cancel-button {
@@ -372,16 +373,18 @@ p {
         cursor: pointer;
       }
       .release-now-btn {
-        float: right;
-        height: 37.5px;
+        height: 33px;
+        width: 123px;
         margin: 0;
         text-transform: none;
-        background: #3a92ff !important;
+        background: #2A71F6 !important;
         border-radius: 75px;
-        font-weight: 600;
-        font-size: 16px;
-        color: #ffffff;
         letter-spacing: 0;
+        
+        .btn__content {
+          font-size: 14px;
+          color: #ffffff;
+        }
       }
       .save-for-later-btn {
         float: right;

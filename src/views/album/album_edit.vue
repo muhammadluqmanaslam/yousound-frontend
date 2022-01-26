@@ -1,5 +1,10 @@
 <template>
   <v-layout row wrap class="page upload-album-page">
+    <!-- 
+      Working on Component redundancy
+      Working to merge Create and Edit together to share same component
+      Check created in /upload_album.vue
+    -->
     <v-flex xs12 relative v-if="isPageReady">
       <v-flex xs12 pa-0>
         <track-uploader
@@ -16,7 +21,7 @@
         id="album_info_section"
       >
         <v-flex xs12 pa-0>
-          <h4 class="album-info-title">Album Info</h4>
+          <h4 class="album-info-title">Info</h4>
         </v-flex>
         <v-flex xs12 pr-0>
           <v-layout row>
