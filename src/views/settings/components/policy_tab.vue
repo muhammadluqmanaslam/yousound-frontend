@@ -10,12 +10,11 @@
             class="policy-area"
             placeholder="Write a return policy..."
             rows="5"
+            :style="{height: textAreaHeight}"
           ></textarea>
         </div>
         <div class="form-group">
-          <v-btn class="update-btn" @click.native="saveReturnPolicy()"
-            >Save</v-btn
-          >
+          <v-btn v-if="!isSaveAllMode" class="update-btn" @click.native="saveReturnPolicy()">Save</v-btn>
         </div>
       </v-flex>
 
@@ -27,10 +26,11 @@
             class="policy-area"
             placeholder="Write a shipping policy..."
             rows="5"
+            :style="{height: textAreaHeight}"
           ></textarea>
         </div>
         <div class="form-group">
-          <v-btn class="update-btn" @click.native="saveShippingPolicy()"
+          <v-btn v-if="!isSaveAllMode" class="update-btn" @click.native="saveShippingPolicy()"
             >Save</v-btn
           >
         </div>
@@ -44,10 +44,11 @@
             class="policy-area"
             placeholder="Write a size chart..."
             rows="5"
+            :style="{height: textAreaHeight}"
           ></textarea>
         </div>
         <div class="form-group">
-          <v-btn class="update-btn" @click.native="saveSizeChart()">Save</v-btn>
+          <v-btn v-if="!isSaveAllMode" class="update-btn" @click.native="saveSizeChart()">Save</v-btn>
         </div>
       </v-flex>
 
@@ -59,10 +60,11 @@
             class="policy-area"
             placeholder="Write a privacy policy..."
             rows="5"
+            :style="{height: textAreaHeight}"
           ></textarea>
         </div>
         <div class="form-group">
-          <v-btn class="update-btn" @click.native="savePrivacyPolicy()"
+          <v-btn v-if="!isSaveAllMode" class="update-btn" @click.native="savePrivacyPolicy()"
             >Save</v-btn
           >
         </div>
