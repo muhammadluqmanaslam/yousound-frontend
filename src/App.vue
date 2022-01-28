@@ -14,7 +14,9 @@
   >
     <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1" />
 
+
     <v-content>
+      <app-loader v-show="loadValue !== 100" ref="appLoader" @getLoadUpdate="getLoadUpdate" />
       <transition name="slide-fade">
         <activity-popup v-if="$store.state.app.toggleActivity" />
       </transition>
@@ -26,7 +28,6 @@
         :style="{'padding-left': !sideBarMini ? `${sideBarWidth}px` : 0 }"
         v-if="$store.getters['error/isLoading']"
       >
-        <app-loader />
           <!-- <v-progress-circular
             v-if="$store.state.error.progressBar.value >= 0"
             :size="50"
@@ -132,6 +133,7 @@ export default {
 
   data() {
     return {
+      loadValue: null,
       direction: 'none',
       cable: null,
       notification_subscription: null,
@@ -165,6 +167,9 @@ export default {
 
   watch: {
     $route(to, from) {
+      // on route change, re-init app loader
+      this.$refs.appLoader.updateLoader(0)
+
       const parentNode = document.getElementById('my_video_player')
       this.$nextTick(() => this.watchPip(to, from, parentNode))
 
@@ -192,7 +197,12 @@ export default {
       }
     },
   },
-
+  mounted() {
+    // on app mount, init app loader
+    if (!AuthService.isAuthenticated) {
+      this.$refs.appLoader.updateLoader(0)
+    }
+  },
   created() {
     console.log('App created')
 
@@ -248,6 +258,11 @@ export default {
   },
 
   methods: {
+    getLoadUpdate(val) {
+      // app loader emit listener
+      // upload local state listener
+      this.loadValue = val
+    },
     doAfterSignIn() {
       const vm = this
       this.cable = ActionCable.createConsumer(

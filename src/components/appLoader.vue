@@ -1,8 +1,19 @@
 <template>
   <div class="app-loader" :style="{'background-color': bgColor}">
-    <div class="loader-def center">
-        <span></span>
-    </div>
+    <div v-if="loaderType === 'fullBG'" class="_fullBG">
+		<div class="loader-def center">
+        	<span></span>
+    	</div>
+	</div>
+
+
+	<div v-if="loaderType === 'linear'" class="_linear">
+		<v-progress-linear
+		:value="loadValue"
+        height="2"
+        class="primary--text app-loader_linear"
+      ></v-progress-linear>
+	</div>
   </div>
 </template>
 
@@ -11,13 +22,105 @@ export default {
   props: {
     bgColor: {
       type: String,
-      default: '#f0f0f0',
+      default: 'transparent',
     },
+    loaderType: {
+      type: String,
+      default: 'linear',
+    },
+  },
+  data() {
+    return {
+      loadValue: 0,
+      trackLoader: null,
+      loaderWithhold: false,
+    }
+  },
+  computed: {
+    loadStatus() {
+      return this.$store.getters['error/isLoading']
+    },
+  },
+  methods: {
+    updateLoader(val) {
+      // update load value
+      this.loadValue = val
+    },
+  },
+  watch: {
+    loadStatus(val) {
+      if (!val) {
+        // update load value to almost hundred
+        this.loadValue = 99
+
+        // update load value too full after delay
+        setTimeout(() => {
+          this.loadValue = 100
+        }, 500);
+
+        // close and finish load experience
+        clearInterval(this.trackLoader)
+      }
+    },
+    loadValue(val) {
+      // only run when loader is not in domant null state
+      if (val !== null) {
+        // by 0, means app loader has been triggered
+        if (val === 0) {
+          // init loader
+          this.trackLoader = setInterval(() => {
+            this.loadValue += 10
+          }, 500);
+        }
+
+        // when load value is full
+        if (val === 100) {
+          clearInterval(this.trackLoader)
+
+          // reset loaderWithhold
+          this.loaderWithhold = false
+        } else if (val > 79) {
+          // stop adding to loader value
+          // means at this stage, api is still loading i.e loadStatus
+          clearInterval(this.trackLoader)
+        } else if (val > 50 && this.loadStatus === true) {
+          // stop adding to loader value
+          // means at this stage, api is still loading i.e loadStatus
+          clearInterval(this.trackLoader)
+
+          // re-init loader with lower pace
+          this.trackLoader = setInterval(() => {
+            this.loadValue += 5
+          }, 500);
+        } else if (val > 60 && this.loadStatus === true) {
+          // stop adding to loader value
+          this.loaderWithhold = true
+          clearInterval(this.trackLoader)
+
+          // withhold loader state
+          // means at this stage, api is still loading i.e loadStatus
+          if (this.loaderWithhold === true) {
+            // re-init loader with lower pace
+            this.trackLoader = setInterval(() => {
+              this.loadValue += 1
+            }, 500);
+          }
+        }
+
+        // emit load value to listener
+        this.$emit('getLoadUpdate', val)
+      }
+    },
+  },
+  mounted() {
+    this.trackLoader = setInterval(() => {
+      this.loadValue += 10
+    }, 100);
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .app-loader {
 	display: -webkit-flex;
 	display:         flex;
@@ -33,6 +136,17 @@ export default {
 	width: 100%;
 	height: 100%;
 	clear: both;
+}
+
+._linear {
+	width: 100%;
+	position: fixed;
+    top: 0;
+    z-index: 3;
+
+	.progress-linear {
+		margin: 0;
+	}
 }
 
 .center {
