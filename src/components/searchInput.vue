@@ -18,6 +18,11 @@
 
 <script>
 export default {
+  props: {
+    senderRoute: {
+      type: String,
+    },
+  },
   data() {
     return {
       keyword: '',
@@ -26,8 +31,13 @@ export default {
   methods: {
     goToSearch() {
       const keyword = this.keyword
-      this.$router.push({ path: '/search', query: { q: keyword } })
+      const senderRoute = this.senderRoute
+
+      this.$router.push({ name: 'Search', query: { q: keyword }, params: {senderRoute} })
     },
+  },
+  created() {
+    this.keyword = this.$route.query.q
   },
 }
 </script>

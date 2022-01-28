@@ -23,11 +23,11 @@ export default {
     return {
       active_tab: 'albums',
       tabs: [
-        { id: 'albums', title: 'Albums' },
-        // { id: 'playlists', title: 'Playlists' },
-        { id: 'products', title: 'Products' },
-        { id: 'live_videos', title: 'Live Videos' },
-        { id: 'users', title: 'People' },
+        { id: 'albums', title: 'Albums', name: 'AlbumIndex' },
+        // { id: 'playlists', title: 'Playlists', name: '' },
+        { id: 'products', title: 'Products', name: 'ProductIndex' },
+        { id: 'live_videos', title: 'Videos', name: 'VideoIndex' },
+        { id: 'users', title: 'People', name: '' },
       ],
       page_index: 1,
       total_pages: 1,
@@ -71,6 +71,14 @@ export default {
       page: 'search',
       tab: this.active_tab,
     })
+
+    // detect sender route and update tab to its correspondence
+    const { senderRoute } = this.$route.params
+    if (senderRoute) {
+      const route = this.tabs.find(t => t.name === senderRoute)
+      this.onTab(route.id)
+    }
+
     this.keyword = this.$route.query.q
     this.init()
   },

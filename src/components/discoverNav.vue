@@ -19,7 +19,7 @@
               <v-spacer></v-spacer>
 
               <li class="search-li">
-                <search-input />
+                <search-input :senderRoute="$route.name" />
               </li>
           </ul>
       </template>
@@ -42,7 +42,7 @@ export default {
     return {
       activeTab: '',
       tabs: [
-        { id: 'discover', title: 'Discover', icon: require('../../static/images/discover.svg') },
+        { id: 'discover', title: 'Trending', icon: require('../../static/images/discover.svg') },
         { id: 'music', title: 'Music', icon: require('../../static/images/music.svg') },
         { id: 'video', title: 'Video', icon: require('../../static/images/video.svg') },
         { id: 'merch', title: 'Shop', icon: require('../../static/images/shop.svg') },
