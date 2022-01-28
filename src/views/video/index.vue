@@ -30,9 +30,35 @@
           </li>
         </ul>
 
-        <ul v-if="!isComp" class="width100 mx-3">
-          <li class="width100 my-2">
-            <v-tabs :scrollable="true">
+        <ul v-if="!isComp" class="mx-5">
+          <v-spacer></v-spacer>
+          <li class="my-2">
+            <v-menu
+              content-class="filter-menu__content"
+              id="genre_selector"
+              class="filter_menu"
+              style="display: block"
+              offset-y
+            >
+              <div slot="activator" class="genre-filter py-3">
+                <span class="mr-3">Genre:</span>
+                <span class="">{{ selected_genre.name }}</span>
+                <v-icon right>keyboard_arrow_down</v-icon>
+              </div>
+              <v-list>
+                <v-list-tile
+                  v-for="genre in available_genres"
+                  :key="genre.id"
+                  @click.native="setTab(genre.id)"
+                >
+                  <div class="cursor-pointer px-3">
+                    {{ genre.name }}
+                  </div>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+
+            <!-- <v-tabs :scrollable="true">
               <v-tabs-bar>
                 <v-tabs-item
                   v-model="selectedTab"
@@ -45,7 +71,7 @@
                   </v-chip>
                 </v-tabs-item>
               </v-tabs-bar>
-            </v-tabs>
+            </v-tabs> -->
           </li>
         </ul>
       </template>

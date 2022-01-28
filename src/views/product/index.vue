@@ -30,9 +30,35 @@
           </li>
         </ul>
 
-        <ul v-if="!isComp" class="width100">
-          <li class="width100">
-            <v-tabs :scrollable="true">
+        <ul v-if="!isComp" class="mx-3">
+          <v-spacer></v-spacer>
+
+          <li class="">
+            <v-menu
+              content-class="filter-menu__content"
+              id="genre_selector"
+              class="filter_menu"
+              style="display: block"
+              offset-y
+            >
+              <div slot="activator" class="genre-filter py-3">
+                <span class="mr-3">Category:</span>
+                <span class="">{{ selectedTab | capitalize }}</span>
+                <v-icon right>keyboard_arrow_down</v-icon>
+              </div>
+              <v-list>
+                <v-list-tile
+                  v-for="category in categories"
+                  :key="category.id"
+                  @click.native="filterByCategory(category)"
+                >
+                  <div class="cursor-pointer px-3">
+                    {{ category.name }}
+                  </div>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+            <!-- <v-tabs :scrollable="true">
               <v-tabs-bar style="margin-left: 0">
                 <v-tabs-item
                   v-model="selectedTab"
@@ -45,7 +71,7 @@
                   </v-chip>
                 </v-tabs-item>
               </v-tabs-bar>
-            </v-tabs>
+            </v-tabs> -->
           </li>
         </ul>
       </template>
