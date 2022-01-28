@@ -925,8 +925,21 @@
   margin-bottom: 75px;
   .content-section {
     margin: 0 -7.5px;
-    .flex.xs12.sm6 {
+    .flex.xs12.sm7 {
       padding: 0 7.5px;
+    }
+
+    .control-label {
+      margin-bottom: 6px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .required {
+      font-size: 24px;
+      vertical-align: -webkit-baseline-middle;
+      margin-left: -22px;
+      margin-right: 6px;
     }
   }
   .section-title {
@@ -946,12 +959,10 @@
     font-weight: 500;
   }
   .product-section {
-    background: #f7f7f7;
-    padding: 37.5px 30px 20px 30px;
-    min-height: 580px;
-    height: 500px;
+    // background: #f7f7f7;
+    // padding: 37.5px 30px 20px 30px;
     margin-bottom: 22.5px;
-    display: table;
+    // display: table;
     width: 100%;
     .flex.xs12 {
       padding: 0 3.75px;
@@ -1003,11 +1014,11 @@
       cursor: pointer;
     }
     .product-image-section {
-      background: #3a92ff;
+      background: #f9f9f9;
       border: 0.75px solid #d2d2d2;
       border-radius: 3.75px;
-      width: 100%;
-      padding-bottom: 100%;
+      width: 94%;
+      height: 144px;
       margin-top: 4.5px;
       position: relative;
       .loading-activity {
@@ -1017,11 +1028,8 @@
         left: calc(50% - 15px);
       }
       .product-image {
-        position: absolute;
-        top: 0px;
-        left: 0px;
         background: #ffffff;
-        border: 0.75px solid #d2d2d2;
+        border: 0.75px solid #d8d8d8;
         width: 100%;
         height: 100%;
         border-radius: 3.75px;
@@ -1030,10 +1038,13 @@
         background-position: center;
       }
       .product-image-upload-section {
-        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         height: 100%;
         text-align: center;
+
         .add-product-image-file {
           width: 0.75px;
           height: 0.75px;
@@ -1044,23 +1055,21 @@
         }
         .add-product-image-file + label {
           width: 100%;
-          height: 100%;
           font-weight: 600;
           font-size: 15px;
-          color: #ffffff;
+          color: #000000;
           letter-spacing: 0;
           .camera {
-            color: #ffffff;
+            color: #000000;
             font-size: 28.5px;
             display: block;
-            margin-top: calc(50% - 22.5px);
           }
         }
         .add-product-image-file:focus + label,
         .add-product-image-file + label:hover {
-          color: rgba(255, 255, 255, 0.5);
+          // color: rgba(255, 255, 255, 0.5);
           .camera {
-            color: rgba(255, 255, 255, 0.5);
+            // color: rgba(255, 255, 255, 0.5);
           }
         }
       }
@@ -1118,15 +1127,15 @@
     margin: 7.5px;
     padding: 15px 0;
     // border-top: 0.75px solid rgba(0, 0, 0, 0.2);
-    border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
+    // border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
     
     &.first-child {
-      border-top: 0.75px solid rgba(0, 0, 0, 0.2);
+      // border-top: 0.75px solid rgba(0, 0, 0, 0.2);
     }
     .creator-wrapper {
-      padding: 0 24px 20px 0;
+      // padding: 0 24px 20px 0;
       & > .flex {
-        padding: 0 7.5px;
+        // padding: 0 7.5px;
       }
       .creator-name,
       .creator-share {
@@ -1167,24 +1176,35 @@
       cursor: pointer;
     }
   }
+  .submit-section {
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.102);
+    }
+  }
   .product-save-btn {
     width: 112.5px;
     height: 37.5px;
     margin: 0px;
     box-shadow: none !important;
-    background: #3a92ff !important;
+    // background: #2A71F6 !important;
     border-radius: 75px;
-    float: right;
+    // float: right;
     font-weight: 600;
     font-size: 15px;
     text-transform: none;
     color: #ffffff;
     letter-spacing: 0;
+    .btn__content {
+      color: #ffffff;
+      font-weight: 800;
+    }
   }
   .cancel-button {
     height: 37.5px;
     margin-right: 15px;
-    float: right;
+    // float: right;
     cursor: pointer;
     font-size: 13.5px;
     color: #3a92ff;
