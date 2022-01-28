@@ -191,6 +191,7 @@
                     :dataObject="feed"
                     :noMeta="true"
                     :hideMoreOptions="true"
+                    :hideOverlay="true"
                   />
                 </v-flex>
                 <v-flex xs6>
