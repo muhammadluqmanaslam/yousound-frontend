@@ -8,6 +8,7 @@
 
 
 	<div v-if="loaderType === 'linear'" class="_linear">
+		<!-- <div class="text-xs-center"> loaderWithhold: {{ loaderWithhold }} || {{ loadStatus }} : {{ loadValue }}</div> -->
 		<v-progress-linear
 		:value="loadValue"
         height="2"
@@ -74,15 +75,15 @@ export default {
         }
 
         // when load value is full
-        if (val === 100) {
+        if (val > 100) {
+          clearInterval(this.trackLoader)
+          this.loadValue = null
+          // this.trackLoader = null
+        } else if (val === 100) {
           clearInterval(this.trackLoader)
 
           // reset loaderWithhold
           this.loaderWithhold = false
-        } else if (val > 79) {
-          // stop adding to loader value
-          // means at this stage, api is still loading i.e loadStatus
-          clearInterval(this.trackLoader)
         } else if (val > 50 && this.loadStatus === true) {
           // stop adding to loader value
           // means at this stage, api is still loading i.e loadStatus

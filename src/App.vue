@@ -167,8 +167,12 @@ export default {
 
   watch: {
     $route(to, from) {
-      // on route change, re-init app loader
       this.$refs.appLoader.updateLoader(0)
+      if (!this.loadValue) {
+        // on route change, reset app loader
+        // fix attempt for glitch on brute back btn click
+        this.$refs.appLoader.updateLoader(null)
+      }
 
       const parentNode = document.getElementById('my_video_player')
       this.$nextTick(() => this.watchPip(to, from, parentNode))
