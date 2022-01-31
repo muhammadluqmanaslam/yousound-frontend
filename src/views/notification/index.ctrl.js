@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     isActiveTab(tab) {
-      console.log(tab)
+      // console.log(tab)
       return this.currentTab === tab
     },
     setTab(tab) {
@@ -40,9 +40,9 @@ export default {
   },
   watch: {
     $route(toPath, fromPath) {
-      console.log(toPath)
-      console.log(fromPath)
-      const tab = toPath.hash.substr(1)
+      // console.log(toPath)
+      // console.log(fromPath)
+      const tab = toPath.hash.substr(1) || 'messages'
       this.setTab(tab)
     },
   },
