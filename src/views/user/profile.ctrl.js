@@ -319,7 +319,7 @@ export default {
             this.$store.dispatch('error/showErrorToast', [
               'User does not exist',
             ])
-            this.$router.push({ path: '/' })
+            this.$router.push({ name: 'DiscoverIndex' })
             return
           }
 
