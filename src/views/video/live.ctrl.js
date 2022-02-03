@@ -56,8 +56,13 @@ export default {
   },
 
   computed: {
+    hasFree_stream_seconds() {
+      return this.currentUser.free_stream_seconds !== undefined && this.currentUser.free_stream_seconds < 1
+    },
     currentUser() {
-      return this.$store.state.auth.user
+      let user = this.$store.state.auth.user
+      // user.free_stream_seconds = 0 // test
+      return user
     },
     hours() {
       const num = Array.from({length: 24}, (_, i) => ({value: i + 1, title: i + 1 + ' Hour'}))

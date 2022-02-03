@@ -75,14 +75,20 @@
             </div>
 
             <div>
-                <span class="mr-1">Add more time below, or</span>
+                <span>Add more time below, or</span>
 
                 <v-btn
+                    :disabled="hasFree_stream_seconds"
                     depressed
                     round
-                    :disabled="currentUser.free_stream_seconds && currentUser.free_stream_seconds < 1"
-                    class="app-blue-2 white--text"
-                    :to="{name: 'VideoCreate'}"
+                    dark
+                    class="app-blue-2"
+                    :style="[
+                        hasFree_stream_seconds ?
+                        {'background-color': '#c9c3c3 !important', color: 'grey !important'} :
+                        {}
+                    ]"
+                    @click="$router.push({name: 'VideoCreate'})"
                 >
                     <b>Use remaining time</b>
                 </v-btn>
@@ -140,7 +146,10 @@
                             </v-flex>
                             
                             <v-flex xs12 md5>
-                                <v-btn round depressed class="mx-0 choose__btn width100" @click="getPayable(plan)">Choose</v-btn>
+                                <v-btn round depressed class="mx-0 choose__btn width100" @click="getPayable(plan)">
+                                    <span v-if="hasFree_stream_seconds">Choose</span>
+                                    <span v-else>Add More time</span>
+                                </v-btn>
                             </v-flex>
                         </v-layout>
                     </div>
