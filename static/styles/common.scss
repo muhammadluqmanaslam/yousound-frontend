@@ -507,6 +507,9 @@ li.search-li {
 .dflex {
   display: flex;
 }
+.flex-column {
+  flex-direction: column;
+}
 
 .allChildrenCenter {
   display: flex;
@@ -681,6 +684,9 @@ a {
 
 .relative {
   position: relative;
+}
+.absolute {
+  position: absolute;
 }
 
 .clear {
