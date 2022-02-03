@@ -4,6 +4,8 @@ import MeService from '@/services/me'
 import PaymentService from '@/services/payment'
 import VideoService from '@/services/video'
 import UserService from '@/services/user'
+import AlbumService from '@/services/album'
+import ProductService from '@/services/product'
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
 import DigitalUploader from './components/digital_uploader'
@@ -37,6 +39,8 @@ export default {
         { id: 'create', title: 'Setup' },
         { id: 'manage', title: 'Live Stream', disabled: true },
       ],
+      albums: [],
+      products: [],
       VideoTypes: VideoTypes,
       video_type: VideoTypes.UPLOADED,
       terms: false,
@@ -85,6 +89,11 @@ export default {
   },
 
   computed: {
+    mergedAttachmentItems() {
+      const combined = [...this.albums, ...this.products]
+      console.log('combined: ', combined);
+      return combined
+    },
     videoFileName() {
       return this.videoFile[0].name || null
     },
@@ -116,6 +125,8 @@ export default {
     },
   },
   created() {
+    this.getAttachmentItems()
+
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
       tab: 'create',
@@ -227,6 +238,28 @@ export default {
   },
 
   methods: {
+    getAttachmentItems() {
+      Promise.all([
+        AlbumService.getAlbums({
+          statuses: 'published, collaborated',
+          user_statuses: 'accepted',
+        }),
+        ProductService.getProducts({
+          statuses: 'published, collaborated',
+          stock_statuses: 'active',
+          user_statuses: 'accepted',
+        }),
+      ])
+        .then((values) => {
+          this.albums = values[0].body
+          this.products = values[1].body
+        })
+        .catch((reason) => {
+          console.log(reason)
+          // this.$store.dispatch('error/showErrorToast', [reason])
+        })
+    },
+
     pickedFile(file) {
       this.videoFile = file
     },
