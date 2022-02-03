@@ -199,7 +199,6 @@ export function createRouter(settings) {
     { path: '/settings', name: 'UserSettings', component: UserSettings },
     { path: '/partners', name: 'Partners', component: Partners },
     { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-    { path: '/:slug', name: 'UserProfile', component: UserProfile },
     { path: '/user/:user/chat', name: 'Chat', component: Chat },
     {
       path: '/user/:user/messages',
@@ -256,7 +255,10 @@ export function createRouter(settings) {
     ])
   }
 
-  routes = routes.concat([{ path: '*', redirect: '/' }])
+  routes = routes.concat([
+    { path: '*', redirect: '/' },
+    { path: '/:slug', name: 'UserProfile', component: UserProfile },
+  ])
 
   return new Router({
     mode: 'history',
