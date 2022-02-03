@@ -68,8 +68,8 @@ export default {
       if (val !== null) {
         // by 0, means app loader has been triggered
         if (val === 0) {
-			// IMPORTANT
-        // fix glitch on brute back btn click
+          // IMPORTANT
+          // fix glitch on brute back btn click
           clearInterval(this.trackLoader)
 
           // init loader
