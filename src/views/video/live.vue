@@ -78,13 +78,13 @@
                 <span>Add more time below, or</span>
 
                 <v-btn
-                    :disabled="hasFree_stream_seconds"
+                    :disabled="!hasFree_stream_seconds"
                     depressed
                     round
                     dark
                     class="app-blue-2"
                     :style="[
-                        hasFree_stream_seconds ?
+                        !hasFree_stream_seconds ?
                         {'background-color': '#c9c3c3 !important', color: 'grey !important'} :
                         {}
                     ]"
@@ -147,7 +147,7 @@
                             
                             <v-flex xs12 md5>
                                 <v-btn round depressed class="mx-0 choose__btn width100" @click="getPayable(plan)">
-                                    <span v-if="hasFree_stream_seconds">Choose</span>
+                                    <span v-if="!hasFree_stream_seconds">Choose</span>
                                     <span v-else>Add More time</span>
                                 </v-btn>
                             </v-flex>

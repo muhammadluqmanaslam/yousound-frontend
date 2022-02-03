@@ -94,6 +94,9 @@ export default {
   },
 
   computed: {
+    hasFree_stream_seconds() {
+      return this.user.free_stream_seconds !== undefined && this.user.free_stream_seconds > 0
+    },
     mergedAttachmentItems() {
       const combined = [...this.albums, ...this.products]
 
@@ -171,14 +174,18 @@ export default {
   // },
 
   async created() {
+    console.log(1);
     await this.getUser()
+    console.log(2);
+
+    // get attchment array items
     this.getAttachmentItems()
 
     // re-navigate user away when user is on live
     console.log(this.isStreaming)
     if (this.isStreaming) {
       this.$router.push({name: 'VideoManage'})
-    } else if (this.user.free_stream_seconds && this.user.free_stream_seconds > 0) {
+    } else if (!this.hasFree_stream_seconds) {
       this.$router.push({name: 'CreateLive'})
     }
 
@@ -315,8 +322,8 @@ export default {
         })
     },
 
-    getUser() {
-      UserService.getUserInfo(this.currentUser.username)
+    async getUser() {
+      await UserService.getUserInfo(this.currentUser.username)
         .then((response) => {
           if (response.body.status !== 'active') {
             this.$store.dispatch('error/showErrorToast', [
@@ -328,6 +335,8 @@ export default {
 
           // console.log('profile init')
           this.user = response.body
+          // this.user.free_stream_seconds = 0 // test
+          console.log('user2: ', this.user);
         }).catch((e) => {
           this.$store.dispatch('error/showErrorToast', ['Error fetching user'])
         })

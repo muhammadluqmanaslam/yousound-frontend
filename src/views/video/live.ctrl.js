@@ -57,7 +57,7 @@ export default {
 
   computed: {
     hasFree_stream_seconds() {
-      return this.currentUser.free_stream_seconds !== undefined && this.currentUser.free_stream_seconds < 1
+      return this.currentUser.free_stream_seconds !== undefined && this.currentUser.free_stream_seconds > 0
     },
     currentUser() {
       let user = this.$store.state.auth.user
