@@ -3,6 +3,8 @@ import AuthService from '@/services/auth'
 import MeService from '@/services/me'
 import PaymentService from '@/services/payment'
 import StreamService from '@/services/stream'
+import AlbumService from '@/services/album'
+import ProductService from '@/services/product'
 import UserService from '@/services/user'
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
@@ -45,11 +47,12 @@ export default {
         { id: 'create', title: 'Setup' },
         { id: 'manage', title: 'Live Stream', disabled: true },
       ],
+      albums: [],
+      products: [],
       VideoTypes: VideoTypes,
       video_type: VideoTypes.LIVE,
       terms: false,
       view_prices: StreamViewPrices,
-      viewers_limits: StreamViewersLimits,
       costs: StreamCosts,
       streamCost: 1000,
       profit_share_types: [],
@@ -60,7 +63,7 @@ export default {
         name: '',
         description: '',
         view_price: 0,
-        viewers_limit: 0,
+        viewers_limit: 1,
         cover: null,
         ml_input_type: 'RTMP_PUSH',
         ml_input_codec: 'AVC',
@@ -91,6 +94,16 @@ export default {
   },
 
   computed: {
+    mergedAttachmentItems() {
+      const combined = [...this.albums, ...this.products]
+
+      return combined
+    },
+    viewers_limits() {
+      const range = [...Array(101).keys()]
+      range.shift()
+      return range
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -159,6 +172,7 @@ export default {
 
   async created() {
     await this.getUser()
+    this.getAttachmentItems()
 
     // re-navigate user away when user is on live
     console.log(this.isStreaming)
@@ -279,6 +293,28 @@ export default {
   },
 
   methods: {
+    getAttachmentItems() {
+      Promise.all([
+        AlbumService.getAlbums({
+          statuses: 'published, collaborated',
+          user_statuses: 'accepted',
+        }),
+        ProductService.getProducts({
+          statuses: 'published, collaborated',
+          stock_statuses: 'active',
+          user_statuses: 'accepted',
+        }),
+      ])
+        .then((values) => {
+          this.albums = values[0].body
+          this.products = values[1].body
+        })
+        .catch((reason) => {
+          console.log(reason)
+          // this.$store.dispatch('error/showErrorToast', [reason])
+        })
+    },
+
     getUser() {
       UserService.getUserInfo(this.currentUser.username)
         .then((response) => {
