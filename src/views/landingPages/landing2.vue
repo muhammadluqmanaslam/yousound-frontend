@@ -88,11 +88,11 @@ export default {
       productList: [
         `Sell physical & digital products`,
         `Collaborate, split revenue & recoup`,
-        `Make products exclusive`,
+        `Keep 100% of product sales`,
       ],
       streamsList: [
-        `Keep 90% of product sales`,
-        `Earn money sharing content`,
+        `Sales, pay-perview, donations`,
+        `Get paid to share`,
         `Become a YouSound Partner`,
       ],
 

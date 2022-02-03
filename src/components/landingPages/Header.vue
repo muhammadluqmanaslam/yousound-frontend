@@ -51,7 +51,7 @@
 
           <div class="link-text-wrapper">
             <v-btn
-              :to="link.route"
+              :to="{name: link.route}"
               class="nav_text no-Btn-bg"
               v-for="link in links"
               :key="link.text"
@@ -131,8 +131,8 @@ export default {
   data: () => ({
     drawer: false,
     links: [
-      { text: "Artists & Brands", route: "/landing2" },
-      { text: "Go Ad-Free", route: "/landing3" },
+      { text: "Artists & Brands", route: "Creators" },
+      { text: "Go Ad-Free", route: "AdFree" },
     ],
   }),
   computed: {
