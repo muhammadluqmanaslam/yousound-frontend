@@ -1,7 +1,7 @@
 <template>
   <section :class="{ fullWidth: fullWidth }">
     <v-container fluid grid-list-xs px-0>
-      <v-layout wrap row row-reverse>
+      <v-layout wrap row>
         <v-flex
           xs12
           md6

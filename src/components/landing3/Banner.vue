@@ -12,7 +12,8 @@
             <br />
             {{ title3 }}
           </h3>
-          <a href="#plans" class="plan_btn"> Choose a plan </a>
+
+          <a href="#plans" class="mt-4 plan_btn"> Choose a plan </a>
         </div>
       </v-flex>
     </v-layout>
