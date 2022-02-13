@@ -33,7 +33,7 @@ const getters = {
             title: 'Activity',
             id: 'activity',
             icon: require('../../../static/images/ic_alarm.svg'),
-            path: '',
+            path: 'ActivityIndex',
           },
           {
             title: 'Feed',
