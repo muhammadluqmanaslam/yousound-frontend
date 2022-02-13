@@ -127,6 +127,9 @@ export default {
 
           // this will return a a prop limit if available
           this.products = this.products.slice(0, this.listLimit || this.products.length)
+          
+          // remove products duplicate
+          this.products = _.uniqBy(this.products, 'id')
 
           // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
           const categories = response.body.categories.map((c) => ({
@@ -152,6 +155,9 @@ export default {
 
               // this will return a a prop limit if available
               vm.products = this.products.slice(0, this.listLimit || this.products.length)
+
+              // remove products duplicate
+              this.products = _.uniqBy(this.products, 'id')
 
               vm.page_index =
                 values[2].body.pagination.total_pages > 4
