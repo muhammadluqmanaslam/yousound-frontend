@@ -35,7 +35,7 @@
         </v-flex>
       </v-layout>
 
-      <v-layout wrap row row-reverse _pad-first-flex align-center>
+      <v-layout wrap row _pad-first-flex align-center>
         <v-flex
           xs12
           md6

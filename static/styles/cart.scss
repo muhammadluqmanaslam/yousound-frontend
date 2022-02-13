@@ -156,7 +156,8 @@
 
         .product-cover-image {
           width: 180px;
-          height: 180px;
+          min-height: 70px;
+          max-height: 180px;
           background: #fff;
           border-radius: 7.5px;
           // margin: 7.5px 7.5px 3px;

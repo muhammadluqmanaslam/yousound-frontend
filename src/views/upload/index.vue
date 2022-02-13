@@ -66,7 +66,7 @@
     </v-container>
 
 
-    <v-container fluid grid-list-lg px-4>
+    <!-- <v-container fluid grid-list-lg px-4>
           <h1>Maximize your content</h1>
       <v-layout row>
         <v-flex xs6 class="meta-tab-container pl-0">
@@ -99,7 +99,7 @@
           </div>
         </v-flex>
       </v-layout>
-    </v-container>
+    </v-container> -->
   </div>
 </template>
 

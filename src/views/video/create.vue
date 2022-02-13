@@ -168,9 +168,8 @@
                 <label class="info-title">Attach Product/Album</label>
                 <div class="panel">
                   <v-select
-                    v-model="stream.account_ids"
+                    v-model="stream_assoc"
                     :items="mergedAttachmentItems"
-                    multiple
                     item-text="name"
                     item-value="id"
                     placeholder="Type name to search your products & albums"
@@ -344,7 +343,7 @@
               class="release-now-btn white--text" 
               type="submit"
             >
-              Submit
+              Create Channel
             </v-btn>
           </div>
         </form>

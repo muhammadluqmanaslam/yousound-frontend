@@ -2,14 +2,14 @@
   <div row wrap class="page settings-page mx-5">
     <dashboard-nav name="settings" :replaceMenuWith="replaceTopMenu" />
 
-    <content-top-header class="__inner mt-3">
+    <content-top-header absolute class="__inner mt-3">
       <template slot="topHeader">
         <ul>
           <li
             v-for="tab in availableTabs"
             :key="tab.id"
             :href="`#${tab.id}`"
-            :class="{ active: isActiveTab(tab.id) }"
+            :class="{ 'active tab-active': isActiveTab(tab.id) }"
           >
             <label @click="onTab(tab.id)">{{ tab.title }}</label>
           </li>

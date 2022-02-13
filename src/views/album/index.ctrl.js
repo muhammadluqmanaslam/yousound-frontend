@@ -28,9 +28,9 @@ export default {
     return {
       activeTab: '',
       tabs: [
-        { id: 'recommended', title: 'Staff Picks' },
-        { id: 'new', title: 'Trending' },
-        { id: 'popular', title: 'New Arrivals' },
+        { id: 'recommended', title: 'Trending' },
+        { id: 'new', title: 'New' },
+        { id: 'popular', title: 'Popular' },
         // { id: 'playlist', title: 'Playlists' },
       ],
       seed: '',
@@ -92,11 +92,11 @@ export default {
   },
 
   created() {
-    if (!this.currentUser) {
-      AuthService.clearTokenAndUserInfo()
-      this.$router.push({ path: '/login' })
-      return
-    }
+    // if (!this.currentUser) {
+    //   AuthService.clearTokenAndUserInfo()
+    //   this.$router.push({ path: '/login' })
+    //   return
+    // }
 
     // this.seed = parseInt(Date.now() * Math.random())
     this.seed = Math.random()

@@ -58,7 +58,7 @@
                 }
                 &-body {
                     padding: 20px;
-                    height: 430px;
+                    height: 445px;
                     overflow-y: auto;
 
                     .pie-chart {
@@ -87,7 +87,13 @@
                             ._thumbnail {
                                 border-radius: 100%;
                             }
-                            
+                        }
+
+                        &.__rectangle {
+                            ._thumbnail {
+                                width: 66px;
+                                height: 40px;
+                            }
                         }
 
                         ._thumbnail {

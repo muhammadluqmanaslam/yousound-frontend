@@ -68,6 +68,8 @@
                 </v-layout>
             </v-container>
 
+            <!-- selectedInnerTab: <pre></pre> -->
+
             <!-- Charts -->
             <v-container fluid px-0>
                 <!-- Graph Chart -->
@@ -118,7 +120,7 @@
         <div v-if="getSummaryTabs()" class="col-summary-section">
             <v-container fluid grid-list-lg px-0>
                 <v-layout row wrap  justify-space-between>
-                    <v-flex xs12 sm3 v-for="(col, i) in getSummaryTabs()" :key="i" col-summary>
+                    <v-flex xs12 custom-lg3plus v-for="(col, i) in getSummaryTabs()" :key="i" col-summary>
                         <div class="col-summary-frame">
                             <div class="col-summary-frame-header">
                                 <h4>{{ col.header }}</h4>
@@ -133,7 +135,7 @@
                             </div>
 
                             <div v-else class="col-summary-frame-body">
-                                <div v-for="(item, i) in 7" :key="i" class="col-listing" :class="[col.avatarType == 'square' ? '__square' : col.avatarType == 'round' ? '__round' : '' ]">
+                                <div v-for="(item, i) in 7" :key="i" class="col-listing" :class="[col.avatarType == 'square' ? '__square' : col.avatarType == 'round' ? '__round' : col.avatarType == 'rectangle' ? '__rectangle':  '' ]">
                                     <div class="_thumbnail"></div>
                                     <div class="_title">First Last</div>
                                 </div>
@@ -149,6 +151,7 @@
             <div
                 v-for="(table, i) in getDataTables()"
                 :key="i"
+                class="mb-4"
             >
                 <h4 class="data-table-title mb-3">{{ table.title }}</h4>
                 <v-data-table

@@ -109,6 +109,9 @@
             </v-flex>
 
             <v-flex xs12 form-group>
+              <label class="control-label">
+                Live stream only
+              </label>
               <div>
                 <v-checkbox
                   v-model="album.is_only_for_live_stream"
@@ -126,6 +129,7 @@
               <v-container fluid grid-list-lg px-0>
                 <v-layout wrap row>
                   <v-flex xs12 sm2>
+
 
                   <label class="control-label">
                     <label class="required">*</label>
@@ -181,81 +185,85 @@
               </v-container>
             </v-flex>
 
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Album includes</label>
-              <div class="album-content-wrapper">
-                <v-checkbox
-                  v-model="album.is_content_acapella"
-                  label="Acapella"
-                ></v-checkbox>
-                <v-checkbox
-                  v-model="album.is_content_instrumental"
-                  label="Instrumental"
-                ></v-checkbox>
-                <v-checkbox
-                  v-model="album.is_content_stems"
-                  label="Stems"
-                ></v-checkbox>
-                <v-checkbox
-                  v-model="album.is_content_remix"
-                  label="Remix"
-                ></v-checkbox>
-                <v-checkbox
-                  v-model="album.is_content_dj_mix"
-                  label="DJ Mix"
-                ></v-checkbox>
-              </div>
+            <v-flex xs12 form-group>
+              <v-flex xs12 sm6 pa-0>
+                <h4 class="album-info-title">Album Includes</h4>
+                <div class="album-content-wrapper">
+                  <v-checkbox
+                    v-model="album.is_content_acapella"
+                    label="Acapella"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="album.is_content_instrumental"
+                    label="Instrumental"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="album.is_content_stems"
+                    label="Stems"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="album.is_content_remix"
+                    label="Remix"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="album.is_content_dj_mix"
+                    label="DJ Mix"
+                  ></v-checkbox>
+                </div>
+              </v-flex>
             </v-flex>
 
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Attach product to album</label>
-              <v-select
-                v-bind:items="products"
-                v-model="selected_product"
-                item-text="name"
-                item-value="id"
-                placeholder="Type name to search your product"
-                chips
-                class="pt-0"
-                no-data-text="No products found"
-                autocomplete
-                clearable
-              >
-                <template slot="selection" slot-scope="data">
-                  <v-chip
-                    :key="JSON.stringify(data.item)"
-                    @input="data.parent.selectItem(data.item)"
-                    :selected="data.selected"
-                    class="chip--select-multi"
-                  >
-                    <v-avatar>
-                      <img :src="data.item.covers[0].cover.thumb.url" />
-                    </v-avatar>
-                    {{ data.item.name }}
-                  </v-chip>
-                </template>
-                <template slot="item" slot-scope="data">
-                  <template v-if="typeof data.item !== 'object'">
-                    <v-list-tile-content
-                      v-text="data.item"
-                    ></v-list-tile-content>
+            <v-flex xs12 form-group>
+              <v-flex xs12 sm6 pa-0>
+                <h4 class="album-info-title">Attach product to album</h4>
+                <v-select
+                  v-bind:items="products"
+                  v-model="selected_product"
+                  item-text="name"
+                  item-value="id"
+                  placeholder="Type name to search your product"
+                  chips
+                  class="pt-0"
+                  no-data-text="No products found"
+                  autocomplete
+                  clearable
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      :key="JSON.stringify(data.item)"
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      class="chip--select-multi"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.covers[0].cover.thumb.url" />
+                      </v-avatar>
+                      {{ data.item.name }}
+                    </v-chip>
                   </template>
-                  <template v-else>
-                    <v-list-tile-avatar>
-                      <img v-bind:src="data.item.covers[0].cover.thumb.url" />
-                    </v-list-tile-avatar>
-                    <v-list-tile-content>
-                      <v-list-tile-title
-                        v-html="data.item.name"
-                      ></v-list-tile-title>
-                    </v-list-tile-content>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content
+                        v-text="data.item"
+                      ></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-avatar>
+                        <img v-bind:src="data.item.covers[0].cover.thumb.url" />
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title
+                          v-html="data.item.name"
+                        ></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
                   </template>
-                </template>
-              </v-select>
+                </v-select>
+              </v-flex>
             </v-flex>
 
             <v-flex xs12 class="additional-info-section">
-              <v-flex xs12 sm4>
+              <v-flex xs12 sm6 pa-0>
                 <v-flex xs12>
                   <v-layout>
                     <v-flex xs12 sm6 dflex align-center pa-0 mb-2>
@@ -351,7 +359,7 @@
             </v-flex>
 
             <v-flex xs12 class="additional-info-section">
-              <v-flex xs12 sm4>
+              <v-flex xs12 sm6 pa-0>
                 <v-flex xs12>
                   <v-layout>
                     <v-flex xs12 sm6 dflex align-center pa-0 mb-2>
@@ -448,7 +456,7 @@
               </v-flex>
             </v-flex>
 
-            <v-flex xs12 form-group enabled-sample-wrapper>
+            <!-- <v-flex xs12 form-group enabled-sample-wrapper>
               <label class="control-label"
                 >Allow Verified Artists to sample/mix content from this
                 album?</label
@@ -462,7 +470,7 @@
                 <v-radio value="`false`" label="No" light></v-radio>
                 <v-radio value="`true`" label="Yes" light></v-radio>
               </v-radio-group>
-            </v-flex>
+            </v-flex> -->
           </v-layout>
         </v-container>
 
@@ -476,9 +484,9 @@
             <router-link :to="{ name: 'ManageIndex', params: { tab: 'payment' } }">Connect to Stripe</router-link>
              or downloads will be disabled
             </li>
-            <li>
-            To sell an album and limit tracks, only upload free tracks you want listeners to stream, then connect your digital product to the album
-            </li>
+            <!-- <li>
+              To sell an album and limit tracks, only upload free tracks you want listeners to stream, then connect your digital product to the album
+            </li> -->
           </ul>
         </v-flex>
 

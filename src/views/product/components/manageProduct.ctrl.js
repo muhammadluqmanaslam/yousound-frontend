@@ -139,8 +139,9 @@ export default {
 
     //   console.log(this.products)
       console.log(this.products.filter((p) => p.status == 'published'))
+      console.log('collaborated: ', this.products.filter((p) => p.status == 'collaborated'))
     //   console.log(this.products.map((p) => p.status))
-      console.log(this.products.map((p) => p.collaborators))
+      // console.log(this.products.map((p) => p.collaborators))
       return filtered
     },
     isActiveTab(tab) {

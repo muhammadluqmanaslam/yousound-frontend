@@ -2,13 +2,15 @@ import _ from 'lodash'
 // import { mapGetters } from 'vuex'
 import ActivityService from '@/services/activity'
 import activityItem from '@/components/activityitem'
-import AppLoader from '@/components/appLoader'
 import InvitationService from '@/services/invitation'
+import contentTopHeader from '@/components/contentTopHeader'
+import userTag from '@/components/user_tag'
 
 export default {
   components: {
     activityItem,
-    AppLoader,
+    contentTopHeader,
+    userTag,
   },
 
   data() {
@@ -37,6 +39,9 @@ export default {
       if (val === true) {
         this.link_copied = false
       }
+    },
+    activities(val) {
+      console.log('activities:', val)
     },
   },
 
@@ -105,15 +110,6 @@ export default {
           this.link_copied = true
         })
         .catch((err) => console.log(err))
-    },
-    closeActivityPopup() {
-      this.$store.dispatch('app/toggleActivityPopup', false)
-    },
-  },
-
-  watch: {
-    activities(val) {
-      console.log('activities:', val)
     },
   },
 

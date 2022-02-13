@@ -132,9 +132,8 @@
                 <label class="info-title">Attach Product/Album</label>
                 <div class="panel">
                   <v-select
-                    v-model="stream.account_ids"
+                    v-model="stream_assoc"
                     :items="mergedAttachmentItems"
-                    multiple
                     item-text="name"
                     item-value="id"
                     placeholder="Type name to search your products & albums"
@@ -208,8 +207,8 @@
               <div class="form-group">
                 <label class="info-title">Feature profiles</label>
                 <v-select
-                  :items="friends"
                   v-model="stream.account_ids"
+                  :items="friends"
                   multiple
                   item-text="name"
                   item-value="id"
@@ -420,8 +419,8 @@
                   >Collaborators<span class="required">*</span></label
                 >
                 <v-select
-                  :items="users"
                   v-model="collaborator.user_id"
+                  :items="users"
                   item-text="username"
                   item-value="id"
                   chips

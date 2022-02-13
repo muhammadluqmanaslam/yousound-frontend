@@ -1,8 +1,8 @@
 <template>
   <v-flex xs12 sm12 class="merch-section single-product-page" id="carousel-view">
     <v-layout row wrap class="dismiss-section" @click="dismiss()"></v-layout>
-    <div row wrap class="popup-section">
-      <v-container grid-list-lg class="ml-0 pl-0">
+    <div row wrap class="popup-section pl-4">
+      <v-container grid-list-lg class="ml-0">
         <v-layout row wrap align-start>
           <v-flex xs12 sm7 class="wrapFlex product-covers">
             <div class="product-container">

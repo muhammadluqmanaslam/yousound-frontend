@@ -129,6 +129,18 @@
               v-validate="'required|max:20'"
             />
           </v-flex> -->
+
+          <v-flex xs12 sm8 text-xs-center>
+            <input
+              v-model="user.name"
+              class="displayname"
+              type="text"
+              name="name"
+              autocomplete="off"
+              placeholder="Name"
+              v-validate="'required|max:20'"
+            />
+          </v-flex>
           <v-flex xs12 sm8 text-xs-center>
             <input
               class="email"

@@ -5,7 +5,7 @@
         justify-content: space-between;
 
         .product-side-thumbnails {
-            width: 17%;
+            // width: 17%;
             .product-thumbnail {
                 width: 100%;
                 // height: 300px;
@@ -14,6 +14,7 @@
             .product-covers {
                 position: relative;
                 height: 130px;
+                width: 130px;
                 background-position: center;
                 background-size: cover;
                 margin-bottom: 10px;
@@ -99,6 +100,9 @@
         line-height: 2;
         color: #000000;
         margin-top: 30px;
+        height: 250px;
+        overflow-y: auto;
+
         &:first-letter {
             text-transform: capitalize;
         }

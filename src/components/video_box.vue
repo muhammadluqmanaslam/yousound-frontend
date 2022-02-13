@@ -5,7 +5,7 @@
       :class="{ 'cursor-pointer': !hoverOverlay }"
       @click="!hoverOverlay ? $router.push(`/video/${item.id}/show`) : ''"
     >
-      <span v-if="durationTag" class="duration__tag">{{ durationTag }}</span>
+      <span v-if="durationTag && !coverOnly" class="duration__tag">{{ durationTag }}</span>
       <div
         class="box__image"
         :style="`background-image: url(${_.get(item, 'cover.url')})`"
@@ -22,7 +22,7 @@
         >
       </div>
     </div>
-    <div class="box__footer">
+    <div v-if="!coverOnly" class="box__footer">
       <div class="box__subtitle">
         <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
           <!-- <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.username }}</span> -->
@@ -58,6 +58,10 @@ export default {
     hoverOverlay: {
       type: Boolean,
       default: true,
+    },
+    coverOnly: {
+      type: Boolean,
+      default: false,
     },
   },
 

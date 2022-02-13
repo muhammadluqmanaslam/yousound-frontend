@@ -75,8 +75,10 @@ export default {
     // detect sender route and update tab to its correspondence
     const { senderRoute } = this.$route.params
     if (senderRoute) {
-      const route = this.tabs.find(t => t.name === senderRoute)
-      this.onTab(route.id)
+      console.log(this.$route.params);
+      const route = this.tabs.find(t => t.name === senderRoute);
+
+      if (route !== undefined) return this.onTab(route.id)
     }
 
     this.keyword = this.$route.query.q

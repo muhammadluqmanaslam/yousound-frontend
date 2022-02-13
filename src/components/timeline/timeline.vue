@@ -250,9 +250,9 @@
                 </div>
               </div>
 
-              <div class="comment_box">
+              <!-- <div class="comment_box">
                 <comments :item="feed.assoc" :comments="comments" roundAvatar hideCommentCount hideComments />
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -319,12 +319,10 @@
     display: flex;
     justify-content: space-between;
     padding-top: 16px;
-    padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 20px;
     margin-bottom: 20px;
     border-top: 1px solid #e4e4e4;
-    border-bottom: 1px solid #e4e4e4;
 
     .comment_count {
       letter-spacing: -1px;
@@ -339,6 +337,10 @@
         margin-right: 30px;
       }
     }
+  }
+  &_box {
+    padding-top: 10px;
+    border-top: 1px solid #e4e4e4;
   }
 }
 // chat input box

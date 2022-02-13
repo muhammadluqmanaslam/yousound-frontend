@@ -48,8 +48,6 @@
       <Messages v-else-if="currentTab === 'messages'" class="mt-1" />
       <getPaidToShare v-else-if="currentTab === 'paidToShare'" />
     </div>
-
-
   </div>
 </template>
 

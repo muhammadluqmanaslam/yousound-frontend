@@ -451,26 +451,27 @@
     }
   }
 
-  .submit-section {
-    hr {
-      border: none;
-      height: 1px;
-      background-color: rgba(0, 0, 0, 0.1);
-    }
+  
+}
+.submit-section {
+  hr {
+    border: none;
+    height: 1px;
+    background-color: #dbdbdb;
+  }
+  
+  .release-now-btn {
+    height: 33px;
+    width: 123px;
+    margin: 0;
+    text-transform: none;
+    background: #2A71F6 !important;
+    border-radius: 75px;
+    letter-spacing: 0;
     
-    .release-now-btn {
-      height: 33px;
-      width: 123px;
-      margin: 0;
-      text-transform: none;
-      background: #2A71F6 !important;
-      border-radius: 75px;
-      letter-spacing: 0;
-      
-      .btn__content {
-        font-size: 14px;
-        color: #ffffff;
-      }
+    .btn__content {
+      font-size: 14px;
+      color: #ffffff;
     }
   }
 }

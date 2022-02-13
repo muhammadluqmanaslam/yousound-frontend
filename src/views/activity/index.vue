@@ -1,7 +1,15 @@
 <template>
-  <div class="page no-top-nav activity-page">
-    <div class="click-outside-decoy" @click="closeActivityPopup"></div>
-    <app-loader v-if="loading" bgColor="#32353F" />
+  <div class="page activity-page px-5">
+    <content-top-header v-if="isPageReady">
+      <template slot="topHeader">
+        <ul>
+          <li class="active">
+            <label>Activity</label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
 
     <div class="page-content" v-if="currentUser && isPageReady">
       <div v-if="!activities || activities.length == 0" class="empty-section">
@@ -23,13 +31,14 @@
            class="invite-header"
            >
             <div class="dflex align-center">
-              <div class="mr-2 round-avatar __logo" :style="{'background-image': 'url(' + youLogo + ')'}" width="30"> </div>
+              <div class="round-avatar __logo" :style="{'background-image': 'url(' + youLogo + ')'}" width="30"> </div>
               <span class="__text">Invite your friends!</span>
             </div>
             <v-btn depressed class="btn-pill" @click="show_invite_dialog = true">Invite</v-btn>
           </div>
+
           <activity-item
-            v-for="(activity, index) in activities"
+            v-for="(activity, index) in activities.slice(0, 100)"
             :key="index"
             :activityItem="activity"
           />
@@ -43,8 +52,28 @@
             >
           </div> -->
         </div>
+
+        <div class="suggested-users">
+          <h2 class="mb-3">Suggested people to follow</h2>
+          <div v-for="(user, index) in 5" :key="index" class="suggested-user">
+            <div class="dflex justify-space-between align-center">
+              <user-tag :user="currentUser" showAvatar width="70px" height="70px" />
+
+              <v-btn
+                depressed
+                round
+                dark
+                class="follow-btn"
+                @click.native="followUser(user)"
+              >
+                Follow
+              </v-btn>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
     <v-dialog
       v-model="show_invite_dialog"
       content-class="invite-dialog"
@@ -69,17 +98,17 @@
 <script type="text/javascript" src="./index.ctrl.js"></script>
 <style lang="scss" scoped>
 .activity-page {
-  z-index: 10;
-  margin-left: 20px;
-  top: 10%;
-  position: fixed;
-  width: 35%;
-  height: 80%;
-  background-color: #32353F;
-  border-radius: 10px;
+  // z-index: 10;
+  // margin-left: 20px;
+  // top: 10%;
+  // position: fixed;
+  // width: 35%;
+  // height: 80%;
+  // background-color: #32353F;
+  // border-radius: 10px;
 
     &::before {
-      content: '';
+      // content: '';
       position: absolute;
       left: -9px;
       top: 15.5vh;
@@ -92,9 +121,10 @@
     .invite-header {
       padding: 25px 0;
       position: relative;
+      border-bottom: 1px solid rgba(191, 168, 168, 0.45);
 
       &::after {
-        content: '';
+        // content: '';
         width: calc(100% + 120px);
         position: absolute;
         bottom: 0;
@@ -105,23 +135,26 @@
       & .__logo {
         background-color: black;
         background-size: 68%;
+        width: 70px;
+        height: 70px;
+        margin-right: 20px;
       }
 
       & .__text {
-        color: #ffffff;
+        // color: #ffffff;
         font-size: 15px;
       }
     }
 
     .activity-item-parent {
-      position: relative;
-      padding: 0px 10%;
-      top: 10px;
-      margin: auto 0;
-      height: 685px;
-      width: 94%;
-      overflow-y: auto;
-      overflow-x: hidden;
+      // position: relative;
+      // padding: 0px 10%;
+      // top: 10px;
+      // margin: auto 0;
+      // height: 685px;
+      // width: 94%;
+      // overflow-y: auto;
+      // overflow-x: hidden;
 
       .invite-header {
         display: flex;
@@ -158,6 +191,17 @@
         .activity-item-parent::-webkit-scrollbar {
           opacity: 1;
         }
+      }
+    }
+
+    .suggested {
+      &-users {
+        margin-top: 40px;
+      }
+      &-user {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid rgba(191, 168, 168, 0.45);
       }
     }
 }

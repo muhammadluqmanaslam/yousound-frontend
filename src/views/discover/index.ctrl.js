@@ -103,11 +103,11 @@ export default {
   },
 
   created() {
-    if (!this.currentUser) {
-      AuthService.clearTokenAndUserInfo()
-      this.$router.push({ path: '/login' })
-      return
-    }
+    // if (!this.currentUser) {
+    //   AuthService.clearTokenAndUserInfo()
+    //   this.$router.push({ path: '/login' })
+    //   return
+    // }
 
     // this.seed = parseInt(Date.now() * Math.random())
     this.seed = Math.random()

@@ -69,7 +69,7 @@ export default {
             url: 'https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg',
           },
         },
-      ]
+      ].slice(0, 8) // max of 8
     },
     currentUser() {
       return this.$store.state.auth.user

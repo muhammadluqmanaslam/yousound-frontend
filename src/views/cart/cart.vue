@@ -18,6 +18,7 @@
         </ul>
       </template>
     </content-top-header>
+
     <div class="d-flex">
       <div class="page-content" v-if="currentUser && isPageReady">
         <template v-if="active_tab == 'cart'">
@@ -31,11 +32,10 @@
           <v-card flat v-else>
             <v-container fluid grid-list-md>
               <v-layout row wrap>
-                <v-flex xs9 order-section>
+                <v-flex xs12 sm9 order-section>
                   <div
-                    xs10
-                    class="order-item"
                     v-for="(item, index) in cartItems"
+                    class="order-item"
                     :key="index"
                   >
                     <div sm12 class="order-content-section pa-0">
@@ -112,7 +112,7 @@
                   </div>
                 </v-flex>
 
-                <v-flex xs3 class="orders-section-container">
+                <v-flex xs12 sm3 class="orders-section-container">
                   <div class="shipping-address-section">
                     <div
                       class="
@@ -143,6 +143,7 @@
                       <address-tab />
                     </v-dialog>
                   </div>
+
                   <div class="orders-status-section">
                     <div class="status-row">
                       <label class="status-title">Subtotal</label>

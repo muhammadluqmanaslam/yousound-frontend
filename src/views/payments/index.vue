@@ -2,14 +2,14 @@
   <div class="page payments-page" :class="{'mx-5': !isComp}">
     <dashboard-nav name="payments" :replaceMenuWith="replaceTopMenu" />
 
-    <content-top-header class="__inner mt-3">
+    <content-top-header absolute class="__inner mt-3 px-0">
       <template slot="topHeader">
           <ul>
             <li
               v-for="tab in tabs"
               :key="tab.id"
               :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
+              :class="{ 'active tab-active': isActiveTab(tab.id) }"
             >
               <label @click="setTab(tab.id)">{{ tab.title }}</label>
             </li>

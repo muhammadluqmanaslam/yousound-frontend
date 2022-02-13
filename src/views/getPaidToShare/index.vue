@@ -3,19 +3,39 @@
     <v-container fluid grid-list-lg>
         <v-layout wrap align-center justify-space-between>
             <v-flex xs5 layer-flex flex-text>
-                <h1>Get paid  <br> to share.</h1>
+                <h2 class="mb-2">Get paid  <br> to share.</h2>
                 <!-- <h3 class="mt-2">Upgrade to remove ads & accept Repost <br /> Requests.</h3> -->
 
+                <div class="b-body-text">
+                  With Repost Request verified artists & brands can pay you to share their albums, videos & products to your followers.
+                </div>
+
+                <br />
+
+                <ul>
+                  <li>
+                    <b>Basic plan:</b> charge up to <b>$100</b> per repost
+                  </li>
+                  <li>
+                    <b>Pro plan:</b> charge up to <b>10k</b> per repost
+                  </li>
+                  <li>
+                    <b>Plus plan:</b> charge up to <b>100k</b> per repost
+                  </li>
+                </ul>
+
                 <span>
-                <v-btn
-                  depressed
-                  class="choose__btn __rounded white--text mt-4" 
-                  :to="'/landing3#plans'"
-                >
-                    <span>Choose Plan</span>
-                </v-btn>
+                  <v-btn
+                    depressed
+                    round
+                    class="white--text mt-4 app-blue"
+                    :to="'/adfree#plans'"
+                  >
+                      <b>Choose Plan</b>
+                  </v-btn>
                 </span>
             </v-flex>
+
             <v-flex xs5 layer-flex flex-img>
                 <img
                   width="100%"
@@ -23,31 +43,6 @@
                 />
             </v-flex>
         </v-layout>
-
-        <div class="section-intro">
-          <h1 class="b-h1 mt-5 mb-3 text-xs-center">How?</h1>
-        </div>
-
-
-        <div class="b-body-text">
-          With <b>Repost Requests</b>, verified artists & brands can pay you to share their albums, videos & products to your followers. Artists and brands will send you a direct message with their content attached for you to share. Before the message is sent they will pay the repost price you set.
-          <br />
-          <br />
-          You can charge up to <b>5k per repost</b> with the <b>Pro</b> subscription or up to <b>100k per repost</b> with a <b>Plus</b> subscription.
-        </div>
-
-        <br>
-        <br>
-
-        <h2>Go ad-free.  Support Creators.  Get Paid.</h2>
-
-        <v-btn
-          depressed
-          class="choose__btn __rounded white--text mt-4 ml-0" 
-          :to="'/landing3#plans'"
-        >
-            <span>Choose Plan</span>
-        </v-btn>
     </v-container>
 
 

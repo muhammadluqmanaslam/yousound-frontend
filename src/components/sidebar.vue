@@ -49,8 +49,8 @@
             :key="ii"
             :active-class="subMenu.path ? 'activeTab' : ''"
             class="side-tab"
+            :to="subMenu.directPath ? `/${subMenu.path}` : { name: subMenu.path }"
             :class="[$route.name == subMenu.path ? 'activeTab' : '', {'d-none' : subMenu.allowedUser && !subMenu.allowedUser.includes(currentUser.user_type)}]"
-            @click="menuAction(subMenu)"
           >
             <v-list-tile-avatar>
               <div
@@ -249,10 +249,11 @@ export default {
   },
   methods: {
     menuAction(subMenu) {
+      // redundant
       if (subMenu.id === 'activity') {
-        const status = this.$store.state.app.toggleActivity;
+        // const status = this.$store.state.app.toggleActivity;
 
-        this.$store.dispatch('app/toggleActivityPopup', !status)
+        // this.$store.dispatch('app/toggleActivityPopup', !status)
       } else if (subMenu.directPath) {
         this.$router.push(`/${subMenu.path}`)
       } else {

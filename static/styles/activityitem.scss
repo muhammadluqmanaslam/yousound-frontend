@@ -103,6 +103,12 @@
           }
           .actioned-item {
             width: 70px;
+            margin-left: auto;
+            
+            &.__video {
+              width: 100px;
+            }
+
             & > a {
               padding-right: 100%;
               padding-bottom: 100%;
@@ -141,5 +147,5 @@
 }
 
 .activity-item + .activity-item {
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(191, 168, 168, 0.45);
 }
