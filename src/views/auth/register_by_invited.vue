@@ -164,6 +164,18 @@
               v-validate="'required|min:5|max:16'"
             />
           </v-flex>
+
+          <v-flex xs12 sm8 text-xs-center>
+            <input
+              v-model="user.socialUrl"
+              class="displayname"
+              type="text"
+              name="name"
+              autocomplete="off"
+              placeholder="Social Media URL"
+              v-validate="'required'"
+            />
+          </v-flex>
           
           <v-flex xs12 sm8 text-xs-center>
             <div class="dflex justify-space-between align-center mt-2">
