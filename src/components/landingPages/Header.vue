@@ -63,10 +63,17 @@
           <!-- <v-spacer class="d-md-block d-none"></v-spacer> -->
           <v-spacer class=""></v-spacer>
 
-          <v-btn v-if="!isAuthenticated" class="login_text" elevation="0" :to="{name: 'Login'}"> Sign in </v-btn>
+          <v-btn 
+            v-if="!isAuthenticated"
+            class="login_text"
+            elevation="0"
+            :to="{name: 'Login'}"
+          >
+            Sign in
+          </v-btn>
 
           <v-btn
-            else
+            v-else
             class="login_text"
             elevation="0"
             :to="{name: 'DiscoverIndex'}"
@@ -112,7 +119,7 @@
         Sign in
       </v-btn>
       <v-btn
-        else
+        v-else
         class="login_text_mobile d-sm-flex d-none justify-md-center align-md-center"
         elevation="0"
         :to="{name: 'DiscoverIndex'}"
