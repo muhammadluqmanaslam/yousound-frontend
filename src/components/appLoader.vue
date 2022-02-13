@@ -139,7 +139,6 @@ export default {
 	        align-content: center;
 	position: relative;
 	width: 100%;
-	height: 100%;
 	clear: both;
 }
 
@@ -152,6 +151,10 @@ export default {
 	.progress-linear {
 		margin: 0;
 	}
+}
+
+._fullBG {
+	height: 100%;
 }
 
 .center {
