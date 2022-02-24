@@ -1,5 +1,5 @@
 <template>
-  <div class="page upload-album-page">
+  <div class="page upload-child upload-album-page">
     <div v-if="isPageReady">
       <div>
         <track-uploader
@@ -108,23 +108,6 @@
               />
             </v-flex>
 
-            <v-flex xs12 form-group>
-              <label class="control-label">
-                Live stream only
-              </label>
-              <div>
-                <v-checkbox
-                  v-model="album.is_only_for_live_stream"
-                >
-                <template slot="label">
-                  <span class="black--text">
-                    Check box if album is available for <b>live stream only</b>
-                  </span>
-                </template>
-                </v-checkbox>
-              </div>
-            </v-flex>
-
             <v-flex xs12>
               <v-container fluid grid-list-lg px-0>
                 <v-layout wrap row>
@@ -183,6 +166,23 @@
                   </v-flex>
                 </v-layout>
               </v-container>
+            </v-flex>
+
+            <v-flex xs12 form-group>
+              <label class="control-label">
+                Live stream only
+              </label>
+              <div>
+                <v-checkbox
+                  v-model="album.is_only_for_live_stream"
+                >
+                <template slot="label">
+                  <span class="black--text">
+                    Check box if album is available for <b>live stream only</b>
+                  </span>
+                </template>
+                </v-checkbox>
+              </div>
             </v-flex>
 
             <v-flex xs12 form-group>

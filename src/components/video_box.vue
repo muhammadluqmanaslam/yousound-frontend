@@ -23,6 +23,8 @@
       </div>
     </div>
     <div v-if="!coverOnly" class="box__footer">
+      <user-tag showAvatar hideName hideTick width="40px" height="40px" :user="item.user" style="float: left" />
+
       <div class="box__subtitle">
         <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
           <!-- <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.username }}</span> -->
@@ -32,9 +34,8 @@
       </div>
       <div class="box__title">
         <div class="box__author">
-          <user-tag :user="item.user"  />
         </div>
-        <div class="box__views__duration_wrapper app-grey--text">
+        <div class="box__views__duration_wrapper">
           <span class="box__views">0 views</span>
           <span v-if="calcAge" class="ml-1 box__age"> • {{ calcAge }}</span>
         </div>
@@ -214,7 +215,8 @@ export default {
 
     .box__views__duration_wrapper {
       margin: 0;
-      font-size: 12px;
+      font-size: 14px;
+      font-weight: 400;
       vertical-align: unset;
     }
     .user-status {

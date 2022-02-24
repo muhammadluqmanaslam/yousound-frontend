@@ -156,7 +156,8 @@
     display: flex;
 
     .genre-filter img {
-      width: 25px;
+      width: 20px;
+      margin-top: 8px;
     }
 
     .tooltip {

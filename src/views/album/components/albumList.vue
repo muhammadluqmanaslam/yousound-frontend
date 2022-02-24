@@ -11,9 +11,9 @@
         class="product-image"
         :style="{ 'background-image': 'url(' + album.cover.url + ')' }"
       ></div>
-      <div class="product-content">
-        <v-flex sm12 class="product-content-row" pr-0>
-          <label class="product-name">{{ album.name }}</label>
+      <v-layout wrap row class="product-content">
+        <v-flex xs12 sm6 class="product-content-row" pr-0>
+          <h3>{{ album.name }}</h3>
 
           <!-- <label class="product-count product-status" v-if="album.stock_status=='active'">{{ album.stock_status }} <v-icon :class="album.stock_status">done</v-icon></label> -->
           <!-- <label class="product-count product-status" v-else>{{ album.stock_status }} <v-icon :class="album.stock_status">done</v-icon></label> -->
@@ -42,24 +42,29 @@
           <label class="product-category-text">Category: {{ album.category ? album.category.name : '' }}</label>
         </v-flex> -->
 
-        <v-flex xs12 class="product-content-row">
+        <v-flex xs12 sm6 class="product-content-row dflex justify-end">
           <template v-if="album.collaborators_count === 0">
             <v-btn
-              v-if="deleteButtonAction"
+              v-if="editButtonAction"
               dark
               class="text-btn"
-              :class="{ 'to-right': textBtnToRight }"
-              @click.native="show_album_delete_confirm_dialog = true"
-              >Delete</v-btn
+              @click.native="editProduct()"
             >
+              Edit
+            </v-btn>
+
+            <label class="btn-divider" v-if="editButtonAction"></label>
+
             <v-btn
               v-if="videoOnlyButtonAction"
               dark
               class="text-btn"
-              :class="{ 'to-right': textBtnToRight }"
               @click.native="videoOnlyButtonAction(album)"
               >Make Live Video Only</v-btn
             >
+
+            <label class="btn-divider" v-if="videoOnlyButtonAction"></label>
+
             <!-- <v-btn
                 v-if="publishButtonAction && album.status == 'privated'"
                 dark
@@ -71,18 +76,20 @@
               v-if="privateButtonAction"
               dark
               class="text-btn"
-              :class="{ 'to-right': textBtnToRight }"
               @click="toggle_album_status_dialog = true"
               >{{ buttonText }}
             </v-btn>
+
+            <label class="btn-divider" v-if="privateButtonAction"></label>
+
             <v-btn
-              v-if="editButtonAction"
+              v-if="deleteButtonAction"
               dark
               class="text-btn"
-              :class="{ 'to-right': textBtnToRight }"
-              @click.native="editProduct()"
-              >Edit</v-btn
+              @click.native="show_album_delete_confirm_dialog = true"
             >
+              Delete
+            </v-btn>
           </template>
 
           <template v-else>
@@ -175,7 +182,7 @@
             </span>
           </template>
         </v-flex>
-      </div>
+      </v-layout>
     </v-flex>
     <v-flex
       v-if="album.status == 'collaborated' || album.status == 'pending'"
@@ -450,7 +457,7 @@ export default {
         });
     },
     editProduct() {
-      this.$router.push({ path: `/album/${this.album.slug}/edit` });
+      this.$router.push({ name: 'UploadAlbum', params: { slug: this.album.slug } });
     },
     showPromoteDialog() {
       this.isShowPromoteModal = true;
