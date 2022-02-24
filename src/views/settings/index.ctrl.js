@@ -118,12 +118,13 @@ export default {
     }
 
     this.getUserInfo()
-    const tab = this.$route.hash.substr(1) || 'info'
     // this.$store.dispatch('navigator/goNextState', {
-    //   page: 'settings',
-    //   tab: tab,
-    // })
-    this.setTab(tab)
+      //   page: 'settings',
+      //   tab: tab,
+      // })
+
+    const tab = this.$route.hash.substr(1) || this.$route.params.tab || 'info'
+    this.onTab(tab || tab.id)
 
     MeService.stripeEmail().then((res) => (this.stripeEmail = res.body.email))
 
@@ -163,10 +164,10 @@ export default {
       switch (tab) {
         case 'info':
           this.resetProfile()
-          break
+          break;
         case 'password':
-          this.resetPassword()
-          break
+          this.resetPassword();
+          break;
         // case 'repost-price':
         //   this.resetRepostPrice()
         //   break
@@ -176,6 +177,9 @@ export default {
         // case 'genre-filter':
         //   this.resetGenres()
         //   break
+
+        default:
+          break;
       }
 
       this.active_tab = tab

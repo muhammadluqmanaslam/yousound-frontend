@@ -6,6 +6,10 @@ import { Countries, States } from '@/helper'
 
 export default {
   props: {
+    actionRight: {
+      type: Boolean,
+      default: false,
+    },
     editDialog: {
       type: Boolean,
       default: false,

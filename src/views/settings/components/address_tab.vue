@@ -1,12 +1,12 @@
 <template>
   <div class="main-section">
     <div class="description-section">
-      <p>
+      <p class="header">
         {{ header }}
       </p>
     </div>
 
-    <div class="content-section">
+    <div class="content-section" :class="{actionRight}">
       <form @submit.prevent="submit()">
         <v-layout row wrap shipping-address-section ma-0>
           <v-flex xs12 sm6 form-group first-name>
@@ -126,8 +126,8 @@
               class="pt-0"
             ></v-select>
           </v-flex>
-          <v-flex xs12 sm6 form-group></v-flex>
-          <v-flex xs12 sm6 form-group text-xs-right save-btn>
+
+          <v-flex xs12 sm6 form-group text-xs-center save-btn>
             <v-btn type="submit" class="update-btn">Save</v-btn>
           </v-flex>
         </v-layout>
@@ -137,3 +137,12 @@
 </template>
 
 <script type="text/javascript" src="./address_tab.ctrl.js"></script>
+<style lang="scss" scoped>
+.actionRight .shipping-address-section {
+  .flex.save-btn {
+    flex-basis: 100%;
+    max-width: 100%;
+    text-align: left !important;
+  }
+}
+</style>

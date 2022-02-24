@@ -11,7 +11,7 @@
             :href="`#${tab.id}`"
             :class="{ 'active tab-active': isActiveTab(tab.id) }"
           >
-            <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            <label @click="onTab(tab.id)" class="innerBold">{{ tab.title }}</label>
           </li>
         </ul>
       </template>
@@ -136,7 +136,7 @@
                 </p>
               </div>
             </v-flex>
-            <v-flex xs12 sm6 form-group>
+            <!-- <v-flex xs12 sm6 form-group>
               <label class="control-label"
                 >Contact URL(email, facebook, twitter)</label
               >
@@ -145,8 +145,9 @@
                 class="form-control"
                 v-model="profile.contact_url"
               />
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
+            </v-flex> -->
+
+            <v-flex xs12 form-group>
               <v-btn
                 class="cancel-account-btn"
                 @click.native.stop="dialog = true"
@@ -177,7 +178,7 @@
                 </v-card>
               </v-dialog>
             </v-flex>
-            <v-flex xs12 sm6 form-group text-xs-right>
+            <v-flex xs12 sm6 form-group>
               <v-btn class="update-btn" @click.native="updateAccount()"
                 >Update</v-btn
               >
@@ -286,7 +287,7 @@
                     </p>
                   </div>
                 </v-flex>
-                <v-flex xs12 text-xs-right>
+                <v-flex xs12>
                   <v-btn class="update-btn" @click.native="updatePassword()"
                     >Update</v-btn
                   >
@@ -370,7 +371,7 @@
 
       <price-tab v-else-if="active_tab == 'repost-price'" />
 
-      <address-tab v-else-if="active_tab == 'shipping-address'" />
+      <address-tab v-else-if="active_tab == 'shipping-address'" actionRight />
 
       <!--genre-tab v-else-if="active_tab == 'genre-filter'"/-->
 
@@ -419,3 +420,9 @@
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style lang="scss">
+.top-menu .__inner label {
+  font-weight: 400;
+  font-size: 14px
+}
+</style>
