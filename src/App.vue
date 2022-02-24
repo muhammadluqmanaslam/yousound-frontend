@@ -50,7 +50,7 @@
       </v-flex>
       <v-container fluid class="app-container">
         <router-view></router-view>
-        <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
+        <app-footer v-if="$store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
       </v-container>
     </v-content>
 

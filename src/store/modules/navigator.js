@@ -37,7 +37,11 @@ const getters = {
     return ['Home', 'Creators', 'AdFree']
   },
   hasFooter: (state) => {
-    return ['landing', 'register', 'login', ''].indexOf(state.current.page) === -1
+    return ['landing'].indexOf(state.current.page) === -1
+  },
+  // New implementation
+  hasNoFooter: (state) => {
+    return ['NotificationIndex', 'Register', 'Login']
   },
 
   hasAudioPlayer: (state) => {
