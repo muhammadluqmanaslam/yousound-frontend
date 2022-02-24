@@ -127,11 +127,23 @@ export default {
       let path = subMenu.path
 
       const currentRouteName = this.$route.name;
+      const dashboardInherits = [
+        'Dashboard',
+        'Sell',
+      ]
+
       const discoverInherits = [
         'AlbumIndex',
         'VideoIndex',
         'ProductIndex',
       ]
+
+      // customization for Dashboard
+      if (subMenu.path == 'dashboard' && dashboardInherits.includes(currentRouteName)) {
+        path = 'Dashboard'
+
+        return true
+      }
 
       // customization for DiscoverIndex
       if (subMenu.path == 'DiscoverIndex' && discoverInherits.includes(currentRouteName)) {
@@ -194,5 +206,7 @@ export default {
     if (this.onMobile) {
       this.mini = true
     }
+
+    console.log(this.$route.name);
   },
 }

@@ -77,17 +77,20 @@
 
   .side-tab {
     height: 40px;
+
     /deep/ a {
       position: relative;
       padding: 12px 0 12px 12px !important;
       height: 36px;
-      font-size: 15px;
+      font-size: 14px;
 
       ._icon_img {
         filter: invert(1);
-        width: 19px;
+        width: 16px;
         opacity: 0.5;
         border-radius: unset;
+        margin-top: -5px;
+        margin-left: 4px;
       }
 
       .__icon {
@@ -146,10 +149,11 @@
       justify-content: flex-start !important;
   }
   .profile-image {
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  background-size: cover;
+    width: 28px;
+    height: 28px;
+    border-radius: 100%;
+    background-size: cover;
+    margin-left: -2px;
   }
 
   .toggle-sidebar {
