@@ -1,8 +1,9 @@
 .upload-page {
-    h1.__title {
-        font-size: 22px;
-        margin-top: 48px;
-        Margin-bottom: 20px;
+    h1.__title {        
+        font-size: 24px;
+        margin-top: 18px;
+        margin-bottom: 20px;
+        margin-left: 10px;
     }
     .upload-tab-container {
         padding: 20px !important;
@@ -12,19 +13,21 @@
             text-align: center;
             padding: 8px;
             transition: .3s ease-in-out;
-            border: .75px solid #d2d2d2;
+            border: 1px solid #00000036;
             border-radius: 8px;
             display: flex;
             min-height: 150px;
             align-items: center;
+            font-size: 16px;
 
             .upload-tab-img {
-                height: 80px;
-                width: 80px;
+                height: 50px;
+                width: 50px;
                 border-radius: 4px;
                 background-size: contain;
                 background-position: center;
                 margin: 20px;
+                margin-right: 40px;
 
 
                 &.uploadMusic {
@@ -42,7 +45,8 @@
             }  
             .upload-tab-btn {
                 border: 2px solid;
-                width: 35%;
+                width: 30%;
+                height: 30px;
                 text-transform: capitalize;
                 background-color: transparent;
                 border-radius: 80px;
@@ -85,7 +89,7 @@
                 width: 80px;
                 background-position: left;
                 background-size: contain;
-                margin-right: 20px;
+                margin-right: 30px;
 
 
                 &.partnerImg {

@@ -1,5 +1,5 @@
 <template>
-  <div class="page video-page create-page mx-5">
+  <div class="page upload-child video-page create-page mx-5">
     <div class="d-flex">
       <div class="page-content">
         <drag-file-uploader

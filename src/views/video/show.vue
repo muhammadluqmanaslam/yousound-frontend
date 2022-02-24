@@ -1,5 +1,5 @@
 <template>
-  <div class="page video-page show-page mx-5" v-if="isPageReady">
+  <div class="page video-page show-page no-top-nav" v-if="isPageReady">
     <div class="page-content">
       <v-container fluid grid-list-md>
         <v-layout row wrap>
@@ -184,6 +184,7 @@
               </div>
             </div>
           </v-flex>
+
           <v-flex xs3 pl-3 class="related_col">
             <div class="videos-section">
               <h4 class="__title">Related</h4>
@@ -197,8 +198,8 @@
             </div>
           </v-flex>
 
-          <v-flex xs9>
-            <comments :item="stream" :comments="comments" />
+          <v-flex xs9 comment-wrapper>
+            <comments :item="stream" :comments="comments" roundAvatar />
           </v-flex>
           <!-- <v-flex xs3>
             <div class="album-reposted-section">
@@ -407,7 +408,7 @@
     }
 
     .vid__description {
-      height: 30px;
+      height: 20px;
       overflow: hidden;
     }
 
@@ -429,6 +430,7 @@
     overflow-x: auto;
     white-space: nowrap;
     padding-bottom: 12px;
+    margin-top: 10px;
   }
 }
 
@@ -537,11 +539,12 @@
   &__title {
     font-size: 16px;
     font-weight: 700;
+    padding-bottom: 14px;
   }
 
   &__subtitle {
     font-size: 14px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
 
     .__name {
       white-space: break-spaces;
@@ -606,6 +609,7 @@
   display: inline-block;
   width: 100%;
   padding: 10px;
+  margin-top: -20px;
 }
 .related_col {
   position: sticky;
@@ -614,6 +618,7 @@
   .videos-section {
     .__title {
       margin-left: 10px;
+      margin-bottom: 10px;
     }
 
     .video-container {
@@ -629,4 +634,5 @@
     }
   }
 }
+
 </style>

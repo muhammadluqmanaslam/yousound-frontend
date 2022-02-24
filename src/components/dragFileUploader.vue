@@ -9,7 +9,7 @@
             class="active"
           >
             <span class="dflex align-center">
-              <img src="/static/images/up_music.svg" width="23" class="mr-2">
+              <img src="/static/images/up_music.svg" width="18" class="mr-2">
               <span>Upload Album</span>
             </span>
           </li>
@@ -43,7 +43,7 @@
                 <b class="uploaderBox__dragndrop">
                   Drag and drop audio files
                 </b>
-                <!-- <span class="uploaderBox__filetype"> MP3 audio files only</span> -->
+                <span class="uploaderBox__filetype"> MP3 files only</span>
             </div>
             <div v-if="category == 'video'">
                 <b v-if="category == 'video'" class="uploaderBox__dragndrop">

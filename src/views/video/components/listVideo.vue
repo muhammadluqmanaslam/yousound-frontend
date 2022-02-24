@@ -119,10 +119,10 @@ export default {
         align-items: center;
 
         .thumbnail {
-            width: 75px;
+            width: 135px;
             height: 75px;
             background: #D5D5D5;
-            border-radius: 7.5px;
+            border-radius: 3px;
             margin: 7.5px;
             background-size: cover;
             overflow: hidden;

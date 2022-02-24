@@ -1,7 +1,7 @@
 <template>
   <div class="page upload-page mx-5">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
-    <h1 class="px-3 __title">Upload, Videos, Products & Broadcast Live!</h1>
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'UserSettings', params: { tab: 'bank-details'}}" />
+    <h1 class="px-3 __title">Upload your content & share to the world!</h1>
 
     <v-container fluid grid-list-lg>
       <v-layout row wrap justify-start>

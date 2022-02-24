@@ -1,5 +1,5 @@
 <template>
-  <div class="page video-page broadcast-page create-page mx-5">
+  <div class="page upload-child video-page broadcast-page create-page mx-5">
     <topbarNotification
       :content="topBarContent"
       ctaTitle="Connect"
@@ -13,7 +13,7 @@
               Introduction to YouSound Live
             </label>
             <label class="nav-label" v-if="activeView == 'initStream'">
-              <img src="/static/images/up_live.svg" width="23" class="li-icon">
+              <img src="/static/images/up_live.svg" width="18" class="li-icon">
               Broadcast Live
             </label>
           </li>
