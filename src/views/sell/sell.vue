@@ -2,7 +2,7 @@
   <div row wrap class="page sell-page mx-5">
     <dashboard-nav name="sales" />
 
-    <content-top-header class="__inner mt-3">
+    <content-top-header absolute class="__inner mt-3">
       <template slot="topHeader">
         <ul class="pr-3 width100">
           <li

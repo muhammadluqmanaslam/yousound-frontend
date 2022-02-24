@@ -1,5 +1,5 @@
 <template>
-  <div class="page sell-page product-page mx-5">
+  <div class="page upload-child sell-page product-page mx-5">
     <topbarNotification
       :content="topBarContent"
       ctaTitle="Connect"
@@ -10,7 +10,7 @@
         <ul>
           <li class="active">
             <span class="dflex align-center">
-              <img src="/static/images/up_product.svg" width="23" class="mr-2">
+              <img src="/static/images/up_product.svg" width="18" class="mr-2">
               <span>Upload Product</span>
             </span>
           </li>
@@ -627,7 +627,7 @@
               <hr class="mb-4" />
               <v-btn
                 class="product-save-btn"
-                :class="{'app-blue': isAvailableToAddProduct}"
+                :class="{'app-blue': isAvailableToAddProduct, 'cursor-pointer': !isAvailableToAddProduct}"
                 @click.native="beforeSaveProduct()"
                 :disabled="!isAvailableToAddProduct"
                 >Submit</v-btn

@@ -60,6 +60,7 @@
                   v-model="option"
                   :items="options"
                   item-text="name"
+                  placeholder="Select option"
                   item-value="id"
                   class="large"
                   single-line
@@ -110,7 +111,7 @@
                   <span>Share</span>
                 </v-tooltip>
 
-                <v-tooltip top>
+                <v-tooltip top v-if="product.merchant.id !== currentUser.id">
                   <span slot="activator" class="__actions">
                     <img
                       src="/static/images/ic_repost.svg"

@@ -43,7 +43,7 @@ export default {
         { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
         { id: 'collaborator_shipped', name: 'Collaborated Shipped' },
       ],
-      activeFilter: null,
+      activeFilter: {},
       exportPeriod: null,
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
