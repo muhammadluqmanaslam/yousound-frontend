@@ -11,7 +11,7 @@
             :class="[{ active: isActiveTab(tab.id)}, `nav-${tab.id}`]"
           >
             <label class="nav-label" @click="onTab(tab.id)">
-              <img v-if="tab.icon" :src="tab.icon" width="23" class="li-icon">
+              <img v-if="tab.icon" :src="tab.icon" width="18" class="li-icon">
               {{ tab.title }}
             </label>
           </li>

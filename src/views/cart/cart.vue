@@ -11,7 +11,7 @@
             :class="[{ active: isActiveTab(tab.id)}, `nav-${tab.id}`]"
           >
             <label class="nav-label" @click="onTab(tab.id)">
-              <img :src="tab.icon" width="23" class="li-icon">
+              <img :src="tab.icon" width="18" class="li-icon">
               {{ tab.title }}
             </label>
           </li>
@@ -40,17 +40,23 @@
                   >
                     <div sm12 class="order-content-section pa-0">
                       <div class="product-cover-image">
-                        <activity-product-card
-                          :object="item.product"
-                          :price-show="false"
-                        />
+                        <router-link :to="{name: 'SingleProduct', params: {id: item.product.id}}">
+                          <activity-product-card
+                            :object="item.product"
+                            :price-show="false"
+                          />
+                        </router-link>
                       </div>
 
                       <div class="product-content">
                         <div class="product-content-row">
                           <div class="product-name">
-                            {{ item.product.name }} |
-                            {{ item.product_variant.name }}
+                            <router-link :to="{name: 'SingleProduct', params: {id: item.product.id}}">
+                              <span class="black--text">
+                                {{ item.product.name }} |
+                                {{ item.product_variant.name }}
+                              </span>
+                            </router-link>
                           </div>
                           <div
                             class="product-content-row justify-space-between pt-2"
@@ -60,9 +66,9 @@
                               <router-link
                                 :to="`/${item.product.merchant.slug}`"
                                 class="user-name"
-                                href="#"
-                                >{{ item.product.merchant.username }}</router-link
                               >
+                                {{ item.product.merchant.username }}
+                              </router-link>
                             </div>
                           </div>
                           <label class="product-price">
@@ -241,7 +247,7 @@
                   <div class="status-section text-xs-center"></div>
                 </v-layout>
               </div>
-              <div class="order-section" v-for="item in order.items">
+              <div class="order-section" v-for="(item, index) in order.items" :key="index">
                 <v-layout row>
                   <div class="order-content-section relative">
                     <div
