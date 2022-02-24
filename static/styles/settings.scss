@@ -306,10 +306,9 @@
       padding: 20px 0;
       background: #ffffff;
       p {
-        font-size: 18px;
+        font-size: 16px;
         color: #333;
-        letter-spacing: -0.6px;
-        font-family: 'Open Sans', sans-serif;
+        letter-spacing: 0;
         margin-left: 0;
         padding-top: 10px;
         padding-bottom: 12px;
@@ -347,15 +346,15 @@
       z-index: 15;
 
       label {
-        font-size: 16px;
-        // color: #262626;
+        font-size: 14px;
+        padding-right: 10px;
         color: black;
         letter-spacing: 0;
       }
       span {
-        font-size: 16px;
+        font-size: 14px;
         letter-spacing: 0;
-        color: #b8b8b8;
+        color: #000000;
       }
       .about-title {
         font-weight: 700;
@@ -369,9 +368,11 @@
       }
       .profile-section {
         .profile-image {
-          margin-left: 20px;
-          height: 100px;
-          width: 100px;
+          margin-left: 0;
+          height: 70px;
+          width: 70px;
+          margin-top: 20px;
+          margin-right: 8px;
           display: inline-block;
           background-size: cover;
           background-position: center;
@@ -392,10 +393,11 @@
             .user-name {
               display: block;
               font-weight: 700;
-              font-size: 25px;
+              font-size: 20px;
               color: #262626;
               letter-spacing: 0;
-              margin-bottom: 5px;
+              margin-top: 10px;
+              margin-bottom: 10px;
             }
             .main-genre {
               display: block;
@@ -408,8 +410,9 @@
               border: 1px solid #ff5252;
               color: #ff5252;
               &.accepted {
-                border-color: #7ed321;
-                color: #7ed321;
+                border-color: #42b319;
+                color: #37af0b;
+                border-radius: 3px;
               }
             }
           }

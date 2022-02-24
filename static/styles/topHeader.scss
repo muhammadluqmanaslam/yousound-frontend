@@ -105,8 +105,12 @@
             font-size: 16px;
             
             label {
-              color: grey;
+              color: black;
               cursor: pointer;
+
+              &.innerBold {
+                font-weight: 400;
+              }
 
               &.nav-label{
                 display: flex;
@@ -115,7 +119,7 @@
 
                 img.li-icon {
                   margin-right: 10px;
-                  filter: opacity(0.5);
+                  // filter: opacity(0.5);
                 }
               }
             }

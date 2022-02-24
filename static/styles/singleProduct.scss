@@ -19,7 +19,7 @@
                 background-size: cover;
                 margin-bottom: 10px;
                 cursor: pointer;
-                box-shadow:  0 0 #fff0;
+                box-shadow:  none;
 
                 &::after {
                     content: "";
@@ -28,7 +28,7 @@
                     height: 100%;
                     top: 0;
                     left: 0;
-                    background-color: rgba(0, 0, 0, 0.075);
+                    background-color: none;
                 }
             }
             .selected {
@@ -100,7 +100,7 @@
         line-height: 2;
         color: #000000;
         margin-top: 30px;
-        height: 250px;
+        height: 100px;
         overflow-y: auto;
 
         &:first-letter {
@@ -132,7 +132,8 @@
                 color: #fff !important;
             }
             &.following {
-                    border: 1px solid #5bad00;
+                    border: 1px solid #000000;
+                    border-radius: 100px;
                     background-color: #0000 !important;
                     color: #000 !important;
                     &:hover {

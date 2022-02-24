@@ -7,7 +7,7 @@
       width: 75px;
       height: 75px;
       background: #D5D5D5;
-      border-radius: 7.5px;
+      border-radius: 3px;
       // margin: 7.5px 7.5px 3px;
       margin: 7.5px;
       background-size: cover;
@@ -48,16 +48,15 @@
         }
         .product-price {
           font-weight: 600;
-          font-size: 24px;
+          font-size: 16px;
           color: #000000;
-          letter-spacing: -1px;
-          font-family: 'Work Sans';
+          letter-spacing: 0px;
         }
         .product-category-text {
           float: right;
           padding: 0 11.25px;
           margin-top: 3.75px;
-          font-size: 15px;
+          font-size: 14px;
           color: #777;
           letter-spacing: 0;
         }
@@ -81,7 +80,7 @@
           // width: 45px;
           min-width: 45px;
           font-size: 14px;
-          color: #3A92FF;
+          color: #000;
           letter-spacing: 0;
 
           &.to-right {

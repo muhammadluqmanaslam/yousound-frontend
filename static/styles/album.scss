@@ -120,6 +120,7 @@ p {
         .change-album-image-file:focus + label,
         .change-album-image-file + label:hover {
           color: rgba(58, 146, 255, 0.5);
+          cursor: pointer;
         }
       }
       .grey--text {
@@ -334,7 +335,7 @@ p {
         }
       }
       .clear-btn {
-        // padding-top: 18.75px;
+        margin-left: 20px;
         color: #000000;
         cursor: pointer;
       }
@@ -1186,7 +1187,7 @@ p {
     hr {
       border: 0;
       height: 1px;
-      background-color: rgba(0, 0, 0, 0.2);;
+      background-color: rgba(0, 0, 0, 0.07);;
     }
     
     .album-comment-page {

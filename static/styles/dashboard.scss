@@ -10,7 +10,7 @@
         label {
             color: #ffffff !important;
             padding: 5px 20px !important;
-            font-weight: 500;
+            font-weight: 600;
         }
     }
 
@@ -20,9 +20,10 @@
             cursor: pointer;
             padding: 10px;
             border: 1px solid #cccccc;
+            border-radius: 6px;
 
             .action_value {
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 700;
             }
 
@@ -105,6 +106,12 @@
                     }
                 }
             }
+        }
+    }
+
+    .data-table-section {
+        .data-table-title {
+            font-size: 16px;
         }
     }
 }
