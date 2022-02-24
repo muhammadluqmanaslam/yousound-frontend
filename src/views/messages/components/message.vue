@@ -575,8 +575,8 @@ export default {
   }
   .message-section {
     .user-avatar-image {
-      width: 60px;
-      height: 60px;
+      width: 40px;
+      height: 40px;
       display: inline-block;
       overflow: hidden;
       background-size: cover;
@@ -749,8 +749,9 @@ export default {
       position: relative;
       float: right;
       text-align: left;
-      background: #f1f1f1;
+      background: #f7f7f7;
       margin-right: 5px;
+      max-width: 600px;
 
       &.no-top-corner {
         border-top-right-radius: 7.5px;

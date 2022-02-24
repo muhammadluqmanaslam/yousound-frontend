@@ -46,7 +46,7 @@
         <template v-else>
           <v-flex xs12 sm3 pa-0 class="conversations">
             <div class="conversations__header">
-              <div class="app-bold mt-2 ml-4">Inbox</div>
+              <div class="app-bold">Inbox</div>
               <div class="conversations__count">
                 <span class="__count">
                   {{ conversations.length < 99 ? conversations.length : '99+' }}</span>

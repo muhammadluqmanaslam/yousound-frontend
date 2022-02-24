@@ -232,7 +232,7 @@
                 <div class="comment_action">
                   <img
                     width="20"
-                    class="comment_action-icon share-icon mr-3 cursor-pointer"
+                    class="comment_action-icon share-icon cursor-pointer"
                     src="/static/images/ic_share.svg"
                     @click="showShareDialog()"
                   />
@@ -334,7 +334,7 @@
       margin-left: auto;
 
       .share-icon {
-        margin-right: 30px;
+        margin-right: 40px;
       }
     }
   }
@@ -405,7 +405,7 @@
     }
 
     .vid__description {
-      height: 30px;
+      height: 24px;
       overflow: hidden;
     }
 

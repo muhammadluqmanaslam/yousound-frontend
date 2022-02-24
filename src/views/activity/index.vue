@@ -57,7 +57,7 @@
           <h2 class="mb-3">Suggested people to follow</h2>
           <div v-for="(user, index) in 5" :key="index" class="suggested-user">
             <div class="dflex justify-space-between align-center">
-              <user-tag :user="currentUser" showAvatar width="70px" height="70px" />
+              <user-tag :user="currentUser" showAvatar width="70px" height="70px" marginRight="20px" />
 
               <v-btn
                 depressed
@@ -121,7 +121,7 @@
     .invite-header {
       padding: 25px 0;
       position: relative;
-      border-bottom: 1px solid rgba(191, 168, 168, 0.45);
+      border-bottom: 1px solid hsla(0, 0%, 77.6%, 0.45);
 
       &::after {
         // content: '';
@@ -129,7 +129,7 @@
         position: absolute;
         bottom: 0;
         left: -60px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid hsla(0, 0%, 77.6%, 0.45);
       }
 
       & .__logo {
@@ -201,7 +201,7 @@
       &-user {
         padding-bottom: 10px;
         margin-bottom: 10px;
-        border-bottom: 1px solid rgba(191, 168, 168, 0.45);
+        border-bottom: 1px solid hsla(0, 0%, 77.6%, 0.45);
       }
     }
 }

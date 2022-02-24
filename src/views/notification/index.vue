@@ -12,7 +12,7 @@
           >
             <label class="nav-label __tabs" :class="[tab.id]" @click="setTab(tab.id)">
               <span class="__tab dflex align-center">
-                <img :src="tab.icon" width="23" class="li-icon">
+                <img :src="tab.icon" width="18" class="li-icon">
                 {{ tab.title }}
               </span>
               <span

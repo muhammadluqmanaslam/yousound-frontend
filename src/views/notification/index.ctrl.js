@@ -48,6 +48,8 @@ export default {
   },
 
   created() {
+    this.$store.dispatch('navigator/goNextState', { page: 'notification', tab: '' })
+
     const tab = this.$route.hash.substr(1) || 'messages'
     this.setTab(tab)
   },
