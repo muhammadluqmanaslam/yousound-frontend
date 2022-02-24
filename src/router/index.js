@@ -173,7 +173,7 @@ export function createRouter(settings) {
     { path: '/messages', name: 'Messages', component: Messages },
     { path: '/cart', name: 'Cart', component: Cart },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },
-    { path: '/sell#orders', name: 'Sell', component: Sell },
+    { path: '/sell', name: 'Sell', component: Sell },
     { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail },
     { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
