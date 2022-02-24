@@ -27,7 +27,7 @@ export default {
         { id: 'manage', title: 'Manage', pathName: 'ManageIndex', icon: require('../../../static/images/file-copies.svg') },
       ],
       active_tab: 'content',
-      activeInnerFilter: 'videos',
+      activeInnerFilter: 'albums',
       activeInnerTab: 'published',
       tabFilterOptions: [
         {

@@ -43,3 +43,12 @@
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style lang="scss" scoped>
+
+.tabSelectMenu {
+  /deep/.input-group--select .input-group__selections__comma {
+    font-weight: 400;
+  }
+}
+
+</style>
