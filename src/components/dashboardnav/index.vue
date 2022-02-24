@@ -15,7 +15,7 @@
                         class="nav-label"
                         @click="setTab(tab.pathName)"
                       >
-                        <img :src="tab.icon" width="23" class="li-icon">
+                        <img :src="tab.icon" width="18" class="li-icon">
                         {{ tab.title }}
                       </label>
                     </li>
@@ -101,7 +101,8 @@
       background: #0151ff !important;
       color: #ffffff;
       margin-top: 0;
-      border-radius: 100px;
+      border-radius: 76px;
+      font-size: 13px;
       font-weight: 800;
       text-transform: uppercase;
     }

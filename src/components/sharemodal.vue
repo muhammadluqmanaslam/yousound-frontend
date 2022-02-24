@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 sm12 class="share-section">
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
-    <v-layout row wrap class="popup-section">
+    <div row wrap class="popup-section">
       <v-flex xs12 class="profile-section">
         <router-link :to="'/' + user.slug"
           ><div
@@ -35,6 +35,7 @@
           >{{ followButtonText }}
         </v-btn>
       </v-flex>
+
       <v-flex xs12 class="item-section">
         <div
           class="item-image"
@@ -42,6 +43,7 @@
         ></div>
         <p class="item-name">{{ item.name }}</p>
       </v-flex>
+
       <v-flex xs12 class="share-social-section">
         <!-- <v-btn class="social-share-btn"><v-icon>fa-envelope</v-icon></v-btn> -->
         <social-sharing v-bind:url="shareUrl" inline-template>
@@ -61,6 +63,7 @@
           </div>
         </social-sharing>
       </v-flex>
+
       <v-flex xs12 class="input-section">
         <input
           type="text"
@@ -77,7 +80,7 @@
           <v-icon>fa-clipboard</v-icon>
         </v-btn>
       </v-flex>
-    </v-layout>
+    </div>
   </v-flex>
 </template>
 

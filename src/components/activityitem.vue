@@ -25,7 +25,7 @@
                   }"
                 >
                   <user-tag class="user-name" :user="activityItem.sender" />
-                  <span v-if="!onMobile" class="mx-2 white--text">●</span>
+                  <span v-if="!onMobile" class="mx-2">●</span>
                   <span class="activity-time">{{
                     toLocalTimeString(activityItem.updated_at)
                       | formatDateFromNow
@@ -44,12 +44,18 @@
               > -->
 
                 <label class="description-text align-center">
-                  <img
+                  <!-- <img
                     v-if="activityIcon"
                     :src="activityIcon"
                     width="10"
                     class="mr-2"
-                  />
+                  /> -->
+                  <v-icon
+                    v-if="activityIcon"
+                    class="activityIcon mr-2"
+                  >
+                    {{ activityIcon }}
+                  </v-icon>
                   <span>{{ activityItem.message | capitalize }}</span>
 
                   <!-- <img
@@ -518,13 +524,17 @@ export default {
     activityIcon() {
       switch (this.activityItem.action_type) {
         case "repost":
-          return require("../../static/images/repost_blue.svg");
+          // return require("../../static/images/repost_blue.svg");
+          return 'repeat'
         case "comment":
-          return require("../../static/images/comment.svg");
+          // return require("../../static/images/comment.svg");
+          return 'comment'
         case "order_product":
-          return require("../../static/images/dollar.svg");
+          // return require("../../static/images/dollar.svg");
+          return 'paid'
         case "donation":
-          return require("../../static/images/dollar.svg");
+          // return require("../../static/images/dollar.svg");
+          return 'paid'
         default:
           return null;
       }

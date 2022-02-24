@@ -23,7 +23,7 @@
                 :class="[{ active: isActiveTab(tab.id) }, `nav-${tab.id}`]"
               >
                 <label class="nav-label"  @click="onTab(tab.id)">
-                  <img :src="tab.icon" width="23" class="li-icon">
+                  <img :src="tab.icon" width="18" class="li-icon">
                   {{ tab.title }}
                 </label>
               </li>

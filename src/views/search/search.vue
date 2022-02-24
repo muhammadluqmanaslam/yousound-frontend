@@ -78,7 +78,7 @@
 
         <v-layout v-if="active_tab == 'users'" row wrap class="covers-content">
           <v-flex
-            v-for="(user, index) in result.users"
+            v-for="user in result.users"
             :key="`user-${user.id}`"
             class="card-container"
             xs2

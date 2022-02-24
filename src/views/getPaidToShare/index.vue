@@ -3,7 +3,7 @@
     <v-container fluid grid-list-lg>
         <v-layout wrap align-center justify-space-between>
             <v-flex xs5 layer-flex flex-text>
-                <h2 class="mb-2">Get paid  <br> to share.</h2>
+                <h2 class="mb-2">Get paid to share.</h2>
                 <!-- <h3 class="mt-2">Upgrade to remove ads & accept Repost <br /> Requests.</h3> -->
 
                 <div class="b-body-text">

@@ -56,9 +56,9 @@
         <p v-if="description === 'Add Video Credit'">
           Adding video credit gives this user more time to broadcast live video
         </p>
-        <v-btn class="download-btn" @click.native="showPaymentDialog()"
-          >Submit</v-btn
-        >
+        <v-btn class="download-btn" @click.native="showPaymentDialog()">
+          Go to checkout
+        </v-btn>
       </v-flex>
     </v-layout>
 

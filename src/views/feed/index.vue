@@ -11,7 +11,7 @@
               :class="[{ active: isActiveTab(tab.id) }, `nav-${tab.id}`]"
             >
               <label class="nav-label" @click="onTab(tab.id)">
-                <img :src="tab.icon" width="23" class="li-icon">
+                <img :src="tab.icon" width="18" class="li-icon">
                 {{ tab.title }}
               </label>
             </li>
@@ -26,7 +26,7 @@
                 @click="postThoughtActive" 
               >
                 <img :src="require('../../../static/images/post-thought.svg')" width="17" class="mr-2" />
-                <span>Post thoughts</span>
+                <span>Post Thought</span>
               </v-btn>
             </li>
           </ul>
@@ -107,5 +107,6 @@
 <style lang="scss" scoped>
 .post-thought-btn {
   background: #0386FF !important;
+  font-weight: 800;
 }
 </style>

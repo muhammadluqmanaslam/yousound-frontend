@@ -2,7 +2,7 @@
   <div class="search-input">
     <transition name="slide-fade">
         <div class="global-search-box">
-        <v-icon>search</v-icon>
+        <img class="icon" src="/static/images/search.svg" width="18" />
         <input
             v-model="keyword"
             class="search-field"

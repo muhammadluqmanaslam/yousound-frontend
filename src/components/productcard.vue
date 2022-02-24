@@ -57,7 +57,12 @@
       </v-flex>
       <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
         <user-tag showAvatar class="tag" :user="item.merchant" />
-        <p class="product-name">{{ item.name }}</p>
+        <p
+          class="product-name cursor-pointer"
+          @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"
+        >
+          {{ item.name }}
+        </p>
         <div class="product-options-count">
           <span>{{ item.variants.length }} Option</span>
           <span v-if="item.variants.length > 1">s</span>

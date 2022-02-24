@@ -95,6 +95,7 @@
                   v-model="option"
                   :items="options"
                   item-text="name"
+                  placeholder="Select option"
                   item-value="id"
                   class="large"
                   single-line

@@ -63,8 +63,8 @@
                         class="post-thought-btn white--text"
                         @click="post_thought_active = true" 
                     >
-                        <img :src="require('../../../static/images/post-thought.svg')" width="17" class="mr-2" />
-                        <span>Post thoughts</span>
+                        <!-- <img :src="require('../../../static/images/post-thought.svg')" width="17" class="mr-2" /> -->
+                        <span>Post to feed</span>
                     </v-btn>
               </div>
             </v-flex>
@@ -132,8 +132,11 @@ export default {
     &-card {
         background-color: #ffffff;
         width: 100%;
-        min-height: 450px;
-        padding: 40px;
+        min-height: 400px;
+        padding-left: 10px;
+        padding-right: 30px;
+        padding-top: 30px;
+        padding-bottom: 30px;
     }
 
     &-avatar {
@@ -173,9 +176,9 @@ export default {
                         justify-content: space-between;
 
                         .__cover {
-                            width: 120px;
+                            width: 70px;
                             height: 70px;
-                            border-radius: 10px;
+                            border-radius: 3px;
                             background-color: grey;
                             margin-right: 20px;
                             background-position: center;
@@ -216,6 +219,7 @@ export default {
 
         .post-thought-btn {
             background: #0386FF !important;
+            font-weight: 800;
         }
     }
 }

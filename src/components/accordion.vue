@@ -137,7 +137,7 @@ input {
 
 .tab-label {
     border-top: 1px solid #e7e2e2;
-    border-bottom: 1px solid #e7e2e2;
+    border-bottom: none;
 
     .icon {
       margin-right: 15px;
