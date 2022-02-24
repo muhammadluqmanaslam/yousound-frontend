@@ -8,7 +8,8 @@
               Join the community. <br />
               It’s all for you.
             </p>
-            <v-btn class="signup_btn"> Sign Up </v-btn>
+            <v-btn v-if="!isAuthenticated" class="signup_btn" to="/login"> Sign In </v-btn>
+            <v-btn v-else @click="$router.push({name: 'DiscoverIndex'})" class="signup_btn">Discover </v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -17,8 +18,15 @@
 </template>
 
 <script>
+import AuthService from '@/services/auth'
+
 export default {
   name: "Join",
+  computed: {
+    isAuthenticated() {
+      return AuthService.isAuthenticated()
+    },
+  },
 };
 </script>
 

@@ -2,11 +2,16 @@ lan<template>
   <section class="plans-section" id="plans">
     <div class="plans-inner">
       <h3 class="title">Choose a plan</h3>
+        <h2 class="text-xs-center mt-3">Start your 30 day free trial</h2>
       <v-container fluid px-0>
         <v-layout wrap row justify-space-between mt-4>
           <plan v-for="(plan, n) in plansData" :key="n" :plan="plan" :id="plan.id"></plan>
         </v-layout>
       </v-container>
+
+      <div class="text-xs-center">
+      * Upload features only for verified artist accounts
+      </div>
     </div>
   </section>
 </template>
@@ -21,35 +26,21 @@ export default {
       plansData: [
         {
           title: "Basic",
-          list: ["1 account", "Ad-free music & video", "Analytics"],
+          list: ["1 account", "Ad-free music & video", "Upload 1 hour per video *", `Charge up to <b>$100</b> per repost`, "Basic analytics"],
           active: false,
           price: "9.99",
           id: "basic",
         },
         {
           title: "Plus",
-          list: [
-            "1 account",
-            "Ad-free music & video",
-
-            `Make money sharing content. Charge up to <strong>$5K</strong> per repost`,
-            `Artists & Brands can sell physical products + keep 100% sales`,
-            `Advanced analytics`,
-          ],
+          list: ["1 account", "Ad-free music & video", `Upload <b>3 hours</b> per video *`, `Charge up to <b>$10K</b> per repost`, "Basic analytics"],
           active: true,
           price: "29.99",
           id: "plus",
         },
         {
           title: "Pro",
-          list: [
-            "1 account",
-            "Ad-free music & video",
-
-            `Make money sharing content. Charge up to <strong>$100K</strong> per repost `,
-            `Artists & Brands can sell physical products + keep 100% sales`,
-            `Advanced analytics`,
-          ],
+          list: ["1 account", "Ad-free music & video", `<b>Unlimited</b> video uploads *`, `Charge up to <b>$100K</b> per repost`, "Basic analytics"],
           active: false,
           price: "99.99",
           id: "pro",
@@ -93,7 +84,7 @@ export default {
   .plans-section {
     padding-top: 20px !important;
     .plans-inner {
-      padding: 0px 30px !important;
+      padding: 0px !important;
     }
     .title {
       font-size: 28px !important;

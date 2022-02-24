@@ -11,7 +11,7 @@
             />
           </div>
           <a
-            class="mt-6 mx-auto mx-md-0 d-flex d-md-block justify-center"
+            class="appstore-logo-wrapper mt-6 mx-auto mx-md-0 d-flex d-md-block justify-center"
             target="_blank"
             style="width: 140px"
             href="https://apps.apple.com/us/app/yousound/id1452078262"
@@ -30,7 +30,8 @@
               v-for="link in aboutLinks"
               :key="link.text"
               router
-              :to="link.route"
+              :href="link.route"
+              :target="link.ext ? '_blank' : ''"
               class="pl-md-0"
             >
                 <!-- {{ link.text }} -->
@@ -45,7 +46,8 @@
               v-for="link in companyLinks"
               :key="link.text"
               router
-              :to="link.route"
+              :href="link.route"
+              :target="link.ext ? '_blank' : ''"
               class="pl-md-0"
               color="dark"
 
@@ -73,16 +75,13 @@ export default {
   data() {
     return {
       aboutLinks: [
-        { text: "About Us", route: "/" },
-        { text: "Podcast", route: "/" },
-        { text: "Career", route: "/" },
-        { text: "Contact", route: "/" },
+        { text: "Podcast", route: "/yousound#video" },
+        { text: "Career", ext: true, route: "https://support.yousound.com/en/collections/2401816-careers" },
       ],
       companyLinks: [
-        { text: "Privacy", route: "/" },
-        { text: "Support", route: "/" },
-        { text: "Help Desk", route: "/" },
-        { text: "FAQ", route: "/" },
+        { text: "Privacy", route: "/terms#privacy_policy" },
+        { text: "Terms", route: "/terms#terms_of_use" },
+        { text: "Support", ext: true, route: "https://support.yousound.com/" },
       ],
     };
   },
@@ -175,8 +174,13 @@ footer {
         height: 25px;
       }
     }
-    .appstore-logo {
-      height: 47px;
+    .appstore-logo-wrapper {
+      margin: 20px auto !important;
+
+      .appstore-logo {
+        height: 47px;
+        margin-bottom: 20px;
+      }
     }
     form {
       flex-direction: column !important;

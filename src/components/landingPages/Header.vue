@@ -86,6 +86,7 @@
 
     <v-navigation-drawer
       v-model="drawer"
+      v-if="$vuetify.breakpoint.smAndDown"
       app
       fixed
       dark
@@ -191,6 +192,9 @@ export default {
   text-transform: capitalize;
   background: transparent !important;
   color: #000000 !important;
+  margin-left: 40px;
+  margin-right: -20px;
+
   &::before {
     display: none;
   }

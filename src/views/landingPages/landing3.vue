@@ -1,14 +1,16 @@
 <template>
   <div>
     <Header></Header>
-    <Banner
+    <!-- <Banner
       :title="'Go ad-free.'"
       :title2="'Support creators.'"
       :title3="'Get paid.'"
-    ></Banner>
+    ></Banner> -->
     <CRow
-      :title="'Creators get paid'"
-      :title2="'by what you play'"
+      :title="'Creators Get Paid By'"
+      :title2="'You Play.'"
+      :ctaText="'Choose a plan'"
+      :ctaAction="'#plans'"
       :imgSrc="img"
       :order1="2"
       :order2="1"

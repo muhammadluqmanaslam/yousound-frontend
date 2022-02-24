@@ -14,6 +14,12 @@
             <h3 class="mb-5">
               {{ title }} <br />
               {{ title2 }}
+
+              <span v-if="ctaText">
+                <br />
+                <br />
+                <a :href="ctaAction" class="cta_btn">{{ ctaText }}</a>
+              </span>
             </h3>
           </div>
         </v-flex>
@@ -46,6 +52,8 @@ export default {
   props: [
     "title",
     "title2",
+    "ctaAction",
+    "ctaText",
     "imgSrc",
     "order2",
     "order1",
@@ -58,6 +66,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cta_btn {
+  padding: 16px 20px;
+  box-shadow: none !important;
+  text-transform: capitalize;
+  box-sizing: border-box;
+  border-radius: 100px;
+  font-style: normal;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  line-height: 19px !important;
+  color: #ffffff !important;
+  letter-spacing: normal;
+  // border: 2px solid #0569ff;
+  background: #5d5fef !important;
+}
 section {
   max-width: 1000px;
   margin: auto;

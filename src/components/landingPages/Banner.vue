@@ -6,7 +6,7 @@
           class="text-container pt-md-15 justify-center align-md-start align-center flex-column"
         >
           <h3 class="mb-5">{{ title }}</h3>
-          <v-btn @click="$router.push({name: 'Login'})" class="discover_btn"> Discover </v-btn>
+          <v-btn @click="$router.push({name: 'Login'})" class="discover_btn">Discover </v-btn>
         </div>
       </v-flex>
 
