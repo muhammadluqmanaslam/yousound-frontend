@@ -73,7 +73,7 @@
             <!-- Charts -->
             <v-container fluid px-0>
                 <!-- Graph Chart -->
-                <div class="graph-chart chart-wrapper" style="display: inline-block; width: -webkit-fill-available;">
+                <div class="graph-chart chart-wrapper">
                     <div class="chart-header">
                         <content-top-header v-if="showChartHeader.indexOf(activeTab) > -1 && selectedInnerTab.breakdown.length > 1" absolute :height="!onMobile ? 20: ''" class="__inner pl-0 ml-3">
                             <template slot="topHeader">
@@ -147,7 +147,7 @@
         </div>
 
         <!-- Data Table Chart -->
-        <v-container v-if="getDataTables()" fluid data-table px-0 mt-5>
+        <v-container v-if="getDataTables()" fluid data-table-section px-0 mt-5>
             <div
                 v-for="(table, i) in getDataTables()"
                 :key="i"
