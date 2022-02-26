@@ -9,7 +9,7 @@
       />
       <v-container fluid grid-list-item px-0>
         <v-layout wrap justify-center>
-          <v-flex xs12 sm8 text-xs-center>
+          <v-flex xs12 text-xs-center>
             <div class="avatar-area">
               <span class="avatar-img">
                 <img
@@ -31,13 +31,13 @@
                     accept="image/*"
                     @change="imageChanged($event)"
                   />
-                  <label for="avatar_file">Choose profile image</label>
+                  <label for="avatar_file">Choose image</label>
                 </div>
               </div>
             </div>
           </v-flex>
 
-          <v-flex xs12 sm8 text-xs-center relative>
+          <v-flex xs12 text-xs-center relative>
             <input
               type="text"
               name="username"
@@ -57,7 +57,7 @@
             >
           </v-flex>
 
-          <v-flex xs12 sm8 text-xs-center>
+          <v-flex xs12 text-xs-center>
             <input
               v-model="user.name"
               class="displayname"
@@ -80,7 +80,7 @@
               v-validate="'required|max:20'"
             />
           </v-flex> -->
-          <v-flex xs12 sm8 text-xs-center>
+          <v-flex xs12 text-xs-center>
             <input
               class="email"
               type="email"
@@ -92,7 +92,7 @@
             />
           </v-flex>
 
-          <v-flex xs12 sm8 text-xs-center>
+          <v-flex xs12 text-xs-center>
             <input
               class="password"
               type="password"
@@ -104,7 +104,7 @@
             />
           </v-flex>
 
-          <v-flex xs12 sm8 text-xs-center>
+          <v-flex xs12 text-xs-center>
             <div class="dflex justify-space-between align-center mt-2">
               <p class="regular-checkbox ma-0">
                 <input
@@ -116,7 +116,7 @@
                 />
                 
                 <label for="terms">
-                  <span>Accept Terms</span>
+                  <span class="terms-text">Accept Terms</span>
 
                 </label>
               </p>
@@ -137,16 +137,16 @@
             </p> -->
           </v-flex>
 
-          <v-flex xs12 sm8 text-xs-center mt-3>
+          <v-flex xs12 text-xs-center mt-3>
             <v-btn block round dark type="submit" class="create-account-button"
               >Create account</v-btn
             >
           </v-flex>
 
-          <v-flex xs12 text-xs-center mt-3>
+          <!-- <v-flex xs12 text-xs-center mt-3>
             Already a member?
             <router-link class="terms-text" to="/login">Sign in</router-link>
-          </v-flex>
+          </v-flex> -->
         </v-layout>
       </v-container>
     </form>

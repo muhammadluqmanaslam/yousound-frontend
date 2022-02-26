@@ -10,7 +10,11 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+  },
 
   created() {
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })

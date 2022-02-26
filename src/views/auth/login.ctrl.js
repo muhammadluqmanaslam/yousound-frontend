@@ -21,6 +21,9 @@ export default {
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
+    onMediumScreen() {
+      return this.$vuetify.breakpoint.mdAndDown;
+    },
   },
 
   created() {

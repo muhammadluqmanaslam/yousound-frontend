@@ -1,84 +1,59 @@
 <template>
   <div class="page auth-page auth-tab no-top-nav no-side-space">
     <v-container grid-list-item auth-card allChildrenCenter px-0>
-      <v-layout wrap row auth-card-wrapper justify-center>
+      <v-layout wrap row auth-card-wrapper align-center justify-center>
         <v-flex v-if="!onMobile" xs12 sm6 auth-card-child left-card sign-in-info>
           <div v-if="!onMobile">
-            <h1 class="mb-3">Sign up</h1>
+            <img width="40%" src="/static/images/nav_logo_primary.png" alt="">
 
-          <div class="switch-btn-wrapper">
-            <v-btn
-              round
-              depressed
-              class="ml-0 switch-btn transparent white--text"
-              :class="{'white black--text': activeTab == 'everyone'}"
-              :disabled="register_success"
-              @click="activeTab = 'everyone'"
-            >
-              Listener
-            </v-btn>
-
-            <v-btn
-              round
-              depressed
-              class="ml-0 switch-btn transparent white--text"
-              :class="{'white black--text': activeTab == 'artistBrand'}"
-              :disabled="register_success"
-              @click="activeTab = 'artistBrand'"
-            >
-              Artist/Brand
-            </v-btn>
+            <div class="mt-4 dflex align-center">
+              <h3>Sign up</h3>
+              <h3 class="mx-3">or</h3>
+              <h3>
+                <router-link to="/login">Login</router-link>
+              </h3>
+            </div>
           </div>
-
-          <div class="list-wrapper">
-            <ul v-if="activeTab == 'everyone'">
-              <li>Listen, watch & shop</li>
-              <li>Support creators directly</li>
-              <li>Get paid to share</li>
-            </ul>
-
-            <ul v-if="activeTab == 'artistBrand'">
-              <li>Upload albums & videos</li>
-              <li>Sell digital & physical products</li>
-              <li>Collaborate with creators</li>
-            </ul>
-          </div>
-
-          </div>
+          
           <v-spacer></v-spacer>
+          
           <div class="text-xs-center auth-img-wrapper">
-            <img width="70%" src="/static/images/auth-img-1.svg" alt="">
+            <img v-if="activeTab == 'everyone'" width="70%" src="/static/images/new_signup_img.svg" alt="">
+            <img v-else width="70%" src="/static/images/new_signup_img2.svg" alt="">
           </div>
         </v-flex>
 
-        <v-flex v-if="!register_success" xs12 sm6 auth-card-child right-card sign-in-info>
-          <div v-if="onMobile" class="switch-btn-wrapper __collapsed">
+        <v-flex v-if="!register_success" xs12 sm6 lg4 auth-card-child right-card sign-in-info>
+          <h1 v-if="onMobile" class="text-xs-center mb-4">Sign Up</h1>
+          <div class="switch-btn-wrapper __collapsed">
             <v-btn
               depressed
-              class="ml-0 switch-btn "
-              :class="[activeTab == 'everyone' ? 'black white--text' : 'border-dark black--text']"
+              :round="activeTab == 'everyone'"
+              class="ml-0 switch-btn transparent text-btn px-3"
+              :class="[activeTab == 'everyone' ? 'black--text border-dark' : 'grey--text']"
               @click="activeTab = 'everyone'"
             >
               Listener
             </v-btn>
 
+            <v-spacer></v-spacer>
+
             <v-btn
               depressed
-              class="ml-0 switch-btn"
-              :class="[activeTab == 'artistBrand' ? 'black white--text' : 'border-dark black--text']"
+              :round="activeTab == 'artistBrand'"
+              class="ml-0 switch-btn transparent text-btn px-3"
+              :class="[activeTab == 'artistBrand' ? 'black--text border-dark' : 'grey--text']"
               @click="activeTab = 'artistBrand'"
             >
-              Artist/Brand
+              Artist / Brand
             </v-btn>
           </div>
 
           <div v-if="activeTab == 'everyone'">
-            <h3 class="text-xs-center">Create listener account</h3>
             <ListenerRegister />
           </div>
 
           <div v-if="activeTab == 'artistBrand'">
-            <h3 class="text-xs-center">Create artist/brand account</h3>
             <InviteRegister @invite-mode="setInviteMode" />
           </div>
         </v-flex>
