@@ -17,7 +17,7 @@ export default {
 
   computed: {},
 
-  created() {
+  async created() {
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
     this.token = this.$route.params.token
     this.email = this.$route.query['email']
@@ -49,7 +49,7 @@ export default {
       // })
 
       let myAlert
-      AuthService.activeAccount(params)
+      await AuthService.activeAccount(params)
         .then((response) => {
           myAlert = {
             type: 'success',
@@ -64,7 +64,7 @@ export default {
           if (e.body.status === 500) {
             myAlert = {
               type: 'error',
-              messages: ['Failed in seding confirmation email'],
+              messages: ['Failed in sending confirmation email'],
             }
           } else if (
             e.body.errors[0].detail ===
