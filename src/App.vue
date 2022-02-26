@@ -16,7 +16,9 @@
 
 
     <v-content>
-      <app-loader v-show="loadValue !== 100" ref="appLoader" @getLoadUpdate="getLoadUpdate" />
+      <span v-if="!isAuthenticated">
+        <app-loader v-show="loadValue !== 100" ref="appLoader" @getLoadUpdate="getLoadUpdate" />
+      </span>
 
       <v-flex
         xs12
@@ -157,6 +159,9 @@ export default {
       set: function (newValue) {
         this.$store.dispatch('error/hideToast')
       },
+    },
+    isAuthenticated() {
+      return AuthService.isAuthenticated
     },
   },
 
