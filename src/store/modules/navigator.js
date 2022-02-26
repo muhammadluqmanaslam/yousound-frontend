@@ -34,14 +34,16 @@ const getters = {
   },
 
   hasNoSidebar: (state) => {
-    return ['Home', 'Creators', 'AdFree']
+    // pass route name
+    return ['Home', 'Creators', 'AdFree', 'Login', 'Register', 'ForgotPassword', 'Confirmation']
   },
   hasFooter: (state) => {
     return ['landing'].indexOf(state.current.page) === -1
   },
   // New implementation
   hasNoFooter: (state) => {
-    return ['NotificationIndex', 'Register', 'Login']
+    // pass route name
+    return ['NotificationIndex', 'Register', 'Login', 'Confirmation', 'ForgotPassword']
   },
 
   hasAudioPlayer: (state) => {
