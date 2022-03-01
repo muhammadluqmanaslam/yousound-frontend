@@ -161,10 +161,10 @@ export default {
 // position: relative;
 }
 .video-js.vjs-fluid {
-  max-height: 522px;
+  max-height: 572px;
   padding-top: 56.25%;
   video {
-    max-height: 522px;
+    max-height: 572px;
   }
 }
 // .video-js::after {
