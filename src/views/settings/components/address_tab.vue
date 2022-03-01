@@ -127,7 +127,7 @@
             ></v-select>
           </v-flex>
 
-          <v-flex xs12 sm6 form-group text-xs-center save-btn>
+          <v-flex xs12 sm6 form-group save-btn>
             <v-btn type="submit" class="update-btn">Save</v-btn>
           </v-flex>
         </v-layout>
