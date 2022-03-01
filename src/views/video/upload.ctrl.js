@@ -33,6 +33,7 @@ export default {
 
   data() {
     return {
+      submitLoading: false,
       active_tab: 'create',
       tabs: [
         { id: 'info', title: 'Intro', path: '/info' },
@@ -383,6 +384,8 @@ export default {
         .validateAll()
         .then((response) => {
           if (response === true) {
+            this.submitLoading = true;
+
             const formData = new FormData()
             formData.append('stream[name]', this.stream.name)
             formData.append('stream[description]', this.stream.description)
@@ -461,6 +464,8 @@ export default {
                   'error/showErrorToast',
                   e.message || e.body.errors || [e.body]
                 )
+
+                this.submitLoading = false
               })
           } else {
             this.$store.dispatch('error/showErrorToast', [

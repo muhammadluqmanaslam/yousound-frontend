@@ -61,7 +61,12 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label">Category</label>
+                <label class="control-label max-char-label">
+                  <span class="__title">
+                  <label class="required">*</label>
+                    Category
+                  </span>
+                </label>
                 <v-select
                   v-model="stream.genre_id"
                   placeholder="Select"
@@ -82,7 +87,6 @@
 
                 <div class="video-thumbnail-container">
                   <div class="video-thumbnail-wrapper">
-                    <!-- {{ stream_cover_url }} -->
                     <div
                       v-if="stream_cover_url"
                       :style="{
@@ -92,18 +96,8 @@
                     ></div>
                     <div v-else class="video-thumbnail">
                       <div class="cover-wrapper allChildrenCenter">
-                        <input
-                          v-if="!stream_cover_url"
-                          type="file"
-                          name="stream_cover_file"
-                          id="stream_cover_file"
-                          accept=".png, .jpg, .jpeg"
-                          v-validate="'required'"
-                          @change="imageChanged($event)"
-                        />
-                        <label for="stream_cover_file">
-                          <span v-if="stream_cover_url" class="app-blue--text">Change</span>
-                          <span v-else class="texet-xs-center dflex align-center justify-center flex-column">
+                        <label for="stream_cover_file" class="cursor-pointer">
+                          <span class="texet-xs-center dflex align-center justify-center flex-column">
                             <img width="20" src="/static/images/ic_camera.svg" alt="">
                             <span>upload</span>
                           </span>
@@ -113,6 +107,7 @@
                   </div>
 
                   <div class="cover-wrapper">
+                    {{ stream_cover_url ? 'YES' : '' }}
                     <input
                       type="file"
                       name="stream_cover_file"
@@ -280,6 +275,7 @@
               flat 
               class="release-now-btn white--text" 
               type="submit"
+              :disabled="submitLoading"
             >
               Submit
             </v-btn>
