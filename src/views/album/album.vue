@@ -447,12 +447,13 @@
                       v-if="feed.assoc_type == 'Album'"
                     />
                     <product-card
-                      :dataObject="feed"
                       v-if="feed.assoc_type == 'ShopProduct'"
+                      :dataObject="feed"
+                      hideOptionCount
                     />
                     <video-card
-                      :dataObject="feed"
                       v-if="feed.assoc_type == 'Stream'"
+                      :dataObject="feed"
                     />
                   </div>
                 </template>

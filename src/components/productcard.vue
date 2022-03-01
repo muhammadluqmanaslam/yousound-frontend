@@ -63,7 +63,7 @@
         >
           {{ item.name }}
         </p>
-        <div class="product-options-count">
+        <div v-if="!hideOptionCount"  class="product-options-count">
           <span>{{ item.variants.length }} Option</span>
           <span v-if="item.variants.length > 1">s</span>
         </div>
@@ -125,6 +125,10 @@ export default {
 
   props: {
     noMeta: {
+      type: Boolean,
+      default: false,
+    },
+    hideOptionCount: {
       type: Boolean,
       default: false,
     },
