@@ -35,7 +35,7 @@ const getters = {
 
   hasNoSidebar: (state) => {
     // pass route name
-    return ['Home', 'Creators', 'AdFree', 'Login', 'Register', 'ForgotPassword', 'Confirmation']
+    return ['Home', 'Creators', 'AdFree', 'Login', 'Register', 'ForgotPassword', 'Confirmation', 'TermsPage']
   },
   hasFooter: (state) => {
     return ['landing'].indexOf(state.current.page) === -1
