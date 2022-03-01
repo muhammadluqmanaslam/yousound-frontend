@@ -12,7 +12,8 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1" />
+    <!-- <mobile-header /> -->
+    <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
 
     <v-content>
@@ -20,14 +21,14 @@
         <app-loader v-show="loadValue !== 100" ref="appLoader" @getLoadUpdate="getLoadUpdate" />
       </span>
 
-      <v-flex
+      <!-- <v-flex
         xs12
         text-xs-center
         loading-section
         :style="{'padding-left': !sideBarMini ? `${sideBarWidth}px` : 0 }"
         v-if="$store.getters['error/isLoading']"
       >
-          <!-- <v-progress-circular
+          <v-progress-circular
             v-if="$store.state.error.progressBar.value >= 0"
             :size="50"
             :rotate="-90"
@@ -48,8 +49,8 @@
               'primary--text': !$store.getters['navigator/isPrimaryTheme'],
               'white-activity': $store.getters['navigator/isPrimaryTheme'],
             }"
-          /> -->
-      </v-flex>
+          />
+      </v-flex> -->
       <v-container fluid class="app-container">
         <router-view></router-view>
         <app-footer v-if="$store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
@@ -113,6 +114,7 @@ import { MyEvents, PublicRelationsUsername } from '@/helper'
 import { mapState } from 'vuex'
 
 const ActionCable = require('actioncable')
+import mobileHeader from "@/views/mobile/components/header";
 
 export default {
   name: 'app',
@@ -126,6 +128,7 @@ export default {
     streamPlayer,
     Sidebar,
     AppLoader,
+    mobileHeader,
   },
 
   data() {
@@ -143,6 +146,9 @@ export default {
       sideBarWidth: state => state.app.sideBarWidth,
       sideBarMini: state => state.app.sideBarMini,
     }),
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
