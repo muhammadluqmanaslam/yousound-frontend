@@ -7,7 +7,7 @@
     <div
       v-if="showAvatar"
       class="tag__image"
-      :style="`background-image: url(${user.avatar.url});width: ${width};height: ${height}; margin-right: ${marginRight ? marginRight : ''}`"
+      :style="`background-image: url(${user.avatar.url});width: ${width}px;height: ${height}px; margin-right: ${marginRight ? marginRight : ''}`"
     ></div>
     <div v-if="!hideName" class="text-capitalize">{{ user.username }}</div>
     <v-icon
@@ -30,11 +30,11 @@ export default {
     },
     width: {
       type: String,
-      default: '20px',
+      default: 20,
     },
     height: {
       type: String,
-      default: '20px',
+      default: 20,
     },
     clickUser: {
       type: Boolean,
