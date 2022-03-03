@@ -1,21 +1,30 @@
 <template>
-  <div class="header-container">
-    <template v-if="isDarkTheme">
-      <img :src="logoImgSrc" />
-      <v-btn v-if="showMenu" flat @click="$emit('open-menu')">
-        <img :src="menuImgSrc" />
-      </v-btn>
-    </template>
-    <template v-else>
-      <img :src="logoImgSrc" />
-      <v-btn v-if="showMenu" flat @click="$emit('open-menu')">
-        <img :src="menuImgSrc" />
-      </v-btn>
-    </template>
+  <div class="mobile-header header-container">
+    <div class="header-wrapper dflex justify-space-between align-center width100">
+      <div class="_inner-wrapper _left">
+        <v-icon color="black" class="mr-3">arrow_back_ios</v-icon>
+        <img :src="leftAltIcon" />
+      </div>
+
+      <div class="_inner-wrapper _center">
+        <img @click="$router.push('/')" :src="centerImg" />
+      </div>
+
+      <div class="_inner-wrapper _right">
+        <img :src="rightAltIcon" />
+        <user-tag hideTick showAvatar hideName :user="currentUser" :width="avatarWidth" :height="avatarHeight" class="ml-3" />
+      </div>
+    </div>
+    <!-- mobile menu -->
+    <!-- <v-btn v-if="showMenu" flat @click="$emit('open-menu')">
+      <img :src="menuImgSrc" />
+    </v-btn> -->
   </div>
 </template>
 
 <script>
+import userTag from "@/components/user_tag";
+
 export default {
   props: {
     theme: {
@@ -28,9 +37,19 @@ export default {
       default: true,
     },
 
-    logoImg: {
+    leftAltIcon: {
       type: String,
-      default: '',
+      default: '/static/images/ic_cart.svg',
+    },
+
+    rightAltIcon: {
+      type: String,
+      default: '/static/images/graph-bar.svg',
+    },
+
+    centerImg: {
+      type: String,
+      default: '/static/images/nav_logo_primary.png',
     },
 
     menuImg: {
@@ -38,56 +57,75 @@ export default {
       default: '',
     },
   },
+  components: {
+    userTag,
+  },
 
   data() {
     return {
-      logoImgSrc: '',
-      menuImgSrc: '',
+      // logoImgSrc: '',
+      avatarWidth: 30,
+      avatarHeight: 30,
+      // menuImgSrc: '',
     }
   },
 
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
     isDarkTheme() {
       return this.theme === 'dark'
     },
   },
 
   created() {
-    if (this.menuImg === '') {
-      if (this.isDarkTheme) {
-        this.menuImgSrc = '/static/images/ic_menu.svg'
-      } else {
-        this.menuImgSrc = '/static/images/ic_menu_dark.svg'
-      }
-    } else {
-      this.menuImgSrc = this.menuImg
-    }
+    // if (this.menuImg === '') {
+    //   if (this.isDarkTheme) {
+    //     this.menuImgSrc = '/static/images/ic_menu.svg'
+    //   } else {
+    //     this.menuImgSrc = '/static/images/ic_menu_dark.svg'
+    //   }
+    // } else {
+    //   this.menuImgSrc = this.menuImg
+    // }
 
-    if (this.logoImg === '') {
-      if (this.isDarkTheme) {
-        this.logoImgSrc = '/static/images/nav_logo_white.png'
-      } else {
-        this.logoImgSrc = '/static/images/nav_logo_primary.png'
-      }
-    } else {
-      this.logoImgSrc = this.logoImg
-    }
+    // if (this.logoImg === '') {
+    //   if (this.isDarkTheme) {
+    //     this.logoImgSrc = '/static/images/nav_logo_white.png'
+    //   } else {
+    //     this.logoImgSrc = '/static/images/nav_logo_primary.png'
+    //   }
+    // } else {
+    //   this.logoImgSrc = this.logoImg
+    // }
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .header-container {
-  z-index: 1;
+  background-color: #ffffff;
+  z-index: 6;
   position: fixed;
   top: 0;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 80px;
-  background: transparent;
+  padding: 20px;
   box-shadow: none;
+
+  ._inner-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    * {
+      cursor: pointer;
+    }
+  }
 
   img {
     height: 24px;
