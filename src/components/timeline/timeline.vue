@@ -158,7 +158,7 @@
               <v-layout row wrap align-center>
                 <v-flex xs12>
                   <div class="avatar-wrapper">
-                    <user-tag :user="user" showAvatar hideTick width="70px" height="70px" />
+                    <user-tag :user="user" showAvatar hideTick width="70" height="70" />
                   </div>
                   <div class="thought-context text-xs-center mt-3">
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Com sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.

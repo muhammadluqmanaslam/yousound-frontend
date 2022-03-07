@@ -29,11 +29,11 @@ export default {
       type: String,
     },
     width: {
-      type: String,
+      type: [ String, Number ],
       default: 20,
     },
     height: {
-      type: String,
+      type: [ String, Number ],
       default: 20,
     },
     clickUser: {

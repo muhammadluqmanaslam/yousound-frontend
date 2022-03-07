@@ -10,7 +10,7 @@
           <v-layout wrap row>
             <v-flex xs2 post-thought-avatar>
                 <div class="space-decoy"></div>
-                <user-tag showAvatar hideName hideTick :user="currentUser" width="80px" height="80px" />
+                <user-tag showAvatar hideName hideTick :user="currentUser" width="80" height="80" />
             </v-flex>
             <v-flex xs10 post-thought-wrapper>
               <h2 class="_title">Share your thought</h2>

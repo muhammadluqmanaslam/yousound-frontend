@@ -23,7 +23,7 @@
       </div>
     </div>
     <div v-if="!coverOnly" class="box__footer">
-      <user-tag showAvatar hideName hideTick width="40px" height="40px" :user="item.user" style="float: left" />
+      <user-tag showAvatar hideName hideTick width="40" height="40" :user="item.user" style="float: left" />
 
       <div class="box__subtitle">
         <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
