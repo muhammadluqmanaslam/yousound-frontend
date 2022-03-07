@@ -30,7 +30,7 @@ import AdFree from '@/views/landingPages/landing3'
 import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
 // import Discover from '@/views/discover/index'
-import DiscoverIndex from '@/views/discover/'
+// import DiscoverIndex from '@/views/discover/'
 import SearchPage from '@/views/search/search'
 import Feed from '@/views/feed/index'
 import ActivityIndex from '@/views/activity/index'
@@ -72,6 +72,26 @@ import VideoShow from '@/views/video/show'
 import VideoDelete from '@/views/video/delete'
 import Partners from '@/views/partners/'
 import Dashboard from '@/views/dashboard/'
+
+// Detect if device is on mobile then render dynamic component where necessary
+let isMobile = () => {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    return true
+  } else {
+    return false
+  }
+}
+const onMobile = isMobile()
+console.log('onMobile: ', onMobile)
+
+const setComponent = (path, hasNoIndexFile) => {
+  const ext = hasNoIndexFile ? '.vue' : 'index.vue'
+  if (onMobile) {
+    return () => import(`@/views/mobile/${path}/${ext}`)
+  } else {
+    return () => import(`@/views/${path}/${ext}`)
+  }
+}
 
 Vue.use(vueMethodsPromise)
 Vue.use(Router)
@@ -158,7 +178,7 @@ export function createRouter(settings) {
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/video', name: 'VideoIndex', component: VideoIndex },
     // { path: '/discover', name: 'Discover', component: Discover },
-    { path: '/discover', name: 'DiscoverIndex', component: DiscoverIndex },
+    { path: '/discover', name: 'DiscoverIndex', component: setComponent('discover') },
     { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex },
     { path: '/product', name: 'ProductIndex', component: ProductIndex },
     {
