@@ -21,5 +21,3 @@
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
-
-<style lang="scss" scoped></style>

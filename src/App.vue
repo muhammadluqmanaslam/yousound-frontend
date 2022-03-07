@@ -12,8 +12,8 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <mobile-header v-if="onMobile" />
-    <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
+      <mobile-header v-if="onMobile" />
+      <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
 
     <v-content>
@@ -173,7 +173,9 @@ export default {
 
   watch: {
     $route(to, from) {
-      this.$refs.appLoader.updateLoader(0)
+      if (!AuthService.isAuthenticated) {
+        this.$refs.appLoader.updateLoader(0)
+      }
 
       const parentNode = document.getElementById('my_video_player')
       this.$nextTick(() => this.watchPip(to, from, parentNode))
