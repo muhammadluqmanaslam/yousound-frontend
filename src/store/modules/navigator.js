@@ -37,6 +37,10 @@ const getters = {
     // pass route name
     return ['Home', 'Creators', 'AdFree', 'Login', 'Register', 'ForgotPassword', 'Confirmation', 'TermsPage']
   },
+  hasNoMobileHeader: (state) => {
+    // pass route name
+    return ['Home', 'Creators', 'AdFree', 'TermsPage']
+  },
   hasFooter: (state) => {
     return ['landing'].indexOf(state.current.page) === -1
   },
