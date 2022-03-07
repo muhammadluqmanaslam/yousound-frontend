@@ -2,7 +2,7 @@
   <div class="mobile-header header-container">
     <div class="header-wrapper dflex justify-space-between align-center width100">
       <div class="_inner-wrapper _left">
-        <v-icon color="black" class="mr-3">arrow_back_ios</v-icon>
+        <v-icon v-if="showGoBack" color="black" class="mr-3">arrow_back_ios</v-icon>
         <img :src="leftAltIcon" />
       </div>
 
@@ -11,8 +11,8 @@
       </div>
 
       <div class="_inner-wrapper _right">
-        <img :src="rightAltIcon" />
-        <user-tag hideTick showAvatar hideName :user="currentUser" :width="avatarWidth" :height="avatarHeight" class="ml-3" />
+        <img v-if="showRightAltIcon" :src="rightAltIcon" />
+        <user-tag :user="currentUser" hideTick showAvatar hideName :width="avatarWidth" :height="avatarHeight" :class="{'ml-3': showRightAltIcon}" />
       </div>
     </div>
     <!-- mobile menu -->
@@ -27,11 +27,10 @@ import userTag from "@/components/user_tag";
 
 export default {
   props: {
-    theme: {
-      type: String,
-      default: 'dark',
+    showGoBack: {
+      type: Boolean,
+      default: false,
     },
-
     showMenu: {
       type: Boolean,
       default: true,
@@ -41,20 +40,25 @@ export default {
       type: String,
       default: '/static/images/ic_cart.svg',
     },
-
+    showRightAltIcon: {
+      type: Boolean,
+      default: false,
+    },
     rightAltIcon: {
       type: String,
       default: '/static/images/graph-bar.svg',
     },
-
     centerImg: {
       type: String,
       default: '/static/images/nav_logo_primary.png',
     },
-
     menuImg: {
       type: String,
       default: '',
+    },
+    theme: {
+      type: String,
+      default: 'dark',
     },
   },
   components: {
@@ -72,6 +76,7 @@ export default {
 
   computed: {
     currentUser() {
+      console.log('user,', this.$store.state.auth.user)
       return this.$store.state.auth.user
     },
     isDarkTheme() {
