@@ -51,9 +51,11 @@
             }"
           />
       </v-flex> -->
-      <v-container fluid class="app-container">
+      <v-container fluid class="app-container" :class="{'onMobile-container': onMobile}">
         <router-view></router-view>
-        <app-footer v-if="$store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
+        <app-footer v-if="!onMobile &&$store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
+
+        <mobile-footer v-else />
       </v-container>
     </v-content>
 
@@ -115,6 +117,7 @@ import { mapState } from 'vuex'
 
 const ActionCable = require('actioncable')
 import mobileHeader from "@/views/mobile/components/header";
+import mobileFooter from "@/views/mobile/components/footer";
 
 export default {
   name: 'app',
@@ -129,6 +132,7 @@ export default {
     Sidebar,
     AppLoader,
     mobileHeader,
+    mobileFooter,
   },
 
   data() {
