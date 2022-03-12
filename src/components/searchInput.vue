@@ -1,14 +1,14 @@
 <template>
-  <div class="search-input">
+  <div class="search-input" :class="{isOnMobile}">
     <transition name="slide-fade">
         <div class="global-search-box">
-        <img class="icon" src="/static/images/search.svg" width="18" />
+        <img v-if="!isOnMobile" class="icon" src="/static/images/search.svg" width="18" />
         <input
             v-model="keyword"
             class="search-field"
             type="search"
             id="search"
-            placeholder="Search artist, song or keyword"
+            :placeholder="!isOnMobile ? 'Search artist, song or keyword' : 'Search'"
             @keyup.enter="goToSearch()"
         />
         </div>
@@ -22,6 +22,7 @@ export default {
     senderRoute: {
       type: String,
     },
+    isOnMobile: Boolean,
   },
   data() {
     return {
@@ -41,7 +42,3 @@ export default {
   },
 }
 </script>
-
-<style>
-
-</style>

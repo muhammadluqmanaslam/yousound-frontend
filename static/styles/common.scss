@@ -487,6 +487,10 @@ li.search-li {
   .page {
     flex: 1;
   }
+  &.onMobile-container {
+    margin-top: 8px;
+    padding-bottom: 40px;
+  }
 }
 
 .app-bold {
@@ -1037,6 +1041,8 @@ textarea {
 
   }
 }
+
+// isOnMobile Start
 
 @media (min-width: 810px) {
   .card-container {

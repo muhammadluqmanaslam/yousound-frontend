@@ -1,0 +1,12 @@
+.isOnMobile.search-input {
+    input#search {
+        color: rgba(0, 0, 0, 0.5);
+        margin-left: 0;
+        text-align: center;
+        
+        &[type='search']::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+        }
+      }
+}

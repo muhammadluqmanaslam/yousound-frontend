@@ -32,13 +32,18 @@
         <!-- <span v-else class="box__acc">{{ item.user.username }}</span> -->
         <span>{{ item.name }}</span>
       </div>
-      <div class="box__title">
-        <div class="box__author">
-        </div>
+      <div v-if="!noMeta" class="box__title">
+        <div class="box__author"></div>
         <div class="box__views__duration_wrapper">
           <span class="box__views">0 views</span>
           <span v-if="calcAge" class="ml-1 box__age"> • {{ calcAge }}</span>
         </div>
+      </div>
+    </div>
+    <div v-if="altMeta" class="mt-2 box__footer alt-meta">
+      <div class="alt-meta-name">{{ item.name }}</div>
+      <div class="alt-meta-user">
+        <b class="text-capitalize">{{ item.user.username }}</b>
       </div>
     </div>
   </div>
@@ -56,6 +61,10 @@ export default {
 
   props: {
     item: Object,
+    altMeta: {
+      type: Boolean,
+      default: false,
+    },
     hoverOverlay: {
       type: Boolean,
       default: true,
