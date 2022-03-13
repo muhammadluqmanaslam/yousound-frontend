@@ -3,7 +3,6 @@
     <search-input class="mb-2" isOnMobile />
     <tab-nav :tabData="tabs" ref="tabData" @tabClicked="tabClicked" recChip />
 
-    {{ activeDiscover }}
     <div class="page-content">
         <discover-music v-if="activeDiscover == 'album'" />
         <discover-video v-if="activeDiscover == 'video'" />

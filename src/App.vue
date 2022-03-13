@@ -12,7 +12,7 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-      <mobile-header v-if="onMobile" />
+      <mobile-header :showGoBack="showGoBack" v-if="onMobile" />
       <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
 
@@ -150,6 +150,9 @@ export default {
       sideBarWidth: state => state.app.sideBarWidth,
       sideBarMini: state => state.app.sideBarMini,
     }),
+    showGoBack() {
+      return this.$store.getters['appMobile/hasGoBackCTA'].indexOf(this.$route.name) === 1
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },

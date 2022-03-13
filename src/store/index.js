@@ -16,6 +16,7 @@ import product from './modules/product'
 import track from './modules/track'
 import user from './modules/user'
 import streamPlayer from './modules/stream_player'
+import appMobile from './modules/app_mobile'
 
 Vue.use(Vuex)
 
@@ -40,6 +41,7 @@ export default new Vuex.Store({
     track,
     user,
     streamPlayer,
+    appMobile,
   },
   plugins: [],
 })
