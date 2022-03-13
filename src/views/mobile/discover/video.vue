@@ -139,29 +139,6 @@ export default {
         }
         return result
       },
-      // loadFeeds(tab, page) {
-      //   const genre = _.get(this.selected_genre, 'id', 'any')
-      //   const category = _.get(this.selected_category, 'id', 'any')
-      //   const params = {
-      //     filter: tab,
-      //     genre: genre,
-      //     category: category,
-      //     page: page,
-      //     per_page: this.items_per_page,
-      //   }
-      //   if (tab !== 'recommended') {
-      //     params['seed'] = this.seed
-      //   }
-      //  return SearchService.searchDiscover(params)
-      //     .then((response) => {
-      //       return response.body.albums
-      //     })
-      //     .catch((e) => {
-      //       this.$store.dispatch('error/showLoadingActivity', false)
-      //       // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-      //       console.log('discover error', e)
-      //     })
-      // },
     },
     computed: {
       available_genres() {
