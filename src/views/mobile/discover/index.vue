@@ -7,6 +7,7 @@
     <div class="page-content">
         <discover-music v-if="activeDiscover == 'album'" />
         <discover-video v-if="activeDiscover == 'video'" />
+        <discover-product v-if="activeDiscover == 'merch'" />
     </div>
   </div>
 </template>
@@ -19,7 +20,7 @@ import SearchInput from '@/components/searchInput'
 import TabNav from '../components/tab_nav.vue'
 import discoverMusic from './music'
 import discoverVideo from './video'
-// import discoverProduct from '@/views/product'
+import discoverProduct from './product'
 
 export default {
     components: {
@@ -27,7 +28,7 @@ export default {
         TabNav,
         discoverMusic,
         discoverVideo,
-        // discoverProduct,
+        discoverProduct,
         // ItemTab,
     },
     data() {

@@ -77,6 +77,16 @@
           <router-link :to="'/' + owner.slug" v-else>Multiple Collaborators</router-link>
         </p> -->
       </v-flex>
+
+      <div v-if="altMeta" class="mt-2 box__footer alt-meta">
+        <div class="alt-meta-name">{{ item.name }}</div>
+        <div class="alt-meta-user">
+          <b class="text-capitalize">{{ item.merchant.username }}</b>
+        </div>
+        <div v-if="altMetaPrice" class="alt-meta-price">
+          <b class="text-capitalize">${{ item.price | formatNumber }}</b>
+        </div>
+      </div>
     </v-flex>
 
     <merch-modal
@@ -124,6 +134,11 @@ export default {
   },
 
   props: {
+    altMetaPrice: Boolean,
+    altMeta: {
+      type: Boolean,
+      default: false,
+    },
     noMeta: {
       type: Boolean,
       default: false,
