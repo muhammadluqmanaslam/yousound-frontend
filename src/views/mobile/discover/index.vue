@@ -34,7 +34,6 @@ export default {
     data() {
         return {
             // ...def.data(),
-            selectedTab: '',
             activeDiscover: 'album',
             isComp: true,
             tabs: [
@@ -46,7 +45,6 @@ export default {
     },
     methods: {
         tabClicked(data) {
-            this.selectedTab = data
             this.activeDiscover = data.id
             console.log(data);
         }
