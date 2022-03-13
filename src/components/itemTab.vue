@@ -15,7 +15,7 @@ export default {
 .item-tab-wrapper {
   position: relative;
   overflow-x: scroll;
-  height: 275px;
+  min-height: 275px;
   width: calc(100% + 40px);
 
   .item-tabs {
