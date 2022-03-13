@@ -1,12 +1,12 @@
 <template>
   <div class="tab-nav-wrapper">
-      <v-tabs centered show-arrows grow>
+      <v-tabs v-model="selectedTab" centered show-arrows grow>
         <!-- <v-tabs-slider color="yellow"></v-tabs-slider> -->
         <v-tabs-bar style="margin-left: 0">
         <v-tabs-item
-            v-model="selectedTab"
             v-for="(tab, i) in tabData"
             :key="i"
+            :href="`#${tab.id}`"
             active-class="activeTab"
         >
             <v-chip 
@@ -26,11 +26,11 @@
 export default {
     props: {
         tabData: Array,
-        recChip: Boolean
+        recChip: Boolean,
     },
     data() {
         return {
-            selectedTab: ''
+            selectedTab: '',
         }
     },
     methods: {
