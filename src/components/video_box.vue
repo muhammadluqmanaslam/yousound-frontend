@@ -61,6 +61,10 @@ export default {
 
   props: {
     item: Object,
+    noMeta: {
+      type: Boolean,
+      default: false,
+    },
     altMeta: {
       type: Boolean,
       default: false,

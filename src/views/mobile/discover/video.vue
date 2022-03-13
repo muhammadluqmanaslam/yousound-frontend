@@ -33,7 +33,7 @@
             :key="index"
             class="tab-holder"
           >
-            <video-box :hoverOverlay="false" :item="video" />
+            <video-box :hoverOverlay="false" coverOnly altMeta :item="video" />
           </span>
         </template>
       </item-tab>
@@ -52,7 +52,7 @@
             :key="index"
             class="tab-holder"
           >
-            <video-box :hoverOverlay="false" :item="video" />
+            <video-box :hoverOverlay="false" coverOnly altMeta :item="video" />
           </span>
         </template>
       </item-tab>
