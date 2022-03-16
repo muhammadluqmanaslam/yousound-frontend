@@ -1,49 +1,61 @@
 <template>
   <v-container pa-0 class="genre" v-if="isPageReady">
     <h3 class="mt-4 ml-2">Genre Filter</h3>
-    <p class="ma-2">
-      Only albums from genres selected will appear on
-      <strong>Music & Home</strong>
-    </p>
+    <div class="d-block justify-space-between" :class="{'dflex': !onMobile}">
+      <p class="ma-2">
+        Only albums from genres selected will appear on
+        <strong>Music & Home</strong>
+      </p>
 
-    <v-btn
-      v-if="show_selector_view"
-      dark
-      color="blue"
-      class="update-btn"
-      @click.native="saveGenreFilters()"
-      >Save</v-btn
-    >
-    <v-layout row wrap mt-3 class="pgs_area" v-if="show_selector_view">
-      <div class="pgs-wrapper" v-for="(parent, index) in genres">
-        <div class="pgs" :key="parent.id">
-          <div
-            class="pgs-inner-wrapper"
-            :style="{ backgroundColor: parent.color }"
-            @click="checkParentGenre(parent, !parent.value)"
-          >
-            <div class="pgs-inner">
-              <div class="pgs__title">
-                <label>{{ parent.name }}</label>
-              </div>
-              <div class="pgs__description">
-                <span @click.stop="selectParent(parent, index)"
-                  >{{ getSelectedChildrenCount(parent) }} Subgenres</span
-                >
-              </div>
-              <div class="pgs__content">
-                <div class="upload-info">
-                  <label>{{ parent.users_size | formatNumberWithComma }}</label>
-                  <span>Albums</span>
+      <v-btn
+        v-if="show_selector_view"
+        round
+        dark
+        color="blue"
+        class="update-btn"
+        @click.native="saveGenreFilters()"
+      >
+        Save
+      </v-btn>
+    </div>
+    <v-container fluid grid-list-lg px-0>
+      <v-layout row wrap mt-3 class="pgs_area" v-if="show_selector_view">
+        <v-flex
+          class="pgs-wrapper" 
+          v-for="(parent, index) in genres"
+          :key="index"
+          xs12
+          sm2
+        >
+          <div class="pgs" :key="parent.id">
+            <div
+              class="pgs-inner-wrapper"
+              :style="{ backgroundColor: parent.color }"
+              @click="checkParentGenre(parent, !parent.value)"
+            >
+              <div class="pgs-inner">
+                <div class="pgs__title">
+                  <label>{{ parent.name }}</label>
                 </div>
-                <div v-if="parent.value" class="pgs__badge check-o"></div>
-                <div v-else class="pgs__badge check"></div>
+                <div class="pgs__description">
+                  <span @click.stop="selectParent(parent, index)"
+                    >{{ getSelectedChildrenCount(parent) }} Subgenres</span
+                  >
+                </div>
+                <div class="pgs__content">
+                  <div class="upload-info">
+                    <label>{{ parent.users_size | formatNumberWithComma }}</label>
+                    <span>Albums</span>
+                  </div>
+                  <div v-if="parent.value" class="pgs__badge check-o"></div>
+                  <div v-else class="pgs__badge check"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-container>
 
     <v-btn
       v-if="!show_selector_view"
