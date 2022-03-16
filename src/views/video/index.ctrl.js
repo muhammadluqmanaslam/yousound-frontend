@@ -38,6 +38,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     available_genres() {
       let genres = [{ id: 0, name: 'All' }]
       this.videoGenres.forEach((vg) => {
@@ -140,5 +143,11 @@ export default {
       this.selectedTab = paramFilter
       this.onTab(this.selectedTab)
     }
+    
+    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
+  },
+
+  beforeDestroy() {
+    this.$store.dispatch('app/setNoSideSpace', false)
   },
 }

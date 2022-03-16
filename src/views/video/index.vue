@@ -1,6 +1,24 @@
 <template>
   <div class="page video-page index-page" :class="{ isComp: isComp}">
     <discover-nav v-if="!isComp" class="mx-4" pageName="video" />
+    <content-top-header absolute v-if="onMobile" height="35" :class="{ isOnMobile: onMobile}">
+      <template slot="topHeader">
+        <v-tabs :scrollable="true">
+          <v-tabs-bar>
+            <v-tabs-item
+              v-model="selectedTab"
+              v-for="(genre, idx) in available_genres"
+              :key="idx"
+              :href="'#tab-' + idx"
+            >
+              <v-chip class="text-capitalize" @click.native="setTab(genre.id)">
+                {{ genre.name.toLowerCase() }}
+              </v-chip>
+            </v-tabs-item>
+          </v-tabs-bar>
+        </v-tabs>
+      </template>
+    </content-top-header>
 
     <content-top-header absolute class="__inner __doubleUl" :class="{'pl-0': isComp}">
       <template slot="topHeader">
@@ -30,7 +48,7 @@
           </li>
         </ul>
 
-        <ul v-if="!isComp" class="mx-5">
+        <ul v-if="!isComp && !onMobile" class="mx-5">
           <v-spacer></v-spacer>
           <li class="my-2">
             <v-menu
@@ -77,15 +95,15 @@
       </template>
     </content-top-header>
 
-    <div class="d-flex">
-      <div class="page-content" v-if="currentUser">
+    <div class="page-content" v-if="currentUser">
+      <v-container fluid px-0>
         <v-layout row wrap>
           <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
           <v-flex 
             v-for="(video) in videos.slice(0,3)" 
             :key="video.name" 
             class="video-container"
-            :class="!isComp ? 'video-container top-3 xs4' : 'pl-0 xs4'"
+            :class="[!isComp ? 'video-container top-3 xs12 sm4' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
           >
             <video-box :hoverOverlay="false" :item="video" />
           </v-flex>
@@ -94,21 +112,21 @@
             xs4
             v-for="(video) in videos.slice(3,videos.length)"
             :key="video.name" 
-            :class="!isComp ? 'card-container top-3 xs4' : 'video-container pl-0 xs4'"
+            :class="[!isComp ? 'card-container top-3 xs12 sm4' : 'video-container pl-0 xs4', {side_fullwidth: onMobile}]"
           >
             <video-box :hoverOverlay="false" :item="video" />
           </v-flex>
         </v-layout>
+      </v-container>
 
-        <div v-if="!isComp" class="text-xs-center">
-          <v-btn
-            v-if="isPageReady"
-            v-show="pagination.current_page < pagination.total_pages"
-            @click.native="loadMore()"
-            class="loadmore-btn"
-            >Load More</v-btn
-          >
-        </div>
+      <div v-if="!isComp" class="text-xs-center">
+        <v-btn
+          v-if="isPageReady"
+          v-show="pagination.current_page < pagination.total_pages"
+          @click.native="loadMore()"
+          class="loadmore-btn"
+          >Load More</v-btn
+        >
       </div>
     </div>
   </div>

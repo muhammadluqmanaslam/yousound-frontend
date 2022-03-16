@@ -34,9 +34,14 @@
       </div>
       <div v-if="!noMeta" class="box__title">
         <div class="box__author"></div>
-        <div class="box__views__duration_wrapper">
-          <span class="box__views">0 views</span>
-          <span v-if="calcAge" class="ml-1 box__age"> • {{ calcAge }}</span>
+        <div class="box__views__duration_wrapper dflex align-center">
+          <span class="box__views mr-2">0 views</span>
+          <span v-if="calcAge" class="mr-2 box__age dflex align-center">
+            <span v-if="!onMobile" class="mr-2">•</span>
+            {{ calcAge }}
+          </span>
+
+          <span v-if="item.view_price < 1">Free</span>
         </div>
       </div>
     </div>
@@ -80,6 +85,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     isLive() {
       return this._.get(this.item, "status") === "running";
     },
@@ -231,6 +239,7 @@ export default {
       font-size: 14px;
       font-weight: 400;
       vertical-align: unset;
+      color: #606060;
     }
     .user-status {
       margin: 0;

@@ -1,8 +1,46 @@
 <template>
   <div class="page albums-page mx-5" :class="{ isComp: isComp}">
-    <discover-nav v-if="!isComp" pageName="music" />
+    <discover-nav v-if="!isComp && !onMobile" pageName="music" />
 
-    <content-top-header absolute class="__inner __doubleUl" :class="{'pl-0': isComp}">
+    <content-top-header absolute v-if="onMobile" height="35" :class="{ isOnMobile: onMobile}">
+      <template slot="topHeader">
+        <ul class="width100">
+          <li class="open-genre-dialog-li my-0"
+
+              @mouseenter="hover_on_genre_button = true"
+              @mouseleave="hover_on_genre_button = false"
+          >
+            <div
+              class="genre-dialog-selector"
+              @click="openGenreSelectorDialog()"
+            >
+              <div class="genre-filter">
+                <img src="/static/images/ic_filter.svg" />
+              </div>
+            </div>
+          </li>
+
+          <li class="width100 my-0">
+            <v-tabs :scrollable="true" v-model="activeGenre">
+              <v-tabs-bar>
+                <v-tabs-item
+                  v-for="(genre, idx) in genres"
+                  :key="idx"
+                  :href="`#${genre.id}`"
+                  class="mr-0"
+                >
+                  <v-chip class="text-capitalize" @click.native="filterByGenre(genre)">
+                    {{ genre.name.toLowerCase() }}
+                  </v-chip>
+                </v-tabs-item>
+              </v-tabs-bar>
+            </v-tabs>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
+    <content-top-header absolute :height="onMobile ? 35 : ''"  class="__inner __doubleUl" :class="[{ isOnMobile: onMobile}, {'pl-0': isComp}]">
       <template slot="topHeader">
         <ul>
           <li v-if="isComp">
@@ -29,7 +67,8 @@
             View All
           </li>
         </ul>
-        <ul v-if="!isComp" class="width100">
+
+        <ul v-if="!isComp && !onMobile" class="width100">
           <v-spacer></v-spacer>
 
           <li class="my-0">
@@ -87,20 +126,23 @@
 
 
     <div class="page-content" v-if="currentUser">
-      <v-layout row wrap>
-        <v-flex
-          v-for="(feed, index) in filtered_feeds"
-          :key="index"
-          class="card-container feed-card custom-lg5"
-          xs12
-        >
-          <track-card
-            :objects="filtered_feeds"
-            :objectIndex="index"
-            :hideButtonAction="hideAlbum"
-          />
-        </v-flex>
-      </v-layout>
+      <v-container fluid grid-list-lg px-0>
+        <v-layout row wrap>
+          <v-flex
+            v-for="(feed, index) in filtered_feeds"
+            :key="index"
+            feed-card
+            xs6
+            custom-lg5
+          >
+            <track-card
+              :objects="filtered_feeds"
+              :objectIndex="index"
+              :hideButtonAction="hideAlbum"
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
 
       <div v-if="!isComp" class="text-xs-center">
         <v-btn

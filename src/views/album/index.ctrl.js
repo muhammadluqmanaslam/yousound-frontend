@@ -26,6 +26,7 @@ export default {
 
   data() {
     return {
+      activeGenre: 'any',
       activeTab: '',
       tabs: [
         { id: 'recommended', title: 'Trending' },
@@ -51,6 +52,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -102,6 +106,8 @@ export default {
     this.seed = Math.random()
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
+    // this.filterByGenre({id: 'any', name: 'All'})
+
   },
 
   methods: {
@@ -142,7 +148,7 @@ export default {
             .value()
           this.genres = [
             // { id: 'go_to_filters', name: 'Set Genre Filters' },
-            { id: 'any', name: 'All genre' },
+            { id: 'any', name: 'All' },
           ].concat(genres)
 
           this.page_index = response.body.pagination.current_page

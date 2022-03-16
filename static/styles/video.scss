@@ -101,6 +101,7 @@
     }
   }
 
+  
   .video-container {
     min-width: 200px;
     margin-bottom: 0px;
@@ -118,6 +119,11 @@
     }
 
     &.top-3 {}
+  }
+
+  .side_fullwidth {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 }
 

@@ -490,6 +490,11 @@ li.search-li {
   &.onMobile-container {
     margin-top: 8px;
     padding-bottom: 40px;
+
+    &-fullwidth {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }
 
@@ -503,6 +508,10 @@ li.search-li {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 
+}
+
+li.list-none {
+  list-style: none;
 }
 
 .borderTest {

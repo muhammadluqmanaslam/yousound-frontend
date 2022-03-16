@@ -34,10 +34,6 @@
       &.toolbar--fixed {
         box-shadow: 0 0 0 1px #d6d6d6;
       }
-      
-      // width: auto;
-      // position: unset;
-      // display: flex;
 
       /deep/.user-profile-image-wrapper {
         display: none;
@@ -210,6 +206,52 @@
         display: none;
       }
 
+    }
+
+    // Mobile View
+    &.isOnMobile {
+      padding: 0;
+
+      /deep/.tab-container {
+        .open-genre-dialog-li {
+          margin-right: -18px !important;
+        }
+
+        .toolbar__content {  
+          ul {  
+            li {
+              margin-top: 0;
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        .tabs {
+          .tabs__bar {
+            .tabs__li {
+              .tabs__item {
+                padding: 0 2px;
+                .chip {
+                  margin: 0;
+                  padding: 0 5px;
+                  border: 1px solid #c4c4c4;
+                  color: #000000;
+                  font-weight: 700;
+                  background-color: transparent;
+                }
+              }
+
+              .tabs__item--active {
+                .chip {
+                  border: 1px solid #000000;
+                  background-color: #000000;
+                  color: #ffffff;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 
