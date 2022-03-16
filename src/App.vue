@@ -51,9 +51,9 @@
             }"
           />
       </v-flex> -->
-      <v-container fluid class="app-container" :class="{'onMobile-container': onMobile}">
+      <v-container fluid class="app-container" :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace}">
         <router-view></router-view>
-        <app-footer v-if="!onMobile &&$store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
+        <app-footer v-if="!onMobile && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
 
         <mobile-footer v-else />
       </v-container>
@@ -149,6 +149,7 @@ export default {
     ...mapState({
       sideBarWidth: state => state.app.sideBarWidth,
       sideBarMini: state => state.app.sideBarMini,
+      noSideSpace: state => state.app.noSideSpace,
     }),
     showGoBack() {
       return this.$store.getters['appMobile/hasGoBackCTA'].indexOf(this.$route.name) === 1
