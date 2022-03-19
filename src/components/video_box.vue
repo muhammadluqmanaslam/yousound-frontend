@@ -22,7 +22,7 @@
         >
       </div>
     </div>
-    <div v-if="!coverOnly" class="box__footer">
+    <div v-if="!coverOnly" class="box__footer" :class="{'px-2': onMobile}">
       <user-tag showAvatar hideName hideTick width="40" height="40" :user="item.user" style="float: left" />
 
       <div class="box__subtitle">
@@ -41,11 +41,12 @@
             {{ calcAge }}
           </span>
 
+        <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#recommended'})">View All</div>
           <span v-if="item.view_price < 1">Free</span>
         </div>
       </div>
     </div>
-    <div v-if="altMeta" class="mt-2 box__footer alt-meta">
+    <div v-if="altMeta" class="mt-2 box__footer alt-meta" :class="{'px-2': onMobile}">
       <div class="alt-meta-name">{{ item.name }}</div>
       <div class="alt-meta-user">
         <b class="text-capitalize">{{ item.user.username }}</b>

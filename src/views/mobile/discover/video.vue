@@ -3,7 +3,7 @@
     <div class="discover-layer">
       <div class="dflex justify-space-between align-center mb-1">
         <h2 class="discover-title">Trending</h2>
-        <div class="discover-action">View All</div>
+        <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#recommended'})">View All</div>
       </div>
 
       <item-tab>
@@ -23,7 +23,7 @@
     <div class="discover-layer">
       <div class="dflex justify-space-between align-center mb-1">
         <h2 class="discover-title">New</h2>
-        <div class="discover-action">View All</div>
+        <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#new'})">View All</div>
       </div>
 
       <item-tab>
@@ -42,7 +42,7 @@
     <div class="discover-layer">
       <div class="dflex justify-space-between align-center mb-1">
         <h2 class="discover-title">Popular</h2>
-        <div class="discover-action">View All</div>
+        <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#popular'})">View All</div>
       </div>
 
       <item-tab>

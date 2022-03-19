@@ -1,6 +1,7 @@
 <template>
   <div class="page video-page index-page" :class="{ isComp: isComp}">
-    <discover-nav v-if="!isComp" class="mx-4" pageName="video" />
+    <discover-nav v-if="!isComp && !onMobile" class="mx-4" pageName="video" />
+
     <content-top-header absolute v-if="onMobile" height="35" :class="{ isOnMobile: onMobile}">
       <template slot="topHeader">
         <v-tabs :scrollable="true">
@@ -20,7 +21,7 @@
       </template>
     </content-top-header>
 
-    <content-top-header absolute class="__inner __doubleUl" :class="{'pl-0': isComp}">
+    <content-top-header absolute class="__inner __doubleUl" height="35" :class="{'pl-0': isComp}">
       <template slot="topHeader">
         <ul :class="{'mx-3': !isComp}">
           <li v-if="isComp">
@@ -96,12 +97,12 @@
     </content-top-header>
 
     <div class="page-content" v-if="currentUser">
-      <v-container fluid px-0>
+      <v-container fluid px-0 pt-0>
         <v-layout row wrap>
           <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
           <v-flex 
             v-for="(video) in videos.slice(0,3)" 
-            :key="video.name" 
+            :key="video.name"
             class="video-container"
             :class="[!isComp ? 'video-container top-3 xs12 sm4' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
           >
