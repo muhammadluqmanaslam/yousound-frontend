@@ -2,7 +2,15 @@
   <div class="mobile-header header-container">
     <div class="header-wrapper dflex justify-space-between align-center width100">
       <div class="_inner-wrapper _left">
-        <v-icon v-if="showGoBack" color="black" class="mr-3">arrow_back_ios</v-icon>
+        <v-icon
+          v-if="hideGoBack" 
+          color="black" 
+          class="go-back mr-3"
+          @click="$router.go(-1)"
+        >
+          arrow_back_ios
+        </v-icon>
+
         <img :src="leftAltIcon" />
       </div>
 
@@ -27,7 +35,7 @@ import userTag from "@/components/user_tag";
 
 export default {
   props: {
-    showGoBack: {
+    hideGoBack: {
       type: Boolean,
       default: false,
     },
@@ -126,6 +134,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .go-back {
+      cursor: pointer;
+    }
 
     * {
       cursor: pointer;

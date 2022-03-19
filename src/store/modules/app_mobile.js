@@ -1,7 +1,7 @@
 const state = {}
 
 const getters = {
-  hasGoBackCTA: (state) => {
+  hideGoBackCTA: (state) => {
       // pass route name
     return ['DiscoverIndex']
   },
