@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       selectedTab: 'any',
-      activeTab: '',
+      activeTab: 'recommended',
       seed: '',
       page_index: 1,
       total_pages: 1,
@@ -36,12 +36,16 @@ export default {
       feeds: [],
       isPageReady: false,
       tabs: [
+        { id: 'recommended', title: 'Trending' },
         { id: 'new', title: 'New Arrivals' },
       ],
     }
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -86,6 +90,8 @@ export default {
     },
 
     onTab(tab) {
+      this.activeTab = tab
+
       if (this.isComp) {
         this.$router.push({ name: 'ProductIndex', params: { filter: tab } })
       } else {

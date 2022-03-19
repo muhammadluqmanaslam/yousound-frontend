@@ -1,6 +1,25 @@
 <template>
   <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
-    <discover-nav v-if="!isComp" pageName="merch" />
+    <discover-nav v-if="!isComp && !onMobile" pageName="merch" />
+
+    <content-top-header absolute v-if="onMobile" height="35" :class="{ isOnMobile: onMobile}">
+      <template slot="topHeader">
+        <v-tabs :scrollable="true">
+          <v-tabs-bar>
+            <v-tabs-item
+              v-model="selectedTab"
+              v-for="(category, i) in categories"
+              :key="i"
+              :href="'#tab-' + i"
+            >
+              <v-chip class="text-capitalize" @click="filterByCategory(category)">
+                {{ category.name }}
+              </v-chip>
+            </v-tabs-item>
+          </v-tabs-bar>
+        </v-tabs>
+        </template>
+    </content-top-header>
 
     <content-top-header absolute class="__inner __doubleUl ma-0 px-0">
       <template slot="topHeader">
@@ -30,7 +49,7 @@
           </li>
         </ul>
 
-        <ul v-if="!isComp" class="mx-3">
+        <ul v-if="!isComp && !onMobile" class="mx-3">
           <v-spacer></v-spacer>
 
           <li class="">
@@ -81,8 +100,14 @@
       <div class="page-content" v-if="currentUser">
         <v-container fluid grid-list-md pl-0 style="margin-left: -10px">
           <v-layout row wrap>
-            <v-flex sm12 md6 lg3 v-for="feed in products" :key="feed.id">
-              <product-card :hideOverlay="true" :dataObject="feed" />
+            <v-flex xs6 sm4 lg3 v-for="feed in products" :key="feed.id">
+              <!-- <product-card :hideOverlay="true" :dataObject="feed" /> -->
+              <product-card
+               hideOverlay 
+              :noMeta="onMobile ? true : false" 
+              :altMeta="onMobile ? true : false" 
+              :altMetaPrice="onMobile ? true : false" 
+              :dataObject="feed" />
             </v-flex>
           </v-layout>
 
