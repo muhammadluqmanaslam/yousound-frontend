@@ -211,6 +211,8 @@
     // Mobile View
     &.isOnMobile {
       padding: 0;
+      width: calc(100% + 48px);
+      // border: 1px solid #000;
 
       /deep/.tab-container {
         .open-genre-dialog-li {
@@ -227,10 +229,14 @@
         }
 
         .tabs {
+          margin: 0;
+
           .tabs__bar {
             .tabs__li {
               .tabs__item {
-                padding: 0 2px;
+                padding-left: 0;
+                padding-right: 4px;
+
                 .chip {
                   margin: 0;
                   padding: 0 5px;
