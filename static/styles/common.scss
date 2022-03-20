@@ -574,6 +574,29 @@ li.list-none {
   }
 }
 
+.pane-tabs-onMobile {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 10px;
+  
+  .pane-tab {
+    position: relative;
+    padding: 18px 0;
+    color: #a89e9e;
+    text-align: center;
+    box-shadow: 0 0 0 blue;
+    border-bottom: 1px solid #aaaaaa;
+
+    &.active {
+      font-weight: 700;
+      color: #000000;
+      border-bottom: 1px solid #000000;
+      z-index: 1;
+    }
+  }
+
+}
+
 // Vue Transition
 .slide-fade-enter-active {
   transition: all .3s ease;
