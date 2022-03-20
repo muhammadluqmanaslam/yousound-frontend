@@ -1,33 +1,66 @@
 <template>
-  <div class="page video-page show-page no-top-nav" v-if="isPageReady">
+  <div v-if="isPageReady" class="page video-page show-page" :class="{'no-top-nav': !onMobile, onMobile }">
     <div class="page-content">
-      <v-container fluid grid-list-md>
+      <v-container fluid px-0 :class="{'grid-list-md px-4':!onMobile}">
         <v-layout row wrap>
-          <v-flex xs9 class="vid_col">
+          <v-flex xs12 sm9 class="vid_col">
             <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
 
+            <div v-if="onMobile" class="pane-tabs-onMobile">
+              <div
+                v-for="(tab, index) in paneTabs"
+                :key="index"
+                class="pane-tab"
+                :class="{active: activePaneTab == tab.id}"
+                @click="activePaneTab = tab.id"
+              >
+                {{ tab.name }}
+              </div>
+            </div>
+
             <div class="content-section">
-              <div class="meta__content">
+              <div class="meta__content" :class="{'px-4':onMobile}">
+                <user-tag v-if="onMobile" class="tag" showAvatar hideName hideTick clickUser width="40" height="40" :user="stream.user" />
                 <div class="meta__title">{{ stream.name }}</div>
 
                 <div class="meta__subtitle">
                   {{ stream.viewers_size || 0 }}
-                  views &bull;
+                  views <span v-if="!onMobile">&bull;</span>
                   {{ moment(stream.created_at).format("MMM D, YYYY") }}
+                </div>
+
+                <div v-if="onMobile" class="meta__cta follow">
+                  <v-btn
+                    v-if="currentUser && stream.user.id != currentUser.id"
+                    :class="{
+                      'follow-btn': true,
+                      follow: !stream.user.is_following,
+                      following: stream.user.is_following,
+                    }"
+                    @mouseenter="buttonHover = true"
+                    @mouseleave="buttonHover = false"
+                    @click.native="followUser()"
+                    >{{ followButtonText }}</v-btn
+                  >
                 </div>
               </div>
 
-              <div class="meta__actions">
-                <div class="meta__cta donate" @click="showLoveDialog()">
+              <div class="meta__actions" :class="{'py-3': !ownItem}">
+                <div v-if="ownItem" class="meta__cta donate" @click="showLoveDialog()">
+                  <img src="/static/images/stat.svg" width="20" />
+                </div>
+
+                <div v-else class="meta__cta donate" @click="showLoveDialog()">
                   <img src="/static/images/ic_dollar.svg" height="21" />
                 </div>
+
                 <div class="meta__cta repost" @click="repostItem()">
                   <img src="/static/images/ic_repost.svg" height="17" />
                 </div>
                 <div class="meta__cta share" @click="openShareDialog()">
                   <img src="/static/images/ic_share.svg" height="17" />
                 </div>
-                <div class="meta__cta" v-if="currentUser.id === user.id">
+                <div class="meta__cta" v-if="ownItem">
                   <v-menu offset-y class="more-menu">
                     <v-btn icon slot="activator">
                       <v-icon>more_horiz</v-icon>
@@ -62,8 +95,8 @@
               </div>
             </div>
 
-            <div class="user-section">
-              <div class="user__wrapper">
+            <div class="user-section" :class="{'px-4':onMobile}">
+              <div v-if="!onMobile" class="user__wrapper">
                 <router-link :to="`/${stream.user.slug}`">
                   <div
                     class="user__image"
@@ -91,7 +124,7 @@
                 </div>
               </div>
 
-              <div class="meta__cta follow">
+              <div v-if="!onMobile" class="meta__cta follow">
                 <v-btn
                   v-if="currentUser && stream.user.id != currentUser.id"
                   :class="{
@@ -107,12 +140,12 @@
               </div>
             </div>
 
-            <div class="section users-section" v-if="showFeaturedSection">
+            <div v-if="showFeaturedSection" class="section users-section" :class="{'px-4':onMobile}">
               <div class="section__header">
                 <h4 class="section__title">Featured content and people</h4>
                 <span
                   class="section__subtitle"
-                  v-if="currentUser.id === user.id"
+                  v-if="ownItem"
                   @click="openFeaturedDialog()"
                   >Edit attachment</span
                 >
@@ -135,24 +168,28 @@
                     <div class="assoc__content">
                       <div class="assoc__subtitle">
                         <span class="__name">{{ stream.assoc.name }}</span>
+                        <div v-if="onMobile">
+                          <b class="__name text-capitalize">{{ stream.assoc.merchant.username }}</b>
+                        </div>
                         <br />
                         <span
                           v-if="stream.assoc.user"
                           class="app-bold __user_name"
-                          >{{ stream.assoc.user.username }}</span
                         >
+                          {{ stream.assoc.user.username }}
+                        </span>
                       </div>
                       <div class="assoc__title">
-                        <span v-if="stream.assoc.price"
-                          >${{ stream.assoc.price | formatNumber }}</span
-                        >
+                        <span v-if="stream.assoc.price && !onMobile">
+                          ${{ stream.assoc.price | formatNumber }}
+                        </span>
                       </div>
                       <div
                         class="assoc__cta-"
                         v-if="stream.assoc_type == 'ShopProduct'"
                       >
                         <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                        <v-btn round outline small class="text-capitalize ma-0">
+                        <v-btn v-if="!onMobile" round outline small class="text-capitalize ma-0">
                           view
                         </v-btn>
                       </div>
@@ -185,7 +222,7 @@
             </div>
           </v-flex>
 
-          <v-flex xs3 pl-3 class="related_col">
+          <v-flex xs12 sm3 class="related_col" :class="{'pl-3': !onMobile}">
             <div class="videos-section">
               <h4 class="__title">Related</h4>
               <div class="section__content">
@@ -198,7 +235,7 @@
             </div>
           </v-flex>
 
-          <v-flex xs9 comment-wrapper>
+          <v-flex xs9 comment-wrapper :class="{'px-4':onMobile}">
             <comments :item="stream" :comments="comments" roundAvatar />
           </v-flex>
           <!-- <v-flex xs3>
@@ -334,305 +371,425 @@
   .page-content {
     margin-top: 0;
   }
-}
-.section {
-  border-top: 1px solid #e4e4e4;
 
-  &__content {
-    display: block;
+  .section {
+    border-top: 1px solid #e4e4e4;
 
-    .profile-section {
-      .user-container {
-        padding: 13px;
+    &__content {
+      display: block;
+
+      .profile-section {
+        .user-container {
+          padding: 13px;
+        }
+
+        /deep/.artist-cover {
+          border-radius: 0;
+          width: 100px;
+          height: 84px;
+          background-size: contain;
+          margin-right: 15px;
+          padding: 0;
+        }
+        /deep/.artist-info-section {
+          display: flex;
+          align-items: center;
+          margin: 0;
+        }
+        /deep/.avatar-cover {
+          padding: 0 !important;
+        }
+
+        /deep/.artist-actions {
+          pointer-events: none;
+        }
       }
+    }
 
-      /deep/.artist-cover {
-        border-radius: 0;
-        width: 100px;
-        height: 84px;
+    &__title {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    &__subtitle {
+      color: #1976d2;
+      cursor: pointer;
+    }
+  }
+
+  .user-section {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #e4e4e4;
+    padding: 20px 0;
+    padding: 20px 0;
+
+    .user__wrapper {
+      display: flex;
+      .user__image {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
         background-size: contain;
-        margin-right: 15px;
-        padding: 0;
+        background-repeat: no-repeat;
+        margin-right: 10px;
       }
-      /deep/.artist-info-section {
+
+      .tag {
+        font-size: 16px;
+
+        /deep/.user-status {
+          margin-left: 0px;
+          color: #24ab18;
+        }
+      }
+
+      .vid__description {
+        height: 20px;
+        overflow: hidden;
+      }
+
+      .show-more-less {
+        color: #333;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .users-section {
+    .section__title {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .section__content {
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 12px;
+      margin-top: 10px;
+    }
+  }
+
+  .content-section {
+    display: flex;
+    padding: 10px 0;
+    .meta {
+      display: flex;
+      margin: 20px 0 0;
+      padding: 10px 0 0;
+      border-top: 1px solid #f3dfdf;
+
+      &__header {
+        width: 60px;
+        flex: 0 0 auto;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      &__content {
+        flex: 1;
+      }
+
+      &__image {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      &__title {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      &__actions {
         display: flex;
         align-items: center;
-        margin: 0;
-      }
-      /deep/.avatar-cover {
-        padding: 0 !important;
+        // margin-top: 10px;
+
+        .tag {
+          font-size: 20px;
+        }
       }
 
-      /deep/.artist-actions {
-        pointer-events: none;
+      &__cta {
+        display: inline-flex;
+        margin-left: 32px;
+
+        img {
+          cursor: pointer;
+        }
+
+        .options {
+          filter: invert(1);
+          width: 20px;
+          height: auto;
+          padding: 15px 0;
+        }
       }
     }
   }
-
-  &__title {
-    margin-top: 20px;
-    font-size: 18px;
-  }
-
-  &__subtitle {
-    color: #1976d2;
-    cursor: pointer;
-  }
-}
-
-.user-section {
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid #e4e4e4;
-  padding: 20px 0;
-  padding: 20px 0;
-
-  .user__wrapper {
+  .assoc {
     display: flex;
-    .user__image {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      margin-right: 10px;
-    }
-
-    .tag {
-      font-size: 16px;
-
-      /deep/.user-status {
-        margin-left: 0px;
-        color: #24ab18;
-      }
-    }
-
-    .vid__description {
-      height: 20px;
-      overflow: hidden;
-    }
-
-    .show-more-less {
-      color: #333;
-      font-size: 13px;
-    }
-  }
-}
-
-.users-section {
-  .section__title {
-    margin-top: 12px;
-    font-size: 14px;
-  }
-
-  .section__content {
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 12px;
-    margin-top: 10px;
-  }
-}
-
-.content-section {
-  display: flex;
-  padding: 10px 0;
-  .meta {
-    display: flex;
-    margin: 20px 0 0;
-    padding: 10px 0 0;
-    border-top: 1px solid #f3dfdf;
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid #e4e4e4;
 
     &__header {
-      width: 60px;
+      position: relative;
+      width: 40%;
       flex: 0 0 auto;
       display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
     }
 
     &__content {
+      position: relative;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    &__image-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
     }
 
     &__image {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background-size: contain;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      background-size: cover;
+      background-position: center center;
       background-repeat: no-repeat;
     }
 
     &__title {
       font-size: 16px;
       font-weight: 700;
+      padding-bottom: 14px;
     }
 
-    &__actions {
-      display: flex;
-      align-items: center;
-      // margin-top: 10px;
+    &__subtitle {
+      font-size: 14px;
+      padding-bottom: 0px;
 
-      .tag {
-        font-size: 20px;
+      .__name {
+        white-space: break-spaces;
       }
     }
 
     &__cta {
-      display: inline-flex;
-      margin-left: 32px;
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #000;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       img {
-        cursor: pointer;
-      }
-
-      .options {
         filter: invert(1);
-        width: 20px;
-        height: auto;
-        padding: 15px 0;
       }
     }
   }
-}
-.assoc {
-  display: flex;
-  height: 100%;
-  border-radius: 5px;
-  border: 1px solid #e4e4e4;
 
-  &__header {
-    position: relative;
-    width: 40%;
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
+  .follow-btn {
+    text-transform: none;
+    box-shadow: none;
+    height: 36px;
+    border-radius: 24px;
+    font-size: 14px;
+    letter-spacing: 0;
+    min-width: 100px;
+    &.follow {
+      border: 1px solid #1872ff;
+      background-color: #1872ff !important;
+      color: #fff !important;
+    }
+    &.following {
+      border: 1px solid #5bad00;
+      background-color: #0000 !important;
+      color: #000 !important;
+      &:hover {
+        border: 0.75px solid #dc3545;
+        background-color: #dc3545 !important;
+        color: #fff !important;
+      }
+    }
   }
 
-  &__content {
-    position: relative;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  .attach-container {
+    display: inline-block;
+    width: 37.5%;
+    padding: 16px 20px 10px 5px;
+  }
+
+  .user-container {
+    display: inline-block;
     padding: 10px;
   }
 
-  &__image-wrapper {
-    position: relative;
+  .video-container {
+    display: inline-block;
     width: 100%;
-    padding-bottom: 100%;
+    padding: 10px;
+    margin-top: -20px;
   }
+  .related_col {
+    position: sticky;
+    top: 0;
 
-  &__image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
+    .videos-section {
+      .__title {
+        margin-left: 10px;
+        margin-bottom: 10px;
+      }
 
-  &__title {
-    font-size: 16px;
-    font-weight: 700;
-    padding-bottom: 14px;
-  }
+      .video-container {
+        .box {
+          display: flex;
+          align-items: center;
 
-  &__subtitle {
-    font-size: 14px;
-    padding-bottom: 0px;
-
-    .__name {
-      white-space: break-spaces;
+          /deep/ &__content {
+            width: 40%;
+            margin-right: 20px;
+          }
+        }
+      }
     }
   }
 
-  &__cta {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: #000;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      filter: invert(1);
+  &.onMobile {
+    .users-section {
+      .section__content {
+        overflow-x: unset;
+      }
     }
-  }
-}
+    .content-section {
+      display: block;
 
-.follow-btn {
-  text-transform: none;
-  box-shadow: none;
-  height: 36px;
-  border-radius: 24px;
-  font-size: 14px;
-  letter-spacing: 0;
-  min-width: 100px;
-  &.follow {
-    border: 1px solid #1872ff;
-    background-color: #1872ff !important;
-    color: #fff !important;
-  }
-  &.following {
-    border: 1px solid #5bad00;
-    background-color: #0000 !important;
-    color: #000 !important;
-    &:hover {
-      border: 0.75px solid #dc3545;
-      background-color: #dc3545 !important;
-      color: #fff !important;
-    }
-  }
-}
-
-.attach-container {
-  display: inline-block;
-  width: 37.5%;
-  padding: 16px 20px 10px 5px;
-}
-
-.user-container {
-  display: inline-block;
-  padding: 10px;
-}
-
-.video-container {
-  display: inline-block;
-  width: 100%;
-  padding: 10px;
-  margin-top: -20px;
-}
-.related_col {
-  position: sticky;
-  top: 0;
-
-  .videos-section {
-    .__title {
-      margin-left: 10px;
-      margin-bottom: 10px;
-    }
-
-    .video-container {
-      .box {
+      .meta__title {
+        max-width: 75%;
+      }
+      .meta__content {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
+      }
+      .meta__subtitle {
+        flex-basis: 100%;
+        padding-left: 52px;
+        color: #606060;
+      }
+      .meta__actions {
+        border-top: 1px solid #e4e4e4;
+        justify-content: space-around;
+        margin-top: 12px;
+        margin-bottom: -10px;
 
-        /deep/ &__content {
-          width: 40%;
-          margin-right: 20px;
+        .meta__cta {
+          margin: 0;
+        }
+      }
+    }
+    .attach-container {
+      display: inline-block;
+      width: 100%;
+      padding: 0;
+    }
+    .assoc {
+      display: flex;
+      height: 100%;
+      border-radius: 5px;
+      border: none;
+
+      &__header {
+        width: 23%;
+      }
+
+      &__content {
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      &__image-wrapper {
+        position: relative;
+        width: 100%;
+        padding-bottom: 100%;
+      }
+
+      &__image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      &__title {
+        font-size: 16px;
+        font-weight: 700;
+        padding-bottom: 0;
+      }
+
+      &__subtitle {
+        font-size: 14px;
+        padding-bottom: 0px;
+
+        .__name {
+          white-space: break-spaces;
+        }
+      }
+
+      &__cta {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        width: 40px;
+        height: 40px;
+        background-color: #000;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          filter: invert(1);
+        }
+      }
+    }
+    .follow-btn {
+      &.follow {
+        border: 1px solid #000000;
+        background-color: #000000 !important;
+        color: #fff !important;
+      }
+      &.following {
+        border: 1px solid #5bad00;
+        background-color: #0000 !important;
+        color: #000 !important;
+        &:hover {
+          border: 0.75px solid #dc3545;
+          background-color: #dc3545 !important;
+          color: #fff !important;
         }
       }
     }
   }
 }
-
 </style>

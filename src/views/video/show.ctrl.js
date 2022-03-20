@@ -38,6 +38,17 @@ export default {
 
   data() {
     return {
+      activePaneTab: 'info',
+      paneTabs: [
+        {
+          name: 'Info',
+          id: 'info'
+        },
+        {
+          name: 'Comments',
+          id: 'comments'
+        },
+      ],
       moment: moment,
       showSendLoveModal: false,
       showMoreActive: false,
@@ -63,6 +74,12 @@ export default {
   },
 
   computed: {
+    ownItem() {
+      return this.currentUser.id === this.user.id;
+    },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -122,10 +139,14 @@ export default {
     )
 
     this.loadData(this.$route.params.videoId)
+
+    // make full width if on mobile
+    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
   },
 
   beforeDestroy() {
     this.unsubscribe()
+    this.$store.dispatch('app/setNoSideSpace', false)
   },
 
   methods: {

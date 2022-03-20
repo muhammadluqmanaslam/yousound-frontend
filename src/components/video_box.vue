@@ -42,7 +42,7 @@
           </span>
 
         <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#recommended'})">View All</div>
-          <span v-if="item.view_price < 1">Free</span>
+          <span v-if="item.view_price < 1" class="ml-2">Free</span>
         </div>
       </div>
     </div>
