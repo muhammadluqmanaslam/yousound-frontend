@@ -15,7 +15,7 @@
       </div>
 
       <div class="_inner-wrapper _center">
-        <img @click="$router.push('/')" :src="centerImg" />
+        <img @click="$router.push({name: isAuthenticated ? 'DiscoverIndex' : 'Home'})" :src="centerImg" />
       </div>
 
       <div class="_inner-wrapper _right">
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import AuthService from '@/services/auth'
 import userTag from "@/components/user_tag";
 
 export default {
@@ -83,8 +84,10 @@ export default {
   },
 
   computed: {
+    isAuthenticated() {
+      return AuthService.isAuthenticated
+    },
     currentUser() {
-      console.log('user,', this.$store.state.auth.user)
       return this.$store.state.auth.user
     },
     isDarkTheme() {
