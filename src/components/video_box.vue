@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box" :class="{'side-tab-view': sideTabView}">
     <div
       class="box__content"
       :class="{ 'cursor-pointer': !hoverOverlay }"
@@ -22,27 +22,32 @@
         >
       </div>
     </div>
-    <div v-if="!coverOnly" class="box__footer" :class="{'px-2': onMobile}">
-      <user-tag showAvatar hideName hideTick width="40" height="40" :user="item.user" style="float: left" />
+    <div v-if="!coverOnly" class="box__footer dflex align-start mt-2" :class="{'px-2': onMobile}">
+      <user-tag v-if="!hideUser" showAvatar hideName hideTick width="40" height="40" :user="item.user" />
 
-      <div class="box__subtitle">
-        <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
-          <!-- <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.username }}</span> -->
-        </span>
-        <!-- <span v-else class="box__acc">{{ item.user.username }}</span> -->
-        <span>{{ item.name }}</span>
-      </div>
-      <div v-if="!noMeta" class="box__title">
-        <div class="box__author"></div>
-        <div class="box__views__duration_wrapper dflex align-center">
-          <span class="box__views mr-2">0 views</span>
-          <span v-if="calcAge" class="mr-2 box__age dflex align-center">
-            <span v-if="!onMobile" class="mr-2">•</span>
-            {{ calcAge }}
+      <div :class="{'dgrid': sideTabView}">
+        <div class="box__subtitle">
+          <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
+            <!-- <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.username }}</span> -->
           </span>
+          <span>{{ item.name }}</span>
+          <div v-if="showUsername">
+            <b class="text-capitalize">{{ item.user.username }}</b>
+          </div>
+        </div>
 
-        <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#recommended'})">View All</div>
-          <span v-if="item.view_price < 1" class="ml-2">Free</span>
+        <div v-if="!noMeta" class="box__title">
+          <div class="box__author"></div>
+          <div class="box__views__duration_wrapper dflex align-center">
+            <span class="box__views mr-2">0 views</span>
+            <span v-if="calcAge" class="mr-2 box__age dflex align-center">
+              <!-- <span v-if="!onMobile" class="mr-2">•</span> -->
+              {{ calcAge }}
+            </span>
+
+            <!-- <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#recommended'})">View All</div> -->
+            <span v-if="item.view_price < 1 && !sideTabView" class="ml-2">Free</span>
+          </div>
         </div>
       </div>
     </div>
@@ -67,6 +72,18 @@ export default {
 
   props: {
     item: Object,
+    sideTabView: {
+      type: Boolean,
+      default: false,
+    },
+    showUsername: {
+      type: Boolean,
+      default: false,
+    },
+    hideUser: {
+      type: Boolean,
+      default: false,
+    },
     noMeta: {
       type: Boolean,
       default: false,
@@ -253,7 +270,7 @@ export default {
   }
 
   &__subtitle {
-    margin-top: 10px;
+    // margin-top: 10px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -267,6 +284,27 @@ export default {
   &__content:hover {
     .box__overlay {
       display: flex;
+    }
+  }
+
+  &.side-tab-view {
+    display: flex;
+    align-items: center;
+
+    .box__content {
+      width: 40%;
+      margin-right: 20px;
+    }
+    .box__footer {
+      width: 50%;
+
+      // .box__subtitle {
+      //   display: block;
+      //   overflow: hidden;
+      //   letter-spacing: -.6px;
+      //   white-space: nowrap;
+      //   text-overflow: ellipsis;
+      // }
     }
   }
 }

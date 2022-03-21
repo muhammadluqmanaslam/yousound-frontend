@@ -14,22 +14,118 @@
                 :class="{active: activePaneTab == tab.id}"
                 @click="activePaneTab = tab.id"
               >
-                {{ tab.name }}
+                {{ tab.name }} <span v-if="tab.id == 'comments'">({{ comments.length | formatLargeNumber }})</span>
               </div>
             </div>
 
-            <div class="content-section">
-              <div class="meta__content" :class="{'px-4':onMobile}">
-                <user-tag v-if="onMobile" class="tag" showAvatar hideName hideTick clickUser width="40" height="40" :user="stream.user" />
-                <div class="meta__title">{{ stream.name }}</div>
+            <div v-if="activePaneTab == 'info'">
+              <div class="content-section">
+                <div class="meta__content" :class="{'px-4':onMobile}">
+                  <user-tag v-if="onMobile" class="tag" showAvatar hideName hideTick clickUser width="40" height="40" :user="stream.user" />
+                  <div class="meta__title">{{ stream.name }}</div>
 
-                <div class="meta__subtitle">
-                  {{ stream.viewers_size || 0 }}
-                  views <span v-if="!onMobile">&bull;</span>
-                  {{ moment(stream.created_at).format("MMM D, YYYY") }}
+                  <div class="meta__subtitle">
+                    {{ stream.viewers_size || 0 }}
+                    views <span v-if="!onMobile">&bull;</span>
+                    {{ moment(stream.created_at).format("MMM D, YYYY") }}
+                  </div>
+
+                  <div v-if="onMobile" class="meta__cta follow">
+                    <v-btn
+                      v-if="currentUser && stream.user.id != currentUser.id"
+                      :class="{
+                        'follow-btn': true,
+                        follow: !stream.user.is_following,
+                        following: stream.user.is_following,
+                      }"
+                      @mouseenter="buttonHover = true"
+                      @mouseleave="buttonHover = false"
+                      @click.native="followUser()"
+                      >{{ followButtonText }}</v-btn
+                    >
+                  </div>
                 </div>
 
-                <div v-if="onMobile" class="meta__cta follow">
+                <div class="meta__actions" :class="{'py-3': !ownItem}">
+                  <div v-if="ownItem" class="meta__cta donate">
+                    <img src="/static/images/stat.svg" width="20" />
+                  </div>
+
+                  <div v-else class="meta__cta donate" @click="showLoveDialog()">
+                    <img src="/static/images/ic_dollar.svg" height="21" />
+                  </div>
+
+                  <div class="meta__cta repost" @click="repostItem()">
+                    <img src="/static/images/ic_repost.svg" height="17" />
+                  </div>
+                  <div class="meta__cta share" @click="openShareDialog()">
+                    <img src="/static/images/ic_share.svg" height="17" />
+                  </div>
+                  <div class="meta__cta" v-if="ownItem">
+                    <v-menu offset-y class="more-menu">
+                      <v-btn icon slot="activator">
+                        <v-icon>more_horiz</v-icon>
+                      </v-btn>
+                      <v-list>
+                        <v-list-tile
+                          class="default-menu-item"
+                          @click.native="deleteStream()"
+                        >
+                          <v-list-tile-title>
+                            <label>Delete</label>
+                          </v-list-tile-title>
+                        </v-list-tile>
+                        <v-list-tile class="default-menu-item">
+                          <v-list-tile-title>
+                            <label>Report</label>
+                          </v-list-tile-title>
+                        </v-list-tile>
+
+                        <v-list-tile
+                          v-if="stream.user.username === currentUser.username"
+                          class="default-menu-item"
+                          :to="{ name: 'VideoEdit', params: { slug: stream.slug }}"
+                        >
+                          <v-list-tile-title>
+                            <label>Edit Video</label>
+                          </v-list-tile-title>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="!onMobile" class="user-section" :class="{'px-4':onMobile}">
+                <div class="user__wrapper">
+                  <router-link :to="`/${stream.user.slug}`">
+                    <div
+                      class="user__image"
+                      :style="`background-image: url(${stream.user.avatar.url})`"
+                    ></div>
+                  </router-link>
+
+                  <div>
+                    <user-tag class="tag" :user="stream.user" />
+                    <div class="vid__description">
+                      {{ stream.description }}
+                    </div>
+
+                    <span
+                      class="app-grey--text cursor-pointer showMoreActive"
+                      @click="showMoreActive = !showMoreActive"
+                    >
+                      <b v-if="!showMoreActive" class="show-more-less show-more"
+                        >SHOW MORE</b
+                      >
+                      <b v-if="showMoreActive" class="show-more-less show-less"
+                        >SHOW LESS</b
+                      >
+                    </span>
+                  </div>
+                </div>
+
+                <div class="meta__cta follow">
                   <v-btn
                     v-if="currentUser && stream.user.id != currentUser.id"
                     :class="{
@@ -45,197 +141,110 @@
                 </div>
               </div>
 
-              <div class="meta__actions" :class="{'py-3': !ownItem}">
-                <div v-if="ownItem" class="meta__cta donate" @click="showLoveDialog()">
-                  <img src="/static/images/stat.svg" width="20" />
-                </div>
-
-                <div v-else class="meta__cta donate" @click="showLoveDialog()">
-                  <img src="/static/images/ic_dollar.svg" height="21" />
-                </div>
-
-                <div class="meta__cta repost" @click="repostItem()">
-                  <img src="/static/images/ic_repost.svg" height="17" />
-                </div>
-                <div class="meta__cta share" @click="openShareDialog()">
-                  <img src="/static/images/ic_share.svg" height="17" />
-                </div>
-                <div class="meta__cta" v-if="ownItem">
-                  <v-menu offset-y class="more-menu">
-                    <v-btn icon slot="activator">
-                      <v-icon>more_horiz</v-icon>
-                    </v-btn>
-                    <v-list>
-                      <v-list-tile
-                        class="default-menu-item"
-                        @click.native="deleteStream()"
-                      >
-                        <v-list-tile-title>
-                          <label>Delete</label>
-                        </v-list-tile-title>
-                      </v-list-tile>
-                      <v-list-tile class="default-menu-item">
-                        <v-list-tile-title>
-                          <label>Report</label>
-                        </v-list-tile-title>
-                      </v-list-tile>
-
-                      <v-list-tile
-                        v-if="stream.user.username === currentUser.username"
-                        class="default-menu-item"
-                        :to="{ name: 'VideoEdit', params: { slug: stream.slug }}"
-                      >
-                        <v-list-tile-title>
-                          <label>Edit Video</label>
-                        </v-list-tile-title>
-                      </v-list-tile>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </div>
-            </div>
-
-            <div class="user-section" :class="{'px-4':onMobile}">
-              <div v-if="!onMobile" class="user__wrapper">
-                <router-link :to="`/${stream.user.slug}`">
-                  <div
-                    class="user__image"
-                    :style="`background-image: url(${stream.user.avatar.url})`"
-                  ></div>
-                </router-link>
-
-                <div>
-                  <user-tag class="tag" :user="stream.user" />
-                  <div class="vid__description">
-                    {{ stream.description }}
-                  </div>
-
+              <div v-if="showFeaturedSection" class="section users-section" :class="{'px-4':onMobile}">
+                <div class="section__header">
+                  <h4 class="section__title">Featured content and people</h4>
                   <span
-                    class="app-grey--text cursor-pointer showMoreActive"
-                    @click="showMoreActive = !showMoreActive"
+                    class="section__subtitle"
+                    v-if="ownItem"
+                    @click="openFeaturedDialog()"
+                    >Edit attachment</span
                   >
-                    <b v-if="!showMoreActive" class="show-more-less show-more"
-                      >SHOW MORE</b
-                    >
-                    <b v-if="showMoreActive" class="show-more-less show-less"
-                      >SHOW LESS</b
-                    >
-                  </span>
                 </div>
-              </div>
-
-              <div v-if="!onMobile" class="meta__cta follow">
-                <v-btn
-                  v-if="currentUser && stream.user.id != currentUser.id"
-                  :class="{
-                    'follow-btn': true,
-                    follow: !stream.user.is_following,
-                    following: stream.user.is_following,
-                  }"
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
-                  @click.native="followUser()"
-                  >{{ followButtonText }}</v-btn
-                >
-              </div>
-            </div>
-
-            <div v-if="showFeaturedSection" class="section users-section" :class="{'px-4':onMobile}">
-              <div class="section__header">
-                <h4 class="section__title">Featured content and people</h4>
-                <span
-                  class="section__subtitle"
-                  v-if="ownItem"
-                  @click="openFeaturedDialog()"
-                  >Edit attachment</span
-                >
-              </div>
-              <div class="section__content">
-                <div
-                  class="attach-container cursor-pointer"
-                  v-if="stream.assoc && stream.assoc.id > 0"
-                  @click="gotoAssoc()"
-                >
-                  <div class="assoc">
-                    <div class="assoc__header">
-                      <div class="assoc__image-wrapper">
-                        <div
-                          class="assoc__image"
-                          :style="`background-image: url(${assocImage})`"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="assoc__content">
-                      <div class="assoc__subtitle">
-                        <span class="__name">{{ stream.assoc.name }}</span>
-                        <div v-if="onMobile">
-                          <b class="__name text-capitalize">{{ stream.assoc.merchant.username }}</b>
+                <div class="section__content">
+                  <div
+                    class="attach-container cursor-pointer"
+                    v-if="stream.assoc && stream.assoc.id > 0"
+                    @click="gotoAssoc()"
+                  >
+                    <div class="assoc">
+                      <div class="assoc__header">
+                        <div class="assoc__image-wrapper">
+                          <div
+                            class="assoc__image"
+                            :style="`background-image: url(${assocImage})`"
+                          ></div>
                         </div>
-                        <br />
-                        <span
-                          v-if="stream.assoc.user"
-                          class="app-bold __user_name"
+                      </div>
+                      <div class="assoc__content">
+                        <div class="assoc__subtitle">
+                          <span class="__name">{{ stream.assoc.name }}</span>
+                          <div v-if="onMobile">
+                            <b class="__name text-capitalize">{{ stream.assoc.merchant.username }}</b>
+                          </div>
+                          <br />
+                          <span
+                            v-if="stream.assoc.user"
+                            class="app-bold __user_name"
+                          >
+                            {{ stream.assoc.user.username }}
+                          </span>
+                        </div>
+                        <div class="assoc__title">
+                          <span v-if="stream.assoc.price && !onMobile">
+                            ${{ stream.assoc.price | formatNumber }}
+                          </span>
+                        </div>
+                        <div
+                          class="assoc__cta-"
+                          v-if="stream.assoc_type == 'ShopProduct'"
                         >
-                          {{ stream.assoc.user.username }}
-                        </span>
-                      </div>
-                      <div class="assoc__title">
-                        <span v-if="stream.assoc.price && !onMobile">
-                          ${{ stream.assoc.price | formatNumber }}
-                        </span>
-                      </div>
-                      <div
-                        class="assoc__cta-"
-                        v-if="stream.assoc_type == 'ShopProduct'"
-                      >
-                        <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                        <v-btn v-if="!onMobile" round outline small class="text-capitalize ma-0">
-                          view
-                        </v-btn>
-                      </div>
-                      <div
-                        class="assoc__cta-"
-                        v-if="stream.assoc_type == 'Album'"
-                      >
-                        <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                        <v-btn round outline small class="text-capitalize ma-0">
-                          Play
-                        </v-btn>
+                          <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
+                          <v-btn v-if="!onMobile" round outline small class="text-capitalize ma-0">
+                            view
+                          </v-btn>
+                        </div>
+                        <div
+                          class="assoc__cta-"
+                          v-if="stream.assoc_type == 'Album'"
+                        >
+                          <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
+                          <v-btn round outline small class="text-capitalize ma-0">
+                            Play
+                          </v-btn>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div
-                  class="profile-section attach-container"
-                  v-if="stream.assoc && stream.assoc.id > 0"
-                >
-                  <div v-if="stream.accounts.length" class="assoc">
-                    <template v-for="account in stream.accounts">
-                      <div class="user-container" :key="`user-${account.id}`">
-                        <artist-item :artist="account" />
-                      </div>
-                    </template>
+                  <div
+                    class="profile-section attach-container"
+                    v-if="stream.assoc && stream.assoc.id > 0"
+                  >
+                    <div v-if="stream.accounts.length" class="assoc">
+                      <template v-for="account in stream.accounts">
+                        <div class="user-container" :key="`user-${account.id}`">
+                          <artist-item :artist="account" />
+                        </div>
+                      </template>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </v-flex>
 
-          <v-flex xs12 sm3 class="related_col" :class="{'pl-3': !onMobile}">
+          <v-flex v-if="activePaneTab == 'info'" xs12 sm3 class="related_col" :class="{'pl-3': !onMobile}">
             <div class="videos-section">
-              <h4 class="__title">Related</h4>
+              <h4 class="__title">Related Videos</h4>
               <div class="section__content">
-                <template v-for="(video, index) in videos">
+                <!-- <template v-for="(video, index) in videos">
                   <div class="video-container" :key="`video-${index}`">
-                    <video-box :video="video" />
+                    <video-box :item="video" hideUser />
                   </div>
-                </template>
+                </template> -->
+                <div
+                  v-for="(video) in videos"
+                  :key="video.name"
+                  :class="{side_fullwidth: onMobile}"
+                >
+                  <video-box :hoverOverlay="false" :item="video" showUsername :hideUser="!onMobile ? true : false" :sideTabView="!onMobile ? true : false" />
+                </div>
               </div>
             </div>
           </v-flex>
 
-          <v-flex xs9 comment-wrapper :class="{'px-4':onMobile}">
+          <v-flex v-if="!onMobile || activePaneTab == 'comments'" xs12 sm9 comment-wrapper :class="{'px-4':onMobile}">
             <comments :item="stream" :comments="comments" roundAvatar />
           </v-flex>
           <!-- <v-flex xs3>
@@ -360,6 +369,7 @@
 </template>
 
 <script type="text/javascript" src="./show.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped></style>
 
 <style lang="scss" scoped>
 .vid_col {
@@ -654,7 +664,7 @@
 
     .videos-section {
       .__title {
-        margin-left: 10px;
+        // margin-left: 10px;
         margin-bottom: 10px;
       }
 
