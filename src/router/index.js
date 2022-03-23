@@ -44,7 +44,7 @@ import Sell from '@/views/sell/sell'
 import OrderDetail from '@/views/sell/orderdetail'
 import AddProduct from '@/views/sell/add_product'
 import EditProduct from '@/views/sell/edit_product'
-import SingleProduct from '@/views/sell/single_product'
+// import SingleProduct from '@/views/sell/single_product'
 import ProductIndex from '@/views/product/index'
 import AlbumIndex from '@/views/album/index'
 import AlbumDetail from '@/views/album/album'
@@ -86,10 +86,12 @@ console.log('onMobile: ', onMobile)
 
 const setComponent = (path, hasNoIndexFile) => {
   const ext = hasNoIndexFile ? '.vue' : 'index.vue'
+  const addEndSlash = hasNoIndexFile ? '' : '/'
+
   if (onMobile) {
-    return () => import(`@/views/mobile/${path}/${ext}`)
+    return () => import(`@/views/mobile/${path}${addEndSlash}${ext}`)
   } else {
-    return () => import(`@/views/${path}/${ext}`)
+    return () => import(`@/views/${path}${addEndSlash}${ext}`)
   }
 }
 
@@ -197,7 +199,7 @@ export function createRouter(settings) {
     { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail },
     { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
-    { path: '/product/:id', name: 'SingleProduct', component: SingleProduct },
+    { path: '/product/:id', name: 'SingleProduct', component: setComponent('sell/single_product', true) },
     { path: '/album/:slug', name: 'AlbumDetail', component: AlbumDetail },
     { path: '/x', name: 'AddAttendee', component: AddAttendee },
     { path: '/playlist', name: 'Playlist', component: CreateAttendee },
