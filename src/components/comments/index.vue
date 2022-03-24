@@ -12,7 +12,7 @@
               <div
                 class="ci__image"
                 :class="{roundAvatar: roundAvatar}"
-                :style="`background-image: url(${currentUser.avatar.url})`"
+                :style="`background-image: url(${currentUser.avatar.url}); height: ${aviHeight}px; width: ${aviWidth}px;`"
               ></div>
               </router-link>
           </div>
@@ -22,6 +22,7 @@
                 v-model.trim="commentText"
                 type="text"
                 placeholder="Leave a comment..."
+                :class={roundInput}
                 @keyup.enter="addComment()"
               />
           </div>
@@ -149,6 +150,10 @@
   input {
     width: 100%;
     padding: 5px 10px;
+
+    &.roundInput {
+      border-radius: 90px;
+    }
   }
 }
 </style>

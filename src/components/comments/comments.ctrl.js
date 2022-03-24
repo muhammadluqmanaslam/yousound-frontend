@@ -6,6 +6,13 @@ export default {
     comments: Array,
     item: Object,
     roundAvatar: Boolean,
+    roundInput: Boolean,
+    aviHeight: {
+      type: [ String, Number ],
+    },
+    aviWidth: {
+      type: [ String, Number ],
+    },
     hideComments: Boolean,
     hideCommentCount: Boolean,
   },
