@@ -22,7 +22,10 @@
               <div class="content-section">
                 <div class="meta__content" :class="{'px-4':onMobile}">
                   <user-tag v-if="onMobile" class="tag" showAvatar hideName hideTick clickUser width="40" height="40" :user="stream.user" />
-                  <div class="meta__title">{{ stream.name }}</div>
+                  <div v-if="onMobile" class="">{{ stream.name.split('- ')[1] }}</div>
+                  <div v-if="!onMobile" class="meta__title">{{ stream.name }}</div>
+
+                  <div v-if="onMobile" class="meta__title text-capitalize">{{ stream.user.username }}</div>
 
                   <div class="meta__subtitle">
                     {{ stream.viewers_size || 0 }}

@@ -70,6 +70,7 @@ export default {
       show_share_dialog: false,
       isPageReady: false,
       showMerchModal: false,
+      mobileHeaderOptions: {}
     }
   },
 
@@ -140,13 +141,39 @@ export default {
 
     this.loadData(this.$route.params.videoId)
 
-    // make full width if on mobile
-    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
-  },
+    // save header option before altering
+     this.mobileHeaderOptions = this.$store.state.appMobile.mobileHeaderOptions
+     console.log('entry :', this.mobileHeaderOptions);
 
+    // make full width if on mobile
+    if (this.onMobile) {
+      this.$store.dispatch('app/setNoSideSpace', true)
+
+      // Mobile Header Options (own custom)
+      const headerOptions = {
+        showGoBack: false,
+        showRightAltIcon: true,
+        rightAltIcon: '/static/images/ic_close_dark.svg',
+        hideUser: true,
+        closeCallBack: {
+          name: 'DiscoverIndex',
+          params: {
+            activeDiscover: 'video'
+          },
+        },
+      }
+      this.$store.dispatch('appMobile/setMobileHeaderOptions', headerOptions)
+    }
+  },
+  
   beforeDestroy() {
     this.unsubscribe()
     this.$store.dispatch('app/setNoSideSpace', false)
+
+    console.log(this.mobileHeaderOptions);
+
+    // on exit, restore previous header options
+    this.$store.dispatch('appMobile/setMobileHeaderOptions', this.mobileHeaderOptions)
   },
 
   methods: {
