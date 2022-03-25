@@ -145,4 +145,14 @@
             }
         }
     }
+    &.onMobile {
+        ._section {
+            border-bottom: 1px solid #d8d3d3;
+        }
+        .product-covers {
+            .carousel {
+                box-shadow: none;
+            }
+        }
+    }
 }

@@ -7,7 +7,7 @@ import _ from 'lodash'
 import ProductService from '@/services/product'
 import MeService from '@/services/me'
 import { CollaboratorProfitShareTypes } from '@/helper'
-import digitalUploader from './components/digital_uploader'
+import digitalUploader from '@/views/sell/components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
 import accordion from '@/components/accordion'
 import ItemService from '@/services/item'
@@ -28,6 +28,18 @@ export default {
 
   data() {
     return {
+      activePaneTab: 'details',
+      quantity: 0,
+      paneTabs: [
+        {
+          name: 'Details',
+          id: 'details'
+        },
+        {
+          name: 'Comments',
+          id: 'comments'
+        },
+      ],
       share_dialog: false,
       option: '',
       selectedCover: null,
@@ -61,6 +73,9 @@ export default {
     }
   },
   computed: {
+    maxQuantity() {
+      return this.options.find(option => option.id === this.option).quantity;
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -106,10 +121,12 @@ export default {
       var options = []
       for (let index in this.product.variants) {
         const variant = this.product.variants[index]
+        console.log(variant);
         if (this.isDigitalProduct || variant.quantity > 0) {
           const option = {
             id: variant.id,
             name: variant.name,
+            quantity: variant.quantity,
           }
           options.push(option)
         }
@@ -120,7 +137,7 @@ export default {
     },
     isDigitalProduct() {
       return (
-                this.digital_content_category_ids.indexOf(this.product.category) > -1
+        this.digital_content_category_ids.indexOf(this.product.category) > -1
       )
     },
 
@@ -285,6 +302,16 @@ export default {
     // } else {
     //   this.$router.push({ path: '/' })
     // }
+
+    // select first variant on load
+    console.log(this.options);
+    // this.option = this.options[0].id
+
+    // make full width if on mobile
+    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
+  },
+  beforeDestroy() {
+    this.$store.dispatch('app/setNoSideSpace', false)
   },
   watch: {
     initImgSelection: {
@@ -293,8 +320,24 @@ export default {
       },
       immediate: true,
     },
+    option(val) {
+      this.quantity = 0
+    },
+    options(val) {
+      // select first option on options collationa
+      this.option = this.options[0].id
+    }
   },
   methods: {
+    toggleQuantity(action) {
+      if (action === 'add') {
+        if(this.quantity === this.maxQuantity) return
+        this.quantity++
+      } else if (action === 'remove') {
+        if(this.quantity === 0) return
+        this.quantity--
+      }
+    },
     closeShareDialog() {
       this.share_dialog = false
     },

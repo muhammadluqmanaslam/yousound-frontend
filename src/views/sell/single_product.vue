@@ -14,9 +14,9 @@
     <div class="page-content" v-if="isPageReady">
       <v-container grid-list-lg class="ml-0 pl-0">
         <v-layout row wrap align-start>
-          <v-flex xs8 class="wrapFlex product-covers">
+          <v-flex xs12 sm8 class="wrapFlex product-covers">
             <div class="product-container">
-              <div class="product-side-thumbnails">
+              <div v-if="!onMobile" class="product-side-thumbnails">
                 <div
                   class="product-thumbnail"
                   :class="img === selectedCover ? 'selected' : ''"
@@ -44,7 +44,7 @@
             </div>
           </v-flex>
 
-          <v-flex xs4 v-if="product" class="product-details">
+          <v-flex v-if="product" xs12 sm4 class="product-details">
             <div class="product-section px-5">
               <div class="product-category">{{ productCategoryName }}</div>
               <div class="product-name">{{ product.name }}</div>
@@ -128,7 +128,7 @@
             </div>
           </v-flex>
 
-          <v-flex xs8>
+          <v-flex xs12 sm8>
             <comments :item="product" :comments="comments" />
           </v-flex>
 
