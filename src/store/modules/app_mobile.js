@@ -1,4 +1,16 @@
-const state = {}
+const state = {
+  mobileHeaderOptions: {
+    showGoBack: true,
+    hideUser: false,
+    showMenu: '',
+    leftAltIcon: '',
+    showRightAltIcon: false,
+    rightAltIcon: '',
+    centerImg: '/static/images/nav_logo_primary.png',
+    menuImg: '',
+    closeCallBack: {},
+  },
+}
 
 const getters = {
   hideGoBackCTA: (state) => {
@@ -7,9 +19,29 @@ const getters = {
   },
 }
 
-const actions = {}
+const actions = {
+  setMobileHeaderOptions({commit}, options) {
+    // console.log(options);
+    commit('toggleMobileHeaderOptions', options)
+  },
+}
 
-const mutations = {}
+const mutations = {
+  toggleMobileHeaderOptions(state, options) {
+    console.log('options', options);
+    const optionKeys = Object.keys(options)
+
+    // find in mobileHeaderOptions, keys that are being updated
+    for (let i = 0; i < optionKeys.length; i++) {
+      const element = optionKeys[i];
+      if (Object.hasOwnProperty.call(state.mobileHeaderOptions, element)) {
+        state.mobileHeaderOptions[element] = options[element]
+      }
+    }
+
+    console.log('new', state.mobileHeaderOptions);
+  },
+}
 
 export default {
   namespaced: true,

@@ -3,7 +3,7 @@
     <div class="header-wrapper dflex justify-space-between align-center width100">
       <div class="_inner-wrapper _left">
         <v-icon
-          v-if="hideGoBack" 
+          v-if="showGoBack" 
           color="black" 
           class="go-back mr-3"
           @click="$router.go(-1)"
@@ -19,8 +19,8 @@
       </div>
 
       <div class="_inner-wrapper _right">
-        <img v-if="showRightAltIcon" :src="rightAltIcon" />
-        <user-tag :user="currentUser" hideTick showAvatar hideName :width="avatarWidth" :height="avatarHeight" :class="{'ml-3': showRightAltIcon}" />
+        <img v-if="showRightAltIcon" :src="rightAltIcon" @click="$router.push(closeCallBack)" />
+        <user-tag v-if="!hideUser" :user="currentUser" hideTick showAvatar hideName :width="avatarWidth" :height="avatarHeight" :class="{'ml-3': showRightAltIcon}" />
       </div>
     </div>
     <!-- mobile menu -->
@@ -36,7 +36,11 @@ import userTag from "@/components/user_tag";
 
 export default {
   props: {
-    hideGoBack: {
+    showGoBack: {
+      type: Boolean,
+      default: true,
+    },
+    hideUser: {
       type: Boolean,
       default: false,
     },
@@ -49,18 +53,13 @@ export default {
       type: String,
       default: '/static/images/ic_cart.svg',
     },
-    showRightAltIcon: {
-      type: Boolean,
-      default: false,
-    },
+    showRightAltIcon: Boolean,
     rightAltIcon: {
       type: String,
       default: '/static/images/graph-bar.svg',
     },
-    centerImg: {
-      type: String,
-      default: '/static/images/nav_logo_primary.png',
-    },
+    closeCallBack: Object,
+    centerImg: String,
     menuImg: {
       type: String,
       default: '',

@@ -50,6 +50,12 @@ export default {
     },
     created() {
         console.log('default:', def);
+
+        // set activeDiscover if instructed passed via route
+        const {activeDiscover} = this.$route.params
+        if (activeDiscover) {
+            this.activeDiscover = activeDiscover
+        }
     }
 }
 </script>
