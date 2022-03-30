@@ -1,5 +1,5 @@
 <template>
-  <div class="item-tab-wrapper">
+  <div class="item-tab-wrapper" :style="`min-height: ${minHeight}px;`">
     <div class="item-tabs">
       <slot name="itemTabs"></slot>
     </div>
@@ -8,6 +8,12 @@
 
 <script>
 export default {
+  props: {
+    minHeight: {
+      type: [String, Number],
+      default: 275,
+    },
+  },
 }
 </script>
 
@@ -15,12 +21,12 @@ export default {
 .item-tab-wrapper {
   position: relative;
   overflow-x: scroll;
-  min-height: 275px;
+  // min-height: 275px;
   width: calc(100% + 40px);
 
   .item-tabs {
-    display: flex;
-    position: absolute;
+    display: inline-flex;
+    // position: absolute;
   }
 
   .tab-holder {
