@@ -27,7 +27,13 @@
       >
     </v-btn>
     <label class="track-name">
-      <span class="track-index">{{ trackIndex + 1 }}. </span>
+      <img 
+        v-if="showIndexPlayIcon && (trackIndex == $store.state.player.trackIndex && isPlaying)"
+        width="15"
+        src="/static/images/graph-bar.svg"
+        class="track-showIndexPlayIcon"
+      />
+      <span v-else class="track-index">{{ trackIndex + 1 }}. </span>
       <span>{{ track.name }}</span>
       <router-link
         v-if="album.album_type == 'playlist'"
@@ -46,7 +52,7 @@
         color="grey"
         >play_arrow</v-icon
       >
-      <v-icon v-if="selectedTrackIsPlaying" color="grey">pause</v-icon>
+      <v-icon v-if="!showIndexPlayIcon && selectedTrackIsPlaying" color="grey">pause</v-icon>
       <v-menu
         v-model="menu"
         offset-y

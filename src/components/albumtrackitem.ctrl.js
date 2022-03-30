@@ -31,6 +31,11 @@ export default {
       type: Boolean,
       default: false,
     },
+
+    showIndexPlayIcon: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {

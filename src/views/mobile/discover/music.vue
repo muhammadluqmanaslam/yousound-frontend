@@ -17,6 +17,7 @@
               :objects="recommendedFeed"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
+              hideMoreMenu
             />
           </span>
         </template>
@@ -40,6 +41,7 @@
               :objects="newFeed"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
+              hideMoreMenu
             />
           </span>
         </template>
@@ -63,6 +65,7 @@
               :objects="popularFeed"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
+              hideMoreMenu
             />
           </span>
         </template>
