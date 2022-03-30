@@ -350,7 +350,6 @@ li.search-li {
   }
 }
 
-
 .edit-address-dialog.dialog {
   position: relative;
   overflow: hidden;
@@ -475,6 +474,22 @@ li.search-li {
         padding-left: 8px;
       }
     }
+  }
+}
+
+.commenters-group {
+  display: flex;
+
+  .commenter {
+      /deep/.tag__image {
+          border: 4px solid #ffffff;
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+      }
+      &:not(:first-child) {
+          margin-left: -19px;
+      }
   }
 }
 
