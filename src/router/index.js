@@ -47,7 +47,7 @@ import EditProduct from '@/views/sell/edit_product'
 // import SingleProduct from '@/views/sell/single_product'
 import ProductIndex from '@/views/product/index'
 import AlbumIndex from '@/views/album/index'
-import AlbumDetail from '@/views/album/album'
+// import AlbumDetail from '@/views/album/album'
 import PlaylistDetail from '@/views/album/playlist'
 import ManageIndex from '@/views/manage'
 import AlbumStats from '@/views/album/album_stats'
@@ -200,7 +200,7 @@ export function createRouter(settings) {
     { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
     { path: '/product/:id', name: 'SingleProduct', component: setComponent('sell/single_product', true) },
-    { path: '/album/:slug', name: 'AlbumDetail', component: AlbumDetail },
+    { path: '/album/:slug', name: 'AlbumDetail', component: setComponent('album/album', true) },
     { path: '/x', name: 'AddAttendee', component: AddAttendee },
     { path: '/playlist', name: 'Playlist', component: CreateAttendee },
     {
