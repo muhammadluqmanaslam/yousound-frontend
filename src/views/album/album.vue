@@ -620,3 +620,4 @@
 </template>
 
 <script type="text/javascript" src="./album.ctrl.js"></script>
+<style scoped src="../../../static/styles/album.scss" lang="scss"></style>

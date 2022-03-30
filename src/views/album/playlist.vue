@@ -380,3 +380,4 @@
 </template>
 
 <script type="text/javascript" src="./playlist.ctrl.js"></script>
+<style scoped src="../../../static/styles/album.scss" lang="scss"></style>
