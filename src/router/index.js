@@ -32,7 +32,7 @@ import CreateAttendee from '@/views/home/create_attendee'
 // import Discover from '@/views/discover/index'
 // import DiscoverIndex from '@/views/discover/'
 import SearchPage from '@/views/search/search'
-import Feed from '@/views/feed/index'
+// import Feed from '@/views/feed/index'
 import ActivityIndex from '@/views/activity/index'
 import NotificationIndex from '@/views/notification/index'
 import Chat from '@/views/chat/chat'
@@ -189,7 +189,7 @@ export function createRouter(settings) {
       component: SearchPage,
       props: (route) => ({ query: route.query.q }),
     },
-    { path: '/feed', name: 'Feed', component: Feed },
+    { path: '/feed', name: 'Feed', component: setComponent('feed') },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
     { path: '/messages', name: 'Messages', component: Messages },
