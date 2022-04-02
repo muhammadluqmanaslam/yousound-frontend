@@ -1,6 +1,6 @@
 <template>
   <div
-    class="tag" 
+    class="tag user_tag" 
     :class="{'cursor-pointer' : clickUser}"
      @click="clickUser ? gotoUser() : ''"
   >
@@ -9,7 +9,7 @@
       class="tag__image"
       :style="`background-image: url(${user.avatar.url});width: ${width}px;height: ${height}px; margin-right: ${marginRight ? marginRight : ''}`"
     ></div>
-    <div v-if="!hideName" class="text-capitalize">{{ user.username }}</div>
+    <div v-if="!hideName" class="tag__name text-capitalize">{{ user.username }}</div>
     <v-icon
       v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1 && !hideTick"
       class="user-status online"
