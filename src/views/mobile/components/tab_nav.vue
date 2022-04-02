@@ -56,18 +56,23 @@ export default {
             justify-content: center;
             align-content: center;
             background-color: transparent;
+            border-radius: 90px;
+            border: 1px solid #c4c4c4;
 
             &._rec-chip {
                 border-radius: 3px;
-                border: 1px solid #c4c4c4;
             }
         }
         &.activeTab {
             ._tchip {
-                border-radius: 3px;
+                border-radius: 90px;
                 border: 1px solid #000000;
                 background-color: #000000;
                 color: #ffffff !important;
+
+                &._rec-chip {
+                    border-radius: 3px;
+                }
             }
         }
         &.tabs__item--active {
