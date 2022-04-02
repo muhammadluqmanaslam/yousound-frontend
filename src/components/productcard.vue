@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="product-card">
+  <v-flex class="product-card" :class="{'px-0': onMobile}">
     <v-flex
       @mouseenter="is_component_hover=true"
       @mouseleave="is_component_hover=false"
@@ -14,7 +14,7 @@
           <img class="product-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
         </div>
       </v-flex> -->
-      <v-flex xs12 class="product-cover">
+      <v-flex xs12 class="product-cover" :class="{'px-0': onMobile}">
         <p class="product-price">${{ item.price | formatNumber }}</p>
         <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.url + ')'}"/></div>
         <v-flex xs12 class="product-actions" relative v-if="currentUser && !hideOverlay">
@@ -53,8 +53,14 @@
               </v-menu>
             </span>
         </v-flex>
-        <v-flex v-else xs12 class="touch-flex" @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"></v-flex>
+        <v-flex
+          v-else xs12
+          class="touch-flex"
+          :class="{'px-0': onMobile}"
+          @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"
+        ></v-flex>
       </v-flex>
+
       <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
         <user-tag showAvatar class="tag" :user="item.merchant" />
         <p
@@ -175,6 +181,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user;
     },
