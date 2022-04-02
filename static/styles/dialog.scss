@@ -295,3 +295,123 @@
     }
   }
 }
+
+.dialog.init_PostThought {
+  border-radius: 0;
+  background: #ffffff;
+  
+  .pre-post {
+    padding: 20px 40px 40px 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .top-wrapper {
+      margin-bottom: 50px;
+  
+      .centerLogo {
+        flex-grow: 1;
+      }
+    }
+    .body-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+  
+      h1 {
+        font-size: 38px;
+      }
+  
+      ul {
+        display: inline-block;
+        padding-left: 0;
+        list-style-position: inside;
+        margin-top: 50px;
+  
+        li {
+          font-weight: 500;
+        }
+      }
+  
+      .pre-btn {
+        width: 40%;
+        margin: 0 auto;
+      }
+  }
+
+  }
+
+  .post-thought {
+    .body-wrapper {
+      padding: 10px 9px 0 29px;
+
+      .thought-compose {
+        display: flex;
+        align-items: flex-start;
+        
+        .user_tag {
+          margin-top: -7px;
+        }
+        textarea.thought-input-area {
+          border: none;
+          width: 100%;
+          min-height: 180px;
+          resize: none;
+          &:focus {
+            outline: 0;
+          }
+
+          &::placeholder {
+            color: #687684;
+          }
+        }
+      }
+    }
+    .thought-attachment {
+      padding: 0 10px;
+      &-previews {
+        display: inline-flex;
+  
+        ._preview {
+          width: 50px;
+          height: 50px;
+          border-radius: 10px;
+          margin-right: 10px;
+  
+          &.add-attachment {
+            background-color: #CED5DC;
+          }
+        }
+      }
+    }
+
+    .allow-attach {
+      padding: 0 10px;
+
+      &-label {
+        flex-grow: 1;
+      }
+
+      &-switch {
+        &.input-group {
+          max-width: 20px;
+
+          .input-group__input {
+            .input-group--selection-controls__toggle {
+              height: 22px;
+              border-radius: 12px;
+              width: 36px;
+            }
+
+            .input-group--selection-controls__ripple::after {
+              box-shadow: 0 0 4px -1px rgba(0,0,0, 0.2);
+              height: 22px;
+              width: 22px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
