@@ -45,7 +45,7 @@
 
                 <div class="thought-layer thought-attachment-select cursor-pointer">
                     <v-icon class="attach-icon">attachment</v-icon>
-                    <attach v-model="stream_assoc" ref="assocAttach" ctaTitle="Select Attachment" dataOnlyMode />
+                    <attach v-model="stream_assoc" ref="assocAttach" ctaTitle="Select Attachment" attachPickerTitle="Attach content to your thought" dataOnlyMode />
                 </div>
               </div>
 
@@ -207,7 +207,7 @@ export default {
             min-height: 120px;
             resize: none;
             &:focus {
-                outline: 0;
+              outline: 0;
             }
         }
     }

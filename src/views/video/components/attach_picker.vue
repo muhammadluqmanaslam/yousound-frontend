@@ -2,7 +2,7 @@
   <div class="modal-wrapper">
     <div class="my-overlay" @click="dismiss()"></div>
     <div class="modal">
-      <h4 class="modal__title">Attach content to live video</h4>
+      <h4 class="modal__title">{{ title }}</h4>
 
       <div class="modal__header">
         <v-btn
@@ -137,6 +137,10 @@ export default {
       required: true,
     },
 
+    title: {
+      type: String,
+      default: "Attach content to live video"
+    },
     value: {
       type: Object,
     },

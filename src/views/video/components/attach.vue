@@ -44,6 +44,7 @@
       v-if="show_attach_picker"
       v-model="stream_assoc"
       :dismiss="closeAttachPicker"
+      :title="attachPickerTitle"
     />
   </div>
 </template>
@@ -59,6 +60,7 @@ export default {
   },
 
   props: {
+    attachPickerTitle: String,
     hideMetaActions: Boolean,
     value: Object,
     dataOnlyMode: Boolean,
