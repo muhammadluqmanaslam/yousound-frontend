@@ -1,7 +1,11 @@
 <template>
   <div class="footer-container">
     <ul>
-      <li v-for="(footer, i) in footers" :key="i">
+      <li
+        v-for="(footer, i) in footers"
+        :key="i"
+        @click="$router.push({name: footer.path})"
+      >
         <span class="footer-wrapper">
           <img v-if="footer.isNotificationActive" :src="notificationIcon" width="8" class="__count" />
           <img :src="footer.icon" width="23" />
@@ -19,24 +23,28 @@ export default {
           id: 'discover',
           title: 'discover',
           icon: require('../../../../static/images/ic_search.svg'),
+          path: 'DiscoverIndex',
           isNotificationActive: false,
         },
         {
           id: 'home',
           title: 'home',
           icon: require('@/assets/home.svg'),
+          path: 'Feed',
           isNotificationActive: false,
         },
         {
           id: 'messages',
           title: 'messages',
           icon: require('@/assets/chat.svg'),
+          path: 'Messages',
           isNotificationActive: false,
         },
         {
           id: 'notification',
           title: 'notification',
           icon: require('@/assets/bell_notification.svg'),
+          path: 'ActivityIndex',
           isNotificationActive: false,
         },
       ],
