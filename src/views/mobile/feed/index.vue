@@ -120,6 +120,7 @@
             <v-btn
               depressed
               class="no-Btn-bg transparent"
+              @click="closePostThought"
             >Cancel</v-btn>
           </div>
 

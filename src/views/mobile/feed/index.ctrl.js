@@ -93,6 +93,9 @@ export default {
   },
 
   methods: {
+    closePostThought() {
+      this.init_PostThought = false;
+    },
     tabClicked(data) {
         this.activeDiscover = data.id
         this.activeTab = data.id
