@@ -79,6 +79,7 @@
       content-class="init_PostThought"
       fullscreen
     >
+      <!-- Intro Screen -->
       <div v-if="!isPostThoughtActive" class="pre-post text-center">
         <div class="dflex top-wrapper">
           <div class="centerLogo">
@@ -114,6 +115,7 @@
         </div>
       </div>
 
+      <!-- Post Thought Screen -->
       <div v-else-if="isPostThoughtActive" class="post-thought">
         <div class="dflex justify-space-between align-center top-wrapper">
           <div class="centerLogo">
@@ -153,12 +155,35 @@
           </div>
         </div>
 
+        <div v-if="Object.keys(stream_assoc).length" class="thought-selection">
+            <div class="attach-info">
+                <div class="__cover" :style="{ 'background-image': 'url(' + attachCover + ')' }"></div>
+                <div class="__details">
+                    <div class="_title">{{ stream_assoc.value.name }}</div>
+                    <div class="_user">{{ attachUser }}</div>
+                </div>
+            </div>
+            <v-icon class="attach-cancel cursor-pointer" @click="removeAttach()">add</v-icon>
+        </div>
+
         <div class="thought-attachment">
           <div class="thought-attachment-previews">
-            <div class="_preview add-attachment dflex align-center justify-center">
+            <div
+              class="_preview add-attachment dflex align-center justify-center"
+              @click="show_attach_picker = true"
+            >
               <v-icon>add</v-icon>
             </div>
-            <div class="_preview"></div>
+
+            <div
+              v-for="(attachment, index) in truncAttachment"
+              :key="index"
+              class="_preview mb-1"
+              :class="[getCustomClass(attachment)]"
+              :style="{'background-image': 'url(' + getBGUrl(attachment) + ')' }"
+              @click="selectAttachment(attachment)"
+            >
+            </div>
           </div>
         </div>
 
@@ -170,16 +195,23 @@
           <v-switch
             v-model="allowAttachmentReply"
             color="green"
-            class="allow-attach-switch"
+            class="allow-attach-switch shorten"
             hide-details
           ></v-switch>
         </div>
-
-
       </div>
+
+      <attach-picker
+        v-if="show_attach_picker"
+        v-model="stream_assoc"
+        :dismiss="closeAttachPicker"
+        :title="'Attach content to your thought'"
+        fullscreen
+        showVideo
+    />
     </v-dialog>
 
-    <post-thought ref="postThought" />
+    <!-- <post-thought ref="postThought" /> -->
   </div>
 </template>
 

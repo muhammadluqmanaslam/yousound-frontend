@@ -100,7 +100,9 @@ able.table thead th:not(:first-child) {
 /* v-switch */
 .switch {
   &.input-group {
-    max-width: 20px;
+    &.shorten {
+      max-width: 20px;
+    }
 
     .input-group__input {
       .input-group--selection-controls__toggle {

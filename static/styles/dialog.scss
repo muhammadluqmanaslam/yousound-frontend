@@ -367,19 +367,92 @@
         }
       }
     }
+    .thought-selection {
+      padding: 0 12px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+
+      .attach-info {
+        display: flex;
+        align-items: center;
+
+        .__cover {
+            width: 50px;
+            height: 50px;
+            border-radius: 3px;
+            background-color: grey;
+            margin-right: 20px;
+            background-position: center;
+            background-size: cover;
+        }
+        .__details {
+          max-width: 200px;
+
+          ._title {
+            letter-spacing: 0.5px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+          }
+          ._user {
+            text-transform: capitalize;
+            font-weight: 700;
+          }
+        }
+      }
+
+      .attach-cancel {
+          transform: rotate(45deg);
+          color: #000000;
+      }
+    }
+
     .thought-attachment {
       padding: 0 10px;
+      overflow: hidden;
+      overflow-x: scroll;
+
       &-previews {
         display: inline-flex;
-  
+        border-top: 0.75px solid #e4e4e4;
+        border-bottom: 0.75px solid #e4e4e4;
+        padding: 5px 0;
+        position: relative;
+        // padding-left: 58px;
+        
         ._preview {
           width: 50px;
           height: 50px;
-          border-radius: 10px;
-          margin-right: 10px;
-  
+          border-radius: 7px;
+          margin-right: 8px;
+          background-size: contain;
+          box-shadow: 0 0 1px 0px #ced5dc;
+
+          // &:nth-child(2) {
+          //   &::before {
+          //     content: "";
+          //   }
+          // }
+          
+          &.attach_video {
+            width: 85px;
+          }
           &.add-attachment {
             background-color: #CED5DC;
+            // position: fixed;
+            // left: 9px;
+
+            &::after {
+              // content: "";
+              position: absolute;
+              background-color: #ffffff;
+              left: -10px;
+              top: -5px;
+              width: calc(100% + 40px);
+              height: calc(100% + 13px);
+              z-index: -999999;
+            }
           }
         }
       }

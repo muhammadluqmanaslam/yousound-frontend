@@ -2,6 +2,8 @@ import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
 import UserService from '@/services/user'
 import CommentService from '@/services/comment'
+import MeService from "@/services/me";
+import StreamService from '@/services/stream'
 
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
@@ -10,6 +12,7 @@ import contentTopHeader from '@/components/contentTopHeader'
 import postThought from '@/components/thought'
 import TabNav from '../components/tab_nav.vue'
 import UserTag from '@/components/user_tag'
+import AttachPicker from '@/views/video/components/attach_picker'
 
 export default {
   components: {
@@ -20,15 +23,20 @@ export default {
     postThought,
     TabNav,
     UserTag,
+    AttachPicker,
   },
 
   data() {
     return {
+      allAttachments: [],
+      truncAttachment: [],
+      show_attach_picker: false,
+      stream_assoc: {},
       activeTab: '',
       thought: '',
       allowAttachmentReply: false,
       thoughtMaxChar: 300,
-      isPostThoughtActive: !false,
+      isPostThoughtActive: false,
       activeDiscover: 'any',
       tabs: [
         { id: 'any', title: 'All' },
@@ -40,7 +48,7 @@ export default {
         // { id: 'playlist', title: 'Playlists' },
       ],
       show_help_dialog: false,
-      init_PostThought: !false,
+      init_PostThought: false,
       page_index: 1,
       total_pages: 1,
       items_per_page: 10,
@@ -50,6 +58,25 @@ export default {
   },
 
   computed: {
+    attachUser() {
+      switch (this.stream_assoc.type) {
+        case 'ShopProduct':
+          return this.stream_assoc.value.merchant.username;
+        default:
+          return this.stream_assoc.value.user.username;
+      }
+    },
+    attachCover() {
+      switch (this.stream_assoc.type) {
+        case 'ShopProduct':
+          return this.stream_assoc.value.covers[0].cover.thumb.url
+        case 'Album':
+        case 'Video':
+          return this.stream_assoc.value.cover.thumb.url
+        default:
+          break;
+      }
+    },
     charCount() {
       return this.thought.length
     },
@@ -72,6 +99,8 @@ export default {
   },
 
   created() {
+    this.getAttachments();
+
     if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
@@ -93,6 +122,86 @@ export default {
   },
 
   methods: {
+    removeAttach() {
+      this.stream_assoc = {}
+    },
+    selectAttachment(assoc) {
+      this.stream_assoc = {
+        type: this.getAttachmentType(assoc),
+        value: assoc
+      }
+
+      console.log(this.stream_assoc)
+    },
+    closeAttachPicker() {
+      this.show_attach_picker = false;
+      this.$emit("input", this.stream_assoc);
+    },
+    getBGUrl(attachment) {
+      if (attachment.merchant && Object.keys(attachment.merchant).length) {
+        return attachment.covers[0].cover.thumb.url;
+      } else {
+        return attachment.cover.thumb.url;
+      }
+    },
+    getCustomClass(attachment) {
+      if (attachment.album_type && attachment.album_type === 'album') {
+        return "attach_album"
+      } else if (attachment.video_type) {
+        return "attach_video"
+      } else if (attachment.merchant && Object.keys(attachment.merchant).length) {
+        return "attach_product"
+      }
+    },
+    getAttachmentType(attachment) {
+      if (attachment.album_type && attachment.album_type === 'album') {
+        return "Album"
+      } else if (attachment.video_type) {
+        return "Video"
+      } else if (attachment.merchant && Object.keys(attachment.merchant).length) {
+        return "ShopProduct"
+      }
+    },
+    shuffleData(arr) {
+      // let arr = [1,2,3]
+      let newArr = []
+      let allIdx = arr.length-1, currentIdx
+
+      while(allIdx > -1) {
+        currentIdx = Math.floor(Math.random() * arr.length)
+        newArr[allIdx] = arr[currentIdx]
+        allIdx--
+      }
+
+      return newArr
+    },
+    getAttachments() {
+      const vid_params = {
+        genre_id: 0,
+        only_follows: false,
+        page: 1,
+        per_page: 10,
+      }
+
+      Promise.all([
+        MeService.videoAttachAlbums(),
+        MeService.videoAttachProducts(),
+        StreamService.getStreams(vid_params) // take further appro. look at data from backend
+      ])
+      .then((values)=> {
+        // flatten all array values into one and shuffle data
+        this.allAttachments = this.shuffleData(values.map((result) => {
+          // detect videos streams
+          if (Array.isArray(result.body.streams)) return result.body.streams
+          return result.body
+        }).flat())
+
+        this.truncAttachment = this.allAttachments.slice(0,12)
+      }).catch((error) => {
+        console.log(error)
+        console.log(error.message)
+      })
+    },
     closePostThought() {
       this.init_PostThought = false;
     },
@@ -103,25 +212,9 @@ export default {
     },
     postThoughtActive() {
       // trigger child component (post thought) modal
-      this.$refs.postThought.initPostThought()
-      this.isPostThoughtActive = false;
+      // this.$refs.postThought.initPostThought()
+      this.isPostThoughtActive = true;
     },
-    // loadComments() {
-    //   const params = {
-    //     commentable_type: 'Stream',
-    //     commentable_id: this.album.id,
-    //     page: this.comment_pagination.current_page + 1,
-    //     per_page: this.comment_pagination.per_page,
-    //   }
-
-    //   cosnt requestArr = []
-
-    //   CommentService.getComments(params)
-    //     .then((response) => {
-    //       this.comments = this.comments.concat(response.body.comments)
-    //       this.comment_pagination = response.body.pagination
-    //     })
-    // },
     isActiveTab(tab) {
       return this.activeTab === tab
     },
@@ -160,18 +253,13 @@ export default {
     },
 
     closeHelpDialog() {
+      console.log(1);
       this.show_help_dialog = false
       const params = {
         user: {
           stream_page_visited: 1,
         },
       }
-      UserService.updateUserInfo(this.currentUser.id, params).then(
-        (response) => {
-          AuthService.setUser(response.body)
-          this.$store.dispatch('auth/setUser', response.body)
-        }
-      )
     },
 
     onTab(tab) {
