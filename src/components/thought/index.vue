@@ -45,7 +45,13 @@
 
                 <div class="thought-layer thought-attachment-select cursor-pointer">
                     <v-icon class="attach-icon">attachment</v-icon>
-                    <attach v-model="stream_assoc" ref="assocAttach" ctaTitle="Select Attachment" attachPickerTitle="Attach content to your thought" dataOnlyMode />
+                    <attach
+                      v-model="stream_assoc"
+                      ref="assocAttach"
+                      ctaTitle="Select Attachment"
+                      attachPickerTitle="Attach content to your thought"
+                      dataOnlyMode
+                    />
                 </div>
               </div>
 
@@ -55,7 +61,8 @@
                     label="Allow replies with attachment"
                     color="green"
                     hide-details
-                    ></v-switch>
+                    class="trunc"
+                  ></v-switch>
 
                     <v-btn
                         round
