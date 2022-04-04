@@ -1,8 +1,17 @@
 <template>
   <div class="modal-wrapper">
     <div class="my-overlay" @click="dismiss()"></div>
-    <div class="modal">
-      <h4 class="modal__title">{{ title }}</h4>
+    <div class="modal" :class="{fullscreen}">
+      <h4 class="modal__title">
+        {{ title }}
+        <span
+          v-if="fullscreen"
+          class="dismisser"
+          @click="dismiss()"
+        >
+          <v-icon>close</v-icon>
+        </span>
+      </h4>
 
       <div class="modal__header">
         <v-btn
@@ -15,15 +24,19 @@
           @click.native="onTab('ShopProduct')"
           >Product</v-btn
         >
-        <!-- <v-btn
-          :class="{'selected': active_tab == 'User'}"
-          @click.native="onTab('User')"
-        >User</v-btn> -->
+        <v-btn
+          v-if="showVideo"
+          :class="{ selected: active_tab == 'Video' }"
+          @click.native="onTab('Video')"
+          >
+            Video
+          </v-btn>
       </div>
 
       <div class="modal__content" v-if="active_tab == 'Album'">
         <div
-          v-for="album in albums"
+          v-for="(album, index) in albums"
+          :key="index"
           class="media"
           :class="{ selected: attachId == album.id }"
           @click="selectItem('Album', album)"
@@ -43,7 +56,8 @@
 
       <div class="modal__content" v-if="active_tab == 'ShopProduct'">
         <div
-          v-for="product in products"
+          v-for="(product, index) in products"
+          :key="index"
           class="media"
           :class="{ selected: attachId == product.id }"
           @click="selectItem('ShopProduct', product)"
@@ -58,6 +72,29 @@
             <label class="media__title">{{ product.name }}</label>
             <label class="media__subtitle">{{
               product.merchant.username
+            }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal__content" v-if="showVideo && active_tab == 'Video'">
+        <div
+          v-for="(video, index) in videos"
+          :key="index"
+          class="media"
+          :class="{ selected: attachId == video.id }"
+          @click="selectItem('Video', video)"
+        >
+          <div class="media__header">
+            <div
+              class="media__image _vid"
+              :style="`background-image: url(${video.cover.thumb.url})`"
+            ></div>
+          </div>
+          <div class="media__content">
+            <label class="media__title">{{ video.name }}</label>
+            <label class="media__subtitle">{{
+              video.user.username
             }}</label>
           </div>
         </div>
@@ -129,9 +166,16 @@ import _ from "lodash";
 // import AlbumService from '@/services/album'
 // import ProductService from '@/services/product'
 import MeService from "@/services/me";
+import StreamService from '@/services/stream'
 
 export default {
   props: {
+    showVideo: {
+      type: Boolean,
+    },
+    fullscreen: {
+      type: Boolean,
+    },
     dismiss: {
       type: Function,
       required: true,
@@ -155,6 +199,7 @@ export default {
       },
       albums: [],
       products: [],
+      videos: [],
       userSearchKeyword: "",
     };
   },
@@ -193,6 +238,14 @@ export default {
     this.active_tab = this.item.type;
 
     this.$store.dispatch("error/showLoadingActivity", true);
+
+    const vid_params = {
+      genre_id: 0,
+      only_follows: false,
+      page: 1,
+      per_page: 10,
+    }
+
     Promise.all([
       // AlbumService.getAlbums({
       //   statuses: 'published, collaborated',
@@ -205,10 +258,12 @@ export default {
       // }),
       MeService.videoAttachAlbums(),
       MeService.videoAttachProducts(),
+      StreamService.getStreams(vid_params) // take further appro. look at data from backend
     ])
       .then((values) => {
         this.albums = values[0].body;
         this.products = values[1].body;
+        this.videos = values[2].body.streams;
         this.$store.dispatch("error/showLoadingActivity", false);
       })
       .catch((reason) => {
@@ -251,12 +306,23 @@ export default {
   background: #ffffff;
   box-shadow: 3px 3px 10px -4px grey;
 
+  &.fullscreen {
+    height: 100%;
+  }
+
   &__title {
     margin: 0;
     padding: 15px;
     font-size: 20px;
     color: #000000;
     letter-spacing: -0.6px;
+    position: relative;
+
+    .dismisser {
+      position: absolute;
+      right: 13px;
+      cursor: pointer;
+    }
   }
 
   &__header {
@@ -364,6 +430,8 @@ export default {
 
 .media {
   padding: 4px 12px;
+  display: flex;
+  align-items: center;
   // cursor: pointer;
 
   &.selected {
@@ -371,10 +439,7 @@ export default {
   }
 
   &__header {
-    width: 60px;
-    height: 60px;
-    display: inline-block;
-    vertical-align: middle;
+    margin-right: 12px;
   }
 
   &__image {
@@ -382,13 +447,14 @@ export default {
     height: 60px;
     border-radius: 3.75px;
     background-size: cover;
+
+    &._vid {
+      width: 80px;
+    }
   }
 
   &__content {
     width: calc(100% - 80px);
-    padding-left: 11.25px;
-    display: inline-block;
-    vertical-align: middle;
   }
 
   &__title {
