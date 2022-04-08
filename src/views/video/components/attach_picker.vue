@@ -1,16 +1,16 @@
 <template>
   <div class="modal-wrapper">
     <div class="my-overlay" @click="dismiss()"></div>
-    <div class="modal" :class="{fullscreen}">
+    <div class="modal" :class="{fullscreen, onMobile}">
       <h4 class="modal__title">
-        {{ title }}
         <span
           v-if="fullscreen"
           class="dismisser"
           @click="dismiss()"
         >
-          <v-icon>close</v-icon>
+          <v-icon>arrow_back_ios</v-icon>
         </span>
+        <span class="flex-grow text-center">{{ title }}</span>
       </h4>
 
       <div class="modal__header">
@@ -170,6 +170,9 @@ import StreamService from '@/services/stream'
 
 export default {
   props: {
+    onMobile: {
+      type: Boolean,
+    },
     showVideo: {
       type: Boolean,
     },
@@ -309,6 +312,33 @@ export default {
   &.fullscreen {
     height: 100%;
   }
+  &.onMobile {
+    .dismisser .icon {
+      color: #000000;
+    }
+    .modal__title {
+      font-weight: normal;
+    }
+    .modal__header {
+      border-top: none;
+      background: none;
+      padding-bottom: 10px;
+      margin-bottom: 6px;
+
+      .btn {
+        height: 31px;
+        min-width: 78px;
+        background: transparent;
+        border: 1px solid #d7c9c9;
+
+        &.selected {
+          border: 1px solid #000000;
+          background: #000000;
+          color: #ffffff;
+        }
+      }
+    }
+  }
 
   &__title {
     margin: 0;
@@ -316,11 +346,12 @@ export default {
     font-size: 20px;
     color: #000000;
     letter-spacing: -0.6px;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     .dismisser {
-      position: absolute;
-      right: 13px;
+      color: #000000;
       cursor: pointer;
     }
   }
