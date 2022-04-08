@@ -205,7 +205,8 @@
         v-if="show_attach_picker"
         v-model="stream_assoc"
         :dismiss="closeAttachPicker"
-        :title="'Attach content to your thought'"
+        :title="'Attach content'"
+        onMobile
         fullscreen
         showVideo
     />
@@ -220,8 +221,8 @@
 <style lang="scss" scoped>
 .post-thought-btn {
   position: fixed;
-  right: 10px;
-  bottom: 40px;
+  right: 8px;
+  bottom: 50px;
   z-index: 1;
   background: #ffffff !important;
   font-weight: 800;
