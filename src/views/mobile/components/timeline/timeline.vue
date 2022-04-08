@@ -119,7 +119,8 @@
           <div v-if="feed.assoc.commented" class="comment">
             <div class="comment_count_action">
               <div class="comment_count width100 justify-space-between">
-                <div>
+                <div class="dflex align-center">
+                  <img src="../../../../../static/images/ic_comment.svg" class="mr-2">
                   {{ feed.assoc.commented }} comment{{ feed.assoc.commented && feed.assoc.commented > 1 ? 's' : ''}}
                 </div>
 
@@ -127,30 +128,17 @@
                   <user-tag v-for="(u, i) in commenters" :key="i" :user="u" class="commenter" showAvatar hideName hideTick width="25" height="25" />
                 </div>
               </div>
-              <!-- <div class="comment_action">
-                <img
-                  width="20"
-                  class="comment_action-icon share-icon cursor-pointer"
-                  src="/static/images/ic_share.svg"
-                  @click="showShareDialog()"
-                />
-                <img
-                  width="20"
-                  class="comment_action-icon repost-icon cursor-pointer"
-                  src="/static/images/ic_repost.svg"
-                  @click="repostItem(feed.assoc.id)"
-                />
-                <share-modal
-                  v-if="show_share_dialog"
-                  :item="feed.assoc"
-                  :dismiss="closeShareDialog"
-                />
-              </div> -->
             </div>
-
-            <!-- <div class="comment_box">
-              <comments :item="feed.assoc" :comments="comments" roundAvatar hideCommentCount hideComments />
-            </div> -->
+          </div>
+          <div v-else class="comment">
+            <div class="comment_count_action">
+              <div class="comment_count width100 justify-space-between">
+                <div class="dflex align-center">
+                  <img src="../../../../../static/images/ic_comment.svg" class="mr-2">
+                  Leave Comment
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
