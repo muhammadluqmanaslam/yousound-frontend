@@ -261,3 +261,4 @@
 </template>
 
 <script type="text/javascript" src="./albumtrackitem.ctrl.js"></script>
+<style scoped src="../../static/styles/album.scss" lang="scss"></style>
