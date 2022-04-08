@@ -23,9 +23,17 @@
           </div>
         </v-flex>
 
-        <v-flex v-if="!register_success" xs12 sm6 lg4 auth-card-child right-card sign-in-info>
-          <h1 v-if="onMobile" class="text-xs-center mb-4">Sign Up</h1>
-          <div class="switch-btn-wrapper __collapsed">
+        <v-flex
+          v-if="!register_success"
+          xs12
+          sm6
+          lg4
+          auth-card-child
+          right-card
+          sign-in-info
+        >
+          <h2 v-if="onMobile" class="text-xs-center mb-4">Sign Up</h2>
+          <div class="switch-btn-wrapper __collapsed" :class="{'justify-center': onMobile}">
             <v-btn
               depressed
               :round="activeTab == 'everyone'"
@@ -36,7 +44,7 @@
               Listener
             </v-btn>
 
-            <v-spacer></v-spacer>
+            <v-spacer v-if="!onMobile"></v-spacer>
 
             <v-btn
               depressed
@@ -49,11 +57,11 @@
             </v-btn>
           </div>
 
-          <div v-if="activeTab == 'everyone'">
+          <div v-if="activeTab == 'everyone'" class="everyone_tab">
             <ListenerRegister />
           </div>
 
-          <div v-if="activeTab == 'artistBrand'">
+          <div v-if="activeTab == 'artistBrand'" class="artistBrand_tab">
             <InviteRegister @invite-mode="setInviteMode" />
           </div>
         </v-flex>
