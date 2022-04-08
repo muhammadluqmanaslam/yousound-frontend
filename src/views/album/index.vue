@@ -1,5 +1,5 @@
 <template>
-  <div class="page albums-page mx-5" :class="{ isComp: isComp}">
+  <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" />
 
     <content-top-header absolute v-if="onMobile" height="35" :class="{ isOnMobile: onMobile}">
@@ -168,15 +168,16 @@
 <script type="text/javascript" src="./index.ctrl.js"></script>
 
 <style lang="scss" scoped>
+.albums-page.onMobile {
+  .feed-card {
+    padding: 3px;
+  }
+}
 .vertical-divider {
   margin: 0px;
   font-size: 14px;
   background-color: #000000;
   border-left: 1px solid #000000;
-}
-.feed-card {
-  // margin-left: -16px;
-  // margin-right: 13px;
 }
 .top-menu {
   margin: 0 !important;
