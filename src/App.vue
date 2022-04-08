@@ -59,11 +59,11 @@
             }"
           />
       </v-flex> -->
-      <v-container fluid class="app-container" :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace}">
+      <v-container fluid class="app-container" :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'not-authenticated': !isAuthenticated}">
         <router-view></router-view>
         <app-footer v-if="!onMobile && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
 
-        <mobile-footer v-else />
+        <mobile-footer v-else-if="onMobile && isAuthenticated" />
       </v-container>
     </v-content>
 
@@ -184,13 +184,13 @@ export default {
       },
     },
     isAuthenticated() {
-      return AuthService.isAuthenticated
+      return AuthService.isAuthenticated()
     },
   },
 
   watch: {
     $route(to, from) {
-      if (!AuthService.isAuthenticated) {
+      if (!AuthService.isAuthenticated()) {
         this.$refs.appLoader.updateLoader(0)
       }
 
@@ -223,7 +223,7 @@ export default {
   },
   mounted() {
     // on app mount, init app loader
-    if (!AuthService.isAuthenticated) {
+    if (!AuthService.isAuthenticated()) {
       this.$refs.appLoader.updateLoader(0)
     }
   },
