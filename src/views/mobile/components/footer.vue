@@ -22,7 +22,7 @@ export default {
         {
           id: 'discover',
           title: 'discover',
-          icon: require('../../../../static/images/ic_search.svg'),
+          icon: require('../../../../static/images/ic_search_mob-footer.svg'),
           path: 'DiscoverIndex',
           isNotificationActive: false,
         },
@@ -94,11 +94,14 @@ export default {
 
 <style lang="scss" scoped>
 .footer-container {
-  position: absolute;
-  width: 91%;
-  bottom: 28px;
-  left: 15px;
+  position: fixed;
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  bottom: 0px;
+  left: 0px;
   margin: 0 auto;
+
   ul {
     display: flex;
     align-items: center;
