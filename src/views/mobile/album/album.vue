@@ -686,9 +686,13 @@ export default {
   },
 
   beforeDestroy() {
-      if (this.comments_subscription) {
-      this.comments_subscription.unsubscribe()
-      }
+    if (this.comments_subscription) {
+    this.comments_subscription.unsubscribe()
+    }
+
+    // reset fullwidth
+    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', false)
+
   },
 
   methods: {
