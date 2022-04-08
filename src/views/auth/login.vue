@@ -3,11 +3,6 @@
 
     <v-container grid-list-item allChildrenCenter auth-card px-0>
       <v-layout wrap row auth-card-wrapper align-center justify-center>
-        <v-flex v-if="onMobile" xs12 style="order: 1">
-          <div class="text-xs-center">
-            <img width="150" src="/static/images/nav_logo_primary.png" alt="">
-          </div>
-        </v-flex>
 
         <v-flex xs12 md6 auth-card-child left-card sign-in-info>
           <div v-if="!onMobile">
