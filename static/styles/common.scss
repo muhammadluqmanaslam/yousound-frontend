@@ -505,6 +505,9 @@ li.search-li {
   .page {
     flex: 1;
   }
+  &.not-authenticated {
+    min-height: auto;
+  }
   &.onMobile-container {
     margin-top: 8px;
     padding-bottom: 40px;
