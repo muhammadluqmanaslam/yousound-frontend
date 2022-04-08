@@ -26,10 +26,23 @@
         <div class="discover-action">View All</div>
       </div>
 
-      <item-tab>
+      <item-tab minHeight="218">
         <template slot="itemTabs">
           <span
-            v-for="(product, index) in newFeed"
+            v-for="(product, index) in newFeedSplit1"
+            :key="index"
+            class="tab-holder"
+            style="width: 130px"
+          >
+            <product-card hideOverlay noMeta altMeta :dataObject="product" />
+          </span>
+        </template>
+      </item-tab>
+
+      <item-tab minHeight="218">
+        <template slot="itemTabs">
+          <span
+            v-for="(product, index) in newFeedSplit2"
             :key="index"
             class="tab-holder"
             style="width: 130px"
@@ -46,10 +59,23 @@
         <div class="discover-action">View All</div>
       </div>
 
-      <item-tab>
+      <item-tab minHeight="218">
         <template slot="itemTabs">
           <span
-            v-for="(product, index) in popularFeed"
+            v-for="(product, index) in popularFeedSplit1"
+            :key="index"
+            class="tab-holder"
+            style="width: 130px"
+          >
+            <product-card hideOverlay noMeta altMeta :dataObject="product" />
+          </span>
+        </template>
+      </item-tab>
+
+      <item-tab minHeight="218">
+        <template slot="itemTabs">
+          <span
+            v-for="(product, index) in popularFeedSplit2"
             :key="index"
             class="tab-holder"
             style="width: 130px"
@@ -189,7 +215,24 @@ export default {
         // }
       },
     },
-    computed: {},
+    computed: {
+      newFeedSplit1() {
+        const split = this.newFeed.slice(0, this.newFeed.length/2)
+        return split
+      },
+      newFeedSplit2() {
+        const split = this.newFeed.slice(this.newFeed.length/2, this.newFeed.length)
+        return split
+      },
+      popularFeedSplit1() {
+        const split = this.popularFeed.slice(0, this.popularFeed.length/2)
+        return split
+      },
+      popularFeedSplit2() {
+        const split = this.popularFeed.slice(this.popularFeed.length/2, this.popularFeed.length)
+        return split
+      },
+    },
     created() {
       this.seed = Math.random()
       this.getFeeds()

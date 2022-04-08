@@ -26,10 +26,22 @@
         <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#new'})">View All</div>
       </div>
 
-      <item-tab>
+      <item-tab minHeight="215">
         <template slot="itemTabs">
           <span
-            v-for="(video, index) in newFeed"
+            v-for="(video, index) in newFeedSplit1"
+            :key="index"
+            class="tab-holder"
+          >
+            <video-box :hoverOverlay="false" coverOnly altMeta :item="video" />
+          </span>
+        </template>
+      </item-tab>
+
+      <item-tab minHeight="215">
+        <template slot="itemTabs">
+          <span
+            v-for="(video, index) in newFeedSplit2"
             :key="index"
             class="tab-holder"
           >
@@ -45,10 +57,22 @@
         <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#popular'})">View All</div>
       </div>
 
-      <item-tab>
+      <item-tab minHeight="215">
         <template slot="itemTabs">
           <span
-            v-for="(video, index) in popularFeed"
+            v-for="(video, index) in popularFeedSplit1"
+            :key="index"
+            class="tab-holder"
+          >
+            <video-box :hoverOverlay="false" coverOnly altMeta :item="video" />
+          </span>
+        </template>
+      </item-tab>
+
+      <item-tab minHeight="215">
+        <template slot="itemTabs">
+          <span
+            v-for="(video, index) in popularFeedSplit2"
             :key="index"
             class="tab-holder"
           >
@@ -141,6 +165,22 @@ export default {
       },
     },
     computed: {
+      newFeedSplit1() {
+        const split = this.newFeed.slice(0, this.newFeed.length/2)
+        return split
+      },
+      newFeedSplit2() {
+        const split = this.newFeed.slice(this.newFeed.length/2, this.newFeed.length)
+        return split
+      },
+      popularFeedSplit1() {
+        const split = this.popularFeed.slice(0, this.popularFeed.length/2)
+        return split
+      },
+      popularFeedSplit2() {
+        const split = this.popularFeed.slice(this.popularFeed.length/2, this.popularFeed.length)
+        return split
+      },
       available_genres() {
         let genres = [{ id: 0, name: 'All' }]
         this.videoGenres.forEach((vg) => {
