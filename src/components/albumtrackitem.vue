@@ -43,7 +43,10 @@
         - {{ track.user.username }}</router-link
       >
     </label>
-    <div class="right-section" @click.stop="">
+    <div
+      v-if="!hideMoreBtn"
+      class="right-section" @click.stop=""
+    >
       <v-icon
         v-if="
           buttonHover &&

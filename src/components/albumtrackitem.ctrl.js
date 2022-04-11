@@ -15,6 +15,7 @@ export default {
   },
 
   props: {
+    hideMoreBtn: Boolean,
     album: {
       type: Object,
     },
