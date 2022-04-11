@@ -1,455 +1,458 @@
 <template>
-  <div v-if="isPageReady" class="page album-detail-page">
-    <div class="album-pages" v-if="isPageReady">
-      <div class="album-info-page" id="album_info_page">
-        <div class="album-image-section mb-3">
-          <div
-            class="album-image"
-            :style="`background-image: url(${coverImageURL})`"
-          ></div>
+  <transition name="slide-up">
+    <div v-if="isPageReady" class="page album-detail-page">
+      <div class="album-pages" v-if="isPageReady">
+        <div class="album-info-page" id="album_info_page">
+          <div class="album-image-section mb-3">
+            <div
+              class="album-image"
+              :style="`background-image: url(${coverImageURL})`"
+            ></div>
 
-          <!-- <div class="meta-details">
-            <span class="album-plays"
-              >{{
-                album.played.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-              }}
-              plays</span
-            >
-            <span class="mx-2">&bull;</span>
-            <span class="cursor-pointer" @click="dialog = true"
-              >Album Credits</span
-            >
-          </div> -->
-        </div>
-        <div class="album-details px-3 dflex align-center justify-space-between">
-          <div class="album-info">
-            <div class="album-type">
-              {{ album.album_type }}
-            </div>
-            <div class="album-title">
-              {{ album.name }}
-            </div>
-            <div class="album-artist">
-              <router-link :to="'/' + album.user.slug" class="album-detail">{{
-                album.user.username
-              }}</router-link>
-
-              <template v-for="collaborator in album.collaborators">
-                <div :key="`${collaborator.id}`" class="d-inline-block">
-                  <span>,</span>
-                  <router-link
-                    :to="'/' + collaborator.user.slug"
-                    class="album-detail"
-                    >{{ collaborator.user.username }}</router-link
-                  >
-                </div>
-              </template>
-            </div>
-          </div>
-
-          <div class="play-button-section">
-            <v-btn
-              class="play-button play-pause-btn"
-              @click.native="playSong()"
-              v-if="!isPlaying || $store.state.player.isPaused"
-            >
-              <v-icon class="play">play_arrow</v-icon>
-            </v-btn>
-            <v-btn
-              class="pause-button play-pause-btn"
-              @click.native="pauseSong()"
-              v-else-if="isPlaying && !$store.state.player.isPaused"
-            >
-              <v-icon class="pause">pause</v-icon>
-            </v-btn>
-          </div>
-        </div>
-
-        <div class="album-action px-3 dflex align-center justify-space-between">
-          <v-btn
-            v-if="album.collaborators_count == 0"
-            round
-            depressed
-            dark
-            class="ml-0"
-            :class="{
-              'follow-btn': true,
-              follow: !album.user.is_following,
-              following: album.user.is_following,
-            }"
-            @mouseenter="buttonHover = true"
-            @mouseleave="buttonHover = false"
-            @click.native="followUser(album.user)"
-            >
-              {{ followButtonText }}
-            </v-btn>
-
-            <img
-              class="track-status-icon"
-              width="25"
-              src="/static/images/ic_share.svg"
-              @click.native="openShareModal()"
-            />
-
-            <img
-              class="track-status-icon"
-              width="25"
-              src="/static/images/ic_repost.svg"
-              @click.native="openShareModal()"
-            />
-
-            <img
-              class="track-status-icon"
-              width="25"
-              src="/static/images/stat.svg"
-              @click.native="openShareModal()"
-            />
-        </div>
-
-        <div class="album-tracks px-3">
-          <div class="_intro py-3">
-            <b>Tracklist</b>
-            <span class="mx-2">•</span>
-            <b>{{ album.tracks.length }} track{{album.tracks.length > 1 ? 's' : ''}}</b>
-          </div>
-
-          <div class="album-tracks-section">
-            <album-track-item
-              v-for="(track, index) in album.tracks"
-              :key="index"
-              :album="album"
-              :trackIndex="index"
-              showIndexPlayIcon
-              class="each-track"
-            ></album-track-item>
-          </div>
-        </div>
-        <!-- <div class="album-detail-section">
-          <div class="album-info-section">
-            <label class="album-title">{{ album.album_type }}</label>
-            <h4 class="album-name">{{ album.name }}</h4>
-            <div class="album-detail">
-              by
-              <router-link :to="'/' + album.user.slug" class="album-detail">{{
-                album.user.username
-              }}</router-link>
-              <template v-for="collaborator in album.collaborators">
-                <div :key="`${collaborator.id}`" class="d-inline-block">
-                  <span>,</span>
-                  <router-link
-                    :to="'/' + collaborator.user.slug"
-                    class="album-detail"
-                    >{{ collaborator.user.username }}</router-link
-                  >
-                </div>
-              </template>
-              <div
-                v-if="
-                  currentUser &&
-                  currentUser.user_type != 'listener' &&
-                  album.enabled_sample
-                "
-                class="album-sample-clearance mr-2"
+            <!-- <div class="meta-details">
+              <span class="album-plays"
+                >{{
+                  album.played.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                }}
+                plays</span
               >
-                • Cleared to be sampled on YouSound.
-                <span
-                  class="border-bottom"
-                  @click="openSampleClearanceLicenseModal()"
-                  >More Info</span
-                >
+              <span class="mx-2">&bull;</span>
+              <span class="cursor-pointer" @click="dialog = true"
+                >Album Credits</span
+              >
+            </div> -->
+          </div>
+          <div class="album-details px-3 dflex align-center justify-space-between">
+            <div class="album-info">
+              <div class="album-type">
+                {{ album.album_type }}
               </div>
-              <label
-                class="album-stats-btn"
-                @click="goToAlbumStats('played_by')"
-                v-if="showStats"
-                >View Stats</label
-              >
+              <div class="album-title">
+                {{ album.name }}
+              </div>
+              <div class="album-artist">
+                <router-link :to="'/' + album.user.slug" class="album-detail">{{
+                  album.user.username
+                }}</router-link>
+
+                <template v-for="collaborator in album.collaborators">
+                  <div :key="`${collaborator.id}`" class="d-inline-block">
+                    <span>,</span>
+                    <router-link
+                      :to="'/' + collaborator.user.slug"
+                      class="album-detail"
+                      >{{ collaborator.user.username }}</router-link
+                    >
+                  </div>
+                </template>
+              </div>
             </div>
-            <span class="play-button-section">
+
+            <div class="play-button-section">
               <v-btn
-                dark
-                class="play-button"
+                class="play-button play-pause-btn"
                 @click.native="playSong()"
                 v-if="!isPlaying || $store.state.player.isPaused"
               >
                 <v-icon class="play">play_arrow</v-icon>
               </v-btn>
               <v-btn
-                dark
-                class="play-button"
+                class="pause-button play-pause-btn"
                 @click.native="pauseSong()"
-                v-if="isPlaying && !$store.state.player.isPaused"
+                v-else-if="isPlaying && !$store.state.player.isPaused"
               >
                 <v-icon class="pause">pause</v-icon>
               </v-btn>
-            </span>
-            <span class="album-action-section">
-              <v-menu offset-y class="more-menu">
-                <v-btn dark class="more-btn" slot="activator">
-                  <v-icon right>more_horiz</v-icon>
-                </v-btn>
-                <v-list>
-                  <v-list-tile
-                    key="share"
-                    class="default-menu-item"
-                    @click.native="openShareModal()"
-                  >
-                    <v-list-tile-title>
-                      <label>Share</label>
-                    </v-list-tile-title>
-                  </v-list-tile>
-
-                  <v-list-tile
-                    v-if="album.user.username === currentUser.username"
-                    key="edit"
-                    class="default-menu-item"
-                    :to="{ name: 'UploadAlbum', params: { slug: album.slug } }"
-                  >
-                    <v-list-tile-title>
-                      <label>Edit Album</label>
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </span>
+            </div>
           </div>
-        </div> -->
-      </div>
 
-      <div class="comments-section pa-3 dflex align-center justify-space-between">
-        <div class="dflex align-center">
-          <img class="mr-2" src="/static/images/ic_comment.svg" />
-          <b>{{ comments.length }} comment{{comments.length > 1 ? 's' : ''}}</b>
-        </div>
-
-        <div v-if="comments.length" class="commenters-group">
-          <user-tag v-for="(u, i) in commenters" :key="i" :user="u" class="commenter" showAvatar hideName hideTick />
-        </div>
-      </div>
-
-      <!-- Featured Product -->
-      <div v-if="album.products.length" class="product-section pa-3">
-        <h4>Shop {{ feat_product.merchant.username | capitalize }}</h4>
-
-        <div class="featured __product width100">
-          <div
-            class="_image"
-            :style="{ 'background-image': 'url(' + feat_product.covers[0].cover.thumb.url + ')' }"
-          ></div>
-          <div class="_details">
-            <div class="_prod_name">{{ feat_product.name }}</div>
-            <div class="_merchant-name">{{ feat_product.merchant.username }}</div>
-            <div class="_price">${{ feat_product.price | formatNumber }}</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Suggestions -->
-      <div v-if="album.user.recent_items.length > 0" class="suggestion-section pa-3">
-        <h3 class="_title mb-2">
-          Suggested by 
-          <span class="text-capitalize">
-            {{ album.user.username }}
-          </span>
-        </h3>
-
-        <div class="_subtitle" v-if="album.user.recent_items.length < 1">
-          <b>No suggestions yet</b>
-        </div>
-
-        <item-tab
-          v-else
-          :minHeight="suggestionHasProduct ? 323 : ''"
-        >
-          <template slot="itemTabs">
-            <span
-              v-for="(feed, index) in album.user.recent_items"
-              :key="index"
-              class="tab-holder"
-            >
-              <div
-                v-if="
-                  ['Album', 'ShopProduct', 'Stream'].indexOf(
-                    feed.assoc_type
-                  ) > -1
-                "
-                :key="feed.id"
-                class=""
+          <div class="album-action px-3 dflex align-center justify-space-between">
+            <v-btn
+              v-if="album.collaborators_count == 0"
+              round
+              depressed
+              dark
+              class="ml-0"
+              :class="{
+                'follow-btn': true,
+                follow: !album.user.is_following,
+                following: album.user.is_following,
+              }"
+              @mouseenter="buttonHover = true"
+              @mouseleave="buttonHover = false"
+              @click.native="followUser(album.user)"
               >
-                <track-card
-                  :objects="album.user.recent_items"
-                  :objectIndex="index"
-                  v-if="feed.assoc_type == 'Album'"
-                />
-                <product-card
-                  v-if="feed.assoc_type == 'ShopProduct'"
-                  :dataObject="feed"
-                  hideOptionCount
-                />
-                <video-card
-                  v-if="feed.assoc_type == 'Stream'"
-                  :dataObject="feed"
-                />
-              </div>
-            </span>
-          </template>
-        </item-tab>
-      </div>
-    </div>
+                {{ followButtonText }}
+              </v-btn>
 
-    <div class="credits-dialog-wrapper">
-      <v-dialog
-        v-model="dialog"
-        class="album-credits-dialog"
-        scrollable
-        max-width="600px"
-      >
-        <v-card class="album-dialog-body">
-          <v-card-title>Album Credits</v-card-title>
-          <v-btn class="dialog-close-btn" @click.native="dialog = false"
-            ><v-icon>highlight_off</v-icon></v-btn
-          >
-          <v-card-text style="height: 300px">
-            <v-flex xs12 sm12>
-              <label class="album-info-label">Album Name: </label>
-              <label class="album-info-text">{{ album.name }}</label>
-            </v-flex>
-            <v-flex xs12 sm12>
-              <label class="album-info-label">Release Date: </label>
-              <label class="album-info-text">{{
-                album.released_at | formatDate
-              }}</label>
-            </v-flex>
-            <v-flex xs12 sm12 v-if="album.location && album.location != ''">
-              <label class="album-info-label">Location: </label>
-              <label class="album-info-text">{{ album.location }}</label>
-            </v-flex>
-            <v-flex xs12 sm12>
-              <label class="album-info-label">Genre: </label>
-              <label class="album-info-text">{{ genres }}</label>
-            </v-flex>
-            <v-flex
-              xs12
-              sm12
-              v-if="album.collaborators && album.collaborators.length > 0"
-            >
-              <label class="album-info-label">Collaborators: </label>
-              <label class="album-info-text">
-                <template v-for="c in album.collaborators">
-                  <div class="collaborator-info" :key="`collaborator-${c.id}`">
-                    <router-link class="user-name" :to="`/${c.user.slug}`">{{
-                      c.user.username
-                    }}</router-link>
-                    <span> - {{ c.user_role }}</span>
+              <img
+                class="track-status-icon"
+                width="25"
+                src="/static/images/ic_share.svg"
+                @click.native="openShareModal()"
+              />
+
+              <img
+                class="track-status-icon"
+                width="25"
+                src="/static/images/ic_repost.svg"
+                @click.native="openShareModal()"
+              />
+
+              <img
+                class="track-status-icon"
+                width="25"
+                src="/static/images/stat.svg"
+                @click.native="openShareModal()"
+              />
+          </div>
+
+          <div class="album-tracks px-3">
+            <div class="_intro py-3">
+              <b>Tracklist</b>
+              <span class="mx-2">•</span>
+              <b>{{ album.tracks.length }} track{{album.tracks.length > 1 ? 's' : ''}}</b>
+            </div>
+
+            <div class="album-tracks-section">
+              <album-track-item
+                v-for="(track, index) in album.tracks"
+                :key="index"
+                :album="album"
+                :trackIndex="index"
+                showIndexPlayIcon
+                hideMoreBtn
+                class="each-track"
+              ></album-track-item>
+            </div>
+          </div>
+          <!-- <div class="album-detail-section">
+            <div class="album-info-section">
+              <label class="album-title">{{ album.album_type }}</label>
+              <h4 class="album-name">{{ album.name }}</h4>
+              <div class="album-detail">
+                by
+                <router-link :to="'/' + album.user.slug" class="album-detail">{{
+                  album.user.username
+                }}</router-link>
+                <template v-for="collaborator in album.collaborators">
+                  <div :key="`${collaborator.id}`" class="d-inline-block">
+                    <span>,</span>
+                    <router-link
+                      :to="'/' + collaborator.user.slug"
+                      class="album-detail"
+                      >{{ collaborator.user.username }}</router-link
+                    >
                   </div>
                 </template>
-              </label>
-            </v-flex>
-            <v-flex xs12 sm12>
-              <label class="album-info-label">Contributors: </label>
-              <label class="album-info-text">
-                <div class="contributor-info">
-                  <router-link class="user-name" :to="`/${album.user.slug}`">{{
-                    album.user.username
-                  }}</router-link>
-                  <span> - Uploader</span>
+                <div
+                  v-if="
+                    currentUser &&
+                    currentUser.user_type != 'listener' &&
+                    album.enabled_sample
+                  "
+                  class="album-sample-clearance mr-2"
+                >
+                  • Cleared to be sampled on YouSound.
+                  <span
+                    class="border-bottom"
+                    @click="openSampleClearanceLicenseModal()"
+                    >More Info</span
+                  >
                 </div>
-              </label>
-              <label
-                class="album-info-text"
-                v-if="album.contributors && album.contributors.length > 0"
+                <label
+                  class="album-stats-btn"
+                  @click="goToAlbumStats('played_by')"
+                  v-if="showStats"
+                  >View Stats</label
+                >
+              </div>
+              <span class="play-button-section">
+                <v-btn
+                  dark
+                  class="play-button"
+                  @click.native="playSong()"
+                  v-if="!isPlaying || $store.state.player.isPaused"
+                >
+                  <v-icon class="play">play_arrow</v-icon>
+                </v-btn>
+                <v-btn
+                  dark
+                  class="play-button"
+                  @click.native="pauseSong()"
+                  v-if="isPlaying && !$store.state.player.isPaused"
+                >
+                  <v-icon class="pause">pause</v-icon>
+                </v-btn>
+              </span>
+              <span class="album-action-section">
+                <v-menu offset-y class="more-menu">
+                  <v-btn dark class="more-btn" slot="activator">
+                    <v-icon right>more_horiz</v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile
+                      key="share"
+                      class="default-menu-item"
+                      @click.native="openShareModal()"
+                    >
+                      <v-list-tile-title>
+                        <label>Share</label>
+                      </v-list-tile-title>
+                    </v-list-tile>
+
+                    <v-list-tile
+                      v-if="album.user.username === currentUser.username"
+                      key="edit"
+                      class="default-menu-item"
+                      :to="{ name: 'UploadAlbum', params: { slug: album.slug } }"
+                    >
+                      <v-list-tile-title>
+                        <label>Edit Album</label>
+                      </v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
+              </span>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="comments-section pa-3 dflex align-center justify-space-between">
+          <div class="dflex align-center">
+            <img class="mr-2" src="/static/images/ic_comment.svg" />
+            <b>{{ comments.length }} comment{{comments.length > 1 ? 's' : ''}}</b>
+          </div>
+
+          <div v-if="comments.length" class="commenters-group">
+            <user-tag v-for="(u, i) in commenters" :key="i" :user="u" class="commenter" showAvatar hideName hideTick />
+          </div>
+        </div>
+
+        <!-- Featured Product -->
+        <div v-if="album.products.length" class="product-section pa-3">
+          <h4>Shop {{ feat_product.merchant.username | capitalize }}</h4>
+
+          <div class="featured __product width100">
+            <div
+              class="_image"
+              :style="{ 'background-image': 'url(' + feat_product.covers[0].cover.thumb.url + ')' }"
+            ></div>
+            <div class="_details">
+              <div class="_prod_name">{{ feat_product.name }}</div>
+              <div class="_merchant-name">{{ feat_product.merchant.username }}</div>
+              <div class="_price">${{ feat_product.price | formatNumber }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Suggestions -->
+        <div v-if="album.user.recent_items.length > 0" class="suggestion-section pa-3">
+          <h3 class="_title mb-2">
+            Suggested by 
+            <span class="text-capitalize">
+              {{ album.user.username }}
+            </span>
+          </h3>
+
+          <div class="_subtitle" v-if="album.user.recent_items.length < 1">
+            <b>No suggestions yet</b>
+          </div>
+
+          <item-tab
+            v-else
+            :minHeight="suggestionHasProduct ? 323 : ''"
+          >
+            <template slot="itemTabs">
+              <span
+                v-for="(feed, index) in album.user.recent_items"
+                :key="index"
+                class="tab-holder"
               >
-                <template v-for="c in album.contributors">
-                  <div class="contributor-info" :key="`contributor-${c.id}`">
-                    <router-link class="user-name" :to="`/${c.user.slug}`">{{
-                      c.user.username
-                    }}</router-link>
-                    <span> - {{ c.user_role }}</span>
-                  </div>
-                </template>
-              </label>
-            </v-flex>
-            <v-flex
-              xs12
-              sm12
-              v-if="album.samplings && album.samplings.length > 0"
+                <div
+                  v-if="
+                    ['Album', 'ShopProduct', 'Stream'].indexOf(
+                      feed.assoc_type
+                    ) > -1
+                  "
+                  :key="feed.id"
+                  class=""
+                >
+                  <track-card
+                    :objects="album.user.recent_items"
+                    :objectIndex="index"
+                    v-if="feed.assoc_type == 'Album'"
+                  />
+                  <product-card
+                    v-if="feed.assoc_type == 'ShopProduct'"
+                    :dataObject="feed"
+                    hideOptionCount
+                  />
+                  <video-card
+                    v-if="feed.assoc_type == 'Stream'"
+                    :dataObject="feed"
+                  />
+                </div>
+              </span>
+            </template>
+          </item-tab>
+        </div>
+      </div>
+
+      <div class="credits-dialog-wrapper">
+        <v-dialog
+          v-model="dialog"
+          class="album-credits-dialog"
+          scrollable
+          max-width="600px"
+        >
+          <v-card class="album-dialog-body">
+            <v-card-title>Album Credits</v-card-title>
+            <v-btn class="dialog-close-btn" @click.native="dialog = false"
+              ><v-icon>highlight_off</v-icon></v-btn
             >
-              <label class="album-info-label">Samples: </label>
-              <label
-                class="album-info-text"
+            <v-card-text style="height: 300px">
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Album Name: </label>
+                <label class="album-info-text">{{ album.name }}</label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Release Date: </label>
+                <label class="album-info-text">{{
+                  album.released_at | formatDate
+                }}</label>
+              </v-flex>
+              <v-flex xs12 sm12 v-if="album.location && album.location != ''">
+                <label class="album-info-label">Location: </label>
+                <label class="album-info-text">{{ album.location }}</label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Genre: </label>
+                <label class="album-info-text">{{ genres }}</label>
+              </v-flex>
+              <v-flex
+                xs12
+                sm12
+                v-if="album.collaborators && album.collaborators.length > 0"
+              >
+                <label class="album-info-label">Collaborators: </label>
+                <label class="album-info-text">
+                  <template v-for="c in album.collaborators">
+                    <div class="collaborator-info" :key="`collaborator-${c.id}`">
+                      <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                        c.user.username
+                      }}</router-link>
+                      <span> - {{ c.user_role }}</span>
+                    </div>
+                  </template>
+                </label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Contributors: </label>
+                <label class="album-info-text">
+                  <div class="contributor-info">
+                    <router-link class="user-name" :to="`/${album.user.slug}`">{{
+                      album.user.username
+                    }}</router-link>
+                    <span> - Uploader</span>
+                  </div>
+                </label>
+                <label
+                  class="album-info-text"
+                  v-if="album.contributors && album.contributors.length > 0"
+                >
+                  <template v-for="c in album.contributors">
+                    <div class="contributor-info" :key="`contributor-${c.id}`">
+                      <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                        c.user.username
+                      }}</router-link>
+                      <span> - {{ c.user_role }}</span>
+                    </div>
+                  </template>
+                </label>
+              </v-flex>
+              <v-flex
+                xs12
+                sm12
                 v-if="album.samplings && album.samplings.length > 0"
               >
-                <template v-for="s in album.samplings">
-                  <div class="sampling-info" :key="`sampling-${s.id}`">
-                    <label>{{ s.sampling_track.name }}</label
-                    >:&nbsp;<router-link
-                      class="user-name"
-                      :to="`/${s.sample_user.slug}`"
-                      >{{ s.sample_user.username }}</router-link
-                    >
-                    <span> - {{ s.sample_track.name }}</span>
-                  </div>
-                </template>
-              </label>
-            </v-flex>
-            <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
-              <label class="album-info-label">Label: </label>
-              <label class="album-info-text">
-                <router-link
-                  class="user-name"
-                  :to="`/${album.labels[0].user.slug}`"
-                  >{{ album.labels[0].user.username }}</router-link
+                <label class="album-info-label">Samples: </label>
+                <label
+                  class="album-info-text"
+                  v-if="album.samplings && album.samplings.length > 0"
                 >
-              </label>
-            </v-flex>
-            <v-flex xs12 sm12>
-              <div class="album-info-label">About the album:</div>
-              <label class="album-info-text">{{ album.description }}</label>
-            </v-flex>
-          </v-card-text>
-        </v-card>
+                  <template v-for="s in album.samplings">
+                    <div class="sampling-info" :key="`sampling-${s.id}`">
+                      <label>{{ s.sampling_track.name }}</label
+                      >:&nbsp;<router-link
+                        class="user-name"
+                        :to="`/${s.sample_user.slug}`"
+                        >{{ s.sample_user.username }}</router-link
+                      >
+                      <span> - {{ s.sample_track.name }}</span>
+                    </div>
+                  </template>
+                </label>
+              </v-flex>
+              <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
+                <label class="album-info-label">Label: </label>
+                <label class="album-info-text">
+                  <router-link
+                    class="user-name"
+                    :to="`/${album.labels[0].user.slug}`"
+                    >{{ album.labels[0].user.username }}</router-link
+                  >
+                </label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <div class="album-info-label">About the album:</div>
+                <label class="album-info-text">{{ album.description }}</label>
+              </v-flex>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+      </div>
+
+      <v-dialog
+        v-model="show_sample_clearance_license_modal"
+        content-class="my-dialog-1 large"
+      >
+        <sample-license-dialog :dismiss="closeSampleClearanceLicenseModal" />
       </v-dialog>
+
+      <merch-modal
+        v-if="showMerchModal"
+        :item="album.products[0]"
+        :dismiss="dimissMerchDialog"
+      />
+
+      <download-modal
+        v-if="showDownloadModal"
+        :item="album"
+        :dismiss="dismissDownloadModal"
+      />
+
+      <promote-modal
+        v-if="showPromoteMessage"
+        :item="album"
+        :dismiss="dismissPromoteModal"
+        :success="saveAndFinish"
+      />
+
+      <album-finish-modal
+        v-if="isShowFinishModal"
+        :item="album"
+        :promote="showPromoteModal"
+        :dismiss="dismissFinishDialog"
+      />
+
+      <share-modal
+        v-if="showShareModal"
+        :item="album"
+        :dismiss="closeShareModal"
+      />
     </div>
-
-    <v-dialog
-      v-model="show_sample_clearance_license_modal"
-      content-class="my-dialog-1 large"
-    >
-      <sample-license-dialog :dismiss="closeSampleClearanceLicenseModal" />
-    </v-dialog>
-
-    <merch-modal
-      v-if="showMerchModal"
-      :item="album.products[0]"
-      :dismiss="dimissMerchDialog"
-    />
-
-    <download-modal
-      v-if="showDownloadModal"
-      :item="album"
-      :dismiss="dismissDownloadModal"
-    />
-
-    <promote-modal
-      v-if="showPromoteMessage"
-      :item="album"
-      :dismiss="dismissPromoteModal"
-      :success="saveAndFinish"
-    />
-
-    <album-finish-modal
-      v-if="isShowFinishModal"
-      :item="album"
-      :promote="showPromoteModal"
-      :dismiss="dismissFinishDialog"
-    />
-
-    <share-modal
-      v-if="showShareModal"
-      :item="album"
-      :dismiss="closeShareModal"
-    />
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -672,6 +675,7 @@ export default {
   },
 
   created() {
+     console.log(this.$route)
       // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
       this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
       // console.log('current', this.$store.state.navigator.current)
@@ -1194,10 +1198,13 @@ export default {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          padding-left: 0;
 
-          /deep/.more-btn {
-            display: none;
-            margin: 0;
+          /deep/.track-name {
+            color: unset;
+            .track-index {
+              color: unset;
+            }
           }
         }
       }

@@ -637,6 +637,18 @@ li.list-none {
   opacity: 0;
 }
 
+.slide-up-enter-active {
+  transition: all .3s ease;
+}
+.slide-up-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-up-enter, .slide-up-leave-to
+/* .up-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
 .dropdown-field {
   border: 1px solid rgba(0,0,0,.2);
   border-radius: 4px;

@@ -199,8 +199,8 @@ export function createRouter(settings) {
     { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail },
     { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
-    { path: '/product/:id', name: 'SingleProduct', component: setComponent('sell/single_product', true) },
-    { path: '/album/:slug', name: 'AlbumDetail', component: setComponent('album/album', true) },
+    { path: '/product/:id', name: 'SingleProduct', component: setComponent('sell/single_product', true), meta: {isModalComp: !!onMobile} },
+    { path: '/album/:slug', name: 'AlbumDetail', component: setComponent('album/album', true), meta: {isModalComp: !!onMobile} },
     { path: '/x', name: 'AddAttendee', component: AddAttendee },
     { path: '/playlist', name: 'Playlist', component: CreateAttendee },
     {

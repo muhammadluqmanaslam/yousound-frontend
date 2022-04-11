@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-header header-container">
-    <div class="header-wrapper dflex justify-space-between align-center width100">
+    <div v-if="!isModalComp" class="header-wrapper dflex justify-space-between align-center width100">
       <div class="_inner-wrapper _left">
         <v-icon
           v-if="showGoBack" 
@@ -11,7 +11,7 @@
           arrow_back_ios
         </v-icon>
 
-        <img :src="leftAltIcon" />
+        <img v-if="isAuthenticated" :src="leftAltIcon" />
       </div>
 
       <div class="_inner-wrapper _center">
@@ -23,10 +23,35 @@
         <user-tag v-if="!hideUser" :user="currentUser" hideTick showAvatar hideName :width="avatarWidth" :height="avatarHeight" :class="{'ml-3': showRightAltIcon}" />
       </div>
     </div>
-    <!-- mobile menu -->
-    <!-- <v-btn v-if="showMenu" flat @click="$emit('open-menu')">
-      <img :src="menuImgSrc" />
-    </v-btn> -->
+
+    <div
+      v-else
+      class="header-wrapper dflex justify-space-between align-center width100"
+      :class="{isModalComp}"
+    >
+      <div class="_inner-wrapper _left">
+        <v-icon
+          v-if="showGoBack" 
+          color="black" 
+          class="go-back mr-3"
+          @click="$router.go(-1)"
+        >
+          arrow_back_ios
+        </v-icon>
+      </div>
+
+      <div class="_inner-wrapper _center ml-0">
+        <img @click="$router.push({name: isAuthenticated ? 'DiscoverIndex' : 'Home'})" :src="appLogo" />
+      </div>
+
+      <div class="_inner-wrapper _right">
+        <img
+          src="../../../../static/images/ic_close_dark.svg"
+          width="18"
+          @click="$router.go(-1)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,8 +108,11 @@ export default {
   },
 
   computed: {
+    appLogo() {
+      return '/static/images/nav_logo_primary.png'
+    },
     isAuthenticated() {
-      return AuthService.isAuthenticated
+      return AuthService.isAuthenticated()
     },
     currentUser() {
       return this.$store.state.auth.user
@@ -92,28 +120,12 @@ export default {
     isDarkTheme() {
       return this.theme === 'dark'
     },
+    isModalComp() {
+      return this.$route.meta.isModalComp
+    },
   },
 
   created() {
-    // if (this.menuImg === '') {
-    //   if (this.isDarkTheme) {
-    //     this.menuImgSrc = '/static/images/ic_menu.svg'
-    //   } else {
-    //     this.menuImgSrc = '/static/images/ic_menu_dark.svg'
-    //   }
-    // } else {
-    //   this.menuImgSrc = this.menuImg
-    // }
-
-    // if (this.logoImg === '') {
-    //   if (this.isDarkTheme) {
-    //     this.logoImgSrc = '/static/images/nav_logo_white.png'
-    //   } else {
-    //     this.logoImgSrc = '/static/images/nav_logo_primary.png'
-    //   }
-    // } else {
-    //   this.logoImgSrc = this.logoImg
-    // }
   },
 }
 </script>
@@ -136,6 +148,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &._center {
+      margin-left: -35px;
+    }
 
     .go-back {
       cursor: pointer;
