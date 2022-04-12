@@ -31,7 +31,7 @@ import AddAttendee from '@/views/home/add_attendee'
 import CreateAttendee from '@/views/home/create_attendee'
 // import Discover from '@/views/discover/index'
 // import DiscoverIndex from '@/views/discover/'
-import SearchPage from '@/views/search/search'
+// import SearchPage from '@/views/search/search'
 // import Feed from '@/views/feed/index'
 import ActivityIndex from '@/views/activity/index'
 import NotificationIndex from '@/views/notification/index'
@@ -186,8 +186,9 @@ export function createRouter(settings) {
     {
       path: '/search',
       name: 'Search',
-      component: SearchPage,
+      component: setComponent('search/search', true),
       props: (route) => ({ query: route.query.q }),
+      meta: {isModalComp: !!onMobile},
     },
     { path: '/feed', name: 'Feed', component: setComponent('feed') },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
