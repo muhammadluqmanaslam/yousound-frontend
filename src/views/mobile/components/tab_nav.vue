@@ -1,6 +1,6 @@
 <template>
   <div class="tab-nav-wrapper">
-      <v-tabs v-model="selectedTab" centered show-arrows grow>
+      <v-tabs v-model="selectedTab" :centered="centered" show-arrows grow>
         <!-- <v-tabs-slider color="yellow"></v-tabs-slider> -->
         <v-tabs-bar style="margin-left: 0">
         <v-tabs-item
@@ -27,6 +27,10 @@ export default {
     props: {
         tabData: Array,
         recChip: Boolean,
+        centered: {
+            type: Boolean,
+            default: true
+        },
     },
     data() {
         return {
