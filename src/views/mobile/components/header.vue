@@ -29,17 +29,6 @@
       class="header-wrapper dflex justify-space-between align-center width100"
       :class="{isModalComp}"
     >
-      <div class="_inner-wrapper _left">
-        <v-icon
-          v-if="showGoBack" 
-          color="black" 
-          class="go-back mr-3"
-          @click="$router.go(-1)"
-        >
-          arrow_back_ios
-        </v-icon>
-      </div>
-
       <div class="_inner-wrapper _center ml-0">
         <img @click="$router.push({name: isAuthenticated ? 'DiscoverIndex' : 'Home'})" :src="appLogo" />
       </div>
@@ -180,6 +169,14 @@ export default {
       img {
         width: 24px;
         height: 24px;
+      }
+    }
+  }
+
+  .isModalComp {
+    ._inner-wrapper {
+      &._center { 
+        flex-grow: 1;
       }
     }
   }
