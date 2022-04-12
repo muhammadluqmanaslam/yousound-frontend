@@ -4,14 +4,13 @@
       <template slot="topHeader">
         <ul>
           <li
-            v-for="tab in tabs"
+            v-for="tab in refactoredTabs"
             :key="tab.id"
             :href="`#${tab.id}`"
             :class="{ active: isActiveTab(tab.id) }"
           >
             <label @click="onTab(tab.id)">
               {{ tab.title }}
-              <span>({{ searchResultCount(tab.id) }})</span>
             </label>
           </li>
 

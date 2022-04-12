@@ -6,6 +6,7 @@
         <input
             v-model="keyword"
             class="search-field"
+            :class="{'isOnMobile-input': isOnMobile}"
             type="search"
             id="search"
             :placeholder="!isOnMobile ? 'Search artist, song or keyword' : 'Search'"

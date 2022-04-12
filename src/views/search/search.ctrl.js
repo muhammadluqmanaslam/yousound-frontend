@@ -7,6 +7,7 @@ import VideoBox from '@/components/video_box'
 import videoCard from '@/components/videocard'
 import contentTopHeader from '@/components/contentTopHeader'
 import searchInput from '@/components/searchInput'
+import TabNav from '@/views/mobile/components/tab_nav.vue'
 
 export default {
   components: {
@@ -17,6 +18,7 @@ export default {
     videoCard,
     contentTopHeader,
     searchInput,
+    TabNav,
   },
 
   data() {
@@ -47,6 +49,12 @@ export default {
   },
 
   computed: {
+    refactoredTabs() {
+      return this.tabs.map((tab) => ({...tab, title: `${tab.title} (${this.searchResultCount(tab.id)})`}))
+    },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     filtered_feeds() {
       if (this.selected_genre) {
         return _.filter(
@@ -67,6 +75,7 @@ export default {
   },
 
   created() {
+    console.log(this.$route);
     this.$store.dispatch('navigator/goNextState', {
       page: 'search',
       tab: this.active_tab,
@@ -198,7 +207,9 @@ export default {
     },
 
     onTab(tab) {
-      this.active_tab = tab
+      // in some use cases, tab could be either a direct id or whole object
+      this.active_tab = typeof tab === 'object' ? tab.id : tab
+
       this.$store.dispatch('navigator/goNextState', {
         page: 'search',
         tab: this.active_tab,

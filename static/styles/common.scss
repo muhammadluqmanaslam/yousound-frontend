@@ -324,6 +324,10 @@ li.search-li {
     width: 100%;
     margin-left: -28px;
     
+    &.isOnMobile-input {
+      margin-left: 0;
+      text-align: center;
+    }
     &[type='search']::placeholder {
       color: #000;
       font-size: 14px;
@@ -333,6 +337,7 @@ li.search-li {
       outline: 0;
     }
   }
+
 }
 
 .attach-icon {
