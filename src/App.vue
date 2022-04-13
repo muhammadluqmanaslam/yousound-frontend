@@ -12,17 +12,16 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-      <mobile-header 
-        v-if="onMobile" 
-        :centerImg="mHeaderOp.centerImg"
-        :rightAltIcon="mHeaderOp.rightAltIcon"
-        :hideUser="mHeaderOp.hideUser"
-        :closeCallBack="mHeaderOp.closeCallBack"
-        :showGoBack="mHeaderOp.showGoBack"
-        :showRightAltIcon="true"
-      />
-      <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
-
+    <mobile-header 
+      v-if="onMobile" 
+      :centerImg="mHeaderOp.centerImg"
+      :rightAltIcon="mHeaderOp.rightAltIcon"
+      :hideUser="mHeaderOp.hideUser"
+      :closeCallBack="mHeaderOp.closeCallBack"
+      :showGoBack="mHeaderOp.showGoBack"
+      :showRightAltIcon="true"
+    />
+    <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
     <v-content>
       <span v-if="!isAuthenticated">
@@ -94,6 +93,15 @@
     <v-dialog v-model="show_login_dialog" max-width="500px">
       <login-dialog :dismiss="closeLoginDialog"></login-dialog>
     </v-dialog>
+
+    <v-dialog
+      v-model="mobilePlayerActive"
+      transition="slide-up"
+      content-class="no-border-radius"
+      fullscreen
+    >
+      <mobile-player v-if="mobilePlayerActive" />
+    </v-dialog>
   </v-app>
 </template>
 
@@ -115,6 +123,7 @@ import appHeader from '@/components/header'
 import appFooter from '@/components/footer'
 import earnMoneySticker from '@/components/earn_money'
 import audioPlayer from '@/components/player'
+import mobilePlayer from '@/components/mobile_player'
 import streamPlayer from '@/components/stream_player'
 import loginDialog from '@/components/login_dialog'
 import Sidebar from './components/sidebar'
@@ -136,6 +145,7 @@ export default {
     earnMoneySticker,
     loginDialog,
     audioPlayer,
+    mobilePlayer,
     streamPlayer,
     Sidebar,
     AppLoader,
@@ -159,6 +169,7 @@ export default {
       sideBarMini: state => state.app.sideBarMini,
       noSideSpace: state => state.app.noSideSpace,
       mHeaderOp: state => state.appMobile.mobileHeaderOptions,
+      mobilePlayerActive: state => state.player.isMusicPlayerModalActive,
     }),
     // hideGoBack() {
     //   return this.$store.getters['appMobile/hideGoBackCTA'].indexOf(this.$route.name) !== 1
@@ -189,6 +200,9 @@ export default {
   },
 
   watch: {
+    mobilePlayerActive(val) {
+      console.log('mobilePlayerActive: ', val);
+    },
     $route(to, from) {
       if (!AuthService.isAuthenticated()) {
         this.$refs.appLoader.updateLoader(0)
