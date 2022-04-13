@@ -469,7 +469,7 @@ export default {
 
   data() {
     return {
-      optionModalActive: !false,
+      optionModalActive: false,
       modalMode: false,
       playlist: [],
       index: 0,
