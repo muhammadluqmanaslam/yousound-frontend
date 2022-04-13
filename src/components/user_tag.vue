@@ -9,7 +9,10 @@
       class="tag__image"
       :style="`background-image: url(${user.avatar.url});width: ${width}px;height: ${height}px; margin-right: ${marginRight ? marginRight : ''}`"
     ></div>
-    <div v-if="!hideName" class="tag__name text-capitalize">{{ user.username }}</div>
+    <div class="bio-wrapper">
+      <div v-if="!hideName" class="tag__name text-capitalize">{{ user.username }}</div>
+      <div v-if="showUserType" class="tag__usertype text-capitalize">{{ user.user_type }}</div>
+    </div>
     <v-icon
       v-if="['artist', 'label', 'brand'].indexOf(user.user_type) > -1 && !hideTick"
       class="user-status online"
@@ -24,6 +27,7 @@ export default {
     user: Object,
     showAvatar: Boolean,
     hideName: Boolean,
+    showUserType: Boolean,
     hideTick: Boolean,
     marginRight: {
       type: String,
@@ -61,6 +65,14 @@ export default {
     background-repeat: no-repeat;
     margin-right: 10px;
   }
+
+  &__usertype {
+    margin-top: -7px;
+  }
+  
+    .bio-wrapper {
+      text-align: left;
+    }
 
   i {
     margin-left: 4px;

@@ -57,13 +57,14 @@ export default {
   watch: {
     track: {
       immediate: true,
-      handler(val) {
-        console.log(val)
-      },
+      handler(val) {},
     },
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -257,6 +258,11 @@ export default {
     },
 
     selectTrack() {
+      if (this.onMobile) {
+        console.log("toggle modal");
+        this.$store.dispatch('player/toggleMusicModal', true)
+      }
+
       // console.log('album-track-item selectTrack', this.trackIndex, this.isPlaying)
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, this.trackIndex)
