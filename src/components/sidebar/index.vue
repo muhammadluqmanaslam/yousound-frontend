@@ -109,7 +109,10 @@
 
     <v-spacer></v-spacer>
 
-    <transition name="slide-fade">
+    <transition 
+      v-if="!onMobile"
+      name="slide-fade"
+    >
       <side-audio-player
         ref="audioPlayer"
         :isMini="mini"
