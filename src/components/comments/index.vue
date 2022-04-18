@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div v-if="!hideCommentCount" class="comment__count">{{ comments.length }} comments</div>
+    <div v-if="!hideCommentCount" class="comment__count">{{ comments.length }} {{ "comment" | pluralize(comments.length) }}</div>
 
     <chat v-if="!hideComments" :items="comments"></chat>
     </div>
