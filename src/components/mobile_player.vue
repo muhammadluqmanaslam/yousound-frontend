@@ -141,6 +141,7 @@
                                     <img
                                         src="/static/images/ic_share_fill.svg" width="20"
                                         class="_action-icon mr-1"
+                                        slot="activator"
                                         @click.native="
                                             showShareModal = true;
                                             modalMode = true;
@@ -152,10 +153,8 @@
                                     <img
                                         src="/static/images/ic_repost.svg" width="20"
                                         class="_action-icon mr-1"
-                                        @click.native="
-                                            showShareModal = true;
-                                            modalMode = true;
-                                        "
+                                        slot="activator"
+                                        @click.native="repostItem()"
                                     />
                                     <div class="_action-title">Repost</div>
                                 </div>
@@ -168,7 +167,7 @@
                                             modalMode = true;
                                         "
                                     />
-                                    <div class="_action-title">Share</div>
+                                    <div class="_action-title">Credits</div>
                                 </div>
                                 <div class="_action">
                                     <img
@@ -440,6 +439,21 @@
                 ></download-modal>
                 </v-dialog>
             </div> -->
+
+            <v-dialog v-model="modalMode">
+                <share-modal
+                    v-if="showShareModal"
+                    :item="item"
+                    :dismiss="dismissShareDialog"
+                ></share-modal>
+
+                <download-modal
+                    v-if="showDownloadModal"
+                    :item="item"
+                    :track="track"
+                    :dismiss="dismissDownloadDialog"
+                ></download-modal>
+            </v-dialog>
         </div>
     </div>
 </template>
