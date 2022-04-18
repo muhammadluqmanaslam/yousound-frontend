@@ -111,7 +111,7 @@
             <div class="_intro py-3">
               <b>Tracklist</b>
               <span class="mx-2">•</span>
-              <b>{{ album.tracks.length }} track{{album.tracks.length > 1 ? 's' : ''}}</b>
+              <b>{{ album.tracks.length }} {{ 'track' | pluralize(album.tracks.length) }}</b>
             </div>
 
             <div class="album-tracks-section">
@@ -219,9 +219,12 @@
         </div>
 
         <div class="comments-section pa-3 dflex align-center justify-space-between">
-          <div class="dflex align-center">
+          <div
+            class="dflex align-center"
+            @click="showComments = true"
+          >
             <img class="mr-2" src="/static/images/ic_comment.svg" />
-            <b>{{ comments.length }} comment{{comments.length > 1 ? 's' : ''}}</b>
+            <b>{{ comments.length }} {{ "comment" | pluralize(comments.length) }}</b>
           </div>
 
           <div v-if="comments.length" class="commenters-group">
@@ -413,6 +416,26 @@
         </v-dialog>
       </div>
 
+      <!-- Show Comments Dialog -->
+      <v-dialog
+        v-model="showComments"
+        fullscreen
+        content-class="mobile-comment-dialog"
+      >
+        <div class="pa-3 dflex top-wrapper">
+          <div class="centerLogo text-center flex-grow">
+            <img src='../../../../static/images/nav_logo_primary.png' width="120" />
+          </div>
+          <img src='../../../../static/images/ic_close_dark.svg' class="cursor-pointer" @click="showComments = false" />
+        </div>
+
+        <div class="_assoc">
+          <trackcard-simple :item="album" />
+        </div>
+
+        <mobile-comments v-if="showComments" item="album" :comments="comments" />
+      </v-dialog>
+
       <v-dialog
         v-model="show_sample_clearance_license_modal"
         content-class="my-dialog-1 large"
@@ -472,16 +495,16 @@
   import downloadModal from '@/components/downloadmodal'
   import merchModal from '@/components/merchmodal'
   import productCard from '@/components/productcard'
-  import profileItem from '@/components/profileitem'
   import promoteModal from '@/components/promotemodal'
   import sampleLicenseDialog from '@/views/album/components/sample_license_dialog'
   import shareModal from '@/components/sharemodal'
   import trackCard from '@/components/trackcard'
+  import trackcardSimple from '@/components/trackCard-simple'
   import videoCard from '@/components/videocard'
-  import Comments from '@/components/comments'
   import featuredProduct from '@/components/featuredProduct'
   import UserTag from '@/components/user_tag'
   import ItemTab from '@/components/itemTab'
+  import MobileComments from '../components/mobileComments'
 
   const ActionCable = require('actioncable')
 export default {
@@ -493,20 +516,20 @@ export default {
       downloadModal,
       merchModal,
       productCard,
-      profileItem,
       promoteModal,
       sampleLicenseDialog,
       shareModal,
       trackCard,
+      trackcardSimple,
       videoCard,
-      Comments,
       featuredProduct,
       UserTag,
       ItemTab,
+      MobileComments,
   },
 
   data() {
-      return {
+    return {
       showDownloadModal: false,
       showMerchModal: false,
       showPromoteMessage: false,
@@ -524,24 +547,25 @@ export default {
           },
           cover: {
           large: '',
-          },
+        },
       },
       trackIndex: 0,
       comments: [],
       commentString: '',
       comment_pagination: {
-          count: 0,
-          current_page: 0,
-          per_page: 5,
-          total_count: 0,
-          total_pages: 0,
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
       },
       buttonHover: false,
       // buttonHover: [],
       dialog: false,
       roles: [],
       isPageReady: false,
-      }
+      showComments: false
+    }
   },
 
   computed: {
@@ -601,11 +625,11 @@ export default {
     },
 
     coverImageURL() {
-    if (this.album.cover) {
-        return this.album.cover.large.url
-    } else {
-        return ''
-    }
+      if (this.album.cover) {
+          return this.album.cover.large.url
+      } else {
+          return ''
+      }
     },
 
     coverThumbImageURL() {
