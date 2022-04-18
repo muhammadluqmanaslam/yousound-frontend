@@ -13,15 +13,17 @@
         <div class="item__content">
           <div class="item__title">
             <router-link :to="`/${item.user.slug}`">
-              {{ item.user.username }}
+              {{ item.user.username | capitalize }}
             </router-link>
-            <span>{{ toLocalTimeString(item.created_at) }}</span>
+            <span v-if="!hideDatedString">{{ toLocalTimeString(item.created_at) }}</span>
           </div>
           <div class="item__description" v-html="item.body"></div>
         </div>
+
+        <div v-if="showShortAge" class="item__age">{{ item.created_at | formatDateFromNowShort }}</div>
       </div>
     </template>
-  </div>
+  </div>  
 </template>
 
 <script>
@@ -30,6 +32,8 @@ import { Utils } from "@/helper";
 export default {
   props: {
     items: Array,
+    hideDatedString: Boolean,
+    showShortAge: Boolean
   },
 
   data() {
@@ -52,6 +56,7 @@ export default {
 .item {
   display: flex;
   min-height: 55px;
+  align-items: center;
 
   &__header {
     width: 55px;
@@ -74,6 +79,12 @@ export default {
       font-size: 12px;
       color: #ccc;
     }
+  }
+
+  &__age {
+    color: #9d9a9a;
+    flex-grow: 1;
+    text-align: right;
   }
 }
 </style>
