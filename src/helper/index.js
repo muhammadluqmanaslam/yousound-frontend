@@ -94,6 +94,16 @@ export const Filter = {
     }
   },
 
+  formatDateFromNowShort(value) {
+    if (value) {
+      moment.locale('en')
+      const ago = moment(String(value)).fromNow(true)
+      const splitAgo = ago.split(' ')
+
+      return `${splitAgo[0]}${splitAgo[1][0]}`
+    }
+  },
+
   // #TODO rename it formatDecimal
   formatNumber(value) {
     return numeral(value / 100).format('0,0.00') // displaying other groupings/separators is possible, look at the docs
@@ -157,7 +167,7 @@ export const Filter = {
   },
 
   truncateInMiddle(str, len) {
-    // console.log('truncateInMiddle', str, len)
+    console.log('truncateInMiddle', str, len)
     if (str.length > len) {
       return (
         str.substr(0, len - 5) + '...' + str.substr(str.length - 5, str.length)
@@ -173,6 +183,12 @@ export const Filter = {
       return Filter.capitalize(str)
     })
     return stringArr.join(' ')
+  },
+
+  pluralize(value, len = 0) {
+    if (!len) return value
+    let str = len > 1 ? `${value}s` : value
+    return str || ''
   },
 }
 

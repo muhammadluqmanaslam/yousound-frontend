@@ -74,6 +74,7 @@ Vue.directive('on-click-outside', onClickOutside)
 
 Vue.filter('formatDate', Filter.formatDate)
 Vue.filter('formatDateFromNow', Filter.formatDateFromNow)
+Vue.filter('formatDateFromNowShort', Filter.formatDateFromNowShort)
 Vue.filter('formatNumber', Filter.formatNumber)
 Vue.filter('formatNumberWithComma', Filter.formatNumberWithComma)
 Vue.filter('formatLargeNumber', Filter.formatLargeNumber)
@@ -82,6 +83,7 @@ Vue.filter('timeInHours', Filter.timeInHours)
 Vue.filter('timeInMinutes', Filter.timeInMinutes)
 Vue.filter('capitalize', Filter.capitalize)
 Vue.filter('truncateInMiddle', Filter.truncateInMiddle)
+Vue.filter('pluralize', Filter.pluralize)
 
 navigator.sayswho = (function () {
   let ua = navigator.userAgent
