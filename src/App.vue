@@ -58,7 +58,11 @@
             }"
           />
       </v-flex> -->
-      <v-container fluid class="app-container" :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'not-authenticated': !isAuthenticated}">
+      <v-container
+        fluid
+        class="app-container"
+        :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'not-authenticated': !isAuthenticated}"
+      >
         <router-view></router-view>
         <app-footer v-if="!onMobile && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
 
@@ -167,13 +171,15 @@ export default {
     ...mapState({
       sideBarWidth: state => state.app.sideBarWidth,
       sideBarMini: state => state.app.sideBarMini,
-      noSideSpace: state => state.app.noSideSpace,
       mHeaderOp: state => state.appMobile.mobileHeaderOptions,
       mobilePlayerActive: state => state.player.isMusicPlayerModalActive,
     }),
     // hideGoBack() {
     //   return this.$store.getters['appMobile/hideGoBackCTA'].indexOf(this.$route.name) !== 1
     // },
+    noSideSpace() {
+      return this.$route.meta.noSideSpace;
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },

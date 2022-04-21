@@ -113,12 +113,6 @@ export default {
 
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
-
-    // make full width if on mobile
-    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
-  },
-  beforeDestroy() {
-    this.$store.dispatch('app/setNoSideSpace', false)
   },
 
   methods: {

@@ -178,7 +178,7 @@ export function createRouter(settings) {
     // { path: '/home1', name: 'LandingPage', component: Landing1Page },
     // { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
-    { path: '/video', name: 'VideoIndex', component: VideoIndex },
+    { path: '/video', name: 'VideoIndex', component: VideoIndex, meta: { noSideSpace: onMobile } },
     // { path: '/discover', name: 'Discover', component: Discover },
     { path: '/discover', name: 'DiscoverIndex', component: setComponent('discover') },
     { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex },
@@ -190,7 +190,14 @@ export function createRouter(settings) {
       props: (route) => ({ query: route.query.q }),
       meta: {isModalComp: !!onMobile},
     },
-    { path: '/feed', name: 'Feed', component: setComponent('feed') },
+    {
+      path: '/feed',
+      name: 'Feed',
+      component: setComponent('feed'),
+      meta: {
+        noSideSpace: onMobile,
+      },
+    },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
     { path: '/messages', name: 'Messages', component: Messages },
@@ -200,8 +207,25 @@ export function createRouter(settings) {
     { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail },
     { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
-    { path: '/product/:id', name: 'SingleProduct', component: setComponent('sell/single_product', true), meta: {isModalComp: !!onMobile} },
-    { path: '/album/:slug', name: 'AlbumDetail', component: setComponent('album/album', true), meta: {isModalComp: !!onMobile, showModalCompLeftIcon: true} },
+    {
+      path: '/product/:id',
+      name: 'SingleProduct',
+      component: setComponent('sell/single_product', true),
+      meta: {
+        isModalComp: !!onMobile,
+        noSideSpace: onMobile,
+      },
+    },
+    {
+      path: '/album/:slug',
+      name: 'AlbumDetail',
+      component: setComponent('album/album', true),
+      meta: {
+        isModalComp: !!onMobile,
+        showModalCompLeftIcon: true,
+        noSideSpace: onMobile,
+      },
+    },
     { path: '/x', name: 'AddAttendee', component: AddAttendee },
     { path: '/playlist', name: 'Playlist', component: CreateAttendee },
     {
@@ -268,7 +292,11 @@ export function createRouter(settings) {
         path: '/video/:videoId/show',
         name: 'VideoShow',
         component: VideoShow,
-        meta: {isModalComp: !!onMobile, showModalCompLeftIcon: true},
+        meta: {
+          isModalComp: !!onMobile,
+          showModalCompLeftIcon: true,
+          noSideSpace: onMobile,
+        },
       },
     ])
   } else {

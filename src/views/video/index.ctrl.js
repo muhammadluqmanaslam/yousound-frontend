@@ -144,11 +144,5 @@ export default {
       this.onTab(this.selectedTab)
     }
     
-    // make full width if on mobile
-    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
-  },
-
-  beforeDestroy() {
-    this.$store.dispatch('app/setNoSideSpace', false)
   },
 }

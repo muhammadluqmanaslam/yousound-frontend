@@ -696,20 +696,6 @@ export default {
 
       this.loadData()
 
-      console.log('alb', this.album);
-
-    // make full width if on mobile
-    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
-  },
-
-  beforeDestroy() {
-    if (this.comments_subscription) {
-    this.comments_subscription.unsubscribe()
-    }
-
-    // reset fullwidth
-    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', false)
-
   },
 
   methods: {

@@ -8,11 +8,9 @@ const state = {
   public_relations_user: {},
   sideBarMini: false,
   sideBarWidth: 280,
-  noSideSpace: null,
 }
 
 const getters = {
-  noSideSpace: (state) => state.noSideSpace,
   tabs: () => {
     const tabs = [
       {
@@ -162,9 +160,6 @@ const getters = {
 }
 
 const actions = {
-  setNoSideSpace({ commit }, status) {
-    commit('toggleNoSideSpace', status)
-  },
   toggleActivityPopup({ commit }, status) {
     commit('toggleActivityPopup', status)
   },
@@ -189,10 +184,6 @@ const actions = {
 }
 
 const mutations = {
-  toggleNoSideSpace(state, status) {
-    state.noSideSpace = status
-    console.log('set fullwidth', state.noSideSpace);
-  },
   toggleActivityPopup(state, status) {
     state.toggleActivity = status
   },

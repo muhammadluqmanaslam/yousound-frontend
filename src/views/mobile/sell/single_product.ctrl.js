@@ -306,12 +306,6 @@ export default {
     // select first variant on load
     console.log(this.options);
     // this.option = this.options[0].id
-
-    // make full width if on mobile
-    if (this.onMobile) return this.$store.dispatch('app/setNoSideSpace', true)
-  },
-  beforeDestroy() {
-    this.$store.dispatch('app/setNoSideSpace', false)
   },
   watch: {
     initImgSelection: {

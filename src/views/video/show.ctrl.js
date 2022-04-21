@@ -144,16 +144,10 @@ export default {
     // save header option before altering
      this.mobileHeaderOptions = this.$store.state.appMobile.mobileHeaderOptions
      console.log('entry :', this.mobileHeaderOptions);
-
-    // make full width if on mobile
-    if (this.onMobile) {
-      this.$store.dispatch('app/setNoSideSpace', true)
-    }
   },
   
   beforeDestroy() {
     this.unsubscribe()
-    this.$store.dispatch('app/setNoSideSpace', false)
   },
 
   methods: {
