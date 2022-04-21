@@ -116,6 +116,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     followButtonText() {
       if (this.item.is_following) {
         return this.buttonHover ? "Unfollow" : "Following";
@@ -133,6 +136,8 @@ export default {
 
     descriptions() {
       if (["listener"].indexOf(this.item.user_type) > -1) {
+        return ["Donation"];
+      } else if (this.onMobile) {
         return ["Donation"];
       } else {
         return ["Donation", "Add Video Credit"];
