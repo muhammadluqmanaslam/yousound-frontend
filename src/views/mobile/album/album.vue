@@ -221,7 +221,7 @@
         <div class="comments-section pa-3 dflex align-center justify-space-between">
           <div
             class="dflex align-center"
-            @click="showComments = true"
+            @click="showComments()"
           >
             <img class="mr-2" src="/static/images/ic_comment.svg" />
             <b>{{ comments.length }} {{ "comment" | pluralize(comments.length) }}</b>
@@ -417,24 +417,15 @@
       </div>
 
       <!-- Show Comments Dialog -->
-      <v-dialog
-        v-model="showComments"
-        fullscreen
-        content-class="mobile-comment-dialog"
+      <mobile-comments
+        :item="album"
+        :comments="comments"
+        ref="mobileComments"
       >
-        <div class="pa-3 dflex top-wrapper">
-          <div class="centerLogo text-center flex-grow">
-            <img src='../../../../static/images/nav_logo_primary.png' width="120" />
-          </div>
-          <img src='../../../../static/images/ic_close_dark.svg' class="cursor-pointer" @click="showComments = false" />
-        </div>
-
-        <div class="_assoc">
+        <template slot="_assoc">
           <trackcard-simple :item="album" />
-        </div>
-
-        <mobile-comments v-if="showComments" item="album" :comments="comments" />
-      </v-dialog>
+        </template>
+      </mobile-comments>
 
       <v-dialog
         v-model="show_sample_clearance_license_modal"
@@ -564,10 +555,8 @@ export default {
       dialog: false,
       roles: [],
       isPageReady: false,
-      showComments: false
     }
   },
-
   computed: {
     feat_product() {
       const product = this.album.products[0] || {}
@@ -690,12 +679,12 @@ export default {
   },
 
   watch: {
-      $route(to, from) {
+    $route(to, from) {
       const toPath = to.path.split('/')
       this.slug = toPath[2]
       this.trackIndex = 0
       this.loadData()
-      },
+    },
   },
 
   created() {
@@ -730,6 +719,9 @@ export default {
       setTrackIndex: 'player/setTrackIndex',
       setPlaying: 'player/setPlayingStatus',
       }),
+      showComments() {
+        this.$refs.mobileComments.showComments(true)
+      },
 
       loadData() {
       const vm = this

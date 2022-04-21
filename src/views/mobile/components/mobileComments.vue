@@ -1,14 +1,33 @@
 <template>
-  <div class="width100 comments-comp">
-    <div class="box">
-      <div class="box__content">
-      <div v-if="!hideCommentCount" class="comment__count">{{ comments.length }} {{ "comment" | pluralize(comments.length) }}</div>
-
-      <chat v-if="!hideComments" :items="comments" hideDatedString showShortAge></chat>
+  <v-dialog
+    v-model="initComment"
+    transition="slide-up"
+    fullscreen
+    content-class="mobile-comment-dialog"
+  >
+    <div class="pa-3 dflex top-wrapper">
+      <div class="centerLogo text-center flex-grow">
+        <img src='../../../../static/images/nav_logo_primary.png' width="120" />
       </div>
+      <img src='../../../../static/images/ic_close_dark.svg' class="cursor-pointer" @click="initComment = false" />
     </div>
 
+    <div class="_assoc">
+      <slot name="_assoc"></slot>
+    </div>
 
+    <div class="width100 comments-comp" :class="{isAssocPassed}">
+      <div class="box">
+        <div class="box__content">
+          <div v-if="!hideCommentCount" class="comment__count">{{ comments.length }} {{ "comment" | pluralize(comments.length) }}</div>
+            <chat
+              v-if="!hideComments"
+              :items="comments"
+              hideDatedString
+              showShortAge
+            />
+        </div>
+      </div>    
 
       <div class="comment_input">
           <input
@@ -19,7 +38,8 @@
             @keyup.enter="addComment()"
           />
       </div>
-  </div>
+    </div>
+  </v-dialog>
 </template>
 
 <script>
@@ -47,14 +67,22 @@ export default {
   data() {
     return {
       commentText: '',
+      initComment: false,
     }
   },
   computed: {
     currentUser() {
       return this.$store.state.auth.user
     },
+    isAssocPassed() {
+      return this.$slots._assoc
+    }
   },
   methods: {
+    showComments(val) {
+      // this fn is called via component refs
+      this.initComment = val;
+    },
     addComment() {
       if (this.commentText === '') return
 
@@ -79,13 +107,18 @@ export default {
             )
         })
     },
-  },
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .comments-comp {
   position: relative;
+  padding-top: 15px;
+
+  &.isAssocPassed {
+    border-top: 1px solid #d8d3d3;
+  }
 }
 // comments list
 .box {
@@ -109,10 +142,10 @@ export default {
 
   &__content {
     position: relative;
-    padding: 0 15px;
+    // padding: 0 15px;
 
     .comment__count {
-      padding: 20px 0;
+      padding: 0 20px 15px 15px;
       border-top: none;
       font-weight: 600;
       letter-spacing: 0
@@ -122,6 +155,9 @@ export default {
       position: relative;
       margin-bottom: 10px;
 
+      /deep/.item {
+        padding: 0 15px;
+      }
       /deep/.item__image {
         width: 42px;
         height: 42px;
