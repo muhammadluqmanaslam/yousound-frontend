@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import AuthService from '@/services/auth'
+import { mapGetters } from 'vuex'
 
 // import Popup from './Popup.vue'
 export default {
@@ -144,9 +144,9 @@ export default {
     ],
   }),
   computed: {
-    isAuthenticated() {
-      return AuthService.isAuthenticated()
-    },
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
   },
 };
 </script>

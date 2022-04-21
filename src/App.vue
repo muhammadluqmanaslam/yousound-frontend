@@ -19,7 +19,6 @@
       :hideUser="mHeaderOp.hideUser"
       :closeCallBack="mHeaderOp.closeCallBack"
       :showGoBack="mHeaderOp.showGoBack"
-      :showRightAltIcon="true"
     />
     <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
@@ -134,7 +133,7 @@ import Sidebar from './components/sidebar'
 import AppLoader from '@/components/appLoader'
 
 import { MyEvents, PublicRelationsUsername } from '@/helper'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 const ActionCable = require('actioncable')
 import mobileHeader from "@/views/mobile/components/header";
@@ -174,6 +173,9 @@ export default {
       mHeaderOp: state => state.appMobile.mobileHeaderOptions,
       mobilePlayerActive: state => state.player.isMusicPlayerModalActive,
     }),
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
     // hideGoBack() {
     //   return this.$store.getters['appMobile/hideGoBackCTA'].indexOf(this.$route.name) !== 1
     // },
@@ -199,9 +201,6 @@ export default {
       set: function (newValue) {
         this.$store.dispatch('error/hideToast')
       },
-    },
-    isAuthenticated() {
-      return AuthService.isAuthenticated()
     },
   },
 
@@ -243,7 +242,7 @@ export default {
   },
   mounted() {
     // on app mount, init app loader
-    if (!AuthService.isAuthenticated()) {
+    if (this.isAuthenticated) {
       this.$refs.appLoader.updateLoader(0)
     }
   },

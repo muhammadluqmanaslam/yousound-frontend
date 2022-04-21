@@ -73,10 +73,13 @@ export default {
   },
 
   isAuthenticated() {
-    let token = this.getToken()
+    let token = this.getToken() || null
+
     if (token) {
+      console.log('should be TRUE');
       return true
     } else {
+      console.log('should be FALSE');
       return false
     }
   },
@@ -104,7 +107,7 @@ export default {
     let user = JSON.parse(localStorage.getItem(USER_INFO))
     $store.dispatch('auth/setToken', token)
     $store.dispatch('auth/setUser', user)
-    return token
+    return token || null
   },
 
   saveCredential(credential) {

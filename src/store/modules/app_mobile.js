@@ -4,7 +4,6 @@ const state = {
     hideUser: false,
     showMenu: '',
     leftAltIcon: '',
-    showRightAltIcon: false,
     rightAltIcon: '/static/images/graph-bar.svg',
     centerImg: '/static/images/nav_logo_primary.png',
     menuImg: '',

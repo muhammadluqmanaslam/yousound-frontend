@@ -1,5 +1,6 @@
 import ActivityService from '@/services/activity.js'
 import AuthService from '@/services/auth.js'
+import { mapGetters } from 'vuex'
 import PlaylistService from '@/services/playlist'
 
 import { MyEvents } from '@/helper'
@@ -24,6 +25,9 @@ export default {
     onMediumScreen() {
       return this.$vuetify.breakpoint.mdAndDown;
     },
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
   },
 
   created() {
@@ -35,7 +39,7 @@ export default {
     }
     // console.log('login created', myAlert)
 
-    if (AuthService.isAuthenticated()) {
+    if (this.isAuthenticated) {
       this.$router.push({ name: 'DiscoverIndex' })
       return
     }

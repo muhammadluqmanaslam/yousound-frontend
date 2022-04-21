@@ -26,7 +26,16 @@
           class="right-alt-icon"
           @click="$router.push(closeCallBack)"
         />
-        <user-tag v-if="!hideUser" :user="currentUser" hideTick showAvatar hideName :width="avatarWidth" :height="avatarHeight" :class="{'ml-3': showRightAltIcon}" />
+        <user-tag
+          v-if="!hideUser && isAuthenticated"
+          :user="currentUser"
+          hideTick
+          showAvatar
+          hideName
+          :width="avatarWidth"
+          :height="avatarHeight"
+          :class="{'ml-3': showRightAltIcon}"
+        />
       </div>
     </div>
 
@@ -53,8 +62,8 @@
 </template>
 
 <script>
-import AuthService from '@/services/auth'
 import userTag from "@/components/user_tag";
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -75,7 +84,6 @@ export default {
       type: String,
       default: '/static/images/ic_cart.svg',
     },
-    showRightAltIcon: Boolean,
     rightAltIcon: {
       type: String,
       default: '/static/images/graph-bar.svg',
@@ -108,9 +116,9 @@ export default {
     appLogo() {
       return '/static/images/nav_logo_primary.png'
     },
-    isAuthenticated() {
-      return AuthService.isAuthenticated()
-    },
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -122,6 +130,9 @@ export default {
     },
     showModalCompLeftIcon() {
       return this.$route.meta.showModalCompLeftIcon
+    },
+    showRightAltIcon() {
+      return this.$route.meta.showRightAltIcon
     },
   },
 

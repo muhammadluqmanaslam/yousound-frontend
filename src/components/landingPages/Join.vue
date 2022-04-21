@@ -18,14 +18,15 @@
 </template>
 
 <script>
-import AuthService from '@/services/auth'
+
+import { mapGetters } from 'vuex'
 
 export default {
   name: "Join",
   computed: {
-    isAuthenticated() {
-      return AuthService.isAuthenticated()
-    },
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
   },
 };
 </script>
