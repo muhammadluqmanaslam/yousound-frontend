@@ -268,6 +268,7 @@ export function createRouter(settings) {
         path: '/video/:videoId/show',
         name: 'VideoShow',
         component: VideoShow,
+        meta: {isModalComp: !!onMobile, showModalCompLeftIcon: true},
       },
     ])
   } else {
