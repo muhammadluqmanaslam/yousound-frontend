@@ -59,10 +59,10 @@
                   </div>
 
                   <div class="meta__cta repost" @click="repostItem()">
-                    <img src="/static/images/ic_repost.svg" height="17" />
+                    <img src="/static/images/ic_repost.svg" width="21" />
                   </div>
                   <div class="meta__cta share" @click="openShareDialog()">
-                    <img src="/static/images/ic_share.svg" height="17" />
+                    <img src="/static/images/ic_share.svg" width="21" />
                   </div>
                   <div class="meta__cta" v-if="ownItem">
                     <v-menu offset-y class="more-menu">

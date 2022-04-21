@@ -87,21 +87,21 @@
 
               <img
                 class="track-status-icon"
-                width="25"
+                width="21"
                 src="/static/images/ic_share.svg"
                 @click.native="openShareModal()"
               />
 
               <img
                 class="track-status-icon"
-                width="25"
+                width="21"
                 src="/static/images/ic_repost.svg"
                 @click.native="openShareModal()"
               />
 
               <img
                 class="track-status-icon"
-                width="25"
+                width="21"
                 src="/static/images/stat.svg"
                 @click.native="openShareModal()"
               />
