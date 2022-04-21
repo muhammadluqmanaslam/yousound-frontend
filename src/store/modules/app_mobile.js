@@ -5,7 +5,7 @@ const state = {
     showMenu: '',
     leftAltIcon: '',
     showRightAltIcon: false,
-    rightAltIcon: '',
+    rightAltIcon: '/static/images/graph-bar.svg',
     centerImg: '/static/images/nav_logo_primary.png',
     menuImg: '',
     closeCallBack: {},

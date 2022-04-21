@@ -19,7 +19,13 @@
       </div>
 
       <div class="_inner-wrapper _right">
-        <img v-if="showRightAltIcon" :src="rightAltIcon" @click="$router.push(closeCallBack)" />
+        <img
+          v-if="showRightAltIcon"
+          :src="rightAltIcon" 
+          width="18"
+          class="right-alt-icon"
+          @click="$router.push(closeCallBack)"
+        />
         <user-tag v-if="!hideUser" :user="currentUser" hideTick showAvatar hideName :width="avatarWidth" :height="avatarHeight" :class="{'ml-3': showRightAltIcon}" />
       </div>
     </div>
@@ -144,7 +150,7 @@ export default {
     justify-content: center;
 
     &._center {
-      margin-left: -35px;
+      // margin-left: -35px;
     }
 
     .go-back {
