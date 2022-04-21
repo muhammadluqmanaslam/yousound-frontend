@@ -180,7 +180,14 @@ export function createRouter(settings) {
     { path: '/admin', name: 'AdminPage', component: AdminPage },
     { path: '/video', name: 'VideoIndex', component: VideoIndex, meta: { noSideSpace: onMobile } },
     // { path: '/discover', name: 'Discover', component: Discover },
-    { path: '/discover', name: 'DiscoverIndex', component: setComponent('discover') },
+    {
+      path: '/discover',
+      name: 'DiscoverIndex',
+      component: setComponent('discover'),
+      meta: {
+        showRightAltIcon: true,
+      },
+    },
     { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex },
     { path: '/product', name: 'ProductIndex', component: ProductIndex },
     {
