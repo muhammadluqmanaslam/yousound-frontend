@@ -229,7 +229,7 @@
 
           <v-flex v-if="activePaneTab == 'info'" xs12 sm3 class="related_col" :class="{'pl-3': !onMobile}">
             <div class="videos-section">
-              <h4 class="__title">Related Videos</h4>
+              <h4 class="__title" :class="{'px-2': onMobile}">Related Videos</h4>
               <div class="section__content">
                 <!-- <template v-for="(video, index) in videos">
                   <div class="video-container" :key="`video-${index}`">
