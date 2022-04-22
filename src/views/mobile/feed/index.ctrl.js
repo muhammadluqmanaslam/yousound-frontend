@@ -196,18 +196,28 @@ export default {
         console.log(error.message)
       })
     },
+    openPostThought() {
+      this.init_PostThought = true;
+      if (this.isPostThoughtActive) return this.textareaFocus()
+    },
     closePostThought() {
       this.init_PostThought = false;
     },
     tabClicked(data) {
         this.activeDiscover = data.id
         this.activeTab = data.id
+
+        this.onTab(this.activeTab)
         console.log(data);
     },
+    textareaFocus() {
+      this.$nextTick(()=> {
+        this.$refs.thought.focus()
+      })
+    },
     postThoughtActive() {
-      // trigger child component (post thought) modal
-      // this.$refs.postThought.initPostThought()
       this.isPostThoughtActive = true;
+      this.textareaFocus()
     },
     isActiveTab(tab) {
       return this.activeTab === tab
@@ -247,8 +257,8 @@ export default {
     },
 
     closeHelpDialog() {
-      console.log(1);
-      this.show_help_dialog = false
+      this.show_help_dialog = false;
+
       const params = {
         user: {
           stream_page_visited: 1,

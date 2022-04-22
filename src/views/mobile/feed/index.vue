@@ -38,10 +38,14 @@
 
     <v-btn
       fab
-      class="post-thought-btn white--text"
-      @click="init_PostThought = true" 
+      class="post-thought-btn"
+      @click="openPostThought" 
     >
-      <img :src="require('../../../../static/images/type-thought.svg')" width="20" />
+      <img
+        :src="require('../../../../static/images/type-thought.svg')"
+        class="thought-icon invert-color"
+        width="20"
+      />
     </v-btn>
 
     <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
@@ -157,7 +161,11 @@
 
         <div v-if="Object.keys(stream_assoc).length" class="thought-selection">
             <div class="attach-info">
-                <div class="__cover" :style="{ 'background-image': 'url(' + attachCover + ')' }"></div>
+                <div
+                  class="__cover"
+                  :class="[getCustomClass(stream_assoc.value)]"
+                  :style="{ 'background-image': 'url(' + attachCover + ')' }"
+                ></div>
                 <div class="__details">
                     <div class="_title">{{ stream_assoc.value.name }}</div>
                     <div class="_user">{{ attachUser }}</div>
@@ -224,7 +232,7 @@
   right: 8px;
   bottom: 50px;
   z-index: 1;
-  background: #ffffff !important;
+  background: #000000 !important;
   font-weight: 800;
 }
 </style>
