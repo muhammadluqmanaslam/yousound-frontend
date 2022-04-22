@@ -76,10 +76,8 @@ export default {
     let token = this.getToken() || null
 
     if (token) {
-      console.log('should be TRUE');
       return true
     } else {
-      console.log('should be FALSE');
       return false
     }
   },

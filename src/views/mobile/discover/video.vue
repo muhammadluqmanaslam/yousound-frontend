@@ -129,7 +129,7 @@ export default {
           .then((response) => {
             this.videos = this.videos.concat(response.body.streams)
 
-            console.log(this.videos)
+            // console.log(this.videos)
             this.pagination = response.body.pagination
             this.videoGenres = response.body.genres
 
@@ -143,7 +143,7 @@ export default {
         const filter = await this.loadFeeds(filterBy, 1).then((res) => res)
         // const filter = this.videos
 
-        console.log(filter);
+        // console.log(filter);
 
         // this filtered_feeds() will return a prop limit if available
         let result = filter.slice(0, this.listLimit || filter.length)
