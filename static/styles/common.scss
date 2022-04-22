@@ -608,7 +608,7 @@ li.list-none {
 
 .pane-tabs-onMobile {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
   margin-bottom: 10px;
   
   .pane-tab {
