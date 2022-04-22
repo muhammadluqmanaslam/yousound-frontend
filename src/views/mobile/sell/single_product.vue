@@ -8,6 +8,8 @@
             v-for="(item,i) in covers"
             :key="i"
             :src="item"
+            transition="fade"
+            reverse-transition="fade"
           ></v-carousel-item>
         </v-carousel>
       </div>
@@ -121,7 +123,7 @@
             <comments :item="product" :comments="comments" roundAvatar roundInput aviHeight="40" aviWidth="40" />
         </div>
         
-        <div class="product-section px-5">
+        <div v-if="activePaneTab == 'details'" class="product-section px-5">
           <v-btn
             round
             block
