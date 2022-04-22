@@ -178,7 +178,7 @@ export function createRouter(settings) {
     // { path: '/home1', name: 'LandingPage', component: Landing1Page },
     // { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
-    { path: '/video', name: 'VideoIndex', component: VideoIndex, meta: { noSideSpace: onMobile } },
+    { path: '/video', name: 'VideoIndex', component: VideoIndex, meta: { noSideSpace: onMobile, senderRoute: 'video' } },
     // { path: '/discover', name: 'Discover', component: Discover },
     {
       path: '/discover',
@@ -188,8 +188,8 @@ export function createRouter(settings) {
         showRightAltIcon: true,
       },
     },
-    { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex },
-    { path: '/product', name: 'ProductIndex', component: ProductIndex },
+    { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex, meta: { senderRoute: 'video' } },
+    { path: '/product', name: 'ProductIndex', component: ProductIndex, meta: { senderRoute: 'merch' } },
     {
       path: '/search',
       name: 'Search',

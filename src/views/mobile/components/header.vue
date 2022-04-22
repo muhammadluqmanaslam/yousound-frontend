@@ -6,7 +6,7 @@
           v-if="showGoBack" 
           color="black" 
           class="go-back mr-3"
-          @click="$router.go(-1)"
+          @click="goBack()"
         >
           arrow_back_ios
         </v-icon>
@@ -102,7 +102,6 @@ export default {
   components: {
     userTag,
   },
-
   data() {
     return {
       // logoImgSrc: '',
@@ -111,7 +110,26 @@ export default {
       // menuImgSrc: '',
     }
   },
+  watch: {},
+  methods: {
+    goBack() {
+      const senderRoute = this.senderRoute
+      const referrer = document.referrer
+      const prevRoute = referrer.split('://')[1].split('/')[1] || '';
 
+      console.log({referrer, prevRoute, senderRoute});
+
+      switch (senderRoute) {
+        case 'video':
+        case 'music':
+        case 'product':
+          return this.$router.push({name: 'DiscoverIndex', params: { activeDiscover: senderRoute}})
+        default:
+          return this.$router.go(-1)
+      }
+      
+    }
+  },
   computed: {
     appLogo() {
       return '/static/images/nav_logo_primary.png'
@@ -134,10 +152,12 @@ export default {
     showRightAltIcon() {
       return this.$route.meta.showRightAltIcon
     },
+    senderRoute() {
+      return this.$route.meta.senderRoute
+    },
   },
 
-  created() {
-  },
+  created() {},
 }
 </script>
 
