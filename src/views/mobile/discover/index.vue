@@ -12,9 +12,6 @@
 </template>
 
 <script>
-// import desktop script
-import def from "../../discover/index.ctrl"
-
 import SearchInput from '@/components/searchInput'
 import TabNav from '../components/tab_nav.vue'
 import discoverMusic from './music'
@@ -32,7 +29,6 @@ export default {
     },
     data() {
         return {
-            // ...def.data(),
             activeDiscover: 'album',
             isComp: true,
             tabs: [
@@ -49,10 +45,10 @@ export default {
         }
     },
     created() {
-        console.log('default:', def);
-
         // set activeDiscover if instructed passed via route
         const {activeDiscover} = this.$route.params
+        console.log('activeDiscover:', activeDiscover);
+
         if (activeDiscover) {
             this.activeDiscover = activeDiscover
         }
