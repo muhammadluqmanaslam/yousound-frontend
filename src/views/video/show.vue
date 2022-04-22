@@ -22,10 +22,12 @@
               <div class="content-section">
                 <div class="meta__content" :class="{'px-4':onMobile}">
                   <user-tag v-if="onMobile" class="tag" showAvatar hideName hideTick clickUser width="40" height="40" :user="stream.user" />
-                  <div v-if="onMobile" class="">{{ stream.name.split('- ')[1] }}</div>
                   <div v-if="!onMobile" class="meta__title">{{ stream.name }}</div>
 
-                  <div v-if="onMobile" class="meta__title text-capitalize">{{ stream.user.username }}</div>
+                  <div v-if="onMobile" class="dflex flex-column">
+                    <div class="meta__name">{{ stream.name.split('- ')[1] || stream.name }}</div>
+                    <div class="meta__title text-capitalize">{{ stream.user.username }}</div>
+                  </div>
 
                   <div class="meta__subtitle">
                     {{ stream.viewers_size || 0 }}
@@ -709,9 +711,10 @@
       }
       .meta__actions {
         border-top: 1px solid #e4e4e4;
+        border-bottom: 1px solid #e4e4e4;
         justify-content: space-around;
         margin-top: 12px;
-        margin-bottom: -10px;
+        margin-bottom: 10px;
 
         .meta__cta {
           margin: 0;

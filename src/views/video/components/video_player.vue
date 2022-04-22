@@ -3,6 +3,8 @@
     ref="myVideoPlayer"
     id="my_video_player"
     class="video-js vjs-default-skin vjs-fluid"
+    :class="{onMobile}"
+    :playsinline="onMobile"
     controls
   ></video>
 </template>
@@ -152,11 +154,19 @@ export default {
     allVideosCount() {
       return this.allVideos.length
     },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
   },
 }
 </script>
 
 <style lang="scss">
+.video-js button {
+  outline: none;
+  box-shadow: none;
+}
+
 .video-js .vjs-big-play-button {
 // position: relative;
 }
@@ -165,6 +175,12 @@ export default {
   padding-top: 56.25%;
   video {
     max-height: 572px;
+  }
+}
+.onMobile {
+  .video-js button {
+    border: 0;
+    background-color: transparent;
   }
 }
 // .video-js::after {
