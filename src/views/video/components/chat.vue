@@ -64,7 +64,7 @@
 <script>
 import { Utils } from "@/helper";
 import CommentService from '@/services/comment'
-import ItemSwipe from '@/components/itemSwipe'
+import ItemSwipe from '@/components/ItemSwipe'
 import UserTag from '@/components/user_tag';
 
 export default {
