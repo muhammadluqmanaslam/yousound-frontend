@@ -103,7 +103,7 @@
       content-class="no-border-radius"
       fullscreen
     >
-      <mobile-player v-if="mobilePlayerActive" />
+      <mobile-player />
     </v-dialog>
   </v-app>
 </template>
@@ -171,7 +171,7 @@ export default {
       sideBarWidth: state => state.app.sideBarWidth,
       sideBarMini: state => state.app.sideBarMini,
       mHeaderOp: state => state.appMobile.mobileHeaderOptions,
-      mobilePlayerActive: state => state.player.isMusicPlayerModalActive,
+      mobilePlayerActive: state => state.player.isMobilePlayerActive,
     }),
     ...mapGetters({
       isAuthenticated: "auth/isAuthenticated",

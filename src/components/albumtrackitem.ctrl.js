@@ -260,7 +260,7 @@ export default {
     selectTrack() {
       if (this.onMobile) {
         console.log("toggle modal");
-        this.$store.dispatch('player/toggleMusicModal', true)
+        this.$store.dispatch('player/toggleMobilePlayer', true)
       }
 
       // console.log('album-track-item selectTrack', this.trackIndex, this.isPlaying)

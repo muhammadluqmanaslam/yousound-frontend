@@ -15,7 +15,7 @@ const state = {
   currentTrackPlaying: {},
   gridShow: false,
   user: null,
-  isMusicPlayerModalActive: false,
+  isMobilePlayerActive: false,
 }
 
 const getters = {
@@ -83,8 +83,8 @@ const actions = {
     commit('setUpdatedUser', user)
   },
 
-  toggleMusicModal({ commit }, status) {
-    commit('toggleMusicModal', status)
+  toggleMobilePlayer({ commit }, status) {
+    commit('toggleMobilePlayer', status)
   },
 }
 
@@ -149,9 +149,9 @@ const mutations = {
     state.user = user
   },
 
-  toggleMusicModal(state, status) {
-    console.log('toggleMusicModal status', status);
-    state.isMusicPlayerModalActive = status
+  toggleMobilePlayer(state, status) {
+    console.log('toggleMobilePlayer status', status);
+    state.isMobilePlayerActive = status
   },
 }
 

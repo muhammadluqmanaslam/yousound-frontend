@@ -618,7 +618,7 @@ export default {
 
     minModal() {
       console.log("toggle");
-      this.$store.dispatch("player/toggleMusicModal", false)
+      this.$store.dispatch("player/toggleMobilePlayer", false)
     },
 
     startPlaying(index) {
@@ -677,7 +677,7 @@ export default {
       // this.trackName = this.playlist[index].track.name
       this.trackIndex = index + 1 + " of " + this.playlist.length;
       this.track = this.playlist[index].track;
-      console.log("player play trackB", this.track);
+      console.log("player play track mobile_player", this.track);
       this.$store.dispatch("player/setCurrentPlayingTrack", this.track);
 
       // If we already loaded self track, use the current one.

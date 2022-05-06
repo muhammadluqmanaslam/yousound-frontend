@@ -164,7 +164,7 @@ export default {
       // this.trackName = this.playlist[index].track.name
       this.trackIndex = index + 1 + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
-      console.log('player play track', this.track)
+      console.log('player play track player.ctrl', this.track)
 
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
