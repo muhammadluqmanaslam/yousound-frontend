@@ -1,131 +1,134 @@
 <template>
-    <div class="mobile-player">
-        <div class="_top dflex align-center justify-space-between">
-            <div class="logo-wrapper">
-                <img class="_logo" src="../../static/images/nav_logo_primary.png" width="130" />
-            </div>
+  <div class="mobile-player">
+    <div class="_top dflex align-center justify-space-between">
+      <div class="logo-wrapper">
+        <img
+          class="_logo"
+          src="../../static/images/nav_logo_primary.png"
+          width="130"
+        />
+      </div>
 
-            <v-icon
-                class="min-player"
-                @click="minModal()"
-            >
-                expand_more
-            </v-icon>
+      <v-icon class="min-player" @click="minModal()"> expand_more </v-icon>
+    </div>
+
+    <div class="album-track-details">
+      <div
+        class="album-cover"
+        :style="{ 'background-image': 'url(' + albumCover + ')' }"
+      ></div>
+
+      <div class="track-info">
+        <div class="track-name">{{ item.name }}</div>
+        <div class="track-artist">{{ item.user.username }}</div>
+      </div>
+
+      <div class="loading flex-none" id="loading" v-if="!isLoaded"></div>
+      <div v-else class="controls-section">
+        <div class="bar-section">
+          <label class="duration-time played" id="playedTime">{{
+            playedTime
+          }}</label>
+          <v-spacer>
+            <v-slider
+              class="player-bar"
+              v-model="progress"
+              @click.native="seek(progress)"
+              hide-details
+            ></v-slider>
+          </v-spacer>
+          <label class="duration-time total" id="totalTime">{{
+            totalTime
+          }}</label>
         </div>
 
-        <div class="album-track-details">
-            <div
-                class="album-cover"
-                :style="{ 'background-image': 'url(' + albumCover + ')' }"
-            ></div>
+        <div class="action-btns">
+          <!-- Previous Button -->
+          <v-btn
+            :ripple="false"
+            flat
+            class="player-control-btn no-Btn-bg"
+            @click.native="skip('prev')"
+          >
+            <img src="/static/images/ic_rewind.svg" width="20" />
+          </v-btn>
 
-            <div class="track-info">
-                <div class="track-name">{{ item.name }}</div>
-                <div class="track-artist">{{ item.user.username }}</div>
-            </div>
+          <!-- Play Button -->
+          <v-btn
+            :ripple="false"
+            flat
+            class="player-control-btn play no-Btn-bg"
+            @click.native="$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)"
+            id="play"
+            v-if="!isPlaying"
+          >
+            <img src="/static/images/ic_play.svg" height="26" />
+          </v-btn>
 
-            <div class="controls-section">
-                <div class="bar-section">
-                    <label class="duration-time played" id="playedTime">{{
-                        playedTime
-                    }}</label>
-                    <v-spacer>
-                        <v-slider
-                        class="player-bar"
-                        v-model="progress"
-                        @click.native="seek(progress)"
-                        hide-details
-                        ></v-slider>
-                    </v-spacer>
-                    <label class="duration-time total" id="totalTime">{{
-                        totalTime
-                    }}</label>
-                </div>
+          <!-- Pause Button -->
+          <v-btn
+            :ripple="false"
+            flat
+            class="player-control-btn pause no-Btn-bg"
+            id="pause"
+            v-if="isPlaying"
+            @click.native="pause()"
+          >
+            <img src="/static/images/ic_pause.svg" height="26" />
+          </v-btn>
 
-                <div class="action-btns">
-                    <!-- Previous Button -->
-                    <v-btn
-                        :ripple="false"
-                        flat
-                        class="player-control-btn no-Btn-bg"
-                        @click.native="skip('prev')"
-                    >
-                        <img src="/static/images/ic_rewind.svg" width="20" />
-                    </v-btn>
+          <v-btn
+            :ripple="false"
+            flat
+            class="player-control-btn no-Btn-bg"
+            @click.native="skip('next')"
+          >
+            <img src="/static/images/ic_skip.svg" width="20" />
+          </v-btn>
+        </div>
+      </div>
 
-                    <!-- Play Button -->
-                    <v-btn
-                        :ripple="false"
-                        flat
-                        class="player-control-btn play no-Btn-bg"
-                        @click.native="$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)"
-                        id="play"
-                        v-if="!isPlaying"
-                    >
-                        <img src="/static/images/ic_play.svg" height="26" />
-                    </v-btn>
+      <div class="player-options text-center">
+        <v-icon @click="optionModalActive = true">more_horiz</v-icon>
 
-                    <!-- Pause Button -->
-                    <v-btn
-                        :ripple="false"
-                        flat
-                        class="player-control-btn pause no-Btn-bg"
-                        id="pause"
-                        v-if="isPlaying"
-                        @click.native="pause()"
-                    >
-                        <img src="/static/images/ic_pause.svg" height="26" />
-                    </v-btn>
+        <transition
+          v-if="optionModalActive"
+          name="slide-up"
+          leave-active-class="slide-fade"
+        >
+          <div>
+            <div class="decoy" @click="optionModalActive = false"></div>
 
-                    <v-btn
-                        :ripple="false"
-                        flat
-                        class="player-control-btn no-Btn-bg"
-                        @click.native="skip('next')"
-                    >
-                        <img src="/static/images/ic_skip.svg" width="20" />
-                    </v-btn>
-                </div>
-            </div>
+            <div class="option-modal">
+              <div class="follow-user">
+                <user-tag
+                  :user="user"
+                  showAvatar
+                  showUserType
+                  width="35"
+                  height="35"
+                />
 
-            <div class="player-options text-center">
-                <v-icon @click="optionModalActive = true">more_horiz</v-icon>
-
-                <transition
-                    v-if="optionModalActive"
-                    name="slide-up"
-                    leave-active-class="slide-fade"
+                <v-btn
+                  v-if="currentUser && item.user.id != currentUser.id"
+                  dark
+                  round
+                  :class="{
+                    'follow-btn': true,
+                    follow: !item.user.is_following,
+                    following: item.user.is_following,
+                  }"
+                  @mouseenter="buttonHover = true"
+                  @mouseleave="buttonHover = false"
+                  @click.native="followUser()"
                 >
-                    <div>
-                        <div
-                            class="decoy"
-                            @click="optionModalActive = false"
-                        ></div>
+                  {{ followButtonText }}
+                </v-btn>
+              </div>
 
-                        <div class="option-modal">
-                            <div class="follow-user">
-                                <user-tag :user="user" showAvatar showUserType width="35" height="35" />
-
-                                <v-btn
-                                    v-if="currentUser && item.user.id != currentUser.id"
-                                    dark
-                                    round
-                                    :class="{
-                                        'follow-btn': true,
-                                        follow: !item.user.is_following,
-                                        following: item.user.is_following,
-                                    }"
-                                    @mouseenter="buttonHover = true"
-                                    @mouseleave="buttonHover = false"
-                                    @click.native="followUser()"
-                                >
-                                    {{ followButtonText }}
-                                </v-btn>
-                            </div>
-
-                            <div class="action-wrapper">
-                                <div class="_action _border_right _border_bottom">
-                                    <!-- <v-btn
+              <div class="action-wrapper">
+                <div class="_action _border_right _border_bottom">
+                  <!-- <v-btn
                                         depressed
                                         color="transparent ma-0"
                                         slot="activator"
@@ -138,55 +141,59 @@
                                         <img src="/static/images/re_sharebg.svg" width="20" />
                                     </v-btn> -->
 
-                                    <img
-                                        src="/static/images/ic_share_fill.svg" width="20"
-                                        class="_action-icon mr-1"
-                                        slot="activator"
-                                        @click.native="
-                                            showShareModal = true;
-                                            modalMode = true;
-                                        "
-                                    />
-                                    <div class="_action-title">Share</div>
-                                </div>
-                                <div class="_action _border_bottom">
-                                    <img
-                                        src="/static/images/ic_repost.svg" width="20"
-                                        class="_action-icon mr-1"
-                                        slot="activator"
-                                        @click.native="repostItem()"
-                                    />
-                                    <div class="_action-title">Repost</div>
-                                </div>
-                                <div class="_action _border_right">
-                                    <img
-                                        src="/static/images/ic_users_fill.svg" width="20"
-                                        class="_action-icon mr-1"
-                                        @click.native="
-                                            showShareModal = true;
-                                            modalMode = true;
-                                        "
-                                    />
-                                    <div class="_action-title">Credits</div>
-                                </div>
-                                <div class="_action">
-                                    <img
-                                        src="/static/images/ic_comment.svg" width="20"
-                                        class="_action-icon mr-1"
-                                        @click.native="
-                                            showShareModal = true;
-                                            modalMode = true;
-                                        "
-                                    />
-                                    <div class="_action-title">Comment</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </transition>
+                  <img
+                    src="/static/images/ic_share_fill.svg"
+                    width="20"
+                    class="_action-icon mr-1"
+                    slot="activator"
+                    @click.native="
+                      showShareModal = true;
+                      modalMode = true;
+                    "
+                  />
+                  <div class="_action-title">Share</div>
+                </div>
+                <div class="_action _border_bottom">
+                  <img
+                    src="/static/images/ic_repost.svg"
+                    width="20"
+                    class="_action-icon mr-1"
+                    slot="activator"
+                    @click.native="repostItem()"
+                  />
+                  <div class="_action-title">Repost</div>
+                </div>
+                <div class="_action _border_right">
+                  <img
+                    src="/static/images/ic_users_fill.svg"
+                    width="20"
+                    class="_action-icon mr-1"
+                    @click.native="
+                      showShareModal = true;
+                      modalMode = true;
+                    "
+                  />
+                  <div class="_action-title">Credits</div>
+                </div>
+                <div class="_action">
+                  <img
+                    src="/static/images/ic_comment.svg"
+                    width="20"
+                    class="_action-icon mr-1"
+                    @click.native="
+                      showShareModal = true;
+                      modalMode = true;
+                    "
+                  />
+                  <div class="_action-title">Comment</div>
+                </div>
+              </div>
             </div>
+          </div>
+        </transition>
+      </div>
 
-            <!-- <div class="side-playerr" v-if="$store.getters['player/isPlaying']">
+      <!-- <div class="side-playerr" v-if="$store.getters['player/isPlaying']">
             </div>
 
                 <div class="side-player-inner">
@@ -440,22 +447,22 @@
                 </v-dialog>
             </div> -->
 
-            <v-dialog v-model="modalMode">
-                <share-modal
-                    v-if="showShareModal"
-                    :item="item"
-                    :dismiss="dismissShareDialog"
-                ></share-modal>
+      <v-dialog v-model="modalMode">
+        <share-modal
+          v-if="showShareModal"
+          :item="item"
+          :dismiss="dismissShareDialog"
+        ></share-modal>
 
-                <download-modal
-                    v-if="showDownloadModal"
-                    :item="item"
-                    :track="track"
-                    :dismiss="dismissDownloadDialog"
-                ></download-modal>
-            </v-dialog>
-        </div>
+        <download-modal
+          v-if="showDownloadModal"
+          :item="item"
+          :track="track"
+          :dismiss="dismissDownloadDialog"
+        ></download-modal>
+      </v-dialog>
     </div>
+  </div>
 </template>
 
 <script>
@@ -519,7 +526,8 @@ export default {
     },
 
     item() {
-      const item = this.$store.state.player.list[this.$store.state.player.listIndex];
+      const item =
+        this.$store.state.player.list[this.$store.state.player.listIndex];
 
       console.log(item);
 
@@ -551,7 +559,7 @@ export default {
     },
 
     albumCover() {
-      return this.item.cover.thumb.url
+      return this.item.cover.thumb.url;
     },
 
     album1Cover() {
@@ -613,12 +621,12 @@ export default {
     }),
 
     closeOptions() {
-      this.optionModalActive = false
+      this.optionModalActive = false;
     },
 
     minModal() {
       console.log("toggle");
-      this.$store.dispatch("player/toggleMobilePlayer", false)
+      this.$store.dispatch("player/toggleMobilePlayer", false);
     },
 
     startPlaying(index) {
@@ -1075,106 +1083,118 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .mobile-player {
-        background-color: #ffffff;
-        height: 100vh;
-        padding: 30px;
+.mobile-player {
+  background-color: #ffffff;
+  height: 100vh;
+  padding: 30px;
 
-        ._top {
-            .logo-wrapper {
-                flex-grow: 1;
-                text-align: center;
-            }
 
-            .icon.min-player {
-                color: #000;
-                font-size: 40px;
-            }
-        }
+  .loading {
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 75px;
+    height: 75px;
+    background-color: #999;
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1s infinite ease-in-out;
+    animation: sk-scaleout 1s infinite ease-in-out;
+  }
 
-        .album-track-details {
-            .album-cover {
-                height: 350px;
-                width: 300px;
-                background-size: cover;
-                margin: 0 auto;
-                background-position: center;
-            }
-
-            .track-info {
-                margin: 10px 0;
-                text-transform: capitalize;
-
-                .track-name {
-                    font-size: 18px;
-                    font-weight: 700;
-                }
-            }
-
-            .contols-section {
-                // /deep/ .slider__track__container {
-                //     background: rgba(255, 255, 255, 0.23);
-                // }
-            }
-
-            .player-options {
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                padding-bottom: 40px;
-                width: 100%;
-
-                .option-modal {
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                    height: 200px;
-                    background-color: #ffffff;
-                    border-radius: 10px 10px 0 0;
-                    display: flex;
-                    flex-direction: column;
-
-                    .follow-user {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        padding: 20px;
-
-                        .follow-btn {
-                            height: 30px;
-                        }
-                    }
-
-                    .action-wrapper {
-                        display: grid;
-                        grid-template-columns: 50% 50%;
-                        grid-template-rows: 50% 50%;
-                        border-top: 1px solid #e1dbdb;
-                        flex-grow: 1;
-
-                        ._action {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-
-                            &._border_right {
-                                border-right: 1px solid #e1dbdb;
-                            }
-                            &._border_bottom {
-                                border-bottom: 1px solid #e1dbdb;
-                            }
-                        }
-                    }
-                }
-                .decoy {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    height: 100%;
-                    width: 100%;
-                    background-color: rgba(0,0,0,0.5);
-                }
-            }
-        }
+  ._top {
+    .logo-wrapper {
+      flex-grow: 1;
+      text-align: center;
     }
+
+    .icon.min-player {
+      color: #000;
+      font-size: 40px;
+    }
+  }
+
+  .album-track-details {
+    .album-cover {
+      height: 350px;
+      width: 300px;
+      background-size: cover;
+      margin: 0 auto;
+      background-position: center;
+    }
+
+    .track-info {
+      margin: 10px 0;
+      text-transform: capitalize;
+
+      .track-name {
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+
+    .contols-section {
+      // /deep/ .slider__track__container {
+      //     background: rgba(255, 255, 255, 0.23);
+      // }
+    }
+
+    .player-options {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      padding-bottom: 40px;
+      width: 100%;
+
+      .option-modal {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 200px;
+        background-color: #ffffff;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        flex-direction: column;
+
+        .follow-user {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 20px;
+
+          .follow-btn {
+            height: 30px;
+          }
+        }
+
+        .action-wrapper {
+          display: grid;
+          grid-template-columns: 50% 50%;
+          grid-template-rows: 50% 50%;
+          border-top: 1px solid #e1dbdb;
+          flex-grow: 1;
+
+          ._action {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &._border_right {
+              border-right: 1px solid #e1dbdb;
+            }
+            &._border_bottom {
+              border-bottom: 1px solid #e1dbdb;
+            }
+          }
+        }
+      }
+      .decoy {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}
 </style>
