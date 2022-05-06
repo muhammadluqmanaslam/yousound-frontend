@@ -490,7 +490,7 @@
   import sampleLicenseDialog from '@/views/album/components/sample_license_dialog'
   import shareModal from '@/components/sharemodal'
   import trackCard from '@/components/trackcard'
-  import trackcardsimple from '@/components/trackcardsimple'
+  import trackcardSimple from '@/components/trackcardsimple'
   import videoCard from '@/components/videocard'
   import featuredProduct from '@/components/featuredProduct'
   import UserTag from '@/components/user_tag'
@@ -511,7 +511,7 @@ export default {
       sampleLicenseDialog,
       shareModal,
       trackCard,
-      trackcardsimple,
+      trackcardSimple,
       videoCard,
       featuredProduct,
       UserTag,
