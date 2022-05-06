@@ -22,7 +22,9 @@
               >
             </div> -->
           </div>
-          <div class="album-details px-3 dflex align-center justify-space-between">
+          <div
+            class="album-details px-3 dflex align-center justify-space-between"
+          >
             <div class="album-info">
               <div class="album-type">
                 {{ album.album_type }}
@@ -66,7 +68,9 @@
             </div>
           </div>
 
-          <div class="album-action px-3 dflex align-center justify-space-between">
+          <div
+            class="album-action px-3 dflex align-center justify-space-between"
+          >
             <v-btn
               v-if="album.collaborators_count == 0"
               round
@@ -81,37 +85,40 @@
               @mouseenter="buttonHover = true"
               @mouseleave="buttonHover = false"
               @click.native="followUser(album.user)"
-              >
-                {{ followButtonText }}
-              </v-btn>
+            >
+              {{ followButtonText }}
+            </v-btn>
 
-              <img
-                class="track-status-icon"
-                width="21"
-                src="/static/images/ic_share.svg"
-                @click.native="openShareModal()"
-              />
+            <img
+              class="track-status-icon"
+              width="21"
+              src="/static/images/ic_share.svg"
+              @click.native="openShareModal()"
+            />
 
-              <img
-                class="track-status-icon"
-                width="21"
-                src="/static/images/ic_repost.svg"
-                @click.native="openShareModal()"
-              />
+            <img
+              class="track-status-icon"
+              width="21"
+              src="/static/images/ic_repost.svg"
+              @click.native="openShareModal()"
+            />
 
-              <img
-                class="track-status-icon"
-                width="21"
-                src="/static/images/stat.svg"
-                @click.native="openShareModal()"
-              />
+            <img
+              class="track-status-icon"
+              width="21"
+              src="/static/images/stat.svg"
+              @click.native="openShareModal()"
+            />
           </div>
 
           <div class="album-tracks px-3">
             <div class="_intro py-3">
               <b>Tracklist</b>
               <span class="mx-2">•</span>
-              <b>{{ album.tracks.length }} {{ 'track' | pluralize(album.tracks.length) }}</b>
+              <b
+                >{{ album.tracks.length }}
+                {{ "track" | pluralize(album.tracks.length) }}</b
+              >
             </div>
 
             <div class="album-tracks-section">
@@ -126,109 +133,29 @@
               ></album-track-item>
             </div>
           </div>
-          <!-- <div class="album-detail-section">
-            <div class="album-info-section">
-              <label class="album-title">{{ album.album_type }}</label>
-              <h4 class="album-name">{{ album.name }}</h4>
-              <div class="album-detail">
-                by
-                <router-link :to="'/' + album.user.slug" class="album-detail">{{
-                  album.user.username
-                }}</router-link>
-                <template v-for="collaborator in album.collaborators">
-                  <div :key="`${collaborator.id}`" class="d-inline-block">
-                    <span>,</span>
-                    <router-link
-                      :to="'/' + collaborator.user.slug"
-                      class="album-detail"
-                      >{{ collaborator.user.username }}</router-link
-                    >
-                  </div>
-                </template>
-                <div
-                  v-if="
-                    currentUser &&
-                    currentUser.user_type != 'listener' &&
-                    album.enabled_sample
-                  "
-                  class="album-sample-clearance mr-2"
-                >
-                  • Cleared to be sampled on YouSound.
-                  <span
-                    class="border-bottom"
-                    @click="openSampleClearanceLicenseModal()"
-                    >More Info</span
-                  >
-                </div>
-                <label
-                  class="album-stats-btn"
-                  @click="goToAlbumStats('played_by')"
-                  v-if="showStats"
-                  >View Stats</label
-                >
-              </div>
-              <span class="play-button-section">
-                <v-btn
-                  dark
-                  class="play-button"
-                  @click.native="playSong()"
-                  v-if="!isPlaying || $store.state.player.isPaused"
-                >
-                  <v-icon class="play">play_arrow</v-icon>
-                </v-btn>
-                <v-btn
-                  dark
-                  class="play-button"
-                  @click.native="pauseSong()"
-                  v-if="isPlaying && !$store.state.player.isPaused"
-                >
-                  <v-icon class="pause">pause</v-icon>
-                </v-btn>
-              </span>
-              <span class="album-action-section">
-                <v-menu offset-y class="more-menu">
-                  <v-btn dark class="more-btn" slot="activator">
-                    <v-icon right>more_horiz</v-icon>
-                  </v-btn>
-                  <v-list>
-                    <v-list-tile
-                      key="share"
-                      class="default-menu-item"
-                      @click.native="openShareModal()"
-                    >
-                      <v-list-tile-title>
-                        <label>Share</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-
-                    <v-list-tile
-                      v-if="album.user.username === currentUser.username"
-                      key="edit"
-                      class="default-menu-item"
-                      :to="{ name: 'UploadAlbum', params: { slug: album.slug } }"
-                    >
-                      <v-list-tile-title>
-                        <label>Edit Album</label>
-                      </v-list-tile-title>
-                    </v-list-tile>
-                  </v-list>
-                </v-menu>
-              </span>
-            </div>
-          </div> -->
         </div>
 
-        <div class="comments-section pa-3 dflex align-center justify-space-between">
-          <div
-            class="dflex align-center"
-            @click="showComments()"
-          >
+        <div
+          class="comments-section pa-3 dflex align-center justify-space-between"
+        >
+          <div class="dflex align-center" @click="showComments()">
             <img class="mr-2" src="/static/images/ic_comment.svg" />
-            <b>{{ comments.length }} {{ "comment" | pluralize(comments.length) }}</b>
+            <b
+              >{{ comments.length }}
+              {{ "comment" | pluralize(comments.length) }}</b
+            >
           </div>
 
           <div v-if="comments.length" class="commenters-group">
-            <user-tag v-for="(u, i) in commenters" :key="i" :user="u" class="commenter" showAvatar hideName hideTick />
+            <user-tag
+              v-for="(u, i) in commenters"
+              :key="i"
+              :user="u"
+              class="commenter"
+              showAvatar
+              hideName
+              hideTick
+            />
           </div>
         </div>
 
@@ -239,20 +166,28 @@
           <div class="featured __product width100">
             <div
               class="_image"
-              :style="{ 'background-image': 'url(' + feat_product.covers[0].cover.thumb.url + ')' }"
+              :style="{
+                'background-image':
+                  'url(' + feat_product.covers[0].cover.thumb.url + ')',
+              }"
             ></div>
             <div class="_details">
               <div class="_prod_name">{{ feat_product.name }}</div>
-              <div class="_merchant-name">{{ feat_product.merchant.username }}</div>
+              <div class="_merchant-name">
+                {{ feat_product.merchant.username }}
+              </div>
               <div class="_price">${{ feat_product.price | formatNumber }}</div>
             </div>
           </div>
         </div>
 
         <!-- Suggestions -->
-        <div v-if="album.user.recent_items.length > 0" class="suggestion-section pa-3">
+        <div
+          v-if="album.user.recent_items.length > 0"
+          class="suggestion-section pa-3"
+        >
           <h3 class="_title mb-2">
-            Suggested by 
+            Suggested by
             <span class="text-capitalize">
               {{ album.user.username }}
             </span>
@@ -262,10 +197,7 @@
             <b>No suggestions yet</b>
           </div>
 
-          <item-tab
-            v-else
-            :minHeight="suggestionHasProduct ? 323 : ''"
-          >
+          <item-tab v-else :minHeight="suggestionHasProduct ? 323 : ''">
             <template slot="itemTabs">
               <span
                 v-for="(feed, index) in album.user.recent_items"
@@ -341,7 +273,10 @@
                 <label class="album-info-label">Collaborators: </label>
                 <label class="album-info-text">
                   <template v-for="c in album.collaborators">
-                    <div class="collaborator-info" :key="`collaborator-${c.id}`">
+                    <div
+                      class="collaborator-info"
+                      :key="`collaborator-${c.id}`"
+                    >
                       <router-link class="user-name" :to="`/${c.user.slug}`">{{
                         c.user.username
                       }}</router-link>
@@ -354,9 +289,11 @@
                 <label class="album-info-label">Contributors: </label>
                 <label class="album-info-text">
                   <div class="contributor-info">
-                    <router-link class="user-name" :to="`/${album.user.slug}`">{{
-                      album.user.username
-                    }}</router-link>
+                    <router-link
+                      class="user-name"
+                      :to="`/${album.user.slug}`"
+                      >{{ album.user.username }}</router-link
+                    >
                     <span> - Uploader</span>
                   </div>
                 </label>
@@ -417,11 +354,7 @@
       </div>
 
       <!-- Show Comments Dialog -->
-      <mobile-comments
-        :item="album"
-        :comments="comments"
-        ref="mobileComments"
-      >
+      <mobile-comments :item="album" :comments="comments" ref="mobileComments">
         <template slot="_assoc">
           <trackcardsimple :item="album" />
         </template>
@@ -470,53 +403,53 @@
 </template>
 
 <script>
-  import _ from 'lodash'
-  import Vue from 'vue'
-  import { mapActions } from 'vuex'
-  import { Picker } from 'emoji-mart-vue'
-  import { MyEvents, Utils } from '@/helper'
+import _ from "lodash";
+import Vue from "vue";
+import { mapActions } from "vuex";
+import { Picker } from "emoji-mart-vue";
+import { MyEvents, Utils } from "@/helper";
 
-  import AlbumService from '@/services/album'
-  import CommentService from '@/services/comment'
-  import UserService from '@/services/user'
+import AlbumService from "@/services/album";
+import CommentService from "@/services/comment";
+import UserService from "@/services/user";
 
-  import activityItem from '@/components/activityitem'
-  import albumTrackItem from '@/components/albumtrackitem'
-  import albumFinishModal from '@/components/albumfinishmodal'
-  import downloadModal from '@/components/downloadmodal'
-  import merchModal from '@/components/merchmodal'
-  import productCard from '@/components/productcard'
-  import promoteModal from '@/components/promotemodal'
-  import sampleLicenseDialog from '@/views/album/components/sample_license_dialog'
-  import shareModal from '@/components/sharemodal'
-  import trackCard from '@/components/trackcard'
-  import trackcardSimple from '@/components/trackcardsimple'
-  import videoCard from '@/components/videocard'
-  import featuredProduct from '@/components/featuredProduct'
-  import UserTag from '@/components/user_tag'
-  import ItemTab from '@/components/itemTab'
-  import MobileComments from '../components/mobileComments'
+import activityItem from "@/components/activityitem";
+import albumTrackItem from "@/components/albumtrackitem";
+import albumFinishModal from "@/components/albumfinishmodal";
+import downloadModal from "@/components/downloadmodal";
+import merchModal from "@/components/merchmodal";
+import productCard from "@/components/productcard";
+import promoteModal from "@/components/promotemodal";
+import sampleLicenseDialog from "@/views/album/components/sample_license_dialog";
+import shareModal from "@/components/sharemodal";
+import trackCard from "@/components/trackcard";
+import trackcardsimple from "@/components/trackcardsimple";
+import videoCard from "@/components/videocard";
+import featuredProduct from "@/components/featuredProduct";
+import UserTag from "@/components/user_tag";
+import ItemTab from "@/components/itemTab";
+import MobileComments from "../components/mobileComments";
 
-  const ActionCable = require('actioncable')
+const ActionCable = require("actioncable");
 export default {
   components: {
-      Picker,
-      activityItem,
-      albumFinishModal,
-      albumTrackItem,
-      downloadModal,
-      merchModal,
-      productCard,
-      promoteModal,
-      sampleLicenseDialog,
-      shareModal,
-      trackCard,
-      trackcardSimple,
-      videoCard,
-      featuredProduct,
-      UserTag,
-      ItemTab,
-      MobileComments,
+    Picker,
+    activityItem,
+    albumFinishModal,
+    albumTrackItem,
+    downloadModal,
+    merchModal,
+    productCard,
+    promoteModal,
+    sampleLicenseDialog,
+    shareModal,
+    trackCard,
+    trackcardsimple,
+    videoCard,
+    featuredProduct,
+    UserTag,
+    ItemTab,
+    MobileComments,
   },
 
   data() {
@@ -532,17 +465,17 @@ export default {
       cable: null,
       comments_subscription: null,
       album: {
-          name: '',
-          user: {
-          display_name: '',
-          },
-          cover: {
-          large: '',
+        name: "",
+        user: {
+          display_name: "",
+        },
+        cover: {
+          large: "",
         },
       },
       trackIndex: 0,
       comments: [],
-      commentString: '',
+      commentString: "",
       comment_pagination: {
         count: 0,
         current_page: 0,
@@ -555,559 +488,549 @@ export default {
       dialog: false,
       roles: [],
       isPageReady: false,
-    }
+    };
   },
   computed: {
     feat_product() {
-      const product = this.album.products[0] || {}
-      return product
+      const product = this.album.products[0] || {};
+      return product;
     },
     suggestionHasProduct() {
-      const suggestions = this.album.user.recent_items
-      const hasProduct = suggestions.some((f)=> f.assoc_type == 'ShopProduct')
+      const suggestions = this.album.user.recent_items;
+      const hasProduct = suggestions.some((f) => f.assoc_type == "ShopProduct");
       console.log(hasProduct);
-      if (hasProduct) return true
-      return false
+      if (hasProduct) return true;
+      return false;
     },
     commenters() {
       return [
         {
-          username: 'user-1',
+          username: "user-1",
           avatar: {
-            url: 'https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg',
+            url: "https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg",
           },
         },
         {
-          username: 'user-2',
+          username: "user-2",
           avatar: {
-            url: 'https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg',
+            url: "https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg",
           },
         },
         {
-          username: 'user-3',
+          username: "user-3",
           avatar: {
-            url: 'https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg',
+            url: "https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/5/thumb_2c068f2d-5dbf-445e-8715-2f17cf4fd6ce.jpg",
           },
         },
-      ].slice(0, 8) // max of 8
+      ].slice(0, 8); // max of 8
     },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
     currentUser() {
-    return this.$store.state.auth.user
+      return this.$store.state.auth.user;
     },
 
     toLocalTimeString() {
-    return Utils.toLocalTimeString
+      return Utils.toLocalTimeString;
     },
 
     showStats() {
-    return !_.isEmpty(
+      return !_.isEmpty(
         _.find(this.roles, (user_album) => {
-        return (
-            ['creator', 'label', 'collaborator'].indexOf(user_album.user_type) >
+          return (
+            ["creator", "label", "collaborator"].indexOf(user_album.user_type) >
             -1
-        )
+          );
         })
-    )
+      );
     },
 
     coverImageURL() {
       if (this.album.cover) {
-          return this.album.cover.large.url
+        return this.album.cover.large.url;
       } else {
-          return ''
+        return "";
       }
     },
 
     coverThumbImageURL() {
-    if (this.album.cover) {
-        return this.album.cover.thumb.url + '?' + new Date()
-    } else {
-        return ''
-    }
+      if (this.album.cover) {
+        return this.album.cover.thumb.url + "?" + new Date();
+      } else {
+        return "";
+      }
     },
 
     commentsCount() {
-    if (this.comment_pagination.total_count > 0) {
-        return this.comment_pagination.total_count
-    } else {
-        return 'No'
-    }
+      if (this.comment_pagination.total_count > 0) {
+        return this.comment_pagination.total_count;
+      } else {
+        return "No";
+      }
     },
 
     hasMoreComments() {
-    return (
+      return (
         this.comment_pagination.current_page <
         this.comment_pagination.total_pages
-    )
+      );
     },
 
     isPlaying() {
-    return (
+      return (
         this.$store.state.player.isPlaying &&
         _.get(
-        this.$store.state.player.list[this.$store.state.player.listIndex],
-        'id'
+          this.$store.state.player.list[this.$store.state.player.listIndex],
+          "id"
         ) === this.album.id
-    )
+      );
     },
 
     ellipsisString() {
-    if (this.album) {
+      if (this.album) {
         if (this.album.description.length >= 200) {
-        return this.album.description.substr(200) + '...'
+          return this.album.description.substr(200) + "...";
         } else {
-        return this.album.description + '...'
+          return this.album.description + "...";
         }
-    } else {
-        return ''
-    }
+      } else {
+        return "";
+      }
     },
 
     followButtonText() {
-    if (this.album.user.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
-    }
-    return 'Follow'
+      if (this.album.user.is_following) {
+        return this.buttonHover ? "Unfollow" : "Following";
+      }
+      return "Follow";
     },
 
     genres() {
-    return _.map(this.album.genres, 'name').join(', ')
+      return _.map(this.album.genres, "name").join(", ");
     },
   },
 
   watch: {
     $route(to, from) {
-      const toPath = to.path.split('/')
-      this.slug = toPath[2]
-      this.trackIndex = 0
-      this.loadData()
+      const toPath = to.path.split("/");
+      this.slug = toPath[2];
+      this.trackIndex = 0;
+      this.loadData();
     },
   },
 
   created() {
-     console.log(this.$route)
-      // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
-      this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
-      // console.log('current', this.$store.state.navigator.current)
-      // console.log('last', this.$store.getters['navigator/last'])
+    console.log(this.$route);
+    // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
+    this.$store.dispatch("navigator/goNextState", { page: "album", tab: "" });
+    // console.log('current', this.$store.state.navigator.current)
+    // console.log('last', this.$store.getters['navigator/last'])
 
-      this.loadData()
-
+    this.loadData();
   },
 
   methods: {
-      ...mapActions({
-      setPlaylist: 'player/setPlaylist',
-      setPlaylistIndex: 'player/setListIndex',
-      setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus',
-      }),
-      showComments() {
-        this.$refs.mobileComments.showComments(true)
-      },
+    ...mapActions({
+      setPlaylist: "player/setPlaylist",
+      setPlaylistIndex: "player/setListIndex",
+      setTrackIndex: "player/setTrackIndex",
+      setPlaying: "player/setPlayingStatus",
+      toggleMobilePlayer: "player/toggleMobilePlayer",
+    }),
+    showComments() {
+      this.$refs.mobileComments.showComments(true);
+    },
 
-      loadData() {
-      const vm = this
-      this.slug = this.$route.params.slug
-      console.log('slug: ', this.slug);
-      this.comments = []
+    loadData() {
+      const vm = this;
+      this.slug = this.$route.params.slug;
+      console.log("slug: ", this.slug);
+      this.comments = [];
       this.comment_pagination = {
-          count: 0,
-          current_page: 0,
-          per_page: 5,
-          total_count: 0,
-          total_pages: 0,
-      }
-      this.isPageReady = false
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
+      };
+      this.isPageReady = false;
       Promise.all([
-          AlbumService.getAlbum(this.slug),
-          AlbumService.myRole(this.slug),
+        AlbumService.getAlbum(this.slug),
+        AlbumService.myRole(this.slug),
       ])
-          .then((values) => {
-          this.album = values[0].body
+        .then((values) => {
+          this.album = values[0].body;
 
           // Vue.set(this, "album", values[0].body)
           // for (let index in this.album.tracks) {
           //   this.buttonHover.push(false)
           // }
 
-          const lastState = this.$store.getters['navigator/last']
-          if (_.get(lastState, 'params.album_id') == this.album.id) {
-              this.showFinishDialog()
+          const lastState = this.$store.getters["navigator/last"];
+          if (_.get(lastState, "params.album_id") == this.album.id) {
+            this.showFinishDialog();
           }
 
-          this.roles = values[1].body
+          this.roles = values[1].body;
 
           if (this.currentUser) {
-              this.loadMoreComments()
+            this.loadMoreComments();
           }
-          this.$emit('updateHead')
+          this.$emit("updateHead");
 
           if (this.comments_subscription) {
-              this.comments_subscription.unsubscribe()
+            this.comments_subscription.unsubscribe();
           }
           this.cable = ActionCable.createConsumer(
-              `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
-          )
+            `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
+          );
           this.comments_subscription = this.cable.subscriptions.create(
-              {
-              channel: 'CommentsChannel',
+            {
+              channel: "CommentsChannel",
               album_id: vm.album.id,
-              },
-              {
+            },
+            {
               connected: () => {
-                  console.log('connected to CommentsChannel')
+                console.log("connected to CommentsChannel");
               },
               received: (data) => {
-                  console.log('comments_subscription')
-                  console.log(data)
-                  switch (data.action) {
-                  case 'create':
-                  case 'update':
-                      if (
-                      data.comment.status == 'published' ||
+                console.log("comments_subscription");
+                console.log(data);
+                switch (data.action) {
+                  case "create":
+                  case "update":
+                    if (
+                      data.comment.status == "published" ||
                       data.comment.readable_user_ids.indexOf(
-                          vm.currentUser.id
+                        vm.currentUser.id
                       ) > -1
-                      ) {
+                    ) {
                       const commentIndex = _.findIndex(
-                          vm.comments,
-                          (comment) => comment.id == data.comment.id
-                      )
+                        vm.comments,
+                        (comment) => comment.id == data.comment.id
+                      );
                       if (commentIndex === -1) {
-                          vm.comments.push(data.comment)
+                        vm.comments.push(data.comment);
                       } else {
-                          vm.comments[commentIndex] = data.comment
+                        vm.comments[commentIndex] = data.comment;
                       }
-                      } else {
+                    } else {
                       _.remove(vm.comments, (item) => {
-                          return item.id == data.comment.id
-                      })
-                      }
-                      break
-                  case 'delete':
-                      _.remove(vm.comments, (item) => {
-                      return item.id == data.comment_id
-                      })
-                      break
-                  }
-                  vm.comments = _.orderBy(vm.comments, ['created_at'], ['desc'])
-                  // const arr = vm.comments.slice()
-                  // vm.comments = arr
+                        return item.id == data.comment.id;
+                      });
+                    }
+                    break;
+                  case "delete":
+                    _.remove(vm.comments, (item) => {
+                      return item.id == data.comment_id;
+                    });
+                    break;
+                }
+                vm.comments = _.orderBy(vm.comments, ["created_at"], ["desc"]);
+                // const arr = vm.comments.slice()
+                // vm.comments = arr
               },
               disconnected: () => {
-                  console.log('disconnected to CommentsChannel :(')
+                console.log("disconnected to CommentsChannel :(");
               },
-              }
-          )
+            }
+          );
 
-          this.isPageReady = true
-          })
-          .catch((reason) => {
-          console.log(reason)
+          this.isPageReady = true;
+        })
+        .catch((reason) => {
+          console.log(reason);
           // this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', reason)
-          })
-      },
+          this.$store.dispatch("error/showErrorToast", reason);
+        });
+    },
 
-      convertedHTML(text) {
-      var matches = text.match(/@[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*/g)
+    convertedHTML(text) {
+      var matches = text.match(/@[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*/g);
       for (let index in matches) {
-          const match = matches[index]
-          const user_name = match.substr(1)
-          var reg = new RegExp(match, 'g')
-          // text = text.replace(reg, `<a href="/${user_name}">${match}</a>`)
-          text = text.replace(reg, `<a href="/${user_name}">${match}</a>`)
+        const match = matches[index];
+        const user_name = match.substr(1);
+        var reg = new RegExp(match, "g");
+        // text = text.replace(reg, `<a href="/${user_name}">${match}</a>`)
+        text = text.replace(reg, `<a href="/${user_name}">${match}</a>`);
       }
-      return text
-      },
+      return text;
+    },
 
-      followUser(user) {
+    followUser(user) {
       if (user.is_following) {
-          UserService.unfollowUser(user.id)
+        UserService.unfollowUser(user.id)
           .then((response) => {
-              this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + user.display_name,
-              ])
-              user.is_following = false
-              // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-              this.$root.$emit(MyEvents.USER_FOLLOW, user.id, false)
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just unfollowed " + user.display_name,
+            ]);
+            user.is_following = false;
+            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
+            this.$root.$emit(MyEvents.USER_FOLLOW, user.id, false);
           })
           .catch((e) => {
-              this.$store.dispatch(
-              'error/showErrorToast',
+            this.$store.dispatch(
+              "error/showErrorToast",
               e.body.errors || [e.body]
-              )
-          })
+            );
+          });
       } else {
-          UserService.followUser(user.id)
+        UserService.followUser(user.id)
           .then((response) => {
-              this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + user.display_name,
-              ])
-              user.is_following = true
-              // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-              this.$root.$emit(MyEvents.USER_FOLLOW, user.id, true)
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just followed " + user.display_name,
+            ]);
+            user.is_following = true;
+            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
+            this.$root.$emit(MyEvents.USER_FOLLOW, user.id, true);
           })
           .catch((e) => {
-              this.$store.dispatch(
-              'error/showErrorToast',
+            this.$store.dispatch(
+              "error/showErrorToast",
               e.body.errors || [e.body]
-              )
-          })
+            );
+          });
       }
-      },
+    },
 
-      goToAlbumStats(stats) {
-      this.$router.push({ path: `/album/${this.album.slug}/stats#${stats}` })
-      },
+    goToAlbumStats(stats) {
+      this.$router.push({ path: `/album/${this.album.slug}/stats#${stats}` });
+    },
 
-      showPromoteModal() {
-      this.isShowFinishModal = false
-      this.showPromoteMessage = true
-      },
+    showPromoteModal() {
+      this.isShowFinishModal = false;
+      this.showPromoteMessage = true;
+    },
 
-      dismissPromoteModal() {
-      this.showPromoteMessage = false
-      this.isShowFinishModal = true
-      },
+    dismissPromoteModal() {
+      this.showPromoteMessage = false;
+      this.isShowFinishModal = true;
+    },
 
-      openDownloadModal() {
-      this.showDownloadModal = true
-      },
+    openDownloadModal() {
+      this.showDownloadModal = true;
+    },
 
-      closeDownloadModal() {
-      this.showDownloadModal = false
-      },
+    closeDownloadModal() {
+      this.showDownloadModal = false;
+    },
 
-      openShareModal() {
-      this.showShareModal = true
-      },
+    openShareModal() {
+      this.showShareModal = true;
+    },
 
-      closeShareModal() {
-      this.showShareModal = false
-      },
+    closeShareModal() {
+      this.showShareModal = false;
+    },
 
-      dismissFinishDialog() {
-      this.isShowFinishModal = false
-      $('html').css('overflow', 'scroll')
-      },
+    dismissFinishDialog() {
+      this.isShowFinishModal = false;
+      $("html").css("overflow", "scroll");
+    },
 
-      showFinishDialog() {
-      this.isShowFinishModal = true
-      $('html').css('overflow', 'hidden')
-      },
+    showFinishDialog() {
+      this.isShowFinishModal = true;
+      $("html").css("overflow", "hidden");
+    },
 
-      saveAndFinish(users) {
-      $('html').css('overflow', 'scroll')
-      this.showPromoteMessage = false
-      this.isShowFinishModal = false
-      },
+    saveAndFinish(users) {
+      $("html").css("overflow", "scroll");
+      this.showPromoteMessage = false;
+      this.isShowFinishModal = false;
+    },
 
-      addEmoji(emoji, event) {
+    addEmoji(emoji, event) {
       // console.log('addEmoji')
-      this.showEmojiPicker = false
-      this.commentString += emoji.native
-      this.$refs.comment.focus()
-      },
+      this.showEmojiPicker = false;
+      this.commentString += emoji.native;
+      this.$refs.comment.focus();
+    },
 
-      showEmojiDialog() {
-      this.showEmojiPicker = !this.showEmojiPicker
-      this.$refs.comment.focus()
-      },
+    showEmojiDialog() {
+      this.showEmojiPicker = !this.showEmojiPicker;
+      this.$refs.comment.focus();
+    },
 
-      openSampleClearanceLicenseModal() {
-      this.$router.push({ path: '/terms' })
+    openSampleClearanceLicenseModal() {
+      this.$router.push({ path: "/terms" });
       // this.show_sample_clearance_license_modal = true
-      },
+    },
 
-      closeSampleClearanceLicenseModal() {
-      this.show_sample_clearance_license_modal = false
-      },
+    closeSampleClearanceLicenseModal() {
+      this.show_sample_clearance_license_modal = false;
+    },
 
-      blurMessage() {
-        const vm = this
-        if (vm.showEmojiPicker) {
-          setTimeout(function () {
+    blurMessage() {
+      const vm = this;
+      if (vm.showEmojiPicker) {
+        setTimeout(function () {
           // console.log('hide')
-          vm.showEmojiPicker = false
-          }, 200)
-        }
-      },
-
-      loadMoreComments() {
-      const params = {
-          commentable_type: 'Album',
-          commentable_id: this.album.id,
-          page: this.comment_pagination.current_page + 1,
-          per_page: this.comment_pagination.per_page,
+          vm.showEmojiPicker = false;
+        }, 200);
       }
-      CommentService.getComments(params)
-          .then((response) => {
-          this.comments = this.comments.concat(response.body.comments)
-          this.comment_pagination = response.body.pagination
-          })
-          .catch((e) => {
-          this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-          )
-          })
-      },
+    },
 
-      addComment() {
-      const params = new FormData()
-      params.append('comment[commentable_type]', 'Album')
-      params.append('comment[commentable_id]', this.album.id)
-      params.append('comment[body]', this.commentString)
-      this.commentString = ''
+    loadMoreComments() {
+      const params = {
+        commentable_type: "Album",
+        commentable_id: this.album.id,
+        page: this.comment_pagination.current_page + 1,
+        per_page: this.comment_pagination.per_page,
+      };
+      CommentService.getComments(params)
+        .then((response) => {
+          this.comments = this.comments.concat(response.body.comments);
+          this.comment_pagination = response.body.pagination;
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
+
+    addComment() {
+      const params = new FormData();
+      params.append("comment[commentable_type]", "Album");
+      params.append("comment[commentable_id]", this.album.id);
+      params.append("comment[body]", this.commentString);
+      this.commentString = "";
       CommentService.sendComment(params)
-          .then((response) => {
+        .then((response) => {
           // this.comments.unshift(response.body)
           // this.comment_pagination.total_count += 1
-          })
-          .catch((e) => {
+        })
+        .catch((e) => {
           this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-          )
-          })
-      },
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
 
-      makePublicComment(comment) {
+    makePublicComment(comment) {
       CommentService.makePublicComment(comment.id)
-          .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-              'You made a comment public!',
-          ])
-          })
-          .catch((e) => {
+        .then((response) => {
+          this.$store.dispatch("error/showSuccessToast", [
+            "You made a comment public!",
+          ]);
+        })
+        .catch((e) => {
           this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-          )
-          })
-      },
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
 
-      makePrivateComment(comment) {
+    makePrivateComment(comment) {
       CommentService.makePrivateComment(comment.id)
-          .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-              'You made a comment private!',
-          ])
-          })
-          .catch((e) => {
+        .then((response) => {
+          this.$store.dispatch("error/showSuccessToast", [
+            "You made a comment private!",
+          ]);
+        })
+        .catch((e) => {
           this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-          )
-          })
-      },
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
 
-      deleteComment(comment) {
+    deleteComment(comment) {
       CommentService.deleteComment(comment.id)
-          .then((response) => {
+        .then((response) => {
           // _.remove(this.comments, (item) => { return item.id == comment.id });
           // const arr = this.comments.slice();
           // this.comments = arr;
-          })
-          .catch((e) => {
+        })
+        .catch((e) => {
           this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-          )
-          })
-      },
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
 
-      blockUser(comment) {
+    blockUser(comment) {
       UserService.blockUser(comment.user.id)
-          .then((response) => {
+        .then((response) => {
           _.remove(this.comments, (item) => {
-              return item.user.id == comment.user.id
-          })
-          const arr = this.comments.slice()
-          this.comments = arr
-          })
-          .catch((e) => {
+            return item.user.id == comment.user.id;
+          });
+          const arr = this.comments.slice();
+          this.comments = arr;
+        })
+        .catch((e) => {
           this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-          )
-          })
-      },
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
 
-      selectTrack(index) {
-      this.trackIndex = index
-      if (this.isPlaying) {
-          this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, index)
-      } else {
-          this.setPlaylist([this.album])
-          this.setPlaylistIndex(0)
-          this.setPlaying(true)
-          this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, index)
-      }
-      },
-
-      playSong() {
+    playSong() {
       if (
-          this.$store.state.player.isPaused &&
-          this.$store.getters['player/currentAlbum'] &&
-          this.$store.getters['player/currentAlbum'].id == this.album.id
+        this.$store.state.player.isPaused &&
+        this.$store.getters["player/currentAlbum"] &&
+        this.$store.getters["player/currentAlbum"].id == this.album.id
       ) {
-          this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY);
       } else {
-          this.setPlaylist([_.cloneDeep(this.album)])
-          this.setPlaylistIndex(0)
-          this.setPlaying(true)
-          this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
+        this.setPlaylist([_.cloneDeep(this.album)]);
+        this.setPlaylistIndex(0);
+        this.setPlaying(true);
+        this.toggleMobilePlayer(true);
+
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY);
       }
-      },
+    },
 
-      pauseSong() {
-      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
-      },
+    pauseSong() {
+      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE);
+    },
 
-      dismissDownloadModal() {
-      this.showDownloadModal = false
-      },
+    dismissDownloadModal() {
+      this.showDownloadModal = false;
+    },
 
-      repostItem() {
+    repostItem() {
       AlbumService.repostAlbum(this.album.id)
-          .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-              'You just reposted ' + this.album.name,
-          ])
-          })
-          .catch((e) => {
+        .then((response) => {
+          this.$store.dispatch("error/showSuccessToast", [
+            "You just reposted " + this.album.name,
+          ]);
+        })
+        .catch((e) => {
           this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-          )
-          })
-      },
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
 
-      // hoverTrackItem (index, status) {
-      //   this.buttonHover[index] = status
-      //   this.buttonHover = this.buttonHover.slice()
-      // },
+    // hoverTrackItem (index, status) {
+    //   this.buttonHover[index] = status
+    //   this.buttonHover = this.buttonHover.slice()
+    // },
 
-      goToArtistProfile() {
+    goToArtistProfile() {
       this.$router.push({
-          path: '/' + this.album.user.slug,
-          hash: 'merch',
-      })
-      },
+        path: "/" + this.album.user.slug,
+        hash: "merch",
+      });
+    },
 
-      showMerchDialog() {
-      this.showMerchModal = true
-      },
+    showMerchDialog() {
+      this.showMerchModal = true;
+    },
 
-      dimissMerchDialog() {
-      this.showMerchModal = false
-      },
+    dimissMerchDialog() {
+      this.showMerchModal = false;
+    },
   },
 
   mounted() {},
@@ -1115,22 +1038,22 @@ export default {
   updated() {},
 
   head: {
-      title() {
+    title() {
       return {
-          inner: this.album.user.display_name + ' - ' + this.album.name,
-      }
-      },
-      meta() {
+        inner: this.album.user.display_name + " - " + this.album.name,
+      };
+    },
+    meta() {
       return [
-          {
-          p: 'twitter:title',
-          content: this.album.user.display_name + ' - ' + this.album.name,
-          },
-          { p: 'twitter:image', c: this.album.cover.large.url },
-      ]
-      },
+        {
+          p: "twitter:title",
+          content: this.album.user.display_name + " - " + this.album.name,
+        },
+        { p: "twitter:image", c: this.album.cover.large.url },
+      ];
+    },
   },
-}
+};
 </script>
 <style scoped src="../../../../static/styles/album.scss" lang="scss"></style>
 <style scoped lang="scss">
