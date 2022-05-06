@@ -261,6 +261,8 @@ export default {
       if (this.onMobile) {
         console.log("toggle modal");
         this.$store.dispatch('player/toggleMobilePlayer', true)
+
+        if (this.selectedTrackIsPlaying) return
       }
 
       // console.log('album-track-item selectTrack', this.trackIndex, this.isPlaying)
