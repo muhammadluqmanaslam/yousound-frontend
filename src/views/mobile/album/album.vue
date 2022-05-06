@@ -423,7 +423,7 @@
         ref="mobileComments"
       >
         <template slot="_assoc">
-          <trackcard-simple :item="album" />
+          <trackcardsimple :item="album" />
         </template>
       </mobile-comments>
 
@@ -490,7 +490,7 @@
   import sampleLicenseDialog from '@/views/album/components/sample_license_dialog'
   import shareModal from '@/components/sharemodal'
   import trackCard from '@/components/trackcard'
-  import trackcardSimple from '@/components/trackCard-simple'
+  import trackcardsimple from '@/components/trackcardsimple'
   import videoCard from '@/components/videocard'
   import featuredProduct from '@/components/featuredProduct'
   import UserTag from '@/components/user_tag'
@@ -511,7 +511,7 @@ export default {
       sampleLicenseDialog,
       shareModal,
       trackCard,
-      trackcardSimple,
+      trackcardsimple,
       videoCard,
       featuredProduct,
       UserTag,
@@ -929,13 +929,13 @@ export default {
       },
 
       blurMessage() {
-      const vm = this
-      if (vm.showEmojiPicker) {
+        const vm = this
+        if (vm.showEmojiPicker) {
           setTimeout(function () {
           // console.log('hide')
           vm.showEmojiPicker = false
           }, 200)
-      }
+        }
       },
 
       loadMoreComments() {
