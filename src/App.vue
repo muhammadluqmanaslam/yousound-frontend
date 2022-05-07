@@ -242,7 +242,7 @@ export default {
   },
   mounted() {
     // on app mount, init app loader
-    if (this.isAuthenticated) {
+    if (!this.onMobile && this.isAuthenticated) {
       this.$refs.appLoader.updateLoader(0)
     }
   },
