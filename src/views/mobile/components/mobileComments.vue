@@ -5,7 +5,7 @@
     fullscreen
     content-class="mobile-comment-dialog"
   >
-    <div class="pa-3 dflex top-wrapper">
+    <div class="dflex top-wrapper">
       <div class="centerLogo text-center flex-grow">
         <img src='../../../../static/images/nav_logo_primary.png' width="120" />
       </div>
@@ -30,12 +30,31 @@
       </div>    
 
       <div class="comment_input">
+          <user-tag
+            :user="currentUser"
+            showAvatar
+            hideTick
+            hideName width="42" height="42"
+            class="commenter"
+          />
+
           <input
             v-model.trim="commentText"
             type="text"
             placeholder="Leave a comment..."
             :class={roundInput}
-            @keyup.enter="addComment()"
+          />
+
+          <img
+            v-if="commentText.length"
+            src='../../../../static/images/ic_send_dark.svg'
+            class="ml-3 addComment-cta"
+            @click="addComment()"
+          />
+          <img
+            v-else
+            src='../../../../static/images/ic_send.svg'
+            class="ml-3 addComment-cta"
           />
       </div>
     </div>
@@ -44,6 +63,7 @@
 
 <script>
 import Chat from '@/views/video/components/chat'
+import UserTag from '@/components/user_tag'
 import CommentService from '@/services/comment'
 
 export default {
@@ -63,6 +83,7 @@ export default {
   },
   components: {
     Chat,
+    UserTag,
   },
   data() {
     return {
@@ -249,6 +270,10 @@ export default {
     width: 100%;
     border-radius: 90px;
     padding: 0 15px;
+  }
+
+  .addComment-cta {
+    width: 50px;
   }
 }
 </style>
