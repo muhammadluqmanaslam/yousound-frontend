@@ -9,6 +9,7 @@ const state = {
     menuImg: '',
     closeCallBack: {},
   },
+  albumPrevRoute: '' || 'DiscoverIndex', // fallback,
 }
 
 const getters = {
@@ -26,6 +27,9 @@ const actions = {
 }
 
 const mutations = {
+  setAlbumPrevRoute(state, route) {
+    state.albumPrevRoute = route
+  },
   toggleMobileHeaderOptions(state, options) {
     console.log('options', options);
     const optionKeys = Object.keys(options)

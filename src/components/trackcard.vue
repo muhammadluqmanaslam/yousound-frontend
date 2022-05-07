@@ -30,9 +30,9 @@
         </template>
 
         <v-flex xs12 class="track-actions" :class="{ playing: isPlaying }">
-          <router-link :to="`/${item.album_type}/${item.slug}`">
-            <v-flex xs12 class="touch-flex"></v-flex>
-          </router-link>
+          <span @click="gotoItem()">
+            <v-flex xs12 class="touch-flex ii"></v-flex>
+          </span>
           <v-btn
             v-if="!isPlaying || $store.state.player.isPaused"
             @click.native="playSong()"

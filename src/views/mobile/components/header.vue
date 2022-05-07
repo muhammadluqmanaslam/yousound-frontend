@@ -54,7 +54,7 @@
         <img
           src="../../../../static/images/ic_close_dark.svg"
           width="18"
-          @click="$router.go(-1)"
+          @click="goBack()"
         />
       </div>
     </div>
@@ -63,7 +63,7 @@
 
 <script>
 import userTag from "@/components/user_tag";
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   props: {
@@ -113,6 +113,12 @@ export default {
   watch: {},
   methods: {
     goBack() {
+      if (this.$route.name == 'AlbumDetail') {
+        const prev = this.albumPrevRoute
+
+        return this.$router.push({name: prev})
+      }
+
       const senderRoute = this.senderRoute
       const referrer = document.referrer
       const prevRoute = referrer.split('://')[1].split('/')[1] || '';
@@ -131,12 +137,15 @@ export default {
     }
   },
   computed: {
-    appLogo() {
-      return '/static/images/nav_logo_primary.png'
-    },
     ...mapGetters({
       isAuthenticated: "auth/isAuthenticated",
     }),
+    ...mapState({
+      albumPrevRoute: state => state.appMobile.albumPrevRoute,
+    }),
+    appLogo() {
+      return '/static/images/nav_logo_primary.png'
+    },
     currentUser() {
       return this.$store.state.auth.user
     },

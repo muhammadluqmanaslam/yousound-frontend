@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { MyEvents } from '@/helper'
 
 import AlbumService from '@/services/album'
@@ -67,6 +67,10 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -170,6 +174,19 @@ export default {
       setTrackIndex: 'player/setTrackIndex',
       setPlaying: 'player/setPlayingStatus',
     }),
+    ...mapMutations({
+      setAlbumPrevRoute: 'appMobile/setAlbumPrevRoute',
+    }),
+    gotoItem() {
+      // store entry point before album page entry
+      const currentRoute = this.$route.name
+      if (this.onMobile && currentRoute !== 'AlbumDetail') {
+        this.setAlbumPrevRoute(currentRoute)
+        return this.$router.push(`/${this.item.album_type}/${this.item.slug}`)
+      } else {
+        return this.$router.push(`/${this.item.album_type}/${this.item.slug}`)
+      }
+    },
 
     playSong() {
       if (this.isPlaying && this.$store.state.player.isPaused) {
