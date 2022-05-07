@@ -12,7 +12,7 @@
       <v-icon class="min-player" @click="minModal()"> expand_more </v-icon>
     </div>
 
-    <div class="album-track-details">
+    <div v-if="item != null" class="album-track-details">
       <div
         class="album-cover"
         :style="{ 'background-image': 'url(' + albumCover + ')' }"
@@ -276,7 +276,7 @@ export default {
         this.$store.state.player.list[this.$store.state.player.listIndex];
 
       if (!item) {
-        return {};
+        return null;
       }
 
       if (item.assoc_type) {
