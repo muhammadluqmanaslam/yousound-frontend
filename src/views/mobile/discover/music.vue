@@ -16,7 +16,6 @@
             <track-card
               :objects="recommendedFeed"
               :objectIndex="index"
-              :hideButtonAction="hideAlbum"
               hideMoreMenu
             />
           </span>
@@ -40,7 +39,6 @@
             <track-card
               :objects="newFeedSplit1"
               :objectIndex="index"
-              :hideButtonAction="hideAlbum"
               hideMoreMenu
             />
           </span>
@@ -57,7 +55,6 @@
             <track-card
               :objects="newFeedSplit2"
               :objectIndex="index"
-              :hideButtonAction="hideAlbum"
               hideMoreMenu
             />
           </span>
@@ -81,7 +78,6 @@
             <track-card
               :objects="popularFeedSplit1"
               :objectIndex="index"
-              :hideButtonAction="hideAlbum"
               hideMoreMenu
             />
           </span>
@@ -98,7 +94,6 @@
             <track-card
               :objects="popularFeedSplit2"
               :objectIndex="index"
-              :hideButtonAction="hideAlbum"
               hideMoreMenu
             />
           </span>
@@ -112,6 +107,7 @@
 import SearchService from '@/services/search'
 import itemTab from '@/components/itemTab'
 import trackCard from '@/components/trackcard'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     props: {
@@ -123,17 +119,20 @@ export default {
     },
     data() {
         return {
-          selected_genre: null,
+          selected_genre: {},
+          selected_category: {},
           feeds: [],
           total_pages: 1,
           seed: '',
-          items_per_page: 1 * 50,
-          recommendedFeed: [],
-          newFeed: [],
-          popularFeed: [],
+          items_per_page: 1 * 10,
         }
     },
     computed: {
+      ...mapState({
+        recommendedFeed: state => state.discover.mobileMusicFeed.recommended,
+        newFeed: state => state.discover.mobileMusicFeed.new,
+        popularFeed: state => state.discover.mobileMusicFeed.popular,
+      }),
       newFeedSplit1() {
         const split = this.newFeed.slice(0, this.newFeed.length/2)
         return split
@@ -152,61 +151,47 @@ export default {
       },
     },
     methods: {
+      ...mapActions({
+        getMobileMusicFeed: 'discover/getMobileMusicFeed'
+      }),
       getFeeds() {
-        this.filtered_feeds('recommended')
-        this.filtered_feeds('new')
-        this.filtered_feeds('popular')
+        this.getRecommendedFeed()
+        this.getNewFeed()
+        this.getPopularFeed()
       },
-      async filtered_feeds(filterBy) {
-        const filter = await this.loadFeeds(filterBy, 1).then((res) => res)
-
-        // this filtered_feeds() will return a prop limit if available
-        let result = filter.slice(0, this.listLimit || filter.length)
-
-        switch (filterBy) {
-          case 'recommended':
-            this.recommendedFeed = result
-            break;
-          case 'new':
-            this.newFeed = _.uniqBy(result, 'id')
-            break;
-          case 'popular':
-            this.popularFeed = result
-            break;
-          default:
-            break;
-        }
-        return result
-      },
-      loadFeeds(tab, page) {
-        const genre = _.get(this.selected_genre, 'id', 'any')
-        const category = _.get(this.selected_category, 'id', 'any')
+      getParams(filter) {
+        const genre = this.selected_genre.id || 'any'
+        const category = this.selected_category.id || 'any'
         const params = {
-          filter: tab,
+          filter,
           genre: genre,
           category: category,
-          page: page,
-          per_page: this.items_per_page,
+          page: 1,
+          per_page: this.listLimit || this.items_per_page,
         }
-        if (tab !== 'recommended') {
+        if (filter !== 'recommended') {
           params['seed'] = this.seed
         }
-       return SearchService.searchDiscover(params)
-          .then((response) => {
-            return response.body.albums
-          })
-          .catch((e) => {
-            this.$store.dispatch('error/showLoadingActivity', false)
-            // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-            console.log('discover error', e)
-          })
+
+        return params
       },
-      hideAlbum(album) {
-        _.remove(this.feeds, (item) => {
-          return item.id === album.id
-        })
-        const arr = this.feeds.slice()
-        this.feeds = arr
+      getRecommendedFeed() {
+        if (this.recommendedFeed.length) return
+
+        const params = this.getParams('recommended')
+        this.getMobileMusicFeed(params)
+      },
+      getNewFeed() {
+        if (this.newFeed.length) return
+
+        const params = this.getParams('new')
+        this.getMobileMusicFeed({...params, per_page: 20})
+      },
+      getPopularFeed() {
+        if (this.popularFeed.length) return
+
+        const params = this.getParams('popular')
+        this.getMobileMusicFeed(params)
       },
     },
     created() {
