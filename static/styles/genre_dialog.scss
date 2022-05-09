@@ -8,8 +8,72 @@
   padding-bottom: 20px !important;
   border-radius: 4px;
 
-  .ma-2 {
-    margin: 8px 8px 30px 8px !important;
+  &.onMobile {
+    background-color: #ffffff;
+    width: auto !important;
+    
+    ._title {
+      color: #000000;
+    }
+    ._subtitle p {
+      color: #000000;
+    }
+    .genre {
+      .pgs-wrapper {
+        .pgs {
+          padding-bottom: 68px;
+
+          .pgs-inner-wrapper {
+            background-color: unset !important;
+            border: 1px solid #9d9999;
+            border-radius: 4px;
+            
+            &._checked {
+              background-color: rgba(42, 92, 255, 0.879) !important;
+              border: 1px solid #2A5CFF;
+              color: #ffffff !important;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              ._selected {
+                font-weight: bold;
+              }
+
+              &._checked {
+                .pgs__title {
+                  margin-bottom: 0;
+                  
+                  label {
+                    font-weight: 900;
+                    color: #ffffff;
+                  }
+
+                }
+                .pgs__description span {
+                  color: #ffffff;
+                  padding-left: 0;
+                }
+              }
+            }
+
+            .pgs__description span {
+              background-color: unset !important;
+              color: #000000;
+            }
+          }
+        }
+      }
+
+      ._save-section {
+        position: sticky;
+        bottom: -21px;
+        text-align: center;
+        background-color: #ffffff;
+        width: 100%;
+        padding: 10px 0;
+      }
+    }
   }
 
   .regular-checkbox {

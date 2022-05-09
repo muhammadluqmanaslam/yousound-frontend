@@ -158,7 +158,8 @@
     <v-dialog
       v-if="currentUser"
       v-model="show_genre_selector_dialog"
-      content-class="my-genre-dialog ma-0 pa-2"
+      :fullscreen="onMobile"
+      :content-class="[`my-genre-dialog ma-0 pa-2 ${onMobile ? 'onMobile' : ''}`]"
     >
       <genre-dialog :dismiss="closeGenreSelectorDialog" />
     </v-dialog>

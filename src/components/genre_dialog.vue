@@ -1,24 +1,44 @@
 <template>
-  <v-container pa-0 class="genre" v-if="isPageReady">
-    <h3 class="mt-4 ml-2">Genre Filter</h3>
-    <div class="d-block justify-space-between" :class="{'dflex': !onMobile}">
-      <p class="ma-2">
-        Only albums from genres selected will appear on
-        <strong>Music & Home</strong>
-      </p>
+  <v-container
+    pa-0
+    class="genre"
+    :class="{onMobile}"
+    v-if="isPageReady"
+  >
+      <div :class="{'dflex justify-space-between align-center': onMobile}">
+        <div>
+          <h3 class="_title">Genre Filter</h3>
+          <div class="_subtitle d-block justify-space-between" :class="{'dflex': !onMobile}">
+              <p v-if="!onMobile" class="ma-2">
+                Only albums from genres selected will appear on
+                <strong>Music & Home</strong>
+              </p>
 
-      <v-btn
-        v-if="show_selector_view"
-        round
-        dark
-        color="blue"
-        class="update-btn"
-        @click.native="saveGenreFilters()"
-      >
-        Save
-      </v-btn>
-    </div>
-    <v-container fluid grid-list-lg px-0>
+              <p v-else>
+                Tap and hold to select subgenres
+              </p>
+
+            <v-btn
+              v-if="!onMobile && show_selector_view"
+              round
+              dark
+              color="blue"
+              class="update-btn"
+              @click.native="saveGenreFilters()"
+            >
+              Save
+            </v-btn>
+          </div>
+        </div>
+
+        <img
+          v-if="onMobile"
+          src="../../static/images/ic_close_dark.svg"
+          width="18"
+          @click="dismiss()"
+        />
+      </div>
+    <v-container fluid grid-list-lg px-0 pt-0>
       <v-layout row wrap mt-3 class="pgs_area" v-if="show_selector_view">
         <v-flex
           class="pgs-wrapper" 
@@ -30,6 +50,7 @@
           <div class="pgs" :key="parent.id">
             <div
               class="pgs-inner-wrapper"
+              :class="{_checked: onMobile && parent.value}"
               :style="{ backgroundColor: parent.color }"
               @click="checkParentGenre(parent, !parent.value)"
             >
@@ -51,11 +72,30 @@
                   <div v-else class="pgs__badge check"></div>
                 </div>
               </div>
+
+              <div
+                v-if="onMobile && parent.value"
+                class="_selected"
+              >
+                Selected
+              </div>
             </div>
           </div>
         </v-flex>
       </v-layout>
     </v-container>
+
+    <div v-if="onMobile" class="_save-section">
+      <v-btn
+        round
+        dark
+        color="black"
+        class="update-btn"
+        @click.native="saveGenreFilters()"
+      >
+        Save
+      </v-btn>
+    </div>
 
     <v-btn
       v-if="!show_selector_view"
