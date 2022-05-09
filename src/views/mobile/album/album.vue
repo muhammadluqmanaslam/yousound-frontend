@@ -498,7 +498,7 @@ export default {
     suggestionHasProduct() {
       const suggestions = this.album.user.recent_items;
       const hasProduct = suggestions.some((f) => f.assoc_type == "ShopProduct");
-      console.log(hasProduct);
+
       if (hasProduct) return true;
       return false;
     },
@@ -621,7 +621,6 @@ export default {
   },
 
   created() {
-    console.log(this.$route);
     // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
     this.$store.dispatch("navigator/goNextState", { page: "album", tab: "" });
     // console.log('current', this.$store.state.navigator.current)
@@ -645,7 +644,6 @@ export default {
     loadData() {
       const vm = this;
       this.slug = this.$route.params.slug;
-      console.log("slug: ", this.slug);
       this.comments = [];
       this.comment_pagination = {
         count: 0,
