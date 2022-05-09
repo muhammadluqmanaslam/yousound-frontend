@@ -1,5 +1,6 @@
 <template>
   <div class="mobile-player">
+    <canvas id="canvas" class="player-background"></canvas>
     <div class="_top dflex align-center justify-space-between">
       <div class="logo-wrapper">
         <img
@@ -23,15 +24,15 @@
         <div class="track-artist">{{ item.user.username }}</div>
       </div>
 
-      <div class="loading flex-none" id="loading" v-if="!isLoaded"></div>
+      <div class="loading flex-none" id="loading" v-if="isLoaded"></div>
       <div v-else class="controls-section">
         <div class="bar-section">
-          <label class="duration-time played" id="playedTime">{{
+          <!-- <label class="duration-time played" id="playedTime">{{
             playedTime
-          }}</label>
+          }}</label> -->
           <v-spacer>
             <v-slider
-              class="player-bar"
+              class="player-bar pa-0"
               v-model="progress"
               @click.native="seek(progress)"
               hide-details
@@ -212,6 +213,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 import { mapGetters, mapActions } from "vuex";
 import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
@@ -262,6 +264,14 @@ export default {
     ...mapGetters({
       reminderTracksCount: "app/reminderTracksCount",
     }),
+
+    coverThumbImageURL() {
+      if (this.item.cover) {
+        return this.item.cover.thumb.url + "?" + new Date();
+      } else {
+        return "";
+      }
+    },
 
     currentUser() {
       return this.$store.state.auth.user;
@@ -319,6 +329,9 @@ export default {
   },
 
   watch: {
+    item(val) {
+      this.changeBackground();
+    },
     showDownloadModal(val) {
       this.triggerModalMode(val);
     },
@@ -347,13 +360,43 @@ export default {
       setPlaying: "player/setPlayingStatus",
       setPauseStatus: "player/setPauseStatus",
     }),
+    changeBackground() {
+      var canvas = document.getElementById("canvas");
+
+      var cctx = canvas.getContext("2d");
+      var buff = document.createElement("canvas");
+      buff.width = canvas.width;
+      buff.height = canvas.height;
+
+      var imageObj = new Image();
+      // this will make CORS happy because the server is well configured
+      imageObj.crossOrigin = "anonymous";
+      // Easiest is to always host your images on your own server
+      // imageObj.src = 'https://dl.dropboxusercontent.com/s/8q8sjnqmmto13h5/lionCMYK.jpg'
+      imageObj.src = this.coverThumbImageURL;
+
+      imageObj.onload = function () {
+        // canvas.width = imageObj.height
+        // canvas.height = imageObj.height
+        cctx.drawImage(imageObj, 0, 0);
+        // eslint-disable-next-line no-undef
+        StackBlur.image(imageObj, canvas, 100, false);
+
+        var wrapper_height = $(".album-pages").height() + 130;
+        const height = wrapper_height;
+
+        if (canvas) {
+          // $("#canvas").css("cssText", "height: " + height + "px !important;");
+        }
+        $("#back_image").css("cssText", "height: " + height + "px !important;");
+      };
+    },
 
     closeOptions() {
       this.optionModalActive = false;
     },
 
     minModal() {
-      console.log("toggle");
       this.$store.dispatch("player/toggleMobilePlayer", false);
     },
 
@@ -816,6 +859,14 @@ export default {
   height: 100vh;
   padding: 30px;
 
+  canvas.player-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    height: 100% !important;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 
   .loading {
     margin: 0 auto;
@@ -829,6 +880,9 @@ export default {
   }
 
   ._top {
+    position: relative;
+    margin-bottom: 40px;
+
     .logo-wrapper {
       flex-grow: 1;
       text-align: center;
@@ -841,12 +895,15 @@ export default {
   }
 
   .album-track-details {
+    position: relative;
+
     .album-cover {
-      height: 350px;
-      width: 300px;
+      height: 300px;
+      width: 100%;
       background-size: cover;
       margin: 0 auto;
       background-position: center;
+      margin-bottom: 20px;
     }
 
     .track-info {
@@ -866,7 +923,7 @@ export default {
     }
 
     .player-options {
-      position: absolute;
+      position: fixed;
       left: 0;
       bottom: 0;
       padding-bottom: 40px;
