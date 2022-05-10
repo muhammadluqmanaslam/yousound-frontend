@@ -7,7 +7,7 @@ import CommentService from '@/services/comment'
 import { StreamStatuses } from '@/helper'
 import UserTag from '@/components/user_tag'
 import Attach from './components/attach'
-import Chat from './components/chat'
+import Chat from '@/components/chat'
 import UserBox from './components/user_box'
 import VideoBox from '@/components/video_box'
 import VideoPlayer from './components/video_player'
@@ -17,6 +17,9 @@ import ShareModal from '@/components/sharemodal'
 import Comments from '@/components/comments'
 import merchModal from '@/components/merchmodal'
 import sendLoveModal from '@/components/sendlovemodal'
+import mobileComments from '@/views/mobile/components/mobileComments'
+import commentInput from '@/views/mobile/components/commentInput'
+import { mapActions } from 'vuex'
 
 const ActionCable = require('actioncable')
 
@@ -34,6 +37,8 @@ export default {
     Comments,
     merchModal,
     sendLoveModal,
+    mobileComments,
+    commentInput,
   },
 
   data() {
@@ -151,6 +156,9 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setMobileFooter: 'appMobile/setMobileFooterOptions',
+    }),
     showLoveDialog() {
       this.showSendLoveModal = true
     },
@@ -397,5 +405,12 @@ export default {
         document.querySelector('.vid__description').style.height = '20px'
       }
     },
+    activePaneTab(val) {
+       if (val === 'comments') {
+        this.setMobileFooter({showFooter: false })
+      } else {
+        this.setMobileFooter({showFooter: true })
+       }
+     }
   },
 }

@@ -175,7 +175,7 @@
                         <div class="assoc__subtitle">
                           <span class="__name">{{ stream.assoc.name }}</span>
                           <div v-if="onMobile">
-                            <b class="__name text-capitalize">{{ stream.assoc.merchant.username }}</b>
+                            <!-- <b class="__name text-capitalize">{{ stream.assoc.merchant.username }}</b> -->
                           </div>
                           <br />
                           <span
@@ -249,8 +249,22 @@
             </div>
           </v-flex>
 
-          <v-flex v-if="!onMobile || activePaneTab == 'comments'" xs12 sm9 comment-wrapper :class="{'px-4':onMobile}">
+          <v-flex v-if="!onMobile" xs12 sm9 comment-wrapper>
             <comments :item="stream" :comments="comments" roundAvatar />
+          </v-flex>
+          <v-flex v-else xs12 comment-wrapper class="px-4">
+            <chat
+              :items="comments"
+              hideDatedString
+              showShortAge
+            />
+
+            <comment-input
+              :item="stream"
+              roundInput
+              noBorder
+              placeholder="Add your reply"
+            ></comment-input>
           </v-flex>
           <!-- <v-flex xs3>
             <div class="album-reposted-section">
