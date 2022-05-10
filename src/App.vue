@@ -65,7 +65,7 @@
         <router-view></router-view>
         <app-footer v-if="!onMobile && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
 
-        <mobile-footer v-else-if="onMobile && isAuthenticated" />
+        <mobile-footer v-else-if="onMobile && isAuthenticated && mFooterOp.showFooter" />
       </v-container>
     </v-content>
 
@@ -171,6 +171,7 @@ export default {
       sideBarWidth: state => state.app.sideBarWidth,
       sideBarMini: state => state.app.sideBarMini,
       mHeaderOp: state => state.appMobile.mobileHeaderOptions,
+      mFooterOp: state => state.appMobile.mobileFooterOptions,
       mobilePlayerActive: state => state.player.isMobilePlayerActive,
     }),
     ...mapGetters({

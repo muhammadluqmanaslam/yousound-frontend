@@ -9,6 +9,9 @@ const state = {
     menuImg: '',
     closeCallBack: {},
   },
+  mobileFooterOptions: {
+    showFooter: true,
+  },
   albumPrevRoute: '' || 'DiscoverIndex', // fallback,
 }
 
@@ -21,8 +24,10 @@ const getters = {
 
 const actions = {
   setMobileHeaderOptions({commit}, options) {
-    // console.log(options);
     commit('toggleMobileHeaderOptions', options)
+  },
+  setMobileFooterOptions({commit}, options) {
+    commit('toggleMobileFooterOptions', options)
   },
 }
 
@@ -31,7 +36,6 @@ const mutations = {
     state.albumPrevRoute = route
   },
   toggleMobileHeaderOptions(state, options) {
-    console.log('options', options);
     const optionKeys = Object.keys(options)
 
     // find in mobileHeaderOptions, keys that are being updated
@@ -41,8 +45,17 @@ const mutations = {
         state.mobileHeaderOptions[element] = options[element]
       }
     }
+  },
+  toggleMobileFooterOptions(state, options) {
+    const optionKeys = Object.keys(options)
 
-    console.log('new', state.mobileHeaderOptions);
+    // find in mobileFooterHeaderOptions, keys that are being updated
+    for (let i = 0; i < optionKeys.length; i++) {
+      const element = optionKeys[i];
+      if (Object.hasOwnProperty.call(state.mobileFooterOptions, element)) {
+        state.mobileFooterOptions[element] = options[element]
+      }
+    }
   },
 }
 
