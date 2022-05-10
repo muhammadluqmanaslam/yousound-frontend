@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 sm12 class="share-section">
+  <v-flex xs12 sm12 class="share-section" :class="{onMobile}">
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
     <div row wrap class="popup-section">
       <v-flex xs12 class="profile-section">
@@ -113,6 +113,10 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+
     followButtonText() {
       if (this.user.is_following) {
         return this.buttonHover ? "Unfollow" : "Following";
