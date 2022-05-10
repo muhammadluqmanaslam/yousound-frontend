@@ -2,7 +2,7 @@
   <div class="track-card-simple">
     <div
       class="cover"
-      :style="`background-image: url(${coverImageURL}); height: ${height}px; width: ${width}px`"
+      :style="`background-image: url(${cover}); height: ${height}px; width: ${width}px`"
     ></div>
     <div class="details">
       <div class="title">{{ title }}</div>
@@ -26,22 +26,9 @@ export default {
       type: [String, Number],
       default: 70,
     },
-  },
-  computed: {
-    coverImageURL() {
-      if (this.item.cover) {
-        console.log(this.item);
-        return this.item.cover.large.url;
-      } else {
-        return "";
-      }
-    },
-    title() {
-      return this.item.name || ''
-    },
-    subtitle() {
-      return this.item.user.username || ''
-    },
+    cover: String,
+    title: String,
+    subtitle: String,
   },
 };
 </script>
@@ -61,6 +48,7 @@ export default {
       font-weight: 600;
     }
     .subtitle {
+      text-transform: capitalize;
       font-weight: 500;
     }
   }
