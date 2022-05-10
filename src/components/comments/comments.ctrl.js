@@ -1,4 +1,4 @@
-import Chat from '@/views/video/components/chat'
+import Chat from '@/components/chat'
 import CommentService from '@/services/comment'
 
 export default {
