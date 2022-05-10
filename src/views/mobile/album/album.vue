@@ -90,24 +90,23 @@
             </v-btn>
 
             <img
-              class="track-status-icon"
+              class="share-icon"
               width="21"
               src="/static/images/ic_share.svg"
-              @click.native="openShareModal()"
+              @click="openShareModal()"
             />
 
             <img
-              class="track-status-icon"
+              class="repost-icon"
               width="21"
               src="/static/images/ic_repost.svg"
-              @click.native="openShareModal()"
+              @click="repostItem()"
             />
 
             <img
-              class="track-status-icon"
+              class="stat-icon"
               width="21"
               src="/static/images/stat.svg"
-              @click.native="openShareModal()"
             />
           </div>
 
@@ -749,18 +748,6 @@ export default {
         });
     },
 
-    convertedHTML(text) {
-      var matches = text.match(/@[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*/g);
-      for (let index in matches) {
-        const match = matches[index];
-        const user_name = match.substr(1);
-        var reg = new RegExp(match, "g");
-        // text = text.replace(reg, `<a href="/${user_name}">${match}</a>`)
-        text = text.replace(reg, `<a href="/${user_name}">${match}</a>`);
-      }
-      return text;
-    },
-
     followUser(user) {
       if (user.is_following) {
         UserService.unfollowUser(user.id)
@@ -820,6 +807,7 @@ export default {
     },
 
     openShareModal() {
+      console.log('share')
       this.showShareModal = true;
     },
 
