@@ -18,7 +18,7 @@ import Comments from '@/components/comments'
 import merchModal from '@/components/merchmodal'
 import sendLoveModal from '@/components/sendlovemodal'
 import mobileComments from '@/views/mobile/components/mobileComments'
-import commentInput from '@/views/mobile/components/commentInput'
+import commentInput from '@/components/commentInput'
 import { mapActions } from 'vuex'
 
 const ActionCable = require('actioncable')

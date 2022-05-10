@@ -29,42 +29,23 @@
         </div>
       </div>    
 
-      <div class="comment_input">
-          <user-tag
-            :user="currentUser"
-            showAvatar
-            hideTick
-            hideName width="42" height="42"
-            class="commenter"
-          />
-
-          <input
-            v-model.trim="commentText"
-            type="text"
-            placeholder="Leave a comment..."
-            :class={roundInput}
-          />
-
-          <img
-            v-if="commentText.length"
-            src='../../../../static/images/ic_send_dark.svg'
-            class="ml-3 addComment-cta"
-            @click="addComment()"
-          />
-          <img
-            v-else
-            src='../../../../static/images/ic_send.svg'
-            class="ml-3 addComment-cta"
-          />
-      </div>
+      <comment-input
+        :item="item"
+        :roundInput="roundInput"
+        :noBorder="noBorder"
+        :placeholder="placeholder"
+        :aviHeight="aviHeight"
+        :aviWidht="aviWidth"
+      ></comment-input>
     </div>
   </v-dialog>
 </template>
 
 <script>
+import CommentService from '@/services/comment'
 import Chat from '@/components/chat'
 import UserTag from '@/components/user_tag'
-import CommentService from '@/services/comment'
+import commentInput from '@/components/commentInput'
 
 export default {
   props: {
@@ -72,6 +53,8 @@ export default {
     item: Object,
     roundAvatar: Boolean,
     roundInput: Boolean,
+    noBorder: Boolean,
+    placeholder: String,
     aviHeight: {
       type: [ String, Number ],
     },
@@ -84,6 +67,7 @@ export default {
   components: {
     Chat,
     UserTag,
+    commentInput,
   },
   data() {
     return {
