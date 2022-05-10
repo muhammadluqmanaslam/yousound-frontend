@@ -17,13 +17,13 @@
 
     <img
       v-if="commentText.length"
-      src='../../../../static/images/ic_send_dark.svg'
+      src='../../static/images/ic_send_dark.svg'
       class="ml-3 addComment-cta"
       @click="addComment()"
       />
     <img
       v-else
-      src='../../../../static/images/ic_send.svg'
+      src='../../static/images/ic_send.svg'
       class="ml-3 addComment-cta"
     />
   </div>
@@ -40,7 +40,7 @@ export default {
     noBorder: Boolean,
     placeholder: {
       type: String,
-      default: 'Leave a comment...'
+      default: 'Leave a comment...',
     },
     aviHeight: {
       type: [ String, Number ],
@@ -84,12 +84,12 @@ export default {
         })
         .catch((e) => {
           this.$store.dispatch(
-                'error/showErrorToast',
-                e.body.errors || [e.body]
+              'error/showErrorToast',
+              e.body.errors || [e.body]
             )
         })
     },
-  }
+  },
 }
 </script>
 
