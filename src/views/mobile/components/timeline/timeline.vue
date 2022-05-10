@@ -43,6 +43,7 @@
                 :noAction="true"
                 :objects="user.recent_items"
                 :objectIndex="index"
+                hideMoreMenu
                 :is-playing-status="setIsPlaying"
               />
 
@@ -116,30 +117,51 @@
 
           <video-box v-if="feed.assoc_type == 'Stream'" :item="feed.assoc" />
 
-          <div v-if="feed.assoc.commented" class="comment">
-            <div class="comment_count_action">
-              <div class="comment_count width100 justify-space-between">
-                <div class="dflex align-center">
-                  <img src="../../../../../static/images/ic_comment.svg" class="mr-2">
-                  {{ feed.assoc.commented }} comment{{ feed.assoc.commented && feed.assoc.commented > 1 ? 's' : ''}}
-                </div>
+            <div
+              v-if="feed.assoc.commented" class="comment"
+              @click="getComments(feed)"
+            >
+              <div class="comment_count_action">
+                <div class="comment_count width100 justify-space-between">
+                  <div class="dflex align-center">
+                    <img src="../../../../../static/images/ic_comment.svg" class="mr-2">
+                    {{ feed.assoc.commented }} {{ 'comment' | pluralize(feed.assoc.commented && feed.assoc.commented)}}
+                  </div>
 
-                <div class="commenters-group">
-                  <user-tag v-for="(u, i) in commenters" :key="i" :user="u" class="commenter" showAvatar hideName hideTick width="25" height="25" />
+                  <div class="commenters-group">
+                    <user-tag v-for="(u, i) in commenters" :key="i" :user="u" class="commenter" showAvatar hideName hideTick width="25" height="25" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Show Comments Dialog -->
+              <mobile-comments
+                :item="feed"
+                @comment-closed="commentClosed()"
+                :comments="comments"
+                ref="mobileComments"
+              >
+                <template slot="_assoc">
+                  <trackcardsimple
+                    :item="feed"
+                    :cover="itemCover(feed)"
+                    :title="itemName(feed)"
+                    :subtitle="itemOwner(feed).username"
+                  />
+                </template>
+              </mobile-comments>
+            </div>
+
+            <div v-else class="comment">
+              <div class="comment_count_action">
+                <div class="comment_count width100 justify-space-between">
+                  <div class="dflex align-center">
+                    <img src="../../../../../static/images/ic_comment.svg" class="mr-2">
+                    Leave Comment
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div v-else class="comment">
-            <div class="comment_count_action">
-              <div class="comment_count width100 justify-space-between">
-                <div class="dflex align-center">
-                  <img src="../../../../../static/images/ic_comment.svg" class="mr-2">
-                  Leave Comment
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

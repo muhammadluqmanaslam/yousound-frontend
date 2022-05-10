@@ -8,6 +8,8 @@ import AlbumService from '@/services/album'
 import shareModal from '@/components/sharemodal'
 import Comments from '@/components/comments'
 import UserTag from '@/components/user_tag'
+import trackcardsimple from "@/components/trackcardsimple";
+import mobileComments from "../mobileComments";
 // import videoCard from '@/components/videocard'
 
 export default {
@@ -20,6 +22,8 @@ export default {
     shareModal,
     Comments,
     UserTag,
+    trackcardsimple,
+    mobileComments,
     // videoCard
   },
 
@@ -34,6 +38,13 @@ export default {
       comments: [],
       showMerchModal: false,
       show_share_dialog: false,
+      comment_pagination: {
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
+      },
       // commenters: [], replace when data is ready
     }
   },
@@ -133,6 +144,14 @@ export default {
   created() { },
 
   methods: {
+    commentClosed() {
+      console.log('comment closed')
+      this.comments = [];
+    },
+    async getComments(feed) {
+      await this.loadComments(feed)
+      this.$refs.mobileComments[0].showComments(true);
+    },
     setIsPlaying() {},
     repostItem(id) {
       AlbumService.repostAlbum(id)
@@ -157,6 +176,50 @@ export default {
     pauseSong(index) {
       this.$refs.trackCard[index].pauseSong()
     },
+    itemCover(feed) {
+      switch (feed.assoc_type) {
+        case 'ShopProduct':
+          return feed.assoc.covers[0].cover.thumb.url
+        case 'Album':
+        case 'Video':
+          return feed.assoc.cover.thumb.url
+        default:
+          return ''
+      }
+    },
+    itemType(feed) {
+     return feed.assoc_type || ''
+    },
+    itemName(feed) {
+      switch (feed.assoc_type) {
+        case 'Album':
+        case 'Stream':
+          return feed.assoc.name
+        case 'ShopProduct':
+          return feed.assoc.name
+        default:
+          return ''
+      }
+    },
+    itemOwner(feed) {
+      switch (feed.assoc_type) {
+        case 'Album':
+        case 'Stream':
+          return feed.assoc.user
+        case 'ShopProduct':
+          return feed.assoc.merchant
+        default:
+          return {}
+      }
+    },
+    itemPrice(feed) {
+      switch (feed.assoc_type) {
+        case 'ShopProduct':
+          return feed.assoc.price
+        default:
+          return ''
+      }
+    },
     trackItem(items, index) {
       if (items[index].assoc_type) {
         return items[index].assoc
@@ -171,10 +234,12 @@ export default {
         return item
       }
     },
-    loadComments() {
+    async loadComments(feed) {
+      console.log('get comments for -> ', feed)
+
       const params = {
-        commentable_type: 'Stream',
-        commentable_id: this.album.id,
+        commentable_type: feed.assoc_type,
+        commentable_id: feed.assoc_id,
         page: this.comment_pagination.current_page + 1,
         per_page: this.comment_pagination.per_page,
       }
@@ -182,6 +247,7 @@ export default {
       CommentService.getComments(params)
         .then((response) => {
           this.comments = this.comments.concat(response.body.comments)
+          console.log('comments', this.comments);
           this.comment_pagination = response.body.pagination
         })
     },
@@ -200,7 +266,5 @@ export default {
       this.showMerchModal = false
     },
   },
-  mounted() {
-    console.log(this.user)
-  },
+  mounted() {},
 }
