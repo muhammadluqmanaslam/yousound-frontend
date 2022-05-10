@@ -9,7 +9,7 @@
       <div class="centerLogo text-center flex-grow">
         <img src='../../../../static/images/nav_logo_primary.png' width="120" />
       </div>
-      <img src='../../../../static/images/ic_close_dark.svg' class="cursor-pointer" @click="initComment = false" />
+      <img src='../../../../static/images/ic_close_dark.svg' class="cursor-pointer" @click="closeCommentDialog()" />
     </div>
 
     <div class="_assoc">
@@ -100,7 +100,13 @@ export default {
     }
   },
   methods: {
+    closeCommentDialog() {
+      this.initComment = false
+
+      this.$emit('comment-closed')
+    },
     showComments(val) {
+      console.log(val);
       // this fn is called via component refs
       this.initComment = val;
     },
