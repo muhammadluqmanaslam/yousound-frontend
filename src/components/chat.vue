@@ -102,7 +102,7 @@ export default {
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
-  }
+  },
 };
 </script>
 
