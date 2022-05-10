@@ -31,7 +31,7 @@
 
         <v-flex xs12 class="track-actions" :class="{ playing: isPlaying }">
           <span @click="gotoItem()">
-            <v-flex xs12 class="touch-flex ii"></v-flex>
+            <v-flex xs12 class="touch-flex"></v-flex>
           </span>
           <v-btn
             v-if="!isPlaying || $store.state.player.isPaused"
