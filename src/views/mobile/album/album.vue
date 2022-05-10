@@ -356,7 +356,12 @@
       <!-- Show Comments Dialog -->
       <mobile-comments :item="album" :comments="comments" ref="mobileComments">
         <template slot="_assoc">
-          <trackcardsimple :item="album" />
+          <trackcardsimple
+            :item="album"
+            :cover="coverImageURL"
+            :title="album.name"
+            :subtitle="album.user.username"
+          />
         </template>
       </mobile-comments>
 
@@ -428,7 +433,7 @@ import videoCard from "@/components/videocard";
 import featuredProduct from "@/components/featuredProduct";
 import UserTag from "@/components/user_tag";
 import ItemTab from "@/components/itemTab";
-import MobileComments from "../components/mobileComments";
+import mobileComments from "../components/mobileComments";
 
 const ActionCable = require("actioncable");
 export default {
@@ -449,7 +454,7 @@ export default {
     featuredProduct,
     UserTag,
     ItemTab,
-    MobileComments,
+    mobileComments,
   },
 
   data() {
