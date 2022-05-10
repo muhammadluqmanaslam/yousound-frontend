@@ -139,6 +139,7 @@
               :objects="filtered_feeds"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
+              hideMoreMenu
             />
           </v-flex>
         </v-layout>
