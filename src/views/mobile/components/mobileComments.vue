@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import Chat from '@/views/video/components/chat'
+import Chat from '@/components/chat'
 import UserTag from '@/components/user_tag'
 import CommentService from '@/services/comment'
 
