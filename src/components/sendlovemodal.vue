@@ -136,8 +136,6 @@ export default {
     descriptions() {
       if (["listener"].indexOf(this.item.user_type) > -1) {
         return ["Donation"];
-      } else if (this.onMobile) {
-        return ["Donation"];
       } else {
         return ["Donation", "Add Video Credit"];
       }
