@@ -112,7 +112,7 @@ able.table thead th:not(:first-child) {
       }
 
       .input-group--selection-controls__ripple::after {
-        box-shadow: -3px 0 4px -1px rgba(0,0,0, 0.2);
+        box-shadow: 0 0 4px 0px rgba(0,0,0, 0.2) !important;
         height: 22px;
         width: 22px;
       }
