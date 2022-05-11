@@ -43,7 +43,6 @@
           v-model="donate_amount"
           currency="$"
           separator=","
-          :precision="2"
           :min="1"
           class="donate-amount"
         ></vue-numeric>
