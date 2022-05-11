@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-player">
+  <div class="mobile-player" :class="{'no-album': !item}">
     <canvas id="canvas" class="player-background"></canvas>
     <div class="_top dflex align-center justify-space-between">
       <div class="logo-wrapper">
@@ -128,63 +128,48 @@
               </div>
 
               <div class="action-wrapper">
-                <div class="_action _border_right _border_bottom">
-                  <!-- <v-btn
-                                        depressed
-                                        color="transparent ma-0"
-                                        slot="activator"
-                                        @click.native="
-                                            showShareModal = true;
-                                            modalMode = true;
-                                        "
-                                        >
-                                        <img src="/static/images/re_share.svg" width="20" />
-                                        <img src="/static/images/re_sharebg.svg" width="20" />
-                                    </v-btn> -->
-
+                <div
+                  class="_action _border_right _border_bottom"
+                  @click="openShareModal()"
+                >
                   <img
                     src="/static/images/ic_share_fill.svg"
                     width="20"
                     class="_action-icon mr-1"
-                    slot="activator"
-                    @click.native="
-                      showShareModal = true;
-                      modalMode = true;
-                    "
                   />
                   <div class="_action-title">Share</div>
                 </div>
-                <div class="_action _border_bottom">
+                <div
+                  class="_action _border_bottom"
+                  @click="repostItem()"
+                >
                   <img
                     src="/static/images/ic_repost.svg"
                     width="20"
                     class="_action-icon mr-1"
                     slot="activator"
-                    @click.native="repostItem()"
                   />
                   <div class="_action-title">Repost</div>
                 </div>
-                <div class="_action _border_right">
+                <div
+                  class="_action _border_right"
+                  @click="showAlbumCredit()"
+                >
                   <img
                     src="/static/images/ic_users_fill.svg"
                     width="20"
                     class="_action-icon mr-1"
-                    @click.native="
-                      showShareModal = true;
-                      modalMode = true;
-                    "
                   />
                   <div class="_action-title">Credits</div>
                 </div>
-                <div class="_action">
+                <div
+                  class="_action"
+                  @click="showComments()"
+                >
                   <img
                     src="/static/images/ic_comment.svg"
                     width="20"
                     class="_action-icon mr-1"
-                    @click.native="
-                      showShareModal = true;
-                      modalMode = true;
-                    "
                   />
                   <div class="_action-title">Comment</div>
                 </div>
@@ -209,14 +194,152 @@
         ></download-modal>
       </v-dialog>
     </div>
+    <div v-else class="no-album-info">
+      No music to play
+    </div>
+
+    <!-- Show Comments Dialog -->
+    <mobile-comments :item="item" :comments="comments" ref="mobileComments">
+      <!-- <template slot="_assoc">
+        <trackcardsimple
+          :item="item"
+          :cover="albumCover"
+          :title="item.name"
+          :subtitle="item.user.username"
+        />
+      </template> -->
+    </mobile-comments>
+
+
+
+      <div class="credits-dialog-wrapper">
+        <v-dialog
+          v-model="showCredit"
+          class="album-credits-dialog"
+          scrollable
+          max-width="600px"
+        >
+          <v-card class="album-dialog-body">
+            <v-card-title>Album Credits</v-card-title>
+            <v-btn class="dialog-close-btn" @click="showCredit = false"
+              ><v-icon>highlight_off</v-icon></v-btn
+            >
+            <v-card-text style="height: 300px">
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Album Name: </label>
+                <label class="album-info-text">{{ item.name }}</label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Release Date: </label>
+                <label class="album-info-text">{{
+                  item.released_at | formatDate
+                }}</label>
+              </v-flex>
+              <v-flex xs12 sm12 v-if="item.location && item.location != ''">
+                <label class="album-info-label">Location: </label>
+                <label class="album-info-text">{{ item.location }}</label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Genre: </label>
+                <label class="album-info-text">{{ genres }}</label>
+              </v-flex>
+              <v-flex
+                xs12
+                sm12
+                v-if="item.collaborators && item.collaborators.length > 0"
+              >
+                <label class="album-info-label">Collaborators: </label>
+                <label class="album-info-text">
+                  <template v-for="c in item.collaborators">
+                    <div
+                      class="collaborator-info"
+                      :key="`collaborator-${c.id}`"
+                    >
+                      <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                        c.user.username
+                      }}</router-link>
+                      <span> - {{ c.user_role }}</span>
+                    </div>
+                  </template>
+                </label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <label class="album-info-label">Contributors: </label>
+                <label class="album-info-text">
+                  <div class="contributor-info">
+                    <router-link
+                      class="user-name"
+                      :to="`/${item.user.slug}`"
+                      >{{ item.user.username }}</router-link
+                    >
+                    <span> - Uploader</span>
+                  </div>
+                </label>
+                <label
+                  class="album-info-text"
+                  v-if="item.contributors && item.contributors.length > 0"
+                >
+                  <template v-for="c in item.contributors">
+                    <div class="contributor-info" :key="`contributor-${c.id}`">
+                      <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                        c.user.username
+                      }}</router-link>
+                      <span> - {{ c.user_role }}</span>
+                    </div>
+                  </template>
+                </label>
+              </v-flex>
+              <v-flex
+                xs12
+                sm12
+                v-if="item.samplings && item.samplings.length > 0"
+              >
+                <label class="album-info-label">Samples: </label>
+                <label
+                  class="album-info-text"
+                  v-if="item.samplings && item.samplings.length > 0"
+                >
+                  <template v-for="s in item.samplings">
+                    <div class="sampling-info" :key="`sampling-${s.id}`">
+                      <label>{{ s.sampling_track.name }}</label
+                      >:&nbsp;<router-link
+                        class="user-name"
+                        :to="`/${s.sample_user.slug}`"
+                        >{{ s.sample_user.username }}</router-link
+                      >
+                      <span> - {{ s.sample_track.name }}</span>
+                    </div>
+                  </template>
+                </label>
+              </v-flex>
+              <v-flex xs12 sm12 v-if="item.labels && item.labels.length > 0">
+                <label class="album-info-label">Label: </label>
+                <label class="album-info-text">
+                  <router-link
+                    class="user-name"
+                    :to="`/${item.labels[0].user.slug}`"
+                    >{{ item.labels[0].user.username }}</router-link
+                  >
+                </label>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <div class="album-info-label">About the album:</div>
+                <label class="album-info-text">{{ item.description }}</label>
+              </v-flex>
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+      </div>
   </div>
 </template>
 
 <script>
+import _ from "lodash";
 import $ from 'jquery'
 import { mapGetters, mapActions } from "vuex";
 import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
+import CommentService from "@/services/comment";
 // import PaymentService from '@/services/payment'
 import TrackService from "@/services/track";
 import UserService from "@/services/user";
@@ -224,16 +347,23 @@ import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
 import UserTag from "@/components/user_tag";
+import mobileComments from "@/views/mobile/components/mobileComments";
+import trackcardsimple from "@/components/trackcardsimple";
+
+const ActionCable = require("actioncable");
 
 export default {
   props: {
     isMini: Boolean,
+    isPlayerOpened: Boolean,
   },
 
   components: {
     downloadModal,
     shareModal,
     UserTag,
+    mobileComments,
+    trackcardsimple,
   },
 
   data() {
@@ -257,6 +387,17 @@ export default {
       showReminder: false,
       totalTime: null,
       buttonHover: false,
+      showCredit: false,
+      comments: [],
+      cable: null,
+      comments_subscription: null,
+      comment_pagination: {
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
+      },
     };
   },
 
@@ -281,21 +422,23 @@ export default {
       return MyEvents;
     },
 
-    item() {
-      const item =
+    item: {
+      cache: false,
+      get: function () {
+        const item =
         this.$store.state.player.list[this.$store.state.player.listIndex];
 
-      if (!item) {
-        return null;
-      }
+        if (!item) {
+          return null;
+        }
 
-      if (item.assoc_type) {
-        return item.assoc;
-      } else {
-        return item;
-      }
+        if (item.assoc_type) {
+          return item.assoc;
+        } else {
+          return item;
+        }
+      },
     },
-
     user() {
       if (!this.item) {
         return null;
@@ -322,6 +465,10 @@ export default {
       }
       return "Follow";
     },
+
+    genres() {
+      return _.map(this.item.genres, "name").join(", ");
+    },
   },
 
   created() {
@@ -329,6 +476,11 @@ export default {
   },
 
   watch: {
+    isPlayerOpened(val) {
+      if (val) {
+        this.fetchComments()
+      }
+    },
     item(val) {
       this.changeBackground();
     },
@@ -360,6 +512,112 @@ export default {
       setPlaying: "player/setPlayingStatus",
       setPauseStatus: "player/setPauseStatus",
     }),
+
+    showAlbumCredit() {
+      this.showCredit = true;
+      this.closeOptions()
+    },
+
+    async showComments() {
+      await this.fetchComments()
+      this.$refs.mobileComments.showComments(true);
+
+      this.closeOptions()
+    },
+
+    async fetchComments() {
+      const vm = this;
+
+      if (this.item && this.currentUser) {
+        await this.loadMoreComments();
+      }
+
+      if (this.comments_subscription) {
+        this.comments_subscription.unsubscribe();
+      }
+      this.cable = ActionCable.createConsumer(
+        `${process.env.SOCKET_BASE_URL}?token=${this.$store.state.auth.token}`
+      );
+      this.comments_subscription = await this.cable.subscriptions.create(
+        {
+          channel: "CommentsChannel",
+          album_id: vm.item.id,
+        },
+        {
+          connected: () => {
+            console.log("connected to CommentsChannel");
+          },
+          received: (data) => {
+            console.log("comments_subscription");
+            console.log(data);
+            switch (data.action) {
+              case "create":
+              case "update":
+                if (
+                  data.comment.status === "published" ||
+                  data.comment.readable_user_ids.indexOf(
+                    vm.currentUser.id
+                  ) > -1
+                ) {
+                  const commentIndex = _.findIndex(
+                    vm.comments,
+                    (comment) => comment.id === data.comment.id
+                  );
+                  if (commentIndex === -1) {
+                    vm.comments.push(data.comment);
+                  } else {
+                    vm.comments[commentIndex] = data.comment;
+                  }
+                } else {
+                  _.remove(vm.comments, (item) => {
+                    return item.id === data.comment.id;
+                  });
+                }
+                break;
+              case "delete":
+                _.remove(vm.comments, (item) => {
+                  return item.id === data.comment_id;
+                });
+                break;
+            }
+            vm.comments = _.orderBy(vm.comments, ["created_at"], ["desc"]);
+            // const arr = vm.comments.slice()
+            // vm.comments = arr
+          },
+          disconnected: () => {
+            console.log("disconnected to CommentsChannel :(");
+          },
+        }
+      );
+    },
+
+    async loadMoreComments() {
+      const params = {
+        commentable_type: 'Album',
+        commentable_id: this.item.id,
+        page: this.comment_pagination.current_page + 1,
+        per_page: this.comment_pagination.per_page,
+      }
+      CommentService.getComments(params)
+        .then((response) => {
+          this.comments = this.comments.concat(response.body.comments)
+          this.comment_pagination = response.body.pagination
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+
+    openShareModal() {
+      this.showShareModal = true;
+      this.modalMode = true;
+
+      this.closeOptions()
+    },
+
     changeBackground() {
       var canvas = document.getElementById("canvas");
 
@@ -978,6 +1236,20 @@ export default {
         width: 100%;
         background-color: rgba(0, 0, 0, 0.5);
       }
+    }
+  }
+
+  &.no-album {
+    display: flex;
+    flex-direction: column;
+
+    .no-album-info {
+      position: sticky;
+      flex: 1;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
