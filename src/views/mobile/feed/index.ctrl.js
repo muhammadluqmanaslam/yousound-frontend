@@ -96,12 +96,18 @@ export default {
     },
     users(val) {
       console.log(val)
-    }
+    },
+    init_PostThought(val) {
+       if (val) {
+        this.setMobileFooter({showFooter: false })
+      } else {
+        this.setMobileFooter({showFooter: true })
+       }
+     },
   },
 
   created() {
     this.getAttachments();
-    this.setMobileFooter({showFooter: false })
 
     if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
@@ -290,9 +296,6 @@ export default {
       this.$store.dispatch('navigator/goNextState', { page: 'feed', tab: tab })
       this.loadFeeds(tab)
     },
-  },
-  beforeDestroy() {
-    this.setMobileFooter({showFooter: true })
   },
   mounted() {},
 }
