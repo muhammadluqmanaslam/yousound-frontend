@@ -1,15 +1,19 @@
 <template>
   <div class="mobile-header header-container">
-    <div v-if="!isModalComp" class="header-wrapper dflex justify-space-between align-center width100">
+    <div
+      v-if="!isModalComp"
+      class="header-wrapper dflex justify-space-between align-center width100"
+      :class="{'no-modalComp': !isModalComp}"
+    >
       <div class="_inner-wrapper _left">
-        <v-icon
+        <!-- <v-icon
           v-if="showGoBack" 
           color="black" 
           class="go-back mr-3"
           @click="goBack()"
         >
           arrow_back_ios
-        </v-icon>
+        </v-icon> -->
 
         <img v-if="isAuthenticated" :src="leftAltIcon" />
       </div>
@@ -19,13 +23,23 @@
       </div>
 
       <div class="_inner-wrapper _right">
-        <img
+        <span
           v-if="showRightAltIcon"
-          :src="rightAltIcon" 
-          width="18"
-          class="right-alt-icon"
-          @click="$router.push(closeCallBack)"
-        />
+          @click="openMusicPlayer()"
+        >
+          <img
+            v-if="isPlaying"
+            src="../../../../static/images/music-wave.gif"
+            width="25"
+            class="right-alt-icon mt-1"
+          />
+          <img
+            v-if="!isPlaying"
+            :src="rightAltIcon" 
+            width="30"
+            class="right-alt-icon"
+          />
+        </span>
         <user-tag
           v-if="!hideUser && isAuthenticated"
           :user="currentUser"
@@ -63,7 +77,7 @@
 
 <script>
 import userTag from "@/components/user_tag";
-import { mapGetters, mapState } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   props: {
@@ -112,6 +126,12 @@ export default {
   },
   watch: {},
   methods: {
+    ...mapActions({
+      toggleMobilePlayer: "player/toggleMobilePlayer",
+    }),
+    openMusicPlayer() {
+      this.toggleMobilePlayer(true);
+    },
     goBack() {
       if (this.$route.name == 'AlbumDetail') {
         const prev = this.albumPrevRoute
@@ -134,12 +154,17 @@ export default {
           return this.$router.go(-1)
       }
       
-    }
+    },
   },
   computed: {
     ...mapGetters({
       isAuthenticated: "auth/isAuthenticated",
     }),
+    isPlaying() {
+      const isPlaying = this.$store.state.player.isPlaying && !this.$store.state.player.isPaused
+      
+      return isPlaying
+    },
     ...mapState({
       albumPrevRoute: state => state.appMobile.albumPrevRoute,
     }),
@@ -183,6 +208,18 @@ export default {
   height: 80px;
   padding: 20px;
   box-shadow: none;
+
+  .header-wrapper.no-modalComp {
+    position: relative;
+
+    &._left {
+      width: 25%;
+      justify-content: start;
+    }
+    &._right {
+      width: 25%;
+    }
+  }
 
   ._inner-wrapper {
     display: flex;
