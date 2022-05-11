@@ -15,6 +15,7 @@ import UserService from '@/services/user'
 import Comments from '@/components/comments'
 import UserTag from '@/components/user_tag'
 import ShareModal from '@/components/sharemodal'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -308,6 +309,13 @@ export default {
     // this.option = this.options[0].id
   },
   watch: {
+    activePaneTab(val) {
+       if (val === 'comments') {
+        this.setMobileFooter({showFooter: false })
+      } else {
+        this.setMobileFooter({showFooter: true })
+       }
+     },
     initImgSelection: {
       handler(newVal, oldVal) {
         this.selectedCover = newVal
@@ -323,6 +331,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      setMobileFooter: 'appMobile/setMobileFooterOptions',
+    }),
     toggleQuantity(action) {
       if (action === 'add') {
         if(this.quantity === this.maxQuantity) return

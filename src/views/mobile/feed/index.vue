@@ -97,7 +97,7 @@
           <h3 class="mb-2">Introducing</h3>
           <h1>Thoughts</h1>
 
-          <img :src="require('../../../../static/images/pre-thought.svg')">
+          <img :src="require('../../../../static/images/pre-thought.svg')" class="pre-post-img">
 
           <ul>
             <li>Post your thought</li>

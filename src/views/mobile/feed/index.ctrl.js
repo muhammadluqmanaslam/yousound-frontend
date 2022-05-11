@@ -13,6 +13,7 @@ import postThought from '@/components/thought'
 import TabNav from '../components/tab_nav.vue'
 import UserTag from '@/components/user_tag'
 import AttachPicker from '@/views/video/components/attach_picker'
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -100,6 +101,7 @@ export default {
 
   created() {
     this.getAttachments();
+    this.setMobileFooter({showFooter: false })
 
     if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
@@ -116,6 +118,9 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setMobileFooter: 'appMobile/setMobileFooterOptions',
+    }),
     removeAttach() {
       this.stream_assoc = {}
     },
@@ -286,6 +291,8 @@ export default {
       this.loadFeeds(tab)
     },
   },
-
+  beforeDestroy() {
+    this.setMobileFooter({showFooter: true })
+  },
   mounted() {},
 }
