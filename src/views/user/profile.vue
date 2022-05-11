@@ -106,6 +106,7 @@
                   "
                   @click.native="openInviteConfirmDialog()"
                   class="invite-btn ml-0"
+                  :class="{'mb-3': onMobile}"
                   >Invite</v-btn
                 >
               </template>
