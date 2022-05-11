@@ -321,6 +321,22 @@ export function createRouter(settings) {
 
   return new Router({
     mode: 'history',
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition
+      } else {
+        if (to.hash) {
+          // hash selection scroll
+          return {
+            selector: to.hash,
+            behavior: 'smooth',
+          }
+        } else {
+          // scroll to top
+          return { x: 0, y: 0 }
+        }
+      }
+    },
     routes: routes,
   })
 }
