@@ -338,7 +338,7 @@
             </v-layout>
           </div>
 
-          <div v-else>
+          <v-container fluid grid-list-md px-0 v-else>
             <template v-if="!albums || albums.length == 0">
               <template v-if="active_tab == 'songs'">
                 <template v-if="currentUser && currentUser.id == user.id">
@@ -430,8 +430,8 @@
 
             <v-layout row wrap class="covers-content" v-else>
               <v-flex
-                xs12
-                class="card-container custom-lg5"
+                xs6
+                class="custom-lg5"
                 v-for="(feed, index) in albums"
                 :key="index"
               >
@@ -444,7 +444,7 @@
               @click.native="getItems(active_tab, true)"
               >Load More</v-btn
             >
-          </div>
+          </v-container>
         </div>
       </div>
     </div>
