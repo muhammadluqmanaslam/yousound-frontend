@@ -807,7 +807,6 @@ export default {
     },
 
     openShareModal() {
-      console.log('share')
       this.showShareModal = true;
     },
 
