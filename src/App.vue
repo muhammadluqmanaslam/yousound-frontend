@@ -103,7 +103,7 @@
       content-class="no-border-radius"
       fullscreen
     >
-      <mobile-player />
+      <mobile-player :isPlayerOpened="mobilePlayerActive" />
     </v-dialog>
   </v-app>
 </template>
