@@ -12,7 +12,7 @@
       <img src='../../../../static/images/ic_close_dark.svg' class="cursor-pointer" @click="closeCommentDialog()" />
     </div>
 
-    <div class="_assoc">
+    <div v-if="isAssocPassed" class="_assoc">
       <slot name="_assoc"></slot>
     </div>
 
