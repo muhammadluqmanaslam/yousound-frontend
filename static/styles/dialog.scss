@@ -313,7 +313,7 @@
     flex-direction: column;
 
     .top-wrapper {
-      margin-bottom: 50px;
+      margin-bottom: 15px;
   
       .centerLogo {
         flex-grow: 1;
@@ -326,6 +326,11 @@
   
       h1 {
         font-size: 38px;
+      }
+
+      img.pre-post-img {
+        width: 80%;
+        margin: 0 auto;
       }
   
       ul {
