@@ -201,6 +201,46 @@
       }
     }
   }
+
+  &.onMobile {
+    .user-role {
+      display: flex;
+      font-size: 16px !important;
+      margin-bottom: 16px;
+    }
+    .user-profile-section {
+      display: block;
+    }
+    .user-info-section {
+      width: 100%;
+    }
+    .user-status-section {
+      width: 50%;
+      display: flex;
+      justify-content: space-between;
+
+      ._count {
+        font-size: 20px;
+      }
+    }
+    .user-profile-image {
+      width: 65px;
+      height: 65px;
+      margin-right: 67px;
+    }
+    .__top_actions {
+      display: flex;
+      justify-content: space-between;
+
+      .follow-btn {
+        min-width: auto !important;
+      }
+
+      .btn {
+        margin: 0;
+      }
+    }
+  }
 }
 
 /* global blinker effect */
