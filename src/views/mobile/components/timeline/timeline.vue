@@ -118,7 +118,8 @@
           <video-box v-if="feed.assoc_type == 'Stream'" :item="feed.assoc" />
 
             <div
-              v-if="feed.assoc.commented" class="comment"
+              v-if="feed.assoc.commented"
+              class="comment"
               @click="getComments(feed)"
             >
               <div class="comment_count_action">
@@ -133,26 +134,12 @@
                   </div>
                 </div>
               </div>
-
-              <!-- Show Comments Dialog -->
-              <mobile-comments
-                :item="feed"
-                @comment-closed="commentClosed()"
-                :comments="comments"
-                ref="mobileComments"
-              >
-                <template slot="_assoc">
-                  <trackcardsimple
-                    :item="feed"
-                    :cover="itemCover(feed)"
-                    :title="itemName(feed)"
-                    :subtitle="itemOwner(feed).username"
-                  />
-                </template>
-              </mobile-comments>
             </div>
 
-            <div v-else class="comment">
+            <div
+              v-else class="comment leave-comment"
+              @click="getComments(feed)"
+            >
               <div class="comment_count_action">
                 <div class="comment_count width100 justify-space-between">
                   <div class="dflex align-center">
@@ -162,6 +149,24 @@
                 </div>
               </div>
             </div>
+
+            <!-- Show Comments Dialog -->
+            <mobile-comments
+              :item="feed"
+              @comment-closed="commentClosed()"
+              :comments="comments"
+              :hideCommentCount="!feed.assoc.commented"
+              ref="mobileComments"
+            >
+              <template slot="_assoc">
+                <trackcardsimple
+                  :item="feed"
+                  :cover="itemCover(feed)"
+                  :title="itemName(feed)"
+                  :subtitle="itemOwner(feed).username"
+                />
+              </template>
+            </mobile-comments>
         </div>
       </div>
     </div>
