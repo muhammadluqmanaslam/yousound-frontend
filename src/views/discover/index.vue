@@ -4,10 +4,10 @@
 
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
-        <discoverAlbum :isComp="isComp" :listLimit="10" />
-        <discoverVideo :isComp="isComp" :listLimit="6" />
-        <discoverProduct :isComp="isComp" :listLimit="8" />
-        </div>
+        <discover-album :isComp="isComp" :listLimit="10" />
+        <discover-video :isComp="isComp" :listLimit="6" />
+        <discover-product :isComp="isComp" :listLimit="8" />
+      </div>
     </div>
 
     <v-dialog
