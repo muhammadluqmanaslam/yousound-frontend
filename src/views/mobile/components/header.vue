@@ -58,7 +58,10 @@
       class="header-wrapper dflex justify-space-between align-center width100"
       :class="{isModalComp}"
     >
-      <img v-if="showModalCompLeftIcon" :src="leftAltIcon" />
+      <div class="_inner-wrapper _left">
+
+        <img v-if="showModalCompLeftIcon" :src="leftAltIcon" />
+      </div>
 
       <div class="_inner-wrapper _center ml-0">
         <img @click="$router.push({name: isAuthenticated ? 'DiscoverIndex' : 'Home'})" :src="appLogo" />
@@ -212,11 +215,11 @@ export default {
   .header-wrapper.no-modalComp {
     position: relative;
 
-    &._left {
+    ._left {
       width: 25%;
       justify-content: start;
     }
-    &._right {
+    ._right {
       width: 25%;
     }
   }
@@ -263,8 +266,16 @@ export default {
 
   .isModalComp {
     ._inner-wrapper {
+      &._left {
+        width: 25%;
+        justify-content: start;
+      }
       &._center { 
         flex-grow: 1;
+      }
+      &._right {
+        width: 25%;
+        justify-content: end;
       }
     }
   }
