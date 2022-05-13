@@ -31,7 +31,7 @@
           <div class="user-details dflex align-start _section pa-3">
             <user-tag showAvatar hideName hideTick :user="product.merchant" width="50" height="50" class="tag" />
             <div>
-              <div class="mt-0">
+              <div class="mt-0 _details">
                 {{ product.description }}
               </div>
               <div>
