@@ -91,7 +91,7 @@ export default {
     },
     showComments(val) {
       console.log(val);
-      // this fn is called via component refs
+      // this fn is called via component's ref
       this.initComment = val;
     },
     addComment() {
