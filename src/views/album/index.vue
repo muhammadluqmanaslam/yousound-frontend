@@ -2,45 +2,11 @@
   <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" />
 
-    <content-top-header absolute v-if="onMobile" height="35" :class="{ isOnMobile: onMobile}">
-      <template slot="topHeader">
-        <ul class="width100">
-          <li class="open-genre-dialog-li my-0"
-
-              @mouseenter="hover_on_genre_button = true"
-              @mouseleave="hover_on_genre_button = false"
-          >
-            <div
-              class="genre-dialog-selector"
-              @click="openGenreSelectorDialog()"
-            >
-              <div class="genre-filter">
-                <img src="/static/images/ic_filter.svg" />
-              </div>
-            </div>
-          </li>
-
-          <li class="width100 my-0">
-            <v-tabs :scrollable="true" v-model="activeGenre">
-              <v-tabs-bar>
-                <v-tabs-item
-                  v-for="(genre, idx) in genres"
-                  :key="idx"
-                  :href="`#${genre.id}`"
-                  class="mr-0"
-                >
-                  <v-chip class="text-capitalize" @click.native="filterByGenre(genre)">
-                    {{ genre.name.toLowerCase() }}
-                  </v-chip>
-                </v-tabs-item>
-              </v-tabs-bar>
-            </v-tabs>
-          </li>
-        </ul>
-      </template>
-    </content-top-header>
-
-    <content-top-header absolute :height="onMobile ? 35 : ''"  class="__inner __doubleUl" :class="[{ isOnMobile: onMobile}, {'pl-0': isComp}]">
+    <content-top-header
+      absolute :height="onMobile ? 35 : ''"
+      class="__inner __doubleUl"
+      :class="[{ onMobile}, {'pl-0': isComp}]"
+    >
       <template slot="topHeader">
         <ul>
           <li v-if="isComp">

@@ -2,25 +2,6 @@
   <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
     <discover-nav v-if="!isComp && !onMobile" pageName="merch" />
 
-    <content-top-header absolute v-if="onMobile" height="35" :class="{ isOnMobile: onMobile}">
-      <template slot="topHeader">
-        <v-tabs :scrollable="true">
-          <v-tabs-bar>
-            <v-tabs-item
-              v-model="selectedTab"
-              v-for="(category, i) in categories"
-              :key="i"
-              :href="'#tab-' + i"
-            >
-              <v-chip class="text-capitalize" @click="filterByCategory(category)">
-                {{ category.name }}
-              </v-chip>
-            </v-tabs-item>
-          </v-tabs-bar>
-        </v-tabs>
-        </template>
-    </content-top-header>
-
     <content-top-header absolute class="__inner __doubleUl ma-0 px-0">
       <template slot="topHeader">
         <ul>

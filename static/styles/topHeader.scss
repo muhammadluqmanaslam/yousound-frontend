@@ -209,10 +209,7 @@
     }
 
     // Mobile View
-    &.isOnMobile {
-      padding: 0;
-      width: calc(100% + 48px);
-      // border: 1px solid #000;
+    &.onMobile {
 
       /deep/.tab-container {
         .open-genre-dialog-li {
