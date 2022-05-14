@@ -13,7 +13,7 @@
       <v-icon class="min-player" @click="minModal()"> expand_more </v-icon>
     </div>
 
-    <div v-if="item != null" class="album-track-details">
+    <div v-if="item" class="album-track-details">
       <div
         class="album-cover"
         :style="{ 'background-image': 'url(' + albumCover + ')' }"
@@ -210,126 +210,124 @@
       </template> -->
     </mobile-comments>
 
-
-
-      <div class="credits-dialog-wrapper">
-        <v-dialog
-          v-model="showCredit"
-          class="album-credits-dialog"
-          scrollable
-          max-width="600px"
-        >
-          <v-card class="album-dialog-body">
-            <v-card-title>Album Credits</v-card-title>
-            <v-btn class="dialog-close-btn" @click="showCredit = false"
-              ><v-icon>highlight_off</v-icon></v-btn
+    <div v-if="item" class="credits-dialog-wrapper">
+      <v-dialog
+        v-model="showCredit"
+        class="album-credits-dialog"
+        scrollable
+        max-width="600px"
+      >
+        <v-card class="album-dialog-body">
+          <v-card-title>Album Credits</v-card-title>
+          <v-btn class="dialog-close-btn" @click="showCredit = false"
+            ><v-icon>highlight_off</v-icon></v-btn
+          >
+          <v-card-text style="height: 300px">
+            <v-flex xs12 sm12>
+              <label class="album-info-label">Album Name: </label>
+              <label class="album-info-text">{{ item.name }}</label>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <label class="album-info-label">Release Date: </label>
+              <label class="album-info-text">{{
+                item.released_at | formatDate
+              }}</label>
+            </v-flex>
+            <v-flex xs12 sm12 v-if="item.location && item.location != ''">
+              <label class="album-info-label">Location: </label>
+              <label class="album-info-text">{{ item.location }}</label>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <label class="album-info-label">Genre: </label>
+              <label class="album-info-text">{{ genres }}</label>
+            </v-flex>
+            <v-flex
+              xs12
+              sm12
+              v-if="item.collaborators && item.collaborators.length > 0"
             >
-            <v-card-text style="height: 300px">
-              <v-flex xs12 sm12>
-                <label class="album-info-label">Album Name: </label>
-                <label class="album-info-text">{{ item.name }}</label>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <label class="album-info-label">Release Date: </label>
-                <label class="album-info-text">{{
-                  item.released_at | formatDate
-                }}</label>
-              </v-flex>
-              <v-flex xs12 sm12 v-if="item.location && item.location != ''">
-                <label class="album-info-label">Location: </label>
-                <label class="album-info-text">{{ item.location }}</label>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <label class="album-info-label">Genre: </label>
-                <label class="album-info-text">{{ genres }}</label>
-              </v-flex>
-              <v-flex
-                xs12
-                sm12
-                v-if="item.collaborators && item.collaborators.length > 0"
-              >
-                <label class="album-info-label">Collaborators: </label>
-                <label class="album-info-text">
-                  <template v-for="c in item.collaborators">
-                    <div
-                      class="collaborator-info"
-                      :key="`collaborator-${c.id}`"
-                    >
-                      <router-link class="user-name" :to="`/${c.user.slug}`">{{
-                        c.user.username
-                      }}</router-link>
-                      <span> - {{ c.user_role }}</span>
-                    </div>
-                  </template>
-                </label>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <label class="album-info-label">Contributors: </label>
-                <label class="album-info-text">
-                  <div class="contributor-info">
-                    <router-link
-                      class="user-name"
-                      :to="`/${item.user.slug}`"
-                      >{{ item.user.username }}</router-link
-                    >
-                    <span> - Uploader</span>
+              <label class="album-info-label">Collaborators: </label>
+              <label class="album-info-text">
+                <template v-for="c in item.collaborators">
+                  <div
+                    class="collaborator-info"
+                    :key="`collaborator-${c.id}`"
+                  >
+                    <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                      c.user.username
+                    }}</router-link>
+                    <span> - {{ c.user_role }}</span>
                   </div>
-                </label>
-                <label
-                  class="album-info-text"
-                  v-if="item.contributors && item.contributors.length > 0"
-                >
-                  <template v-for="c in item.contributors">
-                    <div class="contributor-info" :key="`contributor-${c.id}`">
-                      <router-link class="user-name" :to="`/${c.user.slug}`">{{
-                        c.user.username
-                      }}</router-link>
-                      <span> - {{ c.user_role }}</span>
-                    </div>
-                  </template>
-                </label>
-              </v-flex>
-              <v-flex
-                xs12
-                sm12
-                v-if="item.samplings && item.samplings.length > 0"
-              >
-                <label class="album-info-label">Samples: </label>
-                <label
-                  class="album-info-text"
-                  v-if="item.samplings && item.samplings.length > 0"
-                >
-                  <template v-for="s in item.samplings">
-                    <div class="sampling-info" :key="`sampling-${s.id}`">
-                      <label>{{ s.sampling_track.name }}</label
-                      >:&nbsp;<router-link
-                        class="user-name"
-                        :to="`/${s.sample_user.slug}`"
-                        >{{ s.sample_user.username }}</router-link
-                      >
-                      <span> - {{ s.sample_track.name }}</span>
-                    </div>
-                  </template>
-                </label>
-              </v-flex>
-              <v-flex xs12 sm12 v-if="item.labels && item.labels.length > 0">
-                <label class="album-info-label">Label: </label>
-                <label class="album-info-text">
+                </template>
+              </label>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <label class="album-info-label">Contributors: </label>
+              <label class="album-info-text">
+                <div class="contributor-info">
                   <router-link
                     class="user-name"
-                    :to="`/${item.labels[0].user.slug}`"
-                    >{{ item.labels[0].user.username }}</router-link
+                    :to="`/${item.user.slug}`"
+                    >{{ item.user.username }}</router-link
                   >
-                </label>
-              </v-flex>
-              <v-flex xs12 sm12>
-                <div class="album-info-label">About the album:</div>
-                <label class="album-info-text">{{ item.description }}</label>
-              </v-flex>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-      </div>
+                  <span> - Uploader</span>
+                </div>
+              </label>
+              <label
+                class="album-info-text"
+                v-if="item.contributors && item.contributors.length > 0"
+              >
+                <template v-for="c in item.contributors">
+                  <div class="contributor-info" :key="`contributor-${c.id}`">
+                    <router-link class="user-name" :to="`/${c.user.slug}`">{{
+                      c.user.username
+                    }}</router-link>
+                    <span> - {{ c.user_role }}</span>
+                  </div>
+                </template>
+              </label>
+            </v-flex>
+            <v-flex
+              xs12
+              sm12
+              v-if="item.samplings && item.samplings.length > 0"
+            >
+              <label class="album-info-label">Samples: </label>
+              <label
+                class="album-info-text"
+                v-if="item.samplings && item.samplings.length > 0"
+              >
+                <template v-for="s in item.samplings">
+                  <div class="sampling-info" :key="`sampling-${s.id}`">
+                    <label>{{ s.sampling_track.name }}</label
+                    >:&nbsp;<router-link
+                      class="user-name"
+                      :to="`/${s.sample_user.slug}`"
+                      >{{ s.sample_user.username }}</router-link
+                    >
+                    <span> - {{ s.sample_track.name }}</span>
+                  </div>
+                </template>
+              </label>
+            </v-flex>
+            <v-flex xs12 sm12 v-if="item.labels && item.labels.length > 0">
+              <label class="album-info-label">Label: </label>
+              <label class="album-info-text">
+                <router-link
+                  class="user-name"
+                  :to="`/${item.labels[0].user.slug}`"
+                  >{{ item.labels[0].user.username }}</router-link
+                >
+              </label>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <div class="album-info-label">About the album:</div>
+              <label class="album-info-text">{{ item.description }}</label>
+            </v-flex>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
