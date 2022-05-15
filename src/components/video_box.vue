@@ -46,7 +46,12 @@
             </span>
 
             <!-- <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#recommended'})">View All</div> -->
-            <span v-if="item.view_price < 1 && !sideTabView" class="ml-2">Free</span>
+            <span
+              v-if="!hideFreeTag && isVideoFree && !sideTabView"
+              class="ml-2"
+            >
+              {{ isVideoFree }}
+            </span>
           </div>
         </div>
       </div>
@@ -72,6 +77,10 @@ export default {
 
   props: {
     item: Object,
+    hideFreeTag: {
+      type: Boolean,
+      default: false,
+    },
     sideTabView: {
       type: Boolean,
       default: false,
@@ -103,6 +112,9 @@ export default {
   },
 
   computed: {
+    isVideoFree() {
+      return this.item.view_price < 1 ? 'Free' : ''
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
