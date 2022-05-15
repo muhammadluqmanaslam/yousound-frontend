@@ -23,7 +23,7 @@ import TabNav from "../components/tab_nav.vue";
 
 import trendingMusic from "../components/trending/music";
 import trendingVideo from "../components/trending/videos";
-import trendingProduct from "@/views/product";
+import trendingProduct from "../components/trending/products";
 
 import discoverMusic from "./music";
 import discoverVideo from "./video";
