@@ -1,5 +1,5 @@
 <template>
-  <div class="trending-music">
+  <div class="trending-comp trending-music">
     <div class="top-bar">
       <h2 class="bar-title">Hot Albums</h2>
       <div class="bar-action">View All</div>
@@ -90,80 +90,80 @@ export default {
 
         this.getTrendingMusic(params);
     },
-    // loadFeeds(tab, page) {
-    //   const vm = this;
-    //   if (page === 1) {
-    //     this.isPageReady = false;
-    //   }
-    //   this.$store.dispatch("error/showLoadingActivity", true);
-    //   const genre = _.get(this.selected_genre, "id", "any");
-    //   const category = _.get(this.selected_category, "id", "any");
-    //   const params = {
-    //     filter: tab,
-    //     genre: genre,
-    //     category: category,
-    //     page: page,
-    //     per_page: this.items_per_page,
-    //   };
-    //   if (tab !== "recommended") {
-    //     params["seed"] = this.seed;
-    //   }
-    //   SearchService.searchDiscover(params)
-    //     .then((response) => {
-    //       this.$store.dispatch("error/showLoadingActivity", false);
-    //       this.musicFeed = this.musicFeed.concat(response.body.albums);
-    //       const genres = _.chain(this.musicFeed)
-    //         .map("genres")
-    //         .flatMap()
-    //         .keyBy("id")
-    //         .map((v, k) => {
-    //           return v;
-    //         })
-    //         .sortBy("name")
-    //         .value();
-    //       this.genres = [
-    //         // { id: 'go_to_filters', name: 'Set Genre Filters' },
-    //         { id: "any", name: "All" },
-    //       ].concat(genres);
+    loadFeeds(tab, page) {
+      const vm = this;
+      if (page === 1) {
+        this.isPageReady = false;
+      }
+      this.$store.dispatch("error/showLoadingActivity", true);
+      const genre = _.get(this.selected_genre, "id", "any");
+      const category = _.get(this.selected_category, "id", "any");
+      const params = {
+        filter: tab,
+        genre: genre,
+        category: category,
+        page: page,
+        per_page: this.items_per_page,
+      };
+      if (tab !== "recommended") {
+        params["seed"] = this.seed;
+      }
+      SearchService.searchDiscover(params)
+        .then((response) => {
+          this.$store.dispatch("error/showLoadingActivity", false);
+          this.musicFeed = this.musicFeed.concat(response.body.albums);
+          const genres = _.chain(this.musicFeed)
+            .map("genres")
+            .flatMap()
+            .keyBy("id")
+            .map((v, k) => {
+              return v;
+            })
+            .sortBy("name")
+            .value();
+          this.genres = [
+            // { id: 'go_to_filters', name: 'Set Genre Filters' },
+            { id: "any", name: "All" },
+          ].concat(genres);
 
-    //       this.page_index = response.body.pagination.current_page;
-    //       this.total_pages = response.body.pagination.total_pages;
+          this.page_index = response.body.pagination.current_page;
+          this.total_pages = response.body.pagination.total_pages;
 
-    //       if (page === 1) {
-    //         Promise.all([
-    //           SearchService.searchDiscover(_.extend(params, { page: 2 })),
-    //           SearchService.searchDiscover(_.extend(params, { page: 3 })),
-    //           SearchService.searchDiscover(_.extend(params, { page: 4 })),
-    //         ]).then((values) => {
-    //           vm.musicFeed = vm.musicFeed.concat(
-    //             values[0].body.albums,
-    //             values[1].body.albums,
-    //             values[2].body.albums
-    //           );
-    //           const genres = _.chain(vm.musicFeed)
-    //             .map("genres")
-    //             .flatMap()
-    //             .keyBy("id")
-    //             .map((v, k) => {
-    //               return v;
-    //             })
-    //             .sortBy("name")
-    //             .value();
-    //           vm.genres = [{ id: "any", name: "All" }].concat(genres);
-    //           vm.page_index =
-    //             values[2].body.pagination.total_pages > 4
-    //               ? 4
-    //               : values[2].body.pagination.total_pages;
-    //           vm.isPageReady = true;
-    //         });
-    //       }
-    //     })
-    //     .catch((e) => {
-    //       this.$store.dispatch("error/showLoadingActivity", false);
-    //       // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-    //       console.log("discover error", e);
-    //     });
-    // },
+          if (page === 1) {
+            Promise.all([
+              SearchService.searchDiscover(_.extend(params, { page: 2 })),
+              SearchService.searchDiscover(_.extend(params, { page: 3 })),
+              SearchService.searchDiscover(_.extend(params, { page: 4 })),
+            ]).then((values) => {
+              vm.musicFeed = vm.musicFeed.concat(
+                values[0].body.albums,
+                values[1].body.albums,
+                values[2].body.albums
+              );
+              const genres = _.chain(vm.musicFeed)
+                .map("genres")
+                .flatMap()
+                .keyBy("id")
+                .map((v, k) => {
+                  return v;
+                })
+                .sortBy("name")
+                .value();
+              vm.genres = [{ id: "any", name: "All" }].concat(genres);
+              vm.page_index =
+                values[2].body.pagination.total_pages > 4
+                  ? 4
+                  : values[2].body.pagination.total_pages;
+              vm.isPageReady = true;
+            });
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch("error/showLoadingActivity", false);
+          // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          console.log("discover error", e);
+        });
+    },
   },
   created() {
     // needs to be updated to trending
