@@ -4,11 +4,9 @@
     <tab-nav :tabData="tabs" ref="tabData" @tabClicked="tabClicked" recChip />
 
     <div v-if="showTrending" class="page-content">
-      <h1 class="text-center mt-2 all-trending">All Trending</h1>
-
       <trending-music isComp :listLimit="10" />
-      <trending-video isComp :listLimit="6" />
-      <trending-product isComp :listLimit="8" />
+      <trending-video isComp :listLimit="10" />
+      <trending-product isComp :listLimit="10" />
     </div>
 
     <div v-else class="page-content">
@@ -23,8 +21,8 @@
 import SearchInput from "@/components/searchInput";
 import TabNav from "../components/tab_nav.vue";
 
-import trendingMusic from "@/views/album";
-import trendingVideo from "@/views/video";
+import trendingMusic from "../components/trending/music";
+import trendingVideo from "../components/trending/videos";
 import trendingProduct from "@/views/product";
 
 import discoverMusic from "./music";
@@ -69,10 +67,16 @@ export default {
     console.log("activeDiscover:", activeDiscover);
 
     if (activeDiscover) {
-            this.activeDiscover = activeDiscover
-        }
+      // BUG to fix
+      this.$nextTick(() => {
+        this.tabClicked(this.tabs.find((tab) => tab.id === activeDiscover));
+      });
+      this.$forceUpdate();
     }
-}
+    console.log("this.activeDiscover::", this.activeDiscover);
+  },
+  mounted() {},
+};
 </script>
 
 <style src="../../../../static/styles/mobile/search_input.scss" lang="scss"></style>
