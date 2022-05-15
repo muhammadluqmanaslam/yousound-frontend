@@ -18,6 +18,10 @@ const actions = {
     return await StreamService.getStreams(params)
     .then((response) => commit('setTrendingVideos', response.body.streams))
   },
+  async getTrendingProducts({ commit }, params) {
+    return await SearchService.searchDiscover(params)
+    .then((response) => commit('setTrendingProducts', response.body.products))
+  },
 }
 
 const mutations = {
@@ -26,6 +30,9 @@ const mutations = {
   },
   setTrendingVideos(state, feed) {
     state.videos = feed
+  },
+  setTrendingProducts(state, feed) {
+    state.products = feed
   },
 }
 

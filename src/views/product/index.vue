@@ -85,9 +85,9 @@
               <!-- <product-card :hideOverlay="true" :dataObject="feed" /> -->
               <product-card
                hideOverlay 
-              :noMeta="onMobile ? true : false" 
-              :altMeta="onMobile ? true : false" 
-              :altMetaPrice="onMobile ? true : false" 
+              :noMeta="onMobile"
+              :altMeta="onMobile"
+              :altMetaPrice="onMobile"
               :dataObject="feed" />
             </v-flex>
           </v-layout>
