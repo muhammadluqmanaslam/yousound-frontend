@@ -5,6 +5,7 @@ import album from './modules/album'
 import app from './modules/app'
 import auth from './modules/auth'
 import discover from './modules/discover'
+import trending from './modules/trending'
 import error from './modules/error'
 import genre from './modules/genre'
 import genreSelector from './modules/genre_selector'
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     app,
     auth,
     discover,
+    trending,
     genre,
     genreSelector,
     error,
