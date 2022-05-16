@@ -57,20 +57,8 @@
               @mouseleave="buttonHover = false"
               @click.native="followUser()"
             >
-                {{ followButtonText }}
-              </v-btn>
-
-            <v-tooltip top>
-              <span slot="activator" class="__actions pl-0">
-                <img
-                  src="/static/images/ic_share.svg"
-                  width="20"
-                  class="cursor-pointer"
-                  @click="share_dialog = true"
-                />
-              </span>
-              <span>Share</span>
-            </v-tooltip>
+              {{ followButtonText }}
+            </v-btn>
 
             <v-tooltip top v-if="product.merchant.id !== currentUser.id">
               <span slot="activator" class="__actions">
@@ -82,6 +70,18 @@
                 />
               </span>
               <span>Repost</span>
+            </v-tooltip>
+
+            <v-tooltip top>
+              <span slot="activator" class="__actions pl-0">
+                <img
+                  src="/static/images/ic_share.svg"
+                  width="20"
+                  class="cursor-pointer"
+                  @click="share_dialog = true"
+                />
+              </span>
+              <span>Share</span>
             </v-tooltip>
           </div>
 

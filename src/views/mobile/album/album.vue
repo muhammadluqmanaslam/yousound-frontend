@@ -90,17 +90,17 @@
             </v-btn>
 
             <img
-              class="share-icon"
-              width="21"
-              src="/static/images/ic_share.svg"
-              @click="openShareModal()"
-            />
-
-            <img
               class="repost-icon"
               width="21"
               src="/static/images/ic_repost.svg"
               @click="repostItem()"
+            />
+
+            <img
+              class="share-icon"
+              width="21"
+              src="/static/images/ic_share.svg"
+              @click="openShareModal()"
             />
 
             <img
