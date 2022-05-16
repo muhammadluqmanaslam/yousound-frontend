@@ -4,6 +4,10 @@
         margin-left: 0;
         text-align: center;
         
+        &:focus {
+            outline: 0;
+          }
+        
         &[type='search']::placeholder {
             color: rgba(0, 0, 0, 0.5);
             font-weight: 500;
