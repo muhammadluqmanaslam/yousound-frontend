@@ -1,6 +1,11 @@
 <template>
   <div class="page-onMobile discover-onMobile">
-    <search-input class="mb-2" isOnMobile />
+    <search-input
+      class="mb-2"
+      :placeholder="searchPlaceholder"
+      :searchTab="activeDiscover"
+      isOnMobile
+    />
     <tab-nav :tabData="tabs" ref="tabData" @tabClicked="tabClicked" recChip />
 
     <div v-if="showTrending" class="page-content">
@@ -43,18 +48,39 @@ export default {
   },
   data() {
     return {
-      activeDiscover: "album",
+      activeDiscover: "",
       isComp: true,
       tabs: [
         { id: "album", title: "Music" },
         { id: "video", title: "Video" },
         { id: "merch", title: "Shop" },
       ],
-      showTrending: !false,
+      showTrending: true,
+      searchPlaceholder: "Search",
     };
+  },
+  watch: {
+    activeDiscover(val) {
+      console.log("change placeholder", val);
+      switch (val) {
+        case "album":
+          this.searchPlaceholder = "Search Music";
+          break;
+        case "video":
+          this.searchPlaceholder = "Search Video";
+          break;
+        case "merch":
+          this.searchPlaceholder = "Search Shop";
+          break;
+        default:
+          this.searchPlaceholder = "Search";
+          break;
+      }
+    },
   },
   methods: {
     tabClicked(data) {
+      console.log("clickr 2");
       this.showTrending = false;
       this.activeDiscover = data.id;
     },
