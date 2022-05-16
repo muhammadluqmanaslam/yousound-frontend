@@ -99,6 +99,7 @@
 
     <v-dialog
       v-model="mobilePlayerActive"
+      v-if="onMobile"
       transition="slide-up"
       content-class="no-border-radius"
       fullscreen
