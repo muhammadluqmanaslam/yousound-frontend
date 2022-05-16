@@ -180,10 +180,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .bar-action {
-      font-size: 15px;
-    }
+    margin-bottom: 15px;
   }
 }
 </style>

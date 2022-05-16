@@ -501,6 +501,26 @@ li.search-li {
   }
 }
 
+.discover-page {
+  .discover-action {
+    font-size: 15px;
+    font-weight: 500;
+  }
+}
+
+.trending-comp {
+  margin-top: 14px;
+
+  .top-bar {
+    margin-bottom: 10px;
+
+    .bar-action {
+      font-size: 15px;
+      font-weight: 500;
+    }
+  }
+}
+
 .app-container {
   position: relative;
   display: flex;

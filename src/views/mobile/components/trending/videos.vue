@@ -5,7 +5,7 @@
       <div class="bar-action">View All</div>
     </div>
 
-    <item-tab minHeight="180">
+    <item-tab minHeight="180" class="mb-3">
       <template slot="itemTabs">
         <span
           v-for="(feed, index) in videoFeed1"
@@ -122,14 +122,12 @@ export default {
 
 <style lang="scss" scoped>
 .trending-videos {
+    margin-top: 20px;
+
   .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .bar-action {
-      font-size: 15px;
-    }
   }
   
   /deep/ .box__footer {

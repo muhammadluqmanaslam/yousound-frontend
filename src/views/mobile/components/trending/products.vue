@@ -5,7 +5,7 @@
       <div class="bar-action">View All</div>
     </div>
 
-    <item-tab>
+    <item-tab class="mb-4">
       <template slot="itemTabs">
         <span
           v-for="(feed, index) in productFeed1"
@@ -187,14 +187,12 @@ export default {
 
 <style lang="scss" scoped>
 .trending-products {
+    margin-top: 40px;
+
   .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .bar-action {
-      font-size: 15px;
-    }
   }
 }
 </style>
