@@ -31,7 +31,7 @@ export default {
 
   .tab-holder {
     width: 200px;
-    margin-right: 15px;
+    margin-right: 20px;
   }
 }
 </style>
