@@ -11,6 +11,11 @@ const state = {
     new: [],
     popular: [],
   },
+  mobileVideoFeed: {
+    recommended: [],
+    new: [],
+    popular: [],
+  },
 }
 
 const getters = {}
