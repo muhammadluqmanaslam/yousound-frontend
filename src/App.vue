@@ -23,7 +23,7 @@
     <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
     <v-content>
-      <span v-if="!isAuthenticated">
+      <span v-if="!onMobile && isAuthenticated">
         <app-loader v-show="loadValue !== 100" ref="appLoader" @getLoadUpdate="getLoadUpdate" />
       </span>
 
@@ -211,9 +211,7 @@ export default {
       console.log('mobilePlayerActive: ', val);
     },
     $route(to, from) {
-      if (!AuthService.isAuthenticated()) {
-        this.$refs.appLoader.updateLoader(0)
-      }
+      this.$refs.appLoader.updateLoader(0)
 
       const parentNode = document.getElementById('my_video_player')
       this.$nextTick(() => this.watchPip(to, from, parentNode))
@@ -245,7 +243,9 @@ export default {
   mounted() {
     // on app mount, init app loader
     if (!this.onMobile && this.isAuthenticated) {
-      this.$refs.appLoader.updateLoader(0)
+      this.$nextTick(() => {
+        this.$refs.appLoader.updateLoader(0)
+      })
     }
   },
   created() {
