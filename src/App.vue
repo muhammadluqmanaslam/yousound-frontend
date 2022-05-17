@@ -211,7 +211,7 @@ export default {
       console.log('mobilePlayerActive: ', val);
     },
     $route(to, from) {
-      this.$refs.appLoader.updateLoader(0)
+      this.initLoader()
 
       const parentNode = document.getElementById('my_video_player')
       this.$nextTick(() => this.watchPip(to, from, parentNode))
@@ -242,11 +242,7 @@ export default {
   },
   mounted() {
     // on app mount, init app loader
-    if (!this.onMobile && this.isAuthenticated) {
-      this.$nextTick(() => {
-        this.$refs.appLoader.updateLoader(0)
-      })
-    }
+    this.initLoader();
   },
   created() {
     console.log('App created')
@@ -303,6 +299,11 @@ export default {
   },
 
   methods: {
+    initLoader(value = 0) {
+      if (!this.onMobile && this.isAuthenticated) {
+        this.$refs.appLoader.updateLoader(value)
+      }
+    },
     getLoadUpdate(val) {
       // app loader emit listener
       // upload local state listener
