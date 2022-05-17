@@ -43,7 +43,7 @@ import CRow from "@/components/landing1/CRow.vue";
 import Plans from "../../components/landing3/Plans.vue";
 
 export default {
-  name: "Landing1",
+  name: "Landing3",
   components: { Header, Banner, Footer, CRow, Plans },
   data() {
     return {
