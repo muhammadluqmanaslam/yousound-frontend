@@ -7,6 +7,7 @@ export default {
     return {
       email: null,
       username: null,
+      resetSuccess: false,
     }
   },
 
@@ -21,6 +22,9 @@ export default {
   },
 
   methods: {
+    toLogin() {
+      this.$router.push({ name: 'Login' })
+    },
     submit() {
       if (!this.email) return
 
@@ -29,10 +33,11 @@ export default {
       AuthService.requestResetPassword(params)
         .then((response) => {
           // JSON responses are automatically parsed.
-          this.$store.dispatch('error/showSuccessToast', [
-            'Email sent with password reset instructions.',
-          ])
-          this.$router.push({ path: '/login' })
+          // this.$store.dispatch('error/showSuccessToast', [
+          //   'Email sent with password reset instructions.',
+          // ])
+
+          this.resetSuccess = true
         })
         .catch((e) => {
           this.$store.dispatch('error/showErrorToast', [
