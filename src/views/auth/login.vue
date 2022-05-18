@@ -1,7 +1,7 @@
 <template>
   <div class="page auth-page auth-login-page no-top-nav no-side-space">
 
-    <v-container grid-list-item allChildrenCenter auth-card px-0>
+    <v-container grid-list-item allChildrenCenter auth-card px-0 pb-0>
       <v-layout wrap row auth-card-wrapper align-center justify-center>
 
         <v-flex xs12 md6 auth-card-child left-card sign-in-info>
@@ -19,24 +19,25 @@
 
           <div v-else class="text-xs-center create-btn-wrapper">
 
-            <hr class="mb-5" />
+            <!-- <hr class="mb-5" /> -->
                         
-              <div class="black--text mb-3">
+              <!-- <div class="black--text mb-3">
                 <b>New here?</b>
-              </div>
+              </div> -->
+
+              <v-spacer></v-spacer>
               <v-btn
                 round
                 depressed
-                outline
-                class="create-btn black--text"
+                class="transparent create-btnn black--text"
                 style="margin: 0 auto"
                 to="/register"
               >
-                Create Account
+                Sign Up
               </v-btn>
           </div>
 
-          <v-spacer></v-spacer>
+          <v-spacer v-if="!onMobile"></v-spacer>
           <div v-if="!onMobile" class="text-xs-center auth-img-wrapper">
             <img width="70%" src="/static/images/new_login_img.svg" alt="">
           </div>
@@ -51,11 +52,15 @@
             <h2>welcome back!</h2>
           </div>
 
-          <form v-on:submit.prevent="submit()" autocomplete="off">
+          <form v-on:submit.prevent="submit()" autocomplete="off" :class="{'mt-2': onMobile}">
             <v-container fluid grid-list-item px-0>
               <v-layout wrap justify-center>
                 <v-flex xs12 text-xs-center>
-                  <div class="form-group" :class="{ 'has-error': errors.has('email') }">
+                  <div class="form-group _email" :class="{ 'has-error': errors.has('email') }">
+                    <div v-if="onMobile" class="form-icon">
+                      <img :src="require('@/assets/mail_icon.svg')" alt="main icon">
+                    </div>
+                    
                     <input
                       class="email"
                       v-model="user.email"
@@ -66,21 +71,31 @@
                       placeholder="Email"
                       autocomplete="off"
                     />
-                    <p class="text-danger text-xs-left" v-if="errors.has('email')">
-                      {{ errors.first('email') }}
-                    </p>
                   </div>
+                  <p
+                    v-if="errors.has('email')"
+                    class="text-danger text-xs-left mb-0"
+                    :class="{'mb-2': onMobile}"
+                  >
+                    {{ errors.first('email') }}
+                  </p>
                 </v-flex>
                 <v-flex xs12 text-xs-center>
-                  <input
-                    class="password"
-                    type="password"
-                    v-model="user.password"
-                    placeholder="Password"
-                    autocomplete="new-password"
-                  />
+                  <div class="form-group _password">
+                    <div v-if="onMobile" class="form-icon">
+                      <img :src="require('@/assets/password_icon.svg')" alt="main icon">
+                    </div>
+
+                    <input
+                      class="password"
+                      type="password"
+                      v-model="user.password"
+                      placeholder="Password"
+                      autocomplete="new-password"
+                    />
+                  </div>
                 </v-flex>
-                <v-flex xs12 text-xs-center mt-4>
+                <v-flex xs12 text-xs-center mt-4 :class="{'mt-0': onMobile}">
                   <v-btn block round dark type="submit" class="login-button">
                     Login
                   </v-btn>
