@@ -1,6 +1,5 @@
 const state = {
   mobileHeaderOptions: {
-    showGoBack: true,
     hideUser: false,
     showMenu: '',
     leftAltIcon: '',

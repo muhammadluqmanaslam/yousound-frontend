@@ -106,8 +106,8 @@ export function createRouter(settings) {
     // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
     // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
-    { path: '/login', name: 'Login', component: Login },
-    { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword },
+    { path: '/login', name: 'Login', component: Login, meta: { showGoBack: true } },
+    { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword, meta: { showGoBack: true } },
     {
       path: '/reset_password/:token',
       name: 'ResetPassword',

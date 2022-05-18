@@ -6,14 +6,14 @@
       :class="{'no-modalComp': !isModalComp}"
     >
       <div class="_inner-wrapper _left">
-        <!-- <v-icon
+        <v-icon
           v-if="showGoBack" 
           color="black" 
           class="go-back mr-3"
           @click="goBack()"
         >
           arrow_back_ios
-        </v-icon> -->
+        </v-icon>
 
         <img v-if="isAuthenticated" :src="leftAltIcon" />
       </div>
@@ -84,10 +84,6 @@ import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   props: {
-    showGoBack: {
-      type: Boolean,
-      default: true,
-    },
     hideUser: {
       type: Boolean,
       default: false,
@@ -191,6 +187,9 @@ export default {
     },
     senderRoute() {
       return this.$route.meta.senderRoute
+    },
+    showGoBack() {
+      return this.$route.meta.showGoBack
     },
   },
 
