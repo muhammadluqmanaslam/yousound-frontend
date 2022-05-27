@@ -240,11 +240,11 @@ export default {
       }
     }
     &._country {
-      background: url("../../../../assets/mail_icon_outline.svg") no-repeat
+      background: url("../../../../assets/globe_icon_outline.svg") no-repeat
         scroll 7px 13px;
     }
     &._city {
-      background: url("../../../../assets/password_outline.svg") no-repeat
+      background: url("../../../../assets/city_icon_outline.svg") no-repeat
         scroll 7px 13px;
     }
   }
