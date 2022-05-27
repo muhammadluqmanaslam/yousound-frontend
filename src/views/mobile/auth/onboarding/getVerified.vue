@@ -88,7 +88,7 @@ export default {
     },
     validated() {
       const { socialChannel, socialHandle } = this;
-      const valSocialhandle = socialChannel.length > 1
+      const valSocialhandle = socialHandle.length > 1
       const toValidate = [socialChannel, valSocialhandle];
 
       const isValid = toValidate.every((item) => item);
