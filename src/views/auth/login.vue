@@ -29,9 +29,9 @@
               <v-btn
                 round
                 depressed
-                class="transparent create-btnn black--text"
+                class="transparent create-btn black--text"
                 style="margin: 0 auto"
-                to="/register"
+                :to="onMobile? '/onboarding' : '/register'"
               >
                 Sign Up
               </v-btn>
