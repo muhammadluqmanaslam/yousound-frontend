@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Vue from 'vue'
 
 const state = {
   toggleActivity: false,
@@ -8,6 +9,23 @@ const state = {
   public_relations_user: {},
   sideBarMini: false,
   sideBarWidth: 280,
+  countries: [],
+  cities: [],
+  onboarding: {
+    current: 1,
+    accountCategory: 'creator',
+    accountType: '',
+    userName: '',
+    profileImage: '',
+    fullName: '',
+    email: '',
+    password: '',
+    age: '',
+    country: '',
+    city: '',
+    socialChannel: '',
+    socialHandle: '',
+  },
 }
 
 const getters = {
@@ -75,35 +93,6 @@ const getters = {
           // },
         ],
       },
-      // {
-      //   name: '',
-      //   items: [
-      //     {
-      //       title: 'Discover',
-      //       id: 'music',
-      //       icon: 'library_music',
-      //       path: 'DiscoverIndex',
-      //     },
-      //     {
-      //       title: 'Video',
-      //       id: 'video',
-      //       icon: 'live_tv',
-      //       path: 'VideoIndex',
-      //     },
-      //     {
-      //       title: 'Music',
-      //       id: 'music',
-      //       icon: 'library_music',
-      //       path: 'AlbumIndex',
-      //     },
-      //     {
-      //       title: 'Shop',
-      //       id: 'shop',
-      //       icon: 'shopping_bag',
-      //       path: 'ProductIndex',
-      //     },
-      //   ],
-      // },
     ]
 
     return tabs
@@ -141,11 +130,9 @@ const getters = {
   disabledLiveVideo: (state) => {
     return _.get(state.settings, 'disable_live_video', false)
   },
-
   disabledVerification: (state) => {
     return _.get(state.settings, 'disable_verification', false)
   },
-
   digitalCategoryIds: (state) => {
     // return _.chain(state.product_categories).find((c) => (c.name === 'Digital Product')).get('id', null).value()
     return _.chain(state.product_categories)
@@ -153,9 +140,75 @@ const getters = {
       .map('id')
       .value()
   },
-
   reminderTracksCount: (state) => {
     return _.get(state.settings, 'reminder_tracks_count', 5)
+  },
+  onboardingStages: (state, getters) => {
+    if (state.onboarding.accountCategory === 'listener') {
+      return getters.listenerStages
+    } else if (state.onboarding.accountCategory === 'creator') {
+      return getters.creatorStages
+    } else {
+      return [{
+        title: 'What Are You?',
+        stage: 1,
+      }]
+    }
+  },
+  listenerStages() {
+    const stages = [
+      {
+        title: 'Artist or Brand',
+        stage: 2,
+      },
+      {
+        title: 'Profile Image',
+        stage: 3,
+      },
+      {
+        title: 'Profile Image',
+        stage: 4,
+      },
+    ]
+    return stages
+  },
+  creatorStages() {
+    const stages = [
+      {
+        title: 'What Are You?',
+        stage: 1,
+      },
+      {
+        title: 'Artist or Brand',
+        stage: 2,
+      },
+      {
+        title: 'Profile Image',
+        stage: 3,
+      },
+      {
+        title: 'Account Info',
+        stage: 4,
+      },
+      {
+        title: 'Age & Location',
+        stage: 5,
+      },
+      {
+        title: 'Let\'s get verified',
+        stage: 6,
+      },
+      {
+        title: 'Check Email',
+        stage: 7,
+      },
+    ]
+    return stages
+  },
+  currentStage(state, getters) {
+    const current = getters.onboardingStages.find((stage) => stage.stage === state.onboarding.current) || {}
+
+    return current
   },
 }
 
@@ -181,6 +234,21 @@ const actions = {
   toggleSideBarMini({ commit }, status) {
     commit('toggleSideBarMini', status)
   },
+  getCountries({ commit }, data) {
+    return Vue.http.get("https://countriesnow.space/api/v0.1/countries")
+      .then((response) => commit('setCountries', response.data.data))
+      .catch((err) => err)
+  },
+  getCities(context, country) {
+    const getCountry = context.state.countries.find(c => c.country === country)
+    context.commit('setCities', getCountry.cities)
+  },
+  nextOnboardingStage({ commit }, stage) {
+    commit('gotoNextOnboarding', stage)
+  },
+  prevOnboardingStage({ commit }, stage) {
+    commit('gotoPrevOnboarding', stage)
+  },
 }
 
 const mutations = {
@@ -205,6 +273,32 @@ const mutations = {
 
   toggleSideBarMini(state, status) {
     state.sideBarMini = status
+  },
+  setCountries(state, data) {
+    state.countries = data
+  },
+  setCities(state, data) {
+    state.cities = data
+  },
+  gotoNextOnboarding(state, stage) {
+    state.onboarding.current = stage
+  },
+  gotoPrevOnboarding(state, stage) {
+    state.onboarding.current = stage
+  },
+  updateOnboarding(state, options) {
+    console.log(options)
+    const optionKeys = Object.keys(options)
+
+    // find in onboarding, keys that are being updated
+    for (let i = 0; i < optionKeys.length; i++) {
+      const element = optionKeys[i];
+
+      if (Object.hasOwnProperty.call(state.onboarding, element)) {
+        state.onboarding[element] = options[element]
+      }
+    }
+    console.log(state.onboarding)
   },
 }
 
