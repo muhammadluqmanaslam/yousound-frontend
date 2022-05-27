@@ -4,6 +4,7 @@ import vueMethodsPromise from 'vue-methods-promise'
 
 import ProtectPage from '@/views/auth/protect_page'
 import Login from '@/views/auth/login'
+import Onboarding from '@/views/mobile/auth/onboarding'
 import Auth from '@/views/auth/authTab'
 import ForgotPassword from '@/views/auth/forgot_password'
 import ResetPassword from '@/views/auth/reset_password'
@@ -140,6 +141,11 @@ export function createRouter(settings) {
 
   if (!settings.disable_sign_up) {
     routes = routes.concat([
+      {
+        path: '/onboarding',
+        name: 'Onboarding',
+        component: Onboarding,
+      },
       {
         path: '/register',
         name: 'Register',
