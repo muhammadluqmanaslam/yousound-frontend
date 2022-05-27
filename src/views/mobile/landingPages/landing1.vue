@@ -17,7 +17,7 @@
         round
         dark
         class="auth-signup"
-        @click="$router.push({name: 'Register'})"
+        @click="$router.push({name: 'Onboarding'})"
       >
         Sign Up
       </v-btn>
