@@ -2,46 +2,69 @@
   <div class="choose-account">
     <div
       class="account _listener"
-      :class="{ onSelect: selected == 'listener' }"
+      :class="{ onSelect: accountCategory == 'listener' }"
       @click="chooseAccount('listener')"
     >
-      <div class="title">Listener</div>
-      <div class="subtitle">I want to stream & watch</div>
+      <div class="_title">Listener</div>
+      <div class="_subtitle">I want to stream & watch</div>
     </div>
 
     <div
       class="account _creator"
-      :class="{ onSelect: selected == 'creator' }"
+      :class="{ onSelect: accountCategory == 'creator' }"
       @click="chooseAccount('creator')"
     >
       <div class="_title">Creator</div>
       <div class="_subtitle">I want to upload & sell</div>
     </div>
+
+    <NavFooter />
   </div>
 </template>
 
 <script>
+import { mapActions, mapMutations, mapState } from 'vuex';
+import NavFooter from "./navFooter";
+
 export default {
+  components: {
+    NavFooter,
+  },
   data() {
     return {
-      selected: "",
+      accountCategory: "",
     };
   },
   computed: {
-    validate() {
-      const { selected } = this;
-      const toVaidate = [selected];
+    ...mapState({
+      current: state => state.app.onboarding.current,
+    }),
+    validated() {
+      const { accountCategory } = this;
+      const toValidate = [accountCategory];
 
-      const isValid = toVaidate.every((item) => item);
+      const isValid = toValidate.every((item) => item);
       return isValid;
     },
   },
   methods: {
-    chooseAccount(accountType) {
-      this.selected = accountType;
+    ...mapActions({
+      gotoNextStage: "app/nextOnboardingStage",
+      gotoPrevStage: "app/prevOnboardingStage"
+    }),
+    ...mapMutations({
+      updateOnboarding: "app/updateOnboarding",
+    }),
+    chooseAccount(category) {
+      this.accountCategory = category;
 
-      if (this.validate)
-        return this.$emit("nextStage", { accountType, completedStage: 1 });
+      if (this.validated) {
+        const data = {
+          accountCategory: this.accountCategory
+        }
+        this.updateOnboarding(data)
+        return this.gotoNextStage(this.current+1)
+      }
     },
   },
 };
