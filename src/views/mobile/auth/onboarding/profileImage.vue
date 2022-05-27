@@ -97,7 +97,7 @@ export default {
       }
     },
     handlePrevStage() {
-      if (this.current !== 1 && this.validated) {
+      if (this.current !== 1) {
         this.gotoPrevStage(this.current-1)
       }
     }
