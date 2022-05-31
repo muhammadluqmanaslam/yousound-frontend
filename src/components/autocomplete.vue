@@ -56,6 +56,9 @@ export default {
       }
     },
   },
+  destroyed() {
+    this.showPanel = false
+  },
 };
 </script>
 
