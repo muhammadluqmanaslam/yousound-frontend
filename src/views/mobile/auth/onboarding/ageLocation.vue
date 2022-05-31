@@ -97,6 +97,9 @@ export default {
       current: (state) => state.app.onboarding.current,
       countries: (state) => state.app.countries,
       cities: (state) => state.app.cities,
+      getAgeRange: (state) => state.app.onboarding.ageRange,
+      getCountry: (state) => state.app.onboarding.country,
+      getCity: (state) => state.app.onboarding.city,
     }),
     getCountryList() {
       const getCountries = this.countries.map((c) => c.country);
@@ -119,23 +122,12 @@ export default {
       return cities
 
     },
-    validated() {
-      const { ageRange, country, city } = this;
-      const valCountry = this.getCountryList.includes(country)
-      const valCity = this.getCityList.includes(city)
-      const toValidate = [ageRange, valCountry, valCity];
-
-      const isValid = toValidate.every((item) => item);
-      return isValid;
-    },
   },
   watch: {
     country() {
       this.proceedToCities = false;
-      this.city = ""
     },
     proceedToCities(val) {
-      console.log('proceed to cities: ', val)
       if (val) {
         this.getCities(this.country)
       }
@@ -151,6 +143,27 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
+    validated() {
+      const { ageRange, country, city } = this;
+      const valCountry = this.getCountryList.includes(country)
+      const valCity = this.getCityList.includes(city)
+      const toValidate = [ageRange, valCountry, valCity];
+
+      const errors = [
+        "Please choose an age range",
+        "Please select a valid country from list",
+        "Please select a valid city from list",
+      ]
+
+      const isValid = toValidate.every((item, index) => {
+        if (!item) {
+          this.$store.dispatch("error/showErrorToast",[errors[index]])
+          return item
+        }
+        return item
+      });
+      return isValid;
+    },
     selectAgeRange(age) {
       this.ageRange = age.id;
     },
@@ -158,6 +171,7 @@ export default {
       switch (identifier) {
         case "country":
           this.country = option;
+          this.city = ""
 
           // Bug: had to combine bothe false instance
           this.proceedToCities = true
@@ -174,11 +188,11 @@ export default {
 
     },
     handleNextStage() {
-      if (this.validated) {
+      if (this.validated()) {
         const data = {
-          fullName: this.fullName,
-          email: this.email,
-          password: this.password,
+          ageRange: this.ageRange,
+          country: this.country,
+          city: this.city,
         };
         this.updateOnboarding(data);
 
@@ -193,6 +207,10 @@ export default {
   },
   created() {
     this.getCountries();
+
+    this.ageRange = this.getAgeRange
+    this.country = this.getCountry
+    this.city = this.getCity
   },
 };
 </script>

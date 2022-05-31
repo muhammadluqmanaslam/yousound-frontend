@@ -8,12 +8,12 @@
         offset-y
         :nudge-top="-5"
         :nudge-left="0"
-        class="account-type-menu"
-        content-class="account-menu__content"
+        class="social-type-menu"
+        content-class="social-menu__content"
       >
         <v-select
           :placeholder="socialChannel ? socialChannel.title : 'Choose'"
-          class="account-types-selector"
+          class="social-types-selector"
           single-line
           hide-details
           slot="activator"
@@ -23,7 +23,7 @@
           v-for="(channel, i) in socialChannels"
           :key="i"
           @click="selectedChannel(channel)"
-          class="account-info"
+          class="channel-info"
           :class="[`${channel.id}-menu`]"
         >
           <div class="_title">{{ channel.title }}</div>
@@ -65,6 +65,8 @@ export default {
   computed: {
     ...mapState({
       current: (state) => state.app.onboarding.current,
+      getSocialChannel: (state) => state.app.onboarding.socialChannel,
+      getSocialHandle: (state) => state.app.onboarding.socialHandle,
     }),
     socialChannels() {
       return [
@@ -86,14 +88,6 @@ export default {
         },
       ];
     },
-    validated() {
-      const { socialChannel, socialHandle } = this;
-      const valSocialhandle = socialHandle.length > 1
-      const toValidate = [socialChannel, valSocialhandle];
-
-      const isValid = toValidate.every((item) => item);
-      return isValid;
-    },
   },
   watch: {
     socialHandle(val) {
@@ -110,11 +104,30 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
+    validated() {
+      const { socialChannel, socialHandle } = this;
+      const valSocialhandle = socialHandle.length > 1
+      const toValidate = [socialChannel, valSocialhandle];
+
+      const errors = [
+        "Please choose a social channel",
+        "Please enter a valid social handle",
+      ]
+
+      const isValid = toValidate.every((item, index) => {
+        if (!item) {
+          this.$store.dispatch("error/showErrorToast",[errors[index]])
+          return item
+        }
+        return item
+      });
+      return isValid;
+    },
     selectedChannel(channel) {
       this.socialChannel = channel;
     },
     handleNextStage() {
-      if (this.validated) {
+      if (this.validated()) {
         const data = {
           socialChannel: this.socialChannel,
           socialHandle: this.socialHandle,
@@ -130,16 +143,11 @@ export default {
       }
     },
   },
+  created() {
+    this.socialChannel = this.getSocialChannel;
+    this.socialHandle = this.getSocialHandle;
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-.account-type-menu {
-    width: 100%;
-    margin-bottom: 8px;
-}
-._socialHandle {
-  color: #000000;
-  font-weight: bold;
-}
-</style>
+<style lang="scss" src="../../../../../static/styles/onboarding.scss"></style>

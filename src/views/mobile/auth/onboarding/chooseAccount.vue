@@ -38,6 +38,7 @@ export default {
   computed: {
     ...mapState({
       current: state => state.app.onboarding.current,
+      getAccountCategory: state => state.app.onboarding.accountCategory,
     }),
     validated() {
       const { accountCategory } = this;
@@ -66,6 +67,9 @@ export default {
         return this.gotoNextStage(this.current+1)
       }
     },
+  },
+  created() {
+    this.accountCategory = this.getAccountCategory
   },
 };
 </script>

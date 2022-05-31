@@ -65,6 +65,8 @@ export default {
   computed: {
     ...mapState({
       current: state => state.app.onboarding.current,
+      getAccountType: state => state.app.onboarding.accountType,
+      getUsername: state => state.app.onboarding.username,
     }),
     accountTypes() {
       const accountTypes = [
@@ -82,13 +84,6 @@ export default {
 
       return accountTypes || [];
     },
-    validated() {
-      const { accountType, username } = this;
-      const toValidate = [accountType, username];
-
-      const isValid = toValidate.every((item) => item);
-      return isValid;
-    },
   },
   methods: {
     ...mapActions({
@@ -98,11 +93,29 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
+    validated() {
+      const { accountType, username } = this;
+      const toValidate = [accountType, username];
+
+      const errors = [
+        "Please choose an account type",
+        "Please enter a valid username",
+      ]
+
+      const isValid = toValidate.every((item, index) => {
+        if (!item) {
+          this.$store.dispatch("error/showErrorToast",[errors[index]])
+          return item
+        }
+        return item
+      });
+      return isValid;
+    },
     selectedAccount(account) {
       this.accountType = account;
     },
     handleNextStage() {
-      if (this.validated) {
+      if (this.validated()) {
         const data = {
           accountType: this.accountType,
           username: this.username,
@@ -119,7 +132,8 @@ export default {
     }
   },
   created() {
-    console.log("account type");
+    this.accountType = this.getAccountType;
+    this.username = this.getUsername;
   },
 };
 </script>

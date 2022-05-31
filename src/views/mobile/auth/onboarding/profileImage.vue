@@ -46,16 +46,10 @@ export default {
   computed: {
     ...mapState({
       current: state => state.app.onboarding.current,
+      getProfileImage: state => state.app.onboarding.profileImage,
     }),
     pickerImg() {
       return require("@/assets/file_upload.svg");
-    },
-    validated() {
-      const { profileImage } = this;
-      const toValidate = [profileImage];
-
-      const isValid = toValidate.every((item) => item);
-      return isValid;
     },
   },
   methods: {
@@ -66,9 +60,25 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
+    validated() {
+      const { profileImage } = this;
+      const toValidate = [profileImage];
+
+      const errors = [
+        "Please upload a valid profile image",
+      ]
+
+      const isValid = toValidate.every((item, index) => {
+        if (!item) {
+          this.$store.dispatch("error/showErrorToast",[errors[index]])
+          return item
+        }
+        return item
+      });
+      return isValid;
+    },
     imageChanged(e) {
       if (e.target.files[0].size > 2097152) {
-        // console.log(e.target.files)
         this.$store.dispatch("error/showErrorToast", [
           "You can upload an image 2MB in maximum",
         ]);
@@ -87,7 +97,7 @@ export default {
       reader.readAsDataURL(file);
     },
     handleNextStage() {
-      if (this.validated) {
+      if (this.validated()) {
         const data = {
           profileImage: this.profileImage,
         }
@@ -101,6 +111,9 @@ export default {
         this.gotoPrevStage(this.current-1)
       }
     }
+  },
+  created() {
+    this.profileImage = this.getProfileImage;
   },
 };
 </script>

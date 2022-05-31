@@ -12,7 +12,7 @@
 
     <div class="form-group">
       <div class="_title">Email</div>
-      <input v-model="email" class="_email" type="text" placeholder="Email" />
+      <input v-model="email" class="_email" type="email" placeholder="Email" />
     </div>
 
     <div class="form-group">
@@ -20,7 +20,7 @@
       <input
         v-model="password"
         class="_password"
-        type="text"
+        type="password"
         placeholder="Password"
       />
     </div>
@@ -51,14 +51,10 @@ export default {
   computed: {
     ...mapState({
       current: (state) => state.app.onboarding.current,
+      getFullName: (state) => state.app.onboarding.fullName,
+      getEmail: (state) => state.app.onboarding.email,
+      getPassword: (state) => state.app.onboarding.password,
     }),
-    validated() {
-      const { fullName, email, password } = this;
-      const toValidate = [fullName, email, password];
-
-      const isValid = toValidate.every((item) => item);
-      return isValid;
-    },
   },
   methods: {
     ...mapActions({
@@ -68,8 +64,50 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
+    validated() {
+      const { fullName, email, password } = this;
+      const valFullName = fullName && fullName.split(" ").length > 1;
+      const valEmail = this.validateEmail(email)
+      const valPassword = this.validatePassword(password)
+      const toValidate = [valFullName, valEmail, valPassword];
+
+      const errors = [
+        "Please enter a valid full name",
+        "Please enter a valid email address",
+        "Password must be Min. 8 characters with at least one capital letter, a number and a special character.",
+      ];
+
+      const isValid = toValidate.every((item, index) => {
+        if (!item) {
+          this.$store.dispatch("error/showErrorToast", [errors[index]]);
+          return item;
+        }
+        return item;
+      });
+      return isValid;
+    },
+    validateEmail(email) {
+      if (
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+          email
+        )
+      ) {
+        return true;
+      }
+      return false;
+    },
+    validatePassword(password) {
+      if (
+        /^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d)(?=\S*([^\w\s]|[_]))\S{8,}$/.test(
+          password
+        )
+      ) {
+        return true;
+      }
+      return false;
+    },
     handleNextStage() {
-      if (this.validated) {
+      if (this.validated()) {
         const data = {
           fullName: this.fullName,
           email: this.email,
@@ -85,6 +123,11 @@ export default {
         this.gotoPrevStage(this.current - 1);
       }
     },
+  },
+  created() {
+    this.fullName = this.getFullName;
+    this.email = this.getEmail;
+    this.password = this.getPassword;
   },
 };
 </script>
