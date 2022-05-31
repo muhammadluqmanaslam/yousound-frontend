@@ -11,8 +11,13 @@
       <AccountInfo v-if="current === 4" />
       <AgeLocation v-if="current === 5" />
       <GetVerified v-if="current === 6" />
-      
       <CheckEmail v-if="current === 7" />
+    </div>
+    <div v-else-if="accountCategory === 'listener'" class="stage-wrapper">
+      <ProfileImage v-if="current === 2" />
+      <AccountInfo v-if="current === 3" />
+      <AgeLocation v-if="current === 4" />
+      <CheckEmail v-if="current === 5" />
     </div>
   </div>
 </template>

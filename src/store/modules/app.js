@@ -13,7 +13,7 @@ const state = {
   cities: [],
   onboarding: {
     current: 1,
-    accountCategory: '',
+    accountCategory: 'listener',
     accountType: '',
     username: '',
     profileImage: '',
@@ -158,16 +158,20 @@ const getters = {
   listenerStages() {
     const stages = [
       {
-        title: 'Artist or Brand',
+        title: 'Profile Image',
         stage: 2,
       },
       {
-        title: 'Profile Image',
+        title: 'Account Info',
         stage: 3,
       },
       {
-        title: 'Profile Image',
+        title: 'Age & Location',
         stage: 4,
+      },
+      {
+        title: 'Check Email',
+        stage: 5,
       },
     ]
     return stages
