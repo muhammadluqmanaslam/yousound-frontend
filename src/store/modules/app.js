@@ -13,7 +13,7 @@ const state = {
   cities: [],
   onboarding: {
     current: 1,
-    accountCategory: 'creator',
+    accountCategory: '',
     accountType: '',
     username: '',
     profileImage: '',
