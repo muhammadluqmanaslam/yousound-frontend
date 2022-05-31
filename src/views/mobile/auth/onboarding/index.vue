@@ -2,8 +2,10 @@
   <div class="onboarding">
     <Stager :current="current" :title="currentStage.title" />
 
-    <div v-if="accountCategory === 'creator'" class="stage-wrapper">
-      <ChooseAccount v-if="current === 1" />
+    <div v-if="current === 1" class="stage-wrapper">
+      <ChooseAccount />
+    </div>
+    <div v-else-if="accountCategory === 'creator'" class="stage-wrapper">
       <AccountType v-if="current === 2" />
       <ProfileImage v-if="current === 3" />
       <AccountInfo v-if="current === 4" />
@@ -17,16 +19,4 @@
 
 <script src="./index.ctrl.js"></script>
 
-<style lang="scss" scoped>
-.onboarding {
-  position: relative;
-  min-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  .stage-wrapper {
-    margin-top: -70px;
-  }
-}
-</style>
+<style lang="scss" src="../../../../../static/styles/onboarding.scss"></style>
