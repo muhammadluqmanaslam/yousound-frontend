@@ -32,10 +32,16 @@ export default {
     ...mapGetters({
       stages:"app/onboardingStages",
       currentStage:"app/currentStage",
+      isAuthenticated: "auth/isAuthenticated",
     }),
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
   },
   methods: {},
-  updated() {
-    console.log("stage", this.current)
+  created() {
+    if (this.isAuthenticated || !this.onMobile) {
+      this.$router.push({name: "Dashboard"})
+    }
   }
 }
