@@ -106,7 +106,6 @@ export default {
       } else {
         this.mini = true
       }
-      console.log('mini:', this.mini);
     },
     isAuthenticated: {
       immediate: true,
@@ -148,8 +147,6 @@ export default {
       // customization for DiscoverIndex
       if (subMenu.path == 'DiscoverIndex' && discoverInherits.includes(currentRouteName)) {
         path = 'DiscoverIndex'
-        // console.log('CUSTOMIZED');
-        // console.log(this.$route.name, path);
         return true
       }
 
@@ -206,7 +203,5 @@ export default {
     if (this.onMobile) {
       this.mini = true
     }
-
-    console.log(this.$route.name);
   },
 }
