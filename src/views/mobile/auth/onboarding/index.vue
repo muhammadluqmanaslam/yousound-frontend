@@ -1,6 +1,6 @@
 <template>
   <div class="onboarding">
-    <Stager :current="current" :title="currentStage.title" />
+    <Stager staging="onboarding" />
 
     <div v-if="current === 1" class="stage-wrapper">
       <ChooseAccount />
