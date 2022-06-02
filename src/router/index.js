@@ -5,6 +5,7 @@ import vueMethodsPromise from 'vue-methods-promise'
 import ProtectPage from '@/views/auth/protect_page'
 import Login from '@/views/auth/login'
 import Onboarding from '@/views/mobile/auth/onboarding'
+import Activation from '@/views/mobile/auth/activation'
 import Auth from '@/views/auth/authTab'
 import ForgotPassword from '@/views/auth/forgot_password'
 import ResetPassword from '@/views/auth/reset_password'
@@ -83,7 +84,7 @@ let isMobile = () => {
   }
 }
 const onMobile = isMobile()
-console.log('onMobile: ', onMobile)
+// console.log('onMobile: ', onMobile)
 
 const setComponent = (path, hasNoIndexFile) => {
   const ext = hasNoIndexFile ? '.vue' : 'index.vue'
@@ -145,6 +146,15 @@ export function createRouter(settings) {
         path: '/onboarding',
         name: 'Onboarding',
         component: Onboarding,
+      },
+      {
+        path: '/activation',
+        name: 'Activation',
+        component: Activation,
+        meta: {
+          hideMobileHeader: true,
+          noSideSpace: true,
+        },
       },
       {
         path: '/register',
