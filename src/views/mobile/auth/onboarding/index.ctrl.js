@@ -1,4 +1,4 @@
-import Stager from "./stager"
+import Stager from "../stager"
 import ChooseAccount from "./chooseAccount"
 import AccountType from "./accountType"
 import ProfileImage from "./profileImage"
@@ -31,7 +31,7 @@ export default {
     }),
     ...mapGetters({
       stages:"app/onboardingStages",
-      currentStage:"app/currentStage",
+      currentStage:"app/onboardingCurrentStage",
       isAuthenticated: "auth/isAuthenticated",
     }),
     onMobile() {
