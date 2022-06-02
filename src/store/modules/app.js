@@ -11,9 +11,13 @@ const state = {
   sideBarWidth: 280,
   countries: [],
   cities: [],
+  activation: {
+    current: 1,
+    accountCategory: 'creator',
+  },
   onboarding: {
     current: 1,
-    accountCategory: 'listener',
+    accountCategory: '',
     accountType: '',
     username: '',
     profileImage: '',
@@ -145,9 +149,9 @@ const getters = {
   },
   onboardingStages: (state, getters) => {
     if (state.onboarding.accountCategory === 'listener') {
-      return getters.listenerStages
+      return getters.onboardingListenerStages
     } else if (state.onboarding.accountCategory === 'creator') {
-      return getters.creatorStages
+      return getters.onboardingCreatorStages
     } else {
       return [{
         title: 'What Are You?',
@@ -155,7 +159,7 @@ const getters = {
       }]
     }
   },
-  listenerStages() {
+  onboardingListenerStages() {
     const stages = [
       {
         title: 'Profile Image',
@@ -176,7 +180,7 @@ const getters = {
     ]
     return stages
   },
-  creatorStages() {
+  onboardingCreatorStages() {
     const stages = [
       {
         title: 'What Are You?',
@@ -209,8 +213,121 @@ const getters = {
     ]
     return stages
   },
-  currentStage(state, getters) {
+  onboardingCurrentStage(state, getters) {
     const current = getters.onboardingStages.find((stage) => stage.stage === state.onboarding.current) || {}
+
+    return current
+  },
+  activationStages: (state, getters) => {
+    if (state.activation.accountCategory === 'listener') {
+      return getters.activationListenerStages
+    } else if (state.activation.accountCategory === 'creator') {
+      return getters.activationCreatorStages
+    } else {
+      return [{
+        title: 'Your account is activated!',
+        stage: 1,
+      }]
+    }
+  },
+  activationListenerStages() {
+    const stages = [
+      {
+        title: 'Profile Image',
+        stage: 2,
+      },
+      {
+        title: 'Account Info',
+        stage: 3,
+      },
+      {
+        title: 'Age & Location',
+        stage: 4,
+      },
+      {
+        title: 'Check Email',
+        stage: 5,
+      },
+    ]
+    return stages
+  },
+  activationCreatorStages() {
+    const stages = [
+      {
+        stage: 1,
+        title: 'Your account is activated!',
+        subtitle: 'Lets get you familiar <br /> with YouSound',
+        color: '#F3452E',
+        cta1: {
+          title: 'Let\'s go!',
+          action: 'next',
+          color: '#000000',
+        },
+        cta2: {
+          title: 'Skip',
+          action: 'Dashboard',
+          color: 'transparent',
+        },
+        image: require('../../assets/activate1.svg'),
+      },
+      {
+        stage: 2,
+        title: 'What is <br> YouSound?',
+        subtitle: 'YouSound is a platform for artists & brands to easily share their content, build community & make a livable income',
+        color: '#3971DE',
+        image: require('../../assets/activate2.svg'),
+      },
+      {
+        stage: 3,
+        title: 'Upload all of your content',
+        subtitle: 'YouSound is powered by verified creators that can upload all of their music, videos, products & broadcast live.',
+        color: '#BF9D45',
+        image: require('../../assets/activate3.svg'),
+      },
+      {
+        stage: 4,
+        title: 'User-centric streaming',
+        subtitle: '<b>10k</b> combined streams from <b>5,000</b> users on other platforms earns <b class="highlight">$25</b>. On YouSound 10 creators can earn <b class="highlight">$2,500</b> per month.',
+        color: '#323343',
+        image: require('../../assets/activate4.svg'),
+      },
+      {
+        stage: 5,
+        title: 'Connect direct <br /> with SMS text',
+        subtitle: 'When people follow you they can opt-in to get SMS texts. Bypass the algorithms & contact your valued supporters directly.',
+        color: '#474CB5',
+        image: require('../../assets/activate5.svg'),
+      },
+      {
+        stage: 6,
+        title: 'Get paid <br /> to share',
+        subtitle: 'You can send & receive direct messages requesting to share content.  Subscribers can set their price to earn money.',
+        color: '#439846',
+        image: require('../../assets/activate6.svg'),
+      },
+      {
+        stage: 7,
+        title: 'Join the <br /> creative revival',
+        subtitle: 'Tell your fans to subscribe & make sure you choose a plan to unlock all of the PRO features',
+        color: '#D8EDF0',
+        cta1: {
+          title: 'Choose subscription',
+          action: '',
+          color: '#FF472E',
+        },
+        cta2: {
+          title: 'Not yet, take me to the app',
+          action: '',
+          color: '#FF472E',
+        },
+        image: require('../../assets/activate7.svg'),
+        isDark: true,
+      },
+    ]
+    return stages
+  },
+  activationCurrentStage(state, getters) {
+    const current = getters.activationStages.find((stage) => stage.stage === state.activation.current) || {}
 
     return current
   },
@@ -253,6 +370,12 @@ const actions = {
   prevOnboardingStage({ commit }, stage) {
     commit('gotoPrevOnboarding', stage)
   },
+  nextActivationStage({ commit }, stage) {
+    commit('gotoNextActivation', stage)
+  },
+  prevActivationStage({ commit }, stage) {
+    commit('gotoPrevActivation', stage)
+  },
 }
 
 const mutations = {
@@ -291,7 +414,6 @@ const mutations = {
     state.onboarding.current = stage
   },
   updateOnboarding(state, options) {
-    console.log(options)
     const optionKeys = Object.keys(options)
 
     // find in onboarding, keys that are being updated
@@ -302,7 +424,25 @@ const mutations = {
         state.onboarding[element] = options[element]
       }
     }
-    console.log(state.onboarding)
+  },
+  gotoNextActivation(state, stage) {
+    state.activation.current = stage
+  },
+  gotoPrevActivation(state, stage) {
+    state.activation.current = stage
+  },
+  updateActivation(state, options) {
+    const optionKeys = Object.keys(options)
+
+    // find in activation, keys that are being updated
+    for (let i = 0; i < optionKeys.length; i++) {
+      const element = optionKeys[i];
+
+      if (Object.hasOwnProperty.call(state.activation, element)) {
+        state.activation[element] = options[element]
+      }
+    }
+    console.log(state.activation)
   },
 }
 
