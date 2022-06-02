@@ -13,7 +13,7 @@
     }"
   >
     <mobile-header 
-      v-if="onMobile" 
+      v-if="onMobile && !hideMobileHeader"
       :centerImg="mHeaderOp.centerImg"
       :rightAltIcon="mHeaderOp.rightAltIcon"
       :hideUser="mHeaderOp.hideUser"
@@ -190,11 +190,9 @@ export default {
     currentUser() {
       return this.$store.state.auth.user
     },
-
     currentPage() {
       return this.$store.state.navigator.current.page
     },
-
     showError: {
       get: function () {
         return this.$store.state.error.showError
@@ -203,6 +201,9 @@ export default {
       set: function (newValue) {
         this.$store.dispatch('error/hideToast')
       },
+    },
+    hideMobileHeader() {
+      return this.$route.meta.hideMobileHeader;
     },
   },
 
