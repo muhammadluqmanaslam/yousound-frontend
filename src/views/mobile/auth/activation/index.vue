@@ -8,20 +8,22 @@
 
     <v-carousel
       v-model="current"
-      ref="myCarousel"
+      ref="stageSwipe"
       hide-delimiters
       hide-controls
       :cycle="false"
-      touchless
-      :continuous="false"
-      :class="{endLeft: current == 0, endRight: current == stages.length-1}"
+      :class="{endLeft, endRight}"
     >
       <v-carousel-item
         v-for="(stage, i) in stages"
         :key="i"
         :style="`background-color: ${stage.color}`"
         :src="stage.color"
+        @touchstart.native="touchStart"
+        @touchend.native="touchEnd"
       >
+
+        <v-spacer></v-spacer>
         <img
           :src="stage.image"
           width="50%"
