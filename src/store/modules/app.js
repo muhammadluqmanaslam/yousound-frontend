@@ -162,6 +162,10 @@ const getters = {
   onboardingListenerStages() {
     const stages = [
       {
+        title: 'What Are You?',
+        stage: 1,
+      },
+      {
         title: 'Profile Image',
         stage: 2,
       },
