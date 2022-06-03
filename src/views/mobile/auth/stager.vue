@@ -1,5 +1,5 @@
 <template>
-  <div class="stager" :class="[staging, {isDark: currentStage.isDark}]">
+  <div class="stager" :class="[`_${staging}`, {isDark: currentStage.isDark}]">
     <div class="_title" v-html="currentStage.title"></div>
 
     <div v-if="current > 1" class="stages">
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   props: {
@@ -66,8 +66,16 @@ export default {
       activationStages: "app/activationStages",
       activationCurrentStage: "app/activationCurrentStage",
     }),
+    ...mapState({
+      onboardingCurrent: state => state.app.onboarding.current,
+    }),
   },
   watch: {
+    onboardingCurrent(val) {
+      this.current = val;
+      this.stages = this.onboardingStages;
+      this.currentStage = this.onboardingCurrentStage;
+    },
     ownCurrent: {
       handler(val) {
         switch (this.staging) {
@@ -115,7 +123,7 @@ export default {
   top: 0;
   width: 100%;
 
-  &.activation {
+  &._activation {
     padding-top: 12%;
     z-index: 4;
 
