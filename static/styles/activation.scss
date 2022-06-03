@@ -5,9 +5,11 @@
         left: 0;
         height: 100vh;
 
+        .carousel__item {
+            flex-direction: column;    
+        }
+
         .stage-img {
-            position: absolute;
-            bottom: 0;
             width: 65%;
         }
 
@@ -23,6 +25,7 @@
         }
 
         .carousel__left, .carousel__right {
+            opacity: 0.5;
             top: 90%;
         }
     }
