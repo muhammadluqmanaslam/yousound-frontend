@@ -42,7 +42,26 @@
             font-weight: bold;
         }
     }
+    input {
+        color: #000000 !important;
+        font-weight: 700;
 
+        &:focus {
+            border: 2px solid #000000;
+            padding-left: 5px;
+        }
+    }
+    ._filled {
+        input {
+            color: #000000 !important;
+            font-weight: 700;
+
+            &::placeholder {
+                color: #000000 !important;
+                font-weight: 700;
+            }
+        }
+    }
     .account-type-menu,
     .social-type-menu {
         width: 100%;
@@ -51,7 +70,7 @@
 }
 
 .account-menu__content {
-    top: 352.602px !important;
+    // top: 352.602px !important;
     box-shadow: none !important;
     border-radius: 12px;
     border: 2px solid;

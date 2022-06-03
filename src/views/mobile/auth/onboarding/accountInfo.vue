@@ -5,6 +5,7 @@
       <input
         v-model="fullName"
         class="_fullname"
+        :class="{_filled: fullName}" 
         type="text"
         placeholder="Full Name"
       />
@@ -12,7 +13,7 @@
 
     <div class="form-group">
       <div class="_title">Email</div>
-      <input v-model="email" class="_email" type="email" placeholder="Email" />
+      <input v-model="email" class="_email" :class="{_filled: email}" type="email" placeholder="Email" />
     </div>
 
     <div class="form-group">

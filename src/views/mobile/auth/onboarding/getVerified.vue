@@ -14,6 +14,7 @@
         <v-select
           :placeholder="socialChannel ? socialChannel.title : 'Choose'"
           class="social-types-selector"
+          :class="{ '_filled': accountType }"
           single-line
           hide-details
           slot="activator"

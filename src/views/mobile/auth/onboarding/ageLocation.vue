@@ -20,6 +20,7 @@
       <input
         v-model="country"
         class="_country"
+        :class="{_filled: country}" 
         type="text"
         placeholder="Enter Country"
       />
@@ -36,6 +37,7 @@
       <input
         v-model="city"
         class="_city"
+        :class="{_filled: city}" 
         type="text"
         placeholder="Enter City"
       />

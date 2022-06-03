@@ -13,7 +13,7 @@
       <v-select
         :placeholder="accountType ? accountType.title : 'Select'"
         class="account-types-selector"
-        :class="{ 'acc-selected': accountType }"
+        :class="{ 'acc-selected _filled': accountType }"
         single-line
         hide-details
         slot="activator"
