@@ -27,6 +27,7 @@
           dark
           class="px-2"
           :style="`background-color: ${currentStage.cta1.color}`"
+          @click="handleCTA(currentStage.cta1.action)"
         >
           <strong>
             {{ currentStage.cta1.title }}
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 
 export default {
   props: {
@@ -99,6 +100,23 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      nextActivationStage: "app/nextActivationStage",
+      prevActivationStage: "app/prevActivationStage",
+    }),
+    handleCTA(action) {
+      switch (action) {
+        case "next":
+          if (this.staging == "activation") {
+            return this.$emit("updateCurrent", this.current+1)
+          }
+          
+          break;
+      
+        default:
+          break;
+      }
+    },
     initStaging() {
       switch (this.staging) {
         case "onboarding":
