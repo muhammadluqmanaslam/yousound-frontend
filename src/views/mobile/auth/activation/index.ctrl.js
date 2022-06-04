@@ -53,6 +53,10 @@ export default {
       nextStage: "app/nextActivationStage",
       prevStage: "app/prevActivationStage",
     }),
+    updateCurrent(val) {
+      console.log(val)
+      this.current = val
+    },
     touchEnd(evt) {      
       let touchstartX = evt.changedTouches[0].screenY
       let touchendX = this.touchendX

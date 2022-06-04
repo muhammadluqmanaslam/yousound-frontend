@@ -4,6 +4,7 @@
       staging="activation"
       :ownCurrent="current + 1"
       :ownStages="stages"
+      @updateCurrent="updateCurrent"
     />
 
     <v-carousel
