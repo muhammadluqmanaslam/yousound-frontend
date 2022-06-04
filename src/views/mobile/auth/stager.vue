@@ -1,5 +1,5 @@
 <template>
-  <div class="stager" :class="[`_${staging}`, {isDark: currentStage.isDark}]">
+  <div class="stager" :class="[`_${staging}`, { isDark: currentStage.isDark }]">
     <div class="_title" v-html="currentStage.title"></div>
 
     <div v-if="current > 1" class="stages">
@@ -14,10 +14,20 @@
     </div>
 
     <div class="_meta">
-      <div v-if="currentStage.subtitle" class="_subtitle" v-html="currentStage.subtitle"></div>
+      <div
+        v-if="currentStage.subtitle"
+        class="_subtitle"
+        v-html="currentStage.subtitle"
+      ></div>
 
       <div v-if="currentStage.cta1" class="cta cta1">
-        <v-btn depressed round dark class="px-2" :style="`background-color: ${currentStage.cta1.color}`">
+        <v-btn
+          depressed
+          round
+          dark
+          class="px-2"
+          :style="`background-color: ${currentStage.cta1.color}`"
+        >
           <strong>
             {{ currentStage.cta1.title }}
           </strong>
@@ -25,12 +35,7 @@
       </div>
 
       <div v-if="currentStage.cta2" class="cta cta2">
-        <v-btn
-          :ripple="false"
-          depressed
-          round
-          class="no-Btn-bg transparent"
-        >
+        <v-btn :ripple="false" depressed round class="no-Btn-bg transparent">
           <strong>
             {{ currentStage.cta2.title }}
           </strong>
@@ -67,7 +72,7 @@ export default {
       activationCurrentStage: "app/activationCurrentStage",
     }),
     ...mapState({
-      onboardingCurrent: state => state.app.onboarding.current,
+      onboardingCurrent: (state) => state.app.onboarding.current,
     }),
   },
   watch: {
@@ -112,8 +117,8 @@ export default {
     },
   },
   created() {
-    this.initStaging()
-  }
+    this.initStaging();
+  },
 };
 </script>
 
@@ -173,7 +178,7 @@ export default {
   font-weight: 500;
 
   /deep/ .highlight {
-    color: #EFFF38;
+    color: #efff38;
   }
 }
 .cta {
