@@ -20,7 +20,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-        stages: "app/activationStages"
+      stages: "app/activationStages",
+      isAuthenticated: "auth/isAuthenticated",
     }),
     endLeft() {
       return this.current === 0
@@ -30,7 +31,10 @@ export default {
     },
     stageSwipe() {
       return this.$refs.stageSwipe
-    }
+    },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
   },
   watch: {
     current:{
@@ -85,4 +89,9 @@ export default {
       this.touchendX = evt.changedTouches[0].screenY
     },
   },
+  created() {
+    if (this.isAuthenticated || !this.onMobile) {
+      this.$router.push({name: "Dashboard"})
+    }
+  }
 }
