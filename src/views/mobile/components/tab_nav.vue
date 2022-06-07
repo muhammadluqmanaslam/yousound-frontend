@@ -50,6 +50,13 @@ export default {
   padding-right: 24px;
   margin-right: -24px;
 
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+  }
+
   .tab {
     width: 100%;
 
