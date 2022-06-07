@@ -219,6 +219,7 @@ export function createRouter(settings) {
       component: setComponent('feed'),
       meta: {
         noSideSpace: onMobile,
+        showRightAltIcon: onMobile,
       },
     },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
