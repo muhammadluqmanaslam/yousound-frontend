@@ -41,7 +41,7 @@
           />
         </span>
         <user-tag
-          v-if="!hideUser && isAuthenticated"
+          v-if="!hideUser && isAuthenticated && !onProfilePage"
           :user="currentUser"
           hideTick
           showAvatar
@@ -190,6 +190,9 @@ export default {
     },
     showGoBack() {
       return this.$route.meta.showGoBack
+    },
+    onProfilePage() {
+      return this.$route.name === "UserProfile"
     },
   },
 
