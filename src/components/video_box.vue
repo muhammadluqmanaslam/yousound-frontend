@@ -1,5 +1,5 @@
 <template>
-  <div class="box" :class="{'side-tab-view': sideTabView}">
+  <div class="box" :class="{'side-tab-view': sideTabView, onMobile}">
     <div
       class="box__content"
       :class="{ 'cursor-pointer': !hoverOverlay }"
@@ -25,7 +25,7 @@
     <div v-if="!coverOnly" class="box__footer dflex align-start mt-2" :class="{'px-2': onMobile}">
       <user-tag v-if="!hideUser" showAvatar hideName hideTick width="40" height="40" :user="item.user" />
 
-      <div :class="{'dgrid': sideTabView}">
+      <div class="box_subtitle-wrapper" :class="{'dgrid': sideTabView}">
         <div class="box__subtitle">
           <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
             <!-- <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.username }}</span> -->
@@ -291,6 +291,7 @@ export default {
     letter-spacing: -0.3px;
     text-align: left;
     margin-left: 0;
+    width: 75%;
   }
 
   &__content:hover {
@@ -317,6 +318,23 @@ export default {
       //   white-space: nowrap;
       //   text-overflow: ellipsis;
       // }
+    }
+  }
+}
+.box_subtitle-wrapper {
+  width: 100%;
+}
+/deep/ ._sliced-top {
+  .box {
+    &__subtitle {
+      width: 100%;
+    }
+  }
+}
+.onMobile {
+  .box {
+    &__subtitle {
+      width: 97%;
     }
   }
 }

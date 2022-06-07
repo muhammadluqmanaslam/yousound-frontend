@@ -87,7 +87,7 @@
             class="video-container"
             :class="[!isComp ? 'video-container top-3 xs12 sm4' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
           >
-            <video-box :hoverOverlay="false" :item="video" />
+            <video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
           </v-flex>
 
           <v-flex
