@@ -22,31 +22,31 @@ export default {
         {
           id: 'discover',
           title: 'discover',
-          icon: require('../../../../static/images/ic_search_mob-footer.svg'),
+          icon: require('@/assets/discover_2.svg'),
           path: 'DiscoverIndex',
           isNotificationActive: false,
         },
         {
           id: 'home',
           title: 'home',
-          icon: require('@/assets/home.svg'),
+          icon: require('@/assets/home_2.svg'),
           path: 'Feed',
           isNotificationActive: false,
         },
         {
           id: 'messages',
           title: 'messages',
-          icon: require('@/assets/chat.svg'),
+          icon: require('@/assets/chat_2.svg'),
           path: 'Messages',
           isNotificationActive: false,
         },
-        {
-          id: 'notification',
-          title: 'notification',
-          icon: require('@/assets/bell_notification.svg'),
-          path: 'ActivityIndex',
-          isNotificationActive: false,
-        },
+        // {
+        //   id: 'notification',
+        //   title: 'notification',
+        //   icon: require('@/assets/bell_notification.svg'),
+        //   path: 'ActivityIndex',
+        //   isNotificationActive: false,
+        // },
       ],
       notificationIcon: require('@/assets/notification_dot.svg'),
     }
@@ -105,7 +105,7 @@ export default {
   ul {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     list-style: none;
     li {
       .footer-wrapper {
