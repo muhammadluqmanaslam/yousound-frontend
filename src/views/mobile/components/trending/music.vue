@@ -1,23 +1,23 @@
 <template>
   <div class="trending-comp trending-music">
     <div class="top-bar">
-      <h2 class="bar-title">Hot Albums</h2>
+      <h2 class="bar-title">Curated Music</h2>
       <!-- <div class="bar-action">View All</div> -->
     </div>
 
     <item-tab mode="grid">
       <template slot="itemTabs">
         <span
-          v-for="(feed, index) in musicFeed1"
+          v-for="(feed, index) in musicFeed"
           :key="index"
           class="tab-holder px-0 flex xs6 md6"
         >
-          <track-card :objects="musicFeed1" :objectIndex="index" hideMoreMenu class="pa-0" />
+          <track-card :objects="musicFeed" :objectIndex="index" hideMoreMenu class="pa-0" />
         </span>
       </template>
     </item-tab>
 
-    <item-tab>
+    <!-- <item-tab>
       <template slot="itemTabs">
         <span
           v-for="(feed, index) in musicFeed2"
@@ -27,7 +27,15 @@
           <track-card :objects="musicFeed2" :objectIndex="index" hideMoreMenu />
         </span>
       </template>
-    </item-tab>
+    </item-tab> -->
+
+    <div class="cta">
+      <v-btn block outline class="cta-btn">
+        <strong>
+          View all music
+        </strong>
+      </v-btn>
+    </div>
   </div>
 </template>
 
