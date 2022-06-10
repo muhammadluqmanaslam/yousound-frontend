@@ -519,6 +519,17 @@ li.search-li {
       font-weight: 500;
     }
   }
+
+  .container .layout .flex {
+    padding: 3px;
+  }
+
+  .cta {
+    &-btn {
+      padding: 20px 0;
+      border: 1px solid rgba(0, 0, 0, 0.3)
+    }
+  }
 }
 
 .app-container {
@@ -535,7 +546,7 @@ li.search-li {
   }
   &.onMobile-container {
     margin-top: 8px;
-    padding-bottom: 40px;
+    padding-bottom: 0px;
 
     &-fullwidth {
       padding-left: 0;
@@ -560,6 +571,12 @@ li.list-none {
   list-style: none;
 }
 
+.testFloat {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999999;
+}
 .borderTest {
   border: 1px solid black !important;
 }
@@ -644,6 +661,37 @@ li.list-none {
       color: #000000;
       border-bottom: 1px solid #000000;
       z-index: 1;
+    }
+  }
+
+}
+.pane-tabs-main {
+  display: flex;
+  margin: 10px -27px;
+  
+  .pane-tab {
+    position: relative;
+    padding: 7px 0;
+    color: #000000;
+    text-align: center;
+    box-shadow: 0 0 0 blue;
+    border-bottom: 1px solid #aaaaaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    opacity: 0.5;
+    
+    &-img {
+      width: 14px;
+      margin-right: 5px;
+    }
+    &.active {
+      font-weight: 700;
+      color: #000000;
+      border-bottom: 2px solid #000000;
+      z-index: 1;
+      opacity: 1;
     }
   }
 
@@ -893,6 +941,7 @@ input[type='text'],
 input[type='email'],
 input[type='password'],
 textarea {
+  outline: 0;
   background: #ffffff;
   border: 0.75px solid #d2d2d2;
   border-radius: 3.75px;
@@ -1112,6 +1161,14 @@ textarea {
         padding-left: 60px;
       }
     }
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+  select,
+  textarea,
+  input {
+    font-size: 16px;
   }
 }
 
