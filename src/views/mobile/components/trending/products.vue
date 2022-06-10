@@ -1,16 +1,16 @@
 <template>
   <div class="trending-comp trending-products">
     <div class="top-bar">
-      <h2 class="bar-title">Exclusive Products</h2>
-      <div class="bar-action">View All</div>
+      <h2 class="bar-title">Exclusive Drops</h2>
+      <!-- <div class="bar-action">View All</div> -->
     </div>
 
-    <item-tab class="mb-4">
+    <item-tab mode="grid" class="mb-4">
       <template slot="itemTabs">
         <span
-          v-for="(feed, index) in productFeed1"
+          v-for="(feed, index) in productFeed"
           :key="index"
-          class="tab-holder"
+          class="tab-holder px-0 flex xs6 md6"
         >
           <product-card
             hideOverlay
@@ -23,7 +23,7 @@
       </template>
     </item-tab>
 
-    <item-tab>
+    <!-- <item-tab>
       <template slot="itemTabs">
         <span
           v-for="(feed, index) in productFeed2"
@@ -39,7 +39,15 @@
           />
         </span>
       </template>
-    </item-tab>
+    </item-tab> -->
+
+    <div class="cta">
+      <v-btn block outline class="cta-btn">
+        <strong>
+          View all products
+        </strong>
+      </v-btn>
+    </div>
   </div>
 </template>
 
