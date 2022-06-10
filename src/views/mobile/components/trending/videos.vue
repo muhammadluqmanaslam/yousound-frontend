@@ -1,23 +1,23 @@
 <template>
   <div class="trending-comp trending-videos">
     <div class="top-bar">
-      <h2 class="bar-title">Noteworthy Videos</h2>
-      <div class="bar-action">View All</div>
+      <h2 class="bar-title">Trending Videos</h2>
+      <!-- <div class="bar-action">View All</div> -->
     </div>
 
-    <item-tab minHeight="180" class="mb-3">
+    <item-tab mode="grid" minHeight="180" class="mb-3">
       <template slot="itemTabs">
         <span
-          v-for="(feed, index) in videoFeed1"
+          v-for="(feed, index) in videoFeed"
           :key="index"
-          class="tab-holder"
+          class="tab-holder px-0 flex xs6 md6"
         >
           <video-box :hoverOverlay="false" :item="feed" hideUser hideFreeTag />
         </span>
       </template>
     </item-tab>
 
-    <item-tab minHeight="180">
+    <!-- <item-tab minHeight="180">
       <template slot="itemTabs">
         <span
           v-for="(feed, index) in videoFeed2"
@@ -27,7 +27,15 @@
           <video-box :hoverOverlay="false" :item="feed" hideUser hideFreeTag />
         </span>
       </template>
-    </item-tab>
+    </item-tab> -->
+
+    <div class="cta">
+      <v-btn block outline class="cta-btn">
+        <strong>
+          View all videos
+        </strong>
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -130,11 +138,18 @@ export default {
     align-items: center;
   }
   
-  /deep/ .box__footer {
-    padding-left: 0 !important;
+  /deep/ .box {
+    padding: 9px;
 
-    .box__subtitle {
-      width: 200px;
+    &__subtitle {
+      width: 162px;
+    }
+    &__footer {
+      padding-left: 0 !important;
+
+      .box__subtitle {
+        width: 177px;
+      }
     }
   }
 }
