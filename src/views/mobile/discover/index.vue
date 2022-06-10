@@ -1,14 +1,8 @@
 <template>
   <div class="page-onMobile discover-onMobile">
-    <search-input
-      class="mb-2"
-      :placeholder="searchPlaceholder"
-      :searchTab="activeDiscover"
-      isOnMobile
-    />
-    <tab-nav :tabData="tabs" ref="tabData" @tabClicked="tabClicked" recChip />
+    <pane-tabs :paneTabs="tabs" ref="paneTabs" :initSelected="initSelected" @tabClicked="tabClicked" recChip />
 
-    <div v-if="showTrending" class="page-content">
+    <div v-if="activeDiscover == 'trending'" class="page-content">
       <trending-music isComp :listLimit="10" />
       <trending-video isComp :listLimit="10" />
       <trending-product isComp :listLimit="10" />
@@ -23,8 +17,7 @@
 </template>
 
 <script>
-import SearchInput from "@/components/searchInput";
-import TabNav from "../components/tab_nav.vue";
+import PaneTabs from "../components/paneTabs.vue";
 
 import trendingMusic from "../components/trending/music";
 import trendingVideo from "../components/trending/videos";
@@ -36,8 +29,7 @@ import discoverProduct from "./product";
 
 export default {
   components: {
-    SearchInput,
-    TabNav,
+    PaneTabs,
     trendingMusic,
     trendingVideo,
     trendingProduct,
@@ -48,14 +40,16 @@ export default {
   },
   data() {
     return {
-      activeDiscover: "",
+      activeDiscover: "trending",
+      initSelected: "trending",
       isComp: true,
       tabs: [
-        { id: "album", title: "Music" },
-        { id: "video", title: "Video" },
-        { id: "merch", title: "Shop" },
+        { id: "trending", title: "Hot", icon: require("@/assets/hot.svg") },
+        { id: "album", title: "Music", icon: require("@/assets/music_note.svg") },
+        { id: "video", title: "Video", icon: require("@/assets/video_camera.svg") },
+        { id: "merch", title: "Shop", icon: require("@/assets/shop_bag.svg") },
       ],
-      showTrending: true,
+      showTrending: false,
       searchPlaceholder: "Search",
     };
   },
@@ -86,22 +80,15 @@ export default {
     },
   },
   created() {
-    this.showTrending = true;
-
     // set activeDiscover if instructed passed via route
     const { activeDiscover } = this.$route.params;
-    console.log("activeDiscover:", activeDiscover);
 
     if (activeDiscover) {
       // BUG to fix
-      this.$nextTick(() => {
-        this.tabClicked(this.tabs.find((tab) => tab.id === activeDiscover));
-      });
-      this.$forceUpdate();
+      this.activeDiscover = activeDiscover
+      this.initSelected = activeDiscover
     }
-    console.log("this.activeDiscover::", this.activeDiscover);
   },
-  mounted() {},
 };
 </script>
 

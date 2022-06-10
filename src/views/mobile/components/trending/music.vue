@@ -2,17 +2,17 @@
   <div class="trending-comp trending-music">
     <div class="top-bar">
       <h2 class="bar-title">Hot Albums</h2>
-      <div class="bar-action">View All</div>
+      <!-- <div class="bar-action">View All</div> -->
     </div>
 
-    <item-tab>
+    <item-tab mode="grid">
       <template slot="itemTabs">
         <span
           v-for="(feed, index) in musicFeed1"
           :key="index"
-          class="tab-holder"
+          class="tab-holder px-0 flex xs6 md6"
         >
-          <track-card :objects="musicFeed1" :objectIndex="index" hideMoreMenu />
+          <track-card :objects="musicFeed1" :objectIndex="index" hideMoreMenu class="pa-0" />
         </span>
       </template>
     </item-tab>
@@ -180,7 +180,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin: 15px 0;
   }
 }
 </style>
