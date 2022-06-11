@@ -80,7 +80,7 @@ export default {
     },
   },
   methods: {
-    setInnerTab(id) {
+    setInnerTab(id) {      
       this.activeInnerTab = id
 
       switch (this.activeInnerFilter) {
@@ -121,23 +121,36 @@ export default {
   },
   watch: {
     activeInnerFilter(val) {
-      const id = this.getInnerMenuTabs(val)[0].id || ''
-      // console.log(id);
-      this.activeInnerTab = id
+      const getInnerTab = this.getInnerMenuTabs(val).find(tab => tab.id == this.activeInnerTab)
+      if (val === 'videos') return
+
+      const fallback = this.getInnerMenuTabs(val)[0].id || ''
+      if (!getInnerTab) {
+        this.activeInnerTab = fallback
+      } else {
+        this.activeInnerTab = getInnerTab.id
+      }
+
+      this.setInnerTab(this.activeInnerTab)
     },
   },
-  created() {
-    // const tab = this.$route.hash.substr(1)
-
-    // this.tabs = this.tabs.filter((tab) => {
-    //   return !(tab.allowedUser && !tab.allowedUser.includes(this.userType))
-    // })
-
+  created() {    
     if (this.userType === 'listener') {
       this.active_tab = 'payment'
     }
   },
   mounted() {
+    const {activeInnerFilter, activeInnerTab} = this.$route.params
+    if (activeInnerFilter) {
+      this.activeInnerFilter = activeInnerFilter
+    }
+
+    if (activeInnerTab) {
+      this.activeInnerTab = activeInnerTab
+    } else {
+      this.activeInnerTab = 'published'
+    }
+    
     this.setInnerTab(this.activeInnerTab)
   },
 }
