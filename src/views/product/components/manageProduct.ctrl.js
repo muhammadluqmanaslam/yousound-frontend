@@ -401,12 +401,26 @@ export default {
     acceptCollaboration(product) {
       ProductService.acceptCollaboration(product.id).then((response) => {
         this.loadProducts()
+        this.$store.dispatch("error/showSuccessToast", [
+          "Product collaboration accepted successfully"
+        ]);
+      }).catch((error)=> {
+        this.$store.dispatch('error/showErrorToast', [
+          'Error approving product collaboration',
+        ])
       })
     },
 
     denyCollaboration(product) {
       ProductService.denyCollaboration(product.id).then((response) => {
         this.loadProducts()
+        this.$store.dispatch("error/showSuccessToast", [
+          "Product collaboration denied successfully"
+        ]);
+      }).catch((error)=> {
+        this.$store.dispatch('error/showErrorToast', [
+          'Error denying product collaboration',
+        ])
       })
     },
 
