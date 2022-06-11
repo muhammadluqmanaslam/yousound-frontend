@@ -17,7 +17,7 @@ import { Storage, MyCookies } from '@/helper'
 import contentTopHeader from '@/components/contentTopHeader'
 
 const filterArrowDownString =
-    '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
+  '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
 
 export default {
   components: {
@@ -39,11 +39,11 @@ export default {
         { id: 'pendings', title: 'Pending collaborations' },
       ],
       filters: [
-                { id: '', name: 'All' },
-                { id: 'creator_unshipped', name: 'Unshipped' },
-                { id: 'creator_shipped', name: 'Shipped' },
-                { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
-                { id: 'collaborator_shipped', name: 'Collaborated Shipped' },
+        { id: '', name: 'All' },
+        { id: 'creator_unshipped', name: 'Unshipped' },
+        { id: 'creator_shipped', name: 'Shipped' },
+        { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
+        { id: 'collaborator_shipped', name: 'Collaborated Shipped' },
       ],
       activeFilter: null,
       exportPeriod: null,
@@ -125,22 +125,26 @@ export default {
   },
   methods: {
     setProductFilter(id) {
-    //   update status if id is valid
-    //   productTab will be fallback idf id is not valid
-    //   id will always be updated in future
+      // console.log('received id', id);
+      //   update status if id is valid
+      //   productTab will be fallback idf id is not valid
+      //   id will always be updated in future
       const status = id || this.productTab
 
-    //   update productTab with valid instance
+      //   update productTab with valid instance
+      // console.log({productTab1: this.productTab})
       this.productTab = status
-
+      // console.log({productTab2: this.productTab})
+      
       const filtered = _.filter(this.products, (item) => {
         return item.status === status
       })
+      // console.log({ products: this.products, filtered })
+      // console.log('-----------')
 
-    //   console.log(this.products)
-      console.log(this.products.filter((p) => p.status == 'published'))
-      console.log('collaborated: ', this.products.filter((p) => p.status == 'collaborated'))
-    //   console.log(this.products.map((p) => p.status))
+      // console.log(this.products.filter((p) => p.status == 'published'))
+      // console.log('collaborated: ', this.products.filter((p) => p.status == 'collaborated'))
+      //   console.log(this.products.map((p) => p.status))
       // console.log(this.products.map((p) => p.collaborators))
       return filtered
     },
@@ -185,7 +189,7 @@ export default {
       }
 
       this.active_tab = tab
-            // this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: tab })
+      // this.$store.dispatch('navigator/setCurrentState', { page: 'sell', tab: tab })
       this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: tab })
     },
 
@@ -215,11 +219,11 @@ export default {
         },
       }
       UserService.updateUserInfo(this.currentUser.id, params).then(
-                (response) => {
-                  AuthService.setUser(response.body)
-                  this.$store.dispatch('auth/setUser', response.body)
-                }
-            )
+        (response) => {
+          AuthService.setUser(response.body)
+          this.$store.dispatch('auth/setUser', response.body)
+        }
+      )
     },
 
     openProductFinishModal() {
@@ -230,31 +234,31 @@ export default {
       this.show_product_finish_modal = false
     },
 
-        // openShipAllConfirmDialog() {
-        //   this.show_ship_all_confirm_dialog = true
-        // },
+    // openShipAllConfirmDialog() {
+    //   this.show_ship_all_confirm_dialog = true
+    // },
 
-        // closeShipAllConfirmDialog() {
-        //   this.show_ship_all_confirm_dialog = false
-        // },
+    // closeShipAllConfirmDialog() {
+    //   this.show_ship_all_confirm_dialog = false
+    // },
 
-        // shipAll() {
-        //   this.$store.dispatch('error/showLoadingActivity', true)
-        //   ItemService.markAllShipped().then(response => {
-        //     _.each(this.orderHistories, (order) => {
-        //       _.each(order.items, (item) => {
-        //         item.status = 'item_shipped'
-        //       })
-        //     })
-        //     const arr = this.orderHistories.slice()
-        //     this.orderHistories = arr
-        //     this.closeShipAllConfirmDialog()
-        //     this.$store.dispatch('error/showLoadingActivity', false)
-        //   }).catch(e => {
-        //     this.closeShipAllConfirmDialog()
-        //     this.$store.dispatch('error/showLoadingActivity', false)
-        //   })
-        // },
+    // shipAll() {
+    //   this.$store.dispatch('error/showLoadingActivity', true)
+    //   ItemService.markAllShipped().then(response => {
+    //     _.each(this.orderHistories, (order) => {
+    //       _.each(order.items, (item) => {
+    //         item.status = 'item_shipped'
+    //       })
+    //     })
+    //     const arr = this.orderHistories.slice()
+    //     this.orderHistories = arr
+    //     this.closeShipAllConfirmDialog()
+    //     this.$store.dispatch('error/showLoadingActivity', false)
+    //   }).catch(e => {
+    //     this.closeShipAllConfirmDialog()
+    //     this.$store.dispatch('error/showLoadingActivity', false)
+    //   })
+    // },
 
     csvExport() {
       let params = {}
@@ -266,7 +270,7 @@ export default {
       }
       OrderService.receivedExport(params).then((response) => {
         const csvData =
-                    'data:text/csv;charset=utf-8,' + encodeURIComponent(response.body)
+          'data:text/csv;charset=utf-8,' + encodeURIComponent(response.body)
         const filename = `order-items-${moment().format('YYYYMMDD')}.csv`
         Utils.downloadFile(csvData, filename)
       })
@@ -291,23 +295,23 @@ export default {
           tracking_number: this.tracking_number,
         }
         ItemService.markShipped(itemId, params)
-                    .then((response) => {
-                      Storage.set(MyCookies.TRACKING_SITE, this.tracking_site)
-                      let item
-                      _.each(this.orderHistories, (order) => {
-                        item = _.find(order.items, { id: itemId })
-                        if (item) {
-                          return false
-                        }
-                      })
-                      item.status = 'item_shipped'
-                      const arr = this.orderHistories.slice()
-                      this.orderHistories = arr
-                      this.closeShipConfirmModal()
-                    })
-                    .catch((e) => {
-                      this.closeShipConfirmModal()
-                    })
+          .then((response) => {
+            Storage.set(MyCookies.TRACKING_SITE, this.tracking_site)
+            let item
+            _.each(this.orderHistories, (order) => {
+              item = _.find(order.items, { id: itemId })
+              if (item) {
+                return false
+              }
+            })
+            item.status = 'item_shipped'
+            const arr = this.orderHistories.slice()
+            this.orderHistories = arr
+            this.closeShipConfirmModal()
+          })
+          .catch((e) => {
+            this.closeShipConfirmModal()
+          })
       }
     },
 
@@ -323,22 +327,22 @@ export default {
     unshipItem() {
       const itemId = this.selected_item.id
       ItemService.markUnshipped(itemId)
-                .then((response) => {
-                  let item
-                  _.each(this.orderHistories, (order) => {
-                    item = _.find(order.items, { id: itemId })
-                    if (item) {
-                      return false
-                    }
-                  })
-                  item.status = 'item_ordered'
-                  const arr = this.orderHistories.slice()
-                  this.orderHistories = arr
-                  this.closeUnshipConfirmModal()
-                })
-                .catch((e) => {
-                  this.closeUnshipConfirmModal()
-                })
+        .then((response) => {
+          let item
+          _.each(this.orderHistories, (order) => {
+            item = _.find(order.items, { id: itemId })
+            if (item) {
+              return false
+            }
+          })
+          item.status = 'item_ordered'
+          const arr = this.orderHistories.slice()
+          this.orderHistories = arr
+          this.closeUnshipConfirmModal()
+        })
+        .catch((e) => {
+          this.closeUnshipConfirmModal()
+        })
     },
 
     showMessageDialog(order) {
@@ -362,21 +366,21 @@ export default {
 
     deleteProduct() {
       ProductService.deleteProduct(this.product.id)
-                .then((response) => {
-                  _.remove(this.products, (item) => {
-                    return item.id == this.product.id
-                  })
-                  const arr = this.products.slice()
-                  this.products = arr
-                  this.closeProductDeleteConfirmDialog()
-                })
-                .catch((e) => {
-                  this.closeProductDeleteConfirmDialog()
-                  this.$store.dispatch(
-                        'error/showErrorToast',
-                        e.body.errors || [e.body]
-                    )
-                })
+        .then((response) => {
+          _.remove(this.products, (item) => {
+            return item.id == this.product.id
+          })
+          const arr = this.products.slice()
+          this.products = arr
+          this.closeProductDeleteConfirmDialog()
+        })
+        .catch((e) => {
+          this.closeProductDeleteConfirmDialog()
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
 
     releaseProduct(product) {
@@ -390,7 +394,7 @@ export default {
       const collaborator = _.find(product.collaborators, (c) => {
         return c.user_id == this.$store.state.auth.user.id
       })
-            // console.log('notResponded', this.$store.state.auth.user.id, collaborator)
+      // console.log('notResponded', this.$store.state.auth.user.id, collaborator)
       return collaborator && collaborator.status == 'pending'
     },
 
@@ -426,20 +430,20 @@ export default {
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       OrderService.getReceivedOrders(params)
-                .then((response) => {
-                  this.orderHistories = response.body.orders
-                  this.$store.dispatch('error/showLoadingActivity', false)
-                })
-                .catch((e) => {
-                  this.$store.dispatch(
-                        'error/showErrorToast',
-                        e.body.errors || [e.body]
-                    )
-                  this.$store.dispatch('error/showLoadingActivity', false)
-                })
+        .then((response) => {
+          this.orderHistories = response.body.orders
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
     },
   },
-  created() {
+  async created() {
     if (!this.currentUser) {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
@@ -447,10 +451,10 @@ export default {
     }
 
     if (
-            ['artist', 'brand', 'label'].indexOf(
-                this.$store.state.auth.user.user_type
-            ) == -1
-        ) {
+      ['artist', 'brand', 'label'].indexOf(
+        this.$store.state.auth.user.user_type
+      ) == -1
+    ) {
       this.$router.push({ path: '/' })
       return
     }
@@ -461,34 +465,34 @@ export default {
     const lastState = this.$store.getters['navigator/last']
     if (_.get(lastState, 'params.product_id')) {
       ProductService.getProduct(lastState.params.product_id).then(
-                (response) => {
-                  this.product = response.body
-                  this.openProductFinishModal()
-                }
-            )
+        (response) => {
+          this.product = response.body
+          this.openProductFinishModal()
+        }
+      )
     }
 
     this.isPageReady = false
     this.$store.dispatch('error/showLoadingActivity', true)
-    Promise.all([
+    await Promise.all([
       OrderService.getReceivedOrders({
         page: this.order_pagination.current_page,
         per_page: this.order_pagination.per_page,
       }),
       ProductService.getProducts(),
     ])
-            .then((values) => {
-              this.orderHistories = values[0].body.orders
-              this.order_pagination = values[0].body.pagination
-              this.products = values[1].body
-              this.isPageReady = true
-              this.$store.dispatch('error/showLoadingActivity', false)
-            })
-            .catch((reason) => {
-              console.log(reason)
-              this.$store.dispatch('error/showLoadingActivity', false)
-              this.$store.dispatch('error/showErrorToast', reason)
-            })
+      .then((values) => {
+        this.orderHistories = values[0].body.orders
+        this.order_pagination = values[0].body.pagination
+        this.products = values[1].body
+        this.isPageReady = true
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
+      .catch((reason) => {
+        console.log(reason)
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', reason)
+      })
   },
   mounted() { },
 }
