@@ -9,6 +9,8 @@
             :key="index"
             :product="product"
             :deleteItem="openProductDeleteConfirmDialog"
+            @acceptCollaboration="acceptCollaboration"
+            @denyCollaboration="denyCollaboration"
             ></product-item>
         </div>
       </div>
