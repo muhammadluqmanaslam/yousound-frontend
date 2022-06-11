@@ -100,15 +100,36 @@
             </span>
           </div>
 
-          <v-btn
+          <div
             v-if="product.status == 'pending'"
-            depressed
-            dark
-            class="action-btn release"
-            @click.native="releaseButtonAction(product)"
-            >
-              Release Now
-            </v-btn>
+          >
+            <v-btn
+              v-if="currentUserOwnsProduct"
+              depressed
+              class="action-btn release"
+              @click.native="releaseButtonAction(product)"
+              :disabled="currentUserOwnsProduct"
+              >
+                <span
+                >Pending</span>
+              </v-btn>
+  
+              <div v-else class="dflex">
+                <v-btn
+                  class="text-btn"
+                  @click.native="acceptCollaboration(product)"
+                >
+                  Accept
+                </v-btn>
+                <v-btn
+                  class="text-btn"
+                  @click.native="denyCollaboration(product)"
+                >
+                  Deny
+                </v-btn>
+            </div>
+          </div>
+
         </div>
       </div>
     </v-flex>
@@ -172,11 +193,23 @@ export default {
       }
       return count;
     },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+    currentUserOwnsProduct() {
+      return this.currentUser.id === this.product.merchant.id
+    },
   },
 
   created() {},
 
   methods: {
+    acceptCollaboration() {
+      this.$emit("acceptCollaboration", this.product)
+    },
+    denyCollaboration() {
+      this.$emit("denyCollaboration", this.product)
+    },
     editProduct() {
       this.$router.push({ path: "/product/edit/" + this.product.id });
     },
