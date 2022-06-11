@@ -123,6 +123,11 @@
         background: #00a95c !important;
         text-transform: capitalize;
         border-radius: 7px;
+        
+        &.btn--disabled {
+          background: transparent!important;
+          color: #333333 !important;
+        }
       }
     }
   }
