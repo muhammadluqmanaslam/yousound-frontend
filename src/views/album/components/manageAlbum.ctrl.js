@@ -141,7 +141,7 @@ export default {
     // console.log(this.products.filter((p) => p.status == 'published'))
     //   console.log(this.products.map((p) => p.status))
     // console.log(this.products.map((p) => p.collaborators))
-      console.log(filtered)
+      // console.log(filtered)
       return filtered
     },
     loadAlbums() {
@@ -150,7 +150,7 @@ export default {
       AlbumService.getAlbums()
         .then((response) => {
           this.albums = response.body
-          console.log(response)
+          // console.log(response)
           this.$store.dispatch('error/showLoadingActivity', false)
           this.isPageReady = true
         })
@@ -342,7 +342,7 @@ export default {
       const collaborator = _.find(product.collaborators, (c) => {
         return c.user_id == this.$store.state.auth.user.id
       })
-            // console.log('notResponded', this.$store.state.auth.user.id, collaborator)
+      // console.log('notResponded', this.$store.state.auth.user.id, collaborator)
       return collaborator && collaborator.status == 'pending'
     },
   },
@@ -356,12 +356,12 @@ export default {
     this.setTab(tab)
 
     const lastState = this.$store.getters['navigator/last']
-    console.log(lastState)
+    // console.log(lastState)
     if (_.get(lastState, 'params.album_id')) {
       AlbumService.getAlbum(lastState.params.album_id).then((response) => {
         this.album = response.body
 
-        console.log(response.body);
+        // console.log(response.body);
         this.openAlbumFinishModal()
       })
     }
