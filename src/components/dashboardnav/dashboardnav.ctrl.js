@@ -78,7 +78,6 @@ export default {
 
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith
-      console.log('leggoo');
     }
   },
 }
