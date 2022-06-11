@@ -88,7 +88,7 @@ export default {
               this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
               // this.videos.filter((v) => )
               // this.videos = [ ...this.videos, ...this.videos]
-              console.log(this.videos)
+              // console.log(this.videos)
               this.pagination = response.body.pagination
               this.videoGenres = response.body.genres
               this.$store.dispatch('error/showLoadingActivity', false)
@@ -178,7 +178,7 @@ export default {
       const collaborator = _.find(product.collaborators, (c) => {
         return c.user_id == this.$store.state.auth.user.id
       })
-            // console.log('notResponded', this.$store.state.auth.user.id, collaborator)
+      // console.log('notResponded', this.$store.state.auth.user.id, collaborator)
       return collaborator && collaborator.status == 'pending'
     },
   },
@@ -192,7 +192,7 @@ export default {
     this.setTab(tab)
 
     const lastState = this.$store.getters['navigator/last']
-    console.log(lastState)
+    // console.log(lastState)
 
     this.loadData(this.activeTab, this.pagination.current_page)
   },
