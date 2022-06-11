@@ -222,7 +222,7 @@
                       v-else-if="
                         message.attachment.attachable_type == 'ShopProduct'
                       "
-                      to="/sell#pendings"
+                      @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
                       >View & Release</v-btn
                     >
                   </div>
@@ -236,7 +236,7 @@
                       v-else-if="
                         message.attachment.attachable_type == 'ShopProduct'
                       "
-                      to="/sell#pendings"
+                      @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
                       >View Pending Collaboration</v-btn
                     >
                   </div>

@@ -424,7 +424,7 @@ export default {
             this.$store.dispatch('navigator/setParams', {
               product_id: response.body.id,
             })
-            this.$router.push({ path: '/sell#pendings' })
+            this.$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })
           } else {
             this.$router.push({ path: '/sell#products' })
           }
