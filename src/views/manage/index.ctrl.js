@@ -80,6 +80,12 @@ export default {
     },
   },
   methods: {
+    setActiveInnerFilter(filter) {
+      this.activeInnerFilter = filter
+    },
+    isActiveFilter(filter) {
+      return this.activeInnerFilter === filter
+    },
     setInnerTab(id) {      
       this.activeInnerTab = id
 
