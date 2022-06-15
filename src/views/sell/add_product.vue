@@ -312,11 +312,14 @@
                   <v-flex xs12 sm4>
                     <label class="control-label">Price</label>
                     <span class="dflex align-center">
-                      <input
+                      <vue-numeric
                         v-model="variant.price"
-                        type="text"
-                        class="form-control"
-                        placeholder="10.00"
+                        currency="$"
+                        currency-symbol-position="prefix"
+                        separator=","
+                        :precision="2"
+                        :min="0"
+                        class="form-control primary-input"
                       />
                       <v-icon class="clear-btn" @click="deleteVariant(index)">
                         clear
