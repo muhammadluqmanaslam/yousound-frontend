@@ -9,6 +9,7 @@
             :key="index"
             :product="product"
             :deleteItem="openProductDeleteConfirmDialog"
+            @releaseButtonAction="releaseProduct"
             @acceptCollaboration="acceptCollaboration"
             @denyCollaboration="denyCollaboration"
             ></product-item>

@@ -229,6 +229,9 @@ export default {
   created() {},
 
   methods: {
+    releaseButtonAction() {
+      this.$emit("releaseButtonAction", this.product)
+    },
     acceptCollaboration() {
       this.$emit("acceptCollaboration", this.product)
     },
