@@ -16,7 +16,7 @@
       </template>
     </content-top-header>
 
-    <content-top-header absolute class="__inner ml-3">
+    <content-top-header absolute class="__inner">
       <template slot="topHeader">
         <ul>
           <li
