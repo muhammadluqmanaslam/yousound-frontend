@@ -117,7 +117,7 @@
       margin-top: -7px;
       min-height: 50px;
       
-      .action-btn.release {
+      .action-btn {
         margin: 0;
         height: 32px;
         background: #00a95c !important;
@@ -127,6 +127,12 @@
         &.btn--disabled {
           background: transparent!important;
           color: #333333 !important;
+        }
+      }
+      .text-btn {
+        &.btn--disabled {
+          background: transparent!important;
+          color: rgba(0, 0, 0, .26) !important
         }
       }
     }

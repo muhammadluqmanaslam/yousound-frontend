@@ -385,8 +385,14 @@ export default {
 
     releaseProduct(product) {
       ProductService.releaseProduct(product.id).then((response) => {
-        this.active_tab = 'collaborations'
         this.loadProducts()
+        this.$store.dispatch("error/showSuccessToast", [
+          "Collaboration released successfully"
+        ]);
+      }).catch((error)=> {
+        this.$store.dispatch('error/showErrorToast', [
+          'Error releasing collaboration',
+        ])
       })
     },
 

@@ -104,25 +104,33 @@
             v-if="product.status == 'pending'"
           >
             <v-btn
-              v-if="currentUserOwnsProduct"
+              v-if="currentUserOwnsProduct && allCollaboratedAccepted"
               depressed
               class="action-btn release"
               @click.native="releaseButtonAction(product)"
-              :disabled="currentUserOwnsProduct"
               >
-                <span
-                >Pending</span>
+                <span class="white--text">Release Now</span>
+            </v-btn>
+            <v-btn
+              v-if="currentUserOwnsProduct && !allCollaboratedAccepted"
+              depressed
+              class="action-btn pending"
+              disabled
+              >
+                <span>Pending</span>
               </v-btn>
   
-              <div v-else class="dflex">
+              <div v-if="isUserCollaborator" class="dflex collaborator-action">
                 <v-btn
                   class="text-btn"
+                  :disabled="allCollaboratedAccepted"
                   @click.native="acceptCollaboration(product)"
                 >
                   Accept
                 </v-btn>
                 <v-btn
                   class="text-btn"
+                  :disabled="allCollaboratedAccepted"
                   @click.native="denyCollaboration(product)"
                 >
                   Deny
@@ -198,6 +206,23 @@ export default {
     },
     currentUserOwnsProduct() {
       return this.currentUser.id === this.product.merchant.id
+    },
+    isUserCollaborator() {
+      const collaborators = this.product.collaborators
+      const isCollaborator = collaborators.find(user => user.user_id === this.currentUser.id)
+      return !!isCollaborator
+    },
+    collaborationData() {
+      if (!this.isUserCollaborator) return null
+
+      const collaborators = this.product.collaborators
+      const collaboration = collaborators.find(user => user.user_id === this.currentUser.id)
+      return collaboration
+    },
+    allCollaboratedAccepted() {
+      const collaborations = this.product.collaborators
+      const allAccepted = collaborations.every(collab => collab.status === "accepted")
+      return allAccepted
     },
   },
 
