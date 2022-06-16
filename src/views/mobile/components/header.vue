@@ -136,7 +136,7 @@ export default {
       // logoImgSrc: '',
       avatarWidth: 30,
       avatarHeight: 30,
-      searchModalActive: !false,
+      searchModalActive: false,
       // menuImgSrc: '',
     }
   },
