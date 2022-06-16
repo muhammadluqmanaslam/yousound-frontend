@@ -60,6 +60,7 @@
           <user-follow-btn :user="result" theme="dark" />
         </div>
       </div>
+
       <div class="each_result album-results">
         <div class="_label">
           <div class="label-title">Music</div>
@@ -78,6 +79,7 @@
           />
         </div>
       </div>
+
       <div class="each_result video-results">
         <div class="_label">
           <div class="label-title">Videos</div>
@@ -87,8 +89,11 @@
           v-for="(result, index) in videoResults"
           :key="index"
           class="search-result video-result"
-        ></div>
+        >
+          <video-box :hoverOverlay="false" :item="result" sideTabView hideUser noMeta showUsername />
+        </div>
       </div>
+
       <div class="each_result product-results">
         <div class="_label">
           <div class="label-title">Products</div>
@@ -119,12 +124,14 @@ import SearchService from "@/services/search";
 import UserTag from "@/components/user_tag";
 import UserFollowBtn from "@/components/userFollowbtn.vue";
 import trackcardsimple from "@/components/trackcardsimple";
+import VideoBox from "@/components/video_box";
 
 export default {
   components: {
     UserTag,
     UserFollowBtn,
     trackcardsimple,
+    VideoBox,
   },
   data() {
     return {
@@ -141,9 +148,9 @@ export default {
     };
   },
   methods: {
-    initSearch(searchQuery) {
+    initSearch() {
       //   this.$store.dispatch("error/showLoadingActivity", true);
-      SearchService.searchGlobal({ q: searchQuery })
+      SearchService.searchGlobal({ q: this.searchQuery })
         .then((response) => {
           this.searchSuccessful = true;
           this.results = response.body;
@@ -170,6 +177,7 @@ export default {
       this.searchDone = false;
       this.searchSuccessful = false;
       this.searchFailed = false;
+      this.searchQuery = "";
       this.results = [];
 
       this.$emit("closeSearchModal");
@@ -313,10 +321,10 @@ export default {
       padding-bottom: 22px;
     }
     .search-result {
+      margin-bottom: 15px;
       &.user-result {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 15px;
 
         /deep/ .user_tag {
           .tag__usertype {
@@ -331,11 +339,24 @@ export default {
         /deep/ .track-card-simple {
           ._title {
             font-weight: 400;
+            font-size: 16px;
           }
           ._subtitle {
             color: #414141;
             font-weight: 700;
+            font-size: 16px;
           }
+        }
+      }
+
+      &.video-result {
+        /deep/ .box__subtitle {
+            margin-left: -11px;
+            font-size: 16px;
+            width: 100%;
+            .user_name {
+                color: #414141;
+            }
         }
       }
     }
