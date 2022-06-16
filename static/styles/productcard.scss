@@ -3,6 +3,20 @@
   // margin-bottom: 22.5px;
   // padding: 0 11.25px !important;
   width: 100%;
+
+  &.side-tab-view {
+    .product-info {
+      display: flex;
+      align-items: center;
+
+      .product-cover {
+        flex: none;
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+      }
+    }
+  }
   .product-info {
     position: relative;
     .product-cover {
