@@ -19,6 +19,7 @@
           class="_left-icon"
           :src="require('@/assets/search.svg')"
           width="24"
+          @click="resetSearch"
         />
         <div class="logo-wrapper">
           <img
@@ -146,7 +147,7 @@ export default {
   },
   data() {
     return {
-      searchQuery: "ruckazoid",
+      searchQuery: "",
       searchDone: false,
       searchSuccessful: false,
       searchFailed: false,
@@ -160,7 +161,8 @@ export default {
   },
   methods: {
     initSearch() {
-      //   this.$store.dispatch("error/showLoadingActivity", true);
+      if (!this.searchQuery) return
+
       SearchService.searchGlobal({ q: this.searchQuery })
         .then((response) => {
           this.searchSuccessful = true;
@@ -184,13 +186,15 @@ export default {
           this.searchDone = true;
         });
     },
-    closeSearchModal() {
+    resetSearch() {
       this.searchDone = false;
       this.searchSuccessful = false;
       this.searchFailed = false;
       this.searchQuery = "";
       this.results = [];
-
+    },
+    closeSearchModal() {
+      this.resetSearch();
       this.$emit("closeSearchModal");
     },
   },
