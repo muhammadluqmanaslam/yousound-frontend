@@ -40,56 +40,66 @@
     </span>
 
     <div v-if="searchSuccessful" class="results">
+      <div class="_label">
+        <div class="label-title">People</div>
+        <div class="label-count">{{ usersResults.length }} results</div>
+      </div>
+      <div class="each_result user-results">
+        <div
+          v-for="(result, index) in usersResults"
+          :key="index"
+          class="search-result user-result"
+        >
+          <user-tag
+            :user="result"
+            width="40"
+            height="40"
+            showAvatar
+            showUserType
+          />
+          <user-follow-btn :user="result" theme="dark" />
+        </div>
+      </div>
+      <div class="each_result album-results">
         <div class="_label">
-            <div class="label-title">People</div>
-            <div class="label-count">{{ usersResults.length }} results</div>
+          <div class="label-title">Music</div>
+          <div class="label-count">{{ albumResults.length }} results</div>
         </div>
-        <div class="each_result user-results">
-            <div
-            v-for="(result, index) in usersResults"
-            :key="index"
-            class="search-result user-result"
-            >
-                <user-tag :user="result" width="40" height="40" showAvatar showUserType />
-                <user-follow-btn :user="result" theme="dark" />
-            </div>
+        <div
+          v-for="(result, index) in albumResults"
+          :key="index"
+          class="search-result album-result"
+        >
+          <trackcardsimple
+            :item="result"
+            :cover="result.cover.thumb.url"
+            :title="result.name"
+            :subtitle="result.user.username"
+          />
         </div>
-        <div class="each_result album-results">
-            <div class="_label">
-                <div class="label-title">Music</div>
-                <div class="label-count">{{ albumResults.length }} results</div>
-            </div>
-            <div
-            v-for="(result, index) in albumResults"
-            :key="index"
-            class="search-result album-result"
-            >
-            </div>
+      </div>
+      <div class="each_result video-results">
+        <div class="_label">
+          <div class="label-title">Videos</div>
+          <div class="label-count">{{ videoResults.length }} results</div>
         </div>
-        <div class="each_result video-results">
-            <div class="_label">
-                <div class="label-title">Videos</div>
-                <div class="label-count">{{ videoResults.length }} results</div>
-            </div>
-            <div
-            v-for="(result, index) in videoResults"
-            :key="index"
-            class="search-result video-result"
-            >
-            </div>
+        <div
+          v-for="(result, index) in videoResults"
+          :key="index"
+          class="search-result video-result"
+        ></div>
+      </div>
+      <div class="each_result product-results">
+        <div class="_label">
+          <div class="label-title">Products</div>
+          <div class="label-count">{{ productResults.length }} results</div>
         </div>
-        <div class="each_result product-results">
-            <div class="_label">
-                <div class="label-title">Products</div>
-                <div class="label-count">{{ productResults.length }} results</div>
-            </div>
-            <div
-            v-for="(result, index) in productResults"
-            :key="index"
-            class="search-result product-result"
-            >
-            </div>
-        </div>
+        <div
+          v-for="(result, index) in productResults"
+          :key="index"
+          class="search-result product-result"
+        ></div>
+      </div>
     </div>
 
     <div v-if="!searchDone" class="body-section">
@@ -106,13 +116,15 @@
 
 <script>
 import SearchService from "@/services/search";
-import UserTag from "../../../components/user_tag";
-import UserFollowBtn from '../../../components/userFollowbtn.vue';
+import UserTag from "@/components/user_tag";
+import UserFollowBtn from "@/components/userFollowbtn.vue";
+import trackcardsimple from "@/components/trackcardsimple";
 
 export default {
   components: {
     UserTag,
-    UserFollowBtn
+    UserFollowBtn,
+    trackcardsimple,
   },
   data() {
     return {
@@ -155,26 +167,26 @@ export default {
         });
     },
     closeSearchModal() {
-        this.searchDone = false
-        this.searchSuccessful = false
-        this.searchFailed = false
-        this.results = [];
+      this.searchDone = false;
+      this.searchSuccessful = false;
+      this.searchFailed = false;
+      this.results = [];
 
       this.$emit("closeSearchModal");
     },
   },
   computed: {
     usersResults() {
-    return this.results.users;
+      return this.results.users;
     },
     albumResults() {
       return this.results.albums;
     },
     videoResults() {
-        return this.results.streams;
+      return this.results.streams;
     },
     productResults() {
-        return this.results.products;
+      return this.results.products;
     },
   },
   created() {
@@ -199,8 +211,8 @@ export default {
     color: #000000;
 
     .top-section {
-        position: relative;
-        z-index: 3;
+      position: relative;
+      z-index: 3;
       .icon {
         color: #000000;
       }
@@ -285,34 +297,47 @@ export default {
   .results {
     margin-top: 30px;
     ._label {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 30px;
-        .label-title,
-        .label-count {
-            font-size: 21px;
-            font-weight: 700;
-        }
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      .label-title,
+      .label-count {
+        font-size: 21px;
+        font-weight: 700;
+      }
     }
 
     .each_result {
-        border-bottom: 1px solid #0000001a;
-        margin-bottom: 23px;
-        padding-bottom: 22px;
+      border-bottom: 1px solid #0000001a;
+      margin-bottom: 23px;
+      padding-bottom: 22px;
     }
     .search-result {
+      &.user-result {
         display: flex;
         justify-content: space-between;
         margin-bottom: 15px;
 
         /deep/ .user_tag {
-            .tag__usertype {
-                color: #00000080;
-            }
-            .user-status {
-                margin-top: -15px;
-            }
+          .tag__usertype {
+            color: #00000080;
+          }
+          .user-status {
+            margin-top: -15px;
+          }
         }
+      }
+      &.album-result {
+        /deep/ .track-card-simple {
+          ._title {
+            font-weight: 400;
+          }
+          ._subtitle {
+            color: #414141;
+            font-weight: 700;
+          }
+        }
+      }
     }
   }
 }
