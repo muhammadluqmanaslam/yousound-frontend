@@ -628,13 +628,13 @@ li.list-none {
 
 .upload-child {
   input {
+    &::placeholder {
+      color: #666666 !important;
+    }
     &::-webkit-input-placeholder {
       color: #666666 !important;
     }
-    &:-moz-placeholde {
-      color: #666666 !important;
-    }
-    &::-moz-placeholder {
+    &:-moz-placeholder {
       color: #666666 !important;
     }
     &:-ms-input-placeholder {
