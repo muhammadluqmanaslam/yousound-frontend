@@ -124,7 +124,15 @@
         id="searchModalInput"
         placeholder="Start typing.."
         @keyup.enter="initSearch()"
+        :disabled="isSearchLoading"
       />
+      <v-btn
+        :ripple="false"
+        depressed
+        disabled
+        :loading="isSearchLoading"
+        class="search-loader transparent"
+      ></v-btn>
     </div>
   </div>
 </template>
@@ -151,6 +159,7 @@ export default {
       searchDone: false,
       searchSuccessful: false,
       searchFailed: false,
+      isSearchLoading: false,
       results: {
         users: [],
         albums: [],
@@ -161,29 +170,24 @@ export default {
   },
   methods: {
     initSearch() {
-      if (!this.searchQuery) return
+      if (!this.searchQuery) return;
+
+      this.isSearchLoading = true;
 
       SearchService.searchGlobal({ q: this.searchQuery })
         .then((response) => {
           this.searchSuccessful = true;
           this.results = response.body;
-          console.log(this.results);
-
-          this.$emit("searchDone", { done: true, results: this.results });
-          //   this.$store.dispatch("error/showLoadingActivity", false);
         })
         .catch((e) => {
           this.searchFailed = true;
-          console.log(e);
-          console.log(e.message);
-          //   this.$store.dispatch("error/showLoadingActivity", false);
-          //   this.$store.dispatch(
-          //     "error/showErrorToast",
-          //     e.body.errors || [e.body]
-          //   );
+          this.$store.dispatch('error/showErrorToast', [
+            "There was a problem completing search",
+            ])
         })
         .finally(() => {
           this.searchDone = true;
+          this.isSearchLoading = false;
         });
     },
     resetSearch() {
@@ -194,8 +198,8 @@ export default {
       this.results = [];
     },
     closeSearchModal() {
-      this.resetSearch();
       this.$emit("closeSearchModal");
+      this.resetSearch();
     },
   },
   computed: {
@@ -228,6 +232,11 @@ export default {
   position: fixed;
   overflow-y: auto;
   overflow-x: hidden;
+  transition: 0.1s cubic-bezier(0.25, 0.8, 0.5, 1);
+  transition-property: all;
+  transition-duration: 0.1s;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.5, 1);
+  transition-delay: 0s;
 
   &.searchDone {
     background-color: #ffffff;
@@ -298,13 +307,22 @@ export default {
     top: 50%;
     width: 85%;
     margin: 0 auto;
+    border-bottom: 1px solid #ffffff;
+    display: flex;
+
+    .search-loader {
+        background-color: transparent;
+      /deep/ .progress-circular {
+        color: #ffffff;
+      }
+    }
 
     input#searchModalInput {
-      border-bottom: 1px solid #ffffff;
       width: 100%;
       font-weight: 700;
       font-size: 20px;
       color: #ffffff;
+      background-color: transparent !important;
 
       &::placeholder {
         font-weight: 700;
@@ -333,7 +351,10 @@ export default {
     .each_result {
       border-bottom: 1px solid #0000001a;
       margin-bottom: 23px;
-      padding-bottom: 22px;
+      padding-bottom: 0;
+      &:last-child {
+        border-bottom: none;
+      }
     }
     .search-result {
       margin-bottom: 15px;
