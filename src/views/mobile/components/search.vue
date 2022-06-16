@@ -1,0 +1,319 @@
+<template>
+  <div
+    class="mobile-search"
+    :class="{ searchDone, searchSuccessful, searchFailed }"
+  >
+    <span v-if="!searchDone">
+      <div class="top-section">
+        <h1 class="_title">Search</h1>
+        <v-icon @click="closeSearchModal">keyboard_arrow_down</v-icon>
+      </div>
+      <div class="subsection">
+        <div class="_subtitle">Music, videos, products & people</div>
+      </div>
+    </span>
+
+    <span v-if="searchDone">
+      <div class="_top dflex top-section">
+        <img
+          class="_left-icon"
+          :src="require('@/assets/search.svg')"
+          width="24"
+        />
+        <div class="logo-wrapper">
+          <img
+            class="_logo"
+            :src="require('@/assets/ys_logo_primary-black.svg')"
+            width="130"
+          />
+        </div>
+        <v-icon class="min-icon" @click="closeSearchModal()">
+          keyboard_arrow_down
+        </v-icon>
+      </div>
+
+      <div class="subsection">
+        <div v-if="searchSuccessful" class="result-for">Search result for:</div>
+        <div v-if="searchFailed" class="result-for">No search result for:</div>
+        <div class="keyword">{{ searchQuery }}</div>
+      </div>
+    </span>
+
+    <div v-if="searchSuccessful" class="results">
+        <div class="_label">
+            <div class="label-title">People</div>
+            <div class="label-count">{{ usersResults.length }} results</div>
+        </div>
+        <div class="each_result user-results">
+            <div
+            v-for="(result, index) in usersResults"
+            :key="index"
+            class="search-result user-result"
+            >
+                <user-tag :user="result" width="40" height="40" showAvatar showUserType />
+                <user-follow-btn :user="result" theme="dark" />
+            </div>
+        </div>
+        <div class="each_result album-results">
+            <div class="_label">
+                <div class="label-title">Music</div>
+                <div class="label-count">{{ albumResults.length }} results</div>
+            </div>
+            <div
+            v-for="(result, index) in albumResults"
+            :key="index"
+            class="search-result album-result"
+            >
+            </div>
+        </div>
+        <div class="each_result video-results">
+            <div class="_label">
+                <div class="label-title">Videos</div>
+                <div class="label-count">{{ videoResults.length }} results</div>
+            </div>
+            <div
+            v-for="(result, index) in videoResults"
+            :key="index"
+            class="search-result video-result"
+            >
+            </div>
+        </div>
+        <div class="each_result product-results">
+            <div class="_label">
+                <div class="label-title">Products</div>
+                <div class="label-count">{{ productResults.length }} results</div>
+            </div>
+            <div
+            v-for="(result, index) in productResults"
+            :key="index"
+            class="search-result product-result"
+            >
+            </div>
+        </div>
+    </div>
+
+    <div v-if="!searchDone" class="body-section">
+      <input
+        v-model="searchQuery"
+        type="search"
+        id="searchModalInput"
+        placeholder="Start typing.."
+        @keyup.enter="initSearch()"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import SearchService from "@/services/search";
+import UserTag from "../../../components/user_tag";
+import UserFollowBtn from '../../../components/userFollowbtn.vue';
+
+export default {
+  components: {
+    UserTag,
+    UserFollowBtn
+  },
+  data() {
+    return {
+      searchQuery: "ruckazoid",
+      searchDone: false,
+      searchSuccessful: false,
+      searchFailed: false,
+      results: {
+        users: [],
+        albums: [],
+        streams: [],
+        products: [],
+      },
+    };
+  },
+  methods: {
+    initSearch(searchQuery) {
+      //   this.$store.dispatch("error/showLoadingActivity", true);
+      SearchService.searchGlobal({ q: searchQuery })
+        .then((response) => {
+          this.searchSuccessful = true;
+          this.results = response.body;
+          console.log(this.results);
+
+          this.$emit("searchDone", { done: true, results: this.results });
+          //   this.$store.dispatch("error/showLoadingActivity", false);
+        })
+        .catch((e) => {
+          this.searchFailed = true;
+          console.log(e);
+          console.log(e.message);
+          //   this.$store.dispatch("error/showLoadingActivity", false);
+          //   this.$store.dispatch(
+          //     "error/showErrorToast",
+          //     e.body.errors || [e.body]
+          //   );
+        })
+        .finally(() => {
+          this.searchDone = true;
+        });
+    },
+    closeSearchModal() {
+        this.searchDone = false
+        this.searchSuccessful = false
+        this.searchFailed = false
+        this.results = [];
+
+      this.$emit("closeSearchModal");
+    },
+  },
+  computed: {
+    usersResults() {
+    return this.results.users;
+    },
+    albumResults() {
+      return this.results.albums;
+    },
+    videoResults() {
+        return this.results.streams;
+    },
+    productResults() {
+        return this.results.products;
+    },
+  },
+  created() {
+    this.$store.dispatch("error/showLoadingActivity", true);
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.mobile-search {
+  background-color: #1d1d1d;
+  color: #ffffff;
+  padding: 30px;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &.searchDone {
+    background-color: #ffffff;
+    color: #000000;
+
+    .top-section {
+        position: relative;
+        z-index: 3;
+      .icon {
+        color: #000000;
+      }
+    }
+
+    .subsection {
+      margin-top: 14px;
+      background-color: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+
+      &::before {
+        content: "";
+        background: #ffffff;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: -33px;
+        z-index: -1;
+      }
+      &::after {
+        content: "";
+        background-color: #0000001a;
+        width: 133%;
+        height: 1px;
+        position: absolute;
+        bottom: 0;
+        left: -38px;
+      }
+      .keyword {
+        font-size: 22px;
+        font-weight: 700;
+        text-transform: capitalize;
+        margin-bottom: 14px;
+      }
+      .divider {
+        position: absolute;
+        left: 0;
+        background-color: #0000001a;
+      }
+    }
+  }
+  .top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    ._title {
+      margin: 0;
+    }
+
+    .icon {
+      color: #ffffff;
+      font-size: 40px;
+    }
+  }
+  .body-section {
+    position: absolute;
+    top: 50%;
+    width: 85%;
+    margin: 0 auto;
+
+    input#searchModalInput {
+      border-bottom: 1px solid #ffffff;
+      width: 100%;
+      font-weight: 700;
+      font-size: 20px;
+      color: #ffffff;
+
+      &::placeholder {
+        font-weight: 700;
+        font-size: 20px;
+        color: #ffffff;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .results {
+    margin-top: 30px;
+    ._label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        .label-title,
+        .label-count {
+            font-size: 21px;
+            font-weight: 700;
+        }
+    }
+
+    .each_result {
+        border-bottom: 1px solid #0000001a;
+        margin-bottom: 23px;
+        padding-bottom: 22px;
+    }
+    .search-result {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+
+        /deep/ .user_tag {
+            .tag__usertype {
+                color: #00000080;
+            }
+            .user-status {
+                margin-top: -15px;
+            }
+        }
+    }
+  }
+}
+</style>
