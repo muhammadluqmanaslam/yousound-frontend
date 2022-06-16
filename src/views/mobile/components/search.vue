@@ -90,7 +90,14 @@
           :key="index"
           class="search-result video-result"
         >
-          <video-box :hoverOverlay="false" :item="result" sideTabView hideUser noMeta showUsername />
+          <video-box
+            hoverOverlay
+            :item="result"
+            sideTabView
+            hideUser
+            noMeta
+            showUsername
+          />
         </div>
       </div>
 
@@ -103,7 +110,9 @@
           v-for="(result, index) in productResults"
           :key="index"
           class="search-result product-result"
-        ></div>
+        >
+          <product-card :dataObject="result" sideTabView noMeta altMeta />
+        </div>
       </div>
     </div>
 
@@ -125,6 +134,7 @@ import UserTag from "@/components/user_tag";
 import UserFollowBtn from "@/components/userFollowbtn.vue";
 import trackcardsimple from "@/components/trackcardsimple";
 import VideoBox from "@/components/video_box";
+import productCard from "@/components/productcard";
 
 export default {
   components: {
@@ -132,6 +142,7 @@ export default {
     UserFollowBtn,
     trackcardsimple,
     VideoBox,
+    productCard,
   },
   data() {
     return {
@@ -351,12 +362,24 @@ export default {
 
       &.video-result {
         /deep/ .box__subtitle {
-            margin-left: -11px;
+          margin-left: -11px;
+          font-size: 16px;
+          width: 100%;
+          .user_name {
+            color: #414141;
+          }
+        }
+      }
+
+      &.product-result {
+        /deep/ .product-card {
+          .product-info {
             font-size: 16px;
-            width: 100%;
-            .user_name {
-                color: #414141;
+
+            .alt-meta-user {
+              color: #414141;
             }
+          }
         }
       }
     }
