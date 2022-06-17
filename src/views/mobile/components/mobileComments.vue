@@ -19,12 +19,12 @@
     <div class="width100 comments-comp" :class="{isAssocPassed}">
       <div class="box">
         <div class="box__content" :class="{'no-comment': !comments.length}">
-          <div
+          <!-- <div
             v-if="!hideCommentCount"
             class="comment__count"
           >
-              {{ comments.length }} {{ "comment" | pluralize(comments.length) }}
-            </div>
+            {{ comments.length }} {{ "comment" | pluralize(comments.length) }}
+          </div> -->
 
             <chat
               v-if="!hideComments && comments.length"
@@ -171,6 +171,7 @@ export default {
       align-items: center;
       text-align: center;
       min-height: 60vh;
+      flex-direction: column;
     }
     .comment__count {
       padding: 0 20px 15px 15px;
