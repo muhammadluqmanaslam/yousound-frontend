@@ -26,12 +26,12 @@
             {{ comments.length }} {{ "comment" | pluralize(comments.length) }}
           </div> -->
 
-            <chat
-              v-if="!hideComments && comments.length"
-              :items="comments"
-              hideDatedString
-              showShortAge
-            />
+          <chat
+            v-if="!hideComments && comments.length"
+            :items="comments"
+            hideDatedString
+            showShortAge
+          />
           <div v-else class="nocomment-msg">
             Please be respectful when leaving comments & follow our <router-link to="#"><strong>Community Guidelines</strong></router-link>
           </div>
