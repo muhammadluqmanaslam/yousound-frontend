@@ -260,7 +260,6 @@ export default {
 }
 /deep/ .item-tab-wrapper {
   &.isGrid {
-    padding-bottom: 45px;
     .item-tabs {
       margin-left: -15px;
       margin-right: -20px;

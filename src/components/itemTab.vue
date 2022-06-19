@@ -56,6 +56,7 @@ export default {
   }
 
   &.isGrid {
+    padding-bottom: 45px;
     /deep/ .track-card .track-info .track-detail {
       margin-left: 11px;
     }
