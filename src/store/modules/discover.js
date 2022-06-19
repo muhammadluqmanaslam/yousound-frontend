@@ -1,6 +1,7 @@
 // import { Utils } from '@/helper'
 // import * as types from '@/store/mutation-types'
 import SearchService from '@/services/search'
+import StreamService from '@/services/stream'
 
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
@@ -25,6 +26,10 @@ const actions = {
     return await SearchService.searchDiscover(params)
     .then((response) => commit('setMobileMusicFeed', { albums: response.body.albums, filter: params.filter }))
   },
+  async getMobileVideoFeed({ commit }, params) {
+    return await StreamService.getStreams(params)
+    .then((response) => commit('setMobileVideoFeed', { videos: response.body.streams, filter: params.filter }))
+  },
   setFeeds({ commit }, feeds) {
     commit('setFeeds', feeds)
   },
@@ -40,8 +45,12 @@ const mutations = {
     const { albums } = feed
 
     state.mobileMusicFeed[filter] = albums
-    console.log('feed: ', feed);
-    console.log('feed: ', state.mobileMusicFeed);
+  },
+  setMobileVideoFeed(state, feed) {
+    const { filter } = feed
+    const { videos } = feed
+
+    state.mobileVideoFeed[filter] = videos
   },
   setFeeds(state, feeds) {
     state.feeds = feeds
