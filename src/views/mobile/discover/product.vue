@@ -1,84 +1,57 @@
 <template>
   <div class="discover-page discover-video">
-    <div class="discover-layer">
-      <div class="dflex justify-space-between align-center mb-1">
-        <h2 class="discover-title">Trending</h2>
-        <div class="discover-action">View All</div>
-      </div>
+    <content-top-header
+      absolute :height="onMobile ? 35 : ''"
+      class="__inner px-0 mb-3"
+      :class="[{ onMobile}]"
+    >
+      <template slot="topHeader">
+        <ul>
+          <template>
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              :class="{ active: isActiveTab(tab.id) }"
+            >
+              <label @click="onTab(tab.id)">{{ tab.title }}</label>
+            </li>
+          </template>
+        </ul>    
+      </template>
+    </content-top-header>
 
-      <item-tab>
+    <div class="discover-layer">
+      <item-tab v-show="activeTab === 'recommended'" mode="grid">
         <template slot="itemTabs">
           <span
-            v-for="(product, index) in recommendedFeed"
+            v-for="(product, index) in allProducts"
             :key="index"
-            class="tab-holder"
-            style="width: 200px"
+            class="tab-holder px-0 flex xs6 md6"
           >
             <product-card hideOverlay noMeta altMeta altMetaPrice :dataObject="product" />
           </span>
         </template>
       </item-tab>
-    </div>
 
-    <div class="discover-layer">
-      <div class="dflex justify-space-between align-center mb-1">
-        <h2 class="discover-title">New</h2>
-        <div class="discover-action">View All</div>
-      </div>
-
-      <item-tab minHeight="218">
+      <item-tab minHeight="218" v-show="activeTab === 'new'" mode="grid">
         <template slot="itemTabs">
           <span
-            v-for="(product, index) in newFeedSplit1"
+            v-for="(product, index) in newFeed"
             :key="index"
-            class="tab-holder"
-            style="width: 130px"
+            class="tab-holder px-0 flex xs6 md6"
           >
             <product-card hideOverlay noMeta altMeta :dataObject="product" />
           </span>
         </template>
       </item-tab>
 
-      <item-tab minHeight="218">
+      <item-tab minHeight="218" v-show="activeTab === 'popular'" mode="grid">
         <template slot="itemTabs">
           <span
-            v-for="(product, index) in newFeedSplit2"
+            v-for="(product, index) in popularFeed"
             :key="index"
-            class="tab-holder"
-            style="width: 130px"
-          >
-            <product-card hideOverlay noMeta altMeta :dataObject="product" />
-          </span>
-        </template>
-      </item-tab>
-    </div>
-
-    <div class="discover-layer">
-      <div class="dflex justify-space-between align-center mb-1">
-        <h2 class="discover-title">Popular</h2>
-        <div class="discover-action">View All</div>
-      </div>
-
-      <item-tab minHeight="218">
-        <template slot="itemTabs">
-          <span
-            v-for="(product, index) in popularFeedSplit1"
-            :key="index"
-            class="tab-holder"
-            style="width: 130px"
-          >
-            <product-card hideOverlay noMeta altMeta :dataObject="product" />
-          </span>
-        </template>
-      </item-tab>
-
-      <item-tab minHeight="218">
-        <template slot="itemTabs">
-          <span
-            v-for="(product, index) in popularFeedSplit2"
-            :key="index"
-            class="tab-holder"
-            style="width: 130px"
+            class="tab-holder px-0 flex xs6 md6"
           >
             <product-card hideOverlay noMeta altMeta :dataObject="product" />
           </span>
@@ -92,6 +65,8 @@
 import SearchService from '@/services/search'
 import itemTab from '@/components/itemTab'
 import productCard from '@/components/productcard'
+import contentTopHeader from '@/components/contentTopHeader'
+import { mapActions, mapState } from 'vuex'
 
 export default {
     props: {
@@ -99,27 +74,78 @@ export default {
     },
     components: {
       itemTab,
-      productCard
+      productCard,
+      contentTopHeader
     },
     data() {
         return {
-            seed: '',
-            page_index: 1,
-            total_pages: 1,
-            items_per_page: 1 * 50,
-            categories: [],
-            selected_category: null,
-            products: [],
-            recommendedFeed: [],
-            newFeed: [],
-            popularFeed: [],
+          activeTab: "recommended",
+          tabs: [
+            { id: 'recommended', title: 'Trending' },
+            { id: 'new', title: 'New' },
+          ],
+          seed: '',
+          page_index: 1,
+          total_pages: 1,
+          items_per_page: 1 * 50,
+          categories: [],
+          selected_category: null,
+          products: [],
         }
     },
     methods: {
+      ...mapActions({
+        getMobileProductFeed: 'discover/getMobileProductFeed'
+      }),
+      onTab(tab) {
+        this.activeTab = tab;
+      },
+      isActiveTab(tab) {
+        return this.activeTab === tab
+      },
       getFeeds() {
-        this.filtered_feeds('any')
-        this.filtered_feeds('any')
-        this.filtered_feeds('any')
+        // temp
+        if (this.allProducts.length) return
+        // temp
+
+        this.getRecommendedFeed()
+        this.getNewFeed()
+        this.getPopularFeed()
+
+        // this.filtered_feeds('any')
+        // this.filtered_feeds('any')
+        // this.filtered_feeds('any')
+      },
+      getRecommendedFeed() {
+        if (this.recommendedFeed.length) return
+
+        const params = this.getParams('recommended')
+        this.getMobileProductFeed(params)
+      },
+      getNewFeed() {
+        if (this.recommendedFeed.length) return
+
+        const params = this.getParams('new')
+        this.getMobileProductFeed({...params, per_page: 20})
+      },
+      getPopularFeed() {
+        if (this.popularFeed.length) return
+
+        const params = this.getParams('popular')
+        this.getMobileProductFeed(params)
+      },
+      getParams(category, page=1) {
+        const genre = _.get(this.selected_genre, 'id', 'any')
+        const params = {
+            genre: genre,
+            category: "any", // temp
+            // category: category
+            page: page,
+            per_page: this.items_per_page,
+            seed: this.seed,
+        }
+
+        return params
       },
       loadFeeds(category, page) {
         const vm = this
@@ -216,6 +242,15 @@ export default {
       },
     },
     computed: {
+      ...mapState({
+        allProducts: state => state.discover.mobileProductFeed.allProducts, // temp
+        recommendedFeed: state => state.discover.mobileProductFeed.recommended,
+        newFeed: state => state.discover.mobileProductFeed.new,
+        popularFeed: state => state.discover.mobileProductFeed.popular,
+      }),
+      onMobile() {
+        return this.$vuetify.breakpoint.smAndDown;
+      },
       newFeedSplit1() {
         const split = this.newFeed.slice(0, this.newFeed.length/2)
         return split
