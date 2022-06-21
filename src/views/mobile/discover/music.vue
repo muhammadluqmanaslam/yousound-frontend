@@ -45,6 +45,7 @@
             :objects="recommendedFeed"
             :objectIndex="index"
             hideMoreMenu
+            class="pa-0" 
           />
         </span>
       </template>
@@ -261,8 +262,8 @@ export default {
 /deep/ .item-tab-wrapper {
   &.isGrid {
     .item-tabs {
-      margin-left: -15px;
-      margin-right: -20px;
+      // margin-left: -15px;
+      // margin-right: -20px;
     }
   }
 }
