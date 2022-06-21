@@ -1,5 +1,5 @@
 <template>
-  <div class="discover-page discover-video">
+  <div class="discover-page discover-product">
     <content-top-header
       absolute :height="onMobile ? 35 : ''"
       class="__inner px-0 mb-3"
