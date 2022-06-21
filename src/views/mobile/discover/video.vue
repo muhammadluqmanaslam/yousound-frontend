@@ -2,7 +2,7 @@
   <div class="discover-page discover-video">
     <content-top-header
       absolute :height="onMobile ? 35 : ''"
-      class="__inner px-0 mb-3"
+      class="__inner px-0"
       :class="[{ onMobile}]"
     >
       <template slot="topHeader">
@@ -252,5 +252,4 @@ export default {
     }
 }
 </script>
-
 <style src="../../../../static/styles/mobile/discover_comp.scss" lang="scss" scoped></style>
