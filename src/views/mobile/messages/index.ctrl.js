@@ -1,8 +1,10 @@
 import PaneTabs from "../components/paneTabs.vue";
+import Conversations from "./conversations";
 
 export default {
   components: {
     PaneTabs,
+    Conversations,
   },
 
   data() {
@@ -13,7 +15,7 @@ export default {
         { id: "activity", title: "Activity"},
       ],
       initSelected: "messages",
-      activeDiscover: "messages",
+      activePane: "messages",
     }
   },
 
@@ -26,9 +28,8 @@ export default {
 
   methods: {
     tabClicked(data) {
-      console.log("clickr 2");
       this.showTrending = false;
-      this.activeDiscover = data.id;
+      this.activePane = data.id;
     },
   },
 

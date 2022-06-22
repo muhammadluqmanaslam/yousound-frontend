@@ -1,100 +1,63 @@
 <template>
-  <div class="page messages-page">
-    <pane-tabs :paneTabs="tabs" ref="paneTabs" :initSelected="initSelected" @tabClicked="tabClicked" recChip />
-
-    <div
-      class="messages-stop-music-section"
-      v-if="show_stopPopup"
+  <div class="messages-page">
+    <v-flex
+      v-if="!conversations || conversations.length == 0"
+      xs12
+      pa-0
+      class="message-rooms-section empty-section"
     >
-      <div class="popup-section">
-        <img class="popup-image" src="/static/images/earphone.png" />
-        <p class="popup-title">Direct Messages</p>
-        <p class="popup-text">
-          Direct messages is where you can share music + product directly,
-          view repost requests & approve collaborations.
-        </p>
-        <v-btn class="gotta-btn" @click.native="setVisitedTime()"
-          >Ok. Got it!</v-btn
-        >
+      <p class="empty-title">No messages</p>
+      <p class="empty-description">Your conversations will appear here.</p>
+    </v-flex>
+
+    <div class="conversations">
+      <div
+        v-for="(conv, i) in conversations"
+        @click="selectedConversation(conv)"
+        :key="i"
+        :class="{
+          new: conv.last_message && !conv.last_message.is_read,
+          selected: conv.id == conversation.id,
+        }"
+        class="conversation message-room-item"
+      >
+        <user-tag :user="conv.other" width="55" height="55" showAvatar hideName hideTick />
+
+        <div class="conversation-preview">
+            <user-tag :user="conv.other" />
+            <div class="last-message" v-html="conv.last_message.body"></div>
+
+        </div>
+
+        <!-- <div class="detail-area">
+          <div class="user-name">{{ conv.other.username }}</div>
+          <div class="short-message" v-html="conv.last_message.body"></div>
+        </div> -->
+
+        <!-- <div class="messaged-time">
+          {{ toLocalTimeString(conv.last_message.created_at) }}
+        </div> -->
       </div>
     </div>
 
-    <!-- <v-flex xs12 sm10 offset-sm1 class="messages-page-header">
-    <v-flex xs12>
-      <v-layout row wrap>
-        <h2 class="page-title">Messages</h2>
-      </v-layout>
-      <v-layout row wrap>
-        <a href="/settings">
-          <label class="settings-text">You can receive message from anyone.</label><v-icon class="settings-icon">settings</v-icon>
-        </a>
-      </v-layout>
-    </v-flex>
-  </v-flex> -->
-
-    <v-container fluid grid-list-md class="messages-page-content" v-if="currentUser">
+    <!-- <v-container
+      fluid
+      grid-list-md
+      class="messages-page-content"
+      v-if="currentUser"
+    >
       <v-layout wrap row>
-        <v-flex
-          xs12
-          pa-0
-          v-if="!conversations || conversations.length == 0"
-          class="message-rooms-section empty-section"
-        >
-          <p class="empty-title">No messages</p>
-          <p class="empty-description">
-            Your conversations will appear here.
-          </p>
-        </v-flex>
-        <template v-else>
+        <template>
           <v-flex xs12 sm3 pa-0 class="conversations">
             <div class="conversations__header">
-              <div class="app-bold">Inbox</div>
               <div class="conversations__count">
                 <span class="__count">
-                  {{ conversations.length < 99 ? conversations.length : '99+' }}</span>
-                  messages
+                  {{
+                    conversations.length < 99 ? conversations.length : "99+"
+                  }}</span
+                >
+                messages
               </div>
-              <!-- <div class="search-box">
-              <div class="search-container">
-                <span class="icon">
-                  <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <title>Group 22</title>
-                    <desc>Created with Sketch.</desc>
-                    <defs></defs>
-                    <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g id="searchIcon" transform="translate(-732.000000, -61.000000)" stroke="#FFFFFF" stroke-width="1.5999999">
-                        <g id="Group-29" transform="translate(710.000000, 50.000000)">
-                          <g id="Group-22" transform="translate(23.000000, 12.000000)">
-                            <circle id="Oval-2" cx="11.375" cy="11.375" r="11.375"></circle>
-                            <path d="M19.5,19.5 L25.59375,25.59375" id="Line" stroke-linecap="round" stroke-linejoin="round"></path>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </span>
-                <input class="search-field" type="search" id="search" placeholder="Search message" />
-              </div>
-            </div>
-            <v-menu offset-y class="more-menu">
-              <v-btn dark slot="activator">
-                <v-icon right>more_horiz</v-icon>
-              </v-btn>
-              <v-list>
-                <v-list-tile key="all" class="default-menu-item" @click.native="showAllMessages()">
-                  <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_repeat.png" />
-                    <label>All Messages</label>
-                  </v-list-tile-title>
-                </v-list-tile>
-                <v-list-tile key="request" class="default-menu-item" @click.native="showRepostRequests()">
-                  <v-list-tile-title>
-                    <img class="track-status-icon" src="/static/images/ic_download.png" />
-                    <label>Repost Requests Only</label>
-                  </v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-            </v-menu> -->
             </div>
             <div class="conversations__content">
               <div
@@ -121,7 +84,6 @@
                   </router-link>
                 </div>
                 <div class="detail-area">
-                  <!-- <router-link class="user-name" :to="'/' + conv.other.slug">{{ conv.other.username }}</router-link> -->
                   <div class="user-name">{{ conv.other.username }}</div>
                   <div
                     class="short-message"
@@ -152,7 +114,6 @@
                   >fa-check-circle</v-icon
                 >
               </p>
-              <!-- <p class="messaged-time">{{ toLocalTimeString(conversation.last_message.created_at) }}</p> -->
               <p class="messaged-time">
                 Repost Price: ${{
                   conversation.other.repost_price | formatNumber
@@ -171,7 +132,6 @@
                     "
                   >
                     <v-list-tile-title>
-                      <!-- <img class="track-status-icon" src="/static/images/ic_repeat.png" /> -->
                       <label>Delete entire message</label>
                     </v-list-tile-title>
                   </v-list-tile>
@@ -181,7 +141,6 @@
                     @click.native="openBlockUserConfirmDialog()"
                   >
                     <v-list-tile-title>
-                      <!-- <img class="track-status-icon" src="/static/images/ic_download.png" /> -->
                       <label>Block User</label>
                     </v-list-tile-title>
                   </v-list-tile>
@@ -252,7 +211,7 @@
           </v-flex>
         </template>
       </v-layout>
-    </v-container>
+    </v-container> -->
 
     <v-dialog v-model="show_repost_modal">
       <v-card class="pa-5">

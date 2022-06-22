@@ -14,6 +14,7 @@ import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
 import repostPaymentModal from '@/components/repost_payment_modal'
 import SendLoveModal from '@/components/sendlovemodal'
+import userTag from '@/components/user_tag'
 import message from './components/message'
 
 const ActionCable = require('actioncable')
@@ -26,6 +27,7 @@ export default {
     message,
     repostPaymentModal,
     SendLoveModal,
+    userTag,
   },
 
   mixins: [onClickOutside],
