@@ -224,7 +224,12 @@ export function createRouter(settings) {
     },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
-    { path: '/messages', name: 'Messages', component: setComponent('messages') },
+    { path: '/messages',
+      name: 'Messages',
+      component: setComponent('messages'),
+      meta: {
+        noSideSpace: onMobile,
+      } },
     { path: '/cart', name: 'Cart', component: Cart },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },
     { path: '/sell', name: 'Sell', component: Sell },
