@@ -1,4 +1,14 @@
 .messages-page {
+    .no-message {
+        height: 70vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .__text {
+            font-size: 16px;
+        }
+    }
     .conversations {
         .conversation {
             display: flex;

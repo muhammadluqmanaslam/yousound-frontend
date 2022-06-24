@@ -1,395 +1,373 @@
 <template>
-  <div class="message space" :class="isOwn ? 'self' : 'other'">
-    <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div>
-    <template v-if="message.attachment">
-      <div class="message-section">
-        <router-link :to="`/${message.sender.slug}`"
-          ><div
-            class="user-avatar-image"
-            :style="{
-              'background-image':
-                'url(' + message.sender.avatar.thumb.url + ')',
-            }"
-          ></div
-        ></router-link>
-        <div class="message-content text">
-          <label class="text-message" v-html="message.body"></label>
+  <div class="each_message message space" :class="[{isUserMessage, isOtherUserMessage}, isOwn ? 'self' : 'other']">
+    <!-- <div class="messaged-time">{{ toLocalTimeString(message.created_at) }}</div> -->
+      <div class="message-wrapper">
+        <div class="message-section" :class="{'has-attachment': message.attachment}">
+          <user-tag v-if="isOtherUserMessage" :user="message.sender" width="32" height="32" showAvatar hideName hideTick :clickUser="false" class="mr-2" />
+          <div class="message-parent">
+            <div class="message-content otherBG _body">
+              <label class="text-message" v-html="message.body"></label>
+            </div>
+
+            <div v-if="message.attachment" class="message-attachment">
+              <img :src="require('@/assets/clip_attach.svg')" class="attachment-icon" alt="attachment clip icon">
+
+              <div v-if="message.attachment.attachment_type == 'repost'" class="repost-attachment">
+                <div class="message-content otherBG request" :class="{isUserMessage, isOtherUserMessage}">
+                  <div>
+                    <div class="status-section">
+                      <v-icon
+                        v-if="
+                          message.sender.id == currentUser.id &&
+                          message.attachment.status == 'pending'
+                        "
+                        class="icon-close"
+                        @click="removeRepostRequest(message)"
+                        >close</v-icon
+                      >
+                      <div
+                        v-if="
+                          message.sender.id == currentUser.id ||
+                          message.attachment.status != 'pending'
+                        "
+                      >
+                        <label class="status-title">Repost request: </label>
+                        <span :class="message.attachment.status">{{
+                          message.attachment.status
+                        }}</span>
+                      </div>
+                      <div v-else>
+                        <label class="status-title">Repost request: </label>
+                        <v-btn
+                          class="btn--accept"
+                          @click.native="acceptRepostRequest(message)"
+                          >Accept</v-btn
+                        >
+                        <v-btn
+                          class="btn--deny"
+                          @click.native="denyRepostRequest(message)"
+                          >Deny</v-btn
+                        >
+                        <v-btn
+                          class="btn--free"
+                          @click.native="acceptRepostRequestOnFree(message)"
+                          >Repost free</v-btn
+                        >
+                      </div>
+                    </div>
+
+                    <div
+                      class="content-section"
+                      v-if="message.attachment.attachable_type == 'Album'"
+                    >
+                      <trackcardsimple
+                        :item="message.attachment.assoc"
+                        :cover="message.attachment.assoc.cover.thumb.url"
+                        :title="message.attachment.assoc.name"
+                        :subtitle="message.sender.display_name"
+                        coverRadius
+                      />
+                    </div>
+                    <div
+                      class="content-section"
+                      v-else-if="message.attachment.attachable_type == 'ShopProduct'"
+                    >
+                      <div class="repost-item-image">
+                        <activity-product-card
+                          :object="message.attachment.assoc"
+                          :price-show="false"
+                        ></activity-product-card>
+                      </div>
+                      <div class="info-section">
+                        <label class="item-title">{{
+                          message.attachment.assoc.name
+                        }}</label>
+                        <a class="item-user">{{ message.sender.username }}</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <label class="text-message">{{ message.body }}</label> -->
+                </div>
+              </div>
+
+              <div
+                v-else-if="message.attachment.attachment_type == 'collaboration'"
+                class="collaboration-attachment"
+              >
+                <div class="message-content otherBG request no-top-corner">
+                  <div>
+                    <div class="content-section">
+                      <template v-if="message.attachment.attachable_type == 'Album'">
+                        <div class="repost-item-image">
+                          <activity-album-card
+                            :object="message.attachment.assoc"
+                          ></activity-album-card>
+                        </div>
+                        <div class="info-section">
+                          <label class="item-title">{{
+                            message.attachment.assoc.name
+                          }}</label>
+                          <a class="item-user">{{ message.sender.username }}</a>
+                        </div>
+                        <div
+                          class="artist-list"
+                          v-if="message.attachment.assoc.collaborators.length > 0"
+                        >
+                          <div
+                            v-for="c in message.attachment.assoc.collaborators"
+                            :key="c.id"
+                            class="artist"
+                          >
+                            <span>{{ c.user.username }}</span>
+                            <span>{{ c.user_role }}</span>
+                          </div>
+                        </div>
+                      </template>
+                      <template
+                        v-else-if="
+                          message.attachment.attachable_type == 'ShopProduct'
+                        "
+                      >
+                        <!-- <div class="label-message-section">
+                          <div class="label-message">
+                            {{ message.attachment.assoc.merchant.username }} wants
+                            to upload this product collaboration
+                          </div>
+                        </div> -->
+                        <div class="repost-item-image">
+                          <activity-product-card
+                            :object="message.attachment.assoc"
+                            :price-show="false"
+                          ></activity-product-card>
+                        </div>
+                        <div class="info-section">
+                          <label class="item-title">{{
+                            message.attachment.assoc.name
+                          }}</label>
+                          <a class="item-user">{{ message.sender.username }}</a>
+                        </div>
+                        <div
+                          class="artist-list"
+                          v-if="message.attachment.assoc.collaborators.length > 0"
+                        >
+                          <div class="artist">
+                            <span
+                              >{{ message.attachment.assoc.merchant.username }}( Owner
+                              )</span
+                            >
+                            <span
+                              >{{ message.attachment.assoc.creator_share }} %</span
+                            >
+                          </div>
+                          <div class="artist">
+                            <span>Recoup Cost</span>
+                            <span
+                              >${{
+                                message.attachment.assoc.creator_recoup_cost
+                                  | formatNumber
+                              }}</span
+                            >
+                          </div>
+                          <div
+                            v-for="c in message.attachment.assoc.collaborators"
+                            :key="c.id"
+                            class="artist"
+                          >
+                            <span>{{ c.user.username }}</span>
+                            <span>{{ c.user_share }} %</span>
+                          </div>
+                        </div>
+                      </template>
+
+                      <div class="status-section label">
+                        <div
+                          v-if="
+                            message.sender.id == currentUser.id ||
+                            message.attachment.status != 'pending'
+                          "
+                        >
+                          <v-btn
+                            v-if="message.attachment.attachable_type == 'Album'"
+                            to="/albums#pending"
+                            >View & Release</v-btn
+                          >
+                          <v-btn
+                            v-else-if="
+                              message.attachment.attachable_type == 'ShopProduct'
+                            "
+                            @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
+                            >View & Release</v-btn
+                          >
+                        </div>
+                        <div v-else>
+                          <v-btn
+                            v-if="message.attachment.attachable_type == 'Album'"
+                            to="/albums#pending"
+                            >View Pending Collaboration</v-btn
+                          >
+                          <v-btn
+                            v-else-if="
+                              message.attachment.attachable_type == 'ShopProduct'
+                            "
+                            @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
+                            >View Pending Collaboration</v-btn
+                          >
+                        </div>
+                        <!-- <div v-else>
+                          <v-btn class="btn--accept" @click.native="acceptCollaboration(message)">Accept</v-btn>
+                          <v-btn class="btn--deny" @click.native="denyCollaboration(message)">Deny</v-btn>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else-if="message.attachment.attachment_type == 'label_user'"
+                class="label_user-attachment"
+              >
+                <div class="message-content otherBG request no-top-corner">
+                  <div>
+                    <div class="content-section">
+                      <div class="label-message-section">
+                        <div class="label-message">{{ message.body }}</div>
+                      </div>
+
+                      <template v-if="message.attachment.attachable_type == 'User'">
+                        <div
+                          class="repost-item-image avatar"
+                          :style="{
+                            'background-image':
+                              'url(' +
+                              message.attachment.assoc.avatar.thumb.url +
+                              ')',
+                          }"
+                        ></div>
+                        <div class="info-section">
+                          <label class="item-title">{{
+                            message.attachment.assoc.username
+                          }}</label>
+                        </div>
+                      </template>
+
+                      <div class="status-section label">
+                        <div
+                          v-if="
+                            message.sender.id == currentUser.id ||
+                            message.attachment.status != 'pending'
+                          "
+                        >
+                          <span :class="message.attachment.status">{{
+                            message.attachment.status
+                          }}</span>
+                        </div>
+                        <div v-else>
+                          <v-btn
+                            class="btn--accept"
+                            @click.native="acceptLabelUser(message)"
+                            >Accept</v-btn
+                          >
+                          <v-btn
+                            class="btn--deny"
+                            @click.native="denyLabelUser(message)"
+                            >Deny</v-btn
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="text-message" v-if="false"></label>
+                </div>
+              </div>
+
+              <div
+                v-else-if="message.attachment.attachment_type == 'label_album'"
+                class="label_album-attachment"
+              >
+                <div class="message-content otherBG request no-top-corner">
+                  <div>
+                    <div class="content-section">
+                      <div class="label-message-section">
+                        <div class="label-message">{{ message.body }}</div>
+                      </div>
+
+                      <template v-if="message.attachment.attachable_type == 'Album'">
+                        <div
+                          class="repost-item-image avatar"
+                          :style="{
+                            'background-image':
+                              'url(' + message.attachment.assoc.cover.url + ')',
+                          }"
+                        ></div>
+                        <div class="info-section">
+                          <label class="item-title">{{
+                            message.attachment.assoc.name
+                          }}</label>
+                        </div>
+                      </template>
+
+                      <div class="status-section label">
+                        <div
+                          v-if="
+                            message.sender.id == currentUser.id ||
+                            message.attachment.status != 'pending'
+                          "
+                        >
+                          <span :class="message.attachment.status">{{
+                            message.attachment.status
+                          }}</span>
+                        </div>
+                        <div v-else>
+                          <v-btn
+                            class="btn--accept"
+                            @click.native="acceptLabelAlbum(message)"
+                            >Accept</v-btn
+                          >
+                          <v-btn
+                            class="btn--deny"
+                            @click.native="denyLabelAlbum(message)"
+                            >Deny</v-btn
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                v-else-if="message.attachment.attachment_type == 'sample_album'"
+                class="sample_album-attachment"
+              >
+                <div class="message-content otherBG request no-top-corner">
+                  <div>
+                    <div
+                      class="content-section"
+                      v-if="message.attachment.attachable_type == 'Album'"
+                    >
+                      <div class="repost-item-image">
+                        <activity-album-card
+                          :object="message.attachment.assoc"
+                        ></activity-album-card>
+                      </div>
+                      <div class="info-section">
+                        <label class="item-title">{{
+                          message.attachment.assoc.name
+                        }}</label>
+                        <a class="item-user">{{ message.sender.username }}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clear"></div>
         </div>
-        <div class="clear"></div>
       </div>
 
-      <div class="message-section">
-        <router-link :to="`/${message.sender.slug}`"
-          ><div
-            class="user-avatar-image"
-            :style="{
-              'background-image':
-                'url(' + message.sender.avatar.thumb.url + ')',
-            }"
-          ></div
-        ></router-link>
-
-        <template v-if="message.attachment.attachment_type == 'repost'">
-          <div class="message-content text request no-top-corner">
-            <div>
-              <div class="repost-status-section">
-                <v-icon
-                  v-if="
-                    message.sender.id == currentUser.id &&
-                    message.attachment.status == 'pending'
-                  "
-                  class="icon-close"
-                  @click="removeRepostRequest(message)"
-                  >close</v-icon
-                >
-                <div
-                  v-if="
-                    message.sender.id == currentUser.id ||
-                    message.attachment.status != 'pending'
-                  "
-                >
-                  <label class="status-title">Repost request: </label>
-                  <span :class="message.attachment.status">{{
-                    message.attachment.status
-                  }}</span>
-                </div>
-                <div v-else>
-                  <label class="status-title">Repost request: </label>
-                  <v-btn
-                    class="btn--accept"
-                    @click.native="acceptRepostRequest(message)"
-                    >Accept</v-btn
-                  >
-                  <v-btn
-                    class="btn--deny"
-                    @click.native="denyRepostRequest(message)"
-                    >Deny</v-btn
-                  >
-                  <v-btn
-                    class="btn--free"
-                    @click.native="acceptRepostRequestOnFree(message)"
-                    >Repost free</v-btn
-                  >
-                </div>
-              </div>
-
-              <div
-                class="content-section"
-                v-if="message.attachment.attachable_type == 'Album'"
-              >
-                <div class="repost-item-image">
-                  <activity-album-card
-                    :object="message.attachment.assoc"
-                  ></activity-album-card>
-                </div>
-                <div class="info-section">
-                  <label class="item-title">{{
-                    message.attachment.assoc.name
-                  }}</label>
-                  <a class="item-user">{{ message.sender.username }}</a>
-                </div>
-              </div>
-              <div
-                class="content-section"
-                v-else-if="message.attachment.attachable_type == 'ShopProduct'"
-              >
-                <div class="repost-item-image">
-                  <activity-product-card
-                    :object="message.attachment.assoc"
-                    :price-show="false"
-                  ></activity-product-card>
-                </div>
-                <div class="info-section">
-                  <label class="item-title">{{
-                    message.attachment.assoc.name
-                  }}</label>
-                  <a class="item-user">{{ message.sender.username }}</a>
-                </div>
-              </div>
-            </div>
-            <!-- <label class="text-message">{{ message.body }}</label> -->
-          </div>
-        </template>
-
-        <template
-          v-else-if="message.attachment.attachment_type == 'collaboration'"
-        >
-          <div class="message-content text request no-top-corner">
-            <div>
-              <!-- <div class="content-section" v-if="message.attachment.attachable_type=='User'"> -->
-              <div class="content-section">
-                <template v-if="message.attachment.attachable_type == 'Album'">
-                  <!-- <div class="label-message-section">
-                    <div class="label-message">
-                      {{ message.attachment.assoc.user.username }} wants to
-                      upload this album collaboration
-                    </div>
-                  </div> -->
-                  <div class="repost-item-image">
-                    <activity-album-card
-                      :object="message.attachment.assoc"
-                    ></activity-album-card>
-                  </div>
-                  <div class="info-section">
-                    <label class="item-title">{{
-                      message.attachment.assoc.name
-                    }}</label>
-                    <a class="item-user">{{ message.sender.username }}</a>
-                  </div>
-                  <div
-                    class="artist-list"
-                    v-if="message.attachment.assoc.collaborators.length > 0"
-                  >
-                    <div
-                      v-for="c in message.attachment.assoc.collaborators"
-                      :key="c.id"
-                      class="artist"
-                    >
-                      <span>{{ c.user.username }}</span>
-                      <span>{{ c.user_role }}</span>
-                    </div>
-                  </div>
-                </template>
-                <template
-                  v-else-if="
-                    message.attachment.attachable_type == 'ShopProduct'
-                  "
-                >
-                  <!-- <div class="label-message-section">
-                    <div class="label-message">
-                      {{ message.attachment.assoc.merchant.username }} wants
-                      to upload this product collaboration
-                    </div>
-                  </div> -->
-                  <div class="repost-item-image">
-                    <activity-product-card
-                      :object="message.attachment.assoc"
-                      :price-show="false"
-                    ></activity-product-card>
-                  </div>
-                  <div class="info-section">
-                    <label class="item-title">{{
-                      message.attachment.assoc.name
-                    }}</label>
-                    <a class="item-user">{{ message.sender.username }}</a>
-                  </div>
-                  <div
-                    class="artist-list"
-                    v-if="message.attachment.assoc.collaborators.length > 0"
-                  >
-                    <div class="artist">
-                      <span
-                        >{{ message.attachment.assoc.merchant.username }}( Owner
-                        )</span
-                      >
-                      <span
-                        >{{ message.attachment.assoc.creator_share }} %</span
-                      >
-                    </div>
-                    <div class="artist">
-                      <span>Recoup Cost</span>
-                      <span
-                        >${{
-                          message.attachment.assoc.creator_recoup_cost
-                            | formatNumber
-                        }}</span
-                      >
-                    </div>
-                    <div
-                      v-for="c in message.attachment.assoc.collaborators"
-                      :key="c.id"
-                      class="artist"
-                    >
-                      <span>{{ c.user.username }}</span>
-                      <span>{{ c.user_share }} %</span>
-                    </div>
-                  </div>
-                </template>
-
-                <div class="repost-status-section label">
-                  <div
-                    v-if="
-                      message.sender.id == currentUser.id ||
-                      message.attachment.status != 'pending'
-                    "
-                  >
-                    <v-btn
-                      v-if="message.attachment.attachable_type == 'Album'"
-                      to="/albums#pending"
-                      >View & Release</v-btn
-                    >
-                    <v-btn
-                      v-else-if="
-                        message.attachment.attachable_type == 'ShopProduct'
-                      "
-                      @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
-                      >View & Release</v-btn
-                    >
-                  </div>
-                  <div v-else>
-                    <v-btn
-                      v-if="message.attachment.attachable_type == 'Album'"
-                      to="/albums#pending"
-                      >View Pending Collaboration</v-btn
-                    >
-                    <v-btn
-                      v-else-if="
-                        message.attachment.attachable_type == 'ShopProduct'
-                      "
-                      @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
-                      >View Pending Collaboration</v-btn
-                    >
-                  </div>
-                  <!-- <div v-else>
-                    <v-btn class="btn--accept" @click.native="acceptCollaboration(message)">Accept</v-btn>
-                    <v-btn class="btn--deny" @click.native="denyCollaboration(message)">Deny</v-btn>
-                  </div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-
-        <template
-          v-else-if="message.attachment.attachment_type == 'label_user'"
-        >
-          <div class="message-content text request no-top-corner">
-            <div>
-              <div class="content-section">
-                <div class="label-message-section">
-                  <div class="label-message">{{ message.body }}</div>
-                </div>
-
-                <template v-if="message.attachment.attachable_type == 'User'">
-                  <div
-                    class="repost-item-image avatar"
-                    :style="{
-                      'background-image':
-                        'url(' +
-                        message.attachment.assoc.avatar.thumb.url +
-                        ')',
-                    }"
-                  ></div>
-                  <div class="info-section">
-                    <label class="item-title">{{
-                      message.attachment.assoc.username
-                    }}</label>
-                  </div>
-                </template>
-
-                <div class="repost-status-section label">
-                  <div
-                    v-if="
-                      message.sender.id == currentUser.id ||
-                      message.attachment.status != 'pending'
-                    "
-                  >
-                    <span :class="message.attachment.status">{{
-                      message.attachment.status
-                    }}</span>
-                  </div>
-                  <div v-else>
-                    <v-btn
-                      class="btn--accept"
-                      @click.native="acceptLabelUser(message)"
-                      >Accept</v-btn
-                    >
-                    <v-btn
-                      class="btn--deny"
-                      @click.native="denyLabelUser(message)"
-                      >Deny</v-btn
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-            <label class="text-message" v-if="false"></label>
-          </div>
-        </template>
-
-        <template
-          v-else-if="message.attachment.attachment_type == 'label_album'"
-        >
-          <div class="message-content text request no-top-corner">
-            <div>
-              <div class="content-section">
-                <div class="label-message-section">
-                  <div class="label-message">{{ message.body }}</div>
-                </div>
-
-                <template v-if="message.attachment.attachable_type == 'Album'">
-                  <div
-                    class="repost-item-image avatar"
-                    :style="{
-                      'background-image':
-                        'url(' + message.attachment.assoc.cover.url + ')',
-                    }"
-                  ></div>
-                  <div class="info-section">
-                    <label class="item-title">{{
-                      message.attachment.assoc.name
-                    }}</label>
-                  </div>
-                </template>
-
-                <div class="repost-status-section label">
-                  <div
-                    v-if="
-                      message.sender.id == currentUser.id ||
-                      message.attachment.status != 'pending'
-                    "
-                  >
-                    <span :class="message.attachment.status">{{
-                      message.attachment.status
-                    }}</span>
-                  </div>
-                  <div v-else>
-                    <v-btn
-                      class="btn--accept"
-                      @click.native="acceptLabelAlbum(message)"
-                      >Accept</v-btn
-                    >
-                    <v-btn
-                      class="btn--deny"
-                      @click.native="denyLabelAlbum(message)"
-                      >Deny</v-btn
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-
-        <template
-          v-else-if="message.attachment.attachment_type == 'sample_album'"
-        >
-          <div class="message-content text request no-top-corner">
-            <div>
-              <div
-                class="content-section"
-                v-if="message.attachment.attachable_type == 'Album'"
-              >
-                <div class="repost-item-image">
-                  <activity-album-card
-                    :object="message.attachment.assoc"
-                  ></activity-album-card>
-                </div>
-                <div class="info-section">
-                  <label class="item-title">{{
-                    message.attachment.assoc.name
-                  }}</label>
-                  <a class="item-user">{{ message.sender.username }}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </template>
-
-        <div class="clear"></div>
-      </div>
-    </template>
-    <template v-else>
+    <!-- <template v-else>
       <div class="message-section">
         <router-link :to="`/${message.sender.slug}`">
           <div
@@ -400,12 +378,12 @@
             }"
           ></div>
         </router-link>
-        <div class="message-content text">
+        <div class="message-content otherBG">
           <label class="text-message" v-html="message.body"></label>
         </div>
         <div class="clear"></div>
       </div>
-    </template>
+    </template> -->
   </div>
 </template>
 
@@ -416,11 +394,15 @@ import UserService from "@/services/user";
 import { Utils } from "@/helper";
 import activityAlbumCard from "@/components/activityalbumcard";
 import activityProductCard from "@/components/activityproductcard";
+import userTag from "@/components/user_tag";
+import Trackcardsimple from '@/components/trackcardsimple';
 
 export default {
   components: {
     activityAlbumCard,
     activityProductCard,
+    userTag,
+    Trackcardsimple,
   },
 
   props: ["message", "isOwn"],
@@ -430,6 +412,12 @@ export default {
   },
 
   computed: {
+    isOtherUserMessage() {
+      return this.message.sender.id !== this.currentUser.id
+    },
+    isUserMessage() {
+      return this.message.sender.id == this.currentUser.id
+    },
     currentUser() {
       return this.$store.state.auth.user;
     },
@@ -565,7 +553,6 @@ export default {
 
 <style lang="scss" scoped>
 .message {
-  padding: 3.75px 15px 0px;
   .messaged-time {
     text-align: center;
     font-size: 13px;
@@ -575,7 +562,7 @@ export default {
   }
   .message-section {
     .user-avatar-image {
-      width: 40px;
+      // width: 40px;
       height: 40px;
       display: inline-block;
       overflow: hidden;
@@ -588,10 +575,6 @@ export default {
       }
     }
     .message-content {
-      border-radius: 22.5px;
-      display: inline-block;
-      padding: 7.5px 18.75px;
-      max-width: calc(100% - 82.5px);
       &.text {
         .text-message {
           width: 100%;
@@ -602,8 +585,8 @@ export default {
       }
       &.request {
         padding: 11.25px 18.75px 22.5px;
-        width: 420px;
-        .repost-status-section {
+        // width: 420px;
+        .status-section {
           .icon-close {
             display: none;
           }
@@ -656,7 +639,7 @@ export default {
             margin-bottom: 10px;
             padding-bottom: 15px;
             .label-message {
-              max-width: 400px;
+              // max-width: 400px;
               font-size: 16px;
               margin-right: 3px;
               letter-spacing: -0.6px;
@@ -694,8 +677,8 @@ export default {
             display: inline-block;
             vertical-align: middle;
             padding-left: 7.5px;
-            max-width: calc(100% - 67.5px);
-            width: 200px;
+            // max-width: calc(100% - 67.5px);
+            // width: 200px;
             .item-title {
               display: block;
               text-overflow: ellipsis;
@@ -747,11 +730,9 @@ export default {
 
     .message-content {
       position: relative;
-      float: right;
       text-align: left;
-      background: #f7f7f7;
       margin-right: 5px;
-      max-width: 600px;
+      // max-width: 600px;
 
       &.no-top-corner {
         border-top-right-radius: 7.5px;
@@ -759,13 +740,8 @@ export default {
       &.no-bottom-corner {
         border-bottom-right-radius: 7.5px;
       }
-      &.text {
-        .text-message {
-          color: #000;
-        }
-      }
       &.request {
-        .repost-status-section {
+        .status-section {
           .icon-close {
             display: block;
             position: absolute;
@@ -829,23 +805,13 @@ export default {
     }
 
     .message-content {
-      float: left;
-      background: #f1f1f1;
-      margin-left: 5px;
-
-      &.no-top-corner {
-        border-top-left-radius: 7.5px;
-      }
-      &.no-bottom-corner {
-        border-bottom-left-radius: 7.5px;
-      }
       &.text {
         .text-message {
           color: #000000;
         }
       }
       &.request {
-        .repost-status-section {
+        .status-section {
           .status-title {
             color: #000000;
           }

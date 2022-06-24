@@ -4,29 +4,27 @@
       v-if="!conversations || conversations.length == 0"
       xs12
       pa-0
-      class="message-rooms-section empty-section"
+      class="no-message"
     >
-      <p class="empty-title">No messages</p>
-      <p class="empty-description">Your conversations will appear here.</p>
+      <p class="__text">You have no messages</p>
     </v-flex>
 
-    <div class="conversations">
+    <div v-if="!DM_active" class="conversations">
       <div
         v-for="(conv, i) in conversations"
-        @click="selectedConversation(conv)"
         :key="i"
         :class="{
           new: conv.last_message && !conv.last_message.is_read,
           selected: conv.id == conversation.id,
         }"
         class="conversation message-room-item"
+        @click="selectConversation(conv)"
       >
-        <user-tag :user="conv.other" width="55" height="55" showAvatar hideName hideTick />
+        <user-tag :user="conv.other" width="55" height="55" showAvatar hideName hideTick :clickUser="false" />
 
         <div class="conversation-preview">
-            <user-tag :user="conv.other" />
+            <user-tag :user="conv.other" :clickUser="false" />
             <div class="last-message" v-html="conv.last_message.body"></div>
-
         </div>
 
         <!-- <div class="detail-area">
@@ -39,6 +37,14 @@
         </div> -->
       </div>
     </div>
+
+    <v-dialog
+        v-model="DM_active"
+        fullscreen
+        content-class="dm-dialog"
+    >
+        <DM :conv="selectedConversation" @closeDM="closeDM" />
+    </v-dialog>
 
     <!-- <v-container
       fluid

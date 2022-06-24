@@ -16,6 +16,7 @@ import repostPaymentModal from '@/components/repost_payment_modal'
 import SendLoveModal from '@/components/sendlovemodal'
 import userTag from '@/components/user_tag'
 import message from './components/message'
+import DM from './components/DM'
 
 const ActionCable = require('actioncable')
 const DefaultRepostMessage = 'Hi, if you like this please repost it, thank you.'
@@ -28,6 +29,7 @@ export default {
     repostPaymentModal,
     SendLoveModal,
     userTag,
+    DM,
   },
 
   mixins: [onClickOutside],
@@ -39,8 +41,10 @@ export default {
         { id: "sms", title: "SMS"},
         { id: "activity", title: "Activity"},
       ],
+      DM_active: !false,
       initSelected: "messages",
       activeDiscover: "messages",
+      selectedConversation: {},
       tab: 'album',
       item: null,
       show_stopPopup: false,
@@ -432,15 +436,17 @@ export default {
         })
     },
 
-    selectedConversation(conv) {
-      if (this.conversation.id === conv.id) {
-        return
-      }
-
-      this.item = null
-      this.conversation = conv
-      this.conversation.last_message.is_read = true
-      this.loadMessages(this.conversation.id, false, true)
+    closeDM() {
+      console.log("close DM");
+      this.DM_active = false
+      this.selectedConversation = {};
+    },
+    
+    selectConversation(conv) {
+      // console.log("open DM", conv);
+      this.DM_active = true;
+      this.selectedConversation = conv;
+      // console.log(this.selectConversation);
     },
 
     setVisitedTime() {
