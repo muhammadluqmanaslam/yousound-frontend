@@ -2,6 +2,7 @@
   <div class="track-card-simple">
     <div
       class="cover"
+      :class="{coverRadius}"
       :style="`background-image: url(${cover}); height: ${height}px; width: ${width}px`"
     ></div>
     <div class="details">
@@ -29,6 +30,7 @@ export default {
     cover: String,
     title: String,
     subtitle: String,
+    coverRadius: Boolean,
   },
 };
 </script>
@@ -42,6 +44,10 @@ export default {
     margin-right: 15px;
     background-size: cover;
     background-position: center;
+
+    &.coverRadius {
+      border-radius: 10px;
+    }
   }
   .details {
     ._title {
