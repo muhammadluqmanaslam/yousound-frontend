@@ -546,7 +546,7 @@ li.search-li {
   }
   &.onMobile-container {
     margin-top: 8px;
-    padding-bottom: 0px;
+    padding-bottom: 50px;
 
     &-fullwidth {
       padding-left: 0;
@@ -718,6 +718,17 @@ li.list-none {
 }
 .slide-up-enter, .slide-up-leave-to {
   transform: translateY(20px);
+  opacity: 0;
+}
+
+.slide-left-enter-active {
+  transition: all .3s ease;
+}
+.slide-left-leave-active {
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-left-enter, .slide-left-leave-to {
+  transform: translateX(140px);
   opacity: 0;
 }
 
