@@ -1,0 +1,184 @@
+.DM_active {
+    padding: 24px;
+    // border: 1px solid;
+
+    /deep/ .dm-content {
+        display: flex;
+        flex-direction: column;
+        height: 94vh;
+        overflow: hidden;
+
+        .top-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            z-index: 2;
+            padding-bottom: 5px;
+
+            .action-icon {
+                font-size: 35px;
+                color: #000000;
+            }
+
+            .other-user {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .body-section {    
+            flex: 1;
+            overflow: auto;
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+            scrollbar-width: none; /* Firefox */
+          
+            &::-webkit-scrollbar { 
+              display: none;  /* Safari and Chrome */
+            }
+
+            .each_message {
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+                
+                &.isUserMessage {
+                    .message-wrapper {
+                        align-self: flex-end;
+
+                        &.has-attachment {
+                            .message-attachment {
+                                margin-right: 10px;
+                                .attachment-icon {
+                                    margin-right: 10px;
+                                }
+                            }
+                        }
+    
+                        .message-content {
+                            background-color: #007AFF;
+                            color: #ffffff;
+                        }
+                    }
+                }
+    
+                &.isOtherUserMessage {
+                    .message-wrapper {
+                        align-self: flex-start;
+
+                        .message-section {
+                            display: flex;
+
+                            &.has-attachment {
+                                .attachment-icon {
+                                    display: block;
+                                }
+                                .message-content {
+                                    &._body {
+                                        width: calc(100% - 21px)
+                                    }
+                                }
+                                .message-attachment {
+                                    flex-direction: row-reverse;
+                                    .message-content {
+                                        &.otherBG {
+                                            // width: calc(100% - 21px)
+                                        }
+                                        &::before,
+                                        &::after {
+                                            content: unset;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+    
+                    .message-content {
+                        &.otherBG {
+                            background-color: #F2F2F7 !important;
+                        }
+                        &::before {
+                            // content: "";
+                        }
+                        &::after {
+                            content: "";
+                        }
+                    }
+                }
+                
+                .message-section {
+                    &.has-attachment {
+                        display: flex;
+                        align-items: flex-start;
+                        
+                        .message-content {
+                            align-self: flex-end;
+                            margin-bottom: 10px;
+                            background: none;
+                        }
+                        .message-attachment {
+                            display: flex;
+
+                            .status-section {
+                                margin-bottom: 10px;
+                            }
+
+                            .track-card-simple {
+                                color: #000000;
+
+                                ._title {
+                                    font-weight: normal;
+                                }
+                                ._subtitle {
+                                    font-weight: 700;
+                                }
+                            }
+                        }
+                    }
+                }
+    
+                .message-content {
+                    position: relative;
+                    text-align: left;
+                    margin-right: 5px;
+                    border-radius: 6px;
+                    padding: 12px 16px;
+    
+                    &::before {
+                        position: absolute;
+                        width: 0;
+                        height: 0;
+                        left: -40px;
+                        right: auto;
+                        top: -8px;
+                        bottom: auto;
+                        border: 32px solid;
+                        border-color: transparent;
+                      border-radius: 100px;
+                    }
+                    &::after {
+                        position: absolute;
+                        width: 0;
+                        height: 0;
+                        left: -13px;
+                        right: auto;
+                        top: 0px;
+                        bottom: auto;
+                        border: 22px solid;
+                        border-color: #F2F2F7 transparent transparent transparent;
+                        border-radius: 0px;
+                        z-index: -2;
+                    }
+                }
+            }
+        }
+
+        .input-section {
+            border: 2px solid;
+        }
+    }
+}
