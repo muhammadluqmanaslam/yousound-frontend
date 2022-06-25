@@ -41,7 +41,7 @@ export default {
         { id: "sms", title: "SMS"},
         { id: "activity", title: "Activity"},
       ],
-      DM_active: !false,
+      DM_active: false,
       initSelected: "messages",
       activeDiscover: "messages",
       selectedConversation: {},
@@ -442,11 +442,12 @@ export default {
       this.selectedConversation = {};
     },
     
-    selectConversation(conv) {
+    selectConv(conv) {
       // console.log("open DM", conv);
+      console.log("open DM");
       this.DM_active = true;
       this.selectedConversation = conv;
-      // console.log(this.selectConversation);
+      // console.log(this.selectedConversation);
     },
 
     setVisitedTime() {

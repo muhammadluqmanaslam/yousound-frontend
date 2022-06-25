@@ -18,7 +18,7 @@
           selected: conv.id == conversation.id,
         }"
         class="conversation message-room-item"
-        @click="selectConversation(conv)"
+        @click="selectConv(conv)"
       >
         <user-tag :user="conv.other" width="55" height="55" showAvatar hideName hideTick :clickUser="false" />
 
@@ -42,8 +42,9 @@
         v-model="DM_active"
         fullscreen
         content-class="dm-dialog"
+        transition="slide-up"
     >
-        <DM :conv="selectedConversation" @closeDM="closeDM" />
+        <DM v-if="DM_active" :conv="selectedConversation" @closeDM="closeDM" />
     </v-dialog>
 
     <!-- <v-container
