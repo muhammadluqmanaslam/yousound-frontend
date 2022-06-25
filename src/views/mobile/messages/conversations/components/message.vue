@@ -7,6 +7,10 @@
           <div class="message-parent">
             <div class="message-content otherBG _body">
               <label class="text-message" v-html="message.body"></label>
+              <div class="messaged-time">
+                <span v-if="msgLessThan24hr">{{ message.created_at | getTime }}</span>
+                <span v-else>{{ message.created_at | formatDateFromNowShort }}</span>
+              </div>
             </div>
 
             <div v-if="message.attachment" class="message-attachment">
@@ -94,7 +98,7 @@
                 v-else-if="message.attachment.attachment_type == 'collaboration'"
                 class="collaboration-attachment"
               >
-                <div class="message-content otherBG request no-top-corner">
+                <div class="message-content otherBG request">
                   <div>
                     <div class="content-section">
                       <template v-if="message.attachment.attachable_type == 'Album'">
@@ -227,7 +231,7 @@
                 v-else-if="message.attachment.attachment_type == 'label_user'"
                 class="label_user-attachment"
               >
-                <div class="message-content otherBG request no-top-corner">
+                <div class="message-content otherBG request">
                   <div>
                     <div class="content-section">
                       <div class="label-message-section">
@@ -285,7 +289,7 @@
                 v-else-if="message.attachment.attachment_type == 'label_album'"
                 class="label_album-attachment"
               >
-                <div class="message-content otherBG request no-top-corner">
+                <div class="message-content otherBG request">
                   <div>
                     <div class="content-section">
                       <div class="label-message-section">
@@ -340,7 +344,7 @@
                 v-else-if="message.attachment.attachment_type == 'sample_album'"
                 class="sample_album-attachment"
               >
-                <div class="message-content otherBG request no-top-corner">
+                <div class="message-content otherBG request">
                   <div>
                     <div
                       class="content-section"
@@ -412,6 +416,16 @@ export default {
   },
 
   computed: {
+    msgLessThan24hr() {
+      const time = (new Date(this.message.created_at)).getTime()
+      const dayInMs = 24 * 60 * 60 * 1000
+
+      if (Date.now() - time > dayInMs) {
+        return false
+      } else {
+        return true
+      }
+    },
     isOtherUserMessage() {
       return this.message.sender.id !== this.currentUser.id
     },
@@ -553,13 +567,6 @@ export default {
 
 <style lang="scss" scoped>
 .message {
-  .messaged-time {
-    text-align: center;
-    font-size: 13px;
-    color: #7a7a7a;
-    letter-spacing: 0;
-    margin-bottom: 17.5px;
-  }
   .message-section {
     .user-avatar-image {
       // width: 40px;
