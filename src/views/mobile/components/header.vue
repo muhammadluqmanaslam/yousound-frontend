@@ -228,7 +228,7 @@ export default {
   background-color: #ffffff;
   z-index: 6;
   position: fixed;
-  top: 0;
+  top: -2px;
   width: 100%;
   display: flex;
   align-items: center;
