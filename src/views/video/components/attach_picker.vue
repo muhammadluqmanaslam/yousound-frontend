@@ -170,9 +170,6 @@ import StreamService from '@/services/stream'
 
 export default {
   props: {
-    onMobile: {
-      type: Boolean,
-    },
     showVideo: {
       type: Boolean,
     },
@@ -208,6 +205,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     attachId() {
       return _.get(this.item.value, "id", 0);
     },
