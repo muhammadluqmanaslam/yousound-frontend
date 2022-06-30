@@ -234,9 +234,9 @@ export default {
 
           this.roles = values[1].body
 
-          if (this.currentUser) {
+          // if (this.currentUser) {
             this.loadMoreComments()
-          }
+          // }
           this.$emit('updateHead')
 
           setTimeout(function () {
