@@ -141,7 +141,18 @@ export default {
     },
 
     filesChange(fileList) {
-      if (fileList.length) this.fileIsPicked(true, fileList)
+      let file_list = []
+      for (let i = 0; i < fileList.length; i++) {
+        let f = fileList[i]
+        if ((f.size / 1000) < 160) {
+          this.$store.dispatch('error/showErrorToast', [
+            'File size too small, must be at least 160k',
+          ])
+        } else {
+          file_list.push(f)
+        }
+      }
+      if (file_list.length) this.fileIsPicked(true, file_list)
     },
 
     enableEditing(file) {
