@@ -605,6 +605,7 @@ export const CollaboratorRoleTypes = [
 ]
 
 export const CollaboratorProfitShareTypes = [
+  1,
   5,
   10,
   15,
