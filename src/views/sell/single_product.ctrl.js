@@ -58,6 +58,7 @@ export default {
       isPageReady: false,
       buttonHover: false,
       comments: [],
+      commentTableType: "ShopProduct"
     }
   },
   computed: {
@@ -395,6 +396,25 @@ export default {
       } else {
         this.selectedCover = img
       }
+    },
+    loadMoreComments() {
+      const params = {
+        commentable_type: 'ShopProduct',
+        commentable_id: this.product.id,
+        page: this.comment_pagination.current_page + 1,
+        per_page: this.comment_pagination.per_page,
+      }
+      CommentService.getComments(params)
+        .then((response) => {
+          this.comments = this.comments.concat(response.body.comments)
+          this.comment_pagination = response.body.pagination
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
   },
   mounted() {},

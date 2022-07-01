@@ -24,7 +24,7 @@
         </div>
         <div class="album-detail-section">
           <div class="album-info-section">
-            <label class="album-title">{{ album.album_type }}</label>
+            <label class="album-title">{{ album.album_type }} </label>
             <h4 class="album-name">{{ album.name }}</h4>
             <div class="album-detail">
               by
@@ -241,7 +241,6 @@
         xs12
         sm10
         offset-sm1
-        album-comment-page
         v-if="false && currentUser"
       >
         <h4 class="comment-title">Talk to {{ album.user.username }}</h4>
@@ -417,7 +416,7 @@
         </v-flex>
 
         <v-flex xs12 album-comment-page v-if="currentUser">
-          <comments :item="album" :comments="comments" />
+          <comments :item="album" :comments="comments" :commentTableType="commentTableType" />
         </v-flex>
 
         <v-flex xs12 album-recent-page white v-if="currentUser">
