@@ -311,7 +311,11 @@ export default {
       Array.from(Array(fileList.length).keys()).map((x) => {
         const filesize = fileList[x].size / 1024 / 1024
         var filename = fileList[x].name
-        if (filename.toLowerCase().endsWith(this.accept)) {
+        if ((fileList[x].size / 1000) < 160) {
+          this.$store.dispatch('error/showErrorToast', [
+            'File size too small, must be at least 160k',
+          ])
+        } else if (filename.toLowerCase().endsWith(this.accept)) {
           if (filesize <= 300) {
             filename = filename.replace('.mp3', '')
             filename = filename.replace('.wav', '')
