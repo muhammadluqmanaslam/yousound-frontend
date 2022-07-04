@@ -476,7 +476,7 @@ export default {
 
     loadMoreComments() {
       const params = {
-        commentable_type: 'Album',
+        commentable_type: 'Stream',
         commentable_id: this.album.id,
         page: this.comment_pagination.current_page + 1,
         per_page: this.comment_pagination.per_page,
