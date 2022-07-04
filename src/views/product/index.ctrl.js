@@ -146,33 +146,33 @@ export default {
 
           this.page_index = response.body.pagination.current_page
           this.total_pages = response.body.pagination.total_pages
+          this.isPageReady = true
+          // if (page === 1) {
+          //   Promise.all([
+          //     SearchService.searchDiscover(_.extend(params, { page: 2 })),
+          //     SearchService.searchDiscover(_.extend(params, { page: 3 })),
+          //     SearchService.searchDiscover(_.extend(params, { page: 4 })),
+          //   ]).then((values) => {
+          //     vm.products = vm.products.concat(
+          //       values[0].body.products,
+          //       values[1].body.products,
+          //       values[2].body.products
+          //     )
 
-          if (page === 1) {
-            Promise.all([
-              SearchService.searchDiscover(_.extend(params, { page: 2 })),
-              SearchService.searchDiscover(_.extend(params, { page: 3 })),
-              SearchService.searchDiscover(_.extend(params, { page: 4 })),
-            ]).then((values) => {
-              vm.products = vm.products.concat(
-                values[0].body.products,
-                values[1].body.products,
-                values[2].body.products
-              )
+          //     // this will return a a prop limit if available
+          //     vm.products = this.products.slice(0, this.listLimit || this.products.length)
 
-              // this will return a a prop limit if available
-              vm.products = this.products.slice(0, this.listLimit || this.products.length)
+          //     // remove products duplicate
+          //     this.products = _.uniqBy(this.products, 'id')
 
-              // remove products duplicate
-              this.products = _.uniqBy(this.products, 'id')
+          //     vm.page_index =
+          //       values[2].body.pagination.total_pages > 4
+          //         ? 4
+          //         : values[2].body.pagination.total_pages
 
-              vm.page_index =
-                values[2].body.pagination.total_pages > 4
-                  ? 4
-                  : values[2].body.pagination.total_pages
-
-              vm.isPageReady = true
-            })
-          }
+          //     vm.isPageReady = true
+          //   })
+          // }
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -201,7 +201,9 @@ export default {
       this.products = []
       this.loadFeeds(1)
     },
-
+    loadMore() {
+      this.loadData(this.pagination.current_page + 1)
+    },
     loadMore() {
       // this.page_index += 1
       this.loadFeeds(this.page_index + 1)

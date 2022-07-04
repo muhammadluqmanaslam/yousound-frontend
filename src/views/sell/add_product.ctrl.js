@@ -1,7 +1,7 @@
 /* global $:true */
 
 import _ from 'lodash'
-// import CategoryService from '@/services/category'
+import CategoryService from '@/services/category'
 // import UserService from '@/services/user'
 import ProductService from '@/services/product'
 import MeService from '@/services/me'
@@ -155,11 +155,7 @@ export default {
     },
 
     profit_share_types() {
-      let profitShare = [];
-      for (let i = 1; i <= 100; i += 1) {
-        profitShare.push(i)
-      }
-      return profitShare
+      return CollaboratorProfitShareTypes
     },
   },
 
@@ -192,13 +188,14 @@ export default {
         // CategoryService.getCategories(),
         // UserService.searchUsers(params)
         MeService.mutualUsers(params),
+        CategoryService.getCategories(),
       ])
         .then((values) => {
-          this.product_categories = this.$store.state.app.product_categories
+          this.product_categories = values[1].body
           this.digital_content_category_ids = this.$store.getters[
             'app/digitalCategoryIds'
           ]
-
+          this.$store.dispatch('app/setProductCategories', values[1].body)
           this.users = values[0].body.users
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
