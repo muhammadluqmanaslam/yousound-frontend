@@ -129,7 +129,7 @@
           </v-flex>
 
           <v-flex xs12 sm8>
-            <comments :item="product" :comments="comments" />
+            <comments :item="product" :comments="comments" :commentTableType="commentTableType" />
           </v-flex>
 
           <v-flex xs4>

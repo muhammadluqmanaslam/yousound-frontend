@@ -4,6 +4,7 @@ import CommentService from '@/services/comment'
 export default {
   props: {
     comments: Array,
+    commentTableType: String,
     item: Object,
     roundAvatar: Boolean,
     roundInput: Boolean,
@@ -32,10 +33,12 @@ export default {
   methods: {
     addComment() {
       if (this.commentText === '') return
+      console.log("====commentTableType=====", this.commentTableType);
+      if(this.commentTableType === undefined || this.commentTableType === "") this.commentTableType = "Stream";
 
       const params = {
         comment: {
-          commentable_type: 'Stream',
+          commentable_type: this.commentTableType,
           commentable_id: this.item.id,
           body: this.commentText,
           status: 'published',
@@ -48,6 +51,7 @@ export default {
           this.commentText = ''
         })
         .catch((e) => {
+          console.log("e.body===", e.body)
           this.$store.dispatch(
                 'error/showErrorToast',
                 e.body.errors || [e.body]

@@ -206,6 +206,7 @@ export default {
       const vm = this
       this.slug = this.$route.params.slug
       console.log('slug: ', this.slug);
+      this.commentTableType = "Album";
       this.comments = []
       this.comment_pagination = {
         count: 0,
@@ -476,7 +477,7 @@ export default {
 
     loadMoreComments() {
       const params = {
-        commentable_type: 'Stream',
+        commentable_type: 'Album',
         commentable_id: this.album.id,
         page: this.comment_pagination.current_page + 1,
         per_page: this.comment_pagination.per_page,
