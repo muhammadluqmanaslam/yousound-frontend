@@ -2,6 +2,12 @@
 
 > A Vue.js project
 
+## Environment File
+
+``` bash
+config/dev.env.js
+```
+
 ## Build Setup
 
 ``` bash
