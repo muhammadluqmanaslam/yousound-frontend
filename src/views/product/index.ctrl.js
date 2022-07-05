@@ -29,7 +29,7 @@ export default {
       seed: '',
       page_index: 1,
       total_pages: 1,
-      items_per_page: 1 * 20,
+      items_per_page: 1 * 50,
       categories: [],
       selected_category: null,
       products: [],
