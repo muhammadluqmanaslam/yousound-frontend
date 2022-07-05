@@ -15,6 +15,7 @@ import UserService from '@/services/user'
 import Comments from '@/components/comments'
 import UserTag from '@/components/user_tag'
 import ShareModal from '@/components/sharemodal'
+import CommentService from '@/services/comment'
 
 export default {
   components: {
@@ -58,12 +59,33 @@ export default {
       isPageReady: false,
       buttonHover: false,
       comments: [],
-      commentTableType: "ShopProduct"
+      commentTableType: "ShopProduct",
+      comment_pagination: {
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
+      },
     }
   },
   computed: {
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
+    },
+    commentsCount() {
+      if (this.comment_pagination.total_count > 0) {
+        return this.comment_pagination.total_count
+      } else {
+        return 'No'
+      }
+    },
+
+    hasMoreComments() {
+      return (
+        this.comment_pagination.current_page <
+        this.comment_pagination.total_pages
+      )
     },
     followButtonText() {
       if (this.user.is_following) {
@@ -249,8 +271,6 @@ export default {
 
           this.product = values[1].body
           console.log(this.product)
-
-          console.log(this.product)
           this.product.category = _.get(this.product, 'category.id', '')
           this.product.creator_recoup_cost /= 100
           this.product_image1_url = this.product.covers[0].cover.url
@@ -277,6 +297,7 @@ export default {
           MeService.mutualUsers({ ...params, per_page: -1 }).then(
                 (response) => (this.users = response.body.users)
             )
+          this.loadMoreComments()
         })
         .catch((reason) => {
           console.log(reason)
@@ -293,6 +314,10 @@ export default {
         this.selectedCover = newVal
       },
       immediate: true,
+    },
+    $route(to, from) {
+      console.log("asdfasdfsdf===comments")
+      this.loadMoreComments()
     },
   },
   methods: {
