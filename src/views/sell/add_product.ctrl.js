@@ -159,6 +159,7 @@ export default {
       for (let i = 1; i <= 100; i += 1) {
         profitShare.push(i)
       }
+      console.log("profitShare===>", profitShare)
       return profitShare
     },
   },
