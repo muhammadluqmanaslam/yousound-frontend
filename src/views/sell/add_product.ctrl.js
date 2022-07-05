@@ -155,7 +155,11 @@ export default {
     },
 
     profit_share_types() {
-      return CollaboratorProfitShareTypes
+      let profitShare = [];
+      for (let i = 1; i <= 100; i += 1) {
+        profitShare.push(i)
+      }
+      return profitShare
     },
   },
 
