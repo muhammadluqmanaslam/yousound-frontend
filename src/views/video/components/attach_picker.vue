@@ -341,6 +341,10 @@ export default {
 
   &.fullscreen {
     height: 100%;
+
+    .modal__content {
+      padding: 8px 18px;
+    }
   }
   &.onMobile {
     .dismisser .icon {
@@ -390,7 +394,7 @@ export default {
     width: 100%;
     //height: 75px;
     border-top: 0.75px solid #e1e1e1;
-    border-bottom: 0.75px solid #e1e1e1;
+    border-bottom: 1px solid #00000026;
     border-top-left-radius: 7.5px;
     border-top-right-radius: 7.5px;
     background: #fafafa;
