@@ -41,7 +41,7 @@
     <v-dialog
         v-model="DM_active"
         fullscreen
-        content-class="dm-dialog"
+        content-class="dm-dialog no-border-radius"
         transition="slide-up"
     >
         <DM v-if="DM_active" :conv="selectedConversation" @closeDM="closeDM" />
