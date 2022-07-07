@@ -49,9 +49,6 @@ export default {
       const tab = toPath.hash.substr(1)
       this.setTab(tab)
     },
-    users(val) {
-      console.log(val)
-    }
   },
 
   created() {
