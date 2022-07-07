@@ -59,14 +59,17 @@
         otherStripeConnected && toggleAttachSide
       " -->
 
-      <attach
-        v-if="toggleAttachSide"
-        @getAttachment="getAttachment"
-        ref="assocAttach"
-        ctaTitle="Just Pick"
-        attachPickerTitle="Repost Request"
+      <attach-picker
+        v-if="toggleShowAttach"
+        @getSelected="getSelected"
+        title=""
+        closeIcon="cancelBtn"
         :customAlbums="albums"
-        :customProduct="products"
+        :customProducts="products"
+        :dismiss="closeAttachPicker"
+        showVideo
+        fullscreen
+        altFullscreenHeadeer
       />
 
       <repost-payment-modal
@@ -149,7 +152,9 @@ import Attach from "@/views/video/components/attach";
 import userTag from "@/components/user_tag";
 import repostPaymentModal from "@/components/repost_payment_modal";
 import SendLoveModal from "@/components/sendlovemodal";
+import AttachSlide from '@/components/attachSlide'
 import message from "./message";
+import AttachPicker from "@/views/video/components/attach_picker"
 
 export default {
   props: {
@@ -159,7 +164,8 @@ export default {
     },
   },
   components: {
-    Attach,
+    AttachSlide,
+    AttachPicker,
     userTag,
     message,
     repostPaymentModal,
@@ -167,7 +173,7 @@ export default {
   },
   data() {
     return {
-      toggleAttachSide:  false,
+      toggleShowAttach:  false,
       defaultRepostMessage: "Hi, if you like this please repost it, thank you.",
       repostTab: "Album",
       albums: [],
@@ -204,12 +210,16 @@ export default {
     },
   },
   methods: {
-    toggleInputFocus(status) {
-      toggleAttachSlide = status
+    closeAttachPicker() {
+      this.toggleShowAttach = false
     },
-    getAttachment(data) {
-      console.log("update attachment (getAttachment):", data)
+    toggleInputFocus(status) {
+      this.toggleShowAttach = status
+    },
+    getSelected(data) {
+      console.log("update attachment (getSelected):", data)
       this.attachment = data
+      this.toggleShowAttach = false
     },
     loadAlbums() {
       const params = {
