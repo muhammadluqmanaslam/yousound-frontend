@@ -4,13 +4,29 @@
     <div class="modal" :class="{fullscreen, onMobile}">
       <h4 class="modal__title">
         <span
-          v-if="fullscreen"
+          v-if="fullscreen && !altFullscreenHeader"
           class="dismisser"
           @click="dismiss()"
         >
           <v-icon>arrow_back_ios</v-icon>
         </span>
-        <span class="flex-grow text-center">{{ title }}</span>
+        <div v-if="fullscreen && altFullscreenHeader" class="pa-2 dflex align-center justify-space-between width100">
+          <div
+            class="flex-grow text-center"
+          >
+            <img
+            height="24"
+              :src="require('@/assets/nav_logo_primary.png')"
+            />
+          </div>
+          <img
+            :src="require('@/assets/closeIcon.svg')"
+            width="18"
+            @click="dismiss()"
+          />
+        </div>
+
+        <span v-if="title" class="flex-grow text-center">{{ title }}</span>
       </h4>
 
       <div class="modal__header">
@@ -170,6 +186,9 @@ import StreamService from '@/services/stream'
 
 export default {
   props: {
+    altFullscreenHeader: {
+      type: Boolean,
+    },
     customAlbums: {
       type: Array
     },
