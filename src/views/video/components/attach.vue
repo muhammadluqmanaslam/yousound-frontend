@@ -47,6 +47,7 @@
       :title="attachPickerTitle"
       :customAlbums="customAlbums"
       :customProducts="customProducts"
+      :fullscreen="fullscreen"
     />
   </div>
 </template>
@@ -62,6 +63,7 @@ export default {
   },
 
   props: {
+    fullscreen: Boolean,
     customAlbums: {
       type: Array
     },
