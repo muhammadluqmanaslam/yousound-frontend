@@ -159,6 +159,9 @@ export default {
     ...mapActions({
       setMobileFooter: 'appMobile/setMobileFooterOptions',
     }),
+    getAssoc(data) {
+      this.stream_assoc = data
+    },
     showLoveDialog() {
       this.showSendLoveModal = true
     },

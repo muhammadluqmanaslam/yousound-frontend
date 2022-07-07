@@ -170,6 +170,12 @@ import StreamService from '@/services/stream'
 
 export default {
   props: {
+    customAlbums: {
+      type: Array
+    },
+    customProducts: {
+      type: Array
+    },
     showVideo: {
       type: Boolean,
     },
@@ -219,11 +225,15 @@ export default {
     },
 
     selectItem(type, value) {
-      this.item = {
-        type: type,
-        value: value,
-      };
-      this.$emit("input", this.item);
+      // console.log("selectItem Item:", type, value);
+      // console.log("selectItem Value:", value);
+      // var item = {
+      //   type: type,
+      //   value: value,
+      // };
+
+      this.$emit("getSelected", {type, value});
+      // console.log("selectItem emitted:", {type, value});
       this.dismiss();
     },
 
@@ -233,10 +243,11 @@ export default {
   },
 
   created() {
-    this.item = {
-      type: this._props.value.type,
-      value: this._props.value.value,
-    };
+    // console.log('on created value: ', this._props.value);
+    // this.item = {
+    //   type: this._props.value.type,
+    //   value: this._props.value.value,
+    // };
 
     this.active_tab = this.item.type;
 
@@ -264,8 +275,8 @@ export default {
       StreamService.getStreams(vid_params) // take further appro. look at data from backend
     ])
       .then((values) => {
-        this.albums = values[0].body;
-        this.products = values[1].body;
+        this.albums = this.customAlbums || values[0].body;
+        this.products = this.customProducts || values[1].body;
         this.videos = values[2].body.streams;
         this.$store.dispatch("error/showLoadingActivity", false);
       })

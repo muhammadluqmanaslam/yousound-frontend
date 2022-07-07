@@ -330,7 +330,11 @@
               border-radius: 5px;
             "
           >
-            <attach v-model="stream_assoc" style="width: 100%" />
+            <attach
+              ref="assocAttach"
+              @getAssoc="getAssoc"
+              dataOnlyMode
+            />
           </div>
         </v-card-text>
         <v-card-actions>
