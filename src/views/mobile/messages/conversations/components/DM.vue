@@ -48,25 +48,26 @@
             type="text"
             placeholder="Add your reply"
             @keyup.enter="checkMessage()"
+            @focus="toggleInputFocus(true)"
+            @blur="toggleInputFocus(false)"
           />
         </div>
       </div>
 
-      <template
-        v-if="
-          ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1 &&
-          otherStripeConnected && show_repost_modal
-        "
-      >
-        <attach
-          @getAttachment="getAttachment"
-          ref="assocAttach"
-          ctaTitle="Just Pick"
-          attachPickerTitle="Repost Request"
-          :customAlbums="albums"
-          :customProduct="products"
-        />
-      </template>
+      <!-- v-if="
+        ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1 &&
+        otherStripeConnected && showAttachSide
+      " -->
+
+      <attach
+        v-if="showAttachSide"
+        @getAttachment="getAttachment"
+        ref="assocAttach"
+        ctaTitle="Just Pick"
+        attachPickerTitle="Repost Request"
+        :customAlbums="albums"
+        :customProduct="products"
+      />
 
       <repost-payment-modal
         v-if="show_repost_payment_modal"
@@ -166,6 +167,7 @@ export default {
   },
   data() {
     return {
+      showAttachSide:  false,
       defaultRepostMessage: "Hi, if you like this please repost it, thank you.",
       repostTab: "Album",
       albums: [],
@@ -202,6 +204,9 @@ export default {
     },
   },
   methods: {
+    toggleInputFocus(status) {
+      showAttachSide = status
+    },
     getAttachment(data) {
       console.log("update attachment (getAttachment):", data)
       this.attachment = data
