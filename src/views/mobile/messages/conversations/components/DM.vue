@@ -69,7 +69,7 @@
         :dismiss="closeAttachPicker"
         showVideo
         fullscreen
-        altFullscreenHeadeer
+        altFullscreenHeader
       />
 
       <repost-payment-modal
