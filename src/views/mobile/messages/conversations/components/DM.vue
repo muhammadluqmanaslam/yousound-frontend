@@ -56,11 +56,11 @@
 
       <!-- v-if="
         ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1 &&
-        otherStripeConnected && showAttachSide
+        otherStripeConnected && toggleAttachSide
       " -->
 
       <attach
-        v-if="showAttachSide"
+        v-if="toggleAttachSide"
         @getAttachment="getAttachment"
         ref="assocAttach"
         ctaTitle="Just Pick"
@@ -167,7 +167,7 @@ export default {
   },
   data() {
     return {
-      showAttachSide:  false,
+      toggleAttachSide:  false,
       defaultRepostMessage: "Hi, if you like this please repost it, thank you.",
       repostTab: "Album",
       albums: [],
@@ -205,7 +205,7 @@ export default {
   },
   methods: {
     toggleInputFocus(status) {
-      showAttachSide = status
+      toggleAttachSlide = status
     },
     getAttachment(data) {
       console.log("update attachment (getAttachment):", data)
