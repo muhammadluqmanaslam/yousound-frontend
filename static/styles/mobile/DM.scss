@@ -13,8 +13,7 @@
             top: 0;
             background-color: #ffffff;
             z-index: 2;
-            padding-bottom: 5px;
-            padding: 0 24px 5px 24px;
+            padding: 20px 24px;
 
 
             .action-icon {
@@ -48,7 +47,7 @@
                 &.isUserMessage {
                     .message-wrapper {
                         align-self: flex-end;
-                        max-width: calc(100% - 50px);
+                        max-width: 87%;
 
                         &.has-attachment {
                             .message-attachment {
@@ -73,12 +72,12 @@
                             &.has-attachment {
                                 .message-content {
                                     &._body {
-                                        width: calc(100% - 21px);
                                         border-radius: 6px 6px 0 0;
                                     }
                                 }
                                 .message-attachment {
                                     // flex-direction: row-reverse;
+                                    margin-left: -25px;
                                     .message-content {
                                         &.otherBG {
                                             border-radius: 0 0 6px 6px;
@@ -141,43 +140,47 @@
                     }
                 }
     
-                .message-content {
-                    position: relative;
-                    text-align: left;
-                    margin-right: 5px;
-                    border-radius: 6px;
-                    padding: 12px 16px;
-    
-                    &::before {
-                        position: absolute;
-                        width: 0;
-                        height: 0;
-                        left: -40px;
-                        right: auto;
-                        top: -8px;
-                        bottom: auto;
-                        border: 32px solid;
-                        border-color: transparent;
-                      border-radius: 100px;
-                    }
-                    &::after {
-                        position: absolute;
-                        width: 0;
-                        height: 0;
-                        left: -13px;
-                        right: auto;
-                        top: 0px;
-                        bottom: auto;
-                        border: 22px solid;
-                        border-color: #F2F2F7 transparent transparent transparent;
-                        border-radius: 0px;
-                        z-index: -2;
-                    }
+                .message-wrapper {
+                    max-width: 87%;
 
-                    .messaged-time {
-                        font-weight: 700;
-                        margin: 6px 0 -5px 0;
-                        text-align: right;
+                    .message-content {
+                        position: relative;
+                        text-align: left;
+                        margin-right: 5px;
+                        border-radius: 6px;
+                        padding: 12px 16px;
+        
+                        &::before {
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            left: -40px;
+                            right: auto;
+                            top: -8px;
+                            bottom: auto;
+                            border: 32px solid;
+                            border-color: transparent;
+                        border-radius: 100px;
+                        }
+                        &::after {
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            left: -13px;
+                            right: auto;
+                            top: 0px;
+                            bottom: auto;
+                            border: 22px solid;
+                            border-color: #F2F2F7 transparent transparent transparent;
+                            border-radius: 0px;
+                            z-index: -2;
+                        }
+
+                        .messaged-time {
+                            font-weight: 700;
+                            margin: 6px 0 -5px 0;
+                            text-align: right;
+                        }
                     }
                 }
             }
