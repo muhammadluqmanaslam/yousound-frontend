@@ -10,6 +10,29 @@
   &.no-border-radius {
     border-radius: 0;
   }
+  &.half-dialog {
+    bottom: 0;
+    position: absolute;
+    min-height: 50vh;
+    width: 100%;
+    margin: 0;
+    border-radius: 14px 14px 0 0;
+
+    .bottom-card {
+      background: #ffffff;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      min-height: 50vh;
+      padding: 18px;
+    }
+  }
+  // &.dark-overlay {
+  //   &::before {
+  //     content: "";
+  //   }
+  //   background: rgba(0, 0, 0, 0.615);
+  // }
 
   .dialog__content {
     z-index: 11 !important;

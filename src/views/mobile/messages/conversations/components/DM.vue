@@ -30,6 +30,22 @@
           />
         </div>
 
+
+        <div v-if="attachment.value" class="attachment-selected">
+            <div class="attach-info">
+                <div
+                  class="__cover"
+                  :class="[getCustomClass]"
+                  :style="{ 'background-image': 'url(' + attachCover + ')' }"
+                ></div>
+                <div class="__details">
+                    <div class="_title"></div>
+                    <div class="_info"></div>
+                </div>
+            </div>
+            <v-icon class="attach-cancel cursor-pointer" @click="emptyAttachment()">add</v-icon>
+        </div>
+
         <div class="input-section">
           <img
             :src="require('@/assets/dm_donate_icon.svg')"
@@ -48,8 +64,6 @@
             type="text"
             placeholder="Add your reply"
             @keyup.enter="checkMessage()"
-            @focus="toggleInputFocus(true)"
-            @blur="toggleInputFocus(false)"
           />
         </div>
       </div>
@@ -58,6 +72,40 @@
         ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1 &&
         otherStripeConnected && toggleAttachSide
       " -->
+
+
+      <v-dialog
+          v-model="showRepostModal"
+          content-class="half-dialog"
+          transition="slide-up"
+          overlay-color="yellow"
+      >
+        <div class="bottom-card text-center py-4">
+          <h2>Send Repost Request</h2>
+          <user-tag
+            :user="conv.other"
+            width="72"
+            height="72"
+            showAvatar
+            hideName
+            hideTick
+            style="width: fit-content; margin: 0 auto;"
+            class="mt-3 mb-4"
+          />
+          <h3>{{ conv.other.username }}</h3>
+          <div>Charges <b>$xxx</b> for accepted requests</div>
+
+          <v-btn
+            round
+            depressed
+            class="mt-4 px-1 white--text"
+            style="background: #007AFF"
+            @click="toggleShowAttach = true; showRepostModal = false"
+          >
+            <strong>Ok, attach my content</strong>
+          </v-btn>
+        </div>
+      </v-dialog>
 
       <attach-picker
         v-if="toggleShowAttach"
@@ -191,30 +239,28 @@ export default {
       show_repost_payment_modal: false,
       show_repost_modal: false,
       show_send_love_modal: false,
+      showRepostModal: false,
     };
   },
   watch: {
-    attachment(val) {
-      console.log("attachment changed", val);
-      if (this.attachment.value === val) {
-        this.emptyAttachment();
-        if (this.message.body === this.defaultRepostMessage) {
-          this.message.body = "";
-        }
-      } else {
-        this.attachment.value = val;
-        if (this.message.body === "") {
-          this.message.body = this.defaultRepostMessage;
-        }
-      }
-    },
+    // attachment(val) {
+    //   console.log("attachment changed", val);
+    //   if (this.attachment.value === val) {
+    //     this.emptyAttachment();
+    //     if (this.message.body === this.defaultRepostMessage) {
+    //       this.message.body = "";
+    //     }
+    //   } else {
+    //     this.attachment.value = val;
+    //     if (this.message.body === "") {
+    //       this.message.body = this.defaultRepostMessage;
+    //     }
+    //   }
+    // },
   },
   methods: {
     closeAttachPicker() {
       this.toggleShowAttach = false
-    },
-    toggleInputFocus(status) {
-      this.toggleShowAttach = status
     },
     getSelected(data) {
       console.log("update attachment (getSelected):", data)
@@ -259,7 +305,6 @@ export default {
         value: "",
         type: "",
       };
-      this.$refs.assocAttach.removeAttach();
     },
     onRepostTab(tab) {
       this.tab = tab;
@@ -277,28 +322,12 @@ export default {
       this.show_repost_payment_modal = false;
     },
     openRepostModal() {
-      this.show_repost_modal = true;
-
-      this.$nextTick(()=> {
-        this.$refs.assocAttach.openAttachPicker();
-      })
+      this.showRepostModal = true;
+      this.show_repost_modal = true
     },
     closeRepostModal() {
       this.show_repost_modal = false;
     },
-    // selectItem(attachment) {
-    //   if (this.attachment === attachment) {
-    //     this.attachment = null
-    //     if (this.message.body === this.defaultRepostMessage) {
-    //       this.message.body = ""
-    //     }
-    //   } else {
-    //     this.attachment = attachment
-    //     if (this.message.body === "") {
-    //       this.message.body = this.defaultRepostMessage
-    //     }
-    //   }
-    // },
     checkMessage() {
       if (this.attachment.value) {
         this.openRepostPaymentModal();
@@ -404,6 +433,29 @@ export default {
     },
     otherName() {
       return _.get(this.conv, "other.display_name", "");
+    },
+    attachCover() {
+      switch (this.attachment.type) {
+        case 'ShopProduct':
+          return this.attachment.value.covers[0].cover.thumb.url
+        case 'Album':
+        case 'Video':
+          return this.attachment.value.cover.thumb.url
+        default:
+          break;
+      }
+    },
+    getCustomClass() {
+      switch (this.attachment.type) {
+        case 'ShopProduct':
+          return "attach_product"
+        case 'Album':
+          return "attach_album"
+        case 'Video':
+          return "attach_video"
+        default:
+          break;
+      }
     },
   },
   created() {
