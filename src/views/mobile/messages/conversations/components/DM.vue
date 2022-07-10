@@ -47,12 +47,12 @@
         </div>
 
         <div class="input-section">
-          <!-- <img
+          <img
             :src="require('@/assets/dm_donate_icon.svg')"
             class="donate_icon"
             alt="donate icon"
             @click="openSendLoveModal()"
-          /> -->
+          />
           <img
             :src="require('@/assets/dm_repost_icon.svg')"
             class="repost_icon"
