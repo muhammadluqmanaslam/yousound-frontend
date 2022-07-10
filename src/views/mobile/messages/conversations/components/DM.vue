@@ -47,12 +47,12 @@
         </div>
 
         <div class="input-section">
-          <img
+          <!-- <img
             :src="require('@/assets/dm_donate_icon.svg')"
             class="donate_icon"
             alt="donate icon"
             @click="openSendLoveModal()"
-          />
+          /> -->
           <img
             :src="require('@/assets/dm_repost_icon.svg')"
             class="repost_icon"
@@ -65,6 +65,19 @@
             placeholder="Add your reply"
             @keyup.enter="checkMessage()"
           />
+          <img
+            v-if="message.body || attachment.value"
+            width="40"
+            class="send_btn"
+            :src="require('@/assets/send_airplane_outline.svg')" alt="send button"
+            @click="checkMessage()"
+            />
+          <img
+            v-else
+            width="40"
+            class="send_btn _disabled"
+            :src="require('@/assets/send_airplane_disabled_outline.svg')" alt="send button"
+            />
         </div>
       </div>
 
@@ -222,7 +235,7 @@ export default {
   data() {
     return {
       toggleShowAttach:  false,
-      defaultRepostMessage: "Hi, if you like this please repost it, thank you.",
+      defaultRepostMessage: "Check this out...",
       repostTab: "Album",
       albums: [],
       products: [],
@@ -242,22 +255,6 @@ export default {
       showRepostModal: false,
     };
   },
-  watch: {
-    // attachment(val) {
-    //   console.log("attachment changed", val);
-    //   if (this.attachment.value === val) {
-    //     this.emptyAttachment();
-    //     if (this.message.body === this.defaultRepostMessage) {
-    //       this.message.body = "";
-    //     }
-    //   } else {
-    //     this.attachment.value = val;
-    //     if (this.message.body === "") {
-    //       this.message.body = this.defaultRepostMessage;
-    //     }
-    //   }
-    // },
-  },
   methods: {
     closeAttachPicker() {
       this.toggleShowAttach = false
@@ -266,6 +263,7 @@ export default {
       console.log("update attachment (getSelected):", data)
       this.attachment = data
       this.toggleShowAttach = false
+      this.message.body = this.defaultRepostMessage;
     },
     loadAlbums() {
       const params = {
@@ -305,6 +303,10 @@ export default {
         value: "",
         type: "",
       };
+
+      if (this.message.body === this.defaultRepostMessage) {
+        this.message.body = ""
+      }
     },
     onRepostTab(tab) {
       this.tab = tab;
@@ -342,16 +344,11 @@ export default {
       let params = {
         body: this.message.body,
       };
-      params["receiver_id"] = this.conv.other.id;
-      if (this.attachmen.valuet) {
-        if (this.repostTab === "Album") {
-          params["attachable_type"] = "Album";
-          params["attachable_id"] = this.attachment.value.id;
-        } else {
-          params["attachable_type"] = "ShopProduct";
-          params["attachable_id"] = this.attachment.value.id;
-        }
-        this.emptyAttachment();
+
+      if (this.attachment.value) {
+        params["receiver_id"] = this.conv.other.id;
+        params["attachable_id"] = this.attachment.value.id;
+        params["attachable_type"] = this.attachType;
       }
       if (token) {
         params["payment_token"] = token.id;
@@ -434,8 +431,20 @@ export default {
     otherName() {
       return _.get(this.conv, "other.display_name", "");
     },
-    attachCover() {
+    attachType() {
       switch (this.attachment.type) {
+        case 'ShopProduct':
+          return "ShopProduct"
+        case 'Album':
+          return "Album"
+        case 'Video':
+          return "Video"
+        default:
+          break;
+      }
+    },
+    attachCover() {
+      switch (this.attachType) {
         case 'ShopProduct':
           return this.attachment.value.covers[0].cover.thumb.url
         case 'Album':
@@ -446,7 +455,7 @@ export default {
       }
     },
     getCustomClass() {
-      switch (this.attachment.type) {
+      switch (this.attachType) {
         case 'ShopProduct':
           return "attach_product"
         case 'Album':
