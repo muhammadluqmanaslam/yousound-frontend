@@ -54,7 +54,7 @@
           v-if="!orderHistories || orderHistories.length == 0"
           class="empty-section"
         >
-          <p class="empty-title">You have no new orders</p>
+          <p class="empty-title">You have no orders</p>
         </div>
         <v-card v-else flat class="relative">
           <div
