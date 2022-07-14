@@ -42,6 +42,7 @@ export default {
         { id: 'creator_shipped', name: 'Shipped' },
         { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
         { id: 'collaborator_shipped', name: 'Collaborated Shipped' },
+        { id: 'refunded', name: 'Refunded' },
       ],
       activeFilter: {},
       exportPeriod: null,

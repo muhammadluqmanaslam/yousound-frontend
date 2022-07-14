@@ -167,7 +167,10 @@
                           >Unship</v-btn
                         >
                       </div>
-                      <div class="order-status-section text-xs-center" v-else>
+                      <div
+                        class="order-status-section text-xs-center"
+                        v-else-if="item.status == 'refunded'"
+                      >
                         <p class="order-status-text">Refunded</p>
                       </div>
                     </v-flex>
