@@ -43,6 +43,7 @@
             :href="`#${sortOpt.id}`"
             :class="{ active: defaultSortBy == sortOpt.id }"
             :selected="defaultSortBy == sortOpt.id"
+            :value="sortOpt.id"
           >
             <label>{{ sortOpt.name }}</label>
           </option>
