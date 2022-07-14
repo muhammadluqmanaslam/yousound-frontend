@@ -70,6 +70,11 @@ export default {
       total_pages: 1,
       items_per_page: 6 * 5,
       isPageReady: false,
+      defaultSortBy: 'DESC',
+      sorting: [
+        { id: 'ASC', name: 'Asc' },
+        { id: 'DESC', name: 'Desc' },
+      ],
     }
   },
 
@@ -172,6 +177,7 @@ export default {
       OrderService.getReceivedOrders({
         page: this.order_pagination.current_page,
         per_page: this.order_pagination.per_page,
+        sort: this.defaultSortBy
       }),
       ProductService.getProducts(),
     ])
@@ -209,6 +215,7 @@ export default {
       OrderService.getReceivedOrders({
         page: this.order_pagination.current_page + 1,
         per_page: this.order_pagination.per_page,
+        sort: this.defaultSortBy
       }).then((response) => {
         this.orderHistories = this.orderHistories.concat(response.body.orders)
         this.order_pagination = response.body.pagination
@@ -471,6 +478,38 @@ export default {
         page: this.page_index,
         per_page: this.items_per_page,
         status: filter.id,
+        sort: this.defaultSortBy
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      OrderService.getReceivedOrders(params)
+        .then((response) => {
+          this.orderHistories = response.body.orders
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+    },
+
+    sortItems(event) {
+      console.log("sortBy===>", event.target.value)
+      let selectedVal = event.target.value
+      if (this.defaultSortBy == selectedVal) return
+
+      this.defaultSortBy = selectedVal
+
+      const params = {
+        page: this.page_index,
+        per_page: this.items_per_page,
+        sort: this.defaultSortBy
+      }
+
+      if (this.activeFilter !== null) {
+        params.status = this.activeFilter.id
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       OrderService.getReceivedOrders(params)

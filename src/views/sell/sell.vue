@@ -35,6 +35,19 @@
     </content-top-header>
 
     <div class="page-content" v-if="currentUser && isPageReady">
+      <template><b>Sort By Date:</b> 
+        <select class="pr-3 width20 sortOrdersSelect" @change="sortItems($event)">
+          <option
+            v-for="sortOpt in sorting"
+            :key="sortOpt.id"
+            :href="`#${sortOpt.id}`"
+            :class="{ active: defaultSortBy == sortOpt.id }"
+            :selected="defaultSortBy == sortOpt.id"
+          >
+            <label>{{ sortOpt.name }}</label>
+          </option>
+        </select>
+      </template>
       <template v-if="active_tab == 'orders'">
         <div
           v-if="!orderHistories || orderHistories.length == 0"

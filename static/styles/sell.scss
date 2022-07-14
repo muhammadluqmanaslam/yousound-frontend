@@ -1,4 +1,9 @@
 .page.sell-page {
+  .sortOrdersSelect {
+    -webkit-appearance: button!important;
+    background-color: transparent;
+    border-style: solid!important;
+  }
   .filter {
     &__activator {
       display: flex;
