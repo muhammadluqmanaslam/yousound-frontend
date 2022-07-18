@@ -96,9 +96,6 @@
                         &.otherBG {
                             background-color: #F2F2F7 !important;
                         }
-                        &::before {
-                            // content: "";
-                        }
                         &::after {
                             content: "";
                         }
