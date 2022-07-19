@@ -399,8 +399,8 @@ export default {
             if (scrollMove) {
               this.$nextTick(() => {
                 // $(".message-list-section").animate({ scrollTop: $(".message-list-section").prop("scrollHeight")}, 1000);
-                $(".message-list-section").scrollTop(
-                  $(".message-list-section").prop("scrollHeight")
+                $(".body-section").scrollTop(
+                  $(".body-section").prop("scrollHeight")
                 );
               });
             }
