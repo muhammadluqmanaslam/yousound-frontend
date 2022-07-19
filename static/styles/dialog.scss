@@ -544,3 +544,136 @@
 .dialog.dm-dialog {
   background: #ffffff;
 }
+
+.dialog.messages-repost {
+  .requests {
+    // background: #FFFFFF;
+    // height: calc(100vh - 110px);
+    border: 0.75px solid #e1e1e1;
+    border-left: none;
+    &__header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: calc(100% - 1px);
+      // height: 75px;
+      padding: 0 20px;
+      // border-top: 0.75px solid #E1E1E1;
+      border-bottom: 0.75px solid #e1e1e1;
+      background: #fff;
+      text-align: center;
+    }
+    &__content {
+      // max-height: calc(100vh - 110px);
+      margin-top: 66px;
+      padding-top: 0;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      .request-item {
+        padding: 4px 12px;
+        opacity: 1;
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.08);
+        }
+        &.selected {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+        &.banned {
+          opacity: 0.3;
+          cursor: default;
+          &:hover {
+            background-color: transparent;
+            // background-color: rgba(255, 0, 0, 0.05);
+            // background-image: url('/static/images/ic_ban.png');
+            // background-position: 260px 10px;
+            // background-size: 15px 15px;
+          }
+        }
+        .avatar-area {
+          width: 60px;
+          height: 60px;
+          display: inline-block;
+          vertical-align: middle;
+          .avatar-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 3.75px;
+            background-size: cover;
+          }
+        }
+        .detail-area {
+          width: calc(100% - 80px);
+          padding-left: 11.25px;
+          display: inline-block;
+          vertical-align: middle;
+          .item-name {
+            display: block;
+            font-size: 14px;
+            color: #000000;
+            letter-spacing: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: inherit;
+          }
+          .user-name {
+            display: block;
+            opacity: 0.5;
+            font-size: 14px;
+            color: #000000;
+            letter-spacing: -0.6px;
+            cursor: inherit;
+          }
+        }
+      }
+    }
+    &__title {
+      line-height: 24px;
+      font-family: 'Work Sans';
+      font-size: 14px;
+      font-weight: 500;
+      color: #b0b0b0;
+      letter-spacing: -0.6px;
+    }
+    &__actions {
+      position: absolute;
+      bottom: -66px;
+      left: 0;
+      width: 100%;
+      .btn {
+        border-radius: 75px;
+        text-transform: none;
+        box-shadow: none;
+        background-color: transparent;
+        font-size: 15px;
+        color: #000000;
+        letter-spacing: -0.6px;
+        height: 30px;
+        &--active {
+          background: #3a92ff;
+          color: #ffffff;
+        }
+      }
+    }
+    &__body {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      h5 {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      p {
+        margin: 20px 0 0 0;
+        text-align: center;
+        font-size: 14px;
+      }
+    }
+  }
+}

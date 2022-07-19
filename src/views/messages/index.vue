@@ -252,7 +252,7 @@
       </v-layout>
     </v-container>
 
-    <v-dialog v-model="show_repost_modal">
+    <v-dialog v-model="show_repost_modal" content-class="messages-repost">
       <v-card class="pa-5">
         <div
           v-if="
