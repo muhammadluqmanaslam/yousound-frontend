@@ -31,7 +31,7 @@
         </div>
 
 
-        <div v-if="attachment.value" class="attachment-selected">
+        <!-- <div v-if="attachment.value" class="attachment-selected">
             <div class="attach-info">
                 <div
                   class="__cover"
@@ -44,8 +44,14 @@
                 </div>
             </div>
             <v-icon class="attach-cancel cursor-pointer" @click="emptyAttachment()">add</v-icon>
-        </div>
+        </div> -->
 
+        <attach-slide
+          v-if="showSlideAttach"
+          :customAlbums="albums"
+          :customProducts="products"
+          @getAttachment="getSelected"
+        />
         <div class="input-section">
           <img
             :src="require('@/assets/dm_donate_icon.svg')"
@@ -63,6 +69,8 @@
             v-model.trim="message.body"
             type="text"
             placeholder="Add your reply"
+            @focus="showSlideAttach = true"
+            @blur="showSlideAttach = false"
             @keyup.enter="checkMessage()"
           />
           <img
@@ -234,7 +242,8 @@ export default {
   },
   data() {
     return {
-      toggleShowAttach:  false,
+      showSlideAttach: false,
+      toggleShowAttach: false,
       defaultRepostMessage: "Check this out...",
       repostTab: "Album",
       albums: [],
