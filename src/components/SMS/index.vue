@@ -1,6 +1,107 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
-    <div v-if="!signUpDone" class="creator-signup">
+    <div v-if="!isUserSubscribed" class="subscribe-view">
+      <div v-if="!showCardPanel" class="intro">
+        <div>
+          You have <strong>2,500</strong> people on your SMS contact list!
+          <br />
+          Subscribe to a <strong>Pro Plan</strong> to text your content to them
+          directly.
+        </div>
+
+        <img :src="require('@/assets/closeIcon.svg')" width="16" class="flag" @click="closeSMS" />
+      </div>
+
+      <hr v-if="!showCardPanel" />
+
+      <v-container fluid px-0 grid-list-lg>
+        <v-layout row wrap start-trial>
+          <v-flex xs12 sm6>
+            <h2 class="_title">Start <br> Free Trial</h2>
+            <ul>
+              <li>30 days</li>
+              <li>Cancel anytime</li>
+            </ul>
+          </v-flex>
+
+          <v-flex v-if="!showCardPanel" xs12 sm6 pro-plan>
+            <h3 class="_title">Pro</h3>
+            <div class="_subtitle">For professional creators & curators</div>
+
+            <span class="plan-list">
+              <v-icon class="_check">check</v-icon>
+              <div>Ad-free + unlimited uploads</div>
+            </span>
+            <span class="plan-list">
+              <v-icon class="_check">check</v-icon>
+              <div>Keep 100% sales & donations</div>
+            </span>
+            <span class="plan-list">
+              <v-icon class="_check">check</v-icon>
+              <div>SMS texting*</div>
+            </span>
+            <span class="plan-list">
+              <v-icon class="_check">check</v-icon>
+              <div>Get paid to share</div>
+            </span>
+
+            <div class="pricing">
+              <div class="_wrapper">
+                <span class="currency">$</span>
+                <span class="cost">30</span>
+                <span class="duration">/month</span>
+              </div>
+
+              <v-btn class="trial-btn" @click="showCard()">Free Trial</v-btn>
+            </div>
+          </v-flex>
+
+          <v-flex v-if="showCardPanel" xs12 sm6 card-panel>
+            <img
+              class="_logo"
+              :src="require('@/assets/ys_logo_primary-black.svg')"
+              width="80"
+            />
+            <h3 class="_subtitle mb-3">Pro Subscription</h3>
+
+            <div class="card-details">
+              <input
+                v-model.number="card.number"
+                type="text"
+                name="cardNo"
+                id="cardNo"
+                class="cardNo"
+                placeholder="Card number"
+              />
+              <input
+                v-model.number="card.mm"
+                type="text"
+                name="mm"
+                id="mm"
+                class="mm"
+                placeholder="MM"
+              />
+              <input
+                v-model.number="card.yy"
+                type="text"
+                name="yy"
+                id="yy"
+                class="yy"
+                placeholder="YY"
+              />
+            </div>
+
+            <v-btn depressed class="addCard-btn" :disabled="false"
+              >Add card to file</v-btn
+            >
+          </v-flex>
+        </v-layout>
+      </v-container>
+
+      <div v-if="!showCardPanel" class="footnote">* SMS costs $0.01 per text</div>
+    </div>
+
+    <div v-if="isUserSubscribed && !signUpDone" class="creator-signup">
       <div class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -69,7 +170,7 @@
           @click="signUpDone = true"
         >
           Confirm
-          </v-btn>
+        </v-btn>
 
         <h3
           v-if="digitEntered"
@@ -85,7 +186,12 @@
     </div>
 
     <div v-if="signUpDone" class="signup-done">
-      <img :src="require('@/assets/convo_icon_light.svg')" width="22" class="flag" alt="conversation icon">
+      <img
+        :src="require('@/assets/convo_icon_light.svg')"
+        width="22"
+        class="flag"
+        alt="conversation icon"
+      />
       You’ve been added to this SMS list
 
       <v-btn depressed round class="done-btn" @click="closeSMS">Close</v-btn>
@@ -107,6 +213,12 @@ export default {
       digitsLen: 9,
       digitEntered: false,
       signUpDone: false,
+      card: {
+        number: null,
+        mm: null,
+        yy: null,
+      },
+      showCardPanel: false,
     };
   },
   watch: {
@@ -120,8 +232,11 @@ export default {
     },
   },
   methods: {
+    showCard() {
+      this.showCardPanel = true;
+      console.log(this.showCardPanel);
+    },
     submitTel() {
-      // const validate = this.telDigits.every((tel) => typeof tel === "number")
       const validate =
         this.telDigits.length === this.digitsLen &&
         this.telDigits.every((tel) => typeof tel === "number");
@@ -144,11 +259,19 @@ export default {
       sideBarWidth: (state) => state.app.sideBarWidth,
       sideBarMini: (state) => state.app.sideBarMini,
     }),
+    valAddCard() {
+      const valMM =
+        this.card.mm.length === 2 && this.card.mm < 12 && this.card.mm > 0;
+      const valYY = this.cardNo.length && this.mm.length && this.yy.length;
+
+      const validate = valMM && valYY;
+      return validate;
+    },
     tel() {
       return this.telDigits.join("");
     },
     telFormatted() {
-      return `+${this.tel}`.replace(/(.{4})/g, "$1-");
+      return `+1${this.tel}`.replace(/(.{4})/g, "$1-");
     },
     sizeSMS() {
       if (this.sidebarMini) {
@@ -268,7 +391,7 @@ export default {
   }
 
   .signup-done {
-    background: linear-gradient(180deg, #4D7AED 17.71%, #0F6FFF 100%);
+    background: linear-gradient(180deg, #4d7aed 17.71%, #0f6fff 100%);
     width: 200px;
     height: 200px;
     color: #ffffff;
@@ -286,6 +409,126 @@ export default {
       color: #ffffff;
       width: 100%;
       margin-top: 20px;
+    }
+  }
+
+  .subscribe-view {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px 50px;
+    max-width: 700px;
+    width: 100%;
+
+    .intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    hr {
+      border: 0.91px solid #0000001a;
+      margin: 30px 0;
+    }
+
+    .start-trial {
+      ._title {
+        font-size: 2rem;
+        line-height: 1;
+        margin-bottom: 15px;
+      }
+      ul {
+        margin-left: 10px;
+      }
+    }
+
+    .pro-plan {
+      background: rgba(117, 164, 255, 0.05);
+      border: 1px solid rgba(46, 155, 255, 0.5);
+      border-radius: 10px;
+
+      ._title {
+        font-size: 2rem;
+        font-weight: bolder;
+      }
+      ._subtitle {
+        margin-bottom: 15px;
+      }
+
+      .plan-list {
+        display: flex;
+        align-items: center;
+
+        ._check {
+          font-size: 10px;
+          color: #000000;
+          margin-right: 10px;
+        }
+      }
+      .pricing {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+
+        ._wrapper {
+          display: flex;
+          align-items: baseline;
+
+          .cost {
+            font-weight: bolder;
+            font-size: 2rem;
+          }
+          .duration {
+            font-weight: 100;
+          }
+        }
+
+        .trial-btn {
+          background-color: #3b3b3b;
+          color: #ffffff;
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .footnote {
+      text-align: right;
+      font-size: 13px;
+      margin-right: -8px;
+    }
+
+    .card-panel {
+      border: 1px solid #0000001a;
+      padding: 20px;
+      border-radius: 12px;
+
+      .card-details {
+        border-bottom: 0.91px solid #0000001a;
+        display: flex;
+
+        input {
+          border: none;
+          outline: 0;
+        }
+
+        .cardNo {
+          width: 60%;
+        }
+        .mm {
+          width: 20%;
+          text-align: center;
+        }
+        .yy {
+          width: 20%;
+          text-align: center;
+        }
+      }
+
+      .addCard-btn {
+        width: 100%;
+        margin: 0;
+        margin-top: 15px;
+      }
     }
   }
 }
