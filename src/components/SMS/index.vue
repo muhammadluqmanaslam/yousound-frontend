@@ -1,6 +1,6 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
-    <div class="creator-signup">
+    <div v-if="!signUpDone" class="creator-signup">
       <div class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -27,12 +27,16 @@
           />
         </div>
 
-        <div class="message">
+        <div v-if="digitEntered" class="message">
+          You will receive text to this number. This number will also be used
+          when you sign up to other SMS communities
+        </div>
+        <div v-else class="message">
           Enter your phone number to let creator send you text messages from
           this app. Phone numbers are never shared.
         </div>
 
-        <div class="_tel">
+        <div v-if="!digitEntered" class="_tel">
           <br />
           <img :src="require('@/assets/us_flag.svg')" width="18" class="flag" />
           <span class="digit">+ 0 1 (</span>
@@ -54,10 +58,37 @@
           </span>
         </div>
 
-        <h3 class="cursor-pointer" @click="closeSMS">
+        <div v-else class="_tel-entered">{{ telFormatted }}</div>
+
+        <v-btn
+          v-if="digitEntered"
+          round
+          dark
+          depressed
+          class="width100"
+          @click="signUpDone = true"
+        >
+          Confirm
+          </v-btn>
+
+        <h3
+          v-if="digitEntered"
+          class="cursor-pointer"
+          @click="digitEntered = false"
+        >
+          Update my number
+        </h3>
+        <h3 v-if="!digitEntered" class="cursor-pointer" @click="closeSMS">
           No thanks, I’ll just follow
         </h3>
       </div>
+    </div>
+
+    <div v-if="signUpDone" class="signup-done">
+      <img :src="require('@/assets/convo_icon_light.svg')" width="22" class="flag" alt="conversation icon">
+      You’ve been added to this SMS list
+
+      <v-btn depressed round class="done-btn" @click="closeSMS">Close</v-btn>
     </div>
   </div>
 </template>
@@ -75,6 +106,7 @@ export default {
       telDigits: [],
       digitsLen: 9,
       digitEntered: false,
+      signUpDone: false,
     };
   },
   watch: {
@@ -91,19 +123,19 @@ export default {
     submitTel() {
       // const validate = this.telDigits.every((tel) => typeof tel === "number")
       const validate =
-        this.telDigits.length === this.digitsLen && this.telDigits.every((tel) => typeof tel === "number");
-
-      console.log(validate, this.telDigits);
+        this.telDigits.length === this.digitsLen &&
+        this.telDigits.every((tel) => typeof tel === "number");
 
       if (validate) {
         this.digitEntered = true;
       }
     },
     delDigit(evt, idx) {
-      console.log(evt, idx);
       this.telDigits.splice(idx, 1, "");
     },
     closeSMS() {
+      this.signUpDone = false;
+      this.digitEntered = false;
       this.$emit("closeSMS");
     },
   },
@@ -114,6 +146,9 @@ export default {
     }),
     tel() {
       return this.telDigits.join("");
+    },
+    telFormatted() {
+      return `+${this.tel}`.replace(/(.{4})/g, "$1-");
     },
     sizeSMS() {
       if (this.sidebarMini) {
@@ -176,6 +211,15 @@ export default {
 
     &.digitEntered {
       background-color: #fffffff2;
+      color: #000000;
+
+      ._tel-entered {
+        font-weight: bold;
+        font-size: 1.3rem;
+      }
+      .message {
+        border: 0;
+      }
     }
 
     .message {
@@ -220,6 +264,28 @@ export default {
       .bio-wrapper {
         text-align: center;
       }
+    }
+  }
+
+  .signup-done {
+    background: linear-gradient(180deg, #4D7AED 17.71%, #0F6FFF 100%);
+    width: 200px;
+    height: 200px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 22px;
+    text-align: center;
+    font-weight: bold;
+
+    .done-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      width: 100%;
+      margin-top: 20px;
     }
   }
 }
