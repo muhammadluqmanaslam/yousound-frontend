@@ -1,8 +1,9 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
     <div class="creator-signup">
-      <div class="join-creator">
-        <div class="_title">Join this creator community</div>
+      <div class="join-creator" :class="{ digitEntered }">
+        <div v-if="digitEntered" class="_title">Confirm Your Number</div>
+        <div v-else class="_title">Join this creator community</div>
 
         <div class="_user">
           <user-tag
@@ -32,7 +33,7 @@
         </div>
 
         <div class="_tel">
-          <br>
+          <br />
           <img :src="require('@/assets/us_flag.svg')" width="18" class="flag" />
           <span class="digit">+ 0 1 (</span>
           <span v-for="(input, idx) in digitsLen" :key="idx">
@@ -45,14 +46,17 @@
               class="digit _num"
               pattern="([0-9])"
               maxlength="1"
-              @keydown.delete="delDigit($event)"
+              @keydown.delete="delDigit($event, idx)"
+              @keyup.enter="submitTel"
             />
             <span v-if="idx === 2" class="digit">)</span>
             <span v-if="idx === 6" class="digit">-</span>
           </span>
         </div>
 
-        <h3 class="cursor-pointer" @click="closeSMS">No thanks, I’ll just follow</h3>
+        <h3 class="cursor-pointer" @click="closeSMS">
+          No thanks, I’ll just follow
+        </h3>
       </div>
     </div>
   </div>
@@ -70,6 +74,7 @@ export default {
     return {
       telDigits: [],
       digitsLen: 9,
+      digitEntered: false,
     };
   },
   watch: {
@@ -83,23 +88,23 @@ export default {
     },
   },
   methods: {
-    delDigit(evt) {
-      console.log(evt);
-      let tel = this.telDigits
-      if (tel.length) {
-        this.telDigits.splice(-1)
-        tel = this.telDigits
+    submitTel() {
+      // const validate = this.telDigits.every((tel) => typeof tel === "number")
+      const validate =
+        this.telDigits.length === this.digitsLen && this.telDigits.every((tel) => typeof tel === "number");
 
-        this.$refs[`input${[tel.length]}`][0].focus();
-        // if (tel.length) {
-        //   this.$refs[`input${[tel.length - 1]}`][0].focus();
-        // } else {
-        //   this.$refs[`input${[tel.length - 1]}`][0].focus();
-        // }
+      console.log(validate, this.telDigits);
+
+      if (validate) {
+        this.digitEntered = true;
       }
     },
+    delDigit(evt, idx) {
+      console.log(evt, idx);
+      this.telDigits.splice(idx, 1, "");
+    },
     closeSMS() {
-      this.$emit("closeSMS")
+      this.$emit("closeSMS");
     },
   },
   computed: {
@@ -108,7 +113,7 @@ export default {
       sideBarMini: (state) => state.app.sideBarMini,
     }),
     tel() {
-      return this.telDigits.join("")
+      return this.telDigits.join("");
     },
     sizeSMS() {
       if (this.sidebarMini) {
@@ -168,6 +173,10 @@ export default {
     text-align: center;
     background-color: #1b1b1bf2;
     color: #ffffff;
+
+    &.digitEntered {
+      background-color: #fffffff2;
+    }
 
     .message {
       padding: 10px 0;
