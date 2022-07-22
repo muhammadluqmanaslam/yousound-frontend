@@ -77,7 +77,7 @@ export default {
       },
       repostedFeeds: [],
       isPageReady: false,
-      smsActive: !false,
+      smsActive: false,
     }
   },
 
