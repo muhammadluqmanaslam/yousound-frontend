@@ -34,7 +34,12 @@
           class="_preview mb-1"
           :class="[getCustomClass(attachment)]"
           :style="{ 'background-image': 'url(' + getBGUrl(attachment) + ')' }"
-          @click="selectAttachment({type: getAssocType(attachment), value: attachment})"
+          @click="
+            selectAttachment({
+              type: getAssocType(attachment),
+              value: attachment,
+            })
+          "
         ></div>
       </div>
     </div>
@@ -44,14 +49,16 @@
       @getSelected="selectAttachment"
       :dismiss="closeAttachPicker"
       title="Add Attachment"
-      :customAlbums="customAlbums"
-      :customProducts="customProducts"
+      :customAlbums="albums"
+      :customProducts="products"
       fullscreen
     />
   </div>
 </template>
 
 <script>
+import MeService from "@/services/me";
+import StreamService from "@/services/stream";
 import AttachPicker from "@/views/video/components/attach_picker";
 
 export default {
@@ -74,6 +81,9 @@ export default {
       assoc: {},
       truncAttachment: [],
       show_attach_picker: false,
+      albums: [],
+      products: [],
+      videos: [],
     };
   },
   components: {
@@ -81,22 +91,22 @@ export default {
   },
   watch: {
     customAlbums() {
-      this.getAttachments()
+      this.getAttachments();
     },
     customProducts() {
-      this.getAttachments()
+      this.getAttachments();
     },
   },
   methods: {
     removeAttach() {
-      this.assoc = {}
+      this.assoc = {};
       this.$emit("getAttachment", this.assoc);
     },
     closeAttachPicker() {
-      this.show_attach_picker = false
+      this.show_attach_picker = false;
     },
     selectAttachment(data) {
-      this.assoc = data
+      this.assoc = data;
 
       this.$emit("getAttachment", data);
     },
@@ -146,9 +156,31 @@ export default {
       return newArr;
     },
     getAttachments() {
-      let all = [...this.customAlbums, ...this.customProducts];
-      this.truncAttachment = this.shuffleData(all).slice(0, 12);
-      console.log(this.truncAttachment);
+      const vid_params = {
+        genre_id: 0,
+        only_follows: false,
+        page: 1,
+        per_page: 10,
+      };
+
+      Promise.all([
+        MeService.videoAttachAlbums(),
+        MeService.videoAttachProducts(),
+        StreamService.getStreams(vid_params), // take further appro. look at data from backend
+      ])
+        .then((values) => {
+          this.albums = this.customAlbums || values[0].body;
+          this.products = this.customProducts || values[1].body;
+          this.videos = values[2].body.streams;
+
+          let all = [...this.albums, ...this.products, ...this.videos];
+          this.truncAttachment = this.shuffleData(all).slice(0, 12);
+          console.log(this.truncAttachment);
+        })
+        .catch((reason) => {
+          console.log(reason);
+          this.$store.dispatch("error/showErrorToast", [reason]);
+        });
     },
   },
   computed: {
@@ -222,7 +254,7 @@ export default {
       padding: 5px 0;
       position: relative;
       // padding-left: 58px;
-      
+
       ._preview {
         width: 50px;
         height: 50px;
@@ -236,12 +268,12 @@ export default {
         //     content: "";
         //   }
         // }
-        
+
         &.attach_video {
           width: 85px;
         }
         &.add-attachment {
-          background-color: #CED5DC;
+          background-color: #ced5dc;
           // position: fixed;
           // left: 9px;
 
@@ -260,5 +292,4 @@ export default {
     }
   }
 }
-
 </style>
