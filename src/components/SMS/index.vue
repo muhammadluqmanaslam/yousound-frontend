@@ -209,7 +209,7 @@
 
     <div v-if="isUserSignedUp && isUserSubscribed" class="post-sms">
       <div v-if="!confirmSendSMS" class="post-sms-card">
-            <div xs10 post-sms-wrapper>
+            <div class="post-sms-wrapper">
               <div class="_top">
                 <h2 class="_title">Send SMS</h2>
                 <div class="_title">to <strong>{{ 45678 | formatNumberWithComma}}</strong> SMS contacts</div>
@@ -659,7 +659,9 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px;
+      padding: 20px 20px 10px 20px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #e4e4e4;
     }
 
     .post-sms-action {
