@@ -1,6 +1,6 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
-    <div v-if="!isUserSubscribed" class="subscribe-view">
+    <div v-if="isUserSignedUp && !isUserSubscribed" class="subscribe-view">
       <div v-if="!showCardPanel" class="intro">
         <div>
           You have <strong>2,500</strong> people on your SMS contact list!
@@ -99,9 +99,9 @@
               />
             </div>
 
-            <v-btn depressed class="addCard-btn" :disabled="false"
-              >Add card to file</v-btn
-            >
+            <v-btn depressed class="addCard-btn" :disabled="false">
+              Add card to file
+            </v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -111,9 +111,8 @@
       </div>
     </div>
 
-    <!-- return negate to signUpDone -->
-    <div v-else-if="isUserSubscribed && signUpDone" class="creator-signup">
-      <div class="join-creator" :class="{ digitEntered }">
+    <div v-if="!isUserSignedUp && !isUserSubscribed" class="creator-signup">
+      <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
 
@@ -169,7 +168,6 @@
             <span v-if="idx === 6" class="digit">-</span>
           </span>
         </div>
-
         <div v-else class="_tel-entered">{{ telFormatted }}</div>
 
         <v-btn
@@ -194,22 +192,23 @@
           No thanks, I’ll just follow
         </h3>
       </div>
+
+      <div v-else-if="signUpDone" class="signup-done">
+        <img
+          :src="require('@/assets/convo_icon_light.svg')"
+          width="22"
+          class="flag"
+          alt="conversation icon"
+        />
+
+        <div>You’ve been added to this SMS list</div>
+
+        <v-btn depressed round class="done-btn" @click="closeSMS">Close</v-btn>
+      </div>
     </div>
 
-    <div v-if="signUpDone" class="signup-done">
-      <img
-        :src="require('@/assets/convo_icon_light.svg')"
-        width="22"
-        class="flag"
-        alt="conversation icon"
-      />
-      You’ve been added to this SMS list
-
-      <v-btn depressed round class="done-btn" @click="closeSMS">Close</v-btn>
-    </div>
-
-    <div v-if="postSMSactive" class="post-sms">
-      <div class="post-sms-card">
+    <div v-if="isUserSignedUp && isUserSubscribed" class="post-sms">
+      <div v-if="!confirmSendSMS" class="post-sms-card">
             <div xs10 post-sms-wrapper>
               <div class="_top">
                 <h2 class="_title">Send SMS</h2>
@@ -252,7 +251,7 @@
               />
 
               <div class="post-sms-submit">
-                <div class="cursor-pointer" @click="postSMSactive = false">Cancel</div>
+                <div class="cursor-pointer" @click="closeSMS">Cancel</div>
 
                 <v-btn
                   round
@@ -264,6 +263,38 @@
                 </v-btn>
               </div>
             </div>
+      </div>
+
+      <div v-if="confirmSendSMS" class="confirm-sms">
+        <img
+          :src="require('@/assets/closeIcon.svg')"
+          width="16"
+          class="cursor-pointer close-icon"
+          @click="closeSMS"
+        />
+
+        <div class="_title">Confirm SMS text</div>
+        <img
+          :src="require('@/assets/mobile_chat.svg')"
+          width="35"
+          class="my-4"
+        />
+
+        <div class="_message">
+          This SMS text will be sent to: <strong>{{2450 | formatNumberWithComma}} people</strong>
+
+          <br>
+          <br>
+
+          The credit card connected to this account will be charged $0.01 per text:
+
+          <br>
+          <br>
+
+          <h2>$24.50</h2>
+        </div>
+
+        <v-btn dark round class="width100 mt-3" @click="sendSMS">Ok, send SMS</v-btn>
       </div>
     </div>
   </div>
@@ -295,6 +326,7 @@ export default {
       smsMaxChar: 300,
       attachment: {},
       postSMSactive: false,
+      confirmSendSMS: false,
     };
   },
   watch: {
@@ -369,8 +401,11 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
+    isUserSignedUp() {
+      return false;
+    },
     isUserSubscribed() {
-      return !false;
+      return false;
     },
   },
   mounted() {
@@ -673,6 +708,31 @@ export default {
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
+    }
+
+    .confirm-sms {
+      position: relative;
+      padding: 25px;
+      text-align: center;
+      background-color: #CCFF99;
+      border-radius: 10px;
+
+      ._title {
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      ._message {
+        background: #FFFFFF;
+        border: 1px solid #7EC439;
+        padding: 13px;
+        border-radius: 10px;
+      }
+
+      .close-icon {
+        position: absolute;
+        top: 13px;
+        right: 15px;
+      }
     }
   }
 }
