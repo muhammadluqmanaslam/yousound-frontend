@@ -9,7 +9,12 @@
           directly.
         </div>
 
-        <img :src="require('@/assets/closeIcon.svg')" width="16" class="flag" @click="closeSMS" />
+        <img
+          :src="require('@/assets/closeIcon.svg')"
+          width="16"
+          class="cursor-pointer"
+          @click="closeSMS"
+        />
       </div>
 
       <hr v-if="!showCardPanel" />
@@ -17,7 +22,10 @@
       <v-container fluid px-0 grid-list-lg>
         <v-layout row wrap start-trial>
           <v-flex xs12 sm6>
-            <h2 class="_title">Start <br> Free Trial</h2>
+            <h2 class="_title">
+              Start <br />
+              Free Trial
+            </h2>
             <ul>
               <li>30 days</li>
               <li>Cancel anytime</li>
@@ -98,10 +106,13 @@
         </v-layout>
       </v-container>
 
-      <div v-if="!showCardPanel" class="footnote">* SMS costs $0.01 per text</div>
+      <div v-if="!showCardPanel" class="footnote">
+        * SMS costs $0.01 per text
+      </div>
     </div>
 
-    <div v-if="isUserSubscribed && !signUpDone" class="creator-signup">
+    <!-- return negate to signUpDone -->
+    <div v-else-if="isUserSubscribed && signUpDone" class="creator-signup">
       <div class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -196,16 +207,77 @@
 
       <v-btn depressed round class="done-btn" @click="closeSMS">Close</v-btn>
     </div>
+
+    <div v-if="postSMSactive" class="post-sms">
+      <div class="post-sms-card">
+            <div xs10 post-sms-wrapper>
+              <div class="_top">
+                <h2 class="_title">Send SMS</h2>
+                <div class="_title">to <strong>{{ 45678 | formatNumberWithComma}}</strong> SMS contacts</div>
+              </div>
+
+              <div class="post-sms-action">
+                <div class="sms-layer sms-input">
+                  <user-tag
+                    showAvatar
+                    hideName
+                    hideTick
+                    :user="currentUser"
+                    width="30"
+                    height="30"
+                  />
+                  <textarea
+                    v-model.trim="textMessage"
+                    :maxlength="smsMaxChar"
+                    class="sms-input-area"
+                    placeholder="share your thought..."
+                    ref="sms"
+                  >
+                  </textarea>
+                </div>
+
+                <div class="char-count">
+                  <span
+                    :class="{ 'red--text': charCount == smsMaxChar }"
+                    >{{ charCount }}</span
+                  >
+                  /
+                  <span>{{ smsMaxChar }}</span>
+                </div>
+              </div>
+
+              <attach-slide
+                @getAttachment="getSelected"
+                class="mb-0"
+              />
+
+              <div class="post-sms-submit">
+                <div class="cursor-pointer" @click="postSMSactive = false">Cancel</div>
+
+                <v-btn
+                  round
+                  depressed
+                  dark
+                  class="post-sms-btn ma-0"
+                >
+                  <span>Send</span>
+                </v-btn>
+              </div>
+            </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import UserTag from "@/components/user_tag";
+import AttachSlide from '@/components/attachSlide'
 import { mapState } from "vuex";
 
 export default {
   components: {
     UserTag,
+    AttachSlide,
   },
   data() {
     return {
@@ -219,6 +291,10 @@ export default {
         yy: null,
       },
       showCardPanel: false,
+      textMessage: "",
+      smsMaxChar: 300,
+      attachment: {},
+      postSMSactive: false,
     };
   },
   watch: {
@@ -232,6 +308,12 @@ export default {
     },
   },
   methods: {
+    getSelected(data) {
+      console.log(data)
+      this.attachment = data
+      this.toggleShowAttach = false
+      this.message.body = this.defaultRepostMessage;
+    },
     showCard() {
       this.showCardPanel = true;
       console.log(this.showCardPanel);
@@ -259,6 +341,9 @@ export default {
       sideBarWidth: (state) => state.app.sideBarWidth,
       sideBarMini: (state) => state.app.sideBarMini,
     }),
+    charCount() {
+      return this.textMessage.length
+    },
     valAddCard() {
       const valMM =
         this.card.mm.length === 2 && this.card.mm < 12 && this.card.mm > 0;
@@ -285,7 +370,7 @@ export default {
       return this.$store.state.auth.user;
     },
     isUserSubscribed() {
-      return false;
+      return !false;
     },
   },
   mounted() {
@@ -529,6 +614,65 @@ export default {
         margin: 0;
         margin-top: 15px;
       }
+    }
+  }
+
+  .post-sms {
+    width: 400px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+
+    ._top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .post-sms-action {
+      padding: 0 20px;
+
+      .sms-layer {
+        display: flex;
+
+        .user_tag {
+          align-self: baseline;
+        }
+
+        textarea {
+          flex: 1;
+          border: none;
+          min-height: 180px;
+          resize: none;
+
+          &:hover {
+            
+            &::-webkit-scrollbar {
+              width: 2px;
+            }
+  
+            &::-webkit-scrollbar-track {
+              box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+              border-radius: 10px;
+            }
+  
+            &::-webkit-scrollbar-thumb {
+              border-radius: 10px;
+              box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+            }
+          }
+        }
+      }
+    }
+
+    .post-sms-submit {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
     }
   }
 }
