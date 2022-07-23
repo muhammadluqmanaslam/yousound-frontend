@@ -99,7 +99,7 @@
               />
             </div>
 
-            <v-btn depressed class="addCard-btn" :disabled="false">
+            <v-btn depressed class="addCard-btn" :disabled="false" @click="isUserSubscribed = true">
               Add card to file
             </v-btn>
           </v-flex>
@@ -203,7 +203,7 @@
 
         <div>You’ve been added to this SMS list</div>
 
-        <v-btn depressed round class="done-btn" @click="closeSMS">Close</v-btn>
+        <v-btn depressed round class="done-btn" @click="isUserSignedUp = true">Close</v-btn>
       </div>
     </div>
 
@@ -327,6 +327,8 @@ export default {
       attachment: {},
       postSMSactive: false,
       confirmSendSMS: false,
+      isUserSignedUp: false,
+      isUserSubscribed: false,
     };
   },
   watch: {
@@ -348,7 +350,6 @@ export default {
     },
     showCard() {
       this.showCardPanel = true;
-      console.log(this.showCardPanel);
     },
     submitTel() {
       const validate =
@@ -401,15 +402,11 @@ export default {
     currentUser() {
       return this.$store.state.auth.user;
     },
-    isUserSignedUp() {
-      return false;
-    },
-    isUserSubscribed() {
-      return false;
-    },
   },
   mounted() {
-    this.$refs.input0[0].focus();
+    if (!this.isUserSignedUp) {
+      this.$refs.input0[0].focus();
+    }
   },
 };
 </script>
