@@ -1,10 +1,12 @@
 import PaneTabs from "../components/paneTabs.vue";
 import Conversations from "./conversations";
+import SMS from "./SMS"
 
 export default {
   components: {
     PaneTabs,
     Conversations,
+    SMS,
   },
 
   data() {

@@ -2,6 +2,7 @@
   <div class="messages-page">
     <pane-tabs :paneTabs="tabs" ref="paneTabs" :initSelected="initSelected" @tabClicked="tabClicked" recChip />
     <Conversations v-show="activePane === 'messages'" />
+    <SMS v-show="activePane === 'sms'" />
 
   </div>
 </template>

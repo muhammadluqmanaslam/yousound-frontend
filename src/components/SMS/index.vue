@@ -443,6 +443,17 @@ export default {
   align-items: center;
   justify-content: center;
 
+  &.onMobile {
+    .join-creator {
+      height: 100vh;
+    }
+    .subscribe-view {
+      height: 100%;
+      border-radius: 0;
+      padding: 20px 30px;
+    }
+  }
+
   .join-creator {
     @extend .sms-card;
     text-align: center;
