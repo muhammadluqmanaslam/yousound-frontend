@@ -8,7 +8,7 @@
         </v-icon>
       </div>
 
-      <div class="contacts-count">
+      <div class="contacts-count" @click="openeDirectory">
         <div class="_count">
           {{ contactsLen | formatNumberWithComma }}
         </div>
@@ -63,12 +63,17 @@
           </div>
         </div>
       </div>
+
+      <directory v-if="directoryActive" @closeDirectory="closeDirectory" />
     </div>
   </transition>
 </template>
 
 <script>
+import directory from "./directory";
+
 export default {
+  components: { directory },
   data() {
     return {
       contacts: [{}, {}, {}],
@@ -90,11 +95,18 @@ export default {
           flag: require("@/assets/us_flag.svg"),
         },
       ],
+      directoryActive: false,
     };
   },
   methods: {
     closeContacts() {
       this.$emit("closeContacts");
+    },
+    openeDirectory() {
+      this.directoryActive = true;
+    },
+    closeDirectory() {
+      this.directoryActive = false;
     },
   },
   computed: {
