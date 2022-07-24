@@ -1,5 +1,8 @@
 <template>
   <div class="sms-mobile">
+    <div class="contacts-summary" @click="openContacts">
+        View {{contacts.length}} contact
+    </div>
     <div class="sms-conversations">
       <div
         v-for="(conv, i) in smsConversations"
@@ -17,24 +20,35 @@
         width="20"
       />
     </v-btn>
+
+    <Contacts v-if="contactsActive" @closeContacts="closeContacts" />
   </div>
 </template>
 
 <script>
 import SMS from "@/components/SMS";
+import Contacts from "@/views/mobile/components/contacts";
 
 export default {
   components: {
     SMS,
+    Contacts,
   },
   data() {
     return {
       smsActive: false,
       smsConversations: [{}],
-      contacts: [{},{}]
+      contacts: [{},{}],
+      contactsActive: false,
     };
   },
   methods: {
+    openContacts() {
+      this.contactsActive = true;
+    },
+    closeContacts() {
+      this.contactsActive = false;
+    },
     openSMS() {
       this.smsActive = true;
     },
@@ -46,6 +60,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.sms-mobile {
+    .contacts-summary {
+        background: rgba(233, 233, 233, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        margin: 8px 13px;
+        text-align: center;
+        padding: 13px;
+        font-weight: bold;
+    }
+}
 .sms-conversations {
   .sms-conversation {
     display: flex;
