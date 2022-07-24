@@ -2,7 +2,7 @@
   <div class="track-card-simple">
     <div
       class="cover"
-      :class="{coverRadius}"
+      :class="{round, coverRadius}"
       :style="`background-image: url(${cover}); height: ${height}px; width: ${width}px`"
     ></div>
     <div class="details">
@@ -31,6 +31,7 @@ export default {
     title: String,
     subtitle: String,
     coverRadius: Boolean,
+    round: Boolean,
   },
 };
 </script>
@@ -47,6 +48,9 @@ export default {
 
     &.coverRadius {
       border-radius: 10px;
+    }
+    &.round {
+      border-radius: 500px;
     }
   }
   .details {
