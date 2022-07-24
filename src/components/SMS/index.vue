@@ -1,5 +1,6 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
+    <div v-if="sendSuccess" class="closedecoy" @click="outsideClick"></div>
     <div v-if="isUserSignedUp && !isUserSubscribed" class="subscribe-view">
       <div v-if="!showCardPanel" class="intro">
         <div>
@@ -323,7 +324,7 @@
       <v-btn dark round class="width100 mt-3" @click="sendSMS">Ok, send SMS</v-btn>
     </div>
 
-    <div v-if="sendSuccess" class="sms-success">
+    <div v-if="onMobile && sendSuccess" class="sms-success">
       <img
         :src="require('@/assets/check_success.svg')"
         width="60"
@@ -394,6 +395,12 @@ export default {
     },
   },
   methods: {
+    outsideClick() {
+      console.log("outside click");
+      if (this.sendSuccess) {
+        this.closeSMS()
+      }
+    },
     openEngagement() {
       this.smsEngagementActive = true;
     },
