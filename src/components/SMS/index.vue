@@ -339,22 +339,26 @@
       <br>
       <br>
 
-      <v-btn dark depressed round class="width100 mt-3" @click="viewEngagement">
+      <v-btn dark depressed round class="width100 mt-3" @click="openEngagement">
         View Engagement
       </v-btn>
     </div>
+
+    <sms-engagement v-if="smsEngagementActive" @closeEngagement="closeEngagement" />
   </div>
 </template>
 
 <script>
 import UserTag from "@/components/user_tag";
 import AttachSlide from "@/components/attachSlide";
+import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement"
 import { mapState } from "vuex";
 
 export default {
   components: {
     UserTag,
     AttachSlide,
+    smsEngagement,
   },
   data() {
     return {
@@ -374,6 +378,7 @@ export default {
       postSMSactive: false,
       confirmSendSMS: false,
       sendSuccess: false,
+      smsEngagementActive: false,
       isUserSignedUp: false,
       isUserSubscribed: false,
     };
@@ -389,6 +394,12 @@ export default {
     },
   },
   methods: {
+    openEngagement() {
+      this.smsEngagementActive = true;
+    },
+    closeEngagement() {
+      this.smsEngagementActive = false;
+    },
     sendSMS() {
       this.confirmSendSMS = false;
       this.sendSuccess = true;
