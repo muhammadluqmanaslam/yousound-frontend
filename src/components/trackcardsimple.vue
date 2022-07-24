@@ -2,8 +2,8 @@
   <div class="track-card-simple">
     <div
       class="cover"
-      :class="{round, coverRadius}"
-      :style="`background-image: url(${cover}); height: ${height}px; width: ${width}px`"
+      :class="{noCover, round, coverRadius}"
+      :style="`background-image: url(${cover}); height: ${height}px; width: ${isVideo ? videoWidth : width}px`"
     ></div>
     <div class="details">
       <div class="_title">{{ title }}</div>
@@ -27,11 +27,20 @@ export default {
       type: [String, Number],
       default: 70,
     },
+    isVideo: Boolean,
     cover: String,
     title: String,
     subtitle: String,
     coverRadius: Boolean,
     round: Boolean,
+  },
+  computed: {
+    videoWidth() {
+      return 100
+    },
+    noCover() {
+      return true
+    },
   },
 };
 </script>
@@ -46,6 +55,9 @@ export default {
     background-size: cover;
     background-position: center;
 
+    &.noCover {
+      background-color: #d8d8d8;
+    }
     &.coverRadius {
       border-radius: 10px;
     }
