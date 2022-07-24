@@ -1,7 +1,11 @@
 <template>
   <transition name="slide-up">
-    <div class="directory">
-      <div class="_top">
+    <div
+      class="directory"
+      :class="{isComp, separator}"
+      :style="`height: ${height}%;`"
+    >
+      <div v-if="!isComp" class="_top">
         <div class="_title">
           <div>SMS contact list</div>
           <div class="_len">{{ directoryLen }} people</div>
@@ -31,6 +35,12 @@
 import trackcardsimple from "@/components/trackcardsimple";
 
 export default {
+  props: {
+    customDirectory: Array,
+    isComp: Boolean,
+    height: [String, Number],
+    separator: Boolean,
+  },
   components: { trackcardsimple },
   data() {
     return {
@@ -60,6 +70,26 @@ export default {
   padding: 20px;
   width: 100%;
   height: 100%;
+
+  &.isComp {
+    position: relative;
+    overflow-y: auto;
+
+    ._listing {
+      height: unset;
+    }
+  }
+
+  &.separator {
+    padding: 20px 0;
+
+  ._listing {
+    .each-contact {
+      border-top: 1px solid #00000014;
+      padding: 10px 20px;
+    }
+    }
+  }
 
   ._top {
     display: flex;
