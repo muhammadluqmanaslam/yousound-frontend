@@ -207,102 +207,148 @@
       </div>
     </div>
 
-    <div v-if="isUserSignedUp && isUserSubscribed" class="post-sms">
+    <div v-if="!confirmSendSMS && !sendSuccess && isUserSignedUp && isUserSubscribed" class="post-sms">
       <div v-if="!confirmSendSMS" class="post-sms-card">
-            <div class="post-sms-wrapper">
-              <div class="_top">
-                <h2 class="_title">Send SMS</h2>
-                <div class="_title">to <strong>{{ 45678 | formatNumberWithComma}}</strong> SMS contacts</div>
-              </div>
+        <div class="post-sms-wrapper">
+          <div v-if="!onMobile" class="_top">
+            <h2 class="_title">Send SMS</h2>
+            <div class="_title">to <strong>{{ 45678 | formatNumberWithComma}}</strong> SMS contacts</div>
+          </div>
 
-              <div class="post-sms-action">
-                <div class="sms-layer sms-input">
-                  <user-tag
-                    showAvatar
-                    hideName
-                    hideTick
-                    :user="currentUser"
-                    width="30"
-                    height="30"
-                  />
-                  <textarea
-                    v-model.trim="textMessage"
-                    :maxlength="smsMaxChar"
-                    class="sms-input-area"
-                    placeholder="share your thought..."
-                    ref="sms"
-                  >
-                  </textarea>
-                </div>
+          <div class="post-sms-submit" :class="{onMobile}">
+            <div class="cursor-pointer" @click="closeSMS">Cancel</div>
 
-                <div class="char-count">
-                  <span
-                    :class="{ 'red--text': charCount == smsMaxChar }"
-                    >{{ charCount }}</span
-                  >
-                  /
-                  <span>{{ smsMaxChar }}</span>
-                </div>
-              </div>
-
-              <attach-slide
-                @getAttachment="getSelected"
-                class="mb-0"
-              />
-
-              <div class="post-sms-submit">
-                <div class="cursor-pointer" @click="closeSMS">Cancel</div>
-
-                <v-btn
-                  round
-                  depressed
-                  dark
-                  class="post-sms-btn ma-0"
+            <div class="dflex align-center">
+              <div class="char-count  mr-2">
+                <span
+                  :class="{ 'red--text': charCount == smsMaxChar }"
+                  >{{ charCount }}</span
                 >
-                  <span>Send</span>
-                </v-btn>
+                /
+                <span>{{ smsMaxChar }}</span>
               </div>
+              <v-btn
+                round
+                depressed
+                dark
+                class="post-sms-btn ma-0"
+                @click="confirmSend"
+              >
+                <span>Send</span>
+              </v-btn>
             </div>
-      </div>
-
-      <div v-if="confirmSendSMS" class="confirm-sms">
-        <img
-          :src="require('@/assets/closeIcon.svg')"
-          width="16"
-          class="cursor-pointer close-icon"
-          @click="closeSMS"
-        />
-
-        <div class="_title">Confirm SMS text</div>
-        <img
-          :src="require('@/assets/mobile_chat.svg')"
-          width="35"
-          class="my-4"
-        />
-
-        <div class="_message">
-          This SMS text will be sent to: <strong>{{2450 | formatNumberWithComma}} people</strong>
-
-          <br>
-          <br>
-
-          The credit card connected to this account will be charged $0.01 per text:
-
-          <br>
-          <br>
-
-          <h2>$24.50</h2>
+          </div>
         </div>
 
-        <v-btn dark round class="width100 mt-3" @click="sendSMS">Ok, send SMS</v-btn>
+        <div class="post-sms-action">
+          <div class="sms-layer sms-input">
+            <user-tag
+              showAvatar
+              hideName
+              hideTick
+              :user="currentUser"
+              width="30"
+              height="30"
+            />
+            <textarea
+              v-model.trim="textMessage"
+              :maxlength="smsMaxChar"
+              class="sms-input-area"
+              placeholder="Enter message..."
+              ref="sms"
+            >
+            </textarea>
+          </div>
+
+          <div v-if="!onMobile" class="char-count">
+            <span
+              :class="{ 'red--text': charCount == smsMaxChar }"
+              >{{ charCount }}</span
+            >
+            /
+            <span>{{ smsMaxChar }}</span>
+          </div>
+        </div>
+
+        <attach-slide
+          @getAttachment="getSelected"
+          class="mb-0"
+        />
+
+        <div v-if="!onMobile" class="post-sms-submit">
+          <div class="cursor-pointer" @click="closeSMS">Cancel</div>
+
+          <v-btn
+            round
+            depressed
+            dark
+            class="post-sms-btn ma-0"
+            @click="confirmSend"
+          >
+            <span>Send</span>
+          </v-btn>
+        </div>
       </div>
+    </div>
+
+    <div v-if="confirmSendSMS" class="confirm-sms">
+      <img
+        :src="require('@/assets/closeIcon.svg')"
+        width="16"
+        class="cursor-pointer close-icon"
+        @click="closeSMS"
+      />
+
+      <div class="_title">Confirm SMS text</div>
+      <img
+        :src="require('@/assets/mobile_chat.svg')"
+        width="35"
+        class="my-4"
+      />
+
+      <div class="_message">
+        This SMS text will be sent to: <strong>{{2450 | formatNumberWithComma}} people</strong>
+
+        <br>
+        <br>
+
+        The credit card connected to this account will be charged $0.01 per text:
+
+        <br>
+        <br>
+
+        <h2>$24.50</h2>
+      </div>
+
+      <v-btn dark round class="width100 mt-3" @click="sendSMS">Ok, send SMS</v-btn>
+    </div>
+
+    <div v-if="sendSuccess" class="sms-success">
+      <img
+        :src="require('@/assets/check_success.svg')"
+        width="60"
+        class="m2-4"
+      />
+      <div class="_title">Success</div>
+
+      <div class="_message">
+        SMS text sent to: <br>
+        <strong>{{2450 | formatNumberWithComma}} people</strong>
+      </div>
+
+      <br>
+      <br>
+
+      <v-btn dark depressed round class="width100 mt-3" @click="viewEngagement">
+        View Engagement
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import UserTag from "@/components/user_tag";
-import AttachSlide from '@/components/attachSlide'
+import AttachSlide from "@/components/attachSlide";
 import { mapState } from "vuex";
 
 export default {
@@ -327,6 +373,7 @@ export default {
       attachment: {},
       postSMSactive: false,
       confirmSendSMS: false,
+      sendSuccess: false,
       isUserSignedUp: false,
       isUserSubscribed: false,
     };
@@ -342,10 +389,17 @@ export default {
     },
   },
   methods: {
+    sendSMS() {
+      this.confirmSendSMS = false;
+      this.sendSuccess = true;
+    },
+    confirmSend() {
+      this.confirmSendSMS = true;
+    },
     getSelected(data) {
-      console.log(data)
-      this.attachment = data
-      this.toggleShowAttach = false
+      console.log(data);
+      this.attachment = data;
+      this.toggleShowAttach = false;
       this.message.body = this.defaultRepostMessage;
     },
     showCard() {
@@ -375,7 +429,7 @@ export default {
       sideBarMini: (state) => state.app.sideBarMini,
     }),
     charCount() {
-      return this.textMessage.length
+      return this.textMessage.length;
     },
     valAddCard() {
       const valMM =
@@ -451,6 +505,9 @@ export default {
       height: 100%;
       border-radius: 0;
       padding: 20px 30px;
+    }
+    .post-sms {
+      height: 100%;
     }
   }
 
@@ -692,21 +749,20 @@ export default {
           resize: none;
 
           &:hover {
-            
             &::-webkit-scrollbar {
               width: 2px;
             }
-  
+
             &::-webkit-scrollbar-track {
-              box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+              box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+              -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
               border-radius: 10px;
             }
-  
+
             &::-webkit-scrollbar-thumb {
               border-radius: 10px;
-              box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-              -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+              box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+              -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
             }
           }
         }
@@ -718,31 +774,52 @@ export default {
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
+
+      .onMobile {
+        border-bottom: 1px solid #e4e4e4;
+      }
     }
 
-    .confirm-sms {
-      position: relative;
-      padding: 25px;
-      text-align: center;
-      background-color: #CCFF99;
+  }
+
+  .confirm-sms {
+    position: relative;
+    padding: 25px;
+    text-align: center;
+    background-color: #ccff99;
+    border-radius: 10px;
+    margin: 20px;
+
+    ._title {
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    ._message {
+      background: #ffffff;
+      border: 1px solid #7ec439;
+      padding: 13px;
       border-radius: 10px;
+    }
 
-      ._title {
-        font-size: 2rem;
-        font-weight: 600;
-      }
-      ._message {
-        background: #FFFFFF;
-        border: 1px solid #7EC439;
-        padding: 13px;
-        border-radius: 10px;
-      }
+    .close-icon {
+      position: absolute;
+      top: 13px;
+      right: 15px;
+    }
+  }
 
-      .close-icon {
-        position: absolute;
-        top: 13px;
-        right: 15px;
-      }
+  .sms-success {
+    position: relative;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 20px;
+    width: 100%;
+    background: #ffffff;
+
+    ._title {
+      font-size: 2.2rem;
+      font-weight: 600;
     }
   }
 }
