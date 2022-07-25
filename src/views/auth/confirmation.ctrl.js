@@ -1,4 +1,5 @@
 import AuthService from '@/services/auth.js'
+import { MyEvents } from '@/helper'
 
 export default {
   components: {},
@@ -12,6 +13,11 @@ export default {
       isActivated: false,
       isLoading: false,
       isPageReady: false,
+      user: {
+        email: '',
+        password: ''
+      },
+      remember: false,
     }
   },
 
@@ -47,6 +53,8 @@ export default {
       //     this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
       //   }
       // })
+      this.user.email = localStorage.getItem("user_email")
+      this.user.password = localStorage.getItem("user_pass")
 
       let myAlert
       await AuthService.activeAccount(params)
@@ -55,10 +63,36 @@ export default {
             type: 'success',
             messages: ['Your account has been activated.'],
           }
-          this.$router.push({
-            path: '/login',
-            query: { alert: btoa(JSON.stringify(myAlert)) },
-          })
+          if(this.user.email !== '' && this.user.password !== '') {
+            AuthService.login(this.user)
+            .then((response) => {
+              if (this.remember) {
+                AuthService.saveCredential(this.user)
+              }
+              AuthService.setTokenAndUserInfo(response.body)
+
+              if (response.body.sign_in_count <= 1) {
+                this.$store.dispatch('auth/setFirstVisit', true)
+              }
+
+              this.$root.$emit(MyEvents.AUTH_SIGNIN)
+
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$router.push({ name: 'DiscoverIndex' })
+              localStorage.removeItem("user_email")
+              localStorage.removeItem("user_pass")
+            })
+            .catch((e) => {
+              this.$store.dispatch('error/showLoadingActivity', false)
+              this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body]
+              )
+            })
+          } else {
+            this.$router.push({
+              path: '/login',
+              query: { alert: btoa(JSON.stringify(myAlert)) },
+            })
+          }
         })
         .catch((e) => {
           if (e.body.status === 500) {
