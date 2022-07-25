@@ -42,14 +42,14 @@
                     </div>
                     <v-icon class="attach-cancel cursor-pointer" @click="removeAttach()">add</v-icon>
                 </div>
-
+                
                 <div class="thought-layer thought-attachment-select cursor-pointer">
                     <v-icon class="attach-icon">attachment</v-icon>
                     <attach
-                      v-model="stream_assoc"
+                      attachPickerTitle="Attach content to your thought"
                       ref="assocAttach"
                       ctaTitle="Select Attachment"
-                      attachPickerTitle="Attach content to your thought"
+                      @getAssoc="getAssoc"
                       dataOnlyMode
                     />
                 </div>
@@ -85,11 +85,13 @@
 <script>
 import UserTag from '@/components/user_tag'
 import Attach from '@/views/video/components/attach'
+// import AttachSlide from '@/components/attachSlide'
 
 export default {
   components: {
     UserTag,
     Attach,
+    // AttachSlide,
   },
   data() {
     return {
@@ -121,6 +123,9 @@ export default {
   watch: {},
   created() {},
   methods: {
+    getAssoc(data) {
+      this.stream_assoc = data
+    },
     initPostThought() {
       this.post_thought_active = true
     },
@@ -177,6 +182,7 @@ export default {
                 &-selected {
                     display: flex;
                     justify-content: space-between;
+                    align-items: center;
 
                     .attach-info {
                         display: flex;

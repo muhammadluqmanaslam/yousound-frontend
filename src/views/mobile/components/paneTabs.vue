@@ -8,7 +8,7 @@
       :style="`width: ${100/paneTabs.length}%`"
       @click="selectPane(tab)"
       >
-        <img :src="tab.icon" alt="pane tab icon" class="pane-tab-img">
+        <img v-if="tab.icon" :src="tab.icon" alt="pane tab icon" class="pane-tab-img">
         <span>{{ tab.title }}</span>
       </div>
     </div>

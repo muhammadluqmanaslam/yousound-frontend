@@ -15,7 +15,11 @@
           arrow_back_ios
         </v-icon>
 
-        <img v-if="isAuthenticated" :src="leftAltIcon" />
+        <img
+          v-if="isAuthenticated"
+          :src="leftAltIcon"
+          @click="openSearchModal"
+        />
       </div>
 
       <div class="_inner-wrapper _center">
@@ -75,11 +79,22 @@
         />
       </div>
     </div>
+
+    <v-dialog
+      v-model="searchModalActive"
+      fullscreen
+      content-class="search-dialog"
+      background-color="red"
+      transition="slide-up"
+    >
+      <search ref="searchRef" @closeSearchModal="closeSearchModal" />
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import userTag from "@/components/user_tag";
+import Search from "@/views/mobile/components/search";
 import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
@@ -95,7 +110,7 @@ export default {
 
     leftAltIcon: {
       type: String,
-      default: '/static/images/ic_cart.svg',
+      default: '/static/images/search.svg',
     },
     rightAltIcon: {
       type: String,
@@ -114,12 +129,14 @@ export default {
   },
   components: {
     userTag,
+    Search,
   },
   data() {
     return {
       // logoImgSrc: '',
       avatarWidth: 30,
       avatarHeight: 30,
+      searchModalActive: false,
       // menuImgSrc: '',
     }
   },
@@ -128,6 +145,12 @@ export default {
     ...mapActions({
       toggleMobilePlayer: "player/toggleMobilePlayer",
     }),
+    openSearchModal() {
+      this.searchModalActive = true
+    },
+    closeSearchModal() {
+      this.searchModalActive = false
+    },
     openMusicPlayer() {
       this.toggleMobilePlayer(true);
     },
@@ -205,7 +228,7 @@ export default {
   background-color: #ffffff;
   z-index: 6;
   position: fixed;
-  top: 0;
+  top: -2px;
   width: 100%;
   display: flex;
   align-items: center;

@@ -8,7 +8,9 @@
       >
         <span class="footer-wrapper">
           <img v-if="footer.isNotificationActive" :src="notificationIcon" width="8" class="__count" />
-          <img :src="footer.icon" width="23" />
+
+          <img v-if="footer.path === currentRoute" :src="footer.activeIcon" width="23" />
+          <img v-else :src="footer.icon" width="23" />
         </span>
       </li>
     </ul>
@@ -23,6 +25,7 @@ export default {
           id: 'discover',
           title: 'discover',
           icon: require('@/assets/discover_2.svg'),
+          activeIcon: require('@/assets/discover_2.svg'),
           path: 'DiscoverIndex',
           isNotificationActive: false,
         },
@@ -30,6 +33,7 @@ export default {
           id: 'home',
           title: 'home',
           icon: require('@/assets/home_2.svg'),
+          activeIcon: require('@/assets/home_2_active.svg'),
           path: 'Feed',
           isNotificationActive: false,
         },
@@ -37,6 +41,7 @@ export default {
           id: 'messages',
           title: 'messages',
           icon: require('@/assets/chat_2.svg'),
+          activeIcon: require('@/assets/chat_2_active.svg'),
           path: 'Messages',
           isNotificationActive: false,
         },
@@ -88,6 +93,9 @@ export default {
     isUnreadMessages() {
       return this.badge.message > 0
     },
+    currentRoute() {
+      return this.$route.name
+    }
   },
 }
 </script>

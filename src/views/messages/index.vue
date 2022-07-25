@@ -210,6 +210,11 @@
                 ref="message"
                 autofocus
               />
+                <img
+                  class="send-sms-btn cursor-pointer mr-2"
+                  :src="require('@/assets/send_sms.svg')" width="20"
+                  @click="initSMS()"
+                />
               <picker
                 v-if="showEmojiPicker"
                 title="Pick your emoji…"
@@ -252,7 +257,7 @@
       </v-layout>
     </v-container>
 
-    <v-dialog v-model="show_repost_modal">
+    <v-dialog v-model="show_repost_modal" content-class="messages-repost">
       <v-card class="pa-5">
         <div
           v-if="
@@ -418,6 +423,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <SMS v-if="smsActive" @closeSMS="closeSMS" />
   </div>
 </template>
 

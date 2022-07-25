@@ -138,6 +138,9 @@ export const Filter = {
     }
   },
 
+  getTime(value) {
+    return moment(String(value)).format('hh:mm A')
+  },
   timeInHours(value) {
     let hours = parseInt(Math.floor(value / 3600))
     let minutes = parseInt(Math.floor((value - hours * 3600) / 60))

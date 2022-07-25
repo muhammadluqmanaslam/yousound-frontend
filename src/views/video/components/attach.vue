@@ -42,9 +42,12 @@
 
     <attach-picker
       v-if="show_attach_picker"
-      v-model="stream_assoc"
+      @getSelected="getSelected"
       :dismiss="closeAttachPicker"
       :title="attachPickerTitle"
+      :customAlbums="customAlbums"
+      :customProducts="customProducts"
+      :fullscreen="fullscreen"
     />
   </div>
 </template>
@@ -60,6 +63,13 @@ export default {
   },
 
   props: {
+    fullscreen: Boolean,
+    customAlbums: {
+      type: Array
+    },
+    customProducts: {
+      type: Array
+    },
     attachPickerTitle: String,
     hideMetaActions: Boolean,
     value: Object,
@@ -81,36 +91,44 @@ export default {
   },
 
   watch: {
+    stream_assoc(newVal) {
+      // console.log('from <attach>', newVal)
+    },
     value(newVal) {
-      // console.log('attach value', newVal)
-      this.stream_assoc = newVal;
+      // console.log('value changed', newVal)
+      // this.stream_assoc = newVal;
     },
   },
 
   methods: {
+    getSelected(data) {
+      this.stream_assoc = data
+      this.$emit("getAssoc", data);
+    },
     openAttachPicker() {
+      console.log('openAttach ran');
       this.show_attach_picker = true;
     },
 
     closeAttachPicker() {
+      console.log('closeAttach ran');
       this.show_attach_picker = false;
-      this.$emit("input", this.stream_assoc);
     },
 
     removeAttach() {
+      console.log('removeAttach ran');
       this.stream_assoc = {
         type: "Album",
         value: null,
       };
-      this.$emit("input", this.stream_assoc);
     },
   },
 
   created() {
-    this.stream_assoc = {
-      type: this._props.value.type,
-      value: this._props.value.value,
-    };
+    // this.stream_assoc = {
+    //   type: this._props.value.type,
+    //   value: this._props.value.value,
+    // };
   },
 };
 </script>
@@ -139,6 +157,8 @@ export default {
     // margin-left: 20px;
     color: #1976d2;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
     &:hover {
       text-decoration: underline;
     }

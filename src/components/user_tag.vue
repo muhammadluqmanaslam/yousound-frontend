@@ -1,7 +1,7 @@
 <template>
   <div
     class="tag user_tag" 
-    :class="{'cursor-pointer' : clickUser}"
+    :class="{'cursor-pointer' : clickUser, fitContent}"
      @click="clickUser ? gotoUser() : ''"
   >
     <div
@@ -29,6 +29,7 @@ export default {
     hideName: Boolean,
     showUserType: Boolean,
     hideTick: Boolean,
+    fitContent: Boolean,
     marginRight: {
       type: String,
     },
@@ -58,6 +59,10 @@ export default {
   display: flex;
   align-items: center;
   font-weight: 700;
+
+  &.fitContent {
+    display: inline-flex;
+  }
 
   &__image {
     border-radius: 50%;

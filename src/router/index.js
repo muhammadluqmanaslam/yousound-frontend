@@ -38,7 +38,7 @@ import CreateAttendee from '@/views/home/create_attendee'
 import ActivityIndex from '@/views/activity/index'
 import NotificationIndex from '@/views/notification/index'
 import Chat from '@/views/chat/chat'
-import Messages from '@/views/messages/index'
+// import Messages from '@/views/messages/index'
 import DirectMessages from '@/views/user/direct_messages'
 import Cart from '@/views/cart/cart'
 import Checkout from '@/views/cart/checkout'
@@ -224,7 +224,12 @@ export function createRouter(settings) {
     },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
-    { path: '/messages', name: 'Messages', component: Messages },
+    { path: '/messages',
+      name: 'Messages',
+      component: setComponent('messages'),
+      meta: {
+        noSideSpace: onMobile,
+      } },
     { path: '/cart', name: 'Cart', component: Cart },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },
     { path: '/sell', name: 'Sell', component: Sell },

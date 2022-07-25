@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="product-card" :class="{'px-0': onMobile}">
+  <v-flex class="product-card" :class="{'side-tab-view': sideTabView, 'px-0': onMobile}">
     <v-flex
       @mouseenter="is_component_hover=true"
       @mouseleave="is_component_hover=false"
@@ -164,9 +164,11 @@ export default {
     dataObject: {
       type: Object,
     },
-
     hideButtonAction: {
       type: Function,
+    },
+    sideTabView: {
+      type: Boolean,
     },
   },
 

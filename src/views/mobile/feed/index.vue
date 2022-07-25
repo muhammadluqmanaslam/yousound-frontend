@@ -42,7 +42,7 @@
       @click="openPostThought" 
     >
       <img
-        :src="require('../../../../static/images/type-thought.svg')"
+        :src="require('@/assets/type-thought.svg')"
         class="thought-icon invert-color"
         width="20"
       />

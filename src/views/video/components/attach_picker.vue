@@ -4,13 +4,29 @@
     <div class="modal" :class="{fullscreen, onMobile}">
       <h4 class="modal__title">
         <span
-          v-if="fullscreen"
+          v-if="fullscreen && !altFullscreenHeader"
           class="dismisser"
           @click="dismiss()"
         >
           <v-icon>arrow_back_ios</v-icon>
         </span>
-        <span class="flex-grow text-center">{{ title }}</span>
+        <div v-if="fullscreen && altFullscreenHeader" class="pa-2 dflex align-center justify-space-between width100">
+          <div
+            class="flex-grow text-center"
+          >
+            <img
+            height="24"
+              :src="require('@/assets/nav_logo_primary.png')"
+            />
+          </div>
+          <img
+            :src="require('@/assets/closeIcon.svg')"
+            width="18"
+            @click="dismiss()"
+          />
+        </div>
+
+        <span v-if="title" class="flex-grow text-center">{{ title }}</span>
       </h4>
 
       <div class="modal__header">
@@ -170,8 +186,14 @@ import StreamService from '@/services/stream'
 
 export default {
   props: {
-    onMobile: {
+    altFullscreenHeader: {
       type: Boolean,
+    },
+    customAlbums: {
+      type: Array
+    },
+    customProducts: {
+      type: Array
     },
     showVideo: {
       type: Boolean,
@@ -208,6 +230,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     attachId() {
       return _.get(this.item.value, "id", 0);
     },
@@ -219,11 +244,15 @@ export default {
     },
 
     selectItem(type, value) {
-      this.item = {
-        type: type,
-        value: value,
-      };
-      this.$emit("input", this.item);
+      // console.log("selectItem Item:", type, value);
+      // console.log("selectItem Value:", value);
+      // var item = {
+      //   type: type,
+      //   value: value,
+      // };
+
+      this.$emit("getSelected", {type, value});
+      // console.log("selectItem emitted:", {type, value});
       this.dismiss();
     },
 
@@ -233,10 +262,11 @@ export default {
   },
 
   created() {
-    this.item = {
-      type: this._props.value.type,
-      value: this._props.value.value,
-    };
+    // console.log('on created value: ', this._props.value);
+    // this.item = {
+    //   type: this._props.value.type,
+    //   value: this._props.value.value,
+    // };
 
     this.active_tab = this.item.type;
 
@@ -264,8 +294,8 @@ export default {
       StreamService.getStreams(vid_params) // take further appro. look at data from backend
     ])
       .then((values) => {
-        this.albums = values[0].body;
-        this.products = values[1].body;
+        this.albums = this.customAlbums || values[0].body;
+        this.products = this.customProducts || values[1].body;
         this.videos = values[2].body.streams;
         this.$store.dispatch("error/showLoadingActivity", false);
       })
@@ -311,6 +341,10 @@ export default {
 
   &.fullscreen {
     height: 100%;
+
+    .modal__content {
+      padding: 8px 18px;
+    }
   }
   &.onMobile {
     .dismisser .icon {
@@ -360,7 +394,7 @@ export default {
     width: 100%;
     //height: 75px;
     border-top: 0.75px solid #e1e1e1;
-    border-bottom: 0.75px solid #e1e1e1;
+    border-bottom: 1px solid #00000026;
     border-top-left-radius: 7.5px;
     border-top-right-radius: 7.5px;
     background: #fafafa;

@@ -138,7 +138,7 @@
 <style lang="scss" scoped>
 .albums-page.onMobile {
   .feed-card {
-    padding: 3px;
+    // padding: 3px;
   }
 }
 .vertical-divider {

@@ -14,6 +14,7 @@ import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
 import repostPaymentModal from '@/components/repost_payment_modal'
 import SendLoveModal from '@/components/sendlovemodal'
+import SMS from '@/components/SMS'
 import message from './components/message'
 
 const ActionCable = require('actioncable')
@@ -26,6 +27,7 @@ export default {
     message,
     repostPaymentModal,
     SendLoveModal,
+    SMS,
   },
 
   mixins: [onClickOutside],
@@ -75,6 +77,7 @@ export default {
       },
       repostedFeeds: [],
       isPageReady: false,
+      smsActive: false,
     }
   },
 
@@ -524,6 +527,12 @@ export default {
           this.message.body = DefaultRepostMessage
         }
       }
+    },
+    initSMS() {
+      this.smsActive = true
+    },
+    closeSMS() {
+      this.smsActive = false
     },
   },
 
