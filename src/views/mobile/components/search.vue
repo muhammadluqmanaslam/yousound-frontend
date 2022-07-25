@@ -140,7 +140,7 @@
 <script>
 import SearchService from "@/services/search";
 import UserTag from "@/components/user_tag";
-import UserFollowBtn from "@/components/userFollowbtn.vue";
+import UserFollowBtn from "@/components/userFollowBtn";
 import trackcardsimple from "@/components/trackcardsimple";
 import VideoBox from "@/components/video_box";
 import productCard from "@/components/productcard";
