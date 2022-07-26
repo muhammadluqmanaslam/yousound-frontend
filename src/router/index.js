@@ -115,7 +115,7 @@ export function createRouter(settings) {
       name: 'ResetPassword',
       component: ResetPassword,
     },
-    { path: '/terms', name: 'TermsPage', component: TermsPage },
+    { path: '/terms', name: 'TermsPage', component: TermsPage, meta: {allowOnMobile: true} },
     { path: '/squad', name: 'OverviewPage', component: OverviewPage },
     {
       path: '/_oauth/verification',
