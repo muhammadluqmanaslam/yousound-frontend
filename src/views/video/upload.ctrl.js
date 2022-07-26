@@ -90,6 +90,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     mergedAttachmentItems() {
       const combined = [...this.albums, ...this.products]
       console.log('combined: ', combined);
@@ -126,6 +129,10 @@ export default {
     },
   },
   created() {
+    if (this.onMobile) {
+      this.$router.push({name: "UploadIndex"})
+    }
+
     this.getAttachmentItems()
 
     this.$store.dispatch('navigator/goNextState', {

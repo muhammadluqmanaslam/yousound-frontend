@@ -94,6 +94,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     hasFree_stream_seconds() {
       return this.user.free_stream_seconds !== undefined && this.user.free_stream_seconds > 0
     },
@@ -174,7 +177,10 @@ export default {
   // },
 
   async created() {
-    console.log(1);
+    if (this.onMobile) {
+      this.$router.push({name: "UploadIndex"})
+    }
+
     await this.getUser()
     console.log(2);
 

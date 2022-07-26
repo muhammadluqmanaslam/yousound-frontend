@@ -62,6 +62,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -120,6 +123,10 @@ export default {
   },
 
   created() {
+    if (this.onMobile) {
+      this.$router.push({name: "UploadIndex"})
+    }
+
     const slug = this.$route.params.slug
 
     this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })

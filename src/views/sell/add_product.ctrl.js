@@ -110,6 +110,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     isDigitalProduct() {
       return (
         this.digital_content_category_ids.indexOf(this.product.category) > -1
@@ -164,6 +167,10 @@ export default {
   },
 
   created() {
+    if (this.onMobile) {
+      this.$router.push({name: "UploadIndex"})
+    }
+
     this.$store.dispatch('navigator/goNextState', {
       page: 'sell',
       tab: 'products',
