@@ -102,9 +102,9 @@ Vue.use(Router)
 
 export function createRouter(settings) {
   let routes = [
-    { path: '/', name: 'Home', component: setComponent('landingPages/landing1', true) },
-    { path: '/creators', name: 'Creators', component: Creators },
-    { path: '/adfree', name: 'AdFree', component: AdFree },
+    { path: '/', name: 'Home', component: setComponent('landingPages/landing1', true), meta: {allowOnMobile: true} },
+    { path: '/creators', name: 'Creators', component: Creators, meta: {allowOnMobile: true} },
+    { path: '/adfree', name: 'AdFree', component: AdFree, meta: {allowOnMobile: true} },
     // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
     // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },

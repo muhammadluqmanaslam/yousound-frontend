@@ -131,6 +131,16 @@ switch (browserName) {
     break
 }
 
+// Detect if device is on mobile then render dynamic component where necessary
+const isMobile = () => {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    return true
+  } else {
+    return false
+  }
+}
+const onMobile = isMobile()
+
 if (isOldBrowser) {
   const app = new Vue({
     template: '<BrowserPage/>',
@@ -142,7 +152,16 @@ if (isOldBrowser) {
   SettingService.getSettings().then((response) => {
     const settings = response.body
     const router = createRouter(settings)
-    router.beforeEach((to, frm, next) => {
+    router.beforeEach((to, from, next) => {
+      // Block all mobile
+      const isAllowedOnMobile = to.meta.allowOnMobile;
+      if (onMobile && !isAllowedOnMobile) {
+        return next({
+          name: "Home",
+          replace: true,
+        })
+      }
+
       if (
         /^\/(x)$/.test(to.path) &&
         store.state.auth.secret_code !== process.env.SECRET_CODE
