@@ -538,6 +538,10 @@ li.search-li {
   flex-direction: column;
   min-height: 100vh;
 
+  &.wrapFullHeight {
+    min-height: auto;
+  }
+
   .page {
     flex: 1;
   }

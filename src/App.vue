@@ -60,7 +60,7 @@
       <v-container
         fluid
         class="app-container"
-        :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'not-authenticated': !isAuthenticated}"
+        :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'not-authenticated': !isAuthenticated, wrapFullHeight}"
       >
         <router-view></router-view>
         <app-footer v-if="!onMobile && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
@@ -204,6 +204,9 @@ export default {
     },
     hideMobileHeader() {
       return this.$route.meta.hideMobileHeader;
+    },
+    wrapFullHeight() {
+      return this.$route.meta.wrapFullHeight;
     },
   },
 
