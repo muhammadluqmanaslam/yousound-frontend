@@ -11,7 +11,9 @@
             :href="`#${tab.id}`"
             :class="{ 'active tab-active': isActiveTab(tab.id) }"
           >
-            <label @click="onTab(tab.id)" class="innerBold">{{ tab.title }}</label>
+            <label @click="onTab(tab.id)" class="innerBold">{{
+              tab.title
+            }}</label>
           </li>
         </ul>
       </template>
@@ -49,7 +51,10 @@
                       'background-image': 'url(' + profile.image + ')',
                     }"
                   ></div>
-                  <div class="profile-image-upload-section" v-if="!profile.image">
+                  <div
+                    class="profile-image-upload-section"
+                    v-if="!profile.image"
+                  >
                     <input
                       type="file"
                       name="profile_image_file"
@@ -62,7 +67,10 @@
                       <v-icon class="camera">photo_camera</v-icon>Add
                     </label>
                   </div>
-                  <div class="profile-image-change-section" v-if="profile.image">
+                  <div
+                    class="profile-image-change-section"
+                    v-if="profile.image"
+                  >
                     <input
                       type="file"
                       name="profile_image_file"
@@ -77,7 +85,14 @@
                   </div>
                 </div>
 
-                <v-btn v-if="onMobile" depressed round class="logout-btn" @click="signOut">Log out</v-btn>
+                <v-btn
+                  v-if="onMobile"
+                  depressed
+                  round
+                  class="logout-btn"
+                  @click="signOut"
+                  >Log out</v-btn
+                >
               </div>
             </v-flex>
             <v-flex xs12 sm6 form-group>
@@ -155,9 +170,9 @@
               <v-btn
                 class="cancel-account-btn"
                 @click.native.stop="dialog = true"
-                >
-                  Delete account & data
-                </v-btn>
+              >
+                Delete account & data
+              </v-btn>
               <v-dialog v-model="dialog">
                 <v-card>
                   <v-card-title class="headline">Cancel Account</v-card-title>
@@ -433,7 +448,7 @@
 }
 
 .logout-btn {
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   background: transparent;
 }
 </style>
