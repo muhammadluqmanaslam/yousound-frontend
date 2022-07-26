@@ -1,5 +1,5 @@
 <template>
-  <div row wrap class="page settings-page mx-5">
+  <div row wrap class="page settings-page mx-5" :class="{onMobile}">
     <dashboard-nav name="settings" :replaceMenuWith="replaceTopMenu" />
 
     <content-top-header absolute class="__inner mt-3">

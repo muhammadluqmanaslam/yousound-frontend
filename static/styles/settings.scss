@@ -1,4 +1,11 @@
 .page.settings-page {
+
+  &.onMobile {
+    .update-btn {
+      background: #000000;
+      color: #ffffff;
+    }
+  }
   .main-section {
     // margin-left: 240px;
     // &.active {
