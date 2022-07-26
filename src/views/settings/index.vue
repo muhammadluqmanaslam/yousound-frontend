@@ -38,42 +38,46 @@
         <div class="content-section">
           <v-layout row wrap ma-0 profile-section>
             <v-flex xs12 pa-0>
-              <div class="profile-image-section">
-                <!-- <img class="profile-image" id="profile_image" v-if="profile.image" :src="profile.image"/> -->
-                <div
-                  class="profile-image"
-                  id="profile_image"
-                  v-if="profile.image"
-                  :style="{
-                    'background-image': 'url(' + profile.image + ')',
-                  }"
-                ></div>
-                <div class="profile-image-upload-section" v-if="!profile.image">
-                  <input
-                    type="file"
-                    name="profile_image_file"
-                    id="profile_image_file"
-                    class="add-profile-image-file"
-                    accept="image/*"
-                    @change="profileImageChanged($event)"
-                  />
-                  <label for="profile_image_file">
-                    <v-icon class="camera">photo_camera</v-icon>Add
-                  </label>
+              <div class="dflex align-center justify-space-between">
+                <div class="profile-image-section">
+                  <!-- <img class="profile-image" id="profile_image" v-if="profile.image" :src="profile.image"/> -->
+                  <div
+                    v-if="profile.image"
+                    class="profile-image"
+                    id="profile_image"
+                    :style="{
+                      'background-image': 'url(' + profile.image + ')',
+                    }"
+                  ></div>
+                  <div class="profile-image-upload-section" v-if="!profile.image">
+                    <input
+                      type="file"
+                      name="profile_image_file"
+                      id="profile_image_file"
+                      class="add-profile-image-file"
+                      accept="image/*"
+                      @change="profileImageChanged($event)"
+                    />
+                    <label for="profile_image_file">
+                      <v-icon class="camera">photo_camera</v-icon>Add
+                    </label>
+                  </div>
+                  <div class="profile-image-change-section" v-if="profile.image">
+                    <input
+                      type="file"
+                      name="profile_image_file"
+                      id="profile_image_file"
+                      class="change-profile-image-file"
+                      accept="image/*"
+                      @change="profileImageChanged($event)"
+                    />
+                    <label for="profile_image_file">
+                      <v-icon class="camera">photo_camera</v-icon>Update
+                    </label>
+                  </div>
                 </div>
-                <div class="profile-image-change-section" v-if="profile.image">
-                  <input
-                    type="file"
-                    name="profile_image_file"
-                    id="profile_image_file"
-                    class="change-profile-image-file"
-                    accept="image/*"
-                    @change="profileImageChanged($event)"
-                  />
-                  <label for="profile_image_file">
-                    <v-icon class="camera">photo_camera</v-icon>Update
-                  </label>
-                </div>
+
+                <v-btn v-if="onMobile" depressed round class="logout-btn" @click="signOut">Log out</v-btn>
               </div>
             </v-flex>
             <v-flex xs12 sm6 form-group>
@@ -151,8 +155,9 @@
               <v-btn
                 class="cancel-account-btn"
                 @click.native.stop="dialog = true"
-                >Cancel my account</v-btn
-              >
+                >
+                  Delete account & data
+                </v-btn>
               <v-dialog v-model="dialog">
                 <v-card>
                   <v-card-title class="headline">Cancel Account</v-card-title>
@@ -179,9 +184,10 @@
               </v-dialog>
             </v-flex>
             <v-flex xs12 sm6 form-group>
-              <v-btn class="update-btn" @click.native="updateAccount()"
-                >Update</v-btn
-              >
+              <v-btn class="update-btn" @click.native="updateAccount()">
+                <span v-if="onMobile">Save</span>
+                <span v-else>Update</span>
+              </v-btn>
               <!-- <p class="regular-checkbox enable-alerts settings">
                 <input
                   type="checkbox"
@@ -423,6 +429,11 @@
 <style lang="scss">
 .top-menu .__inner label {
   font-weight: 400;
-  font-size: 14px
+  font-size: 14px;
+}
+
+.logout-btn {
+  border: 1px solid #D8D8D8;
+  background: transparent;
 }
 </style>

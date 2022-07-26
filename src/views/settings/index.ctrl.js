@@ -3,6 +3,7 @@ import _ from 'lodash'
 import MeService from '@/services/me'
 import AuthService from '@/services/auth'
 import UserService from '@/services/user'
+import { MyEvents } from '@/helper'
 
 import trackCard from '@/components/trackcard'
 import profileItem from '@/components/profileitem'
@@ -75,6 +76,9 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -119,9 +123,9 @@ export default {
 
     this.getUserInfo()
     // this.$store.dispatch('navigator/goNextState', {
-      //   page: 'settings',
-      //   tab: tab,
-      // })
+    //   page: 'settings',
+    //   tab: tab,
+    // })
 
     const tab = this.$route.hash.substr(1) || this.$route.params.tab || 'info'
     this.onTab(tab || tab.id)
@@ -136,6 +140,11 @@ export default {
   },
 
   methods: {
+    signOut() {
+      AuthService.signout()
+      this.$router.push({ path: '/login' })
+      this.$root.$emit(MyEvents.AUTH_SIGNOUT)
+    },
     isActiveTab(tab) {
       return this.active_tab === tab
     },
@@ -210,6 +219,16 @@ export default {
           this.$store.dispatch('error/showLoadingActivity', false)
           AuthService.setUser(response.body)
           this.user = _.cloneDeep(response.body)
+
+          const permitted_keys = Object.keys(this.profile)
+          permitted_keys.forEach(k => {
+            if (k == "image") {
+              this.profile[k] = response.body.avatar.url
+            } else if (permitted_keys.includes(k)) {
+              this.profile[k] = response.body[k]
+            }
+          })
+
           // this.resetProfile()
           // this.resetShippingAddress()
           // this.resetGenres()
