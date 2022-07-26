@@ -35,16 +35,41 @@
 
       <v-spacer></v-spacer>
       <h5 class="mb-5 mt-15">${{ plan.price }} <span>/month</span></h5>
-      <v-btn class="plan_btn"> Start free trial </v-btn>
+      <v-btn class="plan_btn" @click="subscribe(plan.stripeId)"> Start free trial </v-btn>
     </div>
   </v-flex>
 </template>
 
 <script>
+import SubscriptionService from '@/services/subscription.js'
+
 export default {
   name: "Plan",
   props: {
     plan: Object,
+  },
+  methods: {
+    subscribe(priceId) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      console.log("priceId===>", priceId)
+      SubscriptionService.createSubscription({price_id: priceId})
+        .then((response) => {
+          console.log("==response==", response)
+
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$router.push({ name: 'DiscoverIndex' })
+          this.$store.dispatch(
+            'error/showSuccessToast', response.body.message
+          )
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
   },
 };
 </script>
