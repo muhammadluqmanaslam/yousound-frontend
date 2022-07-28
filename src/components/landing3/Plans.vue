@@ -30,7 +30,7 @@ export default {
           active: false,
           price: "9.99",
           id: "basic",
-          stripeId: "price_1LPqmhHfsAiHbCEbaJtZoBDh",
+          stripePriceId: process.env.BASIC_PRICE_ID,
         },
         {
           title: "Plus",
@@ -38,7 +38,7 @@ export default {
           active: true,
           price: "29.99",
           id: "plus",
-          stripeId: "price_1LPqpQHfsAiHbCEbLsitOplR",
+          stripePriceId: process.env.PLUS_PRICE_ID,
         },
         {
           title: "Pro",
@@ -46,7 +46,7 @@ export default {
           active: false,
           price: "99.99",
           id: "pro",
-          stripeId: "price_1LPqr4HfsAiHbCEbg6iyqmrT",
+          stripePriceId: process.env.PRO_PRICE_ID,
         },
       ],
     };
