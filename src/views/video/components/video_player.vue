@@ -6,15 +6,6 @@
     :class="{onMobile}"
     :playsinline="onMobile"
     controls
-    data-setup='{
-    "plugins": {
-            "vastClient": {
-                "adTagUrl": "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490",
-                "adsCancelTimeout": 3000,
-                "adsEnabled": true,
-                "preferredTech":"html5",
-            }
-    }}'
   ></video>
 </template>
 
@@ -39,8 +30,9 @@ export default {
 
   mounted() {
     this.videoId = this.$route.params.videoId
+    // this.initPlayer()
     // window.videojs(this.$refs.myVideoPlayer);
-    // console.log('video_player created')
+    console.log('video_player created')
     this.$nextTick(() => {
       if (!this.pipMode && this.allVideosCount < 1) {
         console.log('init player');
@@ -61,7 +53,7 @@ export default {
         // there is a player in DOM, update original div wrapper
         // this is a fix for the DOM dissapearing when video page is re-visited
         let nodeDetails = this.$store.state.streamPlayer.nodeDetails
-        let glitchedVid = document.getElementById('my_video_player')
+        let glitchedVid = document.getElementById('myVideoPlayer')
 
         console.log('nodeDetails', nodeDetails);
         console.log('glitchedVid', glitchedVid);
@@ -106,8 +98,7 @@ export default {
     initPlayer() {
       const vm = this
       vm.player =
-        vm.player ||
-        window.videojs('myVideoPlayer', {
+        vm.player || window.videojs('myVideoPlayer', {
           autoplay: false,
           controls: true,
           sources: [
@@ -118,6 +109,13 @@ export default {
           ],
         })
 
+      var options = {
+        id: 'myVideoPlayer',
+      };
+      vm.player.ima(options);
+      vm.player.ima.initializeAdDisplayContainer();
+      vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
+      vm.player.ima.requestAds();
       // register method
       this.pauseMusicOnPlay()
     },
