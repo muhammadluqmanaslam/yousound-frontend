@@ -6,6 +6,15 @@
     :class="{onMobile}"
     :playsinline="onMobile"
     controls
+    data-setup='{
+    "plugins": {
+            "vastClient": {
+                "adTagUrl": "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490",
+                "adsCancelTimeout": 3000,
+                "adsEnabled": true,
+                "preferredTech":"html5",
+            }
+    }}'
   ></video>
 </template>
 
