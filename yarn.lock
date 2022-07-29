@@ -3,11 +3,11 @@
 
 
 "@mux/upchunk@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@mux/upchunk/-/upchunk-2.2.2.tgz#52d629d435b50c32b2fed39566501a2210446805"
-  integrity sha512-uaiQYdROFHM9LMasSJ0vDuwSv0nR/BxjkLOm11N2CIsynzz+Axfvy49Kg8r6Mq/DrRKsyrQP9z/Tl0LfAvX/aQ==
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@mux/upchunk/-/upchunk-2.4.0.tgz#bb8d539eb47cb420ba9ef3c20f97b92bb88c5a91"
+  integrity sha512-KzXq4hYz7ak3nkRe0UR9ho7rZHUgm5SdsiJlk+wt5VnhdPObuk4S8gZhcqI56xrAxPO0G6FFxlSJhUJ+l4IdPQ==
   dependencies:
-    event-target-shim "^4.0.3"
+    event-target-shim "^6.0.2"
     xhr "^2.6.0"
 
 abbrev@1:
@@ -2744,10 +2744,10 @@ event-emitter@~0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-event-target-shim@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-4.0.3.tgz#758cd632cd4241f5a73ceec64f93f0d7b0ae77d6"
-  integrity sha512-YXVJDPGzU0yhSzrXGoEFAByEaLnZXSlJDHXkq4Hp6WrlnV66tADiZugYf1utTaCP/dsYRcLndAhecbq9mnbbqg==
+event-target-shim@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-6.0.2.tgz#ea5348c3618ee8b62ff1d344f01908ee2b8a2b71"
+  integrity sha512-8q3LsZjRezbFZ2PN+uP+Q7pnHUMmAOziU2vA2OwoFaKIXxlxl38IylhSSgUorWu/rf4er67w0ikBqjBFk/pomA==
 
 eventemitter3@^4.0.0:
   version "4.0.0"
@@ -4951,7 +4951,7 @@ mimic-response@^1.0.0:
 min-document@^2.19.0:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/min-document/-/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
-  integrity sha1-e9KC4/WELtKVu3SM3Z8f+iyCRoU=
+  integrity sha512-9Wy1B3m3f66bPPmU5hdA4DR4PB2OfDU/+GS3yAB7IQozE3tqXaVv2zOjgla7MEGSRv95+ILmOuvhLkOK6wJtCQ==
   dependencies:
     dom-walk "^0.1.0"
 
@@ -5638,9 +5638,9 @@ parse-filepath@^1.0.1:
     path-root "^0.1.1"
 
 parse-headers@^2.0.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/parse-headers/-/parse-headers-2.0.3.tgz#5e8e7512383d140ba02f0c7aa9f49b4399c92515"
-  integrity sha512-QhhZ+DCCit2Coi2vmAKbq5RGTRcQUOE2+REgv8vdyu7MnYx2eZztegqtTx99TZ86GTIwqiy3+4nQTWZ2tgmdCA==
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/parse-headers/-/parse-headers-2.0.5.tgz#069793f9356a54008571eb7f9761153e6c770da9"
+  integrity sha512-ft3iAoLOB/MlwbNXgzy43SWGP6sQki2jQvAyBg/zDFAgr9bfNWZIUj42Kw2eJIl8kEi4PbgE6U1Zau/HwI75HA==
 
 parse-json@^2.2.0:
   version "2.2.0"

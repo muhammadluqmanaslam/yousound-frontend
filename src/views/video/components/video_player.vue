@@ -1,7 +1,7 @@
 <template>
   <video
     ref="myVideoPlayer"
-    id="my_video_player"
+    id="myVideoPlayer"
     class="video-js vjs-default-skin vjs-fluid"
     :class="{onMobile}"
     :playsinline="onMobile"
@@ -39,7 +39,7 @@ export default {
 
   mounted() {
     this.videoId = this.$route.params.videoId
-
+    // window.videojs(this.$refs.myVideoPlayer);
     // console.log('video_player created')
     this.$nextTick(() => {
       if (!this.pipMode && this.allVideosCount < 1) {
@@ -98,7 +98,6 @@ export default {
         {
           type: 'application/x-mpegURL',
           src: this.src,
-          // 'https://stream.mux.com/k2XvrNIFth736J8WZpN5czeEqSsNlsp02GUu4W00YDu02Q.m3u8',
         },
       ])
     },
@@ -108,7 +107,7 @@ export default {
       const vm = this
       vm.player =
         vm.player ||
-        window.videojs('my_video_player', {
+        window.videojs('myVideoPlayer', {
           autoplay: false,
           controls: true,
           sources: [
