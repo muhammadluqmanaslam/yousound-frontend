@@ -18,27 +18,29 @@
             :options='options'
             @change='number = $event.complete'
           />
-          <card-expiry class='stripe-element card-expiry payment-card'
-            :class="{ complete }"
-            ref='cardExpiry'
-            :stripe='stripePubkey'
-            :options='options'
-            @change='expiry = $event.complete'
-          />
-          <card-cvc class='stripe-element card-cvc payment-card'
-            :class="{ complete }"
-            ref='cardCvc'
-            :stripe='stripePubkey'
-            :options='options'
-            @change='cvc = $event.complete'
-          />
-          <div class="divider"></div>
-          <v-btn
-            class="btn-cta"
-            @click="paymentMethod()"
-            :disabled="!complete"
-            >Pay ${{ (finalAmount)}}</v-btn
-          >
+          <div class="card-box-bottom">
+            <card-expiry class='stripe-element card-expiry payment-card'
+              :class="{ complete }"
+              ref='cardExpiry'
+              :stripe='stripePubkey'
+              :options='options'
+              @change='expiry = $event.complete'
+            />
+            <card-cvc class='stripe-element card-cvc payment-card'
+              :class="{ complete }"
+              ref='cardCvc'
+              :stripe='stripePubkey'
+              :options='options'
+              @change='cvc = $event.complete'
+            />
+            <div class="divider"></div>
+            <v-btn
+              class="btn-cta"
+              @click="paymentMethod()"
+              :disabled="!complete"
+              >Pay ${{ (finalAmount)}}</v-btn
+            >
+          </div>
         </div>
 
         <div class="box__footer">
@@ -56,6 +58,41 @@
   height: 100vh;
   top: 0;
   left: 0;
+}
+.credit-card-inputs {
+  margin-top: 20px;
+}
+.card-box-bottom {
+  width: 83%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.card-number,
+.card-expiry,
+.card-cvc {
+  border: none;
+  width: 83%;
+  margin: auto;
+  padding: 10px;
+  color: #000;
+  background: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.card-expiry {
+  width: 54%;
+}
+.card-cvc {
+  width: 42%;
+  margin-left: 10px;
+}
+.card-box-bottom button {
+  width: 100%;
+  font-size: 16px;
+  padding: 26px;
+  border-radius: 4px;
+  margin: 5px 0 0;
 }
 
 .box {
