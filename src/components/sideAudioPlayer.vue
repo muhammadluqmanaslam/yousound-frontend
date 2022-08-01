@@ -420,7 +420,7 @@ export default {
         // Pause video on audio play
         try {
           // eslint-disable-next-line no-undef
-          var pp = videojs("my_video_player");
+          var pp = videojs("myVideoPlayer");
           if (!pp.paused()) {
             pp.pause();
           }

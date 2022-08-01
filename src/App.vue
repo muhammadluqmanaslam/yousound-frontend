@@ -214,7 +214,7 @@ export default {
     $route(to, from) {
       this.initLoader()
 
-      const parentNode = document.getElementById('my_video_player')
+      const parentNode = document.getElementById('myVideoPlayer')
       this.$nextTick(() => this.watchPip(to, from, parentNode))
 
       const toPath = to.path.split('/')
@@ -393,7 +393,7 @@ export default {
 
       if (to.name === 'VideoShow') {
         // eslint-disable-next-line no-undef
-        const pp = videojs('my_video_player')
+        const pp = videojs('myVideoPlayer')
 
         videoId = to.params.videoId
         const nodeDetails = this.$store.state.streamPlayer.nodeDetails
@@ -431,7 +431,7 @@ export default {
     closeVideoInDOM() {
       try {
         // eslint-disable-next-line no-undef
-        const pp = videojs('my_video_player')
+        const pp = videojs('myVideoPlayer')
 
         if (pp && !pp.isInPictureInPicture()) {
           pp.dispose()
