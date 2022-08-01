@@ -182,13 +182,13 @@
           Confirm
         </v-btn>
 
-        <h3
+        <!-- <h3
           v-if="digitEntered"
           class="cursor-pointer"
           @click="digitEntered = false"
         >
           Update my number
-        </h3>
+        </h3> -->
         <h3 v-if="!digitEntered" class="cursor-pointer" @click="closeSMS">
           No thanks, I’ll just follow
         </h3>
@@ -354,6 +354,7 @@ import UserTag from "@/components/user_tag";
 import AttachSlide from "@/components/attachSlide";
 import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement"
 import { mapState } from "vuex";
+// import UserService from '@/services/user'
 
 export default {
   components: {
@@ -387,9 +388,13 @@ export default {
   watch: {
     telDigits: {
       handler(val) {
+        console.log(val.length, this.digitsLen)
         if (val.length < this.digitsLen) {
           this.$refs[`input${[val.length]}`][0].focus();
         }
+        //  else {
+        //   this.digitEntered = true
+        // }
       },
       deep: true,
     },
@@ -424,12 +429,23 @@ export default {
       this.showCardPanel = true;
     },
     submitTel() {
+      console.log("------submitTel------")
       const validate =
         this.telDigits.length === this.digitsLen &&
         this.telDigits.every((tel) => typeof tel === "number");
 
       if (validate) {
         this.digitEntered = true;
+        console.log("this.telDigits", this.telDigits, this.currentUser)
+        var params = {phone: this.telDigits}
+        console.log("params===>", params)
+        // UserService.updateUserInfo(this.currentUser.id, params)
+        // .then((response) => {
+        //   AuthService.setUser(response.body)
+        // })
+        // .catch((e) => {
+        //   console.log(e)
+        // })
       }
     },
     delDigit(evt, idx) {
