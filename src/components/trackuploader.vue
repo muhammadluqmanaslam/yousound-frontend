@@ -148,7 +148,7 @@
 /* global $:true */
 
 import _ from 'lodash'
-// import * as UpChunk from '@mux/upchunk'
+import * as UpChunk from '@mux/upchunk'
 import TrackService from '@/services/track.js'
 import draggable from 'vuedraggable'
 import contentTopHeader from '@/components/contentTopHeader'
@@ -248,31 +248,31 @@ export default {
           // upload mux
           file.track = response.body
           console.log("track response===", response.body)
-          // const upload_url = file.track.audio
+          const upload_url = file.track.audio
 
-          // const upload = UpChunk.createUpload({
-          //   endpoint: upload_url,
-          //   file: this.file[0],
-          //   chunkSize: 5120, // Uploads the file in ~5mb chunks
-          // })
+          const upload = UpChunk.createUpload({
+            endpoint: upload_url,
+            file: this.file[0],
+            chunkSize: 5120, // Uploads the file in ~5mb chunks
+          })
 
-          // upload.on('error', (err) => {
-          //   this.$store.dispatch('error/showLoadingActivity', false)
-          //   console.error('💥', err.detail)
-          // })
+          upload.on('error', (err) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            console.error('💥', err.detail)
+          })
 
-          // upload.on('progress', (progress) => {
-          //   this.$store.commit(
-          //     'error/setProgressBarValue',
-          //     parseInt(progress.detail)
-          //   )
-          // })
+          upload.on('progress', (progress) => {
+            this.$store.commit(
+              'error/setProgressBarValue',
+              parseInt(progress.detail)
+            )
+          })
 
-          // upload.on('success', () => {
-          //   this.$store.dispatch('error/showLoadingActivity', false)
-          //   console.log("Wrap it up, we're done here. 👋")
-          //   // this.$router.push({ path: `/video/${this.video.id}/show` })
-          // })
+          upload.on('success', () => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            console.log("Wrap it up, we're done here. 👋")
+            // this.$router.push({ path: `/video/${this.video.id}/show` })
+          })
         })
         .catch((e) => {
           file.editing = false

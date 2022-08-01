@@ -1,4 +1,4 @@
-// import * as UpChunk from '@mux/upchunk'
+import * as UpChunk from '@mux/upchunk'
 import AuthService from '@/services/auth'
 import MeService from '@/services/me'
 import PaymentService from '@/services/payment'
@@ -432,29 +432,29 @@ export default {
                 this.video = response.body
                 const upload_url = this.video.upload_url
 
-                // const upload = UpChunk.createUpload({
-                //   endpoint: upload_url,
-                //   file: this.videoFile[0],
-                //   chunkSize: 5120, // Uploads the file in ~5mb chunks
-                // })
+                const upload = UpChunk.createUpload({
+                  endpoint: upload_url,
+                  file: this.videoFile[0],
+                  chunkSize: 5120, // Uploads the file in ~5mb chunks
+                })
 
-                // upload.on('error', (err) => {
-                //   this.$store.dispatch('error/showLoadingActivity', false)
-                //   console.error('💥', err.detail)
-                // })
+                upload.on('error', (err) => {
+                  this.$store.dispatch('error/showLoadingActivity', false)
+                  console.error('💥', err.detail)
+                })
 
-                // upload.on('progress', (progress) => {
-                //   this.$store.commit(
-                //     'error/setProgressBarValue',
-                //     parseInt(progress.detail)
-                //   )
-                // })
+                upload.on('progress', (progress) => {
+                  this.$store.commit(
+                    'error/setProgressBarValue',
+                    parseInt(progress.detail)
+                  )
+                })
 
-                // upload.on('success', () => {
-                //   this.$store.dispatch('error/showLoadingActivity', false)
-                //   console.log("Wrap it up, we're done here. 👋")
-                //   this.$router.push({ path: `/video/${this.video.id}/show` })
-                // })
+                upload.on('success', () => {
+                  this.$store.dispatch('error/showLoadingActivity', false)
+                  console.log("Wrap it up, we're done here. 👋")
+                  this.$router.push({ path: `/video/${this.video.id}/show` })
+                })
               })
               .catch((e) => {
                 console.log(e)
