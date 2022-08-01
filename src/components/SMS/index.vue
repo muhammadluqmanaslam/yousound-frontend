@@ -162,8 +162,6 @@
               class="digit _num"
               pattern="([0-9])"
               maxlength="1"
-              @keydown.delete="delDigit($event, idx)"
-              @keyup.enter="submitTel"
             />
             <span v-if="idx === 2" class="digit">)</span>
             <span v-if="idx === 6" class="digit">-</span>
@@ -172,12 +170,12 @@
         <div v-else class="_tel-entered">{{ telFormatted }}</div>
 
         <v-btn
-          v-if="digitEntered"
           round
           dark
           depressed
           class="width100"
-          @click="signUpDone = true"
+          :disabled="!isValid"
+          @click="submitTel()"
         >
           Confirm
         </v-btn>
@@ -383,6 +381,7 @@ export default {
       smsEngagementActive: false,
       isUserSignedUp: false,
       isUserSubscribed: false,
+      isValid: false,
     };
   },
   watch: {
@@ -430,11 +429,12 @@ export default {
     },
     submitTel() {
       console.log("------submitTel------")
-      const validate =
+      // signUpDone = true
+      this.isValid =
         this.telDigits.length === this.digitsLen &&
         this.telDigits.every((tel) => typeof tel === "number");
 
-      if (validate) {
+      if (this.isValid) {
         this.digitEntered = true;
         console.log("this.telDigits", this.telDigits, this.currentUser)
         var params = {phone: this.telDigits}
