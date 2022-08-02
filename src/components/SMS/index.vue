@@ -162,6 +162,8 @@
               class="digit _num"
               pattern="([0-9])"
               maxlength="1"
+              @keydown.delete="delDigit($event, idx)"
+              @keyup.enter="submitTel"
             />
             <span v-if="idx === 2" class="digit">)</span>
             <span v-if="idx === 6" class="digit">-</span>
@@ -170,23 +172,23 @@
         <div v-else class="_tel-entered">{{ telFormatted }}</div>
 
         <v-btn
+          v-if="digitEntered"
           round
           dark
           depressed
           class="width100"
-          :disabled="!isValid"
-          @click="submitTel()"
+          @click="updatePhoneNo()"
         >
           Confirm
         </v-btn>
 
-        <!-- <h3
+        <h3
           v-if="digitEntered"
           class="cursor-pointer"
           @click="digitEntered = false"
         >
           Update my number
-        </h3> -->
+        </h3>
         <h3 v-if="!digitEntered" class="cursor-pointer" @click="closeSMS">
           No thanks, I’ll just follow
         </h3>
@@ -352,7 +354,8 @@ import UserTag from "@/components/user_tag";
 import AttachSlide from "@/components/attachSlide";
 import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement"
 import { mapState } from "vuex";
-// import UserService from '@/services/user'
+import UserService from '@/services/user'
+import AuthService from '@/services/auth.js'
 
 export default {
   components: {
@@ -381,19 +384,14 @@ export default {
       smsEngagementActive: false,
       isUserSignedUp: false,
       isUserSubscribed: false,
-      isValid: false,
     };
   },
   watch: {
     telDigits: {
       handler(val) {
-        console.log(val.length, this.digitsLen)
         if (val.length < this.digitsLen) {
           this.$refs[`input${[val.length]}`][0].focus();
         }
-        //  else {
-        //   this.digitEntered = true
-        // }
       },
       deep: true,
     },
@@ -428,24 +426,11 @@ export default {
       this.showCardPanel = true;
     },
     submitTel() {
-      console.log("------submitTel------")
-      // signUpDone = true
-      this.isValid =
+      const validate =
         this.telDigits.length === this.digitsLen &&
         this.telDigits.every((tel) => typeof tel === "number");
-
-      if (this.isValid) {
+      if (validate) {
         this.digitEntered = true;
-        console.log("this.telDigits", this.telDigits, this.currentUser)
-        var params = {phone: this.telDigits}
-        console.log("params===>", params)
-        // UserService.updateUserInfo(this.currentUser.id, params)
-        // .then((response) => {
-        //   AuthService.setUser(response.body)
-        // })
-        // .catch((e) => {
-        //   console.log(e)
-        // })
       }
     },
     delDigit(evt, idx) {
@@ -455,6 +440,19 @@ export default {
       this.signUpDone = false;
       this.digitEntered = false;
       this.$emit("closeSMS");
+    },
+    updatePhoneNo() {
+      const params = new FormData()
+      let phoneNumber = "+1" + this.telDigits.join("");
+      params.append('user[phone_name]', phoneNumber)
+      UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          AuthService.setUser(response.body)
+          this.signUpDone = true
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
   },
   computed: {
@@ -488,12 +486,16 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
     currentUser() {
-      return this.$store.state.auth.user;
+      return this.$store.state.auth.user
     },
   },
   mounted() {
     if (!this.isUserSignedUp) {
       this.$refs.input0[0].focus();
+    }
+    // console.log("currentUser-->", this.currentUser)
+    if (this.currentUser.stripe_subscription_id !== undefined && this.currentUser.stripe_subscription_id !== null) {
+      // this.isUserSubscribed = true
     }
   },
 };
