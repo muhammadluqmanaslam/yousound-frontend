@@ -109,13 +109,15 @@ export default {
           ],
         })
 
-      var options = {
-        id: 'myVideoPlayer',
-      };
-      vm.player.ima(options);
-      vm.player.ima.initializeAdDisplayContainer();
-      vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
-      vm.player.ima.requestAds();
+      if (this.currentUser.stripe_subscription_id === undefined && this.currentUser.stripe_subscription_id === null) {
+        var options = {
+          id: "myVideoPlayer",
+        };
+        vm.player.ima(options);
+        vm.player.ima.initializeAdDisplayContainer();
+        vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
+        vm.player.ima.requestAds();
+      }
       // register method
       this.pauseMusicOnPlay()
     },
@@ -163,16 +165,26 @@ export default {
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
   },
 }
 </script>
 
 <style lang="scss">
+.video-js .vjs-big-play-button {
+  top: 44% !important;
+  left: 44% !important;
+}
 .video-js button {
   outline: none;
   box-shadow: none;
 }
-
+.ima-ad-container{
+  left:0 !important;
+  top:0 !important;
+}
 .video-js .vjs-big-play-button {
 // position: relative;
 }
