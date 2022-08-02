@@ -3,6 +3,7 @@
     <discover-nav v-if="!isComp && !onMobile" pageName="music" />
 
     <content-top-header
+      v-if="isPageReady" 
       absolute :height="onMobile ? 35 : ''"
       class="__inner __doubleUl"
       :class="[{ onMobile}, {'pl-0': isComp}]"
@@ -66,7 +67,7 @@
 
           <li class="after-divider"></li>
 
-          <li class="my-0 mr-2">
+          <li class="my-0">
             <div
               class="genre-dialog-selector py-3"
               @mouseenter="hover_on_genre_button = true"
@@ -165,6 +166,7 @@
     position: relative;
     width: 50px;
     display: flex;
+    justify-content: flex-end;
 
     .genre-filter img {
       width: 20px;

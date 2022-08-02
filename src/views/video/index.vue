@@ -1,10 +1,15 @@
 <template>
-  <div class="page video-page index-page" :class="{ isComp: isComp}">
-    <discover-nav v-if="!isComp && !onMobile" class="mx-4" pageName="video" />
+  <div class="page video-page index-page" :class="{isComp}">
+    <discover-nav v-if="!isComp && !onMobile" pageName="video" />
 
-    <content-top-header absolute class="__inner __doubleUl" height="35" :class="{'pl-0': isComp}">
+    <content-top-header
+      v-if="isPageReady"
+      absolute
+      class="__inner __doubleUl" height="35"
+      :class="{'px-5': !isComp, 'pl-0': isComp}"
+    >
       <template slot="topHeader">
-        <ul :class="{'mx-3': !isComp}">
+        <ul :class="{'mr-3': !isComp}">
           <li v-if="isComp">
             <h1>Video</h1>
           </li>
@@ -30,7 +35,7 @@
           </li>
         </ul>
 
-        <ul v-if="!isComp && !onMobile" class="mx-5">
+        <ul v-if="!isComp && !onMobile" class="ml-5">
           <v-spacer></v-spacer>
           <li class="my-2">
             <v-menu
