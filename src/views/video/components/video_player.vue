@@ -109,7 +109,7 @@ export default {
           ],
         })
       console.log("=====stripe_subscription_id=====", this.currentUser.stripe_subscription_id)
-      if (this.currentUser.stripe_subscription_id === undefined && this.currentUser.stripe_subscription_id === null) {
+      if (this.currentUser.stripe_subscription_id === undefined || this.currentUser.stripe_subscription_id === null) {
         var options = {
           id: "myVideoPlayer",
         };
