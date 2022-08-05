@@ -1,10 +1,12 @@
 <template>
   <div class="user-follow-btn" :class="[`is_${theme}`]">
     <v-btn
+      class="follow-btn"
       :class="{
         'follow-btn': true,
-        follow: !user.is_following,
-        following: user.is_following,
+        follow: !userIsFollowing,
+        following: userIsFollowing,
+        btnBlock
       }"
       @click.native="followUser()"
       @mouseenter="buttonHover = true"
@@ -16,6 +18,9 @@
 </template>
 
 <script>
+import UserService from "@/services/user"
+import { MyEvents } from "@/helper"
+
 export default {
   props: {
     user: {
@@ -26,15 +31,58 @@ export default {
       type: String,
       default: "light",
     },
+    btnBlock: Boolean,
   },
   data() {
     return {
       buttonHover: false,
     };
   },
+  methods: {
+    followUser() {
+      if (this.userIsFollowing) {
+        UserService.unfollowUser(this.user.id)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just unfollowed ' + this.user.display_name,
+            ])
+            if (this.type === "product") {
+              this.$store.dispatch('player/updateFollowingStatus', false)
+            } else {
+              this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
+            }
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
+      } else {
+        UserService.followUser(this.user.id)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just followed ' + this.user.display_name,
+            ])
+            // this.user.is_following = true
+            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
+            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
+      }
+    },
+  },
   computed: {
+    userIsFollowing() {
+      return this.user.is_following
+    },
     followButtonText() {
-      if (this.user.is_following) {
+      if (this.userIsFollowing) {
         return this.buttonHover ? "Unfollow" : "Following";
       }
       return "Follow";
@@ -60,6 +108,10 @@ export default {
     &.follow {
       color: #3a92ff !important;
       border: 0.75px solid #3a92ff;
+
+      &.btnBlock {
+        border-radius: 0;
+      }
     }
     &.following {
       color: #000 !important;
@@ -71,6 +123,21 @@ export default {
     }
   }
 
+  &.is_blue {
+    .follow-btn {
+      height: 36px;
+
+      &.follow {
+        color: #ffffff !important;
+        background: #1872ff!important;
+        border: 0.75px solid #1872ff
+      }
+      &.following {
+        color: #000 !important;
+        border: 1px solid #0009;
+      }
+    }
+  }
   &.is_dark {
     .follow-btn {
       &.follow {
