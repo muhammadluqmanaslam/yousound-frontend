@@ -1,6 +1,6 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
-    <div v-if="sendSuccess" class="closedecoy" @click="outsideClick"></div>
+    <div class="closedecoy" @click="outsideClick"></div>
     <div v-if="isUserSignedUp && !isUserSubscribed" class="subscribe-view">
       <div v-if="!showCardPanel" class="intro">
         <div>
@@ -397,9 +397,7 @@ export default {
   methods: {
     outsideClick() {
       console.log("outside click");
-      if (this.sendSuccess) {
-        this.closeSMS()
-      }
+      this.closeSMS()
     },
     openEngagement() {
       this.smsEngagementActive = true;
