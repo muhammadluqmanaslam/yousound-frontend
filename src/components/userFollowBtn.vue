@@ -35,6 +35,9 @@ export default {
       type: String,
       default: "light",
     },
+    followParam: {
+      type: Object,
+    },
     btnBlock: Boolean,
   },
   data() {
@@ -64,7 +67,7 @@ export default {
             ]);
           })
       } else {
-        UserService.followUser(this.user.id)
+        UserService.followUser(this.user.id, this.followParam)
           .then((response) => {
             this.$store.dispatch('error/showSuccessToast', [
               'You just followed ' + this.user.display_name,
@@ -82,10 +85,18 @@ export default {
       }
     },
     postFollow(isfollowing) {
-      if (this.type === "product") {
-        this.$store.dispatch('player/updateFollowingStatus', false)
+      if (this.type === "player") {
+        if (isfollowing === "unfollow") {
+          this.$store.dispatch('player/updateFollowingStatus', false)
+        } else if (isfollowing === "follow") {
+          this.$store.dispatch('player/updateFollowingStatus', true)
+        }
       } else if (this.type === "default") {
-        this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
+        if (isfollowing === "unfollow") {
+          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
+        } else if (isfollowing === "follow") {
+          this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+        }
       }
 
       // update triggerer
