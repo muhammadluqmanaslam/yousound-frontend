@@ -1,5 +1,5 @@
 <template>
-  <div class="user-follow-btn" :class="[`is_${theme}`]">
+  <div class="user-follow-btn" :class="[`is_${theme}`]" @dblclick="followUser('test')">
     <v-btn
       class="follow-btn"
       :class="{
@@ -23,6 +23,10 @@ import { MyEvents } from "@/helper"
 
 export default {
   props: {
+    type: {
+      type: String,
+      required: true,
+    },
     user: {
       type: Object,
       required: true,
@@ -39,24 +43,25 @@ export default {
     };
   },
   methods: {
-    followUser() {
+    followUser(test) {
+      if (test && this.isUserSignedUp) {
+        return this.$store.dispatch('app/toggleGlobalSMS', true)
+      }
+
       if (this.userIsFollowing) {
         UserService.unfollowUser(this.user.id)
           .then((response) => {
             this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.user.display_name,
+              'You have unfollowed ' + this.user.display_name,
             ])
-            if (this.type === "product") {
-              this.$store.dispatch('player/updateFollowingStatus', false)
-            } else {
-              this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
-            }
+
+            this.postFollow("unfollow")
           })
           .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
+            console.log('unfollowUser error', e)
+            this.$store.dispatch("error/showErrorToast", [
+              "There was an issue unfollowing " + this.user.display_name,
+            ]);
           })
       } else {
         UserService.followUser(this.user.id)
@@ -64,20 +69,33 @@ export default {
             this.$store.dispatch('error/showSuccessToast', [
               'You just followed ' + this.user.display_name,
             ])
-            // this.user.is_following = true
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
+
+            this.postFollow("follow")
           })
           .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
+            console.log('followUser error', e)
+
+            this.$store.dispatch("error/showErrorToast", [
+              "There was an issue following " + this.user.display_name,
+            ]);
           })
       }
     },
+    postFollow(isfollowing) {
+      if (this.type === "product") {
+        this.$store.dispatch('player/updateFollowingStatus', false)
+      } else if (this.type === "default") {
+        this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
+      }
+
+      // update triggerer
+      this.$emit("afterFollow", isfollowing)
+    },
   },
   computed: {
+    isUserSignedUp() {
+      return false
+    },
     userIsFollowing() {
       return this.user.is_following
     },
