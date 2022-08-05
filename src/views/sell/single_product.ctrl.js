@@ -6,6 +6,7 @@ import _ from 'lodash'
 // import UserService from '@/services/user'
 import ProductService from '@/services/product'
 import MeService from '@/services/me'
+import CommentService from '@/services/comment'
 import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
@@ -15,7 +16,7 @@ import UserService from '@/services/user'
 import Comments from '@/components/comments'
 import UserTag from '@/components/user_tag'
 import ShareModal from '@/components/sharemodal'
-import CommentService from '@/services/comment'
+import UserFollowBtn from "@/components/userFollowBtn";
 
 export default {
   components: {
@@ -25,6 +26,7 @@ export default {
     Comments,
     UserTag,
     ShareModal,
+    UserFollowBtn,
   },
 
   data() {
@@ -337,6 +339,13 @@ export default {
             e.body.errors || [e.body]
           );
         });
+    },
+    afterFollow(isfollowing) {
+      if (isfollowing === "unfollow") {
+        this.product.merchant.is_following = false
+      } else if (isfollowing === "follow") {
+        this.product.merchant.is_following = true
+      }
     },
     followUser() {
       if (this.user.is_following) {

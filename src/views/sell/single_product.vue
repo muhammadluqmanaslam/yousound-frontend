@@ -85,19 +85,7 @@
               </div>
 
               <div class="product-actions">
-                <v-btn
-                  v-if="product.merchant.id != currentUser.id"
-                  class="follow-btn mt-3"
-                  :class="{
-                    follow: !product.merchant.is_following,
-                    following: product.merchant.is_following,
-                  }"
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
-                  @click.native="followUser()"
-                >
-                    {{ followButtonText }}
-                  </v-btn>
+                  <user-follow-btn class="mt-3" :user="user" theme="blue" type="product" btnBlock @afterFollow="afterFollow" />
 
                 <v-tooltip top>
                   <span slot="activator" class="__actions pl-0">
