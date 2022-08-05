@@ -30,9 +30,11 @@ const state = {
     socialChannel: '',
     socialHandle: '',
   },
+  globalSMSactive: false,
 }
 
 const getters = {
+  globalSMSactive: (state) => state.globalSMSactive,
   tabs: () => {
     const tabs = [
       {
@@ -338,6 +340,9 @@ const getters = {
 }
 
 const actions = {
+  toggleGlobalSMS({ commit }, status) {
+    commit('toggleGlobalSMS', status)
+  },
   toggleActivityPopup({ commit }, status) {
     commit('toggleActivityPopup', status)
   },
@@ -383,9 +388,6 @@ const actions = {
 }
 
 const mutations = {
-  toggleActivityPopup(state, status) {
-    state.toggleActivity = status
-  },
   setSettings(state, settings) {
     state.settings = settings
   },
@@ -447,6 +449,12 @@ const mutations = {
       }
     }
     console.log(state.activation)
+  },
+  toggleGlobalSMS(state, status) {
+    state.globalSMSactive = status
+  },
+  toggleActivityPopup(state, status) {
+    state.toggleActivity = status
   },
 }
 

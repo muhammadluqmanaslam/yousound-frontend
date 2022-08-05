@@ -106,6 +106,8 @@
     >
       <mobile-player :isPlayerOpened="mobilePlayerActive" />
     </v-dialog>
+
+    <SMS v-if="globalSMSactive" @closeSMS="closeSMS" />
   </v-app>
 </template>
 
@@ -132,6 +134,7 @@ import streamPlayer from '@/components/stream_player'
 import loginDialog from '@/components/login_dialog'
 import Sidebar from './components/sidebar'
 import AppLoader from '@/components/appLoader'
+import SMS from '@/components/SMS'
 
 import { MyEvents, PublicRelationsUsername } from '@/helper'
 import { mapState, mapGetters } from 'vuex'
@@ -155,6 +158,7 @@ export default {
     AppLoader,
     mobileHeader,
     mobileFooter,
+    SMS,
   },
 
   data() {
@@ -177,6 +181,7 @@ export default {
     }),
     ...mapGetters({
       isAuthenticated: "auth/isAuthenticated",
+      globalSMSactive: "app/globalSMSactive",
     }),
     // hideGoBack() {
     //   return this.$store.getters['appMobile/hideGoBackCTA'].indexOf(this.$route.name) !== 1
@@ -445,6 +450,12 @@ export default {
       } catch (error) {
         return error
       }
+    },
+    closeSMS() {
+      this.$store.dispatch('app/toggleGlobalSMS', false)
+    },
+    openSMS() {
+      this.$store.dispatch('app/toggleGlobalSMS', true)
     },
   },
 
