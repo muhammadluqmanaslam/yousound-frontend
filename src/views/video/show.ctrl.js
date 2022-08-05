@@ -19,6 +19,7 @@ import merchModal from '@/components/merchmodal'
 import sendLoveModal from '@/components/sendlovemodal'
 import mobileComments from '@/views/mobile/components/mobileComments'
 import commentInput from '@/components/commentInput'
+import UserFollowBtn from '@/components/userFollowBtn';
 import { mapActions } from 'vuex'
 
 const ActionCable = require('actioncable')
@@ -39,6 +40,7 @@ export default {
     sendLoveModal,
     mobileComments,
     commentInput,
+    UserFollowBtn,
   },
 
   data() {
@@ -370,28 +372,6 @@ export default {
             e.body.errors || [e.body]
           )
         })
-    },
-
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((res) => {
-            this.$store.dispatch('player/updateFollowingStatus', false)
-            this.stream.user.is_following = false
-          })
-          .catch((e) => {
-            console.log('unfollowUser error', e)
-          })
-      } else {
-        UserService.followUser(this.user.id)
-          .then((res) => {
-            this.$store.dispatch('player/updateFollowingStatus', true)
-            this.stream.user.is_following = true
-          })
-          .catch((e) => {
-            console.log('followUser error', e)
-          })
-      }
     },
   },
 

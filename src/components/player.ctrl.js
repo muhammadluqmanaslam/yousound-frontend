@@ -7,11 +7,13 @@ import UserService from '@/services/user'
 import { MyEvents } from '@/helper'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
+import UserFollowBtn from "@/components/userFollowBtn";
 
 export default {
   components: {
     downloadModal,
     shareModal,
+    UserFollowBtn,
   },
 
   data() {
@@ -451,38 +453,6 @@ export default {
       var seconds = secs - minutes * 60 || 0
 
       return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
-    },
-
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch('player/updateFollowingStatus', false)
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.user.display_name,
-            ])
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      } else {
-        UserService.followUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch('player/updateFollowingStatus', true)
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.user.display_name,
-            ])
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      }
     },
 
     choosePage(path) {

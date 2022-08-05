@@ -274,21 +274,12 @@
             <div class="user-info">
               <div class="name">{{ user.username }}</div>
               <div>
-                <v-btn
-                  round
-                  dark
-                  color="white"
-                  class="follow-btn mr-0 px-2"
-                  small
-                  :class="{
-                    follow: !user.is_following,
-                    following: user.is_following,
-                  }"
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
-                  @click.native="followUser()"
-                  >{{ followButtonText }}</v-btn
-                >
+                <user-follow-btn
+                  :user="user"
+                  theme="dark"
+                  type="default"
+                  :followParam="{page_track: `Stream: ${stream.id}`}"
+                />
                 <v-btn
                   v-if="stream.is_reposted"
                   round

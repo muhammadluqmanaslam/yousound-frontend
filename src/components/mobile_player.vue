@@ -110,21 +110,12 @@
                   height="35"
                 />
 
-                <v-btn
+                <user-follow-btn
                   v-if="currentUser && item.user.id != currentUser.id"
-                  dark
-                  round
-                  :class="{
-                    'follow-btn': true,
-                    follow: !item.user.is_following,
-                    following: item.user.is_following,
-                  }"
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
-                  @click.native="followUser()"
-                >
-                  {{ followButtonText }}
-                </v-btn>
+                  :user="item"
+                  theme="dark"
+                  type="player"
+                />
               </div>
 
               <div class="action-wrapper">
@@ -340,13 +331,13 @@ import AlbumService from "@/services/album";
 import CommentService from "@/services/comment";
 // import PaymentService from '@/services/payment'
 import TrackService from "@/services/track";
-import UserService from "@/services/user";
 import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
 import UserTag from "@/components/user_tag";
 import mobileComments from "@/views/mobile/components/mobileComments";
 import trackcardsimple from "@/components/trackcardsimple";
+import UserFollowBtn from "@/components/userFollowBtn";
 
 const ActionCable = require("actioncable");
 
@@ -362,6 +353,7 @@ export default {
     UserTag,
     mobileComments,
     trackcardsimple,
+    UserFollowBtn,
   },
 
   data() {
@@ -1002,38 +994,6 @@ export default {
       var seconds = secs - minutes * 60 || 0;
 
       return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-    },
-
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch("player/updateFollowingStatus", false);
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just unfollowed " + this.user.username,
-            ]);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
-      } else {
-        UserService.followUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch("player/updateFollowingStatus", true);
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just followed " + this.user.username,
-            ]);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
-      }
     },
 
     choosePage(path) {

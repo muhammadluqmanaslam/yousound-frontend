@@ -51,35 +51,24 @@
               <router-link class="user-name" :to="'/' + item.user.slug">{{
                 item.user.username
               }}</router-link>
-              <v-btn
+
+              <user-follow-btn
                 v-if="currentUser && item.user.id != currentUser.id"
-                :class="{
-                  'follow-btn': true,
-                  follow: !item.user.is_following,
-                  following: item.user.is_following,
-                }"
-                @mouseenter="buttonHover = true"
-                @mouseleave="buttonHover = false"
-                @click.native="followUser()"
-                >{{ followButtonText }}</v-btn
-              >
+                :user="item"
+                theme="dark"
+                type="player"
+              />
             </template>
             <template v-else>
               <router-link class="user-name" :to="'/' + track.user.slug">{{
                 track.user.username
               }}</router-link>
-              <v-btn
+              <user-follow-btn
                 v-if="currentUser && track.user.id != currentUser.id"
-                :class="{
-                  'follow-btn': true,
-                  follow: !track.user.is_following,
-                  following: track.user.is_following,
-                }"
-                @mouseenter="buttonHover = true"
-                @mouseleave="buttonHover = false"
-                @click.native="followUser()"
-                >{{ followButtonText }}</v-btn
-              >
+                :user="track"
+                theme="dark"
+                type="player"
+              />
             </template>
           </div>
         </div>

@@ -29,18 +29,12 @@
             >
           </label>
         </router-link>
-        <v-btn
-          v-if="trackUser.id != currentUser.id"
-          class="follow-btn"
-          :class="{
-            follow: !trackUser.is_following,
-            following: trackUser.is_following,
-          }"
-          @mouseenter="buttonHover = true"
-          @mouseleave="buttonHover = false"
-          @click.native="followUser()"
-          >{{ followButtonText }}</v-btn
-        >
+        <user-follow-btn
+          :user="trackUser"
+          theme="dark"
+          type="default"
+          @afterFollow="afterFollow"
+        />
       </v-flex>
       <v-flex xs12 class="item-section">
         <div
@@ -106,12 +100,14 @@ import AlbumService from "@/services/album";
 import TrackService from "@/services/track";
 import UserService from "@/services/user";
 import PaymentModal from "@/components/paymentmodal";
+import UserFollowBtn from "@/components/userFollowBtn";
 // import { Utils } from '@/helper'
-import { Filter, MyEvents } from "@/helper";
+import { Filter } from "@/helper";
 
 export default {
   components: {
     PaymentModal,
+    UserFollowBtn,
   },
 
   props: {
@@ -159,13 +155,6 @@ export default {
       }
     },
 
-    followButtonText() {
-      if (this.trackUser.is_following) {
-        return this.buttonHover ? "Unfollow" : "Following";
-      }
-      return "Follow";
-    },
-
     donate_amount_by_cent() {
       return this.donate_amount * 100;
     },
@@ -177,40 +166,11 @@ export default {
     donateAmount(amount) {
       this.donate_amount = amount;
     },
-
-    followUser() {
-      if (this.trackUser.is_following) {
-        UserService.unfollowUser(this.trackUser.id)
-          .then((response) => {
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just unfollowed " + this.trackUser.username,
-            ]);
-            this.track.user.is_following = false;
-            // this.$store.dispatch('player/setUpdatedUser', this.trackUser)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.trackUser.id, false);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
-      } else {
-        UserService.followUser(this.trackUser.id)
-          .then((response) => {
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just followed " + this.trackUser.username,
-            ]);
-            this.track.user.is_following = true;
-            // this.$store.dispatch('player/setUpdatedUser', this.trackUser)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.trackUser.id, true);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
+    afterFollow(isfollowing) {
+      if (isfollowing === "unfollow") {
+        this.track.user.is_following = false;
+      } else if (isfollowing === "follow") {
+        this.track.user.is_following = true;
       }
     },
 

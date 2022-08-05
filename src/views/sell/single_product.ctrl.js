@@ -347,43 +347,6 @@ export default {
         this.product.merchant.is_following = true
       }
     },
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((res) => {
-            this.$store.dispatch('player/updateFollowingStatus', false)
-            this.product.merchant.is_following = false
-
-            this.$store.dispatch("error/showSuccessToast", [
-              "You have unfollowed " + this.product.merchant.username,
-            ]);
-          })
-          .catch((e) => {
-            console.log('unfollowUser error', e)
-
-            this.$store.dispatch("error/showErrorToast", [
-              "There was an issue following " + this.product.merchant.username,
-            ]);
-          })
-      } else {
-        UserService.followUser(this.user.id)
-          .then((res) => {
-            this.$store.dispatch('player/updateFollowingStatus', true)
-            this.product.merchant.is_following = true
-
-            this.$store.dispatch("error/showSuccessToast", [
-              "You have followed " + this.product.merchant.username,
-            ]);
-          })
-          .catch((e) => {
-            console.log('followUser error', e)
-
-            this.$store.dispatch("error/showErrorToast", [
-              "There was an issue following " + this.product.merchant.username,
-            ]);
-          })
-      }
-    },
     addToCart() {
       if (this.option === '' || this.option === null) {
         this.$store.dispatch('error/showErrorToast', [

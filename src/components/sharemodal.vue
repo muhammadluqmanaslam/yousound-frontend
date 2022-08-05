@@ -22,18 +22,13 @@
             ></label
           ></router-link
         >
-        <v-btn
-          :class="{
-            'follow-btn': true,
-            follow: !user.is_following,
-            following: user.is_following,
-          }"
-          @mouseenter="buttonHover = true"
-          @mouseleave="buttonHover = false"
-          @click.native="followUser()"
+        <user-follow-btn
           v-if="user.id != $store.state.auth.user.id"
-          >{{ followButtonText }}
-        </v-btn>
+          :user="user"
+          theme="dark"
+          type="default"
+          @afterFollow="afterFollow"
+        />
       </v-flex>
 
       <v-flex xs12 class="item-section">
@@ -86,8 +81,7 @@
 
 <script type="text/javascript">
 import AlbumService from "@/services/album";
-import UserService from "@/services/user";
-import { MyEvents } from "@/helper";
+import UserFollowBtn from "@/components/userFollowBtn";
 
 export default {
   props: {
@@ -102,6 +96,9 @@ export default {
       type: Function,
       required: true,
     },
+  },
+  components: {
+    UserFollowBtn,
   },
 
   data() {
@@ -184,40 +181,11 @@ export default {
     dismissModal() {
       console.log("touched");
     },
-
-    followUser() {
-      if (this.item.user.is_following) {
-        UserService.unfollowUser(this.item.user.id)
-          .then((response) => {
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just unfollowed " + this.item.user.username,
-            ]);
-            this.item.user.is_following = false;
-            // this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, false);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
-      } else {
-        UserService.followUser(this.item.user.id)
-          .then((response) => {
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just followed " + this.item.user.username,
-            ]);
-            this.item.user.is_following = true;
-            // this.$store.dispatch('player/setUpdatedUser', this.item.user)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.user.id, true);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
+    afterFollow(isfollowing) {
+      if (isfollowing === "unfollow") {
+        this.item.user.is_following = false;
+      } else if (isfollowing === "follow") {
+        this.item.user.is_following = true;
       }
     },
 

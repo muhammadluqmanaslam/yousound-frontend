@@ -20,6 +20,7 @@ import downloadModal from '@/components/downloadmodal'
 import merchModal from '@/components/merchmodal'
 import paymentModal from '@/components/paymentmodal'
 import shareModal from '@/components/sharemodal'
+import UserFollowBtn from "@/components/userFollowBtn";
 
 import { MyEvents } from '@/helper'
 
@@ -36,6 +37,7 @@ export default {
     merchModal,
     paymentModal,
     shareModal,
+    UserFollowBtn,
   },
 
   data() {
@@ -714,34 +716,6 @@ export default {
       StreamService.viewStream(this.stream.id).then((response) => {
         this.getMetrics()
       })
-    },
-
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((response) => {
-            // this.user.is_following = false
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
-          })
-          .catch((e) => {
-            // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
-          })
-      } else {
-        const params = {
-          page_track: `Stream: ${this.stream.id}`,
-        }
-        UserService.followUser(this.user.id, params)
-          .then((response) => {
-            // this.$store.dispatch('error/showSuccessToast', ['You just followed ' + this.user.display_name])
-            // this.user.is_following = true
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
-          })
-          .catch((e) => {
-            // this.$store.dispatch('error/showErrorToast', e.body.errors|| [e.body])
-          })
-      }
     },
 
     setFollowingStatus(userId, isFollowing) {

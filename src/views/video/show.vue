@@ -36,18 +36,12 @@
                   </div>
 
                   <div v-if="onMobile" class="meta__cta follow">
-                    <v-btn
+                    <user-follow-btn
                       v-if="currentUser && stream.user.id != currentUser.id"
-                      :class="{
-                        'follow-btn': true,
-                        follow: !stream.user.is_following,
-                        following: stream.user.is_following,
-                      }"
-                      @mouseenter="buttonHover = true"
-                      @mouseleave="buttonHover = false"
-                      @click.native="followUser()"
-                      >{{ followButtonText }}</v-btn
-                    >
+                      :user="stream.user"
+                      theme="dark"
+                      type="player"
+                    />
                   </div>
                 </div>
 
@@ -131,18 +125,12 @@
                 </div>
 
                 <div class="meta__cta follow">
-                  <v-btn
+                  <user-follow-btn
                     v-if="currentUser && stream.user.id != currentUser.id"
-                    :class="{
-                      'follow-btn': true,
-                      follow: !stream.user.is_following,
-                      following: stream.user.is_following,
-                    }"
-                    @mouseenter="buttonHover = true"
-                    @mouseleave="buttonHover = false"
-                    @click.native="followUser()"
-                    >{{ followButtonText }}</v-btn
-                  >
+                    :user="stream.user"
+                    theme="dark"
+                    type="player"
+                  />
                 </div>
               </div>
 

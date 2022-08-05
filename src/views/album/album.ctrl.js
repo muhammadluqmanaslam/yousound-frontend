@@ -362,42 +362,6 @@ export default {
       }
     },
 
-    followUser(user) {
-      if (user.is_following) {
-        UserService.unfollowUser(user.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + user.display_name,
-            ])
-            user.is_following = false
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, user.id, false)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      } else {
-        UserService.followUser(user.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + user.display_name,
-            ])
-            user.is_following = true
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, user.id, true)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      }
-    },
-
     goToAlbumStats(stats) {
       this.$router.push({ path: `/album/${this.album.slug}/stats#${stats}` })
     },

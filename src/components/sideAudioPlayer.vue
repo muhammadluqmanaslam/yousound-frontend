@@ -78,33 +78,21 @@
           </template>
 
           <template v-else-if="item.album_type == 'album'">
-            <v-btn
+            <user-follow-btn
               v-if="currentUser && item.user.id != currentUser.id"
-              :class="{
-                'follow-btn': true,
-                follow: !item.user.is_following,
-                following: item.user.is_following,
-              }"
-              @mouseenter="buttonHover = true"
-              @mouseleave="buttonHover = false"
-              @click.native="followUser()"
-              >{{ followButtonText }}</v-btn
-            >
+              :user="track.user"
+              theme="dark"
+              type="player"
+            />
           </template>
 
           <template v-else>
-            <v-btn
+            <user-follow-btn
               v-if="currentUser && track.user.id != currentUser.id"
-              :class="{
-                'follow-btn': true,
-                follow: !track.user.is_following,
-                following: track.user.is_following,
-              }"
-              @mouseenter="buttonHover = true"
-              @mouseleave="buttonHover = false"
-              @click.native="followUser()"
-              >{{ followButtonText }}</v-btn
-            >
+              :user="track.user"
+              theme="dark"
+              type="player"
+            />
           </template>
 
           <div class="actions-section flex-none" :class="{_mini: isMini}">
@@ -296,11 +284,11 @@ import { mapGetters, mapActions } from "vuex";
 import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
 // import PaymentService from '@/services/payment'
-import TrackService from "@/services/track";
-import UserService from "@/services/user";
+import TrackService from "@/services/track"
 import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
+import UserFollowBtn from "@/components/userFollowBtn";
 
 export default {
   props: {
@@ -310,6 +298,7 @@ export default {
   components: {
     downloadModal,
     shareModal,
+    UserFollowBtn,
   },
 
   data() {
@@ -393,13 +382,6 @@ export default {
 
     album4Cover() {
       return this._.get(this.item.tracks, "[3].album.cover.url");
-    },
-
-    followButtonText() {
-      if (this.user.is_following) {
-        return this.buttonHover ? "Unfollow" : "Following";
-      }
-      return "Follow";
     },
   },
 
@@ -783,38 +765,6 @@ export default {
       var seconds = secs - minutes * 60 || 0;
 
       return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-    },
-
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch("player/updateFollowingStatus", false);
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just unfollowed " + this.user.username,
-            ]);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
-      } else {
-        UserService.followUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch("player/updateFollowingStatus", true);
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just followed " + this.user.username,
-            ]);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
-      }
     },
 
     choosePage(path) {

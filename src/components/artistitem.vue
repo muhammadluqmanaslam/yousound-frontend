@@ -14,17 +14,13 @@
           </router-link>
 
           <div v-if="followButtonVisible" class="follow-section">
-            <v-btn
-              :class="{
-                'follow-btn': true,
-                follow: !artist.is_following,
-                following: artist.is_following,
-              }"
-              @click.native="followUser()"
-              @mouseenter="buttonHover = true"
-              @mouseleave="buttonHover = false"
-              >{{ followButtonText }}</v-btn
-            >
+            <user-follow-btn
+              class="mt-3"
+              :user="artist"
+              theme="dark"
+              type="default"
+              @afterFollow="afterFollow"
+            />
           </div>
         </v-flex>
         <div class="artist-name">
@@ -42,11 +38,13 @@
 </template>
 
 <script type="text/javascript">
-import UserService from "@/services/user";
-import { MyEvents, PublicRelationsUsername } from "@/helper";
+import { PublicRelationsUsername } from "@/helper";
+import UserFollowBtn from "@/components/userFollowBtn";
 
 export default {
-  components: {},
+  components: {
+    UserFollowBtn,
+  },
 
   props: {
     artist: {
@@ -108,40 +106,11 @@ export default {
 
     blockUser() {},
 
-    followUser() {
-      if (this.artist.is_following) {
-        UserService.unfollowUser(this.artist.id)
-          .then((response) => {
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just unfollowed " + this.artist.username,
-            ]);
-            this.artist.is_following = false;
-            // this.$store.dispatch('player/setUpdatedUser', this.artist)
-            // this.$root.$emit(MyEvents.USER_FOLLOW, { id: this.artist.id, is_following: false })
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, false);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
-      } else {
-        UserService.followUser(this.artist.id)
-          .then((response) => {
-            this.$store.dispatch("error/showSuccessToast", [
-              "You just followed " + this.artist.username,
-            ]);
-            this.artist.is_following = true;
-            // this.$store.dispatch('player/setUpdatedUser', this.artist)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.artist.id, true);
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              "error/showErrorToast",
-              e.body.errors || [e.body]
-            );
-          });
+    afterFollow(isfollowing) {
+      if (isfollowing === "unfollow") {
+        this.artist.is_following = false
+      } else if (isfollowing === "follow") {
+        this.artist.is_following = true
       }
     },
   },

@@ -124,19 +124,11 @@
                 "
                 class="__top_actions"
               >
-                <v-btn
-                  depressed
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
-                  @click.native="followUser()"
-                  class="follow-btn ml-0 no-Btn-bg sqr-plain-btn"
-                  :class="{
-                    follow: !user.is_following,
-                    following: user.is_following,
-                  }"
-                >
-                  {{ followButtonText }}
-                </v-btn>
+                <user-follow-btn
+                  :user="user"
+                  theme="dark"
+                  type="default"
+                />
 
                 <v-btn
                   depressed
