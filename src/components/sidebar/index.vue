@@ -41,7 +41,7 @@
         :isRound="false"
         theme="dark"
         placeholder="Search"
-        class="mb-5"
+        class="mb-2"
       />
 
       <div v-if="!isAuthenticated" class="auth-btn-container">

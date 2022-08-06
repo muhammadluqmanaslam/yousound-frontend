@@ -3,10 +3,11 @@
   overflow-y: auto;
   background: linear-gradient(to bottom, #262c35,#11101f) !important;
   z-index: 11;
+  padding-bottom: 0;
 
   .tabs-auth-wrapper {
     margin-bottom: 20px;
-    min-height: 60%;
+    // min-height: 60%;
   }
 
   .auth-btn-container {
