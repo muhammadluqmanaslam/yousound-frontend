@@ -1,7 +1,7 @@
 <template>
   <div class="search-input" :class="{ isOnMobile }">
     <transition name="slide-fade">
-      <div class="global-search-box">
+      <div class="global-search-box" :class="[`is_${theme}`, {isRound}]">
         <img
           v-if="!isOnMobile"
           class="icon"
@@ -36,6 +36,14 @@ export default {
       default: "Search artist, song or keyword",
     },
     isOnMobile: Boolean,
+    theme: {
+      type: String,
+      default: "light",
+    },
+    isRound: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {

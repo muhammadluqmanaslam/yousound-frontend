@@ -311,9 +311,27 @@ li.search-li {
   border: 1px solid #cdcdcd;
   transition: opacity .5s;
   padding: 5px;
-  border-radius: 50px;
   display: flex;
   align-items: center;
+  border-radius: 4px;
+  
+  &.is_dark {
+    border: 1px solid #646464;
+    background-color: rgba(71, 74, 81, 0.5);
+
+    .icon {
+      filter: invert(1);
+    }
+
+    input#search {
+      &[type='search']::placeholder {
+        color: #FFFFFFB2;
+      }
+    }
+  }
+  &.isRound {
+    border-radius: 50px;
+  }
 
   .icon {
     margin-right: 40px;
