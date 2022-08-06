@@ -18,9 +18,9 @@
 
               <v-spacer></v-spacer>
 
-              <li class="search-li">
+              <!-- <li class="search-li">
                 <search-input :senderRoute="$route.name" />
-              </li>
+              </li> -->
           </ul>
       </template>
     </content-top-header>
