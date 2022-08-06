@@ -143,7 +143,7 @@ export default {
       }
     }
     &.following {
-      color: #000 !important;
+      color: #000;
       border: 1px solid #0009;
       &:hover {
         color: #dc3545 !important;
@@ -162,7 +162,7 @@ export default {
         border: 0.75px solid #1872ff
       }
       &.following {
-        color: #000 !important;
+        color: #000;
         border: 1px solid #0009;
       }
     }
@@ -177,7 +177,7 @@ export default {
         width: 75px
       }
       &.following {
-        color: #000 !important;
+        color: #000;
         border: 1px solid #0009;
       }
     }
