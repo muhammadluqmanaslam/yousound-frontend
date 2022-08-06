@@ -26,131 +26,137 @@
         </div>
         <div class="track-info-container">
           <div class="track-info">
-            <div class="d-flex justify-space-between align-center">
+            <div class="dflex justify-space-between align-center">
               <div v-if="!isMini" class="track-index" id="trackIndex">{{ trackIndex }}</div>
-            </div>
-            <div v-if="!isMini">
-              <label class="track-name" id="trackName">{{ track.name }}</label>
+
+              <div v-if="!isMini" class="follow-meta">
+                <div class="dflex align-center justify-space-between width100">
+                  <div class="actions-section flex-none" :class="{_mini: isMini}">
+                    <v-menu offset-y dark class="dots-wrapper">
+                      <v-icon right slot="activator">more_horiz</v-icon>
+                      <v-list>
+                        <v-list-tile>
+                          <v-tooltip right>
+                            <v-btn
+                              depressed
+                              color="transparent ma-0"
+                              slot="activator"
+                              @click.native="
+                                showShareModal = true;
+                                modalMode = true;
+                              "
+                            >
+                              <img src="/static/images/ic_share.svg" width="20" />
+                            </v-btn>
+                            <span>Share</span>
+                          </v-tooltip>
+                        </v-list-tile>
+
+                        <v-list-tile v-if="stripeConnected">
+                          <v-tooltip right>
+                            <v-btn
+                              depressed
+                              color="transparent ma-0"
+                              @click.native="
+                                showDownloadModal = true;
+                                modalMode = true;
+                              "
+                              slot="activator"
+                            >
+                              <img
+                                src="/static/images/ic_download.svg"
+                                width="20"
+                              />
+                            </v-btn>
+                            <span>Download</span>
+                          </v-tooltip>
+                        </v-list-tile>
+
+                        <v-list-tile>
+                          <v-tooltip right>
+                            <v-btn
+                              depressed
+                              color="transparent ma-0"
+                              slot="activator"
+                              @click.native="repostItem()"
+                            >
+                              <img src="/static/images/ic_repost.svg" width="20" />
+                            </v-btn>
+                            <span>Repost</span>
+                          </v-tooltip>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div v-if="!isMini" class="user-info">
-            <template v-if="item.collaborators_count > 0">
-              <router-link class="user-name" :to="'/' + item.user.slug">{{
-                item.user.username
-              }}</router-link>
-              <template v-for="c in item.collaborators">
-                <span :key="`span-${c.user.id}`">,&nbsp;</span>
-                <!-- <router-link
+
+          <div v-if="!isMini" class="dflex justify-space-between align-center mt-2">
+            <div style="max-width: 50%">
+              <label class="track-name" id="trackName">{{ track.name }}</label>
+              <div class="user-info">
+                <template v-if="item.collaborators_count > 0">
+                  <router-link class="user-name" :to="'/' + item.user.slug">{{
+                    item.user.username
+                  }}</router-link>
+                  <template v-for="c in item.collaborators">
+                    <span :key="`span-${c.user.id}`">,&nbsp;</span>
+                    <!-- <router-link
+                        :key="`link-${c.user.id}`"
+                        class="user-name"
+                        :to="`/${c.user.slug}`"
+                        >{{ c.user.username }}</router-link
+                      > -->
+                  </template>
+                  <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
+                </template>
+                <template v-else-if="item.album_type == 'album'">
+                  <router-link class="user-name" :to="'/' + item.user.slug">{{
+                    item.user.username
+                  }}</router-link>
+                </template>
+                <template v-else>
+                  <router-link class="user-name" :to="'/' + track.user.slug">{{
+                    track.user.username
+                  }}</router-link>
+                </template>
+              </div>
+            </div>
+
+            <div style="max-width: 50%">
+              <template v-if="item.collaborators_count > 0">
+                <template v-for="c in item.collaborators">
+                  <span :key="`span-${c.user.id}`">,&nbsp;</span>
+                  <!-- <router-link
                     :key="`link-${c.user.id}`"
                     class="user-name"
                     :to="`/${c.user.slug}`"
                     >{{ c.user.username }}</router-link
                   > -->
+                </template>
               </template>
-              <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
-            </template>
-            <template v-else-if="item.album_type == 'album'">
-              <router-link class="user-name" :to="'/' + item.user.slug">{{
-                item.user.username
-              }}</router-link>
-            </template>
-            <template v-else>
-              <router-link class="user-name" :to="'/' + track.user.slug">{{
-                track.user.username
-              }}</router-link>
-            </template>
-          </div>
-        </div>
-      </div>
 
-      <div v-if="!isMini" class="follow-meta">
-        <div class="dflex align-center justify-space-between width100">
-          <template v-if="item.collaborators_count > 0">
-            <template v-for="c in item.collaborators">
-              <span :key="`span-${c.user.id}`">,&nbsp;</span>
-              <!-- <router-link
-                :key="`link-${c.user.id}`"
-                class="user-name"
-                :to="`/${c.user.slug}`"
-                >{{ c.user.username }}</router-link
-              > -->
-            </template>
-          </template>
+              <template v-else-if="item.album_type == 'album'">
+                <user-follow-btn
+                  v-if="currentUser && item.user.id != currentUser.id"
+                  :user="item.user"
+                  theme="dark"
+                  type="player"
+                />
+              </template>
 
-          <template v-else-if="item.album_type == 'album'">
-            <user-follow-btn
-              v-if="currentUser && item.user.id != currentUser.id"
-              :user="track.user"
-              theme="dark"
-              type="player"
-            />
-          </template>
+              <template v-else>
+                <user-follow-btn
+                  v-if="currentUser && track.user.id != currentUser.id"
+                  :user="item.user"
+                  theme="dark"
+                  type="player"
+                />
+              </template>
+            </div>
 
-          <template v-else>
-            <user-follow-btn
-              v-if="currentUser && track.user.id != currentUser.id"
-              :user="track.user"
-              theme="dark"
-              type="player"
-            />
-          </template>
-
-          <div class="actions-section flex-none" :class="{_mini: isMini}">
-            <v-menu offset-y dark class="dots-wrapper">
-              <v-icon right slot="activator">more_horiz</v-icon>
-              <v-list>
-                <v-list-tile>
-                  <v-tooltip right>
-                    <v-btn
-                      depressed
-                      color="transparent ma-0"
-                      slot="activator"
-                      @click.native="
-                        showShareModal = true;
-                        modalMode = true;
-                      "
-                    >
-                      <img src="/static/images/ic_share.svg" width="20" />
-                    </v-btn>
-                    <span>Share</span>
-                  </v-tooltip>
-                </v-list-tile>
-
-                <v-list-tile v-if="stripeConnected">
-                  <v-tooltip right>
-                    <v-btn
-                      depressed
-                      color="transparent ma-0"
-                      @click.native="
-                        showDownloadModal = true;
-                        modalMode = true;
-                      "
-                      slot="activator"
-                    >
-                      <img
-                        src="/static/images/ic_download.svg"
-                        width="20"
-                      />
-                    </v-btn>
-                    <span>Download</span>
-                  </v-tooltip>
-                </v-list-tile>
-
-                <v-list-tile>
-                  <v-tooltip right>
-                    <v-btn
-                      depressed
-                      color="transparent ma-0"
-                      slot="activator"
-                      @click.native="repostItem()"
-                    >
-                      <img src="/static/images/ic_repost.svg" width="20" />
-                    </v-btn>
-                    <span>Repost</span>
-                  </v-tooltip>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
           </div>
         </div>
       </div>
@@ -163,7 +169,7 @@
     <div
       v-if="!isMini"
       class="player-section-container"
-      :class="{ 'd-block': isLoaded, 'd-flex': !isLoaded }"
+      :class="{ 'd-block': isLoaded, 'dflex': !isLoaded }"
     >
       <div class="loading flex-none" id="loading" v-if="!isLoaded"></div>
       <div class="player-section" v-if="isLoaded">

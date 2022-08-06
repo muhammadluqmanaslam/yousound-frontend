@@ -9,9 +9,8 @@
     :width="sideBarWidth"
     class="sidebar"
   >
-    <!-- <span class="white">{{ isAuthenticated }}</span> -->
     <div class="pa-3 tabs-auth-wrapper">
-      <div justify-space-between align-center class="d-flex mb-3">
+      <div class="dflex justify-space-between align-center mb-3">
         <router-link :to="{ name: 'AlbumIndex' }" class="sidebar-logo">
           <img
             v-if="mini"
@@ -21,12 +20,29 @@
           <img v-else src="/static/images/nav_logo_white.png" />
         </router-link>
 
-        <span
+        <!-- <span
           class="icon cursor-pointer pr-2"
           @click="searchActive = !searchActive"
         >
-        </span>
+        </span> -->
+        <div v-if="!mini" class="toggle-sidebar">
+          <img
+            class="cursor-pointer"
+            :class="{ inversed: !mini }"
+            @click.stop="mini = !mini"
+            src="/static/images/slide-right.svg"
+          />
+        </div>
       </div>
+
+      <search-input
+        v-if="isAuthenticated"
+        :senderRoute="$route.name"
+        :isRound="false"
+        theme="dark"
+        placeholder="Search"
+        class="mb-5"
+      />
 
       <div v-if="!isAuthenticated" class="auth-btn-container">
         <ul class="signed-out-menu">
@@ -159,7 +175,7 @@
       ></side-audio-player>
     </transition>
 
-    <div class="toggle-sidebar">
+    <div v-if="mini" class="toggle-sidebar _bottom">
       <img
         class="cursor-pointer"
         :class="{ inversed: !mini }"

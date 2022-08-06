@@ -1,11 +1,13 @@
 import sideAudioPlayer from '@/components/sideAudioPlayer'
 import shareModal from '@/components/sharemodal'
+import searchInput from '@/components/searchInput'
 import {mapGetters, mapState} from 'vuex'
 
 export default {
   components: {
     sideAudioPlayer,
     shareModal,
+    searchInput,
   },
   data() {
     return {

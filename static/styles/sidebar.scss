@@ -157,11 +157,14 @@
   }
 
   .toggle-sidebar {
-    margin: 10px;
-    position: absolute;
-    bottom: 0;
+    &._bottom {
+      margin: 10px;
+      position: absolute;
+      bottom: 0;
+    }
 
     img {
+      width: 15px;
       &.inversed {
         transform: rotate(-180deg);
       }
