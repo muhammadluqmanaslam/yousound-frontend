@@ -60,5 +60,13 @@
     font-size: 16.5px;
     // color: #000000 !important;
   }
+
+  .albums_result {
+    .track-card {
+      .track-detail {
+        margin-left: 10px;
+      }
+    }
+  }
 }
 
