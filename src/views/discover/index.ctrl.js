@@ -11,6 +11,7 @@ import discoverAlbum from '@/views/album'
 import discoverVideo from '@/views/video'
 import discoverProduct from '@/views/product'
 import discoverNav from '@/components/discoverNav'
+import contentTopHeader from '@/components/contentTopHeader'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -24,13 +25,14 @@ export default {
     discoverVideo,
     discoverProduct,
     discoverNav,
+    contentTopHeader,
   },
 
   data() {
     return {
       activeTab: '',
       tabs: [
-        { id: 'discover', title: 'Discover' },
+        { id: 'discover', title: 'Trending' },
         { id: 'music', title: 'Music' },
         { id: 'video', title: 'Video' },
         { id: 'merch', title: 'Shop' },

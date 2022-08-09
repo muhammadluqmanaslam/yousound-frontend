@@ -1,6 +1,23 @@
 <template>
   <div class="page discover-page mx-5">
-    <discover-nav pageName="discover" />
+    <!-- <discover-nav pageName="discover" /> -->
+
+    <content-top-header class="mt-3">
+      <template slot="topHeader">
+        <ul>
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            :class="{ 'active tab-active': isActiveTab(tab.id) }"
+          >
+            <label @click="onTab(tab.id)" class="innerBold">{{
+              tab.title
+            }}</label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
 
     <div class="d-flex">
       <div class="page-content" v-if="currentUser">
