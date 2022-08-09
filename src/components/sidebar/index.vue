@@ -36,7 +36,7 @@
       </div>
 
       <search-input
-        v-if="isAuthenticated"
+        v-if="isAuthenticated && !mini"
         :senderRoute="$route.name"
         :isRound="false"
         theme="dark"

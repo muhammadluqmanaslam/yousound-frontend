@@ -324,6 +324,7 @@ li.search-li {
     }
 
     input#search {
+      color: #FFFFFF;
       &[type='search']::placeholder {
         color: #FFFFFFB2;
       }
