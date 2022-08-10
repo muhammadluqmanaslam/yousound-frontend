@@ -31,7 +31,7 @@ export default {
   mounted() {
     this.videoId = this.$route.params.videoId
 
-    // console.log('video_player created')
+    console.log('video_player created adfasdfsdfsdf')
     this.$nextTick(() => {
       if (!this.pipMode && this.allVideosCount < 1) {
         console.log('init player');
@@ -82,9 +82,9 @@ export default {
 
   watch: {
     src: function (newVal, oldVal) {
-      console.log('video_player watching')
+      console.log('video_player watchingjjkjkjk   jkjkjk ')
       console.log(newVal, oldVal)
-      console.log(this.src)
+      console.log("this.src--->", this.src)
       this.player.src([
         {
           type: 'application/x-mpegURL',
@@ -97,6 +97,7 @@ export default {
   methods: {
     initPlayer() {
       const vm = this
+      console.log("this.src--->", this.src)
       vm.player =
         vm.player ||
         window.videojs('my_video_player', {

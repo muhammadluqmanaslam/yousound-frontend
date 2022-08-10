@@ -222,7 +222,8 @@ export default {
       ])
         .then((values) => {
           this.album = values[0].body
-
+          console.log("this.album====>", this.album)
+          console.log("description=== length--->", this.album.description.length)
           // Vue.set(this, "album", values[0].body)
           // for (let index in this.album.tracks) {
           //   this.buttonHover.push(false)
