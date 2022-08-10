@@ -248,7 +248,7 @@ export default {
           // upload mux
           file.track = response.body
           console.log("track response===", response.body)
-          const upload_url = file.track.audio
+          const upload_url = file.track.mux_audio_url_1
 
           const upload = UpChunk.createUpload({
             endpoint: upload_url,
@@ -270,14 +270,14 @@ export default {
 
           upload.on('success', () => {
             this.$store.dispatch('error/showLoadingActivity', false)
-            console.log("Wrap it up, we're done here. 👋")
+            console.log("Audio uploaded successfully with mux.")
             // this.$router.push({ path: `/video/${this.video.id}/show` })
           })
         })
         .catch((e) => {
           file.editing = false
           file.status = this.status.failed
-          // console.log('saveTrack', e.body)
+          console.log('catch saveTrack', e.body)
           switch (e.body.code) {
             case 1:
               if (!this.show_unauthorized_content_dialog) {

@@ -499,10 +499,12 @@ export default {
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
       if (data.howl) {
+        console.log("--data.howl---->", data.howl)
         sound = data.howl;
       } else {
+        console.log("--data.track.audio---->", data.track.audio)
         sound = data.howl = new Howl({
-          src: data.track.audio.url,
+          src: data.track.audio,
           html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
           onplay: function () {
             // Display the duration.

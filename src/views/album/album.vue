@@ -426,7 +426,7 @@
             <hr class="my-3" />
 
             <v-layout row wrap class="recent-content">
-              <div class="no-list" v-if="album.user.recent_items.length < 1">
+              <div class="no-list" v-if="album.user.recent_items === null || album.user.recent_items.length < 1">
                 No recommendations yet
               </div>
               <template v-else>
