@@ -248,7 +248,7 @@ export default {
           // upload mux
           file.track = response.body
           console.log("track response===", response.body)
-          const upload_url = file.track.mux_audio_url
+          const upload_url = file.track.mux_audio_url_1
 
           const upload = UpChunk.createUpload({
             endpoint: upload_url,
