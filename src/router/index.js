@@ -37,6 +37,7 @@ import CreateAttendee from '@/views/home/create_attendee'
 // import Feed from '@/views/feed/index'
 import ActivityIndex from '@/views/activity/index'
 import NotificationIndex from '@/views/notification/index'
+import CollectionIndex from '@/views/collection/index'
 import Chat from '@/views/chat/chat'
 // import Messages from '@/views/messages/index'
 import DirectMessages from '@/views/user/direct_messages'
@@ -224,6 +225,7 @@ export function createRouter(settings) {
     },
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
+    { path: '/collection', name: 'CollectionIndex', component: CollectionIndex },
     {
       path: '/messages',
       name: 'Messages',
