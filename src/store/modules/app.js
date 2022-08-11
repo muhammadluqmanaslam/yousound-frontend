@@ -61,10 +61,10 @@ const getters = {
             path: 'DiscoverIndex',
           },
           {
-            title: 'Collecction',
-            id: 'activity',
+            title: 'Collection',
+            id: 'collection',
             icon: require('@/assets/ic_collection.svg'),
-            path: 'ActivityIndex',
+            path: 'CollectionIndex',
           },
           // {
           //   title: 'Activity',
