@@ -17,7 +17,6 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
     },
     width: {
       type: [String, Number],
