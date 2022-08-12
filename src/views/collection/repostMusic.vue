@@ -113,7 +113,9 @@ export default {
   },
   methods: {
     openAddToPlaylist() {
-      this.addToPlaylistActive = true
+      if (this.selectedAlbums.length) {
+        this.addToPlaylistActive = true
+      }
     },
     closeAddToPlaylist() {
       this.addToPlaylistActive = false
