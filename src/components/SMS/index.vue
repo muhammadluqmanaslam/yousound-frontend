@@ -1,7 +1,7 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
     <div v-if="sendSuccess" class="closedecoy" @click="outsideClick"></div>
-    <div v-if="isUserSignedUp && !isUserSubscribed" class="subscribe-view">
+    <div v-if="!isUserSubscribed" class="subscribe-view">
       <div v-if="!showCardPanel" class="intro">
         <div>
           You have <strong>2,500</strong> people on your SMS contact list!
@@ -112,7 +112,7 @@
       </div>
     </div>
 
-    <div v-if="!isUserSignedUp && !isUserSubscribed" class="creator-signup">
+    <div v-if="!isUserSignedUp" class="creator-signup">
       <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -177,7 +177,7 @@
           dark
           depressed
           class="width100"
-          @click="signUpDone = true"
+          @click="updatePhoneNo()"
         >
           Confirm
         </v-btn>
@@ -204,7 +204,7 @@
 
         <div>You’ve been added to this SMS list</div>
 
-        <v-btn depressed round class="done-btn" @click="isUserSignedUp = true">Close</v-btn>
+        <v-btn depressed round class="done-btn" @click="closeSMS">Close</v-btn>
       </div>
     </div>
 
@@ -213,7 +213,7 @@
         <div class="post-sms-wrapper">
           <div v-if="!onMobile" class="_top">
             <h2 class="_title">Send SMS</h2>
-            <div class="_title">to <strong>{{ 45678 | formatNumberWithComma}}</strong> SMS contacts</div>
+            <div class="_title">to <strong>{{ this.currentUser.followers | formatNumberWithComma}}</strong> SMS contacts</div>
           </div>
 
           <div class="post-sms-submit" :class="{onMobile}">
@@ -308,7 +308,7 @@
       />
 
       <div class="_message">
-        This SMS text will be sent to: <strong>{{2450 | formatNumberWithComma}} people</strong>
+        This SMS text will be sent to: <strong>{{this.currentUser.followers | formatNumberWithComma}} people</strong>
 
         <br>
         <br>
@@ -318,7 +318,7 @@
         <br>
         <br>
 
-        <h2>$24.50</h2>
+        <h2>${{this.currentUser.followers * 0.01}}</h2>
       </div>
 
       <v-btn dark round class="width100 mt-3" @click="sendSMS">Ok, send SMS</v-btn>
@@ -334,7 +334,7 @@
 
       <div class="_message">
         SMS text sent to: <br>
-        <strong>{{2450 | formatNumberWithComma}} people</strong>
+        <strong>{{this.currentUser.followers | formatNumberWithComma}} people</strong>
       </div>
 
       <br>
@@ -354,6 +354,9 @@ import UserTag from "@/components/user_tag";
 import AttachSlide from "@/components/attachSlide";
 import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement"
 import { mapState } from "vuex";
+import UserService from '@/services/user'
+import AuthService from '@/services/auth.js'
+import SmsService from '@/services/sms.js'
 
 export default {
   components: {
@@ -374,7 +377,7 @@ export default {
       },
       showCardPanel: false,
       textMessage: "",
-      smsMaxChar: 300,
+      smsMaxChar: 150,
       attachment: {},
       postSMSactive: false,
       confirmSendSMS: false,
@@ -408,11 +411,32 @@ export default {
       this.smsEngagementActive = false;
     },
     sendSMS() {
-      this.confirmSendSMS = false;
-      this.sendSuccess = true;
+      const params = new FormData()
+      params.append('message', this.textMessage)
+      SmsService.sendSMS(params)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [response.body.message])
+          this.sendSuccess = true;
+          // this.closeSMS()
+          console.log("sendSuccess---", this.sendSuccess)
+        })
+        .catch((e) => {
+          console.log(e)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+          this.sendSuccess = false;
+        })
+      console.log("out sendSuccess---", this.sendSuccess)
     },
     confirmSend() {
       this.confirmSendSMS = true;
+      if (this.textMessage === "") {
+        this.confirmSendSMS = false;
+        this.$store.dispatch(
+            'error/showErrorToast', ["Please enter message!"])
+      }
     },
     getSelected(data) {
       console.log(data);
@@ -427,7 +451,6 @@ export default {
       const validate =
         this.telDigits.length === this.digitsLen &&
         this.telDigits.every((tel) => typeof tel === "number");
-
       if (validate) {
         this.digitEntered = true;
       }
@@ -439,6 +462,25 @@ export default {
       this.signUpDone = false;
       this.digitEntered = false;
       this.$emit("closeSMS");
+    },
+    updatePhoneNo() {
+      const params = new FormData()
+      let phoneNumber = "+1" + this.telDigits.join("");
+      params.append('user[phone_number]', phoneNumber)
+      UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          AuthService.setUser(response.body)
+          this.signUpDone = true
+          this.isUserSignedUp = true
+          this.$store.dispatch('error/showSuccessToast', ["Phone number updated successfully."])
+        })
+        .catch((e) => {
+          console.log(e)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
   },
   computed: {
@@ -472,13 +514,25 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
     currentUser() {
-      return this.$store.state.auth.user;
+      return this.$store.state.auth.user
     },
   },
   mounted() {
+    console.log('this.isUserSignedUp.....', this.isUserSignedUp, this.signUpDone)
     if (!this.isUserSignedUp) {
       this.$refs.input0[0].focus();
     }
+    if (this.currentUser.stripe_subscription_id !== null) {
+      this.isUserSubscribed = true
+    }
+    if (this.currentUser.phone_number !== null) {
+      this.isUserSignedUp = true
+      console.log("isUserSignedUp-->");
+    } else {
+      this.isUserSignedUp = false
+    }
+    console.log("currentUser-->", this.currentUser, this.currentUser.phone_number)
+    console.log('this.isUserSignedUp.....', this.isUserSignedUp, this.signUpDone)
   },
 };
 </script>
