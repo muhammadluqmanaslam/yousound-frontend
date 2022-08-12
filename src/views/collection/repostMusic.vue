@@ -36,7 +36,18 @@
       <div class="dflex align-center justify-space-between _intro">
         <div>{{ playlistLen }} Tracks</div>
 
-        <div class="_action"><v-icon>add</v-icon>Select</div>
+        <div v-if="selectAlbumsMode" class="selectAlbumsMode _action">
+          <v-btn round dark depressed> Add selected to... </v-btn>
+          <span @click="selectAlbumsMode = false"> Cancel </span>
+        </div>
+        <div
+          v-else
+          class="dflex align-center _action pointer-cursor"
+          @click="selectAlbumsMode = true"
+        >
+          <v-icon>add</v-icon>
+          <span>Select</span>
+        </div>
       </div>
 
       <div class="_body listing">
@@ -52,7 +63,7 @@
             hideTrackLength
           />
 
-          <div class="selectMusic">
+          <div v-if="selectAlbumsMode" class="selectMusic">
             <input
               v-model="selectedAlbums"
               :value="index"
@@ -83,6 +94,7 @@ export default {
   },
   data() {
     return {
+      selectAlbumsMode: !false,
       playlists: [
         {
           title: "Workout",
