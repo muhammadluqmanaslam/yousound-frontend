@@ -1,3 +1,7 @@
+.addToPlaylist-dialog {
+    background-color: red;
+}
+
 .repost-comp {
     ._intro {
         font-weight: bold;
@@ -59,6 +63,8 @@
         }
 
         .music {
+            margin-top: 60px;
+
             ._intro {
                 ._action {
                     .icon {

@@ -37,7 +37,7 @@
         <div>{{ playlistLen }} Tracks</div>
 
         <div v-if="selectAlbumsMode" class="selectAlbumsMode _action">
-          <v-btn round dark depressed> Add selected to... </v-btn>
+          <v-btn round dark depressed @click="openAddToPlaylist()"> Add selected to... </v-btn>
           <span @click="selectAlbumsMode = false"> Cancel </span>
         </div>
         <div
@@ -82,19 +82,24 @@
         </div>
       </div>
     </div>
+
+    <add-to-playlist v-if="addToPlaylistActive" :addToPlaylist="addToPlaylistActive" @closeAddToPlaylist="closeAddToPlaylist" />
   </div>
 </template>
 
 <script>
 import trackCard from "@/components/trackcard";
+import addToPlaylist from "./addToPlaylist";
 
 export default {
   components: {
     trackCard,
+    addToPlaylist,
   },
   data() {
     return {
-      selectAlbumsMode: !false,
+      selectAlbumsMode: false,
+      addToPlaylistActive: false,
       playlists: [
         {
           title: "Workout",
@@ -107,6 +112,12 @@ export default {
     };
   },
   methods: {
+    openAddToPlaylist() {
+      this.addToPlaylistActive = true
+    },
+    closeAddToPlaylist() {
+      this.addToPlaylistActive = false
+    },
     removeAlbum(index) {
       const idx = this.selectedAlbums.indexOf(index);
       this.selectedAlbums.splice(idx, 1);
