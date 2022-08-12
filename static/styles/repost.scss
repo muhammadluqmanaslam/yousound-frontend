@@ -1,0 +1,146 @@
+.repost-comp {
+    ._intro {
+        font-weight: bold;
+        color: #000000;
+        margin-bottom: 20px;
+
+        ._action {
+            cursor: pointer;
+        }
+    }
+
+    .listing {
+        &-item {
+            padding: 15px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+            &:last-child {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                margin-bottom: 15px;
+            }
+        }
+    }
+
+    &.repost-music {
+        .playlists {
+            ._intro {
+                ._action {
+                    .icon {
+                        color: #000000;
+                    }
+                }
+            }
+
+            .listing {
+                &-item {
+                    display: flex;
+                    align-items: center;
+
+                    .playlist-icon {
+                        background-color: #EDEDED66;
+                        padding: 20px;
+                        margin-right: 10px;
+
+                        img {
+                            filter: invert(1);
+                        }
+                    }
+
+                    .details {
+                        color: #1C1C1C99;
+                        font-size: 14px;
+
+                        .title {
+                            color: #000000;
+                        }
+                    }
+                }
+            }
+        }
+
+        .music {
+            ._intro {
+                ._action {
+                    .icon {
+                        color: #000000;
+                    }
+                }
+            }
+
+            .listing {
+                &-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .track-card {
+                        flex: none;
+                        width: fit-content;
+
+                        /deep/ .track-info {
+                            display: flex;
+                            flex: none;
+
+                            .track-cover {
+                                width: 70px;
+                                height: 70px;
+                                margin-right: 10px;
+
+                                .track-image {
+                                    width: inherit;
+                                    height: inherit;
+                                    padding-bottom: 0;
+                                }
+
+                                .track-actions {
+                                    width: inherit;
+                                    height: inherit;
+
+                                    .play-button {
+                                        height: 50px;
+                                        width: 50px;
+                                        min-width: 50px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .selectMusic {
+                        position: relative;
+                        right: 42px;
+                        cursor: pointer;
+
+                        * {
+                            position: absolute;
+                        }
+
+                        input[type=checkbox] {
+                            width: 1.3em;
+                            height: 1.3em;
+                            background-color: white;
+                            border-radius: 50%;
+                            vertical-align: middle;
+                            border: 1px solid #ddd;
+                            appearance: none;
+                            -webkit-appearance: none;
+                            outline: none;
+
+                            &:checked {
+                                background-color: #1E78FF;
+                            }
+                        }
+
+                        .check-icon {
+                            color: #ffffff;
+                            font-size: 16px;
+                            top: 3px;
+                            left: 2px;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
