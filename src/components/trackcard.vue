@@ -1,5 +1,5 @@
 <template>
-  <v-flex class="track-card">
+  <v-flex class="track-card dflex">
     <v-flex
       v-if="!isEmptyAlbum"
       @mouseenter="is_component_hover = true"
