@@ -38,12 +38,12 @@
 
         <div v-if="selectAlbumsMode" class="selectAlbumsMode _action">
           <v-btn round dark depressed @click="openAddToPlaylist()"> Add selected to... </v-btn>
-          <span @click="selectAlbumsMode = false"> Cancel </span>
+          <span @click="toggleSelectAlbumsMode(false)"> Cancel </span>
         </div>
         <div
           v-else
           class="dflex align-center _action pointer-cursor"
-          @click="selectAlbumsMode = true"
+          @click="toggleSelectAlbumsMode(true)"
         >
           <v-icon>add</v-icon>
           <span>Select</span>
@@ -112,6 +112,12 @@ export default {
     };
   },
   methods: {
+    toggleSelectAlbumsMode(status) {
+      this.selectAlbumsMode = status
+      if (!status) {
+        this.selectedAlbums = []
+      }
+    },
     openAddToPlaylist() {
       if (this.selectedAlbums.length) {
         this.addToPlaylistActive = true
