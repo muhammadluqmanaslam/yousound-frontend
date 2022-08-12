@@ -37,7 +37,7 @@ export default {
       this.defbodyContent = bodyContent.style.height
 
       if (user) {
-        if (bodyContent.classList.contains('top-menu')) {
+        if (bodyContent.classList.includes('top-menu')) {
           bodyContent.style.top = '43px'
           document.body.style.paddingTop = '40px'
         } else if (bodyContent) {
