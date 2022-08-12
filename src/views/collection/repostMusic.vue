@@ -123,7 +123,10 @@ export default {
         this.addToPlaylistActive = true
       }
     },
-    closeAddToPlaylist() {
+    closeAddToPlaylist(isPartial) {
+      if (!isPartial) {
+        this.toggleSelectAlbumsMode()
+      }
       this.addToPlaylistActive = false
     },
     removeAlbum(index) {
