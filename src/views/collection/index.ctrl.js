@@ -4,11 +4,18 @@ import productCard from "@/components/productcard"
 import trackCard from "@/components/trackcard"
 import contentTopHeader from "@/components/contentTopHeader"
 
+import repostMusic from "./repostMusic"
+import repostVideos from "./repostVideos"
+import repostProducts from "./repostProducts"
+
 export default {
     components: {
         productCard,
         trackCard,
         contentTopHeader,
+        repostMusic,
+        repostVideos,
+        repostProducts,
     },
     data() {
         return {

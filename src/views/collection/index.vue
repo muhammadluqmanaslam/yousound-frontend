@@ -18,6 +18,10 @@
         </ul>
       </template>
     </content-top-header>
+
+    <repost-music v-show="activeTab === 'music'" />
+    <repost-videos v-show="activeTab === 'videos'" />
+    <repost-products v-show="activeTab === 'product'" />
   </div>
 </template>
 
