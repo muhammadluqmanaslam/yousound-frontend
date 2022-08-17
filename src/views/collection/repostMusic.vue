@@ -89,7 +89,7 @@
 
 <script>
 import trackCard from "@/components/trackcard";
-import addToPlaylist from "./addToPlaylist";
+import addToPlaylist from "@/views/Playlist/addToPlaylist";
 
 export default {
   components: {
