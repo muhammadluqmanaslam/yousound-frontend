@@ -73,34 +73,16 @@
             />
             <h3 class="_subtitle mb-3">Pro Subscription</h3>
 
-            <div class="card-details">
-              <input
-                v-model.number="card.number"
-                type="text"
-                name="cardNo"
-                id="cardNo"
-                class="cardNo"
-                placeholder="Card number"
-              />
-              <input
-                v-model.number="card.mm"
-                type="text"
-                name="mm"
-                id="mm"
-                class="mm"
-                placeholder="MM"
-              />
-              <input
-                v-model.number="card.yy"
-                type="text"
-                name="yy"
-                id="yy"
-                class="yy"
-                placeholder="YY"
+            <div id='app'>
+              <card class='stripe-card'
+                :class='{ complete }'
+                :stripe='stripePubkey'
+                :options='options'
+                @change='complete = $event.complete'
               />
             </div>
 
-            <v-btn depressed class="addCard-btn" :disabled="false" @click="isUserSubscribed = true">
+            <v-btn depressed class="addCard-btn" :disabled="false" @click="paymentMethod()">
               Add card to file
             </v-btn>
           </v-flex>
@@ -112,7 +94,7 @@
       </div>
     </div>
 
-    <div v-if="!isUserSignedUp" class="creator-signup">
+    <div v-if="isUserSubscribed && !isPhoneNumberPresent" class="creator-signup">
       <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -357,12 +339,16 @@ import { mapState } from "vuex";
 import UserService from '@/services/user'
 import AuthService from '@/services/auth.js'
 import SmsService from '@/services/sms.js'
+import { Card, createToken } from 'vue-stripe-elements'
+import SubscriptionService from '@/services/subscription.js'
 
 export default {
   components: {
     UserTag,
     AttachSlide,
     smsEngagement,
+    createToken,
+    Card,
   },
   data() {
     return {
@@ -370,11 +356,13 @@ export default {
       digitsLen: 9,
       digitEntered: false,
       signUpDone: false,
-      card: {
-        number: null,
-        mm: null,
-        yy: null,
-      },
+      complete: false,
+      number: false,
+      expiry: false,
+      cvc: false,
+      loading: true,
+      stripePubkey: process.env.STRIPE_PUBLISHABLE_KEY,
+      options: { hidePostalCode: true },
       showCardPanel: false,
       textMessage: "",
       smsMaxChar: 150,
@@ -385,6 +373,8 @@ export default {
       smsEngagementActive: false,
       isUserSignedUp: false,
       isUserSubscribed: false,
+      stripePriceId: process.env.PRO_PRICE_ID,
+      isPhoneNumberPresent: false,
     };
   },
   watch: {
@@ -482,6 +472,38 @@ export default {
           )
         })
     },
+    paymentMethod() {
+      createToken().then(data => {
+        this.subscribe(this.stripePriceId, data.token)
+      })
+    },
+    subscribe(priceId, tokenResponse) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      SubscriptionService.createSubscription({price_id: priceId, token_id: tokenResponse.id, token_response: tokenResponse})
+        .then((response) => {
+          if (response.body.message != null) {
+            this.isUserSubscribed = true
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$router.push({ name: 'DiscoverIndex' })
+            this.$store.dispatch(
+              'error/showSuccessToast', response.body.message
+            )
+          } else {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              response.body.errors || [response.body]
+            )
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
   },
   computed: {
     ...mapState({
@@ -519,7 +541,7 @@ export default {
   },
   mounted() {
     console.log('this.isUserSignedUp.....', this.isUserSignedUp, this.signUpDone)
-    if (!this.isUserSignedUp) {
+    if (!this.isUserSignedUp && this.$refs.input0) {
       this.$refs.input0[0].focus();
     }
     if (this.currentUser.stripe_subscription_id !== null) {
@@ -527,6 +549,7 @@ export default {
     }
     if (this.currentUser.phone_number !== null) {
       this.isUserSignedUp = true
+      this.isPhoneNumberPresent = true
       console.log("isUserSignedUp-->");
     } else {
       this.isUserSignedUp = false

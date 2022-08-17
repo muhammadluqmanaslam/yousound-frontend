@@ -502,9 +502,9 @@ export default {
         console.log("--data.howl---->", data.howl)
         sound = data.howl;
       } else {
-        console.log("--data.track.audio---->", data.track.audio)
+        console.log("--data.track.audio---->", data.track)
         sound = data.howl = new Howl({
-          src: data.track.audio,
+          src: data.track.mp_channel_1_ep_1_url,
           html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
           onplay: function () {
             // Display the duration.
