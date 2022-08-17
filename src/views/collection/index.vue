@@ -1,7 +1,6 @@
 <template>
   
   <div class="page collection-page mx-5">
-
     <content-top-header class="mt-3">
       <template slot="topHeader">
         <ul>
