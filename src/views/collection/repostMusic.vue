@@ -7,19 +7,21 @@
         <div class="_action"><v-icon>add</v-icon> View All</div>
       </div>
 
-      <div class="_body listing">
+      <div class="_body list-track-view list-track-view-artCard">
         <div
           v-for="(playlist, index) in playlistLen"
           :key="index"
-          class="dflex listing-item"
+          class="dflex list-track-view-item"
+          @click="$router.push({name: 'Playlist'})"
         >
-          <div class="playlist-icon">
+          <div class="artCard-icon">
             <img
               :src="require('@/assets/playlist-grey.svg')"
               width="30"
               alt="playlist icon"
             />
           </div>
+
           <div class="details">
             <div class="_title">Workout {{ index + 1 }}</div>
             <span class="tracks"
@@ -50,11 +52,11 @@
         </div>
       </div>
 
-      <div class="_body listing">
+      <div class="_body list-track-view list-track-view-trackCard">
         <div
           v-for="(album, index) in playlistLen"
           :key="index"
-          class="listing-item"
+          class="list-track-view-item"
         >
           <track-card
             :objects="[tempAlbum]"
@@ -89,7 +91,7 @@
 
 <script>
 import trackCard from "@/components/trackcard";
-import addToPlaylist from "@/views/Playlist/addToPlaylist";
+import addToPlaylist from "@/views/Playlists/addToPlaylist";
 
 export default {
   components: {
