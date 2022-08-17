@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <add-to-playlist v-if="addToPlaylistActive" :addToPlaylist="addToPlaylistActive" @closeAddToPlaylist="closeAddToPlaylist" />
+    <add-to-playlist v-if="addToPlaylistActive" :addToPlaylist="addToPlaylistActive" :selectedAlbums="selectedAlbums" @closeAddToPlaylist="closeAddToPlaylist" />
   </div>
 </template>
 

@@ -1,6 +1,11 @@
 <template>
   <v-dialog v-model="getAddToPlaylist" content-class="addToPlaylist-dialog">
-    <div v-if="!newPlaylistActive" class="addToPlaylist">
+    <v-icon
+      class="icon-close"
+      @click="closeAddToPlaylist()"
+    >close</v-icon>
+
+    <div v-if="!newPlaylistActive && !playlistAddedSuccess" class="addToPlaylist">
       <div class="text-center _top">
         <span>Add To Playlist</span>
       </div>
@@ -31,6 +36,7 @@
       </div>
 
       <input
+        v-model="newPlaylistTitle"
         type="text"
         name="newPlaylist"
         id="newPlaylist"
@@ -50,6 +56,15 @@
         Save Playlist
       </v-btn>
     </div>
+
+    <div v-if="playlistAddedSuccess" class="text-center playlistAddedSuccess">
+      <img :src="require('@/assets/playlist-grey.svg')" width="50" alt="playlist icon" />
+
+      <h3 class="intro-text">Added to Playlist</h3>
+      <div class="body-text">
+        {{ selectedAlbums.length }} {{ "song" | pluralize(selectedAlbums.length) }} added to "{{ newPlaylistTitle }}"
+      </div>
+    </div>
   </v-dialog>
 </template>
 
@@ -60,12 +75,15 @@ export default {
   components: { trackcardsimple },
   props: {
     addToPlaylist: Boolean,
+    selectedAlbums: Array,
   },
   data() {
     return {
       getAddToPlaylist: this.addToPlaylist,
       newPlaylistActive: false,
       isNewPlaylistPublic: false,
+      newPlaylistTitle: "",
+      playlistAddedSuccess: false,
     };
   },
   watch: {
@@ -78,7 +96,10 @@ export default {
   },
   methods: {
     addNewPlaylist() {
-      this.closeAddToPlaylist();
+      if (this.newPlaylistTitle) {
+        this.newPlaylistActive = false;
+        this.playlistAddedSuccess = true;
+      }
     },
     closeAddToPlaylist(isPartial) {
       this.$emit("closeAddToPlaylist", isPartial);
@@ -96,6 +117,15 @@ export default {
   position: relative;
   padding: 20px;
   background-color: #ffffff;
+
+  .icon-close {
+    position: absolute;
+    right: 12px;
+    top: 20px;
+    color: #000000;
+    cursor: pointer;
+    z-index: 999;
+  }
 
   ._top {
     margin-bottom: 30px;
@@ -162,6 +192,18 @@ export default {
       height: 1px;
       border: 0;
       margin: 15px 0 30px;
+    }
+  }
+
+  .playlistAddedSuccess {
+    text-align: center;
+    padding: 90px 0;
+
+    .intro-text {
+      color: #5B5B5B;
+    }
+    .body-text {
+      color: #717171;
     }
   }
 }
