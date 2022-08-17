@@ -30,7 +30,8 @@ import Creators from '@/views/landingPages/landing2'
 import AdFree from '@/views/landingPages/landing3'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
-import CreateAttendee from '@/views/home/create_attendee'
+// import CreateAttendee from '@/views/home/create_attendee'
+import Playlist from '@/views/Playlists/playlist'
 // import Discover from '@/views/discover/index'
 // import DiscoverIndex from '@/views/discover/'
 // import SearchPage from '@/views/search/search'
@@ -260,7 +261,7 @@ export function createRouter(settings) {
       },
     },
     { path: '/x', name: 'AddAttendee', component: AddAttendee },
-    { path: '/playlist', name: 'Playlist', component: CreateAttendee },
+    { path: '/playlist', name: 'Playlist', component: Playlist },
     {
       path: '/playlist/:slug',
       name: 'PlaylistDetail',
