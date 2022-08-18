@@ -57,5 +57,10 @@ export default {
     },
     created() {
         this.getStream()
+
+        const activeTab = this.$route.params.activeTab
+        if (activeTab) {
+            this.activeTab = activeTab
+        }
     },
 }

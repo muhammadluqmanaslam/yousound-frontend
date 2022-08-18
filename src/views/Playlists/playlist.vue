@@ -78,7 +78,7 @@ export default {
       this.activeTab = tab;
       this.$router.push({
         name: "CollectionIndex",
-        params: { activetab: tab },
+        params: { activeTab: tab },
       });
     },
     isActiveTab(tab) {
