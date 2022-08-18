@@ -35,6 +35,8 @@ export default {
       inviter: {},
       show_register_success_dialog: false,
       isPageReady: false,
+      age_group: ['14-21', '22-34', '35-49', '50-65+'],
+      social_platform: ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Snapchat'],
     }
   },
 

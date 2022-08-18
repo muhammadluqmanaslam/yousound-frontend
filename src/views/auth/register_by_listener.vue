@@ -80,23 +80,28 @@
             <country-select class="country" name="country" v-model="user.country" :country="country" topCountry="US" />
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <select class="country" v-model="user.age_group" name="age_group" placeholder="Age Group">
-              <option :value="null" disabled>Age Group</option>
-              <option>14-21</option>
-              <option>22-34</option>
-              <option>35-49</option>
-              <option>50-65+</option>
-            </select>
+            <v-select
+                v-model="user.age_group"
+                :items="age_group"
+                label="Age Group"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <select class="country" v-model="user.social_provider" name="social_provider" placeholder="Social Platform">
-              <option :value="null" disabled>Social Platform</option>
-              <option>Facebook</option>
-              <option>Instagram</option>
-              <option>Twitter</option>
-              <option>LinkedIn</option>
-              <option>Snapchat</option>
-            </select>
+            <v-select
+                v-model="user.social_provider"
+                :items="social_platform"
+                label="Social Platform"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
           </v-flex>
           <v-flex xs12 text-xs-center>
             <input
@@ -105,7 +110,7 @@
               type="text"
               name="social_user_name"
               autocomplete="off"
-              placeholder="Social Username"
+              placeholder="Social Platform Username"
             />
           </v-flex>
           <v-flex xs12 text-xs-center>

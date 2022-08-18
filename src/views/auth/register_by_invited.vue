@@ -154,12 +154,38 @@
             <country-select class="country" v-model="user.country" :country="country" topCountry="US" />
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <select class="country" v-model="user.age_group">
-              <option>14-21</option>
-              <option>22-34</option>
-              <option>35-49</option>
-              <option>50-65+</option>
-            </select>
+            <v-select
+                v-model="user.age_group"
+                :items="age_group"
+                label="Age Group"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <v-select
+                v-model="user.social_provider"
+                :items="social_platform"
+                label="Social Platform"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <input
+              v-model="user.social_user_name"
+              class="displayname"
+              type="text"
+              name="social_user_name"
+              autocomplete="off"
+              placeholder="Social Platform Username"
+            />
           </v-flex>
           <v-flex xs12 text-xs-center>
             <input
