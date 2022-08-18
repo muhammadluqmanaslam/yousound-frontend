@@ -42,22 +42,22 @@
         />
 
         <div class="d-none list-track-view-action listing-action">
-            <span class="share" @click="shareTrack(track)">
-                <img :src="require('@/assets/ic_share.svg')" alt="share icon">
-            </span>
-            <span class="add">
-                <v-icon>add</v-icon>
-            </span>
-            <span class="more">
-                <v-icon>more_horiz</v-icon>
-            </span>
+          <span class="share" @click="shareTrack(track)">
+            <img :src="require('@/assets/ic_share.svg')" alt="share icon" />
+          </span>
+          <span class="add">
+            <v-icon>add</v-icon>
+          </span>
+          <span class="more">
+            <v-icon>more_horiz</v-icon>
+          </span>
         </div>
       </div>
     </div>
 
     <share-modal
       v-if="share_dialog"
-      :item="shareTrack()"
+      :item="sharedAlbum"
       :dismiss="closeShareTrack"
     />
   </div>
@@ -66,7 +66,7 @@
 <script>
 import trackCard from "@/components/trackcard";
 import contentTopHeader from "@/components/contentTopHeader";
-import shareModal from "@/components/sharemodal"
+import shareModal from "@/components/sharemodal";
 
 export default {
   components: {
@@ -80,6 +80,7 @@ export default {
         name: "Temp Playlist",
         status: "private",
         tracks: [1, 2, 3, 4],
+        sharedAlbum: {},
       },
       activeTab: "music",
       tabs: [
@@ -102,12 +103,12 @@ export default {
       return this.activeTab === tab;
     },
     shareTrack(track) {
+      this.sharedAlbum = this.tempAlbum;
       this.share_dialog = true;
-
-      return track;
     },
     closeShareTrack(tab) {
       this.share_dialog = false;
+      this.sharedAlbum = {};
     },
   },
   computed: {
@@ -713,25 +714,15 @@ export default {
 
 <style lang="scss" scoped>
 .playlist {
-    .breadcrumb {
-        font-size: 18px;
-        font-weight: bold;
-        line-height: 1.5;
-    }
+  .breadcrumb {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
 
-    .meta-summary {
-        color: #1C1C1C;
-        margin: 15px 0;
-    }
-
-    .listings {
-        .listing {
-            &:hover {
-                .listing-action {
-                    display: flex;
-                }
-            }
-        }
-    }
+  .meta-summary {
+    color: #1c1c1c;
+    margin: 15px 0;
+  }
 }
 </style>
