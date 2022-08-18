@@ -1093,7 +1093,7 @@ textarea {
   cursor: pointer !important;
 }
 .cursor-none {
-  cursor: none;
+  cursor: auto;
 }
 
 .border-top-none {
@@ -1323,6 +1323,10 @@ textarea {
 
     &:hover {
       background: rgba(0, 0, 0, 0.02);
+
+        .listing-action {
+            display: flex;
+        }
     }
 
     &:last-child {
@@ -1451,6 +1455,20 @@ textarea {
           font-size: 16px;
           top: 3px;
           left: 2px;
+        }
+      }
+
+    }
+  }
+
+  &-video {
+    .list-track-view-item {
+      .box {
+        flex: 1;
+
+        &__content {
+          cursor: pointer;
+          width: 150px !important;
         }
       }
 
