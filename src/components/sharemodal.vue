@@ -1,8 +1,8 @@
 <template>
-  <v-flex xs12 sm12 class="share-section" :class="{onMobile}">
+  <v-flex xs12 sm12 class="share-section" :class="{ onMobile }">
     <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
     <div row wrap class="popup-section">
-      <v-flex xs12 class="profile-section">
+      <v-flex xs12 class="dflex profile-section">
         <router-link :to="'/' + user.slug"
           ><div
             class="avatar-image"
@@ -11,8 +11,8 @@
             }"
           ></div
         ></router-link>
-        <router-link :to="'/' + user.slug"
-          ><label class="user-name"
+        <router-link :to="'/' + user.slug">
+          <label class="user-name"
             >{{ user.username }}
             <v-icon
               class="user-status"
@@ -20,8 +20,10 @@
               v-if="user.user_type == 'artist'"
               >fa-check-circle</v-icon
             ></label
-          ></router-link
-        >
+          ></router-link>
+
+        <v-spacer></v-spacer>
+
         <user-follow-btn
           v-if="user.id != $store.state.auth.user.id"
           :user="user"
