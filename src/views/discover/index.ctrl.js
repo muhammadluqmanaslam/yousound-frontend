@@ -30,7 +30,7 @@ export default {
 
   data() {
     return {
-      activeTab: '',
+      activeTab: 'discover',
       tabs: [
         { id: 'discover', title: 'Trending' },
         { id: 'music', title: 'Music' },
@@ -318,6 +318,28 @@ export default {
       this.$nextTick(() => {
         this.loadFeeds(this.activeTab, 1)
       })
+    },
+
+    onTab(tab) {
+      this.activeTab = tab
+
+      switch (tab) {
+        case 'discover':
+          this.$router.push({name: 'DiscoverIndex'})
+          break;
+        case 'music':
+          this.$router.push({name: 'AlbumIndex'})
+          break;
+        case 'video':
+          this.$router.push({name: 'VideoIndex'})
+          break;
+        case 'merch':
+          this.$router.push({name: 'ProductIndex'})
+          break;
+
+        default:
+          break;
+      }
     },
   },
 
