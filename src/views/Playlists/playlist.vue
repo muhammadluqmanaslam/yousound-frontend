@@ -686,5 +686,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.playlist {
+    .breadcrumb {
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1.5;
+    }
+
+    .meta-summary {
+        color: #1C1C1C
+    }
+}
 </style>
