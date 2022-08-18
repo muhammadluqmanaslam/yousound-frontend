@@ -20,7 +20,7 @@
 
     <repost-music v-show="activeTab === 'music'" />
     <repost-videos v-show="activeTab === 'videos'" />
-    <repost-products v-show="activeTab === 'product'" />
+    <repost-products v-show="activeTab === 'products'" />
   </div>
 </template>
 
