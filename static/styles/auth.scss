@@ -343,7 +343,10 @@
       display: none;
     }
   }
-
+  .input-group--select label {
+    line-height: 14px!important;
+  }
+  
   input[type='text'],
   input[type='email'],
   input[type='password'],select.country {

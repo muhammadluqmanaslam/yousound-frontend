@@ -80,23 +80,43 @@
             <country-select class="country" name="country" v-model="user.country" :country="country" topCountry="US" />
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <select class="country" v-model="user.age_group" name="age_group" placeholder="Age Group">
-              <option :value="null" disabled>Age Group</option>
+            <v-select
+                v-model="user.age_group"
+                :items="age_group"
+                label="Age Group"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
+            <!-- <select class="country" v-model="user.age_group" name="age_group" :agegroup="agegroup" placeholder="Age Group">
+              <option :value="null" disabled selected>Age Group</option>
               <option>14-21</option>
               <option>22-34</option>
               <option>35-49</option>
               <option>50-65+</option>
-            </select>
+            </select> -->
           </v-flex>
           <v-flex xs12 text-xs-center>
-            <select class="country" v-model="user.social_provider" name="social_provider" placeholder="Social Platform">
-              <option :value="null" disabled>Social Platform</option>
+            <v-select
+                v-model="user.social_provider"
+                :items="social_platform"
+                label="Social Platform"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
+            <!-- <select class="country" v-model="user.social_provider" name="social_provider">
+              <option disabled>Social Platform</option>
               <option>Facebook</option>
               <option>Instagram</option>
               <option>Twitter</option>
               <option>LinkedIn</option>
               <option>Snapchat</option>
-            </select>
+            </select> -->
           </v-flex>
           <v-flex xs12 text-xs-center>
             <input

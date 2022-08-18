@@ -12,6 +12,8 @@ export default {
       terms: false,
       newsletter_terms: false,
       country: '',
+      age_group: ['14-21', '22-34', '35-49', '50-65+'],
+      social_platform: ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Snapchat'],
       region: '',
       user: {
         email: '',
