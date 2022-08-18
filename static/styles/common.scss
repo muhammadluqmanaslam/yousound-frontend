@@ -1328,6 +1328,36 @@ textarea {
     }
   }
 
+  &-action {
+    align-items: center;
+    justify-content: space-between;
+    min-width: 7%;
+    margin-right: 10px;
+    cursor: pointer;
+
+    .share {
+      margin-top: 10px;
+    }
+
+    .icon {
+      font-size: 20px;
+      color: #000000;
+      transition: .3s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+    img {
+      width: 20px;
+      transition: .3s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+
   &-artCard {
     .list-track-view-item {
       .artCard-icon {
