@@ -34,4 +34,10 @@ export default {
       headers: { Authorization: $store.state.auth.token },
     })
   },
+
+  fetchAssetInputInfo(trackId) {
+    return Vue.http.get(`${API_BASE_URL}/${trackId}/fetch_asset_input_info`, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
 }
