@@ -28,11 +28,11 @@
       <span>{{ playlist.status }}</span>
     </div>
 
-    <div class="list-track-view list-track-view-trackCard">
+    <div class="list-track-view list-track-view-trackCard listings">
       <div
         v-for="(track, index) in playlist.tracks"
         :key="index"
-        class="list-track-view-item"
+        class="list-track-view-item listing"
       >
         <track-card
           :objects="[tempAlbum]"
@@ -41,22 +41,38 @@
           hideTrackLength
         />
 
-        <div class="list-track-view-action">
-            Action
+        <div class="d-none list-track-view-action listing-action">
+            <span class="share" @click="shareTrack(track)">
+                <img :src="require('@/assets/ic_share.svg')" alt="share icon">
+            </span>
+            <span class="add">
+                <v-icon>add</v-icon>
+            </span>
+            <span class="more">
+                <v-icon>more_horiz</v-icon>
+            </span>
         </div>
       </div>
     </div>
+
+    <share-modal
+      v-if="share_dialog"
+      :item="shareTrack()"
+      :dismiss="closeShareTrack"
+    />
   </div>
 </template>
 
 <script>
 import trackCard from "@/components/trackcard";
 import contentTopHeader from "@/components/contentTopHeader";
+import shareModal from "@/components/sharemodal"
 
 export default {
   components: {
     contentTopHeader,
     trackCard,
+    shareModal,
   },
   data() {
     return {
@@ -71,6 +87,7 @@ export default {
         { id: "videos", title: "Videos" },
         { id: "products", title: "Products" },
       ],
+      share_dialog: false,
     };
   },
   methods: {
@@ -83,6 +100,14 @@ export default {
     },
     isActiveTab(tab) {
       return this.activeTab === tab;
+    },
+    shareTrack(track) {
+      this.share_dialog = true;
+
+      return track;
+    },
+    closeShareTrack(tab) {
+      this.share_dialog = false;
     },
   },
   computed: {
@@ -696,6 +721,16 @@ export default {
 
     .meta-summary {
         color: #1C1C1C
+    }
+
+    .listings {
+        .listing {
+            &:hover {
+                .listing-action {
+                    display: flex;
+                }
+            }
+        }
     }
 }
 </style>
