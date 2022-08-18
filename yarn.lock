@@ -8491,6 +8491,13 @@ vue-computed-promise@1.0.3:
   resolved "https://registry.yarnpkg.com/vue-computed-promise/-/vue-computed-promise-1.0.3.tgz#8d4afedb4054a62f73e4c65f1fddd1ae6df45a23"
   integrity sha512-OZkAzW6/sn+wDF5gm69RCIQO2dv1Ngk4gEhGahC0VDtRgS+wsrTTTNasf1Pmyj315mJrmc4bcZcFSnVBslsSmw==
 
+vue-country-region-select@^2.0.16:
+  version "2.0.16"
+  resolved "https://registry.yarnpkg.com/vue-country-region-select/-/vue-country-region-select-2.0.16.tgz#309c0d1867c6434398398bc46db2810c310b917f"
+  integrity sha512-nVeBXrC12VMaC8PBJHy3oVOcrLTeN0yJ5lCVEcI3HBD9N1zk2Z0ltBwyYd+ertGhwqDk1g5TUy56jVqX6lTTdw==
+  dependencies:
+    vue "^2.5.17"
+
 vue-ctk-date-time-picker@^2.4.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/vue-ctk-date-time-picker/-/vue-ctk-date-time-picker-2.5.0.tgz#22d6e4b4199326bfb0bf0b869e7450f4c16a6239"
@@ -8631,7 +8638,7 @@ vue-template-es2015-compiler@^1.2.2:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@2, vue@^2.5.2, vue@^2.6.9:
+vue@2, vue@^2.5.17, vue@^2.5.2, vue@^2.6.9:
   version "2.7.8"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.8.tgz#34e06553137611d8cecc4b0cd78b7a59f80b1299"
   integrity sha512-ncwlZx5qOcn754bCu5/tS/IWPhXHopfit79cx+uIlLMyt3vCMGcXai5yCG5y+I6cDmEj4ukRYyZail9FTQh7lQ==

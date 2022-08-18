@@ -132,7 +132,7 @@
 
           <v-flex xs12 text-xs-center>
             <input
-              v-model="user.name"
+              v-model="user.display_name"
               class="displayname"
               type="text"
               name="name"
@@ -140,6 +140,26 @@
               placeholder="Name"
               v-validate="'required|max:20'"
             />
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <input
+              class="displayname"
+              type="text"
+              name="city"
+              placeholder="City"
+              v-model="user.city"
+            />
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <country-select class="country" v-model="user.country" :country="country" topCountry="US" />
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <select class="country" v-model="user.age_group">
+              <option>14-21</option>
+              <option>22-34</option>
+              <option>35-49</option>
+              <option>50-65+</option>
+            </select>
           </v-flex>
           <v-flex xs12 text-xs-center>
             <input

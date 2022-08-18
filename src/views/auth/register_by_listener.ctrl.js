@@ -1,6 +1,7 @@
 import AuthService from '@/services/auth.js'
 // import UserService from '@/services/user.js'
 
+
 export default {
   components: {},
 
@@ -10,6 +11,8 @@ export default {
       register_success: false,
       terms: false,
       newsletter_terms: false,
+      country: '',
+      region: '',
       user: {
         email: '',
         password: '',
@@ -40,6 +43,11 @@ export default {
             formData.append('user[username]', this.user.username)
             formData.append('user[display_name]', this.user.display_name)
             formData.append('user[avatar]', this.user.avatar_file)
+            formData.append('user[city]', this.user.city)
+            formData.append('user[country]', this.user.country)
+            formData.append('user[social_provider]', this.user.social_provider)
+            formData.append('user[social_user_name]', this.user.social_user_name)
+            formData.append('user[age_group]', this.user.age_group)
             AuthService.registerAsListener(formData)
               .then((response) => {
                 // const userId = response.body.id

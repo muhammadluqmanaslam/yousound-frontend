@@ -96,10 +96,11 @@ export default {
             formData.append('user[avatar]', this.user.avatar_file)
             formData.append('user[genre_id]', this.user.genre_id)
             formData.append('user[request_role]', this.user.request_role)
-            formData.append(
-              'user[social_user_name]',
-              this.user.social_user_name
-            )
+            formData.append('user[social_user_name]', this.user.social_user_name)
+            formData.append('user[city]', this.user.city)
+            formData.append('user[country]', this.user.country)
+            formData.append('user[social_provider]', this.user.social_provider)
+            formData.append('user[age_group]', this.user.age_group)
             AuthService.registerAsListener(formData)
               .then((res) => {
                 this.$store.dispatch('error/showLoadingActivity', false)
