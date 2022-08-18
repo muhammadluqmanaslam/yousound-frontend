@@ -720,7 +720,8 @@ export default {
     }
 
     .meta-summary {
-        color: #1C1C1C
+        color: #1C1C1C;
+        margin: 15px 0;
     }
 
     .listings {
