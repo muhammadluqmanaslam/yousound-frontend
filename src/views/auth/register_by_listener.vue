@@ -90,13 +90,6 @@
                 single-line
                 name="social_provider"
               ></v-select>
-            <!-- <select class="country" v-model="user.age_group" name="age_group" :agegroup="agegroup" placeholder="Age Group">
-              <option :value="null" disabled selected>Age Group</option>
-              <option>14-21</option>
-              <option>22-34</option>
-              <option>35-49</option>
-              <option>50-65+</option>
-            </select> -->
           </v-flex>
           <v-flex xs12 text-xs-center>
             <v-select
@@ -109,14 +102,6 @@
                 single-line
                 name="social_provider"
               ></v-select>
-            <!-- <select class="country" v-model="user.social_provider" name="social_provider">
-              <option disabled>Social Platform</option>
-              <option>Facebook</option>
-              <option>Instagram</option>
-              <option>Twitter</option>
-              <option>LinkedIn</option>
-              <option>Snapchat</option>
-            </select> -->
           </v-flex>
           <v-flex xs12 text-xs-center>
             <input
