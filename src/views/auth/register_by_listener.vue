@@ -110,7 +110,7 @@
               type="text"
               name="social_user_name"
               autocomplete="off"
-              placeholder="Social Username"
+              placeholder="Social Platform Username"
             />
           </v-flex>
           <v-flex xs12 text-xs-center>

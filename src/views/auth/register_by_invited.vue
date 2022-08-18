@@ -179,6 +179,16 @@
           </v-flex>
           <v-flex xs12 text-xs-center>
             <input
+              v-model="user.social_user_name"
+              class="displayname"
+              type="text"
+              name="social_user_name"
+              autocomplete="off"
+              placeholder="Social Platform Username"
+            />
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <input
               class="email"
               type="email"
               name="email"
