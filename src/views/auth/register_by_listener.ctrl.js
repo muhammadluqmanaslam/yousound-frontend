@@ -38,7 +38,7 @@ export default {
             formData.append('user[email]', this.user.email)
             formData.append('user[password]', this.user.password)
             formData.append('user[username]', this.user.username)
-            formData.append('user[display_name]', this.user.display_name)
+            // formData.append('user[display_name]', this.user.display_name)
             formData.append('user[avatar]', this.user.avatar_file)
             AuthService.registerAsListener(formData)
               .then((response) => {
