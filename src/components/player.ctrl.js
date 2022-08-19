@@ -171,7 +171,6 @@ export default {
       if (data.howl) {
         sound = data.howl
       } else {
-        TrackService.convertSupportIntoStandardFormat(this.track.id)
         sound = data.howl = new Howl({
           src: data.track.audio.url,
           html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
@@ -209,11 +208,10 @@ export default {
             // this.isPlaying = false
           },
         })
+        TrackService.playTrack(this.track.id).then((response) =>
+          console.log("playing - track", this.track.id)
+        );
       }
-
-      TrackService.playTrack(this.track.id).then((response) =>
-        console.log('playing - track', this.track.id)
-      )
       // Begin playing the sound.
       sound.play()
 

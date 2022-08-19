@@ -720,7 +720,6 @@ export default {
       if (data.howl) {
         sound = data.howl;
       } else {
-        TrackService.convertSupportIntoStandardFormat(this.track.id)
         sound = data.howl = new Howl({
           src: data.track.audio.url,
           html5: true, // Force to HTML5 so that the audio can stream in (best for large files).

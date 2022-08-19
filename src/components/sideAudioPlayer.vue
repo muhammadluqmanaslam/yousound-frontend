@@ -502,7 +502,6 @@ export default {
         console.log("--data.howl---->", data.howl)
         sound = data.howl;
       } else {
-        TrackService.convertSupportIntoStandardFormat(this.track.id)
         console.log("--data.track.audio---->", data.track)
         sound = data.howl = new Howl({
           src: data.track.mp_channel_1_ep_1_url,
@@ -541,11 +540,11 @@ export default {
             // this.isPlaying = false
           },
         });
-      };
 
-      TrackService.playTrack(this.track.id).then((response) =>
-        console.log("playing - track", this.track.id)
-      );
+        TrackService.playTrack(this.track.id).then((response) =>
+          console.log("playing - track", this.track.id)
+        );
+      };
       // Begin playing the sound.
       sound.play();
 

@@ -21,7 +21,6 @@
 import { mapActions } from 'vuex'
 import { Howl, Howler } from 'howler'
 import { MyEvents } from '@/helper'
-import TrackService from "@/services/track";
 
 export default {
   data() {
@@ -137,7 +136,6 @@ export default {
       if (data.howl) {
         sound = data.howl
       } else {
-        TrackService.convertSupportIntoStandardFormat(this.track.id)
         console.log("--data.track.audio---->", data.track.audio)
         sound = data.howl = new Howl({
           src: data.track.audio.url,

@@ -34,10 +34,4 @@ export default {
       headers: { Authorization: $store.state.auth.token },
     })
   },
-
-  convertSupportIntoStandardFormat(trackId) {
-    return Vue.http.get(`${API_BASE_URL}/${trackId}/convert_support_into_standard_format`, {
-      headers: { Authorization: $store.state.auth.token },
-    })
-  },
 }
