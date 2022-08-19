@@ -88,19 +88,24 @@ export default {
           // console.log(this.errors)
           if (res === true) {
             var formData = new FormData()
-            formData.append('user[invitation_token]', this.token)
+            // formData.append('user[invitation_token]', this.token)
             formData.append('user[email]', this.user.email)
             formData.append('user[password]', this.user.password)
             formData.append('user[username]', this.user.username)
-            formData.append('user[display_name]', this.user.display_name)
+            formData.append('user[name]', this.user.name)
             formData.append('user[avatar]', this.user.avatar_file)
-            formData.append('user[genre_id]', this.user.genre_id)
             formData.append('user[request_role]', this.user.request_role)
-            formData.append(
-              'user[social_user_name]',
-              this.user.social_user_name
-            )
-            AuthService.registerAsListener(formData)
+            formData.append('user[social_url]', this.user.social_url)
+            // formData.append('user[display_name]', this.user.display_name)
+            // formData.append('user[genre_id]', this.user.genre_id)
+            // formData.append(
+            //   'user[social_user_name]',
+            //   this.user.social_user_name
+            // )
+            // for (var pair of formData.entries()) {
+            //   console.log(pair[0]+ ' - ' + pair[1]); 
+            // }
+            AuthService.registerAsArtist(formData)
               .then((res) => {
                 this.$store.dispatch('error/showLoadingActivity', false)
                 this.show_register_success_dialog = true
