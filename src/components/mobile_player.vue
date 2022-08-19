@@ -339,7 +339,6 @@ import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
 import CommentService from "@/services/comment";
 // import PaymentService from '@/services/payment'
-import TrackService from "@/services/track";
 import UserService from "@/services/user";
 import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
@@ -720,56 +719,42 @@ export default {
       if (data.howl) {
         sound = data.howl;
       } else {
-        TrackService.fetchAssetInputInfo(this.track.id).then((result) => {
-          sound = data.howl = new Howl({
-            src: result.bodyText,
-            html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-            onplay: function () {
-              // Display the duration.
-              self.totalTime = self.formatTime(Math.round(sound.duration()));
+        sound = data.howl = new Howl({
+          src: data.track.audio.url,
+          html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
+          onplay: function () {
+            // Display the duration.
+            self.totalTime = self.formatTime(Math.round(sound.duration()));
 
-              // Start upating the progress of the track.
-              requestAnimationFrame(self.step.bind(this));
+            // Start upating the progress of the track.
+            requestAnimationFrame(self.step.bind(this));
 
-              // Start the wave animation if we have already loaded
-              self.isPlaying = true;
-              self.setPauseStatus(false);
-            },
-            onload: function () {
-              // Start the wave animation.
-              self.isLoaded = true;
-            },
-            onend: function () {
-              // Stop the wave animation.
-              // this.isLoaded = false
-              // this.isPlaying = false
-              if (self.isRepeated) {
-                self.skipTo(self.index);
-              } else {
-                self.skip("right");
-              }
-            },
-            onpause: function () {
-              // Stop the wave animation.
-              // this.isPlaying = false
-            },
-            onstop: function () {
-              // Stop the wave animation.
-              // this.isPlaying = false
-            },
-          });
-
-          TrackService.playTrack(this.track.id).then((response) =>
-            console.log("playing - track", this.track.id)
-          );
-          sound.play();
-
-          if (sound.state() === "loaded") {
-            this.isPlaying = true;
-          } else {
-            this.isLoaded = false;
-            this.isPlaying = false;
-          }
+            // Start the wave animation if we have already loaded
+            self.isPlaying = true;
+            self.setPauseStatus(false);
+          },
+          onload: function () {
+            // Start the wave animation.
+            self.isLoaded = true;
+          },
+          onend: function () {
+            // Stop the wave animation.
+            // this.isLoaded = false
+            // this.isPlaying = false
+            if (self.isRepeated) {
+              self.skipTo(self.index);
+            } else {
+              self.skip("right");
+            }
+          },
+          onpause: function () {
+            // Stop the wave animation.
+            // this.isPlaying = false
+          },
+          onstop: function () {
+            // Stop the wave animation.
+            // this.isPlaying = false
+          },
         });
       }
 
