@@ -29,6 +29,7 @@
                     ref="avatar_file"
                     class="avatar-file"
                     accept="image/*"
+                    v-validate="'required'"
                     @change="imageChanged($event)"
                   />
                   <label for="avatar_file">Choose image</label>
@@ -138,9 +139,9 @@
           </v-flex>
 
           <v-flex xs12 text-xs-center mt-3>
-            <v-btn block round dark type="submit" class="create-account-button"
-              >Create account</v-btn
-            >
+            <v-btn block round dark type="submit" class="create-account-button">
+              Create account
+            </v-btn>
           </v-flex>
 
           <!-- <v-flex xs12 text-xs-center mt-3>
