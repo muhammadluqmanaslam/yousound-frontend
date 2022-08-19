@@ -167,10 +167,10 @@
 
           <v-flex xs12 text-xs-center>
             <input
-              v-model="user.socialUrl"
+              v-model="user.social_url"
               class="displayname"
               type="text"
-              name="name"
+              name="social_media"
               autocomplete="off"
               placeholder="Social Media URL"
               v-validate="'required'"
