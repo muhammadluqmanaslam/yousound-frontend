@@ -35,8 +35,8 @@ export default {
     })
   },
 
-  fetchAssetInputInfo(trackId) {
-    return Vue.http.get(`${API_BASE_URL}/${trackId}/fetch_asset_input_info`, {
+  convertSupportIntoStandardFormat(trackId) {
+    return Vue.http.get(`${API_BASE_URL}/${trackId}/convert_support_into_standard_format`, {
       headers: { Authorization: $store.state.auth.token },
     })
   },

@@ -21,6 +21,7 @@
 import { mapActions } from 'vuex'
 import { Howl, Howler } from 'howler'
 import { MyEvents } from '@/helper'
+import TrackService from "@/services/track";
 
 export default {
   data() {
@@ -136,54 +137,45 @@ export default {
       if (data.howl) {
         sound = data.howl
       } else {
-        TrackService.fetchAssetInputInfo(this.track.id).then((result) => {
-          console.log("--data.track.audio---->", data.track.audio)
-          sound = data.howl = new Howl({
-            src: data.track.audio.url,
-            html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-            onplay: function () {
-              // Display the duration.
-              self.totalTime = Math.round(sound.duration())
+        TrackService.convertSupportIntoStandardFormat(this.track.id)
+        console.log("--data.track.audio---->", data.track.audio)
+        sound = data.howl = new Howl({
+          src: data.track.audio.url,
+          html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
+          onplay: function () {
+            // Display the duration.
+            self.totalTime = Math.round(sound.duration())
 
-              // Start upating the progress of the track.
-              requestAnimationFrame(self.step.bind(this))
+            // Start upating the progress of the track.
+            requestAnimationFrame(self.step.bind(this))
 
-              // Start the wave animation if we have already loaded
-              self.isPlaying = true
-              self.setPauseStatus(false)
-            },
-            onload: function () {
-              // Start the wave animation.
-              self.isLoaded = true
-              console.log('onload', self.isLoaded)
-            },
-            onend: function () {
-              // Stop the wave animation.
-              // this.isLoaded = false
-              // this.isPlaying = false
-              if (self.isRepeated) {
-                self.skipTo(self.index)
-              } else {
-                self.skip('right')
-              }
-            },
-            onpause: function () {
-              // Stop the wave animation.
-              // this.isPlaying = false
-            },
-            onstop: function () {
-              // Stop the wave animation.
-              // this.isPlaying = false
-            },
-          })
-          sound.play();
-
-          if (sound.state() === "loaded") {
-            this.isPlaying = true;
-          } else {
-            this.isLoaded = false;
-            this.isPlaying = false;
-          }
+            // Start the wave animation if we have already loaded
+            self.isPlaying = true
+            self.setPauseStatus(false)
+          },
+          onload: function () {
+            // Start the wave animation.
+            self.isLoaded = true
+            console.log('onload', self.isLoaded)
+          },
+          onend: function () {
+            // Stop the wave animation.
+            // this.isLoaded = false
+            // this.isPlaying = false
+            if (self.isRepeated) {
+              self.skipTo(self.index)
+            } else {
+              self.skip('right')
+            }
+          },
+          onpause: function () {
+            // Stop the wave animation.
+            // this.isPlaying = false
+          },
+          onstop: function () {
+            // Stop the wave animation.
+            // this.isPlaying = false
+          },
         })
       }
 
