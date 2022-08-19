@@ -103,6 +103,7 @@ export default {
             formData.append('user[country]', this.user.country)
             formData.append('user[social_provider]', this.user.social_provider)
             formData.append('user[age_group]', this.user.age_group)
+            formData.append('user[social_url]', this.user.socialUrl)
             AuthService.registerAsListener(formData)
               .then((res) => {
                 this.$store.dispatch('error/showLoadingActivity', false)
