@@ -100,7 +100,12 @@
               />
             </div>
 
-            <v-btn depressed class="addCard-btn" :disabled="false" @click="isUserSubscribed = true">
+            <v-btn
+              depressed
+              class="addCard-btn"
+              :disabled="false"
+              @click="isUserSubscribed = true"
+            >
               Add card to file
             </v-btn>
           </v-flex>
@@ -204,27 +209,36 @@
 
         <div>You’ve been added to this SMS list</div>
 
-        <v-btn depressed round class="done-btn" @click="isUserSignedUp = true">Close</v-btn>
+        <v-btn depressed round class="done-btn" @click="isUserSignedUp = true"
+          >Close</v-btn
+        >
       </div>
     </div>
 
-    <div v-if="!confirmSendSMS && !sendSuccess && isUserSignedUp && isUserSubscribed" class="post-sms">
+    <div
+      v-if="
+        !confirmSendSMS && !sendSuccess && isUserSignedUp && isUserSubscribed
+      "
+      class="post-sms"
+    >
       <div v-if="!confirmSendSMS" class="post-sms-card">
         <div class="post-sms-wrapper">
           <div v-if="!onMobile" class="_top">
             <h2 class="_title">Send SMS</h2>
-            <div class="_title">to <strong>{{ 45678 | formatNumberWithComma}}</strong> SMS contacts</div>
+            <div class="_title">
+              to <strong>{{ 45678 | formatNumberWithComma }}</strong> SMS
+              contacts
+            </div>
           </div>
 
-          <div class="post-sms-submit" :class="{onMobile}">
+          <div class="post-sms-submit" :class="{ onMobile }">
             <div class="cursor-pointer" @click="closeSMS">Cancel</div>
 
             <div class="dflex align-center">
-              <div class="char-count  mr-2">
-                <span
-                  :class="{ 'red--text': charCount == smsMaxChar }"
-                  >{{ charCount }}</span
-                >
+              <div class="char-count mr-2">
+                <span :class="{ 'red--text': charCount == smsMaxChar }">{{
+                  charCount
+                }}</span>
                 /
                 <span>{{ smsMaxChar }}</span>
               </div>
@@ -262,19 +276,15 @@
           </div>
 
           <div v-if="!onMobile" class="char-count">
-            <span
-              :class="{ 'red--text': charCount == smsMaxChar }"
-              >{{ charCount }}</span
-            >
+            <span :class="{ 'red--text': charCount == smsMaxChar }">{{
+              charCount
+            }}</span>
             /
             <span>{{ smsMaxChar }}</span>
           </div>
         </div>
 
-        <attach-slide
-          @getAttachment="getSelected"
-          class="mb-0"
-        />
+        <attach-slide @getAttachment="getSelected" class="mb-0" />
 
         <div v-if="!onMobile" class="post-sms-submit">
           <div class="cursor-pointer" @click="closeSMS">Cancel</div>
@@ -301,27 +311,27 @@
       />
 
       <div class="_title">Confirm SMS text</div>
-      <img
-        :src="require('@/assets/mobile_chat.svg')"
-        width="35"
-        class="my-4"
-      />
+      <img :src="require('@/assets/mobile_chat.svg')" width="35" class="my-4" />
 
       <div class="_message">
-        This SMS text will be sent to: <strong>{{2450 | formatNumberWithComma}} people</strong>
+        This SMS text will be sent to:
+        <strong>{{ 2450 | formatNumberWithComma }} people</strong>
 
-        <br>
-        <br>
+        <br />
+        <br />
 
-        The credit card connected to this account will be charged $0.01 per text:
+        The credit card connected to this account will be charged $0.01 per
+        text:
 
-        <br>
-        <br>
+        <br />
+        <br />
 
         <h2>$24.50</h2>
       </div>
 
-      <v-btn dark round class="width100 mt-3" @click="sendSMS">Ok, send SMS</v-btn>
+      <v-btn dark round class="width100 mt-3" @click="sendSMS"
+        >Ok, send SMS</v-btn
+      >
     </div>
 
     <div v-if="onMobile && sendSuccess" class="sms-success">
@@ -333,26 +343,30 @@
       <div class="_title">Success</div>
 
       <div class="_message">
-        SMS text sent to: <br>
-        <strong>{{2450 | formatNumberWithComma}} people</strong>
+        SMS text sent to: <br />
+        <strong>{{ 2450 | formatNumberWithComma }} people</strong>
       </div>
 
-      <br>
-      <br>
+      <br />
+      <br />
 
       <v-btn dark depressed round class="width100 mt-3" @click="openEngagement">
         View Engagement
       </v-btn>
     </div>
 
-    <sms-engagement v-if="smsEngagementActive" @closeEngagement="closeEngagement" />
+    <sms-engagement
+      v-if="smsEngagementActive"
+      @closeEngagement="closeEngagement"
+    />
   </div>
 </template>
 
 <script>
+import smsService from "@/services/sms";
 import UserTag from "@/components/user_tag";
 import AttachSlide from "@/components/attachSlide";
-import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement"
+import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement";
 import { mapState } from "vuex";
 
 export default {
@@ -364,7 +378,7 @@ export default {
   data() {
     return {
       telDigits: [],
-      digitsLen: 9,
+      digitsLen: 10,
       digitEntered: false,
       signUpDone: false,
       card: {
@@ -380,8 +394,6 @@ export default {
       confirmSendSMS: false,
       sendSuccess: false,
       smsEngagementActive: false,
-      isUserSignedUp: false,
-      isUserSubscribed: false,
     };
   },
   watch: {
@@ -397,7 +409,7 @@ export default {
   methods: {
     outsideClick() {
       console.log("outside click");
-      this.closeSMS()
+      this.closeSMS();
     },
     openEngagement() {
       this.smsEngagementActive = true;
@@ -407,7 +419,32 @@ export default {
     },
     sendSMS() {
       this.confirmSendSMS = false;
-      this.sendSuccess = true;
+      const params = {
+        message: this.textMessage,
+      };
+
+      if (Object.keys(this.attachment).length) {
+        params.attachment = this.attachment.value
+      }
+
+      smsService
+        .sendSMS(params)
+        .then((response) => {
+          console.log({ response });
+
+          this.$store.dispatch("error/showSuccessToast", [
+            "SMS Sent successfully" + ` - ${response.body.message}`,
+          ]);
+
+          if (this.onMobile) {
+            this.sendSuccess = true;
+          } else {
+            this.closeSMS();
+          }
+        })
+        .catch(() => {
+          this.$store.dispatch("error/showErrorToast", ["Error Sending SMS"]);
+        });
     },
     confirmSend() {
       this.confirmSendSMS = true;
@@ -415,8 +452,6 @@ export default {
     getSelected(data) {
       console.log(data);
       this.attachment = data;
-      this.toggleShowAttach = false;
-      this.message.body = this.defaultRepostMessage;
     },
     showCard() {
       this.showCardPanel = true;
@@ -434,7 +469,6 @@ export default {
       this.telDigits.splice(idx, 1, "");
     },
     closeSMS() {
-      this.signUpDone = false;
       this.digitEntered = false;
       this.$emit("closeSMS");
     },
@@ -471,6 +505,14 @@ export default {
     },
     currentUser() {
       return this.$store.state.auth.user;
+    },
+    isUserSubscribed() {
+      return this.currentUser.stripe_subscription_id;
+      // return false
+    },
+    isUserSignedUp() {
+      return this.currentUser.phone_number;
+      // return false
     },
   },
   mounted() {
@@ -734,6 +776,7 @@ export default {
   }
 
   .post-sms {
+    position: relative;
     width: 400px;
     margin: 0 auto;
     background-color: #ffffff;
@@ -795,7 +838,6 @@ export default {
         border-bottom: 1px solid #e4e4e4;
       }
     }
-
   }
 
   .confirm-sms {
