@@ -2,12 +2,12 @@ import { mapGetters, mapActions } from 'vuex'
 import { Howl, Howler } from 'howler'
 import AlbumService from '@/services/album'
 // import PaymentService from '@/services/payment'
-import TrackService from '@/services/track'
 import UserService from '@/services/user'
 import { MyEvents } from '@/helper'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
 import UserFollowBtn from "@/components/userFollowBtn";
+import TrackService from "@/services/track";
 
 export default {
   components: {
@@ -210,12 +210,10 @@ export default {
             // this.isPlaying = false
           },
         })
-
         TrackService.playTrack(this.track.id).then((response) =>
-          console.log('playing - track', this.track.id)
-        )
+          console.log("playing - track", this.track.id)
+        );
       }
-
       // Begin playing the sound.
       sound.play()
 

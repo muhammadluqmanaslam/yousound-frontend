@@ -41,7 +41,9 @@ import '@/../static/styles/app.scss'
 Vue.config.productionTip = false
 // Vue.prototype._ = _
 Object.defineProperty(Vue.prototype, '_', { value: _ })
+import vueCountryRegionSelect from 'vue-country-region-select'
 
+Vue.use(vueCountryRegionSelect)
 Vue.use(VueResource)
 // console.log('INTERCOM', process.env.INTERCOM_APP_ID)
 Vue.use(VueIntercom, { appId: process.env.INTERCOM_APP_ID })

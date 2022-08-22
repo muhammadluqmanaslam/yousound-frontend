@@ -13,6 +13,8 @@ export default {
   },
 
   registerAsListener(params) {
+    localStorage.setItem("user_email", params.get("user[email]"))
+    localStorage.setItem("user_pass", params.get("user[password]"))
     return Vue.http.post(API_BASE_URL + '/sign_up_as_listener', params)
   },
 

@@ -201,4 +201,8 @@ export const Stripe = {
       ? Math.round(((amount + 30) / 0.971 - amount) * 100) / 100
       : 0
   },
+  calculateSubFee: (amount) => {
+    let fee = (parseFloat(amount) * (2.9 / 100));
+    return fee
+  },
 }

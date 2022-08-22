@@ -73,30 +73,12 @@
             />
             <h3 class="_subtitle mb-3">Pro Subscription</h3>
 
-            <div class="card-details">
-              <input
-                v-model.number="card.number"
-                type="text"
-                name="cardNo"
-                id="cardNo"
-                class="cardNo"
-                placeholder="Card number"
-              />
-              <input
-                v-model.number="card.mm"
-                type="text"
-                name="mm"
-                id="mm"
-                class="mm"
-                placeholder="MM"
-              />
-              <input
-                v-model.number="card.yy"
-                type="text"
-                name="yy"
-                id="yy"
-                class="yy"
-                placeholder="YY"
+            <div id='app'>
+              <card class='stripe-card'
+                :class='{ complete }'
+                :stripe='stripePubkey'
+                :options='options'
+                @change='complete = $event.complete'
               />
             </div>
 
@@ -117,7 +99,7 @@
       </div>
     </div>
 
-    <div v-if="!isUserSignedUp && !isUserSubscribed" class="creator-signup">
+    <div v-if="isUserSubscribed && !isPhoneNumberPresent" class="creator-signup">
       <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -182,7 +164,7 @@
           dark
           depressed
           class="width100"
-          @click="signUpDone = true"
+          @click="updatePhoneNo()"
         >
           Confirm
         </v-btn>
@@ -326,7 +308,7 @@
         <br />
         <br />
 
-        <h2>$24.50</h2>
+        <h2>${{this.currentUser.followers * 0.01}}</h2>
       </div>
 
       <v-btn dark round class="width100 mt-3" @click="sendSMS"
@@ -368,12 +350,19 @@ import UserTag from "@/components/user_tag";
 import AttachSlide from "@/components/attachSlide";
 import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement";
 import { mapState } from "vuex";
+import UserService from '@/services/user'
+import AuthService from '@/services/auth.js'
+import SmsService from '@/services/sms.js'
+import { Card, createToken } from 'vue-stripe-elements'
+import SubscriptionService from '@/services/subscription.js'
 
 export default {
   components: {
     UserTag,
     AttachSlide,
     smsEngagement,
+    createToken,
+    Card,
   },
   data() {
     return {
@@ -381,14 +370,16 @@ export default {
       digitsLen: 10,
       digitEntered: false,
       signUpDone: false,
-      card: {
-        number: null,
-        mm: null,
-        yy: null,
-      },
+      complete: false,
+      number: false,
+      expiry: false,
+      cvc: false,
+      loading: true,
+      stripePubkey: process.env.STRIPE_PUBLISHABLE_KEY,
+      options: { hidePostalCode: true },
       showCardPanel: false,
       textMessage: "",
-      smsMaxChar: 300,
+      smsMaxChar: 150,
       attachment: {},
       postSMSactive: false,
       confirmSendSMS: false,
@@ -448,6 +439,11 @@ export default {
     },
     confirmSend() {
       this.confirmSendSMS = true;
+      if (this.textMessage === "") {
+        this.confirmSendSMS = false;
+        this.$store.dispatch(
+            'error/showErrorToast', ["Please enter message!"])
+      }
     },
     getSelected(data) {
       console.log(data);
@@ -460,7 +456,6 @@ export default {
       const validate =
         this.telDigits.length === this.digitsLen &&
         this.telDigits.every((tel) => typeof tel === "number");
-
       if (validate) {
         this.digitEntered = true;
       }
@@ -471,6 +466,57 @@ export default {
     closeSMS() {
       this.digitEntered = false;
       this.$emit("closeSMS");
+    },
+    updatePhoneNo() {
+      const params = new FormData()
+      let phoneNumber = "+1" + this.telDigits.join("");
+      params.append('user[phone_number]', phoneNumber)
+      UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          AuthService.setUser(response.body)
+          this.signUpDone = true
+          this.isUserSignedUp = true
+          this.$store.dispatch('error/showSuccessToast', ["Phone number updated successfully."])
+        })
+        .catch((e) => {
+          console.log(e)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+    paymentMethod() {
+      createToken().then(data => {
+        this.subscribe(this.stripePriceId, data.token)
+      })
+    },
+    subscribe(priceId, tokenResponse) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      SubscriptionService.createSubscription({price_id: priceId, token_id: tokenResponse.id, token_response: tokenResponse})
+        .then((response) => {
+          if (response.body.message != null) {
+            this.isUserSubscribed = true
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$router.push({ name: 'DiscoverIndex' })
+            this.$store.dispatch(
+              'error/showSuccessToast', response.body.message
+            )
+          } else {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              response.body.errors || [response.body]
+            )
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
     },
   },
   computed: {
@@ -516,9 +562,22 @@ export default {
     },
   },
   mounted() {
-    if (!this.isUserSignedUp) {
+    console.log('this.isUserSignedUp.....', this.isUserSignedUp, this.signUpDone)
+    if (!this.isUserSignedUp && this.$refs.input0) {
       this.$refs.input0[0].focus();
     }
+    if (this.currentUser.stripe_subscription_id !== null) {
+      this.isUserSubscribed = true
+    }
+    if (this.currentUser.phone_number !== null) {
+      this.isUserSignedUp = true
+      this.isPhoneNumberPresent = true
+      console.log("isUserSignedUp-->");
+    } else {
+      this.isUserSignedUp = false
+    }
+    console.log("currentUser-->", this.currentUser, this.currentUser.phone_number)
+    console.log('this.isUserSignedUp.....', this.isUserSignedUp, this.signUpDone)
   },
 };
 </script>

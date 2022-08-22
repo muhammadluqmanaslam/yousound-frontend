@@ -408,7 +408,7 @@ export default {
         // Pause video on audio play
         try {
           // eslint-disable-next-line no-undef
-          var pp = videojs("my_video_player");
+          var pp = videojs("myVideoPlayer");
           if (!pp.paused()) {
             pp.pause();
           }
@@ -487,10 +487,12 @@ export default {
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
       if (data.howl) {
+        console.log("--data.howl---->", data.howl)
         sound = data.howl;
       } else {
+        console.log("--data.track.audio---->", data.track)
         sound = data.howl = new Howl({
-          src: data.track.audio.url,
+          src: data.track.mp_channel_1_ep_1_url,
           html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
           onplay: function () {
             // Display the duration.
@@ -530,8 +532,7 @@ export default {
         TrackService.playTrack(this.track.id).then((response) =>
           console.log("playing - track", this.track.id)
         );
-      }
-
+      };
       // Begin playing the sound.
       sound.play();
 

@@ -1,7 +1,7 @@
 <template>
   <video
     ref="myVideoPlayer"
-    id="my_video_player"
+    id="myVideoPlayer"
     class="video-js vjs-default-skin vjs-fluid"
     :class="{onMobile}"
     :playsinline="onMobile"
@@ -31,7 +31,7 @@ export default {
   mounted() {
     this.videoId = this.$route.params.videoId
 
-    // console.log('video_player created')
+    console.log('video_player created adfasdfsdfsdf')
     this.$nextTick(() => {
       if (!this.pipMode && this.allVideosCount < 1) {
         console.log('init player');
@@ -52,7 +52,7 @@ export default {
         // there is a player in DOM, update original div wrapper
         // this is a fix for the DOM dissapearing when video page is re-visited
         let nodeDetails = this.$store.state.streamPlayer.nodeDetails
-        let glitchedVid = document.getElementById('my_video_player')
+        let glitchedVid = document.getElementById('myVideoPlayer')
 
         console.log('nodeDetails', nodeDetails);
         console.log('glitchedVid', glitchedVid);
@@ -82,14 +82,13 @@ export default {
 
   watch: {
     src: function (newVal, oldVal) {
-      console.log('video_player watching')
+      console.log('video_player watchingjjkjkjk   jkjkjk ')
       console.log(newVal, oldVal)
-      console.log(this.src)
+      console.log("this.src--->", this.src)
       this.player.src([
         {
           type: 'application/x-mpegURL',
           src: this.src,
-          // 'https://stream.mux.com/k2XvrNIFth736J8WZpN5czeEqSsNlsp02GUu4W00YDu02Q.m3u8',
         },
       ])
     },
@@ -97,9 +96,9 @@ export default {
   methods: {
     initPlayer() {
       const vm = this
+      console.log("this.src--->", this.src)
       vm.player =
-        vm.player ||
-        window.videojs('my_video_player', {
+        vm.player || window.videojs('myVideoPlayer', {
           autoplay: false,
           controls: true,
           sources: [
@@ -109,7 +108,16 @@ export default {
             },
           ],
         })
-
+      console.log("=====stripe_subscription_id=====", this.currentUser.stripe_subscription_id)
+      if (this.currentUser.stripe_subscription_id === undefined || this.currentUser.stripe_subscription_id === null) {
+        var options = {
+          id: "myVideoPlayer",
+        };
+        vm.player.ima(options);
+        vm.player.ima.initializeAdDisplayContainer();
+        vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
+        vm.player.ima.requestAds();
+      }
       // register method
       this.pauseMusicOnPlay()
     },
@@ -157,16 +165,26 @@ export default {
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
   },
 }
 </script>
 
 <style lang="scss">
+.video-js .vjs-big-play-button {
+  top: 44% !important;
+  left: 44% !important;
+}
 .video-js button {
   outline: none;
   box-shadow: none;
 }
-
+.ima-ad-container{
+  left:0 !important;
+  top:0 !important;
+}
 .video-js .vjs-big-play-button {
 // position: relative;
 }

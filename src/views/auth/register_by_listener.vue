@@ -57,10 +57,9 @@
               >already taken</label
             >
           </v-flex>
-
           <v-flex xs12 text-xs-center>
             <input
-              v-model="user.name"
+              v-model="user.display_name"
               class="displayname"
               type="text"
               name="name"
@@ -69,18 +68,52 @@
               v-validate="'required|max:20'"
             />
           </v-flex>
-
-          <!-- <v-flex xs12 text-xs-center>
+          <v-flex xs12 text-xs-center>
             <input
+              class=""
+              type="text"
+              name="city"
+              placeholder="City"
+              v-model="user.city"
+            />
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <country-select class="country" name="country" v-model="user.country" :country="country" topCountry="US" />
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <v-select
+                v-model="user.age_group"
+                :items="age_group"
+                label="Age Group"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <v-select
+                v-model="user.social_provider"
+                :items="social_platform"
+                label="Social Platform"
+                persistent-hint
+                return-object
+                class="country"
+                single-line
+                name="social_provider"
+              ></v-select>
+          </v-flex>
+          <v-flex xs12 text-xs-center>
+            <input
+              v-model="user.social_user_name"
               class="displayname"
               type="text"
-              name="display_name"
+              name="social_user_name"
               autocomplete="off"
-              placeholder="Display Name"
-              v-model="user.username"
-              v-validate="'required|max:20'"
+              placeholder="Social Platform Username"
             />
-          </v-flex> -->
+          </v-flex>
           <v-flex xs12 text-xs-center>
             <input
               class="email"

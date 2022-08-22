@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import moment from 'moment'
-
 import genreSingleSelector from '@/components/genre_single_selector'
 import sampleLicenseDialog from './components/sample_license_dialog'
 import trackUploader from '@/components/trackuploader'

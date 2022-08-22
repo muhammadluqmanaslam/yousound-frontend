@@ -1,4 +1,4 @@
-import * as UpChunk from '@mux/upchunk'
+// import * as UpChunk from '@mux/upchunk'
 import AuthService from '@/services/auth'
 import MeService from '@/services/me'
 import PaymentService from '@/services/payment'

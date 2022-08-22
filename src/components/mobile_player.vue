@@ -486,7 +486,7 @@ export default {
         // Pause video on audio play
         try {
           // eslint-disable-next-line no-undef
-          var pp = videojs("my_video_player");
+          var pp = videojs("myVideoPlayer");
           if (!pp.paused()) {
             pp.pause();
           }
@@ -749,12 +749,11 @@ export default {
             // this.isPlaying = false
           },
         });
-
-        TrackService.playTrack(this.track.id).then((response) =>
-          console.log("playing - track", this.track.id)
-        );
       }
 
+      TrackService.playTrack(this.track.id).then((response) =>
+        console.log("playing - track", this.track.id)
+      );
       // Begin playing the sound.
       sound.play();
 
