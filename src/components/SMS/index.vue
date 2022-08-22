@@ -353,7 +353,7 @@ export default {
   data() {
     return {
       telDigits: [],
-      digitsLen: 9,
+      digitsLen: 10,
       digitEntered: false,
       signUpDone: false,
       complete: false,
