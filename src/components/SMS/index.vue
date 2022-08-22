@@ -352,7 +352,6 @@ import smsEngagement from "@/views/mobile/messages/SMS/smsEngagement";
 import { mapState } from "vuex";
 import UserService from '@/services/user'
 import AuthService from '@/services/auth.js'
-import SmsService from '@/services/sms.js'
 import { Card, createToken } from 'vue-stripe-elements'
 import SubscriptionService from '@/services/subscription.js'
 
