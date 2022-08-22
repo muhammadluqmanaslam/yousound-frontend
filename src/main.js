@@ -156,10 +156,10 @@ if (isOldBrowser) {
       // Block all mobile
       const isAllowedOnMobile = to.meta.allowOnMobile;
       if (onMobile && !isAllowedOnMobile) {
-        return next({
-          name: "Home",
-          replace: true,
-        })
+        // return next({
+        //   name: "Home",
+        //   replace: true,
+        // })
       }
 
       if (
