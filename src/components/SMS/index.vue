@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <div v-if="isUserSubscribed && !isPhoneNumberPresent" class="creator-signup">
+    <div v-if="isUserSubscribed && !isPhoneNumberPresent && !isUserSignedUp" class="creator-signup">
       <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
