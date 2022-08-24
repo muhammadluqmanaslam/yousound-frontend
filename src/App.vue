@@ -63,9 +63,9 @@
         :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'not-authenticated': !isAuthenticated, wrapFullHeight}"
       >
         <router-view></router-view>
-        <app-footer v-if="!onMobile && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer>
+        <!-- <app-footer v-if="isAuthenticated && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer> -->
 
-        <mobile-footer v-else-if="onMobile && isAuthenticated && mFooterOp.showFooter" />
+        <!-- <mobile-footer v-else-if="onMobile && isAuthenticated && mFooterOp.showFooter" /> -->
       </v-container>
     </v-content>
 
