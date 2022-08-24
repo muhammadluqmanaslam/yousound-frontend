@@ -183,7 +183,7 @@
                       </div>
                       <div
                         class="order-status-section text-xs-center"
-                        v-else-if="item.status == 'refunded'"
+                        v-else-if="item.status == 'item_refunded'"
                       >
                         <p class="order-status-text">Refunded</p>
                       </div>
