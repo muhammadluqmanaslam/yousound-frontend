@@ -1,7 +1,7 @@
 <template>
   <div class="trending-comp trending-music">
-    <div class="top-bar">
-      <h2 class="bar-title">Curated Music</h2>
+    <div v-if="title" class="top-bar">
+      <h2 class="bar-title">{{ title }}</h2>
       <!-- <div class="bar-action">View All</div> -->
     </div>
 
@@ -10,9 +10,17 @@
         <span
           v-for="(feed, index) in musicFeed"
           :key="index"
-          class="tab-holder px-0 flex xs6 md6"
+          :class="['tab-holder px-0 flex', classAttr]"
         >
-          <track-card :objects="musicFeed" :objectIndex="index" hideMoreMenu class="pa-0" />
+          <track-card
+            :objects="musicFeed"
+            :objectIndex="index"
+            hideMoreMenu
+            class="pa-0"
+            :hideTrackLength="hideTrackLength"
+            :noAction="noAction"
+            :noMeta="noMeta"
+          />
         </span>
       </template>
     </item-tab>
@@ -29,11 +37,9 @@
       </template>
     </item-tab> -->
 
-    <div class="cta">
+    <div v-if="!hideCta" class="cta">
       <v-btn block outline class="cta-btn">
-        <strong>
-          View all music
-        </strong>
+        <strong> View all music </strong>
       </v-btn>
     </div>
   </div>
@@ -47,7 +53,20 @@ import { mapActions, mapState } from "vuex";
 
 export default {
   props: {
+    title: {
+      type: String,
+      default: "Curated Music",
+    },
     listLimit: Number,
+    classAttr: {
+      type: String,
+      default: "xs6 md6",
+    },
+    hideTrackLength: Boolean,
+    noAction: Boolean,
+    noMeta: Boolean,
+    hideCta: Boolean,
+    showHoverTrackInfo: Boolean,
   },
   components: {
     itemTab,
@@ -63,10 +82,10 @@ export default {
   },
   computed: {
     ...mapState({
-      musicFeed: (state) => state.trending.albums
+      musicFeed: (state) => state.trending.albums,
     }),
     items_per_page() {
-        return 1 * this.listLimit || 50
+      return 1 * this.listLimit || 50;
     },
     musicFeed1() {
       // console.log('albums: ', this.musicFeed);
@@ -86,17 +105,17 @@ export default {
       getTrendingMusic: "trending/getTrendingMusic",
     }),
     loadTrendingMusic() {
-        if (this.musicFeed.length) return
+      if (this.musicFeed.length) return;
 
-        const params = {
+      const params = {
         filter: "new",
         genre: "any",
         category: "any",
         page: 1,
         per_page: this.items_per_page,
-        };
+      };
 
-        this.getTrendingMusic(params);
+      this.getTrendingMusic(params);
     },
     loadFeeds(tab, page) {
       const vm = this;
@@ -177,7 +196,7 @@ export default {
     // needs to be updated to trending
     // this.loadFeeds("new", 1);
 
-    this.loadTrendingMusic()
+    this.loadTrendingMusic();
   },
 };
 </script>
