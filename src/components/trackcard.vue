@@ -218,6 +218,10 @@
             </v-card>
           </v-menu>
           <p v-if="!hideTrackLength" class="track-count">{{ item.tracks.length }} tracks</p>
+          <div class="track-hover-info">
+            <div class="album-name">{{ item.name }}</div>
+            <div class="artist-name">{{ owner.username }}</div>
+          </div>
         </v-flex>
       </v-flex>
       <v-flex v-if="!noMeta && !noAction" xs12 class="track-detail" pa-0>

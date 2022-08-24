@@ -40,10 +40,10 @@ export default {
     objectIndex: {
       type: Number,
     },
-
     hideButtonAction: {
       type: Function,
     },
+    showHoverTrackInfo: Boolean
   },
 
   data() {
