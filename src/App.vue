@@ -256,7 +256,6 @@ export default {
     // register/detect screen on reSize
     this.onResize();
     window.addEventListener("resize", this.onResize, { passive: true });
-  
   },
   created() {
     console.log('App created')
@@ -317,8 +316,8 @@ export default {
   },
 
   methods: {
-    onResize () {
-      this.$store.dispatch("app/setWindowsWidth", window.innerWidth < 600)
+    onResize() {
+      this.$store.dispatch("app/setWindowsWidth", window.innerWidth)
     },
     initLoader(value = 0) {
       if (!this.onMobile && this.isAuthenticated) {
