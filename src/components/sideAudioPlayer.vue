@@ -471,6 +471,10 @@ export default {
 
     play(index) {
       // console.log('player', index, this.index, this.playlist)
+      // unload and stop all previous sounds.
+      for (var i = 0; i < Howler._howls.length; i++) {
+        Howler._howls[i].unload();
+      }
       var self = this;
       var sound;
       index = typeof index === "number" ? index : this.index;
