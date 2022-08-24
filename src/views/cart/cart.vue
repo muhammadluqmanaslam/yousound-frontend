@@ -343,6 +343,12 @@
                     >
                       Pending Order
                     </div>
+                    <div
+                      v-if="item.status == 'item_refunded'"
+                      class="text-xs-center"
+                    >
+                      Pending Order
+                    </div>
                     <div v-else class="text-xs-center">
                       Your Item Has Shipped!<br />View tracking info
                     </div>
