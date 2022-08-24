@@ -31,9 +31,32 @@ const state = {
     socialHandle: '',
   },
   globalSMSactive: false,
+  windowsWidth: null,
 }
 
 const getters = {
+  getWindowsWidth: (state) => state.windowsWidth,
+  onTabletStrict: (state) => {
+    const {windowsWidth} = state
+    if (windowsWidth > 767 && windowsWidth < 1024) {
+      return true
+    }
+    return false
+  },
+  onTabletAndAbove: (state) => {
+    const {windowsWidth} = state
+    if (windowsWidth > 767) {
+      return true
+    }
+    return false
+  },
+  onTabletAndBelow: (state) => {
+    const {windowsWidth} = state
+    if (windowsWidth <= 1024) {
+      return true
+    }
+    return false
+  },
   globalSMSactive: (state) => state.globalSMSactive,
   tabs: () => {
     const tabs = [
@@ -391,6 +414,9 @@ const actions = {
   prevActivationStage({ commit }, stage) {
     commit('gotoPrevActivation', stage)
   },
+  setWindowsWidth({ commit }, width) {
+    commit('setWindowsWidth', width)
+  },
 }
 
 const mutations = {
@@ -461,6 +487,9 @@ const mutations = {
   },
   toggleActivityPopup(state, status) {
     state.toggleActivity = status
+  },
+  setWindowsWidth(state, width) {
+    state.windowsWidth = width
   },
 }
 

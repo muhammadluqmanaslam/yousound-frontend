@@ -252,6 +252,11 @@ export default {
   mounted() {
     // on app mount, init app loader
     this.initLoader();
+
+    // register/detect screen on reSize
+    this.onResize();
+    window.addEventListener("resize", this.onResize, { passive: true });
+  
   },
   created() {
     console.log('App created')
@@ -303,11 +308,18 @@ export default {
   },
 
   beforeDestroy() {
+    if (typeof window !== "undefined") {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
+
     this.$root.$off(MyEvents.AUTH_SIGNIN, this.doAfterSignIn)
     this.$root.$off(MyEvents.AUTH_SIGNOUT, this.doAfterSignOut)
   },
 
   methods: {
+    onResize () {
+      this.$store.dispatch("app/setWindowsWidth", window.innerWidth < 600)
+    },
     initLoader(value = 0) {
       if (!this.onMobile && this.isAuthenticated) {
         this.$refs.appLoader.updateLoader(value)
