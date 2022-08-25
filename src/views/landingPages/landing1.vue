@@ -284,6 +284,13 @@ export default {
         z-index: 9;
         background-color: #ffffff;
 
+        .trending-title {
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 40px;
+          letter-spacing: -1px;
+        }
+
         .top-menu {
           width: fit-content;
         }
