@@ -1,7 +1,7 @@
 <template>
   <div class="trending-comp trending-videos">
-    <div class="top-bar">
-      <h2 class="bar-title">Trending Videos</h2>
+    <div v-if="title" class="top-bar">
+      <h2 class="bar-title">{{ title }}</h2>
       <!-- <div class="bar-action">View All</div> -->
     </div>
 
@@ -10,9 +10,17 @@
         <span
           v-for="(feed, index) in videoFeed"
           :key="index"
-          class="tab-holder px-0 flex xs6 md6"
+          :class="['tab-holder px-0 flex', classAttr]"
         >
-          <video-box :hoverOverlay="false" :item="feed" hideUser hideFreeTag />
+          <video-box
+            :hoverOverlay="false"
+            :item="feed"
+            hideUser
+            hideFreeTag
+            :showFullOverlay="showFullOverlay"
+            :coverOnly="coverOnly"
+            :coverRadius="coverRadius"
+          />
         </span>
       </template>
     </item-tab>
@@ -29,11 +37,9 @@
       </template>
     </item-tab> -->
 
-    <div class="cta">
+    <div v-if="!hideCta" class="cta">
       <v-btn block outline class="cta-btn">
-        <strong>
-          View all videos
-        </strong>
+        <strong> View all videos </strong>
       </v-btn>
     </div>
   </div>
@@ -41,12 +47,24 @@
 
 <script>
 import itemTab from "@/components/itemTab";
-import VideoBox from '@/components/video_box'
+import VideoBox from "@/components/video_box";
 import { mapActions, mapState } from "vuex";
 
 export default {
   props: {
+    title: {
+      type: String,
+      default: "Trending Videos",
+    },
+    classAttr: {
+      type: String,
+      default: "xs6 md6",
+    },
     listLimit: Number,
+    hideCta: Boolean,
+    showFullOverlay: Boolean,
+    coverOnly: Boolean,
+    coverRadius: Boolean,
   },
   components: {
     itemTab,
@@ -88,7 +106,7 @@ export default {
         only_follows: this.only_follows,
         page: 1,
         per_page: this.items_per_page,
-      }
+      };
 
       this.getTrendingVideos(params);
     },
@@ -130,14 +148,14 @@ export default {
 
 <style lang="scss" scoped>
 .trending-videos {
-    margin-top: 20px;
+  margin-top: 20px;
 
   .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   /deep/ .box {
     padding: 9px;
 
