@@ -93,6 +93,8 @@
             hideCta
             showHoverTrackInfo
             title=""
+            playButton2
+            playButton2IconHasWhiteBG
           />
         </transition>
 
@@ -261,6 +263,8 @@ export default {
   &-right {
     overflow-y: scroll;
     position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
 
     &::-webkit-scrollbar {
       width: 2px;

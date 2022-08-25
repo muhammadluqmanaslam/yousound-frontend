@@ -20,6 +20,8 @@
             :hideTrackLength="hideTrackLength"
             :noAction="noAction"
             :noMeta="noMeta"
+            :playButton2="playButton2"
+            :playButton2IconHasWhiteBG="playButton2IconHasWhiteBG"
           />
         </span>
       </template>
@@ -67,6 +69,8 @@ export default {
     noMeta: Boolean,
     hideCta: Boolean,
     showHoverTrackInfo: Boolean,
+    playButton2: Boolean,
+    playButton2IconHasWhiteBG: Boolean,
   },
   components: {
     itemTab,
