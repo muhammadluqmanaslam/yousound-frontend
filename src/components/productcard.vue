@@ -1,9 +1,13 @@
 <template>
-  <v-flex class="product-card" :class="{'side-tab-view': sideTabView, 'px-0': onMobile}">
+  <v-flex
+    class="product-card"
+    :class="{ 'side-tab-view': sideTabView, 'px-0': onMobile }"
+  >
     <v-flex
-      @mouseenter="is_component_hover=true"
-      @mouseleave="is_component_hover=false"
-      xs12 pa-0
+      @mouseenter="is_component_hover = true"
+      @mouseleave="is_component_hover = false"
+      xs12
+      pa-0
       class="product-info"
     >
       <!-- <v-flex xs12 class="product-user" v-if="false" pa-0>
@@ -14,23 +18,36 @@
           <img class="product-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
         </div>
       </v-flex> -->
-      <v-flex xs12 class="product-cover" :class="{'px-0': onMobile}">
+      <v-flex xs12 class="product-cover" :class="{ 'px-0': onMobile }">
         <p class="product-price">${{ item.price | formatNumber }}</p>
-        <div class="product-image" :style="{'background-image': 'url(' + item.covers[0].cover.url + ')'}"/></div>
-        <v-flex xs12 class="product-actions" relative v-if="currentUser && !hideOverlay">
+        <div
+          class="product-image"
+          :style="{
+            'background-image': 'url(' + item.covers[0].cover.url + ')',
+          }"
+        >
+          <div v-if="showFullOverlay" class="full-overlay">
+            <v-icon class="full-overlay_icon icon white--text">visibility</v-icon>
+          </div>
+        </div>
+        <v-flex
+          v-if="currentUser && !hideOverlay"
+          xs12
+          class="product-actions"
+          relative
+          @click="
+            $router.push({ name: 'SingleProduct', params: { id: item.id } })
+          "
+        >
           <div class="product-label">${{ item.price | formatNumber }}</div>
-          <v-flex xs12 class="touch-flex" @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"></v-flex>
-            <span v-if="!hideMoreOptions">
-              <v-menu
-                v-if="willMenuRender"
-                offset-y
-                class="product-menu"
-              >
-                <v-btn dark slot="activator" @click="is_menu_hover = true">
-                  <v-icon right>more_horiz</v-icon>
-                </v-btn>
-                <v-list>
-                  <!-- <v-list-tile
+          <!-- <v-flex xs12 class="touch-flex"></v-flex> -->
+          <span v-if="!hideMoreOptions">
+            <v-menu v-if="willMenuRender" offset-y class="product-menu">
+              <v-btn dark slot="activator" @click="is_menu_hover = true">
+                <v-icon right>more_horiz</v-icon>
+              </v-btn>
+              <v-list>
+                <!-- <v-list-tile
                     v-if="item.merchant.id != currentUser.id"
                     @click.native="repostProduct()"
                   >
@@ -39,37 +56,33 @@
                       <label>Repost</label>
                     </v-list-tile-title>
                   </v-list-tile> -->
-                  <v-list-tile
-                    v-if="item.merchant.id != currentUser.id"
-                    @click.native="openHideDialog()"
-                    class="default-menu-item track-menu-item"
-                  >
-                    <v-list-tile-title>
-                      <!-- <v-icon>visibility_off</v-icon> -->
-                      <label>Hide</label>
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </span>
+                <v-list-tile
+                  v-if="item.merchant.id != currentUser.id"
+                  @click.native="openHideDialog()"
+                  class="default-menu-item track-menu-item"
+                >
+                  <v-list-tile-title>
+                    <!-- <v-icon>visibility_off</v-icon> -->
+                    <label>Hide</label>
+                  </v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </span>
         </v-flex>
-        <v-flex
-          v-else xs12
-          class="touch-flex"
-          :class="{'px-0': onMobile}"
-          @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"
-        ></v-flex>
       </v-flex>
 
       <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
         <user-tag showAvatar class="tag" :user="item.merchant" />
         <p
           class="product-name cursor-pointer"
-          @click="$router.push({name: 'SingleProduct', params: { id: item.id}})"
+          @click="
+            $router.push({ name: 'SingleProduct', params: { id: item.id } })
+          "
         >
           {{ item.name }}
         </p>
-        <div v-if="!hideOptionCount"  class="product-options-count">
+        <div v-if="!hideOptionCount" class="product-options-count">
           <span>{{ item.variants.length }} Option</span>
           <span v-if="item.variants.length > 1">s</span>
         </div>
@@ -108,16 +121,33 @@
       :dismiss="closeShareDialog"
     />
 
-    <v-dialog v-if="show_hide_dialog" v-model="show_hide_dialog" content-class="my-dialog-1">
+    <v-dialog
+      v-if="show_hide_dialog"
+      v-model="show_hide_dialog"
+      content-class="my-dialog-1"
+    >
       <v-card>
-        <v-card-media :src="item.covers[0].cover.url" height="125px" contain></v-card-media>
+        <v-card-media
+          :src="item.covers[0].cover.url"
+          height="125px"
+          contain
+        ></v-card-media>
         <v-card-text>
-          <div class="headline">Are you sure you want to hide this product?</div>
-          <div>You won't be able to see it anymore, unless you visit the artists profile or download the song.</div>
+          <div class="headline">
+            Are you sure you want to hide this product?
+          </div>
+          <div>
+            You won't be able to see it anymore, unless you visit the artists
+            profile or download the song.
+          </div>
         </v-card-text>
         <v-card-actions>
-          <v-btn dark color="grey" @click.native="show_hide_dialog = false">No, cancel please!</v-btn>
-          <v-btn dark color="red" @click.native="hideProduct()">Yes, hide it!</v-btn>
+          <v-btn dark color="grey" @click.native="show_hide_dialog = false"
+            >No, cancel please!</v-btn
+          >
+          <v-btn dark color="red" @click.native="hideProduct()"
+            >Yes, hide it!</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -170,6 +200,7 @@ export default {
     sideTabView: {
       type: Boolean,
     },
+    showFullOverlay: Boolean,
   },
 
   data() {
