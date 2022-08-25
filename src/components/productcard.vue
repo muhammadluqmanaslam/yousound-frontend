@@ -28,6 +28,10 @@
         >
           <div v-if="showFullOverlay" class="full-overlay">
             <v-icon class="full-overlay_icon icon white--text">visibility</v-icon>
+            <div class="hover-info">
+              <div class="item-name">{{ item.name }}</div>
+              <div class="artist-name">{{ item.merchant.username }}</div>
+            </div>
           </div>
         </div>
         <v-flex

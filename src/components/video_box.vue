@@ -13,6 +13,10 @@
       >
         <div v-if="showFullOverlay" class="full-overlay">
           <v-icon class="full-overlay_icon icon play-button-2 iconHasWhiteBG black--text">play_arrow</v-icon>
+          <div class="hover-info">
+            <div class="item-name">{{ item.name }}</div>
+            <div class="artist-name">{{ item.user.username }}</div>
+          </div>
         </div>
       </div>
       <div class="box__caption" v-if="isLive">Live</div>
