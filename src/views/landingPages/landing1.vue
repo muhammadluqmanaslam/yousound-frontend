@@ -114,6 +114,11 @@
           <trending-product
             v-if="activeTab === 'merch'"
             :listLimit="20"
+            classAttr="xs3 px-1 mb-1"
+            :altMeta="false"
+            hideCta
+            title=""
+            showFullOverlay
           />
         </transition>
       </v-flex>
