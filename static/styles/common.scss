@@ -316,6 +316,7 @@ img.invert-color {
 .full-overlay_icon,
 .play-button-2 {
   z-index: 3;
+  font-size: 24px !important;
 
   &.iconHasWhiteBG {
     &::before {
