@@ -67,15 +67,18 @@
         }
         .track-hover-info {
           position: absolute;
-          bottom: 10.5px;
-          left: 20.25px;
+          bottom: 0px;
           font-size: 14px;
           color: #ffffff;
           letter-spacing: 0;
-          text-transform: capitalize;
+          padding: 5px 10px;
+          width: 100%;
+
+          .artist-name {
+            text-transform: capitalize;
+          }
 
           * {
-            width: 20%;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
