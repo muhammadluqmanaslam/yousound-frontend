@@ -8,8 +8,13 @@
       <span v-if="durationTag && !coverOnly" class="duration__tag">{{ durationTag }}</span>
       <div
         class="box__image"
+        :class="{coverRadius}"
         :style="`background-image: url(${_.get(item, 'cover.url')})`"
-      ></div>
+      >
+        <div v-if="showFullOverlay" class="full-overlay">
+          <v-icon class="play-button-2">play_arrow</v-icon>
+        </div>
+      </div>
       <div class="box__caption" v-if="isLive">Live</div>
 
       <div v-if="hoverOverlay" class="box__overlay">
@@ -105,10 +110,15 @@ export default {
       type: Boolean,
       default: true,
     },
+    showFullOverlay: {
+      type: Boolean,
+      default: true,
+    },
     coverOnly: {
       type: Boolean,
       default: false,
     },
+    coverRadius: Boolean,
   },
 
   computed: {
@@ -235,6 +245,17 @@ export default {
     border-radius: 0px;
     margin-top: 14px;
     border: none;
+
+    &:hover {
+      .full-overlay {
+        display: grid;
+        opacity: 1;
+      }
+    }
+
+    &.coverRadius {
+      border-radius: 4px;
+    }
   }
 
   &__caption {
