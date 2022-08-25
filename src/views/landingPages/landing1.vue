@@ -263,8 +263,6 @@ export default {
   &-right {
     overflow-y: scroll;
     position: relative;
-    padding-left: 10px;
-    padding-right: 10px;
 
     &::-webkit-scrollbar {
       width: 2px;
@@ -290,7 +288,13 @@ export default {
           width: fit-content;
         }
       }
+
+      &-music {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
     }
+
   }
 }
 </style>
