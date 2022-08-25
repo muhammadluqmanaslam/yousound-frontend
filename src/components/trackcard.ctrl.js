@@ -43,7 +43,9 @@ export default {
     hideButtonAction: {
       type: Function,
     },
-    showHoverTrackInfo: Boolean
+    showHoverTrackInfo: Boolean,
+    playButton2: Boolean,
+    playButton2IconHasWhiteBG: Boolean,
   },
 
   data() {

@@ -38,8 +38,19 @@
             @click.native="playSong()"
             dark
             class="play-button"
+            :class="{ 'play-button-2': playButton2 }"
           >
-            <v-icon>play_arrow</v-icon>
+            <v-icon
+              :class="[
+                {
+                  'play-button-2': playButton2,
+                  iconHasWhiteBG: playButton2IconHasWhiteBG,
+                },
+                'black--text'
+              ]"
+            >
+              play_arrow
+            </v-icon>
           </v-btn>
           <v-btn
             v-if="isPlaying && !$store.state.player.isPaused"
@@ -47,10 +58,20 @@
             dark
             class="play-button"
           >
-            <v-icon>pause</v-icon>
+            <v-icon
+              :class="[
+                {
+                  'play-button-2': playButton2,
+                  iconHasWhiteBG: playButton2IconHasWhiteBG,
+                },
+                'black--text'
+              ]"
+            >
+              pause
+            </v-icon>
           </v-btn>
           <v-menu
-            v-if="(currentUser && willMenuRender) && !hideMoreMenu"
+            v-if="currentUser && willMenuRender && !hideMoreMenu"
             v-model="menu"
             offset-y
             :close-on-content-click="false"
@@ -217,7 +238,9 @@
               </v-list>
             </v-card>
           </v-menu>
-          <p v-if="!hideTrackLength" class="track-count">{{ item.tracks.length }} tracks</p>
+          <p v-if="!hideTrackLength" class="track-count">
+            {{ item.tracks.length }} tracks
+          </p>
           <div class="track-hover-info">
             <div class="album-name">{{ item.name }}</div>
             <div class="artist-name">{{ owner.username }}</div>
