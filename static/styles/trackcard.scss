@@ -73,6 +73,14 @@
           color: #ffffff;
           letter-spacing: 0;
           text-transform: capitalize;
+
+          * {
+            width: 20%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
         }
         .play-button {
           align-self: center;

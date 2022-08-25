@@ -25,7 +25,8 @@
           <div
             class="track-image"
             :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
-          ></div>
+          ></div
+          >
           <!-- <div class="track-image" v-lazy:background-image="item.cover.url"></div> -->
         </template>
 
@@ -242,7 +243,7 @@
             {{ item.tracks.length }} tracks
           </p>
           <div class="track-hover-info">
-            <div class="album-name">{{ item.name }}</div>
+            <div class="item-name">{{ item.name }}</div>
             <div class="artist-name">{{ owner.username }}</div>
           </div>
         </v-flex>
