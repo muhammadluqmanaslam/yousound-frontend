@@ -9,6 +9,8 @@
     :width="sideBarWidth"
     class="sidebar"
   >
+    <div @dblclick="mini = !mini" class="sidebar-decoy"></div>
+
     <div class="pa-3 tabs-auth-wrapper">
       <div class="dflex justify-space-between align-center mb-3">
         <router-link :to="{ name: 'AlbumIndex' }" class="sidebar-logo">

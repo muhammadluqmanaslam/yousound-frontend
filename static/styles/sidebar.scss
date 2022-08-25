@@ -5,6 +5,13 @@
   z-index: 11;
   padding-bottom: 0;
 
+  .sidebar-decoy {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+  }
+
   .tabs-auth-wrapper {
     margin-bottom: 20px;
     // min-height: 60%;
