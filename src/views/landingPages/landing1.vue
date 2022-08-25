@@ -1,5 +1,5 @@
 <template>
-  <v-container full-authTabs-container fluid px-0>
+  <v-container full-authTabs-container fluid>
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
         flex-column
@@ -51,26 +51,34 @@
 
           <content-top-header absolute>
             <template slot="topHeader">
-                <ul class="pr-3">
-                    <li
-                    v-for="tab in tabs"
-                    :key="tab.id"
-                    :href="`#${tab.id}`"
-                    class="nav-li"
-                    :class="[{ 'active tab-active': isActiveTab(tab.id) }, `nav-${tab.id}`]"
-                    >
-                    <label class="nav-label" @click="onTab(tab.id)">
-                      <img v-if="tab.icon" :src="tab.icon" width="18" class="li-icon">
-                      {{ tab.title }}
-                    </label>
-                    </li>
+              <ul class="pr-3">
+                <li
+                  v-for="tab in tabs"
+                  :key="tab.id"
+                  :href="`#${tab.id}`"
+                  class="nav-li"
+                  :class="[
+                    { 'active tab-active': isActiveTab(tab.id) },
+                    `nav-${tab.id}`,
+                  ]"
+                >
+                  <label class="nav-label" @click="onTab(tab.id)">
+                    <img
+                      v-if="tab.icon"
+                      :src="tab.icon"
+                      width="18"
+                      class="li-icon"
+                    />
+                    {{ tab.title }}
+                  </label>
+                </li>
 
-                    <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
 
-                    <!-- <li class="search-li">
+                <!-- <li class="search-li">
                       <search-input :senderRoute="$route.name" />
                     </li> -->
-                </ul>
+              </ul>
             </template>
           </content-top-header>
         </div>
@@ -78,7 +86,6 @@
         <transition name="slide-left">
           <trending-music
             v-if="activeTab === 'music'"
-            isComp
             :listLimit="20"
             classAttr="xs3 px-1 mb-1"
             hideTrackLength
@@ -90,13 +97,22 @@
         </transition>
 
         <transition name="slide-left">
-          <trending-video v-if="activeTab === 'videos'" isComp :listLimit="20" />
+          <trending-video
+            v-if="activeTab === 'videos'"
+            :listLimit="20"
+            classAttr="xs4 px-1"
+            title=""
+            coverOnly
+            showFullOverlay
+            hoverOverlay
+            hideCta
+            coverRadius
+          />
         </transition>
 
         <transition name="slide-left">
           <trending-product
             v-if="activeTab === 'merch'"
-            isComp
             :listLimit="20"
           />
         </transition>
@@ -151,7 +167,7 @@ import { mapActions, mapState } from "vuex";
 import trendingMusic from "@/views/mobile/components/trending/music";
 import trendingVideo from "@/views/mobile/components/trending/videos";
 import trendingProduct from "@/views/mobile/components/trending/products";
-import contentTopHeader from '@/components/contentTopHeader'
+import contentTopHeader from "@/components/contentTopHeader";
 
 export default {
   name: "Landing1",
@@ -171,9 +187,9 @@ export default {
     return {
       activeTab: "music",
       tabs: [
-        { id: 'music', title: 'Music' },
-        { id: 'videos', title: 'Video' },
-        { id: 'merch', title: 'Shop' },
+        { id: "music", title: "Music" },
+        { id: "videos", title: "Video" },
+        { id: "merch", title: "Shop" },
       ],
       items_per_page: 20,
     };
@@ -188,10 +204,10 @@ export default {
       getTrendingMusic: "trending/getTrendingMusic",
     }),
     isActiveTab(tab) {
-      return this.activeTab === tab
+      return this.activeTab === tab;
     },
     onTab(tab) {
-      this.activeTab = tab
+      this.activeTab = tab;
     },
     loadTrendingMusic() {
       if (this.musicFeed.length) return;
@@ -262,7 +278,7 @@ export default {
         background-color: #ffffff;
 
         .top-menu {
-          width: fit-content
+          width: fit-content;
         }
       }
     }
