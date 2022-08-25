@@ -1,7 +1,7 @@
 <template>
   <div class="trending-comp trending-products">
-    <div class="top-bar">
-      <h2 class="bar-title">Exclusive Drops</h2>
+    <div v-if="title" class="top-bar">
+      <h2 class="bar-title">{{ title }}</h2>
       <!-- <div class="bar-action">View All</div> -->
     </div>
 
@@ -10,14 +10,15 @@
         <span
           v-for="(feed, index) in productFeed"
           :key="index"
-          class="tab-holder px-0 flex xs6 md6"
+          :class="['tab-holder px-0 flex', classAttr]"
         >
           <product-card
             hideOverlay
             noMeta
-            altMeta
+            :altMeta="altMeta"
             altMetaPrice
             :dataObject="feed"
+            :showFullOverlay="showFullOverlay"
           />
         </span>
       </template>
@@ -41,7 +42,7 @@
       </template>
     </item-tab> -->
 
-    <div class="cta">
+    <div v-if="!hideCta" class="cta">
       <v-btn block outline class="cta-btn">
         <strong>
           View all products
@@ -58,7 +59,18 @@ import { mapActions, mapState } from "vuex";
 
 export default {
   props: {
+    title: {
+      type: String,
+      default: "Exclusive Drops",
+    },
     listLimit: Number,
+    classAttr: {
+      type: String,
+      default: "xs6 md6",
+    },
+    hideCta: Boolean,
+    altMeta: Boolean,
+    showFullOverlay: Boolean,
   },
   components: {
     itemTab,
