@@ -290,6 +290,7 @@ img.invert-color {
   width: 100%;
   height: 100%;
   opacity: 0;
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.8);
   -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
@@ -312,19 +313,22 @@ img.invert-color {
   }
 }
 
+.full-overlay_icon,
 .play-button-2 {
-  color: #000000 !important;
   z-index: 3;
 
-  &::before {
-    content: "";
-    position: absolute;
-    width: 35px;
-    height: 35px;
-    background-color: #ffffff;
-    z-index: -1;
-    border-radius: 100px;
+  &.iconHasWhiteBG {
+    &::before {
+      content: "";
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      background-color: #ffffff;
+      z-index: -1;
+      border-radius: 100px;
+    }
   }
+
 }
 
 .no-Btn-bg::before {

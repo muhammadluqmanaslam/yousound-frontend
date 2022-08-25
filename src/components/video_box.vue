@@ -12,7 +12,7 @@
         :style="`background-image: url(${_.get(item, 'cover.url')})`"
       >
         <div v-if="showFullOverlay" class="full-overlay">
-          <v-icon class="play-button-2">play_arrow</v-icon>
+          <v-icon class="full-overlay_icon icon play-button-2 iconHasWhiteBG black--text">play_arrow</v-icon>
         </div>
       </div>
       <div class="box__caption" v-if="isLive">Live</div>
@@ -110,10 +110,7 @@ export default {
       type: Boolean,
       default: true,
     },
-    showFullOverlay: {
-      type: Boolean,
-      default: true,
-    },
+    showFullOverlay: Boolean,
     coverOnly: {
       type: Boolean,
       default: false,
@@ -245,6 +242,7 @@ export default {
     border-radius: 0px;
     margin-top: 14px;
     border: none;
+    position: relative;
 
     &:hover {
       .full-overlay {
