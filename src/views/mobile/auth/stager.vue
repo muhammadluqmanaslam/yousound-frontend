@@ -183,7 +183,7 @@ export default {
 ._title {
   text-align: center;
   margin-bottom: 15px;
-  font-size: 2em;
+  font-size: 28px;
   font-weight: 900;
 }
 ._subtitle {

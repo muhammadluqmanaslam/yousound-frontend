@@ -148,7 +148,7 @@ export default {
 
 .action-info {
   text-align: center;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
 }
 </style>
