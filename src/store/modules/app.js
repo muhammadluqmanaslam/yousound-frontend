@@ -37,23 +37,48 @@ const state = {
       title: "Basic",
       list: ["1 account", "Ad-free music & video", "Upload 1 hour per video *", `Charge up to <b>$100</b> per repost`, "Basic analytics"],
       active: false,
-      price: "9.99",
+      price: "10",
       id: "basic",
       stripePriceId: process.env.BASIC_PRICE_ID,
     },
     {
-      title: "Plus",
-      list: ["1 account", "Ad-free music & video", `Upload <b>3 hours</b> per video *`, `Charge up to <b>$10K</b> per repost`, "Basic analytics"],
+      title: "Creators",
+      list: [
+        `<b>All features for everyone +</b>`,
+        "User-centric subscription share",
+        "Keep 100% of sales",
+        "SMS text your followers*",
+        "Unlimited uploads",
+        "Batch audio uploads",
+        "Collaborative payment splits",
+        "Live video pay-per-view",
+        "Live video exclusive content",
+      ],
       active: true,
-      price: "29.99",
+      price: "30",
       id: "plus",
       stripePriceId: process.env.PLUS_PRICE_ID,
     },
     {
-      title: "Pro",
-      list: ["1 account", "Ad-free music & video", `<b>Unlimited</b> video uploads *`, `Charge up to <b>$100K</b> per repost`, "Basic analytics"],
+      title: "Advanced",
+      list: [
+        `<b>All features for creators +</b>`,
+        "Advanced analytics",
+        {
+          advanced_analytics_list: [
+            "Content performance",
+            "Listeners/buyers by country",
+            "External traffic location",
+            "Average listening/watch time",
+            "Page views",
+            "Watching/listening now",
+            "Product conversion %",
+            "Repost request data",
+          ],
+        },
+      ],
       active: false,
-      price: "99.99",
+      price: "100",
       id: "pro",
       stripePriceId: process.env.PRO_PRICE_ID,
     },
@@ -63,21 +88,21 @@ const state = {
 const getters = {
   getWindowsWidth: (state) => state.windowsWidth,
   onTabletStrict: (state) => {
-    const {windowsWidth} = state
+    const { windowsWidth } = state
     if (windowsWidth > 767 && windowsWidth < 1024) {
       return true
     }
     return false
   },
   onTabletAndAbove: (state) => {
-    const {windowsWidth} = state
+    const { windowsWidth } = state
     if (windowsWidth > 767) {
       return true
     }
     return false
   },
   onTabletAndBelow: (state) => {
-    const {windowsWidth} = state
+    const { windowsWidth } = state
     if (windowsWidth <= 1024) {
       return true
     }
