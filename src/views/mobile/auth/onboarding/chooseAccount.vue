@@ -18,12 +18,16 @@
       <div class="_subtitle">I want to upload & sell</div>
     </div>
 
-    <NavFooter />
+    <NavFooter
+      :nextValidated="validated"
+      @nextStage="handleNextStage"
+      :forceShowNextIcon="accountCategory.length > 1 || forceShowNextIcon"
+    />
   </div>
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from "vuex";
 import NavFooter from "./navFooter";
 
 export default {
@@ -33,12 +37,13 @@ export default {
   data() {
     return {
       accountCategory: "",
+      forceShowNextIcon: false,
     };
   },
   computed: {
     ...mapState({
-      current: state => state.app.onboarding.current,
-      getAccountCategory: state => state.app.onboarding.accountCategory,
+      current: (state) => state.app.onboarding.current,
+      getAccountCategory: (state) => state.app.onboarding.accountCategory,
     }),
     validated() {
       const { accountCategory } = this;
@@ -51,25 +56,27 @@ export default {
   methods: {
     ...mapActions({
       gotoNextStage: "app/nextOnboardingStage",
-      gotoPrevStage: "app/prevOnboardingStage"
+      gotoPrevStage: "app/prevOnboardingStage",
     }),
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
     chooseAccount(category) {
       this.accountCategory = category;
-
+      this.forceShowNextIcon = true;
+    },
+    handleNextStage() {
       if (this.validated) {
         const data = {
-          accountCategory: this.accountCategory
-        }
-        this.updateOnboarding(data)
-        return this.gotoNextStage(this.current+1)
+          accountCategory: this.accountCategory,
+        };
+        this.updateOnboarding(data);
+        return this.gotoNextStage(this.current + 1);
       }
     },
   },
   created() {
-    this.accountCategory = this.getAccountCategory
+    this.accountCategory = this.getAccountCategory;
   },
 };
 </script>

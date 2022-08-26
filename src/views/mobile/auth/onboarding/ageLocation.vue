@@ -1,5 +1,5 @@
 <template>
-  <div class="age-location">
+  <div class="onboarding_comp age-location">
     <div class="form-group">
       <div class="_title">Age group</div>
       <div class="selections">
@@ -50,6 +50,7 @@
     </div>
 
     <NavFooter
+      :nextValidated="validated('skipToast')"
       :current="current"
       @nextStage="handleNextStage"
       @prevStage="handlePrevStage"
@@ -145,7 +146,9 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
-    validated() {
+    validated(toastStatus) {
+      const skipToast = toastStatus === "skipToast"
+
       const { ageRange, country, city } = this;
       const valCountry = this.getCountryList.includes(country)
       const valCity = this.getCityList.includes(city)
@@ -158,7 +161,7 @@ export default {
       ]
 
       const isValid = toValidate.every((item, index) => {
-        if (!item) {
+        if (!skipToast && !item) {
           this.$store.dispatch("error/showErrorToast",[errors[index]])
           return item
         }

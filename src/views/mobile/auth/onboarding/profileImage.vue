@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-image">
+  <div class="onboarding_comp profile-image">
     <label for="profileImage">
       <div
         class="profile-image-holder"
@@ -23,6 +23,7 @@
     </label>
 
     <NavFooter
+      :nextValidated="validated('skipToast')"
       :current="current"
       @nextStage="handleNextStage"
       @prevStage="handlePrevStage"
@@ -60,7 +61,9 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
-    validated() {
+    validated(toastStatus) {
+      const skipToast = toastStatus === "skipToast"
+
       const { profileImage } = this;
       const toValidate = [profileImage];
 
@@ -69,7 +72,7 @@ export default {
       ]
 
       const isValid = toValidate.every((item, index) => {
-        if (!item) {
+        if (!skipToast && !item) {
           this.$store.dispatch("error/showErrorToast",[errors[index]])
           return item
         }

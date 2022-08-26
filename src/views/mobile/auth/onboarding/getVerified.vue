@@ -1,5 +1,5 @@
 <template>
-  <div class="get-verified">
+  <div class="onboarding_comp get-verified">
     <div class="form-group">
       <div class="_title">Social channel</div>
       <v-menu
@@ -42,6 +42,7 @@
     </div>
 
     <NavFooter
+      :nextValidated="validated('skipToast')"
       :current="current"
       @nextStage="handleNextStage"
       @prevStage="handlePrevStage"
@@ -105,7 +106,9 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
-    validated() {
+    validated(toastStatus) {
+      const skipToast = toastStatus === "skipToast"
+
       const { socialChannel, socialHandle } = this;
       const valSocialhandle = socialHandle.length > 1
       const toValidate = [socialChannel, valSocialhandle];
@@ -116,7 +119,7 @@ export default {
       ]
 
       const isValid = toValidate.every((item, index) => {
-        if (!item) {
+        if (!skipToast && !item) {
           this.$store.dispatch("error/showErrorToast",[errors[index]])
           return item
         }

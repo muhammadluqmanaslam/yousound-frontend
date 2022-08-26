@@ -1,5 +1,5 @@
 <template>
-  <div class="account-type">
+  <div class="onboarding_comp account-type">
     <div class="_title">Account type</div>
     <v-menu
       bottom
@@ -41,6 +41,7 @@
     />
 
     <NavFooter
+      :nextValidated="validated('skipToast')"
       :current="current"
       @nextStage="handleNextStage"
       @prevStage="handlePrevStage"
@@ -93,7 +94,9 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
-    validated() {
+    validated(toastStatus) {
+      const skipToast = toastStatus === "skipToast"
+
       const { accountType, username } = this;
       const toValidate = [accountType, username];
 
@@ -102,8 +105,9 @@ export default {
         "Please enter a valid username",
       ]
 
+
       const isValid = toValidate.every((item, index) => {
-        if (!item) {
+        if (!skipToast && !item) {
           this.$store.dispatch("error/showErrorToast",[errors[index]])
           return item
         }

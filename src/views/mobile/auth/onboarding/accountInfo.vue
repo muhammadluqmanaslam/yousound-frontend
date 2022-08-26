@@ -1,5 +1,5 @@
 <template>
-  <div class="account-info">
+  <div class="onboarding_comp account-info">
     <div class="form-group">
       <div class="_title">Full Name</div>
       <input
@@ -27,6 +27,7 @@
     </div>
 
     <NavFooter
+      :nextValidated="validated('skipToast')"
       :current="current"
       @nextStage="handleNextStage"
       @prevStage="handlePrevStage"
@@ -65,7 +66,9 @@ export default {
     ...mapMutations({
       updateOnboarding: "app/updateOnboarding",
     }),
-    validated() {
+    validated(toastStatus) {
+      const skipToast = toastStatus === "skipToast"
+
       const { fullName, email, password } = this;
       const valFullName = fullName && fullName.split(" ").length > 1;
       const valEmail = this.validateEmail(email)
@@ -79,7 +82,7 @@ export default {
       ];
 
       const isValid = toValidate.every((item, index) => {
-        if (!item) {
+        if (!skipToast && !item) {
           this.$store.dispatch("error/showErrorToast", [errors[index]]);
           return item;
         }
