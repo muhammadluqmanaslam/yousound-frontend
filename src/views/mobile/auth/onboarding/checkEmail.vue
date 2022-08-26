@@ -1,5 +1,5 @@
 <template>
-  <div class="check-email">
+  <div class="onboarding_comp check-email">
     <div class="top-icon-wrapper text-center">
       <img
         :src="require('@/assets/send_airplane.svg')"
