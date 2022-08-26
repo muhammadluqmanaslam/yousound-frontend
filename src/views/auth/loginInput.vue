@@ -47,7 +47,14 @@
       </div>
 
       <div class="text-xs-center mt-4" :class="{ 'mt-0': onMobile }">
-        <v-btn block round dark type="submit" class="login-button">
+        <v-btn
+          block
+          round
+          dark
+          type="submit"
+          class="login-button"
+          :loading="loading"
+        >
           Login
         </v-btn>
         <div class="mt-4">
@@ -63,9 +70,7 @@
 <script>
 import AuthService from "@/services/auth.js";
 import { mapGetters } from "vuex";
-
 import { MyEvents } from "@/helper";
-
 import LoginInput from "./loginInput";
 
 export default {
@@ -75,6 +80,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       remember: false,
       user: {
         email: "",
@@ -132,6 +138,8 @@ export default {
 
   methods: {
     submit() {
+      this.loading = true;
+
       this.$store.dispatch("error/showLoadingActivity", true);
       AuthService.login(this.user)
         .then((response) => {
@@ -150,6 +158,8 @@ export default {
           this.$router.push({ name: "DiscoverIndex" });
         })
         .catch((e) => {
+          this.loading = false;
+
           this.$store.dispatch("error/showLoadingActivity", false);
           this.$store.dispatch(
             "error/showErrorToast",
