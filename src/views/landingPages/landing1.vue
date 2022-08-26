@@ -33,6 +33,7 @@
 
         <div class="dflex auth-btns mt-3">
           <v-btn
+            v-if="showSignupBtn"
             :ripple="false"
             depressed
             dark
@@ -41,7 +42,16 @@
           >
             Signup
           </v-btn>
-          <v-btn :ripple="false" depressed round outline>Login</v-btn>
+          <v-btn
+            v-if="showLoginBtn"
+            :ripple="false"
+            depressed
+            round
+            outline
+            @click="activeView = 'loginView'"
+          >
+            Login
+          </v-btn>
         </div>
 
         <h2 class="learn-more">Learn More</h2>
@@ -59,7 +69,7 @@
         xs6
         full-authTabs-twin
         full-authTabs-right
-        :class="{ signup__view: activeView == 'signUpView' }"
+        :class="{ auth__view: toDisplayGrid }"
       >
         <div v-if="activeView === 'landingView'" class="landing-view">
           <div class="trending-top dflex align-center justify-space-between">
@@ -140,6 +150,10 @@
         <div v-if="activeView === 'signUpView'" class="signup-view">
           <Onboarding />
         </div>
+
+        <div v-if="activeView === 'loginView'" class="login-view">
+          <login-input />
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -158,6 +172,7 @@ import trendingVideo from "@/views/mobile/components/trending/videos";
 import trendingProduct from "@/views/mobile/components/trending/products";
 import contentTopHeader from "@/components/contentTopHeader";
 import Onboarding from "@/views/mobile/auth/onboarding";
+import LoginInput from "@/views/auth/loginInput";
 
 export default {
   name: "Landing1",
@@ -173,6 +188,7 @@ export default {
     trendingProduct,
     contentTopHeader,
     Onboarding,
+    LoginInput,
   },
   data() {
     return {
@@ -190,6 +206,17 @@ export default {
     ...mapState({
       musicFeed: (state) => state.trending.albums,
     }),
+    toDisplayGrid() {
+      return (
+        this.activeView === "signUpView" || this.activeView === "loginView"
+      );
+    },
+    showSignupBtn() {
+      return this.activeView !== "signUpView"
+    },
+    showLoginBtn() {
+      return this.activeView !== "loginView"
+    },
   },
   methods: {
     ...mapActions({
@@ -265,7 +292,7 @@ export default {
       display: none;
     }
 
-    &.signup__view {
+    &.auth__view {
       display: grid;
     }
 
@@ -293,12 +320,15 @@ export default {
         padding-left: 10px;
       }
     }
+    .signup-view,
+    .login-view {
+      margin: 0 auto;
+      align-self: center;
+    }
 
     .signup-view {
       width: 60%;
-      margin: 0 auto;
       height: 55%;
-      align-self: center;
 
       .onboarding {
         min-height: 100%;
@@ -318,6 +348,9 @@ export default {
           }
         }
       }
+    }
+    .login-view {
+      width: 50%;
     }
   }
 }
