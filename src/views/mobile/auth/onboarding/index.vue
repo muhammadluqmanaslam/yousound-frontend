@@ -1,23 +1,56 @@
 <template>
   <div class="onboarding">
+    <!-- <transition name="fade"> -->
     <Stager staging="onboarding" />
 
     <div v-if="current === 1" class="stage-wrapper">
       <ChooseAccount />
     </div>
     <div v-else-if="accountCategory === 'creator'" class="stage-wrapper">
-      <AccountType v-if="current === 2" />
-      <ProfileImage v-if="current === 3" />
-      <AccountInfo v-if="current === 4" />
-      <AgeLocation v-if="current === 5" />
-      <GetVerified v-if="current === 6" />
-      <CheckEmail v-if="current === 7" />
+      <transition name="slide-fadeInOnly">
+        <AccountType v-if="current === 2" />
+      </transition>
+
+
+      <transition name="slide-fadeInOnly">
+        <ProfileImage v-if="current === 3" />
+      </transition>
+
+
+      <transition name="slide-fadeInOnly">
+        <AccountInfo v-if="current === 4" />
+      </transition>
+
+      <transition name="slide-fadeInOnly">
+        <AgeLocation v-if="current === 5" />
+      </transition>
+
+      <transition name="slide-fadeInOnly">
+        <GetVerified v-if="current === 6" />
+      </transition>
+
+      <transition name="slide-fadeInOnly">
+        <CheckEmail v-if="current === 7" />
+      </transition>
+
     </div>
     <div v-else-if="accountCategory === 'listener'" class="stage-wrapper">
-      <ProfileImage v-if="current === 2" />
-      <AccountInfo v-if="current === 3" />
-      <AgeLocation v-if="current === 4" />
-      <CheckEmail v-if="current === 5" />
+      <transition name="slide-fadeInOnly">
+        <ProfileImage v-if="current === 2" />
+      </transition>
+
+      <transition name="slide-fadeInOnly">
+        <AccountInfo v-if="current === 3" />
+      </transition>
+
+      <transition name="slide-fadeInOnly">
+        <AgeLocation v-if="current === 4" />
+      </transition>
+
+      <transition name="slide-fadeInOnly">
+        <CheckEmail v-if="current === 5" />
+      </transition>
+
     </div>
   </div>
 </template>
