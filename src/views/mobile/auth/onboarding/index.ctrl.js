@@ -6,6 +6,7 @@ import AccountInfo from "./accountInfo"
 import AgeLocation from "./ageLocation"
 import GetVerified from "./getVerified"
 import CheckEmail from "./checkEmail"
+import AuthPlan from "./authPlan"
 import { mapGetters, mapState } from "vuex"
 
 export default {
@@ -18,6 +19,7 @@ export default {
     AgeLocation,
     GetVerified,
     CheckEmail,
+    AuthPlan,
   },
   data() {
     return {

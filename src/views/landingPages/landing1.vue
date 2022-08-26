@@ -347,6 +347,14 @@ export default {
             }
           }
         }
+
+        /deep/ .auth-plan {
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 30px;
+          width: 100%;
+        }
       }
     }
     .login-view {
