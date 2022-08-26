@@ -1,7 +1,7 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
     <div class="closedecoy" @click="outsideClick"></div>
-    <div v-if="isUserSignedUp && !isUserSubscribed" class="subscribe-view">
+    <div v-if="!isUserSignedUp && !isUserSubscribed" class="subscribe-view">
       <div v-if="!showCardPanel" class="intro">
         <div>
           You have <strong>2,500</strong> people on your SMS contact list!
@@ -86,7 +86,7 @@
               depressed
               class="addCard-btn"
               :disabled="false"
-              @click="isUserSubscribed = true"
+              @click="paymentMethod"
             >
               Add card to file
             </v-btn>
@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <div v-if="isUserSubscribed && !isPhoneNumberPresent && !isUserSignedUp" class="creator-signup">
+    <div v-if="!isUserSignedUp && isUserSubscribed" class="creator-signup">
       <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -384,6 +384,7 @@ export default {
       confirmSendSMS: false,
       sendSuccess: false,
       smsEngagementActive: false,
+      stripePriceId: process.env.PRO_PRICE_ID,
     };
   },
   watch: {
@@ -474,7 +475,6 @@ export default {
         .then((response) => {
           AuthService.setUser(response.body)
           this.signUpDone = true
-          this.isUserSignedUp = true
           this.$store.dispatch('error/showSuccessToast', ["Phone number updated successfully."])
         })
         .catch((e) => {
@@ -495,12 +495,12 @@ export default {
       SubscriptionService.createSubscription({price_id: priceId, token_id: tokenResponse.id, token_response: tokenResponse})
         .then((response) => {
           if (response.body.message != null) {
-            this.isUserSubscribed = true
             this.$store.dispatch('error/showLoadingActivity', false)
-            this.$router.push({ name: 'DiscoverIndex' })
+            this.closeSMS();
             this.$store.dispatch(
               'error/showSuccessToast', response.body.message
             )
+            this.setIsUserSubscribed(response.body.subscription);
           } else {
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch(
@@ -555,28 +555,18 @@ export default {
       return this.currentUser.stripe_subscription_id;
       // return false
     },
+    setIsUserSubscribed(stripeSubscriptionId) {
+      this.currentUser.stripe_subscription_id = stripeSubscriptionId;
+    },
     isUserSignedUp() {
       return this.currentUser.phone_number;
       // return false
     },
   },
   mounted() {
-    console.log('this.isUserSignedUp.....', this.isUserSignedUp, this.signUpDone)
     if (!this.isUserSignedUp && this.$refs.input0) {
       this.$refs.input0[0].focus();
     }
-    if (this.currentUser.stripe_subscription_id !== null) {
-      this.isUserSubscribed = true
-    }
-    if (this.currentUser.phone_number !== null) {
-      this.isUserSignedUp = true
-      this.isPhoneNumberPresent = true
-      console.log("isUserSignedUp-->");
-    } else {
-      this.isUserSignedUp = false
-    }
-    console.log("currentUser-->", this.currentUser, this.currentUser.phone_number)
-    console.log('this.isUserSignedUp.....', this.isUserSignedUp, this.signUpDone)
   },
 };
 </script>
