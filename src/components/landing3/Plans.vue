@@ -17,39 +17,15 @@ lan<template>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Plan from "./Plan.vue";
 export default {
   components: { Plan },
   name: "Plans",
-  data() {
-    return {
-      plansData: [
-        {
-          title: "Basic",
-          list: ["1 account", "Ad-free music & video", "Upload 1 hour per video *", `Charge up to <b>$100</b> per repost`, "Basic analytics"],
-          active: false,
-          price: "9.99",
-          id: "basic",
-          stripePriceId: process.env.BASIC_PRICE_ID,
-        },
-        {
-          title: "Plus",
-          list: ["1 account", "Ad-free music & video", `Upload <b>3 hours</b> per video *`, `Charge up to <b>$10K</b> per repost`, "Basic analytics"],
-          active: true,
-          price: "29.99",
-          id: "plus",
-          stripePriceId: process.env.PLUS_PRICE_ID,
-        },
-        {
-          title: "Pro",
-          list: ["1 account", "Ad-free music & video", `<b>Unlimited</b> video uploads *`, `Charge up to <b>$100K</b> per repost`, "Basic analytics"],
-          active: false,
-          price: "99.99",
-          id: "pro",
-          stripePriceId: process.env.PRO_PRICE_ID,
-        },
-      ],
-    };
+  computed: {
+    ...mapState({
+      plansData: state => state.app.plansData,
+    }),
   },
 };
 </script>
