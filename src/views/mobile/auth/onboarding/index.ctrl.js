@@ -40,7 +40,7 @@ export default {
   },
   methods: {},
   created() {
-    if (this.isAuthenticated || !this.onMobile) {
+    if (this.isAuthenticated) {
       this.$router.push({name: "Dashboard"})
     }
   }
