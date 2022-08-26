@@ -40,8 +40,8 @@ export default {
   },
   methods: {},
   created() {
-    if (this.isAuthenticated) {
-      this.$router.push({name: "Dashboard"})
-    }
+    // if (this.isAuthenticated) {
+    //   this.$router.push({name: "Dashboard"})
+    // }
   }
 }
