@@ -1,5 +1,5 @@
 <template>
-  <div class="login-card">
+  <div class="login-input auth-login-page">
     <form
       v-on:submit.prevent="submit()"
       autocomplete="off"
@@ -48,6 +48,7 @@
 
       <div class="text-xs-center mt-4" :class="{ 'mt-0': onMobile }">
         <v-btn
+          depressed
           block
           round
           dark
@@ -108,7 +109,7 @@ export default {
     // console.log('login created', myAlert)
 
     if (this.isAuthenticated) {
-      this.$router.push({ name: "DiscoverIndex" });
+      // this.$router.push({ name: "DiscoverIndex" });
       return;
     }
 
@@ -170,3 +171,71 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.auth-login-page {
+  // margin: 0 auto;
+  input[type='text'],
+  input[type='email'],
+  input[type='password'] {
+    background: #ffffff;
+    border: 0.75px solid #d2d2d2;
+    border-radius: 3.75px;
+    height: 45px;
+    width: 100%;
+    font-size: 16px;
+    color: #4a4a4a;
+    letter-spacing: 0;
+    padding: 0 15px;
+  }
+  .email {
+    margin-top: 22.5px;
+  }
+  .password {
+    margin-top: 7.5px;
+  }
+  .regular-checkbox {
+    margin-top: 14px;
+    margin-bottom: 0p;
+    margin-left: 0;
+  }
+  
+  .forgot-password-text {
+    color: #000000;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .login-button {
+    height: 40.5px;
+    width: 100%;
+    margin: 0 auto;
+    background: #000000 !important;
+    border-radius: 75px;
+    box-shadow: none;
+    font-weight: 600;
+    font-size: 15px;
+    color: #ffffff;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .or-divider {
+    margin-top: 30px;
+  }
+  .or {
+    font-size: 13.5px;
+    color: #262626;
+    letter-spacing: 0;
+    margin-bottom: 0px;
+  }
+  .divider {
+    margin: 9px 0px;
+    background-color: #d0d0d0;
+  }
+
+  .create-account {
+    margin-top: 11.25px;
+    cursor: pointer;
+  }
+}
+</style>
