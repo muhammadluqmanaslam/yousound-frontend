@@ -14,6 +14,8 @@
             :src="require('@/assets/nav_logo_primary.png')"
             width="130"
             alt="Yousound Logo"
+            class="cursor-pointer"
+            @click="activeView = 'landingView'"
           />
         </div>
 
@@ -30,7 +32,15 @@
         <h2 class="intro-title mt-5">The best place for music lovers.</h2>
 
         <div class="dflex auth-btns mt-3">
-          <v-btn :ripple="false" depressed dark round>Signup</v-btn>
+          <v-btn
+            :ripple="false"
+            depressed
+            dark
+            round
+            @click="activeView = 'signUpView'"
+          >
+            Signup
+          </v-btn>
           <v-btn :ripple="false" depressed round outline>Login</v-btn>
         </div>
 
@@ -45,121 +55,93 @@
         ></app-footer>
       </v-flex>
 
-      <v-flex xs6 full-authTabs-twin full-authTabs-right>
-        <div class="trending-top dflex align-center justify-space-between">
-          <h2 class="trending-title">Trending</h2>
+      <v-flex
+        xs6
+        full-authTabs-twin
+        full-authTabs-right
+        :class="{ signup__view: activeView == 'signUpView' }"
+      >
+        <div v-if="activeView === 'landingView'" class="landing-view">
+          <div class="trending-top dflex align-center justify-space-between">
+            <h2 class="trending-title">Trending</h2>
 
-          <content-top-header absolute>
-            <template slot="topHeader">
-              <ul class="pr-3">
-                <li
-                  v-for="tab in tabs"
-                  :key="tab.id"
-                  :href="`#${tab.id}`"
-                  class="nav-li"
-                  :class="[
-                    { 'active tab-active': isActiveTab(tab.id) },
-                    `nav-${tab.id}`,
-                  ]"
-                >
-                  <label class="nav-label" @click="onTab(tab.id)">
-                    <img
-                      v-if="tab.icon"
-                      :src="tab.icon"
-                      width="18"
-                      class="li-icon"
-                    />
-                    {{ tab.title }}
-                  </label>
-                </li>
+            <content-top-header absolute>
+              <template slot="topHeader">
+                <ul class="pr-3">
+                  <li
+                    v-for="tab in tabs"
+                    :key="tab.id"
+                    :href="`#${tab.id}`"
+                    class="nav-li"
+                    :class="[
+                      { 'active tab-active': isActiveTab(tab.id) },
+                      `nav-${tab.id}`,
+                    ]"
+                  >
+                    <label class="nav-label" @click="onTab(tab.id)">
+                      <img
+                        v-if="tab.icon"
+                        :src="tab.icon"
+                        width="18"
+                        class="li-icon"
+                      />
+                      {{ tab.title }}
+                    </label>
+                  </li>
 
-                <v-spacer></v-spacer>
+                  <v-spacer></v-spacer>
+                </ul>
+              </template>
+            </content-top-header>
+          </div>
 
-                <!-- <li class="search-li">
-                      <search-input :senderRoute="$route.name" />
-                    </li> -->
-              </ul>
-            </template>
-          </content-top-header>
+          <transition name="slide-left">
+            <trending-music
+              v-if="activeTab === 'music'"
+              :listLimit="20"
+              classAttr="xs3 px-1 mb-1"
+              hideTrackLength
+              noMeta
+              hideCta
+              showHoverTrackInfo
+              title=""
+              playButton2
+              playButton2IconHasWhiteBG
+            />
+          </transition>
+
+          <transition name="slide-left">
+            <trending-video
+              v-if="activeTab === 'videos'"
+              :listLimit="20"
+              classAttr="xs4 px-1"
+              title=""
+              coverOnly
+              showFullOverlay
+              hoverOverlay
+              hideCta
+              coverRadius
+            />
+          </transition>
+
+          <transition name="slide-left">
+            <trending-product
+              v-if="activeTab === 'merch'"
+              :listLimit="20"
+              classAttr="xs3 px-1 mb-1"
+              :altMeta="false"
+              hideCta
+              title=""
+              showFullOverlay
+            />
+          </transition>
         </div>
 
-        <transition name="slide-left">
-          <trending-music
-            v-if="activeTab === 'music'"
-            :listLimit="20"
-            classAttr="xs3 px-1 mb-1"
-            hideTrackLength
-            noMeta
-            hideCta
-            showHoverTrackInfo
-            title=""
-            playButton2
-            playButton2IconHasWhiteBG
-          />
-        </transition>
-
-        <transition name="slide-left">
-          <trending-video
-            v-if="activeTab === 'videos'"
-            :listLimit="20"
-            classAttr="xs4 px-1"
-            title=""
-            coverOnly
-            showFullOverlay
-            hoverOverlay
-            hideCta
-            coverRadius
-          />
-        </transition>
-
-        <transition name="slide-left">
-          <trending-product
-            v-if="activeTab === 'merch'"
-            :listLimit="20"
-            classAttr="xs3 px-1 mb-1"
-            :altMeta="false"
-            hideCta
-            title=""
-            showFullOverlay
-          />
-        </transition>
+        <div v-if="activeView === 'signUpView'" class="signup-view">
+          <Onboarding />
+        </div>
       </v-flex>
     </v-layout>
-    <!-- <Header></Header>
-    <Banner :title="'Listen, watch & shop!'" :imgSrc="bannerImg"></Banner>
-    <CRow
-      :title="'Free Music'"
-      :title2="'Streaming'"
-      :imgSrc="img"
-      :order1="1"
-      :order2="2"
-    ></CRow>
-    <CRow
-      :title="'Watch Videos'"
-      :title2="'& Chat'"
-      :imgSrc="img3"
-      :order1="2"
-      :order2="1"
-      :bigImage="true"
-    ></CRow>
-    <CRow
-      :title="'Shop Artists'"
-      :title2="'& Brands'"
-      :imgSrc="img2"
-      :order1="1"
-      :order2="2"
-    ></CRow>
-
-    <CRow
-      :title="'Make Money'"
-      :title2="'Sharing'"
-      :imgSrc="img1"
-      :order1="2"
-      :order2="1"
-      :moneyImage="true"
-    ></CRow>
-    <join></join>
-    <Footer></Footer> -->
   </v-container>
 </template>
 
@@ -175,6 +157,7 @@ import trendingMusic from "@/views/mobile/components/trending/music";
 import trendingVideo from "@/views/mobile/components/trending/videos";
 import trendingProduct from "@/views/mobile/components/trending/products";
 import contentTopHeader from "@/components/contentTopHeader";
+import Onboarding from "@/views/mobile/auth/onboarding";
 
 export default {
   name: "Landing1",
@@ -189,9 +172,11 @@ export default {
     trendingVideo,
     trendingProduct,
     contentTopHeader,
+    Onboarding,
   },
   data() {
     return {
+      activeView: "landingView",
       activeTab: "music",
       tabs: [
         { id: "music", title: "Music" },
@@ -248,6 +233,8 @@ export default {
   }
 
   &-left {
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+
     .intro-title {
       font-size: 28px;
     }
@@ -263,6 +250,7 @@ export default {
   &-right {
     overflow-y: scroll;
     position: relative;
+    padding-left: 20px;
 
     &::-webkit-scrollbar {
       width: 2px;
@@ -275,6 +263,10 @@ export default {
 
     &::-webkit-scrollbar-thumb {
       display: none;
+    }
+
+    &.signup__view {
+      display: grid;
     }
 
     .trending {
@@ -302,6 +294,31 @@ export default {
       }
     }
 
+    .signup-view {
+      width: 60%;
+      margin: 0 auto;
+      height: 55%;
+      align-self: center;
+
+      .onboarding {
+        min-height: 100%;
+        justify-content: space-around;
+
+        /deep/ .stager {
+          position: relative;
+        }
+
+        /deep/ &_comp {
+          &.profile-image {
+            .profile-image-holder {
+              margin-top: 40px;
+              width: 200px;
+              height: 200px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>
