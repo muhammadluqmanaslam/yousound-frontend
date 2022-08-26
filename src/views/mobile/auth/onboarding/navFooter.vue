@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-navigator">
+  <div class="onboarding-navigator">
     <img
       :src="require('@/assets/arrow_back.svg')"
       alt="back icon"
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.footer-navigator {
+.onboarding-navigator {
   position: absolute;
   bottom: 0;
   display: flex;
