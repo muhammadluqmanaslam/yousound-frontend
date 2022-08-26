@@ -64,18 +64,16 @@ const state = {
       list: [
         `<b>All features for creators +</b>`,
         "Advanced analytics",
-        {
-          advanced_analytics_list: [
-            "Content performance",
-            "Listeners/buyers by country",
-            "External traffic location",
-            "Average listening/watch time",
-            "Page views",
-            "Watching/listening now",
-            "Product conversion %",
-            "Repost request data",
-          ],
-        },
+        [
+          "Content performance",
+          "Listeners/buyers by country",
+          "External traffic location",
+          "Average listening/watch time",
+          "Page views",
+          "Watching/listening now",
+          "Product conversion %",
+          "Repost request data",
+        ],
       ],
       active: false,
       price: "100",
@@ -293,8 +291,14 @@ const getters = {
         stage: 6,
       },
       {
-        title: 'Check Email',
+        title: 'Plans',
         stage: 7,
+        hideStage: true,
+        allowFullPage: true,
+      },
+      {
+        title: 'Check Email',
+        stage: 8,
       },
     ]
     return stages

@@ -1,7 +1,17 @@
 <template>
-  <div class="onboarding">
+  <div
+    class="onboarding"
+    :class="[
+      `onboarding-${currentStage.stage}`,
+      {
+        allowFullPage: currentStage.allowFullPage,
+        onMobile,
+        aboveMobile: !onMobile,
+      },
+    ]"
+  >
     <!-- <transition name="fade"> -->
-    <Stager staging="onboarding" />
+    <Stager v-if="!currentStage.hideStage" staging="onboarding" />
 
     <div v-if="current === 1" class="stage-wrapper">
       <ChooseAccount />
@@ -11,11 +21,9 @@
         <AccountType v-if="current === 2" />
       </transition>
 
-
       <transition name="slide-fadeInOnly">
         <ProfileImage v-if="current === 3" />
       </transition>
-
 
       <transition name="slide-fadeInOnly">
         <AccountInfo v-if="current === 4" />
@@ -30,9 +38,8 @@
       </transition>
 
       <transition name="slide-fadeInOnly">
-        <CheckEmail v-if="current === 7" />
+        <AuthPlan v-if="current === 7" />
       </transition>
-
     </div>
     <div v-else-if="accountCategory === 'listener'" class="stage-wrapper">
       <transition name="slide-fadeInOnly">
@@ -50,7 +57,6 @@
       <transition name="slide-fadeInOnly">
         <CheckEmail v-if="current === 5" />
       </transition>
-
     </div>
   </div>
 </template>
