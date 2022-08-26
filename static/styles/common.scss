@@ -849,6 +849,23 @@ li.list-none {
 }
 
 // Vue Transition
+.slide-fadeInOnly-enter-active {
+  transition: all .3s ease;
+}
+
+.slide-fadeInOnly-leave-active {
+  transition: none;
+}
+
+.slide-fadeInOnly-enter{
+  transform: translateX(10px);
+  opacity: 0;
+}
+.slide-fadeInOnly-leave{
+  transform: translateX(0px);
+  opacity: 0;
+}
+
 .slide-fade-enter-active {
   transition: all .3s ease;
 }
