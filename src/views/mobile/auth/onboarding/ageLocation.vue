@@ -224,6 +224,7 @@ export default {
 .selections {
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 
   .selection {
     border: 1px solid #d0d0d0;
