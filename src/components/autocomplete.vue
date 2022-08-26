@@ -63,17 +63,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.options {
-  max-height: 100px;
-  overflow: auto;
-  background-color: #eaeaea;
+.autocomplete {
+  position: absolute;
+  width: 100%;
 
-  .option {
-    padding: 10px 5px;
+  .options {
+    max-height: 100px;
+    overflow: auto;
+    background-color: #eaeaea;
 
-    &:hover {
-      color: #ffffff;
-      background-color: #000000;
+    .option {
+      padding: 10px 5px;
+
+      &:hover {
+        color: #ffffff;
+        background-color: #000000;
+      }
     }
   }
 }
