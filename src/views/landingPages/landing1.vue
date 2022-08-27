@@ -71,6 +71,14 @@
         full-authTabs-right
         :class="{ auth__view: toDisplayGrid }"
       >
+        <v-icon
+          v-if="showAuthCancelBtn"
+          class="cancel-btn"
+          @click="activeView = 'landingView'"
+        >
+          cancel
+        </v-icon>
+
         <div v-if="activeView === 'landingView'" class="landing-view">
           <div class="trending-top dflex align-center justify-space-between">
             <h2 class="trending-title">Trending</h2>
@@ -205,6 +213,7 @@ export default {
   computed: {
     ...mapState({
       musicFeed: (state) => state.trending.albums,
+      currentSignUpStage: (state) => state.app.onboarding.current,
     }),
     toDisplayGrid() {
       return (
@@ -212,10 +221,16 @@ export default {
       );
     },
     showSignupBtn() {
-      return this.activeView !== "signUpView"
+      return this.activeView !== "signUpView";
     },
     showLoginBtn() {
-      return this.activeView !== "loginView"
+      return this.activeView !== "loginView";
+    },
+    showAuthCancelBtn() {
+      return (
+        (this.activeView === "signUpView" && this.currentSignUpStage < 7) ||
+        this.activeView === "loginView"
+      );
     },
   },
   methods: {
@@ -290,6 +305,16 @@ export default {
 
     &::-webkit-scrollbar-thumb {
       display: none;
+    }
+
+    .cancel-btn {
+      cursor: pointer;
+      font-size: 30px;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      color: #000000;
+      z-index: 3;
     }
 
     &.auth__view {
