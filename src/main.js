@@ -71,6 +71,7 @@ Vue.directive('on-click-outside', onClickOutside)
 //   return numeral(value / 100).format('0.00') // displaying other groupings/separators is possible, look at the docs
 // })
 
+Vue.filter('formatSlashedDate', Filter.formatSlashedDate)
 Vue.filter('formatDate', Filter.formatDate)
 Vue.filter('formatDateFromNow', Filter.formatDateFromNow)
 Vue.filter('formatDateFromNowShort', Filter.formatDateFromNowShort)
