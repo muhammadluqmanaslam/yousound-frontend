@@ -8,7 +8,7 @@
 
     <div class="top_subtitle mb-3">Cancel anytime.</div>
 
-    <ul class="_breakdown mb-3">
+    <ul class="_breakdown mb-3 ml-3">
       <li>Creators must be verified to activate plan</li>
       <li>Purchase of plan does not guarantee verification</li>
       <li>Denied applications are never charged & remain listener accounts</li>
@@ -43,18 +43,24 @@
           </div>
         </div>
 
-        <h5 class="mb-5 mt-15">${{ plan.price }} <span>/month</span></h5>
+        <div class="pricing">
+          <span class="currency">$</span>
+          <span class="cost">{{ plan.price }}</span>
+          <span class="per">/month</span>
+        </div>
 
-        <v-btn
-          depressed
-          block
-          round
-          dark
-          class="plan_btn"
-          @click.native="openPaymentDialog(plan.stripePriceId)"
-        >
-          Start free 30 day trial
-        </v-btn>
+        <div class="plan_btn_wrapper">
+          <v-btn
+            depressed
+            block
+            round
+            dark
+            class="plan_btn"
+            @click.native="openPaymentDialog(plan.stripePriceId)"
+          >
+            Start free 30 day trial
+          </v-btn>
+        </div>
       </div>
     </div>
   </div>
@@ -91,9 +97,8 @@ export default {
     .plan {
       border-radius: 30px;
       border: 1px solid rgba(0, 0, 0, 0.05);
-      height: 400px;
       width: 45%;
-      padding: 10px 0;
+      padding: 20px 0 33px;
 
       &_0 {
         background: rgba(211, 221, 230, 0.15);
@@ -109,7 +114,7 @@ export default {
       }
 
       &_lists {
-        height: 120px;
+        height: 153px;
         overflow: auto;
         padding: 7px 30px 0;
         margin-right: 10px;
@@ -133,6 +138,8 @@ export default {
       }
 
       &_list {
+        line-height: 2;
+
         .top_item {
           display: flex;
           align-content: flex-start;
@@ -143,6 +150,28 @@ export default {
             margin-top: 5px;
             font-size: 13px;
           }
+        }
+      }
+
+      .pricing {
+        letter-spacing: -0.5px;
+        padding: 0 30px;
+        margin: 20px 0;
+
+        .cost {
+          font-size: 32px;
+          font-weight: bold;
+        }
+        .per {
+          font-size: 12px;
+          color: #000000;
+          opacity: 0.68;
+        }
+      }
+
+      .plan_btn {
+        &_wrapper {
+          padding: 0 30px;
         }
       }
     }
