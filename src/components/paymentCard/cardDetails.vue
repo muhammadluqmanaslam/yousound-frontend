@@ -5,7 +5,7 @@
     <div class="card-inputs">
       <!-- Using the same "my-input" class on the -->
       <!-- regular input above and on this container. -->
-      <!-- <card-number
+      <card-number
         class="stripe-element card-number payment-card"
         :class="{ complete }"
         ref="cardNumber"
@@ -13,6 +13,9 @@
         :options="options"
         @change="number = $event.complete"
       />
+
+      <div class="divider"></div>
+
       <div class="card-box-bottom">
         <card-expiry
           class="stripe-element card-expiry payment-card"
@@ -30,11 +33,12 @@
           :options="options"
           @change="cvc = $event.complete"
         />
-        <div class="divider"></div>
-        <v-btn class="btn-cta" @click="paymentMethod()" :disabled="!complete"
-          >Pay ${{ finalAmount }}</v-btn
-        >
-      </div> -->
+      </div>
+      <div v-if="!hidePayBtn" class="pay-btn-wrapper">
+        <v-btn class="btn-cta" @click="paymentMethod()" :disabled="!complete">
+          Pay ${{ totalPayable }}
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +52,10 @@ import {
 } from "vue-stripe-elements";
 
 export default {
+  props: {
+    hidePayBtn: Boolean,
+    totalPayable: Number,
+  },
   components: { CardNumber, CardExpiry, CardCvc, createToken },
   data() {
     return {
@@ -57,9 +65,17 @@ export default {
       cvc: false,
       fee: 0,
       stripePubkey: process.env.STRIPE_PUBLISHABLE_KEY,
-      options: {},
-      finalAmount: 0,
+      options: {
+        showIcon: true,
+      },
     };
+  },
+  methods: {
+    paymentMethod() {
+      createToken().then((data) => {
+        this.subscribe(this.stripePriceId, data.token);
+      });
+    },
   },
 };
 </script>
@@ -78,4 +94,31 @@ export default {
     border-radius: 8px;
   }
 }
+
+.card-inputs {
+  padding-top: 5px;
+  margin-bottom: 10px;
+
+  .divider {
+    border-bottom: 1px solid rgba(60, 66, 87, 0.12);
+  }
+
+  .card-number {
+    border-radius: 8px 8px 0 0;
+    padding: 5px 5px 5px;
+  }
+
+  .card-box-bottom {
+    display: flex;
+    padding-top: 5px;
+    // border-radius: 8px 8px 0 0;
+  
+    .card-expiry,
+    .card-cvc {
+      width: 100%;
+      padding: 5px 5px 5px;
+    }
+  }
+}
+
 </style>
