@@ -1,9 +1,9 @@
 <template>
   <div class="payment-package">
-    <div class="package-title">{{ itemType }}</div>
+    <div v-if="!hideTitle" class="package-title">{{ itemType }}</div>
 
-    <div class="package-details">
-      <div class="dflex justify-space-between mb-3">
+    <div class="package-details" :class="{noBorder}">
+      <div class="_summary dflex justify-space-between mb-3" :class="{altMeta}">
         <div class="package-subtitle">
           {{ item.title }} {{ subtitleAppend }}
         </div>
@@ -28,6 +28,9 @@
 <script>
 export default {
   props: {
+    hideTitle: Boolean,
+    noBorder: Boolean,
+    altMeta: Boolean,
     item: {
       required: true,
       type: Object,
@@ -67,6 +70,20 @@ export default {
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 10px;
       padding: 10px;
+
+      &.noBorder {
+        border: none;
+      }
+
+      ._summary {
+        &.altMeta {
+          display: block;
+
+          .package-pricing {
+            font-size: 18px;
+          }
+        }
+      }
 
       .package-subtitle,
       .package-pricing {
