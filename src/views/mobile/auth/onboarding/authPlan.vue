@@ -27,7 +27,9 @@
           <div v-for="(item, i) in plan.list" :key="i" class="plan_list">
             <div class="top_item">
               <v-icon>check</v-icon>
-              <div v-if="typeof item === 'string'" v-html="item">{{ item }}</div>
+              <div v-if="typeof item === 'string'" v-html="item">
+                {{ item }}
+              </div>
 
               <div v-else>
                 <div
@@ -56,19 +58,34 @@
             round
             dark
             class="plan_btn"
-            @click.native="openPaymentDialog(plan.stripePriceId)"
+            @click.native="openPaymentModal(plan)"
           >
             Start free 30 day trial
           </v-btn>
         </div>
       </div>
     </div>
+
+    <v-dialog v-model="initPayment" persistent content-class="payment-dialog">
+      <payment-card :item="selectedPlan" />
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import PaymentCard from "@/components/paymentCard";
 import { mapState } from "vuex";
+
 export default {
+  components: {
+    PaymentCard,
+  },
+  data() {
+    return {
+      initPayment: !false,
+      selectedPlan: {},
+    };
+  },
   computed: {
     ...mapState({
       plansData: (state) => state.app.plansData,
@@ -76,6 +93,15 @@ export default {
     plans() {
       return this.plansData.filter((plan) => plan.id != "basic");
     },
+  },
+  methods: {
+    openPaymentModal(plan) {
+      this.initPayment = true;
+      this.selectedPlan = plan;
+    },
+  },
+  mounted() {
+    this.selectedPlan = this.plans[0];
   },
 };
 </script>
@@ -134,7 +160,6 @@ export default {
           box-shadow: inset 0 0 6px #d9d9d9;
           -webkit-box-shadow: inset 0 0 6px #d9d9d9;
         }
-
       }
 
       &_list {
@@ -176,5 +201,11 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style>
+.dialog.payment-dialog {
+  width: 800px;
 }
 </style>
