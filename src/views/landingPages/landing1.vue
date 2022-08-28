@@ -73,7 +73,7 @@
       >
         <v-icon
           v-if="showAuthCancelBtn"
-          class="cancel-btn"
+          class="cancel-icon-round"
           @click="activeView = 'landingView'"
         >
           cancel
@@ -305,16 +305,6 @@ export default {
 
     &::-webkit-scrollbar-thumb {
       display: none;
-    }
-
-    .cancel-btn {
-      cursor: pointer;
-      font-size: 30px;
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      color: #000000;
-      z-index: 3;
     }
 
     &.auth__view {

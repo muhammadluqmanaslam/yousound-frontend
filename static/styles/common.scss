@@ -380,6 +380,16 @@ img.invert-color {
   }
 }
 
+.cancel-icon-round {
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  color: #000000 !important;
+  z-index: 3;
+}
+
 .btn-divider {
   height: 22.5px;
   width: 0.75px;
