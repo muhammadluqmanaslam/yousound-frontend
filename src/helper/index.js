@@ -83,7 +83,7 @@ export const Storage = {
 export const Filter = {
   formatSlashedDate(value) {
     if (value) {
-      return moment(String(value)).format('DD/MM/YYYY')
+      return moment(value).format('DD/MM/YYYY')
     }
   },
 
