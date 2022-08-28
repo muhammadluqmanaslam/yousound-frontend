@@ -1,41 +1,43 @@
 <template>
   <div class="onboarding-navigator" :class="{ onMobile }">
-    <div v-if="onMobile" class="arrow-holder">
-      <img
-        :src="require('@/assets/arrow_back.svg')"
-        alt="back icon"
-        @click="handlePrevStage()"
-      />
+    <span v-if="(current == 1) || (current > 1 && current < stages.length)">
+      <div v-if="onMobile" class="arrow-holder">
+        <img
+          :src="require('@/assets/arrow_back.svg')"
+          alt="back icon"
+          @click="handlePrevStage()"
+        />
 
-      <img
-        v-if="current > 1 && current < stages.length + 1"
-        :src="require('@/assets/arrow_front_circle.svg')"
-        alt="forward icon"
-        @click="handleNextStage()"
-      />
-    </div>
-
-    <div v-else class="arrow-holder desktop">
-      <transition name="fade">
-        <v-icon v-if="current > 1" @click="handlePrevStage()">
-          arrow_back
-        </v-icon>
-      </transition>
-
-      <span class="mx-1"></span>
-
-      <transition name="fade">
-        <v-icon
-          v-if="
-            forceShowNextIcon || (current > 1 && current < stages.length + 1)
-          "
-          :class="{_disabled: !nextValidated}"
+        <img
+          v-if="current > 1 && current < stages.length + 1"
+          :src="require('@/assets/arrow_front_circle.svg')"
+          alt="forward icon"
           @click="handleNextStage()"
-        >
-          arrow_forward
-        </v-icon>
-      </transition>
-    </div>
+        />
+      </div>
+
+      <div v-else class="arrow-holder desktop">
+        <transition name="fade">
+          <v-icon v-if="current > 1" @click="handlePrevStage()">
+            arrow_back
+          </v-icon>
+        </transition>
+
+        <span class="mx-1"></span>
+
+        <transition name="fade">
+          <v-icon
+            v-if="
+              forceShowNextIcon || (current > 1 && current < stages.length)
+            "
+            :class="{_disabled: !nextValidated}"
+            @click="handleNextStage()"
+          >
+            arrow_forward
+          </v-icon>
+        </transition>
+      </div>
+    </span>
   </div>
 </template>
 
@@ -51,6 +53,7 @@ export default {
   computed: {
     ...mapState({
       current: (state) => state.app.onboarding.current,
+      signUpData: (state) => state.app.onboarding,
     }),
     ...mapGetters({
       stages: "app/onboardingStages",
