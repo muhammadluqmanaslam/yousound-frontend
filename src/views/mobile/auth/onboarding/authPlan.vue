@@ -87,7 +87,7 @@ export default {
   },
   data() {
     return {
-      initPayment: !false,
+      initPayment: false,
       selectedPlan: {},
     };
   },

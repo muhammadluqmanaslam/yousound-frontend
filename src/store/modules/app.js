@@ -16,8 +16,8 @@ const state = {
     accountCategory: 'creator',
   },
   onboarding: {
-    current: 7,
-    accountCategory: 'creator',
+    current: 1,
+    accountCategory: '',
     accountType: '',
     username: '',
     profileImage: '',
