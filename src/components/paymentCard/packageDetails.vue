@@ -32,7 +32,7 @@ export default {
       required: true,
       type: Object,
     },
-    itemType: [Number],
+    itemType: String,
     itemPrice: String,
   },
   computed: {
