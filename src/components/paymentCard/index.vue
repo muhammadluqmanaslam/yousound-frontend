@@ -3,7 +3,7 @@
     <div class="payment-card">
       <div class="dflex align-center justify-space-between">
         <div class="payment-card-title">Payment</div>
-        <v-icon class="cancel-icon-round">cancel</v-icon>
+        <v-icon class="cancel-icon-round" @click="closePayment()">cancel</v-icon>
       </div>
 
       <hr />
@@ -74,6 +74,9 @@ export default {
       type: Object,
     },
     totalPayable: Number,
+    closePayment: {
+      type: Function,
+    },
   },
   data() {
     return {

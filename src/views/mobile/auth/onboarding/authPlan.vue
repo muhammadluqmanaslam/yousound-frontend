@@ -67,7 +67,7 @@
     </div>
 
     <v-dialog v-model="initPayment" content-class="payment-dialog">
-      <payment-card :item="selectedPlan" :totalPayable="totalPayable" />
+      <payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
     </v-dialog>
   </div>
 </template>
@@ -105,6 +105,10 @@ export default {
     },
   },
   methods: {
+    closePaymentModal(plan) {
+      this.initPayment = false;
+      this.selectedPlan = {};
+    },
     openPaymentModal(plan) {
       this.initPayment = true;
       this.selectedPlan = plan;
