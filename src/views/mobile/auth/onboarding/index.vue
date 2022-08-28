@@ -40,6 +40,10 @@
       <transition name="slide-fadeInOnly">
         <AuthPlan v-if="current === 7" />
       </transition>
+
+      <transition name="slide-fadeInOnly">
+        <CheckEmail v-if="current === 8" />
+      </transition>
     </div>
     <div v-else-if="accountCategory === 'listener'" class="stage-wrapper">
       <transition name="slide-fadeInOnly">

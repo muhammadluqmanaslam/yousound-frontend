@@ -66,6 +66,10 @@
       </div>
     </div>
 
+    <div class="no-selection" @click="handleNextStage">
+      No thanks, make me a listener
+    </div>
+
     <v-dialog v-model="initPayment" content-class="payment-dialog">
       <payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
     </v-dialog>
@@ -74,7 +78,7 @@
 
 <script>
 import PaymentCard from "@/components/paymentCard";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { Stripe } from "@/helper";
 
 export default {
@@ -90,6 +94,7 @@ export default {
   computed: {
     ...mapState({
       plansData: (state) => state.app.plansData,
+      current: (state) => state.app.onboarding.current,
     }),
     plans() {
       return this.plansData.filter((plan) => plan.id != "basic");
@@ -105,6 +110,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      gotoNextStage: "app/nextOnboardingStage",
+    }),
     closePaymentModal(plan) {
       this.initPayment = false;
       this.selectedPlan = {};
@@ -112,6 +120,9 @@ export default {
     openPaymentModal(plan) {
       this.initPayment = true;
       this.selectedPlan = plan;
+    },
+    handleNextStage() {
+      this.gotoNextStage(this.current + 1);
     },
   },
   mounted() {
@@ -214,6 +225,14 @@ export default {
         }
       }
     }
+  }
+
+  .no-selection {
+    margin-top: 35px;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
   }
 }
 </style>
