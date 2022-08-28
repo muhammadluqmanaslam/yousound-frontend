@@ -66,8 +66,8 @@
       </div>
     </div>
 
-    <v-dialog v-model="initPayment" persistent content-class="payment-dialog">
-      <payment-card :item="selectedPlan" />
+    <v-dialog v-model="initPayment" content-class="payment-dialog">
+      <payment-card :item="selectedPlan" :totalPayable="totalPayable" />
     </v-dialog>
   </div>
 </template>
@@ -75,6 +75,7 @@
 <script>
 import PaymentCard from "@/components/paymentCard";
 import { mapState } from "vuex";
+import { Stripe } from "@/helper";
 
 export default {
   components: {
@@ -92,6 +93,15 @@ export default {
     }),
     plans() {
       return this.plansData.filter((plan) => plan.id != "basic");
+    },
+    totalPayable() {
+      const fee = parseFloat(this.selectedPlan.price);
+      const subFee = Stripe.calculateSubFee(this.selectedPlan.price);
+
+      let total = parseFloat(subFee) + parseFloat(fee);
+      total = parseFloat(total.toFixed(2));
+
+      return total
     },
   },
   methods: {
@@ -201,11 +211,5 @@ export default {
       }
     }
   }
-}
-</style>
-
-<style>
-.dialog.payment-dialog {
-  width: 800px;
 }
 </style>

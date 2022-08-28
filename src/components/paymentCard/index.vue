@@ -10,11 +10,15 @@
 
       <div class="section-wrapper">
         <div class="card-details-wrapper left-child _child">
-          <package-details :item="item" :itemPrice="itemPrice" :itemType="itemType" />
+          <package-details
+            :item="item"
+            :itemPrice="itemPrice"
+            :itemType="itemType"
+          />
         </div>
 
         <div class="card-details-wrapper right-child _child">
-          <card-details />
+          <card-details hidePayBtn :totalPayable="totalPayable" />
 
           <div class="region-details-wrapper">
             <div class="region-title">Country or Region</div>
@@ -27,6 +31,7 @@
                 item-text="country"
                 item-value="country"
                 class="pt-0"
+                placeholder="Choose Country"
               >
               </v-select>
               <input
@@ -40,11 +45,11 @@
 
           <hr class="my-4" />
 
-          <v-btn block round dark class="pay_btn"
-            >Pay ${{ itemPrice }} /month</v-btn
-          >
+          <v-btn block round dark class="pay_btn" @click="handlePayment">
+            Pay ${{ itemPrice }} /month
+          </v-btn>
           <div class="stripe-credit black--text">
-            <span class="mr-1"> Powered By </span>
+            <span class="mr-1"> Powered By</span>
             <img
               :src="require('@/assets/ic_stripe-black.svg')"
               width="40"
@@ -68,6 +73,7 @@ export default {
       required: true,
       type: Object,
     },
+    totalPayable: Number,
   },
   data() {
     return {
@@ -102,6 +108,7 @@ export default {
     ...mapActions({
       getCountries: "app/getCountries",
     }),
+    handlePayment() {},
   },
   created() {
     this.getCountries();
@@ -150,7 +157,7 @@ export default {
         .__entries {
           box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08),
             0px 1px 1px rgba(0, 0, 0, 0.04);
-            border-radius: 8px;
+          border-radius: 8px;
         }
 
         /deep/ .input-group__input {
@@ -190,5 +197,16 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style>
+.dialog.payment-dialog {
+  width: 800px;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+.overlay.overlay--active {
+  background-color: rgba(0, 0, 0, 0.9);
 }
 </style>
