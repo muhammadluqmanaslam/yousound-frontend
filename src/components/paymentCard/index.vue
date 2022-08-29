@@ -23,7 +23,7 @@
           <div class="card-details-wrapper right-child _child">
             <card-details hidePayBtn :totalPayable="totalPayable" />
 
-            <div class="region-details-wrapper">
+            <!-- <div class="region-details-wrapper">
               <div class="region-title">Country or Region</div>
 
               <div class="__entries">
@@ -44,7 +44,7 @@
                   class="zip-code"
                 />
               </div>
-            </div>
+            </div> -->
 
             <hr class="my-4" />
 
