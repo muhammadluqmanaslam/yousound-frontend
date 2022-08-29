@@ -1,5 +1,5 @@
 <template>
-  <transition>
+  <transition name="fade">
     <div class="learn-more">
       <content-top-header absolute>
         <template slot="topHeader">
@@ -34,146 +34,286 @@
         </template>
       </content-top-header>
 
-      <div class="learn-more-body">
-        <v-container grid-list-lg>
-          <v-layout align-center justify-space-between mt-5>
-            <v-flex xs12 sm5>
-              <div class="tiles">
-                <div class="tile top-left tile-1 square">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile1}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile1}')`"
-                  ></div>
+      <transition name="fade">
+        <div v-if="activeTab === 'listener'" class="learn-more-body">
+          <v-container grid-list-lg>
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm5>
+                <div class="tiles">
+                  <div class="tile top-left tile-1 square">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile1}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile1}')`"
+                    ></div>
+                  </div>
+                  <div class="tile top-right tile-2 square">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile2}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile2}')`"
+                    ></div>
+                  </div>
+                  <div class="tile bottom-left tile-3 square">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile3}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile3}')`"
+                    ></div>
+                  </div>
+                  <div class="tile bottom-right tile-4 square">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile4}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile4}')`"
+                    ></div>
+                  </div>
                 </div>
-                <div class="tile top-right tile-2 square">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile2}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile2}')`"
-                  ></div>
-                </div>
-                <div class="tile bottom-left tile-3 square">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile3}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile3}')`"
-                  ></div>
-                </div>
-                <div class="tile bottom-right tile-4 square">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile4}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile4}')`"
-                  ></div>
-                </div>
-              </div>
-            </v-flex>
+              </v-flex>
 
-            <v-flex xs12 sm6>
-              <div class="tile-context">
-                <h2 class="_title">Listen, watch & shop</h2>
-                <div class="_subtitle">
-                  Collect music, videos, products & create playlists. Easily
-                  organize everything you discover.
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">Listen, watch & shop</h2>
+                  <div class="_subtitle">
+                    Collect music, videos, products & create playlists. Easily
+                    organize everything you discover.
+                  </div>
                 </div>
-              </div>
-            </v-flex>
-          </v-layout>
+              </v-flex>
+            </v-layout>
 
-          <v-layout align-center justify-space-between mt-5>
-            <v-flex xs12 sm5>
-              <div class="tile-context">
-                <h2 class="_title">Empower creators</h2>
-                <div class="_subtitle">
-                  50% of your subscription goes to creators you stream most.
-                  View your dashboard to see who you support.
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm5>
+                <div class="tile-context">
+                  <h2 class="_title">Empower creators</h2>
+                  <div class="_subtitle">
+                    50% of your subscription goes to creators you stream most.
+                    View your dashboard to see who you support.
+                  </div>
                 </div>
-              </div>
-            </v-flex>
+              </v-flex>
 
-            <v-flex xs12 sm6>
-              <div class="tiles">
-                <div class="tile top-right tile-5 landscape">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile5}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile5}')`"
-                  ></div>
+              <v-flex xs12 sm6>
+                <div class="tiles">
+                  <div class="tile top-right tile-5 landscape">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile5}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile5}')`"
+                    ></div>
+                  </div>
+                  <div class="tile top-left tile-6 portrait">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile6}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile6}')`"
+                    ></div>
+                  </div>
+                  <div class="tile bottom-left tile-7 portrait">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile7}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile7}')`"
+                    ></div>
+                  </div>
+                  <div class="tile bottom-right tile-8 landscape">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile8}')`"
+                    ></div>
+                    <div
+                      class="tile-blur"
+                      :style="`background-image: url('${tile8}')`"
+                    ></div>
+                  </div>
                 </div>
-                <div class="tile top-left tile-6 portrait">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile6}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile6}')`"
-                  ></div>
-                </div>
-                <div class="tile bottom-left tile-7 portrait">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile7}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile7}')`"
-                  ></div>
-                </div>
-                <div class="tile bottom-right tile-8 landscape">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile8}')`"
-                  ></div>
-                  <div
-                    class="tile-blur"
-                    :style="`background-image: url('${tile8}')`"
-                  ></div>
-                </div>
-              </div>
-            </v-flex>
-          </v-layout>
+              </v-flex>
+            </v-layout>
 
-          <v-layout align-center justify-space-between mt-5>
-            <v-flex xs12 sm5>
-              <div class="tiles single-tile">
-                <div class="tile square">
-                  <div
-                    class="_img"
-                    :style="`background-image: url('${tile9}')`"
-                  ></div>
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm5>
+                <div class="tiles single-tile">
+                  <div class="tile square">
+                    <div
+                      class="_img"
+                      :style="`background-image: url('${tile9}')`"
+                    ></div>
+                  </div>
                 </div>
-              </div>
-            </v-flex>
+              </v-flex>
 
-            <v-flex xs12 sm6>
-              <div class="tile-context">
-                <h2 class="_title">Get paid to share</h2>
-                <div class="_subtitle">
-                  Artists & brands can send DMs with content. Earn money helping
-                  creators reach the right audience.
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">Get paid to share</h2>
+                  <div class="_subtitle">
+                    Artists & brands can send DMs with content. Earn money
+                    helping creators reach the right audience.
+                  </div>
                 </div>
-              </div>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </div>
+      </transition>
+
+      <transition name="fade">
+        <div v-if="activeTab === 'creator'" class="learn-more-body">
+          <v-container grid-list-lg>
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm6>
+                <div class="_img-wrapper text-center">
+                  <img
+                    :src="require('@/assets/learn-creator-1.jpeg')"
+                    width="80%"
+                    alt="creator image"
+                  />
+                </div>
+              </v-flex>
+
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">Upload everything</h2>
+                  <div class="_subtitle">
+                    Easily upload albums, videos, products. Instantly available
+                    worldwide.
+                  </div>
+                </div>
+              </v-flex>
+            </v-layout>
+
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">Keep 100% of sales</h2>
+                  <div class="_subtitle">
+                    Keep all of your digital & physical sales. Split payments &
+                    recoups with collaborators.
+                  </div>
+                </div>
+              </v-flex>
+
+              <v-flex xs12 sm6>
+                <div class="_img-wrapper text-center">
+                  <img
+                    :src="require('@/assets/learn-creator-2.jpeg')"
+                    width="80%"
+                    alt="creator image"
+                  />
+                </div>
+              </v-flex>
+            </v-layout>
+
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm6>
+                <div class="_img-wrapper text-center">
+                  <img
+                    :src="require('@/assets/learn-creator-3.jpeg')"
+                    width="80%"
+                    alt="creator image"
+                  />
+                </div>
+              </v-flex>
+
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">User-centric payouts</h2>
+                  <div class="_subtitle">
+                    Earn up to 50% of subscriber payments. As little as 20,000
+                    plays can earn $5,000.
+                  </div>
+                </div>
+              </v-flex>
+            </v-layout>
+
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">Connect with text</h2>
+                  <div class="_subtitle">
+                    Your followers can opt-in with their cell number. Grow a SMS
+                    list & use text to bypass the algorithm.
+                  </div>
+                </div>
+              </v-flex>
+
+              <v-flex xs12 sm6>
+                <div class="_img-wrapper text-center">
+                  <img
+                    :src="require('@/assets/learn-creator-4.jpeg')"
+                    width="80%"
+                    alt="creator image"
+                  />
+                </div>
+              </v-flex>
+            </v-layout>
+
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm6>
+                <div class="_img-wrapper text-center">
+                  <img
+                    :src="require('@/assets/learn-creator-5.jpeg')"
+                    width="80%"
+                    alt="creator image"
+                  />
+                </div>
+              </v-flex>
+
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">Go live!</h2>
+                  <div class="_subtitle">
+                    Broadcast live video, sell exclusive content, limit viewer
+                    capacity, run pay per view & chat live.
+                  </div>
+                </div>
+              </v-flex>
+            </v-layout>
+
+            <v-layout align-center justify-space-between mt-5>
+              <v-flex xs12 sm6>
+                <div class="tile-context">
+                  <h2 class="_title">Advanced analytics</h2>
+                  <div class="_subtitle">
+                    Access key metrics from an extensive set of data points
+                    needed to maximize your sale conversions.
+                  </div>
+                </div>
+              </v-flex>
+
+              <v-flex xs12 sm6>
+                <div class="_img-wrapper text-center">
+                  <img
+                    :src="require('@/assets/learn-creator-6.jpeg')"
+                    width="80%"
+                    alt="creator image"
+                  />
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </div>
+      </transition>
     </div>
   </transition>
 </template>
@@ -216,7 +356,7 @@ export default {
 
 <style lang="scss" scoped>
 .learn-more {
-    padding: 0 25px 40px 25px;
+  padding: 0 25px 40px 25px;
 
   .tiles {
     // max-width: 70%;
