@@ -84,6 +84,18 @@ const state = {
 }
 
 const getters = {
+  isiOS: () => {
+    if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      return true
+    }
+  },
+  isAndroid: () => {
+    let useragent = navigator.userAgent.toLowerCase();
+    let isAndroid = useragent.indexOf("android") > -1;
+    if (isAndroid) {
+      return true
+    }
+  },
   getWindowsWidth: (state) => state.windowsWidth,
   onTabletStrict: (state) => {
     const { windowsWidth } = state
