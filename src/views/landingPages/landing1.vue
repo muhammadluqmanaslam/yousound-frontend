@@ -54,7 +54,7 @@
           </v-btn>
         </div>
 
-        <h2 v-if="showAuthCTA" class="learn-more">Learn More</h2>
+        <h2 v-if="showAuthCTA" class="learn-more" @click="activeView = 'learnMoreView'">Learn More</h2>
 
         <v-spacer></v-spacer>
 
@@ -162,6 +162,10 @@
         <div v-if="activeView === 'loginView'" class="login-view">
           <login-input />
         </div>
+
+        <div v-if="activeView === 'learnMoreView'" class="learn-more-view">
+          <learn-more />
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -181,6 +185,7 @@ import trendingProduct from "@/views/mobile/components/trending/products";
 import contentTopHeader from "@/components/contentTopHeader";
 import Onboarding from "@/views/mobile/auth/onboarding";
 import LoginInput from "@/views/auth/loginInput";
+import LearnMore from "@/views/mobile/auth/learnMore";
 
 export default {
   name: "Landing1",
@@ -197,10 +202,11 @@ export default {
     contentTopHeader,
     Onboarding,
     LoginInput,
+    LearnMore,
   },
   data() {
     return {
-      activeView: "landingView",
+      activeView: "learnMoreView",
       activeTab: "music",
       tabs: [
         { id: "music", title: "Music" },
@@ -239,7 +245,7 @@ export default {
     showAuthCancelBtn() {
       return (
         (this.activeView === "signUpView" && this.currentSignUpStage < 7) ||
-        this.activeView === "loginView"
+        this.activeView === "loginView" || this.activeView === "learnMoreView"
       );
     },
   },
@@ -315,6 +321,10 @@ export default {
 
     &::-webkit-scrollbar-thumb {
       display: none;
+    }
+
+    .cancel-icon-round {
+      top: 26px;
     }
 
     &.auth__view {
