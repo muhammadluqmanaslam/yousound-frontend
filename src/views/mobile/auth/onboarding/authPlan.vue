@@ -113,9 +113,13 @@ export default {
     ...mapActions({
       gotoNextStage: "app/nextOnboardingStage",
     }),
-    closePaymentModal(plan) {
+    closePaymentModal(message) {
       this.initPayment = false;
       this.selectedPlan = {};
+
+      if (message = "success") {
+        this.handleNextStage()
+      }
     },
     openPaymentModal(plan) {
       this.initPayment = true;
