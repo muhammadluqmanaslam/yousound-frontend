@@ -241,7 +241,7 @@
           <p v-if="!hideTrackLength" class="track-count">
             {{ item.tracks.length }} tracks
           </p>
-          <div class="track-hover-info">
+          <div v-if="showHoverTrackInfo" class="track-hover-info">
             <div class="item-name">{{ item.name }}</div>
             <div class="artist-name">{{ owner.username }}</div>
           </div>
