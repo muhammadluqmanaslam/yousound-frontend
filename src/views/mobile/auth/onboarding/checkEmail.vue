@@ -20,7 +20,7 @@
       </p>
     </div>
 
-    <div class="text-center resend-mail">Resend email</div>
+    <div class="text-center resend-mail" @click="sendConfirmEmail">Resend email</div>
 
     <div class="text-center">
       <v-btn depressed dark round class="px-2" @click="initAppDownload = true">Download App</v-btn>
@@ -42,6 +42,7 @@
 import { mapActions, mapState } from 'vuex';
 import DownloadApp from "@/components/downloadApp.vue";
 import NavFooter from "./navFooter";
+import AuthService from "@/services/auth"
 
 export default {
   components: {
@@ -71,7 +72,27 @@ export default {
       if (this.current !== 1) {
         this.gotoPrevStage(this.current-1)
       }
-    }
+    },
+    sendConfirmEmail() {
+      const params = {
+        email: this.userEmail,
+      }
+      AuthService.sendConfirmEmail(params)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'Resent a confirmation email',
+          ])
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+  },
+  created() {
+    this.sendConfirmEmail()
   },
 };
 </script>
