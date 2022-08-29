@@ -20,21 +20,38 @@
       </p>
     </div>
 
+    <div class="text-center resend-mail">Resend email</div>
+
+    <div class="text-center">
+      <v-btn depressed dark round class="px-2" @click="initAppDownload = true">Download App</v-btn>
+    </div>
+
     <NavFooter
       :current="current"
       @nextStage="handleNextStage"
       @prevStage="handlePrevStage"
     />
+
+    <v-dialog v-model="initAppDownload" content-class="download-app-dialog">
+      <download-app />
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import DownloadApp from "@/components/downloadApp.vue";
 import NavFooter from "./navFooter";
 
 export default {
   components: {
-    NavFooter
+    NavFooter,
+    DownloadApp
+  },
+  data() {
+    return {
+      initAppDownload: false
+    }
   },
   computed: {
     ...mapState({
@@ -59,5 +76,15 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.check-email {
+  font-size: 14px;
+
+  .resend-mail {
+    margin: 20px 0 40px;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
 </style>
