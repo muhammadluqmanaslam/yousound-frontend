@@ -31,7 +31,7 @@
 
         <h2 class="intro-title mt-5">The best place for music lovers.</h2>
 
-        <div class="dflex auth-btns mt-3">
+        <div v-if="showAuthCTA" class="dflex auth-btns mt-3">
           <v-btn
             v-if="showSignupBtn"
             :ripple="false"
@@ -54,7 +54,7 @@
           </v-btn>
         </div>
 
-        <h2 class="learn-more">Learn More</h2>
+        <h2 v-if="showAuthCTA" class="learn-more">Learn More</h2>
 
         <v-spacer></v-spacer>
 
@@ -214,7 +214,17 @@ export default {
     ...mapState({
       musicFeed: (state) => state.trending.albums,
       currentSignUpStage: (state) => state.app.onboarding.current,
+      signUpAccountCategory: (state) => state.app.onboarding.accountCategory,
     }),
+    showAuthCTA() {
+      if (
+        !this.signUpAccountCategory ||
+        (this.signUpAccountCategory == "creator" &&
+          this.currentSignUpStage !== 7)
+      ) {
+        return true;
+      }
+    },
     toDisplayGrid() {
       return (
         this.activeView === "signUpView" || this.activeView === "loginView"
