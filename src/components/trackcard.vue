@@ -44,10 +44,9 @@
             <v-icon
               :class="[
                 {
-                  'play-button-2': playButton2,
+                  'play-button-2 black--text': playButton2,
                   iconHasWhiteBG: playButton2IconHasWhiteBG,
-                },
-                'black--text'
+                }
               ]"
             >
               play_arrow
