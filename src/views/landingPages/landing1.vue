@@ -206,7 +206,7 @@ export default {
   },
   data() {
     return {
-      activeView: "learnMoreView",
+      activeView: "landingView",
       activeTab: "music",
       tabs: [
         { id: "music", title: "Music" },
