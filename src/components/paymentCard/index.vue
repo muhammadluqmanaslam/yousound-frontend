@@ -21,10 +21,7 @@
           </div>
 
           <div class="card-details-wrapper right-child _child">
-            <card-details
-              hidePayBtn
-              :totalPayable="totalPayable"
-            />
+            <card-details hidePayBtn :totalPayable="totalPayable" />
 
             <!-- <div class="region-details-wrapper">
               <div class="region-title">Country or Region</div>
@@ -130,7 +127,7 @@ import cardDetails from "./cardDetails.vue";
 import PackageDetails from "./packageDetails.vue";
 import { mapActions, mapState } from "vuex";
 import { createToken } from "vue-stripe-elements";
-import SubscriptionService from '@/services/subscription.js'
+import SubscriptionService from "@/services/subscription.js";
 
 export default {
   props: {
@@ -221,7 +218,7 @@ export default {
         token_response: tokenResponse,
       })
         .then((response) => {
-          this.closePayment("success")
+          this.closePayment("success");
         })
         .catch((e) => {
           this.$store.dispatch("error/showLoadingActivity", false);
@@ -230,7 +227,7 @@ export default {
             e.body.errors || [e.body]
           );
         });
-    }
+    },
   },
   created() {
     this.getCountries();
