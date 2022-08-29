@@ -80,7 +80,7 @@
 
           <div class="barcode-wrapper">
             <img class="app_store" width="200" src="/static/images/store.png" />
-            <img class="qr-code" width="90" src="/static/images/ios-app-link-qr.svg" />
+            <img class="qr-code" width="90" :src="require('@/assets/ios-app-link-qr.svg')" />
           </div>
 
           <div class="barcode__description">
