@@ -1,7 +1,7 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
     <div class="closedecoy" @click="outsideClick"></div>
-    <div v-if="isUserSignedUp && !isUserSubscribed" class="subscribe-view">
+    <div v-if="!isUserSignedUp && !isUserSubscribed" class="subscribe-view">
       <div v-if="!showCardPanel" class="intro">
         <div>
           You have <strong>2,500</strong> people on your SMS contact list!
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <template v-if="!isUserSignedUp" class="creator-signup">
+    <div v-if="isUserSubscribed && !isPhoneNumberPresent" class="creator-signup">
       <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -385,6 +385,7 @@ export default {
       confirmSendSMS: false,
       sendSuccess: false,
       smsEngagementActive: false,
+      stripePriceId: process.env.PRO_PRICE_ID,
     };
   },
   watch: {
@@ -471,9 +472,9 @@ export default {
       UserService.updateUserInfo(this.currentUser.id, params)
         .then((response) => {
           AuthService.setUser(response.body)
-          this.$store.dispatch('auth/setUser', response.body)
-
-          this.signUpDone = true;
+          this.signUpDone = true
+          this.isUserSignedUp = true
+          this.$store.dispatch('error/showSuccessToast', ["Phone number updated successfully."])
         })
         .catch((e) => {
           console.log(e)
@@ -497,13 +498,10 @@ export default {
         .then((response) => {
           if (response.body.message != null) {
             this.$store.dispatch('error/showLoadingActivity', false)
+            this.closeSMS();
             this.$store.dispatch(
               'error/showSuccessToast', response.body.message
             )
-
-            AuthService.setUser(response.body)
-            this.$store.dispatch('auth/setUser', response.body)
-            this.closeSMS()
           } else {
             this.$store.dispatch('error/showLoadingActivity', false)
             this.$store.dispatch(
@@ -561,6 +559,9 @@ export default {
       return this.currentUser.stripe_subscription_id;
       // return false
     },
+    setIsUserSubscribed(stripeSubscriptionId) {
+      this.currentUser.stripe_subscription_id = stripeSubscriptionId;
+    },
     isUserSignedUp() {
       return this.currentUser.phone_number;
       // return false
@@ -570,10 +571,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.isUserSubscribed);
-    console.log(this.isUserSignedUp);
-
-    if (!this.isUserSignedUp) {
+    if (!this.isUserSignedUp && this.$refs.input0) {
       this.$refs.input0[0].focus();
     }
   },
