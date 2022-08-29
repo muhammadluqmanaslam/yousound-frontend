@@ -311,6 +311,7 @@ const getters = {
       {
         title: 'Check Email',
         stage: 8,
+        hideStagerBar: true,
       },
     ]
     return stages

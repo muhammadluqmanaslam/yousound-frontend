@@ -2,7 +2,7 @@
   <div class="stager" :class="[`_${staging}`, { isDark: currentStage.isDark }]">
     <div class="_title" v-html="currentStage.title"></div>
 
-    <div v-if="current > 1" class="stages">
+    <div v-if="current > 1 && hideStagerBar" class="stages">
       <div
         v-for="(stage, index) in stages.slice(1, stages.length)"
         :key="index"
@@ -75,6 +75,9 @@ export default {
     ...mapState({
       onboardingCurrent: (state) => state.app.onboarding.current,
     }),
+    hideStagerBar() {
+      return !this.onboardingCurrentStage.hideStagerBar
+    },
   },
   watch: {
     onboardingCurrent(val) {
