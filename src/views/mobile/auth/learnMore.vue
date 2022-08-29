@@ -436,6 +436,7 @@ export default {
   .single-tile {
     .tile {
       width: 100% !important;
+      max-width: unset;
       position: relative;
 
       ._img {
