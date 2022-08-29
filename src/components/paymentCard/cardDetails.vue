@@ -48,7 +48,6 @@ import {
   CardNumber,
   CardExpiry,
   CardCvc,
-  createToken,
 } from "vue-stripe-elements";
 
 export default {
@@ -56,7 +55,7 @@ export default {
     hidePayBtn: Boolean,
     totalPayable: Number,
   },
-  components: { CardNumber, CardExpiry, CardCvc, createToken },
+  components: { CardNumber, CardExpiry, CardCvc },
   data() {
     return {
       complete: false,
@@ -69,13 +68,6 @@ export default {
         showIcon: true,
       },
     };
-  },
-  methods: {
-    paymentMethod() {
-      createToken().then((data) => {
-        this.subscribe(this.stripePriceId, data.token);
-      });
-    },
   },
 };
 </script>
