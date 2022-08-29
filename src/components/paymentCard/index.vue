@@ -21,7 +21,10 @@
           </div>
 
           <div class="card-details-wrapper right-child _child">
-            <card-details hidePayBtn :totalPayable="totalPayable" />
+            <card-details
+              hidePayBtn
+              :totalPayable="totalPayable"
+            />
 
             <!-- <div class="region-details-wrapper">
               <div class="region-title">Country or Region</div>
@@ -126,6 +129,8 @@
 import cardDetails from "./cardDetails.vue";
 import PackageDetails from "./packageDetails.vue";
 import { mapActions, mapState } from "vuex";
+import { createToken } from "vue-stripe-elements";
+import SubscriptionService from '@/services/subscription.js'
 
 export default {
   props: {
@@ -179,11 +184,53 @@ export default {
           break;
       }
     },
+    stripePriceId() {
+      const type = this.itemType;
+
+      switch (type) {
+        case "plan":
+          return this.item.stripePriceId;
+        default:
+          break;
+      }
+    },
   },
   methods: {
     ...mapActions({
       getCountries: "app/getCountries",
     }),
+
+    handlePayment() {
+      createToken().then((data) => {
+        this.subscribe(this.stripePriceId, data.token);
+      });
+      // console.log({response});
+      // this.subscribe(this.stripePriceId, response.data.token);
+    },
+    subscribe(priceId, tokenResponse) {
+      console.log(
+        "priceId===>",
+        this.stripePriceId,
+        this.amount,
+        tokenResponse,
+        tokenResponse.id
+      );
+      SubscriptionService.createSubscription({
+        price_id: priceId,
+        token_id: tokenResponse.id,
+        token_response: tokenResponse,
+      })
+        .then((response) => {
+          this.closePayment("success")
+        })
+        .catch((e) => {
+          this.$store.dispatch("error/showLoadingActivity", false);
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
     handlePayment() {},
   },
   created() {
