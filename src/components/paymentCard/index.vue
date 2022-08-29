@@ -230,8 +230,7 @@ export default {
             e.body.errors || [e.body]
           );
         });
-    },
-    handlePayment() {},
+    }
   },
   created() {
     this.getCountries();
