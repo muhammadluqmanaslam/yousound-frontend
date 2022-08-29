@@ -2,8 +2,11 @@
   <div class="payment-package">
     <div v-if="!hideTitle" class="package-title">{{ itemType }}</div>
 
-    <div class="package-details" :class="{noBorder}">
-      <div class="_summary dflex justify-space-between mb-3" :class="{altMeta}">
+    <div class="package-details" :class="{ noBorder }">
+      <div
+        class="_summary dflex justify-space-between mb-3"
+        :class="{ altMeta }"
+      >
         <div class="package-subtitle">
           {{ item.title }} {{ subtitleAppend }}
         </div>
@@ -50,7 +53,11 @@ export default {
       }
     },
     currentDate() {
-      return new Date();
+      var myCurrentDate = new Date();
+      var myFutureDate = new Date(myCurrentDate);
+      myFutureDate.setDate(myFutureDate.getDate() + 30);
+
+      return myFutureDate;
     },
   },
 };
