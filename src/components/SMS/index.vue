@@ -196,7 +196,7 @@
           >Close</v-btn
         >
       </div>
-    </template>
+    </div>
 
     <div
       v-if="
