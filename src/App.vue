@@ -182,6 +182,7 @@ export default {
     ...mapGetters({
       isAuthenticated: "auth/isAuthenticated",
       globalSMSactive: "app/globalSMSactive",
+      onMobileStrict: "app/onMobileStrict",
     }),
     // hideGoBack() {
     //   return this.$store.getters['appMobile/hideGoBackCTA'].indexOf(this.$route.name) !== 1
@@ -216,6 +217,21 @@ export default {
   },
 
   watch: {
+    onMobileStrict(val) {
+      if (val === true) {
+        console.log("kill app");
+
+        // destroy app on mobile of window width shrink detection
+        this.$destroy()
+        // remove the element from the DOM
+        if (this.$el) {
+          this.$el.parentNode.removeChild(this.$el);
+        }
+
+        // insert fallback into DOM
+        this.createFallback()
+      }
+    },
     mobilePlayerActive(val) {
       console.log('mobilePlayerActive: ', val);
     },
@@ -259,6 +275,12 @@ export default {
   },
   created() {
     console.log('App created')
+
+    this.$nextTick(() => {
+      if (this.onMobileStrict) {
+        this.createFallback()
+      }
+    })
 
     Vue.http.interceptors.push((req, next) => {
       next((res) => {
@@ -316,6 +338,26 @@ export default {
   },
 
   methods: {
+    createFallback() {
+      const body = document.querySelector("body")
+      body.className = "allChildrenCenter"
+      body.style = "height: 100vh"
+
+      const fallback = document.createElement("div");
+      fallback.className = "text-center";
+
+      const fallbackText = document.createElement("h3");
+      fallbackText.className = "text-center";
+      fallbackText.innerText = "Please use desktop or Tablet to continue"
+
+      const fallbackAction = document.createElement("button");
+      fallbackAction.innerText = "Reload";
+      fallbackAction.onclick = () => location.reload();
+
+      fallback.append(fallbackText, fallbackAction);
+
+      body.replaceChildren(fallback);
+    },
     onResize() {
       this.$store.dispatch("app/setWindowsWidth", window.innerWidth)
     },

@@ -97,6 +97,13 @@ const getters = {
     }
   },
   getWindowsWidth: (state) => state.windowsWidth,
+  onMobileStrict: (state) => {
+    const { windowsWidth } = state
+    if (windowsWidth < 768) {
+      return true
+    }
+    return false
+  },
   onTabletStrict: (state) => {
     const { windowsWidth } = state
     if (windowsWidth > 767 && windowsWidth < 1024) {
