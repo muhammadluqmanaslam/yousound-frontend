@@ -1,6 +1,10 @@
 <template>
-  <div class="upload-page mx-5" :class="{page: !onMobile}">
-    <div v-if="onMobile" class="allChildrenCenter flex-column text-center" style="height: 70vh">
+  <div class="upload-page mx-5" :class="{ page: !onMobile }">
+    <div
+      v-if="onMobile"
+      class="allChildrenCenter flex-column text-center"
+      style="height: 70vh"
+    >
       <div class="mb-3">
         To upload, manage or view sales & order history use the desktop version
         on
@@ -9,7 +13,11 @@
       <div class="app-bold">
         <router-link to="/" class="black--text">yousound.com</router-link>
       </div>
-      <img :src="require('@/assets/desktop.svg')" class="mb-3" alt="desktop icon" />
+      <img
+        :src="require('@/assets/desktop.svg')"
+        class="mb-3"
+        alt="desktop icon"
+      />
     </div>
 
     <div v-else>
@@ -118,33 +126,53 @@
           <v-checkbox
             v-model="isStripeConnected"
             hide-details
-            :append-icon="isStripeConnected ? 'check_circle' : 'radio_button_unchecked'"
+            :append-icon="
+              isStripeConnected ? 'check_circle' : 'radio_button_unchecked'
+            "
             disabled
             class="mr-2"
           ></v-checkbox>
 
           <div class="_label">
-            <span>Connect your Stripe account to start accepting payments.</span>
-            <span class="_cta ml-3" @click="$router.push({ name: 'UserSettings', params: { tab: 'bank-details' } })">Check Setting</span>
+            <span
+              >Connect your Stripe account to start accepting payments.</span
+            >
+            <span
+              class="_cta ml-3"
+              @click="
+                $router.push({
+                  name: 'UserSettings',
+                  params: { tab: 'bank-details' },
+                })
+              "
+              >Check Setting</span
+            >
           </div>
         </div>
         <div class="_checkbox">
           <v-checkbox
             v-model="isAppDownloadClicked"
             hide-details
-            :append-icon="isAppDownloadClicked ? 'check_circle' : 'radio_button_unchecked'"
+            :append-icon="
+              isAppDownloadClicked ? 'check_circle' : 'radio_button_unchecked'
+            "
             disabled
             class="mr-2"
           ></v-checkbox>
 
           <div class="_label">
-            <span>Download the app & upload your spotlight video to promote your profile</span>
-            <span class="_cta ml-3" @click="initAppDownload = true;">Learn More</span>
+            <span
+              >Download the app & upload your spotlight video to promote your
+              profile</span
+            >
+            <span class="_cta ml-3" @click="initAppDownload = true"
+              >Learn More</span
+            >
           </div>
         </div>
       </div>
     </div>
-    
+
     <v-dialog v-model="initAppDownload" content-class="download-app-dialog">
       <download-app />
     </v-dialog>

@@ -1,10 +1,11 @@
 .upload-page {
-    h1.__title {        
+    h1.__title {
         font-size: 24px;
         margin-top: 18px;
         margin-bottom: 20px;
         margin-left: 10px;
     }
+
     .upload-tab-container {
         padding: 20px !important;
 
@@ -18,7 +19,7 @@
             align-items: center;
             font-size: 16px;
             border: 1px solid transparent;
-            
+
             &:hover {
                 border-color: #00000036;
 
@@ -40,17 +41,21 @@
 
                 &.uploadMusic {
                     background-image: url('/static/images/up_music.svg');
-                }  
+                }
+
                 &.uploadVideo {
                     background-image: url('/static/images/up_video.svg');
-                }  
+                }
+
                 &.uploadLive {
                     background-image: url('/static/images/up_live.svg');
-                }  
+                }
+
                 &.uploadProduct {
                     background-image: url('/static/images/up_product.svg');
-                }  
-            }  
+                }
+            }
+
             .upload-tab-btn {
                 border: 1px solid;
                 height: 30px;
@@ -80,8 +85,9 @@
                 // }
             }
         }
-  
-    }  
+
+    }
+
     .meta-tab-container {
         .meta-tab-wrapper {
             display: flex;
@@ -101,10 +107,12 @@
                 &.partnerImg {
                     background-image: url('/static/images/handshake.svg');
                 }
+
                 &.growthImg {
                     background-image: url('/static/images/edit-curves.svg');
                 }
             }
+
             .meta-tab-description {}
         }
     }
@@ -118,12 +126,12 @@
                 width: fit-content;
                 flex: none;
                 color: #000000;
-                border-radius:300px;
+                border-radius: 300px;
 
                 /deep/ .input-group__input {
                     .icon {
                         display: none;
-                        
+
                         &.input-group__append-icon {
                             color: #000000;
                             display: block;
