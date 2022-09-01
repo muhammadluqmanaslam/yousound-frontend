@@ -65,7 +65,7 @@ export default {
       return user
     },
     hours() {
-      const num = Array.from({length: 24}, (_, i) => ({value: i + 1, title: i + 1 + ' Hour'}))
+      const num = Array.from({ length: 24 }, (_, i) => ({ value: i + 1, title: i + 1 + ' Hour' }))
       return num
     },
     payable() {
@@ -74,7 +74,7 @@ export default {
     },
   },
 
-  created() {},
+  created() { },
 
   methods: {
     getPayable(plan) {
@@ -90,7 +90,7 @@ export default {
     },
 
     proceedToUpload() {
-      this.$router.push({name: "VideoCreate"})
+      this.$router.push({ name: "VideoCreate" })
     },
   },
 
