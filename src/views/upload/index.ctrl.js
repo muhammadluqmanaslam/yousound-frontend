@@ -1,20 +1,27 @@
 import topbarNotification from '@/components/topbarNotification'
 import getPaid from '@/views/getPaidToShare'
 import UserService from '@/services/user'
+import DownloadApp from "@/components/downloadApp.vue";
 
 export default {
   components: {
     topbarNotification,
     getPaid,
+    DownloadApp,
   },
 
   data() {
     return {
       topBarContent: 'Connect your Stripe account to start accepting payments',
       user: {},
+      initAppDownload: false,
+      isAppDownloadClicked: false,
     }
   },
   computed: {
+    isStripeConnected() {
+      return this.currentUser.stripe_connected;
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -60,7 +67,13 @@ export default {
         })
     },
   },
-  watch: {},
+  watch: {
+    initAppDownload(val) {
+      if (val === false) {
+        this.isAppDownloadClicked = true;
+      }
+    }
+  },
   async created() {
     await this.getUser()
   },

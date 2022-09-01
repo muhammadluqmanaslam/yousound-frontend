@@ -13,16 +13,16 @@
     </div>
 
     <div v-else>
-      <topbarNotification
+      <!-- <topbarNotification
         :content="topBarContent"
         ctaTitle="Connect"
         :cta="{ name: 'UserSettings', params: { tab: 'bank-details' } }"
-      />
-      <h1 class="px-3 __title">Upload your content & share to the world!</h1>
+      /> -->
+      <h1 class="px-3 __title">Share to the world</h1>
 
       <v-container fluid grid-list-lg>
         <v-layout row wrap justify-start>
-          <v-flex xs12 sm6 class="upload-tab-container">
+          <v-flex xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">
               <div class="upload-tab-img uploadMusic"></div>
 
@@ -31,14 +31,17 @@
                 <div class="upload-tab-description">
                   Upload your albums, connect products, assign collaborators
                 </div>
-                <v-btn depressed class="upload-tab-btn" :to="'/upload/album'"
-                  >Upload</v-btn
-                >
               </div>
+
+              <v-spacer></v-spacer>
+
+              <v-btn depressed class="upload-tab-btn" :to="'/upload/album'">
+                Upload
+              </v-btn>
             </div>
           </v-flex>
 
-          <v-flex xs12 sm6 class="upload-tab-container">
+          <v-flex xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">
               <div class="upload-tab-img uploadProduct"></div>
               <div class="text-left">
@@ -46,17 +49,21 @@
                 <div class="upload-tab-description">
                   Upload products, set splits & recoup costs with collaborators
                 </div>
-                <v-btn
-                  depressed
-                  class="upload-tab-btn"
-                  :to="{ name: 'AddProduct' }"
-                  >Upload</v-btn
-                >
               </div>
+
+              <v-spacer></v-spacer>
+
+              <v-btn
+                depressed
+                class="upload-tab-btn"
+                :to="{ name: 'AddProduct' }"
+              >
+                Upload
+              </v-btn>
             </div>
           </v-flex>
 
-          <v-flex xs12 sm6 class="upload-tab-container">
+          <v-flex xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">
               <div class="upload-tab-img uploadVideo"></div>
 
@@ -65,17 +72,21 @@
                 <div class="upload-tab-description">
                   Upload videos, connect products, albums & collaborators
                 </div>
-                <v-btn
-                  depressed
-                  class="upload-tab-btn"
-                  :to="{ name: 'VideoUpload' }"
-                  >Upload</v-btn
-                >
               </div>
+
+              <v-spacer></v-spacer>
+
+              <v-btn
+                depressed
+                class="upload-tab-btn"
+                :to="{ name: 'VideoUpload' }"
+              >
+                Upload
+              </v-btn>
             </div>
           </v-flex>
 
-          <v-flex xs12 sm6 class="upload-tab-container">
+          <v-flex xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">
               <div class="upload-tab-img uploadLive"></div>
 
@@ -85,18 +96,58 @@
                   Broadcast live RMTP, connect products, & run pay-per-view
                 </div>
                 <!-- <v-btn v-if="isOnLive" depressed class="upload-tab-btn" :to="{name: 'VideoManage'}">Broadcast Live2</v-btn> -->
-                <v-btn
-                  depressed
-                  class="upload-tab-btn"
-                  :to="{ name: broadcastLink }"
-                  >Broadcast</v-btn
-                >
               </div>
+
+              <v-spacer></v-spacer>
+
+              <v-btn
+                depressed
+                class="upload-tab-btn"
+                :to="{ name: broadcastLink }"
+                >Broadcast</v-btn
+              >
             </div>
           </v-flex>
         </v-layout>
       </v-container>
+
+      <h1 class="px-3 __title">Don’t forget to...</h1>
+
+      <div class="check-settings">
+        <div class="_checkbox">
+          <v-checkbox
+            v-model="isStripeConnected"
+            hide-details
+            :append-icon="isStripeConnected ? 'check_circle' : 'radio_button_unchecked'"
+            disabled
+            class="mr-2"
+          ></v-checkbox>
+
+          <div class="_label">
+            <span>Connect your Stripe account to start accepting payments.</span>
+            <span class="_cta ml-3" @click="$router.push({ name: 'UserSettings', params: { tab: 'bank-details' } })">Check Setting</span>
+          </div>
+        </div>
+        <div class="_checkbox">
+          <v-checkbox
+            v-model="isAppDownloadClicked"
+            hide-details
+            :append-icon="isAppDownloadClicked ? 'check_circle' : 'radio_button_unchecked'"
+            disabled
+            class="mr-2"
+          ></v-checkbox>
+
+          <div class="_label">
+            <span>Download the app & upload your spotlight video to promote your profile</span>
+            <span class="_cta ml-3" @click="initAppDownload = true;">Learn More</span>
+          </div>
+        </div>
+      </div>
     </div>
+    
+    <v-dialog v-model="initAppDownload" content-class="download-app-dialog">
+      <download-app />
+    </v-dialog>
   </div>
 </template>
 
