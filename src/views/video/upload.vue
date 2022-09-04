@@ -1,5 +1,30 @@
 <template>
   <div class="page upload-child video-page create-page mx-5">
+    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
+  
+    <content-top-header>
+      <template slot="topHeader">
+        <ul class="pr-3">
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            class="nav-li"
+            :class="[
+              { 'active tab-active': isActiveTab(tab.id) },
+              `nav-${tab.id}`,
+              { isParent: tab.isParent },
+            ]"
+          >
+            <label class="nav-label" @click="onTab(tab)">
+              {{ tab.title }}
+              <v-icon v-if="tab.isParent">chevron_right</v-icon>
+            </label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
+
     <div class="d-flex">
       <div class="page-content">
         <drag-file-uploader

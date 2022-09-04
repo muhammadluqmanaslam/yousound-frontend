@@ -22,6 +22,14 @@ export default {
 
   data() {
     return {
+      activeTab: 'product',
+      tabs: [
+        { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
+        { id: 'music', title: 'Music', path: 'UploadAlbum' },
+        { id: 'video', title: 'Video', path: 'VideoUpload' },
+        { id: 'product', title: 'Product', path: 'AddProduct' },
+        { id: 'live', title: 'Broadcast Live', path: 'CreateLive' },
+      ],
       user: {},
       topBarContent: 'Connect your Stripe account to start accepting payments',
       showPolicyActive: false,
@@ -226,6 +234,14 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+    onTab(tab) {
+      if (tab.path) {
+        this.$router.push({name: tab.path})
+      }
+    },
     updateUser(params) {
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.updateUserInfo(this.currentUser.id, params)

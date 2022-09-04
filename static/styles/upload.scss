@@ -3,13 +3,9 @@
         font-size: 24px;
         margin-top: 18px;
         margin-bottom: 20px;
-        margin-left: 10px;
     }
 
     .upload-tab-container {
-        padding: 20px !important;
-
-
         .upload-tab-wrapper {
             text-align: center;
             padding: 8px;
@@ -48,7 +44,7 @@
                 }
 
                 &.uploadLive {
-                    background-image: url('/static/images/up_live.svg');
+                    background-image: url('../../src/assets/up_live.svg');
                 }
 
                 &.uploadProduct {

@@ -1,28 +1,5 @@
 <template>
   <div v-if="category">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
-    <content-top-header>
-      <template slot="topHeader">
-        <ul>
-          <li
-            v-if="category == 'audio'"
-            class="active"
-          >
-            <span class="dflex align-center">
-              <img src="/static/images/up_music.svg" width="18" class="mr-2">
-              <span>Upload Album</span>
-            </span>
-          </li>
-          <li
-            v-else-if="category == 'video'"
-            class="active"
-          >
-            Upload Video
-          </li>
-        </ul>
-      </template>
-    </content-top-header>
-
     <div class="uploaderBox" id="uploaderBox">
       <div class="uploaderBox__input">
         <input
@@ -62,14 +39,10 @@
 
 import _ from 'lodash'
 import draggable from 'vuedraggable'
-import contentTopHeader from '@/components/contentTopHeader'
-import topbarNotification from '@/components/topbarNotification'
 
 export default {
   components: {
     draggable,
-    contentTopHeader,
-    topbarNotification,
   },
   props: {
     album: {
@@ -93,7 +66,6 @@ export default {
 
   data() {
     return {
-      topBarContent: 'Connect your Stripe account to start accepting payments',
       show_unauthorized_content_dialog: false,
       show_duplicate_content_dialog: false,
       currentFile: {
