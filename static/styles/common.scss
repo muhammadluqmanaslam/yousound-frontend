@@ -220,6 +220,9 @@ body {
 .text-left {
   text-align: left;
 }
+.text-underline {
+  text-decoration: underline;
+}
 
 .app-grey--text {
   color: #aaaaaa
@@ -478,6 +481,15 @@ li.search-li {
   svg {
     // width: 100% !important;
   }
+}
+
+
+hr.light {
+  height: 1px;
+  border: none;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 15px 0;
 }
 
 .edit-address-dialog.dialog {
