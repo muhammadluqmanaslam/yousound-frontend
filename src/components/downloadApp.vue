@@ -18,13 +18,13 @@
           <div class="store-badge">
             <img
               :src="iosStore"
-              width="30%"
+              width="45%"
               class="ios-store mr-3"
               alt="ios app store icon"
             />
             <img
               :src="androidPlaystore"
-              width="30%"
+              width="45%"
               class="android-store"
               alt="android app store icon"
             />
@@ -40,11 +40,14 @@
     </v-container>
 
     <v-container v-else-if="type === 'type2'" grid-list-lg :class="[`_${type}`]">
-      <v-layout row wrap align-center qrsection-card>
-        <v-flex xs12 sm8>
-          <div class="_title">Spotlight video</div>
+      <v-layout v-if="!showPlan" row wrap qrsection-card>
+        <v-flex xs12 sm8 details-card>
+          <div class="dflex">
+            <img :src="require('@/assets/ic_spotlight.svg')" width="30" class="mr-2" alt="spotlight icon">
+            <div class="_title">Spotlight video</div>
+          </div>
 
-          <hr class="my-3" />
+          <hr class="my-4" />
 
           <div class="_subtitle">
             Download the app to upload a video for your spotlight.
@@ -66,7 +69,7 @@
             </ul>
           </div>
 
-          <hr />
+          <hr class="mb-5" />
 
           <div class="store-badge">
             <div class="qr-wrapper">
@@ -101,18 +104,57 @@
           </div>
         </v-flex>
 
-        <v-flex xs12 sm4 artist-card>
-          <!-- <div class="qr-wrapper">
-            <img :src="renderQR" width="100%" :alt="altText" />
-          </div> -->
+        <v-flex xs12 sm4 featured-card>
+          <div class="card-wrapper">
+            <div class="card-image" :style="`background-image: url(${userImage});}`">
+              <div class="featured-artist dflex justify-space-between align-center">
+                <div>
+                  <div class="__label">Subscribe to support</div>
+                  <div class="artist-name">
+                    <user-tag :user="currentUser" />
+                  </div>
+                </div>
+
+                <div class="volume allChildrenCenter">
+                  <v-icon v-if="true">volume_up</v-icon>
+                  <v-icon v-else>volume_off</v-icon>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="card-details">
+                <img :src="require('@/assets/nav_logo_primary.png')" width="100" class="mb-2" alt="yousound logo">
+
+              <div>
+                Get full access to all creators & their content.
+                <br />
+                <strong>50%</strong> of your subscription shared with creators you stream the most.
+              </div>
+
+              <br>
+
+              <strong>1 month free, then $10/month.</strong>
+
+              <v-btn depressed block dark class="mt-2 showPlanBtn" @click="showPlan = true; ">Start 30 day free trial</v-btn>
+            </div>
+          </div>
         </v-flex>
       </v-layout>
+
+      <AuthPlan v-if="showPlan" />
     </v-container>
+
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import UserTag from "@/components/user_tag";
+// import AuthPlan from "@/views/mobile/auth/onboarding/authPlan"
+import AuthPlan from "@/views/mobile/auth/onboarding/authPlan"
+
 export default {
   props: {
     type: {
@@ -120,10 +162,15 @@ export default {
       type: String,
     },
   },
+  components: {
+    UserTag,
+    AuthPlan,
+  },
   data() {
     return {
       iosStore: require("@/assets/img_download_app_store.svg"),
       androidPlaystore: require("@/assets/img_download_play_store.svg"),
+      showPlan: false,
     };
   },
   computed: {
@@ -152,6 +199,12 @@ export default {
 
       return "download yousound ios qr code";
     },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+    userImage() {
+      return this.currentUser.avatar.url
+    },
   },
 };
 </script>
@@ -161,6 +214,24 @@ export default {
   background-color: #ffffff;
   padding: 40px;
   color: #000000;
+
+  &_type2 {
+    padding: 0;
+
+    .container._type2 {
+      padding: 0;
+
+      .qrsection-card {
+        margin: 0;
+
+        .details-card {
+          padding-left: 40px;
+          padding-right: 40px;
+          padding-top: 50px;
+        }
+      }
+    }
+  }
 
   ._type1 {
     ._title {
@@ -182,7 +253,7 @@ export default {
   ._type2 {
     ._title {
       font-size: 24px;
-      line-height: 1.2;
+      line-height: 40px;
       font-weight: bold;
     }
     ._subtitle {
@@ -196,7 +267,7 @@ export default {
       &-list {
         margin-left: 15px;
         li {
-          line-height: 1.2;
+          line-height: 30px;
         }
       }
       .intro {
@@ -217,7 +288,7 @@ export default {
       display: flex;
 
       .qr-wrapper {
-        width: 30%;
+        width: 50%;
         overflow: hidden;
         border: 4px solid #000000;
         border-radius: 20px;
@@ -234,9 +305,62 @@ export default {
       }
     }
 
-    .artist-card {
+    .featured-card {
       background: linear-gradient(159.57deg, #72718A 3.75%, #1F1F21 95.84%);
-      padding: 20px 50px;
+      padding: 40px 50px;
+
+      .card-image {
+        position: relative;
+        min-height: 350px;
+        border-radius: 7px;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        .featured-artist {
+          position: absolute;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.7);
+          padding: 20px;
+          width: 100%;
+          color: #ffffff;
+
+          .__label {
+            font-weight: bold;
+          }
+          .artist-name {
+            font-size: 1.5em;
+            font-weight: bold;
+          }
+
+          .volume {
+            border-radius: 200px;
+            color: #000000;
+            background-color: #ffffff;
+            height: 30px;
+            width: 30px;
+
+            .icon {
+              color: #000000;
+              font-size: 15px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .card-details {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: -10px;
+        font-size: 15px;
+
+        .showPlanBtn {
+          border-radius: 7px;
+        }
+      }
     }
   }
 }
@@ -247,10 +371,6 @@ export default {
   width: auto;
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.9);
-
-  //   .download-app {
-  //     width: 1203px
-  //   }
 }
 .overlay.overlay--active {
   width: auto;
