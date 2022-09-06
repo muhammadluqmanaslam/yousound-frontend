@@ -184,16 +184,16 @@
               >Download the app & upload your spotlight video to promote your
               profile</span
             >
-            <span class="_cta ml-3" @click="initAppDownload = true"
-              >Learn More</span
-            >
+            <span class="_cta ml-3" @click="initAppDownload = true">
+              Learn More
+            </span>
           </div>
         </div>
       </div>
     </div>
 
     <v-dialog v-model="initAppDownload" content-class="download-app-dialog">
-      <download-app type="type2" />
+      <download-app v-if="initAppDownload" type="type2" />
     </v-dialog>
   </div>
 </template>
