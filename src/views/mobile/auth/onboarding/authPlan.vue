@@ -137,6 +137,8 @@ export default {
 
 <style lang="scss" scoped>
 .auth-plan {
+  padding: 20px 30px;
+
   .plans {
     display: flex;
     align-items: center;
