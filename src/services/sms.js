@@ -9,6 +9,10 @@ const smsService = {
       headers: { Authorization: $store.state.auth.token },
     }),
 
+  listSMS: () =>
+    Vue.http.get(API_BASE_URL + '/', {
+      headers: { Authorization: $store.state.auth.token },
+    }),
   getSMS: (smsId) =>
     Vue.http.get(API_BASE_URL + '/' + smsId, {
       headers: { Authorization: $store.state.auth.token },
