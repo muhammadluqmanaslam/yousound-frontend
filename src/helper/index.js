@@ -81,6 +81,18 @@ export const Storage = {
 }
 
 export const Filter = {
+  toLocalTimeString(str) {
+    return moment(str).calendar(null, {
+      lastDay: '[Yesterday,] LT',
+      sameDay: '[Today,] LT',
+      nextDay: '[Tomorrow,] LT',
+      // lastWeek: '[Last] dddd[,] LT',
+      // nextWeek: 'dddd[,] LT',
+      lastWeek: 'LLLL',
+      nextWeek: 'LLLL',
+      sameElse: 'LLLL',
+    })
+  },
   formatSlashedDate(value) {
     if (value) {
       return moment(value).format('DD/MM/YYYY')
