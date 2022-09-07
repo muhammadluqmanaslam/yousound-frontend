@@ -81,7 +81,9 @@
           Subscribe to text them!
         </div>
 
-        <v-btn depressed round dark class="mt-3 px-3"> Subscribe </v-btn>
+        <v-btn depressed round dark class="mt-3 px-3" @click="initSubscribe">
+          Subscribe
+        </v-btn>
       </div>
     </v-container>
   </div>
@@ -131,6 +133,9 @@ export default {
     closeEngagement() {
       this.smsEngagementActive = false;
       this.currentMessage = {};
+    },
+    initSubscribe() {
+      this.$store.dispatch("app/toggleGlobalSMS", true);
     },
     listAllSMS() {
       smsService
@@ -197,8 +202,8 @@ export default {
   .sms-community {
     height: 90vh;
 
-      ._wrapper {
-        width: 30%;
+    ._wrapper {
+      width: 30%;
     }
 
     _intro-text {
