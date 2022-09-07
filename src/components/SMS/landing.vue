@@ -46,15 +46,43 @@
 
           <div class="message-content">
             <transition name="fade">
-                <sms-engagement
+              <sms-engagement
                 :item="currentMessage"
                 v-if="smsEngagementActive"
                 @closeEngagement="closeEngagement"
-                />
+              />
             </transition>
           </div>
         </v-flex>
       </v-layout>
+    </v-container>
+
+    <v-container
+      v-else
+      grid-list-xs
+      fluid
+      pa-0
+      sms-community
+      not-subscribed
+      allChildrenCenter
+    >
+      <div class="text-center _wrapper">
+        <h1 class="_intro-text">Reach your community through text.</h1>
+
+        <img
+          :src="require('@/assets/sms_chat.svg')"
+          width="40%"
+          class="my-5"
+          alt="sms chat"
+        />
+
+        <div>
+          You have <strong>2,039 people</strong> on your SMS contact list.
+          Subscribe to text them!
+        </div>
+
+        <v-btn depressed round dark class="mt-3 px-3"> Subscribe </v-btn>
+      </div>
     </v-container>
   </div>
 </template>
@@ -80,7 +108,7 @@ export default {
       return this.smsList.length;
     },
     isUserSubscribed() {
-      return this.currentUser.stripe_subscription_id;
+        return this.currentUser.stripe_subscription_id;
     },
   },
   methods: {
@@ -95,10 +123,9 @@ export default {
           console.log(e);
           console.log(e.response);
           console.log(e.message);
-          this.$store.dispatch(
-            "error/showErrorToast",
-            ["There was an error opening message"]
-          );
+          this.$store.dispatch("error/showErrorToast", [
+            "There was an error opening message",
+          ]);
         });
     },
     closeEngagement() {
@@ -164,6 +191,18 @@ export default {
           margin-left: 50px;
         }
       }
+    }
+  }
+
+  .sms-community {
+    height: 90vh;
+
+      ._wrapper {
+        width: 30%;
+    }
+
+    _intro-text {
+      font-size: 36px;
     }
   }
 }
