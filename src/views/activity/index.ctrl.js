@@ -7,6 +7,9 @@ import contentTopHeader from '@/components/contentTopHeader'
 import userTag from '@/components/user_tag'
 
 export default {
+  props: {
+    isComp: Boolean
+  },
   components: {
     activityItem,
     contentTopHeader,
