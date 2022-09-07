@@ -25,7 +25,7 @@
           <div class="message-content">Hello, test message</div>
         </div>
 
-        <div class="attachment">
+        <div v-if="attachment" class="attachment">
           <v-icon class="attach-icon">attachment</v-icon>
           <trackcardsimple
             :item="attachment"
