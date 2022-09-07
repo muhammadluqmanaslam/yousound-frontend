@@ -1,6 +1,6 @@
 <template>
   <div class="page activity-page px-5">
-    <content-top-header v-if="isPageReady">
+    <content-top-header v-if="isPageReady && !isComp">
       <template slot="topHeader">
         <ul>
           <li class="active">
