@@ -110,7 +110,7 @@ export default {
       return this.smsList.length;
     },
     isUserSubscribed() {
-        return this.currentUser.stripe_subscription_id;
+      return this.currentUser.stripe_subscription_id;
     },
   },
   methods: {
