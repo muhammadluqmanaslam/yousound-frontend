@@ -2,6 +2,7 @@ import contentTopHeader from '@/components/contentTopHeader'
 import Activity from '@/views/activity'
 import Messages from '@/views/messages'
 import getPaidToShare from '@/views/getPaidToShare'
+import SMS from '@/components/SMS/landing'
 
 export default {
   components: {
@@ -9,14 +10,16 @@ export default {
     Activity,
     Messages,
     getPaidToShare,
+    SMS,
   },
   data() {
     return {
-      currentTab: 'activity',
+      activeTab: 'sms',
       tabs: [
-        // { id: 'activity', title: 'Notifications' },
-        { id: 'messages', title: 'Messages', icon: require('../../../static/images/messages.svg') },
-        { id: 'paidToShare', title: 'Repost Request', icon: require('../../../static/images/currency-exchange.svg') },
+        { id: 'messages', title: 'Messages'},
+        { id: 'sms', title: 'SMS'},
+        { id: 'activity', title: 'Activity'},
+        // { id: 'paidToShare', title: 'Repost Request'},
       ],
     }
   },
@@ -28,14 +31,10 @@ export default {
   methods: {
     isActiveTab(tab) {
       // console.log(tab)
-      return this.currentTab === tab
+      return this.activeTab === tab
     },
     setTab(tab) {
-      this.currentTab = tab
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
+      this.activeTab = tab
     },
   },
   watch: {
