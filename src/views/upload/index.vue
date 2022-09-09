@@ -131,7 +131,7 @@
                 depressed
                 class="upload-tab-btn"
                 :to="{ name: broadcastLink }"
-                >Broadcast</v-btn
+                >Upload</v-btn
               >
             </div>
           </v-flex>
