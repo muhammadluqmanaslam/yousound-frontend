@@ -1,15 +1,12 @@
 <template>
   <div class="page messages-page">
-    <div
-      class="messages-stop-music-section"
-      v-if="show_stopPopup"
-    >
+    <div class="messages-stop-music-section" v-if="show_stopPopup">
       <div class="popup-section">
         <img class="popup-image" src="/static/images/earphone.png" />
         <p class="popup-title">Direct Messages</p>
         <p class="popup-text">
-          Direct messages is where you can share music + product directly,
-          view repost requests & approve collaborations.
+          Direct messages is where you can share music + product directly, view
+          repost requests & approve collaborations.
         </p>
         <v-btn class="gotta-btn" @click.native="setVisitedTime()"
           >Ok. Got it!</v-btn
@@ -30,7 +27,12 @@
     </v-flex>
   </v-flex> -->
 
-    <v-container fluid grid-list-md class="messages-page-content" v-if="currentUser">
+    <v-container
+      fluid
+      grid-list-md
+      class="messages-page-content"
+      v-if="currentUser"
+    >
       <v-layout wrap row>
         <v-flex
           xs12
@@ -39,9 +41,7 @@
           class="message-rooms-section empty-section"
         >
           <p class="empty-title">No messages</p>
-          <p class="empty-description">
-            Your conversations will appear here.
-          </p>
+          <p class="empty-description">Your conversations will appear here.</p>
         </v-flex>
         <template v-else>
           <v-flex xs12 sm3 pa-0 class="conversations">
@@ -49,8 +49,11 @@
               <div class="app-bold">Inbox</div>
               <div class="conversations__count">
                 <span class="__count">
-                  {{ conversations.length < 99 ? conversations.length : '99+' }}</span>
-                  messages
+                  {{
+                    conversations.length < 99 ? conversations.length : "99+"
+                  }}</span
+                >
+                messages
               </div>
               <!-- <div class="search-box">
               <div class="search-container">
@@ -202,12 +205,12 @@
             <div class="pre-send-message-section">
               <div>
                 <strong>Set Repost Price (100k max)</strong>
-                <span class="ml-1 link--text text-underline">Learn More</span>
+                <span class="ml-1 link--text text-underline" @click="repostRequestActive = true">Learn More</span>
               </div>
 
               <div class="dflex align-center">
                 <span class="enable-text">Enable SMS Request</span>
-                
+
                 <v-switch
                   color="green"
                   class="allow-attach-switch shorten mx-3"
@@ -229,11 +232,12 @@
                 ref="message"
                 autofocus
               />
-                <img
-                  class="send-sms-btn cursor-pointer mr-2"
-                  :src="require('@/assets/send_sms.svg')" width="20"
-                  @click="initSMS()"
-                />
+              <img
+                class="send-sms-btn cursor-pointer mr-2"
+                :src="require('@/assets/send_sms.svg')"
+                width="20"
+                @click="initSMS()"
+              />
               <picker
                 v-if="showEmojiPicker"
                 title="Pick your emoji…"
@@ -443,9 +447,86 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog
+      v-model="repostRequestActive"
+      content-class="repost-request-dialog"
+    >
+      <div class="_top dflex aling-center ">
+        <img
+          :src="require('@/assets/repost_dollar.svg')"
+          width="30"
+          alt="repost dollar icon"
+          class="mr-3"
+        />
+        <h2>Repost Requests</h2>
+      </div>
+
+      <hr class="light my-3" />
+
+      <div>
+        <div class="mb-2">Creators can send requests you to share their content.</div>
+
+        <ul class="ml-4">
+          <li>Set your repost price in your messages</li>
+          <li>
+            Creators can send you direct messages with their content attached to
+            preview
+          </li>
+          <li>
+            You have 3 days to accept the request or it’s automatically refunded
+          </li>
+          <li>
+            If you accept a request the content is reposted to your followers on
+            the home tab
+          </li>
+          <li>
+            Repost requests remain on feeds for 7 days then is automatically
+            removed.
+          </li>
+        </ul>
+
+        <hr class="light my-3" />
+
+        <h2 class="mb-3">FAQ</h2>
+
+        <div class="faqs">
+          <div class="faq">
+            <h3>How & when do I get paid?</h3>
+            <div>
+              You must have a valid Stripe account connected, and accepted
+              requests payout in 2 days.
+            </div>
+          </div>
+
+          <div class="faq">
+            <h3>What does ‘Enable SMS text’ mean?</h3>
+            <div>
+              SMS enabled means that any repost request you accept will send
+              links to the content to everyone on your SMS list and to your
+              followers on YouSound. The requester will pay for the SMS charges.
+              If you enable SMS you can charge more as SMS texts are more
+              valuable than sharing to the home feed alone.
+            </div>
+          </div>
+        </div>
+      </div>
+    </v-dialog>
+
     <SMS v-if="smsActive" @closeSMS="closeSMS" />
   </div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
-<style src="../../../static/styles/messages.scss" lang="scss" scoped>
+<style src="../../../static/styles/messages.scss" lang="scss" scoped></style>
+
+<style lang="scss">
+.dialog.repost-request-dialog {
+  width: 650px;
+  padding: 40px;
+  background-color: #ffffff;
+}
+.overlay.overlay--active {
+  width: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+</style>
