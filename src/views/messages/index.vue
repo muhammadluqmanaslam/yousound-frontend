@@ -199,6 +199,25 @@
               />
             </div>
 
+            <div class="pre-send-message-section">
+              <div>
+                <strong>Set Repost Price (100k max)</strong>
+                <span class="ml-1 link--text text-underline">Learn More</span>
+              </div>
+
+              <div class="dflex align-center">
+                <span class="enable-text">Enable SMS Request</span>
+                
+                <v-switch
+                  color="green"
+                  class="allow-attach-switch shorten mx-3"
+                  hide-details
+                ></v-switch>
+
+                <span class="price-tag"> $100,000</span>
+              </div>
+            </div>
+
             <div class="send-message-section">
               <input
                 v-model.trim="message.body"
