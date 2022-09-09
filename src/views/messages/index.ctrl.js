@@ -78,7 +78,7 @@ export default {
       repostedFeeds: [],
       isPageReady: false,
       smsActive: false,
-      repostRequestActive: !false,
+      repostRequestActive: false,
     }
   },
 

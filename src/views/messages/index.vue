@@ -205,7 +205,12 @@
             <div class="pre-send-message-section">
               <div>
                 <strong>Set Repost Price (100k max)</strong>
-                <span class="ml-1 link--text text-underline" @click="repostRequestActive = true">Learn More</span>
+                <span
+                  class="ml-1 link--text text-underline"
+                  @click="repostRequestActive = true"
+                >
+                  Learn More
+                </span>
               </div>
 
               <div class="dflex align-center">
@@ -451,7 +456,7 @@
       v-model="repostRequestActive"
       content-class="repost-request-dialog"
     >
-      <div class="_top dflex aling-center ">
+      <div class="_top dflex aling-center">
         <img
           :src="require('@/assets/repost_dollar.svg')"
           width="30"
@@ -464,7 +469,9 @@
       <hr class="light my-3" />
 
       <div>
-        <div class="mb-2">Creators can send requests you to share their content.</div>
+        <div class="mb-2">
+          Creators can send requests you to share their content.
+        </div>
 
         <ul class="ml-4">
           <li>Set your repost price in your messages</li>
