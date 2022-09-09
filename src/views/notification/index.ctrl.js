@@ -16,9 +16,9 @@ export default {
     return {
       activeTab: 'sms',
       tabs: [
-        { id: 'messages', title: 'Messages'},
-        { id: 'sms', title: 'SMS'},
-        { id: 'activity', title: 'Activity'},
+        { id: 'messages', title: 'Messages', badge: 0},
+        { id: 'sms', title: 'SMS', badge: 0,},
+        { id: 'activity', title: 'Activity', badge: 0},
         // { id: 'paidToShare', title: 'Repost Request'},
       ],
     }
@@ -30,11 +30,26 @@ export default {
   },
   methods: {
     isActiveTab(tab) {
-      // console.log(tab)
       return this.activeTab === tab
     },
     setTab(tab) {
       this.activeTab = tab
+    },
+    processNotifications() {
+      this.tabs = this.tabs.map((tab)=> {
+        const {id} = tab
+        switch (id) {
+          case "activity":
+            return {...tab, ...{ badge: this.badge.activity}}
+            break;
+          case "messages":
+            return {...tab, ...{ badge: this.badge.message}}
+            break;
+          default:
+            break;
+        }
+        return tab
+      })
     },
   },
   watch: {
@@ -51,5 +66,7 @@ export default {
 
     const tab = this.$route.hash.substr(1) || 'messages'
     this.setTab(tab)
+
+    this.processNotifications()
   },
 }

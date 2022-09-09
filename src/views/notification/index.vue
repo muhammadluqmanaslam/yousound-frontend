@@ -16,6 +16,15 @@
                 {{ tab.title }}
               </span>
 
+              <!-- {{ badge }} -->
+
+              <span
+                v-if="!isActiveTab(tab.id) && tab.badge > 0"
+                class="dot_notifications"
+              >
+                <v-icon size="1">circle</v-icon>
+              </span>
+
               <!-- <span
                 v-if="tab.id === 'activity'"
                 class="notifications "
