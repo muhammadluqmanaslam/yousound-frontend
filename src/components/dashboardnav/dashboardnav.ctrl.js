@@ -10,6 +10,7 @@ export default {
       type: Array,
       default: () => [],
     },
+    tabActivePill: Boolean,
   },
   components: {
     contentTopHeader,
@@ -24,17 +25,32 @@ export default {
           id: "dashboard",
           title: "Dashboard",
           pathName: "Dashboard",
-          icon: require("../../../static/images/edit-curves.svg"),
+          // icon: require("../../../static/images/edit-curves.svg"),
         },
         {
           id: "sales",
           title: "Sales",
           pathName: "Sell",
-          icon: require("../../../static/images/delivery.svg"),
+          // icon: require("../../../static/images/delivery.svg"),
         },
-        // { id: 'manage', title: 'Manage', pathName: 'ManageIndex', icon: require('../../../static/images/file-copies.svg') },
-        // { id: 'payments', title: 'Payments', pathName: 'PaymentIndex', icon: require('../../../static/images/credit-card.svg') },
-        // { id: 'settings', title: 'Settings', pathName: 'UserSettings', icon: require('../../../static/images/settings-gear.svg') },
+        {
+          id: "manage",
+          title: "Manage",
+          pathName: "ManageIndex",
+          // icon: require("../../../static/images/file-copies.svg"),
+        },
+        {
+          id: "payments",
+          title: "Payments",
+          pathName: "PaymentIndex",
+          // icon: require("../../../static/images/credit-card.svg"),
+        },
+        {
+          id: "settings",
+          title: "Settings",
+          pathName: "UserSettings",
+          // icon: require("../../../static/images/settings-gear.svg"),
+        },
       ],
       dropdownMenu: [
         {
