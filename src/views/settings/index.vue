@@ -1,6 +1,6 @@
 <template>
   <div row wrap class="page settings-page mx-5" :class="{onMobile}">
-    <dashboard-nav name="settings" :replaceMenuWith="replaceTopMenu" />
+    <dashboard-nav name="settings" />
 
     <content-top-header absolute class="__inner mt-3">
       <template slot="topHeader">
