@@ -324,9 +324,11 @@ export default {
       lastVolume: 100,
       showDownloadModal: false,
       showShareModal: false,
+      isStillPlayingModal: false,
       showReminder: false,
       totalTime: null,
       buttonHover: false,
+      timer: null,
     };
   },
 
@@ -470,6 +472,7 @@ export default {
     },
 
     play(index) {
+      this.timer = setTimeout(this.stillPlaying, 10000)
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -567,6 +570,7 @@ export default {
      * Pause the currently playing track.
      */
     pause() {
+      clearTimeout(this.timer);
       // player is not initialized yet.
       if (!this.$store.state.player.isPlaying) return;
 
@@ -620,6 +624,7 @@ export default {
      * @param  {Number} index Index in the playlist.
      */
     skipTo(index) {
+      clearTimeout(this.timer);
       // Stop the current track.
       var sound = null;
       if (
@@ -776,6 +781,12 @@ export default {
       var seconds = secs - minutes * 60 || 0;
 
       return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    },
+
+    stillPlaying() {
+      this.pause();
+      this.isStillPlayingModal = true
+      alert("Are you still listening?")
     },
 
     choosePage(path) {
