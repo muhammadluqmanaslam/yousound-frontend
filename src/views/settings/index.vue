@@ -40,48 +40,59 @@
         <div class="content-section">
           <v-layout row wrap ma-0 profile-section>
             <v-flex xs12 pa-0>
-              <div class="dflex align-center justify-space-between">
-                <div class="profile-image-section">
-                  <!-- <img class="profile-image" id="profile_image" v-if="profile.image" :src="profile.image"/> -->
-                  <div
-                    v-if="profile.image"
-                    class="profile-image"
-                    id="profile_image"
-                    :style="{
-                      'background-image': 'url(' + profile.image + ')',
-                    }"
-                  ></div>
-                  <div
-                    class="profile-image-upload-section"
-                    v-if="!profile.image"
-                  >
-                    <input
-                      type="file"
-                      name="profile_image_file"
-                      id="profile_image_file"
-                      class="add-profile-image-file"
-                      accept="image/*"
-                      @change="profileImageChanged($event)"
-                    />
-                    <label for="profile_image_file">
-                      <v-icon class="camera">photo_camera</v-icon>Add
-                    </label>
-                  </div>
-                  <div
-                    class="profile-image-change-section"
-                    v-if="profile.image"
-                  >
-                    <input
-                      type="file"
-                      name="profile_image_file"
-                      id="profile_image_file"
-                      class="change-profile-image-file"
-                      accept="image/*"
-                      @change="profileImageChanged($event)"
-                    />
-                    <label for="profile_image_file">
-                      <v-icon class="camera">photo_camera</v-icon>Update
-                    </label>
+              <div class="dflex align-center justify-space-between mb-4">
+                <div class="avatar-section">
+                  <h2 class="mb-3">Profile info</h2>
+
+                  <div class="__wrapper dflex align-center">
+                    <div class="profile-image-section">
+                      <!-- <img class="profile-image" id="profile_image" v-if="profile.image" :src="profile.image"/> -->
+                      <div
+                        v-if="profile.image"
+                        class="profile-image"
+                        id="profile_image"
+                        :style="{
+                          'background-image': 'url(' + profile.image + ')',
+                        }"
+                      ></div>
+                      <div
+                        class="profile-image-upload-section"
+                        v-if="!profile.image"
+                      >
+                        <input
+                          type="file"
+                          name="profile_image_file"
+                          id="profile_image_file"
+                          class="add-profile-image-file"
+                          accept="image/*"
+                          @change="profileImageChanged($event)"
+                        />
+                        <label for="profile_image_file">
+                          <v-icon class="camera">photo_camera</v-icon>Add
+                        </label>
+                      </div>
+                      <div
+                        class="profile-image-change-section"
+                        v-if="profile.image"
+                      >
+                        <input
+                          type="file"
+                          name="profile_image_file"
+                          id="profile_image_file"
+                          class="change-profile-image-file"
+                          accept="image/*"
+                          @change="profileImageChanged($event)"
+                        />
+                        <label for="profile_image_file">
+                          <v-icon class="camera">photo_camera</v-icon>Update
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="app-bold text-capitalize">{{ profile.username }}</div>
+                      <div class="link--text" for="profile_image_file">Change avatar</div>
+                    </div>
                   </div>
                 </div>
 
@@ -95,6 +106,7 @@
                 >
               </div>
             </v-flex>
+
             <v-flex xs12 sm6 form-group>
               <label class="control-label">Username</label>
               <input
@@ -394,8 +406,6 @@
 
       <address-tab v-else-if="active_tab == 'shipping-address'" actionRight />
 
-      <!--genre-tab v-else-if="active_tab == 'genre-filter'"/-->
-
       <div class="main-section" v-else-if="active_tab == 'blocked'">
         <div class="description-section">
           <p>You can unblock users here</p>
@@ -442,9 +452,16 @@
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
 <style lang="scss">
-.top-menu .__inner label {
+.top-menu .__inner {
   font-weight: 400;
   font-size: 14px;
+  color: #787878;
+
+ /deep/ ixlabel {
+    font-weight: 400;
+    font-size: 14px;
+    color: #787878;
+  }
 }
 
 .logout-btn {
