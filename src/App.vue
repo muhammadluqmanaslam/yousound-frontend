@@ -290,7 +290,7 @@ export default {
         ) {
           // console.log('App interceptors', res)
           AuthService.clearTokenAndUserInfo()
-          this.$router.push({ path: '/login' })
+          this.$router.push({ path: '/' })
         }
       })
     })

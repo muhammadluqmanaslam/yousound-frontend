@@ -52,7 +52,7 @@ export default {
     },
     signOut() {
       AuthService.signout()
-      this.$router.push({ path: '/login' })
+      this.$router.push({ path: '/' })
       this.$root.$emit(MyEvents.AUTH_SIGNOUT)
     },
     setTab(pathName) {
