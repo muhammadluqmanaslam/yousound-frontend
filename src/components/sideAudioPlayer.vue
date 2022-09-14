@@ -3,6 +3,26 @@
     <div class="hr-container top">
       <v-divider></v-divider>
     </div>
+    <v-dialog v-model="showListeningMessage">
+      <v-card>
+        <v-card-title class="headline"
+          >Still Listening</v-card-title
+        >
+        <v-card-text
+          >Are you still Listening?</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hideListeningMessage"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <div class="side-player-inner">
       <div class="track-detail-section">
         <div class="track-cover-container" :style="{width: isMini ? '100%' : ''}">
@@ -324,7 +344,7 @@ export default {
       lastVolume: 100,
       showDownloadModal: false,
       showShareModal: false,
-      isStillPlayingModal: false,
+      showListeningMessage: false,
       showReminder: false,
       totalTime: null,
       buttonHover: false,
@@ -472,7 +492,7 @@ export default {
     },
 
     play(index) {
-      this.timer = setTimeout(this.stillPlaying, 10000)
+      this.timer = setTimeout(this.stillPlaying, 6000)
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -785,8 +805,7 @@ export default {
 
     stillPlaying() {
       this.pause();
-      this.isStillPlayingModal = true
-      alert("Are you still listening?")
+      this.showListeningMessage = true
     },
 
     choosePage(path) {
@@ -803,6 +822,10 @@ export default {
 
     setRepeated() {
       this.isRepeated = !this.isRepeated;
+    },
+
+    hideListeningMessage() {
+      this.showListeningMessage = false;
     },
 
     repostItem() {
