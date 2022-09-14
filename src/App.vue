@@ -12,14 +12,14 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <mobile-header 
+    <!-- <mobile-header 
       v-if="onMobile && !hideMobileHeader"
       :centerImg="mHeaderOp.centerImg"
       :rightAltIcon="mHeaderOp.rightAltIcon"
       :hideUser="mHeaderOp.hideUser"
       :closeCallBack="mHeaderOp.closeCallBack"
       :showGoBack="mHeaderOp.showGoBack"
-    />
+    /> -->
     <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
     <v-content>
