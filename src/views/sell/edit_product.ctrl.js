@@ -50,6 +50,10 @@ export default {
           value: 'Japan',
           name: 'Japan',
         },
+        {
+          value: 'All other countries',
+          name: 'All other countries',
+        },
       ],
       countries: [],
       states: [],
