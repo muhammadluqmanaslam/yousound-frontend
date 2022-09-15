@@ -1,5 +1,9 @@
 <template>
-  <v-container full-authTabs-container fluid py-0>
+  <v-container
+   full-authTabs-container fluid py-0
+    @touchstart="touchStart"
+    @touchend="touchEnd"
+  >
     <div v-if="onMobileStrict" class="mobile-top _logo">
       <div class="logo-img-wrapper">
         <img
@@ -212,7 +216,7 @@
           <login-input />
         </div>
 
-        <div v-if="activeView === 'learnMoreView'" class="learn-more-view">
+        <div v-if="activeView === 'learnMoreView'" class="learn-more-view" :style="{'width': onMobileStrict ? '97%' : null }">
           <learn-more />
         </div>
       </v-flex>
@@ -265,6 +269,9 @@ export default {
         { id: "merch", title: "Shop" },
       ],
       items_per_page: 20,
+      touchstartX: null,
+      touchstartY: null,
+      touchendX: null
     };
   },
   computed: {
@@ -329,7 +336,38 @@ export default {
     },
     handleLearnMore() {
       this.activeView = 'learnMoreView'
-    }
+    },
+    touchEnd(evt) {      
+      if (!this.onMobileStrict) return;
+
+      let touchstartX = evt.changedTouches[0].screenY
+      let touchendX = this.touchendX
+
+      if (touchendX < touchstartX) {
+        console.log('Swiped Left');
+        this.activeView = "learnMoreView"
+
+        if (this.endRight) {
+          evt.stopPropagation()
+        }
+      }
+      
+      if (touchendX > touchstartX) {
+        console.log('Swiped Right');
+        this.activeView = "landingView"
+
+        if (this.endLeft) {
+          evt.stopPropagation()
+        }
+      }
+
+      this.touchendX = null
+    },
+    touchStart(evt) {
+      if (!this.onMobileStrict) return;
+
+      this.touchendX = evt.changedTouches[0].screenY
+    },
   },
 };
 </script>
