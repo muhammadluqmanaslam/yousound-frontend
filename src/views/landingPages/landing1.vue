@@ -112,10 +112,7 @@
         <v-spacer></v-spacer>
 
         <app-footer
-          v-if="
-            !onMobileStrict &&
-            $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1
-          "
+          v-if="!onMobileStrict"
         ></app-footer>
       </v-flex>
 
