@@ -3,11 +3,13 @@
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
         flex-column
-        xs6
+        xs12
+        sm6
         allChildrenCenter
         full-authTabs-twin
         full-authTabs-left
         text-center
+        :class="{onMobileStrict}"
       >
         <div class="_logo">
           <img
@@ -29,9 +31,9 @@
           />
         </div>
 
-        <h2 class="intro-title mt-5">The best place for music lovers.</h2>
+        <h2 class="intro-title mt-5">The best place for <br v-if="onMobileStrict" /> music lovers.</h2>
 
-        <div v-if="showAuthCTA" class="dflex auth-btns mt-3">
+        <div v-if="showAuthCTA && !onMobileStrict" class="dflex auth-btns mt-3">
           <v-btn
             v-if="showSignupBtn"
             :ripple="false"
@@ -56,6 +58,21 @@
 
         <h2 v-if="showAuthCTA" class="learn-more" @click="activeView = 'learnMoreView'">Learn More</h2>
 
+        <div v-if="onMobileStrict" class="mt-5">
+          <img
+            :src="iosStore"
+            width="40%"
+            class="ios-store mr-3"
+            alt="ios app store icon"
+          />
+          <img
+            :src="androidPlaystore"
+            width="40%"
+            class="android-store"
+            alt="android app store icon"
+          />
+        </div>
+
         <v-spacer></v-spacer>
 
         <app-footer
@@ -66,10 +83,11 @@
       </v-flex>
 
       <v-flex
+        v-if="!onMobileStrict"
         xs6
         full-authTabs-twin
         full-authTabs-right
-        :class="{ auth__view: toDisplayGrid }"
+        :class="{ auth__view: toDisplayGrid, onMobileStrict }"
       >
         <v-icon
           v-if="showAuthCancelBtn"
@@ -178,7 +196,7 @@ import Header from "@/components/landingPages/Header.vue";
 import Banner from "@/components/landingPages/Banner.vue";
 import CRow from "@/components/landing1/CRow.vue";
 import appFooter from "@/components/footer";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import trendingMusic from "@/views/mobile/components/trending/music";
 import trendingVideo from "@/views/mobile/components/trending/videos";
 import trendingProduct from "@/views/mobile/components/trending/products";
@@ -206,6 +224,8 @@ export default {
   },
   data() {
     return {
+      iosStore: require("@/assets/img_download_app_store.svg"),
+      androidPlaystore: require("@/assets/img_download_play_store.svg"),
       activeView: "landingView",
       activeTab: "music",
       tabs: [
@@ -221,6 +241,10 @@ export default {
       musicFeed: (state) => state.trending.albums,
       currentSignUpStage: (state) => state.app.onboarding.current,
       signUpAccountCategory: (state) => state.app.onboarding.accountCategory,
+    }),
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      onMobileStrict: "app/onMobileStrict",
     }),
     showAuthCTA() {
       if (
@@ -294,6 +318,10 @@ export default {
     padding-top: 32px;
     padding-bottom: 32px;
     border-right: 1px solid rgba(0, 0, 0, 0.08);
+
+    &.onMobileStrict {
+      border-right: none;
+    }
 
     .intro-title {
       font-size: 28px;
