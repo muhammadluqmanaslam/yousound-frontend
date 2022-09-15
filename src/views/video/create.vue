@@ -13,7 +13,7 @@
               Introduction to YouSound Live
             </label>
             <label class="nav-label" v-if="activeView == 'initStream'">
-              <img src="/static/images/up_live.svg" width="18" class="li-icon">
+              <img :src="require('@/assets/up_live.svg')" width="18" class="li-icon">
               Broadcast Live
             </label>
           </li>

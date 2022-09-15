@@ -24,7 +24,7 @@ export default {
           price: 9.99,
           benefits: [
             '100 concurrent viewer limit',
-            'Unused time rolls over',
+            // 'Unused time rolls over',
           ],
           id: 'basic',
           selectedHour: 1,
@@ -35,7 +35,7 @@ export default {
           price: 39.99,
           benefits: [
             '500 concurrent viewer limit',
-            'Unused time rolls over',
+            // 'Unused time rolls over',
           ],
           id: 'plus',
           selectedHour: 1,
@@ -46,12 +46,21 @@ export default {
           price: 74.99,
           benefits: [
             '1,000 concurrent viewer limit',
-            'Unused time rolls over',
+            // 'Unused time rolls over',
           ],
           id: 'pro',
           selectedHour: 1,
         },
       ],
+      activeTab: 'live',
+      tabs: [
+        { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
+        { id: 'music', title: 'Music', path: 'UploadAlbum' },
+        { id: 'video', title: 'Video', path: 'VideoUpload' },
+        { id: 'product', title: 'Product', path: 'AddProduct' },
+        { id: 'live', title: 'Broadcast Live', path: 'CreateLive' },
+      ],
+      learnMoreActive: false,
     }
   },
 
@@ -65,7 +74,7 @@ export default {
       return user
     },
     hours() {
-      const num = Array.from({length: 24}, (_, i) => ({value: i + 1, title: i + 1 + ' Hour'}))
+      const num = Array.from({ length: 24 }, (_, i) => ({ value: i + 1, title: i + 1 + ' Hour' }))
       return num
     },
     payable() {
@@ -74,9 +83,17 @@ export default {
     },
   },
 
-  created() {},
+  created() { },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+    onTab(tab) {
+      if (tab.path) {
+        this.$router.push({name: tab.path})
+      }
+    },
     getPayable(plan) {
       this.selected.plan = plan
       this.openPaymentDialog()
@@ -90,7 +107,7 @@ export default {
     },
 
     proceedToUpload() {
-      this.$router.push({name: "VideoCreate"})
+      this.$router.push({ name: "VideoCreate" })
     },
   },
 

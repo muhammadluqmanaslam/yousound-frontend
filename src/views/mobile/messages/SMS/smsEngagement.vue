@@ -13,12 +13,19 @@
 
       <div class="message">
         <div class="message-wrapper">
-          <user-tag :user="currentUser" showAvatar hideTick hideName width="43" height="43" />
+          <user-tag
+            :user="currentUser"
+            showAvatar
+            hideTick
+            hideName
+            width="43"
+            height="43"
+          />
 
           <div class="message-content">Hello, test message</div>
         </div>
 
-        <div class="attachment">
+        <div v-if="attachment" class="attachment">
           <v-icon class="attach-icon">attachment</v-icon>
           <trackcardsimple
             :item="attachment"
@@ -26,20 +33,29 @@
             :title="attachment.title"
             :subtitle="attachment.title"
             coverRadius
-            :isVideo="attachType  === 'Video'"
+            :isVideo="attachType === 'Video'"
           />
         </div>
 
         <div class="_summary">
           <div class="_detail">
-            Delivered to <strong class="recipientsLen">{{ recipientsLen }} contacts via <strong>SMS</strong></strong>
+            Delivered to
+            <strong class="recipientsLen"
+              >{{ recipientsLen }} contacts via <strong>SMS</strong></strong
+            >
           </div>
 
           <div class="_time">{{ new Date(Date.now()) | getTime }}</div>
         </div>
       </div>
 
-      <directory :customDirectory="[]" isComp :height="70" separator class="pt-0" />
+      <directory
+        :customDirectory="[]"
+        isComp
+        :height="70"
+        separator
+        class="pt-0"
+      />
     </div>
   </transition>
 </template>
@@ -47,13 +63,17 @@
 <script>
 import UserTag from "@/components/user_tag";
 import Trackcardsimple from "@/components/trackcardsimple";
-import Directory from '../../components/contacts/directory.vue';
+import Directory from "../../components/contacts/directory.vue";
 
 export default {
   components: { UserTag, Trackcardsimple, Directory },
   data() {
     return {
-      attachment: { type: "Video", title: "Test Title", subtitle: "Test Subtitle" },
+      attachment: {
+        type: "Video",
+        title: "Test Title",
+        subtitle: "Test Subtitle",
+      },
       recipients: {},
     };
   },
@@ -101,7 +121,7 @@ export default {
     align-items: center;
     margin-bottom: 15px;
     padding: 0 20px 20px 20px;
-    border-bottom: 1px solid #0000001A;
+    border-bottom: 1px solid #0000001a;
 
     ._title {
       flex: 1;
@@ -124,15 +144,15 @@ export default {
       max-width: 87%;
       display: flex;
       margin-bottom: 13px;
-  
+
       .message-content {
         position: relative;
         text-align: left;
         margin-right: 5px;
         border-radius: 6px;
         padding: 12px 16px;
-        background-color: #F1F4F6;
-  
+        background-color: #f1f4f6;
+
         &::before {
           position: absolute;
           width: 0;
@@ -158,7 +178,7 @@ export default {
           border-radius: 0px;
           z-index: -2;
         }
-  
+
         .messaged-time {
           font-weight: 700;
           margin: 6px 0 -5px 0;
@@ -189,10 +209,9 @@ export default {
       }
 
       ._time {
-        color: #666668CC;
+        color: #666668cc;
       }
     }
   }
-
 }
 </style>

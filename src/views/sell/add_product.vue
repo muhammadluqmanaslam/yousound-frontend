@@ -7,12 +7,22 @@
     />
     <content-top-header>
       <template slot="topHeader">
-        <ul>
-          <li class="active">
-            <span class="dflex align-center">
-              <img src="/static/images/up_product.svg" width="18" class="mr-2">
-              <span>Upload Product</span>
-            </span>
+        <ul class="pr-3">
+          <li
+            v-for="tab in tabs"
+            :key="tab.id"
+            :href="`#${tab.id}`"
+            class="nav-li"
+            :class="[
+              { 'active tab-active': isActiveTab(tab.id) },
+              `nav-${tab.id}`,
+              { isParent: tab.isParent },
+            ]"
+          >
+            <label class="nav-label" @click="onTab(tab)">
+              {{ tab.title }}
+              <v-icon v-if="tab.isParent">chevron_right</v-icon>
+            </label>
           </li>
         </ul>
       </template>

@@ -2,6 +2,7 @@ import contentTopHeader from '@/components/contentTopHeader'
 import Activity from '@/views/activity'
 import Messages from '@/views/messages'
 import getPaidToShare from '@/views/getPaidToShare'
+import SMS from '@/components/SMS/landing'
 
 export default {
   components: {
@@ -9,14 +10,16 @@ export default {
     Activity,
     Messages,
     getPaidToShare,
+    SMS,
   },
   data() {
     return {
-      currentTab: 'activity',
+      activeTab: 'sms',
       tabs: [
-        // { id: 'activity', title: 'Notifications' },
-        { id: 'messages', title: 'Messages', icon: require('../../../static/images/messages.svg') },
-        { id: 'paidToShare', title: 'Repost Request', icon: require('../../../static/images/currency-exchange.svg') },
+        { id: 'messages', title: 'Messages', badge: 0},
+        { id: 'sms', title: 'SMS', badge: 0,},
+        { id: 'activity', title: 'Activity', badge: 0},
+        // { id: 'paidToShare', title: 'Repost Request'},
       ],
     }
   },
@@ -27,14 +30,25 @@ export default {
   },
   methods: {
     isActiveTab(tab) {
-      // console.log(tab)
-      return this.currentTab === tab
+      return this.activeTab === tab
     },
     setTab(tab) {
-      this.currentTab = tab
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
+      this.activeTab = tab
+    },
+    processNotifications() {
+      this.tabs = this.tabs.map((tab)=> {
+        const {id} = tab
+        switch (id) {
+          case "activity":
+            return {...tab, ...{ badge: this.badge.activity}}
+            break;
+          case "messages":
+            return {...tab, ...{ badge: this.badge.message}}
+            break;
+          default:
+            break;
+        }
+        return tab
       })
     },
   },
@@ -52,5 +66,7 @@ export default {
 
     const tab = this.$route.hash.substr(1) || 'messages'
     this.setTab(tab)
+
+    this.processNotifications()
   },
 }

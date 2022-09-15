@@ -1,6 +1,29 @@
 <template>
   <div class="page upload-child upload-album-page">
     <div v-if="isPageReady">
+      <content-top-header>
+        <template slot="topHeader">
+          <ul class="pr-3">
+            <li
+              v-for="tab in tabs"
+              :key="tab.id"
+              :href="`#${tab.id}`"
+              class="nav-li"
+              :class="[
+                { 'active tab-active': isActiveTab(tab.id) },
+                `nav-${tab.id}`,
+                { isParent: tab.isParent },
+              ]"
+            >
+              <label class="nav-label" @click="onTab(tab)">
+                {{ tab.title }}
+                <v-icon v-if="tab.isParent">chevron_right</v-icon>
+              </label>
+            </li>
+          </ul>
+        </template>
+      </content-top-header>
+
       <div>
         <track-uploader
           accept=".mp3"

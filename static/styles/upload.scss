@@ -1,24 +1,29 @@
 .upload-page {
-    h1.__title {        
+    h1.__title {
         font-size: 24px;
         margin-top: 18px;
         margin-bottom: 20px;
-        margin-left: 10px;
     }
+
     .upload-tab-container {
-        padding: 20px !important;
-
-
         .upload-tab-wrapper {
             text-align: center;
             padding: 8px;
             transition: .3s ease-in-out;
-            border: 1px solid #00000036;
             border-radius: 8px;
             display: flex;
-            min-height: 150px;
             align-items: center;
             font-size: 16px;
+            border: 1px solid transparent;
+
+            &:hover {
+                border-color: #00000036;
+
+                .upload-tab-btn {
+                    background-color: #000000;
+                    color: #ffffff;
+                }
+            }
 
             .upload-tab-img {
                 height: 50px;
@@ -32,24 +37,26 @@
 
                 &.uploadMusic {
                     background-image: url('/static/images/up_music.svg');
-                }  
+                }
+
                 &.uploadVideo {
                     background-image: url('/static/images/up_video.svg');
-                }  
+                }
+
                 &.uploadLive {
-                    background-image: url('/static/images/up_live.svg');
-                }  
+                    background-image: url('../../src/assets/up_live.svg');
+                }
+
                 &.uploadProduct {
                     background-image: url('/static/images/up_product.svg');
-                }  
-            }  
+                }
+            }
+
             .upload-tab-btn {
-                border: 2px solid;
-                width: 30%;
+                border: 1px solid;
                 height: 30px;
                 text-transform: capitalize;
                 background-color: transparent;
-                border-radius: 80px;
                 margin-left: 0;
                 // background-color: #007aff;
                 background-color: transparent;
@@ -74,8 +81,9 @@
                 // }
             }
         }
-  
-    }  
+
+    }
+
     .meta-tab-container {
         .meta-tab-wrapper {
             display: flex;
@@ -95,11 +103,59 @@
                 &.partnerImg {
                     background-image: url('/static/images/handshake.svg');
                 }
+
                 &.growthImg {
                     background-image: url('/static/images/edit-curves.svg');
                 }
             }
+
             .meta-tab-description {}
+        }
+    }
+
+    .check-settings {
+        ._checkbox {
+            display: flex;
+            align-items: center;
+
+            .input-group {
+                width: fit-content;
+                flex: none;
+                color: #000000;
+                border-radius: 300px;
+
+                /deep/ .input-group__input {
+                    .icon {
+                        display: none;
+
+                        &.input-group__append-icon {
+                            color: #000000;
+                            display: block;
+                        }
+                    }
+                }
+
+                &.input-group--active {
+                    /deep/ .input-group__input {
+                        .icon {
+                            &.input-group__append-icon {
+                                color: #72C472;
+                            }
+                        }
+                    }
+                }
+            }
+
+            ._label {
+                font-size: 14px;
+                color: #000000;
+
+                ._cta {
+                    text-decoration: underline;
+                    font-weight: 700;
+                    cursor: pointer;
+                }
+            }
         }
     }
 }

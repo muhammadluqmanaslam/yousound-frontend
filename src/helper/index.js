@@ -81,6 +81,18 @@ export const Storage = {
 }
 
 export const Filter = {
+  toLocalTimeString(str) {
+    return moment(str).calendar(null, {
+      lastDay: '[Yesterday,] LT',
+      sameDay: '[Today,] LT',
+      nextDay: '[Tomorrow,] LT',
+      // lastWeek: '[Last] dddd[,] LT',
+      // nextWeek: 'dddd[,] LT',
+      lastWeek: 'LLLL',
+      nextWeek: 'LLLL',
+      sameElse: 'LLLL',
+    })
+  },
   formatSlashedDate(value) {
     if (value) {
       return moment(value).format('DD/MM/YYYY')
@@ -167,6 +179,18 @@ export const Filter = {
     const dSecs = seconds > 9 ? seconds : '0' + seconds
 
     return `${dMins}:${dSecs}`
+  },
+
+  timeInWords(value) {
+    let hours = parseInt(Math.floor(value / 3600))
+    let minutes = parseInt(Math.floor((value - hours * 3600) / 60))
+    let seconds = parseInt((value - (hours * 3600 + minutes * 60)) % 60)
+
+    let dHours = hours > 9 ? hours : '0' + hours
+    let dMins = minutes > 9 ? minutes : '0' + minutes
+    let dSecs = seconds > 9 ? seconds : '0' + seconds
+
+    return hours === 0 ? `${dMins} minutes ${dSecs} & seconds` : `${dHours} hours ${dMins} minutes & ${dSecs} seconds`
   },
 
   capitalize(value) {

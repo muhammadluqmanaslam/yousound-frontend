@@ -1,5 +1,5 @@
 <template>
-  <v-container full-authTabs-container fluid>
+  <v-container full-authTabs-container fluid py-0>
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
         flex-column
@@ -291,6 +291,8 @@ export default {
   }
 
   &-left {
+    padding-top: 32px;
+    padding-bottom: 32px;
     border-right: 1px solid rgba(0, 0, 0, 0.08);
 
     .intro-title {

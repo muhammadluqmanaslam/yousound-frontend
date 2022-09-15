@@ -11,6 +11,7 @@ import PaymentModal from '@/components/paymentmodal'
 import DigitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
 import dragFileUploader from '@/components/dragFileUploader'
+import topbarNotification from '@/components/topbarNotification'
 
 import {
   VideoGenres,
@@ -29,17 +30,21 @@ export default {
     DigitalUploader,
     contentTopHeader,
     dragFileUploader,
+    topbarNotification,
   },
 
   data() {
     return {
-      submitLoading: false,
-      active_tab: 'create',
+      topBarContent: 'Connect your Stripe account to start accepting payments',
+      activeTab: 'video',
       tabs: [
-        { id: 'info', title: 'Intro', path: '/info' },
-        { id: 'create', title: 'Setup' },
-        { id: 'manage', title: 'Live Stream', disabled: true },
+        { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
+        { id: 'music', title: 'Music', path: 'UploadAlbum' },
+        { id: 'video', title: 'Video', path: 'VideoUpload' },
+        { id: 'product', title: 'Product', path: 'AddProduct' },
+        { id: 'live', title: 'Broadcast Live', path: 'CreateLive' },
       ],
+      submitLoading: false,
       albums: [],
       products: [],
       VideoTypes: VideoTypes,
@@ -246,6 +251,14 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+    onTab(tab) {
+      if (tab.path) {
+        this.$router.push({name: tab.path})
+      }
+    },
     getAttachmentItems() {
       Promise.all([
         AlbumService.getAlbums({

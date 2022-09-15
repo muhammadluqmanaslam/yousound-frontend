@@ -3,6 +3,7 @@ import moment from 'moment'
 import genreSingleSelector from '@/components/genre_single_selector'
 import sampleLicenseDialog from './components/sample_license_dialog'
 import trackUploader from '@/components/trackuploader'
+import contentTopHeader from '@/components/contentTopHeader'
 
 import MeService from '@/services/me'
 import AlbumService from '@/services/album'
@@ -15,10 +16,19 @@ export default {
     genreSingleSelector,
     sampleLicenseDialog,
     trackUploader,
+    contentTopHeader,
   },
 
   data() {
     return {
+    activeTab: 'music',
+    tabs: [
+      { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
+      { id: 'music', title: 'Music', path: 'UploadAlbum' },
+      { id: 'video', title: 'Video', path: 'VideoUpload' },
+      { id: 'product', title: 'Product', path: 'AddProduct' },
+      { id: 'live', title: 'Broadcast Live', path: 'CreateLive' },
+    ],
       isNeededToRelease: false,
       genres: [],
       products: [],
@@ -296,6 +306,14 @@ export default {
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+    onTab(tab) {
+      if (tab.path) {
+        this.$router.push({name: tab.path})
+      }
+    },
     imageChanged(e) {
       this.album.image = e.target.files[0]
       var reader = new FileReader()

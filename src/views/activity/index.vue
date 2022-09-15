@@ -1,6 +1,6 @@
 <template>
   <div class="page activity-page px-5">
-    <content-top-header v-if="isPageReady">
+    <content-top-header v-if="isPageReady && !isComp">
       <template slot="topHeader">
         <ul>
           <li class="active">
@@ -57,7 +57,7 @@
           <h2 class="mb-3">Suggested people to follow</h2>
           <div v-for="(user, index) in 5" :key="index" class="suggested-user">
             <div class="dflex justify-space-between align-center">
-              <user-tag :user="currentUser" showAvatar width="70px" height="70" marginRight="20" />
+              <user-tag :user="currentUser" showAvatar width="70" height="70" marginRight="20" />
 
               <v-btn
                 depressed

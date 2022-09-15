@@ -1,20 +1,36 @@
 import topbarNotification from '@/components/topbarNotification'
 import getPaid from '@/views/getPaidToShare'
 import UserService from '@/services/user'
+import DownloadApp from "@/components/downloadApp.vue";
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
     topbarNotification,
     getPaid,
+    DownloadApp,
+    contentTopHeader,
   },
 
   data() {
     return {
       topBarContent: 'Connect your Stripe account to start accepting payments',
       user: {},
+      initAppDownload: false,
+      isAppDownloadClicked: false,
+      tabs: [
+        { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
+        { id: 'music', title: 'Music', path: 'UploadAlbum' },
+        { id: 'video', title: 'Video', path: 'VideoUpload' },
+        { id: 'product', title: 'Product', path: 'AddProduct' },
+        { id: 'live', title: 'Broadcast Live', path: 'CreateLive' },
+      ],
     }
   },
   computed: {
+    isStripeConnected() {
+      return this.currentUser.stripe_connected;
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -39,6 +55,11 @@ export default {
     },
   },
   methods: {
+    onTab(tab) {
+      if (tab.path) {
+        this.$router.push({name: tab.path})
+      }
+    },
     getUser() {
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.currentUser.username)
@@ -60,7 +81,13 @@ export default {
         })
     },
   },
-  watch: {},
+  watch: {
+    initAppDownload(val) {
+      if (val === false) {
+        this.isAppDownloadClicked = true;
+      }
+    }
+  },
   async created() {
     await this.getUser()
   },

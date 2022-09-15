@@ -381,11 +381,33 @@
       .message-list-section {
         width: calc(100% - 1px);
         height: calc(100vh - 200px);
-        padding-bottom: 100px;
+        padding-bottom: 150px;
         overflow-x: hidden;
         overflow-y: scroll;
         // margin-bottom: 60px;
         background-image: none;
+      }
+      .pre-send-message-section {
+        position: absolute;
+        z-index: 10;
+        bottom: 0;
+        width: 100%;
+        bottom: 71px;
+        border-top: 0.75px solid #e1e1e1;
+        padding: 7px 15px 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .enable-text {
+          color: rgba(0, 0, 0, 0.7);
+        }
+        .price-tag {
+          border: 1px solid #D8D8D8;
+          border-radius: 4px;
+          padding: 10px 15px;
+          font-weight: 900;
+        }
       }
       .send-message-section {
         position: absolute;
