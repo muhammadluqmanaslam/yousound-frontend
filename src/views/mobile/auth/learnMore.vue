@@ -341,16 +341,33 @@
           </v-container>
         </div>
       </transition>
+
+      <hr class="light my-5">
+
+      <div class="learn-more-footer">
+        <h2 class="_title">
+          Join the community.
+          <br />
+          Download the app.
+        </h2>
+
+        <app-footer
+          v-if="onMobile"
+          hideDownload
+        ></app-footer>
+      </div>
     </div>
   </transition>
 </template>
 
 <script>
 import contentTopHeader from "@/components/contentTopHeader";
+import appFooter from "@/components/footer";
 
 export default {
   components: {
     contentTopHeader,
+    appFooter,
   },
   data() {
     return {
@@ -418,7 +435,7 @@ export default {
         padding: 0;
 
         &._creator {
-          padding-bottom: 100px;
+          // padding-bottom: 100px;
         }
 
         .layer-layout {
@@ -568,6 +585,23 @@ export default {
       font-size: 18px;
       color: #222222;
       opacity: 0.7;
+    }
+  }
+
+  &-footer {
+    position: relative;
+    top: -38px;
+    padding: 70px 0;
+
+    ._title {
+      font-size: 24px;
+    }
+    .my-footer {
+      text-align: left;
+
+      /deep/ a:first-child {
+        margin-left: 0;
+      }
     }
   }
 }
