@@ -91,7 +91,7 @@
 
                     <div>
                       <div class="app-bold text-capitalize">{{ profile.username }}</div>
-                      <div class="link--text" for="profile_image_file">Change avatar</div>
+                      <label class="link--text" for="profile_image_file">Change avatar</label>
                     </div>
                   </div>
                 </div>
