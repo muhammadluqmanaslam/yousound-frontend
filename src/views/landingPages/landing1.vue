@@ -58,7 +58,7 @@
 
         <h2 v-if="showAuthCTA" class="learn-more" @click="activeView = 'learnMoreView'">Learn More</h2>
 
-        <div v-if="onMobileStrict" class="mt-5">
+        <div v-if="onMobileStrict" class="app-download">
           <img
             :src="iosStore"
             width="40%"
@@ -77,6 +77,7 @@
 
         <app-footer
           v-if="
+            !onMobileStrict &&
             $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1
           "
         ></app-footer>
@@ -325,6 +326,10 @@ export default {
 
     .intro-title {
       font-size: 28px;
+    }
+
+    .app-download {
+      margin-top: 100px;
     }
 
     .learn-more {
