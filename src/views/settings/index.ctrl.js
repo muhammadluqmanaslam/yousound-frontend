@@ -78,8 +78,14 @@ export default {
 
   computed: {
     ...mapState({
+      sideBarWidth: state => state.app.sideBarWidth,
       plansData: (state) => state.app.plansData,
     }),
+    calcSideBarWidth() {
+      const defaultPageMargin = 48;
+      const defaultAppPadding = 16;
+      return this.sideBarWidth + defaultPageMargin + defaultAppPadding
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },

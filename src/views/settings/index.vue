@@ -208,6 +208,19 @@
                 </div>
               </div> -->
 
+              <div class="form-group mt-4">
+                <v-btn class="update-btn" @click.native="updateAccount()">
+                  <span>Save</span>
+                </v-btn>
+                <!-- <p class="regular-checkbox enable-alerts settings">
+                  <input
+                    type="checkbox"
+                    id="enable_alert"
+                    v-model="profile.enable_alert"
+                  />
+                  <label for="enable_alert">Enable Alerts</label>
+                </p> -->
+              </div>
             </v-flex>
 
             <!-- <v-flex xs12 sm6 form-group>
@@ -220,53 +233,48 @@
                 v-model="profile.contact_url"
               />
             </v-flex> -->
+          </v-layout>
 
-            <v-flex xs12 form-group>
+          <div class="delete-account-section" :style="{'padding-left': `${calcSideBarWidth}px`}">
+            <div class="dflex align-center">
+              <div class="delete-caption mr-5">
+                Delete account & data
+              </div>
+
               <v-btn
+                round
                 class="cancel-account-btn"
                 @click.native.stop="dialog = true"
               >
-                Delete account & data
+                Delete account
               </v-btn>
-              <v-dialog v-model="dialog">
-                <v-card>
-                  <v-card-title class="headline">Cancel Account</v-card-title>
-                  <v-card-text
-                    >Cancelling your account will delete all of your data, are
-                    you sure you want to cancel your account?</v-card-text
+            </div>
+
+            <v-dialog v-model="dialog">
+              <v-card>
+                <v-card-title class="headline">Cancel Account</v-card-title>
+                <v-card-text
+                  >Cancelling your account will delete all of your data, are
+                  you sure you want to cancel your account?</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    class="blue--text darken-1"
+                    flat="flat"
+                    @click.native="cancelAccount()"
+                    >Yes</v-btn
                   >
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      class="blue--text darken-1"
-                      flat="flat"
-                      @click.native="cancelAccount()"
-                      >Yes</v-btn
-                    >
-                    <v-btn
-                      class="blue--text darken-1"
-                      flat="flat"
-                      @click.native="dialog = false"
-                      >No</v-btn
-                    >
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <v-btn class="update-btn" @click.native="updateAccount()">
-                <span>Save</span>
-              </v-btn>
-              <!-- <p class="regular-checkbox enable-alerts settings">
-                <input
-                  type="checkbox"
-                  id="enable_alert"
-                  v-model="profile.enable_alert"
-                />
-                <label for="enable_alert">Enable Alerts</label>
-              </p> -->
-            </v-flex>
-          </v-layout>
+                  <v-btn
+                    class="blue--text darken-1"
+                    flat="flat"
+                    @click.native="dialog = false"
+                    >No</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
         </div>
       </div>
 

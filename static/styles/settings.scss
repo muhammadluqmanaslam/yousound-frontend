@@ -18,6 +18,8 @@
       // padding-bottom: 30px;
       width: 100%;
       padding-right: 0;
+      padding-bottom: 50px;
+
       .flex.xs12.sm3.form-group {
         padding: 0 11.25px;
         margin-bottom: 24px;
@@ -61,7 +63,7 @@
         box-shadow: none;
         text-transform: none;
         margin: 0;
-        background: #3a92ff;
+        background: #2A71F6;
         border-radius: 75px;
         font-weight: 600;
         font-size: 15px;
@@ -182,28 +184,6 @@
             }
           }
         }
-        .cancel-account-btn {
-          background: transparent !important;
-          text-transform: none;
-          box-shadow: none;
-          margin: 0;
-          font-weight: 700;
-          font-size: 13.5px;
-          color: #3a92ff;
-          letter-spacing: 0;
-          cursor: pointer;
-          line-height: 37.5px;
-          .btn__content {
-            padding: 0;
-          }
-          &:hover {
-            .btn__content {
-              &::before {
-                background: transparent;
-              }
-            }
-          }
-        }
         .regular-checkbox.settings {
           margin: 6px 7.5px;
           &.enable-alerts {
@@ -250,6 +230,48 @@
           .current-plan {
             font-weight: 500;
           }
+        }
+      }
+
+      .delete-account-section {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #D8D8D8;
+        border-radius: 4px;
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 0;
+
+        .delete-caption {
+          font-weight: 500;
+        }
+
+        .cancel-account-btn {
+          background: #ff6a6a;
+          text-transform: none;
+          box-shadow: none;
+          margin: 0;
+          font-weight: 700;
+          font-size: 13.5px;
+          color: #ffffff;
+          letter-spacing: 0;
+          cursor: pointer;
+          line-height: 37.5px;
+          padding: 0 17px;
+
+          .btn__content {
+            padding: 0;
+          }
+          // &:hover {
+          //   .btn__content {
+          //     &::before {
+          //       background: transparent;
+          //     }
+          //   }
+          // }
         }
       }
 
@@ -309,6 +331,7 @@
       position: relative;
       width: 100%;
       padding-right: 0;
+
       .regular-checkbox.settings {
         &.parent-genre {
           label {
