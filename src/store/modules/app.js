@@ -170,7 +170,7 @@ const getters = {
           //   path: 'Feed',
           // },
           {
-            title: 'Messages',
+            title: 'Notifications',
             id: 'notifications',
             icon: require('../../../static/images/messages.svg'),
             path: 'NotificationIndex',
