@@ -25,7 +25,7 @@ import OverviewPage from '@/views/overview/index'
 import AdminPage from '@/views/admin/admin'
 // import MainLandingPage from '@/views/home/main_landing'
 // import Landing1Page from '@/views/home/landing'
-// import Home from '@/views/landingPages/landing1'
+import Home from '@/views/landingPages/landing1'
 import Creators from '@/views/landingPages/landing2'
 import AdFree from '@/views/landingPages/landing3'
 // import ArtistLandingPage from '@/views/home/artist_landing'
@@ -104,7 +104,7 @@ Vue.use(Router)
 
 export function createRouter(settings) {
   let routes = [
-    { path: '/', name: 'Home', component: setComponent('landingPages/landing1', true), meta: {allowOnMobile: true, noSideSpace: true} },
+    { path: '/', name: 'Home', component: Home, meta: {allowOnMobile: true, noSideSpace: true} },
     { path: '/creators', name: 'Creators', component: Creators, meta: {allowOnMobile: true} },
     { path: '/adfree', name: 'AdFree', component: AdFree, meta: {allowOnMobile: true} },
     // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
