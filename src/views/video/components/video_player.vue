@@ -1,16 +1,52 @@
 <template>
-  <video
-    ref="myVideoPlayer"
-    id="myVideoPlayer"
-    class="video-js vjs-default-skin vjs-fluid"
-    :class="{onMobile}"
-    :playsinline="onMobile"
-    controls
-  ></video>
+  <div>
+    <video
+      ref="myVideoPlayer"
+      id="myVideoPlayer"
+      class="video-js vjs-default-skin vjs-fluid"
+      :class="{onMobile}"
+      :playsinline="onMobile"
+      controls
+    ></video>
+
+    <v-dialog v-model="showListeningMessage">
+      <v-card>
+        <v-card-title class="headline"
+          >Still Listening</v-card-title
+        >
+        <v-card-text
+          >Are you still Listening?</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hideListeningMessage"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="showFreeTrialModal">
+      <v-card>
+        <v-card-title class="headline"
+          >Free Trial</v-card-title
+        >
+        <v-card-text
+          >Please subscribe to proceed further.</v-card-text
+        >
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
 import { MyEvents } from '@/helper'
+import UserService from '@/services/user'
+import AuthService from '@/services/auth'
 
 export default {
   props: {
@@ -25,6 +61,11 @@ export default {
       player: null,
       pipMode: false,
       videoId: null,
+      showFreeTrialModal: false,
+      remainingTimerCalculator: null,
+      remainingTime: 0,
+      stillListeningTimer: null,
+      showListeningMessage: false,
     }
   },
 
@@ -123,6 +164,7 @@ export default {
     },
 
     closePlayer() {
+      this.updateUserInfo();
       const vm = this
       if (vm.player) {
         vm.player.dispose()
@@ -136,9 +178,55 @@ export default {
     pauseMusicOnPlay() {
       const vm = this
       vm.player.on('play', () => {
+        this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
+        this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
         vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
       })
+
+      vm.player.on('pause', () => {
+        this.updateUserInfo();
+      })
     },
+
+    timeCounter() {
+      this.remainingTime = this.remainingTime + 1;
+      if (this.currentUser.free_trial_time <= this.remainingTime) {
+        this.player.pause();
+        this.showFreeTrialModal = true
+        this.updateUserInfo();
+      }
+    },
+
+    stillPlaying(){
+      this.player.pause();
+      this.showListeningMessage = true
+    },
+
+    hideListeningMessage() {
+      this.showListeningMessage = false;
+    },
+
+    updateUserInfo() {
+      const params = {
+        user: { free_trial_time: this.remainingTime },
+      }
+
+      UserService.updateUserInfo(this.currentUser.id, params)
+      .then((response) => {
+        AuthService.setUser(response.body)
+      })
+      .catch((e) => {
+        console.log(e)
+
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on updating user info "]
+        )
+      })
+      clearTimeout(this.stillListeningTimer);
+      clearInterval(this.remainingTimerCalculator);
+      this.remainingTime = 0
+    },
+
     async togglePip() {
       const vm = this
       console.log('activate pip')

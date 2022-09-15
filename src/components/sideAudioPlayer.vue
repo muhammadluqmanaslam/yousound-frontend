@@ -23,6 +23,18 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="showFreeTrialModal">
+      <v-card>
+        <v-card-title class="headline"
+          >Free Trial</v-card-title
+        >
+        <v-card-text
+          >Please subscribe to proceed further.</v-card-text
+        >
+      </v-card>
+    </v-dialog>
+
     <div class="side-player-inner">
       <div class="track-detail-section">
         <div class="track-cover-container" :style="{width: isMini ? '100%' : ''}">
@@ -311,6 +323,9 @@ import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
 // import PaymentService from '@/services/payment'
 import TrackService from "@/services/track"
+import UserService from '@/services/user'
+import AuthService from '@/services/auth'
+
 import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
@@ -345,10 +360,15 @@ export default {
       showDownloadModal: false,
       showShareModal: false,
       showListeningMessage: false,
+      showFreeTrialModal: false,
       showReminder: false,
       totalTime: null,
       buttonHover: false,
-      timer: null,
+      stillListeningTimer: null,
+      remainingTimerCalculator: null,
+      startFreeTrialModal: false,
+      remainingTime: 0,
+      showPaymentModal: false,
     };
   },
 
@@ -492,7 +512,8 @@ export default {
     },
 
     play(index) {
-      this.timer = setTimeout(this.stillPlaying, 6000)
+      this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
+      this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -590,7 +611,7 @@ export default {
      * Pause the currently playing track.
      */
     pause() {
-      clearTimeout(this.timer);
+      this.updateUserInfo();
       // player is not initialized yet.
       if (!this.$store.state.player.isPlaying) return;
 
@@ -644,7 +665,7 @@ export default {
      * @param  {Number} index Index in the playlist.
      */
     skipTo(index) {
-      clearTimeout(this.timer);
+      this.updateUserInfo();
       // Stop the current track.
       var sound = null;
       if (
@@ -808,6 +829,16 @@ export default {
       this.showListeningMessage = true
     },
 
+    timeCounter() {
+      this.remainingTime = this.remainingTime + 1;
+      if (this.currentUser.free_trial_time <= this.remainingTime) {
+        this.pause();
+        // this.showFreeTrialModal = true
+        this.showPaymentModal = true
+        this.updateUserInfo();
+      }
+    },
+
     choosePage(path) {
       this.$router.push({ path: "/" + path });
     },
@@ -826,6 +857,30 @@ export default {
 
     hideListeningMessage() {
       this.showListeningMessage = false;
+    },
+
+    hidePaymentDialog() {
+      this.showPaymentModal = true;
+    },
+
+    updateUserInfo() {
+      const params = {
+        user: { free_trial_time: this.remainingTime },
+      }
+      UserService.updateUserInfo(this.currentUser.id, params)
+      .then((response) => {
+        AuthService.setUser(response.body)
+      })
+      .catch((e) => {
+        console.log(e)
+
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on updating user info "]
+        )
+      })
+      clearInterval(this.remainingTimerCalculator);
+      clearTimeout(this.stillListeningTimer);
+      this.remainingTime = 0
     },
 
     repostItem() {
