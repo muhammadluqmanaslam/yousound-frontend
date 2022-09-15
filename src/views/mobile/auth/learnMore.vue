@@ -342,7 +342,7 @@
         </div>
       </transition>
 
-      <hr class="light my-5">
+      <hr class="light mt-5 mb-3">
 
       <div class="learn-more-footer">
         <h2 class="_title">
