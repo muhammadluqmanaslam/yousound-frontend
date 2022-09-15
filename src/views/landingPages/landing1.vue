@@ -25,13 +25,9 @@
       </div>
     </div>
 
-    <!-- <div v-if="onMobileStrict && activeView === 'learnMoreView'" class="learn-more-view">
-      <learn-more />
-    </div> -->
-
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
-        v-if="!onMobileStrict || (onMobileStrict && activeView === 'landingView')" 
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'landingView')" 
         flex-column
         xs12
         sm6
@@ -117,7 +113,7 @@
       </v-flex>
 
       <v-flex
-        v-if="!onMobileStrict || (onMobileStrict && activeView === 'learnMoreView')" 
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'learnMoreView')" 
         xs12
         sm6
         full-authTabs-twin
