@@ -275,9 +275,17 @@ export default {
   },
   created() {
     console.log('App created')
+    const allowedRoutes = ['Home'];
+    let permitApp
+
+    if (allowedRoutes.includes(this.$route.name)) {
+      permitApp = true
+    } else {
+      permitApp = false
+    }
 
     this.$nextTick(() => {
-      if (this.onMobileStrict) {
+      if (!permitApp && this.onMobileStrict) {
         this.createFallback()
       }
     })
