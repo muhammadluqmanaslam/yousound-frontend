@@ -22,11 +22,15 @@
         padding: 0 11.25px;
         margin-bottom: 24px;
       }
-      .flex.xs12.sm6.form-group,
-      .flex.xs12.sm12.form-group {
-        margin-bottom: 12px;
+      .form-group {
+        margin-bottom: 30px;
         margin-top: 0px;
-        padding-right: 24px;
+
+        label {
+          font-weight: 500;
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
       }
       .stripe {
         display: flex;
@@ -70,10 +74,10 @@
       }
       .profile-section {
         .avatar-section {
+          width: 100%;
           .__wrapper {
             border: 1px solid #D8D8D8;
             border-radius: 4px;
-            width: 350px;
             padding: 15px;
           }
         }
@@ -225,6 +229,30 @@
           }
         }
       }
+
+      .plans-section {
+        .control-label {
+          margin-bottom: 10px;
+        }
+        .plan {
+          border: 1px solid #D8D8D8;
+          border-radius: 4px;
+          padding: 15px;
+          margin-bottom: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          &-title {
+            font-weight: 700;
+            margin-bottom: -6px;
+          }
+          .current-plan {
+            font-weight: 500;
+          }
+        }
+      }
+
       .shipping-address-section {
         // .shipping-address-city-section {}
         .shipping-address-state-section {

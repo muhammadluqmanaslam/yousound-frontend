@@ -39,7 +39,7 @@
         <div class="description-section"></div>
         <div class="content-section">
           <v-layout row wrap ma-0 profile-section>
-            <v-flex xs12 pa-0>
+            <v-flex xs4 pa-0>
               <div class="dflex align-center justify-space-between mb-4">
                 <div class="avatar-section">
                   <h2 class="mb-3">Profile info</h2>
@@ -105,68 +105,111 @@
                   >Log out</v-btn
                 >
               </div>
+
+              <div class="form-group">
+                <label class="control-label">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="profile.display_name"
+                  disabled
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">
+                  Email
+                </label>
+                <div
+                  class="form-group"
+                  :class="{ 'has-error': errors.has('email') }"
+                >
+                  <input
+                    class="form-control"
+                    v-model="profile.email"
+                    v-validate="'required|email'"
+                    :class="{ input: true, 'text-danger': errors.has('email') }"
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                  />
+                  <p class="text-danger text-xs-left" v-if="errors.has('email')">
+                    {{ errors.first("email") }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="plans-section list-plans">
+                <label class="control-label">Subscriptions</label>
+                
+                
+                <div class="plans">
+                  <div class="plan">
+                    <div class="plan-details">
+                      <div class="plan-title">
+                        Free
+                      </div>
+                      <div class="plan-price">
+                        Previews only
+                      </div>
+                    </div>
+
+                    <div v-if="currentUser.user_type === 'listener'" class="current-plan">Current plan</div>
+                  </div>
+                  <div
+                    v-for="(plan, i) in plansData"
+                    :key="i"
+                    class="plan"
+                  >
+                    <div class="plan-details">
+                      <div class="plan-title">
+                        {{ plan.title }}
+                      </div>
+                      <div class="plan-price">
+                        {{ plan.price }} / month
+                      </div>
+                    </div>
+
+                    <div
+                      v-if="plan.id === currentUser.stripe_subscription_id"
+                      class="cuurent-plan"
+                    >
+                      Current plan
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="form-group">
+                <label class="control-label">
+                  Display Name
+                </label>
+                <div
+                  class="form-group"
+                  :class="{ 'has-error': errors.has('display_name') }"
+                >
+                  <input
+                    class="form-control"
+                    v-model="profile.username"
+                    v-validate="'required'"
+                    :class="{
+                      input: true,
+                      'text-danger': errors.has('display_name'),
+                    }"
+                    name="display_name"
+                    type="text"
+                  />
+                  <p
+                    class="text-danger text-xs-left"
+                    v-if="errors.has('display_name')"
+                  >
+                    {{ errors.first("display_name") }}
+                  </p>
+                </div>
+              </div> -->
+
             </v-flex>
 
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="profile.username"
-                disabled
-              />
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label"
-                >Display Name<label class="required">*</label></label
-              >
-              <!-- <input type="text" class="form-control" v-model="profile.username"> -->
-              <div
-                class="form-group"
-                :class="{ 'has-error': errors.has('display_name') }"
-              >
-                <input
-                  class="form-control"
-                  v-model="profile.username"
-                  v-validate="'required'"
-                  :class="{
-                    input: true,
-                    'text-danger': errors.has('display_name'),
-                  }"
-                  name="display_name"
-                  type="text"
-                />
-                <p
-                  class="text-danger text-xs-left"
-                  v-if="errors.has('display_name')"
-                >
-                  {{ errors.first("display_name") }}
-                </p>
-              </div>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label"
-                >Email<label class="required">*</label></label
-              >
-              <!-- <input type="email" class="form-control" v-model="profile.email"> -->
-              <div
-                class="form-group"
-                :class="{ 'has-error': errors.has('email') }"
-              >
-                <input
-                  class="form-control"
-                  v-model="profile.email"
-                  v-validate="'required|email'"
-                  :class="{ input: true, 'text-danger': errors.has('email') }"
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                />
-                <p class="text-danger text-xs-left" v-if="errors.has('email')">
-                  {{ errors.first("email") }}
-                </p>
-              </div>
-            </v-flex>
             <!-- <v-flex xs12 sm6 form-group>
               <label class="control-label"
                 >Contact URL(email, facebook, twitter)</label
