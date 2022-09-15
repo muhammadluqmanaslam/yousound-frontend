@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
-    <div class="learn-more">
-      <content-top-header absolute>
+    <div class="learn-more" :class="{onMobile}">
+      <content-top-header v-if="!onMobile" absolute>
         <template slot="topHeader">
           <ul class="pr-3">
             <li>
@@ -35,9 +35,14 @@
       </content-top-header>
 
       <transition name="fade">
-        <div v-if="activeTab === 'listener'" class="learn-more-body">
+        <div v-if="activeTab === 'listener'" class="learn-more-body" :class="{onMobile}">
+          <div v-if="onMobile" class="intro-section">
+            <h1 class="intro-title">For Everyone</h1>
+            <hr class="light intro-divider">
+          </div>
+
           <v-container grid-list-lg>
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm5>
                 <div class="tiles">
                   <div class="tile top-left tile-1 square">
@@ -85,7 +90,9 @@
 
               <v-flex xs12 sm6>
                 <div class="tile-context">
-                  <h2 class="_title">Listen, watch & shop</h2>
+                  <h2 v-if="!onMobile" class="_title">Listen, watch & shop</h2>
+                  <h2 v-if="onMobile" class="_title">Build your collection</h2>
+
                   <div class="_subtitle">
                     Collect music, videos, products & create playlists. Easily
                     organize everything you discover.
@@ -94,7 +101,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm5>
                 <div class="tile-context">
                   <h2 class="_title">Empower creators</h2>
@@ -151,7 +158,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm5>
                 <div class="tiles single-tile">
                   <div class="tile square">
@@ -180,7 +187,7 @@
       <transition name="fade">
         <div v-if="activeTab === 'creator'" class="learn-more-body">
           <v-container grid-list-lg>
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="_img-wrapper text-center">
                   <img
@@ -202,7 +209,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Keep 100% of sales</h2>
@@ -224,7 +231,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="_img-wrapper text-center">
                   <img
@@ -246,7 +253,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Connect with text</h2>
@@ -268,7 +275,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="_img-wrapper text-center">
                   <img
@@ -290,7 +297,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-space-between mt-5>
+            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Advanced analytics</h2>
@@ -351,12 +358,38 @@ export default {
       this.activeTab = tab;
     },
   },
+  computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .learn-more {
   padding: 0 25px 40px 25px;
+
+  &.onMobile {
+    padding: 0 8px 40px 8px;
+  }
+
+  &-body {
+    &.onMobile {
+      .intro-section {
+        margin-top: 40px;
+        .intro-section {
+          .intro-title {
+            font-size: 36px;
+          }
+          .intro-divider {
+            margin: 60px 0;
+          }
+        }
+      }
+    }
+  }
+
 
   .tiles {
     // max-width: 70%;
@@ -472,5 +505,9 @@ export default {
       opacity: 0.7;
     }
   }
+}
+
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse;
 }
 </style>

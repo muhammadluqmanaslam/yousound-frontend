@@ -25,12 +25,13 @@
       </div>
     </div>
 
-    <div v-if="onMobileStrict && activeView === 'learnMoreView'" class="learn-more-view">
+    <!-- <div v-if="onMobileStrict && activeView === 'learnMoreView'" class="learn-more-view">
       <learn-more />
-    </div>
+    </div> -->
 
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
+        v-if="!onMobileStrict || (onMobileStrict && activeView === 'landingView')" 
         flex-column
         xs12
         sm6
@@ -119,14 +120,14 @@
       </v-flex>
 
       <v-flex
-        v-if="!onMobileStrict"
+        v-if="!onMobileStrict || (onMobileStrict && activeView === 'learnMoreView')" 
         xs6
         full-authTabs-twin
         full-authTabs-right
         :class="{ auth__view: toDisplayGrid, onMobileStrict }"
       >
         <v-icon
-          v-if="showAuthCancelBtn"
+          v-if="showAuthCancelBtn && !onMobileStrict"
           class="cancel-icon-round"
           @click="activeView = 'landingView'"
         >
