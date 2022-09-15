@@ -255,8 +255,7 @@
             </v-flex>
             <v-flex xs12 sm6 form-group>
               <v-btn class="update-btn" @click.native="updateAccount()">
-                <span v-if="onMobile">Save</span>
-                <span v-else>Update</span>
+                <span>Save</span>
               </v-btn>
               <!-- <p class="regular-checkbox enable-alerts settings">
                 <input
