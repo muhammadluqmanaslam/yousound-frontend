@@ -5,7 +5,7 @@
         <img
           v-if="!isOnMobile"
           class="icon"
-          src="/static/images/search.svg"
+          :src="preIcon"
           width="18"
         />
         <input
@@ -43,6 +43,10 @@ export default {
     isRound: {
       type: Boolean,
       default: true,
+    },
+    preIcon: {
+      type: String,
+      default: "/static/images/search.svg",
     },
   },
   data() {

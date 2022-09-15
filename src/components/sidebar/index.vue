@@ -43,7 +43,7 @@
         :isRound="false"
         theme="dark"
         placeholder="Search"
-        class="mb-2"
+        :preIcon="require('@/assets/sidebar_search.svg')"
       />
 
       <div v-if="!isAuthenticated" class="auth-btn-container">
