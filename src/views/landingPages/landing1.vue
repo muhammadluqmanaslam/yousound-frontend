@@ -1,5 +1,34 @@
 <template>
   <v-container full-authTabs-container fluid py-0>
+    <div v-if="onMobileStrict" class="mobile-top _logo">
+      <div class="logo-img-wrapper">
+        <img
+          :src="require('@/assets/nav_logo_primary.png')"
+          width="130"
+          alt="Yousound Logo"
+          class="cursor-pointer logo-img"
+          @click="activeView = 'landingView'"
+        />
+      </div>
+
+      <div class="switch-tab" :class="{'landingView': activeView == 'landingView', 'learnMoreView': activeView == 'learnMoreView'}">
+        <span
+          class="_icon"
+          :class="{_filled: activeView === 'landingView'}"
+          @click="activeView = 'landingView'"
+          ></span>
+        <span
+          class="_icon"
+          :class="{_filled: activeView === 'learnMoreView'}"
+          @click="activeView = 'learnMoreView'"
+          ></span>
+      </div>
+    </div>
+
+    <div v-if="onMobileStrict && activeView === 'learnMoreView'" class="learn-more-view">
+      <learn-more />
+    </div>
+
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
         flex-column
@@ -11,12 +40,12 @@
         text-center
         :class="{onMobileStrict}"
       >
-        <div class="_logo">
+        <div v-if="!onMobileStrict" class="_logo">
           <img
             :src="require('@/assets/nav_logo_primary.png')"
             width="130"
             alt="Yousound Logo"
-            class="cursor-pointer"
+            class="cursor-pointer logo-img"
             @click="activeView = 'landingView'"
           />
         </div>
@@ -56,7 +85,13 @@
           </v-btn>
         </div>
 
-        <h2 v-if="showAuthCTA" class="learn-more" @click="activeView = 'learnMoreView'">Learn More</h2>
+        <h2
+          v-if="showAuthCTA"
+          class="learn-more"
+          @click="handleLearnMore"
+        >
+          Learn More
+        </h2>
 
         <div v-if="onMobileStrict" class="app-download">
           <img
@@ -297,6 +332,9 @@ export default {
 
       this.getTrendingMusic(params);
     },
+    handleLearnMore() {
+      this.activeView = 'learnMoreView'
+    }
   },
 };
 </script>
@@ -309,6 +347,42 @@ export default {
     width: 100%;
     top: 0;
     // min-height: 70vh;
+
+    .mobile-top {
+      &._logo {
+        padding-top: 32px;
+        padding-bottom: 32px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+  
+        .logo-img {
+          width: 113px;
+  
+          &-wrapper {
+            flex: 1;
+          }
+        }
+  
+        .switch-tab {
+          display: flex;
+          position: absolute;
+          right: 16px;
+  
+          ._icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 100px;
+            margin-right: 5px;
+            border: 1px solid #000000;
+
+            &._filled {
+              background-color: #000000;
+            }
+          }
+        }
+      }
+    }
   }
 
   &-twin {
