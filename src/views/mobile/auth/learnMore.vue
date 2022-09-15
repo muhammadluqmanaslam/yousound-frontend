@@ -35,15 +35,15 @@
       </content-top-header>
 
       <transition name="fade">
-        <div v-if="activeTab === 'listener'" class="learn-more-body" :class="{onMobile}">
+        <div v-if="activeTab === 'listener'" class="learn-more-body _listener" :class="{onMobile}">
           <div v-if="onMobile" class="intro-section">
             <h1 class="intro-title">For Everyone</h1>
             <hr class="light intro-divider">
           </div>
 
-          <v-container grid-list-lg>
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm5>
+          <v-container grid-list-lg layer-container>
+            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+              <v-flex xs12 sm5 tiles-layer>
                 <div class="tiles">
                   <div class="tile top-left tile-1 square">
                     <div
@@ -86,9 +86,24 @@
                     ></div>
                   </div>
                 </div>
+
+                <div v-if="onMobile" class="app-download">
+                  <img
+                    :src="iosStore"
+                    width="40%"
+                    class="ios-store mr-3"
+                    alt="ios app store icon"
+                  />
+                  <img
+                    :src="androidPlaystore"
+                    width="40%"
+                    class="android-store"
+                    alt="android app store icon"
+                  />
+                </div>
               </v-flex>
 
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm6 context-layer>
                 <div class="tile-context">
                   <h2 v-if="!onMobile" class="_title">Listen, watch & shop</h2>
                   <h2 v-if="onMobile" class="_title">Build your collection</h2>
@@ -101,10 +116,10 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm5>
+            <v-layout row wrap align-center justify-space-between layer-layout :class="{'mt-2': onMobile}">
+              <v-flex xs12 sm5 context-layer>
                 <div class="tile-context">
-                  <h2 class="_title">Empower creators</h2>
+                  <h2 v-if="!onMobile" class="_title">Empower creators</h2>
                   <div class="_subtitle">
                     50% of your subscription goes to creators you stream most.
                     View your dashboard to see who you support.
@@ -112,7 +127,7 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm6 tiles-layer>
                 <div class="tiles">
                   <div class="tile top-right tile-5 landscape">
                     <div
@@ -158,8 +173,8 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm5>
+            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+              <v-flex xs12 sm5 tiles-layer tiles-layer-single>
                 <div class="tiles single-tile">
                   <div class="tile square">
                     <div
@@ -170,7 +185,7 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6>
+              <v-flex xs12 sm6 context-layer>
                 <div class="tile-context">
                   <h2 class="_title">Get paid to share</h2>
                   <div class="_subtitle">
@@ -185,9 +200,14 @@
       </transition>
 
       <transition name="fade">
-        <div v-if="activeTab === 'creator'" class="learn-more-body">
-          <v-container grid-list-lg>
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
+        <div v-if="(activeTab === 'creator') || onMobile" class="learn-more-body _creators" :class="{'mt-5': onMobile, onMobile}">
+          <div v-if="onMobile" class="intro-section">
+            <h1 class="intro-title">For Creators</h1>
+            <hr class="light intro-divider">
+          </div>
+          
+          <v-container grid-list-lg layer-container _creator>
+            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="_img-wrapper text-center">
                   <img
@@ -209,7 +229,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Keep 100% of sales</h2>
@@ -231,7 +251,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="_img-wrapper text-center">
                   <img
@@ -253,7 +273,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Connect with text</h2>
@@ -275,7 +295,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 sm6>
                 <div class="_img-wrapper text-center">
                   <img
@@ -297,7 +317,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between mt-5 :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Advanced analytics</h2>
@@ -348,6 +368,8 @@ export default {
       tile7: require("@/assets/tile-7.jpeg"),
       tile8: require("@/assets/tile-8.jpeg"),
       tile9: require("@/assets/tile-9.jpg"),
+      iosStore: require("@/assets/img_download_app_store.svg"),
+      androidPlaystore: require("@/assets/img_download_play_store.svg"),
     };
   },
   methods: {
@@ -371,19 +393,62 @@ export default {
   padding: 0 25px 40px 25px;
 
   &.onMobile {
-    padding: 0 8px 40px 8px;
+    padding: 0 0px 40px 0px;
   }
 
   &-body {
+    .layer-container {
+      .layer-layout {
+        margin-top: 50px;
+      }
+    }
     &.onMobile {
       .intro-section {
-        margin-top: 40px;
         .intro-section {
           .intro-title {
             font-size: 36px;
           }
           .intro-divider {
             margin: 60px 0;
+          }
+        }
+      }
+
+      .layer-container {
+        padding: 0;
+
+        &._creator {
+          padding-bottom: 100px;
+        }
+
+        .layer-layout {
+          &:first-child {
+            margin-top: 0;
+          }
+
+          .tiles-layer {
+            &-single {
+              margin-top: 100px;
+
+              .tile {
+                width: 80% !important;
+                margin: 0 auto;
+              }
+            }
+          }
+
+          ._subtitle {
+            margin-bottom: 20px;
+          }
+          .app-download {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            img {
+              width: 45%;
+            }
           }
         }
       }
