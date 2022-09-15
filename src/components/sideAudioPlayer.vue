@@ -1,7 +1,7 @@
 <template>
   <div class="side-player" v-if="$store.getters['player/isPlaying']">
     <div class="hr-container top">
-      <v-divider></v-divider>
+      <v-divider class="above-cover"></v-divider>
     </div>
     <div class="side-player-inner">
       <div class="track-detail-section">
