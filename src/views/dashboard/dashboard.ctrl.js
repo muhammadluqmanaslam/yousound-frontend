@@ -1615,9 +1615,7 @@ export default {
     this.activeChart = this.selectedInnerTab.breakdown[0].value
   },
   mounted() {
-    // console.log(chart);
-    // console.log(chart.render());
-    // chart.methods.refresh();
-    // console.log(chart.methods.refresh());
+    // fix chat resize issue on mount
+    window.dispatchEvent(new Event('resize'))
   },
 }
