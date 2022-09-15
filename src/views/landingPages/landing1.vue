@@ -121,7 +121,8 @@
 
       <v-flex
         v-if="!onMobileStrict || (onMobileStrict && activeView === 'learnMoreView')" 
-        xs6
+        xs12
+        sm6
         full-authTabs-twin
         full-authTabs-right
         :class="{ auth__view: toDisplayGrid, onMobileStrict }"
@@ -431,6 +432,10 @@ export default {
 
     &::-webkit-scrollbar-thumb {
       display: none;
+    }
+
+    &.onMobileStrict {
+      padding-left: 0;
     }
 
     .cancel-icon-round {
