@@ -111,7 +111,7 @@
                     </div>
 
                     <div v-else id="chart" :class="[activeInnerTab ? `${activeInnerTab}-chart` : '']">
-                        <chart type="area" height="250" width="1200" :options="chartOptions" :series="selectedChart.series" style="width: inherit;"></chart>
+                        <chart type="area" height="250" :options="chartOptions" :series="selectedChart.series" style="width: inherit;"></chart>
                     </div>
                 </div>
             </v-container>
