@@ -106,6 +106,16 @@
 
                   <div>
                     <user-tag class="tag" :user="stream.user" />
+
+                    <div class="meta__cta follow dflex mb-2">
+                      <user-follow-btn
+                        v-if="currentUser && stream.user.id != currentUser.id"
+                        :user="stream.user"
+                        theme="dark"
+                        type="player"
+                      />
+                    </div>
+
                     <div class="vid__description">
                       {{ stream.description }}
                     </div>
@@ -122,15 +132,6 @@
                       >
                     </span>
                   </div>
-                </div>
-
-                <div class="meta__cta follow">
-                  <user-follow-btn
-                    v-if="currentUser && stream.user.id != currentUser.id"
-                    :user="stream.user"
-                    theme="dark"
-                    type="player"
-                  />
                 </div>
               </div>
 
