@@ -59,24 +59,24 @@ export default {
           pathName: "UserProfile",
           icon: require("../../../static/images/file-copies.svg"),
         },
-        {
-          id: "manage",
-          title: "Manage",
-          pathName: "ManageIndex",
-          icon: require("../../../static/images/file-copies.svg"),
-        },
-        {
-          id: "payments",
-          title: "Payments",
-          pathName: "PaymentIndex",
-          icon: require("../../../static/images/credit-card.svg"),
-        },
-        {
-          id: "settings",
-          title: "Settings",
-          pathName: "UserSettings",
-          icon: require("../../../static/images/settings-gear.svg"),
-        },
+        // {
+        //   id: "manage",
+        //   title: "Manage",
+        //   pathName: "ManageIndex",
+        //   icon: require("../../../static/images/file-copies.svg"),
+        // },
+        // {
+        //   id: "payments",
+        //   title: "Payments",
+        //   pathName: "PaymentIndex",
+        //   icon: require("../../../static/images/credit-card.svg"),
+        // },
+        // {
+        //   id: "settings",
+        //   title: "Settings",
+        //   pathName: "UserSettings",
+        //   icon: require("../../../static/images/settings-gear.svg"),
+        // },
         {
           id: "signOut",
           title: "Sign Out",
