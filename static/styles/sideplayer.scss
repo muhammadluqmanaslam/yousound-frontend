@@ -171,10 +171,17 @@
             padding: 0;
             }
             img {
-            filter: invert(1);
+            // filter: invert(1);
             }
             &.selected {
             background: rgba(0, 0, 0, 0.1) !important;
+            }
+
+            &._prev,
+            &._next {
+              img {
+                height: 14px;
+              }
             }
         }
 
@@ -245,6 +252,8 @@
             background-color: #eee !important;
             border-color: #eee !important;
             height: 0;
+            filter: invert(1);
+
             &--label {
             background-color: #eee !important;
             border-color: #eee !important;
