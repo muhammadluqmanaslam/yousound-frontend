@@ -251,7 +251,7 @@
                 @click="addEmoji"
                 v-on-click-outside="hideEmojiDialog"
               ></picker>
-              <v-btn
+              <v-btn v-if="isSubscribed"
                 :ripple="false"
                 depressed
                 width="10"

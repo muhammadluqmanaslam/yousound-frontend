@@ -79,6 +79,7 @@ export default {
       isPageReady: false,
       smsActive: false,
       repostRequestActive: false,
+      isSubscribed: false,
     }
   },
 
@@ -534,6 +535,20 @@ export default {
     },
     closeSMS() {
       this.smsActive = false
+    },
+
+    fetchSubscriptionDetails() {
+      UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on fetching user info "]
+        )
+      })
     },
   },
 

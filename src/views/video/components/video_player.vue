@@ -29,17 +29,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-dialog v-model="showFreeTrialModal">
-      <v-card>
-        <v-card-title class="headline"
-          >Free Trial</v-card-title
-        >
-        <v-card-text
-          >Please subscribe to proceed further.</v-card-text
-        >
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -66,10 +55,12 @@ export default {
       remainingTime: 0,
       stillListeningTimer: null,
       showListeningMessage: false,
+      isSubscribed: false,
     }
   },
 
-  mounted() {
+  async mounted() {
+    await this.fetchSubscriptionDetails();
     this.videoId = this.$route.params.videoId
 
     console.log('video_player created adfasdfsdfsdf')
@@ -136,31 +127,37 @@ export default {
   },
   methods: {
     initPlayer() {
-      const vm = this
-      console.log("this.src--->", this.src)
-      vm.player =
-        vm.player || window.videojs('myVideoPlayer', {
-          autoplay: false,
-          controls: true,
-          sources: [
-            {
-              type: 'application/x-mpegURL',
-              src: this.src,
-            },
-          ],
-        })
-      console.log("=====stripe_subscription_id=====", this.currentUser.stripe_subscription_id)
-      if (this.currentUser.stripe_subscription_id === undefined || this.currentUser.stripe_subscription_id === null) {
-        var options = {
-          id: "myVideoPlayer",
-        };
-        vm.player.ima(options);
-        vm.player.ima.initializeAdDisplayContainer();
-        vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
-        vm.player.ima.requestAds();
+      if (this.isSubscribed) {
+        const vm = this
+        console.log("this.src--->", this.src)
+        vm.player =
+          vm.player || window.videojs('myVideoPlayer', {
+            autoplay: false,
+            controls: true,
+            sources: [
+              {
+                type: 'application/x-mpegURL',
+                src: this.src,
+              },
+            ],
+          })
+        console.log("=====stripe_subscription_id=====", this.currentUser.stripe_subscription_id)
+        if (this.currentUser.stripe_subscription_id === undefined || this.currentUser.stripe_subscription_id === null) {
+          var options = {
+            id: "myVideoPlayer",
+          };
+          vm.player.ima(options);
+          vm.player.ima.initializeAdDisplayContainer();
+          vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
+          vm.player.ima.requestAds();
+        }
+        // register method
+        this.pauseMusicOnPlay();
+      } else {
+        this.$store.dispatch(
+          'error/showErrorToast', ["You must be subscribed in order to view video."]
+        )
       }
-      // register method
-      this.pauseMusicOnPlay()
     },
 
     closePlayer() {
@@ -190,7 +187,7 @@ export default {
 
     timeCounter() {
       this.remainingTime = this.remainingTime + 1;
-      if (this.currentUser.free_trial_time <= this.remainingTime) {
+      if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed) {
         this.player.pause();
         this.showFreeTrialModal = true
         this.updateUserInfo();
@@ -225,6 +222,20 @@ export default {
       clearTimeout(this.stillListeningTimer);
       clearInterval(this.remainingTimerCalculator);
       this.remainingTime = 0
+    },
+
+    async fetchSubscriptionDetails() {
+      await UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on fetching user info "]
+        )
+      })
     },
 
     async togglePip() {

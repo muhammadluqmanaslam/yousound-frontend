@@ -1,4 +1,4 @@
-lan<template>
+<template>
   <section class="plans-section" id="plans">
     <div class="plans-inner">
       <h3 class="title">Choose a plan</h3>

@@ -3,6 +3,7 @@
     <div class="hr-container top">
       <v-divider></v-divider>
     </div>
+    <AuthPlan v-if="showFreeTrialModal" />
     <v-dialog v-model="showListeningMessage">
       <v-card>
         <v-card-title class="headline"
@@ -21,17 +22,6 @@
             >Cancel</v-btn
           >
         </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="showFreeTrialModal">
-      <v-card>
-        <v-card-title class="headline"
-          >Free Trial</v-card-title
-        >
-        <v-card-text
-          >Please subscribe to proceed further.</v-card-text
-        >
       </v-card>
     </v-dialog>
 
@@ -330,6 +320,7 @@ import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
 import UserFollowBtn from "@/components/userFollowBtn";
+import AuthPlan from "@/components/authPlan"
 
 export default {
   props: {
@@ -340,6 +331,7 @@ export default {
     downloadModal,
     shareModal,
     UserFollowBtn,
+    AuthPlan,
   },
 
   data() {
@@ -366,9 +358,10 @@ export default {
       buttonHover: false,
       stillListeningTimer: null,
       remainingTimerCalculator: null,
-      startFreeTrialModal: false,
       remainingTime: 0,
       showPaymentModal: false,
+      isSubscribed: false,
+      previewTimeCompleted: false,
     };
   },
 
@@ -512,7 +505,8 @@ export default {
     },
 
     play(index) {
-      this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
+      this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
+      this.fetchSubscriptionDetails();
       this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
@@ -830,12 +824,18 @@ export default {
     },
 
     timeCounter() {
-      this.remainingTime = this.remainingTime + 1;
-      if (this.currentUser.free_trial_time <= this.remainingTime) {
+      if (this.previewTimeCompleted) {
         this.pause();
-        // this.showFreeTrialModal = true
-        this.showPaymentModal = true
-        this.updateUserInfo();
+        this.showFreeTrialModal = true;
+      } else {
+        if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
+          this.previewTimeCompleted = true;
+          this.pause();
+          this.showFreeTrialModal = true
+          this.showPaymentModal = true
+          this.updateUserInfo();
+        }
+        this.remainingTime = this.remainingTime + 1;
       }
     },
 
@@ -861,6 +861,20 @@ export default {
 
     hidePaymentDialog() {
       this.showPaymentModal = true;
+    },
+
+    fetchSubscriptionDetails() {
+      UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on fetching user info "]
+        )
+      })
     },
 
     updateUserInfo() {

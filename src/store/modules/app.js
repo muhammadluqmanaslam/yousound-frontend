@@ -312,7 +312,6 @@ const getters = {
       {
         title: 'Plans',
         stage: 7,
-        hideStage: true,
         allowFullPage: true,
       },
       {

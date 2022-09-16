@@ -61,6 +61,12 @@ export default {
     })
   },
 
+  getSubscriptionDetail(userId) {
+    return Vue.http.get(`${API_BASE_URL}/${userId}/fetch_subscription_details`, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   getRepostPriceProration(userId, params) {
     return Vue.http.get(`${API_BASE_URL}/${userId}/repost_price_proration`, {
       headers: { Authorization: $store.state.auth.token },
