@@ -191,7 +191,7 @@
           <v-btn
             :ripple="false"
             flat
-            class="player-control-btn no-Btn-bg"
+            class="player-control-btn no-Btn-bg _prev"
             @click.native="skip('prev')"
           >
             <img src="/static/images/ic_rewind.svg" width="20" />
@@ -201,7 +201,7 @@
           <v-btn
             :ripple="false"
             flat
-            class="player-control-btn play no-Btn-bg"
+            class="player-control-btn play no-Btn-bg _play"
             @click.native="$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)"
             id="play"
             v-if="!isPlaying"
@@ -213,7 +213,7 @@
           <v-btn
             :ripple="false"
             flat
-            class="player-control-btn pause no-Btn-bg"
+            class="player-control-btn pause no-Btn-bg _pause"
             id="pause"
             v-if="isPlaying"
             @click.native="pause()"
@@ -223,7 +223,7 @@
           <v-btn
             :ripple="false"
             flat
-            class="player-control-btn no-Btn-bg"
+            class="player-control-btn no-Btn-bg _next"
             @click.native="skip('next')"
           >
             <img src="/static/images/ic_skip.svg" width="20" />
