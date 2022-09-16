@@ -45,7 +45,7 @@
         ctaTitle="Connect"
         :cta="{ name: 'UserSettings', params: { tab: 'bank-details' } }"
       /> -->
-      <h1 class="px-3 __title mb-0">Share to the world</h1>
+      <!-- <h1 class="px-3 __title mb-0">Share to the world</h1> -->
 
       <v-container fluid grid-list-lg px-0 mb-4>
         <v-layout row wrap justify-start>
