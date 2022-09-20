@@ -52,6 +52,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex';
 import NavFooter from "./navFooter";
+import AuthService from '@/services/auth';
 
 export default {
   components: {
@@ -113,15 +114,27 @@ export default {
         }
         return item
       });
+
       return isValid;
     },
     selectedAccount(account) {
       this.accountType = account;
     },
-    handleNextStage() {
-      if (this.validated()) {
+    async handleNextStage() {
+      let isUsernameAvailable = false;
+      await AuthService.isUsernameAvailable({username: this.username})
+        .then((res) => {
+          isUsernameAvailable = true
+        })
+        .catch((e) => {
+          this.$store.dispatch("error/showErrorToast", ["Username already exist"])
+          isUsernameAvailable = false
+        })
+
+      if (this.validated() && isUsernameAvailable) {
         const data = {
           accountType: this.accountType,
+          user_type: this.accountType.id,
           username: this.username,
         }
         this.updateOnboarding(data)

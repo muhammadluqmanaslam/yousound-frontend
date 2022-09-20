@@ -12,14 +12,14 @@
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <mobile-header 
+    <!-- <mobile-header 
       v-if="onMobile && !hideMobileHeader"
       :centerImg="mHeaderOp.centerImg"
       :rightAltIcon="mHeaderOp.rightAltIcon"
       :hideUser="mHeaderOp.hideUser"
       :closeCallBack="mHeaderOp.closeCallBack"
       :showGoBack="mHeaderOp.showGoBack"
-    />
+    /> -->
     <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
     <v-content>
@@ -275,9 +275,17 @@ export default {
   },
   created() {
     console.log('App created')
+    const allowedRoutes = ['Home'];
+    let permitApp
+
+    if (allowedRoutes.includes(this.$route.name)) {
+      permitApp = true
+    } else {
+      permitApp = false
+    }
 
     this.$nextTick(() => {
-      if (this.onMobileStrict) {
+      if (!permitApp && this.onMobileStrict) {
         this.createFallback()
       }
     })

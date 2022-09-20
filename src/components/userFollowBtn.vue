@@ -1,5 +1,5 @@
 <template>
-  <div class="user-follow-btn" :class="[`is_${theme}`]" @dblclick="followUser('test')">
+  <div class="user-follow-btn" :class="[`is_${theme}`]">
     <v-btn
       class="follow-btn"
       :class="{
@@ -46,8 +46,8 @@ export default {
     };
   },
   methods: {
-    followUser(test) {
-      if (test && this.isUserSignedUp) {
+    followUser() {
+      if (!this.isUserSignedUp) {
         return this.$store.dispatch('app/toggleGlobalSMS', true)
       }
 
@@ -104,8 +104,11 @@ export default {
     },
   },
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
     isUserSignedUp() {
-      return false
+      return this.currentUser.phone_number;
     },
     userIsFollowing() {
       return this.user.is_following

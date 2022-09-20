@@ -422,11 +422,12 @@ li.search-li {
   border-radius: 4px;
 
   &.is_dark {
-    border: 1px solid #646464;
-    background-color: rgba(71, 74, 81, 0.5);
+    border: 1px solid #2E2E2E;
+    background-color: rgba(10, 10, 10, 0.23);
+    border-radius: 54px;
 
     .icon {
-      filter: invert(1);
+      // filter: invert(1);
     }
 
     input#search {

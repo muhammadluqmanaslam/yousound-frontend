@@ -38,6 +38,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
 import NavFooter from "./navFooter";
+import AuthService from "@/services/auth";
 
 export default {
   components: {
@@ -110,10 +111,22 @@ export default {
       }
       return false;
     },
-    handleNextStage() {
-      if (this.validated()) {
+    async handleNextStage() {
+      let isEmailAvailable = false;
+      await AuthService.isEmailAvailable({email: this.email})
+        .then((res) => {
+          isEmailAvailable = true
+        })
+        .catch((e) => {
+          this.$store.dispatch("error/showErrorToast", ["Email already exist"])
+          isEmailAvailable = false
+        })
+
+      if (this.validated() && isEmailAvailable) {
         const data = {
           fullName: this.fullName,
+          first_name: this.fullName.split(" ").slice(0, 1).join(" "),
+          last_name: this.fullName.split(" ").slice(1, this.fullName.length).join(" "),
           email: this.email,
           password: this.password,
         };

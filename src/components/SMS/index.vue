@@ -1,7 +1,7 @@
 <template>
   <div class="sms" :class="{ onMobile }" :style="[sizeSMS]">
     <div class="closedecoy" @click="outsideClick"></div>
-    <div v-if="!isUserSignedUp && !isUserSubscribed" class="subscribe-view">
+    <div v-if="isUserSignedUp && !isUserSubscribed" class="subscribe-view">
       <div v-if="!showCardPanel" class="intro">
         <div>
           You have <strong>2,500</strong> people on your SMS contact list!
@@ -100,7 +100,7 @@
       </div>
     </div>
 
-    <div v-if="!isUserSignedUp && isUserSubscribed" class="creator-signup">
+    <div v-if="!isUserSignedUp" class="creator-signup">
       <div v-if="!signUpDone" class="join-creator" :class="{ digitEntered }">
         <div v-if="digitEntered" class="_title">Confirm Your Number</div>
         <div v-else class="_title">Join this creator community</div>
@@ -385,7 +385,6 @@ export default {
       confirmSendSMS: false,
       sendSuccess: false,
       smsEngagementActive: false,
-      stripePriceId: process.env.PRO_PRICE_ID,
     };
   },
   watch: {
@@ -473,7 +472,7 @@ export default {
         .then((response) => {
           AuthService.setUser(response.body)
           this.signUpDone = true
-          this.isUserSignedUp = true
+          // this.isUserSignedUp = true // shouldn't update computed
           this.$store.dispatch('error/showSuccessToast', ["Phone number updated successfully."])
         })
         .catch((e) => {

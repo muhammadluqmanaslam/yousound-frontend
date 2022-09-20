@@ -1,6 +1,7 @@
 <template>
   <div class="page manage-page mx-5">
-    <dashboard-nav name="manage" :replaceMenuWith="replaceTopMenu" />
+    <dashboard-nav name="manage" />
+
     <content-top-header absolute class="__inner mt-3" style="margin-bottom: -25px">
       <template slot="topHeader">
         <ul>

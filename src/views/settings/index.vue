@@ -1,6 +1,6 @@
 <template>
   <div row wrap class="page settings-page mx-5" :class="{onMobile}">
-    <dashboard-nav name="settings" :replaceMenuWith="replaceTopMenu" />
+    <dashboard-nav name="settings" />
 
     <content-top-header absolute class="__inner mt-3">
       <template slot="topHeader">
@@ -39,49 +39,60 @@
         <div class="description-section"></div>
         <div class="content-section">
           <v-layout row wrap ma-0 profile-section>
-            <v-flex xs12 pa-0>
-              <div class="dflex align-center justify-space-between">
-                <div class="profile-image-section">
-                  <!-- <img class="profile-image" id="profile_image" v-if="profile.image" :src="profile.image"/> -->
-                  <div
-                    v-if="profile.image"
-                    class="profile-image"
-                    id="profile_image"
-                    :style="{
-                      'background-image': 'url(' + profile.image + ')',
-                    }"
-                  ></div>
-                  <div
-                    class="profile-image-upload-section"
-                    v-if="!profile.image"
-                  >
-                    <input
-                      type="file"
-                      name="profile_image_file"
-                      id="profile_image_file"
-                      class="add-profile-image-file"
-                      accept="image/*"
-                      @change="profileImageChanged($event)"
-                    />
-                    <label for="profile_image_file">
-                      <v-icon class="camera">photo_camera</v-icon>Add
-                    </label>
-                  </div>
-                  <div
-                    class="profile-image-change-section"
-                    v-if="profile.image"
-                  >
-                    <input
-                      type="file"
-                      name="profile_image_file"
-                      id="profile_image_file"
-                      class="change-profile-image-file"
-                      accept="image/*"
-                      @change="profileImageChanged($event)"
-                    />
-                    <label for="profile_image_file">
-                      <v-icon class="camera">photo_camera</v-icon>Update
-                    </label>
+            <v-flex xs4 pa-0>
+              <div class="dflex align-center justify-space-between mb-4">
+                <div class="avatar-section">
+                  <h2 class="mb-3">Profile info</h2>
+
+                  <div class="__wrapper dflex align-center">
+                    <div class="profile-image-section">
+                      <!-- <img class="profile-image" id="profile_image" v-if="profile.image" :src="profile.image"/> -->
+                      <div
+                        v-if="profile.image"
+                        class="profile-image"
+                        id="profile_image"
+                        :style="{
+                          'background-image': 'url(' + profile.image + ')',
+                        }"
+                      ></div>
+                      <div
+                        class="profile-image-upload-section"
+                        v-if="!profile.image"
+                      >
+                        <input
+                          type="file"
+                          name="profile_image_file"
+                          id="profile_image_file"
+                          class="add-profile-image-file"
+                          accept="image/*"
+                          @change="profileImageChanged($event)"
+                        />
+                        <label for="profile_image_file">
+                          <v-icon class="camera">photo_camera</v-icon>Add
+                        </label>
+                      </div>
+                      <div
+                        class="profile-image-change-section"
+                        v-if="profile.image"
+                      >
+                        <input
+                          type="file"
+                          name="profile_image_file"
+                          id="profile_image_file"
+                          class="change-profile-image-file"
+                          accept="image/*"
+                          @change="profileImageChanged($event)"
+                        />
+                        <label for="profile_image_file">
+                          <v-icon class="camera">photo_camera</v-icon>Update
+                        </label>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="app-bold text-capitalize">{{ profile.username }}</div>
+                      <label class="link--text" for="profile_image_file">Change avatar</label>
+                    </div>
                   </div>
                 </div>
 
@@ -94,67 +105,124 @@
                   >Log out</v-btn
                 >
               </div>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="profile.username"
-                disabled
-              />
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label"
-                >Display Name<label class="required">*</label></label
-              >
-              <!-- <input type="text" class="form-control" v-model="profile.username"> -->
-              <div
-                class="form-group"
-                :class="{ 'has-error': errors.has('display_name') }"
-              >
+
+              <div class="form-group">
+                <label class="control-label">Name</label>
                 <input
-                  class="form-control"
-                  v-model="profile.username"
-                  v-validate="'required'"
-                  :class="{
-                    input: true,
-                    'text-danger': errors.has('display_name'),
-                  }"
-                  name="display_name"
                   type="text"
-                />
-                <p
-                  class="text-danger text-xs-left"
-                  v-if="errors.has('display_name')"
-                >
-                  {{ errors.first("display_name") }}
-                </p>
-              </div>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <label class="control-label"
-                >Email<label class="required">*</label></label
-              >
-              <!-- <input type="email" class="form-control" v-model="profile.email"> -->
-              <div
-                class="form-group"
-                :class="{ 'has-error': errors.has('email') }"
-              >
-                <input
                   class="form-control"
-                  v-model="profile.email"
-                  v-validate="'required|email'"
-                  :class="{ input: true, 'text-danger': errors.has('email') }"
-                  name="email"
-                  type="email"
-                  placeholder="Email"
+                  v-model="profile.display_name"
+                  disabled
                 />
-                <p class="text-danger text-xs-left" v-if="errors.has('email')">
-                  {{ errors.first("email") }}
-                </p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">
+                  Email
+                </label>
+                <div
+                  class="form-group"
+                  :class="{ 'has-error': errors.has('email') }"
+                >
+                  <input
+                    class="form-control"
+                    v-model="profile.email"
+                    v-validate="'required|email'"
+                    :class="{ input: true, 'text-danger': errors.has('email') }"
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                  />
+                  <p class="text-danger text-xs-left" v-if="errors.has('email')">
+                    {{ errors.first("email") }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="plans-section list-plans">
+                <label class="control-label">Subscriptions</label>
+                
+                
+                <div class="plans">
+                  <div class="plan">
+                    <div class="plan-details">
+                      <div class="plan-title">
+                        Free
+                      </div>
+                      <div class="plan-price">
+                        Previews only
+                      </div>
+                    </div>
+
+                    <div v-if="currentUser.user_type === 'listener'" class="current-plan">Current plan</div>
+                  </div>
+                  <div
+                    v-for="(plan, i) in plansData"
+                    :key="i"
+                    class="plan"
+                  >
+                    <div class="plan-details">
+                      <div class="plan-title">
+                        {{ plan.title }}
+                      </div>
+                      <div class="plan-price">
+                        {{ plan.price }} / month
+                      </div>
+                    </div>
+
+                    <div
+                      v-if="plan.id === currentUser.stripe_subscription_id"
+                      class="cuurent-plan"
+                    >
+                      Current plan
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="form-group">
+                <label class="control-label">
+                  Display Name
+                </label>
+                <div
+                  class="form-group"
+                  :class="{ 'has-error': errors.has('display_name') }"
+                >
+                  <input
+                    class="form-control"
+                    v-model="profile.username"
+                    v-validate="'required'"
+                    :class="{
+                      input: true,
+                      'text-danger': errors.has('display_name'),
+                    }"
+                    name="display_name"
+                    type="text"
+                  />
+                  <p
+                    class="text-danger text-xs-left"
+                    v-if="errors.has('display_name')"
+                  >
+                    {{ errors.first("display_name") }}
+                  </p>
+                </div>
+              </div> -->
+
+              <div class="form-group mt-4">
+                <v-btn class="update-btn" @click.native="updateAccount()">
+                  <span>Save</span>
+                </v-btn>
+                <!-- <p class="regular-checkbox enable-alerts settings">
+                  <input
+                    type="checkbox"
+                    id="enable_alert"
+                    v-model="profile.enable_alert"
+                  />
+                  <label for="enable_alert">Enable Alerts</label>
+                </p> -->
               </div>
             </v-flex>
+
             <!-- <v-flex xs12 sm6 form-group>
               <label class="control-label"
                 >Contact URL(email, facebook, twitter)</label
@@ -165,54 +233,48 @@
                 v-model="profile.contact_url"
               />
             </v-flex> -->
+          </v-layout>
 
-            <v-flex xs12 form-group>
+          <div class="delete-account-section" :style="{'padding-left': `${calcSideBarWidth}px`}">
+            <div class="dflex align-center">
+              <div class="delete-caption mr-5">
+                Delete account & data
+              </div>
+
               <v-btn
+                round
                 class="cancel-account-btn"
                 @click.native.stop="dialog = true"
               >
-                Delete account & data
+                Delete account
               </v-btn>
-              <v-dialog v-model="dialog">
-                <v-card>
-                  <v-card-title class="headline">Cancel Account</v-card-title>
-                  <v-card-text
-                    >Cancelling your account will delete all of your data, are
-                    you sure you want to cancel your account?</v-card-text
+            </div>
+
+            <v-dialog v-model="dialog">
+              <v-card>
+                <v-card-title class="headline">Cancel Account</v-card-title>
+                <v-card-text
+                  >Cancelling your account will delete all of your data, are
+                  you sure you want to cancel your account?</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    class="blue--text darken-1"
+                    flat="flat"
+                    @click.native="cancelAccount()"
+                    >Yes</v-btn
                   >
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      class="blue--text darken-1"
-                      flat="flat"
-                      @click.native="cancelAccount()"
-                      >Yes</v-btn
-                    >
-                    <v-btn
-                      class="blue--text darken-1"
-                      flat="flat"
-                      @click.native="dialog = false"
-                      >No</v-btn
-                    >
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-flex>
-            <v-flex xs12 sm6 form-group>
-              <v-btn class="update-btn" @click.native="updateAccount()">
-                <span v-if="onMobile">Save</span>
-                <span v-else>Update</span>
-              </v-btn>
-              <!-- <p class="regular-checkbox enable-alerts settings">
-                <input
-                  type="checkbox"
-                  id="enable_alert"
-                  v-model="profile.enable_alert"
-                />
-                <label for="enable_alert">Enable Alerts</label>
-              </p> -->
-            </v-flex>
-          </v-layout>
+                  <v-btn
+                    class="blue--text darken-1"
+                    flat="flat"
+                    @click.native="dialog = false"
+                    >No</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
         </div>
       </div>
 
@@ -394,8 +456,6 @@
 
       <address-tab v-else-if="active_tab == 'shipping-address'" actionRight />
 
-      <!--genre-tab v-else-if="active_tab == 'genre-filter'"/-->
-
       <div class="main-section" v-else-if="active_tab == 'blocked'">
         <div class="description-section">
           <p>You can unblock users here</p>
@@ -442,9 +502,16 @@
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
 <style lang="scss">
-.top-menu .__inner label {
+.top-menu .__inner {
   font-weight: 400;
   font-size: 14px;
+  color: #787878;
+
+ /deep/ ixlabel {
+    font-weight: 400;
+    font-size: 14px;
+    color: #787878;
+  }
 }
 
 .logout-btn {

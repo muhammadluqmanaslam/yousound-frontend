@@ -15,6 +15,7 @@ import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
 import contentTopHeader from '@/components/contentTopHeader'
 import dashboardNav from '@/components/dashboardnav'
+import { mapState } from 'vuex'
 
 // import { MyEvents } from '@/helper'
 // const ActionCable = require('actioncable')
@@ -76,6 +77,15 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      sideBarWidth: state => state.app.sideBarWidth,
+      plansData: (state) => state.app.plansData,
+    }),
+    calcSideBarWidth() {
+      const defaultPageMargin = 48;
+      const defaultAppPadding = 16;
+      return this.sideBarWidth + defaultPageMargin + defaultAppPadding
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },

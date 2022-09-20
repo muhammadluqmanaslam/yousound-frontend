@@ -9,13 +9,13 @@
                     :key="tab.id"
                     :href="`#${tab.id}`"
                     class="nav-li"
-                    :class="[{ active: name === tab.id }, `nav-${tab.id}`]"
+                    :class="[{ 'active': name === tab.id, 'tab-active': tabActivePill }, `nav-${tab.id}`]"
                     >
                       <label
                         class="nav-label"
                         @click="setTab(tab.pathName)"
                       >
-                        <img :src="tab.icon" width="18" class="li-icon">
+                        <img v-if="tab.icon" :src="tab.icon" width="18" class="li-icon">
                         {{ tab.title }}
                       </label>
                     </li>

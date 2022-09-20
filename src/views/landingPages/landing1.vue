@@ -1,20 +1,52 @@
 <template>
-  <v-container full-authTabs-container fluid py-0>
+  <v-container
+   full-authTabs-container fluid py-0
+    @touchstart="touchStart"
+    @touchend="touchEnd"
+  >
+    <div v-if="onMobileStrict" class="mobile-top _logo">
+      <div class="logo-img-wrapper">
+        <img
+          :src="require('@/assets/nav_logo_primary.png')"
+          width="130"
+          alt="Yousound Logo"
+          class="cursor-pointer logo-img"
+          @click="activeView = 'landingView'"
+        />
+      </div>
+
+      <div class="switch-tab" :class="{'landingView': activeView == 'landingView', 'learnMoreView': activeView == 'learnMoreView'}">
+        <span
+          class="_icon"
+          :class="{_filled: activeView === 'landingView'}"
+          @click="activeView = 'landingView'"
+          ></span>
+        <span
+          class="_icon"
+          :class="{_filled: activeView === 'learnMoreView'}"
+          @click="activeView = 'learnMoreView'"
+          ></span>
+      </div>
+    </div>
+
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'landingView')" 
         flex-column
-        xs6
+        xs12
+        sm6
         allChildrenCenter
         full-authTabs-twin
         full-authTabs-left
         text-center
+        :class="{onMobileStrict}"
       >
-        <div class="_logo">
+        <div v-if="!onMobileStrict" class="_logo">
           <img
             :src="require('@/assets/nav_logo_primary.png')"
             width="130"
             alt="Yousound Logo"
-            class="cursor-pointer"
+            class="cursor-pointer logo-img"
             @click="activeView = 'landingView'"
           />
         </div>
@@ -29,9 +61,9 @@
           />
         </div>
 
-        <h2 class="intro-title mt-5">The best place for music lovers.</h2>
+        <h2 class="intro-title mt-5">The best place for <br v-if="onMobileStrict" /> music lovers.</h2>
 
-        <div v-if="showAuthCTA" class="dflex auth-btns mt-3">
+        <div v-if="showAuthCTA && !onMobileStrict" class="dflex auth-btns mt-3">
           <v-btn
             v-if="showSignupBtn"
             :ripple="false"
@@ -54,25 +86,46 @@
           </v-btn>
         </div>
 
-        <h2 v-if="showAuthCTA" class="learn-more" @click="activeView = 'learnMoreView'">Learn More</h2>
+        <h2
+          v-if="showAuthCTA"
+          class="learn-more"
+          @click="handleLearnMore"
+        >
+          Learn More
+        </h2>
+
+        <div v-if="onMobileStrict" class="app-download">
+          <img
+            :src="iosStore"
+            width="40%"
+            class="ios-store mr-3"
+            alt="ios app store icon"
+          />
+          <img
+            :src="androidPlaystore"
+            width="40%"
+            class="android-store"
+            alt="android app store icon"
+          />
+        </div>
 
         <v-spacer></v-spacer>
 
         <app-footer
-          v-if="
-            $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1
-          "
+          v-if="!onMobileStrict"
         ></app-footer>
       </v-flex>
 
       <v-flex
-        xs6
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'learnMoreView')" 
+        xs12
+        sm6
         full-authTabs-twin
         full-authTabs-right
-        :class="{ auth__view: toDisplayGrid }"
+        :class="{ auth__view: toDisplayGrid, onMobileStrict }"
       >
         <v-icon
-          v-if="showAuthCancelBtn"
+          v-if="showAuthCancelBtn && !onMobileStrict"
           class="cancel-icon-round"
           @click="activeView = 'landingView'"
         >
@@ -163,7 +216,7 @@
           <login-input />
         </div>
 
-        <div v-if="activeView === 'learnMoreView'" class="learn-more-view">
+        <div v-if="activeView === 'learnMoreView'" class="learn-more-view" :style="{'width': onMobileStrict ? '97%' : null }">
           <learn-more />
         </div>
       </v-flex>
@@ -178,7 +231,7 @@ import Header from "@/components/landingPages/Header.vue";
 import Banner from "@/components/landingPages/Banner.vue";
 import CRow from "@/components/landing1/CRow.vue";
 import appFooter from "@/components/footer";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import trendingMusic from "@/views/mobile/components/trending/music";
 import trendingVideo from "@/views/mobile/components/trending/videos";
 import trendingProduct from "@/views/mobile/components/trending/products";
@@ -206,6 +259,8 @@ export default {
   },
   data() {
     return {
+      iosStore: require("@/assets/img_download_app_store.svg"),
+      androidPlaystore: require("@/assets/img_download_play_store.svg"),
       activeView: "landingView",
       activeTab: "music",
       tabs: [
@@ -214,6 +269,9 @@ export default {
         { id: "merch", title: "Shop" },
       ],
       items_per_page: 20,
+      touchstartX: null,
+      touchstartY: null,
+      touchendX: null
     };
   },
   computed: {
@@ -221,6 +279,10 @@ export default {
       musicFeed: (state) => state.trending.albums,
       currentSignUpStage: (state) => state.app.onboarding.current,
       signUpAccountCategory: (state) => state.app.onboarding.accountCategory,
+    }),
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      onMobileStrict: "app/onMobileStrict",
     }),
     showAuthCTA() {
       if (
@@ -272,6 +334,40 @@ export default {
 
       this.getTrendingMusic(params);
     },
+    handleLearnMore() {
+      this.activeView = 'learnMoreView'
+    },
+    touchEnd(evt) {      
+      if (!this.onMobileStrict) return;
+
+      let touchstartX = evt.changedTouches[0].screenY
+      let touchendX = this.touchendX
+
+      if (touchendX < touchstartX) {
+        console.log('Swiped Left');
+        this.activeView = "learnMoreView"
+
+        if (this.endRight) {
+          evt.stopPropagation()
+        }
+      }
+      
+      if (touchendX > touchstartX) {
+        console.log('Swiped Right');
+        this.activeView = "landingView"
+
+        if (this.endLeft) {
+          evt.stopPropagation()
+        }
+      }
+
+      this.touchendX = null
+    },
+    touchStart(evt) {
+      if (!this.onMobileStrict) return;
+
+      this.touchendX = evt.changedTouches[0].screenY
+    },
   },
 };
 </script>
@@ -284,6 +380,42 @@ export default {
     width: 100%;
     top: 0;
     // min-height: 70vh;
+
+    .mobile-top {
+      &._logo {
+        padding-top: 32px;
+        padding-bottom: 32px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+  
+        .logo-img {
+          width: 113px;
+  
+          &-wrapper {
+            flex: 1;
+          }
+        }
+  
+        .switch-tab {
+          display: flex;
+          position: absolute;
+          right: 16px;
+  
+          ._icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 100px;
+            margin-right: 5px;
+            border: 1px solid #000000;
+
+            &._filled {
+              background-color: #000000;
+            }
+          }
+        }
+      }
+    }
   }
 
   &-twin {
@@ -295,8 +427,16 @@ export default {
     padding-bottom: 32px;
     border-right: 1px solid rgba(0, 0, 0, 0.08);
 
+    &.onMobileStrict {
+      border-right: none;
+    }
+
     .intro-title {
       font-size: 28px;
+    }
+
+    .app-download {
+      margin-top: 100px;
     }
 
     .learn-more {
@@ -323,6 +463,10 @@ export default {
 
     &::-webkit-scrollbar-thumb {
       display: none;
+    }
+
+    &.onMobileStrict {
+      padding-left: 0;
     }
 
     .cancel-icon-round {

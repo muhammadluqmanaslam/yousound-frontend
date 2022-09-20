@@ -10,6 +10,11 @@
     height: 100%;
     width: 100%;
     left: 0;
+    z-index: -10;
+  }
+
+  .search-input {
+    margin-bottom: 10px;
   }
 
   .tabs-auth-wrapper {
@@ -84,7 +89,7 @@
 
 
   .side-tab {
-    height: 40px;
+    height: 38px;
 
     /deep/ a {
       position: relative;
@@ -93,7 +98,7 @@
       font-size: 14px;
 
       ._icon_img {
-        filter: invert(1);
+        // filter: invert(1);
         width: 16px;
         opacity: 0.5;
         border-radius: unset;
@@ -169,6 +174,7 @@
       margin: 10px;
       position: absolute;
       bottom: 0;
+      z-index: 99999;
     }
 
     img {
