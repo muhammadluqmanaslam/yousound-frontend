@@ -34,7 +34,7 @@
         </div>
       </v-menu>
 
-      <input v-model="socialHandle" class="_socialHandle width100" type="text" />
+      <input v-model="socialUsername" class="_socialHandle width100" type="text" />
     </div>
 
     <div class="footnote">
@@ -53,6 +53,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex';
 import NavFooter from "./navFooter";
+import AuthService from '@/services/auth';
 
 export default {
   components: {
@@ -61,14 +62,14 @@ export default {
   data() {
     return {
       socialChannel: "",
-      socialHandle: "@",
+      socialUsername: "@",
     };
   },
   computed: {
     ...mapState({
       current: (state) => state.app.onboarding.current,
-      getSocialChannel: (state) => state.app.onboarding.socialChannel,
-      getSocialHandle: (state) => state.app.onboarding.socialHandle,
+      getSocialChannel: (state) => state.app.onboarding.social_provider,
+      getSocialUsername: (state) => state.app.onboarding.social_user_name,
     }),
     socialChannels() {
       return [
@@ -92,9 +93,9 @@ export default {
     },
   },
   watch: {
-    socialHandle(val) {
+    socialUsername(val) {
       if (val.length < 2) {
-        this.socialHandle = "@";
+        this.socialUsername = "@";
       }
     },
   },
@@ -109,9 +110,9 @@ export default {
     validated(toastStatus) {
       const skipToast = toastStatus === "skipToast"
 
-      const { socialChannel, socialHandle } = this;
-      const valSocialhandle = socialHandle.length > 1
-      const toValidate = [socialChannel, valSocialhandle];
+      const { socialChannel, socialUsername } = this;
+      const valSocialUsername = socialUsername.length > 1
+      const toValidate = [socialChannel, valSocialUsername];
 
       const errors = [
         "Please choose a social channel",
@@ -130,15 +131,37 @@ export default {
     selectedChannel(channel) {
       this.socialChannel = channel;
     },
-    handleNextStage() {
+    async handleNextStage() {
       if (this.validated()) {
         const data = {
-          socialChannel: this.socialChannel,
-          socialHandle: this.socialHandle,
+          social_provider: this.socialChannel.title,
+          social_user_name: this.socialUsername,
         };
+        console.log(data)
         this.updateOnboarding(data);
+        let user_params = this.$store.state.app.onboarding
+        let formData = new FormData();
 
-        this.gotoNextStage(this.current + 1);
+        formData.append('user[email]', user_params.email)
+        formData.append('user[password]', user_params.password)
+        formData.append('user[username]', user_params.username)
+        formData.append('user[display_name]', user_params.fullName)
+        formData.append('user[avatar]', user_params.avatar)
+        formData.append('user[first_name]', user_params.first_name)
+        formData.append('user[last_name]', user_params.last_name)
+        formData.append('user[country]', user_params.country)
+        formData.append('user[city]', user_params.city)
+        formData.append('user[age_group]', user_params.age_group)
+        formData.append('user[social_provider]', user_params.social_provider)
+        formData.append('user[social_user_id]', user_params.social_user_name)
+        formData.append('user[user_type]', user_params.user_type)
+
+        await AuthService.registerAsArtist(formData).then(response => {
+          this.gotoNextStage(this.current + 1);
+        })
+        .catch((e) => {
+          this.$store.dispatch("error/showErrorToast", [e.response.data.error])
+        })
       }
     },
     handlePrevStage() {
@@ -149,7 +172,7 @@ export default {
   },
   created() {
     this.socialChannel = this.getSocialChannel;
-    this.socialHandle = this.getSocialHandle;
+    this.social_user_name = this.getsocial_user_name;
   },
 };
 </script>

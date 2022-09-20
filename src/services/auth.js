@@ -42,6 +42,10 @@ export default {
     return Vue.http.post(API_BASE_URL + '/is_username_available', params)
   },
 
+  isEmailAvailable(params) {
+    return Vue.http.post(API_BASE_URL + '/is_email_available', params)
+  },
+
   checkTokenValidation() {
     const params = {
       auth_token: localStorage.getItem(ACCESS_TOKEN_KEY),

@@ -7,7 +7,7 @@
           v-for="(age, index) in ageGroups"
           :key="index"
           class="selection"
-          :class="{ _selected: ageRange == age.id }"
+          :class="{ _selected: ageRange == age.title }"
           @click="selectAgeRange(age)"
         >
           {{ age.title }}
@@ -170,7 +170,7 @@ export default {
       return isValid;
     },
     selectAgeRange(age) {
-      this.ageRange = age.id;
+      this.ageRange = age.title;
     },
     selected(identifier, option) {
       switch (identifier) {
@@ -195,7 +195,7 @@ export default {
     handleNextStage() {
       if (this.validated()) {
         const data = {
-          ageRange: this.ageRange,
+          age_group: this.ageRange,
           country: this.country,
           city: this.city,
         };

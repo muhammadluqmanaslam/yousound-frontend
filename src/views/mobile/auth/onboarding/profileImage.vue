@@ -88,7 +88,7 @@ export default {
         return;
       }
 
-      const file = e.target.files[0];
+      this.avatar = e.target.files[0];
       var reader = new FileReader();
       reader.addEventListener(
         "load",
@@ -97,12 +97,13 @@ export default {
         },
         false
       );
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.avatar);
     },
     handleNextStage() {
       if (this.validated()) {
         const data = {
           profileImage: this.profileImage,
+          avatar: this.avatar
         }
 
         this.updateOnboarding(data)
