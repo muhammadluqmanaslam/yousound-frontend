@@ -59,9 +59,12 @@
           Login
         </v-btn>
         <div class="mt-4">
-          <router-link class="forgot-password-text" to="/forgot"
-            >Forgot password?</router-link
+          <span
+            class="forgot-password-text cursor-pointer"
+            @click="!showForgotPassword ? $route.push('/forgot') : showForgotPassword()"
           >
+            Forgot password?
+          </span>
         </div>
       </div>
     </form>
@@ -75,6 +78,9 @@ import { MyEvents } from "@/helper";
 import LoginInput from "./loginInput";
 
 export default {
+  props: {
+    showForgotPassword: Function,
+  },
   components: {
     LoginInput,
   },

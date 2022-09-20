@@ -56,7 +56,7 @@
         <div class="_banner">
           <img
             :src="require('@/assets/banner.gif')"
-            width="90%"
+            width="70%"
             alt="artist with sound machine"
           />
         </div>
@@ -80,7 +80,7 @@
             depressed
             round
             outline
-            @click="activeView = 'loginView'"
+            @click="showLogin"
           >
             Login
           </v-btn>
@@ -213,7 +213,21 @@
         </div>
 
         <div v-if="activeView === 'loginView'" class="login-view">
-          <login-input />
+          <div v-if="loginAuth === 'login'" class="login-input">
+            <div class="intro-text text-xs-center my-4">
+              <h2>Hello,</h2>
+              <h2>welcome back!</h2>
+            </div>
+            <login-input :showForgotPassword="showForgotPassword" />
+          </div>
+
+          <div v-if="loginAuth === 'forgotPassword'" class="forgot-password-input">
+            <div class="intro-text text-xs-center">
+              <h2>Forgot Password</h2>
+            </div>
+
+            <forgot-password-input :showLogin="showLogin" />
+          </div>
         </div>
 
         <div v-if="activeView === 'learnMoreView'" class="learn-more-view" :style="{'width': onMobileStrict ? '97%' : null }">
@@ -239,6 +253,7 @@ import contentTopHeader from "@/components/contentTopHeader";
 import Onboarding from "@/views/mobile/auth/onboarding";
 import LoginInput from "@/views/auth/loginInput";
 import LearnMore from "@/views/mobile/auth/learnMore";
+import forgotPasswordInput from '@/views/auth/forgotPasswordInput/'
 
 export default {
   name: "Landing1",
@@ -256,9 +271,11 @@ export default {
     Onboarding,
     LoginInput,
     LearnMore,
+    forgotPasswordInput,
   },
   data() {
     return {
+      loginAuth: "login",
       iosStore: require("@/assets/img_download_app_store.svg"),
       androidPlaystore: require("@/assets/img_download_play_store.svg"),
       activeView: "landingView",
@@ -317,6 +334,13 @@ export default {
     }),
     isActiveTab(tab) {
       return this.activeTab === tab;
+    },
+    showForgotPassword() {
+      this.loginAuth = "forgotPassword"
+    },
+    showLogin() {
+      this.loginAuth = "login"
+      this.activeView = 'loginView'
     },
     onTab(tab) {
       this.activeTab = tab;
@@ -442,8 +466,12 @@ export default {
     .learn-more {
       text-decoration: underline;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 50px;
       font-size: 20px;
+    }
+
+    .my-footer {
+      padding-bottom: 0;
     }
   }
 
@@ -505,6 +533,10 @@ export default {
     .login-view {
       margin: 0 auto;
       align-self: center;
+
+      .intro-text h2 {
+        font-size: 28px;
+      }
     }
 
     .signup-view {
