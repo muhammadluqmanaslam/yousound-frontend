@@ -321,6 +321,8 @@ const getters = {
         title: 'Plans',
         stage: 7,
         allowFullPage: true,
+        hideStagerBar: true,
+        hideStagerTitle: true,
       },
       {
         title: 'Check Email',

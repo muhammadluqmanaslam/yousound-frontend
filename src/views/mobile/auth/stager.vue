@@ -1,6 +1,6 @@
 <template>
   <div class="stager" :class="[`_${staging}`, { isDark: currentStage.isDark }]">
-    <div class="_title" v-html="currentStage.title"></div>
+    <div v-if="hideStagerTitle" class="_title" v-html="currentStage.title"></div>
 
     <div v-if="current > 1 && hideStagerBar" class="stages">
       <div
@@ -76,6 +76,9 @@ export default {
       onboardingCurrent: (state) => state.app.onboarding.current,
     }),
     hideStagerBar() {
+      return !this.onboardingCurrentStage.hideStagerBar
+    },
+    hideStagerTitle() {
       return !this.onboardingCurrentStage.hideStagerBar
     },
   },
