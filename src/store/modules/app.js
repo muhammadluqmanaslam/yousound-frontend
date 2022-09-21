@@ -18,17 +18,21 @@ const state = {
   onboarding: {
     current: 1,
     accountCategory: '',
+    user_type: '',
     accountType: '',
     username: '',
     profileImage: '',
+    avatar: '',
+    first_name: '',
+    last_name: '',
     fullName: '',
     email: '',
     password: '',
-    ageRange: '',
+    age_group: '',
     country: '',
     city: '',
-    socialChannel: '',
-    socialHandle: '',
+    social_provider: '',
+    social_user_name: '',
   },
   globalSMSactive: false,
   windowsWidth: null,
@@ -265,20 +269,24 @@ const getters = {
         stage: 1,
       },
       {
-        title: 'Profile Image',
+        title: 'Listener',
         stage: 2,
       },
       {
-        title: 'Account Info',
+        title: 'Profile Image',
         stage: 3,
       },
       {
-        title: 'Age & Location',
+        title: 'Account Info',
         stage: 4,
       },
       {
-        title: 'Check Email',
+        title: 'Age & Location',
         stage: 5,
+      },
+      {
+        title: 'Check Email',
+        stage: 6,
       },
     ]
     return stages
@@ -312,7 +320,6 @@ const getters = {
       {
         title: 'Plans',
         stage: 7,
-        hideStage: true,
         allowFullPage: true,
       },
       {

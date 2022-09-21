@@ -3,6 +3,28 @@
     <div class="hr-container top">
       <v-divider class="above-cover"></v-divider>
     </div>
+    <AuthPlan v-if="showFreeTrialModal" />
+    <v-dialog v-model="showListeningMessage">
+      <v-card>
+        <v-card-title class="headline"
+          >Still Listening</v-card-title
+        >
+        <v-card-text
+          >Are you still Listening?</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hideListeningMessage"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="side-player-inner">
       <div class="track-detail-section">
         <div class="track-cover-container" :style="{width: isMini ? '100%' : ''}">
@@ -291,10 +313,14 @@ import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
 // import PaymentService from '@/services/payment'
 import TrackService from "@/services/track"
+import UserService from '@/services/user'
+import AuthService from '@/services/auth'
+
 import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
 import UserFollowBtn from "@/components/userFollowBtn";
+import AuthPlan from "@/components/authPlan"
 
 export default {
   props: {
@@ -305,6 +331,7 @@ export default {
     downloadModal,
     shareModal,
     UserFollowBtn,
+    AuthPlan,
   },
 
   data() {
@@ -324,9 +351,17 @@ export default {
       lastVolume: 100,
       showDownloadModal: false,
       showShareModal: false,
+      showListeningMessage: false,
+      showFreeTrialModal: false,
       showReminder: false,
       totalTime: null,
       buttonHover: false,
+      stillListeningTimer: null,
+      remainingTimerCalculator: null,
+      remainingTime: 0,
+      showPaymentModal: false,
+      isSubscribed: false,
+      previewTimeCompleted: false,
     };
   },
 
@@ -470,6 +505,9 @@ export default {
     },
 
     play(index) {
+      this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
+      this.fetchSubscriptionDetails();
+      this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -567,6 +605,7 @@ export default {
      * Pause the currently playing track.
      */
     pause() {
+      this.updateUserInfo();
       // player is not initialized yet.
       if (!this.$store.state.player.isPlaying) return;
 
@@ -620,6 +659,7 @@ export default {
      * @param  {Number} index Index in the playlist.
      */
     skipTo(index) {
+      this.updateUserInfo();
       // Stop the current track.
       var sound = null;
       if (
@@ -778,6 +818,27 @@ export default {
       return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     },
 
+    stillPlaying() {
+      this.pause();
+      this.showListeningMessage = true
+    },
+
+    timeCounter() {
+      if (this.previewTimeCompleted) {
+        this.pause();
+        this.showFreeTrialModal = true;
+      } else {
+        if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
+          this.previewTimeCompleted = true;
+          this.pause();
+          this.showFreeTrialModal = true
+          this.showPaymentModal = true
+          this.updateUserInfo();
+        }
+        this.remainingTime = this.remainingTime + 1;
+      }
+    },
+
     choosePage(path) {
       this.$router.push({ path: "/" + path });
     },
@@ -792,6 +853,48 @@ export default {
 
     setRepeated() {
       this.isRepeated = !this.isRepeated;
+    },
+
+    hideListeningMessage() {
+      this.showListeningMessage = false;
+    },
+
+    hidePaymentDialog() {
+      this.showPaymentModal = true;
+    },
+
+    fetchSubscriptionDetails() {
+      UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on fetching user info "]
+        )
+      })
+    },
+
+    updateUserInfo() {
+      const params = {
+        user: { free_trial_time: this.remainingTime },
+      }
+      UserService.updateUserInfo(this.currentUser.id, params)
+      .then((response) => {
+        AuthService.setUser(response.body)
+      })
+      .catch((e) => {
+        console.log(e)
+
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on updating user info "]
+        )
+      })
+      clearInterval(this.remainingTimerCalculator);
+      clearTimeout(this.stillListeningTimer);
+      this.remainingTime = 0
     },
 
     repostItem() {

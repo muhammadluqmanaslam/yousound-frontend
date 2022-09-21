@@ -47,19 +47,22 @@
     </div>
     <div v-else-if="accountCategory === 'listener'" class="stage-wrapper">
       <transition name="slide-fadeInOnly">
-        <ProfileImage v-if="current === 2" />
+        <AccountType v-if="current === 2" />
+      </transition>
+      <transition name="slide-fadeInOnly">
+        <ProfileImage v-if="current === 3" />
       </transition>
 
       <transition name="slide-fadeInOnly">
-        <AccountInfo v-if="current === 3" />
+        <AccountInfo v-if="current === 4" />
       </transition>
 
       <transition name="slide-fadeInOnly">
-        <AgeLocation v-if="current === 4" />
+        <AgeLocation v-if="current === 5" />
       </transition>
 
       <transition name="slide-fadeInOnly">
-        <CheckEmail v-if="current === 5" />
+        <CheckEmail v-if="current === 6" />
       </transition>
     </div>
   </div>

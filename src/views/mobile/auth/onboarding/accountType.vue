@@ -52,6 +52,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex';
 import NavFooter from "./navFooter";
+import AuthService from '@/services/auth';
 
 export default {
   components: {
@@ -70,20 +71,30 @@ export default {
       getUsername: state => state.app.onboarding.username,
     }),
     accountTypes() {
-      const accountTypes = [
-        {
-          id: "artist",
-          title: "Artist",
-          tags: "Bands, rappers, producers, podcasters + more",
-        },
-        {
-          id: "brand",
-          title: "Brand",
-          tags: "Clothing, record labels, lifestyle + more",
-        },
-      ];
+      let accountTypes = [];
+      if (this.$store.state.app.onboarding.accountCategory === 'creator') {
+        accountTypes = [
+          {
+            id: "artist",
+            title: "Artist",
+            tags: "Bands, rappers, producers, podcasters + more",
+          },
+          {
+            id: "brand",
+            title: "Brand",
+            tags: "Clothing, record labels, lifestyle + more",
+          },
+        ];
+      } else {
+        accountTypes = [
+          {
+            id: "listener",
+            title: "Listener",
+          }
+        ]
+      }
 
-      return accountTypes || [];
+      return accountTypes;
     },
   },
   methods: {
@@ -113,15 +124,27 @@ export default {
         }
         return item
       });
+
       return isValid;
     },
     selectedAccount(account) {
       this.accountType = account;
     },
-    handleNextStage() {
-      if (this.validated()) {
+    async handleNextStage() {
+      let isUsernameAvailable = false;
+      await AuthService.isUsernameAvailable({username: this.username})
+        .then((res) => {
+          isUsernameAvailable = true
+        })
+        .catch((e) => {
+          this.$store.dispatch("error/showErrorToast", ["Username already exist"])
+          isUsernameAvailable = false
+        })
+
+      if (this.validated() && isUsernameAvailable) {
         const data = {
           accountType: this.accountType,
+          user_type: this.accountType.id,
           username: this.username,
         }
         this.updateOnboarding(data)

@@ -1,6 +1,6 @@
 <template>
   
-  <div class="page collection-page mx-5">
+  <div class="page collection-page mx-5" v-if="isSubscribed">
     <content-top-header class="mt-3">
       <template slot="topHeader">
         <ul>
@@ -21,6 +21,9 @@
     <repost-music v-show="activeTab === 'music'" />
     <repost-videos v-show="activeTab === 'videos'" />
     <repost-products v-show="activeTab === 'products'" />
+  </div>
+  <div v-else>
+    <AuthPlan />
   </div>
 </template>
 

@@ -100,9 +100,9 @@ export default {
       return this.activeInnerTab === tab;
     },
     signOut() {
-      AuthService.signout();
-      this.$router.push({ path: "/login" });
-      this.$root.$emit(MyEvents.AUTH_SIGNOUT);
+      AuthService.signout()
+      this.$router.push({ path: '/' })
+      this.$root.$emit(MyEvents.AUTH_SIGNOUT)
     },
     setTab(pathName) {
       this.$router.push({ name: pathName });

@@ -127,7 +127,7 @@ import cardDetails from "./cardDetails.vue";
 import PackageDetails from "./packageDetails.vue";
 import { mapActions, mapState } from "vuex";
 import { createToken } from "vue-stripe-elements";
-import SubscriptionService from "@/services/subscription.js";
+import SubscriptionService from '@/services/subscription.js'
 
 export default {
   props: {
@@ -205,6 +205,8 @@ export default {
       // this.subscribe(this.stripePriceId, response.data.token);
     },
     subscribe(priceId, tokenResponse) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+
       console.log(
         "priceId===>",
         this.stripePriceId,
@@ -212,21 +214,20 @@ export default {
         tokenResponse,
         tokenResponse.id
       );
-      SubscriptionService.createSubscription({
-        price_id: priceId,
-        token_id: tokenResponse.id,
-        token_response: tokenResponse,
-      })
+      const params = { price_id: priceId, token_response: tokenResponse, token_id: tokenResponse.id }
+      SubscriptionService.createSubscription(params)
         .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed."])
           this.closePayment("success");
         })
         .catch((e) => {
-          this.$store.dispatch("error/showLoadingActivity", false);
+          this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
-            "error/showErrorToast",
+            'error/showErrorToast',
             e.body.errors || [e.body]
-          );
-        });
+          )
+        })
     },
   },
   created() {

@@ -79,6 +79,7 @@ export default {
       isPageReady: false,
       smsActive: false,
       repostRequestActive: false,
+      isSubscribed: false,
     }
   },
 
@@ -183,6 +184,20 @@ export default {
   },
 
   methods: {
+    async fetchSubscriptionDetails() {
+      await UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        } else {
+          this.isSubscribed = false
+        }
+      })
+      .catch((e) => {
+        this.isSubscribe = false
+      })
+    },
+
     loadConversations(loadMore) {
       this.$store.dispatch('error/showLoadingActivity', true)
       let params
@@ -537,5 +552,7 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() {
+    this.fetchSubscriptionDetails();
+  },
 }
