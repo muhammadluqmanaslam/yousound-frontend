@@ -153,7 +153,11 @@ export default {
 .form-group {
   input {
     width: 100%;
-    padding-left: 35px;
+    padding-left: 35px !important;
+
+    &:focus {
+      padding-left: 35px !important;
+    }
 
     &::placeholder {
       padding-left: 10px;
@@ -164,7 +168,11 @@ export default {
       border: 2px solid #000000;
     }
     &._fullname {
-      padding-left: 10px;
+      padding-left: 10px !important;
+
+      &:focus {
+        padding-left: 10px !important;
+      }
 
       &::placeholder {
         padding-left: 0px;

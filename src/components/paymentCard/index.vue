@@ -346,7 +346,7 @@ export default {
 
 <style lang="scss">
 .dialog.payment-dialog {
-  width: auto;
+  width: auto !important;
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.9);
 
