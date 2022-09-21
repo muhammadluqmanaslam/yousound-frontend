@@ -479,6 +479,7 @@ export default {
     overflow-y: scroll;
     position: relative;
     padding-left: 20px;
+    scrollbar-width: none;
 
     &::-webkit-scrollbar {
       width: 2px;
@@ -521,6 +522,7 @@ export default {
 
         .top-menu {
           width: fit-content;
+          width: -moz-fit-content;
         }
       }
 
