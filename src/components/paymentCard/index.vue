@@ -127,7 +127,7 @@ import cardDetails from "./cardDetails.vue";
 import PackageDetails from "./packageDetails.vue";
 import { mapActions, mapState } from "vuex";
 import { createToken } from "vue-stripe-elements";
-import UserService from '@/services/user.js'
+import SubscriptionService from '@/services/subscription.js'
 
 export default {
   props: {
@@ -214,12 +214,11 @@ export default {
         tokenResponse,
         tokenResponse.id
       );
-
-      const params = { plan: priceId, token_response: tokenResponse }
-      UserService.creatorSubscription(this.$store.state.app.onboarding.username, params)
+      const params = { price_id: priceId, token_response: tokenResponse, token_id: tokenResponse.id }
+      SubscriptionService.createSubscription(params)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed but your trial will start when yousound support team verified your account."])
+          this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed."])
           this.closePayment("success");
         })
         .catch((e) => {

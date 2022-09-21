@@ -184,6 +184,20 @@ export default {
   },
 
   methods: {
+    async fetchSubscriptionDetails() {
+      await UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        } else {
+          this.isSubscribed = false
+        }
+      })
+      .catch((e) => {
+        this.isSubscribe = false
+      })
+    },
+
     loadConversations(loadMore) {
       this.$store.dispatch('error/showLoadingActivity', true)
       let params
@@ -536,21 +550,9 @@ export default {
     closeSMS() {
       this.smsActive = false
     },
-
-    fetchSubscriptionDetails() {
-      UserService.getSubscriptionDetail(this.currentUser.id)
-      .then((response) => {
-        if (response.bodyText === "Subscribed") {
-          this.isSubscribed = true
-        }
-      })
-      .catch((e) => {
-        this.$store.dispatch(
-          'error/showErrorToast', ["There was an error on fetching user info "]
-        )
-      })
-    },
   },
 
-  mounted() {},
+  mounted() {
+    this.fetchSubscriptionDetails();
+  },
 }
