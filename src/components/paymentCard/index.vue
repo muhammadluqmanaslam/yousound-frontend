@@ -127,7 +127,7 @@ import cardDetails from "./cardDetails.vue";
 import PackageDetails from "./packageDetails.vue";
 import { mapActions, mapState } from "vuex";
 import { createToken } from "vue-stripe-elements";
-import SubscriptionService from "@/services/subscription.js";
+import UserService from '@/services/user.js'
 
 export default {
   props: {
@@ -205,6 +205,8 @@ export default {
       // this.subscribe(this.stripePriceId, response.data.token);
     },
     subscribe(priceId, tokenResponse) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+
       console.log(
         "priceId===>",
         this.stripePriceId,
@@ -212,21 +214,21 @@ export default {
         tokenResponse,
         tokenResponse.id
       );
-      SubscriptionService.createSubscription({
-        price_id: priceId,
-        token_id: tokenResponse.id,
-        token_response: tokenResponse,
-      })
+
+      const params = { plan: priceId, token_response: tokenResponse }
+      UserService.creatorSubscription(this.$store.state.app.onboarding.username, params)
         .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed but your trial will start when yousound support team verified your account."])
           this.closePayment("success");
         })
         .catch((e) => {
-          this.$store.dispatch("error/showLoadingActivity", false);
+          this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
-            "error/showErrorToast",
+            'error/showErrorToast',
             e.body.errors || [e.body]
-          );
-        });
+          )
+        })
     },
   },
   created() {

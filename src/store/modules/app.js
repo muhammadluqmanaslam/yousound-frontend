@@ -269,20 +269,24 @@ const getters = {
         stage: 1,
       },
       {
-        title: 'Profile Image',
+        title: 'Listener',
         stage: 2,
       },
       {
-        title: 'Account Info',
+        title: 'Profile Image',
         stage: 3,
       },
       {
-        title: 'Age & Location',
+        title: 'Account Info',
         stage: 4,
       },
       {
-        title: 'Check Email',
+        title: 'Age & Location',
         stage: 5,
+      },
+      {
+        title: 'Check Email',
+        stage: 6,
       },
     ]
     return stages

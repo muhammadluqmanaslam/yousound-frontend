@@ -62,6 +62,7 @@
 import autocomplete from "@/components/autocomplete.vue";
 import NavFooter from "./navFooter";
 import { mapActions, mapMutations, mapState } from "vuex";
+import AuthService from "@/services/auth"
 
 export default {
   components: { 
@@ -192,16 +193,42 @@ export default {
       }
 
     },
-    handleNextStage() {
+    
+    async handleNextStage() {
       if (this.validated()) {
         const data = {
           age_group: this.ageRange,
           country: this.country,
           city: this.city,
         };
-        this.updateOnboarding(data);
+        let user_params = this.$store.state.app.onboarding
+        if(user_params.accountCategory === "listener") {
+          let formData = new FormData();
 
-        this.gotoNextStage(this.current + 1);
+          formData.append('user[email]', user_params.email)
+          formData.append('user[password]', user_params.password)
+          formData.append('user[username]', user_params.username)
+          formData.append('user[display_name]', user_params.fullName)
+          formData.append('user[avatar]', user_params.avatar)
+          formData.append('user[first_name]', user_params.first_name)
+          formData.append('user[last_name]', user_params.last_name)
+          formData.append('user[country]', user_params.country)
+          formData.append('user[city]', user_params.city)
+          formData.append('user[age_group]', user_params.age_group)
+          formData.append('user[user_type]', user_params.user_type)
+
+          await AuthService.registerAsListener(formData).then(response => {
+            this.updateOnboarding(data);
+            this.gotoNextStage(this.current + 1);
+          })
+          .catch((e) => {
+            this.$store.dispatch("error/showErrorToast", [e])
+          })
+        } else {
+          this.updateOnboarding(data);
+
+          this.gotoNextStage(this.current + 1);
+        }
       }
     },
     handlePrevStage() {

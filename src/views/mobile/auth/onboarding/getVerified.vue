@@ -137,7 +137,6 @@ export default {
           social_provider: this.socialChannel.title,
           social_user_name: this.socialUsername,
         };
-        console.log(data)
         this.updateOnboarding(data);
         let user_params = this.$store.state.app.onboarding
         let formData = new FormData();
@@ -156,11 +155,15 @@ export default {
         formData.append('user[social_user_id]', user_params.social_user_name)
         formData.append('user[user_type]', user_params.user_type)
 
+        this.$store.dispatch('error/showLoadingActivity', true)
+
         await AuthService.registerAsArtist(formData).then(response => {
+          this.$store.dispatch('error/showLoadingActivity', false)
           this.gotoNextStage(this.current + 1);
         })
         .catch((e) => {
-          this.$store.dispatch("error/showErrorToast", [e.response.data.error])
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch("error/showErrorToast", [e])
         })
       }
     },

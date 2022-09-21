@@ -28,7 +28,7 @@ export default {
                 { id: "videos", title: "Videos" },
                 { id: "products", title: "Products" },
             ],
-            isSubscribed: false,
+            isSubscribed: true,
         }
     },
     computed: {
@@ -68,14 +68,15 @@ export default {
                 });
         },
 
-        fetchSubscriptionDetails() {
-            UserService.getSubscriptionDetail(this.currentUser.id)
+        async fetchSubscriptionDetails() {
+            await UserService.getSubscriptionDetail(this.currentUser.id)
                 .then((response) => {
-                    if (response.bodyText === "Subscribed") {
-                        this.isSubscribed = true
+                    if (response.bodyText !== "Subscribed") {
+                        this.isSubscribed = false
                     }
                 })
                 .catch((e) => {
+                    this.isSubscribed = false
                     this.$store.dispatch(
                         'error/showErrorToast', ["There was an error on fetching user info "]
                     )

@@ -71,20 +71,30 @@ export default {
       getUsername: state => state.app.onboarding.username,
     }),
     accountTypes() {
-      const accountTypes = [
-        {
-          id: "artist",
-          title: "Artist",
-          tags: "Bands, rappers, producers, podcasters + more",
-        },
-        {
-          id: "brand",
-          title: "Brand",
-          tags: "Clothing, record labels, lifestyle + more",
-        },
-      ];
+      let accountTypes = [];
+      if (this.$store.state.app.onboarding.accountCategory === 'creator') {
+        accountTypes = [
+          {
+            id: "artist",
+            title: "Artist",
+            tags: "Bands, rappers, producers, podcasters + more",
+          },
+          {
+            id: "brand",
+            title: "Brand",
+            tags: "Clothing, record labels, lifestyle + more",
+          },
+        ];
+      } else {
+        accountTypes = [
+          {
+            id: "listener",
+            title: "Listener",
+          }
+        ]
+      }
 
-      return accountTypes || [];
+      return accountTypes;
     },
   },
   methods: {

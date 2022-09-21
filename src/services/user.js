@@ -67,6 +67,12 @@ export default {
     })
   },
 
+  creatorSubscription(id, params) {
+    return Vue.http.get(`${API_BASE_URL}/${id}/creator_subscription`, {
+      params: params,
+    })
+  },
+
   getRepostPriceProration(userId, params) {
     return Vue.http.get(`${API_BASE_URL}/${userId}/repost_price_proration`, {
       headers: { Authorization: $store.state.auth.token },
