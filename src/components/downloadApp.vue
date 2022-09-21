@@ -368,7 +368,7 @@ export default {
 
 <style lang="scss">
 .dialog.download-app-dialog {
-  width: auto;
+  width: auto !important;
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.9);
 }
