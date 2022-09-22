@@ -44,8 +44,9 @@
             <v-icon
               :class="[
                 {
-                  'play-button-2 black--text': playButton2,
+                  'play-button-2': playButton2,
                   iconHasWhiteBG: playButton2IconHasWhiteBG,
+                  'black--text': playButton2IconHasWhiteBG,
                 }
               ]"
             >
@@ -63,8 +64,8 @@
                 {
                   'play-button-2': playButton2,
                   iconHasWhiteBG: playButton2IconHasWhiteBG,
+                  'black--text': playButton2IconHasWhiteBG,
                 },
-                'black--text'
               ]"
             >
               pause
