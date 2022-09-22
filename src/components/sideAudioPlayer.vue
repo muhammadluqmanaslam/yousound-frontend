@@ -1,9 +1,13 @@
 <template>
-  <div class="side-player" v-if="$store.getters['player/isPlaying']">
+  <div v-if="showFreeTrialModal">
+    <v-dialog v-model="initPlans" content-class="plans-dialog">
+      <AuthPlan />
+    </v-dialog>
+  </div>
+  <div class="side-player" v-else-if="$store.getters['player/isPlaying']">
     <div class="hr-container top">
       <v-divider class="above-cover"></v-divider>
     </div>
-    <AuthPlan v-if="showFreeTrialModal" />
     <v-dialog v-model="showListeningMessage">
       <v-card>
         <v-card-title class="headline"
@@ -362,6 +366,7 @@ export default {
       showPaymentModal: false,
       isSubscribed: false,
       previewTimeCompleted: false,
+      initPlans: false,
     };
   },
 
@@ -827,12 +832,14 @@ export default {
       if (this.previewTimeCompleted) {
         this.pause();
         this.showFreeTrialModal = true;
+        this.initPlans = true;
       } else {
         if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
           this.previewTimeCompleted = true;
           this.pause();
           this.showFreeTrialModal = true
           this.showPaymentModal = true
+          this.initPlans = true;
           this.updateUserInfo();
         }
         this.remainingTime = this.remainingTime + 1;
@@ -953,3 +960,23 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .dialog.plans-dialog {
+    width: auto;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    .payment-modal {
+      width: 755px;
+      &.paymentSuccessful,
+      &.paymentFailed {
+        width: 398px;
+      }
+    }
+  }
+  .overlay.overlay--active {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+</style>

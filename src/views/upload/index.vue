@@ -1,5 +1,5 @@
 <template>
-  <div class="upload-page mx-5" :class="{ page: !onMobile }">
+  <div class="upload-page mx-5" :class="{ page: !onMobile }" v-if="currentUser.creator_verified">
     <content-top-header>
       <template slot="topHeader">
         <ul class="pr-3">
