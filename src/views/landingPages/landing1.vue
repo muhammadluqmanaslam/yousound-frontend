@@ -5,7 +5,7 @@
     @touchend="touchEnd"
   >
     <div v-if="onMobileStrict" class="mobile-top _logo">
-      <div class="logo-img-wrapper">
+      <div class="logo-img-wrapper" :class="{'allChildrenCenter': activeView == 'landingView'}">
         <img
           :src="require('@/assets/nav_logo_primary.png')"
           width="130"

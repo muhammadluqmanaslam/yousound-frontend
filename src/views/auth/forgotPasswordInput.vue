@@ -24,13 +24,14 @@
           type="email"
           placeholder="Email"
         />
-        <p
-          class="text-danger text-xs-left"
-          v-if="errors.has('email')"
-        >
-          {{ errors.first("email") }}
-        </p>
       </div>
+
+      <p
+        class="text-danger text-xs-left"
+        v-if="errors.has('email')"
+      >
+        {{ errors.first("email") }}
+      </p>
       <v-btn block round dark type="submit" class="reset-btn">
         Reset Password
       </v-btn>
@@ -156,9 +157,6 @@ export default {
     color: #4a4a4a;
     letter-spacing: 0;
     padding: 0 15px;
-  }
-  .email {
-    margin-top: 22.5px;
   }
   .password {
     margin-top: 7.5px;
