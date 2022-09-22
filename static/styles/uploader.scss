@@ -16,7 +16,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px;
+    padding: 236px;
+    margin-top: 50px;
+    border-radius: 20px;
 
     .uploaderBox_image {
       height: 65px;
@@ -65,9 +67,10 @@
   .uploaderBox__desc {
     padding: 30px 0;
     .uploaderBox__dragndrop {
-      font-size: 16px;
       color: #000000;
       letter-spacing: 0;
+      font-size: 24px;
+      text-align: center;
     }
     .uploaderBox__filetype {
       display: block;

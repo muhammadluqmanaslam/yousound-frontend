@@ -11,23 +11,25 @@
           @change="filesChange($event.target.files)"
           multiple
         />
-        <label for="file">
-          <!-- <img v-if="category == 'audio'" src="/static/images/drop_box.png" class="uploaderBox_image" /> -->
-          <!-- <img v-if="category == 'video'" src="/static/images/drop_video.png" class="uploaderBox_image" /> -->
-        </label>
-        <div class="uploaderBox__desc">
-            <div v-if="category == 'audio'">
-                <b class="uploaderBox__dragndrop">
-                  Drag and drop audio files
-                </b>
-                <span class="uploaderBox__filetype"> MP3 files only</span>
-            </div>
-            <div v-if="category == 'video'">
-                <b v-if="category == 'video'" class="uploaderBox__dragndrop">
-                  Drag and drop video files
-                </b>
-                <!-- <span class="uploaderBox__filetype">All popular video formats</span> -->
-            </div>
+        <div class="allChildrenCenter flex-column">
+          <label for="file">
+            <img v-if="category == 'audio'" :src="require('@/assets/upload-music.png')" class="uploaderBox_image" />
+            <img v-if="category == 'video'" :src="require('@/assets/upload-video.png')" class="uploaderBox_image" />
+          </label>
+          <div class="uploaderBox__desc">
+              <div v-if="category == 'audio'">
+                  <b class="uploaderBox__dragndrop">
+                    Drag and drop audio files
+                  </b>
+                  <!-- <span class="uploaderBox__filetype"> MP3 files only</span> -->
+              </div>
+              <div v-if="category == 'video'">
+                  <b v-if="category == 'video'" class="uploaderBox__dragndrop">
+                    Drag and drop video files
+                  </b>
+                  <!-- <span class="uploaderBox__filetype">All popular video formats</span> -->
+              </div>
+          </div>
         </div>
       </div>
     </div>

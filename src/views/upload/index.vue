@@ -118,7 +118,7 @@
               <div class="upload-tab-img uploadLive"></div>
 
               <div class="text-left">
-                <h3>Live Video</h3>
+                <h3>Broadcast Live</h3>
                 <div class="upload-tab-description">
                   Broadcast live RMTP, connect products, & run pay-per-view
                 </div>
@@ -131,7 +131,7 @@
                 depressed
                 class="upload-tab-btn"
                 :to="{ name: broadcastLink }"
-                >Upload</v-btn
+                >Go Live</v-btn
               >
             </div>
           </v-flex>
