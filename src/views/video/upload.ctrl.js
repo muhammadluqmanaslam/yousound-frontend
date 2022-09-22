@@ -281,9 +281,53 @@ export default {
         })
     },
 
-    pickedFile(file) {
-      this.videoFile = file
+    async pickedFile(file) {
+      const video = await this.validateDuration(file)
+      UserService.uploadStreamLimit(this.currentUser.id).then((response) => {
+        if (response.status == 200) {
+          const duration = video.duration/60
+          const plan = this.currentUser.plan
+          const video_duration_limit = plan === "pro" ? 180 : 120
+
+          if (duration > video_duration_limit) {
+            this.videoFile = null;
+            this.$store.dispatch('error/showErrorToast', [
+              `You cannot upload file which have more than ${video_duration_limit} minutes duration`,
+            ])
+          } else {
+            this.videoFile = file
+          }
+        }
+      }).catch((e) => {
+        this.videoFile = null
+        this.$store.dispatch('error/showErrorToast', [
+          `Your stream limit has been exceeded.`,
+        ])
+      })
+
     },
+
+    async validateDuration(file) {
+      return new Promise((resolve, reject) => {
+        try {
+          let video = document.createElement('video')
+          video.preload = 'metadata'
+
+          video.onloadedmetadata = async function () {
+            resolve(this)
+          }
+
+          video.onerror = function () {
+            reject("Invalid video. Please select a video file.")
+          }
+
+          video.src = window.URL.createObjectURL(file[0])
+        } catch (e) {
+          reject(e)
+        }
+      })
+    },
+
     openHelpDialog() {
       this.show_help_dialog = true
     },
