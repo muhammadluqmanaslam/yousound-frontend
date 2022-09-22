@@ -34,54 +34,7 @@
                 <div class="text-xs-center">
                   <h2>Forgot password</h2>
                 </div>
-                <form v-on:submit.prevent="submit()">
-                  <div
-                    class="form-group"
-                    :class="{ 'has-error': errors.has('email') }"
-                  >
-                    <div v-if="onMobile" class="form-icon">
-                      <img
-                        :src="require('@/assets/mail_icon_outline.svg')"
-                        alt="main icon"
-                      />
-                    </div>
-
-                    <input
-                      v-model="email"
-                      class="username"
-                      v-validate="'required|email'"
-                      :class="{
-                        input: true,
-                        'text-danger': errors.has('email'),
-                      }"
-                      name="email"
-                      type="email"
-                      placeholder="Email"
-                    />
-                    <p
-                      class="text-danger text-xs-left"
-                      v-if="errors.has('email')"
-                    >
-                      {{ errors.first("email") }}
-                    </p>
-                  </div>
-                  <v-btn block round dark type="submit" class="reset-btn">
-                    Reset Password
-                  </v-btn>
-                  <div
-                    class="
-                      text-xs-center
-                      mt-3
-                      dflex
-                      align-center
-                      justify-center
-                    "
-                  >
-                    <router-link class="terms-text mr-2" to="/login">
-                      Back to login
-                    </router-link>
-                  </div>
-                </form>
+                <forgot-password-input />
               </v-flex>
             </v-layout>
           </v-container>
