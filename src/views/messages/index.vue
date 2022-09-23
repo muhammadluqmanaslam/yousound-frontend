@@ -233,6 +233,7 @@
                 maxlength="500"
                 class="message-input-box"
                 placeholder="Write a message..."
+                :disabled="!(currentUser.creator_verified)"
                 @keyup.enter="checkMessage()"
                 ref="message"
                 autofocus
@@ -275,7 +276,7 @@
               >
               <v-btn
                 @click.native="checkMessage()"
-                :disabled="!message.body"
+                :disabled="!message.body || !(currentUser.creator_verified) "
                 class="send-message-btn"
                 >Send</v-btn
               >
@@ -385,6 +386,10 @@
           </template>
         </div>
       </v-card>
+    </v-dialog>
+
+    <v-dialog v-if="planModal" v-model="initPayment" content-class="plans-dialog">
+      <AuthPlan />
     </v-dialog>
 
     <repost-payment-modal
@@ -527,13 +532,30 @@
 <style src="../../../static/styles/messages.scss" lang="scss" scoped></style>
 
 <style lang="scss">
-.dialog.repost-request-dialog {
-  width: 650px;
-  padding: 40px;
-  background-color: #ffffff;
-}
-.overlay.overlay--active {
+  .dialog.repost-request-dialog {
+    width: 650px;
+    padding: 40px;
+    background-color: #ffffff;
+  }
+  .overlay.overlay--active {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+.dialog.plans-dialog {
   width: auto;
-  background-color: rgba(0, 0, 0, 0.9);
-}
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 1);
+  .payment-modal {
+      width: 755px;
+      &.paymentSuccessful,
+      &.paymentFailed {
+        width: 398px;
+      }
+    }
+  }
+  .overlay.overlay--active {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
 </style>

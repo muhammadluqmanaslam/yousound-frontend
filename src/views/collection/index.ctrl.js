@@ -7,7 +7,6 @@ import contentTopHeader from "@/components/contentTopHeader"
 import repostMusic from "./repostMusic"
 import repostVideos from "./repostVideos"
 import repostProducts from "./repostProducts"
-import UserService from '@/services/user'
 import AuthPlan from "@/components/authPlan"
 
 export default {
@@ -28,7 +27,6 @@ export default {
                 { id: "videos", title: "Videos" },
                 { id: "products", title: "Products" },
             ],
-            isSubscribed: true,
         }
     },
     computed: {
@@ -66,21 +64,6 @@ export default {
                 .catch((error) => {
                     this.$store.dispatch("error/showErrorToast", [error]);
                 });
-        },
-
-        async fetchSubscriptionDetails() {
-            await UserService.getSubscriptionDetail(this.currentUser.id)
-                .then((response) => {
-                    if (response.bodyText !== "Subscribed") {
-                        this.isSubscribed = false
-                    }
-                })
-                .catch((e) => {
-                    this.isSubscribed = false
-                    this.$store.dispatch(
-                        'error/showErrorToast', ["There was an error on fetching user info "]
-                    )
-                })
         },
     },
     created() {
