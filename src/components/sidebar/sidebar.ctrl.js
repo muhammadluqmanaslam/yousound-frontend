@@ -202,7 +202,7 @@ export default {
   },
   mounted() {
     if ((this.currentUser.plan === "pro" && this.currentUser.creator_verified !== true) || this.currentUser.plan !== "pro") {
-      this.tabs[0].items[0].path = "sell"
+      this.tabs[0].items[0].path = "settings"
     }
     this.setUsername()
     if (this.onMobile) {
