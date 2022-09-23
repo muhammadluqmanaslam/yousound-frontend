@@ -185,6 +185,13 @@ const getters = {
             icon: require('../../../static/images/cart.svg'),
             path: 'Cart',
           },
+          {
+            title: 'Creator Verification',
+            id: 'verifications',
+            icon: require('@/assets/ic_wave.svg'),
+            path: 'VerificationIndex',
+            allowedUser: ['admin'],
+          },
           // {
           //   title: 'Sales',
           //   id: 'sales',
