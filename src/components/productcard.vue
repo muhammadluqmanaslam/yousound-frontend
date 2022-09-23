@@ -26,7 +26,13 @@
             'background-image': 'url(' + item.covers[0].cover.url + ')',
           }"
         >
-          <div v-if="showFullOverlay" class="full-overlay">
+          <div
+            v-if="showFullOverlay"
+            class="full-overlay"
+            @click="
+              $router.push({ name: 'SingleProduct', params: { id: item.id } })
+            "
+          >
             <v-icon class="full-overlay_icon icon white--text">visibility</v-icon>
             <div class="hover-info">
               <div class="item-name">{{ item.name }}</div>
