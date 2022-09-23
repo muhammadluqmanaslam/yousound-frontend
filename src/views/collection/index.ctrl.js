@@ -39,9 +39,7 @@ export default {
         },
     },
 
-    mounted() {
-        this.fetchSubscriptionDetails();
-    },
+    mounted() {},
 
     methods: {
         onTab(tab) {

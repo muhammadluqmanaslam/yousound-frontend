@@ -11,6 +11,13 @@ export default {
     })
   },
 
+  getUnverifiedCreators(params) {
+    return Vue.http.get(API_BASE_URL + '/fetch_unverified_creators', {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
+  },
+
   getSignupUsers(params) {
     return Vue.http.get(API_BASE_URL + '/signup_users', {
       headers: { Authorization: $store.state.auth.token },
