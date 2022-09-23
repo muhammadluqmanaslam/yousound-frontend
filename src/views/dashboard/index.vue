@@ -1,5 +1,5 @@
 <template>
-    <div class="page dashboard-page side-space">
+    <div class="page dashboard-page side-space" v-if="(currentUser.plan === 'pro' || current_user.plan === 'plus') && currentUser.creator_verified">
         <dashboard-nav name="dashboard" />
 
         <content-top-header absolute class="__inner px-0 my-3">

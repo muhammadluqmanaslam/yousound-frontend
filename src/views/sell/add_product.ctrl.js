@@ -130,6 +130,9 @@ export default {
         this.digital_content_category_ids.indexOf(this.product.category) > -1
       )
     },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
 
     isAvailableToAddProduct() {
       var isAvailable =

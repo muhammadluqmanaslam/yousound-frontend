@@ -1,71 +1,54 @@
 <template>
-  <div class="login-input auth-login-page">
-    <form
-      v-on:submit.prevent="submit()"
-      autocomplete="off"
-      :class="{ 'mt-2': onMobile }"
-    >
-      <div v-if="onMobile" class="form-icon">
-        <img :src="require('@/assets/mail_icon.svg')" alt="main icon" />
-      </div>
-
+  <div class="forgot-password-input auth-login-page">
+    <form v-on:submit.prevent="submit()">
       <div
-        class="form-group _email text-xs-center"
+        class="form-group"
         :class="{ 'has-error': errors.has('email') }"
       >
+        <div v-if="onMobile" class="form-icon">
+          <img
+            :src="require('@/assets/mail_icon_outline.svg')"
+            alt="main icon"
+          />
+        </div>
+
         <input
+          v-model="email"
           class="email"
-          v-model="user.email"
           v-validate="'required|email'"
-          :class="{ input: true, 'text-danger': errors.has('email') }"
+          :class="{
+            input: true,
+            'text-danger': errors.has('email'),
+          }"
           name="email"
           type="email"
           placeholder="Email"
-          autocomplete="off"
         />
         <p
+          class="text-danger text-xs-left"
           v-if="errors.has('email')"
-          class="text-danger text-xs-left mb-0"
-          :class="{ 'mb-2': onMobile }"
         >
           {{ errors.first("email") }}
         </p>
       </div>
-
-      <div class="form-group _password text-xs-center">
-        <div v-if="onMobile" class="form-icon">
-          <img :src="require('@/assets/password_icon.svg')" alt="main icon" />
-        </div>
-
-        <input
-          class="password"
-          type="password"
-          v-model="user.password"
-          placeholder="Password"
-          autocomplete="new-password"
-        />
-      </div>
-
-      <div class="text-xs-center mt-4" :class="{ 'mt-0': onMobile }">
-        <v-btn
-          depressed
-          block
-          round
-          dark
-          type="submit"
-          class="login-button"
-          :loading="loading"
+      <v-btn block round dark type="submit" class="reset-btn">
+        Reset Password
+      </v-btn>
+      <div
+        class="
+          text-xs-center
+          mt-3
+          dflex
+          align-center
+          justify-center
+        "
+      >
+        <span
+          class="terms-text mr-2 cursor-pointer app-bold"
+          @click="!showLogin ? $route.push('/login') : showLogin()"
         >
-          Login
-        </v-btn>
-        <div class="mt-4">
-          <span
-            class="forgot-password-text cursor-pointer"
-            @click="!showForgotPassword ? $route.push('/forgot') : showForgotPassword()"
-          >
-            Forgot password?
-          </span>
-        </div>
+          Back to login
+        </span>
       </div>
     </form>
   </div>
@@ -75,24 +58,14 @@
 import AuthService from "@/services/auth.js";
 import { mapGetters } from "vuex";
 import { MyEvents } from "@/helper";
-import LoginInput from "./loginInput";
 
 export default {
   props: {
-    showForgotPassword: Function,
+    showLogin: Function,
   },
-  components: {
-    LoginInput,
-  },
-
   data() {
     return {
-      loading: false,
-      remember: false,
-      user: {
-        email: "",
-        password: "",
-      },
+      email: null,
     };
   },
 
@@ -145,34 +118,24 @@ export default {
 
   methods: {
     submit() {
-      this.loading = true;
+      if (!this.email) return
 
-      this.$store.dispatch("error/showLoadingActivity", true);
-      AuthService.login(this.user)
+      var params = new FormData()
+      params.append('email', this.email)
+      AuthService.requestResetPassword(params)
         .then((response) => {
-          if (this.remember) {
-            AuthService.saveCredential(this.user);
-          }
-          AuthService.setTokenAndUserInfo(response.body);
+          // JSON responses are automatically parsed.
+          // this.$store.dispatch('error/showSuccessToast', [
+          //   'Email sent with password reset instructions.',
+          // ])
 
-          if (response.body.sign_in_count <= 1) {
-            this.$store.dispatch("auth/setFirstVisit", true);
-          }
-
-          this.$root.$emit(MyEvents.AUTH_SIGNIN);
-
-          this.$store.dispatch("error/showLoadingActivity", false);
-          this.$router.push({ name: "DiscoverIndex" });
+          this.resetSuccess = true
         })
         .catch((e) => {
-          this.loading = false;
-
-          this.$store.dispatch("error/showLoadingActivity", false);
-          this.$store.dispatch(
-            "error/showErrorToast",
-            e.body.errors || [e.body]
-          );
-        });
+          this.$store.dispatch('error/showErrorToast', [
+            'Email does not exist or inactivated',
+          ])
+        })
     },
   },
 };

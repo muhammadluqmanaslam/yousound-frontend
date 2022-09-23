@@ -124,7 +124,9 @@ export default {
 
   created() {
     this.activeTab = this.name;
-
+    if ((this.currentUser.plan === "pro" && this.currentUser.creator_verified !== true) || this.currentUser.plan !== "pro") {
+      this.tabs = this.tabs.filter(tab => tab.title !== "Dashboard")
+    }
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith;
     }
