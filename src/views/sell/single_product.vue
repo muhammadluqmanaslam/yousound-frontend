@@ -70,6 +70,7 @@
               </div>
 
               <v-btn
+                v-if="isAuthenticated"
                 round
                 block
                 dark

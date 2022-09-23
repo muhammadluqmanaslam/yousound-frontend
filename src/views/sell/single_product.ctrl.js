@@ -17,6 +17,7 @@ import Comments from '@/components/comments'
 import UserTag from '@/components/user_tag'
 import ShareModal from '@/components/sharemodal'
 import UserFollowBtn from "@/components/userFollowBtn";
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -72,6 +73,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
