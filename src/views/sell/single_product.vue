@@ -85,7 +85,7 @@
                 {{ product.description }}
               </div>
 
-              <div class="product-actions">
+              <div v-if="isAuthenticated" class="product-actions">
                   <user-follow-btn class="mt-3" :user="user" theme="blue" type="product" btnBlock @afterFollow="afterFollow" />
 
                 <v-tooltip top>
@@ -117,7 +117,7 @@
             </div>
           </v-flex>
 
-          <v-flex xs12 sm8>
+          <v-flex v-if="isAuthenticated" xs12 sm8>
             <comments :item="product" :comments="comments" :commentTableType="commentTableType" />
           </v-flex>
 
