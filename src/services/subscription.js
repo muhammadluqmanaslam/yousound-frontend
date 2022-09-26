@@ -32,4 +32,10 @@ export default {
       params: params,
     })
   },
+
+  deactivateSubscription() {
+    return Vue.http.get(`${API_BASE_URL}/deactivate_subscription`, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
 }
