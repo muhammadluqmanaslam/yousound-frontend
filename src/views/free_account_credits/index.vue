@@ -1,5 +1,5 @@
 <template>
-  <div class="discover-nav">
+  <div class="discover-nav verify-align">
     <content-top-header>
       <template slot="topHeader">
         <ul class="pr-3">
@@ -16,25 +16,72 @@
 
     <v-spacer></v-spacer>
     <v-client-table :data="this.tableData" :columns="columns" :key="this.tableData.id">
-      <!-- @row-click="onRowClick" -->
-      <!-- reject button and confirm button -->
-      <template slot="action" slot-scope="props">
+
+      <template slot="choose_month" slot-scope="props">
         <v-select attach
-          :items="choose_month"
-          @change="selectMonth($event, props.row.id)"
-          label="Select month"
+        class="month-dd"
+        :items="choose_month"
+        @change="selectMonth($event, props.row.id)"
+        required placeholder="Select a Month"
         ></v-select>
-        <v-btn flat class="my-0" @click.native="verify(props.row.id)">
+      </template>
+
+      <template slot="action" slot-scope="props">
+        <v-btn flat class="my-0 btn-verify-1" @click.native="verify(props.row.id)">
           Verify
         </v-btn>
       </template>
     </v-client-table>
   </div>
-          <!-- <li class="search-li">
-        <search-input :senderRoute="$route.name" />
-      </li> -->
 
 </template >
+
+
+<style>
+  .verify-align{
+    text-align: center;
+  }
+
+  .btn-verify-1{
+    background-color: #16b516 !important;
+    color: white !important;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 0 5px;
+  }
+  .btn-verify-1:hover{
+    background-color: #075207 !important;
+    color: white !important;
+  }
+  .month-dd{
+    margin-top: -15px !important;
+  }
+
+  .list__tile{
+    height: 25px !important;
+  }
+  .menu__content{
+    margin-top: 32px !important;
+  }
+
+  .input-group--select .input-group__input {
+    min-height: 31px;
+    border: 1px solid #000000 !important;
+    border-radius: 3.75px;
+  }
+  .input-group__details {
+    min-height: 0px !important;
+  }
+  .select-month{
+    padding-top: 0 !important;
+    margin-bottom: 11px !important;
+    width: 100% !important;
+    background-color: rgba(240, 248, 255, 0);
+  }
+
+  </style>
 
 <script>
 import contentTopHeader from '@/components/contentTopHeader'
@@ -130,7 +177,7 @@ export default {
         })
       } else {
         this.$store.dispatch(
-            'error/showErrorToast', ["Please Select Month"]
+          'error/showErrorToast', ["Please select a month"]
         )
       }
     },
@@ -168,3 +215,4 @@ export default {
   }
 }
 </script>
+

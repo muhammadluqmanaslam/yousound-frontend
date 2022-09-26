@@ -1,14 +1,14 @@
 <template>
   <div class="col-md-8 col-md-offset-2">
-    <div id="people">
+    <div id="people" class="verify-align">
       <v-client-table :data="tableData" :columns="columns" :key="tableData.id">
         <!-- @row-click="onRowClick" -->
         <!-- reject button and confirm button -->
         <template slot="action" slot-scope="props">
-          <v-btn flat class="my-0 approve-btn" @click.native="approve(props.row.id, 'approve')">
+          <v-btn flat class="my-0 btn-approve" @click.native="approve(props.row.id, 'approve')">
             Approve
           </v-btn>
-          <v-btn flat class="my-0" @click.native="approve(props.row.id, 'reject')">
+          <v-btn flat class="my-0 btn-deny" @click.native="approve(props.row.id, 'reject')">
             Reject
           </v-btn>
         </template>
