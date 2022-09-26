@@ -512,7 +512,7 @@ export default {
     play(index) {
       this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
       this.fetchSubscriptionDetails();
-      this.stillListeningTimer = setTimeout(this.stillPlaying, 300000)
+      this.stillListeningTimer = setTimeout(this.stillPlaying, 120000)
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -892,6 +892,7 @@ export default {
       UserService.updateUserInfo(this.currentUser.id, params)
       .then((response) => {
         AuthService.setUser(response.body)
+        console.log("================ free trial time", this.currentUser.free_trial_time)
       })
       .catch((e) => {
         console.log(e)
