@@ -291,6 +291,11 @@ export default {
       touchendX: null
     };
   },
+  created() {
+    if (this.$store.state.auth.user != null) {
+      this.$router.push({name: 'UserSettings'})
+    }
+  },
   computed: {
     ...mapState({
       musicFeed: (state) => state.trending.albums,

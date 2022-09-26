@@ -127,6 +127,9 @@ export default {
     if ((this.currentUser.plan === "pro" && this.currentUser.creator_verified !== true) || this.currentUser.plan !== "pro") {
       this.tabs = this.tabs.filter(tab => tab.title !== "Dashboard")
     }
+    if (!(this.currentUser.user_type === "artist" || this.currentUser.user_type === 'brand')) {
+      this.tabs = this.tabs.filter(tab => tab.title !== "Sales" || tab.title !== "Manage")
+    }
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith;
     }

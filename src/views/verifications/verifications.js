@@ -43,11 +43,6 @@ export default {
         if (response.body.users.length > 0) {
           this.tableData = response.body.users.map(({first_name, last_name, email, username, id}) => ({first_name, last_name, email, username, id}) )
         }
-        else {
-          this.$store.dispatch(
-            'error/showErrorToast', ["No creator available for verification"]
-          )
-        }
       })
       .catch((e) => {
         this.$store.dispatch(

@@ -18,6 +18,13 @@ export default {
     })
   },
 
+  getFreeAccountCreditUsers(params) {
+    return Vue.http.get(API_BASE_URL + '/free_account_credit_users', {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
+  },
+
   getSignupUsers(params) {
     return Vue.http.get(API_BASE_URL + '/signup_users', {
       headers: { Authorization: $store.state.auth.token },

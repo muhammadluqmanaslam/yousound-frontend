@@ -192,6 +192,13 @@ const getters = {
             path: 'VerificationIndex',
             allowedUser: ['admin'],
           },
+          {
+            title: 'Free Account Credits',
+            id: 'freeAccountCredit',
+            icon: require('@/assets/ic_wave.svg'),
+            path: 'FreeAccountCreditIndex',
+            allowedUser: ['admin'],
+          },
           // {
           //   title: 'Sales',
           //   id: 'sales',

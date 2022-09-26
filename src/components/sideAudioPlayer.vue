@@ -512,7 +512,7 @@ export default {
     play(index) {
       this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
       this.fetchSubscriptionDetails();
-      this.stillListeningTimer = setTimeout(this.stillPlaying, 3300000)
+      this.stillListeningTimer = setTimeout(this.stillPlaying, 300000)
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -840,6 +840,7 @@ export default {
           this.showFreeTrialModal = true
           this.showPaymentModal = true
           this.initPlans = true;
+          this.remainingTime = 0
           this.updateUserInfo();
         }
         this.remainingTime = this.remainingTime + 1;

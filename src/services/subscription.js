@@ -25,4 +25,11 @@ export default {
       params: params,
     })
   },
+
+  freeAccountCredit(params) {
+    return Vue.http.get(`${API_BASE_URL}/free_account_credit`, {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
+  },
 }

@@ -5,7 +5,7 @@
         <!-- @row-click="onRowClick" -->
         <!-- reject button and confirm button -->
         <template slot="action" slot-scope="props">
-          <v-btn flat class="my-0" @click.native="approve(props.row.id, 'approve')">
+          <v-btn flat class="my-0 approve-btn" @click.native="approve(props.row.id, 'approve')">
             Approve
           </v-btn>
           <v-btn flat class="my-0" @click.native="approve(props.row.id, 'reject')">
@@ -19,5 +19,3 @@
 
 <script type="text/javascript" src="./verifications.js"></script>
 <style src="../../../static/styles/verifications.scss" lang="scss" scoped>
-
-</style>
