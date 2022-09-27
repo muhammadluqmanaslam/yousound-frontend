@@ -147,7 +147,7 @@ const getters = {
             id: 'upload',
             icon: require('@/assets/direct_upload.svg'),
             path: 'UploadIndex',
-            allowedUser: ['artist'],
+            allowedUser: ['artist', 'brand'],
           },
           {
             title: 'Discover',

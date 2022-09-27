@@ -174,7 +174,7 @@ export default {
           this.remainingTime = 0
           clearTimeout(this.stillListeningTimer);
           clearInterval(this.remainingTimerCalculator);
-          this.stillListeningTimer = setTimeout(this.stillPlaying, 120000)
+          this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
           this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
           vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
         })
