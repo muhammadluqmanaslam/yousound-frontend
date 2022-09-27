@@ -163,7 +163,7 @@ export default {
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch("error/showErrorToast", [e])
+          this.$store.dispatch("error/showErrorToast", e.body.errors)
         })
       }
     },
