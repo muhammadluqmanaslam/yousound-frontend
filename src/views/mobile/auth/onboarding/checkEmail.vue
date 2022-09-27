@@ -92,7 +92,7 @@ export default {
     },
   },
   created() {
-    this.sendConfirmEmail()
+    // this.sendConfirmEmail()
   },
 };
 </script>

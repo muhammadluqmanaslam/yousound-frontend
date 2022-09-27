@@ -16,6 +16,7 @@ import verifyTab from './components/verify_tab'
 import contentTopHeader from '@/components/contentTopHeader'
 import dashboardNav from '@/components/dashboardnav'
 import { mapState } from 'vuex'
+import SubscriptionService from '@/services/subscription.js'
 
 // import { MyEvents } from '@/helper'
 // const ActionCable = require('actioncable')
@@ -73,6 +74,7 @@ export default {
       cable: null,
       notification_subscription: null,
       isPageReady: false,
+      plans: { basic: 'Basic', plus: 'Creators', pro: 'Advanced', },
     }
   },
 
@@ -276,6 +278,18 @@ export default {
       )
 
       this.updateUser(params)
+    },
+
+    async deactivateSubscription() {
+      await SubscriptionService.deactivateSubscription()
+        .then(response => {
+          this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
+        })
+        .catch(e => {
+          this.$store.dispatch(
+            'error/showErrorToast', e.body.errors
+          )
+        })
     },
 
     resetPassword() {

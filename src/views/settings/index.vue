@@ -154,7 +154,7 @@
                       </div>
                     </div>
 
-                    <div v-if="currentUser.user_type === 'listener'" class="current-plan">Current plan</div>
+                    <div v-if="currentUser.plan === null" class="current-plan">Current plan</div>
                   </div>
                   <div
                     v-for="(plan, i) in plansData"
@@ -171,8 +171,9 @@
                     </div>
 
                     <div
-                      v-if="plan.id === currentUser.stripe_subscription_id"
-                      class="cuurent-plan"
+                      v-if="plan.id === currentUser.plan"
+                      class="current-plan"
+                      style="margin-left: 10px"
                     >
                       Current plan
                     </div>
@@ -247,6 +248,13 @@
                 @click.native.stop="dialog = true"
               >
                 Delete account
+              </v-btn>
+              <v-btn v-if="currentUser.plan"
+                round
+                class="cancel-account-btn"
+                style="margin-left: 20px"
+                @click.native="deactivateSubscription()">
+                Deactivate Subscription
               </v-btn>
             </div>
 
