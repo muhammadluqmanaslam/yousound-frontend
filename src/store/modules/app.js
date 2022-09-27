@@ -147,7 +147,7 @@ const getters = {
             id: 'upload',
             icon: require('@/assets/direct_upload.svg'),
             path: 'UploadIndex',
-            allowedUser: ['artist'],
+            allowedUser: ['artist', 'brand'],
           },
           {
             title: 'Discover',
@@ -216,6 +216,12 @@ const getters = {
       },
     ]
 
+    let user_info = localStorage.getItem("user_info")
+    if (user_info != null) {
+      if (!(JSON.parse(user_info).user_type === 'artist' || JSON.parse(user_info).user_type === 'brand')) {
+        tabs[0].items = tabs[0].items.filter(item => item.id !== "upload")
+      }
+    }
     return tabs
   },
   accordions: () => {

@@ -66,10 +66,6 @@
       </div>
     </div>
 
-    <div class="no-selection" @click="handleNextStage">
-      No thanks, make me a listener
-    </div>
-
     <v-dialog v-model="initPayment" content-class="payment-dialog">
       <payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
     </v-dialog>
