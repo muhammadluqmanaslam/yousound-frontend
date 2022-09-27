@@ -168,22 +168,28 @@ export default {
     },
 
     pauseMusicOnPlay() {
-      const vm = this
-      vm.player.on('play', () => {
-        this.remainingTime = 0
-        clearTimeout(this.stillListeningTimer);
-        clearInterval(this.remainingTimerCalculator);
-        this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
-        this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
-        vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
-      })
+      if (this.isSubscribed || this.currentUser.free_trial_time > 0){
+        const vm = this
+        vm.player.on('play', () => {
+          this.remainingTime = 0
+          clearTimeout(this.stillListeningTimer);
+          clearInterval(this.remainingTimerCalculator);
+          this.stillListeningTimer = setTimeout(this.stillPlaying, 120000)
+          this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
+          vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+        })
 
-      vm.player.on('pause', () => {
-        this.updateUserInfo();
-        this.remainingTime = 0
-        clearTimeout(this.stillListeningTimer);
-        clearInterval(this.remainingTimerCalculator);
-      })
+        vm.player.on('pause', () => {
+          this.updateUserInfo();
+          this.remainingTime = 0
+          clearTimeout(this.stillListeningTimer);
+          clearInterval(this.remainingTimerCalculator);
+        })
+      } else {
+        this.$store.dispatch(
+          'error/showErrorToast', ["You must be subscribed in order to view video."]
+        )
+      }
     },
 
     timeCounter() {
