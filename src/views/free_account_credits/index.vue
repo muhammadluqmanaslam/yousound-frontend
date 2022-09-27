@@ -22,7 +22,6 @@
         class="month-dd"
         :items="choose_month"
         @change="selectMonth($event, props.row.id)"
-        required placeholder="Select a Month"
         ></v-select>
       </template>
 
@@ -58,7 +57,7 @@
   .month-dd{
     margin-top: -15px !important;
   }
-  
+
   .menu__content{
     margin-top: 32px !important;
   }
