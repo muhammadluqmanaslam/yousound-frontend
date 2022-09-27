@@ -222,7 +222,7 @@ export default {
             this.gotoNextStage(this.current + 1);
           })
           .catch((e) => {
-            this.$store.dispatch("error/showErrorToast", [e])
+            this.$store.dispatch("error/showErrorToast", [e.body.error] || [e.body])
           })
         } else {
           this.updateOnboarding(data);
