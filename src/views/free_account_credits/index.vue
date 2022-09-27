@@ -58,10 +58,7 @@
   .month-dd{
     margin-top: -15px !important;
   }
-
-  .list__tile{
-    height: 25px !important;
-  }
+  
   .menu__content{
     margin-top: 32px !important;
   }
