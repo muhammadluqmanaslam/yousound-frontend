@@ -168,7 +168,6 @@ export default {
     },
 
     pauseMusicOnPlay() {
-      if (this.isSubscribed || this.currentUser.free_trial_time > 0){
         const vm = this
         vm.player.on('play', () => {
           this.remainingTime = 0
@@ -185,11 +184,6 @@ export default {
           clearTimeout(this.stillListeningTimer);
           clearInterval(this.remainingTimerCalculator);
         })
-      } else {
-        this.$store.dispatch(
-          'error/showErrorToast', ["You must be subscribed in order to view video."]
-        )
-      }
     },
 
     timeCounter() {

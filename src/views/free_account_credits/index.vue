@@ -41,6 +41,9 @@
     text-align: center;
   }
 
+  .VueTables__search-field{
+    text-align: left !important;
+  }
   .btn-verify-1{
     background-color: #16b516 !important;
     color: white !important;
