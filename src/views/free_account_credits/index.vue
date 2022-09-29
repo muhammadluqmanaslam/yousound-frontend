@@ -124,7 +124,7 @@ export default {
       listeners: [],
       creators: [],
       tableData: [],
-      columns: ['first_name', 'last_name', 'email', 'username', 'choose_month', 'action'],
+      columns: ['first_name', 'last_name', 'email', 'username', 'trial_end', 'choose_month', 'action'],
       choose_month: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "Forever"],
       selectedMonth: [],
     }

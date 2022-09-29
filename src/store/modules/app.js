@@ -59,7 +59,7 @@ const state = {
         "Live video exclusive content",
       ],
       active: true,
-      price: "30",
+      price: "40",
       id: "plus",
       stripePriceId: process.env.PLUS_PRICE_ID,
     },
