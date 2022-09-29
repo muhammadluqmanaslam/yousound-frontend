@@ -36,7 +36,7 @@
     <input
       v-model="username"
       type="text"
-      placeholder="@username"
+      placeholder="username"
       class="width100 username"
     />
 

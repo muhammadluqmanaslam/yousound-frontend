@@ -75,6 +75,7 @@ export default {
       notification_subscription: null,
       isPageReady: false,
       plans: { basic: 'Basic', plus: 'Creators', pro: 'Advanced', },
+      subscriptionModal: false,
     }
   },
 
@@ -206,6 +207,14 @@ export default {
       this.active_tab = tab
     },
 
+    disableSubscriptionModal() {
+      this.subscriptionModal = false;
+    },
+
+    enableSubscriptionModal() {
+      this.subscriptionModal = true
+    },
+
     profileImageChanged(e) {
       this.profile.image = e.target.files[0]
       var reader = new FileReader()
@@ -283,6 +292,10 @@ export default {
     async deactivateSubscription() {
       await SubscriptionService.deactivateSubscription()
         .then(response => {
+          let user = this.currentUser
+          user.deactivate_subscription = true
+          AuthService.setUser(user)
+          this.subscriptionModal = false
           this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
         })
         .catch(e => {

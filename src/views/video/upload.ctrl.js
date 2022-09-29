@@ -287,7 +287,7 @@ export default {
         if (response.status == 200) {
           const duration = video.duration/60
           const plan = this.currentUser.plan
-          const video_duration_limit = plan === "pro" ? 120 : 60
+          const video_duration_limit = plan === "pro" ? 121 : 61
 
           if (duration > video_duration_limit) {
             this.videoFile = null;

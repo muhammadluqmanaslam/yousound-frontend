@@ -22,7 +22,7 @@
 
                     <v-spacer></v-spacer>
 
-                    <li>
+                    <li v-if="currentUser.user_type === 'artist' || currentUser.user_type === 'brand'">
                         <v-btn depressed to="/upload" class="upload-btn">Upload</v-btn>
                     </li>
                     <li>

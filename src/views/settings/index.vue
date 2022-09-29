@@ -235,7 +235,34 @@
               />
             </v-flex> -->
           </v-layout>
+          <v-dialog v-model="subscriptionModal">
+            <v-card>
+              <v-card-title class="headline"
+                >Deactivate Subscription</v-card-title
+              >
+              <v-card-text>
+                Are you sure you want to deactivate subscription?
+                This process might take a while. Please don't refresh page in this time.
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
 
+                <v-btn
+                  class="blue--text darken-1"
+                  flat="flat"
+                  @click.native="deactivateSubscription()"
+                  >Yes</v-btn
+                >
+
+                <v-btn
+                  class="blue--text darken-1"
+                  flat="flat"
+                  @click.native="disableSubscriptionModal()"
+                  >Cancel</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
           <div class="delete-account-section" :style="{'padding-left': `${calcSideBarWidth}px`}">
             <div class="dflex align-center">
               <div class="delete-caption mr-5">
@@ -253,7 +280,8 @@
                 round
                 class="cancel-account-btn"
                 style="margin-left: 20px"
-                @click.native="deactivateSubscription()">
+                :disabled="currentUser.deactivate_subscription == true"
+                @click.native="enableSubscriptionModal()">
                 Deactivate Subscription
               </v-btn>
             </div>
