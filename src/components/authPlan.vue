@@ -233,10 +233,14 @@ export default {
     cursor: pointer;
   }
 
-  &:not(.dialog--fullscreen) {
-    width: auto !important;
-    border-radius: 6px;
-    overflow: auto;
+  .dialog {
+    border-radius: 10px;
+
+    &:not(.dialog--fullscreen) {
+      width: auto !important;
+      border-radius: 6px;
+      overflow: auto;
+    }
   }
 }
 </style>
