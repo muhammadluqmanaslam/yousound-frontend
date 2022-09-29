@@ -232,5 +232,11 @@ export default {
     font-size: 18px;
     cursor: pointer;
   }
+
+  &:not(.dialog--fullscreen) {
+    width: auto !important;
+    border-radius: 6px;
+    overflow: auto;
+  }
 }
 </style>
