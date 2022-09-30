@@ -177,7 +177,7 @@ export default {
         let month = row.month
         let params = { id: id, free_credit_month: month }
         await SubscriptionService.freeAccountCredit(params).then((response) => {
-
+          this.freeAccountCreditUsers()
           this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
         }).catch((e) => {
           this.$store.dispatch('error/showErrorToast', [e.body.exception]

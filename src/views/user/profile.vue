@@ -141,7 +141,8 @@
                   </div>
                 </v-btn>
 
-                <v-btn
+                <v-btn v-if="currentUser && currentUser.creator_verified && user.stripe_connected &&
+                  user.creator_verified && user.id != currentUser.id"
                   depressed
                   outline
                   class="donate-btn no-Btn-bg sqr-plain-btn"
@@ -178,8 +179,9 @@
                     <v-list-tile
                       v-if="
                         currentUser &&
+                        currentUser.creator_verified &&
                         user.id != currentUser.id &&
-                        user.stripe_connected
+                        user.stripe_connected && user.creator_verified
                       "
                       key="send_love"
                       @click="showLoveDialog()"

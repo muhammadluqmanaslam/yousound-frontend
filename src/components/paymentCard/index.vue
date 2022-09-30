@@ -220,6 +220,9 @@ export default {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed."])
           this.closePayment("success");
+          if (this.$store.state.auth.user != null) {
+            window.top.location = window.top.location
+          }
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -349,6 +352,21 @@ export default {
   width: auto;
   border-radius: 20px;
   background-color: rgba(0, 0, 0, 0.9);
+
+  .payment-modal {
+    width: 755px;
+
+    &.paymentSuccessful,
+    &.paymentFailed {
+      width: 398px;
+    }
+  }
+}
+
+.dialog.plans-dialog {
+  width: auto !important;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 1);
 
   .payment-modal {
     width: 755px;

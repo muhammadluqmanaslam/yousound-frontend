@@ -29,7 +29,7 @@ export default {
       let params = { user_id: id, verify_creator: action }
       await SubscriptionService.creatorVerified(params).then((response) => {
         this.tableData = this.tableData.filter(data => data.id != id)
-        this.$store.dispatch('error/showSuccessToast', [`User account has been successfully ${action}ed.`])
+        this.$store.dispatch('error/showSuccessToast', [`User account has been successfully ${action == "approve" ? "approved" : "rejected"}.`])
       }).catch((e) => {
         this.$store.dispatch(
           'error/showErrorToast', [e.body.errors]
