@@ -425,6 +425,9 @@
                     </v-btn>
                   </h2>
                 </v-flex>
+                <span>
+                  Please select <strong>All other countries</strong> in destination to proceed.
+                </span>
                 <v-layout
                   row
                   product-option-content

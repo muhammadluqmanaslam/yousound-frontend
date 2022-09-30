@@ -151,6 +151,9 @@
           <v-flex xs12 section-title>
             <h4>Shipping & Tax</h4>
           </v-flex>
+          <span>
+            Please select <strong>All other countries</strong> in destination to proceed.
+          </span>
           <v-flex xs12 product-section>
             <v-flex xs12 price-option-section form-group>
               <h4 class="option-title">

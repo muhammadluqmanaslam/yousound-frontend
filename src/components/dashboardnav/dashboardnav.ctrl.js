@@ -128,7 +128,7 @@ export default {
       this.tabs = this.tabs.filter(tab => tab.title !== "Dashboard")
     }
     if (!(this.currentUser.user_type === "artist" || this.currentUser.user_type === 'brand')) {
-      this.tabs = this.tabs.filter(tab => tab.title !== "Sales" || tab.title !== "Manage")
+      this.tabs = this.tabs.filter(tab => tab.id !== 'sales' && tab.id !== 'manage')
     }
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith;

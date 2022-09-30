@@ -139,7 +139,7 @@ export default {
     const slug = this.$route.params.slug
 
     this.$store.dispatch('navigator/goNextState', { page: 'upload', tab: '' })
-    if (this.currentUser && this.currentUser.user_type === 'artist') {
+    if (this.currentUser && (this.currentUser.user_type === 'artist' || this.currentUser.user_type === 'brand')) {
 
       // check if its edit mode or create mode
       if (slug) {

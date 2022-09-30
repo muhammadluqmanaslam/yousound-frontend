@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
     <video
       ref="myVideoPlayer"
       id="myVideoPlayer"
@@ -127,6 +127,11 @@ export default {
   },
   methods: {
     initPlayer() {
+      if (this.currentUser.free_trial_time <= 0 && !this.isSubscribed) {
+        this.$store.dispatch(
+          'error/showErrorToast', ["You must be subscribed in order to view video."]
+        )
+      }
       const vm = this
       console.log("this.src--->", this.src)
       vm.player =
@@ -141,7 +146,6 @@ export default {
           ],
         })
       this.pauseMusicOnPlay();
-
       console.log("=====stripe_subscription_id=====", this.currentUser.stripe_subscription_id)
       if (this.currentUser.stripe_subscription_id === undefined || this.currentUser.stripe_subscription_id === null) {
         var options = {
@@ -168,13 +172,12 @@ export default {
     },
 
     pauseMusicOnPlay() {
-      if (this.isSubscribed || this.currentUser.free_trial_time > 0){
         const vm = this
         vm.player.on('play', () => {
           this.remainingTime = 0
           clearTimeout(this.stillListeningTimer);
           clearInterval(this.remainingTimerCalculator);
-          this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
+          this.stillListeningTimer = setTimeout(this.stillPlaying, 3480000)
           this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
           vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
         })
@@ -185,11 +188,6 @@ export default {
           clearTimeout(this.stillListeningTimer);
           clearInterval(this.remainingTimerCalculator);
         })
-      } else {
-        this.$store.dispatch(
-          'error/showErrorToast', ["You must be subscribed in order to view video."]
-        )
-      }
     },
 
     timeCounter() {
