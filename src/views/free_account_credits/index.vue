@@ -26,9 +26,14 @@
       </template>
 
       <template slot="action" slot-scope="props">
-        <v-btn flat class="my-0 btn-verify-1" @click.native="verify(props.row.id)">
-          Verify
-        </v-btn>
+        <VueLoadingButton
+        @click.native="handleClick"
+        :loading="isLoading"
+        >
+          <v-btn flat class="my-0 btn-verify-1" @click.native="verify(props.row.id)">
+            Verify
+          </v-btn>
+        </VueLoadingButton>
       </template>
     </v-client-table>
   </div>
@@ -89,6 +94,8 @@ import AdminService from '@/services/admin.js'
 import { ClientTable } from 'vue-tables-2';
 import Vue from 'vue'
 import SubscriptionService from '../../services/subscription';
+import VueLoadingButton from "vue-loading-button";
+
 
 new Vue({
   el: '#index',
@@ -113,9 +120,11 @@ export default {
   components: {
     contentTopHeader,
     SearchInput,
+    VueLoadingButton
   },
   data() {
     return {
+      isLoading: false,
       activeTab: '',
       tabs: [
         { id: 'listener', title: 'Listener' },
@@ -168,10 +177,10 @@ export default {
         let month = row.month
         let params = { id: id, free_credit_month: month }
         await SubscriptionService.freeAccountCredit(params).then((response) => {
+
           this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
         }).catch((e) => {
-          this.$store.dispatch(
-            'error/showErrorToast', [e.body.exception]
+          this.$store.dispatch('error/showErrorToast', [e.body.exception]
           )
         })
       } else {
@@ -195,6 +204,12 @@ export default {
         )
       })
     },
+    handleClick() {
+      if(this.row != null) {
+        this.isLoading = true
+        this.$store.dispatch('error/showLoadingActivity', true)
+      }
+    }
   },
   computed: {
     currentUser() {

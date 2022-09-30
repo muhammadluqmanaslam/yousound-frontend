@@ -48,6 +48,7 @@
     "vue-head": "2.0.12",
     "vue-intercom": "1.0.13",
     "vue-lazyload": "1.2.6",
+    "vue-loading-button": "^0.2.0",
     "vue-methods-promise": "0.2.2",
     "vue-numeric": "2.3.0",
     "vue-on-click-outside": "1.0.3",

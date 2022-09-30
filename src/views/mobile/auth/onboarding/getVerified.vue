@@ -40,13 +40,18 @@
     <div class="footnote">
         If we need to contact you we will send a direct message from <strong>@yousoundapp</strong>
     </div>
-
-    <NavFooter
-      :nextValidated="validated('skipToast')"
-      :current="current"
-      @nextStage="handleNextStage"
-      @prevStage="handlePrevStage"
-    />
+    <VueLoadingButton
+      @click.native="handleClick"
+      :loading="isLoading"
+      style="padding-left: 40%;"
+    >
+      <NavFooter
+        :nextValidated="validated('skipToast')"
+        :current="current"
+        @nextStage="handleNextStage"
+        @prevStage="handlePrevStage"
+      />
+    </VueLoadingButton>
   </div>
 </template>
 
@@ -54,13 +59,17 @@
 import { mapActions, mapMutations, mapState } from 'vuex';
 import NavFooter from "./navFooter";
 import AuthService from '@/services/auth';
+import VueLoadingButton from "vue-loading-button";
+
 
 export default {
   components: {
     NavFooter,
+    VueLoadingButton
   },
   data() {
     return {
+      isLoading: false,
       socialChannel: "",
       socialUsername: "@",
     };
@@ -155,14 +164,11 @@ export default {
         formData.append('user[social_user_id]', user_params.social_user_name)
         formData.append('user[user_type]', user_params.user_type)
 
-        this.$store.dispatch('error/showLoadingActivity', true)
 
         await AuthService.registerAsArtist(formData).then(response => {
-          this.$store.dispatch('error/showLoadingActivity', false)
           this.gotoNextStage(this.current + 1);
         })
         .catch((e) => {
-          this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch("error/showErrorToast", e.body.errors)
         })
       }
@@ -172,6 +178,16 @@ export default {
         this.gotoPrevStage(this.current - 1);
       }
     },
+    handleClick() {
+      if(this.validated()) {
+        this.isLoading = true
+        this.$store.dispatch('error/showLoadingActivity', true)
+
+        .catch((e) => {
+          this.$store.dispatch("error/showErrorToast", e.body.errors);
+        })
+      }
+    }
   },
   created() {
     this.socialChannel = this.getSocialChannel;
