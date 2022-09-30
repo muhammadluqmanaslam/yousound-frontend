@@ -251,10 +251,6 @@ export default {
       if(this.validated()) {
         this.isLoading = true
         this.$store.dispatch('error/showLoadingActivity', true)
-
-        .catch((e) => {
-          this.$store.dispatch("error/showErrorToast", e.body.errors);
-        })
       }
     }
   },
