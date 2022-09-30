@@ -135,6 +135,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
 
     .top_title {
       font-size: 32px;
@@ -231,16 +232,6 @@ export default {
     font-weight: bold;
     font-size: 18px;
     cursor: pointer;
-  }
-
-  .dialog {
-    border-radius: 10px;
-
-    &:not(.dialog--fullscreen) {
-      width: auto !important;
-      border-radius: 6px;
-      overflow: auto;
-    }
   }
 }
 </style>
