@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <v-dialog v-model="initPayment" content-class="payment-dialog">
+    <v-dialog v-model="initPayment" content-class="plans-dialog">
       <payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
     </v-dialog>
   </div>

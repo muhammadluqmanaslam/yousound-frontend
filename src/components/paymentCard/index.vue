@@ -359,6 +359,21 @@ export default {
     }
   }
 }
+
+.dialog.plans-dialog {
+  width: auto !important;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 1);
+
+  .payment-modal {
+    width: 755px;
+
+    &.paymentSuccessful,
+    &.paymentFailed {
+      width: 398px;
+    }
+  }
+}
 .overlay.overlay--active {
   width: auto;
   background-color: rgba(0, 0, 0, 0.9);
