@@ -504,36 +504,47 @@
 
       <price-tab v-else-if="active_tab == 'repost-price'" />
 
-      <address-tab v-else-if="active_tab == 'shipping-address'" actionRight />
+      <v-flex v-else-if="active_tab == 'shipping-address'" xs12 sm4>
+        <address-tab
+          actionRight
+          singleCol
+          hideRequireIcon
+          header="Update your shipping address"
+        />
+      </v-flex>
 
       <div class="main-section" v-else-if="active_tab == 'blocked'">
-        <div class="description-section">
+        <!-- <div class="description-section">
           <p>You can unblock users here</p>
-        </div>
+        </div> -->
+
         <div class="content-section">
           <v-layout row wrap bocked-user-section ma-0>
             <v-flex
               xs12
+              sm4
               form-group
               v-for="(blockedUser, index) in currentUser.blocked_users"
               :key="index"
             >
-              <div
-                class="blocked-user-profile-image"
-                :style="{
-                  'background-image':
-                    'url(' + blockedUser.avatar.thumb.url + ')',
-                }"
-              ></div>
-              <!-- <profile-item :user="blockedUser" :className="'blocked-user-profile-image'"></profile-item> -->
-              <label class="blocked-user-name">{{
-                blockedUser.username
-              }}</label>
-              <v-btn
-                class="unblock-btn"
-                @click.native="unblockUser(blockedUser)"
-                >Unblock</v-btn
-              >
+              <div class="blocked-users">
+                <div
+                  class="blocked-user-profile-image"
+                  :style="{
+                    'background-image':
+                      'url(' + blockedUser.avatar.thumb.url + ')',
+                  }"
+                ></div>
+                <!-- <profile-item :user="blockedUser" :className="'blocked-user-profile-image'"></profile-item> -->
+                <label class="blocked-user-name">{{
+                  blockedUser.username
+                }}</label>
+                <v-btn
+                  class="unblock-btn"
+                  @click.native="unblockUser(blockedUser)"
+                  >Unblock</v-btn
+                >
+              </div>
             </v-flex>
           </v-layout>
         </div>
@@ -567,5 +578,15 @@
 .logout-btn {
   border: 1px solid #d8d8d8;
   background: transparent;
+}
+.address-section {
+  .header {
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  /deep/ .control-label {
+    font-weight: 500;
+  }
 }
 </style>
