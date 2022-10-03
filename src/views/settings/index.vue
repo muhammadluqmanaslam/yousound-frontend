@@ -387,44 +387,90 @@
 
       <div class="main-section" v-else-if="active_tab == 'bank-details'">
         <div class="description-section">
-          <p>
+          <!-- <p>
             In order to accept payments you must connect your
             <a href="https://stripe.com/" target="_blank">Stripe.com</a>
             account. <br />
             Stripe will handle your banking information, refunds and/or
             disputes.
-          </p>
-          <p></p>
+          </p> -->
+
+          <div class="app-bold _title">
+            Connect payment processor to accept payments & handle refunds.
+          </div>
+
+          <div class="my-2 _subtitle">
+            Payment process
+          </div>
         </div>
         <div class="content-section">
-          <v-flex xs12 bank-details-section pa-0>
-            <v-flex xs12 form-group stripe>
-              <img src="/static/images/stripe-logo-blue.png" />
-              <div v-if="!currentUser.stripe_connected">
-                <v-btn :href="stripeLink" target="_self" class="update-btn" dark
-                  >Connect Stripe</v-btn
-                >
-              </div>
-              <div v-else>
-                <v-btn
-                  @click="openStripeDisconnectConfirmDialog()"
-                  color="red"
-                  class="update-btn"
-                  >Disconnect Stripe</v-btn
-                >
+          <v-flex xs12 sm4 bank-details-section pa-0>
+            <div v-if="!currentUser.stripe_connected" class="mb-4">
+              <div class="stripe-status-identifier dflex align-center justify-space-between">
+                <div class="dflex align-center">
+                  <img :src="require('@/assets/stripe_block_dark.svg')" class="stripe-img" width="100" />
+
+                  <div>
+                    <div class="status">Connect Stripe account</div>
+                  </div>
+                </div>
+
                 <div>
-                  <span>connected with: </span>
-                  <label>{{ stripeEmail }}</label>
+                  <router-link :href="stripeLink"></router-link>
+                  <v-icon
+                    class="cursor-pointer stripeLink-icon stripeLink-icon-add"
+                    @click="$router.href(stripeLink)"
+                  >
+                    add
+                  </v-icon>
                 </div>
               </div>
-              <!-- <v-btn
-                @click.native="viewStripeAccount()"
-                class="update-btn"
-                v-if="currentUser.stripe_connected"
-                >View Stripe Account</v-btn
-              > -->
-            </v-flex>
+            </div>
+
+            <div v-else>
+              <div class="stripe-status-identifier stripe-status-identifier-connected dflex justify-space-between align-center">
+                <div class="dflex align-center">
+                  <img :src="require('@/assets/stripe_block_blue.svg')" class="stripe-img" width="100" />
+
+                  <div>
+                    <div class="status-title">Stripe</div>
+                    <div class="status">Connected</div>
+                  </div>
+                </div>
+
+                <div>
+                  <v-icon
+                    class="cursor-pointer stripeLink-icon stripeLink-icon-remove"
+                    @click="openStripeDisconnectConfirmDialog()"
+                  >
+                    remove
+                  </v-icon>
+
+                  <!-- <v-btn
+                    @click="openStripeDisconnectConfirmDialog()"
+                    color="red"
+                    class="update-btn"
+                  >
+                    Disconnect Stripe
+                  </v-btn> -->
+                </div>
+                <!-- <v-btn
+                  @click.native="viewStripeAccount()"
+                  class="update-btn"
+                  v-if="currentUser.stripe_connected"
+                  >View Stripe Account</v-btn
+                > -->
+              </div>
+
+              <div class="stripeEmail-section">
+                {{ stripeEmail }}
+              </div>
+            </div>
           </v-flex>
+
+          <div class="cursor-pointer text-underline app-bold mt-3">
+            View FAQ to learn about payments
+          </div>
         </div>
 
         <v-dialog
