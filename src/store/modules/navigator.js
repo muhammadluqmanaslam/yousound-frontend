@@ -35,7 +35,7 @@ const getters = {
 
   hasNoSidebar: (state) => {
     // pass route name
-    return ['Home', 'Creators', 'AdFree', 'Login', 'Register', 'ForgotPassword', 'Confirmation', 'TermsPage']
+    return ['Home', 'Creators', 'AdFree', 'Login', 'Register', 'ForgotPassword', 'Confirmation', 'TermsPage', 'NotFound']
   },
   hasNoMobileHeader: (state) => {
     // pass route name
