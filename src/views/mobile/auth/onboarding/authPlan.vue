@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="no-selection" @click="handleNextStage">
+    <div v-if="!this.$store.state.auth.user" class="no-selection" @click="handleNextStage">
       No thanks, make me a listener
     </div>
 
