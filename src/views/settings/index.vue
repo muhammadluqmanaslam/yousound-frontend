@@ -144,7 +144,7 @@
                 
                 
                 <div class="plans">
-                  <div class="plan">
+                  <div class="plan" :class="{isCurrentPlan: currentUser.user_type === 'listener'}">
                     <div class="plan-details">
                       <div class="plan-title">
                         Free
@@ -160,6 +160,7 @@
                     v-for="(plan, i) in plansData"
                     :key="i"
                     class="plan"
+                    :class="{isCurrentPlan}"
                   >
                     <div class="plan-details">
                       <div class="plan-title">

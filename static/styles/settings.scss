@@ -222,6 +222,10 @@
           display: flex;
           align-items: center;
           justify-content: space-between;
+          
+          &.isCurrentPlan {
+            border: 2px solid #0085FF;
+          }
 
           &-title {
             font-weight: 700;
