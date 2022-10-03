@@ -18,6 +18,8 @@ export default {
       type: String,
       default: 'Add or change your default shipping address for all of the physical orders you place',
     },
+    singleCol: Boolean,
+    hideRequireIcon: Boolean
   },
   data() {
     return {
