@@ -329,6 +329,16 @@
         }
       }
       .bocked-user-section {
+        .blocked-users {
+          border: 1px solid #d8d8d8;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 15px 20px;
+          margin-bottom: 30px;
+        }
+
         .blocked-user-profile-image {
           width: 37.5px;
           height: 37.5px;
@@ -352,15 +362,17 @@
           margin-left: 7.5px;
         }
         .unblock-btn {
-          box-shadow: none;
-          text-transform: none;
-          vertical-align: middle;
-          background: #3a92ff !important;
-          border-radius: 75px;
-          font-weight: 600;
-          font-size: 15px;
-          color: #ffffff;
-          letter-spacing: 0;
+          // box-shadow: none;
+          // text-transform: none;
+          // vertical-align: middle;
+          // font-weight: 600;
+          // font-size: 15px;
+          // letter-spacing: 0;
+          border-color: #c4c4c4;
+
+          &:hover {
+            background: transparent !important;
+          }
         }
       }
       .policy-area {

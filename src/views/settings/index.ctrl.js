@@ -15,6 +15,7 @@ import priceTab from './components/price_tab'
 import verifyTab from './components/verify_tab'
 import contentTopHeader from '@/components/contentTopHeader'
 import dashboardNav from '@/components/dashboardnav'
+import UserTag from '@/components/user_tag'
 import { mapState } from 'vuex'
 
 // import { MyEvents } from '@/helper'
@@ -34,6 +35,7 @@ export default {
     verifyTab,
     contentTopHeader,
     dashboardNav,
+    UserTag,
   },
 
   data() {

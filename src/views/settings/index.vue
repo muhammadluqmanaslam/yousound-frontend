@@ -528,22 +528,24 @@
               :key="index"
             >
               <div class="blocked-users">
-                <div
-                  class="blocked-user-profile-image"
-                  :style="{
-                    'background-image':
-                      'url(' + blockedUser.avatar.thumb.url + ')',
-                  }"
-                ></div>
+                <user-tag
+                  :user="blockedUser"
+                  showAvatar
+                  clickUser
+                  showUserType
+                  width="50"
+                  height="50"
+                />
                 <!-- <profile-item :user="blockedUser" :className="'blocked-user-profile-image'"></profile-item> -->
-                <label class="blocked-user-name">{{
-                  blockedUser.username
-                }}</label>
+
                 <v-btn
+                  outline
+                  round
                   class="unblock-btn"
                   @click.native="unblockUser(blockedUser)"
-                  >Unblock</v-btn
                 >
+                  Unblock
+                </v-btn>
               </div>
             </v-flex>
           </v-layout>
@@ -587,6 +589,13 @@
 
   /deep/ .control-label {
     font-weight: 500;
+  }
+}
+
+.user_tag {
+  .tag__usertype {
+    font-weight: 500;
+    margin-top: 10px;
   }
 }
 </style>
