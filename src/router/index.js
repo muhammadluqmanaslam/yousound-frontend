@@ -64,6 +64,7 @@ import AlbumEdit from '@/views/album/album_edit'
 import PaymentIndex from '@/views/payments/index'
 import StripeConnectPage from '@/views/user/stripe_connect'
 import UserProfile from '@/views/user/profile'
+import NotFound from '@/views/404'
 import UserGetVerified from '@/views/user/get_verified'
 import UserSettings from '@/views/settings/index'
 import VideoIndex from '@/views/video/index'
@@ -342,8 +343,8 @@ export function createRouter(settings) {
   }
 
   routes = routes.concat([
-    { path: '*', redirect: '/' },
     { path: '/:slug', name: 'UserProfile', component: UserProfile },
+    { path: '*', name: 'NotFound', component: NotFound },
   ])
 
   return new Router({
