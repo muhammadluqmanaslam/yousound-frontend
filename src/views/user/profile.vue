@@ -286,12 +286,12 @@
         <div v-else-if="active_tab == 'merch'">
           <template v-if="!products || products.length == 0">
             <template v-if="currentUser && currentUser.id == user.id">
-              <div class="empty-section">
+              <div v-if="currentUser.creator_verified" class="empty-section">
                 <p class="empty-title">Empty</p>
                 <p class="empty-description">
                   You have not uploaded any products
                 </p>
-                <router-link to="/product/add" class="empty-discover-btn" :style="currentUser.creator_verified ? '' : 'display: none'"
+                <router-link to="/product/add" class="empty-discover-btn"
                   >Upload</router-link
                 >
               </div>
@@ -349,7 +349,7 @@
           <template v-if="!albums || albums.length == 0">
             <template v-if="active_tab == 'songs'">
               <template v-if="currentUser && currentUser.id == user.id">
-                <div class="empty-section">
+                <div v-if="currentUser.creator_verified" class="empty-section">
                   <p class="empty-title">Empty</p>
                   <p class="empty-description">You have no uploaded albums</p>
                   <router-link to="/upload/album" class="empty-discover-btn"
