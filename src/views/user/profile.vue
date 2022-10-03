@@ -291,7 +291,7 @@
                 <p class="empty-description">
                   You have not uploaded any products
                 </p>
-                <router-link to="/product/add" class="empty-discover-btn"
+                <router-link to="/product/add" class="empty-discover-btn" :style="currentUser.creator_verified ? '' : 'display: none'"
                   >Upload</router-link
                 >
               </div>
