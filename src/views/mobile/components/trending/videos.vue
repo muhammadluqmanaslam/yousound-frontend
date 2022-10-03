@@ -22,6 +22,19 @@
             :coverRadius="coverRadius"
           />
         </span>
+        <v-dialog v-model="showRegisterModal">
+          <v-card>
+            <v-card-title class="headline"
+              >Register</v-card-title
+            >
+            <v-card-text
+              >Please do signup if you want to proceed.</v-card-text
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </template>
     </item-tab>
 
@@ -73,6 +86,7 @@ export default {
   data() {
     return {
       only_follows: false,
+      showRegisterModal: true,
     };
   },
   computed: {
@@ -141,7 +155,7 @@ export default {
     },
   },
   created() {
-    this.loadTrendingVideos();
+    // this.loadTrendingVideos();
   },
 };
 </script>

@@ -21,6 +21,19 @@
             :showFullOverlay="showFullOverlay"
           />
         </span>
+        <v-dialog v-model="showRegisterModal">
+        <v-card>
+          <v-card-title class="headline"
+            >Register</v-card-title
+          >
+          <v-card-text
+            >Please do signup if you want to proceed.</v-card-text
+          >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       </template>
     </item-tab>
 
@@ -82,6 +95,7 @@ export default {
       page_index: 1,
       total_pages: 1,
       genres: [],
+      showRegisterModal: true,
     };
   },
   computed: {
@@ -198,9 +212,10 @@ export default {
     },
   },
   created() {
-    this.seed = Math.random();
+    this.showRegisterModal = true
+    // this.seed = Math.random();
 
-    this.loadTrendingProducts();
+    // this.loadTrendingProducts();
   },
 };
 </script>

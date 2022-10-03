@@ -11,7 +11,7 @@ const getters = {}
 
 const actions = {
   async getTrendingMusic({ commit }, params) {
-    return await SearchService.searchDiscover(params)
+    return await SearchService.searchDiscoverPublicUser(params)
     .then((response) => commit('setTrendingMusic', response.body.albums))
   },
   async getTrendingVideos({ commit }, params) {
