@@ -106,14 +106,26 @@
                 >
               </div>
 
-              <div class="form-group">
-                <label class="control-label">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="profile.display_name"
-                  disabled
-                />
+              <div class="form-group user-names">
+                <div class="dflex justify-space-between align-center _wrapper">
+                  <div class="first-name">
+                    <label class="control-label">First Name</label>
+                    <input
+                      v-model="profile.firstName"
+                      type="text"
+                      class="form-control"
+                    />
+                  </div>
+
+                  <div class="last-name">
+                    <label class="control-label">Last Name</label>
+                    <input
+                      v-model="profile.lastName"
+                      type="text"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
               </div>
 
               <div class="form-group">
@@ -558,7 +570,21 @@
         :updateUser="updateUser"
       />
 
-      <verify-tab v-else-if="active_tab == 'verify-status'" />
+      <!-- <verify-tab v-else-if="active_tab == 'verify-status'" /> -->
+
+      <div v-else-if="active_tab == 'verify-status'" class="main-section">
+        <v-flex xs12 sm3 verify-section>
+          <div v-if="currentUser.approver.display_name" class="verify-wrapper verified">
+            <div class="app-bold verify-status">Verified</div>
+            <div class="verified-by">by {{ currentUser.approver.display_name }}</div>
+          </div>
+
+          <div v-else class="verify-wrapper pending">
+            <div class="app-bold verify-status">Pending</div>
+            <div class="verified-by">-</div>
+          </div>
+        </v-flex>
+      </div>
     </div>
   </div>
 </template>

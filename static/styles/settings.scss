@@ -79,6 +79,16 @@
             padding: 15px;
           }
         }
+        .user-names {
+          ._wrapper {
+            gap: 20px;
+
+            .first-name,
+            .last-name {
+              flex: 1;
+            }
+          }
+        }
 
         .profile-image-section {
           background-color: #3a92ff;
@@ -371,6 +381,7 @@
           border-color: #c4c4c4;
 
           &:hover {
+            background-color: transparent !important;
             background: transparent !important;
           }
         }
@@ -613,6 +624,15 @@
           letter-spacing: 0;
           text-transform: none;
         }
+      }
+    }
+
+    .verify-section {
+      .verify-wrapper {
+        border: 1px solid #D8D8D8;
+        padding: 15px 10px;
+
+        border-radius: 4px;
       }
     }
   }
