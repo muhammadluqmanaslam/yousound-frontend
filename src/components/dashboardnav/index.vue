@@ -22,9 +22,9 @@
 
                     <v-spacer></v-spacer>
 
-                    <li>
+                    <!-- <li>
                         <v-btn depressed to="/upload" class="upload-btn">Upload</v-btn>
-                    </li>
+                    </li> -->
                     <li>
                         <v-menu
                         v-if="currentUser"
