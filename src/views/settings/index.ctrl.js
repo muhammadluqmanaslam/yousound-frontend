@@ -150,6 +150,9 @@ export default {
   },
 
   methods: {
+    isCurrentPlan(plan) {
+      return plan.id === this.currentUser.stripe_subscription_id
+    },
     signOut() {
       AuthService.signout()
       this.$router.push({ path: '/login' })

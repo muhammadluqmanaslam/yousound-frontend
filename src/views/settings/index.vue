@@ -39,7 +39,7 @@
         <div class="description-section"></div>
         <div class="content-section">
           <v-layout row wrap ma-0 profile-section>
-            <v-flex xs4 pa-0>
+            <v-flex xs12 sm4 pa-0>
               <div class="dflex align-center justify-space-between mb-4">
                 <div class="avatar-section">
                   <h2 class="mb-3">Profile info</h2>
@@ -160,7 +160,7 @@
                     v-for="(plan, i) in plansData"
                     :key="i"
                     class="plan"
-                    :class="{isCurrentPlan}"
+                    :class="{isCurrentPlan: isCurrentPlan(plan)}"
                   >
                     <div class="plan-details">
                       <div class="plan-title">
@@ -283,100 +283,103 @@
         <div class="description-section"></div>
         <div class="content-section">
           <v-layout row wrap ma-0 password-section>
-            <v-flex xs12 sm6>
-              <v-layout row wrap>
-                <v-flex xs12 form-group>
-                  <label class="control-label"
-                    >Current Password<label class="required">*</label></label
+            <v-flex xs12 sm4>
+              <div class="app-bold mb-3">
+                Reset your password
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">
+                  Current Password
+                </label>
+                <!-- <input type="password" class="form-control" v-model="password.current_password"> -->
+                <div
+                  class="form-group"
+                  :class="{ 'has-error': errors.has('password') }"
+                >
+                  <input
+                    class="form-control"
+                    v-model="password.current_password"
+                    v-validate="'required'"
+                    :class="{
+                      input: true,
+                      'text-danger': errors.has('password'),
+                    }"
+                    name="password"
+                    type="password"
+                  />
+                  <p
+                    class="text-danger text-xs-left"
+                    v-if="errors.has('password')"
                   >
-                  <!-- <input type="password" class="form-control" v-model="password.current_password"> -->
-                  <div
-                    class="form-group"
-                    :class="{ 'has-error': errors.has('password') }"
+                    {{ errors.first("password") }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">
+                  New Password
+                </label>
+                <!-- <input type="password" class="form-control" v-model="password.new_password"> -->
+                <div
+                  class="form-group"
+                  :class="{ 'has-error': errors.has('new_password') }"
+                >
+                  <input
+                    class="form-control"
+                    v-model="password.new_password"
+                    v-validate="'required'"
+                    :class="{
+                      input: true,
+                      'text-danger': errors.has('new_password'),
+                    }"
+                    name="new_password"
+                    type="password"
+                  />
+                  <p
+                    class="text-danger text-xs-left"
+                    v-if="errors.has('new_password')"
                   >
-                    <input
-                      class="form-control"
-                      v-model="password.current_password"
-                      v-validate="'required'"
-                      :class="{
-                        input: true,
-                        'text-danger': errors.has('password'),
-                      }"
-                      name="password"
-                      type="password"
-                    />
-                    <p
-                      class="text-danger text-xs-left"
-                      v-if="errors.has('password')"
-                    >
-                      {{ errors.first("password") }}
-                    </p>
-                  </div>
-                </v-flex>
-                <v-flex xs12 form-group>
-                  <label class="control-label"
-                    >New Password<label class="required">*</label></label
+                    {{ errors.first("new_password") }}
+                  </p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">
+                  Confirm New Password
+                </label>
+                <!-- <input type="password" class="form-control" v-model="password.confirmed_password"> -->
+                <div
+                  class="form-group"
+                  :class="{ 'has-error': errors.has('confirmed_password') }"
+                >
+                  <input
+                    class="form-control"
+                    v-model="password.confirmed_password"
+                    v-validate="'required'"
+                    :class="{
+                      input: true,
+                      'text-danger': errors.has('confirmed_password'),
+                    }"
+                    name="confirmed_password"
+                    type="password"
+                  />
+                  <p
+                    class="text-danger text-xs-left"
+                    v-if="errors.has('confirmed_password')"
                   >
-                  <!-- <input type="password" class="form-control" v-model="password.new_password"> -->
-                  <div
-                    class="form-group"
-                    :class="{ 'has-error': errors.has('new_password') }"
-                  >
-                    <input
-                      class="form-control"
-                      v-model="password.new_password"
-                      v-validate="'required'"
-                      :class="{
-                        input: true,
-                        'text-danger': errors.has('new_password'),
-                      }"
-                      name="new_password"
-                      type="password"
-                    />
-                    <p
-                      class="text-danger text-xs-left"
-                      v-if="errors.has('new_password')"
-                    >
-                      {{ errors.first("new_password") }}
-                    </p>
-                  </div>
-                </v-flex>
-                <v-flex xs12 form-group>
-                  <label class="control-label"
-                    >Confirm New Password<label class="required"
-                      >*</label
-                    ></label
-                  >
-                  <!-- <input type="password" class="form-control" v-model="password.confirmed_password"> -->
-                  <div
-                    class="form-group"
-                    :class="{ 'has-error': errors.has('confirmed_password') }"
-                  >
-                    <input
-                      class="form-control"
-                      v-model="password.confirmed_password"
-                      v-validate="'required'"
-                      :class="{
-                        input: true,
-                        'text-danger': errors.has('confirmed_password'),
-                      }"
-                      name="confirmed_password"
-                      type="password"
-                    />
-                    <p
-                      class="text-danger text-xs-left"
-                      v-if="errors.has('confirmed_password')"
-                    >
-                      {{ errors.first("confirmed_password") }}
-                    </p>
-                  </div>
-                </v-flex>
-                <v-flex xs12>
-                  <v-btn class="update-btn" @click.native="updatePassword()"
-                    >Update</v-btn
-                  >
-                </v-flex>
-              </v-layout>
+                    {{ errors.first("confirmed_password") }}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <v-btn class="update-btn" @click.native="updatePassword()">
+                  Save
+                </v-btn>
+              </div>
             </v-flex>
           </v-layout>
         </div>
