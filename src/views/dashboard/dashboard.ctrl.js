@@ -921,7 +921,7 @@ export default {
           colTabs: null,
           dataTables: [
             {
-              title: 'Top 10 creators your subscription is supporting this month',
+              title: 'Top 10 creators for this month',
               headers: [
                 {
                   text: 'Top 10 Creators',
