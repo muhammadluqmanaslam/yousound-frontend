@@ -8,6 +8,7 @@ import PlaylistService from '@/services/playlist'
 import albumReportDialog from '@/components/album_report_dialog'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
+import { Howler, Howl } from "howler";
 
 export default {
   components: {
@@ -65,6 +66,8 @@ export default {
       },
       page: '',
       selectedImage: null,
+      showRegisterModal: false,
+      listeningTimer: null,
     }
   },
 
@@ -174,7 +177,8 @@ export default {
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus',
+      setPlaying: "player/setPlayingStatus",
+      setPauseStatus: "player/setPauseStatus",
     }),
     ...mapMutations({
       setAlbumPrevRoute: 'appMobile/setAlbumPrevRoute',
@@ -191,18 +195,51 @@ export default {
     },
 
     playSong() {
-      if (this.isPlaying && this.$store.state.player.isPaused) {
+      if (this.isPlaying && this.$store.state.player.isPaused && this.currentUser !== null) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
       } else {
+        this.setPauseStatus(false)
         this.setPlaylist(this.objects)
         this.setPlaylistIndex(this.objectIndex)
         this.setPlaying(true)
         this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, 0)
+        if (this.currentUser === null) {
+          for (var i = 0; i < Howler._howls.length; i++) {
+            Howler._howls[i].unload();
+          }
+          var sound = new Howl({
+            src: [this.objects[this.objectIndex].tracks[0].mp_channel_1_ep_1_url],
+            html5: true,
+            onplay: () => {
+              clearTimeout(this.listeningTimer);
+              this.listeningTimer = setTimeout(() => {
+                sound.pause();
+                this.pauseSong();
+                for (var i = 0; i < Howler._howls.length; i++) {
+                  Howler._howls[i].unload();
+                }
+                this.showRegisterModal = true;
+              }, 30000)
+            },
+          });
+          sound.play();
+        }
       }
     },
 
     pauseSong() {
-      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+      if (this.currentUser) {
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+      } else {
+        this.setPauseStatus(true)
+        this.setPlaying(false)
+        this.setPlaylist([])
+        this.setPlaylistIndex(0)
+        clearTimeout(this.listeningTimer)
+        for (var i = 0; i < Howler._howls.length; i++) {
+          Howler._howls[i].unload();
+        }
+      }
     },
 
     repostItem() {

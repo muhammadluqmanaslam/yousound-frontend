@@ -22,18 +22,18 @@
           />
         </span>
         <v-dialog v-model="showRegisterModal">
-        <v-card>
-          <v-card-title class="headline"
-            >Register</v-card-title
-          >
-          <v-card-text
-            >Please do signup if you want to proceed.</v-card-text
-          >
-          <v-card-actions>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+          <v-card>
+            <v-card-title class="headline"
+              >Register</v-card-title
+            >
+            <v-card-text
+              >Please do signup if you want to proceed.</v-card-text
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </template>
     </item-tab>
 
