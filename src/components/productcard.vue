@@ -30,7 +30,7 @@
             v-if="showFullOverlay"
             class="full-overlay"
             @click="
-              $router.push({ name: 'SingleProduct', params: { id: item.id } })
+              currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
             "
           >
             <v-icon class="full-overlay_icon icon white--text">visibility</v-icon>
@@ -161,6 +161,19 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="showRegisterModal">
+      <v-card>
+        <v-card-title class="headline"
+          >Register</v-card-title
+        >
+        <v-card-text
+          >Please do signup if you want to proceed.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-flex>
 </template>
 
@@ -220,6 +233,7 @@ export default {
       show_hide_dialog: false,
       is_component_hover: false,
       is_menu_hover: false,
+      showRegisterModal: false,
     };
   },
 
@@ -262,6 +276,10 @@ export default {
   },
 
   methods: {
+    spotlightVideo() {
+      this.showRegisterModal = true
+    },
+
     openMerchDialog() {
       this.showMerchModal = true;
     },

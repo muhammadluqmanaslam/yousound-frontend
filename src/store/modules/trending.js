@@ -19,7 +19,7 @@ const actions = {
     .then((response) => commit('setTrendingVideos', response.body.streams))
   },
   async getTrendingProducts({ commit }, params) {
-    return await SearchService.searchDiscover(params)
+    return await SearchService.searchDiscoverPublicUser(params)
     .then((response) => commit('setTrendingProducts', response.body.products))
   },
 }
