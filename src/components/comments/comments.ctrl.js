@@ -47,7 +47,6 @@ export default {
 
       CommentService.sendComment(params)
         .then((res) => {
-          this.comments.unshift(res.body)
           this.commentText = ''
         })
         .catch((e) => {
