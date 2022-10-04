@@ -121,15 +121,16 @@
                     </div>
 
                     <span
+                      v-if="initShowMore"
                       class="app-grey--text cursor-pointer showMoreActive"
                       @click="showMoreActive = !showMoreActive"
                     >
-                      <b v-if="!showMoreActive" class="show-more-less show-more"
-                        >SHOW MORE</b
-                      >
-                      <b v-if="showMoreActive" class="show-more-less show-less"
-                        >SHOW LESS</b
-                      >
+                      <b v-if="!showMoreActive" class="show-more-less show-more">
+                        SHOW MORE
+                      </b>
+                      <b v-if="showMoreActive" class="show-more-less show-less">
+                        SHOW LESS
+                      </b>
                     </span>
                   </div>
                 </div>

@@ -134,6 +134,9 @@ export default {
       }
       return 'Follow'
     },
+    initShowMore() {
+      return this.stream.description.length >= 138
+    },
   },
 
   created() {
@@ -384,8 +387,10 @@ export default {
     showMoreActive(val) {
       if (val) {
         document.querySelector('.vid__description').style.height = 'auto'
+        console.log(document.querySelector('.vid__description').clientHeight);
       } else {
         document.querySelector('.vid__description').style.height = '20px'
+        console.log(document.querySelector('.vid__description').clientHeight);
       }
     },
     activePaneTab(val) {
@@ -396,4 +401,8 @@ export default {
        }
      }
   },
+  mounted() {
+    // console.log('height:', document.querySelector('.vid__description').style.height);
+    console.log('Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus explicabo itaque quia deleniti earum odio ut facilis, quod possimus. Quia'.length);
+  }
 }
