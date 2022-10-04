@@ -198,6 +198,7 @@
               <div>
                 <v-checkbox
                   v-model="album.is_only_for_live_stream"
+                  hide-details
                 >
                 <template slot="label">
                   <span class="black--text">
@@ -215,22 +216,27 @@
                   <v-checkbox
                     v-model="album.is_content_acapella"
                     label="Acapella"
+                    hide-details
                   ></v-checkbox>
                   <v-checkbox
                     v-model="album.is_content_instrumental"
                     label="Instrumental"
+                    hide-details
                   ></v-checkbox>
                   <v-checkbox
                     v-model="album.is_content_stems"
                     label="Stems"
+                    hide-details
                   ></v-checkbox>
                   <v-checkbox
                     v-model="album.is_content_remix"
                     label="Remix"
+                    hide-details
                   ></v-checkbox>
                   <v-checkbox
                     v-model="album.is_content_dj_mix"
                     label="DJ Mix"
+                    hide-details
                   ></v-checkbox>
                 </div>
               </v-flex>
