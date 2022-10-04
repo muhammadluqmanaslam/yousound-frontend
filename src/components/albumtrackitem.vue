@@ -89,7 +89,7 @@
                 class="track-status-icon"
                 src="/static/images/ic_repeat.png"
               /> -->
-              <label>Repost Album</label>
+              <label>Add to Collection</label>
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile
