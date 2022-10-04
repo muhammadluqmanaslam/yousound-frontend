@@ -677,7 +677,7 @@
                 class="release-now-btn white--text"
                 flat
                 @click.native="beforeReleaseNow()"
-                :disabled="!isAvailableToUploadAlbum"
+                :disabled="slug? !isAvailableToEditAlbum : !isAvailableToUploadAlbum"
                 >Submit</v-btn
               >
               <v-btn

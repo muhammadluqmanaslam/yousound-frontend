@@ -126,6 +126,54 @@ export default {
       )
     },
 
+    isAvailableToEditAlbum() {
+      // console.log('isAvailableToUploadAlbum', this.album.tracks)
+      const failed_track = _.find(
+        this.album.tracks,
+        (track) => track.status !== 2
+      )
+      const has_failed_track = !!failed_track
+      let isSamplingsGood = true
+      let sampling_track_id = 0
+      let sample_track_id = 0
+      let sample_album_id = 0
+      let sample_user_id = 0
+      for (let i = 0; i < this.samplings.length; i++) {
+        sampling_track_id = _.get(this.samplings[i], 'sampling_track_id', 0)
+        sample_track_id = _.get(this.samplings[i], 'sample_track_id', 0)
+        sample_album_id = _.get(
+          this.samplings[i],
+          'sample_album_id.id',
+          this.samplings[i].sample_album_id
+        )
+        sample_user_id = _.get(
+          this.samplings[i],
+          'sample_user_id.id',
+          this.samplings[i].sample_user_id
+        )
+        // console.log(i, sampling_track_id, sample_track_id, sample_album_id, sample_user_id)
+        if (
+          !(
+            sampling_track_id > 0 &&
+            sample_track_id > 0 &&
+            sample_album_id > 0 &&
+            sample_user_id > 0
+          )
+        ) {
+          isSamplingsGood = false
+          break
+        }
+      }
+      return (
+        isSamplingsGood &&
+        this.album.tracks.length > 0 &&
+        !has_failed_track &&
+        this.album.name.length &&
+        this.album_image_url &&
+        this.$store.state.genreSelector.genres.length > 0
+      )
+    },
+
     role_types() {
       return CollaboratorRoleTypes
     },
