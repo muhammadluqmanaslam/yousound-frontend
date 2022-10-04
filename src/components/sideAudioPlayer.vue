@@ -1,9 +1,13 @@
 <template>
-  <div class="side-player" v-if="$store.getters['player/isPlaying']">
+  <div v-if="showFreeTrialModal">
+    <v-dialog v-model="initPlans" content-class="plans-dialog">
+      <AuthPlan />
+    </v-dialog>
+  </div>
+  <div class="side-player" v-else-if="$store.getters['player/isPlaying']">
     <div class="hr-container top">
       <v-divider class="above-cover"></v-divider>
     </div>
-    <AuthPlan v-if="showFreeTrialModal" />
     <v-dialog v-model="showListeningMessage">
       <v-card>
         <v-card-title class="headline"
@@ -359,9 +363,11 @@ export default {
       stillListeningTimer: null,
       remainingTimerCalculator: null,
       remainingTime: 0,
+      remainingStillListenerTimer: 0,
       showPaymentModal: false,
       isSubscribed: false,
       previewTimeCompleted: false,
+      initPlans: false,
     };
   },
 
@@ -504,10 +510,24 @@ export default {
       }
     },
 
+    trigger() {
+      document.addEventListener('keydown', (e) => {
+        if (e.key != null && this.isPlaying) {
+          this.clearStillListeningTimer(true);
+        }
+      })
+
+      document.addEventListener('mousemove', (e) => {
+        if (this.isPlaying) {
+          this.clearStillListeningTimer(true);
+        }
+      })
+    },
+
     play(index) {
       this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
       this.fetchSubscriptionDetails();
-      this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
+      this.clearStillListeningTimer();
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -555,6 +575,7 @@ export default {
             // Stop the wave animation.
             // this.isLoaded = false
             // this.isPlaying = false
+            localStorage.setItem("remainingTime", localStorage.getItem("remainingTime") - self.remainingStillListenerTimer * 1000)
             if (self.isRepeated) {
               self.skipTo(self.index);
             } else {
@@ -599,6 +620,18 @@ export default {
       //     }
       //   })
       // }
+    },
+
+    clearStillListeningTimer(setTimer = false) {
+      if (localStorage.getItem("remainingTime") == null || setTimer) {
+        this.remainingStillListenerTimer = 0
+        localStorage.setItem("remainingTime", 3600000)
+      }
+      if (typeof this.stillListeningTimer === 'number') {
+        clearTimeout(this.stillListeningTimer);
+        this.stillListeningTimer = null
+      }
+      this.stillListeningTimer = setTimeout(this.stillListening, localStorage.getItem("remainingTime"))
     },
 
     /**
@@ -818,7 +851,7 @@ export default {
       return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     },
 
-    stillPlaying() {
+    stillListening() {
       this.pause();
       this.showListeningMessage = true
     },
@@ -827,16 +860,21 @@ export default {
       if (this.previewTimeCompleted) {
         this.pause();
         this.showFreeTrialModal = true;
+        this.initPlans = true;
       } else {
         if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
           this.previewTimeCompleted = true;
           this.pause();
           this.showFreeTrialModal = true
           this.showPaymentModal = true
+          this.initPlans = true;
+          this.remainingTime = 0
           this.updateUserInfo();
+          this.remainingTime = this.remainingTime + 1;
         }
         this.remainingTime = this.remainingTime + 1;
       }
+      this.remainingStillListenerTimer = this.remainingStillListenerTimer + 1;
     },
 
     choosePage(path) {
@@ -856,6 +894,7 @@ export default {
     },
 
     hideListeningMessage() {
+      localStorage.setItem("remainingTime", 3600000)
       this.showListeningMessage = false;
     },
 
@@ -950,6 +989,27 @@ export default {
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer);
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus);
     this.$root.$on(MyEvents.STREM_PLAYER_FULLSCREEN_ENTER, this.pause);
+    this.trigger()
   },
 };
 </script>
+
+<style lang="scss">
+  .dialog.plans-dialog {
+    width: auto;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    .payment-modal {
+      width: 755px;
+      &.paymentSuccessful,
+      &.paymentFailed {
+        width: 398px;
+      }
+    }
+  }
+  .overlay.overlay--active {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+</style>

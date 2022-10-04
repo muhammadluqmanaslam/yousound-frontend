@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
     <video
       ref="myVideoPlayer"
       id="myVideoPlayer"
       class="video-js vjs-default-skin vjs-fluid"
       :class="{onMobile}"
       :playsinline="onMobile"
+      :disabled="true"
       controls
     ></video>
 
@@ -50,7 +51,6 @@ export default {
       player: null,
       pipMode: false,
       videoId: null,
-      showFreeTrialModal: false,
       remainingTimerCalculator: null,
       remainingTime: 0,
       stillListeningTimer: null,
@@ -127,36 +127,35 @@ export default {
   },
   methods: {
     initPlayer() {
-      if (this.isSubscribed) {
-        const vm = this
-        console.log("this.src--->", this.src)
-        vm.player =
-          vm.player || window.videojs('myVideoPlayer', {
-            autoplay: false,
-            controls: true,
-            sources: [
-              {
-                type: 'application/x-mpegURL',
-                src: this.src,
-              },
-            ],
-          })
-        console.log("=====stripe_subscription_id=====", this.currentUser.stripe_subscription_id)
-        if (this.currentUser.stripe_subscription_id === undefined || this.currentUser.stripe_subscription_id === null) {
-          var options = {
-            id: "myVideoPlayer",
-          };
-          vm.player.ima(options);
-          vm.player.ima.initializeAdDisplayContainer();
-          vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
-          vm.player.ima.requestAds();
-        }
-        // register method
-        this.pauseMusicOnPlay();
-      } else {
+      if (this.currentUser.free_trial_time <= 0 && !this.isSubscribed) {
         this.$store.dispatch(
           'error/showErrorToast', ["You must be subscribed in order to view video."]
         )
+      }
+      const vm = this
+      console.log("this.src--->", this.src)
+      vm.player =
+        vm.player || window.videojs('myVideoPlayer', {
+          autoplay: false,
+          controls: true,
+          sources: [
+            {
+              type: 'application/x-mpegURL',
+              src: this.src,
+            },
+          ],
+        })
+      this.pauseMusicOnPlay();
+      console.log("=====stripe_subscription_id=====", this.currentUser.stripe_subscription_id)
+      if (this.currentUser.stripe_subscription_id === undefined || this.currentUser.stripe_subscription_id === null) {
+        var options = {
+          id: "myVideoPlayer",
+        };
+        vm.player.ima(options);
+        vm.player.ima.initializeAdDisplayContainer();
+        vm.player.ima.setContentWithAdTag(null, "https://servedbyadbutler.com/vast.spark?setID=14941&ID=182673&pid=141490", false);
+        vm.player.ima.requestAds();
+        // register method
       }
     },
 
@@ -173,24 +172,33 @@ export default {
     },
 
     pauseMusicOnPlay() {
-      const vm = this
-      vm.player.on('play', () => {
-        this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
-        this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
-        vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
-      })
+        const vm = this
+        vm.player.on('play', () => {
+          this.remainingTime = 0
+          clearTimeout(this.stillListeningTimer);
+          clearInterval(this.remainingTimerCalculator);
+          this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
+          this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
+          vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+        })
 
-      vm.player.on('pause', () => {
-        this.updateUserInfo();
-      })
+        vm.player.on('pause', () => {
+          this.updateUserInfo();
+          this.remainingTime = 0
+          clearTimeout(this.stillListeningTimer);
+          clearInterval(this.remainingTimerCalculator);
+        })
     },
 
     timeCounter() {
-      this.remainingTime = this.remainingTime + 1;
       if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed) {
         this.player.pause();
-        this.showFreeTrialModal = true
         this.updateUserInfo();
+        this.$store.dispatch(
+          'error/showErrorToast', ["You must be subscribed in order to view video."]
+        )
+      } else {
+        this.remainingTime = this.remainingTime + 1;
       }
     },
 
@@ -207,18 +215,19 @@ export default {
       const params = {
         user: { free_trial_time: this.remainingTime },
       }
+      if (this.remainingTime > 0) {
+        UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          AuthService.setUser(response.body)
+        })
+        .catch((e) => {
+          console.log(e)
 
-      UserService.updateUserInfo(this.currentUser.id, params)
-      .then((response) => {
-        AuthService.setUser(response.body)
-      })
-      .catch((e) => {
-        console.log(e)
-
-        this.$store.dispatch(
-          'error/showErrorToast', ["There was an error on updating user info "]
-        )
-      })
+          this.$store.dispatch(
+            'error/showErrorToast', ["There was an error on updating user info "]
+          )
+        })
+      }
       clearTimeout(this.stillListeningTimer);
       clearInterval(this.remainingTimerCalculator);
       this.remainingTime = 0

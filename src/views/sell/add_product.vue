@@ -1,5 +1,5 @@
 <template>
-  <div class="page upload-child sell-page product-page mx-5">
+  <div class="page upload-child sell-page product-page mx-5" v-if="currentUser.creator_verified">
     <topbarNotification
       :content="topBarContent"
       ctaTitle="Connect"
@@ -425,6 +425,9 @@
                     </v-btn>
                   </h2>
                 </v-flex>
+                <span>
+                  Please select <strong>All other countries</strong> in destination to proceed.
+                </span>
                 <v-layout
                   row
                   product-option-content

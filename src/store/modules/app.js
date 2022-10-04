@@ -59,7 +59,7 @@ const state = {
         "Live video exclusive content",
       ],
       active: true,
-      price: "30",
+      price: "40",
       id: "plus",
       stripePriceId: process.env.PLUS_PRICE_ID,
     },
@@ -147,7 +147,7 @@ const getters = {
             id: 'upload',
             icon: require('@/assets/direct_upload.svg'),
             path: 'UploadIndex',
-            allowedUser: ['artist'],
+            allowedUser: ['artist', 'brand'],
           },
           {
             title: 'Discover',
@@ -185,6 +185,20 @@ const getters = {
             icon: require('../../../static/images/cart.svg'),
             path: 'Cart',
           },
+          {
+            title: 'Creator Verification',
+            id: 'verifications',
+            icon: require('@/assets/ic_wave.svg'),
+            path: 'VerificationIndex',
+            allowedUser: ['admin'],
+          },
+          {
+            title: 'Free Account Credits',
+            id: 'freeAccountCredit',
+            icon: require('@/assets/ic_wave.svg'),
+            path: 'FreeAccountCreditIndex',
+            allowedUser: ['admin'],
+          },
           // {
           //   title: 'Sales',
           //   id: 'sales',
@@ -202,6 +216,14 @@ const getters = {
       },
     ]
 
+    let user_info = localStorage.getItem("user_info")
+    if (user_info != null) {
+      user_info = JSON.parse(user_info)
+      const is_creator = user_info.user_type === 'artist' || user_info.user_type === 'brand'
+      if (!(is_creator && user_info.creator_verified)) {
+        tabs[0].items = tabs[0].items.filter(item => item.id !== "upload")
+      }
+    }
     return tabs
   },
   accordions: () => {

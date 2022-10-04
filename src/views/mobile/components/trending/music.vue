@@ -51,6 +51,7 @@
 import itemTab from "@/components/itemTab";
 import trackCard from "@/components/trackcard";
 import SearchService from "@/services/search";
+import { vModelCheckbox } from "@vue/runtime-dom";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -139,11 +140,11 @@ export default {
       if (tab !== "recommended") {
         params["seed"] = this.seed;
       }
-      SearchService.searchDiscover(params)
+      SearchService.searchDiscoverPublicUser(params)
         .then((response) => {
-          this.$store.dispatch("error/showLoadingActivity", false);
-          this.musicFeed = this.musicFeed.concat(response.body.albums);
-          const genres = _.chain(this.musicFeed)
+          vm.$store.dispatch("error/showLoadingActivity", false);
+          let musicFeed = vm.musicFeed.concat(response.body.albums);
+          const genres = _.chain(musicFeed)
             .map("genres")
             .flatMap()
             .keyBy("id")
@@ -152,26 +153,25 @@ export default {
             })
             .sortBy("name")
             .value();
-          this.genres = [
+          vModelCheckbox.genres = [
             // { id: 'go_to_filters', name: 'Set Genre Filters' },
             { id: "any", name: "All" },
           ].concat(genres);
+          vm.page_index = response.body.pagination.current_page;
+          vm.total_pages = response.body.pagination.total_pages;
 
-          this.page_index = response.body.pagination.current_page;
-          this.total_pages = response.body.pagination.total_pages;
-
-          if (page === 1) {
+          if (page === 0) {
             Promise.all([
-              SearchService.searchDiscover(_.extend(params, { page: 2 })),
-              SearchService.searchDiscover(_.extend(params, { page: 3 })),
-              SearchService.searchDiscover(_.extend(params, { page: 4 })),
+              SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+              SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+              SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
             ]).then((values) => {
-              vm.musicFeed = vm.musicFeed.concat(
+              let musicFeed = vm.musicFeed.concat(
                 values[0].body.albums,
                 values[1].body.albums,
                 values[2].body.albums
               );
-              const genres = _.chain(vm.musicFeed)
+              const genres = _.chain(musicFeed)
                 .map("genres")
                 .flatMap()
                 .keyBy("id")
@@ -198,7 +198,7 @@ export default {
   },
   created() {
     // needs to be updated to trending
-    // this.loadFeeds("new", 1);
+    this.loadFeeds("trending", 0);
 
     this.loadTrendingMusic();
   },

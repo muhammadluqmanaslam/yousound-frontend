@@ -83,6 +83,9 @@ export default {
   },
 
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -107,7 +110,8 @@ export default {
         if (this.isDigitalProduct) {
           isAvailable = isAvailable && this.digital_content.file
         } else {
-          if (this.product.shipments.length) {
+          const validCountries = this.product.shipments.filter(shipment => shipment.country == "All other countries") != ""
+          if (this.product.shipments.length && validCountries) {
             for (let index in this.product.shipments) {
               const shipment = this.product.shipments[index]
               isAvailable =

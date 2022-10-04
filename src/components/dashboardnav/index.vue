@@ -21,10 +21,9 @@
                     </li>
 
                     <v-spacer></v-spacer>
-
-                    <!-- <li>
-                        <v-btn depressed to="/upload" class="upload-btn">Upload</v-btn>
-                    </li> -->
+                    <li>
+                      <v-btn v-if="(currentUser.user_type === 'artist' || currentUser.user_type === 'brand') && currentUser.creator_verified" depressed to="/upload" class="upload-btn">Upload</v-btn>
+                    </li>
                     <li>
                         <v-menu
                         v-if="currentUser"

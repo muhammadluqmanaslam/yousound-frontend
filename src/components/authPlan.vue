@@ -66,11 +66,7 @@
       </div>
     </div>
 
-    <div class="no-selection" @click="handleNextStage">
-      No thanks, make me a listener
-    </div>
-
-    <v-dialog v-model="initPayment" content-class="payment-dialog">
+    <v-dialog v-model="initPayment" content-class="plans-dialog">
       <payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
     </v-dialog>
   </div>
@@ -139,6 +135,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
 
     .top_title {
       font-size: 32px;

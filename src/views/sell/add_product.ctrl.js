@@ -130,6 +130,9 @@ export default {
         this.digital_content_category_ids.indexOf(this.product.category) > -1
       )
     },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
 
     isAvailableToAddProduct() {
       var isAvailable =
@@ -146,7 +149,8 @@ export default {
         if (this.isDigitalProduct) {
           isAvailable = isAvailable && this.digital_content.file
         } else {
-          if (this.product.shipments.length) {
+          const validCountries = this.product.shipments.filter(shipment => shipment.country == "All other countries") != ""
+          if (this.product.shipments.length && validCountries) {
             for (let index in this.product.shipments) {
               const shipment = this.product.shipments[index]
               isAvailable =

@@ -1,6 +1,11 @@
 .dialog {
   border-radius: 10px;
-
+  &.plans-dialog,
+  &.payment-dialog {
+    width: auto !important;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+  }
   &:not(.dialog--fullscreen) {
     width: 500px;
     border-radius: 6px;

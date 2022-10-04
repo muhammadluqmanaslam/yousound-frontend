@@ -27,6 +27,12 @@ export default {
     })
   },
 
+  searchDiscoverPublicUser(params) {
+    return Vue.http.post(API_BASE_URL_V1 + '/search_discover_public_user', params, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   searchGlobal(params) {
     return Vue.http.post(API_BASE_URL_V1 + '/search_global', params, {
       headers: { Authorization: $store.state.auth.token },

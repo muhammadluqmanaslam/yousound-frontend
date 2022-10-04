@@ -124,7 +124,12 @@ export default {
 
   created() {
     this.activeTab = this.name;
-
+    if ((this.currentUser.plan === "pro" && this.currentUser.creator_verified !== true) || this.currentUser.plan !== "pro") {
+      this.tabs = this.tabs.filter(tab => tab.title !== "Dashboard")
+    }
+    if (!(this.currentUser.user_type === "artist" || this.currentUser.user_type === 'brand')) {
+      this.tabs = this.tabs.filter(tab => tab.id !== 'sales' && tab.id !== 'manage')
+    }
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith;
     }

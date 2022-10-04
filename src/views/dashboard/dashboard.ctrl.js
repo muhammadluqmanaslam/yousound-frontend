@@ -1615,6 +1615,9 @@ export default {
     this.activeChart = this.selectedInnerTab.breakdown[0].value
   },
   mounted() {
+    if (this.currentUser.plan !== "pro") {
+      this.tabs = []
+    }
     // fix chat resize issue on mount
     window.dispatchEvent(new Event('resize'))
   },

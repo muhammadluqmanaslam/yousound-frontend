@@ -1,0 +1,39 @@
+.verify-align{
+  text-align: center;
+}
+.VueTables__search-field{
+  text-align: left !important;
+}
+.btn-approve{
+  background-color: #4CAF50 !important;
+  border: none;
+  color: white;
+  padding: 8px 0px !important;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.btn-approve :hover{
+  background-color: #4CAF50 !important;
+}
+
+.btn-deny{
+  background-color: #b71c1c !important;
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 8px 0px !important;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.btn-deny :hover{
+  background-color: #b71c1c !important;
+}

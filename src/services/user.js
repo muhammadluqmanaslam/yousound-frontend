@@ -49,6 +49,12 @@ export default {
     })
   },
 
+  uploadStreamLimit(userId) {
+    return Vue.http.get(API_BASE_URL + '/' + userId + '/stream_uploaded_limit_available', {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   updateUserInfo(userId, params) {
     return Vue.http.patch(API_BASE_URL + '/' + userId, params, {
       headers: { Authorization: $store.state.auth.token },

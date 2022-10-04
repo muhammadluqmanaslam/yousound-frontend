@@ -32,11 +32,11 @@
         </div>
       </div>
     </v-menu>
-
+    <span>Username must be between 3 to 20 characters without any special character.</span>
     <input
       v-model="username"
       type="text"
-      placeholder="@username"
+      placeholder="username"
       class="width100 username"
     />
 
@@ -118,6 +118,10 @@ export default {
 
 
       const isValid = toValidate.every((item, index) => {
+        if (index == 1) {
+          const regularExpression = /^[A-Za-z0-9_.]{3,20}$/
+          return regularExpression.test(item)
+        }
         if (!skipToast && !item) {
           this.$store.dispatch("error/showErrorToast",[errors[index]])
           return item

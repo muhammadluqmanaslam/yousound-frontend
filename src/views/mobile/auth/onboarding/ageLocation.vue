@@ -46,15 +46,22 @@
         :options="getCityList"
         identifier="city"
         @selected="selected"
+        style="z-index: 1;"
       ></autocomplete>
     </div>
 
+    <VueLoadingButton
+      @click.native="handleClick"
+      :loading="isLoading"
+      style="padding-left: 40%;"
+    >
     <NavFooter
       :nextValidated="validated('skipToast')"
       :current="current"
       @nextStage="handleNextStage"
       @prevStage="handlePrevStage"
     />
+    </VueLoadingButton>
   </div>
 </template>
 
@@ -63,14 +70,18 @@ import autocomplete from "@/components/autocomplete.vue";
 import NavFooter from "./navFooter";
 import { mapActions, mapMutations, mapState } from "vuex";
 import AuthService from "@/services/auth"
+import VueLoadingButton from "vue-loading-button";
+
 
 export default {
   components: { 
     autocomplete,
     NavFooter,
+    VueLoadingButton
   },
   data() {
     return {
+      isLoading: false,
       ageRange: null,
       ageGroups: [
         {
@@ -193,7 +204,7 @@ export default {
       }
 
     },
-    
+
     async handleNextStage() {
       if (this.validated()) {
         const data = {
@@ -222,7 +233,7 @@ export default {
             this.gotoNextStage(this.current + 1);
           })
           .catch((e) => {
-            this.$store.dispatch("error/showErrorToast", [e])
+            this.$store.dispatch("error/showErrorToast", e.body.errors)
           })
         } else {
           this.updateOnboarding(data);
@@ -236,6 +247,12 @@ export default {
         this.gotoPrevStage(this.current - 1);
       }
     },
+    handleClick() {
+      if(this.validated()) {
+        this.isLoading = true
+        this.$store.dispatch('error/showLoadingActivity', true)
+      }
+    }
   },
   created() {
     this.getCountries();
