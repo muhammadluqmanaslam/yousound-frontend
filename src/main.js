@@ -86,6 +86,7 @@ Vue.filter('timeInWords', Filter.timeInWords)
 Vue.filter('capitalize', Filter.capitalize)
 Vue.filter('truncateInMiddle', Filter.truncateInMiddle)
 Vue.filter('pluralize', Filter.pluralize)
+Vue.filter('toLocalTimeString', Filter.toLocalTimeString)
 
 navigator.sayswho = (function () {
   let ua = navigator.userAgent
