@@ -15,7 +15,7 @@ const actions = {
     .then((response) => commit('setTrendingMusic', response.body.albums))
   },
   async getTrendingVideos({ commit }, params) {
-    return await StreamService.getStreams(params)
+    return await StreamService.getStreamsPublicUsers(params)
     .then((response) => commit('setTrendingVideos', response.body.streams))
   },
   async getTrendingProducts({ commit }, params) {
