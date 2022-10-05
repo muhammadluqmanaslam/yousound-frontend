@@ -212,6 +212,12 @@ const getters = {
           //   icon: 'video_library',
           //   path: 'ManageIndex',
           // },
+          {
+            title: 'Subscribe',
+            id: 'subscribe',
+            icon: require('@/assets/ic_love.svg'),
+            path: 'SubscribeIndex',
+          },
         ],
       },
     ]

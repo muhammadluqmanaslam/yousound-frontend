@@ -122,6 +122,7 @@
                     v-if="subMenu.icon.length > 50"
                     :src="subMenu.icon"
                     class="icon _icon_img"
+                    :class="[`icon_${subMenu.id}`]"
                   />
 
                   <v-icon v-else class="__icon">

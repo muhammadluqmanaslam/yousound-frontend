@@ -102,8 +102,12 @@
         width: 16px;
         opacity: 0.5;
         border-radius: unset;
-        margin-top: -5px;
+        margin-top: -3px;
         margin-left: 4px;
+
+        &.icon_subscribe {
+          opacity: 1;
+        }
       }
 
       .__icon {
