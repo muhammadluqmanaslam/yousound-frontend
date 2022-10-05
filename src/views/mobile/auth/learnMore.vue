@@ -43,7 +43,7 @@
 
           <v-container grid-list-lg layer-container>
             <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm5 tiles-layer>
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm4' : 'sm5']">
                 <div class="tiles">
                   <div class="tile top-left tile-1 square">
                     <div
@@ -87,7 +87,7 @@
                   </div>
                 </div>
 
-                <div v-if="onMobile" class="app-download">
+                <div v-if="!pageMode && onMobile" class="app-download">
                   <img
                     :src="iosStore"
                     width="40%"
@@ -103,7 +103,7 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6 context-layer>
+              <v-flex xs12 context-layer :class="[pageMode? 'sm5' : 'sm6']">
                 <div class="tile-context">
                   <h2 v-if="!onMobile" class="_title">Listen, watch & shop</h2>
                   <h2 v-if="onMobile" class="_title">Build your collection</h2>
@@ -127,7 +127,7 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6 tiles-layer>
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm4' : 'sm6']">
                 <div class="tiles">
                   <div class="tile top-right tile-5 landscape">
                     <div
@@ -174,7 +174,7 @@
             </v-layout>
 
             <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm5 tiles-layer tiles-layer-single>
+              <v-flex xs12 tiles-layer tiles-layer-single :class="[pageMode? 'sm4' : 'sm5']">
                 <div class="tiles single-tile">
                   <div class="tile square">
                     <div
@@ -185,7 +185,7 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6 context-layer>
+              <v-flex xs12 context-layer :class="[pageMode? 'sm5' : 'sm6']">
                 <div class="tile-context">
                   <h2 class="_title">Get paid to share</h2>
                   <div class="_subtitle">
@@ -365,6 +365,10 @@ import contentTopHeader from "@/components/contentTopHeader";
 import appFooter from "@/components/footer";
 
 export default {
+  props: {
+    pageMode: Boolean,
+    setOnMobile: Boolean,
+  },
   components: {
     contentTopHeader,
     appFooter,
@@ -399,7 +403,7 @@ export default {
   },
   computed: {
     onMobile() {
-      return this.$vuetify.breakpoint.smAndDown;
+      return this.setOnMobile || this.$vuetify.breakpoint.smAndDown;
     },
   },
 };
