@@ -16,7 +16,6 @@ import repostPaymentModal from '@/components/repost_payment_modal'
 import SendLoveModal from '@/components/sendlovemodal'
 import SMS from '@/components/SMS'
 import message from './components/message'
-import AuthPlan from "@/views/mobile/auth/onboarding/authPlan"
 
 const ActionCable = require('actioncable')
 const DefaultRepostMessage = 'Hi, if you like this please repost it, thank you.'
@@ -29,7 +28,6 @@ export default {
     repostPaymentModal,
     SendLoveModal,
     SMS,
-    AuthPlan,
   },
 
   mixins: [onClickOutside],
@@ -50,7 +48,6 @@ export default {
       items_per_page: 5 * 5,
       conversations: [],
       conversation: {},
-      initPayment: false,
       conversation_pagination: {
         count: 0,
         current_page: 0,
@@ -83,7 +80,6 @@ export default {
       smsActive: false,
       repostRequestActive: false,
       isSubscribed: false,
-      planModal: false,
     }
   },
 
@@ -403,8 +399,7 @@ export default {
         this.openRepostPaymentModal()
       }
       else if (!this.currentUser.creator_verified) {
-        this.initPayment = true
-        this.planModal = true
+        this.$router.push({path: '/auth-plans'})
       }
       else {
         this.sendMessage()
@@ -523,11 +518,6 @@ export default {
       this.show_repost_payment_modal = false
     },
 
-    closePaymentModal() {
-      this.planModal = false
-      this.initPayment = false
-    },
-
     openRepostModal() {
       this.show_repost_modal = true
     },
@@ -560,8 +550,7 @@ export default {
     },
     initSMS() {
       if (!this.currentUser.creator_verified) {
-        this.initPayment = true
-        this.planModal = true
+        this.$router.push({path: '/auth-plans'})
       } else {
         this.smsActive = true
       }

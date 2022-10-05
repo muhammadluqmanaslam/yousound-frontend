@@ -41,6 +41,7 @@ import NotificationIndex from '@/views/notification/index'
 import CollectionIndex from '@/views/collection/index'
 import Chat from '@/views/chat/chat'
 import VerificationIndex from '@/views/verifications/index'
+import AuthPlanIndex from '@/views/auth_plans/index'
 import FreeAccountCreditIndex from '@/views/free_account_credits/index'
 // import Messages from '@/views/messages/index'
 import DirectMessages from '@/views/user/direct_messages'
@@ -231,6 +232,7 @@ export function createRouter(settings) {
     { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
     { path: '/collection', name: 'CollectionIndex', component: CollectionIndex },
     { path: '/creator-verification', name: 'VerificationIndex', component: VerificationIndex },
+    { path: '/auth-plans', name: 'AuthPlanIndex', component: AuthPlanIndex },
     { path: '/free-account-credit', name: 'FreeAccountCreditIndex', component: FreeAccountCreditIndex },
     {
       path: '/messages',
