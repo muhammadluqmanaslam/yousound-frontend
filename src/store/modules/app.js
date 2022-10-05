@@ -223,6 +223,9 @@ const getters = {
       if (!(is_creator && user_info.creator_verified)) {
         tabs[0].items = tabs[0].items.filter(item => item.id !== "upload")
       }
+      if (user_info.user_type === 'listener') {
+        tabs[0].items = tabs[0].items.filter(item => item.id !== "notifications")
+      }
     }
     return tabs
   },
