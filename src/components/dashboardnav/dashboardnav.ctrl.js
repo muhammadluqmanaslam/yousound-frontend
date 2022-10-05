@@ -130,6 +130,10 @@ export default {
     if (!(this.currentUser.user_type === "artist" || this.currentUser.user_type === 'brand')) {
       this.tabs = this.tabs.filter(tab => tab.id !== 'sales' && tab.id !== 'manage')
     }
+    if (['artist', 'brand'].indexOf(this.currentUser.user_type) > -1 && this.currentUser.creator_verified !== true) {
+      this.tabs = this.tabs.filter(tab => tab.id !== 'sales' && tab.id !== 'manage')
+    }
+
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith;
     }
