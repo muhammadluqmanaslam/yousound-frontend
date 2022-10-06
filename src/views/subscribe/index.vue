@@ -1,7 +1,7 @@
 <template>
   <div class="page no-top-nav no-side-space subscribe-landing">
     <div class="banner">
-      <v-container>
+      <v-container class="content-container">
         <div class="banner-content">
           <h1 class="_title">Join the world’s creators & music lovers.</h1>
           <h1 class="_subtitle">Start your free 30 day trial</h1>
@@ -35,6 +35,12 @@ export default {
     background-image: url("../../assets/subscribe-banner.jpg");
     background-size: cover;
     height: 300px;
+
+    .banner-container {
+      height: 100%;
+      display: grid;
+      align-content: center;
+    }
   }
 
   .banner-content {
