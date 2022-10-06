@@ -62,16 +62,11 @@ export default {
   },
 
   created() {
-    if (this.$store.state.auth.user.user_type !== 'listener') {
-      this.$store.dispatch('navigator/goNextState', { page: 'notification', tab: '' })
+    this.$store.dispatch('navigator/goNextState', { page: 'notification', tab: '' })
 
-      const tab = this.$route.hash.substr(1) || 'messages'
-      this.setTab(tab)
+    const tab = this.$route.hash.substr(1) || 'messages'
+    this.setTab(tab)
 
-      this.processNotifications()
-    } else {
-      this.$router.push({name: 'DiscoverIndex'})
-      this.$store.dispatch("error/showErrorToast", ["You are not authorized to view this page."]);
-    }
+    this.processNotifications()
   },
 }
