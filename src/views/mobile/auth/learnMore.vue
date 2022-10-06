@@ -176,7 +176,7 @@
             <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 tiles-layer tiles-layer-single :class="[pageMode? 'sm4' : 'sm5']">
                 <div class="tiles single-tile">
-                  <div class="tile square">
+                  <div class="tile square" :class="{pageMode}">
                     <div
                       class="_img"
                       :style="`background-image: url('${tile9}')`"
@@ -208,8 +208,8 @@
           
           <v-container grid-list-lg layer-container _creator>
             <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm6>
-                <div class="_img-wrapper text-center">
+              <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
+                <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-1.jpeg')"
                     width="80%"
@@ -240,8 +240,8 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6>
-                <div class="_img-wrapper text-center">
+              <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
+                <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-2.jpeg')"
                     width="80%"
@@ -252,8 +252,8 @@
             </v-layout>
 
             <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm6>
-                <div class="_img-wrapper text-center">
+              <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
+                <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-3.jpeg')"
                     width="80%"
@@ -284,8 +284,8 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6>
-                <div class="_img-wrapper text-center">
+              <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
+                <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-4.jpeg')"
                     width="80%"
@@ -296,8 +296,8 @@
             </v-layout>
 
             <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 sm6>
-                <div class="_img-wrapper text-center">
+              <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
+                <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-5.jpeg')"
                     width="80%"
@@ -328,8 +328,8 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 sm6>
-                <div class="_img-wrapper text-center">
+              <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
+                <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-6.jpeg')"
                     width="80%"
@@ -557,6 +557,10 @@ export default {
       width: 100% !important;
       max-width: unset;
       position: relative;
+
+      &.pageMode {
+        margin-left: 0 !important;
+      }
 
       ._img {
         height: 258px !important;
