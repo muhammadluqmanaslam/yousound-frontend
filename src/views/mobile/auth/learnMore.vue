@@ -342,9 +342,9 @@
         </div>
       </transition>
 
-      <hr class="light mt-5 mb-3">
+      <hr v-if="!hideFooter" class="light mt-5 mb-3">
 
-      <div class="learn-more-footer">
+      <div v-if="!hideFooter" class="learn-more-footer">
         <h2 class="_title">
           Join the community.
           <br />
@@ -368,6 +368,7 @@ export default {
   props: {
     pageMode: Boolean,
     setOnMobile: Boolean,
+    hideFooter: Boolean,
   },
   components: {
     contentTopHeader,
