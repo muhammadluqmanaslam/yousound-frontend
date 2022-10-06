@@ -97,7 +97,10 @@ export default {
         ],
         shipments: [
           {
-            country: '',
+            country: {
+              value: 'All other countries',
+              name: 'All other countries',
+            },
             shipment_alone_price: '',
             shipment_with_price: '',
           },
