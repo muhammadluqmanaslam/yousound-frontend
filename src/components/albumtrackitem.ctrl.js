@@ -6,6 +6,7 @@ import PlaylistService from '@/services/playlist'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
 import profileItem from '@/components/profileitem'
+import UserService from '@/services/user'
 
 export default {
   components: {
@@ -52,6 +53,7 @@ export default {
         image: null,
       },
       selectedImage: null,
+      isSubscribed: false,
     }
   },
   watch: {
@@ -112,7 +114,9 @@ export default {
     },
   },
 
-  created() {},
+  async created() {
+    await this.fetchSubscriptionDetails();
+  },
 
   methods: {
     ...mapActions({
@@ -122,6 +126,20 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    async fetchSubscriptionDetails() {
+      await UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on fetching user info "]
+        )
+      })
+    },
+
     removeItem() {
       this.menu = false
       this.submenu = false
@@ -129,20 +147,24 @@ export default {
     },
 
     repostItem() {
-      this.menu = false
-      this.submenu = false
-      AlbumService.repostAlbum(this.album.id)
-        .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            'You just reposted ' + this.album.name,
-          ])
-        })
-        .catch((e) => {
-          this.$store.dispatch(
-            'error/showErrorToast',
-            e.body.errors || [e.body]
-          )
-        })
+      if (this.isSubscribed) {
+        this.menu = false
+        this.submenu = false
+        AlbumService.repostAlbum(this.album.id)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just reposted ' + this.album.name,
+            ])
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+          })
+      } else {
+        this.$router.push({path: '/auth-plans'})
+      }
     },
 
     showDownloadDialog() {

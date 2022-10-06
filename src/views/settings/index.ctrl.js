@@ -406,6 +406,16 @@ export default {
       this.profile.contact_url = this.currentUser.contact_url
       this.profile.enable_alert = this.currentUser.enable_alert
     },
+
+    isSubscriptionAvailable() {
+      let trial_end = new Date(this.currentUser.trial_end)
+      if (this.currentUser.user_type == 'listener' && this.currentUser.plan && trial_end > new Date) {
+        return true
+      } else if (this.currentUser.plan && this.currentUser.creator_verified) {
+        return true
+      }
+      return false;
+    },
   },
 
   mounted() {

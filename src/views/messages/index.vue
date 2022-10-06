@@ -388,10 +388,6 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-if="planModal" v-model="initPayment" content-class="plans-dialog">
-      <AuthPlan />
-    </v-dialog>
-
     <repost-payment-modal
       v-if="show_repost_payment_modal"
       :item="item"

@@ -77,7 +77,8 @@ export default {
       show_share_dialog: false,
       isPageReady: false,
       showMerchModal: false,
-      mobileHeaderOptions: {}
+      mobileHeaderOptions: {},
+      isSubscribed: false,
     }
   },
 
@@ -140,6 +141,7 @@ export default {
   },
 
   created() {
+    this.fetchSubscriptionDetails();
     this.$store.dispatch('navigator/goNextState', {
       page: 'video',
       tab: 'show',
@@ -164,6 +166,21 @@ export default {
     ...mapActions({
       setMobileFooter: 'appMobile/setMobileFooterOptions',
     }),
+
+    async fetchSubscriptionDetails() {
+      await UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on fetching user info "]
+        )
+      })
+    },
+
     getAssoc(data) {
       this.stream_assoc = data
     },

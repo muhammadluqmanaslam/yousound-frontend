@@ -21,19 +21,6 @@
             :showFullOverlay="showFullOverlay"
           />
         </span>
-        <v-dialog v-model="showRegisterModal">
-        <v-card>
-          <v-card-title class="headline"
-            >Register</v-card-title
-          >
-          <v-card-text
-            >Please do signup if you want to proceed.</v-card-text
-          >
-          <v-card-actions>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
       </template>
     </item-tab>
 
@@ -95,7 +82,6 @@ export default {
       page_index: 1,
       total_pages: 1,
       genres: [],
-      showRegisterModal: true,
     };
   },
   computed: {
@@ -122,7 +108,7 @@ export default {
       getTrendingProducts: "trending/getTrendingProducts",
     }),
     loadTrendingProducts() {
-      if (this.productFeed.length) return;
+      // if (this.productFeed.length) return;
 
       const params = {
         genre: "any",
@@ -150,7 +136,7 @@ export default {
         seed: this.seed,
       };
 
-      SearchService.searchDiscover(params)
+      SearchService.searchDiscoverPublicUser(params)
         .then((response) => {
           this.$store.dispatch("error/showLoadingActivity", false);
           this.products = this.products.concat(response.body.products);
@@ -176,9 +162,9 @@ export default {
 
           if (page === 1) {
             Promise.all([
-              SearchService.searchDiscover(_.extend(params, { page: 2 })),
-              SearchService.searchDiscover(_.extend(params, { page: 3 })),
-              SearchService.searchDiscover(_.extend(params, { page: 4 })),
+              SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+              SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+              SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
             ]).then((values) => {
               vm.products = vm.products.concat(
                 values[0].body.products,
@@ -212,10 +198,9 @@ export default {
     },
   },
   created() {
-    this.showRegisterModal = true
-    // this.seed = Math.random();
+    this.seed = Math.random();
 
-    // this.loadTrendingProducts();
+    this.loadTrendingProducts();
   },
 };
 </script>

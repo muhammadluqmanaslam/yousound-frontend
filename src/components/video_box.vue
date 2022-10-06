@@ -3,7 +3,7 @@
     <div
       class="box__content"
       :class="{ 'cursor-pointer': !hoverOverlay }"
-      @click="!hoverOverlay ? $router.push(`/video/${item.id}/show`) : ''"
+      @click="!hoverOverlay && currentUser != null ? $router.push(`/video/${item.id}/show`) : spotlightVideo()"
     >
       <span v-if="durationTag && !coverOnly" class="duration__tag">{{ durationTag }}</span>
       <div
@@ -71,6 +71,19 @@
         <b class="text-capitalize">{{ item.user.username }}</b>
       </div>
     </div>
+    <v-dialog v-model="showRegisterModal">
+      <v-card>
+        <v-card-title class="headline"
+          >Register</v-card-title
+        >
+        <v-card-text
+          >Please do signup if you want to proceed.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -120,6 +133,12 @@ export default {
       default: false,
     },
     coverRadius: Boolean,
+  },
+
+  data() {
+    return {
+      showRegisterModal: false,
+    }
   },
 
   computed: {
@@ -183,9 +202,17 @@ export default {
 
       return duration;
     },
+
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
   },
 
-  methods: {},
+  methods: {
+    spotlightVideo() {
+      this.showRegisterModal = true
+    },
+  },
 };
 </script>
 

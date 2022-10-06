@@ -11,6 +11,12 @@ export default {
     })
   },
 
+  getStreamsPublicUsers(params) {
+    return Vue.http.get(`${API_BASE_URL}/public_user_streams`, {
+      params: params,
+    })
+  },
+
   getStream(streamId) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}`, {
       headers: { Authorization: $store.state.auth.token },

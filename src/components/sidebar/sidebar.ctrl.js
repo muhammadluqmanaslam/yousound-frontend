@@ -2,6 +2,7 @@ import sideAudioPlayer from '@/components/sideAudioPlayer'
 import shareModal from '@/components/sharemodal'
 import searchInput from '@/components/searchInput'
 import {mapGetters, mapState} from 'vuex'
+import AuthService from '@/services/auth'
 
 export default {
   components: {
@@ -178,6 +179,16 @@ export default {
         //   })
         // )
     },
+
+    async isCreatorVerified() {
+      if (AuthService.isAuthenticated()) {
+        await AuthService.checkTokenValidation().then((response) => {
+          if (response.body !== false) {
+            AuthService.setUser(response.body)
+          }
+        })
+      }
+    },
   },
   computed: {
     ...mapGetters({
@@ -207,6 +218,13 @@ export default {
     this.setUsername()
     if (this.onMobile) {
       this.mini = true
+    }
+  },
+
+  async created() {
+    await this.isCreatorVerified()
+    if (!this.currentUser.creator_verified) {
+      this.tabs[0].items = this.tabs[0].items.filter(tab => tab.id !== "upload")
     }
   },
 }

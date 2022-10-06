@@ -289,7 +289,7 @@
               >
                 Delete account
               </v-btn>
-              <v-btn v-if="currentUser.plan"
+              <v-btn v-if="isSubscriptionAvailable()"
                 round
                 class="cancel-account-btn"
                 style="margin-left: 20px"

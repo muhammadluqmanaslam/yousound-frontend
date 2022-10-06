@@ -46,11 +46,11 @@
                 </div>
 
                 <div class="meta__actions" :class="{'py-3': !ownItem}">
-                  <div v-if="ownItem" class="meta__cta donate">
+                  <div v-if="ownItem && this.isSubscribed" class="meta__cta donate">
                     <img src="/static/images/stat.svg" width="20" />
                   </div>
 
-                  <div v-else class="meta__cta donate" @click="showLoveDialog()">
+                  <div v-if="this.isSubscribed" class="meta__cta donate" @click="showLoveDialog()">
                     <img src="/static/images/ic_dollar.svg" height="21" />
                   </div>
 

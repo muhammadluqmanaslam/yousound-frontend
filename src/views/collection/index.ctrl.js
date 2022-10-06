@@ -7,7 +7,6 @@ import contentTopHeader from "@/components/contentTopHeader"
 import repostMusic from "./repostMusic"
 import repostVideos from "./repostVideos"
 import repostProducts from "./repostProducts"
-import AuthPlan from "@/components/authPlan"
 
 export default {
     components: {
@@ -17,7 +16,6 @@ export default {
         repostMusic,
         repostVideos,
         repostProducts,
-        AuthPlan,
     },
     data() {
         return {

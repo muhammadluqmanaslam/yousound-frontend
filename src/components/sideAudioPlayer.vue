@@ -1,10 +1,5 @@
 <template>
-  <div v-if="showFreeTrialModal">
-    <v-dialog v-model="initPlans" content-class="plans-dialog">
-      <AuthPlan />
-    </v-dialog>
-  </div>
-  <div class="side-player" v-else-if="$store.getters['player/isPlaying']">
+  <div class="side-player" v-if="$store.getters['player/isPlaying']">
     <div class="hr-container top">
       <v-divider class="above-cover"></v-divider>
     </div>
@@ -324,7 +319,6 @@ import { MyEvents } from "@/helper";
 import downloadModal from "@/components/downloadmodal";
 import shareModal from "@/components/sharemodal";
 import UserFollowBtn from "@/components/userFollowBtn";
-import AuthPlan from "@/components/authPlan"
 
 export default {
   props: {
@@ -335,7 +329,6 @@ export default {
     downloadModal,
     shareModal,
     UserFollowBtn,
-    AuthPlan,
   },
 
   data() {
@@ -356,7 +349,6 @@ export default {
       showDownloadModal: false,
       showShareModal: false,
       showListeningMessage: false,
-      showFreeTrialModal: false,
       showReminder: false,
       totalTime: null,
       buttonHover: false,
@@ -364,10 +356,8 @@ export default {
       remainingTimerCalculator: null,
       remainingTime: 0,
       remainingStillListenerTimer: 0,
-      showPaymentModal: false,
       isSubscribed: false,
       previewTimeCompleted: false,
-      initPlans: false,
     };
   },
 
@@ -859,18 +849,15 @@ export default {
     timeCounter() {
       if (this.previewTimeCompleted) {
         this.pause();
-        this.showFreeTrialModal = true;
-        this.initPlans = true;
+        this.$router.push({path: '/auth-plans'})
       } else {
         if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
           this.previewTimeCompleted = true;
           this.pause();
-          this.showFreeTrialModal = true
-          this.showPaymentModal = true
-          this.initPlans = true;
           this.remainingTime = 0
           this.updateUserInfo();
           this.remainingTime = this.remainingTime + 1;
+          this.$router.push({path: '/auth-plans'})
         }
         this.remainingTime = this.remainingTime + 1;
       }
@@ -896,10 +883,6 @@ export default {
     hideListeningMessage() {
       localStorage.setItem("remainingTime", 3600000)
       this.showListeningMessage = false;
-    },
-
-    hidePaymentDialog() {
-      this.showPaymentModal = true;
     },
 
     fetchSubscriptionDetails() {

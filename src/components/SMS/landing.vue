@@ -86,26 +86,20 @@
         </v-btn>
       </div>
     </v-container>
-    <v-dialog v-if="planModal" v-model="initPayment" content-class="plans-dialog">
-      <AuthPlan />
-    </v-dialog>
   </div>
 </template>
 
 <script>
 import smsService from "@/services/sms";
 import UserTag from "@/components/user_tag.vue";
-import AuthPlan from "@/views/mobile/auth/onboarding/authPlan"
 
 export default {
-  components: { UserTag, AuthPlan },
+  components: { UserTag },
   data() {
     return {
       smsList: [],
       smsEngagementActive: false,
       currentMessage: {},
-      planModal: false,
-      initPayment: false,
     };
   },
   computed: {
@@ -142,8 +136,7 @@ export default {
     },
     initSubscribe() {
       if (!(this.currentUser.creator_verified)) {
-        this.planModal = true;
-        this.initPayment = true;
+        this.$router.push({path: '/auth-plans'})
       }
     },
     listAllSMS() {
