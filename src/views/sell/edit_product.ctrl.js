@@ -408,17 +408,18 @@ export default {
         })
       }
       formData.append('shop_product[variants]', JSON.stringify(variants))
+      let shipments = []
       for (let index in this.product.shipments) {
-        this.product.shipments[index].shipment_alone_price = Math.round(
-          this.product.shipments[index].shipment_alone_price * 100
-        )
-        this.product.shipments[index].shipment_with_price = Math.round(
-          this.product.shipments[index].shipment_with_price * 100
-        )
+        let shipment = this.product.shipments[index];
+        shipments.push({
+          ...shipment,
+          shipment_alone_price: shipment.shipment_alone_price * 100,
+          shipment_with_price: shipment.shipment_with_price * 100
+        })
       }
       formData.append(
         'shop_product[shipments]',
-        JSON.stringify(this.product.shipments)
+        JSON.stringify(shipments)
       )
       if (this.product_image1) {
         formData.append('shop_product[cover1]', this.product_image1)
