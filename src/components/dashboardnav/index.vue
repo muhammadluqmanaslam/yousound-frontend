@@ -4,7 +4,7 @@
         <content-top-header>
             <template slot="topHeader">
                 <ul class="width100">
-                    <li
+                    <li v-if="displayTabs"
                     v-for="tab in tabs"
                     :key="tab.id"
                     :href="`#${tab.id}`"
