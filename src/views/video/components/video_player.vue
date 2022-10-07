@@ -172,22 +172,22 @@ export default {
     },
 
     pauseMusicOnPlay() {
-        const vm = this
-        vm.player.on('play', () => {
-          this.remainingTime = 0
-          clearTimeout(this.stillListeningTimer);
-          clearInterval(this.remainingTimerCalculator);
-          this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
-          this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
-          vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
-        })
+      const vm = this
+      vm.player.on('play', () => {
+        vm.remainingTime = 0
+        clearTimeout(vm.stillListeningTimer);
+        clearInterval(vm.remainingTimerCalculator);
+        vm.stillListeningTimer = setTimeout(vm.stillPlaying, 3600000)
+        vm.remainingTimerCalculator = setInterval(vm.timeCounter, 1000)
+        vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+      })
 
-        vm.player.on('pause', () => {
-          this.updateUserInfo();
-          this.remainingTime = 0
-          clearTimeout(this.stillListeningTimer);
-          clearInterval(this.remainingTimerCalculator);
-        })
+      vm.player.on('pause', () => {
+        vm.updateUserInfo();
+        vm.remainingTime = 0
+        clearTimeout(vm.stillListeningTimer);
+        clearInterval(vm.remainingTimerCalculator);
+      })
     },
 
     timeCounter() {

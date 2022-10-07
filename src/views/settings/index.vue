@@ -610,7 +610,7 @@
 
       <div v-else-if="active_tab == 'verify-status'" class="main-section">
         <v-flex xs12 sm3 verify-section>
-          <div v-if="currentUser.approver.display_name" class="verify-wrapper verified">
+          <div v-if="currentUser.approver && currentUser.approver.display_name" class="verify-wrapper verified">
             <div class="app-bold verify-status">Verified</div>
             <div class="verified-by">by {{ currentUser.approver.display_name }}</div>
           </div>

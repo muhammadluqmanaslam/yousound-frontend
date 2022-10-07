@@ -32,7 +32,7 @@ export default {
         this.$store.dispatch('error/showSuccessToast', [`User account has been successfully ${action == "approve" ? "approved" : "rejected"}.`])
       }).catch((e) => {
         this.$store.dispatch(
-          'error/showErrorToast', [e.body.errors]
+          'error/showErrorToast', [e.body.error] || [e.body.errors]
         )
       })
     },
