@@ -186,13 +186,6 @@ const getters = {
             path: 'Cart',
           },
           {
-            title: 'Creator Verification',
-            id: 'verifications',
-            icon: require('@/assets/ic_wave.svg'),
-            path: 'VerificationIndex',
-            allowedUser: ['admin'],
-          },
-          {
             title: 'Free Account Credits',
             id: 'freeAccountCredit',
             icon: require('@/assets/ic_wave.svg'),

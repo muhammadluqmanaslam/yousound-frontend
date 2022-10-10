@@ -200,6 +200,7 @@
       :dismiss="closeApproveModal"
       :approveButtonAction="approveUser"
       :denyButtonAction="denyUser"
+      :activeTab = "active_tab"
     />
 
     <signup-deny-modal
