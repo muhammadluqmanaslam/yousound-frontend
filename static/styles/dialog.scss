@@ -65,6 +65,18 @@
       padding: 0;
     }
   }
+
+  &.dialog-w_auto{
+    width: auto;
+  }
+
+  &.dialog-w_50{
+    width: 50%;
+  }
+
+  &.dialog-no_shadow{
+    box-shadow: none;
+  }
 }
 
 .dialog.large:not(.dialog--fullscreen) {
