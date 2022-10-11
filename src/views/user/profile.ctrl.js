@@ -165,7 +165,7 @@ export default {
       }
       return 'Follow'
     },
-    smsCount() 
+    smsCount() {
       return this.smsList.length
     }
   },
