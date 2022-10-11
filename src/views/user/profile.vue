@@ -224,6 +224,27 @@
           </ul> -->
         </template>
       </content-top-header>
+      
+      <content-top-header absolute>
+        <template slot="topHeader">
+          <ul class="width100">
+            <template v-for="tab in tabs">
+              <li
+                v-if="isAvailableForGridView(tab)"
+                v-show="['followings', 'followers'].indexOf(tab.id) == -1"
+                :key="tab.id"
+                :href="`#${tab.id}`"
+                class="nav-li"
+                :class="[{ 'active tab-active': isActiveTab(tab.id) }, `nav-${tab.id}`]"
+              >
+                <label class="nav-label"  @click="onTab(tab.id)">
+                  {{ tab.title }}
+                </label>
+              </li>
+            </template>
+          </ul>
+        </template>
+      </content-top-header>
 
       <div class="page-content">
         <div v-if="active_tab == 'followings' || active_tab == 'followers'">
