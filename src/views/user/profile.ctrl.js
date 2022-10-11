@@ -5,6 +5,7 @@ import Vue from 'vue'
 import { mapActions } from 'vuex'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
+import smsService from "@/services/sms";
 import { MyEvents, ViolationsEmail, PublicRelationsUsername } from '@/helper'
 import albumSlideCard from '@/components/albumslidecard'
 import carousel3d from '@/components/slider/Carousel3d'
@@ -94,6 +95,7 @@ export default {
       buttonHover: false,
       isPageReady: false,
       ownVideos: [],
+      smsList: [],
     }
   },
 
@@ -163,6 +165,9 @@ export default {
       }
       return 'Follow'
     },
+    smsCount() 
+      return this.smsList.length
+    }
   },
 
   watch: {
@@ -201,6 +206,8 @@ export default {
     this.init(tab, grid_view, auto_play, true)
 
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
+
+    this.listAllSMS()
   },
 
   beforeDestroy() {
@@ -731,6 +738,32 @@ export default {
       AuthService.signout()
       this.$router.push({ path: '/login' })
       this.$root.$emit(MyEvents.AUTH_SIGNOUT)
+    },
+    listAllSMS() {
+      smsService
+        .listSMS()
+        .then((response) => {
+          this.smsList = response.body;
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
+    setMenuAction(menu) {
+      switch (menu.id) {
+        case "profile":
+          this.$router.push(`/${this.currentUser.slug}`);
+          break;
+        case "signOut":
+          this.signOut();
+          break;
+        default:
+          this.$router.push({ name: menu.pathName });
+          break;
+      }
     },
   },
 
