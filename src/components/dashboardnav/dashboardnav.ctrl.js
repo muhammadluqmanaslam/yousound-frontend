@@ -20,6 +20,7 @@ export default {
     return {
       activeTab: "",
       daysFilter: 7,
+      displayTabs: false,
       tabs: [
         {
           id: "dashboard",
@@ -124,7 +125,6 @@ export default {
       if (AuthService.isAuthenticated()) {
         await AuthService.checkTokenValidation().then((response) => {
           if (response.body !== false) {
-            // console.log('App created', response.body)
             AuthService.setUser(response.body)
           }
         })
@@ -149,5 +149,6 @@ export default {
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith;
     }
+    this.displayTabs = true
   },
 };
