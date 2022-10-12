@@ -63,6 +63,8 @@ export default {
         email: '',
         contact_url: '',
         enable_alert: false,
+        first_name: '',
+        last_name: '',
       },
       password: {
         current_password: '',

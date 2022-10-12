@@ -3,7 +3,7 @@
     <v-dialog v-model="show_verification_modal">
       <v-card>
         <v-card-title class="headline"
-          >Deactivate Subscription</v-card-title
+          >Free Account Credits</v-card-title
         >
         <v-card-text>
           Are you sure you want to make these changes?

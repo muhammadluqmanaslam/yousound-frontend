@@ -212,6 +212,7 @@ export default {
           country: this.country,
           city: this.city,
         };
+        this.updateOnboarding(data);
         let user_params = this.$store.state.app.onboarding
         if(user_params.accountCategory === "listener") {
           let formData = new FormData();
@@ -236,8 +237,6 @@ export default {
             this.$store.dispatch("error/showErrorToast", e.body.errors)
           })
         } else {
-          this.updateOnboarding(data);
-
           this.gotoNextStage(this.current + 1);
         }
       }
