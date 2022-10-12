@@ -1,30 +1,50 @@
 <template>
-  <div class="page no-top-nav no-side-space subscribe-landing">
-    <div class="banner">
-      <v-container class="banner-container">
-        <div class="banner-content">
-          <h1 class="_title">Join the world’s creators & music lovers.</h1>
-          <p class="_subtitle">Start your free 30 day trial</p>
+  <div class="landing-x">
+    <div class="nav-slider transparent">
+      <v-container>
+        <div class="nav-flex">
+          <div class="nav-logo">
+            <img src="../../assets/nav_logo_primary.png" width="100%">
+
+          </div>
+          <div class="nav-links">
+            <router-link to="/subscribe">Subscribe</router-link>
+            <router-link to="/login">Login</router-link>
+            <a href="/signup">
+              <v-btn round class="black-btn">Signup</v-btn>
+            </a>
+
+          </div>
+        </div>
+
+      </v-container>
+    </div>
+    <div class="full-width-header">
+      <v-container class="header-container">
+        <div class="header-content">
+          <h1 class="_title">Join the world's creators <br> & music lovers.</h1>
           <a href="#plans">
-            <v-btn round class="white">Choose Plan</v-btn>
+            <v-btn round class="orange-btn">Discover</v-btn>
           </a>
         </div>
       </v-container>
+      <div class="header-img">
+        <img src="../../assets/landing.gif" width="100%">
+      </div>
     </div>
 
-    <v-container class="learnmore-comp">
+  <v-container id="learn-more" class="pt-5 mt-3">
       <learn-more pageMode setOnMobile hideFooter />
-    </v-container>
+  </v-container>
 
-    <v-container class="plans-container pb-5 mb-5" id="plans">
+  <v-container class="plans-container mb-5" id="plans">
+    <div class="dflex align-center justify-space-between top-note">
       <h1 class="main-title">Choose Plan</h1>
+      <div class="_right">* SMS costs $0.01 per text</div>
+    </div>
 
-      <hr class="light">
+      <hr class="light margin-vertical">
 
-      <div class="dflex align-center justify-space-between top-note">
-        <div class="_left">Cancel anytime.</div>
-        <div class="_right">* SMS costs $0.01 per text</div>
-      </div>
 
       <div class="plans">
         <div
@@ -39,7 +59,10 @@
           <div class="plan_lists">
             <div v-for="(item, i) in plan.list" :key="i" class="plan_list">
               <div class="top_item" v-if="(typeof item === 'string')">
-                <v-icon >check</v-icon>
+                <!-- <v-icon >check</v-icon> -->
+                <div class="mr-2">
+                  <img src="../../assets/check-black.svg" width="10">
+                </div>
                 <div v-html="item">
                   {{ item }}
                 </div>
@@ -82,84 +105,25 @@
         </div>
         </div>
       </div>
-    </v-container>
+  </v-container>
 
-    <v-container class="faq-container">
-      <h1 class="main-title mb-3">FAQ</h1>
-
-      <hr class="light mb-5" />
-
-      <div class="faqs">
-        <div class="faq">
-          <h3>How can I pay for a subscription?</h3>
-          <div>You can pay with accepted credit cards.</div>
-        </div>
-
-        <div class="faq">
-          <h3>How does the 30 day trial work?</h3>
-          <div>
-            Start a free trial to get full access to all features. Simply add a
-            valid credit card, your card will be automatically charged 30 days
-            after your trial starts and you will be charged on a monthly basis.
-          </div>
-        </div>
-
-        <div class="faq">
-          <h3>How do I change my subscription?</h3>
-          <div>
-            Go to <strong>Settings</strong> and tap
-            <strong>Subscriptions</strong>, if on desktop, go to
-            <strong>Settings > Accounts</strong>, then tap the plan you want &
-            confirm. If it’s an upgraded plan you will enter a card to start a
-            free trial, if you already have a premium subscription the upgrade
-            price difference will be pro-rated and billed on the next cycle.
-          </div>
-        </div>
-
-        <div class="faq">
-          <h3>How do I cancel my subscription?</h3>
-          <div>
-            Go to <strong>Settings</strong> and tap
-            <strong>Subscriptions</strong>, if on desktop, go to
-            <strong>Settings > Accounts</strong>, then tap Free and confirm.
-            Your account will convert to “Preview Only” on the next payment
-            cycle.
-          </div>
-        </div>
-
-        <div class="faq">
-          <h3>Can I listen offline?</h3>
-          <div>
-            Currently, no, however you can download songs you love & support
-            creators directly, they keep 100% of their sales.
-          </div>
-        </div>
-
-        <div class="faq">
-          <h3>How do creators share my subscription?</h3>
-          <div>
-            50% of your monthly subscription is paid directly to the top 10
-            creators you stream the most that month. If you stream 10 creators,
-            $5 will be split between 10 creators at $0.50 cents, if you only
-            stream one creator the entire month, they will earn the entire $5.
-          </div>
-        </div>
-      </div>
-    </v-container>
-  </div>
+  <v-container>
+      <Footer />
+  </v-container>
+</div>
 </template>
+
 
 <script>
 import LearnMore from "@/views/mobile/auth/learnMore";
+import Footer from "@/components/landingPages/Footer-2.vue"
 import AuthPlan from "@/views/mobile/auth/onboarding/authPlan";
 import { mapState } from "vuex";
 
 export default {
-  components: { LearnMore, AuthPlan },
-  data() {
-    return {
-      // banner:
-    };
+  components:{
+    LearnMore,
+    Footer
   },
   computed: {
     ...mapState({
@@ -176,79 +140,160 @@ export default {
 
       return plans;
     },
+
   },
-};
+}
+
+window.onscroll = function(e){
+  
+    var div = document.querySelector('#learn-more');
+    var navbar = document.querySelector('.nav-slider')
+    console.log(window.pageYOffset)
+    if(window.pageYOffset > 10 ){
+      navbar.classList.remove('transparent')
+    }
+    else{
+      navbar.classList.add('transparent')
+    }
+    // example use
+    var div = document.querySelector('#learn-more');
+    var navbar = document.querySelector('.nav-slider')
+    // var divOffset = offset(div);
+    var rect = div.getBoundingClientRect()
+
+    if(rect.top  < 120){
+      navbar.classList.add('bg-white')
+    }
+    else{
+      navbar.classList.remove('bg-white')
+    }
+    console.log("Scrolling");
+}
+
+
+setTimeout(() => {
+
+
+}, 1000);
+
+
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
-.container{
-  max-width: 1100px;
+.container.app-container.fluid.not-authenticated:has(.landing-x) {
+    padding: 0px;
 }
-.main-title{
-  font-size: 44px;
-  font-weight: bold;
-  letter-spacing: -2px;
-}
-.subscribe-landing {
-  .banner {
-    background-image: url("../../assets/subscribe-banner.jpg");
-    background-size: cover;
-    background-position: left;
-    padding: 90px 0;
-    .banner-container {
-      height: 100%;
-      display: grid;
-      align-content: center;
-    }
 
-    .btn{
-      height: auto;
-      margin-bottom: 0px;
-      margin-top: 30px;
-      margin-left: 0px;
-      padding: 11px 15px;
-      font-size: 18px;
-      font-weight: bold;
-      box-shadow: none;
-      border: none;
+
+.landing-x{
+
+  .main-title{
+    font-size: 44px;
+    font-weight: bold;
+    letter-spacing: -2px;
+  }
+  .nav-slider{
+    background-color: #f7eeea;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    &.bg-white{
+      background-color: white;
+    }
+    &.transparent{
+      background-color: transparent;
+    }
+    
+    .nav-flex{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+
+      .nav-logo{
+        width: 165px;
+      }
+
+      .nav-links{
+        display: flex;
+        align-items: center;
+        gap: 35px;
+
+        .black-btn{
+          color: white;
+          background-color: black;
+          font-size: 18px;
+          font-weight: bold;
+          padding: 5px 7.5px;
+        }
+
+        a{
+          color: black;
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+
     }
   }
 
-  .banner-content {
-    color: #ffffff;
 
-    ._title{
-      font-size: 50px;
-      font-weight: bold;
-      letter-spacing: -2px;
-    }
-    ._subtitle{
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 0;
+  .full-width-header{
+    padding: 200px 0 150px;
+    background-color: #f7eeea;
+    position: relative;
+    overflow: hidden;
+
+    .header-content{
+      width: 65%;
+      position: relative;
+      z-index: 5;
+      ._title{
+        font-size: 58px;
+        line-height: 64px;
+        letter-spacing: -2px;
+        font-weight: 700;
+      }
+
+      .orange-btn{
+        height: auto;
+        color: white;
+        background-color: #f85032;
+        font-weight: 700;
+        margin-left: 0px;
+        margin-top: 35px;
+        padding: 11px 25px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: none;
+        border: none;
+      }
     }
   }
-
-  .learnmore-comp {
-    margin-top: 40px;
+  .header-img{
+    position: absolute;
+    width: 50%;
+    max-width: 730px;
+    bottom: -10px;
+    right: 0;
   }
+
+
 
   .plans-container {
     .top-note {
-      font-weight: 300;
+      font-weight: 400;
+      ._right {
+        font-size: 14px;
+      }
+    }
+    .margin-vertical{
       margin-top: 30px;
       margin-bottom: 50px;
-
-      ._left {
-        color: #222222;
-        font-size: 20px;
-        font-weight: 500;
-        opacity: 0.7;
-      }
-      ._right {
-        font-size: 12px;
-      }
     }
 
     .plans {
@@ -357,18 +402,6 @@ export default {
           &_wrapper {
             padding: 0 30px;
           }
-        }
-      }
-    }
-  }
-
-  .faq-container {
-    .faqs {
-      .faq {
-        margin-bottom: 30px;
-
-        h3 {
-          margin-bottom: 10px;
         }
       }
     }

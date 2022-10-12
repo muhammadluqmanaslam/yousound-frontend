@@ -178,6 +178,7 @@ export default {
         let params = { id: id, free_credit_month: month }
         await SubscriptionService.freeAccountCredit(params).then((response) => {
           this.freeAccountCreditUsers()
+          this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
         }).catch((e) => {
           this.$store.dispatch('error/showErrorToast', [e.body.exception]
@@ -205,10 +206,10 @@ export default {
       })
     },
     handleClick() {
-      if(this.row != null) {
+        console.log('======================',  this.row)
         this.isLoading = true
         this.$store.dispatch('error/showLoadingActivity', true)
-      }
+      
     }
   },
   computed: {

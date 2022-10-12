@@ -42,7 +42,7 @@
           </div>
 
           <v-container grid-list-lg layer-container>
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 tiles-layer :class="[pageMode? 'sm4' : 'sm5']">
                 <div class="tiles">
                   <div class="tile top-left tile-1 square">
@@ -103,23 +103,23 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 context-layer :class="[pageMode? 'sm5' : 'sm6']">
+              <v-flex xs12 context-layer :class="[pageMode? 'sm7' : 'sm6']">
                 <div class="tile-context">
                   <h2 v-if="!onMobile" class="_title">Listen, watch & shop</h2>
                   <h2 v-if="onMobile" class="_title">Build your collection</h2>
 
                   <div class="_subtitle">
-                    Collect music, videos, products & create playlists. Easily
+                    Collect music, videos, products & create playlists. <br> Easily
                     organize everything you discover.
                   </div>
                 </div>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'mt-2': onMobile}">
-              <v-flex xs12 sm5 context-layer>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'mt-2': onMobile}">
+              <v-flex xs12 sm7 context-layer>
                 <div class="tile-context">
-                  <h2 v-if="!onMobile" class="_title">Empower creators</h2>
+                  <h2 class="_title">Empower creators</h2>
                   <div class="_subtitle">
                     50% of your subscription goes to creators you stream most.
                     View your dashboard to see who you support.
@@ -173,7 +173,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 tiles-layer tiles-layer-single :class="[pageMode? 'sm4' : 'sm5']">
                 <div class="tiles single-tile">
                   <div class="tile square" :class="{pageMode}">
@@ -185,11 +185,11 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 context-layer :class="[pageMode? 'sm5' : 'sm6']">
+              <v-flex xs12 context-layer :class="[pageMode? 'sm7' : 'sm6']">
                 <div class="tile-context">
                   <h2 class="_title">Get paid to share</h2>
                   <div class="_subtitle">
-                    Artists & brands can send DMs with content. Earn money
+                    Artists & brands can send DMs with content. <br> Earn money
                     helping creators reach the right audience.
                   </div>
                 </div>
@@ -205,9 +205,8 @@
             <h1 class="intro-title">For Creators</h1>
             <hr class="light intro-divider">
           </div>
-          
           <v-container grid-list-lg layer-container _creator>
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
@@ -222,7 +221,7 @@
                 <div class="tile-context">
                   <h2 class="_title">Upload everything</h2>
                   <div class="_subtitle">
-                    Easily upload albums, videos, products. Instantly available
+                    Easily upload albums, videos, products. <br> Instantly available
                     worldwide.
                   </div>
                 </div>
@@ -234,7 +233,7 @@
                 <div class="tile-context">
                   <h2 class="_title">Keep 100% of sales</h2>
                   <div class="_subtitle">
-                    Keep all of your digital & physical sales. Split payments &
+                    Keep all of your digital & physical sales. <br> Split payments &
                     recoups with collaborators.
                   </div>
                 </div>
@@ -251,7 +250,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
@@ -266,7 +265,7 @@
                 <div class="tile-context">
                   <h2 class="_title">User-centric payouts</h2>
                   <div class="_subtitle">
-                    Earn up to 50% of subscriber payments. As little as 20,000
+                    Earn up to 50% of subscriber payments.<br> As little as 20,000
                     plays can earn $5,000.
                   </div>
                 </div>
@@ -278,7 +277,7 @@
                 <div class="tile-context">
                   <h2 class="_title">Connect with text</h2>
                   <div class="_subtitle">
-                    Your followers can opt-in with their cell number. Grow a SMS
+                    Your followers can opt-in with their cell number. <br> Grow a SMS
                     list & use text to bypass the algorithm.
                   </div>
                 </div>
@@ -295,7 +294,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
@@ -310,7 +309,7 @@
                 <div class="tile-context">
                   <h2 class="_title">Go live!</h2>
                   <div class="_subtitle">
-                    Broadcast live video, sell exclusive content, limit viewer
+                    Broadcast live video, sell exclusive content, <br> limit viewer
                     capacity, run pay per view & chat live.
                   </div>
                 </div>
@@ -414,6 +413,16 @@ export default {
 .learn-more {
   padding: 0 25px 40px 25px;
 
+  .my-6{
+    margin: 50px 0px;
+  }
+
+.intro-title {
+    font-size: 44px;
+    font-weight: bold;
+    letter-spacing: -2px;
+  }
+
   &.onMobile {
     padding: 0 0px 40px 0px;
   }
@@ -421,14 +430,16 @@ export default {
   &-body {
     .layer-container {
       .layer-layout {
-        margin-top: 50px;
+        margin-top: 100px;
       }
     }
     &.onMobile {
       .intro-section {
         .intro-section {
           .intro-title {
-            font-size: 36px;
+            font-size: 44px;
+            font-weight: bold;
+            letter-spacing: -2px;
           }
           .intro-divider {
             margin: 60px 0;
@@ -489,6 +500,7 @@ export default {
       height: fit-content;
       position: relative;
 
+
       &-blur {
         position: absolute;
         top: 25px;
@@ -496,11 +508,27 @@ export default {
         width: 100%;
         height: 100%;
         opacity: 0.5;
-        filter: blur(29px);
+        filter: blur(15px);
         border-radius: 10px;
-        z-index: -1;
+        z-index: 0;
+        background-size: cover;
+        background-position: center;
       }
 
+
+      &.bottom-left {
+        margin-top: 5px;
+        &.tile-7 {
+          margin-top: 20px;
+        }
+      }
+      &.bottom-right {
+        margin-top: 25px;
+
+        &.tile-8 {
+          margin-top: 15px;
+        }
+      }
       &.top-right {
         margin-top: 20px;
 
@@ -508,14 +536,8 @@ export default {
           margin-top: -50px;
         }
         .tile-7 {
-          margin-top: 18px;
+          margin-top: 20px;
         }
-      }
-      &.bottom-left {
-        margin-top: 5px;
-      }
-      &.bottom-right {
-        margin-top: 25px;
       }
 
       ._img {
@@ -524,31 +546,63 @@ export default {
         border-radius: 6px;
         background-position: center;
         background-size: cover;
+        z-index: 2;
       }
 
       &.portrait {
-        width: 37%;
+        width: 40%;
 
         ._img {
           width: 100%;
-          height: 130px;
+          min-width: 140px;
+          height: 155px;
         }
       }
       &.landscape {
-        width: 58%;
+        width: 55%;
 
         ._img {
           width: 100%;
-          height: 100px;
+          min-width: 190px;
+          height: 140px;
         }
       }
       &.square {
         width: 47%;
 
         ._img {
-          width: 100%;
-          height: 127px;
+          width: 160px;
+          height: 160px;
         }
+      }
+      @media screen and (max-width: 1250px) {
+        &.square {
+        width: 47%;
+
+        ._img {
+          width: auto;
+          height: 150px;
+        }
+      }
+
+      &.portrait {
+        width: 40%;
+
+        ._img {
+          width: 100%;
+          min-width: auto;
+          height: 115px;
+        }
+      }
+      &.landscape {
+        width: 55%;
+
+        ._img {
+          width: 100%;
+          min-width: auto;
+          height: 100px;
+        }
+      }
       }
     }
   }
@@ -564,6 +618,7 @@ export default {
       }
 
       ._img {
+        width: 100% !important;
         height: 258px !important;
       }
 
@@ -586,12 +641,12 @@ export default {
     // margin: 0 auto 0 0;
 
     ._title {
-      font-size: 24px;
+      font-size: 32px;
       color: #222222;
       margin-bottom: 15px;
     }
     ._subtitle {
-      font-size: 18px;
+      font-size: 24px;
       color: #222222;
       opacity: 0.7;
     }
@@ -617,5 +672,12 @@ export default {
 
 .flex-wrap-reverse {
   flex-wrap: wrap-reverse;
+}
+
+
+@media screen and (max-width: 768px){
+  br{
+    display: none;
+  }
 }
 </style>

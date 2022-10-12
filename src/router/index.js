@@ -81,6 +81,7 @@ import VideoDelete from '@/views/video/delete'
 import Partners from '@/views/partners/'
 import Dashboard from '@/views/dashboard/'
 import SubscribeIndex from '@/views/subscribe/'
+import LandingX from '@/views/landing-x/'
 
 // Detect if device is on mobile then render dynamic component where necessary
 let isMobile = () => {
@@ -109,7 +110,8 @@ Vue.use(Router)
 
 export function createRouter(settings) {
   let routes = [
-    { path: '/', name: 'Home', component: Home, meta: {allowOnMobile: true, noSideSpace: true} },
+    { path: '/', name: 'Home', component: LandingX, meta: {allowOnMobile: true, noSideSpace: false} },
+    { path: '/landing-x', name: 'LandingX', component: Home, meta: {allowOnMobile: true, noSideSpace: false} },
     { path: '/creators', name: 'Creators', component: Creators, meta: {allowOnMobile: true} },
     { path: '/adfree', name: 'AdFree', component: AdFree, meta: {allowOnMobile: true} },
     // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
