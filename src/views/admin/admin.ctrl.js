@@ -7,6 +7,7 @@ import globalstatsTab from './components/global_stats'
 import paymentTab from './components/payments'
 import settingTab from './components/settings'
 import signupTab from './components/signups'
+import subscriptionTab from './components/subscriptions'
 import streamTab from './components/streams'
 import userTab from './components/users'
 
@@ -19,6 +20,7 @@ export default {
     paymentTab,
     settingTab,
     signupTab,
+    subscriptionTab,
     streamTab,
     userTab,
   },
@@ -29,6 +31,7 @@ export default {
         { id: 'users', title: 'USERS' },
         { id: 'albums', title: 'ALBUMS' },
         { id: 'signups', title: 'SIGN UPS' },
+        { id: 'subscriptions', title: 'Subscriptions'},
         { id: 'payments', title: 'PAYMENTS' },
         { id: 'genres', title: 'GENRES' },
         { id: 'settings', title: 'SETTINGS' },
@@ -92,7 +95,7 @@ export default {
       return (
         this.$store.state.auth.user.user_type === 'admin' ||
         (this.$store.state.auth.user.user_type === 'moderator' &&
-          ['users', 'albums', 'signups', 'attendees'].indexOf(tab.id) > -1)
+          ['users', 'albums', 'signups', 'attendees', 'subscriptions'].indexOf(tab.id) > -1)
       )
     },
 
