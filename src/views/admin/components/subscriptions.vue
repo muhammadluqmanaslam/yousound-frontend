@@ -74,29 +74,32 @@
                     <div class="avatar-title">{{ props.item.username }}</div>
                   </div>
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.user_type | capitalize }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.first_name }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.last_name }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.trial_start | formatDate }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.plan }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.email }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ getNumberOfMonths(props.item.created_at) }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.trial_end | formatDate }}
+                </td>
+                <td v-if="active_tab == 'trial'" class="text-xs-center">
+                  {{ new Date() < new Date(props.item.trial_end) ? "Yes" : "No" }}
                 </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
@@ -127,38 +130,38 @@
                     <div class="avatar-title">{{ props.item.username }}</div>
                   </div>
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.user_type | capitalize }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.first_name }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.last_name }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{  Math.round(Math.abs((new Date(props.item.trial_end) - new Date()) / 86400000)) }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.plan }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.email }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ getNumberOfMonths(props.item.created_at) }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   {{ props.item.trial_end | formatDate }}
                 </td>
-                <td class="text-xs-left">
+                <td class="text-xs-center">
                   <v-select attach
                     class="month-dd"
                     :items="choose_month"
                     @change="selectMonth($event, props.item.id)"
                     ></v-select>
                 </td>
-                <td class="text-xs-right">
+                <td class="text-xs-center">
                   <v-btn
                     color="primary"
                     class="signups-btn"

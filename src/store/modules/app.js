@@ -185,13 +185,6 @@ const getters = {
             icon: require('../../../static/images/cart.svg'),
             path: 'Cart',
           },
-          {
-            title: 'Free Account Credits',
-            id: 'freeAccountCredit',
-            icon: require('@/assets/ic_wave.svg'),
-            path: 'FreeAccountCreditIndex',
-            allowedUser: ['admin'],
-          },
           // {
           //   title: 'Sales',
           //   id: 'sales',
