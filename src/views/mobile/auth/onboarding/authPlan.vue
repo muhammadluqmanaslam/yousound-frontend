@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div v-if="!this.$store.state.auth.user" class="no-selection" @click="handleNextStage">
+    <div class="no-selection" @click="makeListener">
       No thanks, make me a listener
     </div>
 
@@ -80,6 +80,7 @@
 import PaymentCard from "@/components/paymentCard";
 import { mapActions, mapState } from "vuex";
 import { Stripe } from "@/helper";
+import UserService from '@/services/user.js'
 
 export default {
   components: {
@@ -125,6 +126,24 @@ export default {
       this.initPayment = true;
       this.selectedPlan = plan;
     },
+
+    makeListener() {
+      const params = { id: this.$store.state.app.onboarding.username }
+      UserService.changeCreatorRoleIntoListener(params)
+      .then((response) => {
+        this.$store.dispatch(
+          "error/showSuccessToast", [response.bodyText]
+        );
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on updating user role."]
+        )
+      })
+
+      this.handleNextStage();
+    },
+
     handleNextStage() {
       this.gotoNextStage(this.current + 1);
     },

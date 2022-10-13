@@ -61,6 +61,12 @@ export default {
     })
   },
 
+  changeCreatorRoleIntoListener(params) {
+    return Vue.http.get(API_BASE_URL + '/change_creator_role_into_listener', {
+      params: params,
+    })
+  },
+
   deleteUser(userId) {
     return Vue.http.delete(API_BASE_URL + '/' + userId, {
       headers: { Authorization: $store.state.auth.token },

@@ -19,13 +19,6 @@ export default {
     }
   },
 
-  creatorVerified(params) {
-    return Vue.http.get(`${API_BASE_URL}/creator_verified`, {
-      headers: { Authorization: $store.state.auth.token },
-      params: params,
-    })
-  },
-
   freeAccountCredit(params) {
     return Vue.http.get(`${API_BASE_URL}/free_account_credit`, {
       headers: { Authorization: $store.state.auth.token },
