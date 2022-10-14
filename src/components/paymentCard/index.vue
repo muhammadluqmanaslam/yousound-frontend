@@ -94,7 +94,7 @@
           noBorder
         />
 
-        <v-btn depressed dark round block class="mt-4"
+        <v-btn depressed dark round block class="mt-4" @click="hideConfirmationPayment"
           >Activate your account</v-btn
         >
       </div>
@@ -119,6 +119,12 @@
         >
       </div>
     </transition>
+
+    <transition v-if="confirmPayment">
+      <div>
+        <checkEmail />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -128,6 +134,7 @@ import PackageDetails from "./packageDetails.vue";
 import { mapActions, mapState } from "vuex";
 import { createToken } from "vue-stripe-elements";
 import SubscriptionService from '@/services/subscription.js'
+import checkEmail from '../../views/mobile/auth/onboarding/checkEmail.vue'
 
 export default {
   props: {
@@ -146,9 +153,10 @@ export default {
       zipCode: "",
       paymentSuccessful: false,
       paymentFailed: false,
+      confirmPayment: false,
     };
   },
-  components: { cardDetails, PackageDetails },
+  components: { cardDetails, PackageDetails, checkEmail },
   computed: {
     ...mapState({
       countries: (state) => state.app.countries,
@@ -197,6 +205,10 @@ export default {
       getCountries: "app/getCountries",
     }),
 
+    hideConfirmationPayment() {
+      this.closePayment("success");
+    },
+
     handlePayment() {
       createToken().then((data) => {
         this.subscribe(this.stripePriceId, data.token);
@@ -217,9 +229,10 @@ export default {
       const params = { price_id: priceId, token_response: tokenResponse, token_id: tokenResponse.id }
       SubscriptionService.createSubscription(params)
         .then((response) => {
+          this.paymentSuccessful = true
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed."])
-          this.closePayment("success");
+          // this.closePayment("success");
           if (this.$store.state.auth.user != null) {
             this.$router.push({name: 'DiscoverIndex'})
           }

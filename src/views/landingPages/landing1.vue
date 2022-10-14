@@ -1,6 +1,6 @@
 <template>
   <v-container
-   full-authTabs-container fluid py-0
+    fluid py-0
     @touchstart="touchStart"
     @touchend="touchEnd"
   >
@@ -31,7 +31,8 @@
 
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
-        v-show="!onMobileStrict || (onMobileStrict && activeView === 'landingView')" 
+        v-if="activeView != 'signUpView'"
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'landingView')"
         flex-column
         xs12
         sm6
@@ -124,13 +125,13 @@
         full-authTabs-right
         :class="{ auth__view: toDisplayGrid, onMobileStrict }"
       >
-        <v-icon
+        <!-- <v-icon
           v-if="showAuthCancelBtn && !onMobileStrict"
           class="cancel-icon-round"
           @click="activeView = 'landingView'"
         >
           cancel
-        </v-icon>
+        </v-icon> -->
 
         <div v-if="activeView === 'landingView'" class="landing-view">
           <div class="trending-top dflex align-center justify-space-between">
@@ -235,6 +236,7 @@
         </div>
       </v-flex>
     </v-layout>
+    <Footer></Footer>
   </v-container>
 </template>
 

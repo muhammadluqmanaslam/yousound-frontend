@@ -1,9 +1,10 @@
 .onboarding {
     position: relative;
-    min-height: 85vh;
+    // min-height: 85vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center !important;
+    gap: 30px;
 
     &.allowFullPage {
         &.aboveMobile {
@@ -11,9 +12,9 @@
         }
     }
   
-    .stage-wrapper {
-      margin-top: -70px;
-    }
+    // .stage-wrapper {
+    //   margin-top: -70px;
+    // }
 
     .account-type {
         .account-types-selector {
