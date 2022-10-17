@@ -109,7 +109,7 @@
                   </v-list-tile>
 
                   <v-list-tile
-                    v-if="album.user.username === currentUser.username"
+                    v-if="currentUser && album.user.username === currentUser.username"
                     key="edit"
                     class="default-menu-item"
                     :to="{ name: 'UploadAlbum', params: { slug: album.slug } }"
@@ -187,7 +187,7 @@
                 <v-icon>tag_faces</v-icon>
               </v-btn>
             </div>
-            <div class="comment-items">
+            <div class="comment-items" v-if="currentUser">
               <div
                 class="comment-item"
                 v-for="comment in comments"
@@ -222,7 +222,7 @@
                     <v-menu
                       offset-y
                       class="comment-more-action"
-                      v-if="
+                      v-if="currentnUser &&
                         currentUser.id == album.user.id ||
                         currentUser.id == comment.user.id
                       "
@@ -315,7 +315,7 @@
 
     <v-container fluid grid-list-md px-0 pt-1>
       <v-layout wrap row justify-space-between class="secondary-album-details">
-        <v-flex v-if="album.products.length">
+        <v-flex v-if="currentUser && album.products.length">
           <featuredProduct :product="album.products[0]" :recommendedBy="album.user.username" />
         </v-flex>
 
@@ -427,7 +427,7 @@
               </label>
               <label
                 class="album-info-text"
-                v-if="album.contributors && album.contributors.length > 0"
+                v-if="currentUser && album.contributors && album.contributors.length > 0"
               >
                 <template v-for="c in album.contributors">
                   <div class="contributor-info" :key="`contributor-${c.id}`">
@@ -442,7 +442,7 @@
             <v-flex
               xs12
               sm12
-              v-if="album.samplings && album.samplings.length > 0"
+              v-if="currentUser && album.samplings && album.samplings.length > 0"
             >
               <label class="album-info-label">Samples: </label>
               <label
@@ -462,7 +462,7 @@
                 </template>
               </label>
             </v-flex>
-            <v-flex xs12 sm12 v-if="album.labels && album.labels.length > 0">
+            <v-flex xs12 sm12 v-if="currentUser && album.labels && album.labels.length > 0">
               <label class="album-info-label">Label: </label>
               <label class="album-info-text">
                 <router-link

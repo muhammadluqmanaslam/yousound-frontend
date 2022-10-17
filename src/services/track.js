@@ -34,4 +34,8 @@ export default {
       headers: { Authorization: $store.state.auth.token },
     })
   },
+
+  playTrackPublicUser(trackId) {
+    return Vue.http.get(`${API_BASE_URL}/${trackId}/play_public_user`)
+  },
 }
