@@ -11,12 +11,41 @@
             position: unset;
         }
     }
+
+    ._title{
+        font-weight: 500;
+    }
   
     // .stage-wrapper {
     //   margin-top: -70px;
     // }
 
     .account-type {
+        ._title{
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        [disabled]{
+            background: none !important;
+        }
+
+        input{
+            min-height: 44px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input.input_layout{
+            
+            padding: 0 10px;
+            border: 1px solid #000000;
+        }
+        .account-info{
+            ._title{
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
         .account-types-selector {
             padding-top: 0px;
             margin-bottom: 10px;
@@ -27,6 +56,11 @@
                         color: #000000;
                     }
                 }
+            }
+
+            .input-group__input {
+                border: 1px solid #000000;
+                border-radius: 4px;
             }
 
             &.input-group--focused {
@@ -47,6 +81,17 @@
         ._socialHandle {
             color: #000000;
             font-weight: bold;
+            padding: 10px;
+        }
+
+        .footnote{
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 75px;
+        }
+
+        input{
+            min-height: 44px;
         }
     }
     input {
@@ -73,6 +118,13 @@
     .social-type-menu {
         width: 100%;
         margin-bottom: 8px;
+    }
+
+    .get-verified , .age-location , .account-info{
+        ._title{
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
     }
 }
 

@@ -14,7 +14,7 @@
 
         <input
           v-model="email"
-          class="email"
+          class="email my-5"
           v-validate="'required|email'"
           :class="{
             input: true,
@@ -32,7 +32,7 @@
       >
         {{ errors.first("email") }}
       </p>
-      <v-btn block round dark type="submit" class="reset-btn">
+      <v-btn block round dark type="submit" class="reset-btn py-3">
         Reset Password
       </v-btn>
       <div

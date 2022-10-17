@@ -26,18 +26,18 @@
         class="account-info"
         :class="[`${type.id}-menu`]"
       >
-        <div class="_title">{{ type.title }}</div>
+        <div class="_title" style="font-size: 16px; font-weight: 600">{{ type.title }}</div>
         <div class="_tags">
           {{ type.tags }}
         </div>
       </div>
     </v-menu>
-    <span>Username must be between 3 to 20 characters without any special character.</span>
+    <span class="_title">Username</span>
     <input
       v-model="username"
       type="text"
       placeholder="username"
-      class="width100 username"
+      class="width100 username input_layout"
     />
 
     <NavFooter

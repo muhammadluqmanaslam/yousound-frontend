@@ -31,6 +31,7 @@
               forceShowNextIcon || (current > 1 && current < stages.length)
             "
             :class="{_disabled: !nextValidated}"
+            class="nextIcon"
             @click="handleNextStage()"
           >
             arrow_forward
@@ -83,6 +84,7 @@ export default {
     &.desktop {
       text-align: center;
 
+
       .icon {
         font-size: 21px;
         color: #000000;
@@ -90,6 +92,10 @@ export default {
         cursor: pointer;
         border-radius: 100px;
         padding: 6px;
+        &.nextIcon{
+          background-color: #000000;
+          color:#ffffff;
+        }
 
         &._disabled {
           color: #ffffff;
