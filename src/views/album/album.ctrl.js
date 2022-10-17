@@ -183,7 +183,11 @@ export default {
     // console.log('current', this.$store.state.navigator.current)
     // console.log('last', this.$store.getters['navigator/last'])
 
-    this.loadData()
+    if (this.currentUser !== null) {
+      this.loadData()
+    } else {
+      this.loadDataPublicUser()
+    }
 
     console.log('alb', this.album);
   },
@@ -320,6 +324,39 @@ export default {
           // this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showErrorToast', reason)
         })
+    },
+
+    loadDataPublicUser() {
+      const vm = this
+      this.slug = this.$route.params.slug
+      console.log('slug: ', this.slug);
+      this.commentTableType = "Album";
+      // this.comments = []
+      // this.comment_pagination = {
+      //   count: 0,
+      //   current_page: 0,
+      //   per_page: 5,
+      //   total_count: 0,
+      //   total_pages: 0,
+      // }
+      this.isPageReady = false
+      Promise.all([
+        AlbumService.getAlbumPublicUser(this.slug),
+      ])
+        .then((values) => {
+          this.album = values[0].body
+          console.log("this.album====>", this.album)
+          console.log("description public === length--->", this.album.description.length)
+
+          this.$emit('updateHead')
+
+          this.isPageReady = true
+        })
+        .catch((reason) => {
+          console.log(reason)
+          // this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', reason)
+        })  
     },
 
     convertedHTML(text) {
