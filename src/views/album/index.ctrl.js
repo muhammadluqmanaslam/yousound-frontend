@@ -133,7 +133,7 @@ export default {
       if (tab !== 'recommended') {
         params['seed'] = this.seed
       }
-      SearchService.searchDiscover(params)
+      this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.feeds = this.feeds.concat(response.body.albums)
@@ -156,9 +156,9 @@ export default {
 
           if (page === 1) {
             Promise.all([
-              SearchService.searchDiscover(_.extend(params, { page: 2 })),
-              SearchService.searchDiscover(_.extend(params, { page: 3 })),
-              SearchService.searchDiscover(_.extend(params, { page: 4 })),
+              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 2 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 3 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 4 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
             ]).then((values) => {
               vm.feeds = vm.feeds.concat(
                 values[0].body.albums,

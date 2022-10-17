@@ -43,10 +43,12 @@ export default {
     },
     available_genres() {
       let genres = [{ id: 0, name: 'All' }]
-      this.videoGenres.forEach((vg) => {
-        const g = this._.find(this.$store.state.app.genres, { name: vg })
-        genres.push({ id: g.id, name: g.name })
-      })
+      if (this.currentUser != null) {
+        this.videoGenres.forEach((vg) => {
+          const g = this._.find(this.$store.state.app.genres, { name: vg })
+          genres.push({ id: g.id, name: g.name })
+        })
+      }
       // const genres = this._.filter(this.$store.state.app.genres, (g) => (VideoGenres.indexOf(g.name) > -1))
       // console.log('available_genres', genres)
       return genres
@@ -99,7 +101,8 @@ export default {
         page: page,
         per_page: this.items_per_page,
       }
-      StreamService.getStreams(params)
+
+      this.currentUser != null ? StreamService.getStreams(params) : StreamService.getStreamsPublicUsers(params)
         .then((response) => {
           this.videos = this.videos.concat(response.body.streams)
 

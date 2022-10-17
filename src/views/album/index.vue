@@ -92,7 +92,7 @@
     </content-top-header>
 
 
-    <div class="page-content" v-if="currentUser">
+    <div class="page-content">
       <v-container fluid grid-list-lg px-0>
         <v-layout row wrap>
           <v-flex

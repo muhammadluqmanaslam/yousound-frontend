@@ -39,6 +39,7 @@ export default {
         { id: 'recommended', title: 'Trending' },
         { id: 'new', title: 'New Arrivals' },
       ],
+      showRegisterModal: false,
     }
   },
 
@@ -56,12 +57,6 @@ export default {
   },
 
   created() {
-    if (!this.currentUser) {
-      AuthService.clearTokenAndUserInfo()
-      this.$router.push({ path: '/login' })
-      return
-    }
-
     this.$store.dispatch('navigator/goNextState', {
       page: 'product',
       tab: '',
@@ -87,6 +82,12 @@ export default {
   methods: {
     isActiveTab(tab) {
       return this.activeTab === tab
+    },
+
+    verifyUser() {
+      if (this.currentUser == null) {
+        this.showRegisterModal = true;
+      }
     },
 
     onTab(tab) {
@@ -126,7 +127,7 @@ export default {
         seed: this.seed,
       }
 
-      SearchService.searchDiscover(params)
+      SearchService.searchDiscoverPublicUser(params)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.products = this.products.concat(response.body.products)

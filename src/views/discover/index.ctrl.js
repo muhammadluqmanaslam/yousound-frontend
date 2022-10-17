@@ -146,7 +146,7 @@ export default {
       if (tab !== 'recommended') {
         params['seed'] = this.seed
       }
-      SearchService.searchDiscover(params)
+      this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           if (tab === 'merch') {
@@ -180,9 +180,9 @@ export default {
 
           if (page === 1) {
             Promise.all([
-              SearchService.searchDiscover(_.extend(params, { page: 2 })),
-              SearchService.searchDiscover(_.extend(params, { page: 3 })),
-              SearchService.searchDiscover(_.extend(params, { page: 4 })),
+              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 2 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 3 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 4 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
             ]).then((values) => {
               if (tab === 'merch') {
                 vm.products = vm.products.concat(
