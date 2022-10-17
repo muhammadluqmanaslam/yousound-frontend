@@ -102,24 +102,24 @@ export default {
         per_page: this.items_per_page,
       }
 
-      this.currentUser != null ? StreamService.getStreams(params) : StreamService.getStreamsPublicUsers(params)
-        .then((response) => {
-          this.videos = this.videos.concat(response.body.streams)
+      const api_response = this.currentUser != null ? StreamService.getStreams(params) : StreamService.getStreamsPublicUsers(params)
+      api_response.then((response) => {
+        this.videos = this.videos.concat(response.body.streams)
 
-          // this will return a a prop limit if available
-          this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
+        // this will return a a prop limit if available
+        this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
 
-          // this.videos.filter((v) => )
-          // this.videos = [ ...this.videos, ...this.videos]
-          console.log(this.videos)
-          this.pagination = response.body.pagination
-          this.videoGenres = response.body.genres
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.isPageReady = true
-        })
-        .catch(() => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-        })
+        // this.videos.filter((v) => )
+        // this.videos = [ ...this.videos, ...this.videos]
+        console.log(this.videos)
+        this.pagination = response.body.pagination
+        this.videoGenres = response.body.genres
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.isPageReady = true
+      })
+      .catch(() => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
     },
 
     loadMore() {
