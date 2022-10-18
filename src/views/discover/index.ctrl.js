@@ -12,6 +12,7 @@ import discoverVideo from '@/views/video'
 import discoverProduct from '@/views/product'
 import discoverNav from '@/components/discoverNav'
 import contentTopHeader from '@/components/contentTopHeader'
+import analyticsModal from '@/views/analyticsModal'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -26,6 +27,7 @@ export default {
     discoverProduct,
     discoverNav,
     contentTopHeader,
+    analyticsModal
   },
 
   data() {
