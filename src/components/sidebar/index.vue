@@ -170,6 +170,7 @@
 
     <v-spacer></v-spacer>
 
+    <side-audio-placeholder v-if="!$store.getters['player/isPlaying']" />
     <transition v-if="!onMobile" name="slide-fade">
       <side-audio-player
         ref="audioPlayer"
