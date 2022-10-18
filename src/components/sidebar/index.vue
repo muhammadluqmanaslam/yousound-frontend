@@ -38,33 +38,13 @@
       </div>
 
       <search-input
-        v-if="isAuthenticated && !mini"
+        v-if="!mini"
         :senderRoute="$route.name"
         :isRound="false"
         theme="dark"
         placeholder="Search"
         :preIcon="require('@/assets/sidebar_search.svg')"
       />
-
-      <div v-if="!isAuthenticated" class="auth-btn-container">
-        <ul class="signed-out-menu">
-          <li class="cursor-pointer login" @click="$router.push('/login')">
-            <img class="mr-2" src="/static/images/sign-in.svg" width="20" />
-            <span v-if="!mini" class="width100">Sign In</span>
-          </li>
-          <li
-            class="cursor-pointer discover"
-            @click="$router.push({ name: 'DiscoverIndex' })"
-          >
-            <img
-              class="mr-2 invert-color"
-              src="/static/images/search.svg"
-              width="20"
-            />
-            <span v-if="!mini">Discover</span>
-          </li>
-        </ul>
-      </div>
 
       <div
         v-if="
@@ -82,6 +62,19 @@
           <span class="icon_text">LIVE</span>
         </span>
       </div>
+      <v-dialog v-model="showRegisterModal">
+        <v-card>
+          <v-card-title class="headline"
+            >Register</v-card-title
+          >
+          <v-card-text
+            >Please do signup if you want to proceed.</v-card-text
+          >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <!-- isAuthenticated: {{ isAuthenticated }} -->
 
@@ -130,6 +123,73 @@
                   </v-icon>
                 </span>
               </v-list-tile-avatar>
+              <v-list-tile-title
+                v-if="!mini"
+                class="d-flex justify-space-between align-center"
+              >
+                <span v-if="!mini" class="__title">
+                  {{ subMenu.title }}
+                </span>
+
+                <span
+                  v-if="subMenu.id === 'notifications' && badge.message > 0"
+                  class="dot_notifications"
+                  :class="{ 'mr-0 ml-1': mini }"
+                >
+                  <v-icon size="1">circle</v-icon>
+                </span>
+
+                <span
+                  v-else-if="subMenu.id === 'sales' && badge.sell > 0"
+                  class="dot_notifications"
+                  :class="{ 'mr-0 ml-1': mini }"
+                >
+                  <v-icon size="1">circle</v-icon>
+                </span>
+
+                <span
+                  v-else-if="subMenu.id === 'cart' && badge.cart > 0"
+                  class="dot_notifications"
+                  :class="{ 'mr-0 ml-1': mini }"
+                >
+                  <v-icon size="1">circle</v-icon>
+                </span>
+              </v-list-tile-title>
+            </v-list-tile>
+          </div>
+        </v-list>
+      </template>
+      <template v-else>
+        <v-list v-for="(parent, i) in tabs" :key="i" class="py-1 px-0">
+          <h4>
+            <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
+          </h4>
+          <div @click="showRegisterModal = true">
+            <v-list-tile
+              v-for="(subMenu, ii) in parent.items"
+              :key="ii"
+              :active-class="subMenu.path ? 'activeTab' : ''"
+              class="side-tab"
+            >
+              <v-list-tile-avatar>
+                <div
+                  v-if="subMenu.id === 'you'"
+                  class="profile-image"
+                ></div>
+                <span v-else>
+                  <img
+                    v-if="subMenu.icon.length > 50"
+                    :src="subMenu.icon"
+                    class="icon _icon_img"
+                    :class="[`icon_${subMenu.id}`]"
+                  />
+
+                  <v-icon v-else class="__icon">
+                    {{ subMenu.icon }}
+                  </v-icon>
+                </span>
+              </v-list-tile-avatar>
+
               <v-list-tile-title
                 v-if="!mini"
                 class="d-flex justify-space-between align-center"

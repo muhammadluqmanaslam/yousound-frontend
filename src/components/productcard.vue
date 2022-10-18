@@ -46,7 +46,7 @@
           class="product-actions"
           relative
           @click="
-            $router.push({ name: 'SingleProduct', params: { id: item.id } })
+            currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
           "
         >
           <div class="product-label">${{ item.price | formatNumber }}</div>
@@ -82,30 +82,32 @@
         </v-flex>
       </v-flex>
 
-      <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
-        <user-tag showAvatar class="tag" :user="item.merchant" />
-        <p
-          class="product-name cursor-pointer"
-          @click="
-            $router.push({ name: 'SingleProduct', params: { id: item.id } })
-          "
-        >
-          {{ item.name }}
-        </p>
-        <div v-if="!hideOptionCount" class="product-options-count">
-          <span>{{ item.variants.length }} Option</span>
-          <span v-if="item.variants.length > 1">s</span>
-        </div>
-        <p class="product-price">${{ item.price | formatNumber }}</p>
-        <!-- <p class="product-user-name">
-          <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.username }}</router-link>
-          <template v-else-if="item.collaborators_count == 1">
-            <router-link :to="'/' + owner.slug">{{ owner.username }}</router-link>,&nbsp;
-            <router-link :to="'/' + item.collaborators[0].user.slug" v-if="item.collaborators[0]">{{ item.collaborators[0].user.username }}</router-link>
-          </template>
-          <router-link :to="'/' + owner.slug" v-else>Multiple Collaborators</router-link>
-        </p> -->
-      </v-flex>
+      <div @click="currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()">
+        <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
+          <user-tag showAvatar class="tag" :user="item.merchant" />
+          <p
+            class="product-name cursor-pointer"
+            @click="
+              currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
+            "
+          >
+            {{ item.name }}
+          </p>
+          <div v-if="!hideOptionCount" class="product-options-count">
+            <span>{{ item.variants.length }} Option</span>
+            <span v-if="item.variants.length > 1">s</span>
+          </div>
+          <p class="product-price">${{ item.price | formatNumber }}</p>
+          <!-- <p class="product-user-name">
+            <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.username }}</router-link>
+            <template v-else-if="item.collaborators_count == 1">
+              <router-link :to="'/' + owner.slug">{{ owner.username }}</router-link>,&nbsp;
+              <router-link :to="'/' + item.collaborators[0].user.slug" v-if="item.collaborators[0]">{{ item.collaborators[0].user.username }}</router-link>
+            </template>
+            <router-link :to="'/' + owner.slug" v-else>Multiple Collaborators</router-link>
+          </p> -->
+        </v-flex>
+      </div>
 
       <div v-if="altMeta" class="mt-2 box__footer alt-meta">
         <div class="alt-meta-name">{{ item.name }}</div>

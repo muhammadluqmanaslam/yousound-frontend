@@ -90,17 +90,17 @@ export default {
   cursor: pointer;
 
   &.onSelect {
-    background-color: #000000;
+    background-color: #333;
     color: #ffffff;
   }
 
   &._listener {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
 
   ._title {
     font-size: 25px;
-    font-weight: 700;
+    font-weight: 600;
   }
   ._subtitle {
     font-size: 14px;

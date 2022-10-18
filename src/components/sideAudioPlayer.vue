@@ -24,6 +24,20 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="showRegisterModal">
+      <v-card>
+        <v-card-title class="headline"
+          >Register</v-card-title
+        >
+        <v-card-text
+          >Please do signup if you want to proceed.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="side-player-inner">
       <div class="track-detail-section">
         <div class="track-cover-container" :style="{width: isMini ? '100%' : ''}">
@@ -358,6 +372,7 @@ export default {
       remainingStillListenerTimer: 0,
       isSubscribed: false,
       previewTimeCompleted: false,
+      showRegisterModal: false,
     };
   },
 
@@ -515,9 +530,11 @@ export default {
     },
 
     play(index) {
-      this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
-      this.fetchSubscriptionDetails();
-      this.clearStillListeningTimer();
+      if (this.currentUser) {
+        this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
+        this.fetchSubscriptionDetails();
+        this.clearStillListeningTimer();
+      }
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -556,6 +573,17 @@ export default {
             // Start the wave animation if we have already loaded
             self.isPlaying = true;
             self.setPauseStatus(false);
+            if (self.currentUser == null) {
+              let publicUserLimit = setInterval(() => {
+                if (sound.seek() >= 30 && !self.showRegisterModal) {
+                  self.setPauseStatus(true);
+                  self.isPlaying = false;
+                  sound.pause()
+                  self.showRegisterModal = true;
+                  clearInterval(publicUserLimit);
+                }
+              }, 1000)
+            }
           },
           onload: function () {
             // Start the wave animation.
@@ -565,7 +593,9 @@ export default {
             // Stop the wave animation.
             // this.isLoaded = false
             // this.isPlaying = false
-            localStorage.setItem("remainingTime", localStorage.getItem("remainingTime") - self.remainingStillListenerTimer * 1000)
+            if (self.currentUser) {
+              localStorage.setItem("remainingTime", localStorage.getItem("remainingTime") - self.remainingStillListenerTimer * 1000)
+            }
             if (self.isRepeated) {
               self.skipTo(self.index);
             } else {
@@ -581,8 +611,8 @@ export default {
             // this.isPlaying = false
           },
         });
-
-        TrackService.playTrack(this.track.id).then((response) =>
+        this.currentUser ? TrackService.playTrack(this.track.id) : TrackService.playTrackPublicUser(this.track.id)
+          .then((response) =>
           console.log("playing - track", this.track.id)
         );
       };
@@ -596,7 +626,6 @@ export default {
         this.isLoaded = false;
         this.isPlaying = false;
       }
-
       // Keep track of the index we are currently playing.
       this.index = index;
       this.$store.dispatch("player/setTrackIndex", index);
@@ -628,7 +657,9 @@ export default {
      * Pause the currently playing track.
      */
     pause() {
-      this.updateUserInfo();
+      if (this.currentUser) {
+        this.updateUserInfo();
+      }
       // player is not initialized yet.
       if (!this.$store.state.player.isPlaying) return;
 
@@ -682,7 +713,9 @@ export default {
      * @param  {Number} index Index in the playlist.
      */
     skipTo(index) {
-      this.updateUserInfo();
+      if (this.currentUser) {
+        this.updateUserInfo();
+      }
       // Stop the current track.
       var sound = null;
       if (
@@ -851,7 +884,7 @@ export default {
         this.pause();
         this.$router.push({path: '/auth-plans'})
       } else {
-        if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
+        if (this.currentUser && this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
           this.previewTimeCompleted = true;
           this.pause();
           this.remainingTime = 0
@@ -886,17 +919,19 @@ export default {
     },
 
     fetchSubscriptionDetails() {
-      UserService.getSubscriptionDetail(this.currentUser.id)
-      .then((response) => {
-        if (response.bodyText === "Subscribed") {
-          this.isSubscribed = true
-        }
-      })
-      .catch((e) => {
-        this.$store.dispatch(
-          'error/showErrorToast', ["There was an error on fetching user info "]
-        )
-      })
+      if (this.currentUser) {
+        UserService.getSubscriptionDetail(this.currentUser.id)
+        .then((response) => {
+          if (response.bodyText === "Subscribed") {
+            this.isSubscribed = true
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast', ["There was an error on fetching user info "]
+          )
+        })
+      }
     },
 
     updateUserInfo() {

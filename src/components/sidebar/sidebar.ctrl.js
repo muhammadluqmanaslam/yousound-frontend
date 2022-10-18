@@ -18,6 +18,7 @@ export default {
       customActive: '',
       selectedTab: 1,
       searchActive: false,
+      showRegisterModal: false,
       tabs: [
         {
           name: '',
@@ -116,7 +117,7 @@ export default {
       immediate: true,
       handler(val) {
         if (!val) {
-        // this.tabs = [this.allTabs.find((tab) => tab.name === 'Discover')]
+          this.tabs = this.allTabs
         } else if (val) {
           this.tabs = this.allTabs
 
@@ -214,19 +215,23 @@ export default {
     },
   },
   mounted() {
-    if ((this.currentUser.plan === "pro" && this.currentUser.creator_verified !== true) || this.currentUser.plan !== "pro") {
-      this.tabs[0].items[0].path = "settings"
-    }
-    this.setUsername()
-    if (this.onMobile) {
-      this.mini = true
+    if (this.currentUser != null) {
+      if ((this.currentUser.plan === "pro" && this.currentUser.creator_verified !== true) || this.currentUser.plan !== "pro") {
+        this.tabs[0].items[0].path = "settings"
+      }
+      this.setUsername()
+      if (this.onMobile) {
+        this.mini = true
+      }
     }
   },
 
   async created() {
-    await this.isCreatorVerified()
-    if (!this.currentUser.creator_verified) {
-      this.tabs[0].items = this.tabs[0].items.filter(tab => tab.id !== "upload")
+    if (this.currentUser != null) {
+      await this.isCreatorVerified()
+      if (!this.currentUser.creator_verified) {
+        this.tabs[0].items = this.tabs[0].items.filter(tab => tab.id !== "upload")
+      }
     }
   },
 }

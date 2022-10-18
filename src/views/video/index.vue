@@ -82,7 +82,7 @@
       </template>
     </content-top-header>
 
-    <div class="page-content" v-if="currentUser">
+    <div class="page-content">
       <v-container fluid :grid-list-md="onMobile" px-0 pt-0>
         <v-layout row wrap>
           <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->

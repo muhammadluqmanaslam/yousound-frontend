@@ -115,7 +115,9 @@ export default {
   },
 
   async created() {
-    await this.fetchSubscriptionDetails();
+    if (this.currentUser) {
+      await this.fetchSubscriptionDetails();
+    }
   },
 
   methods: {

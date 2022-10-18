@@ -111,7 +111,7 @@
                   <div class="first-name">
                     <label class="control-label">First Name</label>
                     <input
-                      v-model="profile.firstName"
+                      v-model="profile.first_name"
                       type="text"
                       class="form-control"
                     />
@@ -120,7 +120,7 @@
                   <div class="last-name">
                     <label class="control-label">Last Name</label>
                     <input
-                      v-model="profile.lastName"
+                      v-model="profile.last_name"
                       type="text"
                       class="form-control"
                     />

@@ -74,11 +74,24 @@
             </v-tabs> -->
           </li>
         </ul>
+        <v-dialog v-model="showRegisterModal">
+          <v-card>
+            <v-card-title class="headline"
+              >Register</v-card-title
+            >
+            <v-card-text
+              >Please do signup if you want to proceed.</v-card-text
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </template>
     </content-top-header>
 
     <div class="d-flex">
-      <div class="page-content" v-if="currentUser">
+      <div class="page-content">
         <v-container fluid grid-list-md pl-0 style="margin-left: -10px">
           <v-layout row wrap>
             <v-flex xs6 sm4 lg3 v-for="feed in products" :key="feed.id">
@@ -88,6 +101,7 @@
               :noMeta="onMobile"
               :altMeta="onMobile"
               :altMetaPrice="onMobile"
+              @click.native="verifyUser()"
               :dataObject="feed" />
             </v-flex>
           </v-layout>

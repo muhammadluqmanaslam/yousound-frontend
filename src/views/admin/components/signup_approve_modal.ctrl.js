@@ -46,6 +46,7 @@ export default {
       type: Function,
       required: true,
     },
+    activeTab: null,
   },
 
   data() {

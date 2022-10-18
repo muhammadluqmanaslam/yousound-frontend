@@ -22,7 +22,7 @@
             <label>{{ userFullAddress }}</label>
           </div>
         </div>
-        <div class="action-section">
+        <div class="action-section" v-if="activeTab == 'waiting'">
           <v-btn
             color="success ma-0"
             class="approve-btn"
