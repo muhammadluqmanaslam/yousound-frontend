@@ -191,7 +191,7 @@ export default {
     },
 
     playSong() {
-      if (this.isPlaying && this.$store.state.player.isPaused && this.currentUser !== null) {
+      if (this.isPlaying && this.$store.state.player.isPaused) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
       } else {
         this.setPlaylist(this.objects)
