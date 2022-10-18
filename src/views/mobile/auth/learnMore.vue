@@ -209,7 +209,7 @@
       </transition>
 
       <transition name="fade">
-        <div v-if="(activeTab === 'creator') || onMobile" class="learn-more-body _creators" :class="{'mt-5': onMobile, onMobile}">
+        <div v-if="(activeTab === 'creator') || onMobile" class="learn-more-body _creators mt-extra" :class="{'mt-5': onMobile, onMobile}">
           <div v-if="onMobile" class="intro-section">
             <h1 class="intro-title pt-5">For Creators</h1>
             <hr class="light intro-divider">
@@ -237,7 +237,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Keep 100% of sales</h2>
@@ -281,7 +281,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Connect with text</h2>
@@ -325,7 +325,7 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Advanced analytics</h2>
@@ -646,6 +646,7 @@ export default {
       ._img {
         width: 100% !important;
         height: 258px !important;
+        box-shadow: 0px 10px 50px rgba(34, 34, 34, 0.15);
       }
 
       &::before {
