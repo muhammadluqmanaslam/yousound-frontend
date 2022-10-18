@@ -215,9 +215,9 @@ export default {
   align-items: center;
 
   .stage {
-    height: 2px;
+    height: 3px;
     border-radius: 50px;
-    background-color: #888888;
+    background-color: #b3b3b3;
     width: 10px;
 
     &._current {

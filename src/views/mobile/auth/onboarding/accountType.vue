@@ -96,7 +96,7 @@ export default {
 
       return accountTypes;
     },
-  },
+  },  
   methods: {
     ...mapActions({
       gotoNextStage: "app/nextOnboardingStage",

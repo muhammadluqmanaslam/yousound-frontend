@@ -66,6 +66,7 @@ export default {
 .autocomplete {
   position: absolute;
   width: 100%;
+  z-index: 10;
 
   .options {
     max-height: 100px;

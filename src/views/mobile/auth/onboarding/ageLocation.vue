@@ -19,7 +19,7 @@
       <div class="_title">Country</div>
       <input
         v-model="country"
-        class="_country"
+        class="_city"
         :class="{_filled: country}" 
         type="text"
         placeholder="Enter Country"
@@ -277,7 +277,9 @@ export default {
     text-align: center;
 
     &._selected {
-      border: 2px solid #000000;
+      color: white;
+      background-color: #333;
+      border-color: #333;
     }
 
     &:not(:last-child) {

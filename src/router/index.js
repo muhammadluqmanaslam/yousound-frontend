@@ -28,6 +28,8 @@ import AdminPage from '@/views/admin/admin'
 import Home from '@/views/landingPages/landing1'
 import Creators from '@/views/landingPages/landing2'
 import AdFree from '@/views/landingPages/landing3'
+import LoginPage from '@/views/LoginPage'
+import SignUpPage from '@/views/SignUpPage'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
 // import CreateAttendee from '@/views/home/create_attendee'
@@ -114,6 +116,8 @@ export function createRouter(settings) {
     // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
     { path: '/login', name: 'Login', component: Login, meta: { showGoBack: true } },
+    { path: '/login-page', name: 'Login', component: LoginPage, meta: { showGoBack: true } },
+    { path: '/signup-page', name: 'Login', component: SignUpPage, meta: { showGoBack: true } },
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword, meta: { showGoBack: true } },
     {
       path: '/reset_password/:token',

@@ -71,7 +71,7 @@ export default {
     return {
       isLoading: false,
       socialChannel: "",
-      socialUsername: "@",
+      socialUsername: "@ ",
     };
   },
   computed: {
@@ -104,7 +104,7 @@ export default {
   watch: {
     socialUsername(val) {
       if (val.length < 2) {
-        this.socialUsername = "@";
+        this.socialUsername = "@ ";
       }
     },
   },

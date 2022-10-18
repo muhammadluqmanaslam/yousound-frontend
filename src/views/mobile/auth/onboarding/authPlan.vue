@@ -258,6 +258,7 @@ export default {
     font-weight: bold;
     font-size: 18px;
     cursor: pointer;
+    text-align: center;
   }
 }
 </style>

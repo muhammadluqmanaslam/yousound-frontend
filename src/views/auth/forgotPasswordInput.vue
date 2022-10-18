@@ -11,10 +11,11 @@
             alt="main icon"
           />
         </div>
+        <div class=" my-3">
 
         <input
           v-model="email"
-          class="email my-5"
+          class="email"
           v-validate="'required|email'"
           :class="{
             input: true,
@@ -24,14 +25,15 @@
           type="email"
           placeholder="Email"
         />
+        <p
+          class="text-danger text-xs-left"
+          v-if="errors.has('email')"
+        >
+          {{ errors.first("email") }}
+        </p>
       </div>
 
-      <p
-        class="text-danger text-xs-left"
-        v-if="errors.has('email')"
-      >
-        {{ errors.first("email") }}
-      </p>
+    </div>
       <v-btn block round dark type="submit" class="reset-btn py-3">
         Reset Password
       </v-btn>
