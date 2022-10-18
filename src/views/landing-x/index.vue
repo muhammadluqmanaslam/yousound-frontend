@@ -19,27 +19,30 @@
 
       </v-container>
     </div>
+
     <div class="full-width-header">
-      <v-container class="header-container">
+      <v-container  class="relative-container">
+      <div class="header-container">
         <div class="header-content">
           <h1 class="_title">Join the world's creators <br> & music lovers.</h1>
-          <a href="#plans">
+          <a href="/discover">
             <v-btn round class="orange-btn">Discover</v-btn>
           </a>
         </div>
-      </v-container>
+      </div>
       <div class="header-img">
         <img src="../../assets/landing.gif" width="100%">
       </div>
+    </v-container >
     </div>
 
   <v-container id="learn-more" class="pt-5 mt-3">
       <learn-more pageMode setOnMobile hideFooter />
   </v-container>
 
-  <v-container class="plans-container mb-5" id="plans">
+  <v-container class="plans-container" id="plans">
     <div class="dflex align-center justify-space-between top-note">
-      <h1 class="main-title">Choose Plan</h1>
+      <h1 class="main-title intro-title">Choose Plan</h1>
       <div class="_right">* SMS costs $0.01 per text</div>
     </div>
 
@@ -181,11 +184,6 @@ setTimeout(() => {
 
 <style lang="scss">
 
-.container.app-container.fluid.not-authenticated:has(.landing-x) {
-    padding: 0px;
-}
-
-
 .landing-x{
 
   .main-title{
@@ -243,10 +241,13 @@ setTimeout(() => {
 
 
   .full-width-header{
-    padding: 200px 0 150px;
     background-color: #f7eeea;
-    position: relative;
     overflow: hidden;
+
+    .relative-container{
+      position: relative;
+      padding: 200px 0 150px;
+    }
 
     .header-content{
       width: 65%;
@@ -285,6 +286,10 @@ setTimeout(() => {
 
 
   .plans-container {
+    margin-top: 100px;
+    padding-bottom: 75px;
+
+
     .top-note {
       font-weight: 400;
       ._right {
@@ -292,8 +297,8 @@ setTimeout(() => {
       }
     }
     .margin-vertical{
-      margin-top: 30px;
-      margin-bottom: 50px;
+      margin-top: 20px;
+      margin-bottom: 95px;
     }
 
     .plans {
@@ -313,24 +318,24 @@ setTimeout(() => {
         border-radius: 30px;
         border: 1px solid rgba(0, 0, 0, 0.05);
         width: 45%;
-        padding: 20px 0 33px;
+        padding: 20px 0 28px;
         position: relative;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
 
         &_0 {
-          background: #fbfbfb;
-          border: 1px solid rgba(147,147,147,0.2);
+          background: #F7EEEA;
+          border: 1px solid #F7EEEA;
 
         }
         &_1 {
-          background: linear-gradient(166.67deg, #FFFDCA 3.03%, #FFFDC5 98.02%);
-          border: 1px solid #eeecb8;
+          background: rgba(251, 228, 151, 0.6);
+          border: 1px solid rgba(251, 228, 151, 0.6);
         }
         &_2 {
-          background: linear-gradient(163.95deg, #EAF5FF 2.46%, #DDE7FF 98.79%);
-          border: 1px solid #ccd7ed;
+          background: rgba(230, 217, 251, 0.8);
+          border: 1px solid rgba(230, 217, 251, 0.8);
         }
         ._bullet{
           margin-right: 5px;
@@ -403,6 +408,58 @@ setTimeout(() => {
             padding: 0 30px;
           }
         }
+      }
+    }
+  }
+
+  @media screen and  (min-width: 1600px) {
+    .container{
+      max-width: 1250px;
+    }
+  }
+
+
+
+  @media screen and (max-width: 1250px) and (min-width: 960px) {
+    .container{
+      max-width: 1050px;
+
+      .intro-title{
+        font-size: 36px;
+      }
+    
+      .nav-flex{
+        padding: 10px 0;
+
+        .nav-logo{
+          width: 135px;
+        }
+
+        .nav-links{
+          a{
+            font-size:16px;
+          }
+
+          .black-btn{
+            font-size: 16px;
+          }
+        }
+      }
+
+      .header-content{
+        ._title{
+          font-size: 50px;
+          line-height: 55px;
+        }
+
+        .orange-btn{
+          font-size: 16px;
+          padding: 7.5px 20px;
+        }
+      }
+
+      .plans {
+        gap: 25px;
       }
     }
   }

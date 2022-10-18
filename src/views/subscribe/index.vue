@@ -17,7 +17,7 @@
     </v-container>
 
     <v-container class="plans-container pb-5 mb-5" id="plans">
-      <h1 class="main-title">Choose Plan</h1>
+      <h1 class="main-title intro-title">Choose Plan</h1>
 
       <hr class="light">
 
@@ -195,7 +195,7 @@ export default {
     background-image: url("../../assets/subscribe-banner.jpg");
     background-size: cover;
     background-position: left;
-    padding: 90px 0;
+    padding: 120px 0 90px;
     .banner-container {
       height: 100%;
       display: grid;
@@ -220,6 +220,7 @@ export default {
 
     ._title{
       font-size: 50px;
+      line-height: 60px;
       font-weight: bold;
       letter-spacing: -2px;
     }
@@ -268,7 +269,7 @@ export default {
         border-radius: 30px;
         border: 1px solid rgba(0, 0, 0, 0.05);
         width: 45%;
-        padding: 20px 0 33px;
+        padding: 20px 0 28px;
         position: relative;
         display: flex;
         justify-content: space-between;
@@ -373,5 +374,41 @@ export default {
       }
     }
   }
+}
+
+@media screen and (max-width: 1250px) and (min-width: 960px) {
+  .container{
+    max-width: 900px;
+
+    .intro-title{
+      font-size: 36px;
+    }
+  
+    .banner-content{
+      ._title{
+        font-size: 42px;
+        line-height: 50px;
+      }
+  
+      ._subtitle{
+        font-size: 20px;
+      }
+
+    }
+    .banner .btn{
+      font-size: 16px;
+      padding: 7.5px 10px;
+    }
+  }
+
+
+
+
+    .plans {
+      gap: 25px !important; 
+    }
+  
+
+  
 }
 </style>

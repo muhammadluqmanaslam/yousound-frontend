@@ -43,8 +43,11 @@
 
           <v-container grid-list-lg layer-container>
             <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 tiles-layer :class="[pageMode? 'sm4' : 'sm5']">
-                <div class="tiles">
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm5' : 'sm5']">
+                <div class="tile1-div">
+                  <img :src="require('@/assets/tile1-min.png')" width="100%">
+                </div>
+                <!-- <div class="tiles">
                   <div class="tile top-left tile-1 square">
                     <div
                       class="_img"
@@ -85,7 +88,7 @@
                       :style="`background-image: url('${tile4}')`"
                     ></div>
                   </div>
-                </div>
+                </div> -->
 
                 <div v-if="!pageMode && onMobile" class="app-download">
                   <img
@@ -106,7 +109,7 @@
               <v-flex xs12 context-layer :class="[pageMode? 'sm7' : 'sm6']">
                 <div class="tile-context">
                   <h2 v-if="!onMobile" class="_title">Listen, watch & shop</h2>
-                  <h2 v-if="onMobile" class="_title">Build your collection</h2>
+                  <h2 v-if="onMobile" class="_title">Listen, watch & shop</h2>
 
                   <div class="_subtitle">
                     Collect music, videos, products & create playlists. <br> Easily
@@ -116,19 +119,22 @@
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'mt-2': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'': onMobile}">
               <v-flex xs12 sm7 context-layer>
                 <div class="tile-context">
                   <h2 class="_title">Empower creators</h2>
                   <div class="_subtitle">
-                    50% of your subscription goes to creators you stream most.
+                    50% of your subscription goes to creators you <br> stream most.
                     View your dashboard to see who you support.
                   </div>
                 </div>
               </v-flex>
 
-              <v-flex xs12 tiles-layer :class="[pageMode? 'sm4' : 'sm6']">
-                <div class="tiles">
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm5' : 'sm6']">
+                <div>
+                  <img :src="require('@/assets/tile2-min.png')" width="100%">
+                </div>
+                <!-- <div class="tiles">
                   <div class="tile top-right tile-5 landscape">
                     <div
                       class="_img"
@@ -169,20 +175,23 @@
                       :style="`background-image: url('${tile8}')`"
                     ></div>
                   </div>
-                </div>
+                </div> -->
               </v-flex>
             </v-layout>
 
             <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 tiles-layer tiles-layer-single :class="[pageMode? 'sm4' : 'sm5']">
-                <div class="tiles single-tile">
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm5' : 'sm5']">
+                <div class="single-tile-3">
+                  <img :src="require('@/assets/tile3-min.png')" width="90%">
+                </div>
+                <!-- <div class="tiles single-tile">
                   <div class="tile square" :class="{pageMode}">
                     <div
                       class="_img"
                       :style="`background-image: url('${tile9}')`"
                     ></div>
                   </div>
-                </div>
+                </div> -->
               </v-flex>
 
               <v-flex xs12 context-layer :class="[pageMode? 'sm7' : 'sm6']">
@@ -202,7 +211,7 @@
       <transition name="fade">
         <div v-if="(activeTab === 'creator') || onMobile" class="learn-more-body _creators" :class="{'mt-5': onMobile, onMobile}">
           <div v-if="onMobile" class="intro-section">
-            <h1 class="intro-title">For Creators</h1>
+            <h1 class="intro-title pt-5">For Creators</h1>
             <hr class="light intro-divider">
           </div>
           <v-container grid-list-lg layer-container _creator>
@@ -211,7 +220,7 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-1.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -243,7 +252,7 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-2.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -255,7 +264,7 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-3.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -287,7 +296,7 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-4.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -299,7 +308,7 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-5.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -331,7 +340,7 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-6.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -377,10 +386,10 @@ export default {
     return {
       activeTab: "listener",
       tabs: [
-        { id: "listener", title: "For Everyone" },
+        { id: "listener", title: "Features for Everyone" },
         { id: "creator", title: "For Creators" },
       ],
-      tile1: require("@/assets/tile-1.jpeg"),
+      tile1: require("@/assets/tile1-min.png"),
       tile2: require("@/assets/tile-2.jpeg"),
       tile3: require("@/assets/tile-3.jpeg"),
       tile4: require("@/assets/tile-4.jpeg"),
@@ -414,13 +423,25 @@ export default {
   padding: 0 25px 40px 25px;
 
   .my-6{
-    margin: 50px 0px;
+    margin: 35px 0px;
+  }
+
+  .tile1-div{
+    transform: translateX(-10%);
+  }
+
+  ._img-wrapper{
+    width: 100%;
+    max-width: 300px;
   }
 
 .intro-title {
     font-size: 44px;
     font-weight: bold;
     letter-spacing: -2px;
+  }
+  .intro-section {
+    margin-bottom: 100px;
   }
 
   &.onMobile {
@@ -430,11 +451,12 @@ export default {
   &-body {
     .layer-container {
       .layer-layout {
-        margin-top: 100px;
+        margin-top: 35px;
       }
     }
     &.onMobile {
       .intro-section {
+
         .intro-section {
           .intro-title {
             font-size: 44px;
@@ -608,6 +630,10 @@ export default {
   }
 
   .single-tile {
+
+    img{
+      filter: drop-shadow(0px 10px 50px rgba(34, 34, 34, 0.15));
+    }
     .tile {
       width: 100% !important;
       max-width: unset;
@@ -644,11 +670,14 @@ export default {
       font-size: 32px;
       color: #222222;
       margin-bottom: 15px;
+      letter-spacing: -0.3px;
     }
     ._subtitle {
       font-size: 24px;
       color: #222222;
       opacity: 0.7;
+      letter-spacing: -0.3px;
+      font-weight: 500;
     }
   }
 
@@ -675,9 +704,29 @@ export default {
 }
 
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1100px){
   br{
     display: none;
   }
 }
+
+@media screen and (max-width: 1250px) and (min-width: 960px) {
+
+  .intro-title{
+    font-size: 36px !important;
+  }
+
+  .learn-more .tile-context{
+    ._title{
+      font-size: 28px;
+    }
+
+    ._subtitle{
+      font-size: 20px;
+    }
+  }
+}
+
+
+
 </style>

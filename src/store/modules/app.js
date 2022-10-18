@@ -67,7 +67,7 @@ const state = {
       title: "Advanced",
       list: [
         `<b>All features for creators +</b>`,
-        "Advanced analytics",
+        "<b>Advanced analytics</b>",
         [
           "Content performance",
           "Listeners/buyers by country",

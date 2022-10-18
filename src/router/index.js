@@ -110,7 +110,7 @@ Vue.use(Router)
 
 export function createRouter(settings) {
   let routes = [
-    { path: '/', name: 'Home', component: LandingX, meta: {allowOnMobile: true, noSideSpace: false} },
+    { path: '/', name: 'Home', component: LandingX, meta: {allowOnMobile: true, noSideSpace: true} },
     { path: '/landing-x', name: 'LandingX', component: Home, meta: {allowOnMobile: true, noSideSpace: false} },
     { path: '/creators', name: 'Creators', component: Creators, meta: {allowOnMobile: true} },
     { path: '/adfree', name: 'AdFree', component: AdFree, meta: {allowOnMobile: true} },

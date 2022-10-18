@@ -145,7 +145,8 @@ footer {
   .inner-footer {
     max-width: 1200px;
     width: 100%;
-    margin: auto;
+    margin: 60px auto 50px;
+
       .flex-app{
       display: flex;
       gap: 15px;
@@ -155,7 +156,6 @@ footer {
 
   }
   border-top: 1px solid #eff0f6;
-  padding-top: 80px;
 
 
   .divider-div{
@@ -173,6 +173,7 @@ footer {
     font-size: 20px;
     line-height: 28px;
     color: #000000;
+    letter-spacing: -0.3px;
   }
   .v-list-item {
     .v-list-item__title {
