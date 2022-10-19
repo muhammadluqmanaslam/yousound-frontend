@@ -90,6 +90,8 @@
 
   .side-tab {
     height: 38px;
+    font-family: 'DM Sans', sans-serif;
+ 
 
     /deep/ a {
       position: relative;
@@ -108,6 +110,10 @@
         &.icon_subscribe {
           opacity: 1;
         }
+      }
+
+      span{
+        font-weight: 500;
       }
 
       .__icon {

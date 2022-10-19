@@ -13,7 +13,7 @@
       >
         <v-select
           :placeholder="socialChannel ? socialChannel.title : 'Choose'"
-          class="social-types-selector"
+          class="social-types-selector py-0"
           :class="{ '_filled': socialChannel }"
           single-line
           hide-details
@@ -71,7 +71,7 @@ export default {
     return {
       isLoading: false,
       socialChannel: "",
-      socialUsername: "@ ",
+      socialUsername: "@",
     };
   },
   computed: {
@@ -104,7 +104,7 @@ export default {
   watch: {
     socialUsername(val) {
       if (val.length < 2) {
-        this.socialUsername = "@ ";
+        this.socialUsername = "@";
       }
     },
   },

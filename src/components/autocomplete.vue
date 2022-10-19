@@ -82,5 +82,17 @@ export default {
       }
     }
   }
+
+
+  &.location{
+    .options{
+      max-height: 130px;
+      overflow: auto;
+      background-color: white;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin-top: 5px;
+    }
+  }
 }
 </style>

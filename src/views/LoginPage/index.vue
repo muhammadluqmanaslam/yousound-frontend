@@ -1,10 +1,13 @@
 <template>
     
-    <div class="no-top-nav no-side-space" xs12 sm6>
+    <v-container class="no-top-nav no-side-space" xs12 sm6>
         <div class="login-outer">        
         <div class="login-view">
+          
             <div class="sign-up_logo">
+            <router-link to="/">
               <img :src="require('@/assets/nav_logo_primary.png')" width="150">
+            </router-link>
             </div>
             <div v-if="loginAuth === 'login'" class="login-input">
               <div class="intro-text text-xs-center my-4">
@@ -27,14 +30,14 @@
 
           <Footer></Footer>
   
-    </div>
+    </v-container>
 
 </template>
 <script>
 
 import LoginInput from "@/views/auth/loginInput";
 import forgotPasswordInput from '@/views/auth/forgotPasswordInput/';
-import Footer from "../../components/landingPages/Footer.vue";
+import Footer from "../../components/landingPages/Footer-2.vue";
 
 
 export default {

@@ -1,6 +1,6 @@
 <template>
   <div class="stager" :class="[`_${staging}`, { isDark: currentStage.isDark }]">
-    <div v-if="hideStagerTitle" class="_title" v-html="currentStage.title"></div>
+    <div v-if="hideStagerTitle" class="_titlex" v-html="currentStage.title"></div>
 
     <div v-if="current > 1 && hideStagerBar" class="stages">
       <div
@@ -156,7 +156,7 @@ export default {
     padding-top: 12%;
     z-index: 4;
 
-    ._title {
+    ._titlex {
       color: #ffffff;
       width: 70%;
       margin: 0 auto;
@@ -173,7 +173,7 @@ export default {
   }
 
   &.isDark {
-    ._title {
+    ._titlex {
       color: #000000;
     }
     ._subtitle {
@@ -186,7 +186,7 @@ export default {
     }
   }
 }
-._title {
+._titlex {
   text-align: center;
   margin-bottom: 15px;
   font-size: 28px;
@@ -218,10 +218,10 @@ export default {
     height: 3px;
     border-radius: 50px;
     background-color: #b3b3b3;
-    width: 10px;
+    width: 12px;
 
     &._current {
-      width: 70px;
+      width: 50px;
       background-color: #000000;
     }
 
