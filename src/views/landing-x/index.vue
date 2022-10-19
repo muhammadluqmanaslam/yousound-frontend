@@ -42,7 +42,7 @@
 
   <v-container class="plans-container" id="plans">
     <div class="dflex align-center justify-space-between top-note">
-      <h1 class="main-title intro-title">Choose Plan</h1>
+      <h1 class="main-title intro-title">Choose plan</h1>
       <div class="_right">* SMS costs $0.01 per text</div>
     </div>
 
