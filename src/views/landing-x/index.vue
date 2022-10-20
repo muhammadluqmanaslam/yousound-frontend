@@ -21,99 +21,83 @@
     </div>
 
     <div class="full-width-header">
-      <v-container  class="relative-container">
-      <div class="header-container">
-        <div class="header-content">
-          <h1 class="_title">Join the world's creators <br> & music lovers.</h1>
-          <router-link to="/discover">
-            <v-btn round class="orange-btn">Discover</v-btn>
-          </router-link>
+      <v-container class="relative-container">
+        <div class="header-container">
+          <div class="header-content">
+            <h1 class="_title">Join the world's creators <br> & music lovers.</h1>
+            <router-link to="/discover">
+              <v-btn round class="orange-btn">Discover</v-btn>
+            </router-link>
+          </div>
         </div>
-      </div>
-      <div class="header-img">
-        <img src="../../assets/landing.gif" width="100%">
-      </div>
-    </v-container >
+        <div class="header-img">
+          <img src="../../assets/landing.gif" width="100%">
+        </div>
+      </v-container>
     </div>
 
-  <v-container id="learn-more" class="pt-5 mt-3">
+    <v-container id="learn-more" class="pt-5 mt-3">
       <learn-more pageMode setOnMobile hideFooter />
-  </v-container>
+    </v-container>
 
-  <v-container class="plans-container" id="plans">
-    <div class="dflex align-center justify-space-between top-note">
-      <h1 class="main-title intro-title">Choose plan</h1>
-      <div class="_right">* SMS costs $0.01 per text</div>
-    </div>
+    <v-container class="plans-container" id="plans">
+      <div class="dflex align-center justify-space-between top-note">
+        <h1 class="main-title intro-title">Choose plan</h1>
+        <div class="_right">* SMS costs $0.01 per text</div>
+      </div>
 
       <hr class="light margin-vertical">
 
 
       <div class="plans">
-        <div
-          v-for="(plan, index) in plans"
-          :key="index"
-          class="plan"
-          :class="[`plan_${index}`, `plan_${plan.id}`]"
-        >
-        <div>
-          <h2 class="plan_title">{{ plan.title }}</h2>
+        <div v-for="(plan, index) in plans" :key="index" class="plan" :class="[`plan_${index}`, `plan_${plan.id}`]">
+          <div>
+            <h2 class="plan_title">{{ plan.title }}</h2>
 
-          <div class="plan_lists">
-            <div v-for="(item, i) in plan.list" :key="i" class="plan_list">
-              <div class="top_item" v-if="(typeof item === 'string')">
-                <!-- <v-icon >check</v-icon> -->
-                <div class="mr-2">
-                  <img src="../../assets/check-black.svg" width="10">
-                </div>
-                <div v-html="item">
-                  {{ item }}
-                </div>
+            <div class="plan_lists">
+              <div v-for="(item, i) in plan.list" :key="i" class="plan_list">
+                <div class="top_item" v-if="(typeof item === 'string')">
+                  <!-- <v-icon >check</v-icon> -->
+                  <div class="mr-2">
+                    <img src="../../assets/check-black.svg" width="10">
+                  </div>
+                  <div v-html="item">
+                    {{ item }}
+                  </div>
 
-              </div>
-              <div v-else>
-                <div
-                  v-for="(innerItem, i) in item"
-                  :key="i"
-                  class="innerItem dflex"
-                >
-                  <span class="_bullet">&bull;</span>
-                  <span v-html="innerItem">{{ innerItem }}</span>
+                </div>
+                <div v-else>
+                  <div v-for="(innerItem, i) in item" :key="i" class="innerItem dflex">
+                    <span class="_bullet">&bull;</span>
+                    <span v-html="innerItem">{{ innerItem }}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
           <div class="pricing-absolute">
-          <div class="pricing">
-            <span class="currency">$</span>
-            <span class="cost">{{ plan.price }}</span>
-            <span class="per">/month</span>
-          </div>
+            <div class="pricing">
+              <span class="currency">$</span>
+              <span class="cost">{{ plan.price }}</span>
+              <span class="per">/month</span>
+            </div>
 
-          <div class="plan_btn_wrapper">
-            <v-btn
-              depressed
-              block
-              round
-              dark
-              class="plan_btn py-4"
-              @click.native="openPaymentModal(plan)"
-            >
-              <span v-if="plan.id === 'basic'">Start free 30 day trial</span>
-              <span v-else>Get Verified</span>
-            </v-btn>
+            <div class="plan_btn_wrapper">
+              <v-btn depressed block round dark class="plan_btn py-4" @click.native="openPaymentModal(plan)">
+                <span v-if="plan.id === 'basic'">Start free 30 day trial</span>
+                <span v-else>Get Verified</span>
+              </v-btn>
+            </div>
           </div>
-        </div>
         </div>
       </div>
-  </v-container>
+    </v-container>
 
-  <v-container>
+    <v-container>
       <Footer />
-  </v-container>
-</div>
+    </v-container>
+  </div>
 </template>
 
 
@@ -124,7 +108,7 @@ import AuthPlan from "@/views/mobile/auth/onboarding/authPlan";
 import { mapState } from "vuex";
 
 export default {
-  components:{
+  components: {
     LearnMore,
     Footer
   },
@@ -143,22 +127,21 @@ export default {
 
       return plans;
     },
-    mouonted(){
-      
-    }
 
+    currentUser() {
+      return this.$store.state.auth.user
+    },
   },
-}
 
-window.onscroll = function(e){
-  
+  mounted() {
+    window.onscroll = function (e) {
     var div = document.querySelector('#learn-more');
     var navbar = document.querySelector('.nav-slider')
     console.log(window.pageYOffset)
-    if(window.pageYOffset > 10 ){
+    if (window.pageYOffset > 10) {
       navbar.classList.remove('transparent')
     }
-    else{
+    else {
       navbar.classList.add('transparent')
     }
     // example use
@@ -167,29 +150,35 @@ window.onscroll = function(e){
     // var divOffset = offset(div);
     var rect = div.getBoundingClientRect()
 
-    if(rect.top  < 120){
+    if (rect.top < 120) {
       navbar.classList.add('bg-white')
     }
-    else{
+    else {
       navbar.classList.remove('bg-white')
     }
     console.log("Scrolling");
+  }
+  },
+
+  created() {
+    if (this.currentUser != null) {
+      this.$router.push({path: '/discover'})
+    }
+  }
 }
-
-
 
 </script>
 
 <style lang="scss">
+.landing-x {
 
-.landing-x{
-
-  .main-title{
+  .main-title {
     font-size: 44px;
     font-weight: bold;
     letter-spacing: -2px;
   }
-  .nav-slider{
+
+  .nav-slider {
     background-color: #f7eeea;
     width: 100%;
     position: fixed;
@@ -197,29 +186,30 @@ window.onscroll = function(e){
     left: 0;
     z-index: 100;
 
-    &.bg-white{
+    &.bg-white {
       background-color: white;
     }
-    &.transparent{
+
+    &.transparent {
       background-color: transparent;
     }
-    
-    .nav-flex{
+
+    .nav-flex {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 0;
 
-      .nav-logo{
+      .nav-logo {
         width: 165px;
       }
 
-      .nav-links{
+      .nav-links {
         display: flex;
         align-items: center;
         gap: 35px;
 
-        .black-btn{
+        .black-btn {
           color: white;
           background-color: black;
           font-size: 18px;
@@ -227,7 +217,7 @@ window.onscroll = function(e){
           padding: 5px 7.5px;
         }
 
-        a{
+        a {
           color: black;
           font-weight: bold;
           font-size: 18px;
@@ -238,27 +228,28 @@ window.onscroll = function(e){
   }
 
 
-  .full-width-header{
+  .full-width-header {
     background-color: #f7eeea;
     overflow: hidden;
 
-    .relative-container{
+    .relative-container {
       position: relative;
       padding: 200px 0 150px;
     }
 
-    .header-content{
+    .header-content {
       width: 65%;
       position: relative;
       z-index: 5;
-      ._title{
+
+      ._title {
         font-size: 58px;
         line-height: 64px;
         letter-spacing: -2px;
         font-weight: 700;
       }
 
-      .orange-btn{
+      .orange-btn {
         height: auto;
         color: white;
         background-color: #f85032;
@@ -273,7 +264,8 @@ window.onscroll = function(e){
       }
     }
   }
-  .header-img{
+
+  .header-img {
     position: absolute;
     width: 50%;
     max-width: 730px;
@@ -290,11 +282,13 @@ window.onscroll = function(e){
 
     .top-note {
       font-weight: 400;
+
       ._right {
         font-size: 14px;
       }
     }
-    .margin-vertical{
+
+    .margin-vertical {
       margin-top: 20px;
       margin-bottom: 95px;
     }
@@ -308,6 +302,7 @@ window.onscroll = function(e){
       .top_title {
         font-size: 32px;
       }
+
       .top_subtitle {
         font-size: 18px;
       }
@@ -327,15 +322,18 @@ window.onscroll = function(e){
           border: 1px solid #F7EEEA;
 
         }
+
         &_1 {
           background: rgba(251, 228, 151, 0.6);
           border: 1px solid rgba(251, 228, 151, 0.6);
         }
+
         &_2 {
           background: rgba(230, 217, 251, 0.8);
           border: 1px solid rgba(230, 217, 251, 0.8);
         }
-        ._bullet{
+
+        ._bullet {
           margin-right: 5px;
           margin-left: 23px;
         }
@@ -374,6 +372,7 @@ window.onscroll = function(e){
           .top_item {
             display: flex;
             align-content: flex-start;
+
             .icon {
               display: block;
               color: #000000;
@@ -394,6 +393,7 @@ window.onscroll = function(e){
             font-size: 32px;
             font-weight: bold;
           }
+
           .per {
             font-size: 12px;
             color: #000000;
@@ -410,8 +410,8 @@ window.onscroll = function(e){
     }
   }
 
-  @media screen and  (min-width: 1600px) {
-    .container{
+  @media screen and (min-width: 1600px) {
+    .container {
       max-width: 1250px;
     }
   }
@@ -419,38 +419,38 @@ window.onscroll = function(e){
 
 
   @media screen and (max-width: 1250px) and (min-width: 960px) {
-    .container{
+    .container {
       max-width: 1050px;
 
-      .intro-title{
+      .intro-title {
         font-size: 36px;
       }
-    
-      .nav-flex{
+
+      .nav-flex {
         padding: 10px 0;
 
-        .nav-logo{
+        .nav-logo {
           width: 135px;
         }
 
-        .nav-links{
-          a{
-            font-size:16px;
+        .nav-links {
+          a {
+            font-size: 16px;
           }
 
-          .black-btn{
+          .black-btn {
             font-size: 16px;
           }
         }
       }
 
-      .header-content{
-        ._title{
+      .header-content {
+        ._title {
           font-size: 50px;
           line-height: 55px;
         }
 
-        .orange-btn{
+        .orange-btn {
           font-size: 16px;
           padding: 7.5px 20px;
         }
