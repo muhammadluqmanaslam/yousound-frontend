@@ -4,8 +4,10 @@
       <v-container class="banner-container">
         <div class="banner-content">
           <h1 class="_title">Join the world’s creators & music lovers.</h1>
-          <h1 class="_subtitle">Start your free 30 day trial</h1>
-          <v-btn round class="white">Choose Plan</v-btn>
+          <p class="_subtitle">Start your free 30 day trial</p>
+          <a href="#plans">
+            <v-btn round class="white">Choose Plan</v-btn>
+          </a>
         </div>
       </v-container>
     </div>
@@ -14,8 +16,8 @@
       <learn-more pageMode setOnMobile hideFooter />
     </v-container>
 
-    <v-container class="plans-container">
-      <h1>Choose Plan</h1>
+    <v-container class="plans-container pb-5 mb-5" id="plans">
+      <h1 class="main-title intro-title">Choose Plan</h1>
 
       <hr class="light">
 
@@ -31,30 +33,33 @@
           class="plan"
           :class="[`plan_${index}`, `plan_${plan.id}`]"
         >
+        <div>
           <h2 class="plan_title">{{ plan.title }}</h2>
 
           <div class="plan_lists">
             <div v-for="(item, i) in plan.list" :key="i" class="plan_list">
-              <div class="top_item">
-                <v-icon>check</v-icon>
-                <div v-if="typeof item === 'string'" v-html="item">
+              <div class="top_item" v-if="(typeof item === 'string')">
+                <v-icon >check</v-icon>
+                <div v-html="item">
                   {{ item }}
                 </div>
 
-                <div v-else>
-                  <div
-                    v-for="(innerItem, i) in item"
-                    :key="i"
-                    class="innerItem dflex"
-                  >
-                    <span class="_bullet">&bull;</span>
-                    <span v-html="innerItem">{{ innerItem }}</span>
-                  </div>
+              </div>
+              <div v-else>
+                <div
+                  v-for="(innerItem, i) in item"
+                  :key="i"
+                  class="innerItem dflex"
+                >
+                  <span class="_bullet">&bull;</span>
+                  <span v-html="innerItem">{{ innerItem }}</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
+          <div class="pricing-absolute">
           <div class="pricing">
             <span class="currency">$</span>
             <span class="cost">{{ plan.price }}</span>
@@ -67,7 +72,7 @@
               block
               round
               dark
-              class="plan_btn"
+              class="plan_btn py-4"
               @click.native="openPaymentModal(plan)"
             >
               <span v-if="plan.id === 'basic'">Start free 30 day trial</span>
@@ -75,13 +80,14 @@
             </v-btn>
           </div>
         </div>
+        </div>
       </div>
     </v-container>
 
     <v-container class="faq-container">
-      <h1 class="mb-3">FAQ</h1>
+      <h1 class="main-title mb-3">FAQ</h1>
 
-      <hr class="light" />
+      <hr class="light mb-5" />
 
       <div class="faqs">
         <div class="faq">
@@ -175,21 +181,54 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.container{
+  max-width: 1100px;
+}
+.main-title{
+  font-size: 44px;
+  font-weight: bold;
+  letter-spacing: -2px;
+}
 .subscribe-landing {
   .banner {
     background-image: url("../../assets/subscribe-banner.jpg");
     background-size: cover;
-    height: 300px;
-
+    background-position: left;
+    padding: 120px 0 90px;
     .banner-container {
       height: 100%;
       display: grid;
       align-content: center;
     }
+
+    .btn{
+      height: auto;
+      margin-bottom: 0px;
+      margin-top: 30px;
+      margin-left: 0px;
+      padding: 11px 15px;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: none;
+      border: none;
+    }
   }
 
   .banner-content {
     color: #ffffff;
+
+    ._title{
+      font-size: 50px;
+      line-height: 60px;
+      font-weight: bold;
+      letter-spacing: -2px;
+    }
+    ._subtitle{
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
   }
 
   .learnmore-comp {
@@ -202,21 +241,22 @@ export default {
       margin-top: 30px;
       margin-bottom: 50px;
 
-      ._right {
+      ._left {
         color: #222222;
+        font-size: 20px;
+        font-weight: 500;
         opacity: 0.7;
       }
       ._right {
-        font-size: 13px;
-        opacity: 0.96;
+        font-size: 12px;
       }
     }
 
     .plans {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: space-between;
-      gap: 20px;
+      gap: 50px;
 
       .top_title {
         font-size: 32px;
@@ -229,27 +269,38 @@ export default {
         border-radius: 30px;
         border: 1px solid rgba(0, 0, 0, 0.05);
         width: 45%;
-        padding: 20px 0 33px;
+        padding: 20px 0 28px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
 
         &_0 {
-          background: #93939333;
+          background: #fbfbfb;
+          border: 1px solid rgba(147,147,147,0.2);
+
         }
         &_1 {
-          background: #eeecb8;
+          background: linear-gradient(166.67deg, #FFFDCA 3.03%, #FFFDC5 98.02%);
+          border: 1px solid #eeecb8;
         }
         &_2 {
-          background: #ccd7ed;
+          background: linear-gradient(163.95deg, #EAF5FF 2.46%, #DDE7FF 98.79%);
+          border: 1px solid #ccd7ed;
+        }
+        ._bullet{
+          margin-right: 5px;
+          margin-left: 23px;
         }
 
         &_title {
-          font-size: 32px;
-          margin: 20px 0;
+          font-size: 28px;
+          margin: 10px 0 5px;
           padding: 0 30px;
         }
 
         &_lists {
-          height: 153px;
-          overflow: auto;
+          overflow: visible;
           padding: 7px 30px 0;
           margin-right: 10px;
 
@@ -285,6 +336,7 @@ export default {
             }
           }
         }
+
 
         .pricing {
           letter-spacing: -0.5px;
@@ -322,5 +374,41 @@ export default {
       }
     }
   }
+}
+
+@media screen and (max-width: 1250px) and (min-width: 960px) {
+  .container{
+    max-width: 900px;
+
+    .intro-title{
+      font-size: 36px;
+    }
+  
+    .banner-content{
+      ._title{
+        font-size: 42px;
+        line-height: 50px;
+      }
+  
+      ._subtitle{
+        font-size: 20px;
+      }
+
+    }
+    .banner .btn{
+      font-size: 16px;
+      padding: 7.5px 10px;
+    }
+  }
+
+
+
+
+    .plans {
+      gap: 25px !important; 
+    }
+  
+
+  
 }
 </style>

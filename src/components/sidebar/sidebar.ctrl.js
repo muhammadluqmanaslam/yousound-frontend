@@ -1,4 +1,5 @@
 import sideAudioPlayer from '@/components/sideAudioPlayer'
+import sideAudioPlaceholder from '@/components/sideAudioPlaceholder'
 import shareModal from '@/components/sharemodal'
 import searchInput from '@/components/searchInput'
 import {mapGetters, mapState} from 'vuex'
@@ -7,6 +8,7 @@ import AuthService from '@/services/auth'
 export default {
   components: {
     sideAudioPlayer,
+    sideAudioPlaceholder,
     shareModal,
     searchInput,
   },

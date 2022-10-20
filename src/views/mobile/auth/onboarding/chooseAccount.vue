@@ -85,7 +85,7 @@ export default {
 .account {
   border: 1px solid #d0d0d0;
   border-radius: 12px;
-  padding: 15px 20px;
+  padding: 15px 20px 22px;
   text-align: center;
   cursor: pointer;
 

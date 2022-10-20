@@ -1,18 +1,27 @@
 <template>
   <div class="auth-plan">
     <h2 class="top_title">Free trial</h2>
-    <div class="top_subtitle mb-2">
+    <div class="top_subtitle">
       Once verified your card will be charged 30 days after the date of
       activation.
     </div>
 
-    <div class="top_subtitle mb-3">Cancel anytime.</div>
+    <div class="top_subtitle mb-6">Cancel anytime.</div>
 
     <ul class="_breakdown mb-3 ml-3">
       <li>Creators must be verified to activate plan</li>
       <li>Purchase of plan does not guarantee verification</li>
       <li>Denied applications are never charged & remain listener accounts</li>
     </ul>
+
+
+    <div class="plans-container" id="plans">
+      <div class="dflex align-center justify-space-between top-note">
+        <h1 class="main-title intro-title">Choose plan</h1>
+        <div class="_right">* SMS costs $0.01 per text</div>
+      </div>
+  
+        <hr class="light margin-vertical">
 
     <div class="plans">
       <div
@@ -25,21 +34,24 @@
 
         <div class="plan_lists">
           <div v-for="(item, i) in plan.list" :key="i" class="plan_list">
-            <div class="top_item">
-              <v-icon>check</v-icon>
-              <div v-if="typeof item === 'string'" v-html="item">
+            <div class="top_item" v-if="(typeof item === 'string')">
+              <!-- <v-icon >check</v-icon> -->
+              <div class="mr-2">
+                <img src="../../../../assets/check-black.svg" width="10">
+              </div>
+              <div v-html="item">
                 {{ item }}
               </div>
 
-              <div v-else>
-                <div
-                  v-for="(innerItem, i) in item"
-                  :key="i"
-                  class="innerItem dflex"
-                >
-                  <span class="_bullet">&bull;</span>
-                  <span v-html="innerItem">{{ innerItem }}</span>
-                </div>
+            </div>
+            <div v-else>
+              <div
+                v-for="(innerItem, i) in item"
+                :key="i"
+                class="innerItem dflex"
+              >
+                <span class="_bullet">&bull;</span>
+                <span v-html="innerItem">{{ innerItem }}</span>
               </div>
             </div>
           </div>
@@ -65,6 +77,8 @@
         </div>
       </div>
     </div>
+  </div>
+
 
     <div class="no-selection" @click="makeListener">
       No thanks, make me a listener
@@ -157,100 +171,22 @@ export default {
 <style lang="scss" scoped>
 .auth-plan {
   padding: 20px 30px;
+  .top_title {
+    font-size: 32px;
+  }
+  .top_subtitle {
+    font-size:20px;
 
-  .plans {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .top_title {
-      font-size: 32px;
-    }
-    .top_subtitle {
-      font-size: 18px;
-    }
-
-    .plan {
-      border-radius: 30px;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      width: 45%;
-      padding: 20px 0 33px;
-
-      &_0 {
-        background: rgba(211, 221, 230, 0.15);
-      }
-      &_1 {
-        background: rgba(223, 228, 212, 0.15);
-      }
-
-      &_title {
-        font-size: 32px;
-        margin: 20px 0;
-        padding: 0 30px;
-      }
-
-      &_lists {
-        height: 153px;
-        overflow: auto;
-        padding: 7px 30px 0;
-        margin-right: 10px;
-
-        &::-webkit-scrollbar {
-          width: 4px;
-        }
-
-        &::-webkit-scrollbar-track {
-          box-shadow: inset 0 0 6px transparent;
-          -webkit-box-shadow: inset 0 0 6px transparent;
-          border-radius: 10px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          border-radius: 10px;
-          box-shadow: inset 0 0 6px #d9d9d9;
-          -webkit-box-shadow: inset 0 0 6px #d9d9d9;
-        }
-      }
-
-      &_list {
-        line-height: 2;
-
-        .top_item {
-          display: flex;
-          align-content: flex-start;
-          .icon {
-            display: block;
-            color: #000000;
-            margin-right: 10px;
-            margin-top: 5px;
-            font-size: 13px;
-          }
-        }
-      }
-
-      .pricing {
-        letter-spacing: -0.5px;
-        padding: 0 30px;
-        margin: 20px 0;
-
-        .cost {
-          font-size: 32px;
-          font-weight: bold;
-        }
-        .per {
-          font-size: 12px;
-          color: #000000;
-          opacity: 0.68;
-        }
-      }
-
-      .plan_btn {
-        &_wrapper {
-          padding: 0 30px;
-        }
-      }
+    &.mb-6{
+      margin-bottom: 25px
     }
   }
+
+  ul{
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
 
   .no-selection {
     margin-top: 35px;
@@ -259,6 +195,143 @@ export default {
     font-size: 18px;
     cursor: pointer;
     text-align: center;
+    margin-bottom: 50px;
+  }
+
+
+  .plans-container {
+    margin-top: 35px;
+    padding-bottom: 75px;
+
+
+    .top-note {
+      font-weight: 400;
+      ._right {
+        font-size: 14px;
+      }
+    }
+    .margin-vertical{
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .main-title{
+      font-size: 44px;
+    }
+
+    .plans {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 25px;
+
+
+      .top_title {
+        font-size: 28px;
+      }
+      .top_subtitle {
+        font-size: 18px;
+      }
+
+      .plan {
+        border-radius: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        width: 45%;
+        padding: 20px 0 28px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        .plan_title{
+          font-size: 28px;
+        }
+
+        &_0 {
+          background: #F7EEEA;
+          border: 1px solid #F7EEEA;
+
+        }
+        &_1 {
+          background: rgba(251, 228, 151, 0.6);
+          border: 1px solid rgba(251, 228, 151, 0.6);
+        }
+      /*  &_2 {
+          background: rgba(230, 217, 251, 0.8);
+          border: 1px solid rgba(230, 217, 251, 0.8);
+       // }*/
+        ._bullet{
+          margin-right: 5px;
+          margin-left: 23px;
+        }
+
+        &_title {
+          font-size: 28px;
+          margin: 10px 0 5px;
+          padding: 0 30px;
+        }
+
+        &_lists {
+          overflow: visible;
+          padding: 7px 30px 0;
+          margin-right: 10px;
+
+          &::-webkit-scrollbar {
+            width: 4px;
+          }
+
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px transparent;
+            -webkit-box-shadow: inset 0 0 6px transparent;
+            border-radius: 10px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            box-shadow: inset 0 0 6px #d9d9d9;
+            -webkit-box-shadow: inset 0 0 6px #d9d9d9;
+          }
+        }
+
+        &_list {
+          line-height: 2;
+
+          .top_item {
+            display: flex;
+            align-content: flex-start;
+            .icon {
+              display: block;
+              color: #000000;
+              margin-right: 10px;
+              margin-top: 5px;
+              font-size: 13px;
+            }
+          }
+        }
+
+
+        .pricing {
+          letter-spacing: -0.5px;
+          padding: 0 30px;
+          margin: 20px 0;
+
+          .cost {
+            font-size: 32px;
+            font-weight: bold;
+          }
+          .per {
+            font-size: 12px;
+            color: #000000;
+            opacity: 0.68;
+          }
+        }
+
+        .plan_btn {
+          &_wrapper {
+            padding: 0 30px;
+          }
+        }
+      }
+    }
   }
 }
 </style>

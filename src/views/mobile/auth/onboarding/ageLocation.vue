@@ -29,6 +29,7 @@
         :options="getCountryList"
         identifier="country"
         @selected="selected"
+        class="location"
       ></autocomplete>
     </div>
 
@@ -47,6 +48,7 @@
         identifier="city"
         @selected="selected"
         style="z-index: 1;"
+        class="location"
       ></autocomplete>
     </div>
 
@@ -264,6 +266,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.age-location{
+  margin-top: 25px;
+}
 .selections {
   display: flex;
   justify-content: space-between;
@@ -272,9 +277,10 @@ export default {
   .selection {
     border: 1px solid #d0d0d0;
     border-radius: 3px;
-    padding: 10px 10px;
+    padding: 13px 17px;
     width: 100%;
     text-align: center;
+    font-size: 12px;
 
     &._selected {
       color: white;
@@ -291,12 +297,12 @@ export default {
 .form-group {
   input {
     width: 100%;
-    padding-left: 35px;
+    padding-left: 45px;
 
     &::placeholder {
-      padding-left: 10px;
+      
       font-size: 14px;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgba(0, 0, 0, 0.6);
     }
     &:focus {
       border: 2px solid #000000;
@@ -314,8 +320,9 @@ export default {
     }
     &._city {
       background: url("../../../../assets/city_icon_outline.svg") no-repeat
-        scroll 7px 13px;
+        scroll 16px 13px;
     }
   }
 }
+
 </style>

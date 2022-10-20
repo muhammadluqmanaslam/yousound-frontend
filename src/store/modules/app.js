@@ -67,7 +67,7 @@ const state = {
       title: "Advanced",
       list: [
         `<b>All features for creators +</b>`,
-        "Advanced analytics",
+        "<b>Advanced analytics</b>",
         [
           "Content performance",
           "Listeners/buyers by country",
@@ -262,7 +262,7 @@ const getters = {
       return getters.onboardingCreatorStages
     } else {
       return [{
-        title: 'What Are You?',
+        title: 'What are you?',
         stage: 1,
       }]
     }
@@ -270,7 +270,7 @@ const getters = {
   onboardingListenerStages() {
     const stages = [
       {
-        title: 'What Are You?',
+        title: 'What are you?',
         stage: 1,
       },
       {
@@ -278,19 +278,19 @@ const getters = {
         stage: 2,
       },
       {
-        title: 'Profile Image',
+        title: 'Profile image',
         stage: 3,
       },
       {
-        title: 'Account Info',
+        title: 'Account info',
         stage: 4,
       },
       {
-        title: 'Age & Location',
+        title: 'Age & location',
         stage: 5,
       },
       {
-        title: 'Check Email',
+        title: 'Check your email',
         stage: 6,
       },
     ]
@@ -299,23 +299,23 @@ const getters = {
   onboardingCreatorStages() {
     const stages = [
       {
-        title: 'What Are You?',
+        title: 'What are you?',
         stage: 1,
       },
       {
-        title: 'Artist or Brand',
+        title: 'Artist or brand',
         stage: 2,
       },
       {
-        title: 'Profile Image',
+        title: 'Profile image',
         stage: 3,
       },
       {
-        title: 'Account Info',
+        title: 'Account info',
         stage: 4,
       },
       {
-        title: 'Age & Location',
+        title: 'Age & location',
         stage: 5,
       },
       {
@@ -330,7 +330,7 @@ const getters = {
         hideStagerTitle: true,
       },
       {
-        title: 'Check Email',
+        title: 'Check your email',
         stage: 8,
         hideStagerBar: true,
       },

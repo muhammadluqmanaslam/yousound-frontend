@@ -13,8 +13,10 @@
 
   
           <div v-if="activeView === 'signUpView'" class="signup-view">
-            <div class="sign-up_logo" @click="activeView = 'landingView'">
+            <div class="sign-up_logo">
+              <router-link to="/">            
               <img :src="require('@/assets/nav_logo_primary.png')" width="150">
+            </router-link>
             </div>
             <Onboarding />
           </div>
@@ -25,7 +27,7 @@
   </template>
   
   <script>
-  import Footer from "../../components/landingPages/Footer.vue";
+  import Footer from "../../components/landingPages/Footer-2.vue";
   import { mapActions, mapGetters, mapState } from "vuex";
   import Onboarding from "@/views/mobile/auth/onboarding";
   

@@ -37,7 +37,7 @@
       v-model="username"
       type="text"
       placeholder="username"
-      class="width100 username input_layout"
+      class="width100 username input_layout _username" 
     />
 
     <NavFooter

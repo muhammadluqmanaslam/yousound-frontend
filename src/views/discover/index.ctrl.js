@@ -148,84 +148,84 @@ export default {
       if (tab !== 'recommended') {
         params['seed'] = this.seed
       }
-      this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
-        .then((response) => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          if (tab === 'merch') {
-            this.products = this.products.concat(response.body.products)
-            // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
-            const categories = response.body.categories.map((c) => ({
-              id: c,
-              name: c,
-            }))
-            this.categories = [{ id: 'any', name: 'Any category' }].concat(
-              categories
-            )
-          } else {
-            this.feeds = this.feeds.concat(response.body.albums)
-            const genres = _.chain(this.feeds)
-              .map('genres')
-              .flatMap()
-              .keyBy('id')
-              .map((v, k) => {
-                return v
-              })
-              .sortBy('name')
-              .value()
-            this.genres = [
-              // { id: 'go_to_filters', name: 'Set Genre Filters' },
-              { id: 'any', name: 'All genre' },
-            ].concat(genres)
-          }
-          this.page_index = response.body.pagination.current_page
-          this.total_pages = response.body.pagination.total_pages
-
-          if (page === 1) {
-            Promise.all([
-              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 2 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
-              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 3 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
-              this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 4 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
-            ]).then((values) => {
-              if (tab === 'merch') {
-                vm.products = vm.products.concat(
-                  values[0].body.products,
-                  values[1].body.products,
-                  values[2].body.products
-                )
-                vm.page_index =
-                  values[2].body.pagination.total_pages > 4
-                    ? 4
-                    : values[2].body.pagination.total_pages
-              } else {
-                vm.feeds = vm.feeds.concat(
-                  values[0].body.albums,
-                  values[1].body.albums,
-                  values[2].body.albums
-                )
-                const genres = _.chain(vm.feeds)
-                  .map('genres')
-                  .flatMap()
-                  .keyBy('id')
-                  .map((v, k) => {
-                    return v
-                  })
-                  .sortBy('name')
-                  .value()
-                vm.genres = [{ id: 'any', name: 'All' }].concat(genres)
-                vm.page_index =
-                  values[2].body.pagination.total_pages > 4
-                    ? 4
-                    : values[2].body.pagination.total_pages
-              }
-              vm.isPageReady = true
+      const api_response = this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
+      api_response.then((response) => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        if (tab === 'merch') {
+          this.products = this.products.concat(response.body.products)
+          // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+          const categories = response.body.categories.map((c) => ({
+            id: c,
+            name: c,
+          }))
+          this.categories = [{ id: 'any', name: 'Any category' }].concat(
+            categories
+          )
+        } else {
+          this.feeds = this.feeds.concat(response.body.albums)
+          const genres = _.chain(this.feeds)
+            .map('genres')
+            .flatMap()
+            .keyBy('id')
+            .map((v, k) => {
+              return v
             })
-          }
-        })
-        .catch((e) => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          console.log('discover error', e)
-        })
+            .sortBy('name')
+            .value()
+          this.genres = [
+            // { id: 'go_to_filters', name: 'Set Genre Filters' },
+            { id: 'any', name: 'All genre' },
+          ].concat(genres)
+        }
+        this.page_index = response.body.pagination.current_page
+        this.total_pages = response.body.pagination.total_pages
+
+        if (page === 1) {
+          Promise.all([
+            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 2 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 3 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 4 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
+          ]).then((values) => {
+            if (tab === 'merch') {
+              vm.products = vm.products.concat(
+                values[0].body.products,
+                values[1].body.products,
+                values[2].body.products
+              )
+              vm.page_index =
+                values[2].body.pagination.total_pages > 4
+                  ? 4
+                  : values[2].body.pagination.total_pages
+            } else {
+              vm.feeds = vm.feeds.concat(
+                values[0].body.albums,
+                values[1].body.albums,
+                values[2].body.albums
+              )
+              const genres = _.chain(vm.feeds)
+                .map('genres')
+                .flatMap()
+                .keyBy('id')
+                .map((v, k) => {
+                  return v
+                })
+                .sortBy('name')
+                .value()
+              vm.genres = [{ id: 'any', name: 'All' }].concat(genres)
+              vm.page_index =
+                values[2].body.pagination.total_pages > 4
+                  ? 4
+                  : values[2].body.pagination.total_pages
+            }
+            vm.isPageReady = true
+          })
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        console.log('discover error', e)
+      })
     },
 
     openGenreSelectorDialog() {
