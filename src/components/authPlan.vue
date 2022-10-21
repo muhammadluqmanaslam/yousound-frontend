@@ -57,7 +57,7 @@
             block
             round
             dark
-            class="plan_btn"
+            class="plan_btn py-4"
             @click.native="openPaymentModal(plan)"
           >
             Start free 30 day trial
@@ -205,7 +205,7 @@ export default {
       .pricing {
         letter-spacing: -0.5px;
         padding: 0 30px;
-        margin: 20px 0;
+        margin: 20px 0 0px;
 
         .cost {
           font-size: 32px;

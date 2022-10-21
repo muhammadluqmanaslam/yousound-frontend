@@ -1,14 +1,14 @@
 <template>
   <div class="auth-plan">
     <h2 class="top_title">Free trial</h2>
-    <div class="top_subtitle">
+    <div class="top_subtitle mt-2">
       Once verified your card will be charged 30 days after the date of
       activation.
     </div>
 
     <div class="top_subtitle mb-6">Cancel anytime.</div>
 
-    <ul class="_breakdown mb-3 ml-3">
+    <ul class="_breakdown ml-3">
       <li>Creators must be verified to activate plan</li>
       <li>Purchase of plan does not guarantee verification</li>
       <li>Denied applications are never charged & remain listener accounts</li>
@@ -69,10 +69,10 @@
             block
             round
             dark
-            class="plan_btn"
+            class="plan_btn py-4"
             @click.native="openPaymentModal(plan)"
           >
-            Start free 30 day trial
+            Get Verified
           </v-btn>
         </div>
       </div>
@@ -176,6 +176,7 @@ export default {
   }
   .top_subtitle {
     font-size:20px;
+    font-weight: 500;
 
     &.mb-6{
       margin-bottom: 25px
@@ -184,7 +185,7 @@ export default {
 
   ul{
     font-size: 16px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
   }
 
 
@@ -212,7 +213,7 @@ export default {
     }
     .margin-vertical{
       margin-top: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 35px;
     }
 
     .main-title{
@@ -236,7 +237,7 @@ export default {
       .plan {
         border-radius: 30px;
         border: 1px solid rgba(0, 0, 0, 0.05);
-        width: 45%;
+        width: 100%;
         padding: 20px 0 28px;
         position: relative;
         display: flex;
@@ -247,13 +248,14 @@ export default {
         }
 
         &_0 {
-          background: #F7EEEA;
-          border: 1px solid #F7EEEA;
+          
+          background: rgba(251, 228, 151, 0.6);
+          border: 1px solid rgba(251, 228, 151, 0.6);
 
         }
         &_1 {
-          background: rgba(251, 228, 151, 0.6);
-          border: 1px solid rgba(251, 228, 151, 0.6);
+          background: #F7EEEA;
+          border: 1px solid #F7EEEA;
         }
       /*  &_2 {
           background: rgba(230, 217, 251, 0.8);
@@ -312,7 +314,7 @@ export default {
         .pricing {
           letter-spacing: -0.5px;
           padding: 0 30px;
-          margin: 20px 0;
+          margin: 20px 0 0px;
 
           .cost {
             font-size: 32px;

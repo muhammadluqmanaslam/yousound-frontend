@@ -1,4 +1,5 @@
 <template>
+  <div class="relative">
   <div class="page discover-page mx-5">
     <!-- <discover-nav pageName="discover" /> -->
 
@@ -33,7 +34,11 @@
     >
       <genre-dialog :dismiss="closeGenreSelectorDialog" />
     </v-dialog>
+
   </div>
+  <!-- Analytics Modal -->
+  <!-- <analyticsModal></analyticsModal> -->
+</div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>

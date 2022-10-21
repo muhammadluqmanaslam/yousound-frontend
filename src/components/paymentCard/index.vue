@@ -46,7 +46,7 @@
               </div>
             </div> -->
 
-            <hr class="my-4" />
+            <hr class="hr-space" />
 
             <v-btn block round dark class="pay_btn" @click="handlePayment">
               Pay ${{ itemPrice }} /month
@@ -256,11 +256,13 @@ export default {
 .payment-modal {
   position: relative;
   background-color: #ffffff;
-  padding: 20px;
+  padding: 30px;
+  border-radius: 20px;
 
   .payment-modal-title {
     font-size: 24px;
     font-weight: bold;
+    font-family: "Inter", sans-serif;
   }
   .payment-card {
     hr {
@@ -269,6 +271,10 @@ export default {
       width: 100%;
       background-color: rgba(0, 0, 0, 0.1);
       margin: 15px 0;
+    }
+
+    .hr-space{
+      margin: 30px 0;
     }
 
     .section-wrapper {
@@ -319,7 +325,14 @@ export default {
         }
 
         .pay_btn {
-          color: #9b9b9b !important;
+          font-size: 18px;
+          font-weight: 500;
+          padding: 25px 0;
+          margin-bottom: 25px;
+
+          &[disabled]{
+            opacity: 0.7;
+          }
         }
 
         .stripe-credit {

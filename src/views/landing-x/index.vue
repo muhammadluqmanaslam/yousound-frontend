@@ -36,9 +36,9 @@
       </v-container>
     </div>
 
-    <v-container id="learn-more" class="pt-5 mt-3">
-      <learn-more pageMode setOnMobile hideFooter />
-    </v-container>
+  <v-container id="learn-more" class="pt-5 mt-3">
+      <learn-more pageMode setOnMobile hideFooter fromLanding/>
+  </v-container>
 
     <v-container class="plans-container" id="plans">
       <div class="dflex align-center justify-space-between top-note">

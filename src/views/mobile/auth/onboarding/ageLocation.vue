@@ -268,6 +268,8 @@ export default {
 <style lang="scss" scoped>
 .age-location{
   margin-top: 25px;
+  width: 100%;
+  min-width: 360px !important;
 }
 .selections {
   display: flex;
@@ -277,10 +279,11 @@ export default {
   .selection {
     border: 1px solid #d0d0d0;
     border-radius: 3px;
-    padding: 13px 17px;
+    padding: 13px 15px;
     width: 100%;
     text-align: center;
-    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
 
     &._selected {
       color: white;
@@ -306,6 +309,7 @@ export default {
     }
     &:focus {
       border: 2px solid #000000;
+      padding-left: 45px;
     }
     &._fullname {
       padding-left: 10px;
@@ -321,6 +325,8 @@ export default {
     &._city {
       background: url("../../../../assets/city_icon_outline.svg") no-repeat
         scroll 16px 13px;
+        font-size: 14px;
+
     }
   }
 }
