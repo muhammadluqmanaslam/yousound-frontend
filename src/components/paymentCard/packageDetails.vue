@@ -11,7 +11,7 @@
           {{ item.title }} {{ subtitleAppend }}
         </div>
 
-        <div class="package-pricing">
+        <div class="package-pricing mt-2">
           <span class="currency">$</span>
           <span class="cost">{{ itemPrice }}/month</span>
         </div>
