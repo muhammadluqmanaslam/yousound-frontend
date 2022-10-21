@@ -279,10 +279,11 @@ export default {
   .selection {
     border: 1px solid #d0d0d0;
     border-radius: 3px;
-    padding: 13px 17px;
+    padding: 13px 15px;
     width: 100%;
     text-align: center;
-    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
 
     &._selected {
       color: white;

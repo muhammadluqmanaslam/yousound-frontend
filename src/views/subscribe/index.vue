@@ -141,7 +141,7 @@
             50% of your monthly subscription is paid directly to the top 10
             creators you stream the most that month. If you<br/> stream 10 creators,
             $5 will be split between 10 creators at $0.50 cents, if you only
-            stream one creator the entire month, they will earn the entire<br/> $5.
+            stream one creator the entire<br/>  month, they will earn the entire $5.
           </div>
         </div>
       </div>
@@ -183,8 +183,45 @@ export default {
 <style lang="scss" scoped>
 
 .container{
-  max-width: 1100px;
+  max-width: 1000px;
 }
+.learnmore-comp{
+
+  ._title{
+    font-size: 28px;
+  }
+
+  ._subtitle{
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+@media screen and (min-width: 1500){
+  .container{
+    max-width: 1100px;
+    }
+    .learnmore-comp{
+
+      br{
+        display: none !important;
+      }
+
+    ._title{
+      font-size: 32px;
+    }
+
+    ._subtitle{
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+
+  .plans {
+    gap: 50px;
+  }
+}
+
 .main-title{
   font-size: 44px;
   font-weight: bold;
@@ -260,7 +297,7 @@ export default {
       display: flex;
       align-items: stretch;
       justify-content: space-between;
-      gap: 50px;
+      gap: 25px;
 
       .top_title {
         font-size: 32px;
@@ -369,6 +406,10 @@ export default {
 
   .faq-container {
     .faqs {
+
+      br{
+        display: block;
+      }
       .faq {
         margin-bottom: 30px;
 

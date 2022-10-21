@@ -155,6 +155,7 @@ export default {
   margin-top: 30px;
 }
 .form-group {
+  width: 330px;
   input {
     width: 100%;
     padding-left: 45px;

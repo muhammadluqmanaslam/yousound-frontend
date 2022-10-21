@@ -110,7 +110,8 @@ export default {
 }
 
 .bodynote{
-  margin: 60px 0;
+  margin: 60px 0 30px;
+  color: black;
 }
 .check-email {
   font-size: 14px;

@@ -65,6 +65,12 @@ export default {
 
 <style lang="scss" scoped>
 .payment-package {
+
+  .package-title{
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+  }
   .package {
     &-title {
       font-weight: 700;
@@ -102,7 +108,18 @@ export default {
       .payment-note {
         background-color: #f7f7f7;
         border-radius: 10px;
-        padding: 10px;
+        padding: 10px 15px;
+
+        i{
+          font-size: 20px;
+        }
+
+        .__note{
+          font-size: 12px;
+          color: rgba(0,0,0,0.7);
+          font-size: 500;
+          line-height: 20px;
+        }
       }
     }
   }

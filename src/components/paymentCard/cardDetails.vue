@@ -86,11 +86,19 @@ export default {
     border-radius: 8px;
   }
 }
-
+.btn-cta{
+  font-size: 18px;
+  font-weight: 500;
+  padding: 25px 0;
+}
 .card-inputs {
+  font-family: "DM Sans", sans-serif !important;
   padding-top: 5px;
   margin-bottom: 10px;
-
+  border: 1px solid #e5e5e5;
+  input {
+    font-family: "DM Sans", sans-serif !important;
+  }
   .divider {
     border-bottom: 1px solid rgba(60, 66, 87, 0.12);
   }
