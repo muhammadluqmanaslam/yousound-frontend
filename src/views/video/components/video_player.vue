@@ -183,10 +183,10 @@ export default {
         if (vm.totalPlayTime === 0) {
           vm.totalPlayTime = vm.player.currentTime()
         } else {
-          vm.totalPlayTime = vm.totalPlayTime + Math.round(vm.player.duration() - vm.endPlayTime)
+          vm.totalPlayTime = vm.totalPlayTime + Math.floor(vm.player.duration() - vm.endPlayTime)
         }
-        if (vm.totalPlayTime >= 10 && vm.isSubscribed) {
-          let params = { stream_id: vm.videoId, duration: Math.round(vm.totalPlayTime) }
+        if (vm.totalPlayTime >= 30 && vm.isSubscribed) {
+          let params = { stream_id: vm.videoId, duration: Math.floor(vm.totalPlayTime) }
 
           TrackingService.createPlayRecord(params)
           .then((response) => {
@@ -217,9 +217,9 @@ export default {
         clearTimeout(vm.stillListeningTimer);
         clearInterval(vm.remainingTimerCalculator);
         if (vm.totalPlayTime === 0) {
-          vm.totalPlayTime = vm.totalPlayTime + Math.round(vm.seekTime1);
+          vm.totalPlayTime = vm.totalPlayTime + Math.floor(vm.seekTime1);
         } else {
-          vm.totalPlayTime = vm.totalPlayTime + Math.round(vm.seekTime1 - vm.endPlayTime)
+          vm.totalPlayTime = vm.totalPlayTime + Math.floor(vm.seekTime1 - vm.endPlayTime)
         }
         vm.endPlayTime = vm.seekTime2
         console.log("================ playing time ", vm.totalPlayTime)

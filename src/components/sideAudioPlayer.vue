@@ -679,9 +679,9 @@ export default {
       var sound = this.playlist[this.index].howl;
 
       if (this.totalPlayTime === 0) {
-        this.totalPlayTime = Math.round(sound.seek())
+        this.totalPlayTime = Math.floor(sound.seek())
       } else {
-        this.totalPlayTime = this.totalPlayTime + (Math.round(sound.seek()) - this.endPlayTime)
+        this.totalPlayTime = this.totalPlayTime + (Math.floor(sound.seek()) - this.endPlayTime)
       }
       this.endPlayTime = sound.seek()
       // Puase the sound.
@@ -757,13 +757,13 @@ export default {
       }
 
       if (this.totalPlayTime === 0) {
-        this.totalPlayTime = Math.round(this.lastSeekTime)
+        this.totalPlayTime = Math.floor(this.lastSeekTime)
       } else {
-        this.totalPlayTime = this.totalPlayTime + Math.round(this.lastSeekTime - this.endPlayTime)
+        this.totalPlayTime = this.totalPlayTime + Math.floor(this.lastSeekTime - this.endPlayTime)
       }
       console.log("total play time =========", this.totalPlayTime)
-      if (this.totalPlayTime >= 10 && this.isSubscribed) {
-        let params = { track_id: this.track.id, duration: Math.round(this.totalPlayTime) }
+      if (this.totalPlayTime >= 30 && this.isSubscribed) {
+        let params = { track_id: this.track.id, duration: Math.floor(this.totalPlayTime) }
 
         TrackingService.createPlayRecord(params)
         .then((response) => {
@@ -792,12 +792,12 @@ export default {
     seek(per) {
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl;
-      let seekTime1 = Math.round(sound.seek())
+      let seekTime1 = Math.floor(sound.seek())
       // Convert the percent into a seek position.
       if (sound.playing()) {
         sound.seek((sound.duration() * per) / 100);
       }
-      let seekTime2 = Math.round(sound.seek())
+      let seekTime2 = Math.floor(sound.seek())
 
       if (this.totalPlayTime === 0) {
         this.totalPlayTime = this.totalPlayTime + seekTime1;
