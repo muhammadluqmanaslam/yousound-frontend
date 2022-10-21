@@ -41,7 +41,7 @@
         <v-flex xs12 md1>
         </v-flex>
         <v-flex xs12 md2>
-          <h3 class="mb-6">About</h3>
+          <h3 class="mb-6">Product</h3>
           <v-list flat>
             <v-list-tile
               v-for="link in aboutLinks"
@@ -77,7 +77,7 @@
           <h3 class="mb-6">Support</h3>
           <v-list flat>
             <v-list-tile
-              v-for="link in companyLinks"
+              v-for="link in supportLinks"
               :key="link.text"
               router
               :href="link.route"
@@ -122,13 +122,23 @@ export default {
   data() {
     return {
       aboutLinks: [
-        { text: "Podcast", route: "/yousound#video" },
-        { text: "Career", ext: true, route: "https://support.yousound.com/en/collections/2401816-careers" },
+        { text: "Discover", route: "/yousound#video" },
+        { text: "Download apps", route: "/yousound#video" },
+        { text: "Case studies", ext: true, route: "https://support.yousound.com/en/collections/2401816-careers" },
       ],
       companyLinks: [
-        { text: "Privacy", route: "/terms#privacy_policy" },
-        { text: "Terms", route: "/terms#terms_of_use" },
-        { text: "Support", ext: true, route: "https://support.yousound.com/" },
+        { text: "About", route: "/terms#privacy_policy" },
+        { text: "Careers", route: "/terms#terms_of_use" },
+        { text: "Terms", ext: true, route: "https://support.yousound.com/" },
+        { text: "Privacy", ext: true, route: "https://support.yousound.com/" },
+
+      ],
+      supportLinks: [
+        { text: "Help Center", route: "/terms#privacy_policy" },
+        { text: "FAQ", route: "/terms#terms_of_use" },
+        { text: "Server Status", ext: true, route: "https://support.yousound.com/" },
+        { text: "Report a bug", ext: true, route: "https://support.yousound.com/" },
+
       ],
     };
   },

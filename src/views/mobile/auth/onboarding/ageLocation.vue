@@ -268,6 +268,8 @@ export default {
 <style lang="scss" scoped>
 .age-location{
   margin-top: 25px;
+  width: 100%;
+  min-width: 360px !important;
 }
 .selections {
   display: flex;
@@ -306,6 +308,7 @@ export default {
     }
     &:focus {
       border: 2px solid #000000;
+      padding-left: 45px;
     }
     &._fullname {
       padding-left: 10px;
@@ -321,6 +324,8 @@ export default {
     &._city {
       background: url("../../../../assets/city_icon_outline.svg") no-repeat
         scroll 16px 13px;
+        font-size: 14px;
+
     }
   }
 }

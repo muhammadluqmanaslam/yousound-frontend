@@ -37,7 +37,8 @@
       <transition name="fade">
         <div v-if="activeTab === 'listener'" class="learn-more-body _listener" :class="{onMobile}">
           <div v-if="onMobile" class="intro-section">
-            <h1 class="intro-title">For Everyone</h1>
+            <h1 v-if="fromLanding" class="intro-title">Features for everyone</h1>
+            <h1 v-else class="intro-title">For everyone</h1>
             <hr class="light intro-divider">
           </div>
 
@@ -125,7 +126,7 @@
                   <h2 class="_title">Empower creators</h2>
                   <div class="_subtitle">
                     50% of your subscription goes to creators you <br> stream most.
-                    View your dashboard to see who you support.
+                    See who you support.
                   </div>
                 </div>
               </v-flex>
@@ -211,7 +212,8 @@
       <transition name="fade">
         <div v-if="(activeTab === 'creator') || onMobile" class="learn-more-body _creators mt-extra" :class="{'mt-5': onMobile, onMobile}">
           <div v-if="onMobile" class="intro-section">
-            <h1 class="intro-title pt-5">For Creators</h1>
+            <h1 v-if="fromLanding" class="intro-title">Features for creators</h1>
+            <h1 v-else class="intro-title pt-5">For creators</h1>
             <hr class="light intro-divider">
           </div>
           <v-container grid-list-lg layer-container _creator>
@@ -377,6 +379,7 @@ export default {
     pageMode: Boolean,
     setOnMobile: Boolean,
     hideFooter: Boolean,
+    fromLanding: Boolean,
   },
   components: {
     contentTopHeader,
@@ -675,6 +678,7 @@ export default {
     }
     ._subtitle {
       font-size: 24px;
+      line-height: 32px;
       color: #222222;
       opacity: 0.7;
       letter-spacing: -0.3px;
@@ -724,6 +728,7 @@ export default {
 
     ._subtitle{
       font-size: 20px;
+      line-height: 28px;
     }
   }
 }

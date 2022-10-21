@@ -92,6 +92,7 @@ export default {
     width: 50%;
     max-width: 350px;
     padding-top: 50px;
+    padding-bottom: 130px;
 
     .sign-up_logo{
       display: flex;

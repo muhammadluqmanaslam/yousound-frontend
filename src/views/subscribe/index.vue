@@ -99,7 +99,7 @@
           <h3>How does the 30 day trial work?</h3>
           <div>
             Start a free trial to get full access to all features. Simply add a
-            valid credit card, your card will be automatically charged 30 days
+            valid credit card, your card will be <br> automatically charged 30 days
             after your trial starts and you will be charged on a monthly basis.
           </div>
         </div>
@@ -109,9 +109,9 @@
           <div>
             Go to <strong>Settings</strong> and tap
             <strong>Subscriptions</strong>, if on desktop, go to
-            <strong>Settings > Accounts</strong>, then tap the plan you want &
+            <strong>Settings > Accounts</strong>, then tap the plan you<br/> want &
             confirm. If it’s an upgraded plan you will enter a card to start a
-            free trial, if you already have a premium subscription the upgrade
+            free trial, if you already have a<br/> premium subscription the upgrade
             price difference will be pro-rated and billed on the next cycle.
           </div>
         </div>
@@ -121,7 +121,7 @@
           <div>
             Go to <strong>Settings</strong> and tap
             <strong>Subscriptions</strong>, if on desktop, go to
-            <strong>Settings > Accounts</strong>, then tap Free and confirm.
+            <strong>Settings > Accounts</strong>, then tap Free and<br/> confirm.
             Your account will convert to “Preview Only” on the next payment
             cycle.
           </div>
@@ -131,7 +131,7 @@
           <h3>Can I listen offline?</h3>
           <div>
             Currently, no, however you can download songs you love & support
-            creators directly, they keep 100% of their sales.
+            creators directly,<br/> they keep 100% of their sales.
           </div>
         </div>
 
@@ -139,9 +139,9 @@
           <h3>How do creators share my subscription?</h3>
           <div>
             50% of your monthly subscription is paid directly to the top 10
-            creators you stream the most that month. If you stream 10 creators,
+            creators you stream the most that month. If you<br/> stream 10 creators,
             $5 will be split between 10 creators at $0.50 cents, if you only
-            stream one creator the entire month, they will earn the entire $5.
+            stream one creator the entire month, they will earn the entire<br/> $5.
           </div>
         </div>
       </div>
@@ -163,7 +163,7 @@ export default {
   },
   computed: {
     ...mapState({
-      plansData: (state) => state.app.plansData,
+      plansData: (state) => state.app.plansDataSub,
       current: (state) => state.app.onboarding.current,
     }),
     plans() {
@@ -191,6 +191,10 @@ export default {
   letter-spacing: -2px;
 }
 .subscribe-landing {
+
+  br{
+    display: none;
+  }
   .banner {
     background-image: url("../../assets/subscribe-banner.jpg");
     background-size: cover;

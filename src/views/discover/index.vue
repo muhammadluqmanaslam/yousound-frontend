@@ -1,5 +1,6 @@
 <template>
-  <div class="page discover-page mx-5 relative">
+  <div class="relative">
+  <div class="page discover-page mx-5">
     <!-- <discover-nav pageName="discover" /> -->
 
     <content-top-header class="mt-3">
@@ -34,9 +35,10 @@
       <genre-dialog :dismiss="closeGenreSelectorDialog" />
     </v-dialog>
 
-    <!-- Analytics Modal -->
-    <analyticsModal></analyticsModal>
   </div>
+  <!-- Analytics Modal -->
+  <!-- <analyticsModal></analyticsModal> -->
+</div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
