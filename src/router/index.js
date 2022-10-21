@@ -213,6 +213,7 @@ export function createRouter(settings) {
       component: setComponent('discover'),
       meta: {
         showRightAltIcon: true,
+        noSideSpace: true,
       },
     },
     { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex, meta: { senderRoute: 'video' } },
