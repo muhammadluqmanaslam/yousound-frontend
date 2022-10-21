@@ -733,6 +733,50 @@ export default {
   }
 }
 
+.learnmore-comp:has(.learn-more){
+  .learn-more .tile-context{
+
+._title{
+  font-size: 28px !important;
+}
+
+._subtitle{
+  font-size: 20px !important;
+  line-height: 28px !important;
+}
+br{
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1500){
+.container{
+  max-width: 1100px;
+  }
+  .learnmore-comp{
+
+    br{
+    display: block !important;
+  }
+
+  ._title{
+    font-size: 32px !important;
+  }
+
+  ._subtitle{
+    font-size: 24px !important;
+    line-height: 32px !important;
+  }
+}
+
+.plans {
+  gap: 50px;
+}
+}
+
+}
+
+
 
 
 </style>

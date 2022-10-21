@@ -70,8 +70,11 @@
 
         <div class="divider my-2"></div>
 
-        <div class="dflex align-center mb-3">
-          <v-icon class="success-icon result-icon">check_circle</v-icon>
+        <div class="dflex align-center my-4">
+          <!-- <v-icon class="success-icon result-icon">check_circle</v-icon> -->
+          <div class="success-img">
+            <img src="../../assets/true.svg" width="100%">
+          </div>
           <div class="result-text">
             <div>Thank you</div>
             <div>Your account is pending</div>
@@ -94,8 +97,8 @@
           noBorder
         />
 
-        <v-btn depressed dark round block class="mt-4" @click="hideConfirmationPayment"
-          >Activate your account</v-btn
+        <v-btn depressed dark round block class="mt-4 pay_btn py-4" @click="hideConfirmationPayment"
+          >Go to next step</v-btn
         >
       </div>
     </transition>
@@ -349,6 +352,10 @@ export default {
   }
 
   .payment-ready {
+    .success-img{
+      max-width: 60px;
+      margin-right: 20px;
+    }
     .result-icon {
       font-size: 60px;
       margin-right: 10px;
@@ -361,7 +368,7 @@ export default {
       }
     }
     .result-text {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
     }
 

@@ -465,12 +465,13 @@
 
                 <div>
                   <router-link :href="stripeLink"></router-link>
+                  <a :href="stripeLink" target="_blank">
                   <v-icon
-                    class="cursor-pointer stripeLink-icon stripeLink-icon-add"
-                    @click="$router.href(stripeLink)"
+                  class="cursor-pointer stripeLink-icon stripeLink-icon-add"
                   >
-                    add
-                  </v-icon>
+                  add
+                </v-icon>
+              </a>
                 </div>
               </div>
             </div>
