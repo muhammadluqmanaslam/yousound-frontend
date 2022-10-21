@@ -324,6 +324,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
+import TrackingService from '@/services/tracking'
 // import PaymentService from '@/services/payment'
 import TrackService from "@/services/track"
 import UserService from '@/services/user'
@@ -373,6 +374,10 @@ export default {
       isSubscribed: false,
       previewTimeCompleted: false,
       showRegisterModal: false,
+      endPlayTime: 0,
+      totalPlayTime: 0,
+      playingSound: null,
+      lastSeekTime: 0,
     };
   },
 
@@ -558,6 +563,12 @@ export default {
       if (data.howl) {
         console.log("--data.howl---->", data.howl)
         sound = data.howl;
+        this.playingSound = sound
+        try {
+          sound.seek();
+        } catch (error) {
+          this.endPlayTime = 0;
+        }
       } else {
         console.log("--data.track.audio---->", data.track)
         sound = data.howl = new Howl({
@@ -611,8 +622,9 @@ export default {
             // this.isPlaying = false
           },
         });
-        this.currentUser ? TrackService.playTrack(this.track.id) : TrackService.playTrackPublicUser(this.track.id)
-          .then((response) =>
+        this.playingSound = sound
+        let api_call = this.currentUser ? TrackService.playTrack(this.track.id) : TrackService.playTrackPublicUser(this.track.id)
+        api_call.then((response) =>
           console.log("playing - track", this.track.id)
         );
       };
@@ -666,6 +678,12 @@ export default {
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl;
 
+      if (this.totalPlayTime === 0) {
+        this.totalPlayTime = Math.round(sound.seek())
+      } else {
+        this.totalPlayTime = this.totalPlayTime + (Math.round(sound.seek()) - this.endPlayTime)
+      }
+      this.endPlayTime = sound.seek()
       // Puase the sound.
       sound.pause();
 
@@ -680,6 +698,12 @@ export default {
 
     skip(direction) {
       // Get the next track based on the direction of the track.
+      if (this.playlist.length === 1 || (this.playlist.length > 1 &&
+       direction === 'next' && (this.index === this.playlist.length - 1))) {
+        let sound = this.playlist[this.index].howl
+        this.lastSeekTime = sound.seek() > 0 ? sound.seek() : sound.duration()
+      }
+
       var index = 0;
       if (direction === "prev") {
         index = this.index - 1;
@@ -727,10 +751,31 @@ export default {
           this.playlist[this.index].howl !== null
         ) {
           sound = this.playlist[this.index].howl;
+          this.lastSeekTime = sound.seek() > 0 ? sound.seek() : sound.duration()
           sound.stop();
         }
       }
 
+      if (this.totalPlayTime === 0) {
+        this.totalPlayTime = Math.round(this.lastSeekTime)
+      } else {
+        this.totalPlayTime = this.totalPlayTime + Math.round(this.lastSeekTime - this.endPlayTime)
+      }
+      console.log("total play time =========", this.totalPlayTime)
+      if (this.totalPlayTime >= 10 && this.isSubscribed) {
+        let params = { track_id: this.track.id, duration: Math.round(this.totalPlayTime) }
+
+        TrackingService.createPlayRecord(params)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((e) => {
+          console.log("error in updating record")
+        })
+      }
+      this.totalPlayTime = 0
+      this.endPlayTime = 0
+      this.lastSeekTime = 0
       // Reset progress.
       this.progress = 0;
 
@@ -747,11 +792,21 @@ export default {
     seek(per) {
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl;
-
+      let seekTime1 = Math.round(sound.seek())
       // Convert the percent into a seek position.
       if (sound.playing()) {
         sound.seek((sound.duration() * per) / 100);
       }
+      let seekTime2 = Math.round(sound.seek())
+
+      if (this.totalPlayTime === 0) {
+        this.totalPlayTime = this.totalPlayTime + seekTime1;
+        this.endPlayTime = seekTime2
+      } else {
+        this.totalPlayTime = this.totalPlayTime + (seekTime1 - this.endPlayTime)
+        this.endPlayTime = seekTime2
+      }
+      console.log("total play time", this.totalPlayTime)
     },
 
     /**

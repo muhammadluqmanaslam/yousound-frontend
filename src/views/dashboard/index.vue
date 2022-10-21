@@ -156,7 +156,7 @@
                 <h4 class="data-table-title mb-3">{{ table.title }}</h4>
                 <v-data-table
                     :headers="table.headers"
-                    :items="table.data"
+                    :items="dashboardStats !== [] ? dashboardStats : table.data"
                     class="elevation-1"
                 >
                 <!-- {{ props }} -->
