@@ -737,15 +737,15 @@ export default {
   .learn-more .tile-context{
 
 ._title{
-  font-size: 28px !important;
+  font-size: 28px ;
 }
 
 ._subtitle{
-  font-size: 20px !important;
-  line-height: 28px !important;
+  font-size: 20px ;
+  line-height: 28px ;
 }
 br{
-    display: none !important;
+    display: none ;
   }
 }
 
@@ -756,16 +756,16 @@ br{
   .learnmore-comp{
 
     br{
-    display: block !important;
+    display: block ;
   }
 
   ._title{
-    font-size: 32px !important;
+    font-size: 32px ;
   }
 
   ._subtitle{
-    font-size: 24px !important;
-    line-height: 32px !important;
+    font-size: 24px ;
+    line-height: 32px ;
   }
 }
 
