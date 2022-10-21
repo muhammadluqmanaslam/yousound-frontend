@@ -18,13 +18,13 @@
           <div class="store-badge">
             <img
               :src="iosStore"
-              width="45%"
+              width="200"
               class="ios-store mr-3"
               alt="ios app store icon"
             />
             <img
               :src="androidPlaystore"
-              width="45%"
+              width="200"
               class="android-store"
               alt="android app store icon"
             />
@@ -91,6 +91,7 @@
                   width="30%"
                   class="ios-store mr-3"
                   alt="ios app store icon"
+                  
                 />
                 <img
                   :src="androidPlaystore"
