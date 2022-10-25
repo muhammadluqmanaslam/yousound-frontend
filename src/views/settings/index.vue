@@ -612,7 +612,9 @@
       <div v-else-if="active_tab == 'verify-status'" class="main-section">
         <v-flex xs12 sm3 verify-section>
           <div v-if="currentUser.approver && currentUser.approver.display_name" class="verify-wrapper verified">
-            <div class="app-bold verify-status">Verified</div>
+            <div class="app-bold verify-status">
+              {{ currentUser.request_status == "accepted" ? "Approved" : "Rejected" }}
+            </div>
             <div class="verified-by">by {{ currentUser.approver.display_name }}</div>
           </div>
 
@@ -620,6 +622,14 @@
             <div class="app-bold verify-status">Pending</div>
             <div class="verified-by">-</div>
           </div>
+
+          <v-btn v-if="currentUser.request_status == 'denied' && canReRequest()"
+            round
+            @click.native="reRequestForVerification()"
+            dark
+          >
+            Re request for verification
+          </v-btn>
         </v-flex>
       </div>
     </div>
@@ -661,4 +671,5 @@
     margin-top: 10px;
   }
 }
+
 </style>

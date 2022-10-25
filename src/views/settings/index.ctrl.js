@@ -240,6 +240,18 @@ export default {
       reader.readAsDataURL(this.profile.image)
     },
 
+    canReRequest() {
+      const reRequest = new Date(this.currentUser.re_requested_at)
+      const todayDate = new Date()
+      const diffTime = Math.abs(todayDate - reRequest);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (diffDays >= 30) {
+        return true
+      } else {
+        return false
+      }
+    },
+
     getUserInfo() {
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.getUserInfo(this.currentUser.id)
@@ -268,6 +280,22 @@ export default {
             e.body.errors || [e.body]
           )
         })
+    },
+
+
+    reRequestForVerification() {
+      this.$store.dispatch('error/showLoadingActivity', true)
+
+      UserService.creatorReRequest(this.currentUser.id)
+      .then((response) => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showSuccessToast', ['Re Request send Successfully'])
+        AuthService.setUser(response.body)
+      })
+      .catch((e) => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+      })
     },
 
     cancelAccount() {
