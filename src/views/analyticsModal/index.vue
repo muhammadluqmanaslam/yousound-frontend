@@ -19,15 +19,9 @@
 
                 <div class="modal_points-div">
                     <ul class="_points">
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
-                        <li class="_point">Content Performance</li>
+                        <li class="_point" v-for="item in this.proBenefits">
+                            {{ item }}
+                        </li>
                         <li class="_point">Content Performance</li>
                     </ul>
                 </div>
@@ -37,7 +31,7 @@
                 </div>
 
                 <div class="button-wrapper">
-                    <v-btn block round dark class="py-4">Upgrade</v-btn>
+                    <v-btn block round dark class="py-4" @click="redirectToPlans">Upgrade</v-btn>
                 </div>
 
             </div>
@@ -48,8 +42,30 @@
 
 
 <script>
-</script>
+import dashboardNav from '@/components/dashboardnav'
 
+export default {
+    components: {
+        dashboardNav,
+    },
+
+    data() {
+        return {
+            proBenefits: ['Content Performance', 'Listeners/Buyers by country', 'External Traffic Location',
+                'Average listening/watch time', 'Page Views', 'Watching/listening now', 'Product Conversion %',
+                'When songs are listened to most', 'When sales happen most'
+            ],
+            plansUpgradeModal: false,
+        }
+    },
+
+    methods: {
+        redirectToPlans() {
+            this.$router.push({path: '/subscribe#plans'})
+        }
+    }
+}
+</script>
 
 <style lang="scss">
 .analytics_modal {
@@ -131,7 +147,7 @@
     }
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1500px) {
 
     .analytics_modal {
         

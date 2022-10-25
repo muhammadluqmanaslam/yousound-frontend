@@ -2,12 +2,14 @@ import contentTopHeader from '@/components/contentTopHeader'
 import dashboardNav from '@/components/dashboardnav'
 import chart from 'vue-apexcharts'
 import TrackingService from '../../services/tracking'
+import analyticsModal from '@/views/analyticsModal'
 
 export default {
   components: {
     contentTopHeader,
     dashboardNav,
     chart,
+    analyticsModal,
   },
   data() {
     return {

@@ -36,8 +36,6 @@
     </v-dialog>
 
   </div>
-  <!-- Analytics Modal -->
-  <!-- <analyticsModal></analyticsModal> -->
 </div>
 </template>
 
