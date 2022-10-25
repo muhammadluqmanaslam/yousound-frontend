@@ -136,7 +136,7 @@ export default {
     },
     initSubscribe() {
       if (!(this.currentUser.creator_verified)) {
-        this.$router.push({path: '/auth-plans'})
+        this.$router.push({path: '/subscribe#plans'})
       }
     },
     listAllSMS() {

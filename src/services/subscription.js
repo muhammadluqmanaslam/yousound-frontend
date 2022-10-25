@@ -31,4 +31,11 @@ export default {
       headers: { Authorization: $store.state.auth.token },
     })
   },
+
+  subscriptionChange(params) {
+    return Vue.http.get(`${API_BASE_URL}/subscription_change`, {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
+  },
 }

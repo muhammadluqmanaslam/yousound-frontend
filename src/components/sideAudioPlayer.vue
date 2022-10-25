@@ -937,7 +937,7 @@ export default {
     timeCounter() {
       if (this.previewTimeCompleted) {
         this.pause();
-        this.$router.push({path: '/auth-plans'})
+        this.$router.push({path: '/subscribe#plans'})
       } else {
         if (this.currentUser && this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
           this.previewTimeCompleted = true;
@@ -945,7 +945,7 @@ export default {
           this.remainingTime = 0
           this.updateUserInfo();
           this.remainingTime = this.remainingTime + 1;
-          this.$router.push({path: '/auth-plans'})
+          this.$router.push({path: '/subscribe#plans'})
         }
         this.remainingTime = this.remainingTime + 1;
       }

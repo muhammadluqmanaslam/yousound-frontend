@@ -399,7 +399,7 @@ export default {
         this.openRepostPaymentModal()
       }
       else if (!this.currentUser.creator_verified) {
-        this.$router.push({path: '/auth-plans'})
+        this.$router.push({path: '/subscribe#plans'})
       }
       else {
         this.sendMessage()
@@ -550,7 +550,7 @@ export default {
     },
     initSMS() {
       if (!this.currentUser.creator_verified) {
-        this.$router.push({path: '/auth-plans'})
+        this.$router.push({path: '/subscribe#plans'})
       } else {
         this.smsActive = true
       }

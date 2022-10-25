@@ -165,7 +165,7 @@ export default {
             )
           })
       } else {
-        this.$router.push({path: '/auth-plans'})
+        this.$router.push({path: '/subscribe#plans'})
       }
     },
 

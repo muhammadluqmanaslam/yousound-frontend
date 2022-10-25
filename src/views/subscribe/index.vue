@@ -73,10 +73,9 @@
               round
               dark
               class="plan_btn py-4"
-              @click.native="openPaymentModal(plan)"
+              @click.native="verifyUserType(plan)"
             >
-              <span v-if="plan.id === 'basic'">Start free 30 day trial</span>
-              <span v-else>Get Verified</span>
+              <span>{{ plansDescription(plan.id) }}</span>
             </v-btn>
           </div>
         </div>
@@ -146,6 +145,45 @@
         </div>
       </div>
     </v-container>
+    <v-dialog v-model="initPayment" content-class="plans-dialog">
+      <payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
+    </v-dialog>
+
+    <v-dialog v-model="plansUpgradeModal" v-if="currentUser !== null && currentUser.plan !== null">
+      <v-card>
+        <v-card-title class="headline"
+          >Plan Changes</v-card-title
+        >
+        <v-card-text v-if="plansName[currentUser.plan] == 'Listener'"
+          >
+          <p>Your current plan is <b> {{ plansName[currentUser.plan]}} </b> and you are trying to <b>{{ planChangeText }}. </b> </p>
+          <p>You will remain listener until admin approve your account. Once you verified, you will be charged according to subscription of current plan and new chosen plan.
+            Are you sure you want to continue?
+          </p>
+        </v-card-text>
+        <v-card-text v-else>
+          <p>Your current plan is <b> {{ plansName[currentUser.plan]}} </b> and you are trying to <b>{{ planChangeText }}. </b> </p>
+          <p>This will have an immediate effect and you will be charged according to subscription of current plan and new chosen plan.
+            Are you sure you want to continue?
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="subscriptionChange(planChangeText)"
+            >Ok</v-btn
+          >
+          <v-btn
+            class="blue--text darken-1"
+            flat="flat"
+            @click.native="hidePlanChangeModal()"
+            >Cancel</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -153,12 +191,22 @@
 import LearnMore from "@/views/mobile/auth/learnMore";
 import AuthPlan from "@/views/mobile/auth/onboarding/authPlan";
 import { mapState } from "vuex";
+import PaymentCard from "@/components/paymentCard";
+import { Stripe } from "@/helper";
+import SubscriptionService from '@/services/subscription'
 
 export default {
-  components: { LearnMore, AuthPlan },
+  components: { LearnMore, AuthPlan, PaymentCard },
   data() {
     return {
       // banner:
+      initPayment: false,
+      selectedPlan: {},
+      plansUpgradeModal: false,
+      plansList: {'basic': 1, plus: '2', pro: '3'},
+      plansName: {'basic': 'Listener', plus: 'Creator', pro: 'Advance'},
+      planChangeText: null,
+      renderComponent: true,
     };
   },
   computed: {
@@ -176,6 +224,92 @@ export default {
 
       return plans;
     },
+
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+
+    totalPayable() {
+      const fee = parseFloat(this.selectedPlan.price);
+      const subFee = Stripe.calculateSubFee(this.selectedPlan.price);
+
+      let total = parseFloat(subFee) + parseFloat(fee);
+      total = parseFloat(total.toFixed(2));
+
+      return total
+    },
+  },
+
+  methods: {
+    openPaymentModal(plan) {
+      this.initPayment = true;
+      this.selectedPlan = plan;
+    },
+
+    verifyUserType(plan) {
+      this.selectedPlan = plan
+      if (this.currentUser == null) {
+        this.$router.push({path: '/signup'})
+      }
+      else if (this.currentUser && this.currentUser.stripe_customer_id == null) {
+        this.openPaymentModal(plan)
+      }
+      else {
+        this.planChangeText = this.plansCategory(this.currentUser.plan, this.plansList[plan.id])
+        if (!(this.planChangeText === 'Current Plan' || this.planChangeText === null)) {
+          this.plansUpgradeModal = true
+        }
+      }
+    },
+
+    closePaymentModal() {
+      this.initPayment = false;
+      this.selectedPlan = {};
+    },
+
+    plansDescription(plan) {
+      if (this.currentUser == null || this.currentUser.plan === null) {
+        if (plan == 'basic') {
+          return 'Start free 30 day trial'
+        } else {
+          return 'Get Verified'
+        }
+      } else {
+        return this.plansCategory(this.currentUser.plan, this.plansList[plan])
+      }
+    },
+
+    plansCategory(userPlan, planCategory) {
+      if(this.plansList[userPlan] == planCategory) {
+        return 'Current Plan'
+      } else if (planCategory <= this.plansList[userPlan]) {
+        return 'Downgrade Plan'
+      } else {
+        return 'Upgrade Plan'
+      }
+    },
+
+    subscriptionChange(plan) {
+      let params = { selectedPlan: this.selectedPlan.id }
+      SubscriptionService.subscriptionChange(params)
+        .then((response) => {
+          this.hidePlanChangeModal()
+          this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
+          window.location.href = '/subscribe'
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showErrorToast', [e.body])
+        })
+    },
+
+    hidePlanChangeModal() {
+      this.plansUpgradeModal = false
+      this.planChangeText = null
+    },
+  },
+
+  mounted() {
+    this.selectedPlan = this.plans[0];
   },
 };
 </script>
@@ -183,40 +317,11 @@ export default {
 <style lang="scss" scoped>
 
 .container{
-  max-width: 1000px;
+  max-width: 950px;
 }
-.learnmore-comp{
 
-  ._title{
-    font-size: 28px;
-  }
-
-  ._subtitle{
-    font-size: 20px;
-    line-height: 28px;
-  }
-}
 
 @media screen and (min-width: 1500){
-  .container{
-    max-width: 1100px;
-    }
-    .learnmore-comp{
-
-      br{
-        display: none !important;
-      }
-
-    ._title{
-      font-size: 32px;
-    }
-
-    ._subtitle{
-      font-size: 24px;
-      line-height: 32px;
-    }
-  }
-
   .plans {
     gap: 50px;
   }
