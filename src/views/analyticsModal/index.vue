@@ -178,7 +178,6 @@ export default {
 
 <style lang="scss">
 .analytics_modal {
-	position: absolute;
 	top: 0;
 	z-index: 11;
 	width: 100%;

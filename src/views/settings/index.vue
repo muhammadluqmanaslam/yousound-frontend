@@ -444,7 +444,7 @@
           </p> -->
 
           <div class="app-bold _title">
-            Connect payment processor to accept payments & handle refunds.
+            {{ currentUser.stripe_connected ? "Connect payment processor to accept payments & handle refunds." : "Connect to stripe to start getting paid for plays." }}
           </div>
 
           <div class="my-2 _subtitle">

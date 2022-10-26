@@ -1,5 +1,5 @@
 <template>
-  <div class="top-menu">
+  <div class="top-menu margin-top-header">
     <v-toolbar app :fixed="!absolute" :flat="absolute" class="tab-container" :class="{__absolute: absolute}" :height="height">
         <!-- ancestoral element to all top headers -->
         <slot name="topHeader"></slot>
