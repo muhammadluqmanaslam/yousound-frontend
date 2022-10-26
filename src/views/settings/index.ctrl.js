@@ -18,6 +18,7 @@ import dashboardNav from '@/components/dashboardnav'
 import UserTag from '@/components/user_tag'
 import { mapState } from 'vuex'
 import SubscriptionService from '@/services/subscription.js'
+import PaymentCard from "@/components/paymentCard";
 
 // import { MyEvents } from '@/helper'
 // const ActionCable = require('actioncable')
@@ -37,6 +38,7 @@ export default {
     contentTopHeader,
     dashboardNav,
     UserTag,
+    PaymentCard,
   },
 
   data() {
@@ -78,8 +80,14 @@ export default {
       cable: null,
       notification_subscription: null,
       isPageReady: false,
-      plans: { basic: 'Basic', plus: 'Creators', pro: 'Advanced', },
+      plans: { basic: 'Basic', plus: 'Creator', pro: 'Advanced', },
       subscriptionModal: false,
+      initPayment: false,
+			selectedPlan: {},
+			plansUpgradeModal: false,
+			plansList: {'basic': 1, plus: '2', pro: '3'},
+			plansName: {'basic': 'Listener', plus: 'Creator', pro: 'Advance'},
+			planChangeText: null,
     }
   },
 
@@ -137,6 +145,7 @@ export default {
       this.$router.push({ path: '/login' })
       return
     }
+    this.selectedPlan = this.plans[0];
 
     this.getUserInfo()
     // this.$store.dispatch('navigator/goNextState', {
@@ -157,6 +166,71 @@ export default {
   },
 
   methods: {
+    openPaymentModal(plan) {
+			this.initPayment = true;
+			this.selectedPlan = plan;
+		},
+
+		verifyUserType(plan) {
+			this.selectedPlan = plan
+			if (this.currentUser.stripe_customer_id == null) {
+				this.openPaymentModal(plan)
+			}
+			else {
+				this.planChangeText = this.plansCategory(this.currentUser.plan, this.plansList[plan.id])
+				if (!(this.planChangeText === 'Current Plan' || this.planChangeText === null)) {
+					this.plansUpgradeModal = true
+				}
+			}
+		},
+
+		closePaymentModal() {
+			this.initPayment = false;
+			this.selectedPlan = {};
+		},
+
+		plansDescription(plan) {
+			if (this.currentUser == null || this.currentUser.plan === null) {
+				if (plan == 'basic') {
+					return 'Start free 30 day trial'
+				} else {
+					return 'Get Verified'
+				}
+			} else {
+				return this.plansCategory(this.currentUser.plan, this.plansList[plan])
+			}
+		},
+
+		plansCategory(userPlan, planCategory) {
+			if(this.plansList[userPlan] == planCategory) {
+				return 'Current Plan'
+			} else if (planCategory <= this.plansList[userPlan]) {
+				return 'Downgrade Plan'
+			} else {
+				return 'Upgrade Plan'
+			}
+		},
+
+		subscriptionChange(plan) {
+			let params = { selectedPlan: this.selectedPlan.id }
+			SubscriptionService.subscriptionChange(params)
+				.then((response) => {
+					this.hidePlanChangeModal()
+					this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
+					setTimeout(function() {
+						window.location.href = '/settings'
+					}, 2000);
+				})
+				.catch((e) => {
+					this.$store.dispatch('error/showErrorToast', [e.body])
+				})
+		},
+
+		hidePlanChangeModal() {
+			this.plansUpgradeModal = false
+			this.planChangeText = null
+		},
+
     isCurrentPlan(plan) {
       return plan.id === this.currentUser.stripe_subscription_id
     },

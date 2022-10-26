@@ -210,7 +210,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			plansData: (state) => state.app.plansDataSub,
+			plansData: (state) => state.app.plansData,
 			current: (state) => state.app.onboarding.current,
 		}),
 		plans() {

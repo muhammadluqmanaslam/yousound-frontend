@@ -18,6 +18,45 @@
         </ul>
       </template>
     </content-top-header>
+    <v-dialog v-model="initPayment" content-class="plans-dialog">
+			<payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
+		</v-dialog>
+
+		<v-dialog v-model="plansUpgradeModal" v-if="currentUser !== null && currentUser.plan !== null">
+			<v-card>
+				<v-card-title class="headline"
+					>Plan Changes</v-card-title
+				>
+				<v-card-text v-if="plansName[currentUser.plan] == 'Listener'"
+					>
+					<p>Your current plan is <b> {{ plansName[currentUser.plan]}} </b> and you are trying to <b>{{ planChangeText }}. </b> </p>
+					<p>You will remain listener until admin approve your account. Once you verified, you will be charged according to subscription of current plan and new chosen plan.
+						Are you sure you want to continue?
+					</p>
+				</v-card-text>
+				<v-card-text v-else>
+					<p>Your current plan is <b> {{ plansName[currentUser.plan]}} </b> and you are trying to <b>{{ planChangeText }}. </b> </p>
+					<p>This will have an immediate effect and you will be charged according to subscription of current plan and new chosen plan.
+						Are you sure you want to continue?
+					</p>
+				</v-card-text>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn
+						class="blue--text darken-1"
+						flat="flat"
+						@click.native="subscriptionChange(planChangeText)"
+						>Ok</v-btn
+					>
+					<v-btn
+						class="blue--text darken-1"
+						flat="flat"
+						@click.native="hidePlanChangeModal()"
+						>Cancel</v-btn
+					>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
     <!-- <div class="page-left">
       <div class="tab-container">
         <h2 class="page-title">Settings</h2>
@@ -189,6 +228,20 @@
                       style="margin-left: 10px"
                     >
                       Current plan
+                    </div>
+                    <div v-else>
+                      <div class="plan_btn_wrapper">
+                        <v-btn
+                          depressed
+                          block
+                          round
+                          dark
+                          class="plan_btn py-4"
+                          @click.native="verifyUserType(plan)"
+                        >
+                          <span>{{ plansDescription(plan.id) }}</span>
+                        </v-btn>
+					            </div>
                     </div>
                   </div>
                 </div>
