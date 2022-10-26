@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-nav">
+  <div class="dashboard-nav margin-top-header">
     <v-toolbar fixed app flat color="white" height="73">
         <content-top-header>
             <template slot="topHeader">

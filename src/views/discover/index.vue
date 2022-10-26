@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative margin-top-header">
   <div class="page discover-page mx-5">
     <!-- <discover-nav pageName="discover" /> -->
 
