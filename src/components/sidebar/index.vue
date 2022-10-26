@@ -164,12 +164,22 @@
           <h4>
             <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
           </h4>
-          <div @click="showRegisterModal = true">
+          <div>
             <v-list-tile
               v-for="(subMenu, ii) in parent.items"
               :key="ii"
               :active-class="subMenu.path ? 'activeTab' : ''"
               class="side-tab"
+              @click="verifyUser(subMenu)"
+              :to="subMenu.directPath ? `/${subMenu.path}` : { name: subMenu.path }"
+              :class="[
+                customActiveTab(subMenu) ? 'activeTab ${{subMenu}}' : '',
+                {
+                  'd-none':
+                    subMenu.allowedUser && currentUser &&
+                    !subMenu.allowedUser.includes(currentUser.user_type),
+                },
+              ]"
             >
               <v-list-tile-avatar>
                 <div

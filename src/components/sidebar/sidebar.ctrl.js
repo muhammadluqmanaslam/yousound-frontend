@@ -183,6 +183,13 @@ export default {
         // )
     },
 
+    verifyUser(subMenu) {
+      if (!(subMenu.id === 'music' || subMenu.id === 'subscribe')) {
+        this.showRegisterModal = true
+        this.$router.push({name: 'DiscoverIndex'})
+      }
+    },
+
     async isCreatorVerified() {
       if (AuthService.isAuthenticated()) {
         await AuthService.checkTokenValidation().then((response) => {
