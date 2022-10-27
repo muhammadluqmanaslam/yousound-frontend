@@ -211,7 +211,7 @@ export default {
 			}
 		},
 
-		subscriptionChange(plan) {
+		subscriptionChange() {
 			let params = { selectedPlan: this.selectedPlan.id }
 			SubscriptionService.subscriptionChange(params)
 				.then((response) => {
@@ -222,7 +222,7 @@ export default {
 					}, 2000);
 				})
 				.catch((e) => {
-					this.$store.dispatch('error/showErrorToast', [e.body])
+					this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
 				})
 		},
 

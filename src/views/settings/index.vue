@@ -210,7 +210,7 @@
                   <div
                     v-for="(plan, i) in plansData"
                     :key="i"
-                    class="plan"
+                    class="plan planX"
                     :class="{isCurrentPlan: isCurrentPlan(plan)}"
                   >
                     <div class="plan-details">
@@ -236,7 +236,7 @@
                           block
                           round
                           dark
-                          class="plan_btn py-4"
+                          class="plan_btn py-4 button_display"
                           @click.native="verifyUserType(plan)"
                         >
                           <span>{{ plansDescription(plan.id) }}</span>
@@ -701,6 +701,16 @@
     font-size: 14px;
     color: #787878;
   }
+}
+
+.button_display{
+  display: none;
+}
+.planX{
+  height: 75px;
+}
+.planX:hover .button_display{
+  display: block
 }
 
 .logout-btn {
