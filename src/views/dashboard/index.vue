@@ -1,7 +1,8 @@
 <template>
-    <div class="relative">
-    <div class="page dashboard-page side-space" v-if="currentUser.plan === 'pro' && currentUser.creator_verified">
-        <dashboard-nav name="dashboard" />
+<div class="relative">
+    <div>
+        <div class="page dashboard-page side-space">
+            <dashboard-nav name="dashboard" />
 
         <content-top-header absolute class="__inner px-0 my-3">
             <template slot="topHeader">
@@ -180,10 +181,8 @@
             </div>
         </v-container>
     </div>
-    <div v-else>
-        <dashboard-nav name="dashboard" />
-        <analyticsModal></analyticsModal>
-    </div>
+</div>
+    <analyticsModal v-if="!(currentUser.plan === 'pro' && currentUser.creator_verified)"></analyticsModal>
 </div>
 </template>
 

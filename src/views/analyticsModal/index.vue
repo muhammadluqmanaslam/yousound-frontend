@@ -3,7 +3,7 @@
 		<div class="modal_body">
 			<div class="modal_insight">
 				<div>
-					<h2 class="modal_main_title mb-1">Ublock analytics insights</h2>
+					<h2 class="modal_main_title mb-1">Unlock analytics insights</h2>
 					<p class="modal_text">Get in-depth metrics for all of your content & maximize your growth.</p>
 				</div>
 
@@ -178,6 +178,7 @@ export default {
 
 <style lang="scss">
 .analytics_modal {
+	position: absolute;
 	top: 0;
 	z-index: 11;
 	width: 100%;
