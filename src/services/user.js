@@ -49,9 +49,10 @@ export default {
     })
   },
 
-  creatorReRequest(userId) {
+  creatorReRequest(userId, params) {
     return Vue.http.get(API_BASE_URL + '/' + userId + '/creator_re_request', {
       headers: { Authorization: $store.state.auth.token },
+      params: params,
     })
   },
 

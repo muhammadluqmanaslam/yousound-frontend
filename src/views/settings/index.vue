@@ -1,5 +1,5 @@
 <template>
-  <div row wrap class="page settings-page mx-5" :class="{onMobile}">
+  <div row wrap class="page settings-page mx-5 relative" :class="{onMobile}">
     <dashboard-nav name="settings" />
 
     <content-top-header absolute class="__inner mt-3">
@@ -230,7 +230,7 @@
                       Current plan
                     </div>
                     <div v-else>
-                      <div class="plan_btn_wrapper">
+                      <div class="plan_btn_wrapper" v-if="currentUser.request_status !== 'denied'">
                         <v-btn
                           depressed
                           block
@@ -676,9 +676,9 @@
             <div class="verified-by">-</div>
           </div>
 
-          <v-btn v-if="currentUser.request_status == 'denied' && canReRequest()"
+          <v-btn
             round
-            @click.native="reRequestForVerification()"
+            @click.native="verifyReRequestStatus()"
             dark
           >
             Re request for verification
@@ -686,6 +686,23 @@
         </v-flex>
       </div>
     </div>
+    <div v-if="showGetVerifiedModal">
+      <verifiedModal @showGetVerifiedModal="showGetVerifiedModal = $event"></verifiedModal>
+    </div>
+
+    <div v-if="remainingDaysModal">
+      <UpgradeModal @remainingDaysModal="remainingDaysModal = $event" :daysRemaining="30 - remainingDays()" ></UpgradeModal>
+    </div>
+        <!-- <v-card>
+          <v-card-title class="headline"
+            >Upgrade Plan</v-card-title
+          >
+          <v-card-text>
+            <p>Your account was reviewed & denied.</p>
+            <p> You can reapply in </p>
+            <p> {{ 30 - remainingDays() }} days </p>
+          </v-card-text>
+        </v-card> -->
   </div>
 </template>
 

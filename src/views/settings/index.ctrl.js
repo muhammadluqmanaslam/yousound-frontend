@@ -19,6 +19,8 @@ import UserTag from '@/components/user_tag'
 import { mapState } from 'vuex'
 import SubscriptionService from '@/services/subscription.js'
 import PaymentCard from "@/components/paymentCard";
+import verifiedModal from "../../views/verifiedModal"
+import UpgradeModal from "../../views/UpgradeModal"
 
 // import { MyEvents } from '@/helper'
 // const ActionCable = require('actioncable')
@@ -39,6 +41,8 @@ export default {
     dashboardNav,
     UserTag,
     PaymentCard,
+    verifiedModal,
+    UpgradeModal
   },
 
   data() {
@@ -88,6 +92,8 @@ export default {
 			plansList: {'basic': 1, plus: '2', pro: '3'},
 			plansName: {'basic': 'Listener', plus: 'Creator', pro: 'Advance'},
 			planChangeText: null,
+      showGetVerifiedModal: false,
+      remainingDaysModal: false,
     }
   },
 
@@ -314,16 +320,12 @@ export default {
       reader.readAsDataURL(this.profile.image)
     },
 
-    canReRequest() {
+    remainingDays() {
       const reRequest = new Date(this.currentUser.re_requested_at)
       const todayDate = new Date()
       const diffTime = Math.abs(todayDate - reRequest);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      if (diffDays >= 30) {
-        return true
-      } else {
-        return false
-      }
+      return diffDays;
     },
 
     getUserInfo() {
@@ -356,6 +358,15 @@ export default {
         })
     },
 
+
+    verifyReRequestStatus() {
+      if (this.currentUser.request_status === 'denied' && this.remainingDays() >= 30) {
+        this.showGetVerifiedModal = true
+      }
+       else {
+        this.remainingDaysModal = true
+       }
+    },
 
     reRequestForVerification() {
       this.$store.dispatch('error/showLoadingActivity', true)
