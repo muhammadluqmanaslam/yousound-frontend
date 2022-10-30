@@ -1,5 +1,5 @@
 <template>
-  <div class="page upload-child video-page create-page mx-5" v-if="this.currentUser.creator_verified">
+  <div class="page upload-child video-page create-page mx-5 margin-top-header" v-if="this.currentUser.creator_verified">
     <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
   
     <content-top-header>

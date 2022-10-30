@@ -1,7 +1,7 @@
 <template>
   <div class="onboarding_comp check-email">
     <div>
-      <div class="_title">Check your email</div>
+      <div class="_title" v-if="this.$store.state.app.onboarding.user_type !== 'listener'">Check your email</div>
     </div>
     <div class="top-icon-wrapper text-center">
       <img
@@ -95,6 +95,7 @@ export default {
     },
   },
   created() {
+    debugger
     // this.sendConfirmEmail()
   },
 };

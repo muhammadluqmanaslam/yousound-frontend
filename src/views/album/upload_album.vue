@@ -1,5 +1,5 @@
 <template>
-  <div class="page upload-child upload-album-page" v-if="this.currentUser.creator_verified">
+  <div class="page upload-child upload-album-page margin-top-header" v-if="this.currentUser.creator_verified">
     <div v-if="isPageReady">
       <content-top-header>
         <template slot="topHeader">

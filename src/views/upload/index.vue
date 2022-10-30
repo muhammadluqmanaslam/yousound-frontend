@@ -47,7 +47,7 @@
       /> -->
       <!-- <h1 class="px-3 __title mb-0">Share to the world</h1> -->
 
-      <v-container fluid grid-list-lg px-0 mb-4>
+      <v-container fluid grid-list-lg px-0 mb-4 class="margin-top-header">
         <v-layout row wrap justify-start>
           <v-flex xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">

@@ -1,5 +1,5 @@
 <template>
-  <div class="page upload-child sell-page product-page mx-5" v-if="currentUser.creator_verified">
+  <div class="page upload-child sell-page product-page mx-5 margin-top-header" v-if="currentUser.creator_verified">
     <topbarNotification
       :content="topBarContent"
       ctaTitle="Connect"
