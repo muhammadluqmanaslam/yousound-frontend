@@ -30,8 +30,16 @@
 					<p class="_price"><span class="currency">$</span>100<span class="_time"> /month</span></p>
 				</div>
 
-				<div class="button-wrapper">
-					<v-btn block round dark class="py-4" @click.native="planUpgrade()">Upgrade</v-btn>
+				<div v-if="currentUser.request_status !== 'denied'">
+					<v-btn
+						class="py-4 button-wrapper"
+						@click.native="planUpgrade()"
+						round
+						dark
+						style="width: 100%"
+					>
+						Upgrade
+					</v-btn>
 				</div>
 
 			</div>
@@ -136,6 +144,14 @@ export default {
 			this.initPayment = false;
 			this.selectedPlan = {};
 		},
+
+		remainingDays() {
+      const reRequest = new Date(this.currentUser.re_requested_at)
+      const todayDate = new Date()
+      const diffTime = Math.abs(todayDate - reRequest);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays;
+    },
 
 		subscriptionChange() {
 			let params = { selectedPlan: 'pro' }
