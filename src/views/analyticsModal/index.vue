@@ -196,7 +196,7 @@ export default {
 .analytics_modal {
 	position: absolute;
 	top: 0;
-	z-index: 11;
+	z-index: 9;
 	width: 100%;
 	height: 100%;
 	background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, #F5F3F5 59.9%);

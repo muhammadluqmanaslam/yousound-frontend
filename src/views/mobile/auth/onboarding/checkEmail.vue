@@ -95,7 +95,6 @@ export default {
     },
   },
   created() {
-    debugger
     // this.sendConfirmEmail()
   },
 };

@@ -47,6 +47,8 @@ export default {
 
   data() {
     return {
+      socialChannel: "",
+			socialUsername: "",
       replaceTopMenu: [
         { id: 'settings', title: 'Settings', pathName: 'UserSettings', icon: require('../../../static/images/settings-gear.svg') },
       ],
@@ -102,6 +104,28 @@ export default {
       sideBarWidth: state => state.app.sideBarWidth,
       plansData: (state) => state.app.plansData,
     }),
+
+    socialChannels() {
+			return [
+				{
+					title: "Facebook",
+					id: "facebook",
+				},
+				{
+					title: "Instagram",
+					id: "instagram",
+				},
+				{
+					title: "Twitter",
+					id: "twitter",
+				},
+				{
+					title: "Tik Tok",
+					id: "tiktok",
+				},
+			];
+		},
+
     calcSideBarWidth() {
       const defaultPageMargin = 48;
       const defaultAppPadding = 16;
@@ -172,13 +196,53 @@ export default {
   },
 
   methods: {
+
+    selectedChannel(channel) {
+			this.socialChannel = channel;
+		},
+
+		hideModal() {
+      this.showGetVerifiedModal = false;
+    },
+
+    verifiedSocialAttributes() {
+      if (this.socialChannel.id == null || this.socialUsername === '') {
+        this.$store.dispatch('error/showErrorToast', "Social channel and username cannot be empty")
+      } else if(this.selectedPlan == null) {
+        this.reRequestForVerification()
+      } else {
+        let params = { social_provider: this.socialChannel.id, social_user_name: this.socialUsername }
+        this.$store.dispatch('error/showLoadingActivity', true)
+        UserService.updateUserInfo(this.currentUser.id, params)
+          .then((response) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showSuccessToast', ['Social Username and channel saved successfully'])
+            AuthService.setUser(response.body)
+            this.verifyUserType()
+          })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+          })
+      }
+    },
+
     openPaymentModal(plan) {
 			this.initPayment = true;
 			this.selectedPlan = plan;
 		},
 
-		verifyUserType(plan) {
-			this.selectedPlan = plan
+    verifyPlanType(plan) {
+      this.selectedPlan = plan
+      if ((this.currentUser.plan == "basic" || this.currentUser.plan == null) && (this.selectedPlan.id !== 'basic' )) {
+        this.showGetVerifiedModal = true
+      } else {
+        this.verifyUserType();
+      }
+    },
+
+		verifyUserType() {
+			let plan = this.selectedPlan
 			if (this.currentUser.stripe_customer_id == null) {
 				this.openPaymentModal(plan)
 			}
@@ -218,7 +282,7 @@ export default {
 		},
 
 		subscriptionChange() {
-			let params = { selectedPlan: this.selectedPlan.id }
+			let params = { selectedPlan: this.selectedPlan.id, social_provider: this.socialChannel, social_user_name: this.socialUsername }
 			SubscriptionService.subscriptionChange(params)
 				.then((response) => {
 					this.hidePlanChangeModal()
@@ -238,7 +302,7 @@ export default {
 		},
 
     isCurrentPlan(plan) {
-      return plan.id === this.currentUser.stripe_subscription_id
+      return plan.id === this.currentUser.plan
     },
     signOut() {
       AuthService.signout()
@@ -370,12 +434,14 @@ export default {
 
     reRequestForVerification() {
       this.$store.dispatch('error/showLoadingActivity', true)
+			let params = { social_provider: this.socialChannel, social_user_name: this.socialUsername }
 
-      UserService.creatorReRequest(this.currentUser.id)
+      UserService.creatorReRequest(this.currentUser.id, params)
       .then((response) => {
         this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showSuccessToast', ['Re Request send Successfully'])
         AuthService.setUser(response.body)
+        this.showGetVerifiedModal = false;
       })
       .catch((e) => {
         this.$store.dispatch('error/showLoadingActivity', false)
