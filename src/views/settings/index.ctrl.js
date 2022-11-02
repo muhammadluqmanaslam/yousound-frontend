@@ -19,7 +19,6 @@ import UserTag from '@/components/user_tag'
 import { mapState } from 'vuex'
 import SubscriptionService from '@/services/subscription.js'
 import PaymentCard from "@/components/paymentCard";
-import verifiedModal from "../../views/verifiedModal"
 import UpgradeModal from "../../views/UpgradeModal"
 
 // import { MyEvents } from '@/helper'
@@ -41,7 +40,6 @@ export default {
     dashboardNav,
     UserTag,
     PaymentCard,
-    verifiedModal,
     UpgradeModal
   },
 

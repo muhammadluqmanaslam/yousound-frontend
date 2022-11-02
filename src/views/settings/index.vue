@@ -236,7 +236,7 @@
                           block
                           round
                           dark
-                          class="plan_btn py-4 button_display"
+                          class="plan_btn py-3 button_display"
                           @click.native="verifyPlanType(plan)"
                         >
                           <span>{{ plansDescription(plan.id) }}</span>
@@ -697,7 +697,7 @@
           <div class="margin-vertical">
             <div class="form-group">
               <div class="_lable">Social channel</div>
-              <v-menu class="social-type-menu" content-class="social-menu__content">
+              <v-menu class="social-type-menu" content-class="s-menu__content">
                 <v-select :placeholder="socialChannel ? socialChannel.title : 'Choose'" class="social-types-selector py-0"
                   :class="{ '_filled': socialChannel }" single-line hide-details slot="activator"></v-select>
 
@@ -910,8 +910,9 @@
 	width: 100%;
 }
 
-.social-menu__content {
-	top: 414px !important;
+.s-menu__content {
+  position: fixed;
+	top: 320px !important;
 	box-shadow: none !important;
 	border-radius: 12px !important;
 	border: 2px solid #000000 !important;
