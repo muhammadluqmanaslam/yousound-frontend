@@ -17,9 +17,12 @@
       </p>
 
       <p>
-        Click the link sent to activate your account. <br> Please
-        allow up to 
-        <strong>72 hours for verification</strong>.
+        Click the link sent to activate your account. 
+        <br>
+        <span v-if="this.$store.state.app.onboarding.user_type !== 'listener'">
+          Please allow up to
+          <strong>72 hours for verification</strong>.
+        </span>
       </p>
     </div>
 
