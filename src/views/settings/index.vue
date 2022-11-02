@@ -666,9 +666,10 @@
         <v-flex xs12 sm3 verify-section>
           <div v-if="currentUser.approver && currentUser.approver.display_name" class="verify-wrapper verified">
             <div class="app-bold verify-status">
-              {{ currentUser.request_status == "accepted" ? "Approved" : "Rejected" }}
+              {{ this.requestStatuses[currentUser.request_status] }}
             </div>
-            <div class="verified-by">by {{ currentUser.approver.display_name }}</div>
+            <div v-if="currentUser.request_status !== 'pending'" class="verified-by">by {{ currentUser.approver.display_name }}</div>
+            <div v-else><span>-</span></div>
           </div>
 
           <div v-else class="verify-wrapper pending">

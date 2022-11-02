@@ -1,5 +1,5 @@
 <template>
-  <div class="page cart-page cart-checkout-page mx-5">
+  <div class="page cart-page cart-checkout-page mx-5 margin-top-header">
     <content-top-header>
       <template slot="topHeader">
         <ul class="mx-0">

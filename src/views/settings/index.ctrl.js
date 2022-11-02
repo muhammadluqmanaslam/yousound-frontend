@@ -94,6 +94,7 @@ export default {
 			planChangeText: null,
       showGetVerifiedModal: false,
       remainingDaysModal: false,
+      requestStatuses: {accepted: "Accepted", denied: "Rejected", pending: "Pending"},
     }
   },
 
