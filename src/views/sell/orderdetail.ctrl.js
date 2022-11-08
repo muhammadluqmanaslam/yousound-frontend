@@ -49,7 +49,7 @@ export default {
       for (let index in this.order_detail.items) {
         const item = this.order_detail.items[index]
         if (item.shipping_cost) {
-          sum += item.shipping_cost * item.quantity
+          sum += item.shipping_cost
         }
       }
       return sum
