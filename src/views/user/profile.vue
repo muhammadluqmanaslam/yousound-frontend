@@ -1,6 +1,6 @@
 <template>
   <div v-scroll="handleScroll">
-    <div class="page profile-grid-page mx-5" :class="{onMobile}">
+    <div class="page profile-grid-page mx-5 margin-top-header" :class="{onMobile}">
       <content-top-header height="100">
         <template slot="topHeader">
           <ul class="user-top-wrapper">
