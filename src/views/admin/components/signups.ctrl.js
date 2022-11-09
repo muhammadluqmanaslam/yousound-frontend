@@ -154,7 +154,7 @@ export default {
         this.closeApproveModal()
       }).catch(e => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', [e.body.errors])
+        this.$store.dispatch('error/showErrorToast', [e.body.errors] || [e.body.exception])
       })
     },
 
