@@ -500,6 +500,15 @@
             {{ currentUser.stripe_connected ? "Connect payment processor to accept payments & handle refunds." : "Connect to stripe to start getting paid for plays." }}
           </div>
 
+          <v-btn v-if="currentUser.stripe_connected && currentUser.stripe_express_dashboard_link"
+            :href=currentUser.stripe_express_dashboard_link
+            target="_blank"
+            dark
+            round
+            class="update-btn"
+          >
+            Stripe Express Dashboard
+          </v-btn>
           <div class="my-2 _subtitle">
             Payment process
           </div>
@@ -518,7 +527,7 @@
 
                 <div>
                   <router-link :href="stripeLink"></router-link>
-                  <a :href="stripeLink" target="_blank">
+                  <a :href="stripeLink">
                   <v-icon
                   class="cursor-pointer stripeLink-icon stripeLink-icon-add"
                   >
