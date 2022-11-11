@@ -620,6 +620,22 @@ export default {
           onstop: function () {
             // Stop the wave animation.
             // this.isPlaying = false
+            if (window.location.href.includes("discover")) {
+              if (self.totalPlayTime >= 30 && self.isSubscribed) {
+                let params = { track_id: self.track.id, duration: Math.floor(self.totalPlayTime) }
+
+                TrackingService.createPlayRecord(params)
+                .then((response) => {
+                  console.log(response)
+                })
+                .catch((e) => {
+                  console.log("error in updating record")
+                })
+              }
+              self.totalPlayTime = 0
+              self.endPlayTime = 0
+              self.lastSeekTime = 0
+            }
           },
         });
         this.playingSound = sound
