@@ -26,6 +26,7 @@
           <v-btn
             color="success ma-0"
             class="approve-btn"
+            :loading="loading"
             @click.native="approveButtonAction(item)"
             >Approve</v-btn
           >

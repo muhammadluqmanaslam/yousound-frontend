@@ -95,6 +95,7 @@ export default {
       showGetVerifiedModal: false,
       remainingDaysModal: false,
       requestStatuses: {accepted: "Accepted", denied: "Rejected", pending: "Pending"},
+      loading: false,
     }
   },
 
@@ -281,9 +282,13 @@ export default {
 		},
 
 		subscriptionChange() {
+      this.loading = true
+      this.$store.dispatch("error/showLoadingActivity", true);
 			let params = { selectedPlan: this.selectedPlan.id, social_provider: this.socialChannel, social_user_name: this.socialUsername }
 			SubscriptionService.subscriptionChange(params)
 				.then((response) => {
+          this.loading = false
+          this.$store.dispatch("error/showLoadingActivity", false);
 					this.hidePlanChangeModal()
 					this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
 					setTimeout(function() {
@@ -291,6 +296,8 @@ export default {
 					}, 2000);
 				})
 				.catch((e) => {
+          this.loading = false
+          this.$store.dispatch("error/showLoadingActivity", false);
 					this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
 				})
 		},
@@ -475,8 +482,13 @@ export default {
     },
 
     async deactivateSubscription() {
+      this.loading = true
+      this.$store.dispatch("error/showLoadingActivity", true);
+
       await SubscriptionService.deactivateSubscription()
         .then(response => {
+          this.$store.dispatch("error/showLoadingActivity", false);
+          this.loading = false
           let user = this.currentUser
           user.deactivate_subscription = true
           AuthService.setUser(user)
@@ -484,6 +496,8 @@ export default {
           this.$store.dispatch('error/showSuccessToast', [response.body.success_response])
         })
         .catch(e => {
+          this.$store.dispatch("error/showLoadingActivity", false);
+          this.loading = false
           this.$store.dispatch(
             'error/showErrorToast', e.body.errors
           )

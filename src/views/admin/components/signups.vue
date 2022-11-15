@@ -201,6 +201,7 @@
       :approveButtonAction="approveUser"
       :denyButtonAction="denyUser"
       :activeTab = "active_tab"
+      :loading = "loading"
     />
 
     <signup-deny-modal
@@ -208,6 +209,7 @@
       :item="user"
       :dismiss="closeDenyModal"
       :submission="viewSubmission"
+      :loading="loading"
     />
   </v-card>
 </template>

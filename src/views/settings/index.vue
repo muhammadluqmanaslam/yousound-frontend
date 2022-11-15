@@ -45,6 +45,7 @@
 					<v-btn
 						class="blue--text darken-1"
 						flat="flat"
+            :loading="loading"
 						@click.native="subscriptionChange(planChangeText)"
 						>Ok</v-btn
 					>
@@ -316,6 +317,7 @@
                 <v-btn
                   class="blue--text darken-1"
                   flat="flat"
+                  :loading="loading"
                   @click.native="deactivateSubscription()"
                   >Yes</v-btn
                 >

@@ -165,6 +165,7 @@ export default {
           this.$router.push({ name: "DiscoverIndex" });
         })
         .catch((e) => {
+          this.$router.push({ path: '/login' })
           this.loading = false;
 
           this.$store.dispatch("error/showLoadingActivity", false);

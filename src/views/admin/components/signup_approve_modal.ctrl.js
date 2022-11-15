@@ -47,6 +47,7 @@ export default {
       required: true,
     },
     activeTab: null,
+    loading: null,
   },
 
   data() {

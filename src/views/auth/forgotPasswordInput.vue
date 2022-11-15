@@ -34,7 +34,7 @@
       </div>
 
     </div>
-      <v-btn block round dark type="submit" class="reset-btn py-3">
+      <v-btn block round dark type="submit" class="reset-btn py-3" :loading="loading">
         Reset Password
       </v-btn>
       <div
@@ -68,6 +68,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       email: null,
     };
   },
@@ -121,20 +122,25 @@ export default {
 
   methods: {
     submit() {
+      this.loading = true
+      this.$store.dispatch("error/showLoadingActivity", true);
       if (!this.email) return
 
       var params = new FormData()
       params.append('email', this.email)
       AuthService.requestResetPassword(params)
         .then((response) => {
+          this.loading = false
           // JSON responses are automatically parsed.
-          // this.$store.dispatch('error/showSuccessToast', [
-          //   'Email sent with password reset instructions.',
-          // ])
-
+          this.$store.dispatch('error/showSuccessToast', [
+            'Email sent with password reset instructions.',
+          ])
+          this.$store.dispatch("error/showLoadingActivity", false);
           this.resetSuccess = true
         })
         .catch((e) => {
+          this.loading = false;
+          this.$store.dispatch("error/showLoadingActivity", false);
           this.$store.dispatch('error/showErrorToast', [
             'Email does not exist or inactivated',
           ])
