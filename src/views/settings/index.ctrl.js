@@ -235,7 +235,11 @@ export default {
     verifyPlanType(plan) {
       this.selectedPlan = plan
       if ((this.currentUser.plan == "basic" || this.currentUser.plan == null) && (this.selectedPlan.id !== 'basic' )) {
-        this.showGetVerifiedModal = true
+        if (this.currentUser.trial_end !== null && this.currentUser.trial_start !== null && this.currentUser.creator_verified === false && this.currentUser.plan == null) {
+          this.verifyUserType();
+        } else {
+          this.showGetVerifiedModal = true
+        }
       } else {
         this.verifyUserType();
       }
@@ -243,7 +247,8 @@ export default {
 
 		verifyUserType() {
 			let plan = this.selectedPlan
-			if (this.currentUser.stripe_customer_id == null) {
+      let creator_verification = this.currentUser.trial_end !== null && this.currentUser.trial_start !== null && this.currentUser.creator_verified === false && this.currentUser.plan == null
+			if (this.currentUser.stripe_customer_id == null || creator_verification) {
 				this.openPaymentModal(plan)
 			}
 			else {
@@ -260,6 +265,11 @@ export default {
 		},
 
 		plansDescription(plan) {
+      let trial_end = this.currentUser.trial_end !== null && this.currentUser.trial_start !== null && this.currentUser.plan == null
+      if ((this.currentUser.user_type !== 'listener' && this.currentUser.creator_verified === false && trial_end) || 
+          (this.currentUser.user_type === 'listener' && trial_end)) {
+        return 'Subscribe'
+      }
 			if (this.currentUser == null || this.currentUser.plan === null) {
 				if (plan == 'basic') {
 					return 'Start free 30 day trial'
@@ -272,7 +282,7 @@ export default {
 		},
 
 		plansCategory(userPlan, planCategory) {
-			if(this.plansList[userPlan] == planCategory) {
+      if(this.plansList[userPlan] == planCategory) {
 				return 'Current Plan'
 			} else if (planCategory <= this.plansList[userPlan]) {
 				return 'Downgrade Plan'
