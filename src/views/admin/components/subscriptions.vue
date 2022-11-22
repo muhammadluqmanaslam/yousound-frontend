@@ -46,7 +46,7 @@
           label="Search"
           single-line
           hide-details
-          class="user-serach search-input mr-4"
+          class="user-search search-input mr-4"
         />
       </v-tabs-bar>
       <v-tabs-items style="border: none">
@@ -99,7 +99,7 @@
                   {{ props.item.trial_end | formatDate }}
                 </td>
                 <td v-if="active_tab == 'trial'" class="text-xs-center">
-                  {{ new Date() < new Date(props.item.trial_end) ? "Yes" : "No" }}
+                  {{ props.item.trial_complete ? "Yes" : "No" }}
                 </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
