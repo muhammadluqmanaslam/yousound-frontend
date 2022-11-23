@@ -1,6 +1,6 @@
 <template>
   <v-container
-   full-authTabs-container fluid py-0
+    fluid py-0
     @touchstart="touchStart"
     @touchend="touchEnd"
   >
@@ -31,7 +31,8 @@
 
     <v-layout align-center full-authTabs-wrapper justify-center row>
       <v-flex
-        v-show="!onMobileStrict || (onMobileStrict && activeView === 'landingView')" 
+        v-if="activeView != 'loginView' &&  activeView != 'signUpView'"
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'landingView')"
         flex-column
         xs12
         sm6
@@ -124,13 +125,13 @@
         full-authTabs-right
         :class="{ auth__view: toDisplayGrid, onMobileStrict }"
       >
-        <v-icon
+        <!-- <v-icon
           v-if="showAuthCancelBtn && !onMobileStrict"
           class="cancel-icon-round"
           @click="activeView = 'landingView'"
         >
           cancel
-        </v-icon>
+        </v-icon> -->
 
         <div v-if="activeView === 'landingView'" class="landing-view">
           <div class="trending-top dflex align-center justify-space-between">
@@ -209,10 +210,16 @@
         </div>
 
         <div v-if="activeView === 'signUpView'" class="signup-view">
+          <div class="sign-up_logo" @click="activeView = 'landingView'">
+            <img :src="require('@/assets/nav_logo_primary.png')" width="150">
+          </div>
           <Onboarding />
         </div>
 
         <div v-if="activeView === 'loginView'" class="login-view">
+          <div class="sign-up_logo" @click="activeView = 'landingView'">
+            <img :src="require('@/assets/nav_logo_primary.png')" width="150">
+          </div>
           <div v-if="loginAuth === 'login'" class="login-input">
             <div class="intro-text text-xs-center my-4">
               <h2>Hello,</h2>
@@ -235,6 +242,7 @@
         </div>
       </v-flex>
     </v-layout>
+    <Footer></Footer>
   </v-container>
 </template>
 
@@ -536,19 +544,40 @@ export default {
         padding-left: 10px;
       }
     }
-    .signup-view,
+    
     .login-view {
       margin: 0 auto;
-      align-self: center;
+      padding-top: 10%;
+
+      .sign-up_logo{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25%;
+      }
 
       .intro-text h2 {
         font-size: 28px;
+        font-weight: 500;
       }
     }
 
     .signup-view {
       width: 60%;
       height: 55%;
+      padding-top: 10%;
+      margin: 0 auto;
+
+
+      .intro-text h2 {
+        font-size: 28px;
+      }
+
+
+      .sign-up_logo{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25%;
+      }
 
       .onboarding {
         min-height: 100%;

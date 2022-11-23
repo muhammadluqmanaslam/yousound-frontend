@@ -66,6 +66,7 @@ export default {
 .autocomplete {
   position: absolute;
   width: 100%;
+  z-index: 10;
 
   .options {
     max-height: 100px;
@@ -79,6 +80,18 @@ export default {
         color: #ffffff;
         background-color: #000000;
       }
+    }
+  }
+
+
+  &.location{
+    .options{
+      max-height: 130px;
+      overflow: auto;
+      background-color: white;
+      border: 2px solid black;
+      border-radius: 10px;
+      margin-top: 5px;
     }
   }
 }

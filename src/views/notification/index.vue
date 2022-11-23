@@ -1,5 +1,5 @@
 <template>
-  <div class="page notification-page" :class="{'mx-5': activeTab == 'activity' }">
+  <div class="page notification-page margin-top-header" :class="{'mx-5': activeTab == 'activity' }">
     <content-top-header>
       <template slot="topHeader">
         <ul>

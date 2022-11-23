@@ -1,5 +1,5 @@
 <template>
-  <div row wrap class="page settings-page mx-5" :class="{onMobile}">
+  <div row wrap class="page settings-page mx-5 relative" :class="{onMobile}">
     <dashboard-nav name="settings" />
 
     <content-top-header absolute class="__inner mt-3">
@@ -18,6 +18,46 @@
         </ul>
       </template>
     </content-top-header>
+    <v-dialog v-model="initPayment" content-class="plans-dialog">
+			<payment-card :item="selectedPlan" :totalPayable="totalPayable" :closePayment="closePaymentModal" />
+		</v-dialog>
+
+		<v-dialog v-model="plansUpgradeModal" v-if="currentUser !== null && currentUser.plan !== null">
+			<v-card>
+				<v-card-title class="headline"
+					>Plan Changes</v-card-title
+				>
+				<v-card-text v-if="plansName[currentUser.plan] == 'Listener'"
+					>
+					<p>Your current plan is <b> {{ plansName[currentUser.plan]}} </b> and you are trying to <b>{{ planChangeText }}. </b> </p>
+					<p>You will remain listener until admin approve your account. Once you verified, you will be charged according to subscription of current plan and new chosen plan.
+						Are you sure you want to continue?
+					</p>
+				</v-card-text>
+				<v-card-text v-else>
+					<p>Your current plan is <b> {{ plansName[currentUser.plan]}} </b> and you are trying to <b>{{ planChangeText }}. </b> </p>
+					<p>This will have an immediate effect and you will be charged according to subscription of current plan and new chosen plan.
+						Are you sure you want to continue?
+					</p>
+				</v-card-text>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn
+						class="blue--text darken-1"
+						flat="flat"
+            :loading="loading"
+						@click.native="subscriptionChange(planChangeText)"
+						>Ok</v-btn
+					>
+					<v-btn
+						class="blue--text darken-1"
+						flat="flat"
+						@click.native="hidePlanChangeModal()"
+						>Cancel</v-btn
+					>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
     <!-- <div class="page-left">
       <div class="tab-container">
         <h2 class="page-title">Settings</h2>
@@ -111,7 +151,7 @@
                   <div class="first-name">
                     <label class="control-label">First Name</label>
                     <input
-                      v-model="profile.firstName"
+                      v-model="profile.first_name"
                       type="text"
                       class="form-control"
                     />
@@ -120,7 +160,7 @@
                   <div class="last-name">
                     <label class="control-label">Last Name</label>
                     <input
-                      v-model="profile.lastName"
+                      v-model="profile.last_name"
                       type="text"
                       class="form-control"
                     />
@@ -156,7 +196,7 @@
                 
                 
                 <div class="plans">
-                  <div class="plan" :class="{isCurrentPlan: currentUser.user_type === 'listener'}">
+                  <div class="plan" :class="{isCurrentPlan: currentUser.plan === null}">
                     <div class="plan-details">
                       <div class="plan-title">
                         Free
@@ -171,7 +211,7 @@
                   <div
                     v-for="(plan, i) in plansData"
                     :key="i"
-                    class="plan"
+                    class="plan planX"
                     :class="{isCurrentPlan: isCurrentPlan(plan)}"
                   >
                     <div class="plan-details">
@@ -189,6 +229,20 @@
                       style="margin-left: 10px"
                     >
                       Current plan
+                    </div>
+                    <div v-else>
+                      <div class="plan_btn_wrapper" v-if="currentUser.request_status !== 'denied'">
+                        <v-btn
+                          depressed
+                          block
+                          round
+                          dark
+                          class="plan_btn py-3 button_display"
+                          @click.native="verifyPlanType(plan)"
+                        >
+                          <span>{{ plansDescription(plan.id) }}</span>
+                        </v-btn>
+					            </div>
                     </div>
                   </div>
                 </div>
@@ -263,6 +317,7 @@
                 <v-btn
                   class="blue--text darken-1"
                   flat="flat"
+                  :loading="loading"
                   @click.native="deactivateSubscription()"
                   >Yes</v-btn
                 >
@@ -444,9 +499,18 @@
           </p> -->
 
           <div class="app-bold _title">
-            Connect payment processor to accept payments & handle refunds.
+            {{ currentUser.stripe_connected ? "Connect payment processor to accept payments & handle refunds." : "Connect to stripe to start getting paid for plays." }}
           </div>
 
+          <v-btn v-if="currentUser.stripe_connected && currentUser.stripe_express_dashboard_link"
+            :href=currentUser.stripe_express_dashboard_link
+            target="_blank"
+            dark
+            round
+            class="update-btn"
+          >
+            Stripe Express Dashboard
+          </v-btn>
           <div class="my-2 _subtitle">
             Payment process
           </div>
@@ -465,12 +529,13 @@
 
                 <div>
                   <router-link :href="stripeLink"></router-link>
+                  <a :href="stripeLink">
                   <v-icon
-                    class="cursor-pointer stripeLink-icon stripeLink-icon-add"
-                    @click="$router.href(stripeLink)"
+                  class="cursor-pointer stripeLink-icon stripeLink-icon-add"
                   >
-                    add
-                  </v-icon>
+                  add
+                </v-icon>
+              </a>
                 </div>
               </div>
             </div>
@@ -610,17 +675,79 @@
 
       <div v-else-if="active_tab == 'verify-status'" class="main-section">
         <v-flex xs12 sm3 verify-section>
-          <div v-if="currentUser.approver.display_name" class="verify-wrapper verified">
-            <div class="app-bold verify-status">Verified</div>
-            <div class="verified-by">by {{ currentUser.approver.display_name }}</div>
+          <div v-if="currentUser.approver && currentUser.approver.display_name" class="verify-wrapper verified">
+            <div class="app-bold verify-status">
+              {{ this.requestStatuses[currentUser.request_status] }}
+            </div>
+            <div v-if="currentUser.request_status !== 'pending'" class="verified-by">by {{ currentUser.approver.display_name }}</div>
+            <div v-else><span>-</span></div>
           </div>
 
           <div v-else class="verify-wrapper pending">
             <div class="app-bold verify-status">Pending</div>
             <div class="verified-by">-</div>
           </div>
+          <div v-if="(currentUser.request_status === 'pending')">
+            <span> You have already requested for account approval.</span>
+          </div>
+          <div v-else-if="(currentUser.request_status === 'denied')">
+            <v-btn
+              round
+              @click.native="verifyReRequestStatus()"
+              dark
+            >
+              Re request for verification
+            </v-btn>
+          </div>
         </v-flex>
       </div>
+    </div>
+    <div v-if="showGetVerifiedModal">
+      <div class="verified-main">
+        <div class="modal-inner">
+          <div class="text-center _title">Get verified</div>
+          <div class="margin-vertical">
+            <div class="form-group">
+              <div class="_lable">Social channel</div>
+              <v-menu class="social-type-menu" content-class="s-menu__content">
+                <v-select :placeholder="socialChannel ? socialChannel.title : 'Choose'" class="social-types-selector py-0"
+                  :class="{ '_filled': socialChannel }" single-line hide-details slot="activator"></v-select>
+
+                <div v-for="(channel, i) in socialChannels" :key="i" @click="selectedChannel(channel)"
+                  class="channel-info" :class="[`${channel.id}-menu`]">
+                  <div class="_title">{{ channel.title }}</div>
+                  <div class="_tags">
+                    {{ channel.tags }}
+                  </div>
+                </div>
+              </v-menu>
+              <div class="_lable">Social Username</div>
+              <input v-model="socialUsername" placeholder="Username" class="_socialHandle width100" type="text"/>
+            </div>
+
+          </div>
+          <div class="footnote">
+            If we need to contact you we will send a direct message from <strong>@yousoundapp</strong>
+          </div>
+          <v-btn
+            round
+            dark
+            @click.native="verifiedSocialAttributes()"
+            class="mt-3 px-3"
+            >Get Verified</v-btn
+          >
+
+          <!-- close sign -->
+          <div class="close-button" @click="hideModal()">
+            <img src="../../assets/cross.svg" width="11">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div v-if="remainingDaysModal">
+      <UpgradeModal @remainingDaysModal="remainingDaysModal = $event" :daysRemaining="30 - remainingDays()" ></UpgradeModal>
     </div>
   </div>
 </template>
@@ -637,6 +764,16 @@
     font-size: 14px;
     color: #787878;
   }
+}
+
+.button_display{
+  display: none;
+}
+.planX{
+  height: 75px;
+}
+.planX:hover .button_display{
+  display: block
 }
 
 .logout-btn {
@@ -660,4 +797,155 @@
     margin-top: 10px;
   }
 }
+
+.verified-main {
+	position: fixed;
+	z-index: 10;
+	background: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.modal-inner {
+		border-radius: 10px;
+		padding: 40px 25px;
+		width: 100%;
+		max-width: 375px;
+		background: white;
+		margin-left: 280px;
+		position: relative;
+		color: #000000;
+
+		._title {
+			font-size: 28px;
+			font-weight: 500;
+			line-height: 36px;
+		}
+
+		._lable {
+			font-size: 12px;
+			font-family: 'Inter', sans-serif;
+			font-weight: 500;
+			color: rgba(0, 0, 0, 0.6);
+			line-height: 30px;
+		}
+
+		.margin-vertical {
+			margin: 30px 0;
+			position: relative;
+		}
+
+		.close-button{
+			filter: invert(1);
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			cursor: pointer;
+		}
+	}
+
+	.menu {
+		width: 100%;
+		display: block !important;
+		margin-bottom: 14px;
+	}
+
+	._socialHandle {
+		color: #000000;
+		font-weight: 500;
+		padding: 10px;
+	}
+
+	[disabled] {
+		background: none !important;
+	}
+
+	.footnote {
+		font-size: 14px;
+	}
+
+	input {
+		min-height: 44px;
+		font-weight: 500;
+	}
+
+	.social-menu {
+		width: 100%;
+	}
+
+	.input-group__selections input {
+		&::placeholder {
+			color: #000000 !important;
+			font-weight: 500 !important;
+			opacity: 1 !important;
+			font-size: 14px !important;
+		}
+
+		&[placeholder="Choose"] {
+			&::placeholder {
+				color: rgba(0, 0, 0, 0.7) !important;
+			}
+		}
+
+	}
+
+	.input-group__input {
+
+		background: url("../../assets/chevron.svg") no-repeat scroll 95% 16px;
+		background-size: 15px 15px;
+
+		i {
+			font-size: 0;
+		}
+	}
+
+	&.input-group--focused {
+		.input-group__input {
+			// border: 1px solid #000000;
+			border-radius: 4px;
+
+
+		}
+	}
+
+}
+
+.form-group{
+	font-family: "Inter",sans-serif !important;
+}
+
+.social-type-menu {
+	width: 100%;
+}
+
+.s-menu__content {
+  position: fixed;
+	top: 320px !important;
+	box-shadow: none !important;
+	border-radius: 12px !important;
+	border: 2px solid #000000 !important;
+
+	.channel-info {
+		color: #000000;
+		width: 100%;
+		background-color: #ffffff;
+		padding: 10px 10px;
+
+		// &:not(:last-child) {
+		//     border-bottom: 2px solid #000000;
+		// }
+
+		&:hover {
+			background-color: #000000;
+			color: #ffffff;
+		}
+	}
+
+
+}
+
 </style>

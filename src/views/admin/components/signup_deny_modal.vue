@@ -15,6 +15,7 @@
           <v-btn
             color="primary"
             class="deny-btn"
+            :loading="loading"
             @click.native="submission(item)"
             >SUBMIT</v-btn
           >
@@ -75,6 +76,7 @@ export default {
       type: Function,
       required: true,
     },
+    loading: null,
   },
 
   data() {

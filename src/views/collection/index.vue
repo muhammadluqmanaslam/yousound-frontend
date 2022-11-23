@@ -1,5 +1,5 @@
 <template>
-  <div class="page collection-page mx-5">
+  <div class="page collection-page mx-5 margin-top-header">
     <content-top-header class="mt-3">
       <template slot="topHeader">
         <ul>

@@ -13,7 +13,7 @@
 
     <div class="page-content" v-if="isPageReady">
       <v-container grid-list-lg class="ml-0 pl-0">
-        <v-layout row wrap align-start>
+        <v-layout row wrap align-start margin-top-header>
           <v-flex xs12 sm8 class="wrapFlex product-covers">
             <div class="product-container">
               <div v-if="!onMobile" class="product-side-thumbnails">

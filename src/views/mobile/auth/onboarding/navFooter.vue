@@ -31,6 +31,7 @@
               forceShowNextIcon || (current > 1 && current < stages.length)
             "
             :class="{_disabled: !nextValidated}"
+            class="nextIcon"
             @click="handleNextStage()"
           >
             arrow_forward
@@ -77,19 +78,31 @@ export default {
 
 <style lang="scss" scoped>
 .onboarding-navigator {
-  margin-top: 10%;
+  margin-top: 60px;
 
   .arrow-holder {
     &.desktop {
       text-align: center;
+      display: flex;
+      justify-content: center;
+
 
       .icon {
+        width: 48px;
+        height: 48px;
         font-size: 21px;
         color: #000000;
         border: 2px solid #000000;
         cursor: pointer;
-        border-radius: 100px;
+        border-radius: 50%;
         padding: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &.nextIcon{
+          background-color: #000000;
+          color:#ffffff;
+        }
 
         &._disabled {
           color: #ffffff;

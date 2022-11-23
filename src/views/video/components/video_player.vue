@@ -37,6 +37,7 @@
 import { MyEvents } from '@/helper'
 import UserService from '@/services/user'
 import AuthService from '@/services/auth'
+import TrackingService from '@/services/tracking'
 
 export default {
   props: {
@@ -56,6 +57,10 @@ export default {
       stillListeningTimer: null,
       showListeningMessage: false,
       isSubscribed: false,
+      endPlayTime: 0,
+      totalPlayTime: 0,
+      seekTime1: 0,
+      seekTime2: 0,
     }
   },
 
@@ -160,8 +165,8 @@ export default {
     },
 
     closePlayer() {
-      this.updateUserInfo();
       const vm = this
+      vm.updateUserInfo();
       if (vm.player) {
         vm.player.dispose()
         vm.player = null
@@ -172,22 +177,58 @@ export default {
     },
 
     pauseMusicOnPlay() {
-        const vm = this
-        vm.player.on('play', () => {
-          this.remainingTime = 0
-          clearTimeout(this.stillListeningTimer);
-          clearInterval(this.remainingTimerCalculator);
-          this.stillListeningTimer = setTimeout(this.stillPlaying, 3600000)
-          this.remainingTimerCalculator = setInterval(this.timeCounter, 1000)
-          vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
-        })
+      const vm = this
 
-        vm.player.on('pause', () => {
-          this.updateUserInfo();
-          this.remainingTime = 0
-          clearTimeout(this.stillListeningTimer);
-          clearInterval(this.remainingTimerCalculator);
-        })
+      vm.player.on('ended', function() {
+        if (vm.totalPlayTime === 0) {
+          vm.totalPlayTime = vm.player.currentTime()
+        } else {
+          vm.totalPlayTime = vm.totalPlayTime + Math.floor(vm.player.duration() - vm.endPlayTime)
+        }
+        if (vm.totalPlayTime >= 30 && vm.isSubscribed) {
+          let params = { stream_id: vm.videoId, duration: Math.floor(vm.totalPlayTime) }
+
+          TrackingService.createPlayRecord(params)
+          .then((response) => {
+            console.log(response)
+          })
+          .catch((e) => {
+            console.log("error in updating record")
+          })
+        }
+        vm.totalPlayTime = 0;
+        vm.seekTime1 = 0;
+        vm.seekTime2 = 0;
+        vm.endPlayTime = 0
+      });
+
+      vm.player.on('play', () => {
+        vm.remainingTime = 0
+        clearTimeout(vm.stillListeningTimer);
+        clearInterval(vm.remainingTimerCalculator);
+        vm.stillListeningTimer = setTimeout(vm.stillPlaying, 3600000)
+        vm.remainingTimerCalculator = setInterval(vm.timeCounter, 1000)
+        vm.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+      })
+
+      vm.player.on('pause', () => {
+        vm.updateUserInfo();
+        vm.remainingTime = 0
+        clearTimeout(vm.stillListeningTimer);
+        clearInterval(vm.remainingTimerCalculator);
+        if (vm.totalPlayTime === 0) {
+          vm.totalPlayTime = vm.totalPlayTime + Math.floor(vm.seekTime1);
+        } else {
+          vm.totalPlayTime = vm.totalPlayTime + Math.floor(vm.seekTime1 - vm.endPlayTime)
+        }
+        vm.endPlayTime = vm.seekTime2
+        console.log("================ playing time ", vm.totalPlayTime)
+      })
+
+      vm.player.on('timeupdate', function() {
+        vm.seekTime1 = vm.seekTime2;
+        vm.seekTime2 = vm.player.currentTime();
+      });
     },
 
     timeCounter() {

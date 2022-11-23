@@ -85,22 +85,22 @@ export default {
 .account {
   border: 1px solid #d0d0d0;
   border-radius: 12px;
-  padding: 15px 20px;
+  padding: 15px 20px 22px;
   text-align: center;
   cursor: pointer;
 
   &.onSelect {
-    background-color: #000000;
+    background-color: #333;
     color: #ffffff;
   }
 
   &._listener {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
 
   ._title {
     font-size: 25px;
-    font-weight: 700;
+    font-weight: 600;
   }
   ._subtitle {
     font-size: 14px;

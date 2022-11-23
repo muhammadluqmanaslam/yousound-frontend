@@ -66,6 +66,7 @@ export default {
         rowsPerPage: 50,
       },
       isPageReady: true,
+      loading: false,
     }
   },
 
@@ -141,18 +142,27 @@ export default {
 
     approveUser(user) {
       // console.log('approveUser', user)
+      this.loading = true
+      this.$store.dispatch('error/showLoadingActivity', true)
+
       AdminService.approveUser({ user_id: user.id }).then((response) => {
         // console.log('approveUser', user)
         // user.request_status = 'accepted'
         // user.user_type = user.request_role
+        this.loading = false
+        this.$store.dispatch('error/showLoadingActivity', false)
         _.assignIn(user, response.body)
-        const arr = this.signups.slice()
-        this.signups = arr
+        this.signups = this.signups.filter(u => u.id != user.id)
+        this.$store.dispatch('error/showSuccessToast', ["User account has been successfully approved."])
         this.closeApproveModal()
+      }).catch(e => {
+        this.loading = false
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', [e.body.errors] || [e.body.exception])
       })
     },
 
-    denyUser(user) {
+    denyUser() {
       this.show_approve_modal = false
       this.show_deny_modal = true
     },
@@ -168,12 +178,20 @@ export default {
         denial_reason: user.denial_reason,
         denial_description: user.denial_description,
       }
+      this.loading = true
+      this.$store.dispatch('error/showLoadingActivity', true)
       AdminService.denyUser(params).then((response) => {
         console.log('viewSubmission', user)
         user.request_status = 'denied'
-        const arr = this.signups.slice()
-        this.signups = arr
+        this.signups = this.signups.filter(u => u.id != user.id)
         this.closeDenyModal()
+        this.loading = false
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showSuccessToast', ["User account has been successfully denied."])
+      }).catch(e => {
+        this.loading = false
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.$store.dispatch('error/showErrorToast', [e.body.errors])
       })
     },
   },

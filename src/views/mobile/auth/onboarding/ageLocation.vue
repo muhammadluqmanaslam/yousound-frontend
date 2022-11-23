@@ -19,7 +19,7 @@
       <div class="_title">Country</div>
       <input
         v-model="country"
-        class="_country"
+        class="_city"
         :class="{_filled: country}" 
         type="text"
         placeholder="Enter Country"
@@ -29,6 +29,7 @@
         :options="getCountryList"
         identifier="country"
         @selected="selected"
+        class="location"
       ></autocomplete>
     </div>
 
@@ -47,6 +48,7 @@
         identifier="city"
         @selected="selected"
         style="z-index: 1;"
+        class="location"
       ></autocomplete>
     </div>
 
@@ -212,6 +214,7 @@ export default {
           country: this.country,
           city: this.city,
         };
+        this.updateOnboarding(data);
         let user_params = this.$store.state.app.onboarding
         if(user_params.accountCategory === "listener") {
           let formData = new FormData();
@@ -236,8 +239,6 @@ export default {
             this.$store.dispatch("error/showErrorToast", e.body.errors)
           })
         } else {
-          this.updateOnboarding(data);
-
           this.gotoNextStage(this.current + 1);
         }
       }
@@ -265,6 +266,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.age-location{
+  margin-top: 25px;
+  width: 100%;
+  min-width: 360px !important;
+}
 .selections {
   display: flex;
   justify-content: space-between;
@@ -273,12 +279,16 @@ export default {
   .selection {
     border: 1px solid #d0d0d0;
     border-radius: 3px;
-    padding: 10px 10px;
+    padding: 13px 15px;
     width: 100%;
     text-align: center;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 13px;
 
     &._selected {
-      border: 2px solid #000000;
+      color: white;
+      background-color: #333;
+      border-color: #333;
     }
 
     &:not(:last-child) {
@@ -290,15 +300,16 @@ export default {
 .form-group {
   input {
     width: 100%;
-    padding-left: 35px;
+    padding-left: 45px;
 
     &::placeholder {
-      padding-left: 10px;
+      
       font-size: 14px;
-      color: rgba(0, 0, 0, 0.5);
+      color: rgba(0, 0, 0, 0.6);
     }
     &:focus {
       border: 2px solid #000000;
+      padding-left: 45px;
     }
     &._fullname {
       padding-left: 10px;
@@ -313,8 +324,11 @@ export default {
     }
     &._city {
       background: url("../../../../assets/city_icon_outline.svg") no-repeat
-        scroll 7px 13px;
+        scroll 16px 13px;
+        font-size: 14px;
+
     }
   }
 }
+
 </style>

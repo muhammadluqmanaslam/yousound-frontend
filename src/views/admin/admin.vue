@@ -37,6 +37,12 @@
               ></signup-tab>
             </v-tabs-content>
 
+            <v-tabs-content key="subscriptions" id="subscriptions">
+              <subscription-tab
+                v-if="$store.state.navigator.current.tab == 'subscriptions'"
+              ></subscription-tab>
+            </v-tabs-content>
+
             <v-tabs-content id="payments">
               <payment-tab
                 v-if="$store.state.navigator.current.tab == 'payments'"

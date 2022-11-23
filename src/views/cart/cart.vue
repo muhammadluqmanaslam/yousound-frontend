@@ -1,5 +1,5 @@
 <template>
-  <div row wrap class="page cart-page mx-5">
+  <div row wrap class="page cart-page mx-5 margin-top-header">
     <content-top-header>
       <template slot="topHeader">
         <ul>

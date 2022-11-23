@@ -1,5 +1,8 @@
 <template>
   <div class="onboarding_comp check-email">
+    <div>
+      <div class="_title" v-if="this.$store.state.app.onboarding.user_type !== 'listener'">Check your email</div>
+    </div>
     <div class="top-icon-wrapper text-center">
       <img
         :src="require('@/assets/send_airplane.svg')"
@@ -14,9 +17,12 @@
       </p>
 
       <p>
-        Click the link sent to activate your account. Creator accounts please
-        allow up to <br />
-        <strong>72 hours for verification</strong>.
+        Click the link sent to activate your account. 
+        <br>
+        <span v-if="this.$store.state.app.onboarding.user_type !== 'listener'">
+          Please allow up to
+          <strong>72 hours for verification</strong>.
+        </span>
       </p>
     </div>
 
@@ -98,11 +104,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+._title{
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.bodynote{
+  margin: 60px 0 30px;
+  color: black;
+}
 .check-email {
   font-size: 14px;
 
   .resend-mail {
-    margin: 20px 0 40px;
+    margin: 0px 0 50px;
     text-decoration: underline;
     cursor: pointer;
     font-weight: bold;

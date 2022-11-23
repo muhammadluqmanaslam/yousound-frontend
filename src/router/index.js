@@ -28,6 +28,8 @@ import AdminPage from '@/views/admin/admin'
 import Home from '@/views/landingPages/landing1'
 import Creators from '@/views/landingPages/landing2'
 import AdFree from '@/views/landingPages/landing3'
+import LoginPage from '@/views/LoginPage'
+import SignUpPage from '@/views/SignUpPage'
 // import ArtistLandingPage from '@/views/home/artist_landing'
 import AddAttendee from '@/views/home/add_attendee'
 // import CreateAttendee from '@/views/home/create_attendee'
@@ -40,9 +42,6 @@ import ActivityIndex from '@/views/activity/index'
 import NotificationIndex from '@/views/notification/index'
 import CollectionIndex from '@/views/collection/index'
 import Chat from '@/views/chat/chat'
-import VerificationIndex from '@/views/verifications/index'
-import AuthPlanIndex from '@/views/auth_plans/index'
-import FreeAccountCreditIndex from '@/views/free_account_credits/index'
 // import Messages from '@/views/messages/index'
 import DirectMessages from '@/views/user/direct_messages'
 import Cart from '@/views/cart/cart'
@@ -81,6 +80,7 @@ import VideoDelete from '@/views/video/delete'
 import Partners from '@/views/partners/'
 import Dashboard from '@/views/dashboard/'
 import SubscribeIndex from '@/views/subscribe/'
+import LandingX from '@/views/landing-x/'
 
 // Detect if device is on mobile then render dynamic component where necessary
 let isMobile = () => {
@@ -109,13 +109,16 @@ Vue.use(Router)
 
 export function createRouter(settings) {
   let routes = [
-    { path: '/', name: 'Home', component: Home, meta: {allowOnMobile: true, noSideSpace: true} },
+    { path: '/', name: 'Home', component: LandingX, meta: {allowOnMobile: true, noSideSpace: true} },
+    { path: '/landing-x', name: 'LandingX', component: Home, meta: {allowOnMobile: true, noSideSpace: false} },
     { path: '/creators', name: 'Creators', component: Creators, meta: {allowOnMobile: true} },
     { path: '/adfree', name: 'AdFree', component: AdFree, meta: {allowOnMobile: true} },
     // { path: '/', name: 'MainLandingPage', component: MainLandingPage },
     // { path: '/', name: 'LandingFirstStep', component: LandingFirstStep },
     { path: '/protect', name: 'ProtectPage', component: ProtectPage },
-    { path: '/login', name: 'Login', component: Login, meta: { showGoBack: true } },
+    { path: '/login-page', name: 'Login', component: Login, meta: { showGoBack: true } },
+    { path: '/login', name: 'Login', component: LoginPage, meta: { showGoBack: true } },
+    { path: '/signup', name: 'Login', component: SignUpPage, meta: { showGoBack: true } },
     { path: '/forgot', name: 'ForgotPassword', component: ForgotPassword, meta: { showGoBack: true } },
     {
       path: '/reset_password/:token',
@@ -209,6 +212,7 @@ export function createRouter(settings) {
       component: setComponent('discover'),
       meta: {
         showRightAltIcon: true,
+        noSideSpace: true,
       },
     },
     { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex, meta: { senderRoute: 'video' } },
@@ -232,9 +236,6 @@ export function createRouter(settings) {
     { path: '/activity', name: 'ActivityIndex', component: ActivityIndex },
     { path: '/notifications', name: 'NotificationIndex', component: NotificationIndex },
     { path: '/collection', name: 'CollectionIndex', component: CollectionIndex },
-    { path: '/creator-verification', name: 'VerificationIndex', component: VerificationIndex },
-    { path: '/auth-plans', name: 'AuthPlanIndex', component: AuthPlanIndex },
-    { path: '/free-account-credit', name: 'FreeAccountCreditIndex', component: FreeAccountCreditIndex },
     {
       path: '/messages',
       name: 'Messages',

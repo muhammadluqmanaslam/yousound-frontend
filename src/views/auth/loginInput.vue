@@ -165,6 +165,7 @@ export default {
           this.$router.push({ name: "DiscoverIndex" });
         })
         .catch((e) => {
+          this.$router.push({ path: '/login' })
           this.loading = false;
 
           this.$store.dispatch("error/showLoadingActivity", false);
@@ -191,6 +192,7 @@ export default {
     width: 100%;
     font-size: 16px;
     color: #4a4a4a;
+    font-weight: 500;
     letter-spacing: 0;
     padding: 0 15px;
   }
@@ -224,6 +226,7 @@ export default {
     color: #ffffff;
     letter-spacing: 0;
     text-transform: none;
+    padding: 10px;
   }
   .or-divider {
     margin-top: 30px;

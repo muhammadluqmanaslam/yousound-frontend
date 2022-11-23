@@ -13,7 +13,7 @@
       >
         <v-select
           :placeholder="socialChannel ? socialChannel.title : 'Choose'"
-          class="social-types-selector"
+          class="social-types-selector py-0"
           :class="{ '_filled': socialChannel }"
           single-line
           hide-details

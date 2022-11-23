@@ -46,7 +46,7 @@
               </div>
             </div> -->
 
-            <hr class="my-4" />
+            <hr class="hr-space" />
 
             <v-btn block round dark class="pay_btn" @click="handlePayment">
               Pay ${{ itemPrice }} /month
@@ -70,8 +70,11 @@
 
         <div class="divider my-2"></div>
 
-        <div class="dflex align-center mb-3">
-          <v-icon class="success-icon result-icon">check_circle</v-icon>
+        <div class="dflex align-center my-4">
+          <!-- <v-icon class="success-icon result-icon">check_circle</v-icon> -->
+          <div class="success-img">
+            <img src="../../assets/true.svg" width="100%">
+          </div>
           <div class="result-text">
             <div>Thank you</div>
             <div>Your account is pending</div>
@@ -94,8 +97,8 @@
           noBorder
         />
 
-        <v-btn depressed dark round block class="mt-4"
-          >Activate your account</v-btn
+        <v-btn depressed dark round block class="mt-4 pay_btn py-4" @click="hideConfirmationPayment"
+          >Go to next step</v-btn
         >
       </div>
     </transition>
@@ -119,6 +122,12 @@
         >
       </div>
     </transition>
+
+    <transition v-if="confirmPayment">
+      <div>
+        <checkEmail />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -128,6 +137,7 @@ import PackageDetails from "./packageDetails.vue";
 import { mapActions, mapState } from "vuex";
 import { createToken } from "vue-stripe-elements";
 import SubscriptionService from '@/services/subscription.js'
+import checkEmail from '../../views/mobile/auth/onboarding/checkEmail.vue'
 
 export default {
   props: {
@@ -146,9 +156,10 @@ export default {
       zipCode: "",
       paymentSuccessful: false,
       paymentFailed: false,
+      confirmPayment: false,
     };
   },
-  components: { cardDetails, PackageDetails },
+  components: { cardDetails, PackageDetails, checkEmail },
   computed: {
     ...mapState({
       countries: (state) => state.app.countries,
@@ -197,6 +208,10 @@ export default {
       getCountries: "app/getCountries",
     }),
 
+    hideConfirmationPayment() {
+      this.closePayment("success");
+    },
+
     handlePayment() {
       createToken().then((data) => {
         this.subscribe(this.stripePriceId, data.token);
@@ -217,9 +232,10 @@ export default {
       const params = { price_id: priceId, token_response: tokenResponse, token_id: tokenResponse.id }
       SubscriptionService.createSubscription(params)
         .then((response) => {
+          this.paymentSuccessful = true
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed."])
-          this.closePayment("success");
+          // this.closePayment("success");
           if (this.$store.state.auth.user != null) {
             this.$router.push({name: 'DiscoverIndex'})
           }
@@ -243,11 +259,13 @@ export default {
 .payment-modal {
   position: relative;
   background-color: #ffffff;
-  padding: 20px;
+  padding: 30px;
+  border-radius: 20px;
 
   .payment-modal-title {
     font-size: 24px;
     font-weight: bold;
+    font-family: "Inter", sans-serif;
   }
   .payment-card {
     hr {
@@ -256,6 +274,10 @@ export default {
       width: 100%;
       background-color: rgba(0, 0, 0, 0.1);
       margin: 15px 0;
+    }
+
+    .hr-space{
+      margin: 30px 0;
     }
 
     .section-wrapper {
@@ -306,7 +328,14 @@ export default {
         }
 
         .pay_btn {
-          color: #9b9b9b !important;
+          font-size: 18px;
+          font-weight: 500;
+          padding: 25px 0;
+          margin-bottom: 25px;
+
+          &[disabled]{
+            opacity: 0.7;
+          }
         }
 
         .stripe-credit {
@@ -323,6 +352,10 @@ export default {
   }
 
   .payment-ready {
+    .success-img{
+      max-width: 60px;
+      margin-right: 20px;
+    }
     .result-icon {
       font-size: 60px;
       margin-right: 10px;
@@ -335,7 +368,7 @@ export default {
       }
     }
     .result-text {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
     }
 

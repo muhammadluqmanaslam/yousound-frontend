@@ -24,6 +24,20 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-model="showRegisterModal">
+      <v-card>
+        <v-card-title class="headline"
+          >Register</v-card-title
+        >
+        <v-card-text
+          >Please do signup if you want to proceed.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <div class="side-player-inner">
       <div class="track-detail-section">
         <div class="track-cover-container" :style="{width: isMini ? '100%' : ''}">
@@ -310,6 +324,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { Howl, Howler } from "howler";
 import AlbumService from "@/services/album";
+import TrackingService from '@/services/tracking'
 // import PaymentService from '@/services/payment'
 import TrackService from "@/services/track"
 import UserService from '@/services/user'
@@ -358,6 +373,11 @@ export default {
       remainingStillListenerTimer: 0,
       isSubscribed: false,
       previewTimeCompleted: false,
+      showRegisterModal: false,
+      endPlayTime: 0,
+      totalPlayTime: 0,
+      playingSound: null,
+      lastSeekTime: 0,
     };
   },
 
@@ -515,9 +535,11 @@ export default {
     },
 
     play(index) {
-      this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
-      this.fetchSubscriptionDetails();
-      this.clearStillListeningTimer();
+      if (this.currentUser) {
+        this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
+        this.fetchSubscriptionDetails();
+        this.clearStillListeningTimer();
+      }
       // console.log('player', index, this.index, this.playlist)
       // unload and stop all previous sounds.
       for (var i = 0; i < Howler._howls.length; i++) {
@@ -541,6 +563,12 @@ export default {
       if (data.howl) {
         console.log("--data.howl---->", data.howl)
         sound = data.howl;
+        this.playingSound = sound
+        try {
+          sound.seek();
+        } catch (error) {
+          this.endPlayTime = 0;
+        }
       } else {
         console.log("--data.track.audio---->", data.track)
         sound = data.howl = new Howl({
@@ -556,6 +584,17 @@ export default {
             // Start the wave animation if we have already loaded
             self.isPlaying = true;
             self.setPauseStatus(false);
+            if (self.currentUser == null) {
+              let publicUserLimit = setInterval(() => {
+                if (sound.seek() >= 30 && !self.showRegisterModal) {
+                  self.setPauseStatus(true);
+                  self.isPlaying = false;
+                  sound.pause()
+                  self.showRegisterModal = true;
+                  clearInterval(publicUserLimit);
+                }
+              }, 1000)
+            }
           },
           onload: function () {
             // Start the wave animation.
@@ -565,7 +604,9 @@ export default {
             // Stop the wave animation.
             // this.isLoaded = false
             // this.isPlaying = false
-            localStorage.setItem("remainingTime", localStorage.getItem("remainingTime") - self.remainingStillListenerTimer * 1000)
+            if (self.currentUser) {
+              localStorage.setItem("remainingTime", localStorage.getItem("remainingTime") - self.remainingStillListenerTimer * 1000)
+            }
             if (self.isRepeated) {
               self.skipTo(self.index);
             } else {
@@ -579,10 +620,27 @@ export default {
           onstop: function () {
             // Stop the wave animation.
             // this.isPlaying = false
+            if (window.location.href.includes("discover")) {
+              if (self.totalPlayTime >= 30 && self.isSubscribed) {
+                let params = { track_id: self.track.id, duration: Math.floor(self.totalPlayTime) }
+
+                TrackingService.createPlayRecord(params)
+                .then((response) => {
+                  console.log(response)
+                })
+                .catch((e) => {
+                  console.log("error in updating record")
+                })
+              }
+              self.totalPlayTime = 0
+              self.endPlayTime = 0
+              self.lastSeekTime = 0
+            }
           },
         });
-
-        TrackService.playTrack(this.track.id).then((response) =>
+        this.playingSound = sound
+        let api_call = this.currentUser ? TrackService.playTrack(this.track.id) : TrackService.playTrackPublicUser(this.track.id)
+        api_call.then((response) =>
           console.log("playing - track", this.track.id)
         );
       };
@@ -596,7 +654,6 @@ export default {
         this.isLoaded = false;
         this.isPlaying = false;
       }
-
       // Keep track of the index we are currently playing.
       this.index = index;
       this.$store.dispatch("player/setTrackIndex", index);
@@ -628,13 +685,21 @@ export default {
      * Pause the currently playing track.
      */
     pause() {
-      this.updateUserInfo();
+      if (this.currentUser) {
+        this.updateUserInfo();
+      }
       // player is not initialized yet.
       if (!this.$store.state.player.isPlaying) return;
 
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl;
 
+      if (this.totalPlayTime === 0) {
+        this.totalPlayTime = Math.floor(sound.seek())
+      } else {
+        this.totalPlayTime = this.totalPlayTime + (Math.floor(sound.seek()) - this.endPlayTime)
+      }
+      this.endPlayTime = sound.seek()
       // Puase the sound.
       sound.pause();
 
@@ -649,6 +714,12 @@ export default {
 
     skip(direction) {
       // Get the next track based on the direction of the track.
+      if (this.playlist.length === 1 || (this.playlist.length > 1 &&
+       direction === 'next' && (this.index === this.playlist.length - 1))) {
+        let sound = this.playlist[this.index].howl
+        this.lastSeekTime = sound.seek() > 0 ? sound.seek() : sound.duration()
+      }
+
       var index = 0;
       if (direction === "prev") {
         index = this.index - 1;
@@ -682,7 +753,9 @@ export default {
      * @param  {Number} index Index in the playlist.
      */
     skipTo(index) {
-      this.updateUserInfo();
+      if (this.currentUser) {
+        this.updateUserInfo();
+      }
       // Stop the current track.
       var sound = null;
       if (
@@ -694,10 +767,31 @@ export default {
           this.playlist[this.index].howl !== null
         ) {
           sound = this.playlist[this.index].howl;
+          this.lastSeekTime = sound.seek() > 0 ? sound.seek() : sound.duration()
           sound.stop();
         }
       }
 
+      if (this.totalPlayTime === 0) {
+        this.totalPlayTime = Math.floor(this.lastSeekTime)
+      } else {
+        this.totalPlayTime = this.totalPlayTime + Math.floor(this.lastSeekTime - this.endPlayTime)
+      }
+      console.log("total play time =========", this.totalPlayTime)
+      if (this.totalPlayTime >= 30 && this.isSubscribed) {
+        let params = { track_id: this.track.id, duration: Math.floor(this.totalPlayTime) }
+
+        TrackingService.createPlayRecord(params)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((e) => {
+          console.log("error in updating record")
+        })
+      }
+      this.totalPlayTime = 0
+      this.endPlayTime = 0
+      this.lastSeekTime = 0
       // Reset progress.
       this.progress = 0;
 
@@ -714,11 +808,21 @@ export default {
     seek(per) {
       // Get the Howl we want to manipulate.
       var sound = this.playlist[this.index].howl;
-
+      let seekTime1 = Math.floor(sound.seek())
       // Convert the percent into a seek position.
       if (sound.playing()) {
         sound.seek((sound.duration() * per) / 100);
       }
+      let seekTime2 = Math.floor(sound.seek())
+
+      if (this.totalPlayTime === 0) {
+        this.totalPlayTime = this.totalPlayTime + seekTime1;
+        this.endPlayTime = seekTime2
+      } else {
+        this.totalPlayTime = this.totalPlayTime + (seekTime1 - this.endPlayTime)
+        this.endPlayTime = seekTime2
+      }
+      console.log("total play time", this.totalPlayTime)
     },
 
     /**
@@ -849,15 +953,15 @@ export default {
     timeCounter() {
       if (this.previewTimeCompleted) {
         this.pause();
-        this.$router.push({path: '/auth-plans'})
+        this.$router.push({path: '/subscribe#plans'})
       } else {
-        if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
+        if (this.currentUser && this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed && this.remainingTime >= 15) {
           this.previewTimeCompleted = true;
           this.pause();
           this.remainingTime = 0
           this.updateUserInfo();
           this.remainingTime = this.remainingTime + 1;
-          this.$router.push({path: '/auth-plans'})
+          this.$router.push({path: '/subscribe#plans'})
         }
         this.remainingTime = this.remainingTime + 1;
       }
@@ -886,17 +990,19 @@ export default {
     },
 
     fetchSubscriptionDetails() {
-      UserService.getSubscriptionDetail(this.currentUser.id)
-      .then((response) => {
-        if (response.bodyText === "Subscribed") {
-          this.isSubscribed = true
-        }
-      })
-      .catch((e) => {
-        this.$store.dispatch(
-          'error/showErrorToast', ["There was an error on fetching user info "]
-        )
-      })
+      if (this.currentUser) {
+        UserService.getSubscriptionDetail(this.currentUser.id)
+        .then((response) => {
+          if (response.bodyText === "Subscribed") {
+            this.isSubscribed = true
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast', ["There was an error on fetching user info "]
+          )
+        })
+      }
     },
 
     updateUserInfo() {

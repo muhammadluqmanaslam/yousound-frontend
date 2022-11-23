@@ -43,10 +43,12 @@ export default {
     },
     available_genres() {
       let genres = [{ id: 0, name: 'All' }]
-      this.videoGenres.forEach((vg) => {
-        const g = this._.find(this.$store.state.app.genres, { name: vg })
-        genres.push({ id: g.id, name: g.name })
-      })
+      if (this.currentUser != null) {
+        this.videoGenres.forEach((vg) => {
+          const g = this._.find(this.$store.state.app.genres, { name: vg })
+          genres.push({ id: g.id, name: g.name })
+        })
+      }
       // const genres = this._.filter(this.$store.state.app.genres, (g) => (VideoGenres.indexOf(g.name) > -1))
       // console.log('available_genres', genres)
       return genres
@@ -99,24 +101,25 @@ export default {
         page: page,
         per_page: this.items_per_page,
       }
-      StreamService.getStreams(params)
-        .then((response) => {
-          this.videos = this.videos.concat(response.body.streams)
 
-          // this will return a a prop limit if available
-          this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
+      const api_response = this.currentUser != null ? StreamService.getStreams(params) : StreamService.getStreamsPublicUsers(params)
+      api_response.then((response) => {
+        this.videos = this.videos.concat(response.body.streams)
 
-          // this.videos.filter((v) => )
-          // this.videos = [ ...this.videos, ...this.videos]
-          console.log(this.videos)
-          this.pagination = response.body.pagination
-          this.videoGenres = response.body.genres
-          this.$store.dispatch('error/showLoadingActivity', false)
-          this.isPageReady = true
-        })
-        .catch(() => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-        })
+        // this will return a a prop limit if available
+        this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
+
+        // this.videos.filter((v) => )
+        // this.videos = [ ...this.videos, ...this.videos]
+        console.log(this.videos)
+        this.pagination = response.body.pagination
+        this.videoGenres = response.body.genres
+        this.$store.dispatch('error/showLoadingActivity', false)
+        this.isPageReady = true
+      })
+      .catch(() => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+      })
     },
 
     loadMore() {

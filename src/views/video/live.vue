@@ -23,7 +23,7 @@
       </template>
     </content-top-header>
 
-    <div class="page-content">
+    <div class="page-content margin-top-header">
       <!-- <v-container fluid grid-list-lg px-0>
         <v-layout wrap row>
           <v-flex xs12 sm8>
@@ -67,7 +67,7 @@
         </v-layout>
       </v-container> -->
 
-      <div class="my-3">
+      <div class="my-3 margin-top-header">
         <h3>
           Maximize revenue with live broadcasts.
           <span

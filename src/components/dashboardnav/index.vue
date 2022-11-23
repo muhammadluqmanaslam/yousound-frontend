@@ -1,10 +1,10 @@
 <template>
-  <div class="dashboard-nav">
-    <v-toolbar fixed app flat color="white" height="73">
+  <div class="dashboard-nav margin-top-header">
+    <v-toolbar fixed app flat color="white" height="73" class="nav-z-index">
         <content-top-header>
             <template slot="topHeader">
                 <ul class="width100">
-                    <li
+                    <li v-if="displayTabs"
                     v-for="tab in tabs"
                     :key="tab.id"
                     :href="`#${tab.id}`"
@@ -93,6 +93,9 @@
 <script src="./dashboardnav.ctrl.js"></script>
 
 <style lang="scss" scoped>
+.nav-z-index{
+  z-index: 10 !important;
+}
 .dashboard-nav {
     .upload-btn {
       box-shadow: none;

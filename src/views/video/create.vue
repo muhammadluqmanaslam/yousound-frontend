@@ -1,5 +1,5 @@
 <template>
-  <div class="page upload-child video-page broadcast-page create-page mx-5">
+  <div class="page upload-child video-page broadcast-page create-page mx-5 margin-top-header">
     <topbarNotification
       :content="topBarContent"
       ctaTitle="Connect"

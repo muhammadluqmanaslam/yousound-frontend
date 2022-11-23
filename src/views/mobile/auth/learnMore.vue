@@ -37,14 +37,18 @@
       <transition name="fade">
         <div v-if="activeTab === 'listener'" class="learn-more-body _listener" :class="{onMobile}">
           <div v-if="onMobile" class="intro-section">
-            <h1 class="intro-title">For Everyone</h1>
+            <h1 v-if="fromLanding" class="intro-title">Features for everyone</h1>
+            <h1 v-else class="intro-title">For everyone</h1>
             <hr class="light intro-divider">
           </div>
 
           <v-container grid-list-lg layer-container>
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 tiles-layer :class="[pageMode? 'sm4' : 'sm5']">
-                <div class="tiles">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm5' : 'sm5']">
+                <div class="tile1-div">
+                  <img :src="require('@/assets/tile1-min.png')" width="100%">
+                </div>
+                <!-- <div class="tiles">
                   <div class="tile top-left tile-1 square">
                     <div
                       class="_img"
@@ -85,7 +89,7 @@
                       :style="`background-image: url('${tile4}')`"
                     ></div>
                   </div>
-                </div>
+                </div> -->
 
                 <div v-if="!pageMode && onMobile" class="app-download">
                   <img
@@ -103,32 +107,35 @@
                 </div>
               </v-flex>
 
-              <v-flex xs12 context-layer :class="[pageMode? 'sm5' : 'sm6']">
+              <v-flex xs12 context-layer :class="[pageMode? 'sm7' : 'sm6']">
                 <div class="tile-context">
                   <h2 v-if="!onMobile" class="_title">Listen, watch & shop</h2>
-                  <h2 v-if="onMobile" class="_title">Build your collection</h2>
+                  <h2 v-if="onMobile" class="_title">Listen, watch & shop</h2>
 
                   <div class="_subtitle">
-                    Collect music, videos, products & create playlists. Easily
+                    Collect music, videos, products & create playlists. <br> Easily
                     organize everything you discover.
                   </div>
                 </div>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'mt-2': onMobile}">
-              <v-flex xs12 sm5 context-layer>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'': onMobile}">
+              <v-flex xs12 sm7 context-layer>
                 <div class="tile-context">
-                  <h2 v-if="!onMobile" class="_title">Empower creators</h2>
+                  <h2 class="_title">Empower creators</h2>
                   <div class="_subtitle">
-                    50% of your subscription goes to creators you stream most.
-                    View your dashboard to see who you support.
+                    50% of your subscription goes to creators you <br> stream most.
+                    See who you support.
                   </div>
                 </div>
               </v-flex>
 
-              <v-flex xs12 tiles-layer :class="[pageMode? 'sm4' : 'sm6']">
-                <div class="tiles">
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm5' : 'sm6']">
+                <div>
+                  <img :src="require('@/assets/tile2-min.png')" width="100%">
+                </div>
+                <!-- <div class="tiles">
                   <div class="tile top-right tile-5 landscape">
                     <div
                       class="_img"
@@ -169,27 +176,30 @@
                       :style="`background-image: url('${tile8}')`"
                     ></div>
                   </div>
-                </div>
+                </div> -->
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
-              <v-flex xs12 tiles-layer tiles-layer-single :class="[pageMode? 'sm4' : 'sm5']">
-                <div class="tiles single-tile">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
+              <v-flex xs12 tiles-layer :class="[pageMode? 'sm5' : 'sm5']">
+                <div class="single-tile-3">
+                  <img :src="require('@/assets/tile3-min.png')" width="90%">
+                </div>
+                <!-- <div class="tiles single-tile">
                   <div class="tile square" :class="{pageMode}">
                     <div
                       class="_img"
                       :style="`background-image: url('${tile9}')`"
                     ></div>
                   </div>
-                </div>
+                </div> -->
               </v-flex>
 
-              <v-flex xs12 context-layer :class="[pageMode? 'sm5' : 'sm6']">
+              <v-flex xs12 context-layer :class="[pageMode? 'sm7' : 'sm6']">
                 <div class="tile-context">
                   <h2 class="_title">Get paid to share</h2>
                   <div class="_subtitle">
-                    Artists & brands can send DMs with content. Earn money
+                    Artists & brands can send DMs with content. <br> Earn money
                     helping creators reach the right audience.
                   </div>
                 </div>
@@ -200,19 +210,19 @@
       </transition>
 
       <transition name="fade">
-        <div v-if="(activeTab === 'creator') || onMobile" class="learn-more-body _creators" :class="{'mt-5': onMobile, onMobile}">
+        <div v-if="(activeTab === 'creator') || onMobile" class="learn-more-body _creators mt-extra" :class="{'mt-5': onMobile, onMobile}">
           <div v-if="onMobile" class="intro-section">
-            <h1 class="intro-title">For Creators</h1>
+            <h1 v-if="fromLanding" class="intro-title">Features for creators</h1>
+            <h1 v-else class="intro-title pt-5">For creators</h1>
             <hr class="light intro-divider">
           </div>
-          
           <v-container grid-list-lg layer-container _creator>
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-1.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -222,19 +232,19 @@
                 <div class="tile-context">
                   <h2 class="_title">Upload everything</h2>
                   <div class="_subtitle">
-                    Easily upload albums, videos, products. Instantly available
+                    Easily upload albums, videos, products. <br> Instantly available
                     worldwide.
                   </div>
                 </div>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Keep 100% of sales</h2>
                   <div class="_subtitle">
-                    Keep all of your digital & physical sales. Split payments &
+                    Keep all of your digital & physical sales. <br> Split payments &
                     recoups with collaborators.
                   </div>
                 </div>
@@ -244,19 +254,19 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-2.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-3.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -266,19 +276,19 @@
                 <div class="tile-context">
                   <h2 class="_title">User-centric payouts</h2>
                   <div class="_subtitle">
-                    Earn up to 50% of subscriber payments. As little as 20,000
+                    Earn up to 50% of subscriber payments.<br> As little as 20,000
                     plays can earn $5,000.
                   </div>
                 </div>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Connect with text</h2>
                   <div class="_subtitle">
-                    Your followers can opt-in with their cell number. Grow a SMS
+                    Your followers can opt-in with their cell number. <br> Grow a SMS
                     list & use text to bypass the algorithm.
                   </div>
                 </div>
@@ -288,19 +298,19 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-4.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout :class="{'flex-wrap-reverse': onMobile}">
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout :class="{'flex-wrap-reverse': onMobile}">
               <v-flex xs12 :class="[pageMode? 'sm4' : 'sm6']">
                 <div class="_img-wrapper" :class="{'text-center': !pageMode}" :style="{'margin-left':`${pageMode? '-27px' : ''}`}">
                   <img
                     :src="require('@/assets/learn-creator-5.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -310,14 +320,14 @@
                 <div class="tile-context">
                   <h2 class="_title">Go live!</h2>
                   <div class="_subtitle">
-                    Broadcast live video, sell exclusive content, limit viewer
+                    Broadcast live video, sell exclusive content, <br> limit viewer
                     capacity, run pay per view & chat live.
                   </div>
                 </div>
               </v-flex>
             </v-layout>
 
-            <v-layout row wrap align-center justify-space-between layer-layout>
+            <v-layout row wrap align-center justify-space-between my-6 layer-layout>
               <v-flex xs12 sm6>
                 <div class="tile-context">
                   <h2 class="_title">Advanced analytics</h2>
@@ -332,7 +342,7 @@
                 <div class="_img-wrapper" :class="{'text-center': !pageMode, 'text-right': pageMode}">
                   <img
                     :src="require('@/assets/learn-creator-6.jpeg')"
-                    width="80%"
+                    width="100%"
                     alt="creator image"
                   />
                 </div>
@@ -369,6 +379,7 @@ export default {
     pageMode: Boolean,
     setOnMobile: Boolean,
     hideFooter: Boolean,
+    fromLanding: Boolean,
   },
   components: {
     contentTopHeader,
@@ -378,10 +389,10 @@ export default {
     return {
       activeTab: "listener",
       tabs: [
-        { id: "listener", title: "For Everyone" },
+        { id: "listener", title: "Features for Everyone" },
         { id: "creator", title: "For Creators" },
       ],
-      tile1: require("@/assets/tile-1.jpeg"),
+      tile1: require("@/assets/tile1-min.png"),
       tile2: require("@/assets/tile-2.jpeg"),
       tile3: require("@/assets/tile-3.jpeg"),
       tile4: require("@/assets/tile-4.jpeg"),
@@ -414,6 +425,28 @@ export default {
 .learn-more {
   padding: 0 25px 40px 25px;
 
+  .my-6{
+    margin: 35px 0px;
+  }
+
+  .tile1-div{
+    transform: translateX(-10%);
+  }
+
+  ._img-wrapper{
+    width: 100%;
+    max-width: 300px;
+  }
+
+.intro-title {
+    font-size: 44px;
+    font-weight: bold;
+    letter-spacing: -2px;
+  }
+  .intro-section {
+    margin-bottom: 100px;
+  }
+
   &.onMobile {
     padding: 0 0px 40px 0px;
   }
@@ -421,14 +454,17 @@ export default {
   &-body {
     .layer-container {
       .layer-layout {
-        margin-top: 50px;
+        margin-top: 35px;
       }
     }
     &.onMobile {
       .intro-section {
+
         .intro-section {
           .intro-title {
-            font-size: 36px;
+            font-size: 44px;
+            font-weight: bold;
+            letter-spacing: -2px;
           }
           .intro-divider {
             margin: 60px 0;
@@ -489,6 +525,7 @@ export default {
       height: fit-content;
       position: relative;
 
+
       &-blur {
         position: absolute;
         top: 25px;
@@ -496,11 +533,27 @@ export default {
         width: 100%;
         height: 100%;
         opacity: 0.5;
-        filter: blur(29px);
+        filter: blur(15px);
         border-radius: 10px;
-        z-index: -1;
+        z-index: 0;
+        background-size: cover;
+        background-position: center;
       }
 
+
+      &.bottom-left {
+        margin-top: 5px;
+        &.tile-7 {
+          margin-top: 20px;
+        }
+      }
+      &.bottom-right {
+        margin-top: 25px;
+
+        &.tile-8 {
+          margin-top: 15px;
+        }
+      }
       &.top-right {
         margin-top: 20px;
 
@@ -508,14 +561,8 @@ export default {
           margin-top: -50px;
         }
         .tile-7 {
-          margin-top: 18px;
+          margin-top: 20px;
         }
-      }
-      &.bottom-left {
-        margin-top: 5px;
-      }
-      &.bottom-right {
-        margin-top: 25px;
       }
 
       ._img {
@@ -524,36 +571,72 @@ export default {
         border-radius: 6px;
         background-position: center;
         background-size: cover;
+        z-index: 2;
       }
 
       &.portrait {
-        width: 37%;
+        width: 40%;
 
         ._img {
           width: 100%;
-          height: 130px;
+          min-width: 140px;
+          height: 155px;
         }
       }
       &.landscape {
-        width: 58%;
+        width: 55%;
 
         ._img {
           width: 100%;
-          height: 100px;
+          min-width: 190px;
+          height: 140px;
         }
       }
       &.square {
         width: 47%;
 
         ._img {
-          width: 100%;
-          height: 127px;
+          width: 160px;
+          height: 160px;
         }
+      }
+      @media screen and (max-width: 1250px) {
+        &.square {
+        width: 47%;
+
+        ._img {
+          width: auto;
+          height: 150px;
+        }
+      }
+
+      &.portrait {
+        width: 40%;
+
+        ._img {
+          width: 100%;
+          min-width: auto;
+          height: 115px;
+        }
+      }
+      &.landscape {
+        width: 55%;
+
+        ._img {
+          width: 100%;
+          min-width: auto;
+          height: 100px;
+        }
+      }
       }
     }
   }
 
   .single-tile {
+
+    img{
+      filter: drop-shadow(0px 10px 50px rgba(34, 34, 34, 0.15));
+    }
     .tile {
       width: 100% !important;
       max-width: unset;
@@ -564,7 +647,9 @@ export default {
       }
 
       ._img {
+        width: 100% !important;
         height: 258px !important;
+        box-shadow: 0px 10px 50px rgba(34, 34, 34, 0.15);
       }
 
       &::before {
@@ -586,14 +671,18 @@ export default {
     // margin: 0 auto 0 0;
 
     ._title {
-      font-size: 24px;
+      font-size: 32px;
       color: #222222;
       margin-bottom: 15px;
+      letter-spacing: -0.3px;
     }
     ._subtitle {
-      font-size: 18px;
+      font-size: 24px;
+      line-height: 32px;
       color: #222222;
       opacity: 0.7;
+      letter-spacing: -0.3px;
+      font-weight: 500;
     }
   }
 
@@ -618,4 +707,76 @@ export default {
 .flex-wrap-reverse {
   flex-wrap: wrap-reverse;
 }
+
+
+@media screen and (max-width: 1100px){
+  br{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1250px) and (min-width: 960px) {
+
+  .intro-title{
+    font-size: 36px !important;
+  }
+
+  .learn-more .tile-context{
+    ._title{
+      font-size: 28px;
+    }
+
+    ._subtitle{
+      font-size: 20px;
+      line-height: 28px;
+    }
+  }
+}
+
+.learnmore-comp:has(.learn-more){
+  .learn-more .tile-context{
+
+._title{
+  font-size: 28px ;
+}
+
+._subtitle{
+  font-size: 20px ;
+  line-height: 28px ;
+}
+br{
+    display: none ;
+  }
+}
+
+@media screen and (min-width: 1500){
+.container{
+  max-width: 1100px;
+  }
+  .learnmore-comp{
+
+    br{
+    display: block ;
+  }
+
+  ._title{
+    font-size: 32px ;
+  }
+
+  ._subtitle{
+    font-size: 24px ;
+    line-height: 32px ;
+  }
+}
+
+.plans {
+  gap: 50px;
+}
+}
+
+}
+
+
+
+
 </style>

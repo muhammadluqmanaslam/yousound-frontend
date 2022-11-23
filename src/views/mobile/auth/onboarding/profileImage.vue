@@ -21,6 +21,9 @@
     <label v-if="profileImage" for="profileImage">
       <div class="action-info">Tap to replace</div>
     </label>
+    <label v-else for="profileImage">
+      <div class="action-info">Tap to upload</div>
+    </label>
 
     <NavFooter
       :nextValidated="validated('skipToast')"
@@ -124,10 +127,12 @@ export default {
 
 <style lang="scss" scoped>
 .profile-image-picker {
+  opacity: 0 !important;
   height: 1px;
   width: 1px;
 }
 .profile-image-holder {
+  cursor: pointer;
   position: relative;
   height: 220px;
   width: 220px;
@@ -144,6 +149,11 @@ export default {
     /* background: red; */
     position: absolute;
     border-radius: 100%;
+  }
+  &:hover{
+    &:after {
+      border: 10px solid rgba(150, 150, 150, 0.75);
+    }
   }
 }
 

@@ -39,7 +39,7 @@ const state = {
   plansData: [
     {
       title: "Basic",
-      list: ["1 account", "Ad-free music & video", "Upload 1 hour per video *", `Charge up to <b>$100</b> per repost`, "Basic analytics"],
+      list: ["Ad-free", "Access to all content", "Unlimited playlists", `Creators share 50% of your sub`, "See creators you support", "Get paid to share", "Join SMS communities"],
       active: false,
       price: "10",
       id: "basic",
@@ -67,7 +67,55 @@ const state = {
       title: "Advanced",
       list: [
         `<b>All features for creators +</b>`,
-        "Advanced analytics",
+        "<b>Advanced analytics</b>",
+        [
+          "Listeners/buyers by country",
+          "External traffic location",
+          "Average listening/watch time",
+          "Page views",
+          "Watching/listening now",
+          "Product conversion %",
+          "+more",
+        ],
+      ],
+      active: false,
+      price: "100",
+      id: "pro",
+      stripePriceId: process.env.PRO_PRICE_ID,
+    },
+  ],
+  plansDataSub: [
+    {
+      title: "Basic",
+      list: ["Ad-free", "Access to all content", "Unlimited playlists", `Creators share 50% of your sub`, "See creators you support", "Get paid to share", "Join SMS communities"],
+      active: false,
+      price: "10",
+      id: "basic",
+      stripePriceId: process.env.BASIC_PRICE_ID,
+    },
+    {
+      title: "Creators",
+      list: [
+        `<b>All features for everyone +</b>`,
+        "User-centric subscription share",
+        "Keep 100% of sales",
+        "SMS text your followers*",
+        "Unlimited uploads",
+        "Batch audio uploads",
+        "Collaborative payment splits",
+        "Live video pay-per-view",
+        "Live video exclusive content",
+      ],
+      active: true,
+      price: "40",
+      id: "plus",
+      stripePriceId: process.env.PLUS_PRICE_ID,
+    },
+    {
+      title: "Advanced",
+      list: [
+        `<b>All features for creators +</b>`,
+        "<b>Advanced analytics</b>",
         [
           "Content performance",
           "Listeners/buyers by country",
@@ -185,20 +233,6 @@ const getters = {
             icon: require('../../../static/images/cart.svg'),
             path: 'Cart',
           },
-          {
-            title: 'Creator Verification',
-            id: 'verifications',
-            icon: require('@/assets/ic_wave.svg'),
-            path: 'VerificationIndex',
-            allowedUser: ['admin'],
-          },
-          {
-            title: 'Free Account Credits',
-            id: 'freeAccountCredit',
-            icon: require('@/assets/ic_wave.svg'),
-            path: 'FreeAccountCreditIndex',
-            allowedUser: ['admin'],
-          },
           // {
           //   title: 'Sales',
           //   id: 'sales',
@@ -276,7 +310,7 @@ const getters = {
       return getters.onboardingCreatorStages
     } else {
       return [{
-        title: 'What Are You?',
+        title: 'What are you?',
         stage: 1,
       }]
     }
@@ -284,7 +318,7 @@ const getters = {
   onboardingListenerStages() {
     const stages = [
       {
-        title: 'What Are You?',
+        title: 'What are you?',
         stage: 1,
       },
       {
@@ -292,19 +326,19 @@ const getters = {
         stage: 2,
       },
       {
-        title: 'Profile Image',
+        title: 'Profile image',
         stage: 3,
       },
       {
-        title: 'Account Info',
+        title: 'Account info',
         stage: 4,
       },
       {
-        title: 'Age & Location',
+        title: 'Age & location',
         stage: 5,
       },
       {
-        title: 'Check Email',
+        title: 'Check your email',
         stage: 6,
       },
     ]
@@ -313,23 +347,23 @@ const getters = {
   onboardingCreatorStages() {
     const stages = [
       {
-        title: 'What Are You?',
+        title: 'What are you?',
         stage: 1,
       },
       {
-        title: 'Artist or Brand',
+        title: 'Artist or brand',
         stage: 2,
       },
       {
-        title: 'Profile Image',
+        title: 'Profile image',
         stage: 3,
       },
       {
-        title: 'Account Info',
+        title: 'Account info',
         stage: 4,
       },
       {
-        title: 'Age & Location',
+        title: 'Age & location',
         stage: 5,
       },
       {
@@ -344,7 +378,7 @@ const getters = {
         hideStagerTitle: true,
       },
       {
-        title: 'Check Email',
+        title: 'Check your email',
         stage: 8,
         hideStagerBar: true,
       },

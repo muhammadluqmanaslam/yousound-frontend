@@ -115,7 +115,9 @@ export default {
   },
 
   async created() {
-    await this.fetchSubscriptionDetails();
+    if (this.currentUser) {
+      await this.fetchSubscriptionDetails();
+    }
   },
 
   methods: {
@@ -163,7 +165,7 @@ export default {
             )
           })
       } else {
-        this.$router.push({path: '/auth-plans'})
+        this.$router.push({path: '/subscribe#plans'})
       }
     },
 

@@ -1,12 +1,15 @@
 import contentTopHeader from '@/components/contentTopHeader'
 import dashboardNav from '@/components/dashboardnav'
 import chart from 'vue-apexcharts'
+import TrackingService from '../../services/tracking'
+import analyticsModal from '@/views/analyticsModal'
 
 export default {
   components: {
     contentTopHeader,
     dashboardNav,
     chart,
+    analyticsModal,
   },
   data() {
     return {
@@ -17,6 +20,7 @@ export default {
       selectedInnerTab: {},
       selectedChart: {},
       daysFilter: 0,
+      dashboardStats: [],
       tabs: [
         { id: 'overview', title: 'Overview'},
         { id: 'music', title: 'Music'},
@@ -1602,9 +1606,19 @@ export default {
 
       return col.dataTables || null
     },
+
+    getDashboardStats() {
+      TrackingService.getDashboardStats()
+        .then((response) => {
+          this.dashboardStats = response.body
+        })
+        .catch((exception) => {
+          console.log(exception)
+        })
+    },
   },
 
-  created() {
+  async created() {
     // device inital chart
     // change default from activeInnerTab: '' above
     const innerTab = this.getInnerTab()
@@ -1613,6 +1627,7 @@ export default {
 
     this.selectedChart = this.selectedInnerTab.breakdown[0]
     this.activeChart = this.selectedInnerTab.breakdown[0].value
+    await this.getDashboardStats()
   },
   mounted() {
     if (this.currentUser.plan !== "pro") {

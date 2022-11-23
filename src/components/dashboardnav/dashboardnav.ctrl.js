@@ -20,10 +20,11 @@ export default {
     return {
       activeTab: "",
       daysFilter: 7,
+      displayTabs: false,
       tabs: [
         {
           id: "dashboard",
-          title: "Dashboard",
+          title: "Analytics",
           pathName: "Dashboard",
           // icon: require("../../../static/images/edit-curves.svg"),
         },
@@ -124,7 +125,6 @@ export default {
       if (AuthService.isAuthenticated()) {
         await AuthService.checkTokenValidation().then((response) => {
           if (response.body !== false) {
-            // console.log('App created', response.body)
             AuthService.setUser(response.body)
           }
         })
@@ -136,9 +136,6 @@ export default {
     await this.isCreatorVerified()
 
     this.activeTab = this.name;
-    if ((this.currentUser.plan === "pro" && this.currentUser.creator_verified !== true) || this.currentUser.plan !== "pro") {
-      this.tabs = this.tabs.filter(tab => tab.title !== "Dashboard")
-    }
     if (!(this.currentUser.user_type === "artist" || this.currentUser.user_type === 'brand')) {
       this.tabs = this.tabs.filter(tab => tab.id !== 'sales' && tab.id !== 'manage')
     }
@@ -149,5 +146,6 @@ export default {
     if (this.replaceMenuWith.length) {
       this.tabs = this.replaceMenuWith;
     }
+    this.displayTabs = true
   },
 };

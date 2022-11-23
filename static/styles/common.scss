@@ -8,6 +8,10 @@ body {
   background: #fff;
 }
 
+.margin-top-header{
+  margin-top: 60px !important;
+}
+
 // div#app {
 .application {
   background-color: #ffffff;
@@ -689,6 +693,9 @@ hr.light {
     }
   }
 }
+main.content{
+  padding-top: 0 !important;
+}
 
 .app-container {
   position: relative;
@@ -713,8 +720,7 @@ hr.light {
     padding-bottom: 50px;
 
     &-fullwidth {
-      padding-left: 0;
-      padding-right: 0;
+      padding: 0;
     }
   }
 }

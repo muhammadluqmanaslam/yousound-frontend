@@ -6,11 +6,13 @@
         'follow-btn': true,
         follow: !userIsFollowing,
         following: userIsFollowing,
-        btnBlock
+        btnBlock,
+        borderRadius,
       }"
       @click.native="followUser()"
       @mouseenter="buttonHover = true"
       @mouseleave="buttonHover = false"
+      style="background-color: red"
     >
       {{ followButtonText }}
     </v-btn>
@@ -39,6 +41,7 @@ export default {
       type: Object,
     },
     btnBlock: Boolean,
+    borderRadius: Boolean,
   },
   data() {
     return {
@@ -144,10 +147,18 @@ export default {
       &.btnBlock {
         border-radius: 0;
       }
+      &.borderRadius {
+        border-radius: 4px;
+      }
     }
     &.following {
       color: #000;
       border: 1px solid #0009;
+
+      &.borderRadius {
+        border-radius: 4px;
+      }
+
       &:hover {
         color: #dc3545 !important;
         border: 1px solid #dc3545;

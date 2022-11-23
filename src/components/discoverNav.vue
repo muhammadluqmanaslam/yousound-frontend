@@ -1,5 +1,5 @@
 <template>
-  <div class="discover-nav">
+  <div class="discover-nav margin-top-header">
     <content-top-header>
       <template slot="topHeader">
           <ul class="pr-3">

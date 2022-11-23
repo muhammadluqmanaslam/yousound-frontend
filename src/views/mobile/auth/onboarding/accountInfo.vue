@@ -150,17 +150,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.account-info{
+  margin-top: 30px;
+}
 .form-group {
+  width: 330px;
   input {
     width: 100%;
-    padding-left: 35px !important;
-
+    padding-left: 45px;
     &:focus {
-      padding-left: 35px !important;
+      padding-left: 45px !important;
     }
 
     &::placeholder {
-      padding-left: 10px;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.5);
     }
@@ -180,11 +183,11 @@ export default {
     }
     &._email {
       background: url("../../../../assets/mail_icon_outline.svg") no-repeat
-        scroll 7px 13px;
+        scroll 16px 13px;
     }
     &._password {
       background: url("../../../../assets/password_outline.svg") no-repeat
-        scroll 7px 13px;
+        scroll 16px 13px;
     }
   }
 }

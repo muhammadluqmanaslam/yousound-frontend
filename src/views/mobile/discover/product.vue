@@ -161,7 +161,7 @@ export default {
             seed: this.seed,
         }
 
-        return SearchService.searchDiscover(params)
+        return SearchService.searchDiscoverPublicUser(params)
         .then((response) => {
             console.log('response: ', response)
             this.products = this.products.concat(response.body.products)
@@ -185,9 +185,9 @@ export default {
 
             if (page === 1) {
                 Promise.all([
-                SearchService.searchDiscover(_.extend(params, { page: 2 })),
-                SearchService.searchDiscover(_.extend(params, { page: 3 })),
-                SearchService.searchDiscover(_.extend(params, { page: 4 })),
+                SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+                SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+                SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
                 ]).then((values) => {
                 vm.products = vm.products.concat(
                     values[0].body.products,
