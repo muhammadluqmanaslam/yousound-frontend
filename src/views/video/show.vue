@@ -1,6 +1,6 @@
 <template>
   <div v-if="isPageReady" class="page video-page show-page" :class="{'no-top-nav': !onMobile, onMobile }">
-    <div class="page-content">
+    <div class="page-content margin-top-header">
       <v-container fluid px-0 :class="{'grid-list-md px-4':!onMobile}">
         <v-layout row wrap>
           <v-flex xs12 sm9 class="vid_col">
