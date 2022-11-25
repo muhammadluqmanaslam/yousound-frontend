@@ -158,17 +158,28 @@
 
 
               <div class="toggle-container">
-                <v-btn depressed class="upload-tab-btn width-auto" >
-                  Connect to Stripe
+                <v-btn v-if="currentUser.stripe_connected && currentUser.stripe_express_dashboard_link"
+                  depressed
+                  class="upload-tab-btn width-auto"
+                  :href=currentUser.stripe_express_dashboard_link>
+                    Stripe Express Dashboard
                 </v-btn>
-                <div class="dflex align-center">
+                <v-btn v-else
+                  depressed
+                  class="upload-tab-btn width-auto"
+                  :href="stripeLink()">
+                    Connect to Stripe
+                </v-btn>
+                <div v-if="currentUser.stripe_connected" class="dflex align-center">
                   <div class="dflex align-center">
                     <img src="../../assets/c-check.svg" width="25">
                     <p class="bold-text">Connected</p>
-                  
                   </div>
-
-                  <a href="#" class="anchor-text">Edit</a>
+                  <div>
+                    <a :href="stripeLink()" class="anchor-text">
+                      Edit
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -193,7 +204,7 @@
                 <v-btn depressed class="upload-tab-btn width-auto" to="/spotlight">
                   Upload spotlight video
                 </v-btn>
-                <div class="dflex align-center">
+                <div v-if="currentUser.spotlight_video" class="dflex align-center">
                   <div class="dflex align-center">
                     <img src="../../assets/c-check.svg" width="25">
                     <p class="bold-text">Video uploaded</p>
@@ -245,7 +256,7 @@
             class="mr-2"
           ></v-checkbox>
 
-          <div class="_label">
+          <div v-if="!currentUser.stripe_connected" class="_label">
             <span
               >Connect your Stripe account to start accepting payments.</span
             >
