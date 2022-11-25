@@ -12,6 +12,11 @@
     overflow: auto;
   }
 
+  &.collaborators-success-dialog{
+    width: 65%;
+    max-width: 875px;
+  }
+
   &.no-border-radius {
     border-radius: 0;
   }

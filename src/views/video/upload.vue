@@ -1,8 +1,16 @@
 <template>
+  <div>
+    <BannerUpload 
+    MainHeading="Premiere a video" 
+    MainText="Upload videos & connect your products, albums + earn subscription revenue from your streams"
+    :Icon="iconImage"
+    :MainImage="bannerImage"
+  />
+
   <div class="page upload-child video-page create-page mx-5 margin-top-header" v-if="this.currentUser.creator_verified">
     <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
   
-    <content-top-header>
+    <!-- <content-top-header>
       <template slot="topHeader">
         <ul class="pr-3">
           <li
@@ -23,7 +31,7 @@
           </li>
         </ul>
       </template>
-    </content-top-header>
+    </content-top-header> -->
 
     <div class="d-flex">
       <div class="page-content">
@@ -36,7 +44,7 @@
           ref="dragFileUploader"
         ></drag-file-uploader>
 
-        <form v-if="videoFile" v-on:submit.prevent="submit()" class="video-info-section">
+        <form v-if="videoFile" v-on:submit.prevent="submit()" class="video-info-section mt-5">
           <v-layout row>
             <v-flex sm5>
               <div class="mb-4 dflex align-center mt-4">
@@ -48,40 +56,28 @@
                   delete
                 </span>
               </div>
-
-              <div>
-                <h4 class="info-title">Info</h4>
+            </v-flex>
+          </v-layout>
+            <div>
+                <h4 class="album-info-title">Info</h4>
               </div>
-
+          <div class='dflex gap-15'>
+            <v-flex sm8>
+            <div class="dflex gap-15">
               <div class="form-group">
                 <label class="control-label max-char-label">
                   <span class="__title">
                   <label class="required">*</label>
                     Title
                   </span>
-                  <span class="max-char">80 char max</span>
                 </label>
                 <input
                   type="text"
-                  class="form-control"
+                  class="form-control py-0 my-0"
                   name="title"
                   v-model="stream.name"
                   maxlength="80"
                   v-validate="'required'"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="control-label max-char-label">
-                  <span class="__title">
-                    Description
-                  </span>
-                  <span class="max-char">4000 char max</span>
-                </label>
-                <textarea
-                  class="form-control"
-                  v-model="stream.description"
-                  maxlength="4000"
                 />
               </div>
 
@@ -100,13 +96,28 @@
                   v-validate="'required'"
                   item-text="name"
                   item-value="id"
-                  class="pt-0"
+                  class="py-0 my-0"
                 />
               </div>
+            </div>
 
+            <div class="form-group">
+              <label class="control-label max-char-label">
+                <span class="__title">
+                  Description
+                </span>
+              </label>
+              <textarea
+                class="form-control"
+                v-model="stream.description"
+                maxlength="4000"
+              />
+            </div>
+
+            </v-flex>
+            <v-flex sm4>
               <div class="form-group">
-                <label class="info-title">
-                    <label class="required">*</label>
+                <label class="control-label">
                     <span>Video Thumbnail</span>
                 </label>
 
@@ -148,8 +159,20 @@
                 </div>
               </div>
 
+            </v-flex>
+
+          </div>
+
+
+          <div class="mt-5">
+            <h4 class="album-info-title">Options</h4>
+          </div>
+
+
+            <div class="dflex gap-15 mt-4">
+
               <div class="form-group">
-                <label class="info-title">Attach Product/Album</label>
+                <label class="control-label">Attach Product/Album</label>
                 <div class="panel">
                   <v-select
                     v-model="stream_assoc"
@@ -225,7 +248,7 @@
 
 
               <div class="form-group">
-                <label class="info-title">Feature profiles</label>
+                <label class="control-label">Feature profiles</label>
                 <v-select
                   v-model="stream.account_ids"
                   :items="friends"
@@ -289,11 +312,17 @@
                     ></label>
                 </p>
               </div> -->
-            </v-flex>
-          </v-layout>
+     
+
+            </div>
+
+
+
+
+
 
           <div class="submit-section">
-            <hr class="mb-3" />
+            <hr class="mb-5" />
 
             <v-btn 
               round 
@@ -302,7 +331,7 @@
               type="submit"
               :disabled="submitLoading"
             >
-              Submit
+            Release
             </v-btn>
           </div>
         </form>
@@ -524,6 +553,8 @@
       :finish="deposit"
     />
   </div>
+
+</div>
 </template>
 
 <script type="text/javascript" src="./upload.ctrl.js"></script>

@@ -12,6 +12,9 @@ import DigitalUploader from './components/digital_uploader'
 import contentTopHeader from '@/components/contentTopHeader'
 import dragFileUploader from '@/components/dragFileUploader'
 import topbarNotification from '@/components/topbarNotification'
+import BannerUpload from '../BannerUpload'
+import IconImage from '../../assets/video-icon.svg'
+import BannerImage from '../../assets/product-drop.gif'
 
 import {
   VideoGenres,
@@ -25,6 +28,7 @@ import {
 
 export default {
   components: {
+    BannerUpload ,
     Attach,
     PaymentModal,
     DigitalUploader,
@@ -35,6 +39,8 @@ export default {
 
   data() {
     return {
+      iconImage: IconImage,
+      bannerImage: BannerImage,
       topBarContent: 'Connect your Stripe account to start accepting payments',
       activeTab: 'video',
       tabs: [

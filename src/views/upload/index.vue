@@ -48,7 +48,7 @@
       <!-- <h1 class="px-3 __title mb-0">Share to the world</h1> -->
 
       <v-container fluid grid-list-lg px-0 mb-4 class="margin-top-header">
-        <v-layout row wrap justify-start>
+        <v-layout upload-flex>
           <v-flex xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">
               <div class="upload-tab-img uploadMusic"></div>
@@ -133,6 +133,99 @@
                 :to="{ name: broadcastLink }"
                 >Go Live</v-btn
               >
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-container>
+
+
+      <h1 class="px-3 __title mt-3">Complete your setup</h1>
+
+      <v-container fluid grid-list-lg px-0 mb-4>
+        <v-layout upload-flex>
+          <v-flex xs12 class="upload-tab-container">
+            <div class="upload-tab-wrapper">
+
+              <div class="text-left">
+                <div class="dflex align-center">
+                  <img src="../../assets/visa.svg" width="32">
+                  <h3 class="secondary-heading">Accept Payments</h3>
+                </div>
+                <div class="upload-tab-description light">
+                  Connect to <a href="https://stripe.com" target="_blank">Stripe.com</a> to get paid & manage your customers
+                </div> 
+              </div>
+
+
+              <div class="toggle-container">
+                <v-btn depressed class="upload-tab-btn width-auto" >
+                  Connect to Stripe
+                </v-btn>
+                <div class="dflex align-center">
+                  <div class="dflex align-center">
+                    <img src="../../assets/c-check.svg" width="25">
+                    <p class="bold-text">Connected</p>
+                  
+                  </div>
+
+                  <a href="#" class="anchor-text">Edit</a>
+                </div>
+              </div>
+            </div>
+          </v-flex>
+
+          <v-flex xs12 class="upload-tab-container">
+            <div class="upload-tab-wrapper">
+
+              <div class="text-left">
+                <div class="dflex align-center">
+                  <img src="../../assets/flashlight 1.svg" width="32">
+                  <h3 class="secondary-heading">Spotlight video</h3>
+                </div>
+                <div class="upload-tab-description light">
+                  Add video clip to attract new followers when
+                    people view your previews
+                </div> 
+              </div>
+
+
+              <div class="toggle-container">
+                <v-btn depressed class="upload-tab-btn width-auto" to="/spotlight">
+                  Upload spotlight video
+                </v-btn>
+                <div class="dflex align-center">
+                  <div class="dflex align-center">
+                    <img src="../../assets/c-check.svg" width="25">
+                    <p class="bold-text">Video uploaded</p>
+                  
+                  </div>
+
+                  <a href="#" class="anchor-text">Edit</a>
+                </div>
+              </div>
+            </div>
+          </v-flex>
+
+          <v-flex xs12 class="upload-tab-container">
+            <div class="upload-tab-wrapper">
+
+              <div class="text-left">
+                <div class="dflex align-center">
+                  <img src="../../assets/cup.svg" width="32">
+                  <h3 class="secondary-heading">Upgrade account</h3>
+                </div>
+                <div class="upload-tab-description light">
+                  Unlock features like sales collaboration &
+                  get paid to share
+                </div> 
+              </div>
+
+
+              <div class="toggle-container">
+                <v-btn depressed class="upload-tab-btn width-auto" >
+                  View plans
+                </v-btn>
+              </div>
             </div>
           </v-flex>
         </v-layout>

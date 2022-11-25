@@ -4,12 +4,15 @@ import genreSingleSelector from '@/components/genre_single_selector'
 import sampleLicenseDialog from './components/sample_license_dialog'
 import trackUploader from '@/components/trackuploader'
 import contentTopHeader from '@/components/contentTopHeader'
+import BannerUpload from '../BannerUpload'
 
 import MeService from '@/services/me'
 import AlbumService from '@/services/album'
 import ProductService from '@/services/product'
 import ProfileService from '@/services/profile'
 import { CollaboratorRoleTypes } from '@/helper'
+import IconImage from '../../assets/music-sound.svg'
+import BannerImage from '../../assets/album-drop.gif'
 
 export default {
   components: {
@@ -17,11 +20,15 @@ export default {
     sampleLicenseDialog,
     trackUploader,
     contentTopHeader,
+    BannerUpload 
+
   },
 
   data() {
     return {
     activeTab: 'music',
+    iconImage: IconImage,
+    bannerImage: BannerImage,
     tabs: [
       { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
       { id: 'music', title: 'Music', path: 'UploadAlbum' },

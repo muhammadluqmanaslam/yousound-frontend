@@ -1,16 +1,22 @@
 import contentTopHeader from '@/components/contentTopHeader'
 import paymentModal from '@/components/paymentmodal'
+import BannerUpload from '../BannerUpload'
+import IconImage from '../../assets/broadcase-icon.svg'
+import BannerImage from '../../assets/live-drop.gif'
 
 export default {
   components: {
     paymentModal,
     contentTopHeader,
+    BannerUpload
   },
 
   props: {},
 
   data() {
     return {
+      iconImage: IconImage,
+      bannerImage: BannerImage,
       hour: 1,
       showPaymentModal: false,
       selected: {

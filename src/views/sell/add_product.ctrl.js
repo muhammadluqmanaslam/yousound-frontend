@@ -11,6 +11,9 @@ import contentTopHeader from '@/components/contentTopHeader'
 import topbarNotification from '@/components/topbarNotification'
 import policyTab from '@/views/settings/components/policy_tab'
 import UserService from '@/services/user'
+import BannerUpload from '../BannerUpload'
+import IconImage from '../../assets/product-tag.svg'
+import BannerImage from '../../assets/product-drop.gif'
 
 export default {
   components: {
@@ -18,11 +21,14 @@ export default {
     contentTopHeader,
     topbarNotification,
     policyTab,
+    BannerUpload 
   },
 
   data() {
     return {
       activeTab: 'product',
+      iconImage: IconImage,
+      bannerImage: BannerImage,
       tabs: [
         { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
         { id: 'music', title: 'Music', path: 'UploadAlbum' },

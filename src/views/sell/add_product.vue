@@ -1,11 +1,22 @@
 <template>
+
+  <div>
+
+    <BannerUpload 
+      MainHeading="Launch a product" 
+      MainText="Upload digital + physical products, set recoup costs, split revenue with collaborators & keep 100% of sales"
+      :Icon="iconImage"
+      :MainImage="bannerImage"
+    />
+
+
   <div class="page upload-child sell-page product-page mx-5 margin-top-header" v-if="currentUser.creator_verified">
     <topbarNotification
       :content="topBarContent"
       ctaTitle="Connect"
       :cta="{ name: 'ManageIndex', params: { tab: 'payment' } }"
     />
-    <content-top-header>
+    <!-- <content-top-header>
       <template slot="topHeader">
         <ul class="pr-3">
           <li
@@ -26,14 +37,14 @@
           </li>
         </ul>
       </template>
-    </content-top-header>
+    </content-top-header> -->
 
     <div class="page-content">
       <v-layout row wrap>
         <v-flex xs12 v-if="isPageReady">
-          <v-layout wrap row content-section>
+          <h2 class="my-2 album-info-title">Info</h2>
+          <v-layout wrap row content-section mt-4>
             <v-flex xs12 sm7>
-              <h2 class="my-2">Info</h2>
               <v-flex xs12 product-section>
                 <v-flex xs12 form-group>
                   <label class="control-label max-char-label">
@@ -41,7 +52,6 @@
                       <label class="required">*</label>
                       Product Name
                     </span>
-                    <span class="max-char">80 char max</span>
                   </label>
 
                   <input
@@ -50,30 +60,7 @@
                     v-model="product.name"
                   />
                 </v-flex>
-
-                <v-flex xs12 form-group>
-                  <label class="control-label max-char-label">
-                    <span class="__title">
-                      <label class="required">*</label>
-                      Description
-                    </span>
-                    <span class="max-char">2000 char max</span>
-                  </label>
-
-                  <textarea
-                    v-model="product.description"
-                    class="product-description form-control non-resizable"
-                    maxlength="2000"
-                  ></textarea>
-                </v-flex>
-
-                <!-- <v-flex xs12 form-group>
-                  <v-radio-group v-model="product.stock_status" row>
-                    <v-radio value="active" label="Active" light></v-radio>
-                    <v-radio value="hidden" label="Hidden" light></v-radio>
-                  </v-radio-group>
-                </v-flex> -->
-
+          
                 <v-flex xs12 form-group>
                   <label class="control-label max-char-label">
                     <span class="__title">
@@ -95,7 +82,23 @@
                   />
                 </v-flex>
 
-                <v-flex xs12 mt-4>
+                <v-flex xs12 form-group>
+                  <label class="control-label max-char-label">
+                    <span class="__title">
+                      <label class="required">*</label>
+                      Description
+                    </span>
+                  </label>
+
+                  <textarea
+                    v-model="product.description"
+                    class="product-description form-control non-resizable"
+                    maxlength="2000"
+                  ></textarea>
+                </v-flex>
+
+
+                <!-- <v-flex xs12 mt-4>
                   <v-checkbox
                     value="show_only_stream"
                     label="Only For Live Stream"
@@ -105,22 +108,23 @@
                     <span class="black--text">Check box if product is available for <b>live stream only</b></span>
                   </template>
                   </v-checkbox>
-                  <span class="grey--text lighten-2">
-                    (product will not appear on user profile if checked)
-                  </span>
-                </v-flex>
+   
+                </v-flex> -->
               </v-flex>
             </v-flex>
 
-            <v-flex xs12 sm7>
+
+            <v-flex xs12 sm5 pl-4>
               <v-flex xs12 product-section>
-              <h2 class="my-2">
-                <label class="required">*</label>
-                Images
-              </h2>
-                <v-container grid-list-lg px-0>
+                <label class="control-label max-char-label">
+                  <span class="__title">
+                    <label class="required">*</label>
+                    Product Images
+                  </span>
+                </label>
+                <v-container grid-list-lg px-0 pt-0 mt-0>
                   <v-layout wrap row>
-                    <v-flex xs12 sm4>
+                    <v-flex xs12 sm6>
                       <!-- <label class="control-label">Image 1<label class="required">*</label></label> -->
                       <div class="product-image-section">
                         <!-- <img class="product-image" id="product_image1"  v-if="product.image1"/> -->
@@ -168,7 +172,7 @@
                       </div>
                     </v-flex>
 
-                    <v-flex xs12 sm4>
+                    <v-flex xs12 sm6>
                       <!-- <label class="control-label">Image 2</label> -->
                       <div class="product-image-section">
                         <!-- <img class="product-image" id="product_image2" v-if="product.image2"/> -->
@@ -216,7 +220,7 @@
                       </div>
                     </v-flex>
 
-                    <v-flex xs12 sm4>
+                    <v-flex xs12 sm6>
                       <!-- <label class="control-label">Image 3</label> -->
                       <div class="product-image-section">
                         <!-- <img class="product-image" id="product_image3" v-if="product.image3"/> -->
@@ -263,29 +267,64 @@
                         >
                       </div>
                     </v-flex>
+
+                    <v-flex xs12 sm6>
+                      <!-- <label class="control-label">Image 3</label> -->
+                      <div class="product-image-section">
+                        <!-- <img class="product-image" id="product_image4" v-if="product.image4"/> -->
+                        <div
+                          class="product-image"
+                          id="product_image4"
+                          v-if="product.image4"
+                        ></div>
+                        <div
+                          class="product-image-upload-section"
+                          v-if="!product.image4"
+                        >
+                          <input
+                            type="file"
+                            name="product_image_file4"
+                            id="product_image_file4"
+                            class="add-product-image-file"
+                            accept="image/*"
+                            @change="imageChanged('product_image4', $event)"
+                          />
+                          <label for="product_image_file4">
+                            <v-icon class="camera">photo_camera</v-icon>
+                            Upload
+                          </label>
+                        </div>
+                      </div>
+                      <div class="product-image-change-section">
+                        <input
+                          type="file"
+                          name="product_image_file4"
+                          id="product_image_file4"
+                          class="change-product-image-file"
+                          accept="image/*"
+                          @change="imageChanged('product_image4', $event)"
+                        />
+                        <label for="product_image_file4" v-if="product.image4"
+                          >Change</label
+                        ><label
+                          class="text-btn"
+                          v-if="product.image4"
+                          @click="deleteProductImage('product_image4')"
+                        >
+                          / Delete</label
+                        >
+                      </div>
+                    </v-flex>
                   </v-layout>
                 </v-container>
               </v-flex>
             </v-flex>
-
-            <v-flex xs12 sm7>
+            <v-flex xs12 price-option-section>
+              <h2 class="my-2 album-info-title">Products ({{ product.variants.length }})</h2>
+            </v-flex>
+            <v-flex xs12 sm7 mt-4>
               <v-flex xs12 product-section>
-                <!-- <v-flex xs12 form-group>
-                  <label class="control-label">Price</label>
-                  <input type="text" class="form-control" v-model="product.price">
-                </v-flex> -->
-                <v-flex xs12 price-option-section>
-                  <h2 class="">
-                    Price & Options ({{ product.variants.length }})
-                    <v-btn
-                      class="add-option-btn"
-                      @click.native="addVariant()"
-                      v-if="!isDigitalProduct"
-                    >
-                      <v-icon>add</v-icon>
-                    </v-btn>
-                  </h2>
-                </v-flex>
+
                 <v-layout
                   row
                   product-option-content
@@ -295,10 +334,11 @@
                 >
                   <v-flex xs12 sm4>
                     <label class="control-label">
+                      <label class="required">*</label>
                       Option Name
                       </label>
                     <span class="dflex align-center">
-                      <label class="required">*</label>
+                     
                       <input
                         v-model="variant.name"
                         type="text"
@@ -310,6 +350,7 @@
                   </v-flex>
                   <v-flex xs12 sm4 v-if="!isDigitalProduct">
                     <label class="control-label">
+                       <label class="required">*</label>
                       # In Stock
                     </label>
                     <input
@@ -320,7 +361,12 @@
                     />
                   </v-flex>
                   <v-flex xs12 sm4>
-                    <label class="control-label">Price</label>
+                    <label class="control-label">
+                      <label class="required">*</label>
+                     Price
+                   </label>
+
+                   <div class="dflex gap-10 align-center">
                     <span class="dflex align-center">
                       <vue-numeric
                         v-model="variant.price"
@@ -335,6 +381,14 @@
                         clear
                       </v-icon>
                     </span>
+                    <v-btn
+                    class="add-option-btn"
+                    @click.native="addVariant()"
+                    v-if="!isDigitalProduct"
+                  >
+                    <v-icon>add</v-icon>
+                  </v-btn>
+                </div>
                   </v-flex>
                 </v-layout>
                 <!-- <p class="d-inline-flex grey--text lighten-2">
@@ -342,14 +396,30 @@
                 </p> -->
               </v-flex>
             </v-flex>
-
-            <v-flex xs12 sm7 v-if="!isDigitalProduct">
-              <v-flex xs12 product-section>
-
-                <v-flex xs12 pa-0 mt-4>
-                  <h2 class="">Tax</h2>
+         
+            <v-flex xs12 sm12 v-if="!isDigitalProduct">
+              <v-flex xs12  pa-0 mt-5>
+                <h2 class="album-info-title">Tax</h2>
+              </v-flex>
+              <v-flex xs12 sm8 product-section>
+                <v-flex xs12 mt-2 product-section mt-4>
+                  <v-checkbox
+                    v-model="product.is_vat"
+                    @change="resetTaxPercent"
+                  >
+                    <template slot="label">
+                      <span class="text-muted">Sellers outside of US check box for VAT/GST</span>
+                    </template>
+                  </v-checkbox>
+                  <!-- <div class="tax-description">
+                    <label>*</label>
+                    <p class="d-inline-flex grey--text lighten-2">
+                      Some countries might not have the accurate tax rate.<br />
+                      You can manually type the tax rate in the textbox.
+                    </p>
+                  </div> -->
                 </v-flex>
-                <v-layout wrap row>
+                <v-layout wrap row mt-3>
                   <v-flex xs12 sm4 v-if="product.is_vat">
                     <label class="control-label">Sellers Country</label>
                     <v-select
@@ -394,89 +464,76 @@
                   </v-flex>
                 </v-layout>
 
-                <v-flex xs12 mt-2 product-section>
-                  <v-checkbox
-                    v-model="product.is_vat"
-                    @change="resetTaxPercent"
-                  >
-                    <template slot="label">
-                      <span class="black--text">Sellers outside of US check box for VAT/GST</span>
-                    </template>
-                  </v-checkbox>
-                  <!-- <div class="tax-description">
-                    <label>*</label>
-                    <p class="d-inline-flex grey--text lighten-2">
-                      Some countries might not have the accurate tax rate.<br />
-                      You can manually type the tax rate in the textbox.
-                    </p>
-                  </div> -->
-                </v-flex>
 
-                <v-flex xs12 price-option-section form-group>
-                  <h2 class="">
-                    <span class="my-2 mr-2">
-                      Shipping & Handling ({{ product.shipments.length }})
-                    </span>
-                    <v-btn
-                      class="add-option-btn"
-                      @click.native="addShipment()"
-                    >
-                      <v-icon>add</v-icon>
-                    </v-btn>
-                  </h2>
-                </v-flex>
-                <span>
-                  Please select <strong>All other countries</strong> in destination to proceed.
-                </span>
-                <v-layout
-                  row
-                  product-option-content
-                  v-for="(shipment, index) in product.shipments"
-                  :key="index"
-                >
-                  <v-flex xs12 sm4>
-                    <label class="control-label">Destination</label>
 
+
+              </v-flex>
+              <v-flex xs12 price-option-section form-group mt-5>
+                <h2 class="album-info-title">
+                    Shipping & Handling 
+                    <!-- ({{ product.shipments.length }}) -->
+                </h2>
+              </v-flex>
+              <v-flex xs12 sm8>
+              <span class="text-muted mt-4">
+                Please select <strong>All other countries</strong> in destination to proceed.
+              </span>
+              <v-layout
+                row
+                mt-3
+                product-option-content
+                v-for="(shipment, index) in product.shipments"
+                :key="index"
+              >
+                <v-flex xs12 sm4 pr-2>
+                  <label class="control-label">Destination</label>
+
+                  <span class="dflex align-center">
+                    <v-select
+                      v-model="shipment.country"
+                      v-bind:items="destinations"
+                      item-text="name"
+                      item-value="value"
+                      class="pt-0"
+                      autocomplete
+                    />
+                  </span>
+                </v-flex>
+                <v-flex xs12 sm4 pr-2>
+                  <label class="control-label">Shipped Alone</label>
+                  <vue-numeric
+                    currency="$"
+                    currency-symbol-position="prefix"
+                    separator=","
+                    :precision="2"
+                    :min="0"
+                    v-model="shipment.shipment_alone_price"
+                    class="form-control primary-input"
+                  />
+                </v-flex>
+                <v-flex xs12 sm4>
+                  <label class="control-label">With others</label>
+                  <div class="dflex align-center gap-10">
                     <span class="dflex align-center">
-                      <label class="required">*</label>
-                      <v-select
-                        v-model="shipment.country"
-                        v-bind:items="destinations"
-                        item-text="name"
-                        item-value="value"
-                        class="pt-0"
-                        autocomplete
-                      />
-                    </span>
-                  </v-flex>
-                  <v-flex xs12 sm4>
-                    <label class="control-label">Shipped Alone</label>
-                    <vue-numeric
+                      <vue-numeric
                       currency="$"
                       currency-symbol-position="prefix"
                       separator=","
                       :precision="2"
                       :min="0"
-                      v-model="shipment.shipment_alone_price"
+                      v-model="shipment.shipment_with_price"
                       class="form-control primary-input"
                     />
-                  </v-flex>
-                  <v-flex xs12 sm4>
-                    <label class="control-label">With others</label>
-                      <span class="dflex align-center">
-                        <vue-numeric
-                        currency="$"
-                        currency-symbol-position="prefix"
-                        separator=","
-                        :precision="2"
-                        :min="0"
-                        v-model="shipment.shipment_with_price"
-                        class="form-control primary-input"
-                      />
-                      <v-icon class="clear-btn" @click="deleteShipment(index)">clear</v-icon>
-                    </span>
-                  </v-flex>
-                </v-layout>
+                    <v-icon class="clear-btn" @click="deleteShipment(index)">clear</v-icon>
+                  </span>
+                    <v-btn
+                    class="add-option-btn"
+                  >
+                    <v-icon>add</v-icon>
+                  </v-btn>
+                </div>
+                </v-flex>
+              </v-layout>
               </v-flex>
             </v-flex>
 
@@ -490,11 +547,12 @@
               </v-flex>
             </v-flex>
 
-            <div class="divider"></div>
-
+            <v-flex xs12  pa-0 mt-5>
+              <h2 class="album-info-title">Collaborators</h2>
+            </v-flex>
             <v-flex xs12 class="collaborator-section first-child">
               <v-flex xs12>
-                <h2 class="">
+                <h2 class="album-info-title-x mt-3">
                   <span class="my-2 mr-2">
                     Collaborators ({{ product.collaborators.length }})
                   </span>
@@ -609,8 +667,7 @@
 
             <v-flex xs12 class="collaborator-section">
               <v-flex xs12>
-
-                <h2 class="">
+                <h2 class="album-info-title-x mt-3">
                   <span class="my-2 mr-2">
                     Seller Policies ({{ product.collaborators.length }})
                   </span>
@@ -639,18 +696,36 @@
                 </v-layout>
               </v-flex>
             </v-flex>
+
+            <v-flex xs12  pa-0 mt-5>
+              <h2 class="album-info-title">Collaborators</h2>
+            </v-flex>
+
+            <v-flex xs12 sm12>
+              <label class="control-label mt-4 mb-3">Live stream only </label>
+              <v-checkbox
+              value="show_only_stream"
+              label="Only For Live Stream"
+              v-model="product.show_status"
+              class="live-label"
+            >
+            <template slot="label" class="get_c">
+              <span class="text-muted">Check box if product is available for live stream only</span>
+            </template>
+            </v-checkbox>
+            </v-flex>
+
+
+
             <v-flex xs12 submit-section>
-              <hr class="mb-4" />
+              <hr class="my-4" />
               <v-btn
                 class="product-save-btn"
                 :class="{'app-blue': isAvailableToAddProduct, 'cursor-pointer': !isAvailableToAddProduct}"
                 @click.native="beforeSaveProduct()"
                 :disabled="!isAvailableToAddProduct"
-                >Submit</v-btn
+                >Release</v-btn
               >
-              <!-- <a @click="cancelToSaveProduct()" class="cancel-button mr-2"
-                >Cancel</a
-              > -->
             </v-flex>
           </v-layout>
         </v-flex>
@@ -684,6 +759,8 @@
       </v-card>
     </v-dialog>
   </div>
+
+</div>
 </template>
 
 <script type="text/javascript" src="./add_product.ctrl.js"></script>

@@ -1,4 +1,23 @@
 .page.sell-page {
+
+  .add-option-btn {
+    margin: 0px;
+    box-shadow: none !important;
+    width: 24px;
+    height: 24px;
+    min-width: 0px;
+    background: #ffffff !important;
+    border: 0.75px solid #3a92ff;
+    border-radius: 1.5px;
+    padding: 5px;
+    color: #3a92ff;
+    .btn__content {
+      i {
+        color: #3a92ff;
+        font-size: 18px;
+      }
+    }
+  }
   .sortOrdersSelect {
     -webkit-appearance: button!important;
     background-color: transparent;
@@ -25,6 +44,15 @@
     position: absolute;
     right: 0;
     top: -90px;
+  }
+  .album-info-title {
+    margin-bottom: 14px;
+    color: #000000;
+    font-size: 21px;
+    letter-spacing: -1%;
+    font-weight:700;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
   }
   .order-item {
     margin-bottom: 40px;
@@ -930,21 +958,30 @@
   margin-bottom: 75px;
   .content-section {
     margin: 0 -7.5px;
-    .flex.xs12.sm7 {
-      padding: 0 7.5px;
+
+    .gap-10{
+      gap: 10px;
     }
 
+    .text-muted{
+      color: rgba(0, 0, 0, 0.6)
+    }
+
+    // .flex.xs12.sm7 {
+    //   padding: 0 7.5px;
+    // }
+
     .control-label {
-      margin-bottom: 6px;
-      font-size: 16px;
-      font-weight: 500;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Inter';
+      color: rgba(0, 0, 0, 0.5);
     }
 
     .required {
-      font-size: 24px;
+      font-size: 15px;
       vertical-align: -webkit-baseline-middle;
-      margin-left: -22px;
-      margin-right: 6px;
     }
   }
   .section-title {
@@ -973,7 +1010,7 @@
       padding: 0 3.75px;
     }
     .product-description {
-      height: 130px;
+      height: 225px;
       padding: 7.5px 11.25px;
       background: #ffffff;
       border: 0.75px solid #d2d2d2;
@@ -990,6 +1027,8 @@
         font-size: 20px;
       }
     }
+
+
     .input-group {
       padding: 0px;
     }
@@ -1005,6 +1044,7 @@
       background: #ffffff !important;
       border: 0.75px solid #3a92ff;
       border-radius: 1.5px;
+      padding: 5px;
       color: #3a92ff;
       .btn__content {
         i {
@@ -1129,8 +1169,12 @@
     }
   }
   .collaborator-section {
-    margin: 7.5px;
-    padding: 15px 0;
+    .album-info-title-x{
+      font-family: 'Inter';
+      font-weight: 600;
+      color: #4d4d4d;
+      font-size: 16px;
+    }
     // border-top: 0.75px solid rgba(0, 0, 0, 0.2);
     // border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
     
@@ -1154,27 +1198,27 @@
         font-size: 16px;
       }
     }
-    .add-option-btn {
-      margin: 0px;
-      box-shadow: none !important;
-      min-width: 24px;
-      height: 40px;
-      min-width: 0px;
-      background: #ffffff !important;
-      color: #3a92ff;
-      text-transform: none;
-      font-size: 15px;
-      .btn__content {
-        padding: 0;
-        i {
-          color: #3a92ff;
-          font-size: 18px;
-          border: 0.75px solid #3a92ff;
-          border-radius: 1.5px;
-          margin-right: 10px;
-        }
-      }
-    }
+    // .add-option-btn {
+    //   margin: 0px;
+    //   box-shadow: none !important;
+    //   min-width: 24px;
+    //   height: 40px;
+    //   min-width: 0px;
+    //   background: #ffffff !important;
+    //   color: #3a92ff;
+    //   text-transform: none;
+    //   font-size: 15px;
+    //   .btn__content {
+    //     padding: 0;
+    //     i {
+    //       color: #3a92ff;
+    //       font-size: 18px;
+    //       border: 0.75px solid #3a92ff;
+    //       border-radius: 1.5px;
+    //       margin-right: 10px;
+    //     }
+    //   }
+    // }
     .clear-btn {
       // padding-top: 18.75px;
       color: #c1c1c1;
@@ -1189,18 +1233,18 @@
     }
   }
   .product-save-btn {
-    width: 112.5px;
-    height: 37.5px;
-    margin: 0px;
-    box-shadow: none !important;
-    // background: #2A71F6 !important;
-    border-radius: 75px;
-    // float: right;
-    font-weight: 600;
-    font-size: 15px;
+    height: 40px;
+    width: auto;
+    padding: 0 23px;
+    margin: 0;
     text-transform: none;
-    color: #ffffff;
+    background: #374dff;
+    border-radius: 75px;
     letter-spacing: 0;
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
     .btn__content {
       color: #ffffff;
       font-weight: 800;
@@ -1228,4 +1272,9 @@
   .input-group--select .input-group__selections__comma {
     font-size: 15px;
   }
+}
+
+
+.live-label label{
+  top: 0 !important;
 }
