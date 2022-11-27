@@ -204,7 +204,7 @@
                 <v-btn depressed class="upload-tab-btn width-auto" to="/spotlight">
                   Upload spotlight video
                 </v-btn>
-                <div v-if="currentUser.spotlight_video" class="dflex align-center">
+                <div v-if="isSpotlightVideoAvailable" class="dflex align-center">
                   <div class="dflex align-center">
                     <img src="../../assets/c-check.svg" width="25">
                     <p class="bold-text">Video uploaded</p>

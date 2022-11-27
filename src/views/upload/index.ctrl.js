@@ -3,6 +3,7 @@ import getPaid from '@/views/getPaidToShare'
 import UserService from '@/services/user'
 import DownloadApp from "@/components/downloadApp.vue";
 import contentTopHeader from '@/components/contentTopHeader'
+import VideoService from '@/services/video'
 
 export default {
   components: {
@@ -25,6 +26,7 @@ export default {
         { id: 'product', title: 'Product', path: 'AddProduct' },
         { id: 'live', title: 'Broadcast Live', path: 'CreateLive' },
       ],
+      isSpotlightVideoAvailable: false,
     }
   },
   computed: {
@@ -85,6 +87,21 @@ export default {
           this.$store.dispatch('error/showErrorToast', ['Error fetching user'])
         })
     },
+
+		async isSpotlightAlreadyUploaded() {
+			VideoService.spotlightVideoAvailable()
+				.then((response) => {
+					this.isSpotlightVideoAvailable = true
+				})
+				.catch((error) => {
+					this.isSpotlightVideoAvailable = false
+					this.$store.dispatch(
+						'error/showErrorToast',
+						e.body.errors || [e.body]
+					)
+				})
+
+		},
   },
   watch: {
     initAppDownload(val) {
@@ -95,5 +112,6 @@ export default {
   },
   async created() {
     await this.getUser()
+    await this.isSpotlightAlreadyUploaded()
   },
 }

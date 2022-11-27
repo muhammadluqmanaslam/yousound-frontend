@@ -15,4 +15,10 @@ export default {
       headers: { Authorization: $store.state.auth.token },
     })
   },
+
+  spotlightVideoAvailable() {
+    return Vue.http.get(`${API_BASE_URL}/spotlight_video_available`, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
 }

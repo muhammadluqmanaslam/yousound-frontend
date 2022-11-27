@@ -19,11 +19,11 @@
 
 	<div v-else>
 		<div class="spotlight-header dflex align-center justify-space-between">
-			<div class="replace">
-				Replace video
+			<div class="replace" @click="replaceVideo()">
+				< Replace video
 			</div>
 			<div>
-				<v-btn class="head-button">
+				<v-btn class="head-button" :loading="loading" @click="submit()">
 					Save video
 				</v-btn>
 			</div>
@@ -60,6 +60,15 @@
 						</div>
 					</div>
 					<div class="web-video">
+						<div class="modal-card-title-img">
+							<video playsinline autoplay muted loop id="bgvid">
+								<source :src="this.video.src" :type="this.videoFile[0].type">
+							</video>
+							<button class="volume-button">
+								<img src="../../assets/app-store.svg" width="17px">
+							</button>
+
+							</div>
 					</div>
 				</div>
 			</div>
@@ -68,7 +77,14 @@
 				<h2 class="heading">Mobile Preview</h2>
 				<div class="mob-container">
 					<div class="mob-video">
-
+						<div class="modal-card-title-img">
+							<video playsinline autoplay muted loop id="bgvid">
+								<source :src="this.video.src" :type="this.videoFile[0].type">
+							</video>
+							<button class="volume-button">
+								<img src="../../assets/app-store.svg" width="17px">
+							</button>
+							</div>
 					</div>
 					<div class="mob-content">
 						<div class="_info">
@@ -105,6 +121,8 @@ import BannerUpload from '../BannerUpload'
 import iconImage from '../../assets/flashlight-white.svg'
 import mainImage from '../../assets/live-drop.gif'
 import dragFileUploader from '@/components/dragFileUploader'
+import VideoService from '@/services/video'
+import * as UpChunk from '@mux/upchunk'
 
 export default {
 	components:{
@@ -117,6 +135,10 @@ export default {
 			bannerImage: mainImage,
 			videoUploaded: false,
 			videoFile: null,
+			video: null,
+			submitLoading: false,
+			duration: null,
+			isSpotlightVideoAvailable: false,
 		}
 	},
 
@@ -126,10 +148,6 @@ export default {
 		},
 	},
 	methods: {
-
-		videoFiled() {
-			debugger
-		},
 
 		async pickedFile(file) {
 			const video = await this.validateDuration(file)
@@ -141,28 +159,95 @@ export default {
 			} else {
 				this.videoUploaded = true
 				this.videoFile = file
+				this.duration = video.duration
 			}
 		},
+
+		submit() {
+			this.loading = true
+			const stream = this.videoFile[0]
+			this.submitLoading = true;
+			const formData = new FormData()
+			formData.append('stream[name]', stream.name)
+			formData.append('stream[description]', "Spotlight Video")
+			formData.append('stream[duration]', this.duration)
+			formData.append('stream[spotlight_video]', true)
+
+			this.$store.dispatch('error/showLoadingActivity', true)
+			VideoService.createVideo(formData)
+				.then((response) => {
+					this.video = response.body
+					const upload_url = this.video.upload_url
+
+					const upload = UpChunk.createUpload({
+						endpoint: upload_url,
+						file: this.videoFile[0],
+						chunkSize: 5120, // Uploads the file in ~5mb chunks
+					})
+
+					upload.on('error', (err) => {
+						this.loading = false
+						this.$store.dispatch('error/showLoadingActivity', false)
+						console.error('💥', err.detail)
+					})
+
+					upload.on('progress', (progress) => {
+						this.loading = false
+						this.$store.commit(
+							'error/setProgressBarValue',
+							parseInt(progress.detail)
+						)
+					})
+
+					upload.on('success', () => {
+						this.$store.dispatch('error/showLoadingActivity', false)
+						console.log("Wrap it up, we're done here. 👋")
+						this.$router.push({ path: `/video/${this.video.id}/show` })
+						this.$store.dispatch(
+							'error/showSuccessToast', ["Spotlight video has been uploaded successfully."]
+						)
+						this.loading = false
+					})
+				})
+				.catch((e) => {
+					this.loading = false
+					console.log(e)
+					console.log(e.message)
+					this.$store.dispatch('error/showLoadingActivity', false)
+					this.$store.dispatch(
+						'error/showErrorToast',
+						e.message || e.body.errors || [e.body]
+					)
+
+					this.submitLoading = false
+				})
+    },
 
 		async validateDuration(file) {
 			return new Promise((resolve, reject) => {
 				try {
-					let video = document.createElement('video')
-					video.preload = 'metadata'
+					this.video = document.createElement('video')
+					this.video.preload = 'metadata'
 
-					video.onloadedmetadata = async function () {
+					this.video.onloadedmetadata = async function () {
 						resolve(this)
 					}
 
-					video.onerror = function () {
+					this.video.onerror = function () {
 						reject("Invalid video. Please select a video file.")
 					}
 
-					video.src = window.URL.createObjectURL(file[0])
+					this.video.src = window.URL.createObjectURL(file[0])
 				} catch (e) {
 					reject(e)
 				}
 			})
+		},
+
+		replaceVideo() {
+			this.video = null
+			this.videoFile = null
+			this.videoUploaded = false
 		},
 
 	}
