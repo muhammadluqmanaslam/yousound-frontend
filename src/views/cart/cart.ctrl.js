@@ -34,6 +34,8 @@ export default {
         { id: 'cart', title: 'Cart', icon: require('../../../static/images/cart.svg') },
         { id: 'history', title: 'Order History', icon: require('../../../static/images/time-clock.svg') },
       ],
+      bgDemoImg: require('../../assets/tile-1.jpeg'),
+      videoLoading: require('../../assets/loading.gif'),
       showSendMessage: false,
       show_address_confirm_dialog: false,
       show_ticket_dialog: false,
@@ -47,6 +49,10 @@ export default {
       total_pages: 1,
       items_per_page: 6 * 5,
       isPageReady: false,
+      show_modalCard1: false,
+      show_modalCard2: false,
+      show_modalCard3: true,
+      show_modalCard4: false,
     }
   },
 
