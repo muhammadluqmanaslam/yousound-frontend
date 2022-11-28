@@ -3,7 +3,7 @@
     <div
       class="box__content"
       :class="{ 'cursor-pointer': !hoverOverlay }"
-      @click="!hoverOverlay && currentUser != null ? $router.push(`/video/${item.id}/show`) : spotlightVideo()"
+      @click="!hoverOverlay && currentUser != null ? $router.push(`/video/${item.id}/show`) : fetchSpotlightVideo()"
     >
       <span v-if="durationTag && !coverOnly" class="duration__tag">{{ durationTag }}</span>
       <div
@@ -71,18 +71,153 @@
         <b class="text-capitalize">{{ item.user.username }}</b>
       </div>
     </div>
-    <v-dialog v-model="showRegisterModal">
-      <v-card>
-        <v-card-title class="headline"
-          >Register</v-card-title
-        >
-        <v-card-text
-          >Please do signup if you want to proceed.</v-card-text
-        >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
+    <!-- Show MOdal 1 -->
+
+    <v-dialog v-model="show_modalCard1" content-class="dialog-w_auto dialog-no_shadow">
+      <div class="modal-card">
+        <div>
+          <img src="../assets/nav_logo_white.png" width="135px">
+            </div>
+            <div class="modal-card-img">
+              <div class="modal-card-img-inner" :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')',}">
+              </div>
+          </div>
+          <div class="text-center user-box">
+            <p>Sign up to experience</p>
+            <div class="user-div">
+              <p class="user-text"> {{ item.user.username }}</p>
+              <img src="../assets/check-white.svg" width="15px">
+          </div>
+        </div>
+
+        <div class="button-wrapper">
+          <router-link to="/signup">
+            <button class="modal-button">
+              Create account
+            </button>
+          </router-link>
+        </div>
+
+      </div>
+    </v-dialog>
+
+    <!-- Show MOdal 2 -->
+
+    <v-dialog v-model="show_modalCard2" content-class="dialog-w_auto dialog-no_shadow">
+      <div class="modal-card">
+        <div>
+          <img src="../assets/nav_logo_white.png" width="135px">
+            </div>
+            <div class="modal-card-img">
+              <div class="modal-card-img-inner" :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')',}"></div>
+          </div>
+          <div class="text-center user-box">
+            <p>Sign up to experience</p>
+            <div class="user-div">
+              <p class="user-text"> {{ item.user.username }}</p>
+              <img src="../assets/check-white.svg" width="15px">
+          </div>
+        </div>
+
+        <div class="text-center font-inter">
+          <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+        </div>
+
+        <div class="button-wrapper">
+          <button class="modal-button">
+            Start 30 day free trial
+          </button>
+        </div>
+
+      </div>
+    </v-dialog>
+
+    <!-- Show MOdal 3 -->
+
+    <v-dialog v-model="show_modalCard3" content-class="dialog-w_50 dialog-no_shadow">
+      <div class="modal-card-main">
+        <div class="modal-card-split">
+          <div>
+            <img src="../assets/nav_logo_white.png" width="135px">
+              </div>
+              <div class="modal-card-img">
+              <div class="modal-card-img-inner" :style="{'background-image': 'url(' + item.user.avatar.thumb.url + ')',}"></div>
+            </div>
+            <div class="user-box">
+              <p>Sign up to experience</p>
+              <div class="user-div">
+                <p class="user-text">{{ item.user.username }}</p>
+                <img src="../assets/check-white.svg" width="15px">
+            </div>
+          </div>
+
+          <!-- <div class="text-center">
+            <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+          </div> -->
+
+          <div class="button-wrapper">
+            <router-link to="/signup">
+              <button class="modal-button">
+                Create account
+              </button>
+            </router-link>
+          </div>
+
+        </div>
+
+        <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+          <video playsinline autoplay muted loop id="bgvid">
+            <source :src="this.spotlightVideoSource" type="video/webm">
+          </video>
+          <div class="volume-button">
+            <img src="../assets/mute-icon.svg" width="17px">
+          </div>
+
+        </div>
+      </div>
+    </v-dialog>
+
+    <!-- Show MOdal 4 -->
+
+    <v-dialog v-model="show_modalCard4" content-class="dialog-w_50 dialog-no_shadow">
+      <div class="modal-card-main">
+        <div class="modal-card-split">
+          <div>
+            <img src="../assets/nav_logo_white.png" width="135px">
+              </div>
+              <div class="modal-card-img">
+              <div class="modal-card-img-inner" :style="{'background-image': 'url(' + item.user.avatar.thumb.url +')',}"></div>
+            </div>
+            <div class="user-box">
+              <p>Sign up to experience</p>
+              <div class="user-div">
+                <p class="user-text">{{ item.user.username }}</p>
+                <img src="../assets/check-white.svg" width="15px">
+            </div>
+          </div>
+
+          <div class="font-inter">
+            <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+          </div>
+
+          <div class="button-wrapper">
+            <button class="modal-button">
+              Start 30 day free trial
+            </button>
+          </div>
+
+        </div>
+
+        <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+          <video playsinline autoplay muted loop id="bgvid">
+            <source :src="this.spotlightVideoSource" type="video/webm">
+          </video>
+          <button class="volume-button">
+            <img src="../assets/mute-icon.svg" width="17px">
+          </button>
+
+        </div>
+      </div>
     </v-dialog>
   </div>
 </template>
@@ -90,6 +225,7 @@
 <script>
 import VideoDetailBox from "./video_detail_box";
 import UserTag from '@/components/user_tag';
+import StreamService from '@/services/stream'
 
 export default {
   components: {
@@ -137,7 +273,13 @@ export default {
 
   data() {
     return {
-      showRegisterModal: false,
+      bgDemoImg: require('../assets/tile-1.jpeg'),
+      videoLoading: require('../assets/loading.gif'),
+      show_modalCard1: false,
+      show_modalCard2: false,
+      show_modalCard3: false,
+      show_modalCard4: false,
+      spotlightVideoSource: null,
     }
   },
 
@@ -209,8 +351,24 @@ export default {
   },
 
   methods: {
-    spotlightVideo() {
-      this.showRegisterModal = true
+    fetchSpotlightVideo() {
+      StreamService.getSpotlightStream(this.item.user.id)
+        .then((response) => {
+          console.log("response", response)
+          if (this.currentUser == null) {
+            this.show_modalCard3 = true
+            this.spotlightVideoSource = response.body.mp_channel_1_ep_1_url
+          } else {
+            this.show_modalCard4 = true
+          }
+        })
+        .catch((e) => {
+          if (this.currentUser == null) {
+            this.show_modalCard1 = true
+          } else {
+            this.show_modalCard2 = true
+          }
+        })
     },
   },
 };
@@ -389,3 +547,4 @@ export default {
   }
 }
 </style>
+<style src="../../static/styles/spotlight.scss" ></style>

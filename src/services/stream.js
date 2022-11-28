@@ -24,6 +24,12 @@ export default {
     })
   },
 
+  getSpotlightStream(userId) {
+    return Vue.http.get(`${API_BASE_URL}/spotlight_video`, {
+      params: {user_id: userId},
+    })
+  },
+
   getSimilarStreams(streamId, params) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}/similars`, {
       headers: { Authorization: $store.state.auth.token },

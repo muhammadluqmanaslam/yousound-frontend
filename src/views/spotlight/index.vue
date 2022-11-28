@@ -65,7 +65,7 @@
 								<source :src="this.video.src" :type="this.videoFile[0].type">
 							</video>
 							<button class="volume-button">
-								<img src="../../assets/app-store.svg" width="17px">
+								<img src="../../assets/mute-icon.svg" width="17px">
 							</button>
 
 							</div>
@@ -82,7 +82,7 @@
 								<source :src="this.video.src" :type="this.videoFile[0].type">
 							</video>
 							<button class="volume-button">
-								<img src="../../assets/app-store.svg" width="17px">
+								<img src="../../assets/mute-icon.svg" width="17px">
 							</button>
 							</div>
 					</div>

@@ -30,6 +30,156 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <div v-if="this.user">
+      <v-dialog v-model="show_modalCard1" content-class="dialog-w_auto dialog-no_shadow">
+        <div class="modal-card">
+          <div>
+            <img src="../../../assets/nav_logo_white.png" width="135px">
+              </div>
+              <div class="modal-card-img">
+                <div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.user.avatar.thumb.url + ')',}">
+                </div>
+            </div>
+            <div class="text-center user-box">
+              <p>Sign up to experience</p>
+              <div class="user-div">
+                <p class="user-text"> {{ this.user.username }}</p>
+                <img src="../../../assets/check-white.svg" width="15px">
+            </div>
+          </div>
+
+          <div class="button-wrapper">
+            <router-link to="/signup">
+              <button class="modal-button">
+                Create account
+              </button>
+            </router-link>
+          </div>
+
+        </div>
+      </v-dialog>
+
+      <!-- Show MOdal 2 -->
+
+      <v-dialog v-model="show_modalCard2" content-class="dialog-w_auto dialog-no_shadow">
+        <div class="modal-card">
+          <div>
+            <img src="../../../assets/nav_logo_white.png" width="135px">
+              </div>
+              <div class="modal-card-img">
+                <div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.user.avatar.thumb.url + ')',}"></div>
+
+              </div>
+            <div class="text-center user-box">
+              <p>Sign up to experience</p>
+              <div class="user-div">
+                <p class="user-text"> {{ this.user.username }}</p>
+                <img src="../../../assets/check-white.svg" width="15px">
+            </div>
+          </div>
+
+          <div class="text-center font-inter">
+            <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+          </div>
+
+          <div class="button-wrapper">
+            <button class="modal-button">
+              Start 30 day free trial
+            </button>
+          </div>
+
+        </div>
+      </v-dialog>
+
+      <!-- Show MOdal 3 -->
+
+      <v-dialog v-model="show_modalCard3" content-class="dialog-w_50 dialog-no_shadow">
+        <div class="modal-card-main">
+          <div class="modal-card-split">
+            <div>
+              <img src="../../../assets/nav_logo_white.png" width="135px">
+                </div>
+                <div class="modal-card-img">
+                <div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.user.avatar.thumb.url + ')',}"></div>
+              </div>
+              <div class="user-box">
+                <p>Sign up to experience</p>
+                <div class="user-div">
+                  <p class="user-text">{{ this.user.username }}</p>
+                  <img src="../../../assets/check-white.svg" width="15px">
+              </div>
+            </div>
+
+            <!-- <div class="text-center">
+              <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+            </div> -->
+
+            <div class="button-wrapper">
+              <router-link to="/signup">
+                <button class="modal-button">
+                  Create account
+                </button>
+              </router-link>
+            </div>
+
+          </div>
+
+          <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+            <video playsinline autoplay muted loop id="bgvid">
+              <source :src="this.spotlightVideoSource" type="video/webm">
+            </video>
+            <div class="volume-button">
+              <img src="../../../assets/mute-icon.svg" width="17px">
+            </div>
+
+          </div>
+        </div>
+      </v-dialog>
+
+      <!-- Show MOdal 4 -->
+
+      <v-dialog v-model="show_modalCard4" content-class="dialog-w_50 dialog-no_shadow">
+        <div class="modal-card-main">
+          <div class="modal-card-split">
+            <div>
+              <img src="../../../assets/nav_logo_white.png" width="135px">
+                </div>
+                <div class="modal-card-img">
+                <div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.user.avatar.thumb.url +')',}"></div>
+              </div>
+              <div class="user-box">
+                <p>Sign up to experience</p>
+                <div class="user-div">
+                  <p class="user-text">{{ this.user.username }}</p>
+                  <img src="../../../assets/check-white.svg" width="15px">
+              </div>
+            </div>
+
+            <div class="font-inter">
+              <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+            </div>
+
+            <div class="button-wrapper">
+              <button class="modal-button">
+                Start 30 day free trial
+              </button>
+            </div>
+
+          </div>
+
+          <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+            <video playsinline autoplay muted loop id="bgvid">
+              <source :src="this.spotlightVideoSource" type="video/webm">
+            </video>
+            <button class="volume-button">
+              <img src="../../../assets/mute-icon.svg" width="17px">
+            </button>
+
+          </div>
+        </div>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -38,6 +188,7 @@ import { MyEvents } from '@/helper'
 import UserService from '@/services/user'
 import AuthService from '@/services/auth'
 import TrackingService from '@/services/tracking'
+import StreamService from '@/services/stream'
 
 export default {
   props: {
@@ -61,6 +212,14 @@ export default {
       totalPlayTime: 0,
       seekTime1: 0,
       seekTime2: 0,
+      bgDemoImg: require('../../../assets/tile-1.jpeg'),
+      videoLoading: require('../../../assets/loading.gif'),
+      show_modalCard1: false,
+      show_modalCard2: false,
+      show_modalCard3: false,
+      show_modalCard4: false,
+      spotlightVideoSource: null,
+      user: null,
     }
   },
 
@@ -131,11 +290,29 @@ export default {
     },
   },
   methods: {
+    async fetchSpotlightVideo() {
+      await this.getUserDetailFromStream();
+      StreamService.getSpotlightStream(this.user.id)
+        .then((response) => {
+          console.log("response", response)
+          if (this.currentUser == null) {
+            this.show_modalCard3 = true
+            this.spotlightVideoSource = response.body.mp_channel_1_ep_1_url
+          } else {
+            this.show_modalCard4 = true
+          }
+        })
+        .catch((e) => {
+          if (this.currentUser == null) {
+            this.show_modalCard1 = true
+          } else {
+            this.show_modalCard2 = true
+          }
+        })
+    },
     initPlayer() {
       if (this.currentUser.free_trial_time <= 0 && !this.isSubscribed) {
-        this.$store.dispatch(
-          'error/showErrorToast', ["You must be subscribed in order to view video."]
-        )
+        this.fetchSpotlightVideo()
       }
       const vm = this
       console.log("this.src--->", this.src)
@@ -235,9 +412,7 @@ export default {
       if (this.currentUser.free_trial_time <= this.remainingTime && !this.isSubscribed) {
         this.player.pause();
         this.updateUserInfo();
-        this.$store.dispatch(
-          'error/showErrorToast', ["You must be subscribed in order to view video."]
-        )
+        this.fetchSpotlightVideo()
       } else {
         this.remainingTime = this.remainingTime + 1;
       }
@@ -300,6 +475,17 @@ export default {
       // resume player play
       // fix for sudden pause of pip on activation
       vm.player.play()
+    },
+
+    async getUserDetailFromStream() {
+      const stream_id = this.$route.params.videoId
+      await StreamService.getStream(stream_id)
+        .then((response) => {
+          this.user = response.body.user
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
   },
 
@@ -367,3 +553,4 @@ export default {
 //   height: 100%;
 // }
 </style>
+<style src="../../../../static/styles/spotlight.scss" ></style>
