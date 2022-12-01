@@ -1,169 +1,182 @@
 .spotlight-header{
-    padding: 20px 16px;
-    position: relative;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    margin-left: -16px;
-    margin-top: -25px;
-    margin-bottom: 25px;
-    width: calc(100% + 32px);
+	padding: 20px 16px;
+	position: relative;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	margin-left: -16px;
+	margin-top: -25px;
+	margin-bottom: 25px;
+	width: calc(100% + 32px);
 
-    .replace{
-        font-family: 'Inter',sans-serif;
-        font-size: 14px;
-        font-weight: bold;
-        color: black;
-        cursor: pointer;
-    }
+	.replace{
+		font-family: 'Inter',sans-serif;
+		font-size: 14px;
+		font-weight: bold;
+		color: black;
+		cursor: pointer;
+	}
 
-    .head-button{
-        background-color: #0e8bff !important;
-        border: 1px solid #0f74d1;
-        border-radius: 6px;
-        font-weight: bold;
-        font-family: 'Inter', sans-serif;
-        font-size: 14px;
-        color: white;
-    }
+	.head-button{
+		background-color: #0e8bff !important;
+		border: 1px solid #0f74d1;
+		border-radius: 6px;
+		font-weight: bold;
+		font-family: 'Inter', sans-serif;
+		font-size: 14px;
+		color: white;
+	}
+}
+.min-height{
+	min-height: 250px;
+}
+.modal-card-title-img{
+	height: 100%;
+
+	video{
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 }
 
 @media screen and (min-width: 1250px) {
 
-    .spotlight-header{
-        padding: 20px 51px;
-    }
-    .main-flex{
-        padding: 0 35px;
-    }
+	.spotlight-header{
+		padding: 20px 51px;
+	}
+	.main-flex{
+		padding: 0 35px;
+	}
 }
 
 
 .main-flex{
-    display: flex;
-    gap: 25px;
+	display: flex;
+	gap: 25px;
 
-    .heading{
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 25px;
-    }
+	.heading{
+		font-size: 18px;
+		font-weight: bold;
+		margin-bottom: 25px;
+	}
 
-    .w-75{
-        width: 75%;
-    }
+	.w-75{
+		width: 75%;
+	}
 
-    .w-25{
-        width: 25%;
-    }
+	.w-25{
+		width: 25%;
+	}
 
-    .web-container{
-        display: flex;
-        border-radius: 10px;
-        overflow: hidden;
-        
+	.web-container{
+		display: flex;
+		border-radius: 10px;
+		overflow: hidden;
+		
 
-        p{
-            margin-bottom: 0px;
-        }
+		p{
+			margin-bottom: 0px;
+		}
 
-        .web-content{
-            width: 45%;
-            background-color: #1f1f1f;
-            padding: 40px;
-            color: white;
+		.web-content{
+			width: 45%;
+			background-color: #1f1f1f;
+			padding: 40px;
+			color: white;
 
-            .font-bold{
-                font-weight: bold;
-            }
+			.font-bold{
+				font-weight: bold;
+			}
 
-            ._user-icon{
-                display: inline-block;
-                background-color:  rgba(255,255,255,0.1);
-                padding: 10px;
-                border-radius: 50%;
-                .user-icon-inner{
-                    width: 95px;
-                    height: 95px;
-                    background-color: #c4c4c4;
-                    border-radius: 50%;
-                }
-            }
+			._user-icon{
+				display: inline-block;
+				background-color:  rgba(255,255,255,0.1);
+				padding: 10px;
+				border-radius: 50%;
+				.user-icon-inner{
+					width: 95px;
+					height: 95px;
+					background-color: #c4c4c4;
+					border-radius: 50%;
+					background-size: cover;
+				}
+			}
 
-            ._text{
-                font-size: 12px;
-                font-weight: 500;
-                font-family: 'Inter', sans-serif;
-            }
+			._text{
+				font-size: 12px;
+				font-weight: 500;
+				font-family: 'Inter', sans-serif;
+			}
 
-            ._button{
-                .button-web{
-                    display: block;
-                    background-color: white;
-                    width: 100%;
-                    color: black;
-                    font-size: 18px;
-                    font-weight: bold;
-                    height: 50px;
-                    border-radius: 60px;
-                    margin-left: 0px;
-                }
-            }
-        }
-        .web-video{
-            width: 55%;
-            background-color: #f2f2f2;
-        }
-    }
+			._button{
+				.button-web{
+					display: block;
+					background-color: white;
+					width: 100%;
+					color: black;
+					font-size: 18px;
+					font-weight: bold;
+					height: 50px;
+					border-radius: 60px;
+					margin-left: 0px;
+				}
+			}
+		}
+		.web-video{
+			width: 55%;
+			background-color: #f2f2f2;
+		}
+	}
 
-    .mob-container{
-        border-radius: 10px;
-        overflow: hidden;
-        border: 1px solid rgba(0,0,0,0.1);
+	.mob-container{
+		border-radius: 10px;
+		overflow: hidden;
+		border: 1px solid rgba(0,0,0,0.1);
 
-        .mob-video{
-            background-color: #f2f2f2;
-            min-height: 250px;
-        }
+		.mob-video{
+			background-color: #f2f2f2;
+			min-height: 250px;
+		}
 
-        .mob-content{
-            ._info{
-                padding: 12px;
-                background: #1f1f1f;
+		.mob-content{
+			._info{
+				padding: 12px;
+				background: #1f1f1f;
 
-                p{
-                    font-size: 12px;
-                    color: white;
-                    margin-bottom: 0px;
-                }
+				p{
+					font-size: 12px;
+					color: white;
+					margin-bottom: 0px;
+				}
 
-                .font-bold{
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-            }
+				.font-bold{
+					font-size: 14px;
+					font-weight: bold;
+				}
+			}
 
-            ._content{
-                padding: 30px 10px;
+			._content{
+				padding: 30px 10px;
 
-                ._text{
-                    font-size: 12px;
-                    font-weight: 500;
-                    font-family: 'Inter', sans-serif;
-                }
+				._text{
+					font-size: 12px;
+					font-weight: 500;
+					font-family: 'Inter', sans-serif;
+				}
 
-                ._button{
-                    .button-mob{
-                        display: block;
-                        background-color: black;
-                        width: 100%;
-                        color: white;
-                        font-size: 11px;
-                        font-weight: bold;
-                        height: 30px;
-                        border-radius: 7px;
-                        margin-left: 0px;
-                    }
-                }
-            }
-        }
-    }
+				._button{
+					.button-mob{
+						display: block;
+						background-color: black;
+						width: 100%;
+						color: white;
+						font-size: 11px;
+						font-weight: bold;
+						height: 30px;
+						border-radius: 7px;
+						margin-left: 0px;
+					}
+				}
+			}
+		}
+	}
 }

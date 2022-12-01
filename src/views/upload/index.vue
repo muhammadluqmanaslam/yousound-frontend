@@ -208,10 +208,12 @@
                   <div class="dflex align-center">
                     <img src="../../assets/c-check.svg" width="25">
                     <p class="bold-text">Video uploaded</p>
-                  
-                  </div>
 
-                  <a href="#" class="anchor-text">Edit</a>
+                  </div>
+                  <router-link :to="'/spotlight'">
+                    <div class="anchor-text">Edit</div>
+                  </router-link>
+
                 </div>
               </div>
             </div>

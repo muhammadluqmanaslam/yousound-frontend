@@ -36,11 +36,11 @@
 					<div class="web-content">
 						<div class="profile-image-section">
 							<div class="profile-image">
-								<img :src="currentUser.avatar.url" width="140">
+								<img src="../../../static/images/nav_logo_white.png" width="140">
 							</div>
 						</div>
 						<div class="_user-icon mb-4">
-							<div class="user-icon-inner">
+							<div class="user-icon-inner" :style="{ 'background-image': 'url(' + currentUser.avatar.url + ')' }">
 							</div>
 						</div>
 						<div class="_info mb-4">
@@ -78,12 +78,12 @@
 				<div class="mob-container">
 					<div class="mob-video">
 						<div class="modal-card-title-img">
-							<video playsinline autoplay muted loop id="bgvid">
+							<video playsinline autoplay muted loop id="bgvid" class="min-height">
 								<source :src="this.video.src" :type="this.videoFile[0].type">
 							</video>
-							<button class="volume-button">
+							<!-- <button class="volume-button">
 								<img src="../../assets/mute-icon.svg" width="17px">
-							</button>
+							</button> -->
 							</div>
 					</div>
 					<div class="mob-content">
