@@ -416,7 +416,7 @@
 
         <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
           <video playsinline autoplay muted loop id="bgvid">
-            <source :src="this.spotlightVideoSource" type="video/webm">
+            <source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
           </video>
           <div class="volume-button">
             <img src="../assets/mute-icon.svg" width="17px">
@@ -459,7 +459,7 @@
 
         <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
           <video playsinline autoplay muted loop id="bgvid">
-            <source :src="this.spotlightVideoSource" type="video/webm">
+            <source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
           </video>
           <button class="volume-button">
             <img src="../assets/mute-icon.svg" width="17px">
@@ -685,7 +685,7 @@ export default {
           console.log("response", response)
           if (this.currentUser == null) {
             this.show_modalCard3 = true
-            this.spotlightVideoSource = response.body.mp_channel_1_ep_1_url
+            this.spotlightVideoSource = response.body.mp_channel_1_ep_1_id
           } else {
             this.show_modalCard4 = true
           }

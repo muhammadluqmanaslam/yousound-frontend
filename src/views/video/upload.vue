@@ -324,9 +324,10 @@
           <div class="submit-section">
             <hr class="mb-5" />
 
-            <v-btn 
-              round 
-              flat 
+            <v-btn
+              style="background-color: #394DFF !important"
+              round
+              flat
               class="release-now-btn white--text" 
               type="submit"
               :disabled="submitLoading"
