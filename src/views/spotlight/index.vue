@@ -61,7 +61,7 @@
 					</div>
 					<div class="web-video">
 						<div class="modal-card-title-img">
-							<video playsinline autoplay muted loop id="bgvid">
+							<video playsinline autoplay loop id="bgvid">
 								<source :src="this.video.src" :type="this.videoFile[0].type">
 							</video>
 							<button class="volume-button">

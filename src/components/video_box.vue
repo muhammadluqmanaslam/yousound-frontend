@@ -209,7 +209,7 @@
         </div>
 
         <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
-          <video playsinline autoplay muted loop id="bgvid">
+          <video playsinline autoplay loop id="bgvid">
             <source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
           </video>
           <button class="volume-button">
