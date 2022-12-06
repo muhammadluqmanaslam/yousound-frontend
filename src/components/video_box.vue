@@ -124,9 +124,11 @@
         </div>
 
         <div class="button-wrapper">
-          <button class="modal-button">
-            Start 30 day free trial
-          </button>
+          <router-link to="/settings">
+            <button class="modal-button">
+              Start 30 day free trial
+            </button>
+          </router-link>
         </div>
 
       </div>
@@ -201,9 +203,11 @@
           </div>
 
           <div class="button-wrapper">
-            <button class="modal-button">
-              Start 30 day free trial
-            </button>
+            <router-link to="/settings">
+              <button class="modal-button">
+                Start 30 day free trial
+              </button>
+            </router-link>
           </div>
 
         </div>
@@ -355,9 +359,9 @@ export default {
       StreamService.getSpotlightStream(this.item.user.id)
         .then((response) => {
           console.log("response", response)
+          this.spotlightVideoSource = response.body.mp_channel_1_ep_1_id
           if (this.currentUser == null) {
             this.show_modalCard3 = true
-            this.spotlightVideoSource = response.body.mp_channel_1_ep_1_id
           } else {
             this.show_modalCard4 = true
           }

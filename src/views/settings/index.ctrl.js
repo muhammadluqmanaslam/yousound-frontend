@@ -480,6 +480,9 @@ export default {
       if (this.profile.image) {
         params.append('user[avatar]', this.profile.image)
       }
+
+      params.append('user[first_name]', this.profile.first_name)
+      params.append('user[last_name]', this.profile.last_name)
       params.append('user[display_name]', this.profile.display_name)
       params.append('user[email]', this.profile.email)
       params.append('user[contact_url]', this.profile.contact_url)

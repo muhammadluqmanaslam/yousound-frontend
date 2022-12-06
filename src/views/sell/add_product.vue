@@ -698,7 +698,7 @@
             </v-flex>
 
             <v-flex xs12  pa-0 mt-5>
-              <h2 class="album-info-title">Collaborators</h2>
+              <h2 class="album-info-title">Options</h2>
             </v-flex>
 
             <v-flex xs12 sm12>

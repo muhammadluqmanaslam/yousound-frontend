@@ -84,9 +84,11 @@
           </div>
 
           <div class="button-wrapper">
-            <button class="modal-button">
-              Start 30 day free trial
-            </button>
+            <router-link to="/settings">
+              <button class="modal-button">
+                Start 30 day free trial
+              </button>
+            </router-link>
           </div>
 
         </div>
@@ -160,12 +162,13 @@
               <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
             </div>
 
-            <div class="button-wrapper">
-              <button class="modal-button">
-                Start 30 day free trial
-              </button>
+            <div class="button-wrapper" >
+              <router-link to="/settings">
+                <button class="modal-button">
+                  Start 30 day free trial
+                </button>
+              </router-link>
             </div>
-
           </div>
 
           <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
@@ -295,9 +298,9 @@ export default {
       StreamService.getSpotlightStream(this.user.id)
         .then((response) => {
           console.log("response", response)
+          this.spotlightVideoSource = response.body.mp_channel_1_ep_1_id
           if (this.currentUser == null) {
             this.show_modalCard3 = true
-            this.spotlightVideoSource = response.body.mp_channel_1_ep_1_id
           } else {
             this.show_modalCard4 = true
           }
