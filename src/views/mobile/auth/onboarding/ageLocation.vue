@@ -230,6 +230,7 @@ export default {
           formData.append('user[city]', user_params.city)
           formData.append('user[age_group]', user_params.age_group)
           formData.append('user[user_type]', user_params.user_type)
+          formData.append('user[initial_signup_type]', user_params.user_type)
 
           await AuthService.registerAsListener(formData).then(response => {
             this.updateOnboarding(data);

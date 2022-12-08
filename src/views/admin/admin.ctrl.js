@@ -10,6 +10,8 @@ import signupTab from './components/signups'
 import subscriptionTab from './components/subscriptions'
 import streamTab from './components/streams'
 import userTab from './components/users'
+import contentTopHeader from '@/components/contentTopHeader'
+
 
 export default {
   components: {
@@ -23,6 +25,7 @@ export default {
     subscriptionTab,
     streamTab,
     userTab,
+    contentTopHeader
   },
 
   data() {

@@ -290,6 +290,31 @@ img.invert-color {
   top: 0;
 }
 
+.user-table, .album-table, .product-table{
+  tfoot{
+      position: fixed;
+      bottom: 0;
+      right: 10px;
+      z-index: 12;
+    
+      tr{
+        border-top: none !important;
+      }
+  }
+  @media screen and (max-width: 900px) {
+    tfoot{
+      transform: none;
+      position: static;
+    }
+  }
+
+  @media screen and (max-width: 1500px) {
+    tfoot{
+      transform: scale(0.85) translateX(35px);
+    }
+  }
+}
+
 .round-avatar {
   height: 40px;
   width: 40px;

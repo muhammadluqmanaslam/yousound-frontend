@@ -2,9 +2,12 @@ import AuthService from '@/services/auth'
 import AdminService from '@/services/admin'
 import UserService from '@/services/user'
 import StreamService from '@/services/stream'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
-  components: {},
+  components: {
+    contentTopHeader,
+  },
 
   data() {
     return {
@@ -18,6 +21,7 @@ export default {
         { id: 'suspended', title: 'Suspended' },
       ],
       active_tab: 'any',
+      small_input: false,
       user_headers: [
         { text: 'Username', value: 'username', align: 'left', sortable: false },
         {

@@ -28,26 +28,16 @@
       </v-card>
     </v-dialog>
     <v-tabs dark class="white" v-model="active_tab">
-      <v-tabs-bar class="transparent pl-4 mt-4">
+      <v-tabs-bar class="transparent">
         <v-tabs-item
           v-for="tab in subscriptions_tabs"
           @click.native="onTab(tab.id)"
           :key="tab.id"
           :href="'#' + tab.id"
           ripple
-          >{{ tab.title }}</v-tabs-item
+          >{{ tab.title }} {{ [tabs_count[tab.id]] }}</v-tabs-item
         >
-        <v-tabs-slider color="black"></v-tabs-slider>
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search_value"
-          @keyup.enter="onKeyEnter"
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details
-          class="user-search search-input mr-4"
-        />
+       
       </v-tabs-bar>
       <v-tabs-items style="border: none">
         <v-tabs-content v-for="tab in subscriptions_tabs" :key="tab.id" :id="tab.id">
@@ -56,9 +46,10 @@
               v-if="active_tab != 'free_credit'"
               :headers="headers"
               :items="subscriptions"
+              :search="search"
               :pagination.sync="pagination"
               :rows-per-page-items="per_page_options"
-              :total-items="total_subscriptions"
+              :total-items="total_subscriptions.length"
               class="user-table"
             >
               <template slot="items" slot-scope="props">
@@ -76,6 +67,9 @@
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.user_type | capitalize }}
+                </td>
+                <td v-if="active_tab === 'trial_drop_off'" class="text-xs-center">
+                  {{ props.item.initial_signup_type }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.first_name }}
@@ -114,7 +108,8 @@
               :items="subscriptions"
               :pagination.sync="pagination"
               :rows-per-page-items="per_page_options"
-              :total-items="total_subscriptions"
+              :total-items="total_subscriptions.length"
+              :search="search"
               class="user-table"
             >
               <template slot="items" slot-scope="props">
@@ -179,9 +174,54 @@
           </v-card>
         </v-tabs-content>
       </v-tabs-items>
+      <content-top-header class="bottomNav">
+        <template slot="topHeader">
+          <div class="dflex align-center">
+            <div>
+              <div class="big_view">
+                <input type="text" class="search-input-general" placeholder="Search Artist" v-model="search">
+              </div>
+              <div class="small_view">
+                <div class="search_icon" @click="(small_input = !small_input)">
+                  <img src="../../../assets/search.svg" width="20">
+                </div>
+                <div class="position_input" v-if="small_input">
+                  <input type="text" class="search-input-small" placeholder="Search Artist" v-model="search">
+                </div>
+              </div>
+            </div>
+            <div v-if="(active_tab == 'cancelled' || active_tab == 'trial_drop_off')" class="ml-3 dflex align-center e-main">
+              <vue-json-to-csv :json-data="cancelledEmails"
+                :labels="{ email: { title: 'Email' } }"
+                :csv-title="active_tab == 'cancelled' ? 'Cancelled Emails' : 'Trial Drop Off Emails'"
+                >
+                <div class="export-emails">
+                  <v-btn class="classic-btn">
+                    <img src="../../../assets/export.png" width="16" class="mr-1">
+                    Export emails
+                  </v-btn>
+                </div>
+              </vue-json-to-csv>
+              <div class="radio-btns">
+                <input type="radio" name="same-group" value="all" :checked="selectedExportOption == 'All'" @click="filterCsvData('All')">
+                <label>All</label>
+              </div>
+              <div class="radio-btns">
+                <input type="radio" name="same-group" value="creators" @click="filterCsvData('creator')">
+                <label>Creators</label>
+              </div>
+                <div class="radio-btns">
+                <input type="radio" name="same-group" value="lilsteners" @click="filterCsvData('listener')">
+                <label>Listeners</label>
+              </div>
+            </div>
+          </div>
+        </template>
+      </content-top-header>
     </v-tabs>
 
   </v-card>
 </template>
 
 <script type="text/javascript" src="./subscriptions.ctrl.js"></script>
+<style src="./general.scss" lang="scss" scoped></style>

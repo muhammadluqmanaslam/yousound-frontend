@@ -4,16 +4,26 @@ import signupApproveModal from './signup_approve_modal'
 import signupDenyModal from './signup_deny_modal'
 import SubscriptionService from '@/services/subscription'
 import moment from 'moment'
+import contentTopHeader from '@/components/contentTopHeader'
+import VueJsonToCsv from 'vue-json-to-csv'
+
 
 export default {
   components: {
     signupApproveModal,
     signupDenyModal,
+    contentTopHeader,
+    VueJsonToCsv,
   },
 
   data() {
     return {
       active_tab: 'artists',
+      small_input: false,
+      tabs_count: [],
+      cancelledEmails: [],
+      selectedExportOption: 'All',
+      search: '',
       subscriptions_tabs: [
         { id: 'artists', title: 'Artists' },
         { id: 'brands', title: 'Brands' },
@@ -21,6 +31,7 @@ export default {
         { id: 'trial', title: 'Trial' },
         { id: 'cancelled', title: 'Cancelled' },
         { id: 'free_credit', title: 'Free Credit' },
+        { id: 'trial_drop_off', title: 'Trial Drop Off' },
       ],
       artists_headers: [
         { text: 'Username', value: 'username', align: 'center' },
@@ -28,7 +39,7 @@ export default {
         { text: 'First Name', value: 'first_name', align: 'center' },
         { text: 'Last Name', value: 'last_name', align: 'center' },
         { text: 'Activate Date', value: 'activate_date', align: 'center' },
-        { text: 'Tier', value: 'tier', align: 'center' },
+        { text: 'Tier', value: 'plan', align: 'center' },
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
@@ -39,8 +50,8 @@ export default {
         { text: 'User Type', value: 'user_type', align: 'center' },
         { text: 'First Name', value: 'first_name', align: 'center' },
         { text: 'Last Name', value: 'last_name', align: 'center' },
-        { text: 'Activate Date', value: 'activate_date', align: 'center' },
-        { text: 'Tier', value: 'tier', align: 'center' },
+        { text: 'Activate Date', value: 'trial_start', align: 'center' },
+        { text: 'Tier', value: 'plan', align: 'center' },
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
@@ -52,7 +63,7 @@ export default {
         { text: 'First Name', value: 'first_name', align: 'center' },
         { text: 'Last Name', value: 'last_name', align: 'center' },
         { text: 'Activate Date', value: 'activate_date', align: 'center' },
-        { text: 'Tier', value: 'tier', align: 'center' },
+        { text: 'Tier', value: 'plan', align: 'center' },
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
@@ -63,7 +74,7 @@ export default {
         { text: 'First Name', value: 'first_name', align: 'center' },
         { text: 'Last Name', value: 'last_name', align: 'center' },
         { text: 'Activate Date', value: 'activate_date', align: 'center' },
-        { text: 'Tier', value: 'tier', align: 'center' },
+        { text: 'Tier', value: 'plan', align: 'center' },
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
@@ -75,8 +86,8 @@ export default {
         { text: 'User Type', value: 'user_type', align: 'center' },
         { text: 'First Name', value: 'first_name', align: 'center' },
         { text: 'Last Name', value: 'last_name', align: 'center' },
-        { text: 'Activate Date', value: 'activate_date', align: 'center' },
-        { text: 'Tier', value: 'tier', align: 'center' },
+        { text: 'Activate Date', value: 'trial_start', align: 'center' },
+        { text: 'Tier', value: 'plan', align: 'center' },
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
@@ -88,12 +99,25 @@ export default {
         { text: 'First Name', value: 'first_name', align: 'center' },
         { text: 'Last Name', value: 'last_name', align: 'center' },
         { text: 'Credit Remaining Days', value: 'trial_end', align: 'center' },
-        { text: 'Tier', value: 'tier', align: 'center' },
+        { text: 'Tier', value: 'plan', align: 'center' },
         { text: 'Email', value: 'email', align: 'center' },
-        { text: 'Member For Months', value: 'member_for_months', align: 'center' },
+        { text: 'Member For Months', value: 'trial_start', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
         { text: 'Credit Increase', value: 'free_month_credits', align: 'center' },
         { text: 'Action', value: 'Action', align: 'center' },
+      ],
+
+      trial_drop_off_headers: [
+        { text: 'Username', value: 'username', align: 'center' },
+        { text: 'User Type', value: 'user_type', align: 'center' },
+        { text: 'Initial Signup Type', value: 'initial_signup_type', align: 'center' },
+        { text: 'First Name', value: 'first_name', align: 'center' },
+        { text: 'Last Name', value: 'last_name', align: 'center' },
+        { text: 'Activate Date', value: 'trial_start', align: 'center' },
+        { text: 'Tier', value: 'plan', align: 'center' },
+        { text: 'Email', value: 'email', align: 'center' },
+        { text: 'Member For Months', value: 'member_for_months', align: 'center' },
+        { text: 'Credits', value: 'trial_end', align: 'center' },
       ],
       search_value: '',
       show_verification_modal: false,
@@ -129,6 +153,8 @@ export default {
           return this.cancelled_headers
         case 'free_credit':
           return this.free_credit_headers
+        case 'trial_drop_off':
+          return this.trial_drop_off_headers
       }
     },
   },
@@ -147,6 +173,14 @@ export default {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.subscriptions = response.body.users
           this.total_subscriptions = response.body.pagination.total_count
+          this.tabs_count = response.body.tabs_count
+          if (this.active_tab == 'cancelled' || this.active_tab == 'trial_drop_off') {
+            this.cancelledEmails = []
+            this.selectedExportOption = 'All'
+            this.subscriptions.map(subscription => {
+              this.cancelledEmails.push({email: subscription.email})
+            })
+          }
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -155,6 +189,28 @@ export default {
             e.body.errors || [e.body]
           )
         })
+    },
+
+    filterCsvData(value) {
+      this.cancelledEmails= []
+      this.selectedExportOption = value
+      if (value == 'All') {
+        this.subscriptions.map(subscription => {
+          this.cancelledEmails.push({email: subscription.email})
+        })
+      } else if (value == 'creator') {
+        this.subscriptions.map(subscription => {
+          if (subscription.user_type == 'artist' || subscription.user_type == 'brand') {
+            this.cancelledEmails.push({email: subscription.email})
+          }
+        })
+      } else if (value == 'listener') {
+        this.subscriptions.map(subscription => {
+          if (subscription.user_type == 'listener') {
+            this.cancelledEmails.push({email: subscription.email})
+          }
+        })
+      }
     },
 
     onTab(tab) {

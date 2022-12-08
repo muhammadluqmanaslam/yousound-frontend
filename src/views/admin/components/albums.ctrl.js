@@ -6,11 +6,13 @@ import ProductService from '@/services/product'
 
 import albumDetailDialog from './album_detail_dialog'
 import productDetailDialog from './product_detail_dialog'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
   components: {
     albumDetailDialog,
     productDetailDialog,
+    contentTopHeader,
   },
 
   data() {
@@ -21,6 +23,7 @@ export default {
         { id: 'product', title: 'Products' },
       ],
       albums_tab: 'published',
+      small_input: false,
       album_headers: [
         { text: 'Title', value: 'name', align: 'left' },
         { text: 'Artist Name', value: 'publisher_name', align: 'left' },

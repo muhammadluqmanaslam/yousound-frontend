@@ -2,16 +2,20 @@ import _ from 'lodash'
 import AdminService from '@/services/admin'
 import signupApproveModal from './signup_approve_modal'
 import signupDenyModal from './signup_deny_modal'
+import contentTopHeader from '@/components/contentTopHeader'
+
 
 export default {
   components: {
     signupApproveModal,
     signupDenyModal,
+    contentTopHeader,
   },
 
   data() {
     return {
       active_tab: 'waiting',
+      small_input: false,
       signups_tabs: [
         { id: 'waiting', title: 'Waiting For Approval' },
         { id: 'co-signed', title: 'Co-Signed' },

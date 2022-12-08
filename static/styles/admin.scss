@@ -10,21 +10,29 @@
           margin: 0;
           .tabs__li {
             margin-right: 33px;
+
             .tabs__item {
+             
               padding: 0;
               text-transform: none;
-              font-size: 16.5px;
+              font-size: 14px;
+              font-weight: 500;
               // color: #8E8E8E;
               letter-spacing: -0.66px;
               &.tabs__item--active {
                 // color: #000000;
+                font-weight: 700;
               }
+            }
+            &.active-icon{
+                opacity: 100%;
+                font-weight: 700;
             }
           }
         }
       }
       .tabs__items {
-        border: solid 1px #b8b8b8;
+        // border: solid 1px #b8b8b8;
       }
     }
     .menu {
@@ -60,6 +68,11 @@
     letter-spacing: -0.66px;
   }
   .user-table {
+    th{
+      color:rgba(0, 0, 0, 1) !important;
+      padding: 0 35px 0 0 !important;
+      font-weight: 400;
+    }
     .avatar-image-wrapper {
       display: flex;
       flex-direction: row;

@@ -1,7 +1,7 @@
 <template>
   <v-card flat v-if="isPageReady">
     <v-tabs dark class="white" v-model="active_tab">
-      <v-tabs-bar class="transparent pl-4 mt-4">
+      <v-tabs-bar class="transparent">
         <v-tabs-item
           v-for="tab in signups_tabs"
           @click.native="onTab(tab.id)"
@@ -10,7 +10,7 @@
           ripple
           >{{ tab.title }}</v-tabs-item
         >
-        <v-tabs-slider color="black"></v-tabs-slider>
+        <!-- <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search_value"
@@ -20,7 +20,7 @@
           single-line
           hide-details
           class="user-serach search-input mr-4"
-        />
+        /> -->
       </v-tabs-bar>
       <v-tabs-items style="border: none">
         <v-tabs-content v-for="tab in signups_tabs" :key="tab.id" :id="tab.id">
@@ -193,6 +193,7 @@
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
+    
 
     <signup-approve-modal
       v-if="show_approve_modal"
@@ -215,3 +216,4 @@
 </template>
 
 <script type="text/javascript" src="./signups.ctrl.js"></script>
+<style src="./general.scss" lang="scss" scoped></style>

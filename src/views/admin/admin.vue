@@ -1,23 +1,30 @@
 <template>
   <div class="page admin-page">
-    <v-flex xs12 sm10 offset-sm1>
-      <h2 class="page-title">Admin</h2>
-    </v-flex>
-    <v-flex xs12 sm10 offset-sm1>
+    <v-flex xs12 sm12 px-4>
       <div class="admin-tab mt-4">
-        <v-tabs dark>
-          <v-tabs-bar class="pl-4 indigo" dark>
-            <v-tabs-item
-              v-for="tab in tabs"
-              v-if="availableTab(tab)"
-              :key="tab.id"
-              :href="'#' + tab.id"
-              @click.native="onTab(tab.id)"
-              ripple
-              >{{ tab.title }}</v-tabs-item
-            >
-            <v-tabs-slider color="white"></v-tabs-slider>
-          </v-tabs-bar>
+        <v-tabs dark center-active>
+          <content-top-header class="black-theme for-tabs">
+            <template slot="topHeader">
+              <v-tabs-bar class="tab_bar" dark>
+                <div
+                class="active-icon"
+                >Admin >
+                </div
+              >
+                <v-tabs-item
+                  v-for="tab in tabs"
+                  v-if="availableTab(tab)"
+                  :key="tab.id"
+                  :href="'#' + tab.id"
+                  @click.native="onTab(tab.id)"
+                  ripple
+                  >{{ tab.title }}</v-tabs-item
+                >
+                <!-- <v-tabs-slider color="white"></v-tabs-slider> -->
+              </v-tabs-bar>
+            </template>
+          </content-top-header>
+
           <v-tabs-items>
             <v-tabs-content key="users" id="users">
               <user-tab
@@ -86,3 +93,4 @@
 </template>
 
 <script type="text/javascript" src="./admin.ctrl.js"></script>
+<style src="./admin.scss" lang="scss" scoped></style>

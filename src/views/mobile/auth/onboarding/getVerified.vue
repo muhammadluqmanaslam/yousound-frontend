@@ -163,6 +163,7 @@ export default {
         formData.append('user[social_provider]', user_params.social_provider)
         formData.append('user[social_user_id]', user_params.social_user_name)
         formData.append('user[user_type]', user_params.user_type)
+        formData.append('user[initial_signup_type]', user_params.user_type)
 
 
         await AuthService.registerAsArtist(formData).then(response => {
