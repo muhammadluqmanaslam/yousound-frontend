@@ -90,7 +90,7 @@
 
               <div class="album-play dflex align-center gap-25">
 
-                <v-btn class="album-play-icon ml-0" :to="`/video/${selectedVideo.id}/show`">
+                <v-btn class="album-play-icon ml-0" @click="verifyUser()">
                   <v-icon>
                     play_arrow
                   </v-icon>
@@ -200,6 +200,9 @@
         >
       </div>
     </div>
+    <v-dialog v-model="show_logout_modal" content-class="logout-modal">
+      <logoutModal />
+    </v-dialog>
   </div>
 </template>
 

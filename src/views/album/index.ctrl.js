@@ -169,14 +169,18 @@ export default {
       this.viewAllPopular = false
       this.viewAllTrending = false
       this.newAlbums = []
-      let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+      if (this.currentUser) {
+        let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
 
-      if (genre_ids.length > 0) {
-        _.each(this.albumData.new, (newAlbum) => {
-          if (newAlbum.genres.length > 0 && genre_ids.includes(newAlbum.genres[0].id)) {
-            this.newAlbums.push(newAlbum)
-          }
-        })
+        if (genre_ids.length > 0) {
+          _.each(this.albumData.new, (newAlbum) => {
+            if (newAlbum.genres.length > 0 && genre_ids.includes(newAlbum.genres[0].id)) {
+              this.newAlbums.push(newAlbum)
+            }
+          })
+        } else {
+          this.newAlbums = this.albumData.new
+        }
       } else {
         this.newAlbums = this.albumData.new
       }
@@ -187,13 +191,17 @@ export default {
       this.viewAllPopular = true
       this.viewAllTrending = false
       this.popularAlbums = []
-      let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
-      if (genre_ids.length > 0) {
-        _.each(this.albumData.popular, (popularAlbum) => {
-          if (popularAlbum.genres.length > 0 && genre_ids.includes(popularAlbum.genres[0].id)) {
-            this.popularAlbums.push(popularAlbum)
-          }
-        })
+      if (this.currentUser) {
+        let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+        if (genre_ids.length > 0) {
+          _.each(this.albumData.popular, (popularAlbum) => {
+            if (popularAlbum.genres.length > 0 && genre_ids.includes(popularAlbum.genres[0].id)) {
+              this.popularAlbums.push(popularAlbum)
+            }
+          })
+        } else {
+          this.popularAlbums = this.albumData.popular
+        }
       } else {
         this.popularAlbums = this.albumData.popular
       }

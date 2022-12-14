@@ -93,7 +93,7 @@
             {{ viewAllNew ? 'New' : 'Popular' }}
             <img class="ml-1 mt-1" src="../../assets/triangle-down.svg" width="8">
           </div>
-          <ul v-for="genre in this.chosenGenres" class="dflex tablist">
+          <ul v-if="currentUser" v-for="genre in this.chosenGenres" class="dflex tablist">
             <li class="tab">
               <label>{{ genre.name }}</label>
             </li>

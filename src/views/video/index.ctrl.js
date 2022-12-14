@@ -8,6 +8,7 @@ import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 // import demoVideo from '../../assets/demo-video.mp4'
+import logoutModal from '../../views/LogoutModal'
 
 export default {
   props: {
@@ -18,7 +19,8 @@ export default {
     VideoBox,
     contentTopHeader,
     discoverNav,
-    VueSlickCarousel 
+    VueSlickCarousel,
+    logoutModal
   },
 
   data() {
@@ -49,6 +51,7 @@ export default {
       ],
       selectedVideo: {},
       hideOtherVideos: false,
+      show_logout_modal: false,
     }
   },
 
@@ -91,6 +94,14 @@ export default {
   },
 
   methods: {
+    verifyUser() {
+      if (this.currentUser) {
+        this.router.push({path: `/video/${this.selectedVideo.id}/show`})
+      } else {
+        this.show_logout_modal = true
+      }
+    },
+
     isActiveTab(tab) {
       return this.selectedTab === tab
     },
