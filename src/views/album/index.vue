@@ -6,7 +6,7 @@
         <v-container>
           <div class="dflex album-flex align-center" v-if="mainAlbum">
             <div class="album-main-image">
-              <img :src="mainAlbum.cover.thumb.url" width="100%">
+              <img :src="mainAlbum.cover && mainAlbum.cover.url" width="100%">
             </div>
 
             <div class="album-main-content" v-if="mainAlbum">

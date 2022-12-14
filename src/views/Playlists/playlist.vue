@@ -43,7 +43,7 @@
         class="list-track-view-item listing"
       >
         <track-card
-          :objects="parseAlbum()"
+          :objects="parseAlbum"
           :objectIndex="index"
           hideMoreMenu
           hideTrackLength
@@ -128,28 +128,9 @@ export default {
       products: null,
     };
   },
-  methods: {
-    onTab(tab) {
-      this.activeTab = tab;
-      this.$router.push({
-        name: "CollectionIndex",
-        params: { activeTab: tab },
-      });
-    },
-    isActiveTab(tab) {
-      return this.activeTab === tab;
-    },
-    shareTrack(track) {
-      this.sharedAlbum = this.tempAlbum;
-      this.share_dialog = true;
-    },
-    closeShareTrack(tab) {
-      this.share_dialog = false;
-      this.sharedAlbum = {};
-    },
-  },
 
-  parseAlbum() {
+  computed: {
+    parseAlbum() {
 			let albums = []
 			for(let i=0; i < this.tracks.length;i++) {
 				let track = this.tracks[i]
@@ -187,7 +168,29 @@ export default {
 			}
 
 			return albums;
-		},
+	  },
+
+  },
+  methods: {
+    onTab(tab) {
+      this.activeTab = tab;
+      this.$router.push({
+        name: "CollectionIndex",
+        params: { activeTab: tab },
+      });
+    },
+    isActiveTab(tab) {
+      return this.activeTab === tab;
+    },
+    shareTrack(track) {
+      this.sharedAlbum = this.tempAlbum;
+      this.share_dialog = true;
+    },
+    closeShareTrack(tab) {
+      this.share_dialog = false;
+      this.sharedAlbum = {};
+    },
+  },
 
   created() {
     this.playlistId = this.$route.params.id
