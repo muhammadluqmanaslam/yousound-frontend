@@ -216,7 +216,6 @@
 
 .margin-top-x{
   margin-top: 60px;
-  padding: 0 76px;
 }
 
 .page-content{
