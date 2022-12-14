@@ -2,7 +2,7 @@
   <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" filterShow='true' />
     <div class="page-content">
-      <div class="music-banner-main" v-if="(!viewAllNew && !viewAllPopular)">
+      <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainAlbum.gradient_color + ' 100%)'}" v-if="(!viewAllNew && !viewAllPopular)">
         <v-container>
           <div class="dflex album-flex align-center" v-if="mainAlbum">
             <div class="album-main-image">
@@ -192,7 +192,6 @@
 
 
 .music-banner-main{
-  background: linear-gradient(180deg, #000000 0%, rgba(61, 20, 3, 0.95) 100%);
   color: white;
   position: relative;
   margin-left: -64px;

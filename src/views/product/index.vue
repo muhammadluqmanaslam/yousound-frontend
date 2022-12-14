@@ -6,7 +6,7 @@
       <div v-if="selected_category === null || viewAllTrending" class="page-content">
 
 
-        <div class="music-banner-main" >
+        <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainProduct.gradient_color + ' 100%)'}">
           <v-container>
             <div class="dflex album-flex align-center" v-if="mainProduct">
               <div class="album-main-image">
@@ -194,7 +194,6 @@
 }
 
 .music-banner-main{
-  background: linear-gradient(180deg, #000000 0%, rgba(61, 20, 3, 0.95) 100%);
   color: white;
   position: relative;
   margin-left: -64px;

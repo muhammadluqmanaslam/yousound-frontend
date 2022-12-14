@@ -121,7 +121,7 @@ import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
 import CategoryService from '@/services/category'
 import GenreService from '@/services/genre'
-import PlaylistService from '@/services/playlist'
+// import PlaylistService from '@/services/playlist'
 import SettingService from '@/services/setting'
 import UserService from '@/services/user'
 
@@ -431,15 +431,15 @@ export default {
       Promise.all([
         UserService.getUserInfo(this.currentUser.id),
         ActivityService.getUnread(),
-        PlaylistService.getPlaylists(),
+        // PlaylistService.getPlaylists(),
         UserService.cartItems(this.currentUser.id),
       ])
         .then((values) => {
           // console.log('App getUserInfo', values[0].body)
           AuthService.setUser(values[0].body)
           this.$store.dispatch('activity/setBadge', values[1].body)
-          this.$store.dispatch('playlist/setPlaylists', values[2].body)
-          this.$store.dispatch('user/setCartItems', values[3].body)
+          // this.$store.dispatch('playlist/setPlaylists', values[2].body)
+          this.$store.dispatch('user/setCartItems', values[2].body)
           this.$store.dispatch('error/showLoadingActivity', false)
         })
         .catch((reason) => {

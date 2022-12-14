@@ -96,7 +96,7 @@ export default {
   methods: {
     verifyUser() {
       if (this.currentUser) {
-        this.router.push({path: `/video/${this.selectedVideo.id}/show`})
+        this.$router.push({name: 'VideoShow', params: { videoId: this.selectedVideo.id }})
       } else {
         this.show_logout_modal = true
       }
