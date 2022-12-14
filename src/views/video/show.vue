@@ -2,13 +2,10 @@
   <div v-if="isPageReady" class="page video-page show-page" :class="{'no-top-nav': !onMobile, onMobile }">
     <div class="page-content margin-top-header">
       <v-container fluid px-0 :class="{'grid-list-md px-4':!onMobile}">
+        <div class="vid_col mb-4">
+          <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
+        </div>
         <v-layout row wrap>
-          <v-flex xs12 sm12 class="vid_col mb-4">
-            <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
-          </v-flex>
-
-
-
           <v-flex v-if="!onMobile" xs12 sm8 comment-wrapper>
             <div>
               <div v-if="onMobile" class="pane-tabs-onMobile">

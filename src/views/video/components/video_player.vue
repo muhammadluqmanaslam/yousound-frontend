@@ -1,5 +1,12 @@
 <template>
-  <div :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
+  <div class="" :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
+    <discover-nav v-if="show_nav" 
+    @mouseover="show_nav = !show_nav"
+    />
+    <div class="video-container-main"
+    @mouseenter="show_video_overlay = true; show_nav = !show_nav"
+    @mouseleave="hideOverlay()"
+    >
     <video
       ref="myVideoPlayer"
       id="myVideoPlayer"
@@ -7,8 +14,86 @@
       :class="{onMobile}"
       :playsinline="onMobile"
       :disabled="true"
-      controls
+      control
     ></video>
+
+    <div class="video-overlay" v-if="show_video_overlay  && firstTimePlay">
+      <div class="vo-content"> 
+        <h2 class="vo-heading">'Chopped and Screwed: The Final Mixtape'</h2>
+        <div class="vo-following-main">
+
+          <div class="dflex align-center gap-10">
+            <div class="profile-img"></div>
+            <div class="profile-text">DJ screw</div>
+          </div>
+
+          <div class="following-btns">
+            <v-btn class="following-button">Following</v-btn>
+            <v-btn class="icon-button">
+              <img src="../../../assets/plus.svg" width="18">
+            </v-btn>
+            <v-btn class="icon-button">
+              <img src="../../../assets/respond-arrow 2.svg" width="18" class="invert">
+            </v-btn>
+            <v-btn class="icon-button">
+              <img src="../../../assets/dollar-sign.svg" width="18">
+            </v-btn>
+            <v-btn class="icon-button">
+              <img src="../../../assets/line-chart.svg" width="18">
+            </v-btn>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="project-icon">
+        <img src="../../../assets/project.svg" width="32">
+      </div>
+
+      <div class="ad-show">
+        <div class="ad-show-img"><img src="../../../assets/tile-2.jpeg" width="100%"></div>
+
+        <div class="ad-show-content">
+          <div class="dflex align-center gap-10">
+            <div class="profile-img"></div>
+            <div class="profile-text">DJ screw</div>
+          </div>
+
+          <div class="ad-info my-3">
+            <div class="category">Category</div>
+            <div class="name my-1">Name</div>
+            <div class="price">$50.00</div>
+          </div>
+
+          <div class="ad-option">
+            <select name="options" id="ad-option">
+              <option >Option</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              
+            </select>
+          </div>
+
+
+          <div class="ad-button mt-2">
+            <v-btn class="ad-btn">Add to cart</v-btn>
+          </div>
+        </div>
+
+        <div>
+
+        </div>
+      </div>
+
+      <div class="ad-bar">
+        <img src="../../../assets/tile-2.jpeg" width="100%">
+      </div>
+    </div>
+
+  </div>
+
+    
 
     <v-dialog v-model="showListeningMessage">
       <v-card>
@@ -192,6 +277,8 @@ import UserService from '@/services/user'
 import AuthService from '@/services/auth'
 import TrackingService from '@/services/tracking'
 import StreamService from '@/services/stream'
+import discoverNav from '@/components/discoverNav'
+
 
 export default {
   props: {
@@ -200,12 +287,18 @@ export default {
       type: String,
     },
   },
+  components: {
+    discoverNav,
+  },
 
   data() {
     return {
       player: null,
       pipMode: false,
       videoId: null,
+      show_video_overlay: false,
+      show_nav: false,
+      firstTimePlay: false,
       remainingTimerCalculator: null,
       remainingTime: 0,
       stillListeningTimer: null,
@@ -313,6 +406,12 @@ export default {
           }
         })
     },
+    hideOverlay(){
+      // this.show_video_overlay = false
+      setTimeout(
+        this.show_video_overlay = false, 3000
+      )
+    },
     initPlayer() {
       if (this.currentUser.free_trial_time <= 0 && !this.isSubscribed) {
         this.fetchSpotlightVideo()
@@ -384,6 +483,7 @@ export default {
 
       vm.player.on('play', () => {
         vm.remainingTime = 0
+        this.firstTimePlay = true
         clearTimeout(vm.stillListeningTimer);
         clearInterval(vm.remainingTimerCalculator);
         vm.stillListeningTimer = setTimeout(vm.stillPlaying, 3600000)
@@ -510,10 +610,228 @@ export default {
 }
 </script>
 
+<style src="./video-player.scss"></style>
 <style lang="scss">
 .video-js .vjs-big-play-button {
   top: 44% !important;
   left: 44% !important;
+}
+.video-container-main{
+  position: relative;
+  
+  .video-overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.61) 0%, #000000 89.58%);
+    top: 0;
+    left: 0;
+    font-family: "Inter", sans-serif;
+    color: white;
+
+    .ad-bar{
+      position: absolute;
+      left: 20%;
+      bottom: 12%;
+      width: 50px;
+      height: 50px;
+
+      img{
+        border-radius: 4px;
+        object-fit: cover;
+      }
+    }
+    .project-icon{
+      position: absolute;
+      right: 5%;
+      bottom: 13%;
+    }
+
+    .ad-show{
+      background: #1d1d1d;
+      border-radius: 10px;
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      max-width: 250px;
+
+      .ad-show-img{
+        img{
+          border-radius: 4px;
+        }
+      }
+
+      .ad-show-content{
+        padding: 15px;
+
+        .gap-10{
+          gap: 10px;
+        }
+  
+        .profile-img{
+          width: 33px;
+          height: 33px;
+          min-width: 33px;
+          max-width: 33px;
+          border-radius: 50%;
+          background-color: aquamarine;
+        }
+  
+        .profile-text{
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .ad-info{
+          .category{
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            color: rgba($color: #fff, $alpha: 0.5);
+            text-transform: uppercase;
+          }
+          .name{
+            font-size: 18px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            color: white;
+          }
+          .price{
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            color: white;
+          }
+        }
+
+        .ad-option{
+          select{
+            background-color: transparent !important;
+            border: 1px solid rgba($color: #fff, $alpha: 0.1);
+            border-radius: 5px;
+            width: 100%;
+            font-weight: 500;
+            font-size: 14px;
+            color: white;
+            height: 35px;
+            padding: 0 10px;
+
+
+
+            background-image:
+          linear-gradient(45deg, transparent 50%, white 50%),
+          linear-gradient(135deg, white 50%, transparent 50%);
+        background-position:
+          calc(100% - 20px) calc(1em + 2px),
+          calc(100% - 15px) calc(1em + 2px),
+          calc(100% - 2.5em) 0.5em;
+        background-size:
+          5px 5px,
+          5px 5px,
+          1px 1.5em;
+        background-repeat: no-repeat;
+
+        option{
+          color: black !important;
+        }
+          }
+        }
+
+        .ad-button{
+          .ad-btn{
+            width: 100%;
+            margin: 0;
+            box-shadow: none;
+            background: #1D5EDD;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            height: 35px;
+          }
+        }
+    
+      }
+    }
+
+    .vo-content{
+      
+
+      max-width: 575px;
+      position: absolute;
+      left: 80px;
+      bottom: 30%;
+
+      .vo-heading{
+        color: white;
+        font-size: 42px;
+        font-weight: 700;
+      }
+    }
+
+    .vo-following-main{
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      .gap-10{
+        gap: 10px;
+      }
+
+      .profile-img{
+        width: 33px;
+        height: 33px;
+        min-width: 33px;
+        max-width: 33px;
+        border-radius: 50%;
+        background-color: aquamarine;
+      }
+
+      .profile-text{
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .following-btns{
+        display: flex;
+        gap: 10px;
+
+        .following-button{
+          box-shadow: none;
+          margin: 0;
+          font-size: 14px;
+          font-weight: 700;
+          background: rgba($color: #181818, $alpha: 0.5) !important;
+          border: 1px solid #fff;
+          border-radius: 5px;
+          color: white;
+          height: 32px;
+        }
+
+        .icon-button{
+          box-shadow: none;
+          margin: 0;
+          font-size: 14px;
+          font-weight: 700;
+          background: rgba($color: #181818, $alpha: 0.5) !important;
+          border: 1px solid #000;
+          border-radius: 5px;
+          color: white;
+          height: 32px;
+          width: 32px !important;
+          display: flex;
+          justify-content: center;
+          min-width: auto;
+
+          .invert{
+            filter: invert(1);
+          }
+        }
+    }
+  }
+}
 }
 .video-js button {
   outline: none;
