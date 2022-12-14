@@ -2,9 +2,14 @@ import _ from 'lodash'
 // import AuthService from '@/services/auth'
 import OrderService from '@/services/order'
 import { Stripe } from '@/helper'
+import contentTopHeader from '@/components/contentTopHeader'
+import activityProductCard from '@/components/activityproductcard'
 
 export default {
-  components: {},
+  components: {
+    contentTopHeader,
+    activityProductCard 
+  },
 
   data() {
     return {
@@ -12,6 +17,10 @@ export default {
       order_id: null,
       order_detail: null,
       isPageReady: false,
+      tabs: [
+        { id: 'cart', title: 'Cart', },
+        { id: 'history', title: 'Order History', },
+      ],
     }
   },
 
@@ -118,6 +127,18 @@ export default {
   methods: {
     isDigitalProduct(item) {
       return _.get(item, 'product.category.is_digital', false)
+    },
+    isActiveTab(tab) {
+      return this.active_tab === tab
+    },
+    onTab(tab) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab,
+        query: {
+          grid_view: this.grid_show,
+        },
+      })
     },
   },
 

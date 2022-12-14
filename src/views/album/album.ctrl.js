@@ -22,6 +22,7 @@ import trackCard from '@/components/trackcard'
 import videoCard from '@/components/videocard'
 import Comments from '@/components/comments'
 import featuredProduct from '@/components/featuredProduct'
+import CollectionService from '@/services/collection'
 
 const ActionCable = require('actioncable')
 
@@ -206,6 +207,22 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    addToCollection() {
+      let params = { album_id: this.album.id }
+      CollectionService.createCollection(params)
+      .then((response) => {
+        this.$store.dispatch('error/showSuccessToast', [
+          'You just added ' + this.album.name + ' album in your collection.',
+        ])
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast',
+          e.body.errors || [e.body] || [e.body.error]
+        )
+      })
+    },
+
     loadData() {
       const vm = this
       this.slug = this.$route.params.slug
@@ -322,7 +339,7 @@ export default {
         .catch((reason) => {
           console.log(reason)
           // this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', reason)
+          this.$store.dispatch('error/showErrorToast', reason.body.errors || reason)
         })
     },
 

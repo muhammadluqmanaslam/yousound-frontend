@@ -32,6 +32,7 @@ export default {
     subtitle: String,
     coverRadius: Boolean,
     round: Boolean,
+    id: Number,
   },
   computed: {
     videoWidth() {

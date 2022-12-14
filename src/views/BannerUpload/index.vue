@@ -16,6 +16,10 @@
             </div>
       
             </div>
+
+            <router-link to="/upload" class="repost-banner-back">
+                < Back
+            </router-link>
           </div>
     </div>
 </template>
@@ -33,24 +37,15 @@
     position: relative;
     z-index: 50;
 
-    .repost-banner-close{
+    .repost-banner-back{
         position: absolute;
-        top: 15px;
-        right: 15px;
-        background-color: white;
-        width: 25px;
-        height: 25px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
+        top: 35px;
+        left: 66px;
         cursor: pointer;
-
-        img{
-            filter: invert(1);
-        }
-
-
+        font-size: 14px;
+        color: white;
+        font-weight: bold;
+        font-family: 'DM Sans';
     }
 
     @media screen and (max-width: 1275px){
@@ -69,7 +64,7 @@
     }
 .repost-content{
 width: 50%;
-max-width: 500px;
+max-width: 515px;
     .repost-head{
         color: white;
         font-size: 36px;

@@ -6,10 +6,34 @@
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 1);
   }
+
+  &.album-credits-dialog{
+    width: 80% !important;
+    max-width: 1000px;
+  }
+
+  &.logout-modal{
+    width: 70% !important;
+    max-width: 800px;
+  }
   &:not(.dialog--fullscreen) {
     width: 500px;
     border-radius: 6px;
     overflow: auto;
+  }
+  &.info-dialog{
+    width: 70% !important; 
+    max-width: 1100px !important;
+  }
+
+  &.product-attach-dialog{
+    width: 60% !important;
+    max-width: 700px !important;
+  }
+
+  &.feature-modal{
+    width: 75% !important;
+    max-width: 1170px !important;
   }
 
   &.collaborators-success-dialog{

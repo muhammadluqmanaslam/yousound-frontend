@@ -9,7 +9,7 @@
               It’s all for you.
             </p>
             <v-btn v-if="!isAuthenticated" class="signup_btn" to="/login"> Sign In </v-btn>
-            <v-btn v-else @click="$router.push({name: 'DiscoverIndex'})" class="signup_btn">Discover </v-btn>
+            <v-btn v-else @click="$router.push({name: 'AlbumIndex'})" class="signup_btn">Discover </v-btn>
           </div>
         </v-flex>
       </v-layout>

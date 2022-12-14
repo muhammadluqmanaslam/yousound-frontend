@@ -78,6 +78,9 @@
       border-radius: 4px;
       background-size: cover;
       background-position: center center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       label {
         // position: absolute;
         // top: 50%;

@@ -119,7 +119,7 @@
 <script>
 import BannerUpload from '../BannerUpload'
 import iconImage from '../../assets/flashlight-white.svg'
-import mainImage from '../../assets/live-drop.gif'
+import mainImage from '../../assets/music-drop.gif'
 import dragFileUploader from '@/components/dragFileUploader'
 import VideoService from '@/services/video'
 import * as UpChunk from '@mux/upchunk'

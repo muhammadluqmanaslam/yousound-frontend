@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       active_tab: 'albums',
+      showAdvnacedSearch: false,
       tabs: [
         { id: 'albums', title: 'Albums', name: 'AlbumIndex' },
         // { id: 'playlists', title: 'Playlists', name: '' },

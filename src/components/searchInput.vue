@@ -1,5 +1,5 @@
 <template>
-  <div class="search-input" :class="{ isOnMobile }">
+  <div class="search-input theme-black" :class="{ isOnMobile }">
     <transition name="slide-fade">
       <div class="global-search-box" :class="[`is_${theme}`, {isRound}]">
         <img

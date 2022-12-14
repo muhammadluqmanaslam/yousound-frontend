@@ -40,6 +40,7 @@ export default {
       topBarContent: 'Connect your Stripe account to start accepting payments',
       showPolicyActive: false,
       product_categories: [],
+      product_upload_successfully: false,
       destinations: [
         {
           value: 'United States',
@@ -124,6 +125,10 @@ export default {
       users: [],
       collaborators_confirm_dialog: false,
       isPageReady: false,
+      productUrl: null,
+      loading: false,
+      product_category: null,
+      confirmationImage: null,
     }
   },
 
@@ -248,6 +253,18 @@ export default {
   },
 
   methods: {
+    onCopy: function (e) {
+      this.$store.dispatch("error/showSuccessToast", [
+        "You just copied: " + e.text,
+      ]);
+      // alert('You just copied: ' + e.text)
+    },
+
+    onError: function (e) {
+      this.$store.dispatch("error/showErrorToast", ["Failed to copy link"]);
+      // alert('Failed to copy link')
+    },
+
     isActiveTab(tab) {
       return this.activeTab === tab
     },
@@ -387,7 +404,7 @@ export default {
     },
 
     saveProduct() {
-      this.hideCollaboratorsConfirmDialog()
+      this.loading = true
       this.$store.dispatch('error/showLoadingActivity', true)
       const formData = new FormData()
       formData.append('shop_product[name]', this.product.name)
@@ -462,6 +479,9 @@ export default {
 
       ProductService.addProduct(formData)
         .then((response) => {
+          this.loading = false
+          this.product_category = response.body.category.name
+          this.confirmationImage = response.body.covers[0].cover.url
           this.$store.dispatch('error/showLoadingActivity', false)
           if (this.product.collaborators.length > 0) {
             this.$store.dispatch('navigator/setParams', {
@@ -469,10 +489,13 @@ export default {
             })
             this.$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })
           } else {
-            this.$router.push({ path: '/sell#products' })
+            this.productUrl = window.location.origin + '/product/' +response.body.id
+            // this.$router.push({ path: '/sell#products' })
+            this.product_upload_successfully = true
           }
         })
         .catch((e) => {
+          this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
             'error/showErrorToast',

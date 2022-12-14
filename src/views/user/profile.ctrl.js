@@ -57,11 +57,11 @@ export default {
       tabs: [
         { id: 'catalog', title: 'Catalog', roles: ['label'], icon: require('../../../static/images/grid-interface.svg') },
         { id: 'artists', title: 'Artists', roles: ['label'] },
-        { id: 'songs', title: 'Music', roles: ['artist'], icon: require('../../../static/images/music.svg') },
-        { id: 'video', title: 'Video', roles: ['artist'], icon: require('../../../static/images/video.svg') },
-        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'], icon: require('../../../static/images/shop.svg') },
-        { id: 'reposted', title: 'Reposted', icon: require('../../../static/images/ic_repost.svg') },
-        { id: 'downloaded', title: 'Downloaded', icon: require('../../../static/images/download.svg') },
+        { id: 'songs', title: 'Music', icon: require('../../../static/images/music.svg') },
+        { id: 'video', title: 'Video', icon: require('../../../static/images/video.svg') },
+        { id: 'merch', title: 'Shop', icon: require('../../../static/images/shop.svg') },
+        { id: 'reposted', title: 'Reposted', roles: ['label'], icon: require('../../../static/images/ic_repost.svg') },
+        { id: 'downloaded', title: 'Downloaded', roles: ['label'], icon: require('../../../static/images/download.svg') },
         { id: 'followings', title: 'Following' },
         { id: 'followers', title: 'Followers' },
       ],
@@ -332,7 +332,7 @@ export default {
             this.$store.dispatch('error/showErrorToast', [
               'User does not exist',
             ])
-            this.$router.push({ name: 'DiscoverIndex' })
+            this.$router.push({ name: 'AlbumIndex' })
             return
           }
 

@@ -1,4 +1,63 @@
+.order-detail-btn {
+  
+  font-size: 14px;
+  color: #000;
+  letter-spacing: 0;
+  cursor: pointer;
+  padding: 0 5px;
+  font-weight: bold;
+  opacity: 50%;
+
+  &:hover{
+    opacity: 100%;
+  }
+}
+
+.message-buyer-btn {
+  
+  margin-top: 7.5px;
+  font-size: 14px;
+  color: #000;
+  letter-spacing: 0;
+  cursor: pointer;
+  padding: 0 5px;
+  font-weight: bold;
+  opacity: 50%;
+  min-width: 150px;
+
+  &:hover{
+    opacity: 100%;
+  }
+}
+
+
 .page.sell-page {
+
+  .w-100{
+    width: 100%;
+  }
+  .menu-content-x {
+    .btn {
+      background: none !important;
+      border: none !important;
+      width: 37.5px;
+      min-width: 37.5px;
+      box-shadow: none;
+      .btn__content {
+        padding: 0;
+      }
+      i {
+        margin: 0;
+      }
+    }
+    .img {
+      font-size: 13.5px;
+      color: #000000;
+      letter-spacing: 0;
+      line-height: 30px;
+    }
+  }
+
 
   .add-option-btn {
     margin: 0px;
@@ -63,8 +122,8 @@
         // margin-right: 30px;
         // width: calc(100% - 262.5px);
         .profile-avatar {
-          width: 60px;
-          height: 60px;
+          width: 50px;
+          height: 50px;
           display: inline-block;
           .order-item-profile-avatar {
             border: 0.75px solid #cacaca;
@@ -81,6 +140,8 @@
             font-size: 14px;
             color: #000000;
             letter-spacing: 0;
+            font-weight: bold;
+            display: block;
           }
           .order-detail-text {
             font-size: 14px;
@@ -118,7 +179,8 @@
       .order-content-section {
         display: flex;
         background: #ffffff;
-        border: 0.75px solid #d7d7d7;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px 0px 0px 10px;
         padding: 7.5px;
         .order-content-container {
           display: flex;
@@ -171,11 +233,15 @@
         }
       }
       .order-status-section {
-        background: #f6f6f6;
+        background: #fff;
         height: 100%;
         display: flex;
-        flex-direction: column;
         align-items: center;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-left: none;
+        border-radius: 0px 10px 10px 0px;
+        justify-content: space-between;
+        padding: 0 35px;
 
         &.digital {
           background-color: transparent;
@@ -189,6 +255,7 @@
           font-size: 14px;
           color: #000000;
           letter-spacing: 0;
+          font-weight: bold;
         }
         .order-status-btn {
           margin: 0;

@@ -1,6 +1,6 @@
 <template>
   <v-layout v-if="isPageReady" row wrap class="page no-top-nav album-detail-page">
-    <v-flex xs12 class="album-pages" v-if="isPageReady">
+    <v-flex xs12 class="album-pages margin-top-header" v-if="isPageReady">
       <canvas id="canvas" class="background-image"></canvas>
       <div id="back_image" class="background-overlay"></div>
       <div class="album-info-page" id="album_info_page">
@@ -109,7 +109,18 @@
                   </v-list-tile>
 
                   <v-list-tile
-                    v-if="currentUser && album.user.username === currentUser.username"
+                    key="collection"
+                    class="default-menu-item"
+                    @click.native="addToCollection()"
+                  >
+                    <v-list-tile-title>
+                      <!-- <img class="track-status-icon" src="/static/images/ic_share.png" /> -->
+                      <label>Add To Collection</label>
+                    </v-list-tile-title>
+                  </v-list-tile>
+
+                  <v-list-tile
+                    v-if="album.user.username === currentUser.username"
                     key="edit"
                     class="default-menu-item"
                     :to="{ name: 'UploadAlbum', params: { slug: album.slug } }"
@@ -347,6 +358,8 @@
                     <track-card
                       :objects="album.user.recent_items"
                       :objectIndex="index"
+                      hideTrackLength
+                      hidePlayButton
                       v-if="feed.assoc_type == 'Album'"
                     />
                     <product-card
@@ -370,15 +383,57 @@
     <div class="credits-dialog-wrapper">
       <v-dialog
         v-model="dialog"
-        class="album-credits-dialog"
+        content-class="album-credits-dialog"
         scrollable
-        max-width="600px"
       >
-        <v-card class="album-dialog-body">
+
+      <div class="album-credit-main">
+        <div class="album-title-main">
+          <img src="../../assets/paper.svg" width="24">
+          <h2 class="album-credit-head">Album Credits</h2>
+        </div>
+
+        <div class="album-main-body">
+          <div class="album-img">
+            <img src="../../assets/album-drop.gif" width="100%">
+          </div>
+          <div class="album-content">
+            <div>
+              <h3 class="album-name">Album Name</h3>
+              <div class="artist-name">Artist Name</div>
+
+              <div class="album-info mt-1">1 track  •  R&B / Soul   •  Uploaded 3 days ago</div>
+
+            </div>
+
+
+            <div class="mt-3">
+              <div class="album-title-x">Released date</div>
+              <div class="album-content-x">Jan 21, 1977</div>
+            </div>
+
+            <div class="mt-3">
+              <div class="album-title-x">Credits</div>
+              <div class="album-content-x">Artist name, Artist name, Artist name, Artist name, Artist name, Artist name, Artist name,
+                Artist name, Artist name, Artist name, Artist name, Artist name, Artist name, Artist name</div>
+            </div>
+
+            <div class="mt-3">
+              <div class="album-title-x">Location this album represents</div>
+              <div class="album-content-x">Atlanta, Georgia, United States</div>
+            </div>
+
+             <div class="mt-3">
+              <div class="album-title-x">About this album</div>
+              <div class="album-content-x">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+        <!-- <v-card class="album-dialog-body">
           <v-card-title>Album Credits</v-card-title>
-          <v-btn class="dialog-close-btn" @click.native="dialog = false"
-            ><v-icon>highlight_off</v-icon></v-btn
-          >
+          
           <v-card-text style="height: 300px">
             <v-flex xs12 sm12>
               <label class="album-info-label">Album Name: </label>
@@ -477,7 +532,7 @@
               <label class="album-info-text">{{ album.description }}</label>
             </v-flex>
           </v-card-text>
-        </v-card>
+        </v-card> -->
       </v-dialog>
     </div>
 

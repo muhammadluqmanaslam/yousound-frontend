@@ -1,4 +1,9 @@
 <template>
+  <div @dblclick="mini = !mini">
+    <div v-if="showNotification" class="notifcation-wrapper">
+      <div class="notification-overlay" @click="showNotification = false"></div>
+      <notifcationDrawer :leftPos="mini ? 100 : 300"/>
+    </div>
   <v-navigation-drawer
     permanent
     app
@@ -9,7 +14,7 @@
     :width="sideBarWidth"
     class="sidebar"
   >
-    <div @dblclick="mini = !mini" class="sidebar-decoy"></div>
+    <div  class="sidebar-decoy"></div>
 
     <div class="pa-3 tabs-auth-wrapper">
       <div class="dflex justify-space-between align-center mb-3">
@@ -27,21 +32,24 @@
           @click="searchActive = !searchActive"
         >
         </span> -->
-        <div v-if="!mini" class="toggle-sidebar">
+        <div class="notify-icon" @click="toggleNotification()" v-if="!mini">
+          <img src="../../assets/notify-bell.svg" width="16px" class="cursor-pointer">
+        </div>
+        <!-- <div v-if="!mini" class="toggle-sidebar">
           <img
             class="cursor-pointer"
             :class="{ inversed: !mini }"
             @click.stop="mini = !mini"
             src="/static/images/slide-right.svg"
           />
-        </div>
+        </div> -->
       </div>
 
       <search-input
         v-if="!mini"
         :senderRoute="$route.name"
         :isRound="false"
-        theme="dark"
+        theme="sidebar"
         placeholder="Search"
         :preIcon="require('@/assets/sidebar_search.svg')"
       />
@@ -62,18 +70,8 @@
           <span class="icon_text">LIVE</span>
         </span>
       </div>
-      <v-dialog v-model="showRegisterModal">
-        <v-card>
-          <v-card-title class="headline"
-            >Register</v-card-title
-          >
-          <v-card-text
-            >Please do signup if you want to proceed.</v-card-text
-          >
-          <v-card-actions>
-            <v-spacer></v-spacer>
-          </v-card-actions>
-        </v-card>
+      <v-dialog v-model="show_logout_modal" content-class="logout-modal">
+        <logoutModal />
       </v-dialog>
 
       <!-- isAuthenticated: {{ isAuthenticated }} -->
@@ -84,6 +82,11 @@
             <h3 v-if="parent.name" class="px-3 subheader">{{ parent.name }}</h3>
           </h4>
           <div>
+            <v-list-tile class="dflex justify-center align-center" v-if="mini">
+              <div class="notify-icon" @click="toggleNotification()">
+                <img src="../../assets/notify-bell.svg" width="16px" class="cursor-pointer">
+              </div>
+            </v-list-tile>
             <v-list-tile
               v-for="(subMenu, ii) in parent.items"
               :key="ii"
@@ -237,9 +240,13 @@
         </v-list>
       </template>
     </div>
-
+    
+    <div class="divider mb-3 mt-4"></div>
     <v-spacer></v-spacer>
+    
 
+
+    <div v-if="!mini">
     <side-audio-placeholder v-if="!$store.getters['player/isPlaying']" />
     <transition v-if="!onMobile" name="slide-fade">
       <side-audio-player
@@ -248,6 +255,33 @@
         v-show="$store.getters['navigator/hasAudioPlayer']"
       ></side-audio-player>
     </transition>
+  </div>
+
+  <div class="thumbnail-mini-song" v-if="mini">
+    <img :src="this.$store.state.player.currentTrackPlaying && this.$store.state.player.currentTrackPlaying.album && this.$store.state.player.currentTrackPlaying.album.cover.url" width="100%">
+  </div>
+
+    <v-spacer></v-spacer>
+
+    <div class="side-lang-outer my-5" v-if="!mini">
+      <div class="sidebar_lang">
+
+        <div class="lang-main" @click="(show_language_modal = true)">
+          <img src="../../assets/uk-flag.svg" width="12">
+          <div class="lang-title">English</div>
+        </div>
+
+        <div v-if="!mini" class="toggle-sidebar">
+          <img
+            class="cursor-pointer mt-1"
+            @click.stop="mini = !mini"
+            src="/static/images/slide-right.svg"
+            width="12"
+          />
+        </div>
+
+      </div>
+    </div>
 
     <div v-if="mini" class="toggle-sidebar _bottom">
       <img
@@ -258,6 +292,10 @@
       />
     </div>
   </v-navigation-drawer>
+
+  <v-dialog  v-model="show_language_modal" content-class="my-genre-dialog ma-0 pa-2" >
+    <languageModal/>
+  </v-dialog>
 
 </div>
 </template>

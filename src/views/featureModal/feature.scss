@@ -1,0 +1,78 @@
+.feature-bar-container{
+    background-color: white;
+    padding: 35px 50px;
+    border-radius: 10px;
+    font-family: 'Inter';
+
+    .main-text{
+        font-weight: 700;
+        font-size: 24px;
+        color: black;
+    }
+
+    .divider{
+        background-color: rgba($color: #000000, $alpha: 0.1);
+        height: 1px;
+        width: 100%;
+    }
+    .feature-head{
+        font-weight: 700;
+        font-size: 16px;
+        color: black;
+    }
+
+    .post-content{
+        margin: 0;
+        box-shadow: none;
+        background-color: #21AE6B !important;
+        border-radius: 6px;
+        font-size: 16px;
+        color: white;
+        height: 46px;
+        font-weight: bold;
+    }
+
+
+    .feature-flex{
+        display: flex;
+        justify-content: space-between;
+        gap: 45px;
+
+        .w-75{
+            width: 75%;
+        }
+        .w-25{
+            width: 25%;
+        }
+
+        .input-feature{
+            
+            .label-title{
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: rgba($color: #000000, $alpha: 0.8);
+            }
+            .label-time{
+                font-weight: 500;
+                font-size: 16px;
+                color: rgba($color: #000000, $alpha: 0.6);
+            }
+
+            .feature-input{
+                width: 100%;
+                border-radius: 6px;
+                border: 1px solid rgba($color: #000000, $alpha: 0.3);
+                color: black;
+                height: 40px;
+                padding: 0 12px;
+            }
+        }
+
+        .feature-img{
+            img{
+                border-radius: 8px;
+            }
+        }
+    }
+
+}

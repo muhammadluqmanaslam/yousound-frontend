@@ -21,6 +21,7 @@ import mobileComments from '@/views/mobile/components/mobileComments'
 import commentInput from '@/components/commentInput'
 import UserFollowBtn from '@/components/userFollowBtn';
 import { mapActions } from 'vuex'
+import CollectionService from '@/services/collection'
 
 const ActionCable = require('actioncable')
 
@@ -59,6 +60,8 @@ export default {
       moment: moment,
       showSendLoveModal: false,
       showMoreActive: false,
+      showAttachProduct: false,
+      selectAttactProduct: 3,
       stream: {},
       stream_assoc: {
         type: 'Album',
@@ -383,13 +386,13 @@ export default {
       StreamService.repostStream(this.stream.id)
         .then((res) => {
           this.$store.dispatch('error/showSuccessToast', [
-            'You just reposted ' + this.stream.name,
+            'You just added ' + this.stream.name + ' stream in your collection.',
           ])
         })
         .catch((e) => {
           this.$store.dispatch(
             'error/showErrorToast',
-            e.body.errors || [e.body]
+            e.body.errors || [e.body] || [e.body.error]
           )
         })
     },

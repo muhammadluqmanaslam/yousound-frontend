@@ -1,8 +1,73 @@
+.page-content{
+    margin-top: 45px;
+}
+.filter-invert{
+    filter: invert(1);
+}
+.w-100{
+    width: 100;
+}
+
+.gap-20{
+    gap: 20px;
+}
+
+.general-heading {
+    font-family: 'Inter',sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+.divider-x{
+    width: 100%;
+    height: 1px;
+    background-color: rgba($color: #000000, $alpha: 0.2);
+}
+
+.info-dialog{
+    width: 70% !important; 
+    max-width: 1100px !important;
+
+    .card{
+        padding: 30px;
+    }
+    .modal-head{
+        font-size: 16px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        color: black;
+        opacity: 50%;
+
+        &.active{
+            opacity: 100%;
+        }
+    }
+
+    .modal-body-text{
+        font-size: 16px;
+        font-weight: 400;
+    }
+}
+
 .single-product-page {
+
+
+    
     .product-container {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        font-family: 'Inter', sans-serif;
+
+
+
+        .product-section{
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-group--select__autocomplete{
+            background-color: transparent !important;
+        }
 
         .product-side-thumbnails {
             // width: 17%;
@@ -17,9 +82,11 @@
                 width: 130px;
                 background-position: center;
                 background-size: cover;
-                margin-bottom: 10px;
+                margin-bottom: 25px;
                 cursor: pointer;
                 box-shadow:  none;
+                border-radius: 25px;
+                overflow: hidden;
 
                 &::after {
                     content: "";
@@ -53,35 +120,71 @@
         }
     }
 
+    .flex-center{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .w-80{
+            width: 80%;
+        }
+    }
+
+    .info-link-container{
+        .gap-15{
+            gap: 10px;
+        }
+        .info-modal-links{
+            margin-bottom: 15px;
+            
+            cursor: pointer;
+            &:hover{
+                opacity: 80%;
+            }
+            
+        }
+
+        .info-link-text{
+            font-weight: 500;
+            font-size: 16px;
+            color: rgba(0,0,0,1);
+            font-family: 'Inter', sans-serif;
+        }
+    }
     .product-category {
-        font-weight: 500;
+        font-weight: bold;
+        font-size: 14px;
+        color: rgba(0,0,0,0.5);
+        font-family: 'Inter', sans-serif;
     }
     .product-name {
-        font-size: 32px;
+        font-size: 34px;
         font-weight: bold;    
+        color: black;
         line-height: 1;
-        margin: 10px 0;
+        font-family: 'Inter', sans-serif;
     }
     .product-merchant {
         display: flex;
         align-items: center;
-        & .__avatar {
-            height: 30px;
-            width: 30px;
+        & .tag__image {
+            height: 50px;
+            width: 50px;
             background-size: cover;
             background-position: center;
             border-radius: 100%;
             margin-right: 10px;
         }
-        & .__owner{
+        & .tag__name{
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
         }
     }
     .product-price {
-        font-size: 18px;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -1%;
         margin: 10px 0 30px 0;
     }
     .product-options {
@@ -92,9 +195,10 @@
         }
     }
     .product-addTobag {
-        text-transform: capitalize;
-        margin-top: 30px;
+        margin-top: 15px;
         height: 50px;
+        font-size: 16px;
+        font-weight: bold;
     }
     .product-description {
         line-height: 2;
@@ -119,16 +223,20 @@
             // padding: 10px 20px;
             justify-content: center;
         }
-        .follow-btn {
+        .follow-btx {
             text-transform: none;
             box-shadow: none;
-            height: 36px;
+            height: 31px;
             font-size: 14px;
             letter-spacing: 0;
             min-width: 100px;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: bold;
+            border-radius: 4px;
+
             &.follow {
-                border: 1px solid #1872ff;
-                background-color: #1872ff !important;
+                border: 1px solid #076AFF;
+                background-color: #076AFF !important;
                 color: #fff !important;
             }
             &.following {

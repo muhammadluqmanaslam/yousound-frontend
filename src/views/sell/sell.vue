@@ -35,7 +35,7 @@
     </content-top-header>
 
     <div class="page-content" v-if="currentUser && isPageReady">
-      <template><b>Sort By Date:</b> 
+      <!-- <template><b>Sort By Date:</b> 
         <select class="pr-3 width20 sortOrdersSelect" @change="sortItems($event)">
           <option
             v-for="sortOpt in sorting"
@@ -48,7 +48,7 @@
             <label>{{ sortOpt.name }}</label>
           </option>
         </select>
-      </template>
+      </template> -->
       <template v-if="active_tab == 'orders'">
         <div
           v-if="!orderHistories || orderHistories.length == 0"
@@ -56,7 +56,7 @@
         >
           <p class="empty-title">You have no orders</p>
         </div>
-        <v-card v-else flat class="relative">
+        <div v-else flat class="relative">
           <div
             v-for="(order, index) in orderHistories"
             :key="index"
@@ -65,38 +65,74 @@
             <template v-if="currentUser.id == order.merchant.id">
               <div class="profile-section">
                 <v-layout row>
-                  <div class="profile-content-section relative">
-                    <div class="profile-avatar">
+                  <div class="profile-content-section relative w-100">
+                    <div class="dflex justify-space-between align-center w-100">
+                    <div class="dflex align-center">
+
+
+                    <div class="profile-avatar mr-2">
                       <profile-item
                         :user="order.customer"
                         :className="'order-item-profile-avatar'"
                       ></profile-item>
                     </div>
+
+
                     <div>
+                    
                       <div class="profile-content">
                         <a href="#" class="user-name">{{
                           order.customer.username
                         }}</a>
+
                         <label class="order-detail-text">
-                          purchased
-                          <b>${{ order.amount | formatNumber }}</b></label
+                          Purchased
+                          <b> 
+                            {{ order.created_at | formatDate }}
+                          </b></label
                         >
                       </div>
-                      <div class="profile-actions">
-                        <router-link
-                          :to="`/sell/order/${order.id}`"
-                          class="order-detail-btn"
-                          >View Order Details</router-link
-                        >
-                        <a
-                          class="message-buyer-btn"
-                          @click="showMessageDialog(order)"
-                          >Message Buyer</a
-                        >
-                      </div>
+                   
                     </div>
+                  
                   </div>
-                  <div class="status-section text-xs-center"></div>
+
+
+                    <div>
+                      <v-menu
+              
+                      down
+                      offset-y
+                      :nudge-top="-5"
+                      class="menu-content-x"
+                    >
+                      <v-btn round slot="activator">
+                        <v-icon dark right>more_horiz</v-icon>
+                      </v-btn>
+                      <v-list class="list-class">
+                        <v-list-tile
+                        
+                        >
+                          <v-list-tile-content>
+                            <router-link
+                            to="`/sell/order/"
+                            class="order-detail-btn"
+                            >Order Details</router-link
+                          >
+                          <a
+                            class="message-buyer-btn"
+                            >Message Buyer</a
+                          >
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
+                    </div>
+
+
+                    
+                  </div>
+                </div>
                 </v-layout>
               </div>
 
@@ -105,7 +141,7 @@
                 :key="item.id"
                 class="order-section"
               >
-                <v-container :fluid="isSidebarMini" grid-list-xl fill-height class="pa-0 pl-4">
+                <v-container :fluid="isSidebarMini" grid-list-xl fill-height class="pa-0 mt-3">
                   <v-layout
                     v-if="
                       activeFilterItemStatus == '' ||
@@ -113,7 +149,7 @@
                     "
                     row
                   >
-                    <v-flex xs9>
+                    <v-flex xs8 class="px-0">
                       <div class="order-content-section">
                         <div class="order-content-container">
                           <div
@@ -144,13 +180,11 @@
 
                         <v-spacer></v-spacer>
 
-                        <div class="order-date">
-                          {{ order.created_at | formatDate }}
-                        </div>
+                       
                       </div>
                     </v-flex>
 
-                    <v-flex xs3>
+                    <v-flex xs4 class="px-0">
                       <div
                         class="order-status-section text-xs-center digital"
                         v-if="isDigitalProduct(item)"
@@ -163,7 +197,7 @@
                         class="order-status-section text-xs-center"
                         v-else-if="item.status == 'item_ordered'"
                       >
-                        <p class="order-status-text">Pending</p>
+                        <p class="order-status-text">Ship by 9/21/2022</p>
                         <v-btn
                           class="order-status-btn ship"
                           @click.native.stop="openShipConfirmModal(item)"
@@ -305,7 +339,7 @@
               >Load More</v-btn
             >
           </div>
-        </v-card>
+        </div>
       </template>
 
       <template v-if="active_tab == 'products'">
@@ -588,6 +622,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </div>
 </template>
 

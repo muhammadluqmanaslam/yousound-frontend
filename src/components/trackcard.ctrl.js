@@ -8,12 +8,14 @@ import PlaylistService from '@/services/playlist'
 import albumReportDialog from '@/components/album_report_dialog'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
+import featureModal from "@/views/featureModal"
 
 export default {
   components: {
     albumReportDialog,
     downloadModal,
     shareModal,
+    featureModal,
   },
 
   props: {
@@ -26,6 +28,10 @@ export default {
       default: false,
     },
     hideTrackLength: {
+      type: Boolean,
+      default: false,
+    },
+    hidePlayButton: {
       type: Boolean,
       default: false,
     },
@@ -52,6 +58,7 @@ export default {
     return {
       showDownloadModal: false,
       showShareModal: false,
+      showFeatureModal: false,
       hide_dialog: false,
       show_report_dialog: false,
       playlist_dialog: false,
@@ -189,7 +196,6 @@ export default {
         return this.$router.push(`/${this.item.album_type}/${this.item.slug}`)
       }
     },
-
     playSong() {
       if (this.isPlaying && this.$store.state.player.isPaused) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
@@ -220,6 +226,16 @@ export default {
             e.body.errors || [e.body]
           )
         })
+    },
+
+    totalTime() {
+      if (window.location.href.includes("collection") || window.location.href.includes("playlist")) {
+        var secs = Math.round(this.item.track.duration)
+        var minutes = Math.floor(secs / 60) || 0;
+        var seconds = secs - minutes * 60 || 0;
+
+        return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+      }
     },
 
     openReportDialog() {

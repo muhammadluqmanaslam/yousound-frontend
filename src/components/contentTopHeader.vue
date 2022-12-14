@@ -12,7 +12,7 @@ export default {
   props: {
     absolute: Boolean,
     height: {
-      default: 73,
+      default: '73',
     },
   },
 }

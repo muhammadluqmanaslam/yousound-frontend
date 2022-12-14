@@ -1,0 +1,43 @@
+.logout-modal{
+    background: white;
+    border-radius: 20px;
+    padding: 30px 50px;
+
+    .logout-flex{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logout-content{
+            width: 100%;
+
+            .logout-heading{
+                font-size: 30px;
+                line-height: 1.1;
+            }
+
+            .btns-wrapper{
+                .signup{
+                    margin: 0;
+                    box-shadow: none;
+                    background-color: black !important;
+                    color: white;
+                    font-weight: bold;
+
+                }
+                .login{
+                    margin: 0;
+                    box-shadow: none;
+                    background-color: transparent !important;
+                    color: black;
+                    font-weight: bold;
+
+                }
+            }
+        }
+
+        .logout-img{
+            width: 100%;
+        }
+    }
+}

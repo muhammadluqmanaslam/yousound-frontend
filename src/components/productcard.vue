@@ -10,14 +10,6 @@
       pa-0
       class="product-info"
     >
-      <!-- <v-flex xs12 class="product-user" v-if="false" pa-0>
-        <router-link :to="'/' + publisher.slug"><div class="product-user-avatar" :style="{'background-image': 'url(' + publisher.avatar.thumb.url + ')'}"/></div></router-link>
-        <profile-item :user="publisher" :className="'product-user-avatar'"></profile-item>
-        <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.username }}</p></router-link>
-        <div class="product-posted-at">
-          <img class="product-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
-        </div>
-      </v-flex> -->
       <v-flex xs12 class="product-cover" :class="{ 'px-0': onMobile }">
         <p class="product-price">${{ item.price | formatNumber }}</p>
         <div
@@ -27,16 +19,19 @@
           }"
         >
           <div
-            v-if="showFullOverlay"
+           
             class="full-overlay"
             @click="
               currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
             "
           >
-            <v-icon class="full-overlay_icon icon white--text">visibility</v-icon>
             <div class="hover-info">
               <div class="item-name">{{ item.name }}</div>
               <div class="artist-name">{{ item.merchant.username }}</div>
+            </div>
+            <div class="mt-3 dflex justify-space-between align-center w-100">
+              <div class="items-price">${{ item.price | formatNumber }}</div>
+              <div class="item-plus"><img src="../assets/plus.svg" width="15px"></div>
             </div>
           </div>
         </div>
@@ -84,7 +79,7 @@
 
       <div @click="currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()">
         <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
-          <user-tag showAvatar class="tag" :user="item.merchant" />
+          
           <p
             class="product-name cursor-pointer"
             @click="
@@ -93,11 +88,12 @@
           >
             {{ item.name }}
           </p>
-          <div v-if="!hideOptionCount" class="product-options-count">
+          <user-tag class="tag" :user="item.merchant" />
+          <!-- <div v-if="!hideOptionCount" class="product-options-count">
             <span>{{ item.variants.length }} Option</span>
             <span v-if="item.variants.length > 1">s</span>
-          </div>
-          <p class="product-price">${{ item.price | formatNumber }}</p>
+          </div> -->
+          <!-- <p class="product-price">${{ item.price | formatNumber }}</p> -->
           <!-- <p class="product-user-name">
             <router-link :to="'/' + owner.slug" v-if="item.collaborators_count == 0">{{ owner.username }}</router-link>
             <template v-else-if="item.collaborators_count == 1">
@@ -163,18 +159,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="showRegisterModal">
-      <v-card>
-        <v-card-title class="headline"
-          >Register</v-card-title
-        >
-        <v-card-text
-          >Please do signup if you want to proceed.</v-card-text
-        >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
+    <v-dialog v-model="show_logout_modal" content-class="logout-modal">
+      <logoutModal />
     </v-dialog>
   </v-flex>
 </template>
@@ -185,6 +171,7 @@ import profileItem from "@/components/profileitem";
 import ProductService from "@/services/product";
 import shareModal from "@/components/sharemodal";
 import UserTag from "@/components/user_tag";
+import logoutModal from '../views/LogoutModal'
 
 export default {
   components: {
@@ -192,6 +179,7 @@ export default {
     shareModal,
     profileItem,
     UserTag,
+    logoutModal,
   },
 
   props: {
@@ -235,7 +223,7 @@ export default {
       show_hide_dialog: false,
       is_component_hover: false,
       is_menu_hover: false,
-      showRegisterModal: false,
+      show_logout_modal: false,
     };
   },
 
@@ -279,7 +267,7 @@ export default {
 
   methods: {
     spotlightVideo() {
-      this.showRegisterModal = true
+      this.show_logout_modal = true
     },
 
     openMerchDialog() {

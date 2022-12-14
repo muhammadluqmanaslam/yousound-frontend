@@ -1,7 +1,20 @@
 <template>
   <div v-scroll="handleScroll">
-    <div class="page profile-grid-page mx-5 margin-top-header" :class="{onMobile}">
-      <content-top-header height="100">
+    <div 
+      v-if="
+        currentUser &&
+        user.id != currentUser.id &&
+        user.username != PublicRelationsUsername
+      ">
+      hello one
+    </div>
+    <div class="page profile-grid-page mx-5" :class="{onMobile}">
+      <!-- Own Account -->
+      <content-top-header height="auto" class="border-bottom-x" v-if="
+      !(currentUser &&
+      user.id != currentUser.id &&
+      user.username != PublicRelationsUsername)
+    ">
         <template slot="topHeader">
           <ul class="user-top-wrapper">
             <li v-if="user" class="user-profile-section">
@@ -13,32 +26,16 @@
                 "
               >
                 <div
-                  class="user-profile-image"
+                  class="user-profile-image-own"
                   :style="{
                     'background-image': 'url(' + user.avatar.url + ')',
                   }"
                 ></div>
-
-                <div v-if="followMetaVisible && onMobile" class="user-status-section mt-2">
-                  <label @click="onTab('followings')" class="follower-count">
-                    <strong class="_count">{{ user.followings | formatLargeNumber }}</strong> 
-                    <div class="_label">Following</div>
-                  </label>
-
-                  <label class="vertical-divider"></label>
-
-                  <label @click="onTab('followers')" class="follower-count">
-                    <strong class="_count">{{ user.followers | formatLargeNumber }}</strong> 
-                    <div class="_label">Followers</div>
-                  </label>
-                </div>
-
-                <div class="live-btn">Live</div>
               </div>
 
               <div class="user-info-section">
                 <div class="user-name-section">
-                  <label class="display-name">
+                  <label class="display-name-own">
                     {{ user.username }}
                     <v-icon
                       v-if="
@@ -48,53 +45,35 @@
                       >fa-check-circle</v-icon
                     >
                   </label>
-                  <span class="user-role">{{ user.user_type }}</span>
                 </div>
-                <div v-if="followMetaVisible && !onMobile" class="user-status-section mt-2">
-                  <label @click="onTab('followings')" class="follower-count stat-count"
-                    ><strong class="_count">{{ user.followings }}</strong> Following</label
+                <div v-if="followMetaVisible && !onMobile" class="user-status-section mt-0">
+                  <div @click="onTab('followings')" class="follower-count stat-count"
+                    ><strong class="_count">{{ user.followings }}</strong> Following</div
                   >
                   <!-- <label class="vertical-divider"></label> -->
-                  <label @click="onTab('followers')" class="follower-count stat-count">
-                    <strong class="_count">{{ user.followers | formatLargeNumber }}</strong> Followers</label>
-                  <label
-                    class="stat-count"
+                  <div @click="onTab('followers')" class="follower-count stat-count">
+                    <strong class="_count">{{ user.followers | formatLargeNumber }}</strong> Followers</div>
+                  <div
+                    class="follower-count stat-count stat-count"
                   >
                     <strong class="_count">{{ smsCount | formatLargeNumber }}</strong> SMS
-                  </label>
+                  </div>
 
                   <template v-if="user.user_type === 'listener' && user.inviter">
-                    <label class="vertical-divider"></label>
-                    <label class="user-inviter-name">
+                    <div class="vertical-divider"></div>
+                    <div class="user-inviter-name">
                       Invited by
                       <router-link :to="`/${user.inviter.slug}`">{{
                         user.inviter.username
                       }}</router-link>
-                    </label>
+                    </div>
                   </template>
                 </div>
               </div>
             </li>
-
             <v-spacer></v-spacer>
-
-            <li v-if="user.user_type === 'listener'" class="user-action-section">
-              <v-btn
-                v-if="
-                  currentUser &&
-                  ['listener'].indexOf(currentUser.user_type) == -1 &&
-                  !user.inviter &&
-                  user.request_status === 'pending'
-                "
-                depressed
-                @click.native="openInviteConfirmDialog()"
-                class="invite-btn ml-0"
-                :class="{'mb-3': onMobile}"
-              >
-                Invite
-              </v-btn>
-
-              <v-btn v-else @click.native="playSong()" class="play-btn">
+            <li class="user-action-section">
+              <v-btn @click.native="playSong()" class="play-btn">
                 <v-icon>play_arrow</v-icon>
                 <span>Play</span>
               </v-btn>
@@ -204,6 +183,260 @@
               </v-menu>
             </li>
           </ul>
+        </template>
+      </content-top-header>
+
+      <!-- Other Account -->
+      <content-top-header height="auto" v-if="
+      currentUser &&
+      user.id != currentUser.id &&
+      user.username != PublicRelationsUsername
+    ">
+        <template slot="topHeader">
+          <ul class="user-top-wrapper">
+            <li v-if="user" class="user-profile-section">
+              <div
+                class="user-profile-image-section"
+                :class="{ live: show_stream_live_button }"
+                @click="
+                  show_stream_live_button && !view_stream_clicked && viewStream()
+                "
+              >
+                <div
+                  class="user-profile-image"
+                  :style="{
+                    'background-image': 'url(' + user.avatar.url + ')',
+                  }"
+                ></div>
+
+                <div v-if="followMetaVisible && onMobile" class="user-status-section mt-2">
+                  <label @click="onTab('followings')" class="follower-count">
+                    <strong class="_count">{{ user.followings | formatLargeNumber }}</strong> 
+                    <div class="_label">Following</div>
+                  </label>
+
+                  <label class="vertical-divider"></label>
+
+                  <label @click="onTab('followers')" class="follower-count">
+                    <strong class="_count">{{ user.followers | formatLargeNumber }}</strong> 
+                    <div class="_label">Followers</div>
+                  </label>
+                </div>
+
+                <div class="live-btn">Live</div>
+              </div>
+
+              <div class="user-info-section">
+                <div class="user-name-section">
+                  <span class="user-role">{{ user.user_type }}</span>
+                  <div class="display-name">
+                    {{ user.username }}
+                    <v-icon
+                      v-if="
+                        ['artist', 'label', 'brand'].indexOf(user.user_type) > -1
+                      "
+                      class="user-status online"
+                      >fa-check-circle</v-icon
+                    >
+                  </div>
+                </div>
+                
+                <div class="dflex align-center mt-2">
+                  <!-- 
+                  <li v-if="user.user_type === 'listener'" class="user-action-section">
+                    <v-btn
+                      v-if="
+                        currentUser &&
+                        ['listener'].indexOf(currentUser.user_type) == -1 &&
+                        !user.inviter &&
+                        user.request_status === 'pending'
+                      "
+                      depressed
+                      @click.native="openInviteConfirmDialog()"
+                      class="invite-btn ml-0"
+                      :class="{'mb-3': onMobile}"
+                    >
+                      Invite
+                    </v-btn>
+      
+                    <v-btn v-else @click.native="playSong()" class="play-btn">
+                      <v-icon>play_arrow</v-icon>
+                      <span>Play</span>
+                    </v-btn>
+                  </li> -->
+                  
+                              <template
+                                v-if="
+                                  currentUser &&
+                                  user.id != currentUser.id &&
+                                  user.username != PublicRelationsUsername
+                                "
+                              >
+                                <div>
+                                  <user-follow-btn
+                                    :user="user"
+                                    theme="blue"
+                                    type="default"
+                                    borderRadius
+                                  />
+                                </div>
+                  
+                                <!-- <div>
+                                  <img
+                                    style="opacity: 0.8"
+                                    :src="require('@/assets/mail_icon_outline.svg')"
+                                    alt="mail icon"
+                                    width="25"
+                                    class="message-btn mt-2"
+                                    @click="showMessageDialog()"
+                                  />
+                                </div> -->
+                  
+                                <div
+                                  v-if="currentUser &&
+                                  currentUser.creator_verified &&
+                                  user.stripe_connected &&
+                                  user.creator_verified &&
+                                  user.id != currentUser.id"
+                                >
+                                  <img
+                                    :src="require('../../../static/images/ic_dollar.svg')"
+                                    alt="circled dollar icon"
+                                    class="donate-btn mt-2"
+                                    width="25"
+                                    style="opacity: 0.6"
+                                    @click="showLoveDialog()"
+                                  />
+                              </div>
+                              </template>
+                  
+                              <div class="ml-2">
+                                <v-menu
+                                  v-if="
+                                    currentUser &&
+                                    user.id != currentUser.id &&
+                                    user.username != PublicRelationsUsername
+                                  "
+                                  offset-y
+                                  class="more-menu"
+                                >
+                                  <v-btn dark class="more-btn" slot="activator">
+                                    <v-icon right>more_horiz</v-icon>
+                                  </v-btn>
+                                  <v-list>
+                                    <v-list-tile
+                                      key="view_direct_messages"
+                                      @click="viewDirectMessages()"
+                                      v-if="enabledViewDirectMessage"
+                                    >
+                                      <v-list-tile-title class="default-menu-item">
+                                        <label>View Direct Messages</label>
+                                      </v-list-tile-title>
+                                    </v-list-tile>
+                                    <v-list-tile
+                                      v-if="
+                                        currentUser &&
+                                        currentUser.creator_verified &&
+                                        user.id != currentUser.id &&
+                                        user.stripe_connected && user.creator_verified
+                                      "
+                                      key="send_love"
+                                      @click="showLoveDialog()"
+                                    >
+                                      <v-list-tile-title class="default-menu-item">
+                                        <label>Donate</label>
+                                      </v-list-tile-title>
+                                    </v-list-tile>
+                                    <!-- <v-list-tile key="chat" @click="goToChat()">
+                                      <v-list-tile-title class="default-menu-item">
+                                        <label>Chat</label>
+                                      </v-list-tile-title>
+                                    </v-list-tile> -->
+                                    <!-- <v-list-tile @click="flagUser()">
+                                      <v-list-tile-title class="default-menu-item">
+                                        <label>Flag</label>
+                                      </v-list-tile-title>
+                                    </v-list-tile>
+                                    <v-list-tile
+                                      key="block"
+                                      @click="openBlockUserConfirmDialog()"
+                                    >
+                                      <v-list-tile-title class="default-menu-item">
+                                        <label>Block</label>
+                                      </v-list-tile-title>
+                                    </v-list-tile> -->
+                                    <v-list-tile>
+                                      <v-list-tile-title class="default-menu-item">
+                                        <div class="dlfex align-center menu-list-div px-2">
+                                          <img src="../../assets/message_icon.svg" width="12" class="mr-2">
+
+                                          <label>Message</label>
+                                        </div>
+                                      </v-list-tile-title>
+                                      
+                                  </v-list-tile>
+                                  <v-list-tile>
+                                    <v-list-tile-title class="default-menu-item">
+                                      <div class="dlfex align-center menu-list-div px-2">
+                                        <img src="../../assets/dollar.svg" width="12" class="mr-2">
+
+                                        <label>Donate</label>
+                                      </div>
+                                    </v-list-tile-title>
+                                  </v-list-tile>
+                                  <v-list-tile  key="block"
+                                  @click="openBlockUserConfirmDialog()">
+                                    <v-list-tile-title class="default-menu-item">
+                                      <div class="dlfex align-center menu-list-div px-2">
+                                        <img src="../../assets/vlovk.svg" width="12" class="mr-2">
+
+                                        <label>Block</label>
+                                      </div>
+                                    </v-list-tile-title>
+                                  </v-list-tile>
+                                  <v-list-tile @click="flagUser()">
+                                    <v-list-tile-title class="default-menu-item">
+                                      <div class="dlfex align-center menu-list-div px-2" @click="flagUser()">
+                                        <img src="../../assets/report.svg" width="12" class="mr-2">
+
+                                        <label>Report</label>
+                                      </div>
+                                    </v-list-tile-title>
+                                  </v-list-tile>
+
+                                  </v-list>
+                                </v-menu>
+                              </div>
+                </div>
+              </div>
+            </li>
+
+            <v-spacer></v-spacer>
+            <div v-if="followMetaVisible && !onMobile" class="user-status-section">
+              <label @click="onTab('followings')" class="follower-count stat-count"
+                ><strong class="_count">{{ user.followings }}</strong> Following</label
+              >
+              <!-- <label class="vertical-divider"></label> -->
+              <label @click="onTab('followers')" class="follower-count stat-count">
+                <strong class="_count">{{ user.followers | formatLargeNumber }}</strong> Followers</label>
+              <label
+                class="follower-count stat-count"
+              >
+                <strong class="_count">{{ smsCount | formatLargeNumber }}</strong> SMS
+              </label>
+
+              <template v-if="user.user_type === 'listener' && user.inviter">
+                <label class="vertical-divider"></label>
+                <label class="user-inviter-name">
+                  Invited by
+                  <router-link :to="`/${user.inviter.slug}`">{{
+                    user.inviter.username
+                  }}</router-link>
+                </label>
+              </template>
+            </div>
+
+          </ul>
 
           <!-- <ul>
             <template v-for="tab in tabs">
@@ -300,7 +533,7 @@
             <v-flex
               xs12
               sm2
-              class="card-container"
+              class="card-container min-240"
               v-for="(user, index) in users"
               :key="index"
             >
@@ -344,7 +577,8 @@
               v-for="(product, index) in products"
               :key="index"
             >
-              <product-card :dataObject="product"></product-card>
+            
+              <product-card :dataObject="product" hideOverlay></product-card>
             </v-flex>
           </v-layout>
           <v-btn
@@ -365,6 +599,28 @@
         </div> -->
 
         <div v-else-if="active_tab == 'video'">
+          <div class="dflex justify-space-between align-center">
+            <div class="text-big">
+              Popular
+            </div>
+          </div>
+          <v-layout row wrap>
+            <v-flex
+              xs4
+              v-for="video in 3"
+              :key="video"
+            >
+              <video-box :hoverOverlay="false" :item="ownVideos[video]" />
+            </v-flex>
+          </v-layout>
+          <div class="dflex justify-space-between align-center margin-top-x">
+            <div class="text-big">
+              Videos
+            </div>
+            <div class="text-small cursor-pointer">
+              View all
+            </div>
+          </div>
           <v-layout row wrap>
             <v-flex
               xs3
@@ -466,8 +722,16 @@
               </template>
             </template>
           </template>
-
-          <v-layout row wrap class="covers-content" v-else>
+          <div v-else>
+            <div class="dflex justify-space-between align-center">
+              <div class="text-big">
+                Popular
+              </div>
+              <div class="text-small cursor-pointer">
+                View all
+              </div>
+            </div>
+          <v-layout row wrap class="covers-content" >
             <v-flex
               xs6
               class="custom-lg5"
@@ -477,6 +741,35 @@
               <track-card :objects="albums" :objectIndex="index"></track-card>
             </v-flex>
           </v-layout>
+        </div>
+
+        <!-- SMS group div -->
+
+        <!-- <div class="sms-group pa-2">
+          <div class="dflex align-center justify-space-between">
+            <div class="sms-info">
+              <div class="dflex align-center"> 
+                <div class="sms-img"></div>
+                <div class="ml-2">
+                  <div class="sms-name dflex align-center">
+                    Tri Nohbi
+                    <img src="../../assets/true.svg" width="10" class="ml-1">
+                  </div>
+                  <div class="user-type">
+                    Artist
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sms-btn-group mr-4">
+              <v-btn class="join-btn" round>Join SMS</v-btn>
+              <v-btn class="ml-2 joined-btn" round>Joined SMS</v-btn>
+            </div>
+
+          </div>
+        </div> -->
+
           <v-btn
             v-show="page_index < total_pages"
             class="loadmore-btn"

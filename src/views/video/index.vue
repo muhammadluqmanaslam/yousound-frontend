@@ -1,8 +1,8 @@
 <template>
   <div class="page video-page index-page" :class="{isComp}">
-    <discover-nav v-if="!isComp && !onMobile" pageName="video" />
+    <discover-nav v-if="!isComp && !onMobile" pageName="video" searchShow='true'/>
 
-    <content-top-header
+    <!-- <content-top-header
       v-if="isPageReady"
       absolute
       class="__inner __doubleUl" height="35"
@@ -63,28 +63,93 @@
               </v-list>
             </v-menu>
 
-            <!-- <v-tabs :scrollable="true">
-              <v-tabs-bar>
-                <v-tabs-item
-                  v-model="selectedTab"
-                  v-for="(genre, idx) in available_genres"
-                  :key="idx"
-                  :href="'#tab-' + idx"
-                >
-                  <v-chip class="text-capitalize" @click.native="setTab(genre.id)">
-                    {{ genre.name.toLowerCase() }}
-                  </v-chip>
-                </v-tabs-item>
-              </v-tabs-bar>
-            </v-tabs> -->
+
           </li>
         </ul>
       </template>
-    </content-top-header>
+    </content-top-header> -->
 
     <div class="page-content">
+      <div class="music-banner-main" :style="`background: linear-gradient(180deg, rgba(33, 33, 33, 0.59) 0%, #000000 100%), url(${selectedVideo.cover.url})`">
+        <v-container>
+          <div class="dflex album-flex align-center">
+            <div class="album-main-content">
+              <div class="album-title-main mb-4">{{ selectedVideo.name }}</div>
+              <div class="dflex align-center gap-10 album-group mb-4">
+                <div>
+                  <div class="album-group-image" style="background-image: url('../../assets/check_success.svg')"></div>
+                </div>
+                <div class="dflex align-center">
+                  <div class="album-group-title">{{ selectedVideo.user.display_name }}</div>
+                  <div class="ml-1">
+                    <img src="../../assets/check_success.svg" width='12'>
+                  </div>
+                </div>
+              </div>
+              <div class="album-title-description mb-4">{{ selectedVideo.description }}</div>
+
+              <div class="album-play dflex align-center gap-25">
+
+                <v-btn class="album-play-icon ml-0" :to="`/video/${selectedVideo.id}/show`">
+                  <v-icon>
+                    play_arrow
+                  </v-icon>
+                </v-btn>
+
+                <div class="plus-icon main">
+                  <img src="../../assets/plus.svg" width='15px'>
+                </div>
+
+                <div class="plus-icon">
+                  Following
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="slider-contain">
+            <div class="dflex align-center gap-25">
+              <div class="font-lg">
+                Trending
+              </div>
+              <div class="view-all cursor-pointer" @click="displayAllTrendingVideos()">
+                View All 
+              </div>
+            </div>
+            <div class="mt-4">
+            <VueSlickCarousel v-bind="slickOptions">
+              <div v-for="video in trendingVideos" class="slider-main pr-3">
+                <div class="slider-main-img" :class="[selectedVideo.id === video.id  ? 'active' : '']" @click="changeSelectedVideo(video)">
+                  <img :src="video.cover.thumb.url" width="100%">
+                  <div class="hover-absolute">
+                    <div class="play-button-absolute">
+                      <video-box
+                        :hoverOverlay="false"
+                        :item="video"
+                        coverOnly
+                      />
+                    </div>
+                  <div>
+                    <img src="../../assets/plus.svg" width="15">
+                  </div>
+                  </div>
+
+                </div>
+              </div>
+            </VueSlickCarousel>
+          </div>
+
+          </div>
+        </v-container>
+        <!-- <div class="video-container">
+          <video autoplay muted loop id="video-demo">
+            <source :src="demoVideo" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+        </div> -->
+      </div>
       <v-container fluid :grid-list-md="onMobile" px-0 pt-0>
-        <v-layout row wrap>
+        <v-layout row wrap v-if="!hideOtherVideos">
           <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
           <v-flex 
             v-for="(video) in videos.slice(0,3)" 
@@ -125,6 +190,214 @@
 <style lang="scss" scoped>
 .top-menu {
     margin: 0 !important;
+}
+
+.page-content{
+  margin-top: 52px;
+  width: 100%;
+}
+
+.music-banner-main{
+  
+  color: white;
+  position: relative;
+  margin-left: -16px;
+  font-family: 'Inter';
+  width: calc(100% + 32px);
+  padding: 80px 50px 60px;
+  background-size: cover !important;
+
+  .video-container{
+
+  }
+
+  .slider-contain{
+    margin-top: 80px;
+
+
+    //Arrows setting
+
+    .slider-main-img{
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+
+      &:hover{
+        .hover-absolute{
+          display: flex;
+        }
+      }
+      .play-button-absolute{
+        position: absolute;
+        top: calc(50% - 25px);
+        left: calc(50% - 45px);
+
+        .play-video-button{
+          width: 40px;
+          height: 40px;
+          background-color: black;
+          border-radius: 50%;
+          
+
+          i{
+            color: white;
+            font-size: 30px;
+          }
+        }
+      }
+
+      .hover-absolute{
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.7);
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        display: none;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 20px;
+
+ 
+
+
+        ._title{
+          font-family: 'Inter', sans-serif;
+          font-size: 12px;
+          font-weight: 600;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 200px;
+        }
+        ._price{
+          font-family: 'Inter', sans-serif;
+          font-size: 10px;
+          font-weight: 400;
+        }
+
+        @media screen and (max-width: 1400px){
+          ._title{
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+          }
+          ._price{
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+          }
+  
+        }
+      }
+
+      &.active{
+        border: 4px solid #fff;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+    }
+
+    .font-lg{
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .view-all{
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+    }
+  }
+
+  .gap-10{
+    gap: 10px;
+  }
+
+  .gap-25{
+    gap: 25px;
+  }
+
+  .album-flex{
+    gap: 60px;
+
+    .album-main-image{
+      width: 35%;
+      min-width: 320px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .album-main-content{
+      max-width: 540px;
+      .album-title-main{
+        font-size: 42px;
+        font-weight: bold;
+      }
+
+      .album-title-description{
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+      }
+
+      .album-group{
+        .album-group-title{
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .album-group-image{
+          width: 32px;
+          height: 32px;
+          background-color: pink;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+      }
+
+      .album-play{
+        .album-play-icon{
+          width: 55px;
+          height: 55px;
+          background: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          cursor: pointer;
+          min-width: inherit;
+
+          i{
+            width: 20px;
+            color: black;
+            font-size: 30px;
+          }
+
+        }
+
+        .plus-icon{
+          padding: 4px 8px;
+          background-color: rgba(0,0,0,0.5);
+          border-radius: 5px;
+          font-size: 14px;
+          font-weight: 700;
+          font-family: 'Inter';
+          cursor: pointer;
+
+          &.main{
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
 }
 .tabs__bar {
     width: calc(100% + 72px);

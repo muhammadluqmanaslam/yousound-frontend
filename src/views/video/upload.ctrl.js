@@ -39,6 +39,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       iconImage: IconImage,
       bannerImage: BannerImage,
       topBarContent: 'Connect your Stripe account to start accepting payments',
@@ -97,6 +98,9 @@ export default {
       friends: [],
       isPageReady: false,
       videoFile: null,
+      video_upload_successfully: false,
+      videoUrl: null,
+      genre_name: null,
     }
   },
 
@@ -449,11 +453,24 @@ export default {
       }
     },
 
+    onCopy: function (e) {
+      this.$store.dispatch("error/showSuccessToast", [
+        "You just copied: " + e.text,
+      ]);
+      // alert('You just copied: ' + e.text)
+    },
+
+    onError: function (e) {
+      this.$store.dispatch("error/showErrorToast", ["Failed to copy link"]);
+      // alert('Failed to copy link')
+    },
+
     submit() {
       this.$validator
         .validateAll()
         .then((response) => {
           if (response === true) {
+            this.loading = true
             this.submitLoading = true;
 
             const formData = new FormData()
@@ -499,7 +516,9 @@ export default {
             this.$store.dispatch('error/showLoadingActivity', true)
             VideoService.createVideo(formData)
               .then((response) => {
+                this.genre_name = response.body.genre.name
                 this.video = response.body
+
                 const upload_url = this.video.upload_url
 
                 const upload = UpChunk.createUpload({
@@ -509,6 +528,7 @@ export default {
                 })
 
                 upload.on('error', (err) => {
+                  this.loading = false
                   this.$store.dispatch('error/showLoadingActivity', false)
                   console.error('💥', err.detail)
                 })
@@ -521,12 +541,16 @@ export default {
                 })
 
                 upload.on('success', () => {
+                  this.loading = false
+                  this.video_upload_successfully = true
                   this.$store.dispatch('error/showLoadingActivity', false)
                   console.log("Wrap it up, we're done here. 👋")
-                  this.$router.push({ path: `/video/${this.video.id}/show` })
+                  this.videoUrl = window.location.origin + `/video/${this.video.id}/show`
+                  // this.$router.push({ path: `/video/${this.video.id}/show` })
                 })
               })
               .catch((e) => {
+                this.loading = false
                 console.log(e)
                 console.log(e.message)
                 this.$store.dispatch('error/showLoadingActivity', false)

@@ -52,6 +52,12 @@ export default {
           pathName: "UserSettings",
           // icon: require("../../../static/images/settings-gear.svg"),
         },
+        {
+          id: "top-creators",
+          title: "Top 10 Creators",
+          pathName: "TopCreators",
+          // icon: require("../../../static/images/settings-gear.svg"),
+        },
       ],
       dropdownMenu: [
         {

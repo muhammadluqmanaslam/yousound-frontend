@@ -237,7 +237,7 @@ export default {
           this.$store.dispatch('error/showSuccessToast', ["You have successfully subscribed."])
           // this.closePayment("success");
           if (this.$store.state.auth.user != null) {
-            this.$router.push({name: 'DiscoverIndex'})
+            this.$router.push({name: 'AlbumIndex'})
           }
         })
         .catch((e) => {

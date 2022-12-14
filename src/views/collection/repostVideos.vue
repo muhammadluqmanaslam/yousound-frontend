@@ -1,165 +1,258 @@
 <template>
-  <div class="repost-comp repost-videos">
-    <div class="_top mb-3">{{ videos.length }} {{ "video" | pluralize(videos.length) }}</div>
+  <div class="repost-comp repost-music">
+    <div v-if="showBanner"  class="repost-banner">
+			<div class="dflex gap-25 align-center justify-space-between">
+				<div class="repost-content">
 
-    <div class="list-track-view list-track-view-trackCard list-track-view-video listings">
-      <div
-        v-for="(video, index) in videos"
-        :key="index"
-        class="list-track-view-item listing cursor-none"
-      >
-        <video-box
-            hoverOverlay
-            :item="tempVideo"
-            sideTabView
-            hideUser
-            noMeta
+				<div class="dflex mb-4">
+					<img src="../../assets/build-icon.svg" width="25">
+					<h2 class="repost-head">Build your collection</h2>
+				</div>
+				<p class="repost-text">Create playlists or shopping lists for all of the albums, videos & products you discover</p>
+			</div>
+
+			<div class="repost-img">
+				<img src="../../assets/music-drop.gif" width="100%"/>
+			</div>
+
+			</div>
+
+			<div class="repost-banner-close" @click="closeBanner()">
+				<img src="../../assets/cross.svg" width="15px">
+			</div>
+		</div>
+		<div class="playlists">
+			<div class="title dflex align-center _intro">
+				<div>{{ playlistLen() }} Playlists</div>
+				<div class="_action">View All</div>
+			</div>
+
+			<div class="dflex playlist-container">
+				<div
+					v-for="(playlist, index) in this.playlists"
+					:key="index"
+					class="playlist-holder"
+					@click="$router.push({path: `/playlist/${playlist.id}` })"
+				>
+					<div class="playlist-box">
+						<div class="playlist-images">
+							<ul>
+								<li>
+									<img
+										:src="require('@/assets/playlist-grey.svg')"
+										width="30"
+										alt="playlist icon"
+									/>
+								</li>
+
+								<li>
+									<img
+										:src="require('@/assets/playlist-grey.svg')"
+										width="30"
+										alt="playlist icon"
+									/>
+								</li>
+
+								<li>
+									<img
+										:src="require('@/assets/playlist-grey.svg')"
+										width="30"
+										alt="playlist icon"
+									/>
+								</li>
+
+								<li>
+									<img
+										:src="require('@/assets/playlist-grey.svg')"
+										width="30"
+										alt="playlist icon"
+									/>
+								</li>
+							</ul>
+						</div>
+						<div class="playlist-text">
+						 {{ playlist.name }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="playlist-container" @click="(addToPlaylistActive = true)">
+			<div class="playlist-holder">
+				<div class="playlist-box">
+					<div class="playlist-images with-button">
+						<v-btn></v-btn>
+					</div>
+					<div class="playlist-text">
+						New Playlist
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <div class="music playlist-music">
+			<div class="title dflex align-center justify-space-between _intro">
+        <div class="_top mb-3">{{ streams.length }} {{ "video" | pluralize(streams.length) }}</div>
+
+        <div v-if="selectVideosMode" class="selectAlbumsMode _action">
+          <v-btn round dark depressed @click="openAddToPlaylist()"> Add selected to... </v-btn>
+          <span @click="toggleSelectVideosMode(false)"> Cancel </span>
+        </div>
+        <div v-else class="dflex align-center">
+        
+          <input class="input-track" type="text" placeholder="Select videos">
+
+          <v-btn
+            round
+            dark
+            depressed
+            class="dflex align-center _action pointer-cursor font-bold"
+            @click="toggleSelectVideosMode(true)"
+          >
+            <v-icon>add</v-icon>
+            <span>Select Videos</span>
+          </v-btn>
+        </div>
+      </div>
+
+      <div class="list-track-view list-track-view-trackCard list-track-view-video listings">
+        <div v-for="(video, index) in tempVideo" :key="index" class="list-track-view-item listing cursor-none">
+          <video-box
+            :hoverOverlay="false"
+            :item="video"
             showUsername
+            :hideUser="false"
+            :sideTabView=true
           />
 
-        <div class="d-none list-track-view-action listing-action">
-          <span class="share" @click="shareVideo(tempVideo)">
-            <img :src="require('@/assets/ic_share.svg')" alt="share icon" />
-          </span>
-          <span class="add">
-            <v-icon>add</v-icon>
-          </span>
-          <span class="more">
-            <v-icon>more_horiz</v-icon>
-          </span>
+          <div v-if="selectVideosMode" class="selectMusic">
+            <input
+              v-model="selectedVideos"
+              :value="video"
+              type="checkbox"
+              class="selectMusic-check"
+              :id="`check-${index}`"
+            />
+            <v-icon
+              v-if="selectedVideos.includes(video)"
+              class="check-icon"
+              @click="removeVideo(index)"
+            >
+              check
+            </v-icon>
+          </div>
+
         </div>
       </div>
     </div>
-
-    <share-modal
-      v-if="share_dialog"
-      :item="sharedVideo"
-      type="Stream"
-      :dismiss="closeShareVideo"
-    />
+    <add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="this.selectedVideos" type="stream" @closeAddToPlaylist="closeAddToPlaylist" />
   </div>
 </template>
 
 <script>
-import shareModal from "@/components/sharemodal";
 import VideoBox from "@/components/video_box";
+import addToPlaylist from "@/views/Playlists/addToPlaylist";
 
 export default {
   components: {
-    shareModal,
     VideoBox,
+    addToPlaylist,
   },
+  props: {
+		streams: Array,
+		playlists: Array,
+	},
+
   data() {
     return {
-      videos: [1,2,3,4],
-      share_dialog: false,
-      sharedVideo: {},
+      showBanner: true,
+      addToPlaylistActive: false,
+      selectedVideos: [],
+      selectVideosMode: false,
     };
   },
   methods: {
-    shareVideo(video) {
-      this.sharedVideo = video;
-      this.share_dialog = true;
-    },
-    closeShareVideo(tab) {
-      this.share_dialog = false;
-      this.sharedVideo = {};
-    },
+    toggleSelectVideosMode(status) {
+			this.selectVideosMode = status
+			if (!status) {
+				this.selectedVideos = []
+			}
+		},
+    removeVideo(index) {
+			const idx = this.selectedVideos.indexOf(index);
+			this.selectedVideos.splice(idx, 1);
+		},
+
+    closeBanner(){
+			this.showBanner = false;
+		},
+
+    openAddToPlaylist() {
+			if (this.selectedVideos.length) {
+				this.addToPlaylistActive = true
+			}
+		},
+    closeAddToPlaylist(isPartial) {
+			if (!isPartial) {
+				this.toggleSelectVideosMode()
+			}
+			this.addToPlaylistActive = false
+      window.location.reload();
+		},
+
+    playlistLen() {
+			return this.playlists.length;;
+		},
   },
   computed: {
+
     tempVideo() {
-      return {
-        id: 106,
-        name: "Artists pay for fake plays so they can make real money",
-        slug: "artists-pay-for-fake-plays-so-they-can-make-real-money",
-        description:
-          "You can't even do that on YouSound.  Your money goes to the real artists you support.",
-        cover: {
-          url: "https://d19mruzykfu6hg.cloudfront.net/uploads/stream/cover/106/46b51f02-7d85-47c2-8f6d-e64f94600063.png",
-          large: {
-            url: "https://d19mruzykfu6hg.cloudfront.net/uploads/stream/cover/106/large_46b51f02-7d85-47c2-8f6d-e64f94600063.png",
+      let streams = []
+      for (let i = 0; i < this.streams.length; i++) {
+        let stream = this.streams[i]
+        let user = stream.user
+
+        streams.push({
+          id: stream.id,
+          name: stream.name,
+          slug: stream.slug,
+          description: stream.description,
+          cover: {
+            url: stream.cover.url,
+            large: { url: stream.cover.large.url },
+            thumb: { url: stream.cover.thumb.url },
           },
-          thumb: {
-            url: "https://d19mruzykfu6hg.cloudfront.net/uploads/stream/cover/106/thumb_46b51f02-7d85-47c2-8f6d-e64f94600063.png",
-          },
-        },
-        video_type: "uploaded",
-        status: "archived",
-        started_at: null,
-        stopped_at: null,
-        mp_channel_1_ep_1_url:
-          "https://stream.mux.com/GXGDdqaRcICjhbl00sUPkI1EUgZ5B301uE02vNyW8lrXgk.m3u8",
-        mp_channel_2_url:
-          "https://storage.googleapis.com/video-storage-us-east1-uploads/Tr6EE01VUl7fuFoq00TOaeFqzTy664E9v3KTUpbDdZsDI?Expires=1646182096&GoogleAccessId=direct-uploads-writer-prod%40mux-cloud.iam.gserviceaccount.com&Signature=e8vnOAeAnbw1PaUdlfKfILPva7m1ClLiQV1BMypjOKmrf38Gw%2B7eGPPq1gQcRHXxRBlI4y8LX%2BEOOUTRhYk12CFHdT7pVTxYq1DL%2BG1%2BhGEKNbTu9WP3rS4o1Muwnp3HSgPcQ0KLGkiBvuMS3ZqHPnEfHcXNvzU134mZYTOsQt8HSuSFsJ3GSFKA331fbEuQ45KVG5dIYP2Q%2BnwVCsutZmsvUor1dJQc1OLIY0nJh2BHGVpb5HGO3R6RKqjkwNeOfL0kQj3DRSxk3BSN17CTXtPmvtfyNex8MMj1b60f4htM6WE9esUOAUlCdAY2fGoltoDI8WGtEoJz6WpFUDlpsQ%3D%3D&upload_id=ADPycdvIc-J9YpNuIdymwXqTOn-LCXr7CW9rA-fNiZz0gMIpq6xsQZzk3OVz7tvBrzwA9WLhyK97iXXg4U5j0KpGc9fDAtzh6A",
-        duration: 100,
-        valid_period: 0,
-        remaining_seconds: 0,
-        assoc_type: null,
-        account_ids: [],
-        digital_content_name: null,
-        view_price: 0,
-        viewers_limit: 0,
-        notified: true,
-        assoc: null,
-        guests: [],
-        is_reposted: false,
-        broadcast_seconds: 0,
-        digital_content_url: null,
-        accounts: [],
-        user: {
-          id: 59,
-          slug: "yousoundapp",
-          username: "yousoundapp",
-          display_name: "",
-          first_name: null,
-          last_name: null,
-          contact_url: null,
-          user_type: "artist",
-          avatar: {
-            url: "https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/59/ef8c3ab0-46e3-4534-a962-341aedb90521.png",
-            thumb: {
-              url: "https://d19mruzykfu6hg.cloudfront.net/uploads/user/avatar/59/thumb_ef8c3ab0-46e3-4534-a962-341aedb90521.png",
-            },
-          },
-          repost_price: 100,
-          repost_price_end_at: null,
-          max_repost_price: 100,
-          status: "active",
-          size_chart: "",
-          shipping_policy: "",
-          return_policy: "",
-          privacy_policy: "",
-          followers: 1,
-          followings: 2,
-          stripe_connected: true,
-          stripe_customer_id: null,
-          stripe_subscription_id: null,
-          phone_number: null,
-          masked_phone_number: null,
-          age_group: "",
-          social_provider: null,
-          is_following: true,
-          invited_at: null,
-          social_user_name: "",
-          request_role: "artist",
-          request_status: "accepted",
-          country: "",
-          city: "",
-        },
-        genre: {
-          id: 385,
-          slug: "verbal",
-          name: "VERBAL",
-          region: "",
-          color: "#6867D3",
-          sequence: 21,
-          users_size: 0,
-        },
-      };
-    },
+          video_type: stream.video_type,
+          status: stream.status,
+          started_at: stream.started_at,
+          stopped_at: stream.stopped_at,
+          mp_channel_1_ep_1_url: stream.mp_channel_1_ep_1_url,
+          mp_channel_2_url: stream.mp_channel_2_url,
+          duration: stream.duration,
+          valid_period: stream.valid_period,
+          remaining_seconds: stream.remaining_seconds,
+          assoc_type: stream.assoc_type,
+          account_ids: stream.account_ids,
+          digital_content_name: stream.digital_content_name,
+          view_price: stream.view_price,
+          viewers_limit: stream.viewers_limit,
+          notified: true,
+          assoc: null,
+          guests: [],
+          is_reposted: stream.is_reposted,
+          broadcast_seconds: 0,
+          digital_content_url: null,
+          accounts: [],
+          user: user,
+          genre: stream.genre,
+        })
+      }
+
+      return streams;
+    }
   },
 };
 </script>
 
-<style>
-</style>
+<style src="../../../static/styles/repost.scss" lang="scss" scoped></style>

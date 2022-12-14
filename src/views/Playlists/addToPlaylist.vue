@@ -20,18 +20,19 @@
         />
       </div>
 
-      <div v-for="(playlist, index) in 7" :key="index" class="mb-2 _playlist">
+      <div v-if="(selectedItems.length > 0)" @click="addToExistingPlaylist(playlist)" v-for="(playlist, index) in this.playlists" :key="index" class="mb-2 _playlist">
         <trackcardsimple
           :item="{}"
           :cover="require('@/assets/playlist-grey.svg')"
-          :title="`Playlist ${index + 1}`"
+          :title="playlist.name"
+          :id="playlist.id"
           coverRadius
         />
       </div>
     </div>
 
     <div v-if="newPlaylistActive" class="newPlaylist">
-      <div class="text-center _top">
+      <div class="text-center _top" @click="createNewPlaylist()">
         <span>New Playlist</span>
       </div>
 
@@ -62,7 +63,7 @@
 
       <h3 class="intro-text">Added to Playlist</h3>
       <div class="body-text">
-        {{ selectedAlbums.length }} {{ "song" | pluralize(selectedAlbums.length) }} added to "{{ newPlaylistTitle }}"
+        {{ selectedItems.length }} {{ type | pluralize(selectedItems.length) }} added to "{{ newPlaylistTitle }}"
       </div>
     </div>
   </v-dialog>
@@ -70,12 +71,16 @@
 
 <script>
 import trackcardsimple from "@/components/trackcardsimple";
+import CollectionPlaylist from "@/services/collection_playlist"
 
 export default {
   components: { trackcardsimple },
   props: {
     addToPlaylist: Boolean,
-    selectedAlbums: Array,
+    selectedItems: Array,
+    playlists: Array,
+    selectedVideos: Array,
+    type: String,
   },
   data() {
     return {
@@ -97,10 +102,73 @@ export default {
   methods: {
     addNewPlaylist() {
       if (this.newPlaylistTitle) {
-        this.newPlaylistActive = false;
-        this.playlistAddedSuccess = true;
+        let params = new FormData();
+
+        if (this.type === 'track') {
+          const track_ids = this.selectedItems.map(track => track.id)
+          params.append('collection_playlist[track_ids]', track_ids)
+          params.append('collection_playlist[playlist_type]', "tracks")
+        } else if (this.type === 'stream') {
+          const stream_ids = this.selectedItems.map(stream => stream.id)
+          params.append('collection_playlist[stream_ids]', stream_ids)
+          params.append('collection_playlist[playlist_type]', "streams")
+        } else if (this.type === 'product') {
+          const product_ids = this.selectedItems.map(product => product.id)
+          params.append('collection_playlist[product_ids]', product_ids)
+          params.append('collection_playlist[playlist_type]', "products")
+        }
+        params.append('collection_playlist[name]', this.newPlaylistTitle)
+        params.append('collection_playlist[playlist_public]', this.isNewPlaylistPublic)
+        CollectionPlaylist.createCollectionPlaylist(params)
+          .then((response) => {
+            this.playlistAddedSuccess = true;
+            this.newPlaylistActive = false;
+
+            this.$store.dispatch(
+              'error/showSuccessToast', [response.body.success_response]
+            )
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body] || [e.body.error]
+            )
+          })
       }
     },
+
+    addToExistingPlaylist(playlist) {
+      let params = new FormData();
+      if (playlist.playlist_type === 'tracks') {
+          const track_ids = this.selectedItems.map(track => track.id)
+          params.append('collection_playlist[track_ids]', track_ids)
+          params.append('collection_playlist[playlist_type]', "tracks")
+        } else if (playlist.playlist_type === 'streams') {
+          const stream_ids = this.selectedItems.map(stream => stream.id)
+          params.append('collection_playlist[stream_ids]', stream_ids)
+          params.append('collection_playlist[playlist_type]', "streams")
+        } else if (playlist.playlist_type === 'products') {
+          const product_ids = this.selectedItems.map(product => product.id)
+          params.append('collection_playlist[product_ids]', product_ids)
+          params.append('collection_playlist[playlist_type]', "products")
+        }
+      params.append('collection_playlist[id]', playlist.id)
+      CollectionPlaylist.createCollectionPlaylist(params)
+        .then((response) => {
+          this.newPlaylistTitle = playlist.name
+          this.playlistAddedSuccess = true;
+          this.$store.dispatch(
+            'error/showSuccessToast', [response.body.success_response]
+          )
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body] || [e.body.error]
+          )
+        })
+    },
+
     closeAddToPlaylist(isPartial) {
       this.$emit("closeAddToPlaylist", isPartial);
     },

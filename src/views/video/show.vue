@@ -3,111 +3,71 @@
     <div class="page-content margin-top-header">
       <v-container fluid px-0 :class="{'grid-list-md px-4':!onMobile}">
         <v-layout row wrap>
-          <v-flex xs12 sm9 class="vid_col">
+          <v-flex xs12 sm12 class="vid_col mb-4">
             <video-player :src="stream.mp_channel_1_ep_1_url"></video-player>
+          </v-flex>
 
-            <div v-if="onMobile" class="pane-tabs-onMobile">
-              <div
-                v-for="(tab, index) in paneTabs"
-                :key="index"
-                class="pane-tab"
-                :class="{active: activePaneTab == tab.id}"
-                @click="activePaneTab = tab.id"
-              >
-                {{ tab.name }} <span v-if="tab.id == 'comments'">({{ comments.length | formatLargeNumber }})</span>
-              </div>
-            </div>
 
-            <div v-if="activePaneTab == 'info'">
-              <div class="content-section">
-                <div class="meta__content" :class="{'px-4':onMobile}">
-                  <user-tag v-if="onMobile" class="tag" showAvatar hideName hideTick clickUser width="40" height="40" :user="stream.user" />
-                  <div v-if="!onMobile" class="meta__title">{{ stream.name }}</div>
 
-                  <div v-if="onMobile" class="dflex flex-column">
-                    <div class="meta__name">{{ stream.name.split('- ')[1] || stream.name }}</div>
-                    <div class="meta__title text-capitalize">{{ stream.user.username }}</div>
-                  </div>
-
-                  <div class="meta__subtitle">
-                    {{ stream.viewers_size || 0 }}
-                    views <span v-if="!onMobile">&bull;</span>
-                    {{ moment(stream.created_at).format("MMM D, YYYY") }}
-                  </div>
-
-                  <div v-if="onMobile" class="meta__cta follow">
-                    <user-follow-btn
-                      v-if="currentUser && stream.user.id != currentUser.id"
-                      :user="stream.user"
-                      theme="dark"
-                      type="player"
-                    />
-                  </div>
-                </div>
-
-                <div class="meta__actions" :class="{'py-3': !ownItem}">
-                  <div v-if="ownItem && this.isSubscribed" class="meta__cta donate">
-                    <img src="/static/images/stat.svg" width="20" />
-                  </div>
-
-                  <div v-if="this.isSubscribed" class="meta__cta donate" @click="showLoveDialog()">
-                    <img src="/static/images/ic_dollar.svg" height="21" />
-                  </div>
-
-                  <div class="meta__cta repost" @click="repostItem()">
-                    <img src="/static/images/ic_repost.svg" width="21" />
-                  </div>
-                  <div class="meta__cta share" @click="openShareDialog()">
-                    <img src="/static/images/ic_share.svg" width="21" />
-                  </div>
-                  <div class="meta__cta" v-if="ownItem">
-                    <v-menu offset-y class="more-menu">
-                      <v-btn icon slot="activator">
-                        <v-icon>more_horiz</v-icon>
-                      </v-btn>
-                      <v-list>
-                        <v-list-tile
-                          class="default-menu-item"
-                          @click.native="deleteStream()"
-                        >
-                          <v-list-tile-title>
-                            <label>Delete</label>
-                          </v-list-tile-title>
-                        </v-list-tile>
-                        <v-list-tile class="default-menu-item">
-                          <v-list-tile-title>
-                            <label>Report</label>
-                          </v-list-tile-title>
-                        </v-list-tile>
-
-                        <v-list-tile
-                          v-if="stream.user.username === currentUser.username"
-                          class="default-menu-item"
-                          :to="{ name: 'VideoEdit', params: { slug: stream.slug }}"
-                        >
-                          <v-list-tile-title>
-                            <label>Edit Video</label>
-                          </v-list-tile-title>
-                        </v-list-tile>
-                      </v-list>
-                    </v-menu>
-                  </div>
+          <v-flex v-if="!onMobile" xs12 sm8 comment-wrapper>
+            <div>
+              <div v-if="onMobile" class="pane-tabs-onMobile">
+                <div
+                  v-for="(tab, index) in paneTabs"
+                  :key="index"
+                  class="pane-tab"
+                  :class="{active: activePaneTab == tab.id}"
+                  @click="activePaneTab = tab.id"
+                >
+                  {{ tab.name }} <span v-if="tab.id == 'comments'">({{ comments.length | formatLargeNumber }})</span>
                 </div>
               </div>
+  
+              <div v-if="activePaneTab == 'info'">
+                <div class="content-section">
+                  <div class="meta__content" :class="{'px-4':onMobile}">
+                    <user-tag v-if="onMobile" class="tag" showAvatar hideName hideTick clickUser width="40" height="40" :user="stream.user" />
+                    <div v-if="!onMobile" class="meta__title">{{ stream.name }}</div>
+  
+                    <div v-if="onMobile" class="dflex flex-column">
+                      <div class="meta__name">{{ stream.name.split('- ')[1] || stream.name }}</div>
+                      <div class="meta__title text-capitalize">{{ stream.user.username }}</div>
+                    </div>
 
-              <div v-if="!onMobile" class="user-section" :class="{'px-4':onMobile}">
-                <div class="user__wrapper">
-                  <router-link :to="`/${stream.user.slug}`">
-                    <div
-                      class="user__image"
-                      :style="`background-image: url(${stream.user.avatar.url})`"
-                    ></div>
-                  </router-link>
+                    <div class="show-more">
+  
+                      <div class="vid__description">
+                        {{ stream.description }}
+                      </div>
+  
+                      <span
+                        v-if="initShowMore"
+                        class="app-grey--text cursor-pointer showMoreActive"
+                        @click="showMoreActive = !showMoreActive"
+                      >
+                        <b v-if="!showMoreActive" class="show-more-less show-more">
+                          SHOW MORE
+                        </b>
+                        <b v-if="showMoreActive" class="show-more-less show-less">
+                          SHOW LESS
+                        </b>
+                      </span>
+                    </div>
 
-                  <div>
-                    <user-tag class="tag" :user="stream.user" />
+                    <div class="divider my-4"></div>
 
-                    <div class="meta__cta follow dflex mb-2">
+                    <div class="attachment-block" @click="(showAttachProduct = true)">
+                      <div><img src="../../assets/bold-plus.svg" width="16"></div>
+                      <div class="_content">Attach content to video</div>
+                    </div>
+  
+                    <!-- <div class="meta__subtitle">
+                      {{ stream.viewers_size || 0 }}
+                      views <span v-if="!onMobile">&bull;</span>
+                      {{ moment(stream.created_at).format("MMM D, YYYY") }}
+                    </div>
+   -->
+                    <div v-if="onMobile" class="meta__cta follow">
                       <user-follow-btn
                         v-if="currentUser && stream.user.id != currentUser.id"
                         :user="stream.user"
@@ -115,111 +75,77 @@
                         type="player"
                       />
                     </div>
-
-                    <div class="vid__description">
-                      {{ stream.description }}
-                    </div>
-
-                    <span
-                      v-if="initShowMore"
-                      class="app-grey--text cursor-pointer showMoreActive"
-                      @click="showMoreActive = !showMoreActive"
-                    >
-                      <b v-if="!showMoreActive" class="show-more-less show-more">
-                        SHOW MORE
-                      </b>
-                      <b v-if="showMoreActive" class="show-more-less show-less">
-                        SHOW LESS
-                      </b>
-                    </span>
                   </div>
-                </div>
-              </div>
-
-              <div v-if="showFeaturedSection" class="section users-section" :class="{'px-4':onMobile}">
-                <div class="section__header">
-                  <h4 class="section__title">Featured content and people</h4>
-                  <span
-                    class="section__subtitle"
-                    v-if="ownItem"
-                    @click="openFeaturedDialog()"
-                    >Edit attachment</span
-                  >
-                </div>
-                <div class="section__content">
-                  <div
-                    class="attach-container cursor-pointer"
-                    v-if="stream.assoc && stream.assoc.id > 0"
-                    @click="gotoAssoc()"
-                  >
-                    <div class="assoc">
-                      <div class="assoc__header">
-                        <div class="assoc__image-wrapper">
-                          <div
-                            class="assoc__image"
-                            :style="`background-image: url(${assocImage})`"
-                          ></div>
-                        </div>
-                      </div>
-                      <div class="assoc__content">
-                        <div class="assoc__subtitle">
-                          <span class="__name">{{ stream.assoc.name }}</span>
-                          <div v-if="onMobile">
-                            <!-- <b class="__name text-capitalize">{{ stream.assoc.merchant.username }}</b> -->
-                          </div>
-                          <br />
-                          <span
-                            v-if="stream.assoc.user"
-                            class="app-bold __user_name"
+<!--   
+                  <div class="meta__actions" :class="{'py-3': !ownItem}">
+                    <div v-if="ownItem && this.isSubscribed" class="meta__cta donate">
+                      <img src="/static/images/stat.svg" width="20" />
+                    </div>
+  
+                    <div v-if="this.isSubscribed" class="meta__cta donate" @click="showLoveDialog()">
+                      <img src="/static/images/ic_dollar.svg" height="21" />
+                    </div>
+  
+                    <div class="meta__cta repost" @click="repostItem()">
+                      <img src="/static/images/ic_repost.svg" width="21" />
+                    </div>
+                    <div class="meta__cta share" @click="openShareDialog()">
+                      <img src="/static/images/ic_share.svg" width="21" />
+                    </div>
+                    <div class="meta__cta" v-if="ownItem">
+                      <v-menu offset-y class="more-menu">
+                        <v-btn icon slot="activator">
+                          <v-icon>more_horiz</v-icon>
+                        </v-btn>
+                        <v-list>
+                          <v-list-tile
+                            class="default-menu-item"
+                            @click.native="deleteStream()"
                           >
-                            {{ stream.assoc.user.username }}
-                          </span>
-                        </div>
-                        <div class="assoc__title">
-                          <span v-if="stream.assoc.price && !onMobile">
-                            ${{ stream.assoc.price | formatNumber }}
-                          </span>
-                        </div>
-                        <div
-                          class="assoc__cta-"
-                          v-if="stream.assoc_type == 'ShopProduct'"
-                        >
-                          <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                          <v-btn v-if="!onMobile" round outline small class="text-capitalize ma-0">
-                            view
-                          </v-btn>
-                        </div>
-                        <div
-                          class="assoc__cta-"
-                          v-if="stream.assoc_type == 'Album'"
-                        >
-                          <!-- <img src="/static/images/ic_cart_active.svg" width="20" /> -->
-                          <v-btn round outline small class="text-capitalize ma-0">
-                            Play
-                          </v-btn>
-                        </div>
-                      </div>
+                            <v-list-tile-title>
+                              <label>Delete</label>
+                            </v-list-tile-title>
+                          </v-list-tile>
+                          <v-list-tile class="default-menu-item">
+                            <v-list-tile-title>
+                              <label>Report</label>
+                            </v-list-tile-title>
+                          </v-list-tile>
+  
+                          <v-list-tile
+                            v-if="stream.user.username === currentUser.username"
+                            class="default-menu-item"
+                            :to="{ name: 'VideoEdit', params: { slug: stream.slug }}"
+                          >
+                            <v-list-tile-title>
+                              <label>Edit Video</label>
+                            </v-list-tile-title>
+                          </v-list-tile>
+                        </v-list>
+                      </v-menu>
                     </div>
-                  </div>
-
-                  <div
-                    class="profile-section attach-container"
-                    v-if="stream.assoc && stream.assoc.id > 0"
-                  >
-                    <div v-if="stream.accounts.length" class="assoc">
-                      <template v-for="account in stream.accounts">
-                        <div class="user-container" :key="`user-${account.id}`">
-                          <artist-item :artist="account" />
-                        </div>
-                      </template>
-                    </div>
-                  </div>
+                  </div> -->
                 </div>
+  
               </div>
             </div>
+            <comments :item="stream" :comments="comments" roundAvatar />
           </v-flex>
+          <v-flex v-else xs12 comment-wrapper class="px-4">
+            <chat
+              :items="comments"
+              hideDatedString
+              showShortAge
+            />
 
-          <v-flex v-if="activePaneTab == 'info'" xs12 sm3 class="related_col" :class="{'pl-3': !onMobile}">
+            <comment-input
+              :item="stream"
+              roundInput
+              noBorder
+              placeholder="Add your reply"
+            ></comment-input>
+          </v-flex>
+          <v-flex v-if="activePaneTab == 'info'" xs12 sm4 class="related_col" :class="{'pl-4': !onMobile}">
             <div class="videos-section">
               <h4 class="__title" :class="{'px-2': onMobile}">Related Videos</h4>
               <div class="section__content">
@@ -238,70 +164,292 @@
               </div>
             </div>
           </v-flex>
-
-          <v-flex v-if="!onMobile" xs12 sm9 comment-wrapper>
-            <comments :item="stream" :comments="comments" roundAvatar />
-          </v-flex>
-          <v-flex v-else xs12 comment-wrapper class="px-4">
-            <chat
-              :items="comments"
-              hideDatedString
-              showShortAge
-            />
-
-            <comment-input
-              :item="stream"
-              roundInput
-              noBorder
-              placeholder="Add your reply"
-            ></comment-input>
-          </v-flex>
-          <!-- <v-flex xs3>
-            <div class="album-reposted-section">
-              <h4 class="__title">
-                Reposted by {{ stream.user.username }}
-              </h4>
-              <v-layout row wrap class="recent-content">
-                <template v-for="(feed, index) in album.user.recent_items">
-                  <div
-                    v-if="
-                      ['Album', 'ShopProduct', 'Stream'].indexOf(feed.assoc_type) > -1
-                    "
-                    :key="feed.id"
-                    class="card-container"
-                  >
-                    <track-card
-                      :objects="album.user.recent_items"
-                      :objectIndex="index"
-                      v-if="feed.assoc_type == 'Album'"
-                    />
-                    <product-card
-                      :dataObject="feed"
-                      v-if="feed.assoc_type == 'ShopProduct'"
-                    />
-                    <video-card
-                      :dataObject="feed"
-                      v-if="feed.assoc_type == 'Stream'"
-                    />
-                  </div>
-                </template>
-              </v-layout>
-            </div>
-          </v-flex> -->
+    
         </v-layout>
       </v-container>
-    </div>
+    </div> 
 
-    <!-- <div class="meta">
-      <div class="meta__header">
-        <router-link :to="`/${stream.user.slug}`">
-          <div
-            class="meta__image"
-            :style="`background-image: url(${stream.user.avatar.url})`"
-          ></div>
-        </router-link>
+    <!-- Add a Product on Timeline -->
+
+    <v-dialog
+    v-model="showAttachProduct"
+    content-class="product-attach-dialog"
+  >
+    <div class="product-attach-flex">
+      <div class="w-60">
+        <div class="content-head">SELECT CONTENT</div>
+        <div class="content-options">
+          <div class="_title" @click="(selectAttactProduct = 1)"
+          :class='(selectAttactProduct == 1) ? "active": null'>Music</div>
+          <div class="_title" @click="(selectAttactProduct = 2)"
+          :class='(selectAttactProduct == 2) ? "active": null'>Video</div>
+          <div class="_title" @click="(selectAttactProduct = 3)"
+          :class='(selectAttactProduct == 3) ? "active": null'>Products</div>
+        </div>
+        <div class="tabs-main">
+          <div class="tabs-container" v-if="(selectAttactProduct == 1)">
+            music
+            <div class="tabs-div active">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+            
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+          </div>
+          <div class="tabs-container" v-if="(selectAttactProduct == 2)">
+            video
+            <div class="tabs-div active">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+            
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+          </div>
+          <div class="tabs-container" v-if="(selectAttactProduct == 3)">
+            <div class="tabs-div active">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+            
+            <div class="tabs-div">
+              <div class="_image">
+                <img src="../../assets/tile-2.jpeg" width="50">
+              </div>
+              <div class="_text">
+                <div class="title">NewProduct</div>
+                <div class="sub mt-1">NewProduct</div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
       </div>
-    </div> -->
+      <div class="w-40">
+        <div class="profile_image">
+          <img src="../../assets/tile-2.jpeg" width="100%">
+        </div>
+        <div class="profile_info my-3">
+          <div class="image"></div>
+          <div class="text">Text JOabh</div>
+        </div>
+        <div class="product-info ">
+          <div class="category">Category</div>
+          <div class="name">Name</div>
+          <div class="price mt-1">$50.00</div>
+        </div>
+        <div class="time-info mb-4 mt-3">
+          <div class="text">SHOW ATTACHMENT AT:</div>
+          <div class="timer-outer mt-2">
+            <div class="time-flex">
+              <div>
+                <span>00</span>hr
+              </div>
+              <div>
+                :
+              </div>
+              <div>
+                <span>00</span>min
+              </div>
+              <div>
+                :
+              </div>
+              <div>
+                <span>00</span>sec
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="button-case">
+          <v-btn blue rounded class="button-blue ma-0">Add content</v-btn>
+        </div>
+      </div>
+
+    </div>
+  </v-dialog>
+
+
 
     <v-dialog
       v-model="show_featured_dialog"
@@ -385,10 +533,212 @@
 <style src="../../../static/styles/video.scss" lang="scss" scoped></style>
 
 <style lang="scss" scoped>
+.product-attach-flex{
+
+  display: flex;
+  background: white;
+  border-radius: 20px;
+  
+  .w-60{
+    width: 60%;
+    padding: 30px 25px;
+
+    .content-head{
+      font-weight: 700;
+      font-size: 12px;
+      color: black;
+    }
+    .content-options{
+      display: flex;
+      gap: 35px;
+      margin: 20px 0;
+
+      ._title{
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+        opacity: 30%;
+        cursor: pointer;
+
+        &.active{
+          opacity: 100%;
+        }
+      }
+    }
+
+    .tabs-main{
+      .tabs-container{
+        height: 100%;
+        max-height: 385px;
+        overflow-y: auto;
+        .tabs-div{
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 8px;
+          margin-bottom: 8px;
+          border-radius: 10px;
+
+          &.active{
+            background: rgba($color: #D9D9D9, $alpha: 0.4);
+          }
+          &:hover{
+            background: rgba($color: #D9D9D9, $alpha: 0.15);
+          }
+          ._image{
+            img{
+              border-radius: 4px;
+            }
+          }
+          ._text{
+            .title{
+              font-size: 16px;
+              font-weight: 500;
+              color: black;
+            }
+
+            .sub{
+              font-size: 12px;
+              font-weight: 500;
+              color: rgba($color: #000000, $alpha: 0.4);
+            }
+          }
+        }
+      }
+    }
+
+  }
+  .w-40{
+    width: 40%;
+    padding: 30px 25px;
+    border-left: 1px solid rgba(0,0,0,0.1);
+
+    .profile_image{
+      img{
+        border-radius: 4px;
+      }
+    }
+    .profile_info{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .image{
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #c4c4c4;
+      }
+      .text{
+        font-size: 12px;
+        font-family: "Inter", sans-serif ;
+        font-weight: bold;
+        color: black;
+      }
+    }
+    .product-info{
+      .category{
+        font-size: 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        color: rgba($color: #000000, $alpha: 0.5);
+        text-transform: uppercase;
+      }
+      .name{
+        font-size: 18px;
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        color: black;
+      }
+      .price{
+        font-size: 16px;
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        color: black;
+      }
+    }
+    .time-info{
+      .text{
+        font-size: 12px;
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        color: rgba($color: #000000, $alpha: 0.5);
+        text-transform: uppercase;
+      }
+      .timer-outer{
+        width: 100%;
+        border: 1px solid rgba($color: #000000, $alpha: 0.1);
+        border-radius: 3px;
+        padding: 10px 30px;
+        display: flex;
+        justify-content: center;
+
+        .time-flex{
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          font-family: "Inter",sans-serif;
+          font-size: 14px;
+          color: black;
+          align-items: center;
+
+          span{
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .button-blue{
+      box-shadow: none;
+      border: none;
+      width: 100%;
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      height: 40px;
+      background: #5051F9;
+      color: white;
+      border-radius: 50px;
+    }
+  }
+}
+.divider{
+  width: 100%;
+  height: 1px;
+  background: rgba($color: #000000, $alpha: 0.1);
+}
 .vid_col {
   // -ms-flex-preferred-size: 66.66666666666666%;
   // flex-basis: 100%;
   // max-width: 80%;
+}
+.show-more{
+  .vid__description {
+    height: 20px;
+    overflow: hidden;
+  }
+
+  .show-more-less {
+    color: #333;
+    font-size: 13px;
+  }
+}
+
+.attachment-block{
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  align-items: center;
+  border: 1px solid rgba($color: #000000, $alpha: 0.1);
+  border-radius: 6px;
+  max-width: 265px;
+  cursor: pointer;
+
+  ._content{
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+
+  }
 }
 .video-page {
   .page-content {
@@ -524,8 +874,12 @@
       }
 
       &__title {
-        font-size: 16px;
+        font-size: 22px;
         font-weight: 700;
+        font-family: "inter",sans-serif;
+        color: black;
+        margin-bottom: 15px;
+
       }
 
       &__actions {
@@ -638,8 +992,8 @@
     letter-spacing: 0;
     min-width: 100px;
     &.follow {
-      border: 1px solid #1872ff;
-      background-color: #1872ff !important;
+      border: 1px solid #076AFF;
+      background-color: #076AFF !important;
       color: #fff !important;
     }
     &.following {
@@ -705,6 +1059,10 @@
       display: block;
 
       .meta__title {
+        font-weight: 700;
+        font-size: 22px;
+        color: black;
+        font-family: "Inter", sans-serif;
         max-width: 75%;
       }
       .meta__content {

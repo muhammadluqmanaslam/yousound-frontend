@@ -1,6 +1,7 @@
 <template>
   <div>
     <BannerUpload 
+    v-if="!videoFile"
     MainHeading="Premiere a video" 
     MainText="Upload videos & connect your products, albums + earn subscription revenue from your streams"
     :Icon="iconImage"
@@ -10,28 +11,22 @@
   <div class="page upload-child video-page create-page mx-5 margin-top-header" v-if="this.currentUser.creator_verified">
     <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
   
-    <!-- <content-top-header>
+    <content-top-header class="black-theme" v-if="videoFile">
       <template slot="topHeader">
         <ul class="pr-3">
           <li
-            v-for="tab in tabs"
-            :key="tab.id"
-            :href="`#${tab.id}`"
-            class="nav-li"
-            :class="[
-              { 'active tab-active': isActiveTab(tab.id) },
-              `nav-${tab.id}`,
-              { isParent: tab.isParent },
-            ]"
+            class="nav-li active"
           >
-            <label class="nav-label" @click="onTab(tab)">
-              {{ tab.title }}
-              <v-icon v-if="tab.isParent">chevron_right</v-icon>
+            <label class="nav-label" >
+            <router-link to="/upload">
+              
+              < Back
+            </router-link>
             </label>
           </li>
         </ul>
       </template>
-    </content-top-header> -->
+    </content-top-header>
 
     <div class="d-flex">
       <div class="page-content">
@@ -58,7 +53,7 @@
               </div>
             </v-flex>
           </v-layout>
-            <div>
+            <div class="mt-5">
                 <h4 class="album-info-title">Info</h4>
               </div>
           <div class='dflex gap-15'>
@@ -134,8 +129,8 @@
                       <div class="cover-wrapper allChildrenCenter">
                         <label for="stream_cover_file" class="cursor-pointer">
                           <span class="texet-xs-center dflex align-center justify-center flex-column">
-                            <img width="20" src="/static/images/ic_camera.svg" alt="">
-                            <span>upload</span>
+                            <img width="25" src="/static/images/ic_camera.svg" alt="">
+                            <span class="mt-1"><b>upload</b></span>
                           </span>
                         </label>
                       </div>
@@ -316,19 +311,15 @@
 
             </div>
 
-
-
-
-
-
           <div class="submit-section">
-            <hr class="mb-5" />
+            <hr class="mb-4" />
 
             <v-btn
               style="background-color: #394DFF !important"
               round
               flat
-              class="release-now-btn white--text" 
+              :loading="loading"
+              class="release-now-btn white--text mb-5" 
               type="submit"
               :disabled="submitLoading"
             >
@@ -338,6 +329,87 @@
         </form>
       </div>
     </div>
+
+    <v-dialog v-if="video_upload_successfully"
+			v-model="video_upload_successfully"
+			content-class="collaborators-success-dialog"
+		>
+			<v-card>
+				<v-card-title class="headline">
+					<div class="dflex gap-15">
+						<div>
+							<img src="../../assets/black-check.svg" width="25">
+						</div>
+						<div class="headline-text">
+							Your video was released! <a href="/upload/video">Upload another</a> or go to <router-link to="/upload">upload page</router-link> 
+						</div>
+					</div>
+				</v-card-title>
+
+				<div class="modal-body">
+					<div class="dflex gap-20">
+						<div class="w-30 border-round">
+							<img :src="stream_cover_url" width="100%">
+						</div>
+						<div class="w-70">
+							<div>
+								<h3 class="main-head">{{ stream.name }}</h3>
+								<p class="mb-0 second-head mx-0 my-0">{{ currentUser.username }}</p>
+								<p class="light-text mx-0 my-0">{{ genre_name }}</p>
+
+							</div>
+							<hr class="my-4">
+
+							<div class="dflex align-center gap-20">
+								<div class="dflex align-center gap-15">
+									<a href="#"><img src="../../assets/email-xcon.svg" width="16"></a>
+									<a href="#"><img src="../../assets/facebook-xcon.svg" width="10"></a>
+									<a href="#"><img src="../../assets/twitter-xcon.svg" width="17"></a>
+									
+									
+		
+								</div>
+								<div class="url-bar">
+									<p class="mx-0 my-0">{{ videoUrl }}</p>
+									<div
+										class="clipboard-btn"
+										v-clipboard:copy="videoUrl"
+										v-clipboard:success="onCopy"
+										v-clipboard:error="onError"
+									>
+										<img src="../../assets/clone.svg" width="16">
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<div class="dflex align-center justify-space-between gap-max">
+						<div class="w-100">
+							<h2 class="foot-head">
+								Promote your profile
+							</h2>
+							<p class="mx-0 my-0 mt-2">
+								Upload a spotlight video to promote your content to new subscribers!
+							</p>
+
+							<router-link to="/spotlight">
+								<v-btn class="mt-4 fx-btn ml-0">
+									Add spotlight
+								</v-btn>
+							</router-link>
+						</div>
+						<div class="w-100">
+							<img src="../../assets/album-drop.gif" width="100%">
+						</div>
+					</div>
+
+				</div>
+			</v-card>
+		</v-dialog>
 
     <v-dialog v-model="show_help_dialog" content-class="my-dialog-2">
       <v-card>
@@ -559,4 +631,5 @@
 </template>
 
 <script type="text/javascript" src="./upload.ctrl.js"></script>
-<style src="../../../static/styles/video.scss" lang="scss" scoped>
+<style src="../../../static/styles/video.scss" lang="scss" scoped />
+<style scoped src="../../../static/styles/album.scss" lang="scss" />

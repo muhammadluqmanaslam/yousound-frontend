@@ -287,7 +287,7 @@ export default {
       this.player.src([
         {
           type: 'application/x-mpegURL',
-          src: this.src,
+          src: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
         },
       ])
     },

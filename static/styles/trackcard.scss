@@ -1,8 +1,31 @@
+.track-menu-item{
+
+  .menu-list-item{
+    min-width: 175px;
+    color: black !important;
+    font-size: 14px;
+    font-weight: bold;
+    
+    label{
+      opacity: 50%;
+    }
+    &:hover{
+      label{
+        opacity: 100% !important;
+      }
+    }
+  }
+}
+
 .track-card {
-  width: 100%;
+  flex: 1 !important;
+  width: 100% !important;
   .track-info {
+    width: 100%;
+    flex: auto;
     position: relative;
     .track-cover {
+      flex: auto;
       position: relative;
       padding: 0;
       .playlist-icon {
@@ -43,18 +66,14 @@
         padding: 0;
         left: 0;
         top: 0;
-        opacity: 0;
-        // cursor: pointer;
-        -webkit-transition: opacity 0.3s ease-in-out;
-        -moz-transition: opacity 0.3s ease-in-out;
-        -ms-transition: opacity 0.3s ease-in-out;
-        -o-transition: opacity 0.3s ease-in-out;
-        transition: opacity 0.3s ease-in-out;
-        &:hover {
-          opacity: 1;
-        }
-        &.playing {
-          opacity: 1 !important;
+        &:before {
+          counter-increment: section;
+          content: "" counter(section) "";
+          position: absolute;
+          top: 8px;
+          left: -25px;
+          font-size: 16px;
+          font-weight: 600;                
         }
         .track-count {
           position: absolute;
@@ -88,14 +107,17 @@
         .play-button {
           align-self: center;
           flex: none;
-          border: rgba(255, 255, 255, 0.5) solid 1px;
+          border: none !important;
           border-radius: 100%;
-          background: rgba(0, 0, 0, 0.5) !important;
+          background: transparent !important;
           box-shadow: none;
-          width: 60px;
-          height: 60px;
-          min-width: 60px;
-          
+          width: 20px !important;
+          height: 20px !important;
+          min-width: 20px !important;
+          position: absolute;
+          left: -30px;
+          margin: 0;
+          opacity: 0;
           &.play-button-2 {
             border: none;
             font-size: 24px;
@@ -121,21 +143,26 @@
             max-width: 60px;
           }
           .icon {
-            font-size: 40px;
-            color: #ffffff;
+            font-size: 24px;
+            color: #000;
           }
         }
         .track-menu.menu {
           position: absolute;
-          top: 50%;
+          bottom: 5px;
           // left: calc(50% + 37.5px);
           right: 5px;
-          transform: translateY(-50%);
+
+
+
+
           .btn {
-            background: none !important;
+            background: black !important;
             border: none !important;
             width: 37.5px;
             min-width: 37.5px;
+            border-radius: 50%;
+
             .btn__content {
               padding: 0;
             }
@@ -168,6 +195,7 @@
         letter-spacing: -0.3px;
         text-align: left;
         margin-left: 0;
+        font-family: 'Inter',sans-serif;
         a {
           color: inherit;
         }
@@ -176,8 +204,8 @@
         width: 100%;
         opacity: 1;
         font-size: 14px;
-        font-weight: 600;
-        color: #333;
+        font-weight: 700;
+        color: #000;
         letter-spacing: -0.3px;
         white-space: nowrap;
         overflow: hidden;
@@ -186,11 +214,32 @@
         margin-left: 0;
         margin-top: -16px;
         text-transform: capitalize;
+        font-family: 'Inter',sans-serif;
 
         a {
           color: inherit;
         }
       }
+    }
+  }
+  &:hover {
+    .track-actions {
+      &:before {
+        display: none;
+      }
+    }
+    .play-button {
+      opacity: 1 !important;
+    }
+  }
+  &.playing {
+    .track-actions {
+      &:before {
+        display: none;
+      }
+    }
+    .play-button {
+      opacity: 1 !important;
     }
   }
 }

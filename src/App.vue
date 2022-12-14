@@ -60,7 +60,7 @@
       <v-container
         fluid
         class="app-container"
-        :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'not-authenticated': !isAuthenticated, wrapFullHeight}"
+        :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'no-padding': noPadding, 'bg-light': bgLight,'bg-grey': bgGrey ,'not-authenticated': !isAuthenticated, wrapFullHeight}"
       >
         <router-view></router-view>
         <!-- <app-footer v-if="isAuthenticated && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer> -->
@@ -189,6 +189,15 @@ export default {
     // },
     noSideSpace() {
       return this.$route.meta.noSideSpace;
+    },
+    bgLight() {
+      return this.$route.meta.bgLight;
+    },
+    noPadding() {
+      return this.$route.meta.noPadding;
+    },
+    bgGrey() {
+      return this.$route.meta.bgGrey;
     },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;

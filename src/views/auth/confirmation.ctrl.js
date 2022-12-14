@@ -78,7 +78,7 @@ export default {
               this.$root.$emit(MyEvents.AUTH_SIGNIN)
 
               this.$store.dispatch('error/showLoadingActivity', false)
-              this.$router.push({ name: 'DiscoverIndex' })
+              this.$router.push({ name: 'AlbumIndex' })
               localStorage.removeItem("user_email")
               localStorage.removeItem("user_pass")
             })

@@ -64,9 +64,10 @@ export default {
     })
   },
 
-  repostAlbum(albumId) {
+  repostAlbum(albumId, params) {
     return Vue.http.get(API_BASE_URL + '/' + albumId + '/repost', {
       headers: { Authorization: $store.state.auth.token },
+      params: params,
     })
   },
 
@@ -194,6 +195,13 @@ export default {
   updateAlbum(albumId, params) {
     return Vue.http.patch(API_BASE_URL + '/' + albumId, params, {
       headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
+  updateTitleAndReview(albumId, params) {
+    return Vue.http.get(API_BASE_URL + '/' + albumId + '/update_title_and_review', {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
     })
   },
 }

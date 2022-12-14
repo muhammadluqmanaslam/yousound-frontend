@@ -190,48 +190,37 @@
     </v-dialog>
 
     <v-dialog v-model="show_order_complete_dialog" content-class="my-dialog-1">
-      <v-card>
-        <v-card-media
-          src="/static/images/ic_check_o_green.png"
-          height="100px"
-          contain
-        ></v-card-media>
-        <v-card-text>
-          <div class="headline">Your order has been processed!</div>
-          <p v-if="ordersCost.hasDeleted">
-            Some items were out of stock or deleted
-          </p>
-          <div class="mt-2">
-            View your order history to view shipping status of your items,<br />
-            view payment invoices & download any digital products.
+      <div class="payment-success payment-ready">
+        <div class="dflex align-center my-4">
+          <!-- <v-icon class="success-icon result-icon">check_circle</v-icon> -->
+          <div class="success-img">
+            <img src="../../assets/true.svg" width="100%">
           </div>
-          <!-- <div class="fields">
-            <div class="field py-1">
-              <span>Shipping / Fee</span>
-              <label
-                >${{
-                  (ordersCost.shipping_cost +
-                    Stripe.calculateFee(ordersCost.total_cost))
-                    | formatNumber
-                }}</label
-              >
-            </div>
-            <div class="field py-1">
-              <span>Taxes</span>
-              <label>${{ ordersCost.tax_cost | formatNumber }}</label>
-            </div>
-            <div class="field py-1">
-              <span>Total</span>
-              <label>${{ ordersCost.total_cost | formatNumber }}</label>
-            </div>
-          </div> -->
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="blue" dark round @click.native="viewOrderHistory()"
-            >View Order History</v-btn
-          >
-        </v-card-actions>
-      </v-card>
+          <div class="result-text">
+            <div class="big">Thank you!</div>
+            <div>Your order was successful</div>
+          </div>
+        </div>
+
+        <div class="post">
+          We sent an email confirmation to: <br />
+          <strong> email@email.com </strong>
+        </div>
+
+        <div class="second-head mt-4">
+          Buyer protection
+        </div>
+
+        <div class="divider mt-1"></div>
+        <div class="post mt-2">
+          Sellers have <b>21 days</b> to ship your items or your order is automatically refunded.
+        </div>
+
+
+        <v-btn depressed round block class="mt-5 pay_btn"
+          >View order details</v-btn
+        >
+      </div>
     </v-dialog>
 
     <payment-modal

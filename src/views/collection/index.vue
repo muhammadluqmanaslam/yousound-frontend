@@ -1,5 +1,5 @@
 <template>
-  <div class="page collection-page mx-5 margin-top-header">
+  <div class="page collection-page mx-5 margin-top-header" v-if="pageReady">
     <content-top-header class="mt-3">
       <template slot="topHeader">
         <ul>
@@ -17,9 +17,20 @@
       </template>
     </content-top-header>
 
-    <repost-music v-show="activeTab === 'music'" />
-    <repost-videos v-show="activeTab === 'videos'" />
-    <repost-products v-show="activeTab === 'products'" />
+    <repost-music
+      :tracks="this.tracks"
+      :playlists="this.playlist_data.playlists.filter((c) => c.playlist_type == 'tracks')"
+      v-show="activeTab === 'music'"
+    />
+    <repost-videos
+      :streams="streams"
+      :playlists="this.playlist_data.playlists.filter((c) => c.playlist_type == 'streams')"
+      v-show="activeTab === 'videos'"
+    />
+    <repost-products
+      :products="products"
+      :playlists="this.playlist_data.playlists.filter((c) => c.playlist_type == 'products')"
+      v-show="activeTab === 'products'" />
   </div>
 </template>
 

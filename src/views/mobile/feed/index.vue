@@ -8,7 +8,7 @@
         <p class="empty-description">
           Follow people to discover new music &amp; products.
         </p>
-        <router-link :to="{name: 'DiscoverIndex'}" class="empty-discover-btn">
+        <router-link :to="{name: 'AlbumIndex'}" class="empty-discover-btn">
           Discover
         </router-link>
       </div>

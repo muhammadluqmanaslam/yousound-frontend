@@ -23,7 +23,7 @@
       </div>
 
       <div class="_inner-wrapper _center">
-        <img @click="$router.push({name: isAuthenticated ? 'DiscoverIndex' : 'Home'})" :src="centerImg" />
+        <img @click="$router.push({name: isAuthenticated ? 'AlbumIndex' : 'Home'})" :src="centerImg" />
       </div>
 
       <div class="_inner-wrapper _right">
@@ -68,7 +68,7 @@
       </div>
 
       <div class="_inner-wrapper _center ml-0">
-        <img @click="$router.push({name: isAuthenticated ? 'DiscoverIndex' : 'Home'})" :src="appLogo" />
+        <img @click="$router.push({name: isAuthenticated ? 'AlbumIndex' : 'Home'})" :src="appLogo" />
       </div>
 
       <div class="_inner-wrapper _right">
@@ -171,7 +171,7 @@ export default {
         case 'video':
         case 'music':
         case 'product':
-          return this.$router.push({name: 'DiscoverIndex', params: { activeDiscover: senderRoute}})
+          return this.$router.push({name: 'AlbumIndex', params: { activeDiscover: senderRoute}})
         default:
           return this.$router.go(-1)
       }

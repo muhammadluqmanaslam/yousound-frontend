@@ -25,7 +25,7 @@
         <div class="header-container">
           <div class="header-content">
             <h1 class="_title">Join the world's creators <br> & music lovers.</h1>
-            <router-link to="/discover">
+            <router-link to="/music/discover">
               <v-btn round class="orange-btn">Discover</v-btn>
             </router-link>
           </div>
@@ -162,7 +162,7 @@ export default {
 
   created() {
     if (this.currentUser != null) {
-      this.$router.push({path: '/discover'})
+      this.$router.push({path: '/music/discover'})
     }
   }
 }

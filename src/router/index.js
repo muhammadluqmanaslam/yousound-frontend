@@ -11,6 +11,7 @@ import ForgotPassword from '@/views/auth/forgot_password'
 import ResetPassword from '@/views/auth/reset_password'
 import Confirmation from '@/views/auth/confirmation'
 import SocialVerification from '@/views/auth/social_verify'
+import chartPage from "@/views/chartPage"
 // import InvitedRegister from '@/views/auth/register_by_invited'
 // import AttendeeRegister from '@/views/auth/register_by_attendee'
 // import ListenerRegister from '@/views/auth/register_by_listener'
@@ -70,6 +71,7 @@ import UserProfile from '@/views/user/profile'
 import NotFound from '@/views/404'
 import UserGetVerified from '@/views/user/get_verified'
 import UserSettings from '@/views/settings/index'
+import TopCreators from '@/views/topCreators'
 import VideoIndex from '@/views/video/index'
 import VideoManage from '@/views/video/manage'
 import VideoInfo from '@/views/video/estimate'
@@ -128,6 +130,7 @@ export function createRouter(settings) {
     },
     { path: '/terms', name: 'TermsPage', component: TermsPage, meta: {allowOnMobile: true} },
     { path: '/squad', name: 'OverviewPage', component: OverviewPage },
+    { path: '/chart', name: 'chartPage', component: chartPage },
     {
       path: '/_oauth/verification',
       name: 'SocialVerification',
@@ -205,19 +208,10 @@ export function createRouter(settings) {
     // { path: '/home1', name: 'LandingPage', component: Landing1Page },
     // { path: '/home', name: 'LandingPage', component: LandingPage },
     { path: '/admin', name: 'AdminPage', component: AdminPage },
-    { path: '/video', name: 'VideoIndex', component: VideoIndex, meta: { noSideSpace: onMobile, senderRoute: 'video' } },
+    {path: '/video', name: 'VideoIndex', component: VideoIndex, meta: { noSideSpace: onMobile, senderRoute: 'video', bgGrey: true }},
     // { path: '/discover', name: 'Discover', component: Discover },
-    {
-      path: '/discover',
-      name: 'DiscoverIndex',
-      component: setComponent('discover'),
-      meta: {
-        showRightAltIcon: true,
-        noSideSpace: true,
-      },
-    },
-    { path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex, meta: { senderRoute: 'video' } },
-    { path: '/product', name: 'ProductIndex', component: ProductIndex, meta: { senderRoute: 'merch' } },
+    {path: '/music/discover', name: 'AlbumIndex', component: AlbumIndex, meta: { showRightAltIcon: true, noSideSpace: true, senderRoute: 'video', bgGrey: true }},
+    {path: '/product', name: 'ProductIndex', component: ProductIndex, meta: { senderRoute: 'merch' }},
     {
       path: '/search',
       name: 'Search',
@@ -245,10 +239,10 @@ export function createRouter(settings) {
         noSideSpace: onMobile,
       },
     },
-    { path: '/cart', name: 'Cart', component: Cart },
+    { path: '/cart', name: 'Cart', component: Cart, meta: { noPadding: true } },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },
-    { path: '/sell', name: 'Sell', component: Sell },
-    { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail },
+    { path: '/sell', name: 'Sell', component: Sell, meta: { bgGrey: true } },
+    { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail, meta: { noPadding: true } },
     { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
     {
@@ -271,7 +265,7 @@ export function createRouter(settings) {
       },
     },
     { path: '/x', name: 'AddAttendee', component: AddAttendee },
-    { path: '/playlist', name: 'Playlist', component: Playlist },
+    { path: '/playlist/:id', name: 'Playlist', component: Playlist },
     {
       path: '/playlist/:slug',
       name: 'PlaylistDetail',
@@ -283,12 +277,13 @@ export function createRouter(settings) {
     { path: '/labels', name: 'LabelsManage', component: LabelsManage },
     { path: '/live/', name: 'CreateLive', component: CreateLive },
     { path: '/spotlight', name: 'SpotLight', component: SpotLight },
-    { path: '/upload/', name: 'UploadIndex', component: UploadIndex, meta: { wrapFullHeight: !!onMobile } },
+    { path: '/upload/', name: 'UploadIndex', component: UploadIndex, meta: { wrapFullHeight: !!onMobile, bgLight: true } },
     { path: '/upload/album', name: 'UploadAlbum', component: UploadAlbum },
     { path: '/album/:slug/edit', name: 'AlbumEdit', component: AlbumEdit },
     { path: '/verified', name: 'UserGetVerified', component: UserGetVerified },
     { path: '/payments', name: 'PaymentIndex', component: PaymentIndex },
     { path: '/settings', name: 'UserSettings', component: UserSettings },
+    { path: '/top-creators', name: 'TopCreators', component: TopCreators },
     { path: '/partners', name: 'Partners', component: Partners },
     { path: '/dashboard', name: 'Dashboard', component: Dashboard },
     { path: '/subscribe', name: 'SubscribeIndex', component: SubscribeIndex },

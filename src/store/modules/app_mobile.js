@@ -11,13 +11,13 @@ const state = {
   mobileFooterOptions: {
     showFooter: true,
   },
-  albumPrevRoute: '' || 'DiscoverIndex', // fallback,
+  albumPrevRoute: '' || 'AlbumIndex', // fallback,
 }
 
 const getters = {
   hideGoBackCTA: (state) => {
       // pass route name
-    return ['DiscoverIndex']
+    return ['AlbumIndex']
   },
 }
 

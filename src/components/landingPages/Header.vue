@@ -76,7 +76,7 @@
             v-else
             class="login_text"
             elevation="0"
-            :to="{name: 'DiscoverIndex'}"
+            :to="{name: 'AlbumIndex'}"
           >
             Discover
           </v-btn>
@@ -123,7 +123,7 @@
         v-else
         class="login_text_mobile d-sm-flex d-none justify-md-center align-md-center"
         elevation="0"
-        :to="{name: 'DiscoverIndex'}"
+        :to="{name: 'AlbumIndex'}"
       >
         Discover
       </v-btn>

@@ -24,20 +24,6 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="showRegisterModal">
-      <v-card>
-        <v-card-title class="headline"
-          >Register</v-card-title
-        >
-        <v-card-text
-          >Please do signup if you want to proceed.</v-card-text
-        >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
     <div class="side-player-inner">
       <div class="track-detail-section">
         <div class="track-cover-container" :style="{width: isMini ? '100%' : ''}">
@@ -49,13 +35,31 @@
                 :style="{
                   'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`,
                 }"
-              ></div>
+              >
+                <div style="max-width: 100%; padding-top: 10rem;">
+                  <label class="track-name" style="background-color: black" id="trackName" v-if="this.playRandomSong">{{ track.name }}</label>
+                  <div class="user-info">
+                    <router-link class="user-name" style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
+                      item.user.username
+                    }}</router-link>
+                  </div>
+                </div>
+              </div>
             </template>
             <template v-else>
               <div
                 class="track-cover-image"
                 :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
-              ></div>
+              >
+                <div style="max-width: 100%; padding-top: 10rem;">
+                  <label class="track-name" style="background-color: black" id="trackName" v-if="this.playRandomSong">{{ track.name }}</label>
+                  <div class="user-info">
+                    <router-link class="user-name"  style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
+                      item.user.username
+                    }}</router-link>
+                  </div>
+                </div>
+              </div>
             </template>
           </router-link>
         </div>
@@ -133,7 +137,7 @@
               <label class="track-name" id="trackName">{{ track.name }}</label>
               <div class="user-info">
                 <template v-if="item.collaborators_count > 0">
-                  <router-link class="user-name" :to="'/' + item.user.slug">{{
+                  <router-link class="user-name" v-if="!this.playRandomSong" :to="'/' + item.user.slug">{{
                     item.user.username
                   }}</router-link>
                   <template v-for="c in item.collaborators">
@@ -148,7 +152,7 @@
                   <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
                 </template>
                 <template v-else-if="item.album_type == 'album'">
-                  <router-link class="user-name" :to="'/' + item.user.slug">{{
+                  <router-link v-if="!this.playRandomSong" class="user-name" :to="'/' + item.user.slug">{{
                     item.user.username
                   }}</router-link>
                 </template>
@@ -503,6 +507,7 @@ export default {
 
   data() {
     return {
+      playRandomSong: false,
       modalMode: false,
       playlist: [],
       index: 0,
@@ -528,7 +533,7 @@ export default {
       remainingStillListenerTimer: 0,
       isSubscribed: false,
       previewTimeCompleted: false,
-      showRegisterModal: false,
+      show_logout_modal: false,
       endPlayTime: 0,
       totalPlayTime: 0,
       playingSound: null,
@@ -717,6 +722,12 @@ export default {
     },
 
     play(index) {
+      if (localStorage.getItem("play") === 'random') {
+        this.playRandomSong = true
+      } else {
+        this.playRandomSong = false
+      }
+      console.log("========================= play random song", this.playRandomSong)
       if (this.currentUser) {
         this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
         this.fetchSubscriptionDetails();
@@ -800,6 +811,8 @@ export default {
             // this.isPlaying = false
           },
           onstop: function () {
+            this.playRandomSong = false
+            localStorage.removeItem("play")
             // Stop the wave animation.
             // this.isPlaying = false
             if (window.location.href.includes("discover")) {
@@ -1057,7 +1070,11 @@ export default {
               break;
             }
           } else {
-            tracks = object.tracks;
+            if (window.location.href.includes("collection") || window.location.href.includes("playlist")) {
+              tracks.push(object.track)
+            } else {
+              tracks = object.tracks;
+            }
             this.$store.dispatch("player/setListIndex", i);
             this.$root.$emit("index_change");
             break;

@@ -132,17 +132,18 @@ export default {
     height: 30px;
     min-width: 100px;
     width: 90px;
-    margin: 6px 0px;
     float: right;
     text-transform: none;
     box-shadow: none;
     background: transparent !important;
     border-radius: 37.5px;
-    font-size: 13.5px;
+    font-size: 14px;
+    font-weight: bold;
     letter-spacing: 0;
+    border-radius: 4px;
     &.follow {
-      color: #3a92ff !important;
-      border: 0.75px solid #3a92ff;
+      color: #076AFF !important;
+      border: 1px solid #076AFF;
 
       &.btnBlock {
         border-radius: 0;
@@ -172,8 +173,10 @@ export default {
 
       &.follow {
         color: #ffffff !important;
-        background: #1872ff!important;
-        border: 0.75px solid #1872ff
+        background: #076AFF!important;
+        border: 0.75px solid #076AFF;
+        font-weight: 700;
+        font-size: 16px;
       }
       &.following {
         color: #000;

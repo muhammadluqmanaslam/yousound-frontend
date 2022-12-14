@@ -4,6 +4,9 @@ import shareModal from '@/components/sharemodal'
 import searchInput from '@/components/searchInput'
 import {mapGetters, mapState} from 'vuex'
 import AuthService from '@/services/auth'
+import notifcationDrawer from '../notificationDrawer'
+import languageModal from '../languageModal'
+import logoutModal from '../../views/LogoutModal'
 
 export default {
   components: {
@@ -11,14 +14,19 @@ export default {
     sideAudioPlaceholder,
     shareModal,
     searchInput,
+    notifcationDrawer,
+    languageModal,
+    logoutModal,
   },
   data() {
     return {
       mini: false,
       customActive: '',
+      show_language_modal: false,
       selectedTab: 1,
       searchActive: false,
-      showRegisterModal: false,
+      show_logout_modal: false,
+      showNotification: false,
       tabs: [
         {
           name: '',
@@ -52,7 +60,7 @@ export default {
               title: 'Discover',
               id: 'music',
               icon: 'library_music',
-              path: 'DiscoverIndex',
+              path: '/music/path',
             },
             // {
             //   title: 'Sales',
@@ -128,6 +136,14 @@ export default {
     },
   },
   methods: {
+    toggleNotification(){
+      if (this.showNotification) {
+        this.showNotification = false
+      }
+      else {
+        this.showNotification = true
+      }
+    },
     customActiveTab(subMenu) {
       let path = subMenu.path
 
@@ -138,7 +154,6 @@ export default {
       ]
 
       const discoverInherits = [
-        'AlbumIndex',
         'VideoIndex',
         'ProductIndex',
       ]
@@ -151,8 +166,8 @@ export default {
       }
 
       // customization for DiscoverIndex
-      if (subMenu.path == 'DiscoverIndex' && discoverInherits.includes(currentRouteName)) {
-        path = 'DiscoverIndex'
+      if (subMenu.path == 'AlbumIndex' && discoverInherits.includes(currentRouteName)) {
+        path = 'AlbumIndex'
         return true
       }
 
@@ -185,8 +200,8 @@ export default {
 
     verifyUser(subMenu) {
       if (!(subMenu.id === 'music' || subMenu.id === 'subscribe')) {
-        this.showRegisterModal = true
-        this.$router.push({name: 'DiscoverIndex'})
+        this.show_logout_modal = true
+        this.$router.push({name: 'AlbumIndex'})
       }
     },
 

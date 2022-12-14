@@ -306,7 +306,7 @@ export default {
           console.log("==response==", response)
 
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$router.push({ name: 'DiscoverIndex' })
+          this.$router.push({ name: 'AlbumIndex' })
           this.$store.dispatch(
             'error/showSuccessToast', response.body.message
           )

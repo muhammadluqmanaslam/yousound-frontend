@@ -21,14 +21,32 @@ export default {
     trackUploader,
     contentTopHeader,
     BannerUpload 
-
   },
 
   data() {
     return {
     activeTab: 'music',
+    loading: false,
     iconImage: IconImage,
     bannerImage: BannerImage,
+    majorDropdown: false,
+    keyDropdown: false,
+    majorValue:"none",
+    keyValue:"none",
+    keyOptions:[
+      "C",
+      "C#",
+      "D",
+      "Eb",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "Ab",
+      "A",
+      "Bb",
+      "B",
+    ],
     tabs: [
       { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
       { id: 'music', title: 'Music', path: 'UploadAlbum' },
@@ -44,7 +62,7 @@ export default {
         name: '',
         released_at: null,
         location: '',
-        genre: '',
+        genres: '',
         description: '',
         is_only_for_live_stream: false,
         is_content_acapella: false,
@@ -54,7 +72,11 @@ export default {
         is_content_dj_mix: false,
         enabled_sample: 'false',
         image: null,
+        cover: null,
         tracks: [],
+        slug: null,
+        user: {},
+        bpm: '',
       },
       album_image_url: null,
       locations: [],
@@ -74,6 +96,7 @@ export default {
       show_genre_selector_dialog: false,
       show_sample_clearance_license_modal: false,
       isPageReady: false,
+      albumUrl: null,
     }
   },
 
@@ -92,6 +115,10 @@ export default {
         (track) => track.status != 2
       )
       const has_failed_track = !!failed_track
+      let bpmLevelGood = false
+      if (this.album.bpm == '' || (this.album.bpm >= 1 && this.album.bpm <= 999)) {
+        bpmLevelGood = true
+      }
       let isSamplingsGood = true
       let sampling_track_id = 0
       let sample_track_id = 0
@@ -129,7 +156,8 @@ export default {
         !has_failed_track &&
         this.album.name.length &&
         this.album.image &&
-        this.$store.state.genreSelector.genres.length > 0
+        this.$store.state.genreSelector.genres.length > 0 &&
+        bpmLevelGood
       )
     },
 
@@ -145,6 +173,10 @@ export default {
       let sample_track_id = 0
       let sample_album_id = 0
       let sample_user_id = 0
+      let bpmLevelGood = false
+      if (this.album.bpm == '' || (this.album.bpm >= 1 && this.album.bpm <= 999)) {
+        bpmLevelGood = true
+      }
       for (let i = 0; i < this.samplings.length; i++) {
         sampling_track_id = _.get(this.samplings[i], 'sampling_track_id', 0)
         sample_track_id = _.get(this.samplings[i], 'sample_track_id', 0)
@@ -177,7 +209,8 @@ export default {
         !has_failed_track &&
         this.album.name.length &&
         this.album_image_url &&
-        this.$store.state.genreSelector.genres.length > 0
+        this.$store.state.genreSelector.genres.length > 0 &&
+        bpmLevelGood
       )
     },
 
@@ -361,6 +394,29 @@ export default {
   },
 
   methods: {
+    setKeyValue(value){
+      this.keyValue = value;
+    },
+    onCopy: function (e) {
+      this.$store.dispatch("error/showSuccessToast", [
+        "You just copied: " + e.text,
+      ]);
+      // alert('You just copied: ' + e.text)
+    },
+
+    onError: function (e) {
+      this.$store.dispatch("error/showErrorToast", ["Failed to copy link"]);
+      // alert('Failed to copy link')
+    },
+
+    isUploaded(){
+      if(this.isUpload){
+        this.isUpload = false;
+      }
+      else{
+        this.isUpload =true;
+      }
+    },
     isActiveTab(tab) {
       return this.activeTab === tab
     },
@@ -479,14 +535,6 @@ export default {
       this.uploadAlbum()
     },
 
-    showCollaboratorsConfirmDialog() {
-      this.show_collaborators_confirm_dialog = true
-    },
-
-    hideCollaboratorsConfirmDialog() {
-      this.show_collaborators_confirm_dialog = false
-    },
-
     openGenreSelectorDialog() {
       this.show_genre_selector_dialog = true
     },
@@ -503,10 +551,6 @@ export default {
       this.show_sample_clearance_license_modal = false
     },
 
-    beforeReleaseNow() {
-      this.showCollaboratorsConfirmDialog()
-    },
-
     releaseNow() {
       if (this.collaborators.length == 0) {
         this.isNeededToRelease = true
@@ -515,6 +559,7 @@ export default {
     },
 
     uploadAlbum() {
+      this.loading = true
       this.$store.dispatch('error/showLoadingActivity', true)
       var tracks = []
       for (let index in this.album.tracks) {
@@ -531,6 +576,12 @@ export default {
       formData.append('album[description]', this.album.description)
       formData.append('album[released_at]', this.album.released_at)
       formData.append('album[location]', this.album.location || '')
+      formData.append('album[bpm]', this.album.bpm)
+      if (this.majorValue !== 'none') {
+        formData.append('album[bpm_key]', this.majorValue)
+        formData.append('album[bpm_value]', this.keyValue)
+      }
+
       formData.append(
         'album[is_only_for_live_stream]',
         this.album.is_only_for_live_stream
@@ -585,8 +636,11 @@ export default {
       AlbumService.createAlbum(formData)
         .then((response) => {
           if (this.isNeededToRelease) {
+            this.album = response.body
+            this.albumURL = window.location.origin + "/album/" + this.album.slug
             this.releaseAlbum(response.body.id)
           } else {
+            this.loading = false
             this.$store.dispatch('error/showLoadingActivity', false)
             if (this.collaborators.length > 0) {
               this.$store.dispatch('navigator/setParams', {
@@ -599,6 +653,7 @@ export default {
           }
         })
         .catch((e) => {
+          this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
             'error/showErrorToast',
@@ -610,11 +665,13 @@ export default {
     releaseAlbum(album_id) {
       AlbumService.releaseAlbum(album_id)
         .then((response) => {
+          this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('navigator/setParams', { album_id: album_id })
-          this.$router.push({ path: '/album/' + album_id })
+          this.show_collaborators_confirm_dialog = true
         })
         .catch((e) => {
+          this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
             'error/showErrorToast',

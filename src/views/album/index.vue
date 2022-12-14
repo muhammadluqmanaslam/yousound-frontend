@@ -1,109 +1,125 @@
 <template>
   <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
-    <discover-nav v-if="!isComp && !onMobile" pageName="music" />
+    <discover-nav v-if="!isComp && !onMobile" pageName="music" filterShow='true' />
+    <div class="page-content">
+      <div class="music-banner-main" v-if="(!viewAllNew && !viewAllPopular)">
+        <v-container>
+          <div class="dflex album-flex align-center" v-if="mainAlbum">
+            <div class="album-main-image">
+              <img :src="mainAlbum.cover.thumb.url" width="100%">
+            </div>
 
-    <content-top-header
-      v-if="isPageReady" 
-      absolute :height="onMobile ? 35 : ''"
-      class="__inner __doubleUl"
-      :class="[{ onMobile}, {'pl-0': isComp}]"
-    >
-      <template slot="topHeader">
-        <ul>
-          <li v-if="isComp">
-            <h1>Music</h1>
-          </li>
-          <template v-if="!isComp">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
-            </li>
-          </template>
-
-          <v-spacer v-if="isComp"></v-spacer>
-
-          <li
-            v-if="isComp" 
-            class="cursor-pointer"
-            @click="$router.push({name: 'AlbumIndex'})"
-          >
-            View All
-          </li>
-        </ul>
-
-        <ul v-if="!isComp && !onMobile" class="width100">
-          <v-spacer></v-spacer>
-
-          <li class="my-0">
-            <v-menu
-              content-class="filter-menu__content"
-              id="genre_selector"
-              class="filter_menu"
-              style="display: block"
-              offset-y
-            >
-              <div slot="activator" class="genre-filter py-3">
-                <span class="mr-3">Genre:</span>
-                <span class="">{{ selectedGenreName }}</span>
-                <v-icon right>keyboard_arrow_down</v-icon>
-              </div>
-              <v-list>
-                <v-list-tile
-                  v-for="genre in genres"
-                  :key="genre.id"
-                  @click.native="filterByGenre(genre)"
-                >
-                  <div class="cursor-pointer px-3">
-                    {{ genre.name }}
+            <div class="album-main-content" v-if="mainAlbum">
+              <div class="album-title-main mb-4">{{ mainAlbum.name }}</div>
+              <div class="dflex align-center gap-10 album-group mb-4">
+                <div>
+                  <div class="album-group-image" style="background-image: url(mainAlbum.user.avatar.url)"></div>
+                </div>
+                <div class="dflex align-center">
+                  <div class="album-group-title">{{ mainAlbum.user.username }}</div>
+                  <div class="ml-1">
+                    <img src="../../assets/check_success.svg" width='12'>
                   </div>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-          </li>
-
-          <li class="after-divider"></li>
-
-          <li class="my-0">
-            <div
-              class="genre-dialog-selector py-3"
-              @mouseenter="hover_on_genre_button = true"
-              @mouseleave="hover_on_genre_button = false"
-              @click="openGenreSelectorDialog()"
-            >
-              <div class="genre-filter">
-                <img src="/static/images/ic_filter.svg" />
+                </div>
               </div>
-              <div v-show="showGenreTooltip" class="tooltip">
-                <div class="tooltip-arrow"></div>
-                <div class="tooltip-inner">
-                  Set your Genre Filters<br />
-                  & customize your experience
-                  <a @click.stop="got_genre_tooltip = true">Got it!</a>
+              <div class="album-title-description mb-4">{{ mainAlbum.description }}</div>
+
+              <div class="album-play dflex align-center gap-25">
+                <span class="play-button-section">
+                  <v-btn
+                    dark
+                    class="play-button"
+                    @click.native="playSong()"
+                    v-if="!isPlaying() || $store.state.player.isPaused"
+                  >
+                    <v-icon class="play">play_arrow</v-icon>
+                  </v-btn>
+                  <v-btn
+                    dark
+                    class="play-button"
+                    @click.native="pauseSong()"
+                    v-if="isPlaying() && !$store.state.player.isPaused"
+                  >
+                    <v-icon class="pause">pause</v-icon>
+                  </v-btn>
+                </span>
+
+                <div class="plus-icon main">
+                  <img src="../../assets/plus.svg" width='15px'>
+                </div>
+
+                <div class="plus-icon">
+                  Following
                 </div>
               </div>
             </div>
-          </li>
-        </ul>      
-      </template>
-    </content-top-header>
 
+          </div>
+          <div class="slider-contain">
+            <div class="dflex align-center gap-25">
+              <div class="font-lg">
+                Trending
+              </div>
+              <div class="view-all cursor-pointer" @click="displayTrendingTracks()">
+                View all
+              </div>
+            </div>
+            <div class="mt-4">
+            <VueSlickCarousel v-bind="slickOptions">
+              <div v-for="(recommended, index) in recommendedAlbums" class="slider-main pr-3">
+                <div @click="changeMainAlbum(recommended)"
+                  class="slider-main-img"
+                  :class="[mainAlbum.id === recommended.id  ? 'slider-main-img active' : 'slider-main-img']"
+                  :key="index"
+                >
+                  <track-card
+                    :objects="recommendedAlbums"
+                    :objectIndex="index"
+                    :hideButtonAction="hideAlbum"
+                    hideMoreMenu
+                    noAction
+                  />
+                </div>
+              </div>
+            </VueSlickCarousel>
+          </div>
 
-    <div class="page-content">
-      <v-container fluid grid-list-lg px-0>
+          </div>
+        </v-container>
+      </div>
+      <div class="global-header-viewall">
+        <div class="dflex align-center" v-if="(viewAllNew || viewAllPopular)">
+          <div class="highlight-head mr-4 dflex align-center">
+            {{ viewAllNew ? 'New' : 'Popular' }}
+            <img class="ml-1 mt-1" src="../../assets/triangle-down.svg" width="8">
+          </div>
+          <ul v-for="genre in this.chosenGenres" class="dflex tablist">
+            <li class="tab">
+              <label>{{ genre.name }}</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <v-container fluid grid-list-lg px-0 v-if="(!viewAllPopular && !viewAllTrending)">
+        <div class="dflex justify-space-between align-center margin-top-x" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
+          <div class="text-big">
+            New
+          </div>
+          <div class="text-small cursor-pointer" @click="displayNewTracks()">
+            View all
+          </div>
+        </div>
         <v-layout row wrap>
           <v-flex
-            v-for="(feed, index) in filtered_feeds"
+            v-for="(feed, index) in newAlbums"
             :key="index"
             feed-card
             xs6
             custom-lg5
+            px-0
           >
             <track-card
-              :objects="filtered_feeds"
+              :objects="newAlbums"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
               hideMoreMenu
@@ -112,15 +128,33 @@
         </v-layout>
       </v-container>
 
-      <div v-if="!isComp" class="text-xs-center">
-        <v-btn
-          v-if="isPageReady"
-          v-show="page_index < total_pages"
-          @click.native="loadMore()"
-          class="loadmore-btn"
-          >Load More</v-btn
-        >
-      </div>
+      <v-container fluid grid-list-lg px-0 v-if="(!viewAllNew && !viewAllTrending)">
+        <div class="dflex justify-space-between align-center margin-top-x" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
+          <div class="text-big">
+            Popular
+          </div>
+          <div class="text-small cursor-pointer" @click="displayPopularTracks()">
+            View all
+          </div>
+        </div>
+        <v-layout row wrap>
+          <v-flex
+            v-for="(feed, index) in popularAlbums"
+            :key="index"
+            feed-card
+            xs6
+            custom-lg5
+            px-0
+          >
+            <track-card
+              :objects="popularAlbums"
+              :objectIndex="index"
+              :hideButtonAction="hideAlbum"
+              hideMoreMenu
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
     </div>
 
     <v-dialog
@@ -137,10 +171,195 @@
 <script type="text/javascript" src="./index.ctrl.js"></script>
 
 <style lang="scss" scoped>
+
+.margin-top-x{
+  margin-top: 60px;
+}
+
+.page-content{
+  margin-top: 52px;
+}
+
+.slick-prev, .slick-next{
+  width: 50px !important;
+  height: 50px !important;
+  background: rgba(255,255,255,0.15) !important;
+  
+  &::before{
+    font-family: none !important;
+  }
+}
+
+
+.music-banner-main{
+  background: linear-gradient(180deg, #000000 0%, rgba(61, 20, 3, 0.95) 100%);
+  color: white;
+  position: relative;
+  margin-left: -64px;
+  font-family: 'Inter';
+  width: calc(100% + 128px);
+  padding: 80px 50px 60px;
+
+  .slider-contain{
+    margin-top: 80px;
+
+
+    //Arrows setting
+
+    .slider-main-img{
+      border-radius: 2px;
+      overflow: hidden;
+
+      &.active{
+        border: 2px solid #fff;
+      }
+    }
+
+    .font-lg{
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .view-all{
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+
+  .gap-10{
+    gap: 10px;
+  }
+
+  .gap-25{
+    gap: 25px;
+  }
+
+  .album-flex{
+    gap: 60px;
+
+    .album-main-image{
+      width: 35%;
+      min-width: 320px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .album-main-content{
+      max-width: 540px;
+      .album-title-main{
+        font-size: 42px;
+        font-weight: bold;
+      }
+
+      .album-title-description{
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+      }
+
+      .album-group{
+        .album-group-title{
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .album-group-image{
+          width: 32px;
+          height: 32px;
+          background-color: pink;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+      }
+
+      .album-play{
+        .album-play-icon{
+          width: 55px;
+          height: 55px;
+          background: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          cursor: pointer;
+
+          i{
+            width: 20px;
+            color: black;
+            font-size: 30px;
+          }
+        }
+
+        .plus-icon{
+          padding: 4px 8px;
+          background-color: rgba(0,0,0,0.5);
+          border-radius: 5px;
+          font-size: 14px;
+          font-weight: 700;
+          font-family: 'Inter';
+          cursor: pointer;
+
+          &.main{
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}
 .albums-page.onMobile {
   .feed-card {
     // padding: 3px;
   }
+}
+
+.play-button-section {
+  position: relative;
+  .play-button {
+    border: rgba(255, 255, 255, 0.5) solid 1px;
+    border-radius: 100%;
+    // background: rgba(0, 0, 0, 0.5) !important;
+    background: transparent !important;
+    box-shadow: none;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    margin: 0;
+    
+    .btn__content {
+      padding: 0;
+    }
+    img {
+      // width: 100%;
+      max-width: 60px;
+    }
+    .icon {
+      &.play {
+        font-size: 40px;
+      }
+      &.pause {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+.text-big{
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Inter';
+  color: black;
+}
+.text-small{
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Inter';
+  color: black;
+  text-decoration: none;
 }
 .vertical-divider {
   margin: 0px;

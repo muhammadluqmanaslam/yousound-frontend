@@ -79,7 +79,7 @@ able.table thead th:not(:first-child) {
     }
     .input-group__input {
       min-height: 42px;
-      border: 1px solid #000;
+      border: 1px solid #d2d2d2;
       border-radius: 3.75px;
       .input-group__selections {
         padding-left: 11.25px;
@@ -124,11 +124,13 @@ able.table thead th:not(:first-child) {
 .menu__content {
   // z-index: 30 !important;
   z-index: 300 !important;
-  border-radius: 3.75px;
+  border-radius: 9px;
+  box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0,0,0,0.08);
 
   ul {
     margin-bottom: 0;
-    background-color: #f0f0f0 !important;
+    background-color: #f9f9f9 !important;
 
     .list__tile__title {
       padding: 0 10px;

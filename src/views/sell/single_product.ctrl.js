@@ -33,6 +33,8 @@ export default {
   data() {
     return {
       share_dialog: false,
+      info_dialog: false,
+      info_active_tab:1, 
       option: '',
       selectedCover: null,
       product_categories: [],
@@ -373,6 +375,7 @@ export default {
           quantity: 1,
           page_track: pageTrack,
         }
+        debugger
         ItemService.addToCart(params)
           .then((response) => {
             if (response.body.errors) {

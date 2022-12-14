@@ -32,7 +32,6 @@ export default {
     return {
       activeTab: 'discover',
       tabs: [
-        { id: 'discover', title: 'Trending' },
         { id: 'music', title: 'Music' },
         { id: 'video', title: 'Video' },
         { id: 'merch', title: 'Shop' },
@@ -324,9 +323,6 @@ export default {
       this.activeTab = tab
 
       switch (tab) {
-        case 'discover':
-          this.$router.push({name: 'DiscoverIndex'})
-          break;
         case 'music':
           this.$router.push({name: 'AlbumIndex'})
           break;

@@ -4,6 +4,10 @@ import VideoBox from '@/components/video_box'
 import contentTopHeader from '@/components/contentTopHeader'
 import discoverNav from '@/components/discoverNav'
 // import VideoDetailBox from '@/components/video_detail_box'
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+// import demoVideo from '../../assets/demo-video.mp4'
 
 export default {
   props: {
@@ -14,10 +18,19 @@ export default {
     VideoBox,
     contentTopHeader,
     discoverNav,
+    VueSlickCarousel 
   },
 
   data() {
     return {
+      slickOptions: {
+        infinite:false,
+        slidesToShow: 4,
+        dots: false,
+        cssEase: 'linear',
+        arrows: true,
+      },
+      // demoVideo: demoVideo,
       selectedTab: 0,
       activeTab: 0,
       only_follows: false,
@@ -34,6 +47,8 @@ export default {
         { id: 'popular', title: 'Popular' },
         { id: 'live', title: 'Live' },
       ],
+      selectedVideo: {},
+      hideOtherVideos: false,
     }
   },
 
@@ -93,6 +108,15 @@ export default {
       console.log(filter)
     },
 
+    changeSelectedVideo(video) {
+      this.selectedVideo = video
+    },
+
+    displayAllTrendingVideos() {
+      this.trendingVideos = this.videos
+      this.hideOtherVideos = true
+    },
+
     loadData(tab, page) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {
@@ -108,7 +132,8 @@ export default {
 
         // this will return a a prop limit if available
         this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
-
+        this.selectedVideo = this.videos[0]
+        this.trendingVideos = this.videos.slice(0, 10)
         // this.videos.filter((v) => )
         // this.videos = [ ...this.videos, ...this.videos]
         console.log(this.videos)

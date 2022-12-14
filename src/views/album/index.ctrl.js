@@ -2,7 +2,13 @@
 
 import _ from 'lodash'
 import AuthService from '@/services/auth'
+import { mapActions } from 'vuex'
+import { MyEvents, Utils } from '@/helper'
+
 import SearchService from '@/services/search'
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import genreDialog from '@/components/genre_dialog'
 import trackCard from '@/components/trackcard'
@@ -22,10 +28,22 @@ export default {
     trackCard,
     contentTopHeader,
     discoverNav,
+    VueSlickCarousel 
   },
 
   data() {
     return {
+      slickOptions: {
+      infinite:false,
+      slidesToShow: 5,
+      dots: false,
+      cssEase: 'linear',
+      arrows: true,
+      nextArrow: `<button class="slider-move-icons next-icon"> ${filterArrowDownString} </button>`,
+      prevArrow: `<button class="slider-move-icons next-icon"> ${filterArrowDownString} </button>`,
+      //autoplay: true,
+      //autoplaySpeed: 6000,
+    },
       activeGenre: 'any',
       activeTab: '',
       tabs: [
@@ -48,6 +66,15 @@ export default {
       selected_category: null,
       feeds: [],
       isPageReady: false,
+      albumData: [],
+      recommendedAlbums: [],
+      newAlbums: [],
+      popularAlbums: [],
+      mainAlbum: {},
+      viewAllNew: false,
+      viewAllPopular: false,
+      viewAllTrending: false,
+      chosenGenres: [],
     }
   },
 
@@ -56,6 +83,9 @@ export default {
       return this.$vuetify.breakpoint.smAndDown;
     },
     currentUser() {
+      if (this.$store.state.auth.user) {
+        this.fetchGenres()
+      }
       return this.$store.state.auth.user
     },
 
@@ -111,8 +141,91 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setPlaylist: 'player/setPlaylist',
+      setPlaylistIndex: 'player/setListIndex',
+      setTrackIndex: 'player/setTrackIndex',
+      setPlaying: 'player/setPlayingStatus',
+    }),
+
+    fetchGenres() {
+      this.chosenGenres = []
+      const genres = _.cloneDeep(this.$store.state.app.genres)
+      let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
+
+      _.each(genres, (genre) => {
+        _.each(genre.children, (child) => {
+          if (hiddenGenres[child.id]) {
+            if (!(this.chosenGenres.includes(genre))) {
+              this.chosenGenres.push(genre)
+            }
+          }
+        })
+      })
+    },
+
+    displayNewTracks() {
+      this.viewAllNew = true
+      this.viewAllPopular = false
+      this.viewAllTrending = false
+      this.newAlbums = []
+      let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+
+      if (genre_ids.length > 0) {
+        _.each(this.albumData.new, (newAlbum) => {
+          if (newAlbum.genres.length > 0 && genre_ids.includes(newAlbum.genres[0].id)) {
+            this.newAlbums.push(newAlbum)
+          }
+        })
+      } else {
+        this.newAlbums = this.albumData.new
+      }
+    },
+
+    displayPopularTracks() {
+      this.viewAllNew = false
+      this.viewAllPopular = true
+      this.viewAllTrending = false
+      this.popularAlbums = []
+      let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+      if (genre_ids.length > 0) {
+        _.each(this.albumData.popular, (popularAlbum) => {
+          if (popularAlbum.genres.length > 0 && genre_ids.includes(popularAlbum.genres[0].id)) {
+            this.popularAlbums.push(popularAlbum)
+          }
+        })
+      } else {
+        this.popularAlbums = this.albumData.popular
+      }
+    },
+
+    displayTrendingTracks() {
+      this.viewAllNew = false
+      this.viewAllPopular = false
+      this.viewAllTrending = true
+      this.recommendedAlbums = this.albumData.recommended
+    },
+
     isActiveTab(tab) {
       return this.activeTab === tab
+    },
+
+    changeMainAlbum(selectedAlbum) {
+      this.mainAlbum = selectedAlbum
+    },
+
+    isPlaying() {
+      return (
+        this.$store.state.player.isPlaying &&
+        _.get(
+          this.$store.state.player.list[this.$store.state.player.listIndex],
+          'id'
+        ) === this.mainAlbum.id
+      )
+    },
+
+    pauseSong() {
+      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
     },
 
     loadFeeds(tab, page) {
@@ -136,7 +249,12 @@ export default {
       const api_response = this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
       api_response.then((response) => {
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.feeds = this.feeds.concat(response.body.albums)
+        this.feeds = this.feeds.concat(response.body.new)
+        this.albumData = response.body
+        this.recommendedAlbums = response.body.recommended.slice(0, 10)
+        this.mainAlbum = this.recommendedAlbums[0]
+        this.newAlbums = response.body.new.slice(0,10);
+        this.popularAlbums = response.body.popular.slice(0, 10);
         const genres = _.chain(this.feeds)
           .map('genres')
           .flatMap()
@@ -288,6 +406,21 @@ export default {
       this.$nextTick(() => {
         this.loadFeeds(this.activeTab, 1)
       })
+    },
+
+    playSong() {
+      if (
+        this.$store.state.player.isPaused &&
+        this.$store.getters['player/currentAlbum'] &&
+        this.$store.getters['player/currentAlbum'].id == this.mainAlbum.id
+      ) {
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
+      } else {
+        this.setPlaylist([_.cloneDeep(this.mainAlbum)])
+        this.setPlaylistIndex(0)
+        this.setPlaying(true)
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY)
+      }
     },
   },
 

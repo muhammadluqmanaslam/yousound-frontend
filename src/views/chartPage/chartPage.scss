@@ -1,0 +1,180 @@
+.page-content{
+    margin-top: 100px;
+
+    .divider{
+        width: 100%;
+        height: 1px;
+        background-color: rgba($color: #000000, $alpha: 0.1);
+    }
+
+    .follow-btn{
+        color: white;
+        font-weight: bold;
+        font-size: 14px;
+        background-color: #076AFF !important;
+        height: 31px;
+        border-radius: 4px;
+        margin: 0;
+        margin-bottom: -10px;
+        box-shadow: none;
+
+    }
+
+    .chart_flex{
+        display: flex;
+        justify-content: space-between;
+        gap: 70px;
+
+        .w-75{
+            width: 75%
+        }
+
+        .w-25{
+            width: 25%
+        }
+
+        .heading-charts{
+            color: rgba($color: #000000, $alpha: 0.5);
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 35px;
+        }
+
+        .charts_container{
+            .chart_div{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid rgba($color: #000000, $alpha: 0.1);
+            border-radius: 18px;
+            padding: 9px;
+            align-items: center;
+            margin-bottom: 18px;
+
+
+            &.active{
+                border-color: rgba($color: #F35843, $alpha: 0.5);
+            }
+
+
+
+            }
+            .chart_content{
+                display: flex;
+                gap: 30px;
+                font-family: 'Inter', sans-serif;
+                margin-left: 25px;
+
+
+                .chart_number{
+                    font-size: 28px;
+                    color: black;
+                    font-weight: bold;
+                }
+
+                .chart_name{
+                    font-size: 24px;
+                    font-weight: 900;
+
+                }
+                .chart_sub{
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: #808080;
+                }
+            }
+
+            .chart_icon{
+                display: flex;
+                gap: 60px;
+                align-items: center;
+                ._image{
+                    img{
+                        border-radius: 8px;
+                    }
+                }
+            }
+        }
+
+        .playbox_container{
+            font-family: 'Inter', sans-serif;
+
+            .playbox_image{
+                img{
+                    border-radius: 8px;
+                }
+            }
+
+            .playbox_content{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .play-head{
+                    font-size: 20px;
+                    font-weight: 800;
+                    color: black;
+                }
+
+                .play-sub{
+                    font-size: 14px;
+                    font-weight: 800;
+                    color: #F35843;
+                }
+                .play-number{
+                    font-size: 32px;
+                    font-weight: 700;
+                    color: black;
+                }
+            }
+        }
+    }
+}
+
+
+    .product-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 200px;
+
+    & .__actions {
+        display: flex;
+        align-items: center;
+        // padding: 10px 20px;
+        justify-content: center;
+    }
+    .filter-invert{
+        filter: invert(1);
+    }
+    .follow-btx {
+        text-transform: none;
+        box-shadow: none;
+        height: 31px;
+        font-size: 14px;
+        letter-spacing: 0;
+        min-width: 100px;
+        font-family: 'DM Sans', sans-serif;
+        font-weight: bold;
+        border-radius: 4px;
+
+        &.follow {
+            border: 1px solid #076AFF;
+            background-color: #076AFF !important;
+            color: #fff !important;
+        }
+        &.following {
+                border: 1px solid #000000;
+                border-radius: 100px;
+                background-color: #0000 !important;
+                color: #000 !important;
+                &:hover {
+                border: 0.75px solid #dc3545;
+                background-color: #dc3545 !important;
+                color: #fff !important;
+                margin-right: 30px
+            }
+        }
+    }
+}

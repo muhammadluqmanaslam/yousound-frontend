@@ -1,6 +1,6 @@
 <template>
   <div class="page search-page mx-5">
-    <content-top-header>
+    <content-top-header class="black-theme">
       <template slot="topHeader">
         <ul>
           <li
@@ -17,7 +17,75 @@
           <v-spacer></v-spacer>
 
           <li class="search-li">
-            <search-input />
+            <div class="dflex align-center justify-end">
+              <div>
+                <search-input theme="dark"/>
+              </div>
+
+              <div class="ml-3 pos-relative">
+                <img src="../../assets/gear-icon.svg" width="20" class="cursor-pointer" @click="(showAdvnacedSearch = ! showAdvnacedSearch)">
+
+                <div class="advanced-search" v-if="showAdvnacedSearch">
+                  <div class="big-head">Advanced Search</div>
+                  <div class="divider my-4"></div>
+
+                  <div>
+                    <div class="small-head mb-2">Keywords</div>
+                    <input type="text" class="main-input">
+                  </div>
+                  <div class="mt-3">
+                    <div class="small-head mb-2">Genre</div>
+                    <select  class="main-input">
+                      <option disabled>Select</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                    </select>
+                  </div>
+
+                  <div class="dflex mt-3 gap-10 align-end">
+                    <div class="w-full">
+                      <div class="small-head mb-2">BPM</div>
+                      <input type="text" class="main-input">
+                    </div>
+                    <div class="w-full">
+                      <div class="small-head mb-2">KEY</div>
+                      <select  class="main-input">
+                        <option >Select</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                    <div class="w-full">
+                      <select  class="main-input">
+                        <option >-</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mt-3">
+                    <div class="small-head mb-2">Release year</div>
+                    <input type="text" class="main-input" placeholder="'1970'">
+                  </div>
+
+                  <div class="mt-3">
+                    <div class="small-head mb-2">Location</div>
+                    <input type="text" class="main-input" placeholder="Start typing">
+                  </div>
+
+                  <div class="mt-3">
+                   <v-btn class="search-button-x">
+                    Search
+                   </v-btn>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </li>
         </ul>
       </template>

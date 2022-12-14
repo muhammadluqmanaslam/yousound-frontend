@@ -201,7 +201,7 @@ const getters = {
             title: 'Discover',
             id: 'music',
             icon: require('@/assets/ic_wave.svg'),
-            path: 'DiscoverIndex',
+            path: 'AlbumIndex',
           },
           {
             title: 'Collection',

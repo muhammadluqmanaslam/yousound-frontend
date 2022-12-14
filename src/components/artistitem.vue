@@ -8,16 +8,15 @@
         ></div>
         <v-flex v-if="canViewProfile" xs12 class="artist-actions">
           <router-link :to="`/${artist.slug}`">
-            <div class="avatar-cover">
+            <!-- <div class="avatar-cover">
               <div class="hover-title">View Profile</div>
-            </div>
+            </div> -->
           </router-link>
 
           <div v-if="followButtonVisible" class="follow-section">
             <user-follow-btn
               class="mt-3"
               :user="artist"
-              theme="dark"
               type="default"
               @afterFollow="afterFollow"
             />
@@ -31,6 +30,9 @@
             :class="{ online: artist.status == 'active' }"
             >fa-check-circle</v-icon
           >
+        </div>
+        <div class="artist-title">
+          Artist
         </div>
       </v-flex>
     </v-flex>

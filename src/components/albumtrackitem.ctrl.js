@@ -152,16 +152,17 @@ export default {
       if (this.isSubscribed) {
         this.menu = false
         this.submenu = false
-        AlbumService.repostAlbum(this.album.id)
+        let params = { track_id: this.track.id }
+        AlbumService.repostAlbum(this.album.id, params)
           .then((response) => {
             this.$store.dispatch('error/showSuccessToast', [
-              'You just reposted ' + this.album.name,
+              'You just added ' + this.track.name + ' track in your collection.',
             ])
           })
           .catch((e) => {
             this.$store.dispatch(
               'error/showErrorToast',
-              e.body.errors || [e.body]
+              e.body.errors || [e.body] || [e.body.error]
             )
           })
       } else {

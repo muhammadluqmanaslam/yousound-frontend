@@ -325,11 +325,15 @@ img.invert-color {
 
 
 .full-overlay {
-  display: grid;
+  display: flex;
   position: absolute;
   width: 100%;
   height: 100%;
   opacity: 0;
+  justify-content: flex-end;
+  padding: 25px;
+  align-items: baseline;
+  flex-direction: column;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.8);
   -webkit-transition: opacity 0.3s ease-in-out;
@@ -340,19 +344,41 @@ img.invert-color {
 
   .hover-info {
     color: white;
-    position: absolute;
-    bottom: 0;
+    font-family: 'Inter', sans-serif ;
     width: 100%;
-    padding: 0px 10px 5px;
+    .item-name{
+      font-size: 18px;
+      font-weight: 700;
+    }
 
     .artist-name {
       text-transform: capitalize;
+      font-size: 14px;
+      font-weight: 400;
     }
 
     * {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+  }
+  .items-price{
+    font-family: 'Inter',sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+    color: white;
+  }
+  .item-plus{
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      filter: invert(1);
     }
   }
 }
@@ -453,13 +479,31 @@ li.search-li {
   align-items: center;
   border-radius: 4px;
 
-  &.is_dark {
-    border: 1px solid #2E2E2E;
-    background-color: rgba(10, 10, 10, 0.23);
+  &.is_sidebar{
+    border: none !important;
+    background-color: #1F2227;
     border-radius: 54px;
+    height: 36px;
+
+
+    input#search {
+      color: #FFFFFF;
+
+      &[type='search']::placeholder {
+        color: #FFFFFFB2;
+      }
+    }
+  }
+
+  &.is_dark {
+    border: none !important;
+    background-color: #272727;
+    border-radius: 54px;
+    height: 42px;
+
 
     .icon {
-      // filter: invert(1);
+      filter: invert(1);
     }
 
     input#search {
@@ -722,6 +766,47 @@ main.content{
   padding-top: 0 !important;
 }
 
+.global-header-viewall{
+  background: transparent;
+  padding: 20px 0px;
+  font-family: 'Inter',sans-serif;
+  color: black;
+
+  .highlight-head{
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  ul{
+    list-style: none;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'DM Sans', sans-serif;
+    
+
+    li{
+      margin: 0px 15px;
+      padding: 3.5px;
+
+      label{
+        cursor: pointer;
+      }
+
+      &.tab-active{
+        label{
+          background-color: black;
+          color: white;
+          padding: 5px 15px;
+          border-radius: 40px;
+
+        }
+      }
+
+    }
+  }
+}
+
 .app-container {
   position: relative;
   display: flex;
@@ -734,6 +819,17 @@ main.content{
 
   .page {
     flex: 1;
+  }
+  &.bg-light{
+    background-color: #fafafa;
+  }
+
+  &.bg-grey{
+    background-color: #f1f1f1;
+  }
+
+  &.no-padding{
+    padding: 0 !important;
   }
 
   &.not-authenticated {
@@ -1536,14 +1632,15 @@ textarea {
           flex: none;
 
           .track-cover {
-            width: 70px;
-            height: 70px;
-            margin-right: 10px;
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
 
             .track-image {
               width: inherit;
               height: inherit;
               padding-bottom: 0;
+              border-radius: 0;
             }
 
             .track-actions {
@@ -1555,6 +1652,18 @@ textarea {
                 width: 50px;
                 min-width: 50px;
               }
+            }
+          }
+          .track-detail {
+            margin-top: 0;
+            p {
+              margin: 0;
+            }
+            .track-name {
+              font-weight: 600;
+            }
+            .track-user-name {
+              font-weight: normal;
             }
           }
         }

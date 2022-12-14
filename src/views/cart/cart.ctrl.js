@@ -14,6 +14,7 @@ import ticketNewDialog from './components/ticket_new_dialog'
 import trackCard from '@/components/trackcard'
 import contentTopHeader from '@/components/contentTopHeader'
 import addressTab from '@/views/settings/components/address_tab'
+import paymentModal from '@/components/paymentmodal'
 
 export default {
   components: {
@@ -24,6 +25,7 @@ export default {
     trackCard,
     contentTopHeader,
     addressTab,
+    paymentModal,
   },
 
   data() {
@@ -42,11 +44,26 @@ export default {
       active_item: {},
       cartItems: [],
       orderHistories: [],
-      cartCost: {},
+      cartCost: {
+        total_cost: 0,
+        subtotal_cost: 0,
+        shipping_cost: 0,
+        fee_cost: 0,
+      },
+      ordersCost: {
+        hasDeleted: false,
+        shipping_cost: 0,
+        tax_cost: 0,
+        total_cost: 0,
+      },
       page_index: 1,
       total_pages: 1,
       items_per_page: 6 * 5,
       isPageReady: false,
+      showPlaceOrderDialog: false,
+      showPaymentModal: false,
+      show_order_complete_dialog: false,
+      shippingAddress: [],
     }
   },
 
@@ -98,9 +115,89 @@ export default {
   created() {
     const tab = this.$route.hash.substr(1)
     this.init(tab)
+    if (this.currentUser.default_address) {
+      this.shippingAddress.push(this.currentUser.default_address)
+    }
   },
 
   methods: {
+    openOrderCompleteDialog() {
+      this.show_order_complete_dialog = true
+    },
+
+    closeOrderCompleteDialog() {
+      this.show_order_complete_dialog = false
+    },
+
+    orderDetails() {
+      this.$router.push({path: '/cart#history'})
+    },
+
+    orderItems(token) {
+      if (this.shippingAddress.length > 0) {
+        // console.log(token)
+        this.$store.dispatch('error/showLoadingActivity', true)
+        let params = {
+          shipping_address_id: this.shippingAddress[0].id,
+        }
+        if (token) {
+          params['payment_token'] = token.id
+        }
+
+        ItemService.orderItems(params)
+          .then((response) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            const orders = response.body || []
+            this.ordersCost.shipping_cost = this._.sumBy(
+              orders,
+              'shipping_cost'
+            )
+
+            this.ordersCost.tax_cost = this._.sumBy(orders, 'tax_cost')
+            this.ordersCost.total_cost = this._.sumBy(orders, 'amount')
+            const itemsSize = this._.reduce(
+              orders,
+              (size, order) => size + (order.items || []).length,
+              0
+            )
+            this.ordersCost.hasDeleted = this.cartItems.length !== itemsSize
+            // this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
+            // this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
+            // this.$router.push({path : '/cart#history'})
+            this.openOrderCompleteDialog()
+          })
+          .catch((e) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body]
+            )
+
+            ItemService.getShoppingCartItems().then((response) => {
+              this.cartItems = response.body
+            })
+          })
+      } else {
+        this.$store.dispatch('error/showErrorToast', [
+          'Please add Shipping Address.',
+        ])
+      }
+    },
+
+    openPaymentDialog() {
+      if (this.shippingAddress.length === 0) {
+        this.$store.dispatch('error/showErrorToast', [
+          'Please add Shipping Address.',
+        ])
+      } else {
+        this.showPaymentModal = true
+      }
+    },
+
+    closePaymentDialog() {
+      this.showPaymentModal = false
+    },
+
     isActiveTab(tab) {
       return this.active_tab === tab
     },
@@ -211,7 +308,8 @@ export default {
           this.receiver = error.user
           this.show_error_dialog = true
         } else {
-          this.$router.push({ path: '/cart/checkout/' })
+          this.cartItems = []
+          this.openPaymentDialog()
         }
       })
     },

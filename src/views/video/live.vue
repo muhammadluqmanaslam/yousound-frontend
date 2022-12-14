@@ -30,7 +30,7 @@
         </template>
       </content-top-header> -->
   
-      <div class="page-content mt-5">
+      <div class="page-content mt-4">
         <!-- <v-container fluid grid-list-lg px-0>
           <v-layout wrap row>
             <v-flex xs12 sm8>
@@ -161,7 +161,7 @@
              
             </div>
               <div class="price-highlight mt-4">
-                <h4 class="_price">${{ plan.price }}<span>/hour</span></h4>
+                <h4 class="_price">${{ plan.price }} <span>/hour</span></h4>
               </div>
   
               <div class="price-highlight-button dflex align-center mt-2">
@@ -392,7 +392,7 @@
 }
 .plans {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   flex-wrap: wrap;
 
   .plan {

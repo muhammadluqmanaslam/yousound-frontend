@@ -12,7 +12,7 @@
     </div>
 
     <div class="track-list-section" v-if="album.tracks.length">
-      <h4 class="track-list-title" id="track_list">Track List</h4>
+      <h4 class="track-list-title pt-5" id="track_list">Tracklist</h4>
       <!-- <div class="track-list-subtitle">
         Highlight track title to rename<span class="required">*</span>
       </div> -->
@@ -27,7 +27,7 @@
             v-for="(file, index) in album.tracks"
             :key="index"
           >
-            <label class="item-index">{{ index + 1 }}</label>
+            <label class="item-index pl-3">{{ index + 1 }}</label>
             <div class="item-section">
               <!-- <div class="item-progress" style="display:none;"></div> -->
               <img class="item-handle" width="18" src="/static/images/t-menu.svg" alt="">
@@ -39,26 +39,12 @@
                 @blur="onInputBlur(index, $event)"
                 class="item-name"
               />
-
-              <!-- <v-icon
-                v-if="file.editing"
-                @click="disableEditing(file)"
-                class="not_edit"
-              >format_strikethrough</v-icon>
-              <v-icon
-                v-else
-                @click="enableEditing(file)"
-                class="edit"
-              >title</v-icon> -->
-
-              <!-- <label class="item-progress-value" v-if="file.status == status.uploading">28%</label> -->
               <v-progress-circular
                 v-if="file.status == status.uploading"
                 indeterminate
                 :size="20"
                 class="primary--text loading"
               ></v-progress-circular>
-            </div>
               <span class="action-btns">
                 <v-icon class="done" v-if="file.status == status.success"
                   >done</v-icon
@@ -73,6 +59,23 @@
                 >clear</v-icon
               >
               </span>
+
+
+              <!-- <v-icon
+                v-if="file.editing"
+                @click="disableEditing(file)"
+                class="not_edit"
+              >format_strikethrough</v-icon>
+              <v-icon
+                v-else
+                @click="enableEditing(file)"
+                class="edit"
+              >title</v-icon> -->
+
+              <!-- <label class="item-progress-value" v-if="file.status == status.uploading">28%</label> -->
+              
+            </div>
+             
           </div>
         </transition-group>
       </draggable>

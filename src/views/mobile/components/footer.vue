@@ -26,7 +26,7 @@ export default {
           title: 'discover',
           icon: require('@/assets/discover_2.svg'),
           activeIcon: require('@/assets/discover_2.svg'),
-          path: 'DiscoverIndex',
+          path: 'AlbumIndex',
           isNotificationActive: false,
         },
         {

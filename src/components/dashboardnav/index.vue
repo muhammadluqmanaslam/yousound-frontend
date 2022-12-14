@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-nav margin-top-header">
     <v-toolbar fixed app flat color="white" height="73" class="nav-z-index">
-        <content-top-header>
+        <content-top-header class="black-theme">
             <template slot="topHeader">
                 <ul class="width100">
                     <li v-if="displayTabs"
@@ -35,7 +35,7 @@
                         class="profile-menu"
                         content-class="profile-menu__content"
                       >
-                        <v-btn icon class="border-dark" slot="activator">
+                        <v-btn icon class="border-dark bg-white" slot="activator">
                           <v-icon>more_horiz</v-icon>
                         </v-btn>
                         <v-list class="pa-0">
@@ -95,6 +95,9 @@
 <style lang="scss" scoped>
 .nav-z-index{
   z-index: 10 !important;
+}
+.bg-white{
+  background: white !important;
 }
 .dashboard-nav {
     .upload-btn {
