@@ -1,6 +1,6 @@
 <template>
   <div class="page collection-page mx-5 margin-top-header" v-if="pageReady">
-    <content-top-header class="mt-3">
+    <content-top-header class="mt-3 black-theme">
       <template slot="topHeader">
         <ul>
           <li

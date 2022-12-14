@@ -149,24 +149,43 @@
         </div> -->
       </div>
       <v-container fluid :grid-list-md="onMobile" px-0 pt-0>
+        <div class="dflex justify-space-between align-center margin-top-x">
+          <div class="text-big">
+            New
+          </div>
+          <div class="text-small cursor-pointer">
+            View all
+          </div>
+        </div>
         <v-layout row wrap v-if="!hideOtherVideos">
           <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
           <v-flex 
-            v-for="(video) in videos.slice(0,3)" 
+            v-for="(video) in videos.slice(0,10)" 
             :key="video.name"
             class="video-container"
-            :class="[!isComp ? 'video-container top-3 xs12 sm4' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+            :class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
           >
             <video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
           </v-flex>
+        </v-layout>
 
-          <v-flex
-            xs4
-            v-for="(video) in videos.slice(3,videos.length)"
-            :key="video.name" 
-            :class="[!isComp ? 'card-container top-3 xs12 sm4' : 'video-container pl-0 xs4', {side_fullwidth: onMobile}]"
+        <div class="dflex justify-space-between align-center margin-top-x">
+          <div class="text-big">
+            Popular
+          </div>
+          <div class="text-small cursor-pointer">
+            View all
+          </div>
+        </div>
+        <v-layout row wrap v-if="!hideOtherVideos">
+          <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+          <v-flex 
+            v-for="(video) in videos.slice(0,10)" 
+            :key="video.name"
+            class="video-container"
+            :class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
           >
-            <video-box :hoverOverlay="false" :item="video" />
+            <video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -192,9 +211,27 @@
     margin: 0 !important;
 }
 
+.margin-top-x{
+  margin-top: 60px;
+  padding: 0 76px;
+}
+
 .page-content{
   margin-top: 52px;
   width: 100%;
+}
+.text-big{
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Inter';
+  color: black;
+}
+.text-small{
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Inter';
+  color: black;
+  text-decoration: none;
 }
 
 .music-banner-main{

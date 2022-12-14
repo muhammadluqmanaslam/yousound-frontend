@@ -1,8 +1,8 @@
 <template>
   <div class="side-player" v-if="$store.getters['player/isPlaying']">
-    <div class="hr-container top">
+    <!-- <div class="hr-container top">
       <v-divider class="above-cover"></v-divider>
-    </div>
+    </div> -->
     <v-dialog v-model="showListeningMessage">
       <v-card>
         <v-card-title class="headline"

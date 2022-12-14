@@ -30,10 +30,11 @@
           <!-- <div class="track-image" v-lazy:background-image="item.cover.url"></div> -->
         </template>
 
-				<v-flex xs12 class="track-actions">
+				<v-flex xs12 class="track-actions forCollection" v-if="forCollection">
 					<span @click="gotoItem()">
 						<v-flex xs12 class="touch-flex"></v-flex>
 					</span>
+					
 					<v-btn
 						v-if="!isPlaying || $store.state.player.isPaused"
 						@click.native="playSong()"
@@ -56,6 +57,268 @@
 						v-if="isPlaying && !$store.state.player.isPaused"
 						@click.native="pauseSong()"
 						class="play-button"
+					>
+						<v-icon
+							:class="[
+								{
+									'play-button-2': playButton2,
+									iconHasWhiteBG: playButton2IconHasWhiteBG,
+									'black--text': playButton2IconHasWhiteBG,
+								},
+							]"
+						>
+							pause
+						</v-icon>
+					</v-btn>
+					<v-menu
+					v-if="currentUser && willMenuRender && !hideMoreMenu"
+					v-model="menu"
+					offset-y
+					:close-on-content-click="false"
+					:nudge-width="100"
+					class="track-menu"
+				  >
+					<v-btn dark slot="activator" @click="is_menu_hover = true">
+					  <v-icon right>more_horiz</v-icon>
+					</v-btn>
+					<v-card>
+					  <v-list>
+						<v-list-tile
+						  v-if="item.user.id != currentUser.id"
+						  key="repost"
+						  @click.native="repostItem()"
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<label>Repost</label>
+						  </v-list-tile-title>
+						</v-list-tile>
+						<!-- <v-list-tile
+						  v-if="item.album_type != 'playlist'"
+						  key="download"
+						  @click.native="showDownloadDialog()"
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<img
+							  class="track-status-icon"
+							  src="/static/images/ic_download.png"
+							/>
+							<label>Download</label>
+						  </v-list-tile-title>
+						</v-list-tile> -->
+		
+						<v-list-tile
+						  v-if="currentUser.user_type == 'label'"
+						  key="add_to_my_label"
+						  @click.native="addToMyLabel()"
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<!-- <img
+							  class="track-status-icon"
+							  src="/static/images/ic_add_to.png"
+							/> -->
+							<label>Add to my label</label>
+						  </v-list-tile-title>
+						</v-list-tile>
+						<v-list-tile
+						  v-if="false && item.album_type != 'playlist'"
+						  key="add_to_playlist"
+						  class="default-menu-item track-menu-item has-sub-menu"
+						>
+						  <v-menu v-model="submenu" offset-x class="track-menu">
+							<v-list-tile-title slot="activator" class="has-sub-menu">
+							  <!-- <img
+								class="track-status-icon"
+								src="/static/images/ic_add_to.png"
+							  /> -->
+							  <label>Add to Playlist</label>
+							</v-list-tile-title>
+							<v-list>
+							  <v-list-tile
+								key="add_to_playlist"
+								@click.native="addToNewPlaylist()"
+								class="default-menu-item track-menu-item"
+							  >
+								<v-list-tile-title>
+								  <!-- <img
+									class="track-status-icon"
+									src="/static/images/ic_add_to.png"
+								  /> -->
+								  <label>New Playlist</label>
+								</v-list-tile-title>
+							  </v-list-tile>
+							  <v-list-tile
+								v-for="(list, list_index) in playlists"
+								:key="`playlist_2_${list_index}`"
+								@click.native="addToPlaylist(list)"
+								class="default-menu-item track-menu-item"
+							  >
+								<v-list-tile-title>
+								  <!-- <img
+									class="track-status-icon"
+									src="/static/images/ic_download.png"
+								  /> -->
+								  <label>{{ list.name }}</label>
+								</v-list-tile-title>
+							  </v-list-tile>
+							</v-list>
+						  </v-menu>
+						</v-list-tile>
+						<v-list-tile
+						  v-if="
+							['admin', 'moderator'].indexOf(currentUser.user_type) >
+							  -1 && !item.recommended
+						  "
+						  key="recommended"
+						  @click="(showFeatureModal = true) && (menu = false)"
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<div class="menu-list-item dflex align-center px-2">
+							  <img src="../assets/star 1.svg" width="16">
+							  <label class="ml-0">Feature</label>
+							</div>
+						  </v-list-tile-title>
+						</v-list-tile>
+						<v-list-tile
+						  v-if="
+							['admin', 'moderator'].indexOf(currentUser.user_type) >
+							  -1 && item.recommended
+						  "
+						  key="unrecommended"
+						  @click.native="unrecommendAlbum()"
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<div class="menu-list-item dflex align-center px-2">
+							  <img src="../assets/star 1.svg" width="16">
+							  <label class="ml-0">Unfeature</label>
+							</div>
+						  </v-list-tile-title>
+						</v-list-tile>
+		
+						<v-list-tile
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<div class="menu-list-item dflex align-center px-2">
+							  <img src="../assets/pencil 1.svg" width="16">
+							  <label class="ml-0">Edit feature</label>
+							</div>
+						  </v-list-tile-title>
+						</v-list-tile>
+		
+						<v-list-tile
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<div class="menu-list-item dflex align-center px-2">
+							  <img src="../assets/plus.svg" width="16" class="filter-invert">
+							  <label class="ml-0">Add to collection</label>
+							</div>
+						  </v-list-tile-title>
+						</v-list-tile>
+		
+						<v-list-tile
+						class="default-menu-item track-menu-item"
+					  >
+						<v-list-tile-title>
+						  <div class="menu-list-item dflex align-center px-2">
+							<img src="../assets/playlist.svg" width="16">
+							<label class="ml-0">Add to playlist</label>
+						  </div>
+						</v-list-tile-title>
+					  </v-list-tile>
+		
+					  <v-list-tile
+					  key="share"
+					  @click.native="showShareDialog()"
+					  class="default-menu-item track-menu-item"
+					>
+					  <v-list-tile-title>
+						<!-- <img
+						  class="track-status-icon"
+						  src="/static/images/ic_share.png"
+						/> -->
+						<div class="menu-list-item dflex align-center px-2">
+						  <img src="../assets/respond-arrow 2.svg" width="16">
+						  <label class="ml-0">Share</label>
+						</div>
+					  </v-list-tile-title>
+					  </v-list-tile>
+					  <v-list-tile
+						v-if="item.user.id != currentUser.id"
+						key="hide"
+						@click.native="showHideAlbumDialog()"
+						class="default-menu-item track-menu-item"
+					  >
+						<v-list-tile-title>
+						  <!-- <v-icon>visibility_off</v-icon> -->
+						  <div class="menu-list-item dflex align-center px-2">
+							<img src="../assets/b-eye 1.svg" width="16">
+							<label class="ml-0">Hide</label>
+						  </div>
+						</v-list-tile-title>
+					  </v-list-tile>
+					  <v-list-tile
+						v-if="item.user.id != currentUser.id"
+						key="report"
+						@click.native="openReportDialog()"
+						class="default-menu-item track-menu-item"
+					  >
+						<v-list-tile-title>
+						  <!-- <img
+							class="track-status-icon"
+							src="/static/images/ic_flag.png"
+						  /> -->
+						  <div class="menu-list-item dflex align-center px-2">
+							<img src="../assets/o-warning 1.svg" width="16">
+							<label class="ml-0">Report</label>
+						  </div>
+						</v-list-tile-title>
+					  </v-list-tile>
+					  </v-list>
+					</v-card>
+				  </v-menu>
+					<p v-if="!hideTrackLength" class="track-count">
+						{{ item.tracks.length }} tracks
+					</p>
+					<div v-if="showHoverTrackInfo" class="track-hover-info">
+						<div class="item-name">{{ item.name }}</div>
+						<div class="artist-name">{{ owner.username }}</div>
+					</div>
+				</v-flex>
+
+				<v-flex xs12 class="track-actions" v-if="!forCollection && is_component_hover" >
+					
+					<span @click="gotoItem()">
+						<v-flex xs12 class="touch-flex"></v-flex>
+					</span>
+					
+					<v-btn
+						v-if="!isPlaying || $store.state.player.isPaused"
+						@click.native="playSong()"
+						class="play-button-main"
+						:class="{ 'play-button-2': playButton2 }"
+					>
+						<v-icon
+							:class="[
+								{
+									'play-button-2': playButton2,
+									iconHasWhiteBG: playButton2IconHasWhiteBG,
+									'black--text': playButton2IconHasWhiteBG,
+								}
+							]"
+						>
+							play_arrow
+						</v-icon>
+					</v-btn>
+					<v-btn
+						v-if="isPlaying && !$store.state.player.isPaused"
+						@click.native="pauseSong()"
+						class="play-button-main"
 					>
 						<v-icon
 							:class="[
@@ -321,7 +584,7 @@
 
 			<v-flex class="dflex align-center">
 				<div class="pr-3 font-weight-bold"> {{ totalTime() }} </div>
-				<div class="three-dots"><img src="../assets/three-dots.svg" width="15"></div>
+				<!-- <div class="three-dots"><img src="../assets/three-dots.svg" width="15"></div> -->
 			</v-flex>
 		</v-flex>
 

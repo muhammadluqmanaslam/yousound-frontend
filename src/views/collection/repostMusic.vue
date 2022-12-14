@@ -128,6 +128,7 @@
 						:objectIndex="index"
 						hideMoreMenu
 						hideTrackLength
+						forCollection
 					/>
 
 					<div v-if="selectAlbumsMode" class="selectMusic">

@@ -73,7 +73,6 @@
                         :hideOverlay="true"
                         :showFullOverlay="false"
                         hideOptionCount
-                        altMeta
                         noMeta
                         altMetaPrice
                         @click.native="verifyUser(product)"

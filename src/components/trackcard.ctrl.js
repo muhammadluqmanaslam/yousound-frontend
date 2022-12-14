@@ -23,6 +23,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    forCollection: {
+      type: Boolean,
+      default: false,
+    },
     noAction: {
       type: Boolean,
       default: false,
