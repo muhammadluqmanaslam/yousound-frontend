@@ -114,7 +114,7 @@
             v-for="(feed, index) in newAlbums"
             :key="index"
             feed-card
-            xs6
+            sm3
             custom-lg5
             px-0
           >
@@ -142,7 +142,7 @@
             v-for="(feed, index) in popularAlbums"
             :key="index"
             feed-card
-            xs6
+            sm3
             custom-lg5
             px-0
           >

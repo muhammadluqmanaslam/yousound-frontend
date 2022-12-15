@@ -1,11 +1,14 @@
 <template>
   <div class="" :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
-    <discover-nav v-if="show_nav" 
-    @mouseover="show_nav = !show_nav"
+    <discover-nav 
+    @mouseenter="show_nav = true"
+    @mouseleave="show_nav = false"
+
+    :class="show_nav ? 'navVisible': 'navHide'"
     />
     <div class="video-container-main"
-    @mouseenter="show_video_overlay = true; show_nav = !show_nav"
-    @mouseleave="hideOverlay()"
+    @mouseenter="show_video_overlay = true; show_nav = true"
+    @mouseleave="hideOverlay(); show_nav = false"
     >
     <video
       ref="myVideoPlayer"
@@ -17,7 +20,7 @@
       control
     ></video>
 
-    <div class="video-overlay" v-if="show_video_overlay  && firstTimePlay">
+    <div class="video-overlay" v-if="firstTimePlay" :class="show_video_overlay ?'visibleOverlay' :'hideOverlay'">
       <div class="vo-content"> 
         <h2 class="vo-heading">'Chopped and Screwed: The Final Mixtape'</h2>
         <div class="vo-following-main">
@@ -76,7 +79,7 @@
           </div>
 
 
-          <div class="ad-button mt-2">
+          <div class="ad-d-btn mt-2">
             <v-btn class="ad-btn">Add to cart</v-btn>
           </div>
         </div>
@@ -86,7 +89,7 @@
         </div>
       </div>
 
-      <div class="ad-bar">
+      <div class="ad-d-bar">
         <img src="../../../assets/tile-2.jpeg" width="100%">
       </div>
     </div>
@@ -459,6 +462,7 @@ export default {
       const vm = this
 
       vm.player.on('ended', function() {
+        this.show_video_overlay= true;
         if (vm.totalPlayTime === 0) {
           vm.totalPlayTime = vm.player.currentTime()
         } else {
@@ -482,6 +486,7 @@ export default {
       });
 
       vm.player.on('play', () => {
+        this.show_video_overlay= false;
         vm.remainingTime = 0
         this.firstTimePlay = true
         clearTimeout(vm.stillListeningTimer);
@@ -504,6 +509,17 @@ export default {
         vm.endPlayTime = vm.seekTime2
         console.log("================ playing time ", vm.totalPlayTime)
       })
+
+      vm.player.on('mouseover', function() {
+        player.inactivityTimeout = 0
+        player.userActive(true)
+        vm.player.userActive(true)
+
+        console.log("Ches X");
+        var vim = document.querySelector('.video-js').classList.remove('vjs-user-inactive')
+        var vim = document.querySelector('.video-js').classList.remove('vjs-user-active')
+      
+      });
 
       vm.player.on('timeupdate', function() {
         vm.seekTime1 = vm.seekTime2;
@@ -612,6 +628,63 @@ export default {
 
 <style src="./video-player.scss"></style>
 <style lang="scss">
+
+.navVisible{
+  display: block;
+  visibility: visible;
+  opacity: 1;
+
+  -webkit-transition: visibility 1.5s, opacity 1.5s;
+  -moz-transition: visibility 1.5s, opacity 1.5s;
+  -ms-transition: visibility 1.5s, opacity 1.5s;
+  -o-transition: visibility 1.5s, opacity 1.5s;
+  transition: visibility 1.5s, opacity 1.5s;
+
+  /* Wait a moment before fading out the control bar */
+  -webkit-transition-delay: 2s;
+  -moz-transition-delay: 2s;
+  -ms-transition-delay: 2s;
+  -o-transition-delay: 2s;
+  transition-delay: 2s;
+}
+
+.navHide{
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+
+  -webkit-transition: visibility 1.5s, opacity 1.5s;
+  -moz-transition: visibility 1.5s, opacity 1.5s;
+  -ms-transition: visibility 1.5s, opacity 1.5s;
+  -o-transition: visibility 1.5s, opacity 1.5s;
+  transition: visibility 1.5s, opacity 1.5s;
+
+  /* Wait a moment before fading out the control bar */
+  -webkit-transition-delay: 2s;
+  -moz-transition-delay: 2s;
+  -ms-transition-delay: 2s;
+  -o-transition-delay: 2s;
+  transition-delay: 2s;
+}
+
+.hideOverlay{
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+
+  -webkit-transition: visibility 1.5s, opacity 1.5s;
+  -moz-transition: visibility 1.5s, opacity 1.5s;
+  -ms-transition: visibility 1.5s, opacity 1.5s;
+  -o-transition: visibility 1.5s, opacity 1.5s;
+  transition: visibility 1.5s, opacity 1.5s;
+
+  /* Wait a moment before fading out the control bar */
+  -webkit-transition-delay: 2s;
+  -moz-transition-delay: 2s;
+  -ms-transition-delay: 2s;
+  -o-transition-delay: 2s;
+  transition-delay: 2s;
+}
 .video-js .vjs-big-play-button {
   top: 44% !important;
   left: 44% !important;
@@ -630,10 +703,10 @@ export default {
     font-family: "Inter", sans-serif;
     color: white;
 
-    .ad-bar{
+    .ad-d-bar{
       position: absolute;
-      left: 20%;
-      bottom: 12%;
+      left: 47%;
+      bottom: 105px;
       width: 50px;
       height: 50px;
 
@@ -738,7 +811,7 @@ export default {
           }
         }
 
-        .ad-button{
+        .ad-d-btn{
           .ad-btn{
             width: 100%;
             margin: 0;
