@@ -1,6 +1,6 @@
 <template>
     <div class="page chart-page mx-5">
-        <discover-nav v-if="!isComp && !onMobile" pageName="music"/>
+        <discover-nav v-if="!isComp && !onMobile" pageName="chart" :searchShow="this.$store.state.app.sideBarMini"/>
 
         <div class="page-content">
             <div class="chart_flex">

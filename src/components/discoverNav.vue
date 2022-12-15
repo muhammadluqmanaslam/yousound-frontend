@@ -28,9 +28,15 @@
 
           <div class="dflex align-center">
             <div class="pos-relative" v-if="searchShow">
-            <input type="text" placeholder="Search song, video, product & people" class="input-search">
-            <img src="../../static/images/magnify.png" width="16" class="search-icon">
-          </div>
+              
+              <search-input
+                :senderRoute="$route.name"
+                :isRound="false"
+                theme="navbar"
+                placeholder="Search song, video, product & people"
+                :preIcon="require('@/assets/sidebar_search.svg')"
+              />
+            </div>
 
           <div
           class="genre-dialog-selector py-3"
@@ -189,6 +195,7 @@ export default {
   },
   data() {
     return {
+      keyword: "",
       activeTab: '',
       tabs: [
         { id: 'music', title: 'Music', icon: require('../../static/images/nav-music.svg') },
@@ -242,7 +249,9 @@ export default {
         case 'merch':
           this.$router.push({name: 'ProductIndex'})
           break;
-
+        case 'chart':
+          this.$router.push({name: 'ChartPageIndex'})
+          break;
         default:
           break;
       }

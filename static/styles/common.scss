@@ -479,6 +479,23 @@ li.search-li {
   align-items: center;
   border-radius: 4px;
 
+  &.is_navbar{
+    background-color: #272727 !important;
+    height: 42px!important;
+    border-radius: 50px!important;
+    width: 350px!important;
+    padding-left: 20px!important;
+    font-size: 14px!important;
+    font-weight: 500!important;
+    font-family: 'Inter', sans-serif;
+    color: white!important;
+    border: none !important;
+    
+    input::placeholder{
+			color: rgba(255,255,255,0.5) !important;
+		}
+  }
+
   &.is_sidebar{
     border: none !important;
     background-color: #1F2227;

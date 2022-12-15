@@ -355,7 +355,6 @@ export default {
         ]);
       })
       .catch((e) => {
-        debugger
         this.$store.dispatch(
           "error/showErrorToast",
           e.body.errors || [e.body]

@@ -1,6 +1,6 @@
 <template v-if="isPageReady">
   <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
-    <discover-nav v-if="!isComp && !onMobile" pageName="merch" searchShow=true />
+    <discover-nav v-if="!isComp && !onMobile" pageName="merch" :searchShow="this.$store.state.app.sideBarMini" />
 
     <div class="d-flex">
       <div v-if="!viewAllTrending" class="page-content">

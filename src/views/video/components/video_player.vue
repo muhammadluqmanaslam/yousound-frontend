@@ -1,6 +1,6 @@
 <template>
   <div class="" :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
-    <discover-nav v-if="show_nav" 
+    <discover-nav v-if="show_nav" :searchShow="this.$store.state.app.sideBarMini"
     @mouseover="show_nav = !show_nav"
     />
     <div class="video-container-main"

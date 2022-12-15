@@ -11,7 +11,7 @@ import ForgotPassword from '@/views/auth/forgot_password'
 import ResetPassword from '@/views/auth/reset_password'
 import Confirmation from '@/views/auth/confirmation'
 import SocialVerification from '@/views/auth/social_verify'
-import chartPage from "@/views/chartPage"
+import ChartPageIndex from "@/views/chartPage"
 // import InvitedRegister from '@/views/auth/register_by_invited'
 // import AttendeeRegister from '@/views/auth/register_by_attendee'
 // import ListenerRegister from '@/views/auth/register_by_listener'
@@ -130,7 +130,7 @@ export function createRouter(settings) {
     },
     { path: '/terms', name: 'TermsPage', component: TermsPage, meta: {allowOnMobile: true} },
     { path: '/squad', name: 'OverviewPage', component: OverviewPage },
-    { path: '/chart', name: 'chartPage', component: chartPage },
+    { path: '/chart', name: 'ChartPageIndex', component: ChartPageIndex },
     {
       path: '/_oauth/verification',
       name: 'SocialVerification',

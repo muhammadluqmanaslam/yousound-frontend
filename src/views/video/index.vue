@@ -1,6 +1,6 @@
 <template>
 	<div class="page video-page index-page" :class="{isComp}">
-		<discover-nav v-if="!isComp && !onMobile" pageName="video" searchShow='true'/>
+		<discover-nav v-if="!isComp && !onMobile" pageName="video" :searchShow="this.$store.state.app.sideBarMini" />
 
 		<!-- <content-top-header
 			v-if="isPageReady"
