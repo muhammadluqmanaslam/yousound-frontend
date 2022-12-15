@@ -200,8 +200,156 @@
         >
       </div>
     </div>
-    <v-dialog v-model="show_logout_modal" content-class="logout-modal">
-      <logoutModal />
+    <v-dialog v-model="show_modalCard1" content-class="dialog-w_auto dialog-no_shadow">
+      <div class="modal-card">
+        <div>
+          <img src="../../assets/nav_logo_white.png" width="135px">
+            </div>
+            <div class="modal-card-img">
+              <div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url + ')',}">
+              </div>
+          </div>
+          <div class="text-center user-box">
+            <p>Sign up to experience</p>
+            <div class="user-div">
+              <p class="user-text"> {{ this.selectedVideo.user.username }}</p>
+              <img src="../../assets/check-white.svg" width="15px">
+          </div>
+        </div>
+
+        <div class="button-wrapper">
+          <router-link to="/signup">
+            <button class="modal-button">
+              Create account
+            </button>
+          </router-link>
+        </div>
+
+      </div>
+    </v-dialog>
+
+    <!-- Show MOdal 2 -->
+
+    <v-dialog v-model="show_modalCard2" content-class="dialog-w_auto dialog-no_shadow">
+      <div class="modal-card">
+        <div>
+          <img src="../../assets/nav_logo_white.png" width="135px">
+            </div>
+            <div class="modal-card-img">
+            <div class="modal-card-img-inner"
+            :style="`background-image: url(${bgDemoImg})`"
+            ></div>
+          </div>
+          <div class="text-center user-box">
+            <p>Sign up to experience</p>
+            <div class="user-div">
+              <p class="user-text"> {{ this.selectedVideo.user.username }}</p>
+              <img src="../../assets/check-white.svg" width="15px">
+          </div>
+        </div>
+
+        <div class="text-center font-inter">
+          <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+        </div>
+
+				<div class="button-wrapper">
+					<router-link to="/settings">
+						<button class="modal-button">
+							Start 30 day free trial
+						</button>
+					</router-link>
+				</div>
+
+      </div>
+    </v-dialog>
+
+    <!-- Show MOdal 3 -->
+
+    <v-dialog v-model="show_modalCard3" content-class="dialog-w_50 dialog-no_shadow">
+      <div class="modal-card-main">
+        <div class="modal-card-split">
+          <div>
+            <img src="../../assets/nav_logo_white.png" width="135px">
+              </div>
+              <div class="modal-card-img">
+              <div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url + ')',}"></div>
+            </div>
+            <div class="user-box">
+              <p>Sign up to experience</p>
+              <div class="user-div">
+                <p class="user-text">{{ this.selectedVideo.user.username }}</p>
+                <img src="../../assets/check-white.svg" width="15px">
+            </div>
+          </div>
+
+          <!-- <div class="text-center">
+            <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+          </div> -->
+
+          <div class="button-wrapper">
+            <router-link to="/signup">
+              <button class="modal-button">
+                Create account
+              </button>
+            </router-link>
+          </div>
+
+        </div>
+
+        <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+          <video playsinline autoplay loop id="bgvid">
+            <source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
+          </video>
+          <div class="volume-button">
+            <img src="../../assets/mute-icon.svg" width="17px">
+          </div>
+
+        </div>
+      </div>
+    </v-dialog>
+
+    <!-- Show MOdal 4 -->
+
+    <v-dialog v-model="show_modalCard4" content-class="dialog-w_50 dialog-no_shadow">
+      <div class="modal-card-main">
+        <div class="modal-card-split">
+          <div>
+            <img src="../../assets/nav_logo_white.png" width="135px">
+              </div>
+              <div class="modal-card-img">
+              <div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url +')',}"></div>
+            </div>
+            <div class="user-box">
+              <p>Sign up to experience</p>
+              <div class="user-div">
+                <p class="user-text">{{ this.selectedVideo.user.username }}</p>
+                <img src="../../assets/check-white.svg" width="15px">
+            </div>
+          </div>
+
+          <div class="font-inter">
+            <p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+          </div>
+
+					<div class="button-wrapper">
+						<router-link to="/settings">
+							<button class="modal-button">
+								Start 30 day free trial
+							</button>
+						</router-link>
+					</div>
+        </div>
+
+        <div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+          <video playsinline autoplay loop id="bgvid">
+            <source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
+          </video>
+          <button class="volume-button">
+            <img src="../../assets/mute-icon.svg" width="17px">
+          </button>
+
+        </div>
+      </div>
     </v-dialog>
   </div>
 </template>

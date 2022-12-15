@@ -52,6 +52,13 @@ export default {
       selectedVideo: {},
       hideOtherVideos: false,
       show_logout_modal: false,
+      show_modalCard1: false,
+      show_modalCard2: false,
+      show_modalCard3: false,
+      show_modalCard4: false,
+      bgDemoImg: require('../../assets/tile-1.jpeg'),
+      spotlightVideoSource: null,
+      videoLoading: require('../../assets/loading.gif'),
     }
   },
 
@@ -98,7 +105,23 @@ export default {
       if (this.currentUser) {
         this.$router.push({name: 'VideoShow', params: { videoId: this.selectedVideo.id }})
       } else {
-        this.show_logout_modal = true
+        StreamService.getSpotlightStream(this.selectedVideo.user.id)
+          .then((response) => {
+            console.log("response", response)
+            this.spotlightVideoSource = response.body.mp_channel_1_ep_1_id
+            if (this.currentUser == null) {
+              this.show_modalCard3 = true
+            } else {
+              this.show_modalCard4 = true
+            }
+          })
+          .catch((e) => {
+            if (this.currentUser == null) {
+              this.show_modalCard1 = true
+            } else {
+              this.show_modalCard2 = true
+            }
+          })
       }
     },
 
