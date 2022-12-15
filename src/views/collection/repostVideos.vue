@@ -37,33 +37,9 @@
 					<div class="playlist-box">
 						<div class="playlist-images">
 							<ul>
-								<li>
+								<li v-for="(playlistImage, index) in playlistImageList(playlist)">
 									<img
-										:src="require('@/assets/playlist-grey.svg')"
-										width="30"
-										alt="playlist icon"
-									/>
-								</li>
-
-								<li>
-									<img
-										:src="require('@/assets/playlist-grey.svg')"
-										width="30"
-										alt="playlist icon"
-									/>
-								</li>
-
-								<li>
-									<img
-										:src="require('@/assets/playlist-grey.svg')"
-										width="30"
-										alt="playlist icon"
-									/>
-								</li>
-
-								<li>
-									<img
-										:src="require('@/assets/playlist-grey.svg')"
+										:src="playlistImage"
 										width="30"
 										alt="playlist icon"
 									/>
@@ -173,6 +149,21 @@ export default {
     };
   },
   methods: {
+    playlistImageList(playlist) {
+			let playlistImages = []
+			const playlistDetails = playlist.playlist_details
+			for(let i = 0; i < playlistDetails.length; i++) {
+				playlistImages.push(playlistDetails[i].cover.url)
+			}
+			if(playlistImages.length < 4) {
+				while(playlistImages.length != 4) {
+					console.log(playlistImages.length)
+					playlistImages.push(require('@/assets/playlist-grey.svg'))
+				}
+			}
+			return playlistImages;
+		},
+
     toggleSelectVideosMode(status) {
 			this.selectVideosMode = status
 			if (!status) {
