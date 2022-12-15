@@ -7,7 +7,7 @@ import SearchService from '@/services/search'
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-
+import ProductService from '@/services/product'
 import productCard from '@/components/productcard'
 import contentTopHeader from '@/components/contentTopHeader'
 import discoverNav from '@/components/discoverNav'
@@ -127,6 +127,22 @@ export default {
       } else {
         this.mainProduct = selectedProduct
       }
+    },
+
+    addToCollections() {
+      ProductService.addIntoCollection(this.mainProduct.id)
+      .then((resp) => {
+        this.$store.dispatch("error/showSuccessToast", [
+          "You just added " + this.mainProduct.name + " in your collections.",
+        ]);
+      })
+      .catch((e) => {
+        debugger
+        this.$store.dispatch(
+          "error/showErrorToast",
+          e.body.errors || [e.body]
+        );
+      })
     },
 
     onTab(tab) {

@@ -36,6 +36,12 @@ export default {
     })
   },
 
+  addIntoCollection(productId) {
+    return Vue.http.get(API_BASE_URL + '/' + productId + '/add_to_collection', {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   getProduct(productId) {
     return Vue.http.get(API_BASE_URL + '/' + productId, {
       headers: { Authorization: $store.state.auth.token },

@@ -20,7 +20,7 @@ export default {
     contentTopHeader,
     discoverNav,
     VueSlickCarousel,
-    logoutModal
+    logoutModal,
   },
 
   data() {
@@ -123,6 +123,21 @@ export default {
             }
           })
       }
+    },
+
+    repostItem() {
+      StreamService.repostStream(this.selectedVideo.id)
+      .then((res) => {
+        this.$store.dispatch('error/showSuccessToast', [
+          'You just added ' + this.selectedVideo.name + ' stream in your collection.',
+        ])
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast',
+          e.body.errors || [e.body] || [e.body.error]
+        )
+      })
     },
 
     isActiveTab(tab) {

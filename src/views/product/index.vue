@@ -40,7 +40,7 @@
 
                   <v-btn class="album-play-icon ml-0" @click="addToCart()">Add to cart</v-btn>
   
-                  <div class="plus-icon main">
+                  <div class="plus-icon main" @click="addToCollections()">
                     <img src="../../assets/plus.svg" width='15px'>
                   </div>
   

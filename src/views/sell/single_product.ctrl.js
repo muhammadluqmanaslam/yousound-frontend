@@ -346,6 +346,23 @@ export default {
           );
         });
     },
+
+    addToCollections() {
+      ProductService.addIntoCollection(this.product.id)
+      .then((resp) => {
+        this.$store.dispatch("error/showSuccessToast", [
+          "You just added " + this.product.name + " in your wishlist.",
+        ]);
+      })
+      .catch((e) => {
+        debugger
+        this.$store.dispatch(
+          "error/showErrorToast",
+          e.body.errors || [e.body]
+        );
+      })
+    },
+
     afterFollow(isfollowing) {
       if (isfollowing === "unfollow") {
         this.product.merchant.is_following = false
@@ -375,7 +392,7 @@ export default {
           quantity: 1,
           page_track: pageTrack,
         }
-        debugger
+
         ItemService.addToCart(params)
           .then((response) => {
             if (response.body.errors) {

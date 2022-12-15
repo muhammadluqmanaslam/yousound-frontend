@@ -66,7 +66,7 @@
                   src="/static/images/ic_repost.svg"
                   width="20"
                   class="cursor-pointer"
-                  @click="repostProduct"
+                  @click="repostProduct()"
                 />
               </span>
               <span>Repost</span>

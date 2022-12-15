@@ -44,7 +44,7 @@
                   </v-btn>
                 </span>
 
-                <div class="plus-icon main">
+                <div class="plus-icon main" @click="repostAlbum()">
                   <img src="../../assets/plus.svg" width='15px'>
                 </div>
 

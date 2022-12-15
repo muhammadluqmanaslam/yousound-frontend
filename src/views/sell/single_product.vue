@@ -92,7 +92,7 @@
 
 
                 <v-tooltip top>
-                  <span slot="activator" class="__actions pl-0">
+                  <span slot="activator" class="__actions pl-0" @click="addToCollections()">
                     <img
                       src="../../assets/plus.svg"
                       width="20"

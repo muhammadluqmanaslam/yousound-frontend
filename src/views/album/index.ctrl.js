@@ -4,6 +4,7 @@ import _ from 'lodash'
 import AuthService from '@/services/auth'
 import { mapActions } from 'vuex'
 import { MyEvents, Utils } from '@/helper'
+import AlbumService from '@/services/album'
 
 import SearchService from '@/services/search'
 import VueSlickCarousel from 'vue-slick-carousel'
@@ -220,6 +221,22 @@ export default {
 
     changeMainAlbum(selectedAlbum) {
       this.mainAlbum = selectedAlbum
+    },
+
+    repostAlbum() {
+      AlbumService.repostAlbum(this.mainAlbum.id)
+        .then((response) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'You added ' + this.mainAlbum.name + ' album in your collection.',
+          ])
+        })
+        .catch((e) => {
+          console.log(e)
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        })
     },
 
     isPlaying() {

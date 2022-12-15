@@ -96,7 +96,7 @@
                   </v-icon>
                 </v-btn>
 
-                <div class="plus-icon main">
+                <div class="plus-icon main" @click="repostItem()">
                   <img src="../../assets/plus.svg" width='15px'>
                 </div>
 
