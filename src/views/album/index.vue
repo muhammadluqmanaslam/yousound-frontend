@@ -2,7 +2,7 @@
   <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" filterShow='true' />
     <div class="page-content">
-      <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainAlbum.gradient_color + ' 100%)'}" v-if="(!viewAllNew && !viewAllPopular)">
+      <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainAlbum.gradient_color + ' 100%)'}" v-if="(!viewAllNew && !viewAllPopular && !viewAllTrending)">
         <v-container>
           <div class="dflex album-flex align-center" v-if="mainAlbum">
             <div class="album-main-image">
@@ -55,7 +55,7 @@
             </div>
 
           </div>
-          <div class="slider-contain">
+          <div class="slider-contain" v-if="!viewAllTrending">
             <div class="dflex align-center gap-25">
               <div class="font-lg">
                 Trending
@@ -88,9 +88,9 @@
         </v-container>
       </div>
       <div class="global-header-viewall">
-        <div class="dflex align-center" v-if="(viewAllNew || viewAllPopular)">
+        <div class="dflex align-center" v-if="(viewAllNew || viewAllPopular || viewAllTrending)">
           <div class="highlight-head mr-4 dflex align-center">
-            {{ viewAllNew ? 'New' : 'Popular' }}
+            {{ viewAllNew ? 'New' : viewAllPopular ? 'Popular' : 'Trending' }}
             <img class="ml-1 mt-1" src="../../assets/triangle-down.svg" width="8">
           </div>
           <ul v-if="currentUser" v-for="genre in this.chosenGenres" class="dflex tablist">
@@ -100,6 +100,26 @@
           </ul>
         </div>
       </div>
+      <v-container fluid grid-list-lg px-0 v-if="viewAllTrending">
+        <v-layout row wrap>
+          <v-flex
+            v-for="(feed, index) in recommendedAlbums"
+            :key="index"
+            feed-card
+            xs6
+            custom-lg5
+            px-0
+          >
+            <track-card
+              :objects="recommendedAlbums"
+              :objectIndex="index"
+              :hideButtonAction="hideAlbum"
+              hideMoreMenu
+            />
+          </v-flex>
+        </v-layout>
+      </v-container>
+
       <v-container fluid grid-list-lg px-0 v-if="(!viewAllPopular && !viewAllTrending)">
         <div class="dflex justify-space-between align-center margin-top-x" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
           <div class="text-big">

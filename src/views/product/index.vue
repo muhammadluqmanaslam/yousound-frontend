@@ -1,11 +1,9 @@
 <template v-if="isPageReady">
   <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
-    <discover-nav v-if="!isComp && !onMobile" pageName="merch" searchShow='true'/>
+    <discover-nav v-if="!isComp && !onMobile" pageName="merch" searchShow=true />
 
     <div class="d-flex">
-      <div v-if="selected_category === null || viewAllTrending" class="page-content">
-
-
+      <div v-if="!viewAllTrending" class="page-content">
         <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainProduct.gradient_color + ' 100%)'}">
           <v-container>
             <div class="dflex album-flex align-center" v-if="mainProduct">
@@ -57,7 +55,7 @@
                   Trending
                 </div>
                 <div class="view-all cursor-pointer" @click="displayAllTrendingProduct()">
-                  view all 
+                  View all 
                 </div>
               </div>
               <div class="mt-4">
@@ -121,7 +119,7 @@
         <v-container fluid grid-list-md pl-0 style="margin-left: -10px">
           <div class="dflex justify-space-between align-center margin-top-x">
             <div class="text-big">
-              New
+              {{ selected_category ? selected_category.name : 'Trending Products' }}
             </div>
             <div>
               <router-link to="/" class="text-small">
@@ -130,7 +128,7 @@
             </div>
           </div>
           <v-layout row wrap>
-            <v-flex xs6 sm4 lg3 v-for="product in products.filter(product => product.category.name === selected_category.name)" :key="product.id">
+            <v-flex xs6 sm4 lg3 v-for="product in selected_category == null ? products : products.filter(product => product.category.name === selected_category.name)" :key="product.id">
               <!-- <product-card :hideOverlay="true" :dataObject="feed" /> -->
               <product-card
                 hideOverlay

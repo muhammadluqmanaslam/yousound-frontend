@@ -168,11 +168,13 @@ export default {
 
     displayAllProduct(category) {
       this.selected_category = category
+      this.viewAllTrending = true
     },
 
     displayAllTrendingProduct() {
       this.trendingProducts = this.products;
       this.viewAllTrending = true
+      this.selected_category = null
     },
 
     loadFeeds(page) {

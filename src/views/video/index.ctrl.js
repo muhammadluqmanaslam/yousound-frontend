@@ -50,7 +50,7 @@ export default {
         { id: 'live', title: 'Live' },
       ],
       selectedVideo: {},
-      hideOtherVideos: false,
+      viewAllTrendingVideos: false,
       show_logout_modal: false,
       show_modalCard1: false,
       show_modalCard2: false,
@@ -163,7 +163,7 @@ export default {
 
     displayAllTrendingVideos() {
       this.trendingVideos = this.videos
-      this.hideOtherVideos = true
+      this.viewAllTrendingVideos = true
     },
 
     loadData(tab, page) {

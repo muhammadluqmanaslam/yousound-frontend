@@ -212,7 +212,21 @@ export default {
       this.viewAllNew = false
       this.viewAllPopular = false
       this.viewAllTrending = true
-      this.recommendedAlbums = this.albumData.recommended
+      this.recommendedAlbums = []
+      if (this.currentUser) {
+        let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+        if (genre_ids.length > 0) {
+          _.each(this.albumData.recommended, (recommendedAlbum) => {
+            if (recommendedAlbum.genres.length > 0 && genre_ids.includes(recommendedAlbum.genres[0].id)) {
+              this.recommendedAlbums.push(recommendedAlbum)
+            }
+          })
+        } else {
+          this.recommendedAlbums = this.albumData.recommended
+        }
+      } else {
+        this.recommendedAlbums = this.albumData.recommended
+      }
     },
 
     isActiveTab(tab) {
