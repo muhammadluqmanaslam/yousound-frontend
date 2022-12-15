@@ -723,12 +723,27 @@
             </template>
           </template>
           <div v-else>
+            <div class="_body list-track-view list-track-view-trackCard">
+              <div
+                v-for="(track, index) in albums.slice(0, 5)"
+                :key="index"
+                class="list-track-view-item"
+              >
+                <track-card
+                  :objects="albums"
+                  :objectIndex="index"
+                  hideMoreMenu
+                  hideTrackLength
+                />
+
+              </div>
+            </div>
             <div class="dflex justify-space-between align-center">
               <div class="text-big">
                 Popular
               </div>
               <div class="text-small cursor-pointer">
-                View all
+                
               </div>
             </div>
           <v-layout row wrap class="covers-content" >
@@ -844,3 +859,4 @@
 
 <script type="text/javascript" src="./profile.ctrl.js"></script>
 <style lang="scss" src="../../../static/styles/profile.scss" scoped></style>
+<style src="../../../static/styles/repost.scss" lang="scss" scoped></style>
