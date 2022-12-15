@@ -151,7 +151,7 @@
       <v-container fluid :grid-list-md="onMobile" px-0 pt-0>
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
-            New
+            Popular
           </div>
           <div class="text-small cursor-pointer">
             View all
@@ -171,7 +171,26 @@
 
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
-            Popular
+            New
+          </div>
+          <div class="text-small cursor-pointer">
+            View all
+          </div>
+        </div>
+        <v-layout row wrap v-if="!hideOtherVideos">
+          <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+          <v-flex 
+            v-for="(video) in videos.slice(0,10)" 
+            :key="video.name"
+            class="video-container"
+            :class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+          >
+            <video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+          </v-flex>
+        </v-layout>
+        <div class="dflex justify-space-between align-center margin-top-x">
+          <div class="text-big">
+            Live broadcasts
           </div>
           <div class="text-small cursor-pointer">
             View all

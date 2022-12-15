@@ -554,11 +554,11 @@
         font-size: 16px;
         font-weight: 500;
         color: black;
-        opacity: 30%;
+        opacity: 30% !important;
         cursor: pointer;
 
         &.active{
-          opacity: 100%;
+          opacity: 100% !important;
         }
       }
     }

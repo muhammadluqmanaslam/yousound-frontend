@@ -17,6 +17,8 @@
   }
 
 
+
+
   .tab-container {
     background-color: #ffffff;
 
@@ -188,6 +190,8 @@
     }
   }
 
+
+
   &.__inner {
     width: 100%;
     position: relative;
@@ -305,6 +309,7 @@
 
     &.black-theme{
 
+
       .tab-container {
         background: #000;
         &.toolbar--fixed {
@@ -338,6 +343,10 @@
               font-weight: 400;
               font-family: 'Inter', sans-serif;
               font-size: 14px;
+
+              a.tabs__item--active{
+                text-decoration: underline !important;
+              }
               
               label {
                 color: rgba(255,255,255,0.5);

@@ -50,7 +50,7 @@
               :pagination.sync="pagination"
               :rows-per-page-items="per_page_options"
               :total-items="total_subscriptions.length"
-              class="user-table"
+              class="user-table-x"
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
@@ -110,7 +110,7 @@
               :rows-per-page-items="per_page_options"
               :total-items="total_subscriptions.length"
               :search="search"
-              class="user-table"
+              class="user-table-x"
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
@@ -179,14 +179,14 @@
           <div class="dflex align-center">
             <div>
               <div class="big_view">
-                <input type="text" class="search-input-general" placeholder="Search Artist" v-model="search">
+                <input type="text" class="search-input-general" placeholder="Search artists" v-model="search">
               </div>
               <div class="small_view">
                 <div class="search_icon" @click="(small_input = !small_input)">
                   <img src="../../../assets/search.svg" width="20">
                 </div>
                 <div class="position_input" v-if="small_input">
-                  <input type="text" class="search-input-small" placeholder="Search Artist" v-model="search">
+                  <input type="text" class="search-input-small" placeholder="Search artists" v-model="search">
                 </div>
               </div>
             </div>

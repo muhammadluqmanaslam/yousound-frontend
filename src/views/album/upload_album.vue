@@ -115,7 +115,7 @@
 											</div>
 											
 									</div>
-									<div class="w-15">
+									<div class="w-10">
 										<label class="control-label show-none">
 											KEY
 											</label>
@@ -303,7 +303,7 @@
 								v-model="selected_product"
 								item-text="name"
 								item-value="id"
-								placeholder="Type name to search your product"
+								placeholder="Type name to search product"
 								chips
 								class="pt-0"
 								no-data-text="No products found"

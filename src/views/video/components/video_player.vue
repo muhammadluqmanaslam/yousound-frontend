@@ -3,6 +3,7 @@
     <discover-nav 
     @mouseenter="show_nav = true"
     @mouseleave="show_nav = false"
+    pageName="video"
 
     :class="show_nav ? 'navVisible': 'navHide'"
     />
@@ -728,6 +729,7 @@ export default {
       top: 5%;
       right: 5%;
       max-width: 250px;
+      z-index: 25;
 
       .ad-show-img{
         img{
