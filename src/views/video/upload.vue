@@ -63,7 +63,7 @@
                 <label class="control-label max-char-label">
                   <span class="__title">
                   <label class="required">*</label>
-                    Title
+                    Video Title
                   </span>
                 </label>
                 <input
@@ -85,7 +85,7 @@
                 </label>
                 <v-select
                   v-model="stream.genre_id"
-                  placeholder="Select"
+                  
                   :items="genres"
                   name="genre"
                   v-validate="'required'"
@@ -113,7 +113,7 @@
             <v-flex sm4>
               <div class="form-group">
                 <label class="control-label">
-                    <span>Video Thumbnail</span>
+                    <span>Custom video thumbnail</span>
                 </label>
 
                 <div class="video-thumbnail-container">
@@ -243,14 +243,14 @@
 
 
               <div class="form-group">
-                <label class="control-label">Feature profiles</label>
+                <label class="control-label">Featured profiles</label>
                 <v-select
                   v-model="stream.account_ids"
                   :items="friends"
                   multiple
                   item-text="name"
                   item-value="id"
-                  placeholder="Type name to search people"
+                  placeholder="Select"
                   chips
                   class="pt-0"
                   autocomplete

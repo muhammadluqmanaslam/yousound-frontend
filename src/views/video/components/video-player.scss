@@ -4,6 +4,11 @@
 
 }
 
+.video-js.vjs-fluid video{
+    max-height: none !important;
+}
+
+
 
 .video-js .vjs-play-progress{
     background: #2476EC
@@ -14,7 +19,7 @@
     position: absolute;
     width: 90%;
     left: 5%;
-    bottom: 10%;
+    bottom: 95px;
     z-index: 25;
     height: auto;
 }
@@ -25,6 +30,7 @@
     bottom: 45px;
     font-size: 12px;
     z-index: 25;
+    color: white;
 }
 
 .video-js .vjs-picture-in-picture-control, .video-js .vjs-volume-panel, .video-js .vjs-fullscreen-control{

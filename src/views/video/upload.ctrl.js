@@ -14,7 +14,7 @@ import dragFileUploader from '@/components/dragFileUploader'
 import topbarNotification from '@/components/topbarNotification'
 import BannerUpload from '../BannerUpload'
 import IconImage from '../../assets/video-icon.svg'
-import BannerImage from '../../assets/product-drop.gif'
+import BannerImage from '../../assets/music-drop.gif'
 
 import {
   VideoGenres,

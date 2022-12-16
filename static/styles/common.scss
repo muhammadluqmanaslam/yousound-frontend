@@ -290,7 +290,7 @@ img.invert-color {
   top: 0;
 }
 
-.user-table, .album-table, .product-table{
+.user-table-x{
   tfoot{
       position: fixed;
       bottom: 0;
@@ -785,7 +785,7 @@ main.content{
 
 .global-header-viewall{
   background: transparent;
-  padding: 20px 0px;
+  padding: 50px 0px 20px;
   font-family: 'Inter',sans-serif;
   color: black;
 
@@ -1803,7 +1803,7 @@ textarea {
   }
 }
 
-@media (min-width: 1264px) and (max-width: 1903px) {
+@media (min-width: 1264px){
   .flex.custom-lg5 {
     width: 20%;
     max-width: 20%;
