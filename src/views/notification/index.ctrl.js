@@ -18,7 +18,7 @@ export default {
       tabs: [
         { id: 'messages', title: 'Messages', badge: 0},
         { id: 'sms', title: 'SMS', badge: 0,},
-        { id: 'activity', title: 'Activity', badge: 0},
+        // { id: 'activity', title: 'Activity', badge: 0},
         // { id: 'paidToShare', title: 'Repost Request'},
       ],
     }
@@ -26,6 +26,9 @@ export default {
   computed: {
     badge() {
       return this.$store.state.activity.badge
+    },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
     },
   },
   methods: {

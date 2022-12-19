@@ -22,6 +22,12 @@
                 max-width: 20%;
                 flex-basis: 20%;
             }
+
+            &.custom-lg6 {
+                width: 16.667%;
+                max-width: 16.667%;
+                flex-basis: 16.667%
+            }
         }
         .action_content {
             text-align: left;

@@ -222,7 +222,7 @@ const getters = {
           //   path: 'Feed',
           // },
           {
-            title: 'Notifications',
+            title: 'Messages',
             id: 'notifications',
             icon: require('../../../static/images/messages.svg'),
             path: 'NotificationIndex',
@@ -246,12 +246,12 @@ const getters = {
           //   icon: 'video_library',
           //   path: 'ManageIndex',
           // },
-          {
-            title: 'Subscribe',
-            id: 'subscribe',
-            icon: require('@/assets/ic_love.svg'),
-            path: 'SubscribeIndex',
-          },
+          // {
+          //   title: 'Subscribe',
+          //   id: 'subscribe',
+          //   icon: require('@/assets/ic_love.svg'),
+          //   path: 'SubscribeIndex',
+          // },
         ],
       },
     ]
