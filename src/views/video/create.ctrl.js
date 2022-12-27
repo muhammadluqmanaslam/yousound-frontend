@@ -1,14 +1,21 @@
+// import * as UpChunk from '@mux/upchunk'
 import AuthService from '@/services/auth'
 import MeService from '@/services/me'
 import PaymentService from '@/services/payment'
 import StreamService from '@/services/stream'
+import AlbumService from '@/services/album'
+import ProductService from '@/services/product'
 import UserService from '@/services/user'
 import Attach from './components/attach'
 import PaymentModal from '@/components/paymentmodal'
 import DigitalUploader from './components/digital_uploader'
+import contentTopHeader from '@/components/contentTopHeader'
+import videoEstimate from '@/views/video/estimate'
+import topbarNotification from '@/components/topbarNotification'
 
 import {
   VideoGenres,
+  VideoTypes,
   MediaLiveInputTypes,
   MediaLiveInputCodecs,
   MediaLiveInputResolutions,
@@ -25,19 +32,27 @@ export default {
     Attach,
     PaymentModal,
     DigitalUploader,
+    contentTopHeader,
+    videoEstimate,
+    topbarNotification,
   },
 
   data() {
     return {
+      topBarContent: 'Connect your Stripe account to start accepting payments',
+      activeView: 'initStream',
       active_tab: 'create',
       tabs: [
         { id: 'info', title: 'Intro', path: '/info' },
         { id: 'create', title: 'Setup' },
         { id: 'manage', title: 'Live Stream', disabled: true },
       ],
+      albums: [],
+      products: [],
+      VideoTypes: VideoTypes,
+      video_type: VideoTypes.LIVE,
       terms: false,
       view_prices: StreamViewPrices,
-      viewers_limits: StreamViewersLimits,
       costs: StreamCosts,
       streamCost: 1000,
       profit_share_types: [],
@@ -48,7 +63,7 @@ export default {
         name: '',
         description: '',
         view_price: 0,
-        viewers_limit: 0,
+        viewers_limit: 1,
         cover: null,
         ml_input_type: 'RTMP_PUSH',
         ml_input_codec: 'AVC',
@@ -74,12 +89,38 @@ export default {
       users: [],
       friends: [],
       isPageReady: false,
+      user: {},
     }
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+    hasFree_stream_seconds() {
+      return this.user.free_stream_seconds !== undefined && this.user.free_stream_seconds > 0
+    },
+    mergedAttachmentItems() {
+      const combined = [...this.albums, ...this.products]
+
+      return combined
+    },
+    viewers_limits() {
+      const range = [...Array(101).keys()]
+      range.shift()
+      return range
+    },
     currentUser() {
       return this.$store.state.auth.user
+    },
+    isStreaming() {
+      return (
+        _.get(this.user.stream, 'status', '') === 'running' &&
+        _.get(this.user.stream, 'notified', false) &&
+        (_.get(this.$store.state.streamPlayer.stream, 'user.slug', '') !==
+          this.user.slug ||
+          !this.$store.getters['streamPlayer/hasFrame'])
+      )
     },
 
     MediaLiveInputTypes() {
@@ -117,6 +158,10 @@ export default {
       ).map((g) => ({ id: g.id, name: g.name }))
     },
 
+    profiles() {
+      return this.friends.slice()
+    },
+
     stream_view_price() {
       return Filter.formatNumber(this.stream.view_price)
     },
@@ -131,7 +176,25 @@ export default {
   //   }
   // },
 
-  created() {
+  async created() {
+    if (this.onMobile) {
+      this.$router.push({name: "UploadIndex"})
+    }
+
+    await this.getUser()
+    console.log(2);
+
+    // get attchment array items
+    this.getAttachmentItems()
+
+    // re-navigate user away when user is on live
+    console.log(this.isStreaming)
+    if (this.isStreaming) {
+      this.$router.push({name: 'VideoManage'})
+    } else if (!this.hasFree_stream_seconds) {
+      this.$router.push({name: 'CreateLive'})
+    }
+
     this.$store.dispatch('navigator/goNextState', {
       page: 'broadcast',
       tab: 'create',
@@ -188,11 +251,15 @@ export default {
           this.$store.dispatch('error/showLoadingActivity', false)
 
           MeService.mutualUsers({ ...params, per_page: -1 }).then(
-            (response) => (this.users = response.body.users)
+            (response) => {
+              this.users = response.body.users
+            }
           )
 
           MeService.mutualUsers({ ...friendsParams, per_page: -1 }).then(
-            (response) => (this.friends = response.body.users)
+            (response) => {
+              this.friends = response.body.users
+            }
           )
         })
         .catch((reason) => {
@@ -202,10 +269,10 @@ export default {
         })
 
       if (this.currentUser.enabled_live_video_free) {
-        this.periods.push({
-          id: 1,
-          name: '1hour / FREE',
-        })
+        // this.periods.push({
+        //   id: 1,
+        //   name: '1hour / FREE',
+        // })
       } else {
         // if (this.currentUser.stream_rolled_time > 0) {
         //   this.periods.push({
@@ -239,6 +306,51 @@ export default {
   },
 
   methods: {
+    getAttachmentItems() {
+      Promise.all([
+        AlbumService.getAlbums({
+          statuses: 'published, collaborated',
+          user_statuses: 'accepted',
+        }),
+        ProductService.getProducts({
+          statuses: 'published, collaborated',
+          stock_statuses: 'active',
+          user_statuses: 'accepted',
+        }),
+      ])
+        .then((values) => {
+          this.albums = values[0].body
+          this.products = values[1].body
+        })
+        .catch((reason) => {
+          console.log(reason)
+          // this.$store.dispatch('error/showErrorToast', [reason])
+        })
+    },
+
+    async getUser() {
+      await UserService.getUserInfo(this.currentUser.username)
+        .then((response) => {
+          if (response.body.status !== 'active') {
+            this.$store.dispatch('error/showErrorToast', [
+              'User does not exist',
+            ])
+            this.$router.push({ path: '/' })
+            return
+          }
+
+          // console.log('profile init')
+          this.user = response.body
+          // this.user.free_stream_seconds = 0 // test
+          console.log('user2: ', this.user);
+        }).catch((e) => {
+          this.$store.dispatch('error/showErrorToast', ['Error fetching user'])
+        })
+    },
+
+    gotoNextView(view) {
+      this.activeView = view
+    },
     onTab(tab) {
       if (tab.id === this.active_tab) return
 

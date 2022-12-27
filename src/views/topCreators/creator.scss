@@ -1,0 +1,76 @@
+.page-content{
+    margin-top: 100px;
+
+    .table-margin{
+        margin-top: 42px;
+
+        table{
+            text-align: left;
+            width: 100%;
+            border-collapse: collapse;
+
+            .w-30{
+                width: 30%;
+            }
+
+            .border-bottom{
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+            }
+
+            th{
+                color: rgba(0,0,0,0.9);
+                font-size: 14px;
+                font-weight: 500;
+                padding-bottom: 12px;
+            }
+
+            .tbl-row{
+                padding: 7px 20px;
+                border-radius: 7.5px;
+                position: relative;
+
+                &:hover{
+                    background-color: rgba(0,0,0,0.03);
+                }
+
+                .msg-absolute{
+                    position: absolute;
+                    top: 20px;
+                    right: 15px;
+                }
+
+                .number-text{
+                    font-size: 14px;
+                    font-weight: bold;
+                    color: black;
+                }
+                .tbl-num{
+                    font-size: 17px;
+                    font-weight: bold;
+                    color: black;
+                }
+                .tbl-img{
+                    width: 40px;
+                    height: 40px;
+                    background: beige;
+                    border-radius: 50%;
+                }
+
+                .tbl-title{
+                    font-weight: bold;
+                    color: black;
+                    font-size: 16px;
+                }
+
+                .tbl-subtitle{
+                    font-weight: medium;
+                    color: rgba(0,0,0,0.5);
+                    font-size: 14px;
+                }
+            }
+            }
+
+    }
+
+
+}

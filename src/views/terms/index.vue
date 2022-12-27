@@ -1,7 +1,7 @@
 <template>
   <div row wrap class="page terms-page">
     <div class="d-flex">
-      <div class="page-left">
+      <!-- <div class="page-left">
         <div class="tab-container">
           <v-navigation-drawer permanent fixed height="100vh">
             <div class="page-title"></div>
@@ -18,7 +18,7 @@
             </v-list>
           </v-navigation-drawer>
         </div>
-      </div>
+      </div> -->
 
       <div class="page-content">
         <terms-of-use-tab v-if="currentTab == 'terms_of_use'" />

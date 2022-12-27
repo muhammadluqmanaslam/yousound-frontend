@@ -129,13 +129,14 @@ export default {
 
       this.trackIndex = index + 1 + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
-      console.log('player play track', this.track)
+      console.log('player play track audio_player', this.track)
 
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
       if (data.howl) {
         sound = data.howl
       } else {
+        console.log("--data.track.audio---->", data.track.audio)
         sound = data.howl = new Howl({
           src: data.track.audio.url,
           html5: true, // Force to HTML5 so that the audio can stream in (best for large files).

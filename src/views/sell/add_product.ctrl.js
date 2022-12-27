@@ -1,21 +1,46 @@
 /* global $:true */
 
 import _ from 'lodash'
-// import CategoryService from '@/services/category'
+import CategoryService from '@/services/category'
 // import UserService from '@/services/user'
 import ProductService from '@/services/product'
 import MeService from '@/services/me'
 import { CollaboratorProfitShareTypes } from '@/helper'
 import digitalUploader from './components/digital_uploader'
+import contentTopHeader from '@/components/contentTopHeader'
+import topbarNotification from '@/components/topbarNotification'
+import policyTab from '@/views/settings/components/policy_tab'
+import UserService from '@/services/user'
+import BannerUpload from '../BannerUpload'
+import IconImage from '../../assets/product-tag.svg'
+import BannerImage from '../../assets/product-drop.gif'
 
 export default {
   components: {
     digitalUploader,
+    contentTopHeader,
+    topbarNotification,
+    policyTab,
+    BannerUpload 
   },
 
   data() {
     return {
+      activeTab: 'product',
+      iconImage: IconImage,
+      bannerImage: BannerImage,
+      tabs: [
+        { id: 'upload', title: 'Upload', isParent: true, path: 'UploadIndex' },
+        { id: 'music', title: 'Music', path: 'UploadAlbum' },
+        { id: 'video', title: 'Video', path: 'VideoUpload' },
+        { id: 'product', title: 'Product', path: 'AddProduct' },
+        { id: 'live', title: 'Broadcast Live', path: 'CreateLive' },
+      ],
+      user: {},
+      topBarContent: 'Connect your Stripe account to start accepting payments',
+      showPolicyActive: false,
       product_categories: [],
+      product_upload_successfully: false,
       destinations: [
         {
           value: 'United States',
@@ -49,6 +74,10 @@ export default {
           value: 'Japan',
           name: 'Japan',
         },
+        {
+          value: 'All other countries',
+          name: 'All other countries',
+        },
       ],
       countries: [],
       states: [],
@@ -75,7 +104,7 @@ export default {
         ],
         shipments: [
           {
-            country: '',
+            country: 'All other countries',
             shipment_alone_price: '',
             shipment_with_price: '',
           },
@@ -96,14 +125,24 @@ export default {
       users: [],
       collaborators_confirm_dialog: false,
       isPageReady: false,
+      productUrl: null,
+      loading: false,
+      product_category: null,
+      confirmationImage: null,
     }
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     isDigitalProduct() {
       return (
         this.digital_content_category_ids.indexOf(this.product.category) > -1
       )
+    },
+    currentUser() {
+      return this.$store.state.auth.user
     },
 
     isAvailableToAddProduct() {
@@ -121,7 +160,8 @@ export default {
         if (this.isDigitalProduct) {
           isAvailable = isAvailable && this.digital_content.file
         } else {
-          if (this.product.shipments.length) {
+          const validCountries = this.product.shipments.filter(shipment => shipment.country == "All other countries") != ""
+          if (this.product.shipments.length && validCountries) {
             for (let index in this.product.shipments) {
               const shipment = this.product.shipments[index]
               isAvailable =
@@ -145,11 +185,19 @@ export default {
     },
 
     profit_share_types() {
-      return CollaboratorProfitShareTypes
+      let profitShare = [];
+      for (let i = 1; i <= 100; i += 1) {
+        profitShare.push(i)
+      }
+      return profitShare
     },
   },
 
   created() {
+    if (this.onMobile) {
+      this.$router.push({name: "UploadIndex"})
+    }
+
     this.$store.dispatch('navigator/goNextState', {
       page: 'sell',
       tab: 'products',
@@ -178,13 +226,14 @@ export default {
         // CategoryService.getCategories(),
         // UserService.searchUsers(params)
         MeService.mutualUsers(params),
+        CategoryService.getCategories(),
       ])
         .then((values) => {
-          this.product_categories = this.$store.state.app.product_categories
+          this.product_categories = values[1].body
           this.digital_content_category_ids = this.$store.getters[
             'app/digitalCategoryIds'
           ]
-
+          this.$store.dispatch('app/setProductCategories', values[1].body)
           this.users = values[0].body.users
           this.isPageReady = true
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -204,6 +253,42 @@ export default {
   },
 
   methods: {
+    onCopy: function (e) {
+      this.$store.dispatch("error/showSuccessToast", [
+        "You just copied: " + e.text,
+      ]);
+      // alert('You just copied: ' + e.text)
+    },
+
+    onError: function (e) {
+      this.$store.dispatch("error/showErrorToast", ["Failed to copy link"]);
+      // alert('Failed to copy link')
+    },
+
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+    onTab(tab) {
+      if (tab.path) {
+        this.$router.push({name: tab.path})
+      }
+    },
+    updateUser(params) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      UserService.updateUserInfo(this.currentUser.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+          AuthService.setUser(response.body)
+        })
+        .catch((e) => {
+          const errors = e.body.errors
+            ? _.map(e.body.errors, (msg) => `Email ${msg.detail}`)
+            : [e.body]
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', errors)
+        })
+    },
     imageChanged(index, e) {
       if (index === 'product_image1') {
         this.product.image1 = e.target.files[0]
@@ -319,7 +404,7 @@ export default {
     },
 
     saveProduct() {
-      this.hideCollaboratorsConfirmDialog()
+      this.loading = true
       this.$store.dispatch('error/showLoadingActivity', true)
       const formData = new FormData()
       formData.append('shop_product[name]', this.product.name)
@@ -343,17 +428,18 @@ export default {
         })
       }
       formData.append('shop_product[variants]', JSON.stringify(variants))
+      let shipments = []
       for (let index in this.product.shipments) {
-        this.product.shipments[index].shipment_alone_price = Math.round(
-          this.product.shipments[index].shipment_alone_price * 100
-        )
-        this.product.shipments[index].shipment_with_price = Math.round(
-          this.product.shipments[index].shipment_with_price * 100
-        )
+        let shipment = this.product.shipments[index];
+        shipments.push({
+          ...shipment,
+          shipment_alone_price: shipment.shipment_alone_price * 100,
+          shipment_with_price: shipment.shipment_with_price * 100
+        })
       }
       formData.append(
         'shop_product[shipments]',
-        JSON.stringify(this.product.shipments)
+        JSON.stringify(shipments)
       )
       formData.append('shop_product[cover1]', this.product.image1)
       formData.append('shop_product[cover2]', this.product.image2)
@@ -393,17 +479,24 @@ export default {
 
       ProductService.addProduct(formData)
         .then((response) => {
+          this.loading = false
+          this.product_category = response.body.category.name
+          this.confirmationImage = response.body.covers[0].cover.url
           this.$store.dispatch('error/showLoadingActivity', false)
           if (this.product.collaborators.length > 0) {
             this.$store.dispatch('navigator/setParams', {
               product_id: response.body.id,
             })
-            this.$router.push({ path: '/sell#pendings' })
+            this.$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })
           } else {
-            this.$router.push({ path: '/sell#products' })
+            this.productUrl = window.location.origin + '/product/' +response.body.id
+            // this.$router.push({ path: '/sell#products' })
+            this.hideCollaboratorsConfirmDialog()
+            this.product_upload_successfully = true
           }
         })
         .catch((e) => {
+          this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
             'error/showErrorToast',

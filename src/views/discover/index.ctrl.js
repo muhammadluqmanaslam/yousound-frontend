@@ -7,6 +7,11 @@ import SearchService from '@/services/search'
 import genreDialog from '@/components/genre_dialog'
 import productCard from '@/components/productcard'
 import trackCard from '@/components/trackcard'
+import discoverAlbum from '@/views/album'
+import discoverVideo from '@/views/video'
+import discoverProduct from '@/views/product'
+import discoverNav from '@/components/discoverNav'
+import contentTopHeader from '@/components/contentTopHeader'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -16,16 +21,19 @@ export default {
     genreDialog,
     productCard,
     trackCard,
+    discoverAlbum,
+    discoverVideo,
+    discoverProduct,
+    discoverNav,
+    contentTopHeader
   },
 
   data() {
     return {
-      activeTab: '',
+      activeTab: 'discover',
       tabs: [
-        { id: 'recommended', title: 'Recommended' },
-        { id: 'new', title: 'New Releases' },
-        { id: 'popular', title: 'Popular' },
-        // { id: 'playlist', title: 'Playlists' },
+        { id: 'music', title: 'Music' },
+        { id: 'video', title: 'Video' },
         { id: 'merch', title: 'Shop' },
       ],
       seed: '',
@@ -43,6 +51,8 @@ export default {
       products: [],
       feeds: [],
       isPageReady: false,
+      currentTabs: [],
+      isComp: true,
     }
   },
 
@@ -94,16 +104,22 @@ export default {
   },
 
   created() {
-    if (!this.currentUser) {
-      AuthService.clearTokenAndUserInfo()
-      this.$router.push({ path: '/login' })
-      return
-    }
+    // if (!this.currentUser) {
+    //   AuthService.clearTokenAndUserInfo()
+    //   this.$router.push({ path: '/login' })
+    //   return
+    // }
 
     // this.seed = parseInt(Date.now() * Math.random())
     this.seed = Math.random()
-    const tab = this.$route.hash.substr(1)
+    // const tab = this.$route.hash.substr(1)
+    const tab = 'discover'
     this.setTab(tab)
+
+    // set active tab
+    if (this.pageName) {
+      this.activeTab = this.pageName
+    }
   },
 
   methods: {
@@ -129,84 +145,84 @@ export default {
       if (tab !== 'recommended') {
         params['seed'] = this.seed
       }
-      SearchService.searchDiscover(params)
-        .then((response) => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          if (tab === 'merch') {
-            this.products = this.products.concat(response.body.products)
-            // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
-            const categories = response.body.categories.map((c) => ({
-              id: c,
-              name: c,
-            }))
-            this.categories = [{ id: 'any', name: 'Any category' }].concat(
-              categories
-            )
-          } else {
-            this.feeds = this.feeds.concat(response.body.albums)
-            const genres = _.chain(this.feeds)
-              .map('genres')
-              .flatMap()
-              .keyBy('id')
-              .map((v, k) => {
-                return v
-              })
-              .sortBy('name')
-              .value()
-            this.genres = [
-              // { id: 'go_to_filters', name: 'Set Genre Filters' },
-              { id: 'any', name: 'All genre' },
-            ].concat(genres)
-          }
-          this.page_index = response.body.pagination.current_page
-          this.total_pages = response.body.pagination.total_pages
-
-          if (page === 1) {
-            Promise.all([
-              SearchService.searchDiscover(_.extend(params, { page: 2 })),
-              SearchService.searchDiscover(_.extend(params, { page: 3 })),
-              SearchService.searchDiscover(_.extend(params, { page: 4 })),
-            ]).then((values) => {
-              if (tab === 'merch') {
-                vm.products = vm.products.concat(
-                  values[0].body.products,
-                  values[1].body.products,
-                  values[2].body.products
-                )
-                vm.page_index =
-                  values[2].body.pagination.total_pages > 4
-                    ? 4
-                    : values[2].body.pagination.total_pages
-              } else {
-                vm.feeds = vm.feeds.concat(
-                  values[0].body.albums,
-                  values[1].body.albums,
-                  values[2].body.albums
-                )
-                const genres = _.chain(vm.feeds)
-                  .map('genres')
-                  .flatMap()
-                  .keyBy('id')
-                  .map((v, k) => {
-                    return v
-                  })
-                  .sortBy('name')
-                  .value()
-                vm.genres = [{ id: 'any', name: 'All' }].concat(genres)
-                vm.page_index =
-                  values[2].body.pagination.total_pages > 4
-                    ? 4
-                    : values[2].body.pagination.total_pages
-              }
-              vm.isPageReady = true
+      const api_response = this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
+      api_response.then((response) => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        if (tab === 'merch') {
+          this.products = this.products.concat(response.body.products)
+          // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
+          const categories = response.body.categories.map((c) => ({
+            id: c,
+            name: c,
+          }))
+          this.categories = [{ id: 'any', name: 'Any category' }].concat(
+            categories
+          )
+        } else {
+          this.feeds = this.feeds.concat(response.body.albums)
+          const genres = _.chain(this.feeds)
+            .map('genres')
+            .flatMap()
+            .keyBy('id')
+            .map((v, k) => {
+              return v
             })
-          }
-        })
-        .catch((e) => {
-          this.$store.dispatch('error/showLoadingActivity', false)
-          // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
-          console.log('discover error', e)
-        })
+            .sortBy('name')
+            .value()
+          this.genres = [
+            // { id: 'go_to_filters', name: 'Set Genre Filters' },
+            { id: 'any', name: 'All genre' },
+          ].concat(genres)
+        }
+        this.page_index = response.body.pagination.current_page
+        this.total_pages = response.body.pagination.total_pages
+
+        if (page === 1) {
+          Promise.all([
+            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 2 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 3 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 4 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
+          ]).then((values) => {
+            if (tab === 'merch') {
+              vm.products = vm.products.concat(
+                values[0].body.products,
+                values[1].body.products,
+                values[2].body.products
+              )
+              vm.page_index =
+                values[2].body.pagination.total_pages > 4
+                  ? 4
+                  : values[2].body.pagination.total_pages
+            } else {
+              vm.feeds = vm.feeds.concat(
+                values[0].body.albums,
+                values[1].body.albums,
+                values[2].body.albums
+              )
+              const genres = _.chain(vm.feeds)
+                .map('genres')
+                .flatMap()
+                .keyBy('id')
+                .map((v, k) => {
+                  return v
+                })
+                .sortBy('name')
+                .value()
+              vm.genres = [{ id: 'any', name: 'All' }].concat(genres)
+              vm.page_index =
+                values[2].body.pagination.total_pages > 4
+                  ? 4
+                  : values[2].body.pagination.total_pages
+            }
+            vm.isPageReady = true
+          })
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch('error/showLoadingActivity', false)
+        // this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+        console.log('discover error', e)
+      })
     },
 
     openGenreSelectorDialog() {
@@ -268,16 +284,9 @@ export default {
       this.feeds = arr
     },
 
-    onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
-    },
-
     setTab(tab) {
       if (!tab) {
-        tab = 'recommended'
+        tab = 'discover'
       }
 
       // console.log(tab, this.activeTab)
@@ -308,6 +317,25 @@ export default {
       this.$nextTick(() => {
         this.loadFeeds(this.activeTab, 1)
       })
+    },
+
+    onTab(tab) {
+      this.activeTab = tab
+
+      switch (tab) {
+        case 'music':
+          this.$router.push({name: 'AlbumIndex'})
+          break;
+        case 'video':
+          this.$router.push({name: 'VideoIndex'})
+          break;
+        case 'merch':
+          this.$router.push({name: 'ProductIndex'})
+          break;
+
+        default:
+          break;
+      }
     },
   },
 

@@ -1,0 +1,270 @@
+
+  .notification-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 199;
+    width: 100%;
+    height: 100%;
+  }
+
+
+.sidebar {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: linear-gradient(to bottom, #262c35,#11101f) !important;
+  z-index: 11;
+  padding-bottom: 0;
+
+  .divider{
+    width: 92%;
+    height: 1px;
+    background-color: #383B44 !important;
+    margin: 0 auto;
+  }
+
+  .thumbnail-mini-song{
+    padding: 0 12px;
+    position: absolute;
+    bottom: 45px;
+
+    img{
+      border-radius: 2px;
+    }
+  }
+
+  .side-lang-outer{
+    display: inline-block;
+    padding: 0 12px;
+  }
+  
+
+  .sidebar_lang{
+    
+    padding: 1px 12px;
+    border-radius: 50px;
+    background-color: #000000;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    cursor: pointer;
+
+    .lang-main{
+      display: flex;
+      gap: 6px;
+      align-items: center;
+
+      .lang-title{
+        font-size: 12px;
+        color: white;
+        font-weight: 700;
+      }
+    }
+
+
+  }
+
+  .sidebar-decoy {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    z-index: -10;
+  }
+
+  .search-input {
+    margin-bottom: 10px;
+  }
+
+  .tabs-auth-wrapper {
+    margin-bottom: 20px;
+    // min-height: 60%;
+  }
+
+  .auth-btn-container {
+    display: flex;
+    justify-content: space-between;
+
+    .auth-btn {
+      height: 30px;
+      width: 45%;
+
+      &.signup {
+        background-color: #ffffff !important;
+        color: #000000;
+      }
+    }
+    .signed-out-menu {
+      width: 100%;
+      list-style: none;
+
+      li {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        padding: 7px 10px;
+        border-radius: 6px;
+        color: #ffffff;
+        margin-bottom: 7px;
+        
+        &.login {
+          text-align: center;
+          background-color: #2B5CFF;
+        }
+      }
+    }
+  }
+
+  .live-notice {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    padding-left: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+
+    .__text {
+      font-size: 14px;
+    }
+    .icon_wrapper {
+      background-color: red;
+      border-radius: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 65px;
+      height: 21px;
+
+      .icon {
+        font-size: 10px;
+      }
+      .icon_text {
+        font-weight: bolder;
+        font-size: 10px;
+      }
+    }
+  }
+
+
+  .side-tab {
+    height: 38px;
+    font-family: 'DM Sans', sans-serif;
+ 
+
+    /deep/ a {
+      position: relative;
+      padding: 12px 0 12px 12px !important;
+      height: 36px;
+      font-size: 14px;
+
+      ._icon_img {
+        // filter: invert(1);
+        width: 16px;
+        opacity: 0.5;
+        border-radius: unset;
+        margin-top: -3px;
+        margin-left: 4px;
+
+        &.icon_subscribe {
+          opacity: 1;
+        }
+      }
+
+      span{
+        font-weight: 500;
+      }
+
+      .__icon {
+        font-size: 20px;
+        color: #9e9e9e !important;
+      }
+      .__title {
+        color: #9e9e9e;
+        font-weight: 700;
+        font-family: 'Inter', sans-serif;
+
+      }
+    }
+    &.activeTab {
+        /deep/.list__tile--link {
+          color: #ffffff !important;
+          font-weight: bold !important;
+          background-color: #323540;
+          border-radius: 6px;
+
+          .__icon {
+            color: #ffffff !important;
+          }
+          .__title {
+            color: #ffffff;
+          }
+        }
+    }
+  }
+
+  .sidebar-logo img {
+    border-style: none;
+    width: 48%;
+    margin-top: 4px;
+    margin-left: 14px;
+
+    &._mini {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .subheader {
+    padding-right: 16px !important;
+    margin-bottom: -8px;
+    margin-top: -12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #777;
+  }
+
+  .list__tile {
+      height: 40px !important;
+  }
+  .avatar .icon {
+      justify-content: flex-start !important;
+  }
+  .profile-image {
+    width: 28px;
+    height: 28px;
+    border-radius: 100%;
+    background-size: cover;
+    margin-left: -2px;
+  }
+
+  .toggle-sidebar {
+    &._bottom {
+      margin: 10px;
+      position: absolute;
+      bottom: 0;
+      z-index: 99999;
+    }
+
+    img {
+      width: 12px;
+      &.inversed {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  &.navigation-drawer--mini-variant {
+    display: flex;
+    flex-direction: column;
+
+    .list__tile {
+      .avatar {
+        width: auto !important;
+      }
+    }
+    .toggle-sidebar {
+      left: 16px;
+    }
+  }
+}

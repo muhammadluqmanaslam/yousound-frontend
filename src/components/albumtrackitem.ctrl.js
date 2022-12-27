@@ -6,6 +6,7 @@ import PlaylistService from '@/services/playlist'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
 import profileItem from '@/components/profileitem'
+import UserService from '@/services/user'
 
 export default {
   components: {
@@ -15,6 +16,7 @@ export default {
   },
 
   props: {
+    hideMoreBtn: Boolean,
     album: {
       type: Object,
     },
@@ -28,6 +30,11 @@ export default {
     },
 
     showStats: {
+      type: Boolean,
+      default: false,
+    },
+
+    showIndexPlayIcon: {
       type: Boolean,
       default: false,
     },
@@ -46,10 +53,20 @@ export default {
         image: null,
       },
       selectedImage: null,
+      isSubscribed: false,
     }
+  },
+  watch: {
+    track: {
+      immediate: true,
+      handler(val) {},
+    },
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -58,6 +75,20 @@ export default {
       return this.album.tracks[this.trackIndex]
     },
 
+    selectedTrackIsPlaying() {
+      const playerActive = this.$store.state.player.isPlaying
+      const currentTrackPlaying = this.$store.state.player.currentTrackPlaying
+      const current = this.album.tracks[this.trackIndex]
+      if (playerActive) {
+        console.log(current.id)
+        console.log(currentTrackPlaying)
+        if (current.id === currentTrackPlaying.id) {
+          console.log(true);
+          return true
+        }
+      }
+      return false
+    },
     isPlaying() {
       if (this.$store.state.player.isPlaying) {
         return (
@@ -83,7 +114,11 @@ export default {
     },
   },
 
-  created() {},
+  async created() {
+    if (this.currentUser) {
+      await this.fetchSubscriptionDetails();
+    }
+  },
 
   methods: {
     ...mapActions({
@@ -93,6 +128,20 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    async fetchSubscriptionDetails() {
+      await UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        }
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast', ["There was an error on fetching user info "]
+        )
+      })
+    },
+
     removeItem() {
       this.menu = false
       this.submenu = false
@@ -100,20 +149,25 @@ export default {
     },
 
     repostItem() {
-      this.menu = false
-      this.submenu = false
-      AlbumService.repostAlbum(this.album.id)
-        .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            'You just reposted ' + this.album.name,
-          ])
-        })
-        .catch((e) => {
-          this.$store.dispatch(
-            'error/showErrorToast',
-            e.body.errors || [e.body]
-          )
-        })
+      if (this.isSubscribed) {
+        this.menu = false
+        this.submenu = false
+        let params = { track_id: this.track.id }
+        AlbumService.repostAlbum(this.album.id, params)
+          .then((response) => {
+            this.$store.dispatch('error/showSuccessToast', [
+              'You just added ' + this.track.name + ' track in your collection.',
+            ])
+          })
+          .catch((e) => {
+            this.$store.dispatch(
+              'error/showErrorToast',
+              e.body.errors || [e.body] || [e.body.error]
+            )
+          })
+      } else {
+        this.$router.push({path: '/subscribe#plans'})
+      }
     },
 
     showDownloadDialog() {
@@ -229,6 +283,13 @@ export default {
     },
 
     selectTrack() {
+      if (this.onMobile) {
+        console.log("toggle modal");
+        this.$store.dispatch('player/toggleMobilePlayer', true)
+
+        if (this.selectedTrackIsPlaying) return
+      }
+
       // console.log('album-track-item selectTrack', this.trackIndex, this.isPlaying)
       if (this.isPlaying) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_SKIPTO, this.trackIndex)

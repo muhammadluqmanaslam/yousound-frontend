@@ -1,400 +1,448 @@
 <template>
   <div row wrap class="page sell-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Sell</h2>
-          <ul class="pr-3">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="onTab(tab.id)">{{ tab.title }}</label>
-            </li>
+    <dashboard-nav name="sales" />
 
-            <li
-              v-if="active_tab == 'orders'"
-              class="border-top border-bottom my-0"
-            >
-              <v-menu
-                id="item_filter"
-                class="filter"
-                style="display: block"
-                offset-y
-              >
-                <div slot="activator" class="filter__activator py-3">
-                  <span>{{ activeFilterName }}</span>
-                  <v-icon right>keyboard_arrow_down</v-icon>
-                </div>
-                <v-list>
-                  <v-list-tile
-                    v-for="filter in filters"
-                    @click.native="filterItems(filter)"
-                    :key="filter.id"
-                  >
-                    <v-list-tile-title>{{ filter.name }}</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </li>
-
-            <li
-              v-if="active_tab == 'orders'"
-              class="border-top border-bottom my-0 py-3"
-            >
-              <div class="export-wrapper">
-                <VueCtkDateTimePicker
-                  v-model="exportPeriod"
-                  id="export-period"
-                  :range="true"
-                  format="YYYY-MM-DD"
-                  formatted="ll"
-                >
-                </VueCtkDateTimePicker>
-                <v-icon class="pl-2" @click="csvExport()">save_alt</v-icon>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="page-content" v-if="currentUser && isPageReady">
-        <template v-if="active_tab == 'orders'">
-          <div
-            v-if="!orderHistories || orderHistories.length == 0"
-            class="empty-section"
+    <content-top-header absolute class="__inner mt-3">
+      <template slot="topHeader">
+        <ul class="pr-3 width100">
+          <li
+            v-for="filter in filters"
+            :key="filter.id"
+            :href="`#${filter.id}`"
+            :class="{ active: activeFilter.id == filter.id }"
           >
-            <p class="empty-title">You have no new orders</p>
-          </div>
-          <v-card v-else flat class="relative">
-            <v-flex
-              v-for="(order, index) in orderHistories"
-              :key="index"
-              xs12
-              class="order-item"
-            >
-              <template v-if="currentUser.id == order.merchant.id">
-                <div class="profile-section">
-                  <v-layout row>
-                    <div class="profile-content-section relative">
-                      <div class="profile-avatar">
-                        <profile-item
-                          :user="order.customer"
-                          :className="'order-item-profile-avatar'"
-                        ></profile-item>
-                      </div>
-                      <div class="profile-content">
-                        <a href="#" class="user-name">{{
-                          order.customer.display_name
-                        }}</a>
-                        <label class="order-detail-text">
-                          purchased
-                          <b>${{ order.amount | formatNumber }}</b></label
-                        >
-                      </div>
-                      <div class="profile-actions">
-                        <router-link
-                          :to="`/sell/order/${order.id}`"
-                          class="order-detail-btn"
-                          >View Order Details</router-link
-                        >
-                        <a
-                          class="message-buyer-btn"
-                          @click="showMessageDialog(order)"
-                          >Message Buyer</a
-                        >
-                        <label class="order-date">{{
-                          order.created_at | formatDate
-                        }}</label>
-                      </div>
-                    </div>
-                    <div class="status-section text-xs-center"></div>
-                  </v-layout>
-                </div>
-                <div
-                  v-for="item in order.items"
-                  :key="item.id"
-                  class="order-section"
-                >
-                  <v-layout
-                    v-if="
-                      activeFilterItemStatus == '' ||
-                      item.status == activeFilterItemStatus
-                    "
-                    row
-                  >
-                    <div class="order-content-section relative">
-                      <div
-                        class="product-cover-image"
-                        :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
-                      ></div>
-                      <div class="product-content">
-                        <div class="product-content-row">
-                          <div class="product-name">
-                            {{ item.product.name }} |
-                            {{ item.product_variant.name }}
-                          </div>
-                          <div
-                            class="product-count"
-                            v-if="!isDigitalProduct(item)"
-                          >
-                            Quantity: <b>{{ item.quantity }}</b>
-                          </div>
-                        </div>
-                        <div class="product-content-row pt-1">
-                          <div class="product-price">
-                            ${{ item.price | formatNumber }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center digital"
-                      v-if="isDigitalProduct(item)"
-                    >
-                      <p class="order-status-text">
-                        {{ item.product.digital_content_name }}
-                      </p>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      v-else-if="item.status == 'item_ordered'"
-                    >
-                      <p class="order-status-text">Pending</p>
-                      <v-btn
-                        class="order-status-btn ship"
-                        @click.native.stop="openShipConfirmModal(item)"
-                        >Ship</v-btn
-                      >
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      v-else-if="item.status == 'item_shipped'"
-                    >
-                      <p class="order-status-text">Shipped</p>
-                      <v-btn
-                        class="order-status-btn shipped"
-                        @click.native.stop="openUnshipConfirmModal(item)"
-                        >Unship</v-btn
-                      >
-                    </div>
-                    <div class="order-status-section text-xs-center" v-else>
-                      <p class="order-status-text">Refunded</p>
-                    </div>
-                  </v-layout>
-                </div>
-              </template>
-              <template v-else>
-                <div class="profile-section">
-                  <v-layout row>
-                    <div class="profile-content-section relative">
-                      <div class="profile-avatar">
-                        <profile-item
-                          :user="order.customer"
-                          :className="'order-item-profile-avatar'"
-                        ></profile-item>
-                      </div>
-                      <div class="profile-content">
-                        <a href="#" class="user-name">{{
-                          order.customer.display_name
-                        }}</a>
-                        <label class="order-detail-text">
-                          purchased
-                          <b>${{ order.amount | formatNumber }}</b></label
-                        >
-                      </div>
-                      <div class="profile-actions">
-                        <router-link
-                          :to="`/sell/order/${order.id}`"
-                          class="order-detail-btn"
-                          >View Order Details</router-link
-                        >
-                        <a
-                          class="message-buyer-btn"
-                          @click="showMessageDialog(order)"
-                          >Message Buyer</a
-                        >
-                        <label class="order-date">{{
-                          order.created_at | formatDate
-                        }}</label>
-                      </div>
-                    </div>
-                    <div class="status-section text-xs-center"></div>
-                  </v-layout>
-                </div>
-                <div
-                  v-for="item in order.items"
-                  :key="item.id"
-                  class="order-section"
-                >
-                  <v-layout
-                    v-if="
-                      activeFilterItemStatus == '' ||
-                      item.status == activeFilterItemStatus
-                    "
-                    row
-                  >
-                    <div class="order-content-section relative">
-                      <div
-                        class="product-cover-image"
-                        :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
-                      ></div>
-                      <div class="product-content">
-                        <v-flex sm12 class="product-content-row">
-                          <label class="product-name">{{
-                            item.product.name
-                          }}</label>
-                          <label class="product-count"
-                            >Quantity: <b>{{ item.quantity }}</b></label
-                          >
-                        </v-flex>
-                        <v-flex sm12 class="product-content-row" pt-1>
-                          <label class="product-price"
-                            >${{ item.price | formatNumber }}</label
-                          >
-                        </v-flex>
-                      </div>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      v-if="isCollaborated(item)"
-                    >
-                      <p class="order-status-text">Collaborated</p>
-                      <v-chip
-                        label
-                        outline
-                        color="red"
-                        v-if="item.status == 'item_ordered'"
-                        >Unshipped</v-chip
-                      >
-                      <v-chip label outline color="blue" v-else>Shipped</v-chip>
-                    </div>
-                    <div
-                      class="order-status-section text-xs-center"
-                      style="background: transparent"
-                      v-else
-                    ></div>
-                  </v-layout>
-                </div>
-              </template>
-            </v-flex>
-            <div class="text-xs-center">
-              <v-btn
-                v-show="
-                  order_pagination.current_page < order_pagination.total_pages
-                "
-                @click.native="loadOrders()"
-                class="loadmore-btn"
-                >Load More</v-btn
+            <label @click="filterItems(filter)">{{ filter.name }}</label>
+          </li>
+
+          <v-spacer></v-spacer>
+
+          <li v-if="active_tab == 'orders'" class="my-0 py-3">
+            <div class="export-wrapper">
+              <VueCtkDateTimePicker
+                v-model="exportPeriod"
+                id="export-period"
+                :range="true"
+                format="YYYY-MM-DD"
+                label="Orders CSV - Select date & time"
+                formatted="ll"
               >
+              </VueCtkDateTimePicker>
+              <v-icon class="pl-2" @click="csvExport()">save_alt</v-icon>
             </div>
-          </v-card>
-        </template>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
 
-        <template v-if="active_tab == 'products'">
-          <v-card flat>
-            <v-layout row wrap>
-              <v-flex
-                v-if="
-                  ['artist', 'brand', 'label'].indexOf(currentUser.user_type) !=
-                  -1
-                "
-                xs12
-                text-xs-right
+    <div class="page-content" v-if="currentUser && isPageReady">
+      <!-- <template><b>Sort By Date:</b> 
+        <select class="pr-3 width20 sortOrdersSelect" @change="sortItems($event)">
+          <option
+            v-for="sortOpt in sorting"
+            :key="sortOpt.id"
+            :href="`#${sortOpt.id}`"
+            :class="{ active: defaultSortBy == sortOpt.id }"
+            :selected="defaultSortBy == sortOpt.id"
+            :value="sortOpt.id"
+          >
+            <label>{{ sortOpt.name }}</label>
+          </option>
+        </select>
+      </template> -->
+      <template v-if="active_tab == 'orders'">
+        <div
+          v-if="!orderHistories || orderHistories.length == 0"
+          class="empty-section"
+        >
+          <p class="empty-title">You have no orders</p>
+        </div>
+        <div v-else flat class="relative">
+          <div
+            v-for="(order, index) in orderHistories"
+            :key="index"
+            class="order-item"
+          >
+            <template v-if="currentUser.id == order.merchant.id">
+              <div class="profile-section">
+                <v-layout row>
+                  <div class="profile-content-section relative w-100">
+                    <div class="dflex justify-space-between align-center w-100">
+                    <div class="dflex align-center">
+
+
+                    <div class="profile-avatar mr-2">
+                      <profile-item
+                        :user="order.customer"
+                        :className="'order-item-profile-avatar'"
+                      ></profile-item>
+                    </div>
+
+
+                    <div>
+                    
+                      <div class="profile-content">
+                        <a href="#" class="user-name">{{
+                          order.customer.username
+                        }}</a>
+
+                        <label class="order-detail-text">
+                          Purchased
+                          <b> 
+                            {{ order.created_at | formatDate }}
+                          </b></label
+                        >
+                      </div>
+                   
+                    </div>
+                  
+                  </div>
+
+
+                    <div>
+                      <v-menu
+              
+                      down
+                      offset-y
+                      :nudge-top="-5"
+                      class="menu-content-x"
+                    >
+                      <v-btn round slot="activator">
+                        <v-icon dark right>more_horiz</v-icon>
+                      </v-btn>
+                      <v-list class="list-class">
+                        <v-list-tile
+                        
+                        >
+                          <v-list-tile-content>
+                            <router-link
+                            to="`/sell/order/"
+                            class="order-detail-btn"
+                            >Order Details</router-link
+                          >
+                          <a
+                            class="message-buyer-btn"
+                            >Message Buyer</a
+                          >
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
+                    </div>
+
+
+                    
+                  </div>
+                </div>
+                </v-layout>
+              </div>
+
+              <div
+                v-for="item in order.items"
+                :key="item.id"
+                class="order-section"
               >
-                <v-btn
-                  v-if="currentUser.stripe_connected"
-                  class="add-product-btn"
-                  @click.native="addProduct()"
-                >
-                  <v-icon>add</v-icon>Add Product
-                </v-btn>
-                <v-btn
-                  v-else
-                  class="add-product-btn"
-                  to="/settings#bank-details"
-                >
-                  Connect Stripe to Add Products
-                </v-btn>
-              </v-flex>
-              <product-item
-                v-for="(product, index) in published_products"
-                :index="index"
-                :key="index"
+                <v-container :fluid="isSidebarMini" grid-list-xl fill-height class="pa-0 mt-3">
+                  <v-layout
+                    v-if="
+                      activeFilterItemStatus == '' ||
+                      item.status == activeFilterItemStatus
+                    "
+                    row
+                  >
+                    <v-flex xs8 class="px-0">
+                      <div class="order-content-section">
+                        <div class="order-content-container">
+                          <div
+                            class="product-cover-image"
+                            :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
+                          ></div>
+                          <div class="product-content">
+                            <div class="product-content-row">
+                              <div class="product-name">
+                                {{ item.product.name }} |
+                                {{ item.product_variant.name }}
+                              </div>
+                            </div>
+                            <div class="product-content-row pt-1">
+                              <div class="product-price">
+                                ${{ item.price | formatNumber }}
+                              </div>
+
+                              <div
+                                class="product-count"
+                                v-if="!isDigitalProduct(item)"
+                              >
+                                Quantity: <b>{{ item.quantity }}</b>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <v-spacer></v-spacer>
+
+                       
+                      </div>
+                    </v-flex>
+
+                    <v-flex xs4 class="px-0">
+                      <div
+                        class="order-status-section text-xs-center digital"
+                        v-if="isDigitalProduct(item)"
+                      >
+                        <p class="order-status-text">
+                          {{ item.product.digital_content_name }}
+                        </p>
+                      </div>
+                      <div
+                        class="order-status-section text-xs-center"
+                        v-else-if="item.status == 'item_ordered'"
+                      >
+                        <p class="order-status-text">Ship by 9/21/2022</p>
+                        <v-btn
+                          class="order-status-btn ship"
+                          @click.native.stop="openShipConfirmModal(item)"
+                          >Ship</v-btn
+                        >
+                      </div>
+                      <div
+                        class="order-status-section text-xs-center"
+                        v-else-if="item.status == 'item_shipped'"
+                      >
+                        <p class="order-status-text">Shipped</p>
+                        <v-btn
+                          class="order-status-btn shipped"
+                          @click.native.stop="openUnshipConfirmModal(item)"
+                          >Unship</v-btn
+                        >
+                      </div>
+                      <div
+                        class="order-status-section text-xs-center"
+                        v-else-if="item.status == 'item_refunded'"
+                      >
+                        <p class="order-status-text">Refunded</p>
+                      </div>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </div>
+            </template>
+
+            <template v-else>
+              <div class="profile-section">
+                <v-layout row>
+                  <div class="profile-content-section relative">
+                    <div class="profile-avatar">
+                      <profile-item
+                        :user="order.customer"
+                        :className="'order-item-profile-avatar'"
+                      ></profile-item>
+                    </div>
+                    <div class="profile-content">
+                      <a href="#" class="user-name">{{
+                        order.customer.username
+                      }}</a>
+                      <label class="order-detail-text">
+                        purchased
+                        <b>${{ order.amount | formatNumber }}</b></label
+                      >
+                    </div>
+                    <div class="profile-actions">
+                      <router-link
+                        :to="`/sell/order/${order.id}`"
+                        class="order-detail-btn"
+                        >View Order Details</router-link
+                      >
+                      <a
+                        class="message-buyer-btn"
+                        @click="showMessageDialog(order)"
+                        >Message Buyer</a
+                      >
+                      <label class="order-date">{{
+                        order.created_at | formatDate
+                      }}</label>
+                    </div>
+                  </div>
+                  <div class="status-section text-xs-center"></div>
+                </v-layout>
+              </div>
+              <div
+                v-for="item in order.items"
+                :key="item.id"
+                class="order-section"
+              >
+                <v-container grid-list-xl fill-height class="pa-0">
+                  <v-layout
+                    v-if="
+                      activeFilterItemStatus == '' ||
+                      item.status == activeFilterItemStatus
+                    "
+                    row
+                  >
+                    <v-flex xs10>
+                      <div class="order-content-section relative">
+                        <div
+                          class="product-cover-image"
+                          :style="`background-image: url(${item.product.covers[0].cover.thumb.url})`"
+                        ></div>
+                        <div class="product-content">
+                          <v-flex sm12 class="product-content-row">
+                            <label class="product-name">{{
+                              item.product.name
+                            }}</label>
+                            <label class="product-count"
+                              >Quantity: <b>{{ item.quantity }}</b></label
+                            >
+                          </v-flex>
+                          <v-flex sm12 class="product-content-row" pt-1>
+                            <label class="product-price"
+                              >${{ item.price | formatNumber }}</label
+                            >
+                          </v-flex>
+                        </div>
+                      </div>
+                    </v-flex>
+                    <v-flex xs2>
+                      <div
+                        class="order-status-section text-xs-center"
+                        v-if="isCollaborated(item)"
+                      >
+                        <p class="order-status-text">Collaborated</p>
+                        <v-chip
+                          label
+                          outline
+                          color="red"
+                          v-if="item.status == 'item_ordered'"
+                          >Unshipped</v-chip
+                        >
+                        <v-chip label outline color="blue" v-else
+                          >Shipped</v-chip
+                        >
+                      </div>
+                      <div
+                        class="order-status-section text-xs-center"
+                        style="background: transparent"
+                        v-else
+                      ></div>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </div>
+            </template>
+          </div>
+          <div class="text-xs-center">
+            <v-btn
+              v-show="
+                order_pagination.current_page < order_pagination.total_pages
+              "
+              @click.native="loadOrders()"
+              class="loadmore-btn"
+              >Load More</v-btn
+            >
+          </div>
+        </div>
+      </template>
+
+      <template v-if="active_tab == 'products'">
+        <v-card flat>
+          <v-layout row wrap>
+            <v-flex
+              v-if="
+                ['artist', 'brand', 'label'].indexOf(currentUser.user_type) !=
+                -1
+              "
+              xs12
+              text-xs-right
+            >
+              <v-btn
+                v-if="currentUser.stripe_connected"
+                class="add-product-btn"
+                @click.native="addProduct()"
+              >
+                <v-icon>add</v-icon>Add Product
+              </v-btn>
+              <v-btn
+                v-else
+                class="add-product-btn"
+                to="/settings#bank-details"
+              >
+                Connect Stripe to Add Products
+              </v-btn>
+            </v-flex>
+            <product-item
+              v-for="(product, index) in published_products"
+              :index="index"
+              :key="index"
+              :product="product"
+              :deleteItem="openProductDeleteConfirmDialog"
+            ></product-item>
+          </v-layout>
+        </v-card>
+      </template>
+
+      <template v-if="active_tab == 'collaborations'">
+        <div
+          v-if="!collaborated_products || collaborated_products.length == 0"
+          class="empty-section"
+        >
+          <p class="empty-title">You have no product collaborations</p>
+        </div>
+        <v-card flat v-else>
+          <v-layout row wrap class="covers-content">
+            <div
+              class="card-container"
+              v-for="product in collaborated_products"
+              :key="product.id"
+            >
+              <collaborate-product
                 :product="product"
-                :deleteItem="openProductDeleteConfirmDialog"
-              ></product-item>
-            </v-layout>
-          </v-card>
-        </template>
+                :editButtonAction="editProduct"
+                :deleteButtonAction="openProductDeleteConfirmDialog"
+              ></collaborate-product>
+            </div>
+          </v-layout>
+        </v-card>
+      </template>
 
-        <template v-if="active_tab == 'collaborations'">
-          <div
-            v-if="!collaborated_products || collaborated_products.length == 0"
-            class="empty-section"
-          >
-            <p class="empty-title">You have no product collaborations</p>
-          </div>
-          <v-card flat v-else>
-            <v-layout row wrap class="covers-content">
-              <div
-                class="card-container"
-                v-for="product in collaborated_products"
-                :key="product.id"
-              >
-                <collaborate-product
-                  :product="product"
-                  :editButtonAction="editProduct"
-                  :deleteButtonAction="openProductDeleteConfirmDialog"
-                ></collaborate-product>
-              </div>
-            </v-layout>
-          </v-card>
-        </template>
-
-        <template v-if="active_tab == 'pendings'">
-          <div
-            v-if="!pending_products || pending_products.length == 0"
-            class="empty-section"
-          >
-            <p class="empty-title">
-              You have no pending product collaborations
-            </p>
-          </div>
-          <v-card flat v-else>
-            <v-layout row wrap class="covers-content">
-              <div
-                class="card-container"
-                v-for="product in pending_products"
-                :key="product.id"
-              >
-                <collaborate-product
-                  v-if="product.merchant.id == currentUser.id"
-                  :product="product"
-                  :showPromoteButton="false"
-                  :editButtonAction="editProduct"
-                  :deleteButtonAction="openProductDeleteConfirmDialog"
-                  :releaseButtonAction="releaseProduct"
-                />
-                <collaborate-product
-                  v-else-if="notResponded(product)"
-                  :product="product"
-                  :showPromoteButton="false"
-                  :acceptButtonAction="acceptCollaboration"
-                  :denyButtonAction="denyCollaboration"
-                />
-                <collaborate-product
-                  v-else
-                  :product="product"
-                  :showPromoteButton="false"
-                />
-              </div>
-            </v-layout>
-          </v-card>
-        </template>
-      </div>
+      <template v-if="active_tab == 'pendings'">
+        <div
+          v-if="!pending_products || pending_products.length == 0"
+          class="empty-section"
+        >
+          <p class="empty-title">
+            You have no pending product collaborations
+          </p>
+        </div>
+        <v-card flat v-else>
+          <v-layout row wrap class="covers-content">
+            <div
+              class="card-container"
+              v-for="product in pending_products"
+              :key="product.id"
+            >
+              <collaborate-product
+                v-if="product.merchant.id == currentUser.id"
+                :product="product"
+                :showPromoteButton="false"
+                :editButtonAction="editProduct"
+                :deleteButtonAction="openProductDeleteConfirmDialog"
+                :releaseButtonAction="releaseProduct"
+              />
+              <collaborate-product
+                v-else-if="notResponded(product)"
+                :product="product"
+                :showPromoteButton="false"
+                :acceptButtonAction="acceptCollaboration"
+                :denyButtonAction="denyCollaboration"
+              />
+              <collaborate-product
+                v-else
+                :product="product"
+                :showPromoteButton="false"
+              />
+            </div>
+          </v-layout>
+        </v-card>
+      </template>
     </div>
 
     <send-message
@@ -574,7 +622,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </div>
 </template>
 
 <script type="text/javascript" src="./sell.ctrl.js"></script>
+<style src="../../../static/styles/sell.scss" lang="scss" scoped>

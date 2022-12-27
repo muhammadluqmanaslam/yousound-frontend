@@ -29,15 +29,15 @@
                 <div v-else class="status-overview">
                   <div v-if="usersCountByStatus.accepted > 0">
                     <div class="accepted-title">Accepted</div>
-                    <div v-for="c in usersByStatus.accepted">{{ c.user.display_name }}</div>
+                    <div v-for="c in usersByStatus.accepted">{{ c.user.username }}</div>
                   </div>
                   <div v-if="usersCountByStatus.denied > 0">
                     <div class="denied-title">Denied</div>
-                    <div v-for="c in usersByStatus.denied">{{ c.user.display_name }}</div>
+                    <div v-for="c in usersByStatus.denied">{{ c.user.username }}</div>
                   </div>
                   <div v-if="usersCountByStatus.pending > 0">
                     <div class="pending-title">Waiting for approval</div>
-                    <div v-for="c in usersByStatus.pending">{{ c.user.display_name }}</div>
+                    <div v-for="c in usersByStatus.pending">{{ c.user.username }}</div>
                   </div>
                 </div>
 
@@ -54,8 +54,8 @@
                 <div class="status-overview">
                   <div>
                     <div class="accepted-title">Collaborators</div>
-                    <div>{{ product.merchant.display_name }} (owner) - {{ ownerShare }}%</div>
-                    <div v-for="c in usersByStatus.accepted">{{ c.user.display_name }} - {{ c.user_share }}%</div>
+                    <div>{{ product.merchant.username }} (owner) - {{ ownerShare }}%</div>
+                    <div v-for="c in usersByStatus.accepted">{{ c.user.username }} - {{ c.user_share }}%</div>
                   </div>
                 </div>
               </div>
@@ -67,7 +67,7 @@
       
       <v-flex xs12 class="product-detail" pa-0>
         <p class="product-name">{{ product.name }}</p>
-        <p class="product-user-name">{{ product.merchant.display_name }}</p>
+        <p class="product-user-name">{{ product.merchant.username }}</p>
         <!-- <p class="product-posted-date">2 months</p> -->
       </v-flex> 
     </v-flex>
@@ -79,84 +79,83 @@
 </template>
 
 <script type="text/javascript">
-  import _ from 'lodash'
-  import promoteModal from '@/components/promotemodal'
+import _ from "lodash";
+import promoteModal from "@/components/promotemodal";
 
-  export default {
-    components: {
-      promoteModal,
+export default {
+  components: {
+    promoteModal,
+  },
+
+  props: {
+    product: {
+      type: Object,
     },
 
-    props: {
-      product: {
-        type: Object,
-      },
-
-      editButtonAction: {
-        type: Function,
-      },
-
-      updateButtonAction: {
-        type: Function,
-      },
-
-      deleteButtonAction: {
-        type: Function,
-      },
-
-      acceptButtonAction: {
-        type: Function,
-      },
-
-      denyButtonAction: {
-        type: Function,
-      },
-
-      releaseButtonAction: {
-        type: Function,
-      },
-
-      showPromoteButton: {
-        type: Boolean,
-        default: true,
-      },
+    editButtonAction: {
+      type: Function,
     },
 
-    data() {
-      return {
-        isShowPromoteModal: false,
-      }
+    updateButtonAction: {
+      type: Function,
     },
 
-    computed: {
-      usersCountByStatus() {
-        return _.countBy(this.product.collaborators, 'status')
-      },
-
-      usersByStatus() {
-        return _.groupBy(this.product.collaborators, 'status')
-      },
-
-      ownerShare() {
-        return 100 - _.sumBy(this.product.collaborators, 'user_share')
-      },
+    deleteButtonAction: {
+      type: Function,
     },
 
-    created() {
+    acceptButtonAction: {
+      type: Function,
     },
 
-    methods: {
-      showPromoteDialog() {
-        this.isShowPromoteModal = true
-      },
-
-      dismissPromoteDialog() {
-        this.isShowPromoteModal = false
-      },
-
-      saveAndFinish() {
-        this.dismissPromoteDialog()
-      },
+    denyButtonAction: {
+      type: Function,
     },
-  }
+
+    releaseButtonAction: {
+      type: Function,
+    },
+
+    showPromoteButton: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
+  data() {
+    return {
+      isShowPromoteModal: false,
+    };
+  },
+
+  computed: {
+    usersCountByStatus() {
+      return _.countBy(this.product.collaborators, "status");
+    },
+
+    usersByStatus() {
+      return _.groupBy(this.product.collaborators, "status");
+    },
+
+    ownerShare() {
+      return 100 - _.sumBy(this.product.collaborators, "user_share");
+    },
+  },
+
+  created() {},
+
+  methods: {
+    showPromoteDialog() {
+      this.isShowPromoteModal = true;
+    },
+
+    dismissPromoteDialog() {
+      this.isShowPromoteModal = false;
+    },
+
+    saveAndFinish() {
+      this.dismissPromoteDialog();
+    },
+  },
+};
 </script>

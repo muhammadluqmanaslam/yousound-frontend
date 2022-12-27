@@ -8,7 +8,7 @@
           :style="{ 'background-image': 'url(' + item.avatar.url + ')' }"
         ></div>
         <div class="info-section">
-          <div class="user-name">{{ item.display_name }}</div>
+          <div class="user-name">{{ item.username }}</div>
           <div>
             <label>{{ userFullName }}</label>
           </div>
@@ -22,10 +22,11 @@
             <label>{{ userFullAddress }}</label>
           </div>
         </div>
-        <div class="action-section">
+        <div class="action-section" v-if="activeTab == 'waiting'">
           <v-btn
             color="success ma-0"
             class="approve-btn"
+            :loading="loading"
             @click.native="approveButtonAction(item)"
             >Approve</v-btn
           >
@@ -288,7 +289,8 @@
           <label>Do you sell music related products or services?</label>
           <span
             :class="{
-              'red--text text--darken-2': !item.will_sell_music_related_products,
+              'red--text text--darken-2':
+                !item.will_sell_music_related_products,
             }"
             >{{
               getNameById(

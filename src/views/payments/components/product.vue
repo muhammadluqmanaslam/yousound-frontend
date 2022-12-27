@@ -32,17 +32,17 @@
           ></profile-item>
           <div v-if="item.collaborators_count == 0" class="profile-content">
             <router-link :to="`/${item.merchant.slug}`" class="user-name">{{
-              item.merchant.display_name
+              item.merchant.username
             }}</router-link>
           </div>
           <div v-else class="profile-content">
             <div class="profile-title">Multiple Collaborators</div>
             <router-link :to="`/${item.merchant.slug}`" class="user-name">{{
-              item.merchant.display_name
+              item.merchant.username
             }}</router-link>
             <template v-for="c in item.collaborators">
               ,&nbsp;<router-link :to="`/${c.user.slug}`" class="user-name">{{
-                c.user.display_name
+                c.user.username
               }}</router-link>
             </template>
           </div>
@@ -108,7 +108,7 @@
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            style="padding-top: 3px;"
+            style="padding-top: 3px"
           >
             <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
             <desc>Created with Sketch.</desc>
@@ -146,7 +146,7 @@
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            style="padding-top: 3px;"
+            style="padding-top: 3px"
           >
             <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
             <desc>Created with Sketch.</desc>
@@ -188,21 +188,25 @@
 </template>
 
 <style lang="stylus">
-#carousel-view
-  .fade
-    &-enter-active, &-leave-active, &-leave-to
-      transition: .5s ease-out
-      position: absolute
-      top: 0
-      left: 0
+#carousel-view {
+  .fade {
+    &-enter-active, &-leave-active, &-leave-to {
+      transition: 0.5s ease-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
-    &-enter, &-leave, &-leave-to
-      opacity: 0
+    &-enter, &-leave, &-leave-to {
+      opacity: 0;
+    }
+  }
+}
 </style>
 
 <script type="text/javascript">
-import profileItem from '@/components/profileitem'
-import ProductService from '@/services/product'
+import profileItem from "@/components/profileitem";
+import ProductService from "@/services/product";
 
 export default {
   components: {
@@ -229,40 +233,40 @@ export default {
     return {
       showPolicySection: false,
       option: null,
-    }
+    };
   },
 
   computed: {
     policyButtonText() {
-      return this.showPolicySection ? 'Close Policy' : 'Return Policy'
+      return this.showPolicySection ? "Close Policy" : "Return Policy";
     },
 
     price() {
-      if (this.option !== '') {
+      if (this.option !== "") {
         for (let index in this.item.variants) {
-          const variant = this.item.variants[index]
+          const variant = this.item.variants[index];
           if (variant.id === this.option) {
-            return variant.price
+            return variant.price;
           }
         }
       }
-      return this.item.price
+      return this.item.price;
     },
 
     covers() {
-      var covers = []
+      var covers = [];
       for (let index in this.item.covers) {
-        const cover = this.item.covers[index]
+        const cover = this.item.covers[index];
         if (cover.cover.url) {
-          covers.push(cover)
+          covers.push(cover);
         }
       }
-      return covers
+      return covers;
     },
   },
 
   created() {
-    this.option = this.item.variants[0].id
+    this.option = this.item.variants[0].id;
   },
 
   methods: {
@@ -270,28 +274,28 @@ export default {
       ProductService.repostProduct(this.item.id)
         .then((response) => {
           if (response.body.errors) {
-            this.$store.dispatch('error/showErrorToast', response.body.errors)
+            this.$store.dispatch("error/showErrorToast", response.body.errors);
           } else {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just reposted ' + this.item.name,
-            ])
+            this.$store.dispatch("error/showSuccessToast", [
+              "You just reposted " + this.item.name,
+            ]);
           }
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     togglePolicy() {
-      this.showPolicySection = !this.showPolicySection
+      this.showPolicySection = !this.showPolicySection;
     },
 
     zoomOut() {
-      console.log('test')
+      console.log("test");
     },
   },
-}
+};
 </script>

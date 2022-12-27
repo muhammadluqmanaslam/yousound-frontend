@@ -235,7 +235,7 @@
         <v-card-title class="headline">Delete a Label</v-card-title>
         <v-card-text
           >If you click OK, you won't see this label any more. Click OK to
-          delete &lt;{{ user.display_name }}&gt;, or click Cancel.</v-card-text
+          delete &lt;{{ user.username }}&gt;, or click Cancel.</v-card-text
         >
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -260,7 +260,7 @@
         <v-card-title class="headline">Delete a Roster</v-card-title>
         <v-card-text
           >If you click OK, you won't add roster's album to your label any more.
-          Click OK to delete &lt;{{ user.display_name }}&gt;, or click
+          Click OK to delete &lt;{{ user.username }}&gt;, or click
           Cancel.</v-card-text
         >
         <v-card-actions>

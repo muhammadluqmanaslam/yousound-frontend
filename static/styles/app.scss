@@ -4,21 +4,15 @@
 @import './header';
 @import './genre_dialog';
 @import './auth';
-@import './album';
 @import './discover';
 @import './search';
 @import './stream';
 @import './trackcard';
 @import './activity';
-@import './messages';
 @import './sendmessage';
-@import './activityitem';
 @import './profileitem';
-@import './cart';
 @import './checkout';
-@import './sell';
 @import './uploader';
-@import './profile';
 @import './settings';
 @import './productcard';
 @import './productslidecard';
@@ -32,6 +26,7 @@
 @import './orderdetail';
 @import './albumstats';
 @import './player';
+@import './sideplayer';
 @import './promotemodal';
 @import './admin';
 @import './landing';
@@ -56,9 +51,11 @@
 @import './attendee';
 @import './protect_page';
 @import './terms_page';
-@import './video';
 @import './video_card';
-@import './video_player';
+@import './stream_player';
 @import './vuetify';
+@import './video_player';
+@import './sell';
+@import './partners';
 
-@import './containers/mobile/page';
+@import './mobile/page';

@@ -7,55 +7,78 @@
       //gray: $store.getters['navigator/isGrayTheme'],
       normal: $store.getters['navigator/isNormalTheme'],
       'app-audio': $store.state.player.isPlaying,
-      'app-video': $store.getters['videoPlayer/hasFrame'],
+      'app-video': $store.getters['streamPlayer/hasFrame'],
       'app-header': $store.getters['navigator/hasHeader'],
       'app-footer': $store.getters['navigator/hasFooter'],
     }"
   >
-    <app-header v-show="$store.getters['navigator/hasHeader']" />
+    <!-- <mobile-header 
+      v-if="onMobile && !hideMobileHeader"
+      :centerImg="mHeaderOp.centerImg"
+      :rightAltIcon="mHeaderOp.rightAltIcon"
+      :hideUser="mHeaderOp.hideUser"
+      :closeCallBack="mHeaderOp.closeCallBack"
+      :showGoBack="mHeaderOp.showGoBack"
+    /> -->
+    <sidebar v-if="$store.getters['navigator/hasNoSidebar'].indexOf($route.name) == -1 && !onMobile" />
 
-    <router-view></router-view>
+    <v-content>
+      <span v-if="!onMobile && isAuthenticated">
+        <app-loader v-show="loadValue !== 100" ref="appLoader" @getLoadUpdate="getLoadUpdate" />
+      </span>
 
-    <app-footer v-if="$store.getters['navigator/hasFooter']"></app-footer>
+      <!-- <v-flex
+        xs12
+        text-xs-center
+        loading-section
+        :style="{'padding-left': !sideBarMini ? `${sideBarWidth}px` : 0 }"
+        v-if="$store.getters['error/isLoading']"
+      >
+          <v-progress-circular
+            v-if="$store.state.error.progressBar.value >= 0"
+            :size="50"
+            :rotate="-90"
+            :value="$store.state.error.progressBar.value"
+            class="loading-activity"
+            v-bind:class="{
+              'primary--text': !$store.getters['navigator/isPrimaryTheme'],
+              'white-activity': $store.getters['navigator/isPrimaryTheme'],
+            }"
+            >{{ $store.state.error.progressBar.value }}</v-progress-circular
+          >
+          <v-progress-circular
+            v-else
+            indeterminate
+            :size="50"
+            class="loading-activity"
+            v-bind:class="{
+              'primary--text': !$store.getters['navigator/isPrimaryTheme'],
+              'white-activity': $store.getters['navigator/isPrimaryTheme'],
+            }"
+          />
+      </v-flex> -->
+      <v-container
+        fluid
+        class="app-container"
+        :class="{'onMobile-container': onMobile, 'onMobile-container-fullwidth': noSideSpace, 'no-padding': noPadding, 'bg-light': bgLight,'bg-grey': bgGrey ,'not-authenticated': !isAuthenticated, wrapFullHeight}"
+      >
+        <router-view></router-view>
+        <!-- <app-footer v-if="isAuthenticated && $store.getters['navigator/hasNoFooter'].indexOf($route.name) == -1"></app-footer> -->
 
-    <video-player ref="videoPlayer" v-if="currentUser"></video-player>
+        <!-- <mobile-footer v-else-if="onMobile && isAuthenticated && mFooterOp.showFooter" /> -->
+      </v-container>
+    </v-content>
 
-    <audio-player
+    <!-- <app-header v-show="$store.getters['navigator/hasHeader']" /> -->
+
+    <stream-player ref="streamPlayer" v-if="currentUser"></stream-player>
+
+    <!-- <audio-player
       ref="audioPlayer"
       v-show="$store.getters['navigator/hasAudioPlayer']"
-    ></audio-player>
+    ></audio-player> -->
 
     <earn-money-sticker v-if="$store.state.auth.firstVisit" />
-
-    <v-flex
-      xs12
-      text-xs-center
-      loading-section
-      v-if="$store.getters['error/isLoading']"
-    >
-      <v-progress-circular
-        v-if="$store.state.error.progressBar.value >= 0"
-        :size="50"
-        :rotate="-90"
-        :value="$store.state.error.progressBar.value"
-        class="loading-activity"
-        v-bind:class="{
-          'primary--text': !$store.getters['navigator/isPrimaryTheme'],
-          'white-activity': $store.getters['navigator/isPrimaryTheme'],
-        }"
-        >{{ $store.state.error.progressBar.value }}</v-progress-circular
-      >
-      <v-progress-circular
-        v-else
-        indeterminate
-        :size="50"
-        class="loading-activity"
-        v-bind:class="{
-          'primary--text': !$store.getters['navigator/isPrimaryTheme'],
-          'white-activity': $store.getters['navigator/isPrimaryTheme'],
-        }"
-      />
-    </v-flex>
 
     <v-snackbar
       v-model="showError"
@@ -73,6 +96,18 @@
     <v-dialog v-model="show_login_dialog" max-width="500px">
       <login-dialog :dismiss="closeLoginDialog"></login-dialog>
     </v-dialog>
+
+    <v-dialog
+      v-model="mobilePlayerActive"
+      v-if="onMobile"
+      transition="slide-up"
+      content-class="no-border-radius"
+      fullscreen
+    >
+      <mobile-player :isPlayerOpened="mobilePlayerActive" />
+    </v-dialog>
+
+    <SMS v-if="globalSMSactive" @closeSMS="closeSMS" />
   </v-app>
 </template>
 
@@ -86,7 +121,7 @@ import ActivityService from '@/services/activity'
 import AuthService from '@/services/auth'
 import CategoryService from '@/services/category'
 import GenreService from '@/services/genre'
-import PlaylistService from '@/services/playlist'
+// import PlaylistService from '@/services/playlist'
 import SettingService from '@/services/setting'
 import UserService from '@/services/user'
 
@@ -94,12 +129,19 @@ import appHeader from '@/components/header'
 import appFooter from '@/components/footer'
 import earnMoneySticker from '@/components/earn_money'
 import audioPlayer from '@/components/player'
-import videoPlayer from '@/components/video_player'
+import mobilePlayer from '@/components/mobile_player'
+import streamPlayer from '@/components/stream_player'
 import loginDialog from '@/components/login_dialog'
+import Sidebar from './components/sidebar'
+import AppLoader from '@/components/appLoader'
+import SMS from '@/components/SMS'
 
 import { MyEvents, PublicRelationsUsername } from '@/helper'
+import { mapState, mapGetters } from 'vuex'
 
 const ActionCable = require('actioncable')
+import mobileHeader from "@/views/mobile/components/header";
+import mobileFooter from "@/views/mobile/components/footer";
 
 export default {
   name: 'app',
@@ -110,11 +152,18 @@ export default {
     earnMoneySticker,
     loginDialog,
     audioPlayer,
-    videoPlayer,
+    mobilePlayer,
+    streamPlayer,
+    Sidebar,
+    AppLoader,
+    mobileHeader,
+    mobileFooter,
+    SMS,
   },
 
   data() {
     return {
+      loadValue: null,
       direction: 'none',
       cable: null,
       notification_subscription: null,
@@ -123,14 +172,42 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      sideBarWidth: state => state.app.sideBarWidth,
+      sideBarMini: state => state.app.sideBarMini,
+      mHeaderOp: state => state.appMobile.mobileHeaderOptions,
+      mFooterOp: state => state.appMobile.mobileFooterOptions,
+      mobilePlayerActive: state => state.player.isMobilePlayerActive,
+    }),
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      globalSMSactive: "app/globalSMSactive",
+      onMobileStrict: "app/onMobileStrict",
+    }),
+    // hideGoBack() {
+    //   return this.$store.getters['appMobile/hideGoBackCTA'].indexOf(this.$route.name) !== 1
+    // },
+    noSideSpace() {
+      return this.$route.meta.noSideSpace;
+    },
+    bgLight() {
+      return this.$route.meta.bgLight;
+    },
+    noPadding() {
+      return this.$route.meta.noPadding;
+    },
+    bgGrey() {
+      return this.$route.meta.bgGrey;
+    },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
-
     currentPage() {
       return this.$store.state.navigator.current.page
     },
-
     showError: {
       get: function () {
         return this.$store.state.error.showError
@@ -140,10 +217,39 @@ export default {
         this.$store.dispatch('error/hideToast')
       },
     },
+    hideMobileHeader() {
+      return this.$route.meta.hideMobileHeader;
+    },
+    wrapFullHeight() {
+      return this.$route.meta.wrapFullHeight;
+    },
   },
 
   watch: {
+    onMobileStrict(val) {
+      if (val === true) {
+        console.log("kill app");
+
+        // destroy app on mobile of window width shrink detection
+        this.$destroy()
+        // remove the element from the DOM
+        if (this.$el) {
+          this.$el.parentNode.removeChild(this.$el);
+        }
+
+        // insert fallback into DOM
+        this.createFallback()
+      }
+    },
+    mobilePlayerActive(val) {
+      console.log('mobilePlayerActive: ', val);
+    },
     $route(to, from) {
+      this.initLoader()
+
+      const parentNode = document.getElementById('myVideoPlayer')
+      this.$nextTick(() => this.watchPip(to, from, parentNode))
+
       const toPath = to.path.split('/')
       var type = toPath[1]
       if (this.$store.state.auth.token) {
@@ -161,11 +267,37 @@ export default {
           })
         }
       }
+
+      // deactivate activity popup on route change
+      if (this.$store.state.app.toggleActivity) {
+        this.$store.dispatch('app/toggleActivityPopup', false)
+      }
     },
   },
+  mounted() {
+    // on app mount, init app loader
+    this.initLoader();
 
+    // register/detect screen on reSize
+    this.onResize();
+    window.addEventListener("resize", this.onResize, { passive: true });
+  },
   created() {
     console.log('App created')
+    const allowedRoutes = ['Home'];
+    let permitApp
+
+    if (allowedRoutes.includes(this.$route.name)) {
+      permitApp = true
+    } else {
+      permitApp = false
+    }
+
+    this.$nextTick(() => {
+      if (!permitApp && this.onMobileStrict) {
+        this.createFallback()
+      }
+    })
 
     Vue.http.interceptors.push((req, next) => {
       next((res) => {
@@ -175,7 +307,7 @@ export default {
         ) {
           // console.log('App interceptors', res)
           AuthService.clearTokenAndUserInfo()
-          this.$router.push({ path: '/login' })
+          this.$router.push({ path: '/' })
         }
       })
     })
@@ -214,11 +346,48 @@ export default {
   },
 
   beforeDestroy() {
+    if (typeof window !== "undefined") {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
+
     this.$root.$off(MyEvents.AUTH_SIGNIN, this.doAfterSignIn)
     this.$root.$off(MyEvents.AUTH_SIGNOUT, this.doAfterSignOut)
   },
 
   methods: {
+    createFallback() {
+      const body = document.querySelector("body")
+      body.className = "allChildrenCenter"
+      body.style = "height: 100vh"
+
+      const fallback = document.createElement("div");
+      fallback.className = "text-center";
+
+      const fallbackText = document.createElement("h3");
+      fallbackText.className = "text-center";
+      fallbackText.innerText = "Please use desktop or Tablet to continue"
+
+      const fallbackAction = document.createElement("button");
+      fallbackAction.innerText = "Reload";
+      fallbackAction.onclick = () => location.reload();
+
+      fallback.append(fallbackText, fallbackAction);
+
+      body.replaceChildren(fallback);
+    },
+    onResize() {
+      this.$store.dispatch("app/setWindowsWidth", window.innerWidth)
+    },
+    initLoader(value = 0) {
+      if (!this.onMobile && this.isAuthenticated) {
+        this.$refs.appLoader.updateLoader(value)
+      }
+    },
+    getLoadUpdate(val) {
+      // app loader emit listener
+      // upload local state listener
+      this.loadValue = val
+    },
     doAfterSignIn() {
       const vm = this
       this.cable = ActionCable.createConsumer(
@@ -262,15 +431,15 @@ export default {
       Promise.all([
         UserService.getUserInfo(this.currentUser.id),
         ActivityService.getUnread(),
-        PlaylistService.getPlaylists(),
+        // PlaylistService.getPlaylists(),
         UserService.cartItems(this.currentUser.id),
       ])
         .then((values) => {
           // console.log('App getUserInfo', values[0].body)
           AuthService.setUser(values[0].body)
           this.$store.dispatch('activity/setBadge', values[1].body)
-          this.$store.dispatch('playlist/setPlaylists', values[2].body)
-          this.$store.dispatch('user/setCartItems', values[3].body)
+          // this.$store.dispatch('playlist/setPlaylists', values[2].body)
+          this.$store.dispatch('user/setCartItems', values[2].body)
           this.$store.dispatch('error/showLoadingActivity', false)
         })
         .catch((reason) => {
@@ -294,6 +463,69 @@ export default {
 
     closeLoginDialog() {
       this.show_login_dialog = false
+    },
+
+    watchPip(to, from, parentNode) {
+      let videoId
+      const stream_pipMode = this.$store.state.streamPlayer.pipMode
+
+      if (to.name === 'VideoShow') {
+        // eslint-disable-next-line no-undef
+        const pp = videojs('myVideoPlayer')
+
+        videoId = to.params.videoId
+        const nodeDetails = this.$store.state.streamPlayer.nodeDetails
+
+        if (from.name === 'VideoShow' || (nodeDetails.videoId && videoId !== nodeDetails.videoId)) {
+          if (stream_pipMode) {
+            pp.exitPictureInPicture()
+            pp.dispose()
+          }
+          // close current player node
+        } else {
+          // it is new video page, dispose previous video
+          // pp.dispose()
+        }
+      } else if (from.name === 'VideoShow') {
+        // Save pip details if in store
+        if (stream_pipMode) {
+          videoId = from.params.videoId
+          const nodeDetails = {}
+          nodeDetails.parent = parentNode
+          nodeDetails.videoId = videoId
+
+          try {
+            this.$store.dispatch('streamPlayer/setPipParentNode', nodeDetails)
+          } catch (error) {
+            return error
+          }
+        }
+      } else {
+        // Close video when pip is closed
+        this.closeVideoInDOM()
+      }
+    },
+
+    closeVideoInDOM() {
+      try {
+        // eslint-disable-next-line no-undef
+        const pp = videojs('myVideoPlayer')
+
+        if (pp && !pp.isInPictureInPicture()) {
+          pp.dispose()
+
+          // reset store
+          this.$store.dispatch('streamPlayer/setPipParentNode', {})
+        }
+      } catch (error) {
+        return error
+      }
+    },
+    closeSMS() {
+      this.$store.dispatch('app/toggleGlobalSMS', false)
+    },
+    openSMS() {
+      this.$store.dispatch('app/toggleGlobalSMS', true)
     },
   },
 

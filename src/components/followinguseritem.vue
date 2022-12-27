@@ -37,7 +37,7 @@
             <div class="user-item-content-area">
               <div class="user-item-content">
                 <router-link :to="'/' + userItem.slug" class="user-name">{{
-                  userItem.display_name
+                  userItem.username
                 }}</router-link
                 >&nbsp;
                 <v-icon
@@ -51,18 +51,13 @@
                 >
               </div>
               <div class="actions-section">
-                <v-btn
-                  :class="{
-                    'follow-btn': true,
-                    follow: !userItem.is_following,
-                    following: userItem.is_following,
-                  }"
-                  @click.native="followUser()"
-                  @mouseenter="buttonHover = true"
-                  @mouseleave="buttonHover = false"
+                <user-follow-btn
                   v-if="userItem.id != $store.state.auth.user.id"
-                  >{{ followButtonText }}</v-btn
-                >
+                  :user="userItem"
+                  theme="dark"
+                  type="default"
+                  @afterFollow="afterFollow"
+                />
                 <v-menu offset-y class="more-menu">
                   <v-btn dark class="more-btn" slot="activator">
                     <v-icon right>more_horiz</v-icon>
@@ -125,13 +120,15 @@
 </template>
 
 <script type="text/javascript">
-import UserService from '@/services/user'
-import sendMessage from '@/components/sendmessage'
-import { MyEvents } from '@/helper'
+import UserService from "@/services/user";
+import sendMessage from "@/components/sendmessage";
+import UserFollowBtn from "@/components/userFollowBtn";
+import { MyEvents } from "@/helper";
 
 export default {
   components: {
     sendMessage,
+    UserFollowBtn,
   },
 
   props: {
@@ -147,74 +144,37 @@ export default {
     return {
       showSendMessage: false,
       buttonHover: false,
-    }
-  },
-
-  computed: {
-    followButtonText() {
-      if (this.userItem.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
-      }
-      return 'Follow'
-    },
+    };
   },
 
   created() {},
 
   methods: {
     showMessageDialog() {
-      this.showSendMessage = true
+      this.showSendMessage = true;
     },
 
     dismissMessageModal() {
-      this.showSendMessage = false
+      this.showSendMessage = false;
     },
 
     imageURL(item) {
       if (item.cover) {
-        return item.cover.thumb.url
+        return item.cover.thumb.url;
       } else {
-        return item.covers[0].cover.thumb.url
+        return item.covers[0].cover.thumb.url;
       }
     },
 
     blockUser() {},
 
-    followUser() {
-      if (this.userItem.is_following) {
-        UserService.unfollowUser(this.userItem.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.userItem.display_name,
-            ])
-            this.userItem.is_following = false
-            // this.$store.dispatch('player/setUpdatedUser', this.userItem)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.userItem.id, false)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      } else {
-        UserService.followUser(this.userItem.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.userItem.display_name,
-            ])
-            this.userItem.is_following = true
-            // this.$store.dispatch('player/setUpdatedUser', this.userItem)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.userItem.id, true)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
+    afterFollow(isfollowing) {
+      if (isfollowing === "unfollow") {
+        this.product.merchant.is_following = false
+      } else if (isfollowing === "follow") {
+        this.product.merchant.is_following = true
       }
     },
   },
-}
+};
 </script>

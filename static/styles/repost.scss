@@ -1,0 +1,260 @@
+.addToPlaylist-dialog {
+    background-color: red;
+}
+.font-bold{
+    font-weight: bold;
+}
+.input-track{
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0 25px;
+}
+.repost-comp {
+
+    .repost-banner{
+        background: linear-gradient(92.72deg, #0047FF 0.28%, #328BF3 59.51%);
+        width: calc(100% + 128px);
+        margin-left: -64px;
+        padding: 73px 64px;
+        overflow: hidden;
+        margin-top: -24px;
+        margin-bottom: 25px;
+        position: relative;
+
+        .repost-banner-close{
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: white;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            cursor: pointer;
+
+            img{
+                filter: invert(1);
+            }
+
+
+        }
+
+        @media screen and (max-width: 1275px){
+            .repost-head{
+                font-size: 28px !important;
+            } 
+            
+            .repost-text{
+                font-size: 14px !important;
+                line-height: 24px !important;
+            }
+        }
+
+        .gap-25{
+            gap: 25px;
+        }
+.repost-content{
+    width: 50%;
+    max-width: 515px;
+        .repost-head{
+            color: white;
+            font-size: 36px;
+            letter-spacing: -1%;
+            font-weight: bold;
+            margin-left: 20px;
+            white-space: no-wrap;
+        }
+        .repost-text{
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: -1%;
+            line-height: 32px;
+        }
+    }
+
+    .repost-img{
+        width: 50%;
+        max-width: 485px;
+        border-radius: 40px;
+        overflow: hidden;
+        margin-bottom: -130px;
+        margin-right: 30px; 
+    }
+
+
+    }
+    ._intro {
+        font-weight: bold;
+        color: #000000;
+        margin-bottom: 25px;
+
+        ._action {
+            margin-left: 10px;
+            cursor: pointer;
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 16px;
+            letter-spacing: 0px;
+        }
+    }
+
+    .listing {
+        cursor: pointer;
+
+        &-item {
+            padding: 15px 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+            &:last-child {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                margin-bottom: 15px;
+            }
+        }
+    }
+
+    &.repost-music {
+        .playlists {
+            ._intro {
+                ._action {
+                    .icon {
+                        color: #000000;
+                    }
+                }
+            }
+        }
+        .playlist-music {
+            margin-top: 60px;
+            counter-reset: section;
+            .title {
+                button {
+                    font-size: 14px;
+                    color: #fff;
+                    i {
+                        font-size: 16px;
+                        margin-right: 3px;
+                    }
+                }
+            }
+            .list-track-view-item {
+                padding: 10px 10px 10px 35px;
+                border-radius: 5px;
+                border: none;
+                position: relative;
+                justify-content: flex-start;
+                button {
+                    position: absolute;
+                    background: transparent;
+                    box-shadow: none;         
+                    left: -5px;
+                    z-index: 2;
+                    min-width: inherit;
+                    padding: 0;
+                    margin: 0;
+                    flex: auto;
+                    height: auto;
+                    opacity: 0;
+                    width: 25px;
+                }
+                .track-cover {
+                    width: 50px;
+                    height: 50px;
+                }
+                .play-button {
+                    opacity: 0;
+                }
+                &:hover {
+                    &:before {
+                        display: none;
+                    }
+                    button {
+                        opacity: 1;
+                        &:before {
+                            display: none;
+                        }
+                    }
+                    .play-button {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+    .playlist-container {
+        flex-wrap: wrap;
+        gap: 15px;
+        .playlist-holder {
+            width: 20%;
+            .playlist-images {
+                background: rgba(196, 196, 196, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+                margin-bottom: 13px;
+                height: 180px;
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    li {
+                        width: 50%;
+                        img {
+                            width: 100%;
+                            height: 90px;
+                            display: block;
+                            object-fit: cover;
+                        }
+                    }
+                }
+                &.with-button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    button {
+                        background: transparent;
+                        box-shadow: none;
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        height: 100%;
+                        margin: 0;
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            height: 50px;
+                            width: 1px;
+                            background: rgba(0,0,0,0.3);
+                        }
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 50px;
+                            height: 1px;
+                            background: rgba(0,0,0,0.3);
+                        }
+                        .btn__content {
+                            i {
+                                font-size: 40px;
+                            }
+                        }
+                    }
+                }
+            }
+            .playlist-text {
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+        }
+    }    
+}

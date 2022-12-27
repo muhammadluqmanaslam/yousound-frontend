@@ -1,3 +1,278 @@
+
+.album-credit-main{
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  height: 100%;
+
+  .album-title-main{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 25px 30px;
+    background: #F2F2F2;
+    font-family: "Inter", sans-serif !important;
+
+    .album-credit-head{
+      
+      font-weight: 700;
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 18px;
+    }
+
+
+  }
+
+      .album-main-body{
+      padding: 35px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items:flex-start; 
+      gap: 35px;
+
+      .album-img{
+        width: 35%;
+
+        img{
+          border-radius: 9px;
+        }
+      }
+      .album-content{
+        width: 65%;
+
+        .album-name{
+          font-size: 20px;
+          font-weight: bold;
+          color: black;
+        }
+
+        .artist-name{
+          font-size: 14px;
+          font-weight: 600;
+          color: black;
+        }
+
+        .album-info{
+          font-size: 12px;
+          font-weight: 400;
+          color: black;
+        }
+      }
+
+      .album-title-x{
+        font-size: 13px;
+        color: black;
+        font-weight: 700;
+      }
+
+      .album-content-x{
+        font-size: 13px;
+        color: black;
+        font-weight: 500;
+      }
+    }
+}
+.black-header{
+  padding: 25px 32px;
+  position: relative;
+  background: black;
+  margin-left: -16px;
+  width: calc(100% + 32px);
+
+  .back-text{
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.dropdown-nail{
+
+  position: relative;
+
+  .dropdown-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  .dropdown-head{
+    width: 100%;
+    height: 42px;
+    border: 1px solid #d2d2d2;
+    border-radius: 3.75px;
+    padding: 0px 10px;
+    padding-top: 9px;
+    font-size: 16px;
+
+    .text-dull{
+      color: #999;
+    }
+
+      background-image:
+        linear-gradient(45deg, transparent 50%, #aaa 50%),
+        linear-gradient(135deg, #aaa 50%, transparent 50%);
+      background-position:
+        calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 2.5em) 0.5em;
+      background-size:
+        5px 5px,
+        5px 5px,
+        1px 1.5em;
+      background-repeat: no-repeat;
+    
+  }
+
+  .dropdown-body{
+    width: 100%;
+    background: white;
+    border: 1px solid #d2d2d2;
+    border-radius: 5px;
+    position: absolute;
+    top: 45px;
+    padding: 10px;
+    z-index: 100;
+
+    .key-value{
+      padding: 2.5px 5px;
+
+      &:hover{
+        background-color: #66666622;
+      }
+    }
+
+    .inline-block{
+      display: inline-block;
+    }
+  }
+
+
+
+}
+
+
+.collaborators-success-dialog{
+  .headline{
+    .headline-text{
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(0,0,0,0.8);
+
+      a{
+        color: black;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+
+    }
+  }
+
+  .modal-body{
+    padding: 35px;
+    background-color: #1e1e1e;
+    color: white;
+    font-family: 'Inter', sans-serif;
+
+    .border-round{
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+
+    p{
+      font-size: 14px;
+    }
+
+    hr{
+      border-top: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .second-head{
+      font-weight: bold;
+    }
+
+    .main-head{
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .url-bar{
+      width: 100%;
+      display:flex;
+      justify-content: space-between;
+      border: 1px solid rgba(0255, 255, 255, 0.2);
+      padding: 10px;
+      border-radius: 5px;
+
+      img{
+        cursor: pointer;
+      }
+    }
+  }
+
+  .modal-footer{
+    padding: 40px 80px;
+    background-color: #fbfd56;
+    color: black;
+    font-family: 'Inter';
+
+    .foot-head{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    p{
+      font-size: 16px;
+      font-weight: 500;
+
+    }
+
+    .img-outer{
+      border-radius: 10px;
+      border: 1px solid #000;
+      overflow: hidden;
+    }
+
+    .fx-btn{
+      font-size: 14px;
+      font-weight: 700;
+      padding: 6px 15px;
+      border-radius: 50px;
+      color: white;
+      background-color: black;
+      box-shadow: none;
+    }
+  }
+  .gap-max{
+    gap: 75px;
+  }
+  .w-100{
+    width: 100%;
+  }
+  .w-70{
+    width: 70%;
+  }
+  .w-30{
+    width: 30%;
+  }
+}
+
+.gap-15{
+  gap:15px;
+}
+.gap-20{
+  gap:20px;
+}
+
+
 .GLOBAL-album-collaborators-follow-item {
   width: 300px;
 
@@ -12,31 +287,113 @@ p {
   font-size: 18px;
 }
 
+.sectionCard {
+  // border-radius: 3px;
+  // box-shadow: 0 0 2px 0px #c8c8d9;
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 30px;
+  // max-height: 540px
+}
+
 .page.upload-album-page {
   .input-group__details {
     display: none;
   }
   .album-info-section {
-    padding: 37.5px 123.75px 161.25px;
     background-color: #fff;
     .album-info-title {
       margin-bottom: 14px;
-      font-size: 28px;
       color: #000000;
-      letter-spacing: -1px;
-      font-family: 'Work Sans';
-      font-weight: 700;
+      font-size: 21px;
+      letter-spacing: -1%;
+      font-weight:700;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .album-info-title-x{
+      font-family: 'Inter';
+      font-weight: 600;
+      color: #4d4d4d;
+      font-size: 16px;
+      margin-top: 0;
+    }
+
+    .font-lable-check{
+
+      margin-top: 15px;
+
+      label{
+        font-size: 14px !important;
+      }
+    }
+
+    .d-row{
+      margin-bottom: 20px;
+    }
+
+    .gap-15{
+      gap: 10px;
+    }
+
+    .w-25{
+      width: 25%;
+    }
+
+
+    .w-75{
+      width: 75%;
+    }
+
+
+    .w-30{
+      width: 35%;
+    }
+
+    .w-15{
+      width: 15%;
+    }
+    .w-10{
+      width: 10%;
+    }
+
+    .w-100{
+      width: 100%;
+    }
+
+    @media screen and (max-width: 1250px){
+      input{
+        margin-bottom: 15px;
+      }
+      .gap-15{
+        flex-wrap: wrap;
+      }
+      .w-25, .w-15, .w-30, .w-75{
+        width: auto;
+      }
+      .show-none{
+        display: none;
+      }
+    }
+
+    hr{
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: none;
     }
     .album-image-section {
-      width: 300px;
+      width: 100%;
+      height: 100%;
       .image-section {
-        background: #3a92ff;
-        border: 0.75px solid #d2d2d2;
+        background: #f9f9f9;
+        border: 0.75px solid #d8d8d8;
+        height: calc(100% - 32px);
         border-radius: 3.75px;
         width: 100%;
-        padding-bottom: 100%;
-        margin-top: 4.5px;
         position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         .loading-activity {
           position: absolute;
           margin-top: 0px;
@@ -57,7 +414,9 @@ p {
           background-position: center;
         }
         .album-image-upload-section {
-          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           width: 100%;
           height: 100%;
           text-align: center;
@@ -71,13 +430,12 @@ p {
           }
           .add-album-image-file + label {
             width: 100%;
-            height: 100%;
             font-weight: 600;
             font-size: 15px;
-            color: #ffffff;
+            // color: #ffffff;
             letter-spacing: 0;
             .camera {
-              color: #ffffff;
+              color: #000000;
               font-size: 28.5px;
               display: block;
               margin-top: calc(50% - 22.5px);
@@ -85,9 +443,9 @@ p {
           }
           .add-album-image-file:focus + label,
           .add-album-image-file + label:hover {
-            color: rgba(255, 255, 255, 0.5);
+            // color: rgba(255, 255, 255, 0.5);
             .camera {
-              color: rgba(255, 255, 255, 0.5);
+              // color: rgba(255, 255, 255, 0.5);
             }
           }
         }
@@ -112,6 +470,7 @@ p {
         .change-album-image-file:focus + label,
         .change-album-image-file + label:hover {
           color: rgba(58, 146, 255, 0.5);
+          cursor: pointer;
         }
       }
       .grey--text {
@@ -120,10 +479,15 @@ p {
       }
     }
     .album-content-section {
-      padding: 0 0 0 22.5px;
-      width: calc(100% - 300px);
+      label.control-label {
+        margin-bottom: 8px;
+
+        &.show-none{
+          opacity: 0;
+        }
+      }
       .album-description {
-        height: 129px;
+        height: 120px;
         padding: 7.5px 11.25px;
         background: #ffffff;
         border: 0.75px solid #d2d2d2;
@@ -133,8 +497,7 @@ p {
         }
       }
       .form-group {
-        margin-bottom: 32px;
-
+        // margin-bottom: 32px;
         &.enabled-sample-wrapper {
           label.control-label {
             display: inline-block;
@@ -160,10 +523,11 @@ p {
         }
       }
       .album-content-wrapper {
-        // display: flex;
+        display: flex;
+      flex-wrap: wrap;
         & > div {
-          display: inline-block;
-          margin-right: 30px;
+          // display: inline-block;
+          // margin-right: 30px;
         }
         & > div:nth-child(1) {
           width: 125px;
@@ -286,13 +650,13 @@ p {
       }
     }
     .album-section {
-      border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
+      // border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
     }
 
     .additional-info-section {
       // margin: 7.5px;
-      padding: 15px 0;
-      border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
+      // padding: 15px 0;
+      // border-bottom: 0.75px solid rgba(0, 0, 0, 0.2);
       .option-content {
         margin: 0 -7.5px;
         .sm3,
@@ -311,7 +675,7 @@ p {
         min-width: 0px;
         background: #ffffff !important;
         color: #3a92ff;
-        font-size: 18px;
+        font-size: 15px;
         text-transform: none;
         .btn__content {
           padding: 0;
@@ -325,8 +689,8 @@ p {
         }
       }
       .clear-btn {
-        // padding-top: 18.75px;
-        color: #c1c1c1;
+        margin-left: 20px;
+        color: #000000;
         cursor: pointer;
       }
       .cancel-button {
@@ -352,6 +716,9 @@ p {
     .album-action-section {
       margin-top: 20px;
       padding-top: 15px;
+      right: 658px;
+      bottom: 1px;
+
       // border-top: 0.75px solid #979797;
       .delete-album-btn {
         padding-top: 9px;
@@ -361,16 +728,27 @@ p {
         cursor: pointer;
       }
       .release-now-btn {
-        float: right;
-        height: 37.5px;
+        height: 40px;
+        width: auto;
+        padding: 0 23px;
         margin: 0;
         text-transform: none;
-        background: #3a92ff !important;
+        background: #374dff !important;
         border-radius: 75px;
-        font-weight: 600;
-        font-size: 18px;
-        color: #ffffff;
         letter-spacing: 0;
+        font-family: 'Inter';
+        font-weight: 600;
+        font-size: 16px;
+        color: #ffffff;
+
+        &[disabled]{
+          background: #374dff11 !important;
+        }
+
+        
+        .btn__content {
+          color: #ffffff;
+        }
       }
       .save-for-later-btn {
         float: right;
@@ -390,6 +768,10 @@ p {
 }
 
 .page.album-detail-page {
+  position: relative;
+  top: -19px;
+  left: -17px;
+  width: calc(100% + 37px);
   // .background-image {
   //   position: absolute;
   //   top: 0;
@@ -415,52 +797,55 @@ p {
   //     filter: blur(160px);
   //   }
   // }
-  .background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100% !important;
-    // background: #414141;
-    overflow: hidden;
-    // opacity: 0.6;
-    background-color: #000000;
-    opacity: 0.8;
-    div {
-      width: 100%;
-      height: 100%;
-      opacity: 0.6;
-      background-size: cover;
-      -webkit-filter: blur(160px);
-      -moz-filter: blur(160px);
-      -o-filter: blur(160px);
-      -ms-filter: blur(160px);
-      filter: blur(160px);
-    }
-  }
-  .background-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: 100% !important;
-    overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
   .album-pages {
-    z-index: 9;
-    margin-top: 30px;
-    margin-bottom: 85px;
+    min-height: 101vh;
+    overflow: hidden;
+    // z-index: 9;
+    position: relative;
+    padding: 65px;
+
+    .background-image {
+      position: absolute;
+      top: 3px;
+      left: -35px;
+      width: 100vw !important;
+      height: calc(100% + 20px);
+      // background: #414141;
+      overflow: hidden;
+      // opacity: 0.6;
+      background-color: #000000;
+      opacity: 0.8;
+      div {
+        width: 100%;
+        height: 100%;
+        opacity: 0.6;
+        background-size: cover;
+        -webkit-filter: blur(160px);
+        -moz-filter: blur(160px);
+        -o-filter: blur(160px);
+        -ms-filter: blur(160px);
+        filter: blur(160px);
+      }
+    }
+    .background-overlay {
+      position: absolute;
+      top: 3px;
+      left: -35px;
+      width: 100vw !important;
+      height: calc(100% + 20px);
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
     .album-info-page {
-      min-height: calc(100vh - 230px);
+      display: flex;
       z-index: 10;
       .album-image-section {
         display: inline-block;
         vertical-align: top;
         position: relative;
         .album-image {
-          width: 400px;
-          height: 400px;
+          width: 300px;
+          height: 300px;
           background-color: #000;
           background-size: cover;
           overflow: hidden;
@@ -471,8 +856,8 @@ p {
           }
         }
         .album-hover-section {
-          width: 400px;
-          height: 400px;
+          width: 300px;
+          height: 300px;
           background: rgba(0, 0, 0, 0.8);
           position: absolute;
           padding: 0;
@@ -487,40 +872,6 @@ p {
           transition: opacity 0.3s ease-in-out;
           &:hover {
             opacity: 1;
-          }
-          .play-button-section {
-            position: relative;
-            .play-button {
-              border: rgba(255, 255, 255, 0.5) solid 1px;
-              border-radius: 100%;
-              // background: rgba(0, 0, 0, 0.5) !important;
-              background: transparent !important;
-              box-shadow: none;
-              // width: 33.33333333333333%;
-              // height: 33.33333333333333%;
-              // margin-left: 33.33333333333333%;
-              // margin-top: 33.33333333333333%;
-              width: 80px;
-              height: 80px;
-              margin-left: calc(50% - 40px);
-              margin-top: calc(50% - 40px);
-              min-width: 80px;
-              .btn__content {
-                padding: 0;
-              }
-              img {
-                // width: 100%;
-                max-width: 60px;
-              }
-              .icon {
-                &.play {
-                  font-size: 70px;
-                }
-                &.pause {
-                  font-size: 50px;
-                }
-              }
-            }
           }
           .credits-dialog-wrapper {
             position: absolute;
@@ -538,68 +889,6 @@ p {
                 .btn__content {
                   // padding: 0;
                 }
-              }
-            }
-          }
-        }
-        .album-merch-section {
-          margin-top: 30px;
-          cursor: pointer;
-          .title {
-            color: white;
-            font-weight: 300;
-            font-size: 24px !important;
-            letter-spacing: -0.6px !important;
-            border-bottom: 1px solid rgba(215, 215, 215, 0.2);
-            padding-bottom: 8px;
-            margin-bottom: 16px;
-          }
-          .merch-detail-section {
-            margin-top: 10px;
-            background-color: transparent;
-            padding: 0;
-            border-radius: 3px;
-            .merch-avatar {
-              width: 120px;
-              height: 120px;
-              display: inline-block;
-              vertical-align: middle;
-              background-size: cover;
-              background-position: center;
-              overflow: hidden;
-              border-radius: 5px;
-              border: 3px solid white;
-            }
-            .info-section {
-              display: inline-block;
-              vertical-align: middle;
-              padding-left: 10px;
-              .merch-name {
-                display: block;
-                color: white;
-                font-family: 'Work Sans';
-                font-weight: 600;
-                font-size: 20px;
-                letter-spacing: -0.7px;
-                cursor: pointer;
-                width: 250px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-              .merch-price {
-                display: block;
-                color: white;
-                font-size: 24px;
-                letter-spacing: -0.6px;
-                cursor: pointer;
-              }
-              .link-btn {
-                display: block;
-                color: rgba(255, 255, 255, 0.52);
-                font-size: 16px;
-                letter-spacing: -0.6px;
-                cursor: pointer;
               }
             }
           }
@@ -624,9 +913,7 @@ p {
         }
       }
       .album-detail-section {
-        display: inline-block;
-        width: calc(100% - 450px);
-
+        width: 100%;
         .album-info-section {
           position: relative;
           margin: 21px 22.5px 0px 37.5px;
@@ -638,13 +925,11 @@ p {
             letter-spacing: 0.6px;
           }
           .album-name {
-            font-size: 18px;
             font-weight: 600;
             color: #ffffff;
-            letter-spacing: 0;
-            line-height: 41.25px;
-            letter-spacing: -0.4px;
-            font-family: 'Work Sans';
+            font-size: 42px;
+            line-height: 54px;
+            letter-spacing: -.5px;
           }
           .album-description {
             font-size: 15px;
@@ -652,10 +937,9 @@ p {
             letter-spacing: 0;
           }
           .album-detail {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+            color: hsla(0, 0%, 100%, 0.82);
             letter-spacing: 0.6px;
-            padding-bottom: 30px;
             margin: 0;
 
             .album-sample-clearance {
@@ -713,8 +997,8 @@ p {
 
           .album-action-section {
             position: absolute;
-            right: -35px;
-            bottom: 5px;
+            left: 69px;
+            bottom: -2px;
 
             #follow_selector {
               .btn {
@@ -740,24 +1024,26 @@ p {
             }
 
             .follow-btn {
-              width: 130px;
-              height: 40px;
+              width: 100px;
+              height: 36px;
               box-shadow: none;
               text-transform: none;
               margin: 8px 0px 8px 0px;
               background-color: transparent !important;
               border-radius: 82px;
-              font-size: 16px;
+              font-size: 14px;
               letter-spacing: 0;
               &.follow {
-                border: 1px solid #1872ff;
-                background-color: #1872ff !important;
+                display: none;
+                border: 1px solid #076AFF;
+                background-color: #076AFF !important;
                 color: #fff !important;
               }
               &.following {
-                border: 1px solid #5bad00;
-                background-color: rgba(0, 0, 0, 0.2) !important;
+                border: 1px solid #ffffff;
+                background-color: none !important;
                 color: #fff !important;
+
                 &:hover {
                   border: 1px solid #ff3121;
                   background-color: rgba(255, 42, 26, 0.7) !important;
@@ -786,134 +1072,41 @@ p {
             }
           }
         }
-
-        .album-tracks-section {
-          margin-left: 22.5px;
-
-          .album-track-item {
-            padding: 6px 11.25px;
-
-            .track-name {
-              display: inline-block;
-              max-width: 500px;
-              min-width: 75px;
-              padding-left: 3.75px;
-              line-height: 36px;
-              font-size: 14px;
-              color: #ffffff;
-              letter-spacing: 0;
-              vertical-align: middle;
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
-
-              .track-index {
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.5);
-                letter-spacing: 0;
-                vertical-align: middle;
-              }
-              .track-user-name {
-                font-weight: 900;
-                color: #ffffff;
-              }
+        .play-button-section {
+          position: relative;
+          .play-button {
+            border: rgba(255, 255, 255, 0.5) solid 1px;
+            border-radius: 100%;
+            // background: rgba(0, 0, 0, 0.5) !important;
+            background: transparent !important;
+            box-shadow: none;
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            margin: 0;
+            .btn__content {
+              padding: 0;
             }
-            .action-btn {
-              background-color: transparent !important;
-              box-shadow: none;
-              margin: 0;
-              color: rgba(255, 255, 255, 0.5);
-              min-width: 36px;
-              .btn__content {
-                padding: 0;
-              }
-              .icon {
-                color: rgba(255, 255, 255, 0.5);
-              }
-              img {
-                height: 11.25px;
-                padding-right: 3.75px;
-              }
+            img {
+              // width: 100%;
+              max-width: 60px;
             }
-            .track-actions {
-              float: right;
-              display: inline-block;
-              opacity: 0;
-              .action-btn {
-                background-color: transparent !important;
-                box-shadow: none;
-                margin: 0;
-                color: rgba(255, 255, 255, 0.5);
-                cursor: default;
-                min-width: 78px;
-                .btn__content {
-                  padding: 0;
-                }
-                .icon {
-                  color: rgba(255, 255, 255, 0.5);
-                }
-                img {
-                  height: 11.25px;
-                  padding-right: 3.75px;
-                }
+            .icon {
+              &.play {
+                font-size: 40px;
               }
-            }
-            .right-section {
-              float: right;
-              .track-more-action {
-                opacity: 0;
-                .more-btn {
-                  width: 37.5px;
-                  min-width: 37.5px;
-                  display: inline-block;
-                  vertical-align: middle;
-                  background-color: transparent !important;
-                  box-shadow: none;
-                  margin: 0;
-                  color: rgba(255, 255, 255, 0.5);
-                  .btn__content {
-                    padding: 0;
-                  }
-                  .icon {
-                    margin: 0;
-                    font-size: 22.5px;
-                  }
-                }
-                .track-menu-item {
-                }
-              }
-              .track-length {
-                display: inline-block;
-                vertical-align: middle;
-                font-size: 15px;
-                color: rgba(255, 255, 255, 0.5);
-                letter-spacing: 0;
-              }
-            }
-            &:hover {
-              background-color: rgba(255, 255, 255, 0.1);
-              .track-actions {
-                opacity: 1;
-              }
-              .right-section {
-                .track-more-action {
-                  opacity: 1;
-                }
-              }
-            }
-            &.selected {
-              background-color: rgba(255, 255, 255, 0.1);
-              .track-actions {
-                opacity: 1;
-              }
-              .right-section {
-                .track-more-action {
-                  opacity: 1;
-                }
+              &.pause {
+                font-size: 40px;
               }
             }
           }
         }
+      }
+
+      .meta-details {
+        color: #ffffff;
+        font-size: 16px;
+        margin: 12px 0 32px;
       }
     }
     .album-comment-page {
@@ -1189,25 +1382,317 @@ p {
         }
       }
     }
-    .album-recent-page {
-      padding-top: 0;
-      padding-bottom: 0px;
-      margin-top: 160px;
-      .recent-title {
-        padding: 0 11.25px 15px 11.25px;
-        margin-bottom: 20px;
-        border-bottom: 0px solid #c3c3c3;
-        font-weight: 700;
-        font-size: 24px;
-        color: #000000;
-        letter-spacing: -1.5px;
-        font-family: 'Work Sans';
-      }
-      .recent-content {
-        .card-container {
-          max-width: 25%;
-          width: 25%;
+    .album-tracks-section {
+
+      .album-track-item {
+        padding: 6px 11.25px;
+        border-radius: 6px;
+        margin-top: 6px;
+
+        .track-name {
+          display: inline-block;
+          max-width: 500px;
+          min-width: 75px;
+          padding-left: 3.75px;
+          line-height: 36px;
+          font-size: 14px;
+          color: #ffffff;
+          letter-spacing: 0;
+          vertical-align: middle;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          font-weight: 500;
+
+          .track-index {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0;
+            vertical-align: middle;
+            padding-right: 14px;
+          }
+          .track-user-name {
+            font-weight: 900;
+            color: #ffffff;
+          }
         }
+        .action-btn {
+          background-color: transparent !important;
+          box-shadow: none;
+          margin: 0;
+          color: rgba(255, 255, 255, 0.5);
+          min-width: 36px;
+          .btn__content {
+            padding: 0;
+          }
+          .icon {
+            color: rgba(255, 255, 255, 0.5);
+          }
+          img {
+            height: 11.25px;
+            padding-right: 3.75px;
+          }
+        }
+        .track-actions {
+          float: right;
+          display: inline-block;
+          opacity: 0;
+          .action-btn {
+            background-color: transparent !important;
+            box-shadow: none;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: default;
+            min-width: 78px;
+            .btn__content {
+              padding: 0;
+            }
+            .icon {
+              color: rgba(255, 255, 255, 0.5);
+            }
+            img {
+              height: 11.25px;
+              padding-right: 3.75px;
+            }
+          }
+        }
+        .right-section {
+          float: right;
+          .track-more-action {
+            opacity: 0;
+            .more-btn {
+              width: 37.5px;
+              min-width: 37.5px;
+              display: inline-block;
+              vertical-align: middle;
+              background-color: transparent !important;
+              box-shadow: none;
+              margin: 0;
+              color: rgba(255, 255, 255, 0.5);
+              .btn__content {
+                padding: 0;
+              }
+              .icon {
+                margin: 0;
+                font-size: 22.5px;
+              }
+            }
+            .track-menu-item {
+            }
+          }
+          .track-length {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0;
+          }
+        }
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          .track-actions {
+            opacity: 1;
+          }
+          .right-section {
+            .track-more-action {
+              opacity: 1;
+            }
+          }
+        }
+        &.selected {
+          background-color: rgba(255, 255, 255, 0.1);
+          .track-actions {
+            opacity: 1;
+          }
+          .right-section {
+            .track-more-action {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+  .album-recent-page {
+    padding-top: 0;
+    padding-bottom: 0px;
+
+    .recent-title {
+      padding: 0 11.25px 15px 11.25px;
+      // margin-bottom: 20px;
+      border-bottom: 0px solid #c3c3c3;
+      font-weight: 700;
+      font-size: 24px;
+      color: #000000;
+      letter-spacing: -1.5px;
+      font-family: 'Work Sans';
+    }
+    .recent-content {
+      .card-container {
+        min-width: 184px;
+        margin-bottom: 0;
+        padding: 0 !important;
+        // margin-top: 30px;
+
+        .product-actions {
+          pointer-events: none;
+        }
+        /deep/.product-actions {
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .secondary-album-details {
+    // background-color: red;
+    // padding: 65px;
+    // padding-top: 40px;
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.07);;
+    }
+    
+    .album-comment-page {
+      padding: 30px 20%;
+      background-color: #fafafa;
+      // background-color: red;
+    }
+    .album-recent-page {
+      padding: 30px 20%;
+      .album-merch-section {
+        @extend .sectionCard;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        cursor: pointer;
+
+        .title {
+          color: white;
+          font-weight: 300;
+          font-size: 24px !important;
+          letter-spacing: -0.6px !important;
+          border-bottom: 1px solid rgba(215, 215, 215, 0.2);
+          padding-bottom: 8px;
+          margin-bottom: 16px;
+        }
+        .merch-detail-section {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 10px;
+          background-color: transparent;
+          padding: 0;
+          border-radius: 3px;
+          .merch-avatar {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            vertical-align: middle;
+            background-size: contain;
+            background-position: center;
+            overflow: hidden;
+            border-radius: 5px;
+            border: 3px solid white;
+          }
+          .info-section {
+            vertical-align: middle;
+            padding-left: 10px;
+            
+            .side-action-details {
+              text-align: left;
+              padding-left: 30px;
+              margin-top: -30px;
+
+              .__title {
+                text-transform: uppercase;
+                font-size: 13px;
+                color: #777;
+                padding-bottom: 8px;
+              }
+              .__subtitle-1 {
+                font-weight: 500;
+                font-size: 18px;
+                padding-bottom: 3px;
+
+                &.__price {
+                  margin-top: -10px;
+                }
+              }
+              .__subtitle-2 {
+                text-transform: uppercase;
+                font-size: 14px;
+                margin-bottom: 20px;
+                font-weight: 700;
+              }
+              .song-btn {
+                margin: 0 !important;
+                width: 60px !important;
+                height: 60px !important;
+                background: #ddd8d8 !important;
+
+                i {
+                  font-size: 40px;
+                  color: #000000;
+                }
+              }
+
+              .view-product-btn {
+                margin-top: 20px !important;
+                background-color: #000000 !important;
+                padding: 0 10px;
+              }
+            }
+            .merch-name {
+              display: block;
+              font-family: 'Work Sans';
+              font-weight: 600;
+              font-size: 18px;
+              letter-spacing: -0.7px;
+              cursor: pointer;
+              width: 250px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .merch-price {
+              display: block;
+              font-weight: bolder;
+              letter-spacing: -0.6px;
+              font-size: 16px;
+              cursor: pointer;
+            }
+            .merch-status-icon {
+              width: 15px;
+              margin-left: 20px;
+              cursor: pointer;
+            }
+            .link-btn {
+              display: block;
+              color: rgba(255, 255, 255, 0.52);
+              font-size: 16px;
+              letter-spacing: -0.6px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .album-reposted-section {
+        @extend .sectionCard;
+        
+        .no-list {
+          color: rgba(0, 0, 0, 0.5);;
+
+        }
+
+        & .__title {
+          // font-size: 1.2em;
+          // margin-left: 20px;
+          // margin-top: 8px;
+        }
+
       }
     }
   }

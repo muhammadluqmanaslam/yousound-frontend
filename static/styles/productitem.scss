@@ -7,7 +7,7 @@
       width: 75px;
       height: 75px;
       background: #D5D5D5;
-      border-radius: 7.5px;
+      border-radius: 3px;
       // margin: 7.5px 7.5px 3px;
       margin: 7.5px;
       background-size: cover;
@@ -16,7 +16,7 @@
     }
     .product-content {
       position: absolute;
-      top: 15px;
+      top: 18px;
       left: 93.75px;
       width: calc(100% - 93.75px);
       padding-right: 22.5px;
@@ -48,16 +48,15 @@
         }
         .product-price {
           font-weight: 600;
-          font-size: 24px;
+          font-size: 16px;
           color: #000000;
-          letter-spacing: -1px;
-          font-family: 'Work Sans';
+          letter-spacing: 0px;
         }
         .product-category-text {
           float: right;
           padding: 0 11.25px;
           margin-top: 3.75px;
-          font-size: 15px;
+          font-size: 14px;
           color: #777;
           letter-spacing: 0;
         }
@@ -80,9 +79,18 @@
           display: block;
           // width: 45px;
           min-width: 45px;
-          font-size: 15px;
-          color: #3A92FF;
+          font-size: 14px;
+          color: #000;
           letter-spacing: 0;
+
+          &.to-right {
+            float: left;
+            color: #272727;
+            left: -10px;
+            cursor: pointer;
+            font-size: 13px;
+          }
+
           .btn__content {
             padding: 0;
           }
@@ -93,6 +101,38 @@
               }
             }
           }
+        }
+      }
+    }
+  }
+  .collaborator-content-section {
+    border: 0.75px solid #D7D7D7;
+    border-top: 0;
+    padding: 10px 7.5px;
+
+    .collaborator-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: -7px;
+      min-height: 50px;
+      
+      .action-btn {
+        margin: 0;
+        height: 32px;
+        background: #00a95c !important;
+        text-transform: capitalize;
+        border-radius: 7px;
+        
+        &.btn--disabled {
+          background: transparent!important;
+          color: #333333 !important;
+        }
+      }
+      .text-btn {
+        &.btn--disabled {
+          background: transparent!important;
+          color: rgba(0, 0, 0, .26) !important
         }
       }
     }

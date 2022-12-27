@@ -399,7 +399,7 @@ export default {
       if (this.album.status === 'published') {
         AlbumService.makePrivateAlbum(this.album.id)
           .then((response) => {
-            this.album.status = 'private'
+            this.album.status = 'privated'
             this.hideAlbumStatusConfirmDialog()
           })
           .catch((e) => {

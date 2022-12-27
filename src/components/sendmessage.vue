@@ -17,7 +17,7 @@
           }"
         ></div>
         <p class="user-name">
-          {{ receiver.display_name }}
+          {{ receiver.username }}
           <v-icon
             class="user-status"
             v-bind:class="{ online: receiver.status == 'active' }"
@@ -104,7 +104,7 @@
             </div>
             <div class="detail-area">
               <label class="item-name">{{ album.name }}</label>
-              <label class="user-name">{{ album.user.display_name }}</label>
+              <label class="user-name">{{ album.user.username }}</label>
             </div>
           </div>
         </div>
@@ -124,9 +124,7 @@
             </div>
             <div class="detail-area">
               <label class="item-name">{{ product.name }}</label>
-              <label class="user-name">{{
-                product.merchant.display_name
-              }}</label>
+              <label class="user-name">{{ product.merchant.username }}</label>
             </div>
           </div>
         </div>
@@ -145,17 +143,18 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import { Picker } from 'emoji-mart-vue'
+import _ from "lodash";
+import { Picker } from "emoji-mart-vue";
 
-import AlbumService from '@/services/album'
-import MessageService from '@/services/message'
-import ProductService from '@/services/product'
-import UserService from '@/services/user'
+import AlbumService from "@/services/album";
+import MessageService from "@/services/message";
+import ProductService from "@/services/product";
+import UserService from "@/services/user";
 
-import repostPaymentModal from '@/components/repost_payment_modal'
+import repostPaymentModal from "@/components/repost_payment_modal";
 
-const DefaultRepostMessage = 'Hi, if you like this please repost it, thank you.'
+const DefaultRepostMessage =
+  "Hi, if you like this please repost it, thank you.";
 
 export default {
   props: {
@@ -179,22 +178,22 @@ export default {
     return {
       showEmojiPicker: false,
       show_repost_payment_modal: false,
-      tab: 'album',
+      tab: "album",
       item: null,
       albums: [],
       products: [],
       itemType: {
-        album: 'Album',
-        merch: 'ShopProduct',
+        album: "Album",
+        merch: "ShopProduct",
       },
       repostedFeeeds: [],
-      message: '',
-    }
+      message: "",
+    };
   },
 
   computed: {
     current_repost_price() {
-      return this.receiver.repost_price
+      return this.receiver.repost_price;
     },
   },
 
@@ -202,128 +201,128 @@ export default {
     // console.log(this.receiver)
     Promise.all([
       AlbumService.getAlbums({
-        statuses: 'published, collaborated',
-        user_statuses: 'accepted',
+        statuses: "published, collaborated",
+        user_statuses: "accepted",
       }),
       ProductService.getProducts({
-        statuses: 'published, collaborated',
-        stock_statuses: 'active',
-        user_statuses: 'accepted',
+        statuses: "published, collaborated",
+        stock_statuses: "active",
+        user_statuses: "accepted",
       }),
       UserService.repostedFeeds(this.receiver.id),
     ])
       .then((values) => {
-        this.albums = values[0].body
-        this.products = values[1].body
-        this.repostedFeeds = values[2].body
+        this.albums = values[0].body;
+        this.products = values[1].body;
+        this.repostedFeeds = values[2].body;
         // this.$forceUpdate()
       })
       .catch((reason) => {
-        console.log(reason)
+        console.log(reason);
         // this.$store.dispatch('error/showErrorToast', [reason])
-      })
+      });
   },
 
   methods: {
     InBanned(album) {
-      return this.InHiddenGenres(album) || this.InReposted(album)
+      return this.InHiddenGenres(album) || this.InReposted(album);
     },
 
     // true : in hidden genres
     InHiddenGenres(album) {
-      const genreId = _.get(album.genres, '[0].id', '')
+      const genreId = _.get(album.genres, "[0].id", "");
       const genre = _.find(this.receiver.hidden_genres, (genre) => {
-        return genre.id === genreId
-      })
+        return genre.id === genreId;
+      });
       // return !(genre === undefined || genre === null)
-      return !!genre
+      return !!genre;
     },
 
     InReposted(item) {
       const feed = _.find(this.repostedFeeds, (f) => {
         return (
           f.assoc_type === this.itemType[this.tab] && f.assoc_id === item.id
-        )
-      })
-      return !!feed
+        );
+      });
+      return !!feed;
     },
 
     openRepostPaymentModal() {
       // console.log(this.item)
-      this.show_repost_payment_modal = true
+      this.show_repost_payment_modal = true;
     },
 
     closeRepostPaymentModal() {
-      this.show_repost_payment_modal = false
+      this.show_repost_payment_modal = false;
     },
 
     checkMessage() {
       if (this.item) {
-        this.openRepostPaymentModal()
+        this.openRepostPaymentModal();
       } else {
-        this.sendMessage()
+        this.sendMessage();
       }
     },
 
     sendMessage(token) {
-      this.dismiss()
+      this.dismiss();
       let params = {
         body: this.message,
-      }
-      this.message = ''
-      params['receiver_id'] = this.receiver.id
+      };
+      this.message = "";
+      params["receiver_id"] = this.receiver.id;
       if (this.item) {
-        if (this.tab === 'album') {
-          params['attachable_type'] = 'Album'
-          params['attachable_id'] = this.item.id
+        if (this.tab === "album") {
+          params["attachable_type"] = "Album";
+          params["attachable_id"] = this.item.id;
         } else {
-          params['attachable_type'] = 'ShopProduct'
-          params['attachable_id'] = this.item.id
+          params["attachable_type"] = "ShopProduct";
+          params["attachable_id"] = this.item.id;
         }
-        this.item = null
+        this.item = null;
       }
       if (token) {
-        params['payment_token'] = token.id
+        params["payment_token"] = token.id;
       }
       MessageService.addMessage(params)
         .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            'Sent message successfully.',
-          ])
+          this.$store.dispatch("error/showSuccessToast", [
+            "Sent message successfully.",
+          ]);
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     onTab(tab) {
-      this.tab = tab
-      this.item = null
+      this.tab = tab;
+      this.item = null;
     },
 
     selectItem(item) {
       // console.log(this.item === item, this.item, item)
       if (this.item === item) {
-        this.item = null
+        this.item = null;
         if (this.message === DefaultRepostMessage) {
-          this.message = ''
+          this.message = "";
         }
       } else {
-        this.item = item
-        if (this.message === '') {
-          this.message = DefaultRepostMessage
+        this.item = item;
+        if (this.message === "") {
+          this.message = DefaultRepostMessage;
         }
       }
     },
 
     addEmoji(emoji, event) {
-      this.showEmojiPicker = false
-      this.message += emoji.native
-      this.$refs.message.focus()
+      this.showEmojiPicker = false;
+      this.message += emoji.native;
+      this.$refs.message.focus();
     },
   },
-}
+};
 </script>

@@ -27,17 +27,35 @@
       >
     </v-btn>
     <label class="track-name">
-      <span class="track-index">{{ trackIndex + 1 }}. </span>
+      <img 
+        v-if="showIndexPlayIcon && (trackIndex == $store.state.player.trackIndex && isPlaying)"
+        width="15"
+        src="/static/images/graph-bar.svg"
+        class="track-showIndexPlayIcon"
+      />
+      <span v-else class="track-index">{{ trackIndex + 1 }}. </span>
       <span>{{ track.name }}</span>
       <router-link
         v-if="album.album_type == 'playlist'"
         class="track-user-name"
         :to="`/${track.user.slug}`"
       >
-        - {{ track.user.display_name }}</router-link
+        - {{ track.user.username }}</router-link
       >
     </label>
-    <div class="right-section" @click.stop="">
+    <div
+      v-if="!hideMoreBtn"
+      class="right-section" @click.stop=""
+    >
+      <v-icon
+        v-if="
+          buttonHover &&
+          !(trackIndex == $store.state.player.trackIndex && isPlaying)
+        "
+        color="grey"
+        >play_arrow</v-icon
+      >
+      <v-icon v-if="!showIndexPlayIcon && selectedTrackIsPlaying" color="grey">pause</v-icon>
       <v-menu
         v-model="menu"
         offset-y
@@ -71,7 +89,7 @@
                 class="track-status-icon"
                 src="/static/images/ic_repeat.png"
               /> -->
-              <label>Repost Album</label>
+              <label>Add to Collection</label>
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile
@@ -246,3 +264,4 @@
 </template>
 
 <script type="text/javascript" src="./albumtrackitem.ctrl.js"></script>
+<style scoped src="../../static/styles/album.scss" lang="scss"></style>

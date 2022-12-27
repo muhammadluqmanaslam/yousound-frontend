@@ -82,19 +82,19 @@
                   <div v-if="usersCountByStatus.accepted > 0">
                     <div class="accepted-title">Accepted</div>
                     <div v-for="c in usersByStatus.accepted">
-                      {{ c.user.display_name }}
+                      {{ c.user.username }}
                     </div>
                   </div>
                   <div v-if="usersCountByStatus.denied > 0">
                     <div class="denied-title">Denied</div>
                     <div v-for="c in usersByStatus.denied">
-                      {{ c.user.display_name }}
+                      {{ c.user.username }}
                     </div>
                   </div>
                   <div v-if="usersCountByStatus.pending > 0">
                     <div class="pending-title">Waiting for approval</div>
                     <div v-for="c in usersByStatus.pending">
-                      {{ c.user.display_name }}
+                      {{ c.user.username }}
                     </div>
                   </div>
                 </div>
@@ -134,7 +134,7 @@
                   <div>
                     <div class="accepted-title">Collaborators</div>
                     <div v-for="c in usersByStatus.accepted">
-                      {{ c.user.display_name }}
+                      {{ c.user.username }}
                     </div>
                   </div>
                 </div>
@@ -164,8 +164,8 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import promoteModal from '@/components/promotemodal'
+import _ from "lodash";
+import promoteModal from "@/components/promotemodal";
 
 export default {
   components: {
@@ -222,16 +222,16 @@ export default {
   data() {
     return {
       isShowPromoteModal: false,
-    }
+    };
   },
 
   computed: {
     usersCountByStatus() {
-      return _.countBy(this.album.collaborators, 'status')
+      return _.countBy(this.album.collaborators, "status");
     },
 
     usersByStatus() {
-      return _.groupBy(this.album.collaborators, 'status')
+      return _.groupBy(this.album.collaborators, "status");
     },
   },
 
@@ -239,16 +239,16 @@ export default {
 
   methods: {
     showPromoteDialog() {
-      this.isShowPromoteModal = true
+      this.isShowPromoteModal = true;
     },
 
     dismissPromoteDialog() {
-      this.isShowPromoteModal = false
+      this.isShowPromoteModal = false;
     },
 
     saveAndFinish() {
-      this.dismissPromoteDialog()
+      this.dismissPromoteDialog();
     },
   },
-}
+};
 </script>

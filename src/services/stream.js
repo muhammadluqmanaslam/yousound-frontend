@@ -11,10 +11,29 @@ export default {
     })
   },
 
+  getStreamsPublicUsers(params) {
+    return Vue.http.get(`${API_BASE_URL}/public_user_streams`, {
+      params: params,
+    })
+  },
+
   getStream(streamId) {
     return Vue.http.get(`${API_BASE_URL}/${streamId}`, {
       headers: { Authorization: $store.state.auth.token },
       params: {},
+    })
+  },
+
+  getSpotlightStream(userId) {
+    return Vue.http.get(`${API_BASE_URL}/spotlight_video`, {
+      params: {user_id: userId},
+    })
+  },
+
+  getSimilarStreams(streamId, params) {
+    return Vue.http.get(`${API_BASE_URL}/${streamId}/similars`, {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
     })
   },
 
@@ -34,6 +53,16 @@ export default {
     return Vue.http.delete(`${API_BASE_URL}/${streamId}`, {
       headers: { Authorization: $store.state.auth.token },
     })
+  },
+
+  archiveStream(streamId) {
+    return Vue.http.post(
+      `${API_BASE_URL}/${streamId}/archive`,
+      {},
+      {
+        headers: { Authorization: $store.state.auth.token },
+      }
+    )
   },
 
   notifyStream(streamId) {
@@ -68,6 +97,12 @@ export default {
 
   payViewStream(streamId, params) {
     return Vue.http.post(`${API_BASE_URL}/${streamId}/pay_view`, params, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
+  payAttachment(streamId, params) {
+    return Vue.http.post(`${API_BASE_URL}/${streamId}/pay_attachment`, params, {
       headers: { Authorization: $store.state.auth.token },
     })
   },

@@ -1,35 +1,45 @@
 <template>
-  <div class="page video-page create-page mx-5">
-    <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Broadcast</h2>
-          <ul class="pr-3">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :class="{ active: tab.id === active_tab }"
-            >
-              <label @click="!tab.disabled && onTab(tab)">{{
-                tab.title
-              }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
+  <div class="page upload-child video-page broadcast-page create-page mx-5 margin-top-header">
+    <topbarNotification
+      :content="topBarContent"
+      ctaTitle="Connect"
+      :cta="{ name: 'ManageIndex', params: { tab: 'payment' } }"
+    />
+    <content-top-header>
+      <template slot="topHeader">
+        <ul>
+          <li class="active">
+            <label v-if="activeView == 'intro'">
+              Introduction to YouSound Live
+            </label>
+            <label class="nav-label" v-if="activeView == 'initStream'">
+              <img :src="require('@/assets/up_live.svg')" width="18" class="li-icon">
+              Broadcast Live
+            </label>
+          </li>
+        </ul>
+      </template>
+    </content-top-header>
 
+    <videoEstimate v-if="activeView == 'intro'" @gotoNextView="gotoNextView" />
+
+    <div v-if="activeView == 'initStream'" class="d-flex">
       <div class="page-content">
         <form v-on:submit.prevent="openPaymentDialog()">
-          <h3 class="mt-3 mb-4">Setup Broadcast</h3>
-
-          <v-divider></v-divider>
-
-          <v-layout row class="mt-5">
+          <v-layout row>
             <v-flex sm5>
+              <div>
+                <h4 class="info-title">Info</h4>
+              </div>
+
               <div class="form-group">
-                <label class="control-label"
-                  >Title of Event<span>80 char max</span></label
-                >
+                <label class="control-label max-char-label">
+                  <div>
+                    <label class="required">*</label>
+                    <span class="__title">Title of Event</span>
+                  </div>
+                  <span class="max-char">80 char max</span>
+                </label>
                 <input
                   type="text"
                   class="form-control"
@@ -37,6 +47,37 @@
                   v-model="stream.name"
                   maxlength="80"
                   v-validate="'required'"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label max-char-label">
+                  <span class="__title">Description</span>
+                  <span class="max-char">4000 char max</span>
+                </label>
+
+                <textarea
+                  class="form-control"
+                  v-model="stream.description"
+                  maxlength="4000"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">
+                  <label class="required">*</label>
+                  Category
+                </label>
+                <v-select
+                  v-model="stream.genre_id"
+                  placeholder="Select"
+                  :items="genres"
+                  name="genre"
+                  v-validate="'required'"
+                  item-text="name"
+                  item-value="id"
+                  class="pt-0"
+                  hide-details
                 />
               </div>
 
@@ -55,23 +96,10 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label">Genre</label>
+                <label class="control-label">Capacity</label>
                 <v-select
-                  :items="genres"
-                  v-model="stream.genre_id"
-                  name="genre"
-                  v-validate="'required'"
-                  item-text="name"
-                  item-value="id"
-                  class="pt-0"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Event Capacity</label>
-                <v-select
-                  :items="viewers_limits"
                   v-model="stream.viewers_limit"
+                  :items="viewers_limits"
                   v-validate="'required'"
                   item-text="name"
                   item-value="id"
@@ -80,6 +108,184 @@
               </div>
 
               <div class="form-group">
+                <label class="info-title">Thumbnail</label>
+
+                <div class="video-thumbnail-container">
+                  <div class="video-thumbnail-wrapper">
+                    <div
+                      v-if="stream_cover_url"
+                      :style="{
+                        'background-image': 'url(' + stream_cover_url + ')',
+                      }"
+                      class="video-thumbnail"
+                    ></div>
+                    <div v-else class="video-thumbnail">
+                      <div class="cover-wrapper allChildrenCenter">
+                        <input
+                          type="file"
+                          name="stream_cover_file"
+                          id="stream_cover_file"
+                          accept=".png, .jpg, .jpeg"
+                          v-validate="'required'"
+                          @change="imageChanged($event)"
+                        />
+
+                          <label for="stream_cover_file">
+                            <span v-if="stream_cover_url" class="app-blue--text">Change</span>
+                            <span v-else class="texet-xs-center dflex align-center justify-center flex-column">
+                              <img width="20" src="/static/images/ic_camera.svg" alt="">
+                              <span>upload</span>
+                            </span>
+                          </label>
+
+                        <!-- <label for="stream_cover_file">Upload</label> -->
+                        <!-- <span>*PNG, JPG, GIF</span> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div v-if="stream_cover_url" class="cover-wrapper mt-2">
+                    <input
+                      type="file"
+                      name="stream_cover_file"
+                      class="absolute"
+                      id="stream_cover_file"
+                      accept=".png, .jpg, .jpeg"
+                      v-validate="'required'"
+                      @change="imageChanged($event)"
+                    />
+                    <label for="stream_cover_file">
+                      <span class="app-blue--text">Change</span>
+                    </label>
+
+                    <!-- <label for="stream_cover_file">Upload</label> -->
+                    <!-- <span>*PNG, JPG, GIF</span> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="info-title">Attach Product/Album</label>
+                <div class="panel">
+                  <v-select
+                    v-model="stream_assoc"
+                    :items="mergedAttachmentItems"
+                    item-text="name"
+                    item-value="id"
+                    placeholder="Type name to search your products & albums"
+                    chips
+                    class="pt-0"
+                    autocomplete
+                    clearable
+                  >
+                    <template slot="item" slot-scope="data">
+                      <v-chip
+                        @input="data.parent.selectItem(data.item)"
+                        :selected="data.selected"
+                        :key="JSON.stringify(data.item)"
+                      >
+                        <v-avatar>
+                          <img v-if="data.item.album_type" :src="data.item.cover.url" />
+                          <img v-else :src="data.item.covers[0].cover.url" />
+                        </v-avatar>
+                        {{ data.item.name }}
+                      </v-chip>
+                    </template>
+
+                    <template slot="item" slot-scope="data">
+                      <template v-if="typeof data.item !== 'object'">
+                        <v-list-tile-content
+                          v-text="data.item"
+                        ></v-list-tile-content>
+                      </template>
+
+                      <template v-else>
+                        <div class="dflex width100 align-centermy-3">
+                          <v-list-tile-avatar>
+                            <img v-if="data.item.album_type" :src="data.item.cover.url" />
+                            <img v-else :src="data.item.covers[0].cover.url" />
+                          </v-list-tile-avatar>
+
+                          <v-list-tile-content class=" py-3">
+                            <v-list-tile-title
+                              v-html="data.item.name"
+                            ></v-list-tile-title>
+                          </v-list-tile-content>
+                        </div>
+                      </template>
+                    </template>
+                  </v-select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Feature profiles</label>
+                <v-select
+                  :items="friends"
+                  v-model="stream.account_ids"
+                  multiple
+                  item-text="name"
+                  item-value="id"
+                  placeholder="Type name to search people"
+                  chips
+                  class="pt-0"
+                  autocomplete
+                  clearable
+                >
+                  <template slot="selection" slot-scope="data">
+                    <v-chip
+                      @input="data.parent.selectItem(data.item)"
+                      :selected="data.selected"
+                      :key="JSON.stringify(data.item)"
+                    >
+                      <v-avatar>
+                        <img :src="data.item.avatar.url" />
+                      </v-avatar>
+                      {{ data.item.username }}
+                    </v-chip>
+                  </template>
+                  <template slot="item" slot-scope="data">
+                    <template v-if="typeof data.item !== 'object'">
+                      <v-list-tile-content
+                        v-text="data.item"
+                      ></v-list-tile-content>
+                    </template>
+                    <template v-else>
+                      <v-list-tile-avatar>
+                        <img v-bind:src="data.item.avatar.url" />
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                        <v-list-tile-title
+                          v-html="data.item.username"
+                        ></v-list-tile-title>
+                      </v-list-tile-content>
+                    </template>
+                  </template>
+                </v-select>
+              </div>
+
+              <!-- <div class="form-group viewer-support">
+                <label class="control-label">Allow viewer support</label>
+                <ul>
+                  <li>
+                    Upload a small file to include anything from music to videos
+                  </li>
+                  <li>
+                    Your viewers will be able to pay $1, $10, $100, or name
+                    their own price for this file.
+                  </li>
+                  <li>
+                    File is only available for the duration of the broadcast &
+                    downloadable on direct message
+                  </li>
+                </ul>
+                <digital-uploader
+                  :digitalContent="digital_content"
+                  accept=".zip, .mp3"
+                />
+              </div> -->
+
+              <!-- <div class="form-group">
                 <div class="helper-label">
                   <label class="control-label">Spend Limit</label>
                   <v-tooltip left>
@@ -99,20 +305,9 @@
                   item-value="value"
                   class="pt-0"
                 />
-              </div>
+              </div> -->
 
-              <div class="form-group">
-                <label class="control-label"
-                  >Description<span>160 char max</span></label
-                >
-                <textarea
-                  class="form-control"
-                  v-model="stream.description"
-                  maxlength="160"
-                />
-              </div>
-
-              <div class="text-center mt-5">
+              <!-- <div class="text-center mt-5">
                 <p class="regular-checkbox ma-0">
                   <input
                     id="terms"
@@ -132,113 +327,25 @@
                   >
                 </p>
 
-                <v-btn round dark color="blue" class="px-5" type="submit"
-                  >Create Channel</v-btn
-                >
-              </div>
-            </v-flex>
-
-            <v-flex sm7 pl-5>
-              <div class="form-group">
-                <label class="control-label">Thumbnail</label>
-
-                <div class="video-thumbnail-container">
-                  <div class="video-thumbnail-wrapper">
-                    <div
-                      v-if="stream_cover_url"
-                      :style="{
-                        'background-image': 'url(' + stream_cover_url + ')',
-                      }"
-                      class="video-thumbnail"
-                    ></div>
-                    <div v-else class="video-thumbnail">
-                      <!-- <label>PREVIEW</label> -->
-                    </div>
-                  </div>
-
-                  <div class="cover-wrapper">
-                    <input
-                      type="file"
-                      name="stream_cover_file"
-                      id="stream_cover_file"
-                      accept=".png, .jpg, .jpeg"
-                      v-validate="'required'"
-                      @change="imageChanged($event)"
-                    />
-                    <label for="stream_cover_file">Upload</label>
-                    <span>*PNG, JPG, GIF</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="control-label">Add feature profiles</label>
-                <v-select
-                  :items="friends"
-                  v-model="stream.account_ids"
-                  multiple
-                  item-text="name"
-                  item-value="id"
-                  placeholder="Type name to search"
-                  chips
-                  class="pt-0"
-                  autocomplete
-                  clearable
-                >
-                  <template slot="selection" slot-scope="data">
-                    <v-chip
-                      @input="data.parent.selectItem(data.item)"
-                      :selected="data.selected"
-                      :key="JSON.stringify(data.item)"
-                    >
-                      <v-avatar>
-                        <img :src="data.item.avatar.url" />
-                      </v-avatar>
-                      {{ data.item.display_name }}
-                    </v-chip>
-                  </template>
-                  <template slot="item" slot-scope="data">
-                    <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content
-                        v-text="data.item"
-                      ></v-list-tile-content>
-                    </template>
-                    <template v-else>
-                      <v-list-tile-avatar>
-                        <img v-bind:src="data.item.avatar.url" />
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title
-                          v-html="data.item.display_name"
-                        ></v-list-tile-title>
-                      </v-list-tile-content>
-                    </template>
-                  </template>
-                </v-select>
-              </div>
-
-              <div class="form-group viewer-support">
-                <label class="control-label">Allow viewer support</label>
-                <ul>
-                  <li>
-                    Upload a small file to include anything from music to videos
-                  </li>
-                  <li>
-                    Your viewers will be able to pay $1, $10, $100, or name
-                    their own price for this file.
-                  </li>
-                  <li>
-                    File is only available for the duration of the broadcast &
-                    downloadable on direct message
-                  </li>
-                </ul>
-                <digital-uploader
-                  :digitalContent="digital_content"
-                  accept=".zip, .mp3"
-                />
-              </div>
+                <v-btn round dark color="blue" class="px-5" type="submit">
+                  Create Channel
+                </v-btn>
+              </div> -->
             </v-flex>
           </v-layout>
+
+          <div class="submit-section">
+            <hr class="mb-3" />
+
+            <v-btn 
+              round 
+              flat 
+              class="release-now-btn white--text" 
+              type="submit"
+            >
+              Create Channel
+            </v-btn>
+          </div>
         </form>
       </div>
     </div>
@@ -346,9 +453,7 @@
                 <label class="control-label"
                   >Creator<span class="required">*</span></label
                 >
-                <label class="creator-name">{{
-                  currentUser.display_name
-                }}</label>
+                <label class="creator-name">{{ currentUser.username }}</label>
               </v-flex>
               <v-flex xs6 sm3>
                 <label class="control-label"
@@ -463,3 +568,4 @@
 </template>
 
 <script type="text/javascript" src="./create.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped>

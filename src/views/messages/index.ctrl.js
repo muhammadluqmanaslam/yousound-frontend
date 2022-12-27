@@ -14,6 +14,7 @@ import profileItem from '@/components/profileitem'
 import { Picker } from 'emoji-mart-vue'
 import repostPaymentModal from '@/components/repost_payment_modal'
 import SendLoveModal from '@/components/sendlovemodal'
+import SMS from '@/components/SMS'
 import message from './components/message'
 
 const ActionCable = require('actioncable')
@@ -26,6 +27,7 @@ export default {
     message,
     repostPaymentModal,
     SendLoveModal,
+    SMS,
   },
 
   mixins: [onClickOutside],
@@ -38,6 +40,7 @@ export default {
       show_conversation_delete_confirm_dialog: false,
       show_block_user_confirm_dialog: false,
       show_repost_payment_modal: false,
+      show_repost_modal: false,
       show_send_love_modal: false,
       showEmojiPicker: false,
       page_index: 0,
@@ -74,6 +77,9 @@ export default {
       },
       repostedFeeds: [],
       isPageReady: false,
+      smsActive: false,
+      repostRequestActive: false,
+      isSubscribed: false,
     }
   },
 
@@ -178,6 +184,20 @@ export default {
   },
 
   methods: {
+    async fetchSubscriptionDetails() {
+      await UserService.getSubscriptionDetail(this.currentUser.id)
+      .then((response) => {
+        if (response.bodyText === "Subscribed") {
+          this.isSubscribed = true
+        } else {
+          this.isSubscribed = false
+        }
+      })
+      .catch((e) => {
+        this.isSubscribe = false
+      })
+    },
+
     loadConversations(loadMore) {
       this.$store.dispatch('error/showLoadingActivity', true)
       let params
@@ -377,7 +397,11 @@ export default {
     checkMessage() {
       if (this.item) {
         this.openRepostPaymentModal()
-      } else {
+      }
+      else if (!this.currentUser.creator_verified) {
+        this.$router.push({path: '/subscribe#plans'})
+      }
+      else {
         this.sendMessage()
       }
     },
@@ -494,6 +518,14 @@ export default {
       this.show_repost_payment_modal = false
     },
 
+    openRepostModal() {
+      this.show_repost_modal = true
+    },
+
+    closeRepostModal() {
+      this.show_repost_modal = false
+    },
+
     openSendLoveModal() {
       this.show_send_love_modal = true
     },
@@ -516,7 +548,19 @@ export default {
         }
       }
     },
+    initSMS() {
+      if (!this.currentUser.creator_verified) {
+        this.$router.push({path: '/subscribe#plans'})
+      } else {
+        this.smsActive = true
+      }
+    },
+    closeSMS() {
+      this.smsActive = false
+    },
   },
 
-  mounted() {},
+  mounted() {
+    this.fetchSubscriptionDetails();
+  },
 }

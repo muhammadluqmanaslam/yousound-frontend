@@ -1,0 +1,614 @@
+<template>
+  <v-container
+    fluid py-0
+    @touchstart="touchStart"
+    @touchend="touchEnd"
+  >
+    <div v-if="onMobileStrict" class="mobile-top _logo">
+      <div class="logo-img-wrapper" :class="{'allChildrenCenter': activeView == 'landingView'}">
+        <img
+          :src="require('@/assets/nav_logo_primary.png')"
+          width="130"
+          alt="Yousound Logo"
+          class="cursor-pointer logo-img"
+          @click="activeView = 'landingView'"
+        />
+      </div>
+
+      <div class="switch-tab" :class="{'landingView': activeView == 'landingView', 'learnMoreView': activeView == 'learnMoreView'}">
+        <span
+          class="_icon"
+          :class="{_filled: activeView === 'landingView'}"
+          @click="activeView = 'landingView'"
+          ></span>
+        <span
+          class="_icon"
+          :class="{_filled: activeView === 'learnMoreView'}"
+          @click="activeView = 'learnMoreView'"
+          ></span>
+      </div>
+    </div>
+
+    <v-layout align-center full-authTabs-wrapper justify-center row>
+      <v-flex
+        v-if="activeView != 'loginView' &&  activeView != 'signUpView'"
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'landingView')"
+        flex-column
+        xs12
+        sm6
+        allChildrenCenter
+        full-authTabs-twin
+        full-authTabs-left
+        text-center
+        :class="{onMobileStrict}"
+      >
+        <div v-if="!onMobileStrict" class="_logo">
+          <img
+            :src="require('@/assets/nav_logo_primary.png')"
+            width="130"
+            alt="Yousound Logo"
+            class="cursor-pointer logo-img"
+            @click="activeView = 'landingView'"
+          />
+        </div>
+
+        <v-spacer></v-spacer>
+
+        <div class="_banner">
+          <img
+            :src="require('@/assets/banner.gif')"
+            width="70%"
+            alt="artist with sound machine"
+          />
+        </div>
+
+        <h2 class="intro-title mt-5">The best place for <br v-if="onMobileStrict" /> music lovers.</h2>
+
+        <div v-if="showAuthCTA && !onMobileStrict" class="dflex auth-btns mt-3">
+          <v-btn
+            v-if="showSignupBtn"
+            :ripple="false"
+            depressed
+            dark
+            round
+            @click="activeView = 'signUpView'"
+          >
+            Signup
+          </v-btn>
+          <v-btn
+            v-if="showLoginBtn"
+            :ripple="false"
+            depressed
+            round
+            outline
+            @click="showLogin"
+          >
+            Login
+          </v-btn>
+        </div>
+
+        <h2
+          v-if="showAuthCTA"
+          class="learn-more"
+          @click="handleLearnMore"
+        >
+          Learn More
+        </h2>
+
+        <div v-if="onMobileStrict" class="app-download">
+          <img
+            :src="iosStore"
+            width="40%"
+            class="ios-store mr-3"
+            alt="ios app store icon"
+          />
+          <img
+            :src="androidPlaystore"
+            width="40%"
+            class="android-store"
+            alt="android app store icon"
+          />
+        </div>
+
+        <v-spacer></v-spacer>
+
+        <app-footer
+          v-if="!onMobileStrict"
+        ></app-footer>
+      </v-flex>
+
+      <v-flex
+        v-show="!onMobileStrict || (onMobileStrict && activeView === 'learnMoreView')" 
+        xs12
+        sm6
+        full-authTabs-twin
+        full-authTabs-right
+        :class="{ auth__view: toDisplayGrid, onMobileStrict }"
+      >
+        <!-- <v-icon
+          v-if="showAuthCancelBtn && !onMobileStrict"
+          class="cancel-icon-round"
+          @click="activeView = 'landingView'"
+        >
+          cancel
+        </v-icon> -->
+
+        <div v-if="activeView === 'landingView'" class="landing-view">
+          <div class="trending-top dflex align-center justify-space-between">
+            <h2 class="trending-title">Trending</h2>
+
+            <content-top-header absolute>
+              <template slot="topHeader">
+                <ul class="pr-3">
+                  <li
+                    v-for="tab in tabs"
+                    :key="tab.id"
+                    :href="`#${tab.id}`"
+                    class="nav-li"
+                    :class="[
+                      { 'active tab-active': isActiveTab(tab.id) },
+                      `nav-${tab.id}`,
+                    ]"
+                  >
+                    <label class="nav-label" @click="onTab(tab.id)">
+                      <img
+                        v-if="tab.icon"
+                        :src="tab.icon"
+                        width="18"
+                        class="li-icon"
+                      />
+                      {{ tab.title }}
+                    </label>
+                  </li>
+
+                  <v-spacer></v-spacer>
+                </ul>
+              </template>
+            </content-top-header>
+          </div>
+
+          <transition name="slide-left">
+            <trending-music
+              v-if="activeTab === 'music'"
+              :listLimit="20"
+              classAttr="xs3 px-1 mb-1"
+              hideTrackLength
+              noMeta
+              hideCta
+              showHoverTrackInfo
+              title=""
+              playButton2
+              playButton2IconHasWhiteBG
+            />
+          </transition>
+
+          <transition name="slide-left">
+            <trending-video
+              v-if="activeTab === 'videos'"
+              :listLimit="20"
+              classAttr="xs4 px-1"
+              title=""
+              coverOnly
+              showFullOverlay
+              hoverOverlay
+              hideCta
+              coverRadius
+            />
+          </transition>
+
+          <transition name="slide-left">
+            <trending-product
+              v-if="activeTab === 'merch'"
+              :listLimit="20"
+              classAttr="xs3 px-1 mb-1"
+              :altMeta="false"
+              hideCta
+              title=""
+              showFullOverlay
+            />
+          </transition>
+        </div>
+
+        <div v-if="activeView === 'signUpView'" class="signup-view">
+          <div class="sign-up_logo" @click="activeView = 'landingView'">
+            <img :src="require('@/assets/nav_logo_primary.png')" width="150">
+          </div>
+          <Onboarding />
+        </div>
+
+        <div v-if="activeView === 'loginView'" class="login-view">
+          <div class="sign-up_logo" @click="activeView = 'landingView'">
+            <img :src="require('@/assets/nav_logo_primary.png')" width="150">
+          </div>
+          <div v-if="loginAuth === 'login'" class="login-input">
+            <div class="intro-text text-xs-center my-4">
+              <h2>Hello,</h2>
+              <h2>welcome back!</h2>
+            </div>
+            <login-input :showForgotPassword="showForgotPassword" />
+          </div>
+
+          <div v-if="loginAuth === 'forgotPassword'" class="forgot-password-input">
+            <div class="intro-text text-xs-center">
+              <h2>Forgot Password</h2>
+            </div>
+
+            <forgot-password-input :showLogin="showLogin" />
+          </div>
+        </div>
+
+        <div v-if="activeView === 'learnMoreView'" class="learn-more-view" :style="{'width': onMobileStrict ? '97%' : null }">
+          <learn-more />
+        </div>
+      </v-flex>
+    </v-layout>
+    <Footer></Footer>
+  </v-container>
+</template>
+
+<script>
+import Join from "../../components/landingPages/Join.vue";
+import Footer from "../../components/landingPages/Footer.vue";
+import Header from "@/components/landingPages/Header.vue";
+import Banner from "@/components/landingPages/Banner.vue";
+import CRow from "@/components/landing1/CRow.vue";
+import appFooter from "@/components/footer";
+import { mapActions, mapGetters, mapState } from "vuex";
+import trendingMusic from "@/views/mobile/components/trending/music";
+import trendingVideo from "@/views/mobile/components/trending/videos";
+import trendingProduct from "@/views/mobile/components/trending/products";
+import contentTopHeader from "@/components/contentTopHeader";
+import Onboarding from "@/views/mobile/auth/onboarding";
+import LoginInput from "@/views/auth/loginInput";
+import LearnMore from "@/views/mobile/auth/learnMore";
+import forgotPasswordInput from '@/views/auth/forgotPasswordInput/'
+
+export default {
+  name: "Landing1",
+  components: {
+    Header,
+    Banner,
+    CRow,
+    Join,
+    Footer,
+    appFooter,
+    trendingMusic,
+    trendingVideo,
+    trendingProduct,
+    contentTopHeader,
+    Onboarding,
+    LoginInput,
+    LearnMore,
+    forgotPasswordInput,
+  },
+  data() {
+    return {
+      loginAuth: "login",
+      iosStore: require("@/assets/img_download_app_store.svg"),
+      androidPlaystore: require("@/assets/img_download_play_store.svg"),
+      activeView: "landingView",
+      activeTab: "music",
+      tabs: [
+        { id: "music", title: "Music" },
+        { id: "videos", title: "Video" },
+        { id: "merch", title: "Shop" },
+      ],
+      items_per_page: 20,
+      touchstartX: null,
+      touchstartY: null,
+      touchendX: null
+    };
+  },
+  created() {
+    if (this.$store.state.auth.user != null) {
+      this.$router.push({name: 'UserSettings'})
+    }
+  },
+  computed: {
+    ...mapState({
+      musicFeed: (state) => state.trending.albums,
+      currentSignUpStage: (state) => state.app.onboarding.current,
+      signUpAccountCategory: (state) => state.app.onboarding.accountCategory,
+    }),
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      onMobileStrict: "app/onMobileStrict",
+    }),
+    showAuthCTA() {
+      if (
+        !this.signUpAccountCategory ||
+        (this.signUpAccountCategory == "creator" &&
+          this.currentSignUpStage !== 7)
+      ) {
+        return true;
+      }
+    },
+    toDisplayGrid() {
+      return (
+        this.activeView === "signUpView" || this.activeView === "loginView"
+      );
+    },
+    showSignupBtn() {
+      return this.activeView !== "signUpView";
+    },
+    showLoginBtn() {
+      return this.activeView !== "loginView";
+    },
+    showAuthCancelBtn() {
+      return (
+        (this.activeView === "signUpView" && this.currentSignUpStage < 7) ||
+        this.activeView === "loginView" || this.activeView === "learnMoreView"
+      );
+    },
+  },
+  methods: {
+    ...mapActions({
+      getTrendingMusic: "trending/getTrendingMusic",
+    }),
+    isActiveTab(tab) {
+      return this.activeTab === tab;
+    },
+    showForgotPassword() {
+      this.loginAuth = "forgotPassword"
+    },
+    showLogin() {
+      this.loginAuth = "login"
+      this.activeView = 'loginView'
+    },
+    onTab(tab) {
+      this.activeTab = tab;
+    },
+    loadTrendingMusic() {
+      if (this.musicFeed.length) return;
+
+      const params = {
+        filter: "new",
+        genre: "any",
+        category: "any",
+        page: 1,
+        per_page: this.items_per_page,
+      };
+
+      this.getTrendingMusic(params);
+    },
+    handleLearnMore() {
+      this.activeView = 'learnMoreView'
+    },
+    touchEnd(evt) {      
+      if (!this.onMobileStrict) return;
+
+      let touchstartX = evt.changedTouches[0].screenY
+      let touchendX = this.touchendX
+
+      if (touchendX < touchstartX) {
+        console.log('Swiped Left');
+        this.activeView = "learnMoreView"
+
+        if (this.endRight) {
+          evt.stopPropagation()
+        }
+      }
+      
+      if (touchendX > touchstartX) {
+        console.log('Swiped Right');
+        this.activeView = "landingView"
+
+        if (this.endLeft) {
+          evt.stopPropagation()
+        }
+      }
+
+      this.touchendX = null
+    },
+    touchStart(evt) {
+      if (!this.onMobileStrict) return;
+
+      this.touchendX = evt.changedTouches[0].screenY
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.full-authTabs {
+  &-container {
+    // padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    // min-height: 70vh;
+
+    .mobile-top {
+      &._logo {
+        padding-top: 32px;
+        padding-bottom: 32px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+  
+        .logo-img {
+          width: 113px;
+  
+          &-wrapper {
+            flex: 1;
+          }
+        }
+  
+        .switch-tab {
+          display: flex;
+          position: absolute;
+          right: 16px;
+  
+          ._icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 100px;
+            margin-right: 5px;
+            border: 1px solid #000000;
+
+            &._filled {
+              background-color: #000000;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &-twin {
+    height: 100vh;
+  }
+
+  &-left {
+    padding-top: 32px;
+    padding-bottom: 32px;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+
+    &.onMobileStrict {
+      border-right: none;
+    }
+
+    .intro-title {
+      font-size: 28px;
+    }
+
+    .app-download {
+      margin-top: 100px;
+    }
+
+    .learn-more {
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 50px;
+      font-size: 20px;
+    }
+
+    .my-footer {
+      padding-bottom: 0;
+    }
+  }
+
+  &-right {
+    overflow-y: scroll;
+    position: relative;
+    padding-left: 20px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 2px;
+      display: none;
+    }
+
+    &::-webkit-scrollbar-track {
+      display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      display: none;
+    }
+
+    &.onMobileStrict {
+      padding-left: 0;
+    }
+
+    .cancel-icon-round {
+      top: 26px;
+    }
+
+    &.auth__view {
+      display: grid;
+    }
+
+    .trending {
+      &-top {
+        position: sticky;
+        top: 0;
+        z-index: 9;
+        background-color: #ffffff;
+
+        .trending-title {
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 40px;
+          letter-spacing: -1px;
+        }
+
+        .top-menu {
+          width: fit-content;
+          width: -moz-fit-content;
+        }
+      }
+
+      &-music {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+    }
+    
+    .login-view {
+      margin: 0 auto;
+      padding-top: 10%;
+
+      .sign-up_logo{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25%;
+      }
+
+      .intro-text h2 {
+        font-size: 28px;
+        font-weight: 500;
+      }
+    }
+
+    .signup-view {
+      width: 60%;
+      height: 55%;
+      padding-top: 10%;
+      margin: 0 auto;
+
+
+      .intro-text h2 {
+        font-size: 28px;
+      }
+
+
+      .sign-up_logo{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25%;
+      }
+
+      .onboarding {
+        min-height: 100%;
+        justify-content: space-around;
+
+        /deep/ .stager {
+          position: relative;
+        }
+
+        /deep/ &_comp {
+          &.profile-image {
+            .profile-image-holder {
+              margin-top: 40px;
+              width: 200px;
+              height: 200px;
+            }
+          }
+        }
+
+        /deep/ .auth-plan {
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 30px;
+          width: 100%;
+        }
+      }
+    }
+    .login-view {
+      width: 50%;
+    }
+  }
+}
+</style>

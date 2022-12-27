@@ -86,7 +86,7 @@
                   <label class="item-title">{{
                     message.attachment.assoc.name
                   }}</label>
-                  <a class="item-user">{{ message.sender.display_name }}</a>
+                  <a class="item-user">{{ message.sender.username }}</a>
                 </div>
               </div>
               <div
@@ -103,7 +103,7 @@
                   <label class="item-title">{{
                     message.attachment.assoc.name
                   }}</label>
-                  <a class="item-user">{{ message.sender.display_name }}</a>
+                  <a class="item-user">{{ message.sender.username }}</a>
                 </div>
               </div>
             </div>
@@ -121,7 +121,7 @@
                 <template v-if="message.attachment.attachable_type == 'Album'">
                   <!-- <div class="label-message-section">
                     <div class="label-message">
-                      {{ message.attachment.assoc.user.display_name }} wants to
+                      {{ message.attachment.assoc.user.username }} wants to
                       upload this album collaboration
                     </div>
                   </div> -->
@@ -134,7 +134,7 @@
                     <label class="item-title">{{
                       message.attachment.assoc.name
                     }}</label>
-                    <a class="item-user">{{ message.sender.display_name }}</a>
+                    <a class="item-user">{{ message.sender.username }}</a>
                   </div>
                   <div
                     class="artist-list"
@@ -145,7 +145,7 @@
                       :key="c.id"
                       class="artist"
                     >
-                      <span>{{ c.user.display_name }}</span>
+                      <span>{{ c.user.username }}</span>
                       <span>{{ c.user_role }}</span>
                     </div>
                   </div>
@@ -157,7 +157,7 @@
                 >
                   <!-- <div class="label-message-section">
                     <div class="label-message">
-                      {{ message.attachment.assoc.merchant.display_name }} wants
+                      {{ message.attachment.assoc.merchant.username }} wants
                       to upload this product collaboration
                     </div>
                   </div> -->
@@ -171,7 +171,7 @@
                     <label class="item-title">{{
                       message.attachment.assoc.name
                     }}</label>
-                    <a class="item-user">{{ message.sender.display_name }}</a>
+                    <a class="item-user">{{ message.sender.username }}</a>
                   </div>
                   <div
                     class="artist-list"
@@ -179,8 +179,8 @@
                   >
                     <div class="artist">
                       <span
-                        >{{ message.attachment.assoc.merchant.display_name }}(
-                        Owner )</span
+                        >{{ message.attachment.assoc.merchant.username }}( Owner
+                        )</span
                       >
                       <span
                         >{{ message.attachment.assoc.creator_share }} %</span
@@ -200,7 +200,7 @@
                       :key="c.id"
                       class="artist"
                     >
-                      <span>{{ c.user.display_name }}</span>
+                      <span>{{ c.user.username }}</span>
                       <span>{{ c.user_share }} %</span>
                     </div>
                   </div>
@@ -222,7 +222,7 @@
                       v-else-if="
                         message.attachment.attachable_type == 'ShopProduct'
                       "
-                      to="/sell#pendings"
+                      @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
                       >View & Release</v-btn
                     >
                   </div>
@@ -236,7 +236,7 @@
                       v-else-if="
                         message.attachment.attachable_type == 'ShopProduct'
                       "
-                      to="/sell#pendings"
+                      @click="$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })"
                       >View Pending Collaboration</v-btn
                     >
                   </div>
@@ -272,7 +272,7 @@
                   ></div>
                   <div class="info-section">
                     <label class="item-title">{{
-                      message.attachment.assoc.display_name
+                      message.attachment.assoc.username
                     }}</label>
                   </div>
                 </template>
@@ -379,7 +379,7 @@
                   <label class="item-title">{{
                     message.attachment.assoc.name
                   }}</label>
-                  <a class="item-user">{{ message.sender.display_name }}</a>
+                  <a class="item-user">{{ message.sender.username }}</a>
                 </div>
               </div>
             </div>
@@ -410,12 +410,12 @@
 </template>
 
 <script>
-import AlbumService from '@/services/album'
-import MessageService from '@/services/message'
-import UserService from '@/services/user'
-import { Utils } from '@/helper'
-import activityAlbumCard from '@/components/activityalbumcard'
-import activityProductCard from '@/components/activityproductcard'
+import AlbumService from "@/services/album";
+import MessageService from "@/services/message";
+import UserService from "@/services/user";
+import { Utils } from "@/helper";
+import activityAlbumCard from "@/components/activityalbumcard";
+import activityProductCard from "@/components/activityproductcard";
 
 export default {
   components: {
@@ -423,19 +423,19 @@ export default {
     activityProductCard,
   },
 
-  props: ['message', 'isOwn'],
+  props: ["message", "isOwn"],
 
   data() {
-    return {}
+    return {};
   },
 
   computed: {
     currentUser() {
-      return this.$store.state.auth.user
+      return this.$store.state.auth.user;
     },
 
     toLocalTimeString() {
-      return Utils.toLocalTimeString
+      return Utils.toLocalTimeString;
     },
   },
 
@@ -443,65 +443,65 @@ export default {
     removeRepostRequest(message) {
       MessageService.removeRepost(message.id)
         .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            'Removed a repost request!',
-          ])
-          this.$emit('updated')
+          this.$store.dispatch("error/showSuccessToast", [
+            "Removed a repost request!",
+          ]);
+          this.$emit("updated");
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     acceptRepostRequest(message) {
       MessageService.acceptRepost(message.id)
         .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            'Accepted a repost request!',
-          ])
-          this.$emit('updated')
+          this.$store.dispatch("error/showSuccessToast", [
+            "Accepted a repost request!",
+          ]);
+          this.$emit("updated");
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     denyRepostRequest(message) {
       MessageService.denyRepost(message.id)
         .then((response) => {
-          this.$store.dispatch('error/showErrorToast', [
-            'Denied a repost request!',
-          ])
-          this.$emit('updated')
+          this.$store.dispatch("error/showErrorToast", [
+            "Denied a repost request!",
+          ]);
+          this.$emit("updated");
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     acceptRepostRequestOnFree(message) {
       MessageService.acceptRepostOnFree(message.id)
         .then((response) => {
-          this.$store.dispatch('error/showSuccessToast', [
-            'Accepted a repost request on free!',
-          ])
-          this.$emit('updated')
+          this.$store.dispatch("error/showSuccessToast", [
+            "Accepted a repost request on free!",
+          ]);
+          this.$emit("updated");
         })
         .catch((e) => {
           this.$store.dispatch(
-            'error/showErrorToast',
+            "error/showErrorToast",
             e.body.errors || [e.body]
-          )
-        })
+          );
+        });
     },
 
     // viewPendingCollaboration (message) {
@@ -539,28 +539,28 @@ export default {
     // },
 
     acceptLabelUser(message) {
-      UserService.acceptLabelRequest(message.sender.id)
+      UserService.acceptLabelRequest(message.sender.id);
     },
 
     denyLabelUser(message) {
-      UserService.denyLabelRequest(message.sender.id)
+      UserService.denyLabelRequest(message.sender.id);
     },
 
     acceptLabelAlbum(message) {
       const params = {
         label_id: message.sender.id,
-      }
-      AlbumService.acceptLabelRequest(message.attachment.assoc.id, params)
+      };
+      AlbumService.acceptLabelRequest(message.attachment.assoc.id, params);
     },
 
     denyLabelAlbum(message) {
       const params = {
         label_id: message.sender.id,
-      }
-      AlbumService.denyLabelRequest(message.attachment.assoc.id, params)
+      };
+      AlbumService.denyLabelRequest(message.attachment.assoc.id, params);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -568,15 +568,15 @@ export default {
   padding: 3.75px 15px 0px;
   .messaged-time {
     text-align: center;
-    font-size: 13.5px;
-    color: #9f9f9f;
+    font-size: 13px;
+    color: #7a7a7a;
     letter-spacing: 0;
     margin-bottom: 17.5px;
   }
   .message-section {
     .user-avatar-image {
-      width: 60px;
-      height: 60px;
+      width: 40px;
+      height: 40px;
       display: inline-block;
       overflow: hidden;
       background-size: cover;
@@ -597,9 +597,7 @@ export default {
           width: 100%;
           word-break: break-word;
           white-space: pre-line;
-          font-size: 16px;
-          letter-spacing: -0.5px;
-          font-family: 'Work Sans';
+          font-size: 14px;
         }
       }
       &.request {
@@ -662,7 +660,7 @@ export default {
               font-size: 16px;
               margin-right: 3px;
               letter-spacing: -0.6px;
-              font-family: 'Work Sans';
+              font-family: "Work Sans";
             }
           }
           .repost-item-image {
@@ -706,7 +704,7 @@ export default {
               font-weight: 700;
               font-size: 15px;
               letter-spacing: -0.8px;
-              font-family: 'Work Sans';
+              font-family: "Work Sans";
             }
             .item-user {
               display: block;
@@ -751,8 +749,9 @@ export default {
       position: relative;
       float: right;
       text-align: left;
-      background: #f1f1f1;
+      background: #f7f7f7;
       margin-right: 5px;
+      max-width: 600px;
 
       &.no-top-corner {
         border-top-right-radius: 7.5px;

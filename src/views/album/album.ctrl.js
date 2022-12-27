@@ -20,6 +20,9 @@ import sampleLicenseDialog from './components/sample_license_dialog'
 import shareModal from '@/components/sharemodal'
 import trackCard from '@/components/trackcard'
 import videoCard from '@/components/videocard'
+import Comments from '@/components/comments'
+import featuredProduct from '@/components/featuredProduct'
+import CollectionService from '@/services/collection'
 
 const ActionCable = require('actioncable')
 
@@ -38,6 +41,8 @@ export default {
     shareModal,
     trackCard,
     videoCard,
+    Comments,
+    featuredProduct,
   },
 
   data() {
@@ -175,14 +180,17 @@ export default {
 
   created() {
     // this.$store.dispatch('navigator/setCurrentState', { page: 'upload', tab: '' })
-    this.$store.dispatch('navigator/goNextState', {
-      page: 'album/show',
-      tab: '',
-    })
+    this.$store.dispatch('navigator/goNextState', { page: 'album', tab: '' })
     // console.log('current', this.$store.state.navigator.current)
     // console.log('last', this.$store.getters['navigator/last'])
 
-    this.loadData()
+    if (this.currentUser !== null) {
+      this.loadData()
+    } else {
+      this.loadDataPublicUser()
+    }
+
+    console.log('alb', this.album);
   },
 
   beforeDestroy() {
@@ -199,9 +207,27 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    addToCollection() {
+      let params = { album_id: this.album.id }
+      CollectionService.createCollection(params)
+      .then((response) => {
+        this.$store.dispatch('error/showSuccessToast', [
+          'You just added ' + this.album.name + ' album in your collection.',
+        ])
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast',
+          e.body.errors || [e.body] || [e.body.error]
+        )
+      })
+    },
+
     loadData() {
       const vm = this
       this.slug = this.$route.params.slug
+      console.log('slug: ', this.slug);
+      this.commentTableType = "Album";
       this.comments = []
       this.comment_pagination = {
         count: 0,
@@ -217,6 +243,8 @@ export default {
       ])
         .then((values) => {
           this.album = values[0].body
+          console.log("this.album====>", this.album)
+          console.log("description=== length--->", this.album.description.length)
           // Vue.set(this, "album", values[0].body)
           // for (let index in this.album.tracks) {
           //   this.buttonHover.push(false)
@@ -311,8 +339,41 @@ export default {
         .catch((reason) => {
           console.log(reason)
           // this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showErrorToast', reason)
+          this.$store.dispatch('error/showErrorToast', reason.body.errors || reason)
         })
+    },
+
+    loadDataPublicUser() {
+      const vm = this
+      this.slug = this.$route.params.slug
+      console.log('slug: ', this.slug);
+      this.commentTableType = "Album";
+      // this.comments = []
+      // this.comment_pagination = {
+      //   count: 0,
+      //   current_page: 0,
+      //   per_page: 5,
+      //   total_count: 0,
+      //   total_pages: 0,
+      // }
+      this.isPageReady = false
+      Promise.all([
+        AlbumService.getAlbumPublicUser(this.slug),
+      ])
+        .then((values) => {
+          this.album = values[0].body
+          console.log("this.album====>", this.album)
+          console.log("description public === length--->", this.album.description.length)
+
+          this.$emit('updateHead')
+
+          this.isPageReady = true
+        })
+        .catch((reason) => {
+          console.log(reason)
+          // this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showErrorToast', reason)
+        })  
     },
 
     convertedHTML(text) {
@@ -345,53 +406,14 @@ export default {
         // canvas.height = imageObj.height
         cctx.drawImage(imageObj, 0, 0)
         StackBlur.image(imageObj, canvas, 70, false)
-        var height = $('#album_info_page').height() + 230
-        var screen_height = $(window).height()
-        if (height > screen_height) {
-          height += 50
-        } else {
-          height = screen_height
-        }
+
+        var wrapper_height = $('.album-pages').height() + 130
+        const height = wrapper_height
+
         if (canvas) {
           $('#canvas').css('cssText', 'height: ' + height + 'px !important;')
         }
         $('#back_image').css('cssText', 'height: ' + height + 'px !important;')
-      }
-    },
-
-    followUser(user) {
-      if (user.is_following) {
-        UserService.unfollowUser(user.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + user.display_name,
-            ])
-            user.is_following = false
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, user.id, false)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      } else {
-        UserService.followUser(user.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + user.display_name,
-            ])
-            user.is_following = true
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, user.id, true)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
       }
     },
 
@@ -648,13 +670,9 @@ export default {
     const vm = this
     $(window)
       .resize(function () {
-        var height = $('#album_info_page').height() + 230
-        var screen_height = $(window).height()
-        if (height > screen_height) {
-          height += 50
-        } else {
-          height = screen_height
-        }
+        var wrapper_height = $('.album-pages').height() + 130
+        const height = wrapper_height
+
         var canvas = document.getElementById('canvas')
         if (canvas) {
           $('#canvas').css('cssText', 'height: ' + height + 'px !important;')

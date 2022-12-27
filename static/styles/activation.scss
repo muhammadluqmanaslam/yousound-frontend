@@ -1,0 +1,32 @@
+.account-activation {
+    .carousel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+
+        .carousel__item {
+            flex-direction: column;    
+        }
+
+        .stage-img {
+            width: 65%;
+        }
+
+        &.endLeft {
+            .carousel__left {
+                display: none;
+            }
+        }
+        &.endRight {
+            .carousel__right {
+                display: none;
+            }
+        }
+
+        .carousel__left, .carousel__right {
+            opacity: 0.5;
+            top: 90%;
+        }
+    }
+}

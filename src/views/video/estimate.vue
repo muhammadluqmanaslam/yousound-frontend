@@ -1,26 +1,7 @@
 <template>
-  <div class="page video-page info-page mx-5">
+  <div class="page video-page info-page">
     <div class="d-flex">
-      <div class="page-left">
-        <div class="tab-container">
-          <h2 class="page-title">Broadcast</h2>
-          <ul class="pr-3">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :class="{ active: tab.id === active_tab }"
-            >
-              <label @click="!tab.disabled && onTab(tab)">{{
-                tab.title
-              }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
-
       <div class="page-content" v-if="isPageReady">
-        <h3 class="mt-3 mb-4">Introduction to YouSound Live</h3>
-        <v-divider></v-divider>
         <v-layout row wrap>
           <v-flex xs6 class="description-container">
             <h4>How it works</h4>
@@ -45,7 +26,7 @@
               dark
               color="blue"
               class="mt-4"
-              :to="`/user/${currentUser.slug}/video/create`"
+              @click="gotoNextView"
               >Setup Live Stream</v-btn
             >
           </v-flex>
@@ -183,3 +164,4 @@
 </template>
 
 <script src="./estimate.ctrl.js"></script>
+<style src="../../../static/styles/video.scss" lang="scss" scoped>

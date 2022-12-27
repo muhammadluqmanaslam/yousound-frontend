@@ -2,14 +2,26 @@ import _ from 'lodash'
 // import { mapGetters } from 'vuex'
 import ActivityService from '@/services/activity'
 import activityItem from '@/components/activityitem'
+import InvitationService from '@/services/invitation'
+import contentTopHeader from '@/components/contentTopHeader'
+import userTag from '@/components/user_tag'
 
 export default {
+  props: {
+    isComp: Boolean
+  },
   components: {
     activityItem,
+    contentTopHeader,
+    userTag,
   },
 
   data() {
     return {
+      loading: true,
+      show_invite_dialog: false,
+      link_copied: false,
+      youLogo: require('../../../static/images/nav_logo_white_mini.png'),
       active_tab: 'any',
       tabs: [
         { id: 'any', title: 'Everything' },
@@ -25,6 +37,17 @@ export default {
     }
   },
 
+  watch: {
+    show_invite_dialog(val) {
+      if (val === true) {
+        this.link_copied = false
+      }
+    },
+    activities(val) {
+      console.log('activities:', val)
+    },
+  },
+
   computed: {
     currentUser() {
       return this.$store.state.auth.user
@@ -32,32 +55,30 @@ export default {
   },
 
   methods: {
-    // filterSelected (index) {
-    //   $('#filter_selector .btn__content').html(this.tabs[index].name + '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>')
-    //   this.active_tab = this.tabs[index].id
-    // },
-
     isActiveTab(tab) {
       return this.active_tab == tab
     },
 
     loadActivities() {
-      this.$store.dispatch('error/showLoadingActivity', true)
+      this.loading = true
       const params = {
         page: this.page_index,
         per_page: this.items_per_page,
         action_types: this.active_tab,
       }
+
+      console.log('params:', params)
       ActivityService.getActivities(params)
         .then((response) => {
+          console.log(response)
           this.activities = this.activities.concat(response.body.activities)
           this.page_index = response.body.pagination.current_page
           this.total_pages = response.body.pagination.total_pages
-          this.$store.dispatch('error/showLoadingActivity', false)
+          this.loading = false
           this.isPageReady = true
         })
         .catch((e) => {
-          this.$store.dispatch('error/showLoadingActivity', false)
+          this.loading = false
           this.isPageReady = true
           this.$store.dispatch(
             'error/showErrorToast',
@@ -65,28 +86,17 @@ export default {
           )
         })
     },
-
     loadMore() {
       this.page_index += 1
       this.loadActivities()
     },
-
-    onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-      })
-    },
-
     setTab(tab) {
       if (!tab) {
         tab = 'any'
       }
-
-      this.active_tab = tab
       this.page_index = 1
       this.total_pages = 1
-      this.activities = []
+      // this.activities = []
       this.$store.dispatch('navigator/goNextState', {
         page: 'activity',
         tab: tab,
@@ -95,12 +105,14 @@ export default {
         this.loadActivities(this.activeTab, 1)
       })
     },
-  },
-
-  watch: {
-    $route(toPath, fromPath) {
-      const tab = toPath.hash.substr(1)
-      this.setTab(tab)
+    createInvitation() {
+      InvitationService.createInvitation()
+        .then((res) => {
+          // console.log('createInvitation', res.body)
+          this.$copyText(res.body.url)
+          this.link_copied = true
+        })
+        .catch((err) => console.log(err))
     },
   },
 

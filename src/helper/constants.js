@@ -365,6 +365,18 @@ export const StreamCosts = [
   { value: 10000, name: '$100' },
   { value: 100000, name: '$1000' },
 ]
+export const StreamStatuses = {
+  RUNNING: 'running',
+  INACTIVE: 'inactive',
+  UPLOADING: 'uploading',
+  ARCHIVED: 'archived',
+  DELETED: 'deleted',
+}
+
+export const VideoTypes = {
+  LIVE: 'live',
+  UPLOADED: 'uploaded',
+}
 
 // Additional options being used for user registration.
 export const UserBooleanOptions = [
@@ -593,6 +605,7 @@ export const CollaboratorRoleTypes = [
 ]
 
 export const CollaboratorProfitShareTypes = [
+  1,
   5,
   10,
   15,
@@ -623,10 +636,10 @@ export const MyEvents = {
   AUDIO_PLAYER_PLAY: 'play',
   AUDIO_PLAYER_REPLAY: 'replay',
   AUDIO_PLAYER_SKIPTO: 'skipTo',
-  VIDEO_PLAYER_INIT: 'video_player_init',
-  VIDEO_PLAYER_FULLSCREEN_ENTER: 'video_player_fullscreen_enter',
-  VIDEO_PLAYER_SHUTDOWN: 'video_player_shutdown',
-  VIDEO_PLAYER_EXIT: 'video_player_exit',
+  STREM_PLAYER_INIT: 'stream_player_init',
+  STREM_PLAYER_FULLSCREEN_ENTER: 'stream_player_fullscreen_enter',
+  STREM_PLAYER_SHUTDOWN: 'stream_player_shutdown',
+  STREM_PLAYER_EXIT: 'stream_player_exit',
 }
 
 export const MyCookies = {

@@ -1,27 +1,52 @@
 <template>
   <v-flex xs12 class="product-item">
-    <promote-modal v-if="showPromoteMessage"
+    <promote-modal
+      v-if="showPromoteMessage"
       :item="product"
       :dismiss="dismissPromoteModal"
-      :success="saveAndFinish"></promote-modal>
+      :success="saveAndFinish"
+    ></promote-modal>
 
     <v-flex sm12 product-content-section pa-0 relative>
-      <div class="product-image" :style="{'background-image': 'url(' + product.covers[0].cover.thumb.url + ')'}"/></div>
+      <div
+        class="product-image"
+        :style="{
+          'background-image': 'url(' + product.covers[0].cover.thumb.url + ')',
+        }"
+      ></div>
       <div class="product-content">
         <v-flex sm12 class="product-content-row" pr-0>
           <label class="product-name">{{ product.name }}</label>
 
-          <label class="product-count product-status" v-if="product.stock_status=='active'">{{ product.stock_status }} <v-icon :class="product.stock_status">done</v-icon></label>
-          <label class="product-count product-status" v-else>{{ product.stock_status }} <v-icon :class="product.stock_status">done</v-icon></label>
+          <label
+            class="product-count product-status"
+            v-if="product.stock_status == 'active'"
+            >{{ product.stock_status }}
+            <v-icon :class="product.stock_status">done</v-icon></label
+          >
+          <label class="product-count product-status" v-else
+            >{{ product.stock_status }}
+            <v-icon :class="product.stock_status">done</v-icon></label
+          >
 
-          <label class="product-count product-sold-count">Sold: <b>{{ product.sold }}</b></label>
-          <label class="product-count product-stock-count">In Stock: <b>{{ product.stock }}</b></label>
+          <label class="product-count product-sold-count"
+            >Sold: <b>{{ product.sold }}</b></label
+          >
+          <label class="product-count product-stock-count"
+            >In Stock: <b>{{ product.stock }}</b></label
+          >
         </v-flex>
         <v-flex sm12 class="product-content-row" pt-1>
-          <label class="product-price">${{ product.price | formatNumber }}</label>
+          <label class="product-price"
+            >${{ product.price | formatNumber }}</label
+          >
 
-          <template v-if="$store.state.auth.user.id==product.merchant.id">
-            <v-btn class="text-btn pr-1" @click.native.stop="deleteItem(product)">Delete</v-btn>
+          <template v-if="$store.state.auth.user.id == product.merchant.id">
+            <v-btn
+              class="text-btn pr-1"
+              @click.native.stop="deleteItem(product)"
+              >Delete</v-btn
+            >
             <!-- <label class="btn-divider"></label>
             <v-btn class="text-btn" @click.native="showPromoteModal()" v-if="showPromoteButton">Promote</v-btn> -->
             <label class="btn-divider" v-if="showPromoteButton"></label>
@@ -29,105 +54,210 @@
             <label class="btn-divider"></label>
           </template>
           <template v-else>
-            <v-btn class="text-btn" v-if="denyItem" @click.native="denyItem(product)">Deny</v-btn>
+            <v-btn
+              class="text-btn"
+              v-if="denyItem"
+              @click.native="denyItem(product)"
+              >Deny</v-btn
+            >
             <label class="btn-divider" v-if="denyItem"></label>
-            <v-btn class="text-btn" v-if="acceptItem" @click.native="acceptItem(product)">Accept</v-btn>
+            <v-btn
+              class="text-btn"
+              v-if="acceptItem"
+              @click.native="acceptItem(product)"
+              >Accept</v-btn
+            >
             <label class="btn-divider" v-if="acceptItem"></label>
           </template>
 
-          <label class="product-category-text" v-if="status && status != ''">{{ status }}</label>
+          <label class="product-category-text" v-if="status && status != ''">{{
+            status
+          }}</label>
           <label class="btn-divider" v-if="status && status != ''"></label>
-          <label class="product-category-text">Category: {{ product.category ? product.category.name : '' }}</label>
+          <label class="product-category-text"
+            >Category:
+            {{ product.category ? product.category.name : "" }}</label
+          >
         </v-flex>
+      </div>
+    </v-flex>
+    <v-flex
+      v-if="product.collaborators.length > 0"
+      sm12
+      collaborator-content-section
+    >
+      <div>
+        <div class="app-bold">Collaborators</div>
+        <div class="collaborator-content">
+          <div v-for="(collaborator, i) in product.collaborators" :key="i">
+            {{ collaborator.user.username }}
+            <span
+              v-if="
+                $store.state.auth.user.username === collaborator.user.username
+              "
+            >
+              (owner)
+            </span>
+          </div>
+
+          <div
+            v-if="product.status == 'pending'"
+          >
+            <v-btn
+              v-if="currentUserOwnsProduct && allCollaboratedAccepted"
+              depressed
+              class="action-btn release"
+              @click.native="releaseButtonAction(product)"
+              >
+                <span class="white--text">Release Now</span>
+            </v-btn>
+            <v-btn
+              v-if="currentUserOwnsProduct && !allCollaboratedAccepted"
+              depressed
+              class="action-btn pending"
+              disabled
+              >
+                <span>Pending</span>
+              </v-btn>
+  
+              <div v-if="isUserCollaborator" class="dflex collaborator-action">
+                <v-btn
+                  class="text-btn"
+                  :disabled="allCollaboratedAccepted"
+                  @click.native="acceptCollaboration(product)"
+                >
+                  Accept
+                </v-btn>
+                <v-btn
+                  class="text-btn"
+                  :disabled="allCollaboratedAccepted"
+                  @click.native="denyCollaboration(product)"
+                >
+                  Deny
+                </v-btn>
+            </div>
+          </div>
+
+        </div>
       </div>
     </v-flex>
   </v-flex>
 </template>
 
 <script type="text/javascript">
-  /* global $:true */
-  // import ProductService from '@/services/product'
-  import promoteModal from '@/components/promotemodal'
+/* global $:true */
+// import ProductService from '@/services/product'
+import promoteModal from "@/components/promotemodal";
 
-  export default {
-    components: {
-      promoteModal,
+export default {
+  components: {
+    promoteModal,
+  },
+
+  props: {
+    product: {
+      type: Object,
     },
 
-    props: {
-      product: {
-        type: Object,
-      },
-
-      index: {
-        type: Number,
-      },
-
-      acceptItem: {
-        type: Function,
-      },
-
-      denyItem: {
-        type: Function,
-      },
-
-      deleteItem: {
-        type: Function,
-      },
-
-      status: {
-        type: String,
-      },
-
-      showPromoteButton: {
-        type: Boolean,
-        default: true,
-      },
+    index: {
+      type: Number,
     },
 
-    data() {
-      return {
-        showPromoteMessage: false,
-        dialog: false,
+    acceptItem: {
+      type: Function,
+    },
+
+    denyItem: {
+      type: Function,
+    },
+
+    deleteItem: {
+      type: Function,
+    },
+
+    status: {
+      type: String,
+    },
+
+    showPromoteButton: {
+      type: Boolean,
+      default: true,
+    },
+  },
+
+  data() {
+    return {
+      showPromoteMessage: false,
+      dialog: false,
+    };
+  },
+
+  computed: {
+    count() {
+      var count = 0;
+      for (let index in this.product.variants) {
+        const variant = this.product.variants[index];
+        count += variant.quantity;
       }
+      return count;
+    },
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+    currentUserOwnsProduct() {
+      return this.currentUser.id === this.product.merchant.id
+    },
+    isUserCollaborator() {
+      const collaborators = this.product.collaborators
+      const isCollaborator = collaborators.find(user => user.user_id === this.currentUser.id)
+      return !!isCollaborator
+    },
+    collaborationData() {
+      if (!this.isUserCollaborator) return null
+
+      const collaborators = this.product.collaborators
+      const collaboration = collaborators.find(user => user.user_id === this.currentUser.id)
+      return collaboration
+    },
+    allCollaboratedAccepted() {
+      const collaborations = this.product.collaborators
+      const allAccepted = collaborations.every(collab => collab.status === "accepted")
+      return allAccepted
+    },
+  },
+
+  created() {},
+
+  methods: {
+    releaseButtonAction() {
+      this.$emit("releaseButtonAction", this.product)
+    },
+    acceptCollaboration() {
+      this.$emit("acceptCollaboration", this.product)
+    },
+    denyCollaboration() {
+      this.$emit("denyCollaboration", this.product)
+    },
+    editProduct() {
+      this.$router.push({ path: "/product/edit/" + this.product.id });
     },
 
-    computed: {
-      count() {
-        var count = 0
-        for (let index in this.product.variants) {
-          const variant = this.product.variants[index]
-          count += variant.quantity
-        }
-        return count
-      },
+    showPromoteModal() {
+      this.showPromoteMessage = true;
+      $("body").css("overflow", "scroll");
     },
 
-    created() {
+    dismissPromoteModal() {
+      this.showPromoteMessage = false;
+      $("body").css("overflow", "scroll");
     },
 
-    methods: {
-      editProduct() {
-        this.$router.push({path: '/product/edit/' + this.product.id})
-      },
-
-      showPromoteModal() {
-        this.showPromoteMessage = true
-        $('body').css('overflow', 'scroll')
-      },
-
-      dismissPromoteModal() {
-        this.showPromoteMessage = false
-        $('body').css('overflow', 'scroll')
-      },
-
-      saveAndFinish(users) {
-        $('body').css('overflow', 'scroll')
-        this.showPromoteMessage = false
-      },
+    saveAndFinish(users) {
+      $("body").css("overflow", "scroll");
+      this.showPromoteMessage = false;
     },
+  },
 
-    mounted() {
-    },
-  }
+  mounted() {},
+};
 </script>

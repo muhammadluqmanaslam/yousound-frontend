@@ -49,14 +49,39 @@ export default {
     })
   },
 
+  creatorReRequest(userId, params) {
+    return Vue.http.get(API_BASE_URL + '/' + userId + '/creator_re_request', {
+      headers: { Authorization: $store.state.auth.token },
+      params: params,
+    })
+  },
+
+  uploadStreamLimit(userId) {
+    return Vue.http.get(API_BASE_URL + '/' + userId + '/stream_uploaded_limit_available', {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
   updateUserInfo(userId, params) {
     return Vue.http.patch(API_BASE_URL + '/' + userId, params, {
       headers: { Authorization: $store.state.auth.token },
     })
   },
 
+  changeCreatorRoleIntoListener(params) {
+    return Vue.http.get(API_BASE_URL + '/change_creator_role_into_listener', {
+      params: params,
+    })
+  },
+
   deleteUser(userId) {
     return Vue.http.delete(API_BASE_URL + '/' + userId, {
+      headers: { Authorization: $store.state.auth.token },
+    })
+  },
+
+  getSubscriptionDetail(userId) {
+    return Vue.http.get(`${API_BASE_URL}/${userId}/fetch_subscription_details`, {
       headers: { Authorization: $store.state.auth.token },
     })
   },

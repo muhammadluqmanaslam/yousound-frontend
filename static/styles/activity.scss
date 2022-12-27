@@ -1,6 +1,6 @@
 .page.activity-page {
   .tab-container {
-    position: relative;
+    // position: relative;
     .tabs {
       .tabs__bar {
         .tabs__wrapper.tabs__wrapper--scrollable {
@@ -61,4 +61,11 @@
   //     margin-top: 30px;
   //   }
   // }
+    .btn.loadmore-btn {
+      width: 124px;
+      height: 40px;
+      margin-top: 30px;
+      margin-left: 0;
+      font-size: 15px;
+    }
 }

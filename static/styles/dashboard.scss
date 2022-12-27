@@ -1,0 +1,139 @@
+.dashboard-page {
+    .no-chart {
+        min-height: 200px;
+    }
+
+    .d-nav-active {
+        background: #000000;
+        border-radius: 50px;
+        
+        label {
+            color: #ffffff !important;
+            padding: 5px 20px !important;
+            font-weight: 600;
+        }
+    }
+
+    .inner-tab-action {
+        display: block;
+        @media (min-width: 600px){
+            &.custom-lg5 {
+                width: 20%;
+                max-width: 20%;
+                flex-basis: 20%;
+            }
+        }
+        .action_content {
+            text-align: left;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+
+            .action_value {
+                font-size: 16px;
+                font-weight: 700;
+            }
+
+            .action_title {}
+        }
+
+        &.inner-tab-active {
+            .action_content {
+                border: 1px solid #5F78FF;
+            }
+        }
+    }
+
+    .chart-header-tabs {
+        li {
+            label {
+                font-size: 13px;
+            }
+        }
+    }
+
+    .col-summary-section {
+        margin-top: 40px;
+
+        .col-summary {
+            &-frame {
+                border: 1px solid #cccccc;
+                border-radius: 12px;
+                
+                &-header {
+                    padding: 20px 20px;
+                    border-bottom: 1px solid #cccccc;
+                }
+                &-body {
+                    padding: 20px;
+                    height: 445px;
+                    overflow-y: auto;
+
+                    .pie-chart {
+                        /deep/.apexcharts-canvas {
+                            margin-top: -40px;
+                            // border: 2px solid;
+                            // height: 100% !important;
+
+                            .apexcharts-legend {
+                                flex-direction: column;
+                                // top: 200px !important;
+
+                                .apexcharts-legend-series {
+                                    margin-bottom: 10px !important;
+                                }
+                            }
+                        }
+                    }
+
+                    .col-listing {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 12px;
+
+                        &.__round {
+                            ._thumbnail {
+                                border-radius: 100%;
+                            }
+                        }
+
+                        &.__rectangle {
+                            ._thumbnail {
+                                width: 66px;
+                                height: 40px;
+                            }
+                        }
+
+                        ._thumbnail {
+                            width: 40px;
+                            height: 40px;
+                            background-color: #cccccc;
+                            margin-right: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .data-table-section {
+        .data-table-title {
+            font-size: 16px;
+        }
+    }
+}
+
+@media (max-width: 810px) {
+    .chart-parent {
+        display: flex;
+        flex-direction: column-reverse;
+
+        .graph-chart {
+            #chart {
+                margin-left: -20px;
+                margin-right: -20px;
+            }
+        }
+    }
+}

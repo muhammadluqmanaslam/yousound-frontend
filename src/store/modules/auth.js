@@ -1,6 +1,6 @@
 // import { Utils } from '@/helper'
 // import * as types from '@/store/mutation-types'
-import AuthService from '@/services/auth'
+// import AuthService from '@/services/auth'
 
 const state = {
   // user: Utils.parseJSON(Storage.get('user')),
@@ -16,7 +16,10 @@ const state = {
 
 const getters = {
   isAuthenticated: (state) => {
-    return AuthService.isAuthenticated()
+    return state.token != null
+  },
+  userType: (state) => {
+    return state.user.user_type
   },
 }
 

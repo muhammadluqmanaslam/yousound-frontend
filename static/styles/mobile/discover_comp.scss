@@ -1,0 +1,27 @@
+.discover {
+    &-page {
+        margin-top: 10px;
+
+        &.discover-video {
+            .discover-layer {
+                margin-left: -17px;
+                margin-right: -17px;
+            }
+        }
+    }
+    &-layer {
+        margin-bottom: 20px;
+    }
+    &-header {
+        margin-bottom: 20px;
+    }
+    &-title {
+        // font-size: 15px;
+    }
+    &-action {
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+
+}

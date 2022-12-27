@@ -1,33 +1,38 @@
 import AuthService from '@/services/auth'
 import SearchService from '@/services/search'
 import UserService from '@/services/user'
+import CommentService from '@/services/comment'
 
 import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
-import streamUser from '@/components/streamuser'
+import timeline from '@/components/timeline/timeline'
+import contentTopHeader from '@/components/contentTopHeader'
+import postThought from '@/components/thought'
 
 export default {
   components: {
     trackCard,
     productCard,
-    streamUser,
+    timeline,
+    contentTopHeader,
+    postThought,
   },
 
   data() {
     return {
       activeTab: '',
       tabs: [
-        { id: 'any', title: 'Everything' },
-        { id: 'uploaded', title: 'Albums' },
-        { id: 'merch', title: 'Products' },
-        { id: 'video', title: 'Live Video' },
+        { id: 'any', title: 'Everything', icon: require('../../../static/images/grid-interface.svg') },
+        { id: 'uploaded', title: 'Music', icon: require('../../../static/images/music.svg') },
+        { id: 'merch', title: 'Shop', icon: require('../../../static/images/video.svg') },
+        { id: 'video', title: 'Video', icon: require('../../../static/images/shop.svg') },
         // { id: 'reposted', title: 'Reposts' },
         // { id: 'playlist', title: 'Playlists' },
       ],
       show_help_dialog: false,
       page_index: 1,
       total_pages: 1,
-      items_per_page: 5,
+      items_per_page: 10,
       users: [],
       isPageReady: false,
     }
@@ -62,10 +67,29 @@ export default {
   },
 
   methods: {
+    postThoughtActive() {
+      // trigger child component (post thought) modal
+      this.$refs.postThought.initPostThought()
+    },
+    // loadComments() {
+    //   const params = {
+    //     commentable_type: 'Stream',
+    //     commentable_id: this.album.id,
+    //     page: this.comment_pagination.current_page + 1,
+    //     per_page: this.comment_pagination.per_page,
+    //   }
+
+    //   cosnt requestArr = []
+
+    //   CommentService.getComments(params)
+    //     .then((response) => {
+    //       this.comments = this.comments.concat(response.body.comments)
+    //       this.comment_pagination = response.body.pagination
+    //     })
+    // },
     isActiveTab(tab) {
       return this.activeTab === tab
     },
-
     loadFeeds(filter) {
       this.$store.dispatch('error/showLoadingActivity', true)
       const params = {

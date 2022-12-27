@@ -12,7 +12,7 @@
           <p class="user-name">
             By
             <router-link :to="'/' + album.user.slug">{{
-              album.user.display_name
+              album.user.username
             }}</router-link>
           </p>
           <p class="album-stats">

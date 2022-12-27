@@ -5,15 +5,24 @@ import ItemService from '@/services/item'
 import paymentModal from '@/components/paymentmodal'
 import activityProductCard from '@/components/activityproductcard'
 import { Stripe } from '@/helper'
+import contentTopHeader from '@/components/contentTopHeader'
+import addressTab from '@/views/settings/components/address_tab'
 
 export default Vue.extend({
   components: {
     paymentModal,
     activityProductCard,
+    contentTopHeader,
+    addressTab,
   },
 
   data() {
     return {
+      tabs: [
+        { id: 'checkout', title: 'Checkout' },
+      ],
+      active_tab: 'checkout',
+      editDialog: false,
       Stripe: Stripe,
       ordersCost: {
         hasDeleted: false,
@@ -37,6 +46,24 @@ export default Vue.extend({
   },
 
   computed: {
+    shipping_address() {
+      return this.$store.state.auth.user.default_address
+    },
+    strippedAddress() {
+      const addr = this.shipping_address
+      let stripped = {}
+
+      if (addr) {
+        stripped.lineOne = addr.first_name + ' ' + addr.last_name
+        stripped.lineTwo = addr.address_line
+        stripped.lineThree = addr.city + ' ' + addr.state
+        stripped.lineFour = addr.postcode
+        stripped.lineFive = addr.country
+      }
+
+      return stripped || ''
+      // return Object.values(stripped).join("\r\n")
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -93,6 +120,19 @@ export default Vue.extend({
   },
 
   methods: {
+    isActiveTab(tab) {
+      return this.active_tab === tab
+    },
+
+    onTab(tab) {
+      this.$router.push({
+        path: this.$route.path,
+        hash: tab,
+        query: {
+          grid_view: this.grid_show,
+        },
+      })
+    },
     isDigitalProduct(item) {
       return this._.get(item, 'product.category.is_digital', false)
     },

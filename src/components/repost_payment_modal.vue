@@ -6,7 +6,7 @@
       <v-flex xs12 text-xs-center class="modal__header">
         <p>
           You are requesting a repost from
-          <span>{{ receiver.display_name }}</span>
+          <span>{{ receiver.username }}</span>
         </p>
       </v-flex>
 
@@ -74,7 +74,7 @@
         <v-card-text class="mt-2">
           <div class="headline">You cannot send the payment</div>
           <div>
-            {{ _.get(receiver, 'display_name', 'Receiver') }} did not connect to
+            {{ _.get(receiver, "display_name", "Receiver") }} did not connect to
             stripe yet.
           </div>
         </v-card-text>
@@ -83,8 +83,8 @@
             dark
             color="blue"
             @click.native="
-              show_error_dialog = false
-              dismiss()
+              show_error_dialog = false;
+              dismiss();
             "
             >OK</v-btn
           >
@@ -95,8 +95,8 @@
 </template>
 
 <script type="text/javascript">
-import { Card, createToken } from 'vue-stripe-elements'
-import { Filter, Stripe } from '@/helper'
+import { Card, createToken } from "vue-stripe-elements";
+import { Filter, Stripe } from "@/helper";
 
 export default {
   props: {
@@ -138,70 +138,70 @@ export default {
       stripeOptions: {},
       fee: 0,
       show_error_dialog: false,
-    }
+    };
   },
 
   computed: {
     Filter() {
-      return Filter
+      return Filter;
     },
 
     itemCover() {
-      if (this.itemType === 'album') {
-        return this.item.cover.url
+      if (this.itemType === "album") {
+        return this.item.cover.url;
       } else {
-        let coverURL = ''
+        let coverURL = "";
         for (let index in this.item.covers) {
-          const cover = this.item.covers[index].cover
+          const cover = this.item.covers[index].cover;
           if (cover.url) {
-            coverURL = cover.url
-            break
+            coverURL = cover.url;
+            break;
           }
         }
-        return coverURL
+        return coverURL;
       }
     },
 
     itemOwner() {
-      if (this.itemType === 'album') {
-        return this.item.user.display_name
+      if (this.itemType === "album") {
+        return this.item.user.username;
       } else {
-        return this.item.merchant.display_name
+        return this.item.merchant.username;
       }
     },
 
     itemTitle() {
-      if (this.itemType === 'album') {
-        return this.item.name
+      if (this.itemType === "album") {
+        return this.item.name;
       } else {
-        return this.item.name
+        return this.item.name;
       }
     },
 
     amount() {
-      return this.receiver.repost_price
+      return this.receiver.repost_price;
     },
 
     stripeConnected() {
-      return this.receiver.stripe_connected
+      return this.receiver.stripe_connected;
     },
   },
 
   created() {
     if (!this.stripeConnected) {
-      this.show_error_dialog = true
+      this.show_error_dialog = true;
     }
 
-    this.fee = Stripe.calculateFee(this.amount)
+    this.fee = Stripe.calculateFee(this.amount);
   },
 
   methods: {
     sendPayment() {
-      this.sent_payment = true
+      this.sent_payment = true;
       createToken().then((data) => {
-        this.finish(data.token)
-      })
+        this.finish(data.token);
+      });
     },
   },
-}
+};
 </script>

@@ -18,7 +18,7 @@
       </div>
       <v-flex xs12 class="profile-section">
         <label class="user-name"
-          >{{ item.display_name }}
+          >{{ item.username }}
           <v-icon
             class="user-status"
             v-bind:class="{ online: item.status == 'active' }"
@@ -43,8 +43,7 @@
           v-model="donate_amount"
           currency="$"
           separator=","
-          :precision="2"
-          :min="10"
+          :min="1"
           class="donate-amount"
         ></vue-numeric>
         <v-select
@@ -56,9 +55,9 @@
         <p v-if="description === 'Add Video Credit'">
           Adding video credit gives this user more time to broadcast live video
         </p>
-        <v-btn class="download-btn" @click.native="showPaymentDialog()"
-          >Submit</v-btn
-        >
+        <v-btn class="download-btn" @click.native="showPaymentDialog()">
+          Go to checkout
+        </v-btn>
       </v-flex>
     </v-layout>
 
@@ -73,9 +72,8 @@
 </template>
 
 <script type="text/javascript">
-import UserService from '@/services/user'
-import paymentModal from '@/components/paymentmodal'
-import { MyEvents } from '@/helper'
+import UserService from "@/services/user";
+import paymentModal from "@/components/paymentmodal";
 
 export default {
   components: {
@@ -97,7 +95,7 @@ export default {
   data() {
     return {
       donate_amount: 0,
-      description: 'Donation',
+      description: "Donation",
       // descriptions: [
       //   'Donation',
       //   // 'Remix',
@@ -112,30 +110,33 @@ export default {
       // ],
       showPaymentModal: false,
       buttonHover: false,
-    }
+    };
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     followButtonText() {
       if (this.item.is_following) {
-        return this.buttonHover ? 'Unfollow' : 'Following'
+        return this.buttonHover ? "Unfollow" : "Following";
       }
-      return 'Follow'
+      return "Follow";
     },
 
     donate_amount_by_cent() {
-      return this.donate_amount * 100
+      return this.donate_amount * 100;
     },
 
     isVideoCreditSelected() {
-      return this.description === 'Add Video Credit'
+      return this.description === "Add Video Credit";
     },
 
     descriptions() {
-      if (['listener'].indexOf(this.item.user_type) > -1) {
-        return ['Donation']
+      if (["listener"].indexOf(this.item.user_type) > -1) {
+        return ["Donation"];
       } else {
-        return ['Donation', 'Add Video Credit']
+        return ["Donation", "Add Video Credit"];
       }
     },
   },
@@ -144,93 +145,57 @@ export default {
 
   methods: {
     donateAmount(amount) {
-      this.donate_amount = amount
-    },
-
-    followUser() {
-      if (this.item.is_following) {
-        UserService.unfollowUser(this.item.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.item.display_name,
-            ])
-            this.item.is_following = false
-            // this.$store.dispatch('player/setUpdatedUser', this.item)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.id, false)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      } else {
-        UserService.followUser(this.item.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.item.display_name,
-            ])
-            this.item.is_following = true
-            // this.$store.dispatch('player/setUpdatedUser', this.item)
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.item.id, true)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      }
+      this.donate_amount = amount;
     },
 
     showPaymentDialog() {
       if (this.donate_amount > 0) {
-        this.showPaymentModal = true
+        this.showPaymentModal = true;
       }
     },
 
     hidePaymentDialog() {
-      this.showPaymentModal = false
+      this.showPaymentModal = false;
     },
 
     sendLove(token) {
-      this.dismiss()
+      this.dismiss();
       let params = {
         amount: this.donate_amount_by_cent,
         description: this.description,
-      }
+      };
       if (token) {
-        params['payment_token'] = token.id
+        params["payment_token"] = token.id;
       }
 
       if (this.isVideoCreditSelected) {
         UserService.addVideoCredit(this.item.slug, params)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              `You've added $${this.donate_amount} video credit to ${this.item.display_name}`,
-            ])
+            this.$store.dispatch("error/showSuccessToast", [
+              `You've added $${this.donate_amount} video credit to ${this.item.username}`,
+            ]);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       } else {
         UserService.donateMoney(this.item.slug, params)
           .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              `You've donated $${this.donate_amount} to ${this.item.display_name}`,
-            ])
+            this.$store.dispatch("error/showSuccessToast", [
+              `You've donated $${this.donate_amount} to ${this.item.username}`,
+            ]);
           })
           .catch((e) => {
             this.$store.dispatch(
-              'error/showErrorToast',
+              "error/showErrorToast",
               e.body.errors || [e.body]
-            )
-          })
+            );
+          });
       }
     },
   },
-}
+};
 </script>

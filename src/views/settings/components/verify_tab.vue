@@ -2,11 +2,16 @@
   <div class="main-section" v-if="isPageReady">
     <v-flex xs12 sm12 class="verification-section">
       <div class="profile-section border-bottom mx-3 pb-3">
-        <div class="profile-image" :style="{'background-image': 'url(' + user.avatar.url + ')'}"></div>
+        <div
+          class="profile-image"
+          :style="{ 'background-image': 'url(' + user.avatar.url + ')' }"
+        ></div>
         <div class="user-info-section">
           <div class="info-section">
-            <label class="user-name">{{ user.display_name }}</label>
-            <label class="denied-status" :class="user.request_status">{{ user.request_status }}</label>
+            <label class="user-name">{{ user.username }}</label>
+            <label class="denied-status" :class="user.request_status">{{
+              user.request_status
+            }}</label>
           </div>
         </div>
       </div>
@@ -44,17 +49,32 @@
         <div class="info-section mx-3">
           <v-layout row wrap pb-3 class="border-bottom">
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <input v-model="user.first_name" v-validate="'required'" :disabled="!enabledForm"
-                type="text" name="first_name" autocomplete="off" placeholder="First Name">
+              <input
+                v-model="user.first_name"
+                v-validate="'required'"
+                :disabled="!enabledForm"
+                type="text"
+                name="first_name"
+                autocomplete="off"
+                placeholder="First Name"
+              />
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <input v-model="user.last_name" v-validate="'required'" :disabled="!enabledForm"
-                type="text" name="last_name" autocomplete="off" placeholder="Last Name">
+              <input
+                v-model="user.last_name"
+                v-validate="'required'"
+                :disabled="!enabledForm"
+                type="text"
+                name="last_name"
+                autocomplete="off"
+                placeholder="Last Name"
+              />
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
               <!-- <input v-model="user.year_of_birth" v-validate="'required|numeric'" :disabled="!enabledForm"
                 type="text" name="year_of_birth" autocomplete="off" placeholder="Year of Birth"> -->
-              <v-select v-validate="'required'"
+              <v-select
+                v-validate="'required'"
                 :items="year_of_birth_options"
                 v-model="user.year_of_birth"
                 :disabled="!enabledForm"
@@ -64,7 +84,8 @@
               />
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <v-select v-validate="'required'"
+              <v-select
+                v-validate="'required'"
                 :items="gender_options"
                 v-model="user.gender"
                 :disabled="!enabledForm"
@@ -73,7 +94,8 @@
               />
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <v-select v-validate="'required'"
+              <v-select
+                v-validate="'required'"
                 :items="country_options"
                 v-model="user.country"
                 :disabled="!enabledForm"
@@ -83,13 +105,20 @@
               />
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <input v-model="user.city" v-validate="'required'" :disabled="!enabledForm"
-                type="text" name="city" autocomplete="off" placeholder="City">
+              <input
+                v-model="user.city"
+                v-validate="'required'"
+                :disabled="!enabledForm"
+                type="text"
+                name="city"
+                autocomplete="off"
+                placeholder="City"
+              />
             </v-flex>
           </v-layout>
 
           <v-layout row wrap pb-3 class="border-bottom">
-            <template v-if="user.request_role=='artist'">
+            <template v-if="user.request_role == 'artist'">
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="main_genres"
@@ -223,11 +252,18 @@
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
-                <input v-model="user.ipi_cae_number" v-validate="'required'" :disabled="!enabledForm"
-                  type="text" name="ipi_cae_number" autocomplete="off" placeholder="IPI/CAE number">
+                <input
+                  v-model="user.ipi_cae_number"
+                  v-validate="'required'"
+                  :disabled="!enabledForm"
+                  type="text"
+                  name="ipi_cae_number"
+                  autocomplete="off"
+                  placeholder="IPI/CAE number"
+                />
               </v-flex>
             </template>
-            <template v-else-if="user.request_role=='label'">
+            <template v-else-if="user.request_role == 'label'">
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="main_genres"
@@ -351,7 +387,7 @@
                 />
               </v-flex>
             </template>
-            <template v-else-if="user.request_role=='brand'">
+            <template v-else-if="user.request_role == 'brand'">
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
                   :items="standard_brand_type_options"
@@ -362,8 +398,14 @@
                 />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
-                <input v-model="user.customized_brand_type" :disabled="!enabledForm"
-                  type="text" name="customized_brand_type" autocomplete="off" placeholder="If brand type not listed, what type are you?">
+                <input
+                  v-model="user.customized_brand_type"
+                  :disabled="!enabledForm"
+                  type="text"
+                  name="customized_brand_type"
+                  autocomplete="off"
+                  placeholder="If brand type not listed, what type are you?"
+                />
               </v-flex>
               <v-flex xs6 pt-3 px-2 text-xs-center>
                 <v-select
@@ -466,19 +508,40 @@
 
           <v-layout row wrap pb-3>
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <input v-model="user.website_1_url" v-validate="'required|max:1023|url'" :disabled="!enabledForm"
-                type="text" name="website_1_url" autocomplete="off" placeholder="Website URL">
+              <input
+                v-model="user.website_1_url"
+                v-validate="'required|max:1023|url'"
+                :disabled="!enabledForm"
+                type="text"
+                name="website_1_url"
+                autocomplete="off"
+                placeholder="Website URL"
+              />
             </v-flex>
             <v-flex xs6 pt-3 px-2 text-xs-center>
-              <input v-model="user.website_2_url" v-validate="'max:1023|url'" :disabled="!enabledForm"
-                type="text" name="website_2_url" autocomplete="off" placeholder="Website URL">
+              <input
+                v-model="user.website_2_url"
+                v-validate="'max:1023|url'"
+                :disabled="!enabledForm"
+                type="text"
+                name="website_2_url"
+                autocomplete="off"
+                placeholder="Website URL"
+              />
             </v-flex>
             <v-flex xs12 pt-3 px-2 text-xs-center>
-              <textarea v-model="user.history" v-validate="'required|max:1023'" :disabled="!enabledForm"
-                name="history" placeholder="What artists and/or labels have you previously worked with?"></textarea>
+              <textarea
+                v-model="user.history"
+                v-validate="'required|max:1023'"
+                :disabled="!enabledForm"
+                name="history"
+                placeholder="What artists and/or labels have you previously worked with?"
+              ></textarea>
             </v-flex>
             <v-flex xs12 px-2 text-xs-center v-if="enabledForm">
-              <v-btn round dark type="submit" class="reset-btn">Save and Resend</v-btn>
+              <v-btn round dark type="submit" class="reset-btn"
+                >Save and Resend</v-btn
+              >
             </v-flex>
           </v-layout>
         </div>

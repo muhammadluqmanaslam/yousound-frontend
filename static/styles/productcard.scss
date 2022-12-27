@@ -1,8 +1,25 @@
+.w-100{
+  width: 100%;
+}
 .product-card {
   // flex: initial !important;
   // margin-bottom: 22.5px;
   // padding: 0 11.25px !important;
   width: 100%;
+
+  &.side-tab-view {
+    .product-info {
+      display: flex;
+      align-items: center;
+
+      .product-cover {
+        flex: none;
+        width: 100px;
+        height: 100px;
+        margin-right: 10px;
+      }
+    }
+  }
   .product-info {
     position: relative;
     .product-cover {
@@ -15,7 +32,15 @@
         overflow: hidden;
         background-position: center;
         border: none;
-        border-radius: 4px;
+        border-radius: 12px;
+        position: relative;
+
+        &:hover {
+          .full-overlay {
+            display: flex;
+            opacity: 1;
+          }
+        }
       }
       .product-price {
         position: absolute;
@@ -102,13 +127,37 @@
       text-align: center;
       .product-name {
         margin: 0;
+        margin-top: 8px;
         font-size: 14px;
+        font-family: 'Inter',sans-serif;
         color: #000000;
         letter-spacing: -0.3px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
         text-align: left;
+      }
+      .product-options-count {
+        display: flex;
+        margin: 0;
+        font-size: 14px;
+        color: #757575;
+        letter-spacing: -0.3px;
+        text-align: left;
+        margin-top: 2px;
+      }
+
+      .product-price {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: 0;
+        text-align: left;        
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+        margin-top: 6px;
+        margin-bottom: 30px;
+
       }
       .product-user-name {
         width: 100%;
@@ -141,6 +190,11 @@ headline {
 
 .card__text {
   font-size: 16px;
+}
+.alt-meta-name{
+  font-family: 'Inter',sans-serif;
+  font-size: 14px;
+  color: black;
 }
 
 .product-menu-item {

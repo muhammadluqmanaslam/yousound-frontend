@@ -1,7 +1,7 @@
 <template>
   <v-card flat v-if="isPageReady">
     <v-tabs dark class="white" v-model="active_tab">
-      <v-tabs-bar class="transparent pl-4 mt-4">
+      <v-tabs-bar class="transparent">
         <v-tabs-item
           v-for="tab in signups_tabs"
           @click.native="onTab(tab.id)"
@@ -10,7 +10,7 @@
           ripple
           >{{ tab.title }}</v-tabs-item
         >
-        <v-tabs-slider color="black"></v-tabs-slider>
+        <!-- <v-tabs-slider color="black"></v-tabs-slider>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search_value"
@@ -20,7 +20,7 @@
           single-line
           hide-details
           class="user-serach search-input mr-4"
-        />
+        /> -->
       </v-tabs-bar>
       <v-tabs-items style="border: none">
         <v-tabs-content v-for="tab in signups_tabs" :key="tab.id" :id="tab.id">
@@ -51,7 +51,7 @@
                   {{ props.item.request_role | capitalize }}
                 </td>
                 <td class="text-xs-left">
-                  {{ _.get(props.item, 'genre.name', '') }}
+                  {{ _.get(props.item, "genre.name", "") }}
                 </td>
                 <td class="text-xs-left">
                   {{ props.item.created_at | formatDate }}
@@ -60,7 +60,7 @@
                   <router-link
                     v-if="props.item.inviter"
                     :to="`/${props.item.inviter.slug}`"
-                    >{{ props.item.inviter.display_name }}</router-link
+                    >{{ props.item.inviter.username }}</router-link
                   >
                 </td>
                 <td class="text-xs-right">
@@ -104,7 +104,7 @@
                   {{ props.item.request_role | capitalize }}
                 </td>
                 <td class="text-xs-left">
-                  {{ _.get(props.item, 'genre.name', '') }}
+                  {{ _.get(props.item, "genre.name", "") }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.created_at | formatDate }}
@@ -123,7 +123,7 @@
                   <router-link
                     v-if="props.item.inviter"
                     :to="`/${props.item.inviter.slug}`"
-                    >{{ props.item.inviter.display_name }}</router-link
+                    >{{ props.item.inviter.username }}</router-link
                   >
                 </td>
                 <td class="text-xs-right">
@@ -173,9 +173,7 @@
                   {{ props.item.approved_at | formatDate }}
                 </td>
                 <td class="text-xs-left">
-                  {{
-                    props.item.approver ? props.item.approver.display_name : ''
-                  }}
+                  {{ props.item.approver ? props.item.approver.username : "" }}
                 </td>
                 <td class="text-xs-left">
                   <v-btn
@@ -195,6 +193,7 @@
         </v-tabs-content>
       </v-tabs-items>
     </v-tabs>
+    
 
     <signup-approve-modal
       v-if="show_approve_modal"
@@ -202,6 +201,8 @@
       :dismiss="closeApproveModal"
       :approveButtonAction="approveUser"
       :denyButtonAction="denyUser"
+      :activeTab = "active_tab"
+      :loading = "loading"
     />
 
     <signup-deny-modal
@@ -209,8 +210,10 @@
       :item="user"
       :dismiss="closeDenyModal"
       :submission="viewSubmission"
+      :loading="loading"
     />
   </v-card>
 </template>
 
 <script type="text/javascript" src="./signups.ctrl.js"></script>
+<style src="./general.scss" lang="scss" scoped></style>

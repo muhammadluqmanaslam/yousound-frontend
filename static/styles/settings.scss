@@ -1,4 +1,11 @@
 .page.settings-page {
+
+  &.onMobile {
+    .update-btn {
+      background: #000000;
+      color: #ffffff;
+    }
+  }
   .main-section {
     // margin-left: 240px;
     // &.active {
@@ -11,22 +18,24 @@
       // padding-bottom: 30px;
       width: 100%;
       padding-right: 0;
+      padding-bottom: 50px;
+
       .flex.xs12.sm3.form-group {
         padding: 0 11.25px;
         margin-bottom: 24px;
       }
-      .flex.xs12.sm6.form-group,
-      .flex.xs12.sm12.form-group {
-        margin-bottom: 12px;
+      .form-group {
+        margin-bottom: 30px;
         margin-top: 0px;
-        padding-right: 24px;
+
+        label {
+          font-weight: 500;
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
       }
       .stripe {
         display: flex;
-        img {
-          height: 55px;
-          margin-right: 22.5px;
-        }
         & > div {
           display: inline-block;
           margin-top: 7px;
@@ -50,7 +59,7 @@
         box-shadow: none;
         text-transform: none;
         margin: 0;
-        background: #3a92ff;
+        background: #2A71F6;
         border-radius: 75px;
         font-weight: 600;
         font-size: 15px;
@@ -62,15 +71,34 @@
         }
       }
       .profile-section {
+        .avatar-section {
+          width: 100%;
+          .__wrapper {
+            border: 1px solid #D8D8D8;
+            border-radius: 4px;
+            padding: 15px;
+          }
+        }
+        .user-names {
+          ._wrapper {
+            gap: 20px;
+
+            .first-name,
+            .last-name {
+              flex: 1;
+            }
+          }
+        }
+
         .profile-image-section {
           background-color: #3a92ff;
           border: 0.75px solid #d2d2d2;
-          width: 165px;
-          height: 165px;
+          width: 85px;
+          height: 85px;
           border-radius: 100%;
           position: relative;
-          margin-left: 11.25px;
-          margin-bottom: 15px;
+          margin-right: 30px;
+
           .loading-activity {
             position: absolute;
             margin-top: 0px;
@@ -162,28 +190,6 @@
             }
           }
         }
-        .cancel-account-btn {
-          background: transparent !important;
-          text-transform: none;
-          box-shadow: none;
-          margin: 0;
-          font-weight: 700;
-          font-size: 13.5px;
-          color: #3a92ff;
-          letter-spacing: 0;
-          cursor: pointer;
-          line-height: 37.5px;
-          .btn__content {
-            padding: 0;
-          }
-          &:hover {
-            .btn__content {
-              &::before {
-                background: transparent;
-              }
-            }
-          }
-        }
         .regular-checkbox.settings {
           margin: 6px 7.5px;
           &.enable-alerts {
@@ -209,6 +215,121 @@
           }
         }
       }
+
+      .plans-section {
+        .control-label {
+          margin-bottom: 10px;
+        }
+        .plan {
+          border: 1px solid #D8D8D8;
+          border-radius: 4px;
+          padding: 15px;
+          margin-bottom: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          
+          &.isCurrentPlan {
+            border: 2px solid #0085FF;
+          }
+
+          &-title {
+            font-weight: 700;
+            margin-bottom: -6px;
+          }
+          .current-plan {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .delete-account-section {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #D8D8D8;
+        border-radius: 4px;
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 0;
+
+        .delete-caption {
+          font-weight: 500;
+        }
+
+        .cancel-account-btn {
+          background: #ff6a6a;
+          text-transform: none;
+          box-shadow: none;
+          margin: 0;
+          font-weight: 700;
+          font-size: 13.5px;
+          color: #ffffff;
+          letter-spacing: 0;
+          cursor: pointer;
+          line-height: 37.5px;
+          padding: 0 17px;
+
+          .btn__content {
+            padding: 0;
+          }
+          // &:hover {
+          //   .btn__content {
+          //     &::before {
+          //       background: transparent;
+          //     }
+          //   }
+          // }
+        }
+      }
+
+      .bank-details-section {
+        ._subtitle {
+          font-weight: 500;
+        }
+
+        .stripe-status-identifier {
+          border: 1px solid #D8D8D8;
+          padding: 20px 30px 20px 20px;
+          border-radius: 4px;
+          
+          .stripeLink-icon {
+            color: #000000;
+            border: 2px solid #000000;
+            border-radius: 100px;
+            font-size: 18px;
+          }
+
+          .stripe-img {
+            width: 80px;
+            margin-right: 20px;
+          }
+
+          .status-title {
+            font-weight: 700;
+            font-size: 20px;
+            margin-bottom: -7px;
+          }
+          .status {
+            font-size: 16px;
+            font-weight: 500;
+          }
+          
+          &-connected {
+            border-radius: 4px 4px 0 0;
+            border-bottom: none;
+          }
+        }
+        .stripeEmail-section {
+          border-radius: 0 0 4px 4px;
+          border: 1px solid #D8D8D8;
+          padding: 10px 30px 10px 20px;
+          font-weight: 500;
+        }
+      }
+
       .shipping-address-section {
         // .shipping-address-city-section {}
         .shipping-address-state-section {
@@ -218,6 +339,16 @@
         }
       }
       .bocked-user-section {
+        .blocked-users {
+          border: 1px solid #d8d8d8;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 15px 20px;
+          margin-bottom: 30px;
+        }
+
         .blocked-user-profile-image {
           width: 37.5px;
           height: 37.5px;
@@ -241,15 +372,18 @@
           margin-left: 7.5px;
         }
         .unblock-btn {
-          box-shadow: none;
-          text-transform: none;
-          vertical-align: middle;
-          background: #3a92ff !important;
-          border-radius: 75px;
-          font-weight: 600;
-          font-size: 15px;
-          color: #ffffff;
-          letter-spacing: 0;
+          // box-shadow: none;
+          // text-transform: none;
+          // vertical-align: middle;
+          // font-weight: 600;
+          // font-size: 15px;
+          // letter-spacing: 0;
+          border-color: #c4c4c4;
+
+          &:hover {
+            background-color: transparent !important;
+            background: transparent !important;
+          }
         }
       }
       .policy-area {
@@ -265,6 +399,7 @@
       position: relative;
       width: 100%;
       padding-right: 0;
+
       .regular-checkbox.settings {
         &.parent-genre {
           label {
@@ -306,10 +441,9 @@
       padding: 20px 0;
       background: #ffffff;
       p {
-        font-size: 18px;
+        font-size: 16px;
         color: #333;
-        letter-spacing: -0.6px;
-        font-family: 'Open Sans', sans-serif;
+        letter-spacing: 0;
         margin-left: 0;
         padding-top: 10px;
         padding-bottom: 12px;
@@ -347,15 +481,15 @@
       z-index: 15;
 
       label {
-        font-size: 16px;
-        // color: #262626;
+        font-size: 14px;
+        padding-right: 10px;
         color: black;
         letter-spacing: 0;
       }
       span {
-        font-size: 16px;
+        font-size: 14px;
         letter-spacing: 0;
-        color: #b8b8b8;
+        color: #000000;
       }
       .about-title {
         font-weight: 700;
@@ -369,9 +503,11 @@
       }
       .profile-section {
         .profile-image {
-          margin-left: 20px;
-          height: 100px;
-          width: 100px;
+          margin-left: 0;
+          height: 70px;
+          width: 70px;
+          margin-top: 20px;
+          margin-right: 8px;
           display: inline-block;
           background-size: cover;
           background-position: center;
@@ -392,10 +528,11 @@
             .user-name {
               display: block;
               font-weight: 700;
-              font-size: 25px;
+              font-size: 20px;
               color: #262626;
               letter-spacing: 0;
-              margin-bottom: 5px;
+              margin-top: 10px;
+              margin-bottom: 10px;
             }
             .main-genre {
               display: block;
@@ -408,8 +545,9 @@
               border: 1px solid #ff5252;
               color: #ff5252;
               &.accepted {
-                border-color: #7ed321;
-                color: #7ed321;
+                border-color: #42b319;
+                color: #37af0b;
+                border-radius: 3px;
               }
             }
           }
@@ -486,6 +624,15 @@
           letter-spacing: 0;
           text-transform: none;
         }
+      }
+    }
+
+    .verify-section {
+      .verify-wrapper {
+        border: 1px solid #D8D8D8;
+        padding: 15px 10px;
+
+        border-radius: 4px;
       }
     }
   }

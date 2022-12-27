@@ -16,9 +16,11 @@ export default {
 
   data() {
     return {
+      is_username_available: true,
       UserTypeOptions: UserTypeOptions,
       token: '',
       terms: false,
+      newsletter_terms: false,
       user: {
         email: '',
         password: '',
@@ -33,6 +35,8 @@ export default {
       inviter: {},
       show_register_success_dialog: false,
       isPageReady: false,
+      age_group: ['14-21', '22-34', '35-49', '50-65+'],
+      social_platform: ['Facebook', 'Instagram', 'Twitter', 'LinkedIn', 'Snapchat'],
     }
   },
 
@@ -44,18 +48,24 @@ export default {
 
   created() {
     AuthService.clearTokenAndUserInfo()
-    this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
+    // this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
 
     this.token = this.$route.params.token
     this.isPageReady = false
-    this.$store.dispatch('error/showLoadingActivity', true)
     const params = {
       token: this.token,
     }
-    InvitationService.findByToken(params)
+    if (this.token) {
+      console.log(this.token);
+      this.$store.dispatch('error/showLoadingActivity', true)
+      InvitationService.findByToken(params)
       .then((res) => {
         this.inviter = res.body
         this.isPageReady = true
+
+        // send inviter and inform any parent of invite mode
+        this.$emit('invite-mode', this.inviter)
+
         this.$store.dispatch('error/showLoadingActivity', false)
       })
       .catch((err) => {
@@ -66,6 +76,9 @@ export default {
         this.$router.push({ path: '/' })
         this.$store.dispatch('error/showLoadingActivity', false)
       })
+    } else {
+      this.isPageReady = true
+    }
     // this.show_register_success_dialog = true
   },
 
@@ -77,19 +90,24 @@ export default {
           // console.log(this.errors)
           if (res === true) {
             var formData = new FormData()
-            formData.append('user[invitation_token]', this.token)
+            // formData.append('user[invitation_token]', this.token)
             formData.append('user[email]', this.user.email)
             formData.append('user[password]', this.user.password)
             formData.append('user[username]', this.user.username)
-            formData.append('user[display_name]', this.user.display_name)
+            formData.append('user[name]', this.user.name)
             formData.append('user[avatar]', this.user.avatar_file)
-            formData.append('user[genre_id]', this.user.genre_id)
             formData.append('user[request_role]', this.user.request_role)
-            formData.append(
-              'user[social_user_name]',
-              this.user.social_user_name
-            )
-            AuthService.registerAsListener(formData)
+            formData.append('user[social_url]', this.user.social_url)
+            // formData.append('user[display_name]', this.user.display_name)
+            // formData.append('user[genre_id]', this.user.genre_id)
+            // formData.append(
+            //   'user[social_user_name]',
+            //   this.user.social_user_name
+            // )
+            // for (var pair of formData.entries()) {
+            //   console.log(pair[0]+ ' - ' + pair[1]); 
+            // }
+            AuthService.registerAsArtist(formData)
               .then((res) => {
                 this.$store.dispatch('error/showLoadingActivity', false)
                 this.show_register_success_dialog = true
@@ -140,6 +158,20 @@ export default {
         false
       )
       reader.readAsDataURL(this.user.avatar_file)
+    },
+
+    onBlur(e) {
+      // console.log('onBlur', e)
+      const params = {
+        username: this.user.username,
+      }
+      AuthService.isUsernameAvailable(params)
+        .then((res) => {
+          this.is_username_available = true
+        })
+        .catch((e) => {
+          this.is_username_available = false
+        })
     },
   },
 }

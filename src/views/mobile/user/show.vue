@@ -18,7 +18,7 @@
           </div>
           <div class="media__footer">
             <div class="media__subtitle">
-              <label>{{ user.display_name }}</label>
+              <label>{{ user.username }}</label>
               <span>
                 <v-icon v-if="isUserVerified">fa-check-circle</v-icon>
               </span>
@@ -47,12 +47,12 @@
 </template>
 
 <script type="text/javascript">
-import _ from 'lodash'
-import mobileHeader from '@/views/mobile/components/header'
-import mobileFooter from '@/views/mobile/components/footer'
-import mobileMenu from '@/views/mobile/components/menu'
+import _ from "lodash";
+import mobileHeader from "@/views/mobile/components/header";
+import mobileFooter from "@/views/mobile/components/footer";
+import mobileMenu from "@/views/mobile/components/menu";
 
-import UserService from '@/services/user'
+import UserService from "@/services/user";
 
 export default {
   components: {
@@ -67,39 +67,39 @@ export default {
       user: null,
       showMenu: false,
       loading: true,
-    }
+    };
   },
 
   computed: {
     isUserVerified() {
-      const userType = _.get(this.user, 'user_type')
-      return ['artist', 'label', 'brand'].indexOf(userType) > -1
+      const userType = _.get(this.user, "user_type");
+      return ["artist", "label", "brand"].indexOf(userType) > -1;
     },
   },
 
   methods: {
     openMenu() {
-      this.showMenu = true
+      this.showMenu = true;
     },
 
     closeMenu() {
-      this.showMenu = false
+      this.showMenu = false;
     },
   },
 
   created() {
-    this.slug = this.$route.params.slug
-    const self = this
-    document.location = `ys://user/${this.slug}`
+    this.slug = this.$route.params.slug;
+    const self = this;
+    document.location = `ys://user/${this.slug}`;
     setTimeout(function () {
-      self.loading = true
+      self.loading = true;
       UserService.getUserInfo(self.slug).then((res) => {
-        self.user = res.body
-        self.loading = false
-      })
-    }, 300)
+        self.user = res.body;
+        self.loading = false;
+      });
+    }, 300);
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -159,7 +159,7 @@ export default {
         top: 0;
         width: 100%;
         height: 100%;
-        background: url('/static/images/album.jpg') no-repeat center center;
+        background: url("/static/images/album.jpg") no-repeat center center;
         background-size: contain;
       }
     }

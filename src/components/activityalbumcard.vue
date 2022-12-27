@@ -24,7 +24,7 @@
       </v-flex>
     </v-flex>
 
-    <v-btn
+    <!-- <v-btn
       v-if="!isPlaying || $store.state.player.isPaused"
       @click.native="playSong()"
       dark
@@ -33,7 +33,7 @@
     </v-btn>
     <v-btn v-else @click.native="pauseSong()" dark>
       <v-icon>pause</v-icon>
-    </v-btn>
+    </v-btn> -->
 
     <!-- <download-modal
       v-if="showDownloadModal"

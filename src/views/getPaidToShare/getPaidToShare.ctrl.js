@@ -1,0 +1,208 @@
+import AuthService from '@/services/auth'
+import UserService from '@/services/user'
+
+import paymentModal from '@/components/paymentmodal'
+import accordion from '@/components/accordion'
+import { mapGetters } from 'vuex'
+
+export default {
+  props: {
+    propMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  components: {
+    paymentModal,
+    accordion,
+  },
+
+  data() {
+    return {
+      prices: [
+        100,
+        500,
+        1000,
+        2000,
+        5000,
+        10000,
+        25000,
+        50000,
+        100000,
+        250000,
+        500000,
+        1000000,
+        2500000,
+        5000000,
+        10000000,
+        25000000,
+        50000000,
+        100000000,
+      ],
+      repost_price: 100,
+      proration: {
+        add_amount: 0,
+        expire_at: null,
+      },
+      show_repost_price_confirm_modal: false,
+      show_payment_modal: false,
+      isPageReady: false,
+      accordions: [
+        {
+          title: 'What is a repost request?',
+          content: 'Verified artists & brands can pay you to share their albums, videos & products to your followers.  Artists and brands will send you a Direct Message and tap the Repost Request button to attach their content for you to share',
+        },
+        {
+          title: 'What if I don’t accept a request?',
+          content: 'Accepted requests will stay on your feed for 7 days and you will receive payment in 2 days.  If you don’t respond to a request in 3 days it’s automatically cancelled and the sender is never charged.',
+        },
+        {
+          title: 'How do I start accepting Repost Requests?',
+          content: 'You must have a monthly subscription that will remove audio & video ads and allow you to get paid to share.',
+        },
+        {
+          title: 'What is the difference between Plus & Pro?',
+          content: 'You can charge up to 5k per repost with the <b>Plus</b> subscription plan, or up to 100k per repost for a <b>Pro</b> subscription plan. ',
+        },
+      ],
+      plans: [
+        {
+          title: 'Basic',
+          price: '9.99',
+          benefits: [
+            '1 account',
+            'Ad-free music &  video',
+          ],
+          value: 'basic',
+        },
+        {
+          title: 'Plus',
+          price: '19.99',
+          benefits: [
+            '1 account',
+            'Ad-free music &  video',
+            'Stats + Analytics',
+            'Make money sharing content. You can charge up to $5K per repost.',
+          ],
+          value: 'plus',
+        },
+        {
+          title: 'Pro',
+          price: '19.99',
+          benefits: [
+            '1 account',
+            'Ad-free music &  video',
+            'Stats + Analytics',
+            'Make money sharing content. You can charge up to $100k per repost.',
+          ],
+          value: 'pro',
+        },
+      ],
+    }
+  },
+
+  computed: {
+    stripeLink() {
+      return `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.STRIPE_CONNECT_CLIENT_ID}&scope=read_write&state=${this.$store.state.auth.secret_code}`
+    },
+    currentUser() {
+      console.log(this.$store.state.auth.user);
+      return this.$store.state.auth.user
+    },
+
+    repost_prices() {
+      let arr = []
+      for (let i in this.prices) {
+        arr.push({
+          name: `$${this.prices[i] / 100}${this.prices[i] > this.currentUser.max_repost_price ? ' Upgrade' : ''
+            }`,
+          value: this.prices[i],
+        })
+      }
+      return arr
+    },
+  },
+
+  created() {
+    this.resetRepostPrice()
+  },
+
+  methods: {
+    resetRepostPrice() {
+      this.repost_price = this.currentUser.repost_price
+    },
+
+    openRepostPriceConfirmModal() {
+      if (this.repost_price == this.currentUser.repost_price) {
+        return
+      }
+
+      const params = {
+        new_repost_price: this.repost_price,
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      UserService.getRepostPriceProration(this.currentUser.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.proration = response.body
+          // console.log(this.proration)
+          if (this.proration.add_amount > 0) {
+            this.show_repost_price_confirm_modal = true
+          } else {
+            this.setRepostPrice(null)
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+    },
+
+    closeRepostPriceConfirmModal() {
+      this.show_repost_price_confirm_modal = false
+    },
+
+    openPaymentModal() {
+      this.closeRepostPriceConfirmModal()
+      if (this.proration.add_amount > 0) {
+        this.show_payment_modal = true
+      } else {
+        this.setRepostPrice(null)
+      }
+    },
+
+    closePaymentModal() {
+      this.show_payment_modal = false
+    },
+
+    setRepostPrice(token) {
+      const params = {
+        repost_price: this.repost_price,
+        payment_amount: this.proration.add_amount,
+      }
+      // console.log('setRepostPrice', params)
+      if (token) {
+        params['payment_token'] = token.id
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      UserService.setRepostPrice(this.currentUser.id, params)
+        .then((response) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+          AuthService.setUser(response.body)
+        })
+        .catch((e) => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+
+    learnMore() {
+      this.$router.push({
+        path: '/terms',
+      })
+    },
+  },
+}

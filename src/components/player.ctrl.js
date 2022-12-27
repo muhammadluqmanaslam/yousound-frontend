@@ -2,16 +2,18 @@ import { mapGetters, mapActions } from 'vuex'
 import { Howl, Howler } from 'howler'
 import AlbumService from '@/services/album'
 // import PaymentService from '@/services/payment'
-import TrackService from '@/services/track'
 import UserService from '@/services/user'
 import { MyEvents } from '@/helper'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
+import UserFollowBtn from "@/components/userFollowBtn";
+import TrackService from "@/services/track";
 
 export default {
   components: {
     downloadModal,
     shareModal,
+    UserFollowBtn,
   },
 
   data() {
@@ -40,6 +42,10 @@ export default {
     ...mapGetters({
       reminderTracksCount: 'app/reminderTracksCount',
     }),
+
+    currentUser() {
+      return this.$store.state.auth.user
+    },
 
     MyEvents() {
       return MyEvents
@@ -160,7 +166,7 @@ export default {
       // this.trackName = this.playlist[index].track.name
       this.trackIndex = index + 1 + ' of ' + this.playlist.length
       this.track = this.playlist[index].track
-      console.log('player play track', this.track)
+      console.log('player play track player.ctrl', this.track)
 
       // If we already loaded self track, use the current one.
       // Otherwise, setup and load a new Howl.
@@ -204,12 +210,10 @@ export default {
             // this.isPlaying = false
           },
         })
-
         TrackService.playTrack(this.track.id).then((response) =>
-          console.log('playing - track', this.track.id)
-        )
+          console.log("playing - track", this.track.id)
+        );
       }
-
       // Begin playing the sound.
       sound.play()
 
@@ -414,7 +418,7 @@ export default {
       this.playlist = []
       this.index = 0
       if (tracks.length > 0) {
-        if (this.$store.state.auth.user) {
+        if (this.currentUser) {
           const album = object.assoc || object
           AlbumService.playAlbum(album.id).then((response) =>
             console.log('playing - album', album.id)
@@ -447,38 +451,6 @@ export default {
       var seconds = secs - minutes * 60 || 0
 
       return minutes + ':' + (seconds < 10 ? '0' : '') + seconds
-    },
-
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch('player/updateFollowingStatus', false)
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.user.display_name,
-            ])
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      } else {
-        UserService.followUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch('player/updateFollowingStatus', true)
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.user.display_name,
-            ])
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      }
     },
 
     choosePage(path) {
@@ -549,6 +521,6 @@ export default {
     this.$root.$on(MyEvents.AUDIO_PLAYER_SKIPTO, this.skipTrack)
     this.$root.$on(MyEvents.AUTH_SIGNOUT, this.resetPlayer)
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
-    this.$root.$on(MyEvents.VIDEO_PLAYER_FULLSCREEN_ENTER, this.pause)
+    this.$root.$on(MyEvents.STREM_PLAYER_FULLSCREEN_ENTER, this.pause)
   },
 }

@@ -12,8 +12,10 @@ const state = {
   tracks: [],
   listIndex: -1,
   trackIndex: -1,
+  currentTrackPlaying: {},
   gridShow: false,
   user: null,
+  isMobilePlayerActive: false,
 }
 
 const getters = {
@@ -68,12 +70,21 @@ const actions = {
     commit('setTrackIndex', trackIndex)
   },
 
+  setCurrentPlayingTrack({ commit }, currentTrackPlaying) {
+    console.log('current track', currentTrackPlaying)
+    commit('setCurrentPlayingTrack', currentTrackPlaying)
+  },
+
   setGridShow({ commit }, gridShow) {
     commit('setGridShow', gridShow)
   },
 
   setUpdatedUser({ commit }, user) {
     commit('setUpdatedUser', user)
+  },
+
+  toggleMobilePlayer({ commit }, status) {
+    commit('toggleMobilePlayer', status)
   },
 }
 
@@ -108,10 +119,12 @@ const mutations = {
   },
 
   updateFollowingStatus(state, status) {
-    if (state.list[state.listIndex].assoc_type) {
-      state.list[state.listIndex].assoc.publisher.is_following = status
-    } else {
-      state.list[state.listIndex].user.is_following = status
+    if (state.list[state.listIndex]) {
+      if (state.list[state.listIndex].assoc_type) {
+        state.list[state.listIndex].assoc.publisher.is_following = status
+      } else {
+        state.list[state.listIndex].user.is_following = status
+      }
     }
   },
 
@@ -124,12 +137,21 @@ const mutations = {
     // }
   },
 
+  setCurrentPlayingTrack(state, currentTrackPlaying) {
+    state.currentTrackPlaying = currentTrackPlaying
+  },
+
   setGridShow(state, gridShow) {
     state.gridShow = gridShow
   },
 
   setUpdatedUser(state, user) {
     state.user = user
+  },
+
+  toggleMobilePlayer(state, status) {
+    console.log('toggleMobilePlayer status', status);
+    state.isMobilePlayerActive = status
   },
 }
 

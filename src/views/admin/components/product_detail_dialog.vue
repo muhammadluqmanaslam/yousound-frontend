@@ -28,7 +28,7 @@
               <img v-bind:src="user.avatar.url"/>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title v-html="user.display_name"></v-list-tile-title>
+              <v-list-tile-title v-html="user.username"></v-list-tile-title>
               <v-list-tile-sub-title>Uploader</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -41,7 +41,7 @@
               <img v-bind:src="c.user.avatar.url"/>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title v-html="c.user.display_name"></v-list-tile-title>
+              <v-list-tile-title v-html="c.user.username"></v-list-tile-title>
               <v-list-tile-sub-title v-html="c.user_role"></v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>

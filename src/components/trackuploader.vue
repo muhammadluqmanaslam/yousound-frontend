@@ -1,33 +1,21 @@
 <template>
-  <div>
-    <div class="uploaderBox" id="uploaderBox">
-      <div class="uploaderBox__input">
-        <input
-          type="file"
-          id="file"
-          class="uploaderBox__file"
-          :name="uploadFieldName"
-          :accept="accept"
-          @change="filesChange($event.target.files)"
-          multiple
-        />
-        <label for="file">
-          <img src="/static/images/drop_box.png" class="uploaderBox_image" />
-        </label>
-      </div>
-      <div class="uploaderBox__desc">
-        <span class="uploaderBox__dragndrop"
-          >Click or Drag & Drop audio files</span
-        >
-        <span class="uploaderBox__filetype"> MP3 audio files only</span>
-      </div>
+  <div class="video-page create-page mx-5">
+    <div class="page-content">
+      <drag-file-uploader
+        accept="mp3/*"
+        type="file"
+        category="audio"
+        @filePicked="pickedFile"
+        :autoUpload="true"
+        ref="dragFileUploader"
+      ></drag-file-uploader>
     </div>
 
     <div class="track-list-section" v-if="album.tracks.length">
-      <h4 class="track-list-title" id="track_list">Track List</h4>
-      <div class="track-list-subtitle">
+      <h4 class="track-list-title pt-5" id="track_list">Tracklist</h4>
+      <!-- <div class="track-list-subtitle">
         Highlight track title to rename<span class="required">*</span>
-      </div>
+      </div> -->
       <draggable
         v-model="album.tracks"
         handle=".item-handle"
@@ -39,10 +27,10 @@
             v-for="(file, index) in album.tracks"
             :key="index"
           >
-            <label class="item-index">{{ index + 1 }}</label>
+            <label class="item-index pl-3">{{ index + 1 }}</label>
             <div class="item-section">
               <!-- <div class="item-progress" style="display:none;"></div> -->
-              <v-icon class="item-handle">reorder</v-icon>
+              <img class="item-handle" width="18" src="/static/images/t-menu.svg" alt="">
               <input
                 v-model="file.file_name"
                 type="text"
@@ -51,6 +39,27 @@
                 @blur="onInputBlur(index, $event)"
                 class="item-name"
               />
+              <v-progress-circular
+                v-if="file.status == status.uploading"
+                indeterminate
+                :size="20"
+                class="primary--text loading"
+              ></v-progress-circular>
+              <span class="action-btns">
+                <v-icon class="done" v-if="file.status == status.success"
+                  >done</v-icon
+                >
+                <v-icon class="failed" v-if="file.status == status.failed"
+                  >error_outline</v-icon
+                >
+              <v-icon
+                class="clear-btn"
+                @click="deleteTrack(index)"
+                v-if="file.status != status.uploading"
+                >clear</v-icon
+              >
+              </span>
+
 
               <!-- <v-icon
                 v-if="file.editing"
@@ -64,25 +73,9 @@
               >title</v-icon> -->
 
               <!-- <label class="item-progress-value" v-if="file.status == status.uploading">28%</label> -->
-              <v-progress-circular
-                v-if="file.status == status.uploading"
-                indeterminate
-                :size="20"
-                class="primary--text loading"
-              ></v-progress-circular>
-              <v-icon class="done" v-if="file.status == status.success"
-                >done</v-icon
-              >
-              <v-icon class="failed" v-if="file.status == status.failed"
-                >error_outline</v-icon
-              >
+              
             </div>
-            <v-icon
-              class="clear-btn"
-              @click="deleteTrack(index)"
-              v-if="file.status != status.uploading"
-              >clear</v-icon
-            >
+             
           </div>
         </transition-group>
       </draggable>
@@ -158,13 +151,19 @@
 /* global $:true */
 
 import _ from 'lodash'
-
+import * as UpChunk from '@mux/upchunk'
 import TrackService from '@/services/track.js'
 import draggable from 'vuedraggable'
+import contentTopHeader from '@/components/contentTopHeader'
+import dragFileUploader from '@/components/dragFileUploader'
+import topbarNotification from '@/components/topbarNotification'
 
 export default {
   components: {
     draggable,
+    contentTopHeader,
+    dragFileUploader,
+    topbarNotification,
   },
 
   props: {
@@ -185,6 +184,7 @@ export default {
 
   data() {
     return {
+      topBarContent: 'Connect your Stripe account to start accepting payments',
       show_unauthorized_content_dialog: false,
       show_duplicate_content_dialog: false,
       currentFile: {
@@ -198,6 +198,7 @@ export default {
       },
       currentStatus: null,
       uploadFieldName: 'files',
+      file: null,
     }
   },
 
@@ -224,18 +225,62 @@ export default {
     this.album.tracks = files
   },
 
+  watch: {
+    album: {
+      deep: true,
+      handler(val) {
+        if (val.tracks.length < 1) {
+          this.file = null
+        }
+      },
+    },
+  },
+
   methods: {
+    pickedFile(file) {
+      this.file = file
+      this.filesChange(file)
+    },
     saveTrack(file) {
       TrackService.uploadTrack(file.formData)
         .then((response) => {
           file.editing = false
           file.status = this.status.success
           file.track = response.body
+
+          // upload mux
+          file.track = response.body
+          console.log("track response===", response.body)
+          const upload_url = file.track.mux_audio_url_1
+
+          const upload = UpChunk.createUpload({
+            endpoint: upload_url,
+            file: this.file[0],
+            chunkSize: 5120, // Uploads the file in ~5mb chunks
+          })
+
+          upload.on('error', (err) => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            console.error('💥', err.detail)
+          })
+
+          upload.on('progress', (progress) => {
+            this.$store.commit(
+              'error/setProgressBarValue',
+              parseInt(progress.detail)
+            )
+          })
+
+          upload.on('success', () => {
+            this.$store.dispatch('error/showLoadingActivity', false)
+            console.log("Audio uploaded successfully with mux.")
+            // this.$router.push({ path: `/video/${this.video.id}/show` })
+          })
         })
         .catch((e) => {
           file.editing = false
           file.status = this.status.failed
-          // console.log('saveTrack', e.body)
+          console.log('catch saveTrack', e.body)
           switch (e.body.code) {
             case 1:
               if (!this.show_unauthorized_content_dialog) {
@@ -288,6 +333,7 @@ export default {
     },
 
     filesChange(fileList) {
+      console.log(456)
       // console.log('uploader filesChange', fileList)
       const vm = this
       // handle file changes
@@ -296,7 +342,11 @@ export default {
       Array.from(Array(fileList.length).keys()).map((x) => {
         const filesize = fileList[x].size / 1024 / 1024
         var filename = fileList[x].name
-        if (filename.toLowerCase().endsWith(this.accept)) {
+        if ((fileList[x].size / 1000) < 160) {
+          this.$store.dispatch('error/showErrorToast', [
+            'File size too small, must be at least 160k',
+          ])
+        } else if (filename.toLowerCase().endsWith(this.accept)) {
           if (filesize <= 300) {
             filename = filename.replace('.mp3', '')
             filename = filename.replace('.wav', '')
@@ -390,26 +440,26 @@ export default {
   },
 
   mounted() {
-    const vm = this
-    const uploaderBox = $('.uploaderBox')
-    uploaderBox
-      .on(
-        'drag dragstart dragend dragover dragenter dragleave drop',
-        function (e) {
-          e.preventDefault()
-          e.stopPropagation()
-        }
-      )
-      .on('dragover dragenter', function () {
-        uploaderBox.addClass('is-dragover')
-      })
-      .on('dragleave dragend drop', function () {
-        uploaderBox.removeClass('is-dragover')
-      })
-      .on('drop', function (e) {
-        let droppedFiles = e.originalEvent.dataTransfer.files
-        vm.filesChange(droppedFiles)
-      })
+    // const vm = this
+    // const uploaderBox = $('.uploaderBox')
+    // uploaderBox
+    //   .on(
+    //     'drag dragstart dragend dragover dragenter dragleave drop',
+    //     function (e) {
+    //       e.preventDefault()
+    //       e.stopPropagation()
+    //     }
+    //   )
+    //   .on('dragover dragenter', function () {
+    //     uploaderBox.addClass('is-dragover')
+    //   })
+    //   .on('dragleave dragend drop', function () {
+    //     uploaderBox.removeClass('is-dragover')
+    //   })
+    //   .on('drop', function (e) {
+    //     let droppedFiles = e.originalEvent.dataTransfer.files
+    //     vm.filesChange(droppedFiles)
+    //   })
   },
 }
 </script>

@@ -17,8 +17,19 @@ export default {
       parent: null,
       region: {},
       parent_index: 0,
+      inputDropdown: false,
       show_selector_view: true,
       isPageReady: true,
+      selectDemoItems: ['Vuetify', 'Programming'],
+      demoItems: [
+        'Programming',
+        'Design',
+        'Vue',
+        'Vuetify',
+      ],
+      selectedMainGenresIds: [],
+      selectedSubgenresIds: [],
+      subGenresName: [],
     }
   },
 
@@ -45,6 +56,9 @@ export default {
   // },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth
     },
@@ -66,11 +80,25 @@ export default {
         }
       })
 
+      if (this.subGenresName.length === 0) {
+        genres.forEach(genre => {
+          genre.children.forEach(child => {
+            this.subGenresName.push(child.name.toLowerCase())
+            if (this.selectedSubgenresIds.includes(child.id)) {
+              if (!(this.selectedMainGenresIds.includes(genre.id))) {
+                this.selectedMainGenresIds.push(genre.id)
+              }
+            }
+          })
+        })
+      }
+
       return genres
     },
   },
 
   created() {
+    this.selectedSubgenresIds = this.currentUser.user.hidden_genres.map(genre => genre.id)
     // this.genres = _.cloneDeep(this.$store.state.app.genres)
     // let hiddenGenres = _.keyBy(this.$store.state.auth.user.hidden_genres, 'id')
     // _.each(this.genres, (genre) => {
@@ -87,14 +115,62 @@ export default {
   },
 
   methods: {
+    selectParentGenre(parent) {
+      this.selectedMainGenresIds.push(parent.id)
+      for (let i = 0; i < parent.children.length; i++) {
+        if (!(this.selectedSubgenresIds.includes(parent.children[i].id))) {
+          this.selectedSubgenresIds.push(parent.children[i].id)
+        }
+      }
+      console.log("main genres ", this.selectedMainGenresIds)
+      console.log("Sub genres", this.selectedSubgenresIds)
+    },
+
+    selectSubGenre(child, parent) {
+      if (event.target.checked === true) {
+        if (!(this.selectedMainGenresIds.includes(parent.id))) {
+          this.selectedMainGenresIds.push(parent.id)
+        }
+        this.selectedSubgenresIds.push(child.id)
+      } else {
+        if (this.selectedSubgenresIds.includes(child.id)) {
+          const index = this.selectedSubgenresIds.indexOf(child.id)
+          this.selectedSubgenresIds.splice(index, 1)
+          // remove select state from parent if no child is present.
+          const child_ids = parent.children.map(child => child.id)
+          const removeParent = child_ids.filter(child => this.selectedSubgenresIds.includes(child)).length === 0
+          if (removeParent) {
+            const parentIndex = this.selectedMainGenresIds.indexOf(parent.id)
+            this.selectedMainGenresIds.splice(parentIndex, 1)
+          }
+        }
+      }
+      console.log("selected subgenres", this.selectedSubgenresIds)
+    },
+
     checkParentGenre(parent, value) {
       _.each(parent.children, (g) => {
-        g.value = !parent.value
+        if (event.target.checked) {
+          if (!(this.selectedMainGenresIds.includes(parent.id))) {
+            this.selectedMainGenresIds.push(parent.id)
+          }
+          if (!(this.selectedSubgenresIds.includes(g.id))) {
+            this.selectedSubgenresIds.push(g.id)
+          }
+        } else {
+          if (this.selectedSubgenresIds.includes(g.id)) {
+            const index = this.selectedSubgenresIds.indexOf(g.id)
+            this.selectedSubgenresIds.splice(index, 1)
+            // remove select state from parent if no child is present.
+            const child_ids = parent.children.map(child => child.id)
+            const removeParent = child_ids.filter(child => this.selectedSubgenresIds.includes(child)).length === 0
+            if (removeParent) {
+              const parentIndex = this.selectedMainGenresIds.indexOf(parent.id)
+              this.selectedMainGenresIds.splice(parentIndex, 1)
+            }
+          }
+        }
       })
-      // this.genres = this.genres.slice()
-      if (!(value == null || value == undefined)) {
-        parent.value = !parent.value
-      }
       this.$forceUpdate()
     },
 
@@ -114,24 +190,67 @@ export default {
       this.$forceUpdate()
     },
 
-    checkChildGenre(parent, child) {
-      if (child.value) {
-        if (parent.value) {
-          parent.value = false
-          // this.genres = this.genres.slice()
-        }
+    filterRecords() {
+      var value = event.target.value;
+
+      if (event.key !== 'Backspace') {
+        this.subGenresName = this.subGenresName.filter((item) => {
+          return value.toLowerCase().split(' ').every(v => item.toLowerCase().includes(v))
+        })
+        console.log("this.subGenres ", this.subGenresName)
       } else {
+        this.genres.forEach(genre => {
+          genre.children.forEach(child => {
+            this.subGenresName.push(child.name.toLowerCase())
+          })
+          this.subGenresName = this.subGenresName.filter((item) => {
+            return value.toLowerCase().split(' ').every(v => item.toLowerCase().includes(v))
+          })
+        })
+      }
+    },
+
+    checkChildGenre(parent, child) {
+      if (event.target.checked) {
         if (_.countBy(parent.children, 'value')['false'] == 1) {
           parent.value = true
           // this.genres = this.genres.slice()
         }
+        // checking subgenre
+        if (!(this.selectedMainGenresIds.includes(parent.id))) {
+          this.selectedMainGenresIds.push(parent.id)
+        }
+        this.selectedSubgenresIds.push(child.id)
+      } else {
+        if (this.selectedSubgenresIds.includes(child.id)) {
+          const index = this.selectedSubgenresIds.indexOf(child.id)
+          this.selectedSubgenresIds.splice(index, 1)
+          // remove select state from parent if no child is present.
+          const child_ids = parent.children.map(child => child.id)
+          const removeParent = child_ids.filter(child => this.selectedSubgenresIds.includes(child)).length === 0
+          if (removeParent) {
+            const parentIndex = this.selectedMainGenresIds.indexOf(parent.id)
+            this.selectedMainGenresIds.splice(parentIndex, 1)
+          }
+        }
       }
+
+      console.log("selected subgenres", this.selectedSubgenresIds)
       this.$forceUpdate()
     },
 
     getSelectedChildrenCount(parent) {
-      const c = _.countBy(parent.children, 'value')['true']
-      return c > 0 ? c : 0
+      let c = 0
+      if (this.show_selector_view) {
+        c = _.countBy(parent.children, 'value')['true']
+      } else {
+        parent.children.map(child => {
+          if (this.selectedSubgenresIds.includes(child.id)) {
+            c = c + 1
+          }
+        })
+      }
+      return c
     },
 
     groupChildrenByRegion(parent) {
@@ -155,41 +274,23 @@ export default {
     },
 
     saveGenreFilters() {
-      let is_genres_selected = false
-      let genre_ids = []
-      _.each(this.genres, (parent) => {
-        _.each(parent.children, (child) => {
-          if (!child.value) {
-            genre_ids.push(child.id)
-          }
-          if (child.value && !is_genres_selected) {
-            is_genres_selected = true
-          }
-        })
-      })
-
-      if (!is_genres_selected) {
-        this.$store.dispatch('error/showErrorToast', [
-          'Please select at least 1 genre',
-        ])
-        return
-      }
-
-      this.$store.dispatch('auth/setGenreIds', genre_ids.join(','))
+      this.$store.dispatch('auth/setGenreIds', this.selectedSubgenresIds.join(','))
 
       const userId = this.$store.state.auth.user.id
       const params = {
-        genre_ids: genre_ids.join(','),
+        genre_ids: this.selectedSubgenresIds.join(','),
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       UserService.hiddenUserGenres(userId, params)
         .then((res) => {
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Saved'])
+          this.$store.dispatch('error/showSuccessToast', ['Genres Saved successfully.'])
           UserService.getUserInfo(userId).then((response) =>
             AuthService.setUser(response.body)
           )
           this.dismiss()
+          this.$router.push({path: '/music/discover'})
+          this.$forceUpdate()
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)

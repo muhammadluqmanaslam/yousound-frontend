@@ -1,47 +1,73 @@
 <template>
-  <div class="page auth-page auth-forgot-page">
-    <div class="text-xs-center">
-      <img class="logo" src="/static/images/nav_logo_primary.png" />
-      <h4 class="forgot-title">Forgot your password?</h4>
-    </div>
+  <div
+    class="page auth-page auth-forgot-page no-top-nav no-side-space">
+    <v-container grid-list-item allChildrenCenter auth-card px-0>
+      <v-layout v-if="!resetSuccess" wrap row justify-center>
+        <v-flex v-if="!onMobile" xs12 sm6 auth-card-child left-card>
+          <div>
+            <img width="40%" src="/static/images/nav_logo_primary.png" alt="" />
 
-    <form v-on:submit.prevent="submit()">
-      <v-flex xs12 text-xs-center>
-        <!-- <div class="form-group" :class="{'has-error': errors.has('username') }" >
-          <input v-model="username" v-validate="'required'" :class="{'input': true, 'text-danger': errors.has('username') }" name="usernameusername" type="text" placeholder="Username or Email">
-          <p class="text-danger text-xs-left" v-if="errors.has('username')">{{ errors.first('username') }}</p>
-        </div> -->
-        <div class="form-group" :class="{ 'has-error': errors.has('email') }">
-          <input
-            class="username"
-            v-model="email"
-            v-validate="'required|email'"
-            :class="{ input: true, 'text-danger': errors.has('email') }"
-            name="email"
-            type="email"
-            placeholder="Email"
-          />
-          <p class="text-danger text-xs-left" v-if="errors.has('email')">
-            {{ errors.first('email') }}
+            <div class="mt-4">
+              <h3>Forgot password</h3>
+            </div>
+          </div>
+
+          <v-spacer></v-spacer>
+
+          <div class="forgot-quest">
+            <img width="70%" src="/static/images/forgot-quest.svg" alt="" />
+          </div>
+        </v-flex>
+
+        <v-flex
+          xs12
+          sm6
+          lg4
+          auth-card-child
+          allChildrenCenter
+          right-card
+          sign-in-info
+        >
+          <v-container fluid pt-0 flex-none>
+            <v-layout wrap row justify-center>
+              <v-flex xs12 text-xs-center>
+                <div class="text-xs-center">
+                  <h2>Forgot password</h2>
+                </div>
+                <forgot-password-input />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-flex>
+      </v-layout>
+
+      <div v-if="resetSuccess" class="reset-successful-layout">
+        <h2>Check your email</h2>
+
+        <v-spacer></v-spacer>
+
+        <div class="_content">
+          <img width="40" :src="require('@/assets/send_airplane.svg')" alt="" />
+          <p class="_message">
+            Instructions to reset your password were sent to
+            <strong>{{ this.email }}</strong>
           </p>
         </div>
-      </v-flex>
-      <v-flex xs12 text-xs-center>
-        <v-btn block round dark type="submit" class="reset-btn"
-          >Email reset instructions</v-btn
+
+        <v-spacer></v-spacer>
+
+        <v-btn
+          block
+          round
+          dark
+          class="to-login-btn"
+          height="40"
+          @click="toLogin()"
         >
-      </v-flex>
-    </form>
-    <v-flex xs12 text-xs-center>
-      <v-layout row class="or-divider">
-        <v-flex xs5><hr class="divider" /></v-flex>
-        <v-flex xs2><p class="or">OR</p></v-flex>
-        <v-flex xs5><hr class="divider" /></v-flex>
-      </v-layout>
-    </v-flex>
-    <v-flex xs12 text-xs-center>
-      <router-link to="/login">Sign in</router-link>
-    </v-flex>
+          Login
+        </v-btn>
+      </div>
+    </v-container>
   </div>
 </template>
 

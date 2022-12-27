@@ -1,9 +1,12 @@
 // import AdminService from '@/services/admin'
 import PaymentService from '@/services/payment'
 import { Stripe } from '@/helper'
+import contentTopHeader from '@/components/contentTopHeader'
 
 export default {
-  components: {},
+  components: {
+    contentTopHeader, 
+  },
 
   data() {
     return {
@@ -12,6 +15,7 @@ export default {
         // { id: 'refunded', title: 'Refunded Transactions' },
       ],
       active_tab: 'all',
+      small_input: false,
       headers: [
         { text: 'Sender', value: 'sender.display_name', align: 'left' },
         { text: 'Receiver', value: 'receiver.display_name', align: 'left' },

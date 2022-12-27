@@ -5,6 +5,9 @@ import trackCard from '@/components/trackcard'
 import productCard from '@/components/productcard'
 import VideoBox from '@/components/video_box'
 import videoCard from '@/components/videocard'
+import contentTopHeader from '@/components/contentTopHeader'
+import searchInput from '@/components/searchInput'
+import TabNav from '@/views/mobile/components/tab_nav.vue'
 
 export default {
   components: {
@@ -13,17 +16,21 @@ export default {
     productCard,
     VideoBox,
     videoCard,
+    contentTopHeader,
+    searchInput,
+    TabNav,
   },
 
   data() {
     return {
       active_tab: 'albums',
+      showAdvnacedSearch: false,
       tabs: [
-        { id: 'albums', title: 'Albums' },
-        // { id: 'playlists', title: 'Playlists' },
-        { id: 'products', title: 'Products' },
-        { id: 'live_videos', title: 'Live Videos' },
-        { id: 'users', title: 'People' },
+        { id: 'albums', title: 'Albums', name: 'AlbumIndex' },
+        // { id: 'playlists', title: 'Playlists', name: '' },
+        { id: 'products', title: 'Products', name: 'ProductIndex' },
+        { id: 'live_videos', title: 'Videos', name: 'VideoIndex' },
+        { id: 'users', title: 'People', name: '' },
       ],
       page_index: 1,
       total_pages: 1,
@@ -43,6 +50,15 @@ export default {
   },
 
   computed: {
+    searchTab() {
+      return this.$route.params.searchTab || "";
+    },
+    refactoredTabs() {
+      return this.tabs.map((tab) => ({ ...tab, title: `${tab.title} (${this.searchResultCount(tab.id)})` }))
+    },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     filtered_feeds() {
       if (this.selected_genre) {
         return _.filter(
@@ -63,10 +79,47 @@ export default {
   },
 
   created() {
+    console.log(this.$route);
     this.$store.dispatch('navigator/goNextState', {
       page: 'search',
       tab: this.active_tab,
     })
+
+    console.log(this.searchTab, this.onMobile);
+    // console.log(this.$refs.tabData._uid);
+    // detect sender route and update tab to its correspondence
+    const { senderRoute } = this.$route.params
+
+    if (senderRoute) {
+      console.log(this.$route.params);
+      const route = this.tabs.find(t => t.name === senderRoute);
+
+      if (route !== undefined) return this.onTab(route.id)
+    } else if (this.onMobile && this.searchTab) {
+      switch (this.searchTab) {
+        case 'album':
+          this.$nextTick(function () {
+            this.$refs.tabData.updateSelectedTab('albums')
+          })
+          break
+        case 'video':
+          this.$nextTick(function () {
+            this.$refs.tabData.updateSelectedTab('live_videos')
+          })
+          break
+        case 'merch':
+          this.$nextTick(function () {
+            this.$refs.tabData.updateSelectedTab('products')
+          })
+          break
+        default:
+          this.$nextTick(function () {
+            this.$refs.tabData.updateSelectedTab('')
+          })
+        break;
+      }
+    }
+
     this.keyword = this.$route.query.q
     this.init()
   },
@@ -164,7 +217,7 @@ export default {
     filterByGenres(genre) {
       $('#genre_selector .btn__content').html(
         genre.name +
-          '<i class="material-icons icon theme--dark">keyboard_arrow_down</i>'
+        '<i class="material-icons icon theme--dark">keyboard_arrow_down</i>'
       )
       switch (genre.id) {
         case 'go_to_filters':
@@ -184,7 +237,11 @@ export default {
     },
 
     onTab(tab) {
-      this.active_tab = tab
+      // in some use cases, tab could be either a direct id or whole object
+      this.active_tab = typeof tab === 'object' ? tab.id : tab
+
+      console.log(123);
+
       this.$store.dispatch('navigator/goNextState', {
         page: 'search',
         tab: this.active_tab,
@@ -197,6 +254,4 @@ export default {
       // console.log('onTab', this.active_tab, this.users)
     },
   },
-
-  mounted() {},
 }

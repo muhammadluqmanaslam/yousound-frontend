@@ -2,33 +2,67 @@
 
 import _ from 'lodash'
 import AuthService from '@/services/auth'
+import ItemService from '@/services/item'
 import SearchService from '@/services/search'
-
+import VueSlickCarousel from 'vue-slick-carousel'
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import ProductService from '@/services/product'
 import productCard from '@/components/productcard'
+import contentTopHeader from '@/components/contentTopHeader'
+import discoverNav from '@/components/discoverNav'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
 
 export default {
+  props: {
+    isComp: Boolean,
+    listLimit: Number,
+  },
   components: {
     productCard,
+    contentTopHeader,
+    discoverNav,
+    VueSlickCarousel 
   },
 
   data() {
     return {
+      slickOptions: {
+        infinite:false,
+        slidesToShow: 6,
+        dots: false,
+        cssEase: 'linear',
+        arrows: true,
+  //      autoplay: true,
+  //      autoplaySpeed: 6000,
+        
+      },
+      activeTab: 'recommended',
       seed: '',
       page_index: 1,
       total_pages: 1,
-      items_per_page: 1 * 10,
+      items_per_page: 1 * 50,
       categories: [],
       selected_category: null,
       products: [],
       feeds: [],
       isPageReady: false,
+      tabs: [
+        { id: 'recommended', title: 'Trending' },
+        { id: 'new', title: 'New Arrivals' },
+      ],
+      mainProduct: {},
+      viewAllTrending: false,
+      trendingProducts: [],
     }
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -39,12 +73,6 @@ export default {
   },
 
   created() {
-    if (!this.currentUser) {
-      AuthService.clearTokenAndUserInfo()
-      this.$router.push({ path: '/login' })
-      return
-    }
-
     this.$store.dispatch('navigator/goNextState', {
       page: 'product',
       tab: '',
@@ -52,11 +80,100 @@ export default {
     // this.seed = parseInt(Date.now() * Math.random())
     this.seed = Math.random()
     this.loadFeeds(1)
+
+    // set active tab
+    if (this.pageName) {
+      this.activeTab = this.pageName
+    }
+
+    const paramFilter = this.$route.params.filter || ''
+    if (paramFilter) {
+      this.activeTab = paramFilter
+      this.onTab(this.activeTab)
+    }
   },
 
   methods: {
+    addToCart() {
+      const params = {
+        product_variant_id: this.mainProduct.variants[0].id,
+        quantity: 1,
+      }
+      ItemService.addToCart(params)
+        .then((response) => {
+          if (response.body.errors) {
+            this.$store.dispatch('error/showErrorToast', response.body.errors)
+          } else {
+            this.$store.dispatch('error/showSuccessToast', [
+              'Added successfully to Cart.',
+            ])
+          }
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
+    },
+
+    isActiveTab(tab) {
+      return this.activeTab === tab
+    },
+
+    verifyUser(selectedProduct) {
+      if (this.currentUser == null) {
+        this.showRegisterModal = true;
+      } else {
+        this.mainProduct = selectedProduct
+      }
+    },
+
+    addToCollections() {
+      ProductService.addIntoCollection(this.mainProduct.id)
+      .then((resp) => {
+        this.$store.dispatch("error/showSuccessToast", [
+          "You just added " + this.mainProduct.name + " in your collections.",
+        ]);
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          "error/showErrorToast",
+          e.body.errors || [e.body]
+        );
+      })
+    },
+
+    onTab(tab) {
+      this.activeTab = tab
+
+      if (this.isComp) {
+        this.$router.push({ name: 'ProductIndex', params: { filter: tab } })
+      } else {
+        this.$router.push({
+          path: this.$route.path,
+          hash: tab,
+        })
+      }
+    },
+
+    filterVideos(filter) {
+      console.log(filter)
+    },
+
     isActiveCategory(category) {
       return _.get(this.selected_category, 'id', 'any') === category.id
+    },
+
+    displayAllProduct(category) {
+      this.selected_category = category
+      this.viewAllTrending = true
+    },
+
+    displayAllTrendingProduct() {
+      this.trendingProducts = this.products;
+      this.viewAllTrending = true
+      this.selected_category = null
     },
 
     loadFeeds(page) {
@@ -75,39 +192,54 @@ export default {
         seed: this.seed,
       }
 
-      SearchService.searchDiscover(params)
+      SearchService.searchDiscoverPublicUser(params)
         .then((response) => {
           this.$store.dispatch('error/showLoadingActivity', false)
           this.products = this.products.concat(response.body.products)
+
+          // this will return a a prop limit if available
+          this.products = this.products.slice(0, this.listLimit || this.products.length)
+          
+          // remove products duplicate
+          this.products = _.uniqBy(this.products, 'id')
+          this.mainProduct = this.products[0]
+          this.trendingProducts = this.products.slice(0, 10)
           // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
-          const categories = response.body.categories.map((c) => ({
+          this.categories = response.body.categories.map((c) => ({
             id: c,
             name: c,
           }))
-          this.categories = [{ id: 'any', name: 'All' }].concat(categories)
+          // this.categories = [{ id: 'any', name: 'All' }].concat(categories)
 
           this.page_index = response.body.pagination.current_page
           this.total_pages = response.body.pagination.total_pages
+          this.isPageReady = true
+          // if (page === 1) {
+          //   Promise.all([
+          //     SearchService.searchDiscover(_.extend(params, { page: 2 })),
+          //     SearchService.searchDiscover(_.extend(params, { page: 3 })),
+          //     SearchService.searchDiscover(_.extend(params, { page: 4 })),
+          //   ]).then((values) => {
+          //     vm.products = vm.products.concat(
+          //       values[0].body.products,
+          //       values[1].body.products,
+          //       values[2].body.products
+          //     )
 
-          if (page === 1) {
-            Promise.all([
-              SearchService.searchDiscover(_.extend(params, { page: 2 })),
-              SearchService.searchDiscover(_.extend(params, { page: 3 })),
-              SearchService.searchDiscover(_.extend(params, { page: 4 })),
-            ]).then((values) => {
-              vm.products = vm.products.concat(
-                values[0].body.products,
-                values[1].body.products,
-                values[2].body.products
-              )
-              vm.page_index =
-                values[2].body.pagination.total_pages > 4
-                  ? 4
-                  : values[2].body.pagination.total_pages
+          //     // this will return a a prop limit if available
+          //     vm.products = this.products.slice(0, this.listLimit || this.products.length)
 
-              vm.isPageReady = true
-            })
-          }
+          //     // remove products duplicate
+          //     this.products = _.uniqBy(this.products, 'id')
+
+          //     vm.page_index =
+          //       values[2].body.pagination.total_pages > 4
+          //         ? 4
+          //         : values[2].body.pagination.total_pages
+
+          //     vm.isPageReady = true
+          //   })
+          // }
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -116,26 +248,9 @@ export default {
         })
     },
 
-    filterByCategory(category) {
-      if (this.selected_category === category) return
-
-      $('#category_selector .btn__content').html(
-        category.name + filterArrowDownString
-      )
-      switch (category.id) {
-        case 'any':
-          this.selected_category = null
-          break
-        default:
-          this.selected_category = category
-      }
-
-      // this.page_index = 1
-      this.total_pages = 1
-      this.products = []
-      this.loadFeeds(1)
+    loadMore() {
+      this.loadData(this.pagination.current_page + 1)
     },
-
     loadMore() {
       // this.page_index += 1
       this.loadFeeds(this.page_index + 1)

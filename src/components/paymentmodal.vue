@@ -5,11 +5,28 @@
 
       <div class="box" v-if="!show_error_dialog">
         <div class="box__header">
-          <div class="box__icon"></div>
-          <h4>You're almost done.</h4>
-          <p>Fill the card detail to complete your order.</p>
+          <h4>Payment</h4>
+          <div class="close-icon" @click="dismiss()"> <img src="../assets/remove-icon.svg" width="32"></div>
+        </div>
+        <div class="divider my-4"></div>
+
+        <div class="mb-2 heading">Purchase</div>
+
+        <div class="con_container">
+          <div class="dflex justify-space-between align-center">
+           <div class="heading">Product purchase</div>
+           <div class="heading">${{ (amount + fee) | formatNumber }}</div>
+
+          </div>
+          <div class="divider my-3"></div>
+          <div class="subheading">
+           Sellers have 21 days to ship your items or your order is automatically refunded.
+          </div>
+
         </div>
 
+
+        <div class="mb-2 mt-3 heading">Credit card</div>
         <div class="box__content">
           <card
             class="payment-card"
@@ -18,25 +35,18 @@
             :options="stripeOptions"
             @change="complete = $event.complete"
           />
-          <div class="divider"></div>
-          <v-btn
-            class="btn-cta"
-            @click.native="sendPayment()"
-            :disabled="sent_payment || !complete"
-            >Pay ${{ (amount + fee) | formatNumber }}</v-btn
-          >
         </div>
+        <div class="divider my-4"></div>
+        <v-btn
+          class="btn-cta"
+          @click.native="sendPayment()"
+          :disabled="sent_payment || !complete"
+          >Pay ${{ (amount + fee) | formatNumber }}</v-btn
+        >
+
+
 
         <div class="box__footer">
-          <div class="payment-info">
-            <label>Payment</label>
-            <span>${{ amount | formatNumber }}</span>
-          </div>
-          <div class="divider"></div>
-          <div class="fee-info">
-            <label>Fee</label>
-            <span>${{ fee | formatNumber }}</span>
-          </div>
           <div class="stripe-info">
             <label>Powered by</label>
             <span>stripe</span>
@@ -211,37 +221,74 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn-cta {
+  width: 100%;
+  text-transform: none;
+  box-shadow: none;
+  border-radius: 3.75px;
+  background-color: #000 !important;
+  color: #ffffff;
+  font-size: 18px;
+letter-spacing: -0.6px;
+height: 48px;
+margin: 0;
+border-radius: 50px;
+font-weight: 500;
+}
 .my-overlay {
   position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
+  z-index: 55;
+  background-color: rgba(0, 0, 0, 0.9);
 }
+.subheading{
+  font-size: 14px !important;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+}
+.con_container{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+}
+.heading{
+  font-weight: 600;
+  color: black;
+  font-size: 14px;
 
+}
 .box {
-  z-index: 20;
+  z-index: 56;
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 360px;
+  width: 390px;
   padding: 0;
   max-width: 800px;
   transform: translate(-50%, -50%);
-  background-color: #3a92ff;
-  color: #ffffff;
+  background-color: #fff;
+  color: #000;
   box-shadow: 0 30px 55.5px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 7.5px;
+  border-radius: 20px;
   overflow: hidden;
+  padding: 20px 30px;
 
   &__header {
+    position: relative;
     h4 {
-      margin: 10px 30px 0 30px;
       font-size: 24px;
     }
     p {
-      margin: 0px 30px 0px 30px;
       font-size: 14px;
+    }
+    .close-icon{
+      position: absolute;
+      right: 0px;
+      top: 4px;
+      cursor: pointer;
     }
   }
 
@@ -254,12 +301,12 @@ export default {
   }
 
   &__footer {
-    padding: 20px 30px;
     //border-top: 1px dashed #FFFFFF;
 
     .divider {
-      margin: 5px 0;
-      border-top: 1px dashed #ffffff;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
     }
     .payment-info {
       label {
@@ -285,13 +332,13 @@ export default {
     }
     .stripe-info {
       margin: 20px 0 0 0;
-      text-align: right;
+      text-align: center;
       label {
         font-weight: 300;
       }
       span {
-        margin-left: 10px;
-        font-size: 36px;
+        margin-left: 0px;
+        font-size: 20px;
         font-weight: 700;
         font-family: 'Work Sans';
         letter-spacing: -1.5px;
@@ -304,31 +351,20 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    border-radius: 15px;
+    border-radius: 10px;
     background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
+padding: 20px 10px;
 
     .payment-card {
       width: 100%;
-      margin: 40px 0 20px;
-      padding: 8px 24px;
     }
     .divider {
-      width: 320px;
-      border-bottom: 1px solid #e1e1e1;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.1);
     }
-    .btn {
-      width: 200px;
-      margin: 30px 0 30px;
-      text-transform: none;
-      box-shadow: none;
-      border: 1px solid #e1e1e1;
-      border-radius: 3.75px;
-      background-color: #3a92ff !important;
-      color: #ffffff;
-      font-size: 15px;
-      letter-spacing: -0.6px;
-    }
+
     .input-group.input-group--selection-controls label {
       top: 3px;
     }

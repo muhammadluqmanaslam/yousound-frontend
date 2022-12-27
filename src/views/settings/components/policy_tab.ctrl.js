@@ -14,9 +14,19 @@ export default {
       required: true,
     },
 
+    textAreaHeight: {
+      type: Number,
+      required: false,
+    },
+
     updateUser: {
       type: Function,
       required: true,
+    },
+
+    isSaveAllMode: {
+      type: Boolean,
+      required: false,
     },
   },
 
@@ -27,6 +37,12 @@ export default {
   created() {},
 
   methods: {
+    saveAllMode() {
+      this.saveReturnPolicy()
+      this.saveShippingPolicy()
+      this.saveSizeChart()
+      this.savePrivacyPolicy()
+    },
     saveReturnPolicy() {
       const params = {
         user: {

@@ -1,8 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-
-import { Utils } from '@/helper'
-
+import { Utils, Storage, MyCookies } from '@/helper'
 import AuthService from '@/services/auth'
 import ItemService from '@/services/item'
 import OrderService from '@/services/order'
@@ -13,7 +11,8 @@ import productItem from '@/components/productitem'
 import profileItem from '@/components/profileitem'
 import sendMessage from '@/components/sendmessage'
 import collaborateProduct from './components/collaborate_product'
-import { Storage, MyCookies } from '@/helper'
+import contentTopHeader from '@/components/contentTopHeader'
+import dashboardNav from '@/components/dashboardnav'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -24,25 +23,28 @@ export default {
     productItem,
     profileItem,
     sendMessage,
+    contentTopHeader,
+    dashboardNav,
   },
 
   data() {
     return {
       active_tab: 'orders',
       tabs: [
-        { id: 'orders', title: 'Orders' },
-        { id: 'products', title: 'Products' },
-        { id: 'collaborations', title: 'Collaborations' },
-        { id: 'pendings', title: 'Pending collaborations' },
+        // { id: 'orders', title: 'Orders' },
+        // { id: 'products', title: 'Products' },
+        // { id: 'collaborations', title: 'Collaborations' },
+        // { id: 'pendings', title: 'Pending collaborations' },
       ],
       filters: [
-        { id: '', name: 'All' },
+        { id: 'all', name: 'All' },
         { id: 'creator_unshipped', name: 'Unshipped' },
         { id: 'creator_shipped', name: 'Shipped' },
         { id: 'collaborator_unshipped', name: 'Collaborated Unshipped' },
         { id: 'collaborator_shipped', name: 'Collaborated Shipped' },
+        { id: 'refunded', name: 'Refunded' },
       ],
-      activeFilter: null,
+      activeFilter: {},
       exportPeriod: null,
       show_product_finish_modal: false,
       show_ship_confirm_modal: false,
@@ -68,10 +70,19 @@ export default {
       total_pages: 1,
       items_per_page: 6 * 5,
       isPageReady: false,
+      defaultSortBy: 'DESC',
+      sorting: [
+        { id: 'ASC', name: 'Asc' },
+        { id: 'DESC', name: 'Desc' },
+      ],
     }
   },
 
   computed: {
+    isSidebarMini() {
+      return this.$store.state.app.sideBarMini;
+    },
+
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -166,6 +177,7 @@ export default {
       OrderService.getReceivedOrders({
         page: this.order_pagination.current_page,
         per_page: this.order_pagination.per_page,
+        sort: this.defaultSortBy
       }),
       ProductService.getProducts(),
     ])
@@ -175,6 +187,8 @@ export default {
         this.products = values[1].body
         this.isPageReady = true
         this.$store.dispatch('error/showLoadingActivity', false)
+
+        this.filterItems(this.filters[0])
       })
       .catch((reason) => {
         console.log(reason)
@@ -184,8 +198,8 @@ export default {
   },
 
   methods: {
-    isActiveTab(tab) {
-      return this.active_tab == tab
+    isActiveTab(filter) {
+      return this.active_tab == filter
     },
 
     loadProducts() {
@@ -201,6 +215,7 @@ export default {
       OrderService.getReceivedOrders({
         page: this.order_pagination.current_page + 1,
         per_page: this.order_pagination.per_page,
+        sort: this.defaultSortBy
       }).then((response) => {
         this.orderHistories = this.orderHistories.concat(response.body.orders)
         this.order_pagination = response.body.pagination
@@ -463,6 +478,38 @@ export default {
         page: this.page_index,
         per_page: this.items_per_page,
         status: filter.id,
+        sort: this.defaultSortBy
+      }
+      this.$store.dispatch('error/showLoadingActivity', true)
+      OrderService.getReceivedOrders(params)
+        .then((response) => {
+          this.orderHistories = response.body.orders
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+    },
+
+    sortItems(event) {
+      console.log("sortBy===>", event.target.value)
+      let selectedVal = event.target.value
+      if (this.defaultSortBy == selectedVal) return
+
+      this.defaultSortBy = selectedVal
+
+      const params = {
+        page: this.page_index,
+        per_page: this.items_per_page,
+        sort: this.defaultSortBy
+      }
+
+      if (this.activeFilter !== null) {
+        params.status = this.activeFilter.id
       }
       this.$store.dispatch('error/showLoadingActivity', true)
       OrderService.getReceivedOrders(params)
@@ -480,5 +527,5 @@ export default {
     },
   },
 
-  mounted() {},
+  mounted() { },
 }

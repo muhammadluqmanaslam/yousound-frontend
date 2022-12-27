@@ -13,6 +13,8 @@ export default {
   },
 
   registerAsListener(params) {
+    localStorage.setItem("user_email", params.get("user[email]"))
+    localStorage.setItem("user_pass", params.get("user[password]"))
     return Vue.http.post(API_BASE_URL + '/sign_up_as_listener', params)
   },
 
@@ -38,6 +40,10 @@ export default {
 
   isUsernameAvailable(params) {
     return Vue.http.post(API_BASE_URL + '/is_username_available', params)
+  },
+
+  isEmailAvailable(params) {
+    return Vue.http.post(API_BASE_URL + '/is_email_available', params)
   },
 
   checkTokenValidation() {
@@ -73,7 +79,8 @@ export default {
   },
 
   isAuthenticated() {
-    let token = this.getToken()
+    let token = this.getToken() || null
+
     if (token) {
       return true
     } else {
@@ -104,7 +111,7 @@ export default {
     let user = JSON.parse(localStorage.getItem(USER_INFO))
     $store.dispatch('auth/setToken', token)
     $store.dispatch('auth/setUser', user)
-    return token
+    return token || null
   },
 
   saveCredential(credential) {

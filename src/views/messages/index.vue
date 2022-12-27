@@ -1,6 +1,6 @@
 <template>
-  <v-layout row wrap class="page messages-page">
-    <v-flex xs12 sm12 class="messages-stop-music-section" v-if="show_stopPopup">
+  <div class="page messages-page">
+    <div class="messages-stop-music-section" v-if="show_stopPopup">
       <div class="popup-section">
         <img class="popup-image" src="/static/images/earphone.png" />
         <p class="popup-title">Direct Messages</p>
@@ -12,29 +12,28 @@
           >Ok. Got it!</v-btn
         >
       </div>
-    </v-flex>
+    </div>
 
     <!-- <v-flex xs12 sm10 offset-sm1 class="messages-page-header">
-      <v-flex xs12>
-        <v-layout row wrap>
-          <h2 class="page-title">Messages</h2>
-        </v-layout>
-        <v-layout row wrap>
-          <a href="/settings">
-            <label class="settings-text">You can receive message from anyone.</label><v-icon class="settings-icon">settings</v-icon>
-          </a>
-        </v-layout>
-      </v-flex>
-    </v-flex> -->
+    <v-flex xs12>
+      <v-layout row wrap>
+        <h2 class="page-title">Messages</h2>
+      </v-layout>
+      <v-layout row wrap>
+        <a href="/settings">
+          <label class="settings-text">You can receive message from anyone.</label><v-icon class="settings-icon">settings</v-icon>
+        </a>
+      </v-layout>
+    </v-flex>
+  </v-flex> -->
 
-    <v-flex
-      xs12
-      sm10
-      offset-sm1
+    <v-container
+      fluid
+      grid-list-md
       class="messages-page-content"
       v-if="currentUser"
     >
-      <v-layout row>
+      <v-layout wrap row>
         <v-flex
           xs12
           pa-0
@@ -47,50 +46,56 @@
         <template v-else>
           <v-flex xs12 sm3 pa-0 class="conversations">
             <div class="conversations__header">
+              <div class="app-bold">Inbox</div>
               <div class="conversations__count">
-                {{ conversations.length }} messages
+                <span class="__count">
+                  {{
+                    conversations.length < 99 ? conversations.length : "99+"
+                  }}</span
+                >
+                messages
               </div>
               <!-- <div class="search-box">
-                <div class="search-container">
-                  <span class="icon">
-                    <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                      <title>Group 22</title>
-                      <desc>Created with Sketch.</desc>
-                      <defs></defs>
-                      <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="searchIcon" transform="translate(-732.000000, -61.000000)" stroke="#FFFFFF" stroke-width="1.5999999">
-                          <g id="Group-29" transform="translate(710.000000, 50.000000)">
-                            <g id="Group-22" transform="translate(23.000000, 12.000000)">
-                              <circle id="Oval-2" cx="11.375" cy="11.375" r="11.375"></circle>
-                              <path d="M19.5,19.5 L25.59375,25.59375" id="Line" stroke-linecap="round" stroke-linejoin="round"></path>
-                            </g>
+              <div class="search-container">
+                <span class="icon">
+                  <svg width="20px" height="20px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>Group 22</title>
+                    <desc>Created with Sketch.</desc>
+                    <defs></defs>
+                    <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="searchIcon" transform="translate(-732.000000, -61.000000)" stroke="#FFFFFF" stroke-width="1.5999999">
+                        <g id="Group-29" transform="translate(710.000000, 50.000000)">
+                          <g id="Group-22" transform="translate(23.000000, 12.000000)">
+                            <circle id="Oval-2" cx="11.375" cy="11.375" r="11.375"></circle>
+                            <path d="M19.5,19.5 L25.59375,25.59375" id="Line" stroke-linecap="round" stroke-linejoin="round"></path>
                           </g>
                         </g>
                       </g>
-                    </svg>
-                  </span>
-                  <input class="search-field" type="search" id="search" placeholder="Search message" />
-                </div>
+                    </g>
+                  </svg>
+                </span>
+                <input class="search-field" type="search" id="search" placeholder="Search message" />
               </div>
-              <v-menu offset-y class="more-menu">
-                <v-btn dark slot="activator">
-                  <v-icon right>more_horiz</v-icon>
-                </v-btn>
-                <v-list>
-                  <v-list-tile key="all" class="default-menu-item" @click.native="showAllMessages()">
-                    <v-list-tile-title>
-                      <img class="track-status-icon" src="/static/images/ic_repeat.png" />
-                      <label>All Messages</label>
-                    </v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile key="request" class="default-menu-item" @click.native="showRepostRequests()">
-                    <v-list-tile-title>
-                      <img class="track-status-icon" src="/static/images/ic_download.png" />
-                      <label>Repost Requests Only</label>
-                    </v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu> -->
+            </div>
+            <v-menu offset-y class="more-menu">
+              <v-btn dark slot="activator">
+                <v-icon right>more_horiz</v-icon>
+              </v-btn>
+              <v-list>
+                <v-list-tile key="all" class="default-menu-item" @click.native="showAllMessages()">
+                  <v-list-tile-title>
+                    <img class="track-status-icon" src="/static/images/ic_repeat.png" />
+                    <label>All Messages</label>
+                  </v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile key="request" class="default-menu-item" @click.native="showRepostRequests()">
+                  <v-list-tile-title>
+                    <img class="track-status-icon" src="/static/images/ic_download.png" />
+                    <label>Repost Requests Only</label>
+                  </v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu> -->
             </div>
             <div class="conversations__content">
               <div
@@ -117,8 +122,8 @@
                   </router-link>
                 </div>
                 <div class="detail-area">
-                  <!-- <router-link class="user-name" :to="'/' + conv.other.slug">{{ conv.other.display_name }}</router-link> -->
-                  <div class="user-name">{{ conv.other.display_name }}</div>
+                  <!-- <router-link class="user-name" :to="'/' + conv.other.slug">{{ conv.other.username }}</router-link> -->
+                  <div class="user-name">{{ conv.other.username }}</div>
                   <div
                     class="short-message"
                     v-html="conv.last_message.body"
@@ -130,19 +135,17 @@
               </div>
             </div>
           </v-flex>
+
           <v-flex
             v-if="conversation && conversation.id > 0"
             xs12
+            sm9
             pa-0
-            :class="{
-              sm6: currentUser.user_type === 'artist',
-              sm9: currentUser.user_type !== 'artist',
-            }"
             class="message-content-section"
           >
             <div class="header-section">
               <p class="user-name">
-                {{ conversation.other.display_name }}
+                {{ conversation.other.username }}
                 <v-icon
                   v-if="conversation.other.user_type == 'artist'"
                   class="user-status"
@@ -198,6 +201,31 @@
                 @updated="refreshMessages"
               />
             </div>
+
+            <div class="pre-send-message-section">
+              <div>
+                <strong>Set Repost Price (100k max)</strong>
+                <span
+                  class="ml-1 link--text text-underline"
+                  @click="repostRequestActive = true"
+                >
+                  Learn More
+                </span>
+              </div>
+
+              <div class="dflex align-center">
+                <span class="enable-text">Enable SMS Request</span>
+
+                <v-switch
+                  color="green"
+                  class="allow-attach-switch shorten mx-3"
+                  hide-details
+                ></v-switch>
+
+                <span class="price-tag"> $100,000</span>
+              </div>
+            </div>
+
             <div class="send-message-section">
               <input
                 v-model.trim="message.body"
@@ -205,9 +233,16 @@
                 maxlength="500"
                 class="message-input-box"
                 placeholder="Write a message..."
+                :disabled="!(currentUser.creator_verified)"
                 @keyup.enter="checkMessage()"
                 ref="message"
                 autofocus
+              />
+              <img
+                class="send-sms-btn cursor-pointer mr-2"
+                :src="require('@/assets/send_sms.svg')"
+                width="20"
+                @click="initSMS()"
               />
               <picker
                 v-if="showEmojiPicker"
@@ -217,6 +252,15 @@
                 @click="addEmoji"
                 v-on-click-outside="hideEmojiDialog"
               ></picker>
+              <v-btn v-if="isSubscribed"
+                :ripple="false"
+                depressed
+                width="10"
+                class="repost-btn no-Btn-bg transparent mr-2"
+                @click="openRepostModal()"
+              >
+                <img src="/static/images/ic_repost.svg" width="20" />
+              </v-btn>
               <v-btn
                 v-if="otherStripeConnected"
                 class="send-love-btn"
@@ -232,115 +276,117 @@
               >
               <v-btn
                 @click.native="checkMessage()"
-                :disabled="!message.body"
+                :disabled="!message.body || !(currentUser.creator_verified) "
                 class="send-message-btn"
                 >Send</v-btn
               >
             </div>
           </v-flex>
-
-          <v-flex
-            v-if="
-              ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1
-            "
-            xs12
-            sm3
-            pa-0
-            class="requests"
-          >
-            <template v-if="otherStripeConnected">
-              <div class="requests__header">
-                <div class="requests__actions">
-                  <div class="requests__title">Repost Request</div>
-                  <div class="d-flex justify-content-center">
-                    <v-btn
-                      v-if="
-                        ['artist', 'label'].indexOf(currentUser.user_type) > -1
-                      "
-                      @click.native="onTab('album')"
-                      :class="{ 'btn--active': tab == 'album' }"
-                      >Album</v-btn
-                    >
-                    <v-btn
-                      v-if="
-                        ['artist', 'brand', 'label'].indexOf(
-                          currentUser.user_type
-                        ) > -1
-                      "
-                      @click.native="onTab('merch')"
-                      :class="{ 'btn--active': tab == 'merch' }"
-                      >Product</v-btn
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="requests__content">
-                <template v-if="tab == 'album'">
-                  <div
-                    v-for="album in albums"
-                    :key="album.id"
-                    @click="InBanned(album) ? null : selectItem(album)"
-                    class="request-item"
-                    :class="{
-                      selected: item == album,
-                      banned: InBanned(album),
-                    }"
-                  >
-                    <div class="avatar-area">
-                      <div
-                        class="avatar-image"
-                        :style="`background-image: url(${album.cover.thumb.url})`"
-                      ></div>
-                    </div>
-                    <div class="detail-area">
-                      <label class="item-name">{{ album.name }}</label>
-                      <label class="user-name">{{
-                        album.user.display_name
-                      }}</label>
-                    </div>
-                  </div>
-                </template>
-
-                <template v-else-if="tab == 'merch'">
-                  <div
-                    v-for="product in products"
-                    :key="product.id"
-                    @click="InReposted(product) ? null : selectItem(product)"
-                    class="request-item"
-                    :class="{
-                      selected: item == product,
-                      banned: InReposted(product),
-                    }"
-                  >
-                    <div class="avatar-area">
-                      <div
-                        class="avatar-image"
-                        :style="`background-image: url(${product.covers[0].cover.thumb.url})`"
-                      ></div>
-                    </div>
-                    <div class="detail-area">
-                      <label class="item-name">{{ product.name }}</label>
-                      <label class="user-name">{{
-                        product.merchant.display_name
-                      }}</label>
-                    </div>
-                  </div>
-                </template>
-              </div>
-            </template>
-            <template v-else>
-              <div class="requests__body">
-                <h5>Repost Request</h5>
-                <p>
-                  To promote albums and products<br />
-                  receiver must first connect to Stripe
-                </p>
-              </div>
-            </template>
-          </v-flex>
         </template>
       </v-layout>
-    </v-flex>
+    </v-container>
+
+    <v-dialog v-model="show_repost_modal" content-class="messages-repost">
+      <v-card class="pa-5">
+        <div
+          v-if="
+            ['artist', 'brand', 'label'].indexOf(currentUser.user_type) > -1
+          "
+          xs12
+          sm3
+          pa-0
+          class="requests"
+        >
+          <template v-if="otherStripeConnected">
+            <div class="requests__header">
+              <div class="requests__actions">
+                <div class="requests__title">Repost Request</div>
+                <div class="d-flex justify-content-center">
+                  <v-btn
+                    v-if="
+                      ['artist', 'label'].indexOf(currentUser.user_type) > -1
+                    "
+                    @click.native="onTab('album')"
+                    :class="{ 'btn--active': tab == 'album' }"
+                    >Album</v-btn
+                  >
+                  <v-btn
+                    v-if="
+                      ['artist', 'brand', 'label'].indexOf(
+                        currentUser.user_type
+                      ) > -1
+                    "
+                    @click.native="onTab('merch')"
+                    :class="{ 'btn--active': tab == 'merch' }"
+                    >Product</v-btn
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="requests__content">
+              <template v-if="tab == 'album'">
+                <div
+                  v-for="album in albums"
+                  :key="album.id"
+                  @click="InBanned(album) ? null : selectItem(album)"
+                  class="request-item"
+                  :class="{
+                    selected: item == album,
+                    banned: InBanned(album),
+                  }"
+                >
+                  <div class="avatar-area">
+                    <div
+                      class="avatar-image"
+                      :style="`background-image: url(${album.cover.thumb.url})`"
+                    ></div>
+                  </div>
+                  <div class="detail-area">
+                    <label class="item-name">{{ album.name }}</label>
+                    <label class="user-name">{{ album.user.username }}</label>
+                  </div>
+                </div>
+              </template>
+
+              <template v-else-if="tab == 'merch'">
+                <div
+                  v-for="product in products"
+                  :key="product.id"
+                  @click="InReposted(product) ? null : selectItem(product)"
+                  class="request-item"
+                  :class="{
+                    selected: item == product,
+                    banned: InReposted(product),
+                  }"
+                >
+                  <div class="avatar-area">
+                    <div
+                      class="avatar-image"
+                      :style="`background-image: url(${product.covers[0].cover.thumb.url})`"
+                    ></div>
+                  </div>
+                  <div class="detail-area">
+                    <label class="item-name">{{ product.name }}</label>
+                    <label class="user-name">{{
+                      product.merchant.username
+                    }}</label>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+          <template v-else>
+            <div class="requests__body">
+              <h5>Repost Request</h5>
+              <p>
+                To promote albums and products<br />
+                receiver must first connect to Stripe
+              </p>
+            </div>
+          </template>
+        </div>
+      </v-card>
+    </v-dialog>
 
     <repost-payment-modal
       v-if="show_repost_payment_modal"
@@ -406,7 +452,106 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-layout>
+
+    <v-dialog
+      v-model="repostRequestActive"
+      content-class="repost-request-dialog"
+    >
+      <div class="_top dflex aling-center">
+        <img
+          :src="require('@/assets/repost_dollar.svg')"
+          width="30"
+          alt="repost dollar icon"
+          class="mr-3"
+        />
+        <h2>Repost Requests</h2>
+      </div>
+
+      <hr class="light my-3" />
+
+      <div>
+        <div class="mb-2">
+          Creators can send requests you to share their content.
+        </div>
+
+        <ul class="ml-4">
+          <li>Set your repost price in your messages</li>
+          <li>
+            Creators can send you direct messages with their content attached to
+            preview
+          </li>
+          <li>
+            You have 3 days to accept the request or it’s automatically refunded
+          </li>
+          <li>
+            If you accept a request the content is reposted to your followers on
+            the home tab
+          </li>
+          <li>
+            Repost requests remain on feeds for 7 days then is automatically
+            removed.
+          </li>
+        </ul>
+
+        <hr class="light my-3" />
+
+        <h2 class="mb-3">FAQ</h2>
+
+        <div class="faqs">
+          <div class="faq">
+            <h3>How & when do I get paid?</h3>
+            <div>
+              You must have a valid Stripe account connected, and accepted
+              requests payout in 2 days.
+            </div>
+          </div>
+
+          <div class="faq">
+            <h3>What does ‘Enable SMS text’ mean?</h3>
+            <div>
+              SMS enabled means that any repost request you accept will send
+              links to the content to everyone on your SMS list and to your
+              followers on YouSound. The requester will pay for the SMS charges.
+              If you enable SMS you can charge more as SMS texts are more
+              valuable than sharing to the home feed alone.
+            </div>
+          </div>
+        </div>
+      </div>
+    </v-dialog>
+
+    <SMS v-if="smsActive" @closeSMS="closeSMS" />
+  </div>
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style src="../../../static/styles/messages.scss" lang="scss" scoped></style>
+
+<style lang="scss">
+  .dialog.repost-request-dialog {
+    width: 650px;
+    padding: 40px;
+    background-color: #ffffff;
+  }
+  .overlay.overlay--active {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+.dialog.plans-dialog {
+  width: auto;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 1);
+  .payment-modal {
+      width: 755px;
+      &.paymentSuccessful,
+      &.paymentFailed {
+        width: 398px;
+      }
+    }
+  }
+  .overlay.overlay--active {
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+</style>

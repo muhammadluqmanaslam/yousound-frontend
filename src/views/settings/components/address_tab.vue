@@ -1,18 +1,17 @@
 <template>
-  <div class="main-section">
+  <div class="main-section address-section">
     <div class="description-section">
-      <p>
-        Add or change your default shipping address for all of the physical
-        orders you place
+      <p class="header">
+        {{ header }}
       </p>
     </div>
 
-    <div class="content-section">
+    <div class="content-section" :class="{actionRight}">
       <form @submit.prevent="submit()">
         <v-layout row wrap shipping-address-section ma-0>
-          <v-flex xs12 sm6 form-group>
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group first-name>
             <label class="control-label"
-              >First Name<span class="required">*</span></label
+              >First Name<span v-if="!hideRequireIcon" class="required">*</span></label
             >
             <input
               type="text"
@@ -22,9 +21,10 @@
               v-validate="'required'"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group last-name>
             <label class="control-label"
-              >Last Name<span class="required">*</span></label
+              >Last Name<span v-if="!hideRequireIcon" class="required">*</span></label
             >
             <input
               type="text"
@@ -34,9 +34,10 @@
               v-validate="'required'"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group street>
             <label class="control-label"
-              >Street Address<span class="required">*</span></label
+              >Street Address<span v-if="!hideRequireIcon" class="required">*</span></label
             >
             <input
               type="text"
@@ -46,7 +47,8 @@
               v-validate="'required'"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group apartment>
             <label class="control-label"
               >Apt., Floor, Unit etc. (Optional)</label
             >
@@ -57,10 +59,11 @@
               v-model="shipping_address.address_line"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group d-flex justify-space-between>
+
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group d-flex justify-space-between city>
             <div class="shipping-address-city-section">
               <label class="control-label"
-                >City / Region<span class="required">*</span></label
+                >City / Region<span v-if="!hideRequireIcon" class="required">*</span></label
               >
               <input
                 type="text"
@@ -72,7 +75,7 @@
             </div>
             <div v-if="isCountryUS" class="shipping-address-state-section">
               <label class="control-label"
-                >State<span class="required">*</span></label
+                >State<span v-if="!hideRequireIcon" class="required">*</span></label
               >
               <div class="shipping-address-state">
                 <v-select
@@ -98,9 +101,10 @@
               </div>
             </div>
           </v-flex>
-          <v-flex xs12 sm6 form-group>
+
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group zipcode>
             <label class="control-label"
-              >Zipcode<span class="required">*</span></label
+              >Zipcode<span v-if="!hideRequireIcon" class="required">*</span></label
             >
             <input
               type="text"
@@ -110,10 +114,11 @@
               v-validate="'required'"
             />
           </v-flex>
-          <v-flex xs12 sm6 form-group></v-flex>
-          <v-flex xs12 sm6 form-group>
+
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group></v-flex>
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group country>
             <label class="control-label"
-              >Country<span class="required">*</span></label
+              >Country<span v-if="!hideRequireIcon" class="required">*</span></label
             >
             <v-select
               v-bind:items="countries"
@@ -127,8 +132,8 @@
               class="pt-0"
             ></v-select>
           </v-flex>
-          <v-flex xs12 sm6 form-group></v-flex>
-          <v-flex xs12 sm6 form-group text-xs-right>
+
+          <v-flex :class="{sm6: !singleCol}" xs12 form-group save-btn>
             <v-btn type="submit" class="update-btn">Save</v-btn>
           </v-flex>
         </v-layout>
@@ -138,3 +143,12 @@
 </template>
 
 <script type="text/javascript" src="./address_tab.ctrl.js"></script>
+<style lang="scss" scoped>
+.actionRight .shipping-address-section {
+  .flex.save-btn {
+    flex-basis: 100%;
+    max-width: 100%;
+    text-align: left !important;
+  }
+}
+</style>

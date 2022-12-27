@@ -10,18 +10,28 @@ import ProductModal from './components/product'
 import SendMessage from '@/components/sendmessage'
 import ShareModal from '@/components/sharemodal'
 import UserCard from '@/components/user_card'
+import contentTopHeader from '@/components/contentTopHeader'
+import dashboardNav from '@/components/dashboardnav'
 
 export default {
+  props: {
+    isComp: Boolean,
+  },
   components: {
     OrderRefundDialog,
     ProductModal,
     SendMessage,
     ShareModal,
     UserCard,
+    contentTopHeader,
+    dashboardNav,
   },
 
   data() {
     return {
+      replaceTopMenu: [
+        { id: 'payments', title: 'Payments', pathName: 'PaymentIndex', icon: require('../../../static/images/credit-card.svg') },
+      ],
       active_tab: 'received',
       tabs: [
         { id: 'received', title: 'Received' },

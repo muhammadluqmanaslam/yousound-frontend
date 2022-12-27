@@ -23,7 +23,7 @@
                 class="label-user-avatar"
                 :style="`background-image: url(${user.avatar.url})`"
               ></div>
-              <div class="label-username">{{ user.display_name }}</div>
+              <div class="label-username">{{ user.username }}</div>
               <div class="label-description">
                 wants to add this album to their catalog
               </div>
@@ -71,7 +71,7 @@
 </template>
 
 <script type="text/javascript">
-import promoteModal from '@/components/promotemodal'
+import promoteModal from "@/components/promotemodal";
 
 export default {
   components: {
@@ -97,7 +97,7 @@ export default {
 
     deleteButtonText: {
       type: String,
-      default: 'Delete',
+      default: "Delete",
     },
 
     deleteButtonClass: {
@@ -125,15 +125,15 @@ export default {
   data() {
     return {
       isShowPromoteModal: false,
-    }
+    };
   },
 
   computed: {
     buttonText() {
-      if (this.album.status === 'published') {
-        return 'Make Private'
-      } else if (this.album.status === 'privated') {
-        return 'Make Public'
+      if (this.album.status === "published") {
+        return "Make Private";
+      } else if (this.album.status === "privated") {
+        return "Make Public";
       }
     },
   },
@@ -142,16 +142,16 @@ export default {
 
   methods: {
     showPromoteDialog() {
-      this.isShowPromoteModal = true
+      this.isShowPromoteModal = true;
     },
 
     dismissPromoteDialog() {
-      this.isShowPromoteModal = false
+      this.isShowPromoteModal = false;
     },
 
     saveAndFinish() {
-      this.dismissPromoteDialog()
+      this.dismissPromoteDialog();
     },
   },
-}
+};
 </script>

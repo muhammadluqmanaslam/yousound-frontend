@@ -1,0 +1,153 @@
+.main-content-view {
+  padding: 0;
+}
+
+.page-title {
+  margin: 0 0 25px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  text-transform: capitalize;
+  color: #000;
+}
+
+.page {
+  position: relative;
+
+  .empty-section {
+    text-align: center;
+    .empty-icon {
+      height: 150px;
+      display: none;
+    }
+    .empty-title {
+      margin: 0;
+      padding-top: 150px;
+      font-weight: 700;
+      font-size: 28px;
+      color: #3c3c3c;
+      letter-spacing: 0;
+      line-height: 40px;
+      font-family: 'Work Sans';
+      letter-spacing: -1.3px;
+    }
+    .empty-description {
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-size: 16px;
+      color: #9c9c9c;
+      letter-spacing: 0;
+      line-height: 20px;
+      font-family: 'Work Sans';
+    }
+    .empty-discover-btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: #3a92ff !important;
+      border-radius: 200px;
+      height: 50px;
+      width: 100%;
+      max-width: 160px;
+      cursor: pointer;
+      line-height: 50px;
+      box-shadow: none;
+      font-weight: 600;
+      font-size: 18px;
+      color: #ffffff;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+  }
+
+  .page-left {
+    width: 300px;
+    flex: 0 0 auto;
+
+    .tab-container {
+      z-index: 10;
+      position: fixed;
+      width: 300px;
+      ul {
+        li {
+          list-style: none;
+          margin: 15px 0;
+          font-size: 16px;
+          font-weight: 300;
+          color: #000;
+          &.active {
+            font-weight: 700;
+            color: #000;
+          }
+          label {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .page-content {
+    // margin-top: 62px;
+  }
+}
+
+.application.primary {
+  .page .page-left .tab-container ul li {
+    color: #eee;
+    &.active {
+      color: #fff;
+    }
+  }
+}
+
+.mobile-page {
+  padding: 0;
+  font-size: 18px;
+
+  h3 {
+    font-size: 36px;
+  }
+
+  h4 {
+    font-size: 24px;
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+
+  .font-weight-300 {
+    font-weight: 300 !important;
+  }
+
+  .page-header {
+    text-align: center;
+    .site-logo {
+      width: 200px;
+    }
+  }
+
+  .footer.my-mobile-footer {
+    display: block;
+    background-color: transparent;
+    line-height: 36px;
+    a {
+      display: block;
+    }
+  }
+}
+
+.mobile-page.mobile-dashboard-landing-page {
+  .app-overview-section {
+    line-height: 36px;
+  }
+
+  .app-download-section {
+    img {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+}

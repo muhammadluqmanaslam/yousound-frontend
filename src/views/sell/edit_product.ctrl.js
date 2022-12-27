@@ -50,6 +50,10 @@ export default {
           value: 'Japan',
           name: 'Japan',
         },
+        {
+          value: 'All other countries',
+          name: 'All other countries',
+        },
       ],
       countries: [],
       states: [],
@@ -79,6 +83,12 @@ export default {
   },
 
   computed: {
+    currentUser() {
+      return this.$store.state.auth.user
+    },
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     isDigitalProduct() {
       return (
         this.digital_content_category_ids.indexOf(this.product.category) > -1
@@ -100,7 +110,8 @@ export default {
         if (this.isDigitalProduct) {
           isAvailable = isAvailable && this.digital_content.file
         } else {
-          if (this.product.shipments.length) {
+          const validCountries = this.product.shipments.filter(shipment => shipment.country == "All other countries") != ""
+          if (this.product.shipments.length && validCountries) {
             for (let index in this.product.shipments) {
               const shipment = this.product.shipments[index]
               isAvailable =
@@ -132,7 +143,11 @@ export default {
     },
 
     profit_share_types() {
-      return CollaboratorProfitShareTypes
+      let profitShare = [];
+      for (let i = 1; i <= 100; i += 1) {
+        profitShare.push(i)
+      }
+      return profitShare
     },
 
     productCategoryName() {
@@ -148,6 +163,10 @@ export default {
   },
 
   created() {
+    if (this.onMobile) {
+      this.$router.push({name: "UploadIndex"})
+    }
+
     this.$store.dispatch('navigator/goNextState', {
       page: 'sell',
       tab: 'products',
@@ -389,17 +408,18 @@ export default {
         })
       }
       formData.append('shop_product[variants]', JSON.stringify(variants))
+      let shipments = []
       for (let index in this.product.shipments) {
-        this.product.shipments[index].shipment_alone_price = Math.round(
-          this.product.shipments[index].shipment_alone_price * 100
-        )
-        this.product.shipments[index].shipment_with_price = Math.round(
-          this.product.shipments[index].shipment_with_price * 100
-        )
+        let shipment = this.product.shipments[index];
+        shipments.push({
+          ...shipment,
+          shipment_alone_price: shipment.shipment_alone_price * 100,
+          shipment_with_price: shipment.shipment_with_price * 100
+        })
       }
       formData.append(
         'shop_product[shipments]',
-        JSON.stringify(this.product.shipments)
+        JSON.stringify(shipments)
       )
       if (this.product_image1) {
         formData.append('shop_product[cover1]', this.product_image1)

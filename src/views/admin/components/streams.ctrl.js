@@ -1,9 +1,11 @@
 import AdminService from '@/services/admin'
 import StreamService from '@/services/stream'
+import { StreamStatuses } from '@/helper'
 
 export default {
   data() {
     return {
+      StreamStatuses: StreamStatuses,
       active_tab: 'all',
       tabs: [
         { id: 'all', title: 'All Users' },
@@ -74,7 +76,7 @@ export default {
     },
 
     deleteStream() {
-      this.closeStreamDeleteConfirmDialog()
+      this.closeStreamStopConfirmDialog()
       this.$store.dispatch('error/showLoadingActivity', true)
       StreamService.deleteStream(this.item.id)
         .then((response) => {

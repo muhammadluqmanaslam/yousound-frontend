@@ -1,5 +1,5 @@
 <template>
-  <v-layout row wrap class="page sell-page product-page">
+  <v-layout row wrap class="page sell-page product-page" v-if="currentUser.creator_verified">
     <v-flex xs12 sm10 offset-sm1>
       <h2 class="page-title">Sell</h2>
     </v-flex>
@@ -151,6 +151,9 @@
           <v-flex xs12 section-title>
             <h4>Shipping & Tax</h4>
           </v-flex>
+          <span>
+            Please select <strong>All other countries</strong> in destination to proceed.
+          </span>
           <v-flex xs12 product-section>
             <v-flex xs12 price-option-section form-group>
               <h4 class="option-title">
@@ -463,7 +466,7 @@
                   >Creator<label class="required">*</label></label
                 >
                 <label class="creator-name">{{
-                  $store.state.auth.user.display_name
+                  $store.state.auth.user.username
                 }}</label>
               </v-flex>
               <v-flex xs6 sm3>

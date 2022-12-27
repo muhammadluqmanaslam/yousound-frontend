@@ -5,6 +5,7 @@ import Vue from 'vue'
 import { mapActions } from 'vuex'
 import ProfileService from '@/services/profile'
 import UserService from '@/services/user'
+import smsService from "@/services/sms";
 import { MyEvents, ViolationsEmail, PublicRelationsUsername } from '@/helper'
 import albumSlideCard from '@/components/albumslidecard'
 import carousel3d from '@/components/slider/Carousel3d'
@@ -18,7 +19,13 @@ import slide from '@/components/slider/Slide'
 import trackCard from '@/components/trackcard'
 import userItem from '@/components/useritem'
 import artistItem from '@/components/artistitem'
-// import videoPlayer from '@/components/video_player'
+import contentTopHeader from '@/components/contentTopHeader'
+import AuthService from '@/services/auth'
+import StreamService from '@/services/stream'
+import VideoBox from '@/components/video_box'
+import UserFollowBtn from "@/components/userFollowBtn";
+
+// import streamPlayer from '@/components/stream_player'
 
 export default {
   components: {
@@ -34,7 +41,10 @@ export default {
     sendLoveModal,
     carousel3d,
     slide,
-    // videoPlayer
+    contentTopHeader,
+    VideoBox,
+    UserFollowBtn,
+    // streamPlayer
   },
 
   data() {
@@ -45,15 +55,15 @@ export default {
       active_tab: '',
       slide_tab: '',
       tabs: [
-        { id: 'catalog', title: 'Catalog', roles: ['label'] },
+        { id: 'catalog', title: 'Catalog', roles: ['label'], icon: require('../../../static/images/grid-interface.svg') },
         { id: 'artists', title: 'Artists', roles: ['label'] },
-        { id: 'songs', title: 'Albums', roles: ['artist'] },
-        // { id: 'playlists', title: 'Playlists' },
-        { id: 'reposted', title: 'Reposted' },
-        { id: 'downloaded', title: 'Downloaded' },
+        { id: 'songs', title: 'Music', icon: require('../../../static/images/music.svg') },
+        { id: 'video', title: 'Video', icon: require('../../../static/images/video.svg') },
+        { id: 'merch', title: 'Shop', icon: require('../../../static/images/shop.svg') },
+        { id: 'reposted', title: 'Reposted', roles: ['label'], icon: require('../../../static/images/ic_repost.svg') },
+        { id: 'downloaded', title: 'Downloaded', roles: ['label'], icon: require('../../../static/images/download.svg') },
         { id: 'followings', title: 'Following' },
         { id: 'followers', title: 'Followers' },
-        { id: 'merch', title: 'Shop', roles: ['artist', 'brand', 'label'] },
       ],
       slug: null,
       user: {
@@ -83,10 +93,17 @@ export default {
       albums: [],
       users: [],
       buttonHover: false,
+      isPageReady: false,
+      ownVideos: [],
+      smsList: [],
     }
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -148,6 +165,9 @@ export default {
       }
       return 'Follow'
     },
+    smsCount() {
+      return this.smsList.length
+    }
   },
 
   watch: {
@@ -168,6 +188,9 @@ export default {
   },
 
   created() {
+    window.addEventListener('scroll', this.handleScroll)
+    this.ownStream()
+
     this.slug = this.$route.params.slug
     const tab = this.$route.hash.substr(1)
     const grid_view =
@@ -183,12 +206,16 @@ export default {
     this.init(tab, grid_view, auto_play, true)
 
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
+
+    this.listAllSMS()
   },
 
   beforeDestroy() {
     this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
   },
-
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
     ...mapActions({
       setPlaylist: 'player/setPlaylist',
@@ -196,6 +223,41 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    ownStream(tab, page) {
+      this.$store.dispatch('error/showLoadingActivity', true)
+      const params = {
+        genre_id: 0, // default for all videos
+        only_follows: this.only_follows,
+        page: 1, // get page 1
+      }
+      StreamService.getStreams(params)
+        .then((response) => {
+          console.log(response.body.streams)
+          this.ownVideos = response.body.streams.filter((str) => this.user.display_name == str.user.display_name)
+          // this.ownVideos = this.ownVideos.concat(response.body.streams)
+          // this.ownVideos = [ ...this.ownVideos, ...this.ownVideos]
+          this.pagination = response.body.pagination
+          this.videoGenres = response.body.genres
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+        .catch(() => {
+          this.$store.dispatch('error/showLoadingActivity', false)
+        })
+    },
+
+    loadMore() {
+      this.loadData(this.pagination.current_page + 1)
+    },
+    handleScroll(event) {
+      const navProfileCard = document.querySelector('.user-profile-image-wrapper')
+
+      var y = window.scrollY
+      if (y >= 144) {
+        navProfileCard.style.display = 'flex'
+      } else if (y < 144) {
+        navProfileCard.style.display = 'none'
+      }
+    },
     isActiveTab(tab) {
       return this.active_tab === tab
     },
@@ -221,13 +283,13 @@ export default {
     },
 
     isStreaming() {
-      // console.log(_.get(this.$store.state.videoPlayer.user, 'slug', ''), this.user.slug, this.$store.state.videoPlayer.frame_mode)
+      // console.log(_.get(this.$store.state.streamPlayer.user, 'slug', ''), this.user.slug, this.$store.state.streamPlayer.frame_mode)
       return (
         _.get(this.user.stream, 'status', '') === 'running' &&
         _.get(this.user.stream, 'notified', false) &&
-        (_.get(this.$store.state.videoPlayer.stream, 'user.slug', '') !==
+        (_.get(this.$store.state.streamPlayer.stream, 'user.slug', '') !==
           this.user.slug ||
-          !this.$store.getters['videoPlayer/hasFrame'])
+          !this.$store.getters['streamPlayer/hasFrame'])
       )
     },
 
@@ -240,8 +302,8 @@ export default {
           this.view_stream_clicked = false
 
           if (this.isStreaming()) {
-            this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-            this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+            this.$store.dispatch('streamPlayer/setStream', this.user.stream)
+            this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
           }
         })
         .catch((err) => {
@@ -270,7 +332,7 @@ export default {
             this.$store.dispatch('error/showErrorToast', [
               'User does not exist',
             ])
-            this.$router.push({ path: '/' })
+            this.$router.push({ name: 'AlbumIndex' })
             return
           }
 
@@ -282,25 +344,25 @@ export default {
             Vue.http.get(this.user.stream.mp_channel_1_ep_1_url).then(() => {
               this.show_stream_live_button = true
               if (first_visit) {
-                // console.log('calling ...', MyEvents.VIDEO_PLAYER_INIT)
-                this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-                this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+                // console.log('calling ...', MyEvents.STREM_PLAYER_INIT)
+                this.$store.dispatch('streamPlayer/setStream', this.user.stream)
+                this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
               }
             })
-            // this.$store.dispatch('videoPlayer/setStream', this.user.stream)
-            // this.$root.$emit(MyEvents.VIDEO_PLAYER_INIT)
+            // this.$store.dispatch('streamPlayer/setStream', this.user.stream)
+            // this.$root.$emit(MyEvents.STREM_PLAYER_INIT)
           }
 
-          // put 'merch' tab first for brand
-          if (this.user.user_type === 'brand') {
-            if (this.tabs[7].id === 'merch') {
-              this.tabs.unshift(this.tabs.pop())
-            }
-          } else {
-            if (this.tabs[7].id !== 'merch') {
-              this.tabs.push(this.tabs.shift())
-            }
-          }
+          // // put 'merch' tab first for brand
+          // if (this.user.user_type === 'brand') {
+          //   if (this.tabs[7].id === 'merch') {
+          //     this.tabs.unshift(this.tabs.pop())
+          //   }
+          // } else {
+          //   if (this.tabs[7].id !== 'merch') {
+          //     this.tabs.push(this.tabs.shift())
+          //   }
+          // }
 
           if (tab) {
             this.active_tab = tab
@@ -310,6 +372,9 @@ export default {
               case 'artist':
                 this.active_tab = 'songs'
                 this.slide_tab = 'songs'
+
+                // this.active_tab = 'followings'
+                // this.slide_tab = 'followings'
                 break
               case 'label':
                 this.active_tab = 'artists'
@@ -345,7 +410,12 @@ export default {
             })
           }
 
-          this.getItems(this.active_tab, false)
+          if (this.active_tab !== 'video') {
+            // temp implementation because there is no video 'getItems' yet
+            this.getItems(this.active_tab, false)
+          }
+          this.isPageReady = false
+          this.$store.dispatch('error/showLoadingActivity', false)
         })
         .catch((e) => {
           this.$store.dispatch('error/showLoadingActivity', false)
@@ -376,6 +446,7 @@ export default {
       this.$store.dispatch('error/showLoadingActivity', true)
       ProfileService.getItems(this.user.id, tab, params)
         .then((response) => {
+          console.log(response.body);
           this.$store.dispatch('error/showLoadingActivity', false)
           switch (tab) {
             case 'merch':
@@ -384,6 +455,9 @@ export default {
             case 'followers':
             case 'followings':
             case 'artists':
+              this.users = this.users.concat(response.body.users)
+              break
+            case 'video':
               this.users = this.users.concat(response.body.users)
               break
             default:
@@ -414,6 +488,8 @@ export default {
           this.total_pages = response.body.pagination.total_pages
         })
         .catch((e) => {
+          console.log(e)
+          console.log(e.message)
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
             'error/showErrorToast',
@@ -592,42 +668,6 @@ export default {
       this.closeBlockUserConfirmDialog()
     },
 
-    followUser() {
-      if (this.user.is_following) {
-        UserService.unfollowUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just unfollowed ' + this.user.display_name,
-            ])
-            // this.user.is_following = false
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, false)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      } else {
-        UserService.followUser(this.user.id)
-          .then((response) => {
-            this.$store.dispatch('error/showSuccessToast', [
-              'You just followed ' + this.user.display_name,
-            ])
-            // this.user.is_following = true
-            // this.$store.dispatch('player/setUpdatedUser', _.cloneDeep(this.user))
-            this.$root.$emit(MyEvents.USER_FOLLOW, this.user.id, true)
-          })
-          .catch((e) => {
-            this.$store.dispatch(
-              'error/showErrorToast',
-              e.body.errors || [e.body]
-            )
-          })
-      }
-    },
-
     setFollowingStatus(userId, isFollowing) {
       if (this.user && this.user.id === userId) {
         this.user.is_following = isFollowing
@@ -694,9 +734,36 @@ export default {
         }
       }
     },
-
-    test() {
-      console.log('Test')
+    signOut() {
+      AuthService.signout()
+      this.$router.push({ path: '/login' })
+      this.$root.$emit(MyEvents.AUTH_SIGNOUT)
+    },
+    listAllSMS() {
+      smsService
+        .listSMS()
+        .then((response) => {
+          this.smsList = response.body;
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
+    },
+    setMenuAction(menu) {
+      switch (menu.id) {
+        case "profile":
+          this.$router.push(`/${this.currentUser.slug}`);
+          break;
+        case "signOut":
+          this.signOut();
+          break;
+        default:
+          this.$router.push({ name: menu.pathName });
+          break;
+      }
     },
   },
 

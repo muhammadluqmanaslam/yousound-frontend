@@ -228,7 +228,7 @@
               </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  {{ currentUser.display_name }}
+                  {{ currentUser.username }}
                   <v-icon
                     class="user-status online"
                     v-if="
@@ -276,7 +276,7 @@
             </v-list-tile>
             <v-list-tile
               to="/upload/album"
-              v-if="currentUser.user_type == 'artist'"
+              v-if="currentUser.user_type == 'artist' || currentUser.user_type == 'brand'"
             >
               <v-list-tile-content>
                 <v-list-tile-title>Upload</v-list-tile-title>

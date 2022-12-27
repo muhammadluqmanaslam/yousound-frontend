@@ -3,7 +3,7 @@
     <v-flex xs12 class="product-info" pa-0>
       <v-flex xs12 class="product-user" v-if="false" pa-0>
         <profile-item :user="publisher" :className="'product-user-avatar'"></profile-item>
-        <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.display_name }}</p></router-link>
+        <router-link :to="'/' + publisher.slug"><p class="product-user-name">{{ publisher.username }}</p></router-link>
         <div class="product-posted-at">
           <img class="product-status-icon" src="/static/images/ic_repeat.png" /><label>reposted 10min ago</label>
         </div>
@@ -41,82 +41,87 @@
 </template>
 
 <script type="text/javascript">
-  import merchModal from '@/components/merchmodal'
-  import profileItem from '@/components/profileitem'
-  import ProductService from '@/services/product'
+import merchModal from "@/components/merchmodal";
+import profileItem from "@/components/profileitem";
+import ProductService from "@/services/product";
 
-  export default {
-    components: {
-      merchModal,
-      profileItem,
+export default {
+  components: {
+    merchModal,
+    profileItem,
+  },
+
+  props: {
+    dataObject: {
+      type: Object,
     },
 
-    props: {
-      dataObject: {
-        type: Object,
-      },
-
-      showButtonAction: {
-        type: Function,
-      },
+    showButtonAction: {
+      type: Function,
     },
+  },
 
-    data() {
-      return {
-        dialog: false,
-        showMerchModal: false,
+  data() {
+    return {
+      dialog: false,
+      showMerchModal: false,
+    };
+  },
+
+  computed: {
+    item() {
+      if (this.dataObject.assoc_type) {
+        return this.dataObject.assoc;
+      } else {
+        return this.dataObject;
       }
     },
 
-    computed: {
-      item() {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.assoc
-        } else {
-          return this.dataObject
-        }
-      },
-
-      publisher() {
-        if (this.dataObject.assoc_type) {
-          return this.dataObject.publisher
-        } else {
-          return this.dataObject.merchant
-        }
-      },
-
-      // owner() {
-      //   if (this.dataObject.assoc_type) {
-      //     return this.dataObject.assoc.merchant
-      //   } else {
-      //     return this.dataObject.merchant
-      //   }
-      // }
+    publisher() {
+      if (this.dataObject.assoc_type) {
+        return this.dataObject.publisher;
+      } else {
+        return this.dataObject.merchant;
+      }
     },
 
-    created() {
+    // owner() {
+    //   if (this.dataObject.assoc_type) {
+    //     return this.dataObject.assoc.merchant
+    //   } else {
+    //     return this.dataObject.merchant
+    //   }
+    // }
+  },
+
+  created() {},
+
+  methods: {
+    dimissMerchDialog() {
+      this.showMerchModal = false;
     },
 
-    methods: {
-      dimissMerchDialog() {
-        this.showMerchModal = false
-      },
+    showMerchDialog() {
+      this.showMerchModal = true;
+    },
 
-      showMerchDialog() {
-        this.showMerchModal = true
-      },
-
-      repostProduct() {
-        this.dialog = false
-        ProductService.repostProduct(this.item.id).then(response => {
-          this.$store.dispatch('error/showSuccessToast', ['You just reposted ' + this.item.name])
-        }).catch(e => {
-          this.$store.dispatch('error/showErrorToast', e.body.errors || [e.body])
+    repostProduct() {
+      this.dialog = false;
+      ProductService.repostProduct(this.item.id)
+        .then((response) => {
+          this.$store.dispatch("error/showSuccessToast", [
+            "You just reposted " + this.item.name,
+          ]);
         })
-      },
+        .catch((e) => {
+          this.$store.dispatch(
+            "error/showErrorToast",
+            e.body.errors || [e.body]
+          );
+        });
     },
+  },
 
-    mounted() {
-    },
-  }
+  mounted() {},
+};
 </script>

@@ -81,6 +81,24 @@ export const Storage = {
 }
 
 export const Filter = {
+  toLocalTimeString(str) {
+    return moment(str).calendar(null, {
+      lastDay: '[Yesterday,] LT',
+      sameDay: '[Today,] LT',
+      nextDay: '[Tomorrow,] LT',
+      // lastWeek: '[Last] dddd[,] LT',
+      // nextWeek: 'dddd[,] LT',
+      lastWeek: 'LLLL',
+      nextWeek: 'LLLL',
+      sameElse: 'LLLL',
+    })
+  },
+  formatSlashedDate(value) {
+    if (value) {
+      return moment(value).format('DD/MM/YYYY')
+    }
+  },
+
   formatDate(value) {
     if (value) {
       return moment(String(value)).format('MMM DD, YYYY')
@@ -91,6 +109,16 @@ export const Filter = {
     if (value) {
       moment.locale('en')
       return moment(String(value)).fromNow()
+    }
+  },
+
+  formatDateFromNowShort(value) {
+    if (value) {
+      moment.locale('en')
+      const ago = moment(String(value)).fromNow(true)
+      const splitAgo = ago.split(' ')
+
+      return `${splitAgo[0]}${splitAgo[1][0]}`
     }
   },
 
@@ -128,6 +156,9 @@ export const Filter = {
     }
   },
 
+  getTime(value) {
+    return moment(String(value)).format('hh:mm A')
+  },
   timeInHours(value) {
     let hours = parseInt(Math.floor(value / 3600))
     let minutes = parseInt(Math.floor((value - hours * 3600) / 60))
@@ -150,6 +181,18 @@ export const Filter = {
     return `${dMins}:${dSecs}`
   },
 
+  timeInWords(value) {
+    let hours = parseInt(Math.floor(value / 3600))
+    let minutes = parseInt(Math.floor((value - hours * 3600) / 60))
+    let seconds = parseInt((value - (hours * 3600 + minutes * 60)) % 60)
+
+    let dHours = hours > 9 ? hours : '0' + hours
+    let dMins = minutes > 9 ? minutes : '0' + minutes
+    let dSecs = seconds > 9 ? seconds : '0' + seconds
+
+    return hours === 0 ? `${dMins} minutes ${dSecs} & seconds` : `${dHours} hours ${dMins} minutes & ${dSecs} seconds`
+  },
+
   capitalize(value) {
     if (!value) return ''
     value = value.toString().toLowerCase()
@@ -157,7 +200,7 @@ export const Filter = {
   },
 
   truncateInMiddle(str, len) {
-    // console.log('truncateInMiddle', str, len)
+    console.log('truncateInMiddle', str, len)
     if (str.length > len) {
       return (
         str.substr(0, len - 5) + '...' + str.substr(str.length - 5, str.length)
@@ -174,6 +217,12 @@ export const Filter = {
     })
     return stringArr.join(' ')
   },
+
+  pluralize(value, len = 0) {
+    if (!len) return value
+    let str = len > 1 ? `${value}s` : value
+    return str || ''
+  },
 }
 
 export const Stripe = {
@@ -181,5 +230,9 @@ export const Stripe = {
     return amount > 50
       ? Math.round(((amount + 30) / 0.971 - amount) * 100) / 100
       : 0
+  },
+  calculateSubFee: (amount) => {
+    let fee = (parseFloat(amount) * (2.9 / 100));
+    return fee
   },
 }

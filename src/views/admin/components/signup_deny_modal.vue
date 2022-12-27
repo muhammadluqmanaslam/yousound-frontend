@@ -8,13 +8,14 @@
           :style="{ 'background-image': 'url(' + item.avatar.url + ')' }"
         ></div>
         <div class="info-section">
-          <div class="user-name">{{ item.display_name }}</div>
+          <div class="user-name">{{ item.username }}</div>
           <label class="denied-status">{{ item.request_status }}</label>
         </div>
         <div class="action-section">
           <v-btn
             color="primary"
             class="deny-btn"
+            :loading="loading"
             @click.native="submission(item)"
             >SUBMIT</v-btn
           >
@@ -37,7 +38,7 @@
             :items="denial_reasons"
             v-model="item.denial_reason"
             class="normal-input"
-            style="max-width: 100%;"
+            style="max-width: 100%"
             autocomplete
           ></v-select>
         </v-flex>
@@ -48,7 +49,7 @@
             v-model="item.denial_description"
             class="normal-input"
             full-width
-            style="max-width: 100%;"
+            style="max-width: 100%"
           ></v-text-field>
         </v-flex>
       </v-flex>
@@ -75,18 +76,19 @@ export default {
       type: Function,
       required: true,
     },
+    loading: null,
   },
 
   data() {
     return {
       denial_reasons: [
-        'Did not complete application',
-        'Music was not mixed/mastered',
-        'Music was not your own',
-        'Currently not accepting submissions',
-        'Other reason',
+        "Did not complete application",
+        "Music was not mixed/mastered",
+        "Music was not your own",
+        "Currently not accepting submissions",
+        "Other reason",
       ],
-    }
+    };
   },
 
   computed: {},
@@ -94,5 +96,5 @@ export default {
   created() {},
 
   methods: {},
-}
+};
 </script>

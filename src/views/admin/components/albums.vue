@@ -1,7 +1,7 @@
 <template>
   <v-card flat v-if="isPageReady">
     <v-tabs dark class="white" v-model="albums_tab">
-      <v-tabs-bar class="transparent pl-4 mt-4">
+      <v-tabs-bar class="transparent">
         <v-tabs-item
           v-for="tab in albums_tabs"
           @click.native="onTab(tab.id)"
@@ -10,8 +10,7 @@
           ripple
           >{{ tab.title }}</v-tabs-item
         >
-        <v-tabs-slider color="black"></v-tabs-slider>
-        <v-spacer></v-spacer>
+        <!-- <v-spacer></v-spacer>
         <v-text-field
           v-model="searchValue"
           append-icon="search"
@@ -20,9 +19,9 @@
           single-line
           hide-details
           v-on:keyup.enter="onKeyEnter"
-        ></v-text-field>
+        ></v-text-field> -->
       </v-tabs-bar>
-      <v-tabs-items style="border: none;">
+      <v-tabs-items style="border: none">
         <v-tabs-content key="published" id="published">
           <v-card flat v-if="albums_tab == 'published'">
             <v-data-table
@@ -44,7 +43,7 @@
                   ></div>
                   {{ props.item.name }}
                 </td>
-                <td class="text-xs-left">{{ props.item.user.display_name }}</td>
+                <td class="text-xs-left">{{ props.item.user.username }}</td>
                 <td class="text-xs-center">{{ props.item.played }}</td>
                 <td class="text-xs-center">{{ props.item.downloaded }}</td>
                 <td class="text-xs-center">{{ props.item.reposted }}</td>
@@ -130,7 +129,7 @@
                   ></div>
                   {{ props.item.name }}
                 </td>
-                <td class="text-xs-left">{{ props.item.user.display_name }}</td>
+                <td class="text-xs-left">{{ props.item.user.username }}</td>
                 <td class="text-xs-center">{{ props.item.played }}</td>
                 <td class="text-xs-center">{{ props.item.downloaded }}</td>
                 <td class="text-xs-center">{{ props.item.reposted }}</td>
@@ -217,7 +216,7 @@
                   {{ props.item.name }}
                 </td>
                 <td class="text-xs-left">
-                  {{ props.item.merchant.display_name }}
+                  {{ props.item.merchant.username }}
                 </td>
                 <td class="text-xs-center">{{ props.item.sold }}</td>
                 <td class="text-xs-center">
@@ -279,6 +278,7 @@
                 {{ total_products }}
               </template>
             </v-data-table>
+
           </v-card>
         </v-tabs-content>
       </v-tabs-items>
@@ -351,3 +351,4 @@
 </template>
 
 <script type="text/javascript" src="./albums.ctrl.js"></script>
+<style src="./general.scss" lang="scss" scoped></style>

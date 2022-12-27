@@ -9,14 +9,14 @@
     "
   >
     <div class="modal-trigger">
-      {{ user.display_name }}
+      {{ user.username }}
       <div class="user-modal" :style="'top: ' + y + 'px; left: ' + x + 'px;'">
         ,
         <v-layout row class="text-xs-right"
           >, <img class="pic-big" v-bind:src="user.image" />,
           <div class="user-modal-header">
             ,
-            <div class="user-modal-name">{{ user.display_name }}</div>
+            <div class="user-modal-name">{{ user.username }}</div>
             ,
             <div class="user-modal-detail"><b>2.8k</b> Followers</div>
             ,
@@ -33,15 +33,15 @@
 </template>
 <script>
 export default {
-  props: ['user'],
+  props: ["user"],
   methods: {},
   data() {
     return {
       x: -85,
       y: 40,
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped>
@@ -95,7 +95,7 @@ export default {
 }
 
 .user-modal:after {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: -10px;

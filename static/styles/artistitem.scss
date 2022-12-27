@@ -6,8 +6,15 @@
 
     .artist-info-section {
       position: relative;
-      padding: 0;
       margin-top: 7.5px;
+      background: #f3f3f3;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      padding: 16px 16px 32px;
+
+      &:hover{
+        border-color: rgba($color: #252830, $alpha: 0.2);
+      }
 
       .artist-cover {
         width: 100%;
@@ -19,48 +26,54 @@
       }
 
       .artist-name {
-        text-align: center;
-        font-size: 18px;
-        font-weight: 500;
-        margin: 15px 0;
-        height: 30px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 700;
+        margin: 15px 0 0;
         color: #000000;
+        letter-spacing: 0;
+      }
+      .artist-title {
+        text-align: left;
+        font-size: 14px;
+        font-weight: 700;
+        margin: 5px 0 0;
+        color: #00000088;
         letter-spacing: 0;
       }
 
       .follow-section {
-        padding-top: 5px;
         text-align: center;
-        background-color: #FFFFFF;
+        background-color: #ffffff;
 
         .follow-btn {
           width: 88.5px;
-          height: 40px;
+          height: 28px;
           box-shadow: none;
-          text-transform: uppercase;
-          margin: 7.5px 5.25px 7.5px 0px;
-          color: #FFF;
-          border: 1px solid #377af9;
-          background-color: #fff;
-          border-radius: 75px;
+          position: absolute;
+        left: 7px;
+        bottom: 16px;
+          color: #fff;
+          
+          background-color: #076AFF !important;
+          border-radius: 3px;
           font-size: 14px;
-          font-weight: 600;
-          letter-spacing: -.5px;
+          font-weight: 700;
+          letter-spacing: -0.5px;
           min-width: 100px;
           &.follow {
-            color: #FFF !important;
-            border: 1px solid #3A92FF;
+            color: #fff !important;
             background-color: #417ef2;
           }
-          &.following {
-            color: #333!important;
-            border: 1px solid #333;
-            &:hover {
-              color: #fff !important;
-              border: 1.5px solid #dc3546;
-              background: #fe2020;
-            }
-          }
+          // &.following {
+          //   color: #333 !important;
+          //   border: 1px solid #333;
+          //   &:hover {
+          //     color: #fff !important;
+          //     border: 1.5px solid #dc3546;
+          //     background: #fe2020;
+          //   }
+          //}
         }
       }
 
@@ -117,7 +130,7 @@
           font-size: 15px;
           letter-spacing: 0;
           .btn__content {
-          float: left;
+            float: left;
           }
           &.height {
             height: 60px;
@@ -195,7 +208,7 @@
         text-align: center;
         font-weight: 700;
         font-size: 20px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: -0.6px;
         @media (max-width: 607px) {
           margin-top: 20px;
@@ -211,7 +224,7 @@
         padding: 0 10px;
         text-align: center;
         font-size: 15px;
-        color: #FFFFFF;
+        color: #ffffff;
         letter-spacing: -0.6px;
         line-height: 15px;
         @media (max-width: 404px) {
@@ -276,7 +289,7 @@
             float: initial !important;
           }
           &.accept {
-            background: #5BAD00 !important;
+            background: #5bad00 !important;
           }
           &.deny {
             background: #dc3545 !important;
@@ -296,7 +309,7 @@
         // text-align: center;
         opacity: 0.5;
         font-size: 15px;
-        color: #8E8E8E;
+        color: #8e8e8e;
         letter-spacing: -0.6px;
       }
     }

@@ -1,0 +1,30 @@
+.timeline-user {
+    margin-top: 20px;
+
+    
+    .user-info {
+        padding-left: 22px;
+        
+        .user_tag {
+            margin-bottom: -4px;
+            
+            /deep/ .tag__image {
+                margin-bottom: -14px;
+            }
+        }
+        .description-text {
+            text-transform: capitalize;
+            margin-left: 42px;
+            color: #777777;
+        }
+    }
+
+    .feed_assoc_item {
+        .comment {
+            &_count_action {
+                border: 0;
+            }
+        }
+        border-bottom: 1px solid #e4e4e4;
+    }
+}

@@ -1,38 +1,29 @@
 import AuthService from '@/services/auth.js'
+import forgotPasswordInput from '@/views/auth/forgotPasswordInput/'
 
 export default {
-  components: {},
+  components: { forgotPasswordInput },
 
   data() {
     return {
       email: null,
-      username: null,
+      resetSuccess: false,
     }
   },
 
-  computed: {},
+  computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+  },
 
   created() {
     this.$store.dispatch('navigator/goNextState', { page: 'register', tab: '' })
   },
 
   methods: {
-    submit() {
-      var params = new FormData()
-      params.append('email', this.email)
-      AuthService.requestResetPassword(params)
-        .then((response) => {
-          // JSON responses are automatically parsed.
-          this.$store.dispatch('error/showSuccessToast', [
-            'Email sent with password reset instructions.',
-          ])
-          this.$router.push({ path: '/login' })
-        })
-        .catch((e) => {
-          this.$store.dispatch('error/showErrorToast', [
-            'Email does not exist or inactivated',
-          ])
-        })
+    toLogin() {
+      this.$router.push({ name: 'Login' })
     },
   },
 }

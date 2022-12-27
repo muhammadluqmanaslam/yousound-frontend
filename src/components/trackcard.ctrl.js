@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { MyEvents } from '@/helper'
 
 import AlbumService from '@/services/album'
@@ -8,15 +8,41 @@ import PlaylistService from '@/services/playlist'
 import albumReportDialog from '@/components/album_report_dialog'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
+import featureModal from "@/views/featureModal"
 
 export default {
   components: {
     albumReportDialog,
     downloadModal,
     shareModal,
+    featureModal,
   },
 
   props: {
+    noMeta: {
+      type: Boolean,
+      default: false,
+    },
+    forCollection: {
+      type: Boolean,
+      default: false,
+    },
+    noAction: {
+      type: Boolean,
+      default: false,
+    },
+    hideTrackLength: {
+      type: Boolean,
+      default: false,
+    },
+    hidePlayButton: {
+      type: Boolean,
+      default: false,
+    },
+    hideMoreMenu: {
+      type: Boolean,
+      default: false,
+    },
     objects: {
       type: Array,
     },
@@ -24,16 +50,19 @@ export default {
     objectIndex: {
       type: Number,
     },
-
     hideButtonAction: {
       type: Function,
     },
+    showHoverTrackInfo: Boolean,
+    playButton2: Boolean,
+    playButton2IconHasWhiteBG: Boolean,
   },
 
   data() {
     return {
       showDownloadModal: false,
       showShareModal: false,
+      showFeatureModal: false,
       hide_dialog: false,
       show_report_dialog: false,
       playlist_dialog: false,
@@ -51,6 +80,10 @@ export default {
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
+
     currentUser() {
       return this.$store.state.auth.user
     },
@@ -152,9 +185,21 @@ export default {
       setPlaylist: 'player/setPlaylist',
       setPlaylistIndex: 'player/setListIndex',
       setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus',
+      setPlaying: "player/setPlayingStatus",
     }),
-
+    ...mapMutations({
+      setAlbumPrevRoute: 'appMobile/setAlbumPrevRoute',
+    }),
+    gotoItem() {
+      // store entry point before album page entry
+      const currentRoute = this.$route.name
+      if (this.onMobile && currentRoute !== 'AlbumDetail') {
+        this.setAlbumPrevRoute(currentRoute)
+        return this.$router.push(`/${this.item.album_type}/${this.item.slug}`)
+      } else {
+        return this.$router.push(`/${this.item.album_type}/${this.item.slug}`)
+      }
+    },
     playSong() {
       if (this.isPlaying && this.$store.state.player.isPaused) {
         this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY, 0)
@@ -185,6 +230,16 @@ export default {
             e.body.errors || [e.body]
           )
         })
+    },
+
+    totalTime() {
+      if (window.location.href.includes("collection") || window.location.href.includes("playlist")) {
+        var secs = Math.round(this.item.track.duration)
+        var minutes = Math.floor(secs / 60) || 0;
+        var seconds = secs - minutes * 60 || 0;
+
+        return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+      }
     },
 
     openReportDialog() {

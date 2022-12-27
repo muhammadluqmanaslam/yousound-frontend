@@ -5,6 +5,7 @@ import album from './modules/album'
 import app from './modules/app'
 import auth from './modules/auth'
 import discover from './modules/discover'
+import trending from './modules/trending'
 import error from './modules/error'
 import genre from './modules/genre'
 import genreSelector from './modules/genre_selector'
@@ -15,7 +16,8 @@ import playlist from './modules/playlist'
 import product from './modules/product'
 import track from './modules/track'
 import user from './modules/user'
-import videoPlayer from './modules/video_player'
+import streamPlayer from './modules/stream_player'
+import appMobile from './modules/app_mobile'
 
 Vue.use(Vuex)
 
@@ -29,6 +31,7 @@ export default new Vuex.Store({
     app,
     auth,
     discover,
+    trending,
     genre,
     genreSelector,
     error,
@@ -39,7 +42,8 @@ export default new Vuex.Store({
     product,
     track,
     user,
-    videoPlayer,
+    streamPlayer,
+    appMobile,
   },
   plugins: [],
 })

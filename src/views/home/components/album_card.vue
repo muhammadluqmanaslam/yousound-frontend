@@ -36,9 +36,7 @@
           }}</router-link>
         </p>
         <p class="my-card__subtitle">
-          <router-link :to="'/' + owner.slug">{{
-            owner.display_name
-          }}</router-link>
+          <router-link :to="'/' + owner.slug">{{ owner.username }}</router-link>
         </p>
       </v-flex>
     </v-flex>
@@ -47,8 +45,8 @@
 
 <script type="text/javascript">
 // import _ from 'lodash'
-import { mapActions } from 'vuex'
-import { MyEvents } from '@/helper'
+import { mapActions } from "vuex";
+import { MyEvents } from "@/helper";
 
 export default {
   components: {},
@@ -60,25 +58,25 @@ export default {
   },
 
   data() {
-    return {}
+    return {};
   },
 
   computed: {
     owner() {
-      return this.item.user
+      return this.item.user;
     },
 
     isPlaying() {
-      var playingItem = this.$store.getters['player/currentAlbum']
+      var playingItem = this.$store.getters["player/currentAlbum"];
       if (!playingItem) {
-        return false
+        return false;
       }
 
-      var currentItem = this.item
-      if (currentItem.assoc_type === 'Album') {
-        currentItem = currentItem.assoc
+      var currentItem = this.item;
+      if (currentItem.assoc_type === "Album") {
+        currentItem = currentItem.assoc;
       }
-      return playingItem.id === currentItem.id
+      return playingItem.id === currentItem.id;
     },
   },
 
@@ -86,26 +84,26 @@ export default {
 
   methods: {
     ...mapActions({
-      setPlaylist: 'player/setPlaylist',
-      setPlaylistIndex: 'player/setListIndex',
-      setTrackIndex: 'player/setTrackIndex',
-      setPlaying: 'player/setPlayingStatus',
+      setPlaylist: "player/setPlaylist",
+      setPlaylistIndex: "player/setListIndex",
+      setTrackIndex: "player/setTrackIndex",
+      setPlaying: "player/setPlayingStatus",
     }),
 
     playSong() {
       if (this.isPlaying && this.$store.state.player.isPaused) {
-        this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY)
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_REPLAY);
       } else {
-        this.setPlaylist([this.item])
-        this.setPlaylistIndex(0)
-        this.setPlaying(true)
-        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, 0)
+        this.setPlaylist([this.item]);
+        this.setPlaylistIndex(0);
+        this.setPlaying(true);
+        this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, 0);
       }
     },
 
     pauseSong() {
-      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+      this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE);
     },
   },
-}
+};
 </script>

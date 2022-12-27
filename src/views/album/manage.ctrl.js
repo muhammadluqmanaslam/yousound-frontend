@@ -12,7 +12,7 @@ export default {
       active_tab: null,
       tabs: [
         { id: 'published', title: 'Published' },
-        { id: 'private', title: 'Private' },
+        { id: 'privated', title: 'Private' },
         { id: 'video_only', title: 'Video Attachments' },
         { id: 'collaborated', title: 'Collaborations' },
         { id: 'pending', title: 'Pending Collaborations' },

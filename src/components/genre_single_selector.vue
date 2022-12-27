@@ -1,11 +1,11 @@
 <template>
   <v-container pa-0 class="genre" v-if="isPageReady">
     <v-layout row wrap mt-3 class="pgs_area" v-if="show_selector_view">
-      <div class="pgs-wrapper" v-for="(parent, index) in genres">
+      <div class="pgs-wrapper genre-container" v-for="(parent, index) in genres">
         <div class="pgs" :key="parent.id">
           <div
-            class="pgs-inner-wrapper"
-            :style="{ backgroundColor: parent.color }"
+            class="pgs-inner-wrapper genre-block"
+            
             @click.stop="selectParent(parent, index)"
           >
             <div class="pgs-inner">
@@ -36,8 +36,7 @@
       <div class="pgs-wrapper">
         <div class="pgs" :key="parent.id">
           <div
-            class="pgs-inner-wrapper"
-            :style="{ backgroundColor: parent.color }"
+            class="pgs-inner-wrapper genre-block"
           >
             <div class="pgs-inner">
               <div class="pgs__title">{{ parent.name }}</div>
@@ -55,12 +54,16 @@
             <template
               v-if="Object.keys(groupChildrenByRegion(parent)).length == 1"
             >
-              <v-flex xs12 sm3 v-for="child in parent.children" :key="child.id">
-                <v-radio
+              <v-flex xs12 sm4 v-for="child in parent.children" :key="child.id">
+                <div class="dflex">
+                  <input name="sub-genres" type="radio" :id="child.id" :value="child.id"  @change="checkChildGenre(parent, child)">
+                  <label class="ml-2" :for="child.id">{{child.name}}</label>
+                </div>
+                <!-- <v-radio
                   :label="child.name"
                   :value="child.id"
                   @change="checkChildGenre(parent, child)"
-                ></v-radio>
+                ></v-radio> -->
               </v-flex>
             </template>
             <template v-else>
@@ -69,15 +72,14 @@
                   ><h5>{{ key }}</h5></v-flex
                 >
                 <v-flex xs12 sm3 v-for="child in values" :key="child.id">
-                  <v-radio
-                    :label="child.name"
-                    :value="child.id"
-                    @change="checkChildGenre(parent, child)"
-                  ></v-radio>
+                  <div class="dflex">
+                    <input name="sub-genres" type="radio" :id="child.id" :value="child.id"  @change="checkChildGenre(parent, child)">
+                    <label class="ml-2" :for="child.id">{{child.name}}</label>
+                  </div>
                 </v-flex>
               </template>
             </template>
-            <v-flex xs12 class="text-xs-center">
+            <v-flex xs12 class="text-xs-center mt-5">
               <v-btn
                 dark
                 color="grey"

@@ -1,8 +1,33 @@
 <template>
   <div class="modal-wrapper">
     <div class="my-overlay" @click="dismiss()"></div>
-    <div class="modal">
-      <h4 class="modal__title">Attach content to live video</h4>
+    <div class="modal" :class="{fullscreen, onMobile}">
+      <h4 class="modal__title">
+        <span
+          v-if="fullscreen && !altFullscreenHeader"
+          class="dismisser"
+          @click="dismiss()"
+        >
+          <v-icon>arrow_back_ios</v-icon>
+        </span>
+        <div v-if="fullscreen && altFullscreenHeader" class="pa-2 dflex align-center justify-space-between width100">
+          <div
+            class="flex-grow text-center"
+          >
+            <img
+            height="24"
+              :src="require('@/assets/nav_logo_primary.png')"
+            />
+          </div>
+          <img
+            :src="require('@/assets/closeIcon.svg')"
+            width="18"
+            @click="dismiss()"
+          />
+        </div>
+
+        <span v-if="title" class="flex-grow text-center">{{ title }}</span>
+      </h4>
 
       <div class="modal__header">
         <v-btn
@@ -15,15 +40,19 @@
           @click.native="onTab('ShopProduct')"
           >Product</v-btn
         >
-        <!-- <v-btn
-          :class="{'selected': active_tab == 'User'}"
-          @click.native="onTab('User')"
-        >User</v-btn> -->
+        <v-btn
+          v-if="showVideo"
+          :class="{ selected: active_tab == 'Video' }"
+          @click.native="onTab('Video')"
+          >
+            Video
+          </v-btn>
       </div>
 
       <div class="modal__content" v-if="active_tab == 'Album'">
         <div
-          v-for="album in albums"
+          v-for="(album, index) in albums"
+          :key="index"
           class="media"
           :class="{ selected: attachId == album.id }"
           @click="selectItem('Album', album)"
@@ -36,14 +65,15 @@
           </div>
           <div class="media__content">
             <label class="media__title">{{ album.name }}</label>
-            <label class="media__subtitle">{{ album.user.display_name }}</label>
+            <label class="media__subtitle">{{ album.user.username }}</label>
           </div>
         </div>
       </div>
 
       <div class="modal__content" v-if="active_tab == 'ShopProduct'">
         <div
-          v-for="product in products"
+          v-for="(product, index) in products"
+          :key="index"
           class="media"
           :class="{ selected: attachId == product.id }"
           @click="selectItem('ShopProduct', product)"
@@ -57,7 +87,30 @@
           <div class="media__content">
             <label class="media__title">{{ product.name }}</label>
             <label class="media__subtitle">{{
-              product.merchant.display_name
+              product.merchant.username
+            }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal__content" v-if="showVideo && active_tab == 'Video'">
+        <div
+          v-for="(video, index) in videos"
+          :key="index"
+          class="media"
+          :class="{ selected: attachId == video.id }"
+          @click="selectItem('Video', video)"
+        >
+          <div class="media__header">
+            <div
+              class="media__image _vid"
+              :style="`background-image: url(${video.cover.thumb.url})`"
+            ></div>
+          </div>
+          <div class="media__content">
+            <label class="media__title">{{ video.name }}</label>
+            <label class="media__subtitle">{{
+              video.user.username
             }}</label>
           </div>
         </div>
@@ -110,7 +163,7 @@
               ></div>
               <div class="media__content">
                 <label class="media__title">
-                  {{ user.display_name }}
+                  {{ user.username }}
                   <v-icon v-if="user.user_type == 'artist'"
                     class="user-status"
                     :class="{'online': user.status == 'active'}"
@@ -125,18 +178,38 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from "lodash";
 // import AlbumService from '@/services/album'
 // import ProductService from '@/services/product'
-import MeService from '@/services/me'
+import MeService from "@/services/me";
+import StreamService from '@/services/stream'
 
 export default {
   props: {
+    altFullscreenHeader: {
+      type: Boolean,
+    },
+    customAlbums: {
+      type: Array
+    },
+    customProducts: {
+      type: Array
+    },
+    showVideo: {
+      type: Boolean,
+    },
+    fullscreen: {
+      type: Boolean,
+    },
     dismiss: {
       type: Function,
       required: true,
     },
 
+    title: {
+      type: String,
+      default: "Attach content to live video"
+    },
     value: {
       type: Object,
     },
@@ -144,51 +217,68 @@ export default {
 
   data() {
     return {
-      active_tab: 'Album',
+      active_tab: "Album",
       item: {
-        type: 'Album',
+        type: "Album",
         value: null,
       },
       albums: [],
       products: [],
-      userSearchKeyword: '',
-    }
+      videos: [],
+      userSearchKeyword: "",
+    };
   },
 
   computed: {
+    onMobile() {
+      return this.$vuetify.breakpoint.smAndDown;
+    },
     attachId() {
-      return _.get(this.item.value, 'id', 0)
+      return _.get(this.item.value, "id", 0);
     },
   },
 
   methods: {
     onTab(tab) {
-      this.active_tab = tab
+      this.active_tab = tab;
     },
 
     selectItem(type, value) {
-      this.item = {
-        type: type,
-        value: value,
-      }
-      this.$emit('input', this.item)
-      this.dismiss()
+      // console.log("selectItem Item:", type, value);
+      // console.log("selectItem Value:", value);
+      // var item = {
+      //   type: type,
+      //   value: value,
+      // };
+
+      this.$emit("getSelected", {type, value});
+      // console.log("selectItem emitted:", {type, value});
+      this.dismiss();
     },
 
     loadUsers() {
-      console.log('loadUsers')
+      console.log("loadUsers");
     },
   },
 
   created() {
-    this.item = {
-      type: this._props.value.type,
-      value: this._props.value.value,
+    // console.log('on created value: ', this._props.value);
+    // this.item = {
+    //   type: this._props.value.type,
+    //   value: this._props.value.value,
+    // };
+
+    this.active_tab = this.item.type;
+
+    this.$store.dispatch("error/showLoadingActivity", true);
+
+    const vid_params = {
+      genre_id: 0,
+      only_follows: false,
+      page: 1,
+      per_page: 10,
     }
 
-    this.active_tab = this.item.type
-
-    this.$store.dispatch('error/showLoadingActivity', true)
     Promise.all([
       // AlbumService.getAlbums({
       //   statuses: 'published, collaborated',
@@ -201,19 +291,21 @@ export default {
       // }),
       MeService.videoAttachAlbums(),
       MeService.videoAttachProducts(),
+      StreamService.getStreams(vid_params) // take further appro. look at data from backend
     ])
       .then((values) => {
-        this.albums = values[0].body
-        this.products = values[1].body
-        this.$store.dispatch('error/showLoadingActivity', false)
+        this.albums = this.customAlbums || values[0].body;
+        this.products = this.customProducts || values[1].body;
+        this.videos = values[2].body.streams;
+        this.$store.dispatch("error/showLoadingActivity", false);
       })
       .catch((reason) => {
-        console.log(reason)
-        this.$store.dispatch('error/showLoadingActivity', false)
-        this.$store.dispatch('error/showErrorToast', [reason])
-      })
+        console.log(reason);
+        this.$store.dispatch("error/showLoadingActivity", false);
+        this.$store.dispatch("error/showErrorToast", [reason]);
+      });
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -247,19 +339,62 @@ export default {
   background: #ffffff;
   box-shadow: 3px 3px 10px -4px grey;
 
+  &.fullscreen {
+    height: 100%;
+
+    .modal__content {
+      padding: 8px 18px;
+    }
+  }
+  &.onMobile {
+    .dismisser .icon {
+      color: #000000;
+    }
+    .modal__title {
+      font-weight: normal;
+    }
+    .modal__header {
+      border-top: none;
+      background: none;
+      padding-bottom: 10px;
+      margin-bottom: 6px;
+
+      .btn {
+        height: 31px;
+        min-width: 78px;
+        background: transparent;
+        border: 1px solid #d7c9c9;
+
+        &.selected {
+          border: 1px solid #000000;
+          background: #000000;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
   &__title {
     margin: 0;
     padding: 15px;
     font-size: 20px;
     color: #000000;
     letter-spacing: -0.6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .dismisser {
+      color: #000000;
+      cursor: pointer;
+    }
   }
 
   &__header {
     width: 100%;
     //height: 75px;
     border-top: 0.75px solid #e1e1e1;
-    border-bottom: 0.75px solid #e1e1e1;
+    border-bottom: 1px solid #00000026;
     border-top-left-radius: 7.5px;
     border-top-right-radius: 7.5px;
     background: #fafafa;
@@ -360,6 +495,8 @@ export default {
 
 .media {
   padding: 4px 12px;
+  display: flex;
+  align-items: center;
   // cursor: pointer;
 
   &.selected {
@@ -367,10 +504,7 @@ export default {
   }
 
   &__header {
-    width: 60px;
-    height: 60px;
-    display: inline-block;
-    vertical-align: middle;
+    margin-right: 12px;
   }
 
   &__image {
@@ -378,13 +512,14 @@ export default {
     height: 60px;
     border-radius: 3.75px;
     background-size: cover;
+
+    &._vid {
+      width: 80px;
+    }
   }
 
   &__content {
     width: calc(100% - 80px);
-    padding-left: 11.25px;
-    display: inline-block;
-    vertical-align: middle;
   }
 
   &__title {
