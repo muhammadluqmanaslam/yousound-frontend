@@ -1,8 +1,6 @@
 <template>
   <div class="" :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
     <discover-nav 
-    @mouseenter="show_nav = true"
-    @mouseleave="show_nav = false"
     pageName="video"
 
     :class="show_nav ? 'navVisible': 'navHide'"
@@ -411,10 +409,14 @@ export default {
         })
     },
     hideOverlay(){
+      console.log( 'Hide Overlay' );
+      this.show_video_overlay = false;
       // this.show_video_overlay = false
-      setTimeout(
-        this.show_video_overlay = false, 3000
-      )
+      // setTimeout(() => {
+        
+      // }
+      //   , 100
+      // )
     },
     initPlayer() {
       if (this.currentUser.free_trial_time <= 0 && !this.isSubscribed) {
@@ -511,14 +513,23 @@ export default {
         console.log("================ playing time ", vm.totalPlayTime)
       })
 
-      vm.player.on('mouseover', function() {
-        player.inactivityTimeout = 0
-        player.userActive(true)
+      vm.player.on('mouseenter', function(event) {
+        vm.player.inactivityTimeout = 0
         vm.player.userActive(true)
 
-        console.log("Ches X");
+        console.log("Mouse Enter", new Date());
         var vim = document.querySelector('.video-js').classList.remove('vjs-user-inactive')
         var vim = document.querySelector('.video-js').classList.remove('vjs-user-active')
+      
+      });
+
+      vm.player.on('mouseleave', function(event) {
+        vm.player.inactivityTimeout = 0
+        vm.player.userActive(false)
+
+        console.log("Mouse Leave", new Date());
+        var vim = document.querySelector('.video-js').classList.add('vjs-user-inactive')
+        var vim = document.querySelector('.video-js').classList.add('vjs-user-active')
       
       });
 
@@ -635,18 +646,18 @@ export default {
   visibility: visible;
   opacity: 1;
 
-  -webkit-transition: visibility 1.5s, opacity 1.5s;
-  -moz-transition: visibility 1.5s, opacity 1.5s;
-  -ms-transition: visibility 1.5s, opacity 1.5s;
-  -o-transition: visibility 1.5s, opacity 1.5s;
-  transition: visibility 1.5s, opacity 1.5s;
+  // -webkit-transition: visibility 1s, opacity 1.5s;
+  // -moz-transition: visibility 1s, opacity 1.5s;
+  // -ms-transition: visibility 1s, opacity 1.5s;
+  // -o-transition: visibility 1s, opacity 1.5s;
+  // transition: visibility 1s, opacity 1.5s;
 
-  /* Wait a moment before fading out the control bar */
-  -webkit-transition-delay: 2s;
-  -moz-transition-delay: 2s;
-  -ms-transition-delay: 2s;
-  -o-transition-delay: 2s;
-  transition-delay: 2s;
+  // /* Wait a moment before fading out the control bar */
+  // -webkit-transition-delay: 1s;
+  // -moz-transition-delay: 1s;
+  // -ms-transition-delay: 1s;
+  // -o-transition-delay: 1s;
+  // transition-delay: 1s;
 }
 
 .navHide{
@@ -654,18 +665,18 @@ export default {
   visibility: hidden;
   opacity: 0;
 
-  -webkit-transition: visibility 1.5s, opacity 1.5s;
-  -moz-transition: visibility 1.5s, opacity 1.5s;
-  -ms-transition: visibility 1.5s, opacity 1.5s;
-  -o-transition: visibility 1.5s, opacity 1.5s;
-  transition: visibility 1.5s, opacity 1.5s;
+  -webkit-transition: visibility 1s, opacity 1.5s;
+  -moz-transition: visibility 1s, opacity 1.5s;
+  -ms-transition: visibility 1s, opacity 1.5s;
+  -o-transition: visibility 1s, opacity 1.5s;
+  transition: visibility 1s, opacity 1.5s;
 
   /* Wait a moment before fading out the control bar */
-  -webkit-transition-delay: 2s;
-  -moz-transition-delay: 2s;
-  -ms-transition-delay: 2s;
-  -o-transition-delay: 2s;
-  transition-delay: 2s;
+  -webkit-transition-delay: 1s;
+  -moz-transition-delay: 1s;
+  -ms-transition-delay: 1s;
+  -o-transition-delay: 1s;
+  transition-delay: 1s;
 }
 
 .hideOverlay{
@@ -673,18 +684,18 @@ export default {
   visibility: hidden;
   opacity: 0;
 
-  -webkit-transition: visibility 1.5s, opacity 1.5s;
-  -moz-transition: visibility 1.5s, opacity 1.5s;
-  -ms-transition: visibility 1.5s, opacity 1.5s;
-  -o-transition: visibility 1.5s, opacity 1.5s;
-  transition: visibility 1.5s, opacity 1.5s;
+  -webkit-transition: visibility 1s, opacity 1.5s;
+  -moz-transition: visibility 1s, opacity 1.5s;
+  -ms-transition: visibility 1s, opacity 1.5s;
+  -o-transition: visibility 1s, opacity 1.5s;
+  transition: visibility 1s, opacity 1.5s;
 
   /* Wait a moment before fading out the control bar */
-  -webkit-transition-delay: 2s;
-  -moz-transition-delay: 2s;
-  -ms-transition-delay: 2s;
-  -o-transition-delay: 2s;
-  transition-delay: 2s;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -ms-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
 }
 .video-js .vjs-big-play-button {
   top: 44% !important;
