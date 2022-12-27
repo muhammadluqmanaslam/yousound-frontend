@@ -1809,6 +1809,13 @@ textarea {
     max-width: 20%;
     flex-basis: 20%;
   }
+
+  .flex.custom-lg6 {
+    width: 16.667%;
+    max-width: 16.667%;
+    flex-basis: 16.667%;
+  }
+  
 }
 
 @media (min-width: 1264px) and (max-width: 1903px) {

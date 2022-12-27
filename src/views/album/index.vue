@@ -87,8 +87,8 @@
           </div>
         </v-container>
       </div>
-      <div class="global-header-viewall">
-        <div class="dflex align-center" v-if="(viewAllNew || viewAllPopular || viewAllTrending)">
+      <div class="global-header-viewall" v-if="(viewAllNew || viewAllPopular || viewAllTrending)">
+        <div class="dflex align-center">
           <div class="highlight-head mr-4 dflex align-center">
             {{ viewAllNew ? 'New' : viewAllPopular ? 'Popular' : 'Trending' }}
             <img class="ml-1 mt-1" src="../../assets/triangle-down.svg" width="8">
@@ -121,7 +121,7 @@
       </v-container>
 
       <v-container fluid grid-list-lg px-0 v-if="(!viewAllPopular && !viewAllTrending)">
-        <div class="dflex justify-space-between align-center margin-top-x" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
+        <div class="dflex justify-space-between align-center mt-4" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
           <div class="text-big">
             New
           </div>

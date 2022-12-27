@@ -14,6 +14,7 @@
     :width="sideBarWidth"
     class="sidebar"
   >
+  <div>  
     <div  class="sidebar-decoy"></div>
 
     <div class="pa-3 tabs-auth-wrapper">
@@ -240,12 +241,11 @@
         </v-list>
       </template>
     </div>
-    
-    <div class="divider mb-3 mt-4"></div>
-    <v-spacer></v-spacer>
-    
+  </div>
 
-
+  <div>
+  
+  <div class="divider mb-3 mt-4"></div>
     <div v-if="!mini">
     <side-audio-placeholder v-if="!$store.getters['player/isPlaying']" />
     <transition v-if="!onMobile" name="slide-fade">
@@ -261,7 +261,6 @@
     <img :src="this.$store.state.player.currentTrackPlaying && this.$store.state.player.currentTrackPlaying.album && this.$store.state.player.currentTrackPlaying.album.cover.url" width="100%">
   </div>
 
-    <v-spacer></v-spacer>
 
     <div class="side-lang-outer my-5" v-if="!mini">
       <div class="sidebar_lang">
@@ -291,6 +290,7 @@
         src="/static/images/slide-right.svg"
       />
     </div>
+  </div>
   </v-navigation-drawer>
 
   <v-dialog  v-model="show_language_modal" content-class="my-genre-dialog ma-0 pa-2" >

@@ -10,7 +10,39 @@
             class="nav-li"
             :class="[{ 'active tab-active': isActiveTab(tab.id) }, `nav-${tab.id}`]"
           >
-            <label class="nav-label __tabs" :class="[tab.id]" @click="setTab(tab.id)">
+            <label class="nav-label __tabs" :class="[tab.id]" @click="setTab(tab.id)" v-if="!onMobile">
+              <span class="__tab dflex align-center">
+                <img v-if="tab.icon" :src="tab.icon" width="18" class="li-icon">
+                {{ tab.title }}
+              </span>
+
+              <!-- {{ badge }} -->
+
+              <span
+                v-if="!isActiveTab(tab.id) && tab.badge > 0"
+                class="dot_notifications"
+              >
+                <v-icon size="1">circle</v-icon>
+              </span>
+
+              <!-- <span
+                v-if="tab.id === 'activity'"
+                class="notifications "
+              >
+                <span class="__count">
+                  {{ badge.activity < 99 ? badge.activity : '99+' }}
+                </span>
+              </span>
+              <span
+                v-if="tab.id === 'messages'"
+                class="notifications "
+              >
+                <span class="__count">
+                  {{ badge.message < 99 ? badge.message : '99+' }}
+                </span>
+              </span> -->
+            </label>
+            <label class="nav-label __tabs" :class="[tab.id]" @click="setTab(tab.id)" v-else-if="onMobile && tab.title != 'SMS'">
               <span class="__tab dflex align-center">
                 <img v-if="tab.icon" :src="tab.icon" width="18" class="li-icon">
                 {{ tab.title }}

@@ -36,7 +36,7 @@
                   'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`,
                 }"
               >
-                <div style="max-width: 100%; padding-top: 10rem;">
+                <div style="padding-left: 1rem;max-width: 100%; padding-top: 10rem;">
                   <label class="track-name" style="background-color: black" id="trackName" v-if="this.playRandomSong">{{ track.name }}</label>
                   <div class="user-info">
                     <router-link class="user-name" style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
@@ -66,7 +66,7 @@
         <div class="track-info-container">
           <div class="track-info">
             <div class="dflex justify-space-between align-center">
-              <div v-if="!isMini" class="track-index" id="trackIndex">{{ trackIndex }}</div>
+              <!-- <div v-if="!isMini" class="track-index" id="trackIndex">{{ trackIndex }}</div> -->
 
               <div v-if="!isMini" class="follow-meta">
                 <div class="dflex align-center justify-space-between width100">
@@ -132,7 +132,7 @@
             </div>
           </div>
 
-          <div v-if="!isMini" class="dflex justify-space-between align-center mt-2">
+          <!-- <div v-if="!isMini" class="dflex justify-space-between align-center mt-2">
             <div style="max-width: 50%">
               <label class="track-name" id="trackName">{{ track.name }}</label>
               <div class="user-info">
@@ -142,14 +142,8 @@
                   }}</router-link>
                   <template v-for="c in item.collaborators">
                     <span :key="`span-${c.user.id}`">,&nbsp;</span>
-                    <!-- <router-link
-                        :key="`link-${c.user.id}`"
-                        class="user-name"
-                        :to="`/${c.user.slug}`"
-                        >{{ c.user.username }}</router-link
-                      > -->
+                   
                   </template>
-                  <!-- <router-link class="user-name" :to="`/${item.album_type}/${item.slug}`">Multiple Collaborators</router-link> -->
                 </template>
                 <template v-else-if="item.album_type == 'album'">
                   <router-link v-if="!this.playRandomSong" class="user-name" :to="'/' + item.user.slug">{{
@@ -168,12 +162,7 @@
               <template v-if="item.collaborators_count > 0">
                 <template v-for="c in item.collaborators">
                   <span :key="`span-${c.user.id}`">,&nbsp;</span>
-                  <!-- <router-link
-                    :key="`link-${c.user.id}`"
-                    class="user-name"
-                    :to="`/${c.user.slug}`"
-                    >{{ c.user.username }}</router-link
-                  > -->
+                  
                 </template>
               </template>
 
@@ -196,13 +185,13 @@
               </template>
             </div>
 
-          </div>
+          </div> -->
         </div>
       </div>
 
-      <div class="hr-container bottom">
+      <!-- <div class="hr-container bottom">
         <v-divider></v-divider>
-      </div>
+      </div> -->
     </div>
 
     <div

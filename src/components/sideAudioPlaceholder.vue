@@ -1,10 +1,12 @@
 <template>
     <div class="side-player-placeholder">
         <div class="side-player-placeholder__wrapper">
-            <img :src="require('@/assets/player_radio.svg')" width="80%" alt="">
+            <!-- <img :src="require('@/assets/player_radio.svg')" width="80%" alt=""> -->
+            <div class="player_text">Hear What's Trending</div>
             
             <div class="cta__wrapper cursor-pointer" @click="loadFeeds('discover', 1)">
-                <span class="cta__text">Play something new!</span>
+              <img src="../assets/triangle-down.svg" width="15">
+                <span class="cta__text">Surprise me</span>
             </div>
         </div>
         <div class="side-player-placeholder__action" v-if="isPlaying">
@@ -95,26 +97,48 @@ export default {
 
     &__wrapper {
         text-align: center;
-        background-color: #242732;
         padding: 30px 15px;
         border-radius: 6px;
+
+        .player_text{
+          font-family: 'Inter', sans-serif;
+          font-weight: 600;
+          font-size: 30px;
+          line-height: 44px;
+          letter-spacing: -1%;
+          text-align: left;
+          color: rgba(255, 255, 255, 0.7);
+        }
         
         img {
             margin: 0 auto;
         }
 
         .cta__wrapper {
-            background-color: #DDDFE8;
+            background-color:rgba(50, 52, 61, 1);
             border-radius: 100px;
-            padding: 7px 10px;
+            padding: 7px 0px;
             text-align: center;
             margin: 0 auto;
-            width: 80%;
+            width: 100%;
+            margin: 0 auto;
             margin-top: 20px;
+            height: 53px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+
+            img{
+              margin: 0;
+              filter: invert(1);
+            }
+
         }
         .cta__text {
-            color: #000000;
-            font-weight: 500;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
         }
     }
     &__action {
