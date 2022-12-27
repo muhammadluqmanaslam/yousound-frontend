@@ -36,8 +36,8 @@
                   'background-image': `url(${album1Cover}), url(${album2Cover}), url(${album3Cover}), url(${album4Cover})`,
                 }"
               >
-                <div style="padding-left: 1rem;max-width: 100%; padding-top: 10rem;">
-                  <label class="track-name" style="background-color: black;overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical;" id="trackName" v-if="this.playRandomSong">{{ track.name }}</label>
+                <div style="max-width: 180px; padding-top: 13rem; padding-left: 10px">
+                  <label class="ellipsisIt" style="background-color: black;" v-if="this.playRandomSong">{{ track.name }}</label>
                   <div class="user-info">
                     <router-link class="user-name" style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
                       item.user.username
@@ -51,8 +51,8 @@
                 class="track-cover-image"
                 :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
               >
-                <div style="max-width: 100%; padding-top: 10rem;">
-                  <label class="track-name truncate-text" style="background-color: black;overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical;" id="trackName" v-if="this.playRandomSong">{{ track.name }}</label>
+                <div style="max-width: 180px; padding-top: 13rem; padding-left: 10px">
+                  <label class="ellipsisIt" style="background-color: black;" id="trackName" v-if="this.playRandomSong">{{ track.name }}</label>
                   <div class="user-info">
                     <router-link class="user-name"  style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
                       item.user.username
