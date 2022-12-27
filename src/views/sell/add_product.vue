@@ -771,7 +771,7 @@
 							<img src="../../assets/black-check.svg" width="25">
 						</div>
 						<div class="headline-text">
-							Your product was released! <a href="/upload/product/add">Upload another</a> or go to <router-link to="/upload">upload page</router-link> 
+							Your product was released! <a href="/upload/product/add" style="text-decoration: underline !important">Upload another</a> or go to <router-link to="/upload" style="text-decoration: underline !important">upload page</router-link> 
 						</div>
 					</div>
 				</v-card-title>

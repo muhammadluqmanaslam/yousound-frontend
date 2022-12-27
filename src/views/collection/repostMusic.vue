@@ -55,10 +55,10 @@
 			</div>
 		</div>
 
-		<div class="playlist-container" @click="(addToPlaylistActive = true)">
+		<div class="playlist-container">
 			<div class="playlist-holder">
 				<div class="playlist-box">
-					<div class="playlist-images with-button">
+					<div class="playlist-images with-button" @click="(addToPlaylistActive = true)">
 						<v-btn></v-btn>
 					</div>
 					<div class="playlist-text">
@@ -127,7 +127,7 @@
 			</div>
 		</div>
 
-		<add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="selectedAlbums" type="track" @closeAddToPlaylist="closeAddToPlaylist" />
+		<add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="selectedAlbums" type="track" @closeAddToPlaylist="closeAddToPlaylist" :method="methodThatForcesUpdate"/>
 	</div>
 </template>
 
@@ -164,6 +164,12 @@ export default {
 	},
 
 	methods: {
+		methodThatForcesUpdate() {
+      // ...
+      console.log('Force Update')
+      this.$forceUpdate();  // Notice we have to use a $ here
+      // ...
+    },
 		playlistImageList(playlist) {
 			let playlistImages = []
 			const playlistDetails = playlist.playlist_details
@@ -198,7 +204,9 @@ export default {
 				this.toggleSelectAlbumsMode()
 			}
 			this.addToPlaylistActive = false
-			window.location.reload();
+
+			// window.location.reload();
+			this.methodThatForcesUpdate()
 		},
 		removeAlbum(index) {
 			const idx = this.selectedAlbums.indexOf(index);

@@ -30,7 +30,7 @@
                             </div>
                         </td>
                         <td><div class="number-text">{{ creator.playedViewed }}</div></td>
-                        <td><div class="number-text">{{ creator.subscriptionShare }}</div></td>
+                        <td><div class="number-text">${{ creator.subscriptionShare }}</div></td>
                         <td></td>
 
 

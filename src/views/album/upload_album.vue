@@ -777,7 +777,7 @@
 							<img src="../../assets/black-check.svg" width="25">
 						</div>
 						<div class="headline-text">
-							Your album was released! <a href="/upload/album">Upload another</a> or go to <router-link to="/upload">upload page</router-link> 
+							Your album was released! <a href="/upload/album" style="text-decoration: underline !important">Upload another</a> or go to <router-link to="/upload" style="text-decoration: underline !important">upload page</router-link> 
 						</div>
 					</div>
 				</v-card-title>

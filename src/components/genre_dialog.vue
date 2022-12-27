@@ -7,7 +7,7 @@
   >
       <div class='dflex justify-space-between align-center'>
         <div class="">
-          <h3 class="_title">Genre Filter</h3>
+          <h3 class="_title">Genre filters</h3>
           <div class="_subtitle d-block justify-space-between" :class="{'dflex': !onMobile}">
 					  <p v-if="!onMobile">
 							Genres you select will appear on Discover
@@ -21,7 +21,7 @@
         </div>
 				<div class="dflex align-center"> 
 					<div class="input-genre-group" v-if="show_selector_view">
-						<input v-on:keyup="filterRecords()" @focus="(inputDropdown = true)" id="filter-select" class="input-genre" type="text" placeholder="Select a filter"/>
+						<input v-on:keyup="filterRecords()" @focus="(inputDropdown = true)" id="filter-select" class="input-genre" type="text" placeholder="Search genres"/>
 						<div v-if="inputDropdown">
               <div class="genre-dropdown-overlay" @click="(inputDropdown = false)"></div>
            
@@ -168,7 +168,7 @@
             <div class="pgs-inner-x">
               <div class="pgs__title">{{ parent.name }}</div>
               <div class="pgs__description">
-                +{{ getSelectedChildrenCount(parent) }} Subgenres
+                {{ getSelectedChildrenCount(parent) }} Subgenres
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@
             v-if="Object.keys(groupChildrenByRegion(parent)).length == 1"
           >
             <v-flex xs12 sm4 v-for="child in parent.children" :key="child.id">
-              <p class="regular-checkbox settings">
+              <p class="regular-checkbox settings child-genre">
                 <input
                   :id="child.id"
                   type="checkbox"
@@ -199,7 +199,7 @@
                   @click="checkChildGenre(parent, child)"
                 />
                 <label :for="child.id">{{ child.name }}</label>
-                <span>({{ child.users_size }})</span>
+                <!-- <span>({{ child.users_size }})</span> -->
               </p>
             </v-flex>
           </template>
@@ -220,7 +220,7 @@
                 </p>
               </v-flex>
               <v-flex xs12 sm3 v-for="child in values" :key="child.id">
-                <p class="regular-checkbox settings">
+                <p class="regular-checkbox settings child-genre">
                   <input
                     :id="child.id"
                     type="checkbox"
@@ -228,7 +228,7 @@
                     @click="checkChildGenre(parent, child)"
                   />
                   <label :for="child.id">{{ child.name }}</label>
-                  <span>({{ child.users_size }})</span>
+                  <!-- <span>({{ child.users_size }})</span> -->
                 </p>
               </v-flex>
             </template>

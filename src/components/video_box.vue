@@ -49,17 +49,17 @@
           <div class="box__author"></div>
           <div class="box__views__duration_wrapper dflex align-center">
             <span class="box__views mr-2">0 views</span>
-            <span v-if="calcAge" class="mr-2 box__age dflex align-center">
+            <!-- <span v-if="calcAge" class="mr-2 box__age dflex align-center"> -->
               <!-- <span v-if="!onMobile" class="mr-2">•</span> -->
-              {{ calcAge }}
-            </span>
+              <!-- {{ calcAge }}
+            </span> -->
 
             <!-- <div class="discover-action"  @click="$router.push({name: 'VideoIndex', hash: '#recommended'})">View All</div> -->
             <span
               v-if="!hideFreeTag && isVideoFree && !sideTabView"
-              class="ml-2"
+              class="user-name"
             >
-              {{ isVideoFree }}
+              {{ item.user.username }}
             </span>
           </div>
         </div>
@@ -383,6 +383,7 @@ export default {
   //display: flex;
   //flex-direction: column;
 
+
   &__content {
     position: relative;
     width: 100%;
@@ -482,6 +483,12 @@ export default {
       font-weight: 400;
       vertical-align: unset;
       color: #606060;
+
+      .user-name{
+      font-weight: 600;
+      color: black;
+      font-family: 'Inter', sans-serif;
+    }
     }
     .user-status {
       margin: 0;

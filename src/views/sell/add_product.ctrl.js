@@ -491,6 +491,7 @@ export default {
           } else {
             this.productUrl = window.location.origin + '/product/' +response.body.id
             // this.$router.push({ path: '/sell#products' })
+            this.hideCollaboratorsConfirmDialog()
             this.product_upload_successfully = true
           }
         })
