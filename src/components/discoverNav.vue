@@ -111,13 +111,6 @@
 }  .input-search::placeholder{
   color: rgba(255,255,255,0.5);
 }
-.toolbar__content ul li label img{
-  opacity: 0.5 !important;
-}
-.toolbar__content ul li.active img{
-  filter: opacity(1);
-  opacity: 1.0% !important;
-}
 
 .genre-dialog-selector {
   position: relative;
@@ -183,6 +176,13 @@
     }
   }
 }
+.toolbar__content ul li label.nav-label img.li-icon, .zxyz{
+    opacity: 0.5 !important;
+  }
+  .toolbar__content ul li.active label.nav-label img, .zxyz{
+    filter: opacity(1);
+    opacity: 1.0 !important;
+  }
 </style>
 
 <script>
