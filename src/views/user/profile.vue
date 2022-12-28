@@ -47,12 +47,14 @@
                   </label>
                 </div>
                 <div v-if="followMetaVisible && !onMobile" class="user-status-section mt-0">
+                
+                  <!-- <label class="vertical-divider"></label> -->
+                  <div @click="onTab('followers')" class="follower-count stat-count">
+                    <strong class="_count">{{ user.followers | formatLargeNumber }}</strong> Followers
+                  </div>
                   <div @click="onTab('followings')" class="follower-count stat-count"
                     ><strong class="_count">{{ user.followings }}</strong> Following</div
                   >
-                  <!-- <label class="vertical-divider"></label> -->
-                  <div @click="onTab('followers')" class="follower-count stat-count">
-                    <strong class="_count">{{ user.followers | formatLargeNumber }}</strong> Followers</div>
                   <div
                     class="follower-count stat-count stat-count"
                   >
@@ -607,6 +609,7 @@
           <v-layout row wrap>
             <v-flex
               xs4
+              class="pr-3"
               v-for="video in 3"
               :key="video"
             >
@@ -724,27 +727,49 @@
           </template>
           <div v-else>
             <div class="_body list-track-view list-track-view-trackCard">
+              <div class="dflex justify-space-between align-center mt-3 mb-3">
+              <div class="text-big">
+                Popular
+              </div>
+           
+            </div>
               <div
                 v-for="(track, index) in albums.slice(0, 5)"
                 :key="index"
-                class="list-track-view-item"
+                class="list-track-view-item px-5"
               >
                 <track-card
                   :objects="albums"
                   :objectIndex="index"
                   hideMoreMenu
                   hideTrackLength
+                  forCollection
                 />
 
               </div>
             </div>
-            <div class="dflex justify-space-between align-center">
+            <div class="dflex justify-space-between align-center mt-5 mb-3">
               <div class="text-big">
-                Popular
+                Albums
               </div>
-              <div class="text-small cursor-pointer">
-                
+           
+            </div>
+          <v-layout row wrap class="covers-content" >
+            <v-flex
+              xs6
+              class="custom-lg5"
+              v-for="(feed, index) in albums"
+              :key="index"
+            >
+              <track-card :objects="albums" :objectIndex="index"></track-card>
+            </v-flex>
+          </v-layout>
+
+          <div class="dflex justify-space-between align-center mt-5 mb-3">
+              <div class="text-big">
+                Appears on
               </div>
+           
             </div>
           <v-layout row wrap class="covers-content" >
             <v-flex

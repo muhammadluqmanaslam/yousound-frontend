@@ -74,7 +74,7 @@
         <v-container>
           <div class="dflex album-flex align-center">
             <div class="album-main-content">
-              <div class="album-title-main mb-4">{{ selectedVideo.name }}</div>
+              <div class="album-title-main mb-2">'{{ selectedVideo.name }}'</div>
               <div class="dflex align-center gap-10 album-group mb-4">
                 <div>
                   <div class="album-group-image" style="background-image: url('../../assets/check_success.svg')"></div>
@@ -86,7 +86,7 @@
                   </div>
                 </div>
               </div>
-              <div class="album-title-description mb-4">{{ selectedVideo.description }}</div>
+              <div class="album-title-description mb-2">{{ selectedVideo.description }}</div>
 
               <div class="album-play dflex align-center gap-25">
 

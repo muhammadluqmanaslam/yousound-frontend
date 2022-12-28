@@ -48,7 +48,7 @@
         <div v-if="!noMeta" class="box__title">
           <div class="box__author"></div>
           <div class="box__views__duration_wrapper dflex align-center">
-            <span class="box__views mr-2">0 views</span>
+            <span class="box__views mr-2" v-if="showViews">0 views</span>
             <!-- <span v-if="calcAge" class="mr-2 box__age dflex align-center"> -->
               <!-- <span v-if="!onMobile" class="mr-2">•</span> -->
               <!-- {{ calcAge }}
@@ -248,6 +248,10 @@ export default {
       default: false,
     },
     showUsername: {
+      type: Boolean,
+      default: false,
+    },
+    showViews: {
       type: Boolean,
       default: false,
     },
@@ -524,7 +528,7 @@ export default {
     align-items: center;
 
     .box__content {
-      width: 40%;
+      width: 30%;
       margin-right: 20px;
     }
     .box__footer {

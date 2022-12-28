@@ -156,7 +156,7 @@
                   :key="video.name"
                   :class="{side_fullwidth: onMobile}"
                 >
-                  <video-box :hoverOverlay="false" :item="video" showUsername :hideUser="!onMobile ? true : false" :sideTabView="!onMobile ? true : false" />
+                  <video-box :hoverOverlay="false" :item="video" showUsername :hideUser="!onMobile ? true : false" :sideTabView="!onMobile ? true : false" showViews/>
                 </div>
               </div>
             </div>

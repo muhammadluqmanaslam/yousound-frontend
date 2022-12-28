@@ -10,7 +10,7 @@
             </div>
 
             <div class="album-main-content" v-if="mainAlbum">
-              <div class="album-title-main mb-4">{{ mainAlbum.name }}</div>
+              <div class="album-title-main mb-4">'{{ mainAlbum.name }}'</div>
               <div class="dflex align-center gap-10 album-group mb-4">
                 <div>
                   <div class="album-group-image" style="background-image: url(mainAlbum.user.avatar.url)"></div>
