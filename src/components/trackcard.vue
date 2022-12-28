@@ -584,7 +584,7 @@
 
 			<v-flex class="dflex align-center">
 				<div class="pr-3 font-weight-bold"> {{ totalTime() }} </div>
-				<!-- <div class="three-dots"><img src="../assets/three-dots.svg" width="15"></div> -->
+				<div class="three-dots"><img src="../assets/three-dots.svg" width="15"></div>
 			</v-flex>
 		</v-flex>
 

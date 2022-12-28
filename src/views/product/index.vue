@@ -287,6 +287,7 @@
     .album-main-image{
       width: 35%;
       min-width: 320px;
+      max-width: 330px;
       border-radius: 10px;
       overflow: hidden;
     }

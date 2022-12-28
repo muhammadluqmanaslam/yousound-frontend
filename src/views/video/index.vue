@@ -148,7 +148,7 @@
           </video>
         </div> -->
       </div>
-      <v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllTrendingVideos"></v-container>>
+      <v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllTrendingVideos"></v-container>
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
             Popular
@@ -382,7 +382,7 @@
 }
 
 .margin-top-x{
-  margin-top: 60px;
+  margin-top: 30px;
   padding: 0 20px;
 }
 
@@ -533,6 +533,7 @@
 		.album-main-image{
 			width: 35%;
 			min-width: 320px;
+			max-width: 330px;
 			border-radius: 10px;
 			overflow: hidden;
 		}

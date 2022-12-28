@@ -1,10 +1,10 @@
-<template>
+<template v-if="isPageReady">
   <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" filterShow='true' :searchShow="this.$store.state.app.sideBarMini" />
     <div class="page-content">
       <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainAlbum.gradient_color + ' 100%)'}" v-if="(!viewAllNew && !viewAllPopular && !viewAllTrending)">
         <v-container>
-          <div class="dflex album-flex align-center" v-if="mainAlbum">
+          <div class="dflex album-flex align-center" v-if="mainAlbum !== null">
             <div class="album-main-image">
               <img :src="mainAlbum.cover && mainAlbum.cover.url" width="100%">
             </div>
@@ -259,6 +259,7 @@
     .album-main-image{
       width: 35%;
       min-width: 320px;
+      max-width: 330px;
       border-radius: 10px;
       overflow: hidden;
     }

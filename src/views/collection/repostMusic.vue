@@ -52,25 +52,33 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div class="playlist-container">
-			<div class="playlist-holder">
-				<div class="playlist-box">
-					<div class="playlist-images with-button" @click="(addToPlaylistActive = true)">
-						<v-btn></v-btn>
-					</div>
-					<div class="playlist-text">
-						New Playlist
+				<div class="playlist-holder">
+					<div class="playlist-box">
+						<div class="playlist-images with-button" @click="(addToPlaylistActive = true)">
+							<v-btn></v-btn>
+						</div>
+						<div class="playlist-text">
+							New Playlist
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="music playlist-music">
+			<div class="title _intro">{{ this.tracks.length }} Tracks</div>
 			<div class="title dflex align-center justify-space-between _intro">
-				<div>{{ this.tracks.length }} Tracks</div>
+				<div class="dflex align-center">
+					<div>
+						<img src="../../assets/genre_filter.svg" width="25">
+					</div>
+
+					<div class="tags-container ml-3">
+						<div class="tags-main">
+							All <span>X</span>
+						</div>
+					</div>
+				</div>
 
 				<div v-if="selectAlbumsMode" class="selectAlbumsMode _action">
 					<v-btn round dark depressed @click="openAddToPlaylist()"> Add selected to... </v-btn>
