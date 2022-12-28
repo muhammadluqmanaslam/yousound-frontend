@@ -182,7 +182,7 @@ to your videos
             </div>
           </v-flex>
 
-          <v-flex v-if="!onMobile" xs12 class="upload-tab-container">
+          <v-flex v-if="onMobile" xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">
 
               <div class="text-left">
