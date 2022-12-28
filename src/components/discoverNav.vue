@@ -111,6 +111,13 @@
 }  .input-search::placeholder{
   color: rgba(255,255,255,0.5);
 }
+.toolbar__content ul li label img{
+  opacity: .5;
+}
+.toolbar__content ul li.active img{
+  filter: opacity(1);
+  opacity: 100%;
+}
 
 .genre-dialog-selector {
   position: relative;
