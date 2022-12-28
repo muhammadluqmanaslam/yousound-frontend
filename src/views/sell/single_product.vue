@@ -117,7 +117,7 @@
               </v-tooltip>
 
 
-
+<!-- 
               <v-tooltip top v-if="product.merchant.id !== currentUser.id">
                 <span slot="activator" class="__actions">
                   <img
@@ -128,7 +128,7 @@
                   />
                 </span>
                 <span>Repost</span>
-              </v-tooltip>
+              </v-tooltip> -->
             </div>
 
 
@@ -195,7 +195,15 @@
             </v-flex>''
           </div>
 
-          <div class="divider-x mt-5"></div>
+          <div class="divider-x my-5"></div>
+          <div class="w-100">
+            <v-flex xs12 sm12>
+              <div class="general-heading mb-4">More from this seller</div>
+              <div class="product-description">
+                Product Here 
+              </div>
+            </v-flex>
+          </div>
 
           <div v-if="isAuthenticated" class="flex-center py-5">
             <comments :item="product" :comments="comments" :commentTableType="commentTableType" class="w-80"/>

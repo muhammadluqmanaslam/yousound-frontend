@@ -28,6 +28,7 @@ export default {
       slickOptions: {
         infinite:false,
         slidesToShow: 4,
+        slidesToScroll: 4,
         dots: false,
         cssEase: 'linear',
         arrows: true,
