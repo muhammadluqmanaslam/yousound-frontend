@@ -178,10 +178,12 @@
 }
 .toolbar__content ul li label.nav-label img.li-img, .zxyz{
     opacity: 0.5 !important;
+    margin-right: 10px;
   }
   .toolbar__content ul li.active label.nav-label img.li-img, .zxyz{
     filter: opacity(1);
     opacity: 1.0 !important;
+    margin-right: 10px;
   }
 </style>
 
