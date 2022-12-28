@@ -294,6 +294,7 @@ export default {
         this.mainAlbum = this.recommendedAlbums[0]
         this.newAlbums = response.body.new.slice(0,10);
         this.popularAlbums = response.body.popular.slice(0, 10);
+        this.isPageReady = true
         const genres = _.chain(this.feeds)
           .map('genres')
           .flatMap()
@@ -339,6 +340,7 @@ export default {
             vm.isPageReady = true
           })
         }
+        console.log("======================", this.isPageReady)
       })
       .catch((e) => {
         this.$store.dispatch('error/showLoadingActivity', false)

@@ -1,4 +1,4 @@
-<template>
+<template v-if="isPageReady">
   <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" filterShow='true' :searchShow="this.$store.state.app.sideBarMini" />
     <div class="page-content">
