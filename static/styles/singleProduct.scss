@@ -36,10 +36,10 @@
         font-weight: 600;
         cursor: pointer;
         color: black;
-        opacity: 50%;
+        opacity: 0.5;
 
         &.active{
-            opacity: 100%;
+            opacity: 1;
         }
     }
 
@@ -139,7 +139,7 @@
             
             cursor: pointer;
             &:hover{
-                opacity: 80%;
+                opacity: 0.8;
             }
             
         }

@@ -27,7 +27,7 @@ export default {
         {
           title: 'Basic',
           viewersLimit: 100,
-          price: 9.99,
+          price: 10,
           benefits: [
             '100 concurrent viewer limit',
             // 'Unused time rolls over',
@@ -38,7 +38,7 @@ export default {
         {
           title: 'Plus',
           viewersLimit: 500,
-          price: 39.99,
+          price: 40,
           benefits: [
             '500 concurrent viewer limit',
             // 'Unused time rolls over',
@@ -49,7 +49,7 @@ export default {
         {
           title: 'Pro',
           viewersLimit: 1000,
-          price: 74.99,
+          price: 75,
           benefits: [
             '1,000 concurrent viewer limit',
             // 'Unused time rolls over',

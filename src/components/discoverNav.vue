@@ -14,7 +14,7 @@
               :class="[{ active: isActiveTab(tab.id) }, `nav-${tab.id}`]"
               >
               <label class="nav-label" @click="onTab(tab.id)">
-                <img :src="tab.icon" width="18" class="li-icon">
+                <img :src="tab.icon" width="18" class="li-img">
                 {{ tab.title }}
               </label>
               </li>
@@ -176,6 +176,15 @@
     }
   }
 }
+.toolbar__content ul li label.nav-label img.li-img, .zxyz{
+    opacity: 0.5 !important;
+    margin-right: 10px;
+  }
+  .toolbar__content ul li.active label.nav-label img.li-img, .zxyz{
+    filter: opacity(1);
+    opacity: 1.0 !important;
+    margin-right: 10px;
+  }
 </style>
 
 <script>

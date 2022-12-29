@@ -1567,7 +1567,7 @@ textarea {
     display: flex;
     align-items: center;
     padding: 15px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+   
 
     &:hover {
       background: rgba(0, 0, 0, 0.02);
@@ -1578,7 +1578,7 @@ textarea {
     }
 
     &:last-child {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+     
       margin-bottom: 15px;
     }
   }
@@ -1688,8 +1688,9 @@ textarea {
 
       .selectMusic {
         position: relative;
-        right: 42px;
+        right: 95px;
         cursor: pointer;
+        top: -11px;
 
         * {
           position: absolute;

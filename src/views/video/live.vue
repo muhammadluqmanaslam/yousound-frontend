@@ -177,7 +177,7 @@
                 ></v-select>
   
                 <v-btn outline class="_button">
-                  <span v-if="!hasFree_stream_seconds">Choose</span>
+                  <span v-if="!hasFree_stream_seconds">Add time</span>
                   <span v-else>Add time</span>
                 </v-btn>
               </div>

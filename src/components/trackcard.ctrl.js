@@ -27,6 +27,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    meatBall: {
+      type: Boolean,
+      default: false,
+    },
     noAction: {
       type: Boolean,
       default: false,

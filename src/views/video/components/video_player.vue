@@ -31,6 +31,7 @@
 
 					<div class="following-btns">
 						<user-follow-btn
+							v-if="video.user.id !== currentUser.id"
 							:user="video.user"
 							type="default"
 							borderRadius
