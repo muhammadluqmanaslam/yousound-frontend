@@ -591,6 +591,33 @@
           >
         </div>
 
+        <div v-else-if="active_tab === 'sms_group' && user.id == currentUser.id">
+          <div class="sms-group pa-2">
+          <div class="dflex align-center justify-space-between">
+            <div class="sms-info">
+              <div class="dflex align-center"> 
+                <div class="sms-img"></div>
+                <div class="ml-2">
+                  <div class="sms-name dflex align-center">
+                    Tri Nohbi
+                    <img src="../../assets/true.svg" width="10" class="ml-1">
+                  </div>
+                  <div class="user-type">
+                    Artist
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sms-btn-group mr-4">
+              <v-btn class="join-btn" round>Join SMS</v-btn>
+              <v-btn class="ml-2 joined-btn" round>Joined SMS</v-btn>
+            </div>
+
+          </div>
+        </div>
+        </div>
+
         <!-- <div v-else-if="active_tab == 'reposted'">
           <v-layout row wrap class="covers-content">
             <div class="card-container flex custom-lg5" v-for="(feed, index) in feeds" :key="index" v-else-if="feed.assoc_type=='Album' || feed.assoc_type=='ShopProduct'">
@@ -782,33 +809,6 @@
             </v-flex>
           </v-layout>
         </div>
-
-        <!-- SMS group div -->
-
-        <!-- <div class="sms-group pa-2">
-          <div class="dflex align-center justify-space-between">
-            <div class="sms-info">
-              <div class="dflex align-center"> 
-                <div class="sms-img"></div>
-                <div class="ml-2">
-                  <div class="sms-name dflex align-center">
-                    Tri Nohbi
-                    <img src="../../assets/true.svg" width="10" class="ml-1">
-                  </div>
-                  <div class="user-type">
-                    Artist
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="sms-btn-group mr-4">
-              <v-btn class="join-btn" round>Join SMS</v-btn>
-              <v-btn class="ml-2 joined-btn" round>Joined SMS</v-btn>
-            </div>
-
-          </div>
-        </div> -->
 
           <v-btn
             v-show="page_index < total_pages"

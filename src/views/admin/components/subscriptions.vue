@@ -68,7 +68,7 @@
                 <td class="text-xs-center">
                   {{ props.item.user_type | capitalize }}
                 </td>
-                <td v-if="active_tab === 'trial_drop_off'" class="text-xs-center">
+                <td v-if="active_tab == 'cancelled' || active_tab === 'trial_drop_off'" class="text-xs-center">
                   {{ props.item.initial_signup_type }}
                 </td>
                 <td class="text-xs-center">
@@ -89,17 +89,14 @@
                 <td class="text-xs-center">
                   {{ getNumberOfMonths(props.item.created_at) }}
                 </td>
+                <td v-if="active_tab == 'trial'" class="text-xs-center">
+                  {{  Math.floor(props.item.free_trial_time / 60) + ' mins' }}
+                </td>
                 <td class="text-xs-center">
                   {{ props.item.trial_end | formatDate }}
                 </td>
                 <td v-if="active_tab == 'trial'" class="text-xs-center">
                   {{ props.item.trial_complete ? "Yes" : "No" }}
-                </td>
-                <td v-if="active_tab == 'trial'" class="text-xs-center">
-                  {{  Math.round(Math.abs((new Date(props.item.trial_end) - new Date()) / 86400000)) }}
-                </td>
-                <td v-if="active_tab == 'cancelled'" class="text-xs-center">
-                  {{ props.item.initial_signup_type }}
                 </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
