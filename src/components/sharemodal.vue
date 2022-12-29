@@ -164,7 +164,7 @@ export default {
   created() {
     switch (this.itemType) {
       case "Stream":
-        this.shareUrl = window.location.origin + "/video/" + this.item.slug;
+        this.shareUrl = window.location.origin + "/video/" + this.item.id + "/show";
         break;
       case "Album":
         this.shareUrl = window.location.origin + "/album/" + this.item.slug;
