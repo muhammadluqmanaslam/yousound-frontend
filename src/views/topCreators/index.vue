@@ -25,12 +25,12 @@
                                 <div class="tbl-img mx-3" :style="{'background-image': `url(${creator.avatar_url})`,}"></div>
                                 <div class="tbl-content">
                                     <div class="tbl-title">{{ creator.display_name }}</div>
-                                    <div class="tbl-subtitle">{{ creator.user }}  •  {{ creator.user_type }}</div>
+                                    <div class="tbl-subtitle">@{{ creator.user }}  •  {{ creator.user_type }}</div>
                                 </div>
                             </div>
                         </td>
-                        <td><div class="number-text">{{ creator.playedViewed }}</div></td>
-                        <td><div class="number-text">${{ creator.subscriptionShare }}</div></td>
+                        <td><div class="number-text ml-4">{{ creator.playedViewed }}</div></td>
+                        <td><div class="number-text ml-3">${{ creator.subscriptionShare }}</div></td>
                         <td></td>
 
 
