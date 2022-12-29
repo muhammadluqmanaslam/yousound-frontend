@@ -859,6 +859,17 @@ export default {
 
 <style src="./video-player.scss"></style>
 <style lang="scss">
+	.ad-btn{
+		width: 100%;
+		margin: 0;
+		box-shadow: none;
+		background: #1D5EDD !important;
+		border-radius: 4px;
+		font-size: 14px;
+		font-weight: 600;
+		color: white;
+		height: 35px;
+	}
 	.ad-show{
 		color: white;
 		background: #1d1d1d;
@@ -1187,19 +1198,10 @@ export default {
 				}
 					}
 				}
+				
 
 				.ad-d-btn{
-					.ad-btn{
-						width: 100%;
-						margin: 0;
-						box-shadow: none;
-						background: #1D5EDD;
-						border-radius: 4px;
-						font-size: 14px;
-						font-weight: 600;
-						color: white;
-						height: 35px;
-					}
+
 				}
 		
 			}

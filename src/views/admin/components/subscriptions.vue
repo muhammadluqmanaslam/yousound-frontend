@@ -95,6 +95,12 @@
                 <td v-if="active_tab == 'trial'" class="text-xs-center">
                   {{ props.item.trial_complete ? "Yes" : "No" }}
                 </td>
+                <td v-if="active_tab == 'trial'" class="text-xs-center">
+                  {{  Math.round(Math.abs((new Date(props.item.trial_end) - new Date()) / 86400000)) }}
+                </td>
+                <td v-if="active_tab == 'cancelled'" class="text-xs-center">
+                  {{ props.item.initial_signup_type }}
+                </td>
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }} out of
@@ -158,7 +164,7 @@
                       ></v-select>
 
                       <div class="plus-icon-u ml-2">
-                        <img src="../../../assets/plus.svg" width="12px">
+                        <img src="../../../assets/plus.svg" width="12px" @click="increaseMonth(props.item.id)">
                       </div>
 
                   </div>

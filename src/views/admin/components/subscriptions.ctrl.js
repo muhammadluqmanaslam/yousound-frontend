@@ -79,6 +79,7 @@ export default {
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
         { text: 'Trial Completed', value: 'trial_complete', align: 'center' },
+        { text: 'Credit Remaining Days', value: 'trial_end', align: 'center' },
       ],
 
       cancelled_headers: [
@@ -91,6 +92,7 @@ export default {
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
+        { text: 'Initial Signup Type', value: 'initial_signup_type', align: 'center' },
       ],
 
       free_credit_headers: [
