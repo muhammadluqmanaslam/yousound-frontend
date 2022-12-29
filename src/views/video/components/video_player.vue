@@ -79,6 +79,7 @@
 							:items="options()"
 							item-text="name"
 							item-value="id"
+							placeholder="Option"
 						></v-select>
 						<v-btn
 							v-if="assoc.assoc_type === 'ShopProduct'"
@@ -123,6 +124,7 @@
 						:items="options()"
 						item-text="name"
 						item-value="id"
+						placeholder="Option"
 					></v-select>
 					<v-btn
 						v-if="assoc.assoc_type === 'ShopProduct'"
@@ -918,7 +920,7 @@ export default {
 			}
 
 			.ad-option{
-				select{
+				.input-group__input{
 					background-color: transparent !important;
 					border: 1px solid rgba($color: #fff, $alpha: 0.1);
 					border-radius: 5px;
@@ -943,6 +945,24 @@ export default {
 				5px 5px,
 				1px 1.5em;
 			background-repeat: no-repeat;
+
+			.input-group__selections{
+				input{
+					background-color: transparent !important;
+
+					&::placeholder{
+						color: rgba(255, 255, 255, 0.5) !important;
+					}
+				}
+			}
+
+				.input-group__selections__comma{
+					color: white !important;
+				}
+
+				i{
+					display: none !important;
+				}
 
 			option{
 				color: black !important;
@@ -1118,7 +1138,7 @@ export default {
 				}
 
 				.ad-option{
-					select{
+					.input-group__input{
 						background-color: transparent !important;
 						border: 1px solid rgba($color: #fff, $alpha: 0.1);
 						border-radius: 5px;
@@ -1143,6 +1163,24 @@ export default {
 					5px 5px,
 					1px 1.5em;
 				background-repeat: no-repeat;
+
+				.input-group__selections{
+				input{
+					background-color: transparent !important;
+
+					&::placeholder{
+						color: rgba(255, 255, 255, 0.5) !important;
+					}
+				}
+			}
+
+				.input-group__selections__comma{
+					color: white !important;
+				}
+
+				i{
+					display: none !important;
+				}
 
 				option{
 					color: black !important;
