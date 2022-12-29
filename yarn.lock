@@ -9209,6 +9209,11 @@ vue-intercom@1.0.13:
   resolved "https://registry.yarnpkg.com/vue-intercom/-/vue-intercom-1.0.13.tgz#54a2bb4ed96a0e2637989952af02d2e20840ea4c"
   integrity sha512-q9X7FTTx5KqOS4e3b2S8t/H0T2S/nSd56H278+uEdB0LKLtQXOX6IOyLqnqEjH/Va/PmOym4UBIhRM18eSeW0g==
 
+vue-json-to-csv@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/vue-json-to-csv/-/vue-json-to-csv-1.1.8.tgz#10b5652ca1bcc11e5cfd3637b303b7a1e06a12a0"
+  integrity sha512-xdV2cUyLQYPnG6ChjLJn3+PYnP8zxZG5u6QtFjAMzcsUtGvLFrTvMN4XnD/he4M67Y14nXE0i/20xeyaVfhylQ==
+
 vue-lazyload@1.2.6:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.2.6.tgz#baa04c172d52a812608eb12c7a6bfb14f5c91079"
