@@ -743,7 +743,7 @@
                   :objectIndex="index"
                   hideMoreMenu
                   hideTrackLength
-                  forCollection
+                  displayDuration
                 />
 
               </div>

@@ -200,7 +200,18 @@
             <v-flex xs12 sm12>
               <div class="general-heading mb-4">More from this seller</div>
               <div class="product-description">
-                Product Here 
+                <v-layout class="covers-content">
+                  <v-flex
+                    xs12
+                    sm4
+                    class="card-container"
+                    v-for="(product, index) in products"
+                    :key="index"
+                  >
+                  
+                    <product-card :dataObject="product" showFullOverlay></product-card>
+                  </v-flex>
+                </v-layout>
               </div>
             </v-flex>
           </div>

@@ -47,6 +47,7 @@
           :objectIndex="index"
           hideMoreMenu
           hideTrackLength
+          displayDuration
         />
       </div>
     </div>

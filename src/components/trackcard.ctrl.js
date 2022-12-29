@@ -35,6 +35,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    displayDuration: {
+      type: Boolean,
+      default: false,
+    },
     hideTrackLength: {
       type: Boolean,
       default: false,
@@ -237,8 +241,10 @@ export default {
     },
 
     totalTime() {
-      if (window.location.href.includes("collection") || window.location.href.includes("playlist")) {
-        var secs = Math.round(this.item.track.duration)
+      if (this.displayDuration) {
+        const duration = window.location.href.includes("collection") || window.location.href.includes("playlist") ? 
+          this.item.track.duration : this.item.tracks[0].duration
+        var secs = Math.round(duration)
         var minutes = Math.floor(secs / 60) || 0;
         var seconds = secs - minutes * 60 || 0;
 

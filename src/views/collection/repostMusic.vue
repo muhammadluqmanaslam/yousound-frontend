@@ -114,6 +114,7 @@
 						hideTrackLength
 						forCollection
 						meatBall
+						displayDuration
 					/>
 
 					<div v-if="selectAlbumsMode" class="selectMusic">

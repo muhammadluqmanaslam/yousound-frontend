@@ -18,6 +18,7 @@ import UserTag from '@/components/user_tag'
 import ShareModal from '@/components/sharemodal'
 import UserFollowBtn from "@/components/userFollowBtn";
 import { mapGetters } from 'vuex'
+import productCard from "@/components/productcard";
 
 export default {
   components: {
@@ -28,10 +29,12 @@ export default {
     UserTag,
     ShareModal,
     UserFollowBtn,
+    productCard,
   },
 
   data() {
     return {
+      products: {},
       share_dialog: false,
       info_dialog: false,
       info_active_tab:1, 
@@ -306,6 +309,15 @@ export default {
                 (response) => (this.users = response.body.users)
             )
           this.loadMoreComments()
+          ProductService.getProducts({
+            statuses: "published, collaborated",
+            stock_statuses: "active",
+            user_statuses: "accepted",
+          }).then((resp) => {
+            this.products = resp.body.slice(0, 4)
+          }).catch((exception) => {
+            console.log(exception)
+          })
         })
         .catch((reason) => {
           console.log(reason)
