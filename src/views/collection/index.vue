@@ -3,11 +3,16 @@
     <content-top-header class="mt-3 black-theme">
       <template slot="topHeader">
         <ul>
+          <li class="active">
+            <label class="innerBold">
+              Collection >
+            </label>
+          </li>
           <li
             v-for="tab in tabs"
             :key="tab.id"
             :href="`#${tab.id}`"
-            :class="{ 'active tab-active': isActiveTab(tab.id) }"
+            :class="{ 'active ': isActiveTab(tab.id) }"
           >
             <label @click="onTab(tab.id)" class="innerBold">{{
               tab.title

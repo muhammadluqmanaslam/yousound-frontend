@@ -396,7 +396,7 @@
 								Upload a spotlight video to promote your content to new subscribers!
 							</p>
 
-							<router-link to="/spotlight">
+							<router-link to="/#">
 								<v-btn class="mt-4 fx-btn ml-0">
 									Add spotlight
 								</v-btn>

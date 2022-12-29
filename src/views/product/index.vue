@@ -12,7 +12,7 @@
               </div>
   
               <div class="album-main-content">
-                <div class="album-title-main mb-4">{{ mainProduct.name }}</div>
+                <div class="album-title-main mb-4">'{{ mainProduct.name }}'</div>
                 <div class="dflex align-center gap-10 album-group mb-4">
                   <div>
                     <div class="album-group-image" style="background-image: url('../../assets/check_success.svg')"></div>
@@ -85,7 +85,7 @@
           </v-container>
         </div>
 
-        <div class="global-header-viewall">
+        <div class="global-header-viewall pt-0">
 
           <v-container v-if="!viewAllTrending" fluid grid-list-md pl-0 style="margin-left: -10px">
             <div v-for="category in categories">
@@ -287,6 +287,7 @@
     .album-main-image{
       width: 35%;
       min-width: 320px;
+      max-width: 330px;
       border-radius: 10px;
       overflow: hidden;
     }

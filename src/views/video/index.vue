@@ -74,7 +74,7 @@
         <v-container>
           <div class="dflex album-flex align-center">
             <div class="album-main-content">
-              <div class="album-title-main mb-4">{{ selectedVideo.name }}</div>
+              <div class="album-title-main mb-2">'{{ selectedVideo.name }}'</div>
               <div class="dflex align-center gap-10 album-group mb-4">
                 <div>
                   <div class="album-group-image" style="background-image: url('../../assets/check_success.svg')"></div>
@@ -86,7 +86,7 @@
                   </div>
                 </div>
               </div>
-              <div class="album-title-description mb-4">{{ selectedVideo.description }}</div>
+              <div class="album-title-description mb-2">{{ selectedVideo.description }}</div>
 
               <div class="album-play dflex align-center gap-25">
 
@@ -148,7 +148,7 @@
           </video>
         </div> -->
       </div>
-      <v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllTrendingVideos"></v-container>>
+      <v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllTrendingVideos"></v-container>
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
             Popular
@@ -382,7 +382,7 @@
 }
 
 .margin-top-x{
-  margin-top: 60px;
+  margin-top: 30px;
   padding: 0 20px;
 }
 
@@ -533,6 +533,7 @@
 		.album-main-image{
 			width: 35%;
 			min-width: 320px;
+			max-width: 330px;
 			border-radius: 10px;
 			overflow: hidden;
 		}

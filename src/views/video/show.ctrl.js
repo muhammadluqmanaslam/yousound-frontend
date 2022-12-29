@@ -22,6 +22,8 @@ import commentInput from '@/components/commentInput'
 import UserFollowBtn from '@/components/userFollowBtn';
 import { mapActions } from 'vuex'
 import CollectionService from '@/services/collection'
+import AlbumService from '@/services/album'
+import ProductService from '@/services/product'
 
 const ActionCable = require('actioncable')
 
@@ -61,7 +63,7 @@ export default {
       showSendLoveModal: false,
       showMoreActive: false,
       showAttachProduct: false,
-      selectAttactProduct: 3,
+      selectAttactProduct: 1,
       stream: {},
       stream_assoc: {
         type: 'Album',
@@ -82,6 +84,9 @@ export default {
       showMerchModal: false,
       mobileHeaderOptions: {},
       isSubscribed: false,
+      albums: [],
+      products: [],
+      mainItem: null,
     }
   },
 
@@ -144,6 +149,7 @@ export default {
   },
 
   created() {
+    this.getAttachmentItems()
     this.fetchSubscriptionDetails();
     this.$store.dispatch('navigator/goNextState', {
       page: 'video',
@@ -169,6 +175,29 @@ export default {
     ...mapActions({
       setMobileFooter: 'appMobile/setMobileFooterOptions',
     }),
+
+    getAttachmentItems() {
+      Promise.all([
+        AlbumService.getAlbums({
+          statuses: 'published, collaborated',
+          user_statuses: 'accepted',
+        }),
+        ProductService.getProducts({
+          statuses: 'published, collaborated',
+          stock_statuses: 'active',
+          user_statuses: 'accepted',
+        }),
+      ])
+        .then((values) => {
+          this.albums = values[0].body
+          this.products = values[1].body
+          this.mainItem = this.albums[0]
+        })
+        .catch((reason) => {
+          console.log(reason)
+          // this.$store.dispatch('error/showErrorToast', [reason])
+        })
+    },
 
     async fetchSubscriptionDetails() {
       await UserService.getSubscriptionDetail(this.currentUser.id)
@@ -327,6 +356,31 @@ export default {
         this.stream.assoc = res.body.assoc
         this.closeFeaturedDialog()
       })
+    },
+
+    addContent() {
+      const hours = document.getElementById("showAttachmentHours").textContent
+      const minutes = document.getElementById("showAttachmentMinutes").textContent
+      const seconds = document.getElementById("showAttachmentSeconds").textContent
+      const totalSeconds = (hours*3600 + minutes*60 + seconds).replace(/^0+/, '')
+      if (totalSeconds == '' || totalSeconds > this.stream.duration) {
+        const errorMsg = totalSeconds == '' ? "Please select a valid duration." :
+         "Selected duration is gereater than your stream duration. Please choose below your duration limit."
+        this.$store.dispatch(
+          'error/showErrorToast', [errorMsg]
+        )
+      } else {
+        let assoc_id = this.mainItem.id
+        let assoc_type = this.mainItem.category ? "ShopProduct" : "Album"
+        let params = { stream: {show_attachment_at: totalSeconds, assoc_id: assoc_id, assoc_type: assoc_type} }
+        StreamService.updateStream(this.stream.id, params).then((res) => {
+          this.$store.dispatch('error/showSuccessToast', [
+            'Your attachment will be listed in ' + this.stream.name + ' at chosen time for 5 seconds.',
+          ])
+          this.loadData(this.stream.id)
+          this.showAttachProduct = false
+        })
+      }
     },
 
     openFeaturedDialog() {
