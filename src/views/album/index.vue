@@ -1,10 +1,10 @@
-<template v-if="isPageReady">
-  <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
+<template>
+  <div v-if="isPageReady" class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" filterShow='true' :searchShow="this.$store.state.app.sideBarMini" />
     <div class="page-content">
-      <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainAlbum.gradient_color + ' 100%)'}" v-if="(!viewAllNew && !viewAllPopular && !viewAllTrending)">
+      <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainAlbum.gradient_color + ' 100%)'}" v-if="(mainAlbum && !viewAllNew && !viewAllPopular && !viewAllTrending)">
         <v-container>
-          <div class="dflex album-flex align-center" v-if="mainAlbum !== null">
+          <div class="dflex album-flex align-center" v-if="mainAlbum">
             <div class="album-main-image">
               <img :src="mainAlbum.cover && mainAlbum.cover.url" width="100%">
             </div>
@@ -16,7 +16,7 @@
                   <div class="album-group-image" style="background-image: url(mainAlbum.user.avatar.url)"></div>
                 </div>
                 <div class="dflex align-center">
-                  <div class="album-group-title">{{ mainAlbum.user.username }}</div>
+                  <div class="album-group-title" v-if="mainAlbum.user">{{ mainAlbum.user.username }}</div>
                   <div class="ml-1">
                     <img src="../../assets/check_success.svg" width='12'>
                   </div>
@@ -48,7 +48,7 @@
                   <img src="../../assets/plus.svg" width='15px'>
                 </div>
 
-                <div class="plus-icon">
+                <div class="plus-icon" v-if="mainAlbum.user && currentUser">
                   <user-follow-btn
                     v-if="mainAlbum.user.id !== currentUser.id"
                     :user="mainAlbum.user"

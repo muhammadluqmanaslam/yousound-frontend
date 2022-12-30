@@ -74,7 +74,7 @@ export default {
       recommendedAlbums: [],
       newAlbums: [],
       popularAlbums: [],
-      mainAlbum: {},
+      mainAlbum: null,
       viewAllNew: false,
       viewAllPopular: false,
       viewAllTrending: false,
@@ -362,7 +362,6 @@ export default {
             vm.isPageReady = true
           })
         }
-        console.log("======================", this.isPageReady)
       })
       .catch((e) => {
         this.$store.dispatch('error/showLoadingActivity', false)

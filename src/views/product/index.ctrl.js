@@ -57,7 +57,7 @@ export default {
         { id: 'recommended', title: 'Trending' },
         { id: 'new', title: 'New Arrivals' },
       ],
-      mainProduct: {},
+      mainProduct: null,
       viewAllTrending: false,
       trendingProducts: [],
       buttonHover: false,

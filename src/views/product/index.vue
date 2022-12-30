@@ -1,5 +1,5 @@
-<template v-if="isPageReady">
-  <div class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
+<template>
+  <div v-if="isPageReady" class="page discover-page product-index-page mx-5" :class="{ isComp: isComp}">
     <discover-nav v-if="!isComp && !onMobile" pageName="merch" :searchShow="this.$store.state.app.sideBarMini" />
 
     <div class="d-flex">
@@ -42,7 +42,7 @@
                     <img src="../../assets/plus.svg" width='15px'>
                   </div>
   
-                  <div class="plus-icon" v-if="mainProduct.merchant.id !== currentUser.id">
+                  <div class="plus-icon" v-if="mainProduct.merchant && currentUser && mainProduct.merchant.id !== currentUser.id">
                     <user-follow-btn
                       :user="mainProduct.merchant"
                       type="default"
