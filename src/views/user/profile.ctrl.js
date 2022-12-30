@@ -271,8 +271,11 @@ export default {
     },
 
     onTab(tab) {
-      if(tab == "followings" && currentUser){
+      if(tab == "followings"){
+        console.log('user',this.currentUser)
+        if(this.currentUser.id != this.user.id){
           this.show_following = true;
+        }         
       }
       else{
         this.show_following = false;
