@@ -1,3 +1,17 @@
+.followers-header{
+  
+  width: calc(100% + 128px);
+  background-color: #FAFAFA;
+  padding: 20px 74px;
+  margin-left: -64px;
+
+  .followers-title{
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'DM Sans',sans-serif;
+  }
+}
+
 .profile-grid-page{
   .toolbar__content{
     height: auto !important;
@@ -11,13 +25,7 @@
   padding: 0;
 }
 
-.followers-header{
-  .followers-title{
-    font-weight: bold;
-    font-size: 20px;
-    font-family: 'DM Sans',sans-serif;
-  }
-}
+
 
 .sms-group{
   border-radius: 6px;
@@ -162,6 +170,11 @@
     background-size: cover;
     background-position: center;
     border: solid 1px #e0e0e0;
+
+    &.small-img{
+      width: 50px;
+      height: 50px;
+    }
   }
   .user-profile-image-own{
     width: 75px;
@@ -269,6 +282,10 @@
         font-family: 'DM Sans', sans-serif;
         line-height: 1.2;
         text-transform: capitalize;
+
+        &.small-text{
+          font-size: 24px;
+        }
 
         .user-role {
           font-size: 12px;

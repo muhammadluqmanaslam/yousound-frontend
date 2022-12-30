@@ -54,6 +54,8 @@ export default {
       PublicRelationsUsername: PublicRelationsUsername,
       active_tab: '',
       slide_tab: '',
+      show_following: false,     
+      show_following_scroll: false,       
       tabs: [
         { id: 'catalog', title: 'Catalog', roles: ['label'], icon: require('../../../static/images/grid-interface.svg') },
         { id: 'artists', title: 'Artists', roles: ['label'] },
@@ -249,13 +251,18 @@ export default {
       this.loadData(this.pagination.current_page + 1)
     },
     handleScroll(event) {
-      const navProfileCard = document.querySelector('.user-profile-image-wrapper')
+      if(this.show_following){
+        const navProfileCard = document.querySelector('.special-scroll-header')
 
-      var y = window.scrollY
-      if (y >= 144) {
-        navProfileCard.style.display = 'flex'
-      } else if (y < 144) {
-        navProfileCard.style.display = 'none'
+        var y = window.scrollY
+        if (y >= 75) {
+          this.show_following_scroll = true
+        } else {
+          this.show_following_scroll = false
+        }
+      }
+      else{
+        this.show_following_scroll = false
       }
     },
     isActiveTab(tab) {
@@ -263,12 +270,20 @@ export default {
     },
 
     onTab(tab) {
+      if(tab == "followings" && currentUser){
+          this.show_following = true;
+      }
+      else{
+        this.show_following = false;
+        this.show_following_scroll = false
+      }
       this.$router.push({
         path: this.$route.path,
         hash: tab,
         // query: {
         //   grid_view: this.grid_show
         // }
+
       })
     },
 
