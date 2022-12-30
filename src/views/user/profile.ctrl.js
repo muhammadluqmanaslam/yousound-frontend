@@ -62,6 +62,7 @@ export default {
         { id: 'songs', title: 'Music', icon: require('../../../static/images/music.svg') },
         { id: 'video', title: 'Video', icon: require('../../../static/images/video.svg') },
         { id: 'merch', title: 'Shop', icon: require('../../../static/images/shop.svg') },
+        { id: 'sms_group', title: 'SMS groups' },
         { id: 'reposted', title: 'Reposted', roles: ['label'], icon: require('../../../static/images/ic_repost.svg') },
         { id: 'downloaded', title: 'Downloaded', roles: ['label'], icon: require('../../../static/images/download.svg') },
         { id: 'followings', title: 'Following' },
@@ -378,7 +379,11 @@ export default {
           //     this.tabs.push(this.tabs.shift())
           //   }
           // }
-
+          if (this.currentUser.id === this.user.id) {
+            this.tabs.filter(tab => tab.id == 'songs')[0].title = 'Releases'
+          } else {
+            this.tabs = this.tabs.filter(tab => tab.id !== 'sms_group')
+          }
           if (tab) {
             this.active_tab = tab
             this.slide_tab = tab
@@ -425,7 +430,7 @@ export default {
             })
           }
 
-          if (this.active_tab !== 'video') {
+          if (this.active_tab !== 'video' && this.active_tab !== 'sms_group') {
             // temp implementation because there is no video 'getItems' yet
             this.getItems(this.active_tab, false)
           }
@@ -474,6 +479,8 @@ export default {
               break
             case 'video':
               this.users = this.users.concat(response.body.users)
+              break
+            case 'sms_group':
               break
             default:
               let albums = []

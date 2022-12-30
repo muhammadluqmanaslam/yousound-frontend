@@ -11,6 +11,8 @@ import ProductService from '@/services/product'
 import productCard from '@/components/productcard'
 import contentTopHeader from '@/components/contentTopHeader'
 import discoverNav from '@/components/discoverNav'
+import UserFollowBtn from "@/components/userFollowBtn";
+import { MyEvents, Utils } from '@/helper'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -24,7 +26,8 @@ export default {
     productCard,
     contentTopHeader,
     discoverNav,
-    VueSlickCarousel 
+    VueSlickCarousel,
+    UserFollowBtn
   },
 
   data() {
@@ -57,10 +60,17 @@ export default {
       mainProduct: {},
       viewAllTrending: false,
       trendingProducts: [],
+      buttonHover: false,
     }
   },
 
   computed: {
+    followButtonText() {
+      if (this.mainProduct.merchant.is_following) {
+        return this.buttonHover ? 'Unfollow' : 'Following'
+      }
+      return 'Follow'
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -74,6 +84,7 @@ export default {
   },
 
   created() {
+    this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.$store.dispatch('navigator/goNextState', {
       page: 'product',
       tab: '',
@@ -94,7 +105,16 @@ export default {
     }
   },
 
+  beforeDestroy() {
+    this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
+  },
+
   methods: {
+    setFollowingStatus(userId, isFollowing) {
+      if (this.mainProduct.merchant && this.mainProduct.merchant.id === userId) {
+        this.mainProduct.merchant.is_following = isFollowing
+      }
+    },
     addToCart() {
       const params = {
         product_variant_id: this.mainProduct.variants[0].id,

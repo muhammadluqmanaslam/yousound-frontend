@@ -2,8 +2,8 @@
 
 import _ from 'lodash'
 // import CategoryService from '@/services/category'
-// import ProfileService from '@/services/profile'
 // import UserService from '@/services/user'
+import ProfileService from '@/services/profile'
 import ProductService from '@/services/product'
 import MeService from '@/services/me'
 import CommentService from '@/services/comment'
@@ -309,12 +309,9 @@ export default {
                 (response) => (this.users = response.body.users)
             )
           this.loadMoreComments()
-          ProductService.getProducts({
-            statuses: "published, collaborated",
-            stock_statuses: "active",
-            user_statuses: "accepted",
-          }).then((resp) => {
-            this.products = resp.body.slice(0, 4)
+          let params = { statuses: "published, collaborated", stock_statuses: "active", user_statuses: "accepted" }
+          ProfileService.getItems(this.product.merchant.id, 'merch', params).then((resp) => {
+            this.products = resp.body.products.filter(p => p.id !== this.prod_id).slice(0, 4)
           }).catch((exception) => {
             console.log(exception)
           })

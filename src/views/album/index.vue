@@ -49,7 +49,12 @@
                 </div>
 
                 <div class="plus-icon">
-                  Following
+                  <user-follow-btn
+                    v-if="mainAlbum.user.id !== currentUser.id"
+                    :user="mainAlbum.user"
+                    type="default"
+                    borderRadius
+                  />
                 </div>
               </div>
             </div>

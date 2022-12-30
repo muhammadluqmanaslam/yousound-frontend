@@ -68,7 +68,7 @@
                 <td class="text-xs-center">
                   {{ props.item.user_type | capitalize }}
                 </td>
-                <td v-if="active_tab === 'trial_drop_off'" class="text-xs-center">
+                <td v-if="active_tab == 'cancelled' || active_tab === 'trial_drop_off'" class="text-xs-center">
                   {{ props.item.initial_signup_type }}
                 </td>
                 <td class="text-xs-center">
@@ -88,6 +88,9 @@
                 </td>
                 <td class="text-xs-center">
                   {{ getNumberOfMonths(props.item.created_at) }}
+                </td>
+                <td v-if="active_tab == 'trial'" class="text-xs-center">
+                  {{  Math.floor(props.item.free_trial_time / 60) + ' mins' }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.trial_end | formatDate }}
@@ -158,7 +161,7 @@
                       ></v-select>
 
                       <div class="plus-icon-u ml-2">
-                        <img src="../../../assets/plus.svg" width="12px">
+                        <img src="../../../assets/plus.svg" width="12px" @click="increaseMonth(props.item.id)">
                       </div>
 
                   </div>

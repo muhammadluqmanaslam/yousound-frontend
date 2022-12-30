@@ -183,7 +183,6 @@
 				</div>
 				<div class="tabs-main">
 					<div class="tabs-container" v-if="(selectAttactProduct == 1)">
-						music
 						<div class="tabs-div" :class="{'active': mainItem.id === album.id}" @click="mainItem = album" v-for="(album, index) in albums">
 							<div class="_image">
 								<img :src="album.cover.url" width="50">

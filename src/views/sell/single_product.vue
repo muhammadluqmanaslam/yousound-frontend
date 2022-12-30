@@ -199,7 +199,7 @@
           <div class="w-100">
             <v-flex xs12 sm12>
               <div class="general-heading mb-4">More from this seller</div>
-              <div class="product-description">
+              <div class="">
                 <v-layout class="covers-content">
                   <v-flex
                     xs12

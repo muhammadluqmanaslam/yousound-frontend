@@ -6,7 +6,11 @@
   width: 100vw;
   height: 100vh;
   padding: 0;
-  z-index: 15;
+  z-index: 1500;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
   .dismiss-section {
     width: 100%;
     height: 100%;

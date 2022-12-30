@@ -42,8 +42,12 @@
                     <img src="../../assets/plus.svg" width='15px'>
                   </div>
   
-                  <div class="plus-icon">
-                    Following
+                  <div class="plus-icon" v-if="mainProduct.merchant.id !== currentUser.id">
+                    <user-follow-btn
+                      :user="mainProduct.merchant"
+                      type="default"
+                      borderRadius
+                    />
                   </div>
                 </div>
               </div>

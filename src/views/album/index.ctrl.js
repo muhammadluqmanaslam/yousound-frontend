@@ -15,6 +15,7 @@ import genreDialog from '@/components/genre_dialog'
 import trackCard from '@/components/trackcard'
 import contentTopHeader from '@/components/contentTopHeader'
 import discoverNav from '@/components/discoverNav'
+import UserFollowBtn from "@/components/userFollowBtn";
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -29,7 +30,8 @@ export default {
     trackCard,
     contentTopHeader,
     discoverNav,
-    VueSlickCarousel 
+    VueSlickCarousel,
+    UserFollowBtn
   },
 
   data() {
@@ -77,10 +79,18 @@ export default {
       viewAllPopular: false,
       viewAllTrending: false,
       chosenGenres: [],
+      buttonHover: false,
     }
   },
 
   computed: {
+    followButtonText() {
+      if (this.mainAlbum.user.is_following) {
+        return this.buttonHover ? 'Unfollow' : 'Following'
+      }
+      return 'Follow'
+    },
+
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -128,6 +138,7 @@ export default {
   },
 
   created() {
+  	this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     // if (!this.currentUser) {
     //   AuthService.clearTokenAndUserInfo()
     //   this.$router.push({ path: '/login' })
@@ -142,6 +153,10 @@ export default {
 
   },
 
+  beforeDestroy() {
+    this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
+  },
+
   methods: {
     ...mapActions({
       setPlaylist: 'player/setPlaylist',
@@ -149,6 +164,12 @@ export default {
       setTrackIndex: 'player/setTrackIndex',
       setPlaying: 'player/setPlayingStatus',
     }),
+
+    setFollowingStatus(userId, isFollowing) {
+      if (this.mainAlbum.user && this.mainAlbum.user.id === userId) {
+        this.mainAlbum.user.is_following = isFollowing
+      }
+    },
 
     fetchGenres() {
       this.chosenGenres = []

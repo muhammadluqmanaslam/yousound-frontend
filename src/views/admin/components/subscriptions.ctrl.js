@@ -77,6 +77,7 @@ export default {
         { text: 'Tier', value: 'plan', align: 'center' },
         { text: 'Email', value: 'email', align: 'center' },
         { text: 'Member For Months', value: 'member_for_months', align: 'center' },
+        { text: 'Ghost trial remaining', value: 'free_trial_time', align: 'center' },
         { text: 'Credits', value: 'trial_end', align: 'center' },
         { text: 'Trial Completed', value: 'trial_complete', align: 'center' },
       ],
@@ -84,6 +85,7 @@ export default {
       cancelled_headers: [
         { text: 'Username', value: 'username', align: 'center' },
         { text: 'User Type', value: 'user_type', align: 'center' },
+        { text: 'Initial Signup Type', value: 'initial_signup_type', align: 'center' },
         { text: 'First Name', value: 'first_name', align: 'center' },
         { text: 'Last Name', value: 'last_name', align: 'center' },
         { text: 'Activate Date', value: 'trial_start', align: 'center' },
