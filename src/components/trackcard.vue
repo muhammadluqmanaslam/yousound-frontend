@@ -556,7 +556,7 @@
 			<v-flex v-if="!noMeta && !noAction" xs12 class="track-detail" pa-0>
 				<p class="track-name">
 					<router-link :to="`/${item.album_type}/${item.slug}`">{{
-						item.name
+						forCollection ? item.track.name : item.name
 					}}</router-link>
 				</p>
 				<p class="track-user-name">
@@ -577,7 +577,7 @@
 						>
 					</template>
 					<router-link :to="`/${item.album_type}/${item.slug}`" v-else
-						> {{ item.track.name }}</router-link
+						> {{ forCollection ? item.name +  ' • Album Name' : item.track.name }}</router-link
 					>
 				</p>
 			</v-flex>

@@ -494,6 +494,7 @@ export default {
             this.hideCollaboratorsConfirmDialog()
             this.product_upload_successfully = true
           }
+          this.product.name = this.product.description = ''
         })
         .catch((e) => {
           this.loading = false

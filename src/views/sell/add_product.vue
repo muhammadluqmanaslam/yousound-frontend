@@ -12,6 +12,7 @@
 
   <div class="page upload-child sell-page product-page mx-5 margin-top-header" v-if="currentUser.creator_verified">
     <topbarNotification
+      v-if="!currentUser.stripe_connected"
       :content="topBarContent"
       ctaTitle="Connect"
       :cta="{ name: 'ManageIndex', params: { tab: 'payment' } }"

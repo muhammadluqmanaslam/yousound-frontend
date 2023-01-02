@@ -9,7 +9,7 @@
   />
 
   <div class="page upload-child video-page create-page mx-5 margin-top-header" v-if="this.currentUser.creator_verified">
-    <topbarNotification :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
+    <topbarNotification v-if="!currentUser.stripe_connected" :content="topBarContent" ctaTitle="Connect" :cta="{ name: 'ManageIndex', params: { tab: 'payment'}}" />
   
     <content-top-header class="black-theme" v-if="videoFile">
       <template slot="topHeader">

@@ -1,6 +1,7 @@
 <template>
   <div class="page upload-child video-page broadcast-page create-page mx-5 margin-top-header">
     <topbarNotification
+      v-if="!currentUser.stripe_connected"
       :content="topBarContent"
       ctaTitle="Connect"
       :cta="{ name: 'ManageIndex', params: { tab: 'payment' } }"
