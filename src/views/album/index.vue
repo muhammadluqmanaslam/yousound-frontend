@@ -1,7 +1,7 @@
 <template>
-  <div v-if="isPageReady" class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
+  <div class="page albums-page mx-5" :class="{ isComp: isComp, onMobile}">
     <discover-nav v-if="!isComp && !onMobile" pageName="music" filterShow='true' :searchShow="this.$store.state.app.sideBarMini" />
-    <div class="page-content">
+    <div class="page-content" v-if="isPageReady">
       <div class="music-banner-main" :style="{background: 'linear-gradient(180deg, #000000 0%,' + mainAlbum.gradient_color + ' 100%)'}" v-if="(mainAlbum && !viewAllNew && !viewAllPopular && !viewAllTrending)">
         <v-container>
           <div class="dflex album-flex align-center" v-if="mainAlbum">
@@ -181,7 +181,15 @@
         </v-layout>
       </v-container>
     </div>
-
+    <div v-else>
+      <figure>
+        <div class="dot white"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </figure>
+    </div>
     <v-dialog
       v-if="currentUser"
       v-model="show_genre_selector_dialog"
@@ -196,7 +204,54 @@
 <script type="text/javascript" src="./index.ctrl.js"></script>
 
 <style lang="scss" scoped>
+body { background: #222; }
+figure { 
+	position: absolute;
+	margin: auto;
+	margin-top: 33%;
+	top: 0; bottom: 0; left: 0; right: 0;
+	width: 6.250em; height: 6.250em;
+	animation: rotate 2.4s linear infinite;
+}
+.white {
+	top: 0; bottom: 0; left: 0; right: 0;
+	background: white;
+	animation: flash 2.4s linear infinite;
+	opacity: 0;
+}
+.dot {
+	position: absolute;
+	margin: auto;
+	width: 2.4em; height: 2.4em;
+	border-radius: 100%;
+	transition: all 1s ease;
+}
+.dot:nth-child(2) { top: 0; bottom: 0; left: 0; background: #FF4444; animation: dotsY 2.4s linear infinite; }
+.dot:nth-child(3) { left: 0; right: 0; top: 0; background: #FFBB33; animation: dotsX 2.4s linear infinite; }
+.dot:nth-child(4) { top: 0; bottom: 0; right: 0; background: #99CC00; animation: dotsY 2.4s linear infinite; }
+.dot:nth-child(5) { left: 0; right: 0; bottom: 0; background: #33B5E5; animation: dotsX 2.4s linear infinite; }
 
+@keyframes rotate {
+	0% { transform: rotate( 0 ); }
+	10% { width: 6.250em; height: 6.250em; }
+	66% { width: 2.4em; height: 2.4em; }
+	100%{ transform: rotate(360deg); width: 6.250em; height: 6.250em; }
+}
+
+@keyframes dotsY {
+	66% { opacity: .1; width: 2.4em; }
+	77%{ opacity: 1; width: 0; }
+}
+@keyframes dotsX {
+	66% { opacity: .1; height: 2.4em;}
+	77%{ opacity: 1; height: 0; }
+}
+
+@keyframes flash {
+	33% { opacity: 0; border-radius: 0%; }
+	55%{ opacity: .6; border-radius: 100%; }
+	66%{ opacity: 0; }
+}
 .margin-top-x{
   margin-top: 60px;
 }

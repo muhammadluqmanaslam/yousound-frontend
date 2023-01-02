@@ -334,34 +334,34 @@ export default {
         this.page_index = response.body.pagination.current_page
         this.total_pages = response.body.pagination.total_pages
 
-        if (page === 1) {
-          Promise.all([
-            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 2 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
-            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 3 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
-            this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 4 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
-          ]).then((values) => {
-            vm.feeds = vm.feeds.concat(
-              values[0].body.albums,
-              values[1].body.albums,
-              values[2].body.albums
-            )
-            const genres = _.chain(vm.feeds)
-              .map('genres')
-              .flatMap()
-              .keyBy('id')
-              .map((v, k) => {
-                return v
-              })
-              .sortBy('name')
-              .value()
-            vm.genres = [{ id: 'any', name: 'All' }].concat(genres)
-            vm.page_index =
-              values[2].body.pagination.total_pages > 4
-                ? 4
-                : values[2].body.pagination.total_pages
-            vm.isPageReady = true
-          })
-        }
+        // if (page === 1) {
+        //   Promise.all([
+        //     this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 2 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 2 })),
+        //     this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 3 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 3 })),
+        //     this.currentUser != null ? SearchService.searchDiscover(_.extend(params, { page: 4 })) : SearchService.searchDiscoverPublicUser(_.extend(params, { page: 4 })),
+        //   ]).then((values) => {
+        //     vm.feeds = vm.feeds.concat(
+        //       values[0].body.albums,
+        //       values[1].body.albums,
+        //       values[2].body.albums
+        //     )
+        //     const genres = _.chain(vm.feeds)
+        //       .map('genres')
+        //       .flatMap()
+        //       .keyBy('id')
+        //       .map((v, k) => {
+        //         return v
+        //       })
+        //       .sortBy('name')
+        //       .value()
+        //     vm.genres = [{ id: 'any', name: 'All' }].concat(genres)
+        //     vm.page_index =
+        //       values[2].body.pagination.total_pages > 4
+        //         ? 4
+        //         : values[2].body.pagination.total_pages
+        //     // vm.isPageReady = true
+        //   })
+        // }
       })
       .catch((e) => {
         this.$store.dispatch('error/showLoadingActivity', false)

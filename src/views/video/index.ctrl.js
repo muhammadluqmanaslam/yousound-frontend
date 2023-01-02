@@ -50,7 +50,7 @@ export default {
         { id: 'popular', title: 'Popular' },
         { id: 'live', title: 'Live' },
       ],
-      selectedVideo: {},
+      selectedVideo: null,
       viewAllTrendingVideos: false,
       show_logout_modal: false,
       show_modalCard1: false,
@@ -184,13 +184,13 @@ export default {
         this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
         this.selectedVideo = this.videos[0]
         this.trendingVideos = this.videos.slice(0, 10)
+        this.isPageReady = true
         // this.videos.filter((v) => )
         // this.videos = [ ...this.videos, ...this.videos]
         console.log(this.videos)
         this.pagination = response.body.pagination
         this.videoGenres = response.body.genres
         this.$store.dispatch('error/showLoadingActivity', false)
-        this.isPageReady = true
       })
       .catch(() => {
         this.$store.dispatch('error/showLoadingActivity', false)
