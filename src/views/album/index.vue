@@ -22,7 +22,7 @@
                   </div>
                 </div>
               </div>
-              <div class="album-title-description mb-4">{{ mainAlbum.description }}</div>
+              <div class="album-title-description mb-4">{{ mainAlbum.description }} • {{ mainAlbum.tracks.length }} tracks </div>
 
               <div class="album-play dflex align-center gap-25">
                 <span class="play-button-section">

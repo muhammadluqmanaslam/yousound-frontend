@@ -32,11 +32,14 @@
 			:streams="streams"
 			:playlists="this.playlist_data.playlists.filter((c) => c.playlist_type == 'streams')"
 			v-show="activeTab === 'videos'"
+			@methodThatForcesUpdate="methodThatForcesUpdate"
 		/>
 		<repost-products
 			:products="products"
 			:playlists="this.playlist_data.playlists.filter((c) => c.playlist_type == 'products')"
-			v-show="activeTab === 'products'" />
+			v-show="activeTab === 'products'"
+			@methodThatForcesUpdate="methodThatForcesUpdate"
+		/>
 	</div>
 	<div v-else>
 		<figure>

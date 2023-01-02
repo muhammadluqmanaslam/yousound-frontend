@@ -54,10 +54,10 @@
 			</div>
 		</div>
 
-		<div class="playlist-container" @click="(addToPlaylistActive = true)">
+		<div class="playlist-container">
 			<div class="playlist-holder">
 				<div class="playlist-box">
-					<div class="playlist-images with-button">
+					<div class="playlist-images with-button" @click="(addToPlaylistActive = true)">
 						<v-btn></v-btn>
 					</div>
 					<div class="playlist-text">
@@ -113,7 +113,7 @@
             <v-icon
               v-if="selectedVideos.includes(video)"
               class="check-icon"
-              @click="removeVideo(index)"
+              @click="removeVideo(video.id)"
             >
               check
             </v-icon>
@@ -122,7 +122,7 @@
         </div>
       </div>
     </div>
-    <add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="this.selectedVideos" type="stream" @closeAddToPlaylist="closeAddToPlaylist" />
+    <add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="this.selectedVideos" type="stream" @closeAddToPlaylist="closeAddToPlaylist" @methodThatForcesUpdate="methodThatForcesUpdate" />
   </div>
 </template>
 
@@ -149,6 +149,9 @@ export default {
     };
   },
   methods: {
+    methodThatForcesUpdate() {
+      this.$emit("methodThatForcesUpdate");
+    },
     playlistImageList(playlist) {
 			let playlistImages = []
 			const playlistDetails = playlist.playlist_details
@@ -170,9 +173,8 @@ export default {
 				this.selectedVideos = []
 			}
 		},
-    removeVideo(index) {
-			const idx = this.selectedVideos.indexOf(index);
-			this.selectedVideos.splice(idx, 1);
+    removeVideo(id) {
+    	this.selectedVideos = this.selectedVideos.filter(video => video.id !== id)
 		},
 
     closeBanner(){
@@ -189,7 +191,6 @@ export default {
 				this.toggleSelectVideosMode()
 			}
 			this.addToPlaylistActive = false
-      window.location.reload();
 		},
 
     playlistLen() {

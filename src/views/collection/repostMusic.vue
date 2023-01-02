@@ -123,12 +123,13 @@
 							:value="track"
 							type="checkbox"
 							class="selectMusic-check"
+							@click="selectedAlbumsParse(track)"
 							:id="`check-${index}`"
 						/>
 						<v-icon
 							v-if="selectedAlbums.includes(track)"
 							class="check-icon"
-							@click="removeAlbum(index)"
+							@click="removeAlbum(track)"
 						>
 							check
 						</v-icon>
@@ -211,12 +212,9 @@ export default {
 				this.toggleSelectAlbumsMode()
 			}
 			this.addToPlaylistActive = false
-
-			// window.location.reload();
 		},
-		removeAlbum(index) {
-			const idx = this.selectedAlbums.indexOf(index);
-			this.selectedAlbums.splice(idx, 1);
+		removeAlbum(track) {
+			this.selectedAlbums = this.selectedAlbums.filter(album => album.id !== track.id)
 		},
 
     playlistLen() {

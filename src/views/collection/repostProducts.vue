@@ -55,10 +55,10 @@
 			</div>
 		</div>
 
-		<div class="playlist-container" @click="(addToPlaylistActive = true)">
+		<div class="playlist-container">
 			<div class="playlist-holder">
 				<div class="playlist-box">
-					<div class="playlist-images with-button">
+					<div class="playlist-images with-button" @click="(addToPlaylistActive = true)">
 						<v-btn></v-btn>
 					</div>
 					<div class="playlist-text">
@@ -116,7 +116,7 @@
             <v-icon
               v-if="selectedProducts.includes(product)"
               class="check-icon"
-              @click="removeProduct(index)"
+              @click="removeProduct(product.id)"
             >
               check
             </v-icon>
@@ -125,7 +125,7 @@
         </div>
       </div>
     </div>
-    <add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="this.selectedProducts" type="product" @closeAddToPlaylist="closeAddToPlaylist" />
+    <add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="this.selectedProducts" type="product" @closeAddToPlaylist="closeAddToPlaylist" @methodThatForcesUpdate="methodThatForcesUpdate" />
 
   </div>
 </template>
@@ -153,6 +153,10 @@ export default {
     };
   },
   methods: {
+    methodThatForcesUpdate() {
+      this.$emit("methodThatForcesUpdate");
+    },
+
     playlistLen() {
 			return this.playlists.length;;
 		},
@@ -163,9 +167,8 @@ export default {
 				this.selectedProducts = []
 			}
 		},
-    removeProduct(index) {
-			const idx = this.selectedProducts.indexOf(index);
-			this.selectedProducts.splice(idx, 1);
+    removeProduct(id) {
+			this.selectedProducts = this.selectedProducts.filter(product => product.id !== id)
 		},
 
     closeBanner(){
@@ -182,7 +185,6 @@ export default {
 				this.toggleSelectProductsMode()
 			}
 			this.addToPlaylistActive = false
-      window.location.reload();
 		},
 
     playlistImageList(playlist) {
