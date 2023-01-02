@@ -26,6 +26,7 @@
 			:tracks="this.tracks"
 			:playlists="this.playlist_data.playlists.filter((c) => c.playlist_type == 'tracks')"
 			v-show="activeTab === 'music'"
+			@methodThatForcesUpdate="methodThatForcesUpdate"
 		/>
 		<repost-videos
 			:streams="streams"

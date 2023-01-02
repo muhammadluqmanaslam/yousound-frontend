@@ -49,6 +49,10 @@ export default {
     mounted() {},
 
     methods: {
+        methodThatForcesUpdate() {
+            this.getCollectionPlaylist()
+            this.loadData()
+        },
         onTab(tab) {
             this.activeTab = tab
         },

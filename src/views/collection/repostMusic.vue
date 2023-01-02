@@ -137,7 +137,7 @@
 			</div>
 		</div>
 
-		<add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="selectedAlbums" type="track" @closeAddToPlaylist="closeAddToPlaylist" :method="methodThatForcesUpdate"/>
+		<add-to-playlist v-if="addToPlaylistActive" :playlists="this.playlists" :addToPlaylist="addToPlaylistActive" :selectedItems="selectedAlbums" type="track" @closeAddToPlaylist="closeAddToPlaylist" @methodThatForcesUpdate="methodThatForcesUpdate"/>
 	</div>
 </template>
 
@@ -175,10 +175,7 @@ export default {
 
 	methods: {
 		methodThatForcesUpdate() {
-      // ...
-      console.log('Force Update')
-      this.$forceUpdate();  // Notice we have to use a $ here
-      // ...
+      this.$emit("methodThatForcesUpdate");
     },
 		playlistImageList(playlist) {
 			let playlistImages = []
@@ -216,7 +213,6 @@ export default {
 			this.addToPlaylistActive = false
 
 			// window.location.reload();
-			this.methodThatForcesUpdate()
 		},
 		removeAlbum(index) {
 			const idx = this.selectedAlbums.indexOf(index);

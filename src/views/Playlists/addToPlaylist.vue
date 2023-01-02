@@ -122,6 +122,7 @@ export default {
         CollectionPlaylist.createCollectionPlaylist(params)
           .then((response) => {
             this.playlistAddedSuccess = true;
+            this.$emit("methodThatForcesUpdate", true);
             this.newPlaylistActive = false;
 
             this.$store.dispatch(
@@ -157,6 +158,7 @@ export default {
         .then((response) => {
           this.newPlaylistTitle = playlist.name
           this.playlistAddedSuccess = true;
+          this.methodThatForcesUpdate()
           this.$store.dispatch(
             'error/showSuccessToast', [response.body.success_response]
           )
@@ -172,6 +174,11 @@ export default {
     closeAddToPlaylist(isPartial) {
       this.$emit("closeAddToPlaylist", isPartial);
     },
+
+    methodThatForcesUpdate() {
+      this.$emit("methodThatForcesUpdate");
+    },
+
     newPlaylist() {
       this.newPlaylistActive = true;
     },
