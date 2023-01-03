@@ -510,7 +510,19 @@ export default {
     },
 
 		showLoveDialog() {
-			this.showSendLoveModal = true
+			if (this.currentUser.creator_verified && this.video.user.stripe_connected && this.video.user.creator_verified) {
+				if (this.video.user.id !== this.currentUser.id) {
+					this.showSendLoveModal = true
+				} else {
+					this.$store.dispatch('error/showErrorToast',
+						['You cannot donate to your own.']
+					)
+				}
+			} else {
+				this.$store.dispatch('error/showErrorToast',
+          ['Both creator and listeners must be verified and there stripes must be connected for donation.']
+        )
+			}
 		},
 
 		dismissLoveDialog() {

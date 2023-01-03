@@ -143,19 +143,19 @@
           </div>
         </v-flex>
       </v-layout>
+      <div v-if="onMobile" class="_save-section">
+        <v-btn
+          round
+          dark
+          color="black"
+          class="update-btn"
+          :loading="loading"
+          @click.native="saveGenreFilters()"
+        >
+          Save
+        </v-btn>
+      </div>
     </v-container>
-
-    <div v-if="onMobile" class="_save-section">
-      <v-btn
-        round
-        dark
-        color="black"
-        class="update-btn"
-        @click.native="saveGenreFilters()"
-      >
-        Save
-      </v-btn>
-    </div>
 
 
 

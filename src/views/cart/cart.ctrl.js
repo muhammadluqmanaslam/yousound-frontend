@@ -196,6 +196,7 @@ export default {
 
     closePaymentDialog() {
       this.showPaymentModal = false
+      this.init(this.active_tab)
     },
 
     isActiveTab(tab) {
