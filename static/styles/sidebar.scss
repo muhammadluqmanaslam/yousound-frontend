@@ -43,8 +43,7 @@ justify-content: space-between;
   
 
   .sidebar_lang{
-    
-    padding: 1px 12px;
+    padding: 5px 12px 6px;
     border-radius: 50px;
     background-color: #000000;
     display: flex;
@@ -245,7 +244,7 @@ justify-content: space-between;
     &._bottom {
       margin: 10px;
       position: absolute;
-      bottom: 0;
+      bottom: 5px;
       z-index: 99999;
     }
 
@@ -267,7 +266,7 @@ justify-content: space-between;
       }
     }
     .toggle-sidebar {
-      left: 16px;
+      left: 24px;
     }
   }
 }

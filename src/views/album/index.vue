@@ -22,7 +22,7 @@
                   </div>
                 </div>
               </div>
-              <div class="album-title-description mb-4">{{ mainAlbum.description }} • {{ mainAlbum.tracks.length }} {{ mainAlbum.tracks.length == 1 ? 'track' : 'tracks' }} </div>
+              <div class="album-title-description mb-4">{{ mainAlbum.description }} • {{ mainAlbum.tracks.length }} {{ mainAlbum.tracks.length > 1 ? 'tracks' : 'track' }} </div>
 
               <div class="album-play dflex align-center gap-25">
                 <span class="play-button-section">
@@ -48,7 +48,7 @@
                   <img src="../../assets/plus.svg" width='15px'>
                 </div>
 
-                <div class="plus-icon" v-if="mainAlbum.user && currentUser">
+                <div class="following-btn" v-if="mainAlbum.user && currentUser">
                   <user-follow-btn
                     v-if="mainAlbum.user.id !== currentUser.id"
                     :user="mainAlbum.user"
@@ -369,7 +369,6 @@ figure {
             font-size: 30px;
           }
         }
-
         .plus-icon{
           padding: 4px 8px;
           background-color: rgba(0,0,0,0.5);
@@ -402,8 +401,7 @@ figure {
   .play-button {
     border: rgba(255, 255, 255, 0.5) solid 1px;
     border-radius: 100%;
-    // background: rgba(0, 0, 0, 0.5) !important;
-    background: transparent !important;
+    background: #fff !important;
     box-shadow: none;
     width: 50px;
     height: 50px;
@@ -419,10 +417,12 @@ figure {
     }
     .icon {
       &.play {
-        font-size: 40px;
+        font-size: 34px;
+        color: #333;
       }
       &.pause {
-        font-size: 40px;
+        font-size: 34px;
+        color: #333;
       }
     }
   }

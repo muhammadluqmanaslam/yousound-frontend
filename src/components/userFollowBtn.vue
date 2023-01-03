@@ -142,9 +142,10 @@ export default {
     letter-spacing: 0;
     border-radius: 4px;
     &.follow {
-      color: #076AFF !important;
-      border: 1px solid #076AFF;
-
+      color: #fff !important;
+      border: 1px solid rgba(0, 0, 0, 0.5) !important;
+      background: rgba(0, 0, 0, 0.5) !important;
+      margin-left: 0;
       &.btnBlock {
         border-radius: 0;
       }
@@ -153,16 +154,17 @@ export default {
       }
     }
     &.following {
-      color: #000;
-      border: 1px solid #0009;
-
+      margin-left: 0;
+      color: #fff !important;
+      border: 1px solid rgba(0, 0, 0, 0.5) !important;
+      background: rgba(0, 0, 0, 0.5) !important;
       &.borderRadius {
         border-radius: 4px;
       }
 
       &:hover {
         color: #dc3545 !important;
-        border: 1px solid #dc3545;
+        border: 1px solid #dc3545 !important;
       }
     }
   }

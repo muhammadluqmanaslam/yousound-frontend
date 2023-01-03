@@ -262,7 +262,7 @@
   </div>
 
 
-    <div class="side-lang-outer my-5" v-if="!mini">
+    <div class="side-lang-outer my-5 mx-3" v-if="!mini">
       <div class="sidebar_lang">
 
         <div class="lang-main" @click="(show_language_modal = true)">
