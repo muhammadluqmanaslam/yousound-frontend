@@ -283,7 +283,7 @@
 					</v-card>
 				  </v-menu>
 					<p v-if="!hideTrackLength" class="track-count">
-						{{ item.tracks.length }} tracks
+						{{ item.tracks.length }} {{ item.tracks.length > 1 ? 'tracks' : 'track' }}
 					</p>
 					<div v-if="showHoverTrackInfo" class="track-hover-info">
 						<div class="item-name">{{ item.name }}</div>
@@ -545,7 +545,7 @@
 					</v-card>
 				  </v-menu>
 					<p v-if="!hideTrackLength" class="track-count">
-						{{ item.tracks.length }} tracks
+						{{ item.tracks.length }} {{ item.tracks.length > 1 ? 'tracks' : 'track' }}
 					</p>
 					<div v-if="showHoverTrackInfo" class="track-hover-info">
 						<div class="item-name">{{ item.name }}</div>
