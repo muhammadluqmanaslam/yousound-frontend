@@ -1,4 +1,5 @@
 // import { VideoGenres } from '@/helper'
+import { MyEvents, Utils } from '@/helper'
 import StreamService from '@/services/stream'
 import VideoBox from '@/components/video_box'
 import contentTopHeader from '@/components/contentTopHeader'
@@ -9,6 +10,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 // import demoVideo from '../../assets/demo-video.mp4'
 import logoutModal from '../../views/LogoutModal'
+import UserFollowBtn from "@/components/userFollowBtn";
 
 export default {
   props: {
@@ -21,6 +23,7 @@ export default {
     discoverNav,
     VueSlickCarousel,
     logoutModal,
+    UserFollowBtn,
   },
 
   data() {
@@ -60,10 +63,17 @@ export default {
       bgDemoImg: require('../../assets/tile-1.jpeg'),
       spotlightVideoSource: null,
       videoLoading: require('../../assets/loading.gif'),
+      buttonHover: false,
     }
   },
 
   computed: {
+    followButtonText() {
+      if (this.selectedVideo.user.is_following) {
+        return this.buttonHover ? 'Unfollow' : 'Following'
+      }
+      return 'Follow'
+    },
     onMobile() {
       return this.$vuetify.breakpoint.smAndDown;
     },
@@ -91,6 +101,9 @@ export default {
     currentUser() {
       return this.$store.state.auth.user
     },
+    beforeDestroy() {
+      this.$root.$off(MyEvents.USER_FOLLOW, this.setFollowingStatus)
+    },
   },
 
   watch: {
@@ -102,6 +115,11 @@ export default {
   },
 
   methods: {
+    setFollowingStatus(userId, isFollowing) {
+      if (this.selectedVideo.user && this.selectedVideo.user.id === userId) {
+        this.selectedVideo.user.is_following = isFollowing
+      }
+    },
     verifyUser() {
       if (this.currentUser) {
         this.$router.push({name: 'VideoShow', params: { videoId: this.selectedVideo.id }})
@@ -212,6 +230,8 @@ export default {
   },
 
   created() {
+    this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
+
     const paramFilter = this.$route.params.filter || ''
 
     this.$store.dispatch('navigator/goNextState', { page: 'video', tab: '' })

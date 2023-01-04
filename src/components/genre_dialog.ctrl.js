@@ -30,6 +30,7 @@ export default {
       selectedMainGenresIds: [],
       selectedSubgenresIds: [],
       subGenresName: [],
+      loading: false,
     }
   },
 
@@ -116,10 +117,16 @@ export default {
 
   methods: {
     selectParentGenre(parent) {
-      this.selectedMainGenresIds.push(parent.id)
-      for (let i = 0; i < parent.children.length; i++) {
-        if (!(this.selectedSubgenresIds.includes(parent.children[i].id))) {
-          this.selectedSubgenresIds.push(parent.children[i].id)
+      if (this.selectedMainGenresIds.includes(parent.id)) {
+        this.selectedMainGenresIds = this.selectedMainGenresIds.filter(genre => genre !== parent.id)
+        const childIds = parent.children.map(child => child.id)
+        this.selectedSubgenresIds = this.selectedSubgenresIds.filter(subgenre => !childIds.includes(subgenre))
+      } else {
+        this.selectedMainGenresIds.push(parent.id)
+        for (let i = 0; i < parent.children.length; i++) {
+          if (!(this.selectedSubgenresIds.includes(parent.children[i].id))) {
+            this.selectedSubgenresIds.push(parent.children[i].id)
+          }
         }
       }
       console.log("main genres ", this.selectedMainGenresIds)
@@ -274,15 +281,16 @@ export default {
     },
 
     saveGenreFilters() {
+      this.loading = true
+      this.$store.dispatch('error/showLoadingActivity', true)
       this.$store.dispatch('auth/setGenreIds', this.selectedSubgenresIds.join(','))
-
       const userId = this.$store.state.auth.user.id
       const params = {
         genre_ids: this.selectedSubgenresIds.join(','),
       }
-      this.$store.dispatch('error/showLoadingActivity', true)
       UserService.hiddenUserGenres(userId, params)
         .then((res) => {
+          this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('error/showSuccessToast', ['Genres Saved successfully.'])
           UserService.getUserInfo(userId).then((response) =>
@@ -290,9 +298,9 @@ export default {
           )
           this.dismiss()
           this.$router.push({path: '/music/discover'})
-          this.$forceUpdate()
         })
         .catch((e) => {
+          this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch(
             'error/showErrorToast',

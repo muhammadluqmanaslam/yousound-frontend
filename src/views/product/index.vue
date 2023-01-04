@@ -42,7 +42,7 @@
                     <img src="../../assets/plus.svg" width='15px'>
                   </div>
   
-                  <div v-if="mainProduct.merchant && currentUser && mainProduct.merchant.id !== currentUser.id">
+                  <div class="following-btn" v-if="mainProduct.merchant && currentUser && mainProduct.merchant.id !== currentUser.id">
                     <user-follow-btn
                       :user="mainProduct.merchant"
                       type="default"
