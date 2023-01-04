@@ -4,7 +4,7 @@
 
         <div class="page-content">
             <div class="chart_flex">
-                <div class="w-75">
+                <div class="w-70">
                     <h2 class="heading-charts">
                         YOUSOUND CHARTS
                     </h2>
@@ -18,7 +18,7 @@
                                         Talk
                                     </div>
                                     <div class="chart_sub">
-                                        Tri Nohbi
+                                        Tribe Nohbi
                                     </div>
                                 </div>
                             </div>
@@ -27,20 +27,20 @@
                                     <RadialProgress />
                                 </div>
                                 <div class="_image">
-                                    <img src="../../assets/jacki.png" width="90" height="90">
+                                    <img src="../../assets/jacki.png" width="80" height="80">
                                 </div>
                             </div>
                         </div>
 
                         <div class="chart_div">
                             <div class="chart_content">
-                                <div class="chart_number">1</div>
+                                <div class="chart_number">2</div>
                                 <div>
                                     <div class="chart_name">
                                         Talk
                                     </div>
                                     <div class="chart_sub">
-                                        Tri Nohbi
+                                        Tribe Nohbi
                                     </div>
                                 </div>
                             </div>
@@ -49,13 +49,13 @@
                                     <RadialProgress />
                                 </div>
                                 <div class="_image">
-                                    <img src="../../assets/jacki.png" width="90" height="90">
+                                    <img src="../../assets/jacki.png" width="80" height="80">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-25">
+                <div class="w-30">
                     <h2 class="heading-charts">
                         NOW PLAYING
                     </h2>
@@ -84,7 +84,7 @@
                                 <img
                                   src="../../assets/plus.svg"
                                   width="20"
-                                  class="cursor-pointer mt-3 filter-invert"
+                                  class="cursor-pointer mt-2 filter-invert"
                                   
                                 />
                               </span>
@@ -97,7 +97,7 @@
                               <img
                                 src="/static/images/ic_share.svg"
                                 width="20"
-                                class="cursor-pointer mt-3"
+                                class="cursor-pointer mt-2"
                               />
                             </span>
                             <span>Share</span>

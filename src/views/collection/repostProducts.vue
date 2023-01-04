@@ -5,7 +5,7 @@
 			<div class="dflex gap-25 align-center justify-space-between">
 				<div class="repost-content">
 
-				<div class="dflex mb-4">
+				<div class="dflex align-center mb-4">
 					<img src="../../assets/build-icon.svg" width="25">
 					<h2 class="repost-head">Build your collection</h2>
 				</div>

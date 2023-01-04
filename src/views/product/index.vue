@@ -12,7 +12,7 @@
               </div>
   
               <div class="album-main-content">
-                <div class="album-title-main mb-4">'{{ mainProduct.name }}'</div>
+                <div class="album-title-main mb-2">'{{ mainProduct.name }}'</div>
                 <div class="dflex align-center gap-10 album-group mb-4">
                   <div>
                     <div class="album-group-image" style="background-image: url('../../assets/check_success.svg')"></div>
@@ -42,7 +42,7 @@
                     <img src="../../assets/plus.svg" width='15px'>
                   </div>
   
-                  <div class="plus-icon" v-if="mainProduct.merchant && currentUser && mainProduct.merchant.id !== currentUser.id">
+                  <div v-if="mainProduct.merchant && currentUser && mainProduct.merchant.id !== currentUser.id">
                     <user-follow-btn
                       :user="mainProduct.merchant"
                       type="default"
@@ -221,7 +221,7 @@ figure {
   color: black;
 }
 .text-small{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   font-family: 'Inter';
   color: black;
@@ -244,7 +244,7 @@ figure {
   color: black;
 }
 .text-small{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   font-family: 'Inter';
   color: black;
@@ -360,20 +360,20 @@ figure {
       }
 
       .album-title-description{
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 24px;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 28px;
       }
 
       .album-group{
         .album-group-title{
-          font-size: 16px;
+          font-size: 14px;
           font-weight: bold;
         }
 
         .album-group-image{
-          width: 32px;
-          height: 32px;
+          width: 28px;
+          height: 28px;
           background-color: pink;
           border-radius: 50%;
           overflow: hidden;
