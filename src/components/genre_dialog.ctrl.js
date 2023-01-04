@@ -292,12 +292,11 @@ export default {
         .then((res) => {
           this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
-          this.$store.dispatch('error/showSuccessToast', ['Genres Saved successfully.'])
           UserService.getUserInfo(userId).then((response) =>
             AuthService.setUser(response.body)
           )
-          this.dismiss()
-          this.$router.push({path: '/music/discover'})
+          this.$store.dispatch('error/showSuccessToast', ['Genres Saved successfully.'])
+          window.location.reload()
         })
         .catch((e) => {
           this.loading = false
