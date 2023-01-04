@@ -352,9 +352,13 @@
 						  class="default-menu-item track-menu-item"
 						>
 						  <v-list-tile-title>
-							<label>Repost</label>
+							<div class="menu-list-item dflex align-center px-2">
+							  <img src="../assets/pencil 1.svg" width="16">
+							  <label class="ml-0">Repost</label>
+							</div>
 						  </v-list-tile-title>
 						</v-list-tile>
+						
 						<!-- <v-list-tile
 						  v-if="item.album_type != 'playlist'"
 						  key="download"

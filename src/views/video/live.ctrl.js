@@ -1,7 +1,7 @@
 import contentTopHeader from '@/components/contentTopHeader'
 import paymentModal from '@/components/paymentmodal'
 import BannerUpload from '../BannerUpload'
-import IconImage from '../../assets/broadcase-icon.svg'
+import IconImage from '../../assets/broadcast-icon.png'
 import BannerImage from '../../assets/live-drop.gif'
 
 export default {

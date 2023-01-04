@@ -192,6 +192,7 @@
 
 
 			.input-genre{
+				width: 300px;
 				height: 34px;
 				border-radius: 50px;
 				margin-bottom: 0;
@@ -244,14 +245,14 @@
 						position: relative;
 						margin-bottom: 8px;
 						.text{
-							padding: 10px 15px;
+							padding: 10px 50px 10px 15px;
 							width: 100%;
 							display: block;
 							border-radius: 8px;
 							background: white;
 
 							.title{
-								font-size: 14px ;
+								font-size: 16px !important;
 								font-weight: bold;
 							}
 							.subtitle{

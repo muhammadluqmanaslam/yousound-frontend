@@ -138,7 +138,7 @@
                   alt="circled dollar icon"
                   class="donate-btn mt-2"
                   width="25"
-                  style="opacity: 0.6"
+                  style="opacity: 0.8"
                   @click="showLoveDialog()"
                 />
               </li>
@@ -240,20 +240,21 @@
                   v-if="followMetaVisible && onMobile"
                   class="user-status-section mt-2"
                 >
-                  <label @click="onTab('followings')" class="follower-count">
-                    <strong class="_count">{{
-                      user.followings | formatLargeNumber
-                    }}</strong>
-                    <div class="_label">Following</div>
-                  </label>
-
-                  <label class="vertical-divider"></label>
-
+                  
                   <label @click="onTab('followers')" class="follower-count">
                     <strong class="_count">{{
                       user.followers | formatLargeNumber
                     }}</strong>
                     <div class="_label">Followers</div>
+                  </label>
+
+                  <label class="vertical-divider"></label>
+
+                  <label @click="onTab('followings')" class="follower-count">
+                    <strong class="_count">{{
+                      user.followings | formatLargeNumber
+                    }}</strong>
+                    <div class="_label">Following</div>
                   </label>
                 </div>
 
@@ -327,7 +328,7 @@
                                   />
                                 </div> -->
 
-                    <div
+                    <!-- <div
                       v-if="
                         currentUser &&
                         currentUser.creator_verified &&
@@ -341,10 +342,10 @@
                         alt="circled dollar icon"
                         class="donate-btn mt-2"
                         width="25"
-                        style="opacity: 0.6"
+                        style="opacity: 0.8"
                         @click="showLoveDialog()"
                       />
-                    </div>
+                    </div> -->
                   </template>
 
                   <div class="ml-2">
@@ -474,13 +475,6 @@
               class="user-status-section"
             >
               <label
-                @click="onTab('followings')"
-                class="follower-count stat-count"
-                ><strong class="_count">{{ user.followings }}</strong>
-                Following</label
-              >
-              <!-- <label class="vertical-divider"></label> -->
-              <label
                 @click="onTab('followers')"
                 class="follower-count stat-count"
               >
@@ -489,6 +483,13 @@
                 }}</strong>
                 Followers</label
               >
+              <label
+                @click="onTab('followings')"
+                class="follower-count stat-count"
+                ><strong class="_count">{{ user.followings }}</strong>
+                Following</label
+              >
+              <!-- <label class="vertical-divider"></label> -->
               <label class="follower-count stat-count">
                 <strong class="_count">{{
                   smsCount | formatLargeNumber
@@ -565,6 +566,16 @@
                       v-if="followMetaVisible && onMobile"
                       class="user-status-section mt-2"
                     >
+                      <label @click="onTab('followers')" class="follower-count">
+                        <strong class="_count">{{
+                          user.followers | formatLargeNumber
+                        }}</strong>
+                        <div class="_label">Followers</div>
+                      </label>
+
+                      <label class="vertical-divider"></label>
+
+
                       <label @click="onTab('followings')" class="follower-count">
                         <strong class="_count">{{
                           user.followings | formatLargeNumber
@@ -572,14 +583,6 @@
                         <div class="_label">Following</div>
                       </label>
 
-                      <label class="vertical-divider"></label>
-
-                      <label @click="onTab('followers')" class="follower-count">
-                        <strong class="_count">{{
-                          user.followers | formatLargeNumber
-                        }}</strong>
-                        <div class="_label">Followers</div>
-                      </label>
                     </div>
 
                     <div class="live-btn">Live</div>
@@ -634,13 +637,6 @@
                 class="user-status-section"
               >
                 <label
-                  @click="onTab('followings')"
-                  class="follower-count stat-count"
-                  ><strong class="_count">{{ user.followings }}</strong>
-                  Following</label
-                >
-                <!-- <label class="vertical-divider"></label> -->
-                <label
                   @click="onTab('followers')"
                   class="follower-count stat-count"
                 >
@@ -649,6 +645,15 @@
                   }}</strong>
                   Followers</label
                 >
+                
+                <label
+                  @click="onTab('followings')"
+                  class="follower-count stat-count"
+                  ><strong class="_count">{{ user.followings }}</strong>
+                  Following</label
+                >
+                <!-- <label class="vertical-divider"></label> -->
+                
                 <label class="follower-count stat-count">
                   <strong class="_count">{{
                     smsCount | formatLargeNumber
@@ -699,7 +704,7 @@
                         alt="circled dollar icon"
                         class="donate-btn mt-2"
                         width="25"
-                        style="opacity: 0.6"
+                        style="opacity: 0.8"
                         @click="showLoveDialog()"
                       />
                     </div>
@@ -991,7 +996,7 @@
                 <div class="sms-img"></div>
                 <div class="ml-2">
                   <div class="sms-name dflex align-center">
-                    Tri Nohbi
+                    Tribe Nohbi
                     <img src="../../assets/true.svg" width="10" class="ml-1">
                   </div>
                   <div class="user-type">
