@@ -292,11 +292,11 @@ export default {
         .then((res) => {
           this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
-          UserService.getUserInfo(userId).then((response) =>
-            AuthService.setUser(response.body)
-          )
           this.$store.dispatch('error/showSuccessToast', ['Genres Saved successfully.'])
-          window.location.reload()
+          UserService.getUserInfo(userId).then((response) => {
+            AuthService.setUser(response.body)
+            window.location.reload()
+          })
         })
         .catch((e) => {
           this.loading = false
