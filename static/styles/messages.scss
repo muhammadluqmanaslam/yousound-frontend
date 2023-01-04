@@ -392,12 +392,17 @@
         z-index: 10;
         bottom: 0;
         width: 100%;
-        bottom: 71px;
+        bottom: 61px;
         border-top: 0.75px solid #e1e1e1;
-        padding: 7px 15px 0 20px;
+        padding: 7px 15px 7px 20px;
+        height: 70px;
+        display: -ms-flexbox;
         display: flex;
+        -ms-flex-pack: justify;
         justify-content: space-between;
+        -ms-flex-align: center;
         align-items: center;
+        background: #fff;
         
         .enable-text {
           color: rgba(0, 0, 0, 0.7);
