@@ -1,5 +1,5 @@
 <template>
-  <div class="page video-page index-page" :class="{isComp}">
+  <div class="page video-page index-page" :class="{isComp}" v-if="isPageReady">
     <discover-nav v-if="!isComp && !onMobile" pageName="video" :searchShow="this.$store.state.app.sideBarMini" />
 
     <!-- <content-top-header
@@ -100,8 +100,12 @@
                   <img src="../../assets/plus.svg" width='15px'>
                 </div>
 
-                <div class="plus-icon">
-                  Following
+                <div class="following-btn" v-if="selectedVideo.user && currentUser && selectedVideo.user.id !== currentUser.id">
+                  <user-follow-btn
+                    :user="selectedVideo.user"
+                    type="default"
+                    borderRadius
+                  />
                 </div>
               </div>
             </div>
@@ -371,14 +375,71 @@
 			</div>
 		</v-dialog>
   </div>
+	<div v-else>
+		<figure>
+			<div class="dot white"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+		</figure>
+	</div>
 </template>
 
 <script src="./index.ctrl.js"></script>
 <style src="../../../static/styles/video.scss" lang="scss" scoped></style>
 
 <style lang="scss" scoped>
+body { background: #222; }
+figure { 
+	position: absolute;
+	margin: auto;
+	margin-top: 30%;
+	top: 0; bottom: 0; left: 0; right: 0;
+	width: 6.250em; height: 6.250em;
+	animation: rotate 2.4s linear infinite;
+}
+.white {
+	top: 0; bottom: 0; left: 0; right: 0;
+	background: white;
+	animation: flash 2.4s linear infinite;
+	opacity: 0;
+}
+.dot {
+	position: absolute;
+	margin: auto;
+	width: 2.4em; height: 2.4em;
+	border-radius: 100%;
+	transition: all 1s ease;
+}
+.dot:nth-child(2) { top: 0; bottom: 0; left: 0; background: #FF4444; animation: dotsY 2.4s linear infinite; }
+.dot:nth-child(3) { left: 0; right: 0; top: 0; background: #FFBB33; animation: dotsX 2.4s linear infinite; }
+.dot:nth-child(4) { top: 0; bottom: 0; right: 0; background: #99CC00; animation: dotsY 2.4s linear infinite; }
+.dot:nth-child(5) { left: 0; right: 0; bottom: 0; background: #33B5E5; animation: dotsX 2.4s linear infinite; }
+
+@keyframes rotate {
+	0% { transform: rotate( 0 ); }
+	10% { width: 6.250em; height: 6.250em; }
+	66% { width: 2.4em; height: 2.4em; }
+	100%{ transform: rotate(360deg); width: 6.250em; height: 6.250em; }
+}
+
+@keyframes dotsY {
+	66% { opacity: .1; width: 2.4em; }
+	77%{ opacity: 1; width: 0; }
+}
+@keyframes dotsX {
+	66% { opacity: .1; height: 2.4em;}
+	77%{ opacity: 1; height: 0; }
+}
+
+@keyframes flash {
+	33% { opacity: 0; border-radius: 0%; }
+	55%{ opacity: .6; border-radius: 100%; }
+	66%{ opacity: 0; }
+}
 .top-menu {
-		margin: 0 !important;
+	margin: 0 !important;
 }
 
 .margin-top-x{

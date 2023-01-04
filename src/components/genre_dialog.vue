@@ -60,6 +60,7 @@
 						dark
 						color="black"
 						class="update-btn"
+            :loading="loading"
 						@click.native="saveGenreFilters()"
 					>
 						Save

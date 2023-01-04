@@ -69,7 +69,9 @@ export default {
 
     const tab = this.$route.hash.substr(1) || 'messages'
     this.setTab(tab)
-
+    if (!this.onMobile) {
+      this.tabs = this.tabs.filter(tab => tab.id !== 'sms')
+    }
     this.processNotifications()
   },
 }

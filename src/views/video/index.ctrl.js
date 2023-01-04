@@ -69,7 +69,7 @@ export default {
 
   computed: {
     followButtonText() {
-      if (this.mainAlbum.user.is_following) {
+      if (this.selectedVideo.user.is_following) {
         return this.buttonHover ? 'Unfollow' : 'Following'
       }
       return 'Follow'
@@ -116,8 +116,8 @@ export default {
 
   methods: {
     setFollowingStatus(userId, isFollowing) {
-      if (this.mainAlbum.user && this.mainAlbum.user.id === userId) {
-        this.mainAlbum.user.is_following = isFollowing
+      if (this.selectedVideo.user && this.selectedVideo.user.id === userId) {
+        this.selectedVideo.user.is_following = isFollowing
       }
     },
     verifyUser() {
