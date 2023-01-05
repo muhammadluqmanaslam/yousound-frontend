@@ -125,7 +125,7 @@
         </v-layout>
       </v-container>
 
-      <v-container fluid grid-list-lg px-0 v-if="(!viewAllPopular && !viewAllTrending)">
+      <v-container fluid grid-list-lg px-0 v-if="(!viewAllPopular && !viewAllTrending)" id="new-album-container">
         <div class="dflex justify-space-between align-center mt-4" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
           <div class="text-big">
             New
@@ -153,7 +153,7 @@
         </v-layout>
       </v-container>
 
-      <v-container fluid grid-list-lg px-0 v-if="(!viewAllNew && !viewAllTrending)">
+      <v-container fluid grid-list-lg px-0 v-if="(!viewAllNew && !viewAllTrending)" id="popular-album-container">
         <div class="dflex justify-space-between align-center margin-top-x" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
           <div class="text-big">
             Popular

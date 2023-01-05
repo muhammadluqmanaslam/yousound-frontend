@@ -57,6 +57,16 @@ export default {
           id: 'pro',
           selectedHour: 1,
         },
+        {
+          title: 'Custom',
+          price: 300,
+          benefits: [
+            '1,000 concurrent viewer limit',
+            // 'Unused time rolls over',
+          ],
+          id: 'custom',
+          selectedHour: 10000,
+        },
       ],
       activeTab: 'live',
       tabs: [
@@ -80,7 +90,8 @@ export default {
       return user
     },
     hours() {
-      const num = Array.from({ length: 24 }, (_, i) => ({ value: i + 1, title: i + 1 + ' Hour' }))
+      const num = Array.from({ length: 24 }, (_, i) => ({ value: i + 1, title: i + 1 + ' hr' }))
+      num.push({value: 10000, title: '10K viewers'})
       return num
     },
     payable() {

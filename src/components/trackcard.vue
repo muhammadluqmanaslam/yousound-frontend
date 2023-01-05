@@ -84,16 +84,6 @@
 					</v-btn>
 					<v-card>
 					  <v-list>
-						<v-list-tile
-						  v-if="item.user.id != currentUser.id"
-						  key="repost"
-						  @click.native="repostItem()"
-						  class="default-menu-item track-menu-item"
-						>
-						  <v-list-tile-title>
-							<label>Repost</label>
-						  </v-list-tile-title>
-						</v-list-tile>
 						<!-- <v-list-tile
 						  v-if="item.album_type != 'playlist'"
 						  key="download"

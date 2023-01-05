@@ -131,11 +131,26 @@ export default {
   },
 
   watch: {
-    $route(toPath, fromPath) {
-      const tab = toPath.hash.substr(1)
-      this.setTab(tab)
-    },
-  },
+		$route(toPath, fromPath) {
+			const tab = toPath.hash.substr(1)
+			this.setTab(tab)
+		},
+		'$store.state.app.sideBarMini': {
+			handler(isMini) {
+				if (isMini) {
+					document.getElementById("new-album-container").className = 'sidebar-collapsed'
+					document.getElementById("popular-album-container").className = 'sidebar-collapsed'
+					this.popularAlbums = this.albumData.popular.slice(0, 12)
+					this.newAlbums = this.albumData.new.slice(0, 12)
+				} else {
+					document.getElementById("new-album-container").className = 'container fluid grid-list-lg px-0'
+					document.getElementById("popular-album-container").className = 'container fluid grid-list-lg px-0'
+					this.popularAlbums = this.albumData.popular.slice(0, 10)
+					this.newAlbums = this.albumData.new.slice(0, 10)
+				}
+			}
+		},
+	},
 
   created() {
   	this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)

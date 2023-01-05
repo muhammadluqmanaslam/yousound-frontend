@@ -155,7 +155,10 @@
             > 
             <div class="price-title-flex">
               <div class="upload-tab-img uploadLive"></div>
-              <h3>
+              <h3 v-if="plan.id === 'custom'">
+                Custom
+              </h3>
+              <h3 v-else>
                 {{ plan.viewersLimit }} viewers
               </h3>
              
@@ -397,12 +400,12 @@
 
   .plan {
     display: flex;
-    width: 25%;
+    width: 23%;
     flex-direction: column;
     padding: 20px;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 10px;
-    min-width: 250px;
+    min-width: 235px;
 
 
     ._price {

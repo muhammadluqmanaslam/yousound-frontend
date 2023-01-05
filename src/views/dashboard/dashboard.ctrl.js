@@ -1,7 +1,6 @@
 import contentTopHeader from '@/components/contentTopHeader'
 import dashboardNav from '@/components/dashboardnav'
 import chart from 'vue-apexcharts'
-import TrackingService from '../../services/tracking'
 import analyticsModal from '@/views/analyticsModal'
 
 export default {
@@ -923,43 +922,6 @@ export default {
         {
           parent: 'overview',
           colTabs: null,
-          dataTables: [
-            {
-              title: 'Top 10 creators for this month',
-              headers: [
-                {
-                  text: 'Top 10 Creators',
-                  align: 'left',
-                  sortable: false,
-                  value: 'user',
-                },
-                {
-                  text: 'You’ve played/viewed',
-                  align: 'left',
-                  sortable: false,
-                  value: 'playedViewed',
-                },
-                {
-                  text: 'Subscription share',
-                  align: 'left',
-                  sortable: false,
-                  value: 'subscriptionShare',
-                },
-              ],
-              data: [
-                {
-                  user: 'mario',
-                  playedViewed: 123,
-                  subscriptionShare: 40,
-                },
-                {
-                  user: 'luigi',
-                  playedViewed: 456,
-                  subscriptionShare: 80,
-                },
-              ],
-            },
-          ],
         },
         {
           parent: 'music',
@@ -1606,16 +1568,6 @@ export default {
 
       return col.dataTables || null
     },
-
-    getDashboardStats() {
-      TrackingService.getDashboardStats()
-        .then((response) => {
-          this.dashboardStats = response.body
-        })
-        .catch((exception) => {
-          console.log(exception)
-        })
-    },
   },
 
   async created() {
@@ -1627,7 +1579,6 @@ export default {
 
     this.selectedChart = this.selectedInnerTab.breakdown[0]
     this.activeChart = this.selectedInnerTab.breakdown[0].value
-    await this.getDashboardStats()
   },
   mounted() {
     if (this.currentUser.plan !== "pro") {
