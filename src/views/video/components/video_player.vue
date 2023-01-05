@@ -1071,6 +1071,10 @@ export default {
 }
 .video-container-main{
 	position: relative;
+
+	& + li {
+		display: none;
+	}
 	
 	.video-overlay{
 		position: absolute;

@@ -360,12 +360,11 @@
 			._title{
 				font-size: 16px;
 				font-weight: 500;
-				color: black;
-				opacity: 30% !important;
+				color: #888;
 				cursor: pointer;
 
 				&.active{
-					opacity: 100% !important;
+					color: #000 !important;
 				}
 			}
 		}
