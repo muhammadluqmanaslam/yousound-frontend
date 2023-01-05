@@ -219,6 +219,58 @@
                     </v-dialog>
                   </div>
 
+                  <div class="mb-3">
+                    <div class="title mb-2">Payment</div>
+                    <div class="subtitle">All transactions are secure and encrypted.</div>
+                  </div>
+
+                  <div class="payment-stripe-section">
+                    <div class="header-title">
+                      <h3>Credit card</h3>
+                      <div class="icon-image">
+                        <img src="../../assets/cards.png" alt="" width="130">
+                        and more...
+                      </div>
+                    </div>
+                    <div class="stripe-section-body">
+                      <div class="lock">
+                        <input type="text" placeholder="Card number">
+                      </div>
+                      <div>
+                        <input type="text" placeholder="Name on card">
+                      </div>
+                      <div class="dflex bottom-details">
+                        <div><input type="text" placeholder="Expiration date (MM / YY)"></div>
+                        <div>
+                          <input type="text" placeholder="Security code">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="title mb-2">Remember me</div>
+                  </div>
+
+                  <div class="payment-stripe-section">
+                    <div class="regular-checkbox">
+                      <input type="checkbox" id="c-checkbox">
+                      <label for="c-checkbox">Save my information for faster checkout</label>
+                    </div>
+                  </div>
+                  <div class="payment-stripe-section-button">
+                    <div class="btn-holder">
+                      <v-btn class="checkout-btn"
+                        >Pay now</v-btn
+                      >
+                    </div>
+                  </div>
+
+                  <div class="powered-by text-center">
+                    <img src="../../assets/powered-by.png" width="100" alt="">
+                  </div>
+                  
+
 
                 </v-flex>
               </v-layout>
