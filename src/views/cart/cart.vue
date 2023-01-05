@@ -244,7 +244,7 @@
                         <div><input type="text" placeholder="Expiration date (MM / YY)"></div>
                         <div class="question-mark">
                           <input type="text" placeholder="Security code">
-                          <img src="../../assets/question.png" alt="" width="30">
+                          <img src="../../assets/question.png" alt="" width="40">
                         </div>
                       </div>
                     </div>
