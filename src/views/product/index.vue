@@ -215,7 +215,7 @@ figure {
 
 
 .text-big{
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   font-family: 'Inter';
   color: black;
@@ -238,7 +238,7 @@ figure {
 }
 
 .text-big{
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   font-family: 'Inter';
   color: black;

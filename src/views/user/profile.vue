@@ -1137,7 +1137,7 @@
             </template>
           </template>
           <div v-else>
-            <div class="_body list-track-view list-track-view-trackCard">
+            <div class="_body list-track-container list-track-view list-track-view-trackCard">
               <div class="dflex justify-space-between align-center mt-3 mb-3">
                 <div class="text-big">Popular</div>
               </div>

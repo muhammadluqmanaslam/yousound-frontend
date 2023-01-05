@@ -10,6 +10,7 @@
     >
       <v-flex xs12 class="track-cover px-0 py-0">
         <template v-if="item.album_type == 'playlist'">
+		  
           <div class="playlist-icon">
             <img src="/static/images/playlist.png" />
           </div>
@@ -291,7 +292,7 @@
 					</div>
 				</v-flex>
 
-				<v-flex xs12 class="track-actions" v-if="!forCollection && is_component_hover" >
+				<v-flex xs12 class="track-actions" v-if="!forCollection" >
 					
 					<span @click="gotoItem()">
 						<v-flex xs12 class="touch-flex"></v-flex>

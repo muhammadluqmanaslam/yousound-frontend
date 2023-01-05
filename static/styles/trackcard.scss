@@ -60,7 +60,6 @@
         justify-content: center;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.8);
         border-radius: 4px;
         position: absolute;
         padding: 0;
@@ -89,6 +88,7 @@
           font-size: 16px;
           color: #ffffff;
           letter-spacing: 0;
+          opacity: 0;
         }
         .track-hover-info {
           position: absolute;
@@ -167,6 +167,7 @@
           margin: 0;
           color: white;
           border: 2px solid white;
+          opacity: 0;
           &.play-button-2 {
             border: none;
             font-size: 24px;
@@ -227,6 +228,14 @@
             letter-spacing: 0;
             line-height: 30px;
           }
+        }
+      }
+      &:hover {
+        .track-actions {
+          background: rgba(0,0,0,0.7);
+        }
+        .play-button-main {
+          opacity: 1;
         }
       }
     }
