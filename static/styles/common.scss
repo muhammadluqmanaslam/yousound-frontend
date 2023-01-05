@@ -1472,9 +1472,11 @@ textarea {
   label {
     vertical-align: middle;
     font-size: 14px;
-    color: #000000;
+    font-weight: 600;
+    color: rgba(0,0,0,0.8);
     letter-spacing: 0;
     cursor: pointer;
+    font-family: "Inter";
   }
 
   .list__tile {

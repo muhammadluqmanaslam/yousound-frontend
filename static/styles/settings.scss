@@ -862,3 +862,11 @@
   color: rgba(0, 0, 0, 0.3);
   height: 30px;
 }
+
+.profile-menu__content {
+  .list {
+    .list__tile:not(.list__tile--active) {
+      height: 40px;
+    }
+  }
+}

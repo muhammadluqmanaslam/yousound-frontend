@@ -59,6 +59,16 @@
       background-color: #fff;
       margin-bottom: 18px;
       padding: 14px;
+      .lock,
+      .question-mark {
+        position: relative;
+        img {
+          position: absolute;
+          width: 15px;
+          right: 16px;
+          top: 13px;
+        }
+      }
       .header-title {
         margin: -14px -14px 14px;
         border-bottom: 1px solid #D9D9D9;

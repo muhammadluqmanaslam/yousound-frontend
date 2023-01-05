@@ -235,14 +235,16 @@
                     <div class="stripe-section-body">
                       <div class="lock">
                         <input type="text" placeholder="Card number">
+                        <img src="../../assets/lock.png" alt="" width="30">
                       </div>
                       <div>
                         <input type="text" placeholder="Name on card">
                       </div>
                       <div class="dflex bottom-details">
                         <div><input type="text" placeholder="Expiration date (MM / YY)"></div>
-                        <div>
+                        <div class="question-mark">
                           <input type="text" placeholder="Security code">
+                          <img src="../../assets/question.png" alt="" width="40">
                         </div>
                       </div>
                     </div>

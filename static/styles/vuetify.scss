@@ -135,6 +135,12 @@ able.table thead th:not(:first-child) {
     .list__tile__title {
       padding: 0 10px;
       min-width: 60px;
+      .menu-list-div {
+        opacity: 90% !important;
+        &:hover {
+          opacity: 100% !important;
+        }
+      }
     }
   }
 }
@@ -158,6 +164,7 @@ able.table thead th:not(:first-child) {
 /* drop-down menu */
 .list__tile {
   font-size: 14px;
+  height: 30px;
 }
 
 .chip__content {
