@@ -14,6 +14,7 @@ import UserService from '@/services/user'
 import BannerUpload from '../BannerUpload'
 import IconImage from '../../assets/product-tag.svg'
 import BannerImage from '../../assets/product-drop.gif'
+import dragFileUploader from '@/components/dragFileUploader'
 
 export default {
   components: {
@@ -21,7 +22,8 @@ export default {
     contentTopHeader,
     topbarNotification,
     policyTab,
-    BannerUpload 
+    BannerUpload,
+    dragFileUploader,
   },
 
   data() {
@@ -253,6 +255,22 @@ export default {
   },
 
   methods: {
+    pickedFile(file) {
+      this.product.image1 = file[0]
+      var reader = new FileReader()
+      reader.addEventListener(
+        'load',
+        (event) => {
+          // document.getElementById(index).src = event.target.result
+          $('#product_image1').css(
+            'background-image',
+            'url(' + event.target.result + ')'
+          )
+        },
+        false
+      )
+      reader.readAsDataURL(file[0])
+    },
     onCopy: function (e) {
       this.$store.dispatch("error/showSuccessToast", [
         "You just copied: " + e.text,
@@ -290,6 +308,7 @@ export default {
         })
     },
     imageChanged(index, e) {
+      debugger
       if (index === 'product_image1') {
         this.product.image1 = e.target.files[0]
       } else if (index === 'product_image2') {

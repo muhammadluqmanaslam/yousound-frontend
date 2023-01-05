@@ -15,6 +15,7 @@
           <label for="file">
             <img v-if="category == 'audio'" :src="require('@/assets/upload-music.png')" class="uploaderBox_image" />
             <img v-if="category == 'video'" :src="require('@/assets/upload-video.png')" class="uploaderBox_image" />
+            <img v-if="category == 'product'" src="/static/images/upload.png" class="uploaderBox_image" />
           </label>
           <div class="uploaderBox__desc">
               <div v-if="category == 'audio'">
@@ -26,6 +27,13 @@
               <div v-if="category == 'video'">
                   <b v-if="category == 'video'" class="uploaderBox__dragndrop">
                     Drag and drop video files
+                  </b>
+                  <!-- <span class="uploaderBox__filetype">All popular video formats</span> -->
+              </div>
+
+              <div v-if="category == 'product'">
+                  <b v-if="category == 'product'" class="uploaderBox__dragndrop">
+                    Drag and drop product files
                   </b>
                   <!-- <span class="uploaderBox__filetype">All popular video formats</span> -->
               </div>
@@ -119,7 +127,7 @@ export default {
       for (let i = 0; i < fileList.length; i++) {
         let f = fileList[i]
         // Min. 160k
-        if ((f.size / 1000) < 160) {
+        if ((f.size / 1000) < 160 && this.category !== 'product') {
           this.$store.dispatch('error/showErrorToast', [
             'File size too small, must be at least 160k',
           ])
