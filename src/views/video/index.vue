@@ -161,17 +161,19 @@
             View all
           </div>
         </div>
-        <v-layout row wrap v-if="!hideOtherVideos">
-          <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-          <v-flex 
-            v-for="(video) in videos.slice(0,10)" 
-            :key="video.name"
-            class="video-container"
-            :class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
-          >
-            <video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
-          </v-flex>
-        </v-layout>
+        <div class="px-3">
+			<v-layout row wrap v-if="!hideOtherVideos" id="popular-video-album-container">
+			<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+			<v-flex 
+				v-for="(video) in videos.slice(0,10)" 
+				:key="video.name"
+				class="video-container"
+				:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+			>
+				<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+			</v-flex>
+			</v-layout>
+		</div>
 
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
@@ -181,17 +183,19 @@
             View all
           </div>
         </div>
-        <v-layout row wrap v-if="!hideOtherVideos">
-          <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-          <v-flex 
-            v-for="(video) in videos.slice(0,10)" 
-            :key="video.name"
-            class="video-container"
-            :class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
-          >
-            <video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
-          </v-flex>
-        </v-layout>
+		<div class="px-3">
+			<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
+			<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+			<v-flex 
+				v-for="(video) in videos.slice(0,10)" 
+				:key="video.name"
+				class="video-container"
+				:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+			>
+				<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+			</v-flex>
+			</v-layout>
+		</div>
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
             Live broadcasts

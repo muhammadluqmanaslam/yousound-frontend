@@ -550,7 +550,7 @@ export default {
 /deep/ ._sliced-top {
   .box {
     &__subtitle {
-      width: 100%;
+      width: 80%;
     }
   }
 }
