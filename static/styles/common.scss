@@ -420,12 +420,14 @@ img.invert-color {
   .items-price{
     font-family: 'Inter',sans-serif;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 20px;
     color: white;
   }
   .item-plus{
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    margin-left: 5px;
     background-color: white;
     border-radius: 3px;
     display: flex;

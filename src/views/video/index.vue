@@ -490,9 +490,11 @@ figure {
 		//Arrows setting
 
 		.slider-main-img{
+			height: 140px;
 			border-radius: 2px;
 			overflow: hidden;
 			position: relative;
+			background: #12121f;
 
 			&:hover{
 				.hover-absolute{

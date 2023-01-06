@@ -135,10 +135,11 @@ able.table thead th:not(:first-child) {
     .list__tile__title {
       padding: 0 10px;
       min-width: 60px;
+      opacity: 1 !important;
       .menu-list-div {
-        opacity: 90% !important;
+        color: #555 !important;
         &:hover {
-          opacity: 100% !important;
+          color: #000 !important;
         }
       }
     }
