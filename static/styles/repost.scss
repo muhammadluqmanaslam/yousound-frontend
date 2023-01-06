@@ -204,9 +204,9 @@
     }
     .playlist-container {
         flex-wrap: wrap;
-        gap: 15px;
+        gap: 10px;
         .playlist-holder {
-            width: 20%;
+            width: 19%;
             .playlist-images {
                 background: rgba(196, 196, 196, 0.1);
                 border-radius: 10px;
@@ -275,6 +275,12 @@
             .playlist-text {
                 font-weight: 600;
                 margin-bottom: 20px;
+            }
+            @media screen and (max-width: 1200px) {
+                width: 24%;
+            }
+            @media screen and (min-width: 1300px) {
+                width: 13.3%;
             }
         }
     }    
