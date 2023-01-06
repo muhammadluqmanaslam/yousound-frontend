@@ -25,22 +25,31 @@
 }
 
 .video-js .vjs-time-control{
-	position: absolute;
 	font-size: 12px;
 	z-index: 25;
 	color: white;
-	top: 85%;
-	left: 89%;
+	position: absolute;
+    width: 90%;
+    left: 4%;
+    bottom: 55px;
+    z-index: 25;
+    height: auto;
+    text-align: right;
+    display: block;
+    top: auto;
+	padding-right: 0;
 }
 
 .video-js .vjs-current-time{
 	position: absolute;
-	font-size: 12px;
-	z-index: 25;
-	color: white;
-	top: 85%;
-	left: 5%;
-	display: block;
+    width: 90%;
+    left: 4.5%;
+    bottom: 55px;
+    z-index: 25;
+    height: auto;
+    text-align: left;
+    display: block;
+    top: auto;
 }
 
 .video-js .vjs-picture-in-picture-control, .video-js .vjs-volume-panel, .video-js .vjs-fullscreen-control{

@@ -1877,10 +1877,13 @@ textarea {
   }
 
   .sidebar-collapsed {
+    .layout {
+      gap: 15px;
+    }
     .flex.custom-lg5 {
-      width: 16.666%;
-      max-width: 16.666%;
-      flex-basis: 16.666%;
+      width: 15.6%;
+      max-width: 15.6%;
+      flex-basis: 15.6%;
     }
     .flex.lg3 {
       width: 20%;
