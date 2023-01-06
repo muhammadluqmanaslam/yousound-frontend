@@ -131,7 +131,9 @@ able.table thead th:not(:first-child) {
   ul {
     margin-bottom: 0;
     background-color: #f9f9f9 !important;
-
+    .list__tile {
+      height: auto;
+    }
     .list__tile__title {
       padding: 0 10px;
       min-width: 60px;
@@ -144,6 +146,9 @@ able.table thead th:not(:first-child) {
       }
     }
   }
+}
+.datatable__actions__select {
+  font-size: 0;
 }
 
 .menu__content.menu__content--avatar {

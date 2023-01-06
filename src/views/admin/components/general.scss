@@ -46,9 +46,6 @@
     }
 
 }
-.big_view{
-    display: none;
-}
 
 
     .input-group--select .input-group__input{
@@ -76,10 +73,11 @@
     }
 }
 
+.big_view {
+    margin-left: -30px;
+}
+
 @media screen and (min-width: 1500px) {
-    .small_view{
-        display: none;
-    }
     .big_view{
         display: block;
     }
