@@ -31,7 +31,7 @@ export default {
         { id: 'trial', title: 'Trial' },
         { id: 'trial_drop_off', title: 'Trial Drop Off' },
         { id: 'cancelled', title: 'Cancelled' },
-        { id: 'free_credit', title: 'Free Credit' },
+        { id: 'free_credit', title: 'Free Credit', sort: 'falsesrc/views/admin/components/general.scss' },
        
       ],
       artists_headers: [
@@ -69,27 +69,24 @@ export default {
         { text: 'Credits', value: 'trial_end', align: 'left' },
       ],
       trial_headers: [
-        { text: 'Username', value: 'username', align: 'left' },
-        { text: 'User Type', value: 'user_type', align: 'left' },
+        { text: 'Users', value: 'username', align: 'left' },
+        { text: 'User type', value: 'user_type', align: 'left' },
         { text: 'First / Last Name', value: 'first_name last_name', align: 'left' },
-        { text: 'Activate Date', value: 'activate_date', align: 'left' },
-        { text: 'Tier', value: 'plan', align: 'left' },
         { text: 'Email', value: 'email', align: 'left' },
         { text: 'Member For (mo)', value: 'member_for_months', align: 'left' },
         { text: 'Ghost trial remaining', value: 'free_trial_time', align: 'left' },
         { text: 'Credits', value: 'trial_end', align: 'left' },
-        { text: 'Trial Completed', value: 'trial_complete', align: 'left' },
+        // { text: 'Trial Completed', value: 'trial_complete', align: 'left' },
       ],
       trial_drop_off_headers: [
-        { text: 'Username', value: 'username', align: 'left' },
-        { text: 'User Type', value: 'user_type', align: 'left' },
-        { text: 'Initial Signup Type', value: 'initial_signup_type', align: 'left' },
+        { text: 'Users', value: 'username', align: 'left' },
+        { text: 'User type', value: 'user_type', align: 'left' },
+        { text: 'Initial signup type', value: 'initial_signup_type', align: 'left' },
         { text: 'First / Last Name', value: 'first_name', align: 'left' },
-        { text: 'Activate Date', value: 'trial_start', align: 'left' },
-        { text: 'Tier', value: 'plan', align: 'left' },
+       
         { text: 'Email', value: 'email', align: 'left' },
-        { text: 'Member For Months', value: 'member_for_months', align: 'left' },
-        { text: 'Credits', value: 'trial_end', align: 'left' },
+        
+        { text: 'Credits', value: 'trial_end', align: 'left' }
       ],
       cancelled_headers: [
         { text: 'Users', value: 'username', align: 'left' },

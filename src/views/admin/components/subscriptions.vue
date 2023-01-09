@@ -75,19 +75,19 @@
                   {{ props.item.first_name }} {{ props.item.last_name }}
                 </td>
                 
-                <td  v-if="active_tab != 'cancelled'"  class="text-xs-center">
+                <td  v-if="active_tab != 'cancelled' && active_tab != 'trial' && active_tab != 'trial_drop_off'"  class="text-xs-center">
                   {{ props.item.trial_start | formatDate }}
                 </td>
-                <td  v-if="active_tab != 'cancelled'"  class="text-xs-center">
+                <td  v-if="active_tab != 'cancelled' && active_tab != 'trial' && active_tab != 'trial_drop_off'"  class="text-xs-center">
                   {{ props.item.plan }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.email }}
                 </td>
-                <td  v-if="active_tab != 'cancelled'" class="text-xs-center">
+                <td  v-if="active_tab != 'cancelled' && active_tab != 'trial_drop_off'" class="text-xs-center">
                   {{ getNumberOfMonths(props.item.created_at) }}
                 </td>
-                <td v-if="active_tab == 'trial'" class="text-xs-center">
+                <td v-if="active_tab == 'trial' && active_tab != 'trial_drop_off'" class="text-xs-center">
                   {{  Math.floor(props.item.free_trial_time / 60) + ' mins' }}
                 </td>
                 <td v-if="active_tab != 'artists'" class="text-xs-center">
@@ -107,9 +107,9 @@
 
                   </div>
                 </td>
-                <td v-if="active_tab == 'trial'" class="text-xs-center">
+                <!-- <td v-if="active_tab == 'trial'" class="text-xs-center">
                   {{ props.item.trial_complete ? "Yes" : "No" }}
-                </td>
+                </td> -->
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }} out of
