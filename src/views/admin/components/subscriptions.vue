@@ -72,32 +72,44 @@
                   {{ props.item.initial_signup_type }}
                 </td>
                 <td class="text-xs-center">
-                  {{ props.item.first_name }}
+                  {{ props.item.first_name }} {{ props.item.last_name }}
                 </td>
-                <td class="text-xs-center">
-                  {{ props.item.last_name }}
-                </td>
-                <td class="text-xs-center">
+                
+                <td  v-if="active_tab != 'cancelled' && active_tab != 'trial' && active_tab != 'trial_drop_off'"  class="text-xs-center">
                   {{ props.item.trial_start | formatDate }}
                 </td>
-                <td class="text-xs-center">
+                <td  v-if="active_tab != 'cancelled' && active_tab != 'trial' && active_tab != 'trial_drop_off'"  class="text-xs-center">
                   {{ props.item.plan }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.email }}
                 </td>
-                <td class="text-xs-center">
+                <td  v-if="active_tab != 'cancelled' && active_tab != 'trial_drop_off'" class="text-xs-center">
                   {{ getNumberOfMonths(props.item.created_at) }}
                 </td>
-                <td v-if="active_tab == 'trial'" class="text-xs-center">
+                <td v-if="active_tab == 'trial' && active_tab != 'trial_drop_off'" class="text-xs-center">
                   {{  Math.floor(props.item.free_trial_time / 60) + ' mins' }}
                 </td>
-                <td class="text-xs-center">
+                <td v-if="active_tab != 'artists'" class="text-xs-center">
                   {{ props.item.trial_end | formatDate }}
                 </td>
-                <td v-if="active_tab == 'trial'" class="text-xs-center">
-                  {{ props.item.trial_complete ? "Yes" : "No" }}
+                <td v-if="active_tab == 'artists'" class="text-xs-center width-200">
+                  <div class="dflex align-center">
+                    <v-select attach
+                      class="month-dd"
+                      :items="choose_month"
+                      @change="selectMonth($event, props.item.id)"
+                      ></v-select>
+
+                      <div class="plus-icon-u ml-2">
+                        <img src="../../../assets/plus.svg" width="12px" @click="increaseMonth(props.item.id)">
+                      </div>
+
+                  </div>
                 </td>
+                <!-- <td v-if="active_tab == 'trial'" class="text-xs-center">
+                  {{ props.item.trial_complete ? "Yes" : "No" }}
+                </td> -->
               </template>
               <template slot="pageText" slot-scope="{ pageStart, pageStop }">
                 From {{ pageStart }} to {{ pageStop }} out of
@@ -113,7 +125,7 @@
               :rows-per-page-items="per_page_options"
               :total-items="total_subscriptions.length"
               :search="search"
-              class="user-table-x"
+              class="user-table-x text-xs-left"
             >
               <template slot="items" slot-scope="props">
                 <td class="text-xs-left">
@@ -132,16 +144,17 @@
                   {{ props.item.user_type | capitalize }}
                 </td>
                 <td class="text-xs-center">
-                  {{ props.item.first_name }}
+                  {{ props.item.first_name }} {{ props.item.last_name }}
                 </td>
                 <td class="text-xs-center">
-                  {{ props.item.last_name }}
-                </td>
-                <td class="text-xs-center">
-                  {{  Math.round(Math.abs((new Date(props.item.trial_end) - new Date()) / 86400000)) }}
+                  {{ props.item.created_at | formatDate }}
+                  <!-- {{  Math.round(Math.abs((new Date(props.item.trial_end) - new Date()) / 86400000)) }} -->
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.plan }}
+                </td>
+                <td class="text-xs-center">
+                  {{  Math.round(Math.abs((new Date(props.item.trial_end) - new Date()) / 86400000)) }} {{ props.item.trial_end ? 'days' : '' }}
                 </td>
                 <td class="text-xs-center">
                   {{ props.item.email }}
@@ -149,9 +162,9 @@
                 <td class="text-xs-center">
                   {{ getNumberOfMonths(props.item.created_at) }}
                 </td>
-                <td class="text-xs-center">
+                <!-- <td class="text-xs-center">
                   {{ props.item.trial_end | formatDate }}
-                </td>
+                </td> -->
                 <td class="text-xs-center width-200">
                   <div class="dflex align-center">
                     <v-select attach
