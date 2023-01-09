@@ -55,7 +55,9 @@ export default {
       active_tab: '',
       slide_tab: '',
       show_following: false,     
-      show_following_scroll: false,       
+      show_following_scroll: false,
+      show_followers: false,     
+      show_followers_scroll: false,
       tabs: [
         { id: 'catalog', title: 'Catalog', roles: ['label'], icon: require('../../../static/images/grid-interface.svg') },
         { id: 'artists', title: 'Artists', roles: ['label'] },
@@ -258,12 +260,15 @@ export default {
         var y = window.scrollY
         if (y >= 75) {
           this.show_following_scroll = true
+          this.show_followers_scroll = true
         } else {
           this.show_following_scroll = false
+          this.show_followers_scroll = false
         }
       }
       else{
         this.show_following_scroll = false
+        this.show_followers_scroll = false
       }
     },
     isActiveTab(tab) {
@@ -277,9 +282,17 @@ export default {
           this.show_following = true;
         }         
       }
+      else if(tab == "followers"){
+        console.log('user',this.currentUser)
+        if(this.currentUser.id != this.user.id){
+          this.show_followers = true;
+        }         
+      }
       else{
         this.show_following = false;
         this.show_following_scroll = false
+        this.show_followers = false;
+        this.show_followers_scroll = false
       }
       this.$router.push({
         path: this.$route.path,

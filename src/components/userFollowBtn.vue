@@ -179,6 +179,7 @@ export default {
         border: 0.75px solid #076AFF;
         font-weight: 700;
         font-size: 16px;
+        margin-top: 10px;
       }
       &.following {
         color: #000;
