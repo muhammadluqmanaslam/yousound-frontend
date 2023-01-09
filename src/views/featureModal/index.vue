@@ -35,25 +35,25 @@
 					<div class="input-feature">
 						<div class="dflex align-center justify-space-between">
 							<label class="label-title">Title for mobile</label>
-							<label class="label-time">*46 chars max</label>
+							<label class="label-time">*26 chars max</label>
 						</div>
 						<div class="mt-2">
-							<input type="text" class="feature-input" maxlength="46" v-model="mobileTitle">
+							<input type="text" class="feature-input" maxlength="26" v-model="mobileTitle">
 						</div>
 					</div>
 
 					<div class="input-feature mt-3">
 						<div class="dflex align-center justify-space-between">
 							<label class="label-title">Review for mobile</label>
-							<label class="label-time">*120 chars max</label>
+							<label class="label-time">*60 chars max</label>
 						</div>
 						<div class="mt-2">
-							<input type="text" class="feature-input" maxlength="120" v-model="mobileReview">
+							<input type="text" class="feature-input" maxlength="60" v-model="mobileReview">
 						</div>
 					</div>
 
 				</div>
-			   
+				 
 			</div>
 			<div class="w-25">
 				<div class="feature-head mb-3">Content Image</div>
@@ -100,13 +100,14 @@ export default {
 					'error/showSuccessToast',
 					['Successfully updated Title and Review.']
 				)
+				this.dismiss()
 			})
 			.catch((e) => {
 				this.$store.dispatch('error/showLoadingActivity', false)
 				this.$store.dispatch(
 					'error/showErrorToast',
 					e.body.errors || [e.body]
-          		)
+				)
 			})
 		},
 	},

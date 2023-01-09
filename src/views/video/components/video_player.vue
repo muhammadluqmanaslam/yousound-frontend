@@ -21,7 +21,7 @@
 
 		<div class="video-overlay" v-if="firstTimePlay" :class="show_video_overlay ?'visibleOverlay' :'hideOverlay'">
 			<div class="vo-content"> 
-				<h2 class="vo-heading">{{ video.name }}</h2>
+				<h2 class="vo-heading">' {{ video.name }} '</h2>
 				<div class="vo-following-main">
 
 					<div class="dflex align-center gap-10">
