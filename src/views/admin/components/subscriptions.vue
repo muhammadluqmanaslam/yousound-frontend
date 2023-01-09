@@ -90,8 +90,22 @@
                 <td v-if="active_tab == 'trial'" class="text-xs-center">
                   {{  Math.floor(props.item.free_trial_time / 60) + ' mins' }}
                 </td>
-                <td class="text-xs-center">
+                <td v-if="active_tab != 'artists'" class="text-xs-center">
                   {{ props.item.trial_end | formatDate }}
+                </td>
+                <td v-if="active_tab == 'artists'" class="text-xs-center width-200">
+                  <div class="dflex align-center">
+                    <v-select attach
+                      class="month-dd"
+                      :items="choose_month"
+                      @change="selectMonth($event, props.item.id)"
+                      ></v-select>
+
+                      <div class="plus-icon-u ml-2">
+                        <img src="../../../assets/plus.svg" width="12px" @click="increaseMonth(props.item.id)">
+                      </div>
+
+                  </div>
                 </td>
                 <td v-if="active_tab == 'trial'" class="text-xs-center">
                   {{ props.item.trial_complete ? "Yes" : "No" }}
