@@ -39,7 +39,7 @@
           <span v-if="item.accounts.length > 0" class="box__acc-wrapper">
             <!-- <span v-for="(acc, i) in item.accounts" :key="i" class="box__acc">{{ acc.username }}</span> -->
           </span>
-          <span class="stream_name">{{ item.name }}</span>
+          <span class="stream_name">ccc{{ item.name }}</span>
           <div v-if="showUsername" class="user_name">
             <b class="text-capitalize">{{ item.user.username }}</b>
           </div>

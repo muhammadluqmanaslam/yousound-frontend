@@ -133,6 +133,10 @@
                         coverOnly
                       />
                     </div>
+					<div class="video-details">
+						<strong>{{ video.name }}</strong>
+						<p>100 views</p>
+					</div>
                   <div class="icon-holder">
                     <img src="../../assets/plus.svg" width="15">
                   </div>
@@ -490,12 +494,21 @@ figure {
 		//Arrows setting
 
 		.slider-main-img{
-			height: 140px;
 			border-radius: 2px;
 			overflow: hidden;
 			position: relative;
 			background: #12121f;
-
+			width: 100%;
+			padding-top: 56.25%;
+			height: 0px;
+			position: relative;
+			img {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
 			&:hover{
 				.hover-absolute{
 					display: flex;
@@ -539,34 +552,40 @@ figure {
 				&:before {
 					content: "";
 					position: absolute;
-					width: 50px;
-					height: 50px;
-					background: #000;
+					width: 45px;
+					height: 45px;
+					background: url('../../assets/play-icon.png') no-repeat;
 					left: 50%;
-					top: 30%;
+					top: 50%;
 					transform: translate(-50%);
-					-webkit-transform: translate(-50%);
+					-webkit-transform: translate(-50%, -50%);
 					border-radius: 30px;
 					cursor: pointer;
-				}
-
-				&:after {
-					content: "";
-					position: absolute;
-					left: 50.5%;
-					top: 48.5%;
-					transform: translate(-50%, -50%);
-					-webkit-transform: translate(-50%, -50%);
-					border-style: solid;
-					border-width: 7px 0 7px 11px;
-					border-color: transparent transparent transparent #838383;
-					cursor: pointer;
+    				background-size: 45px;
 				}
 
 				.icon-holder {
 					position: absolute;
 					right: 15px;
 					bottom: 15px;
+					z-index: 9999;
+					width: 15px;
+					height: 15px;
+					cursor: pointer;
+				}
+
+				.video-details {
+					white-space: nowrap;
+					width: 75%;
+					text-overflow: ellipsis;
+					font-size: 12px;
+					position: absolute;
+					overflow: hidden;
+					bottom: -5px;
+					left: 15px;
+					strong {
+						font-size: 13px;
+					}
 				}
 
 
