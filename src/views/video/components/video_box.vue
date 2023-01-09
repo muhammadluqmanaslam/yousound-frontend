@@ -87,7 +87,7 @@ export default {
     overflow: hidden;
     background-position: center;
     border-radius: 0px;
-    margin-top: 14px;
+    margin-top: 0;
     border: none;
   }
 

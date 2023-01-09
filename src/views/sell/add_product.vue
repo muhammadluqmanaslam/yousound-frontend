@@ -276,54 +276,6 @@
 												>
 											</div>
 										</v-flex>
-
-										<v-flex xs12 sm6>
-											<!-- <label class="control-label">Image 3</label> -->
-											<div class="product-image-section">
-												<!-- <img class="product-image" id="product_image4" v-if="product.image4"/> -->
-												<div
-													class="product-image"
-													id="product_image4"
-													v-if="product.image4"
-												></div>
-												<div
-													class="product-image-upload-section"
-													v-if="!product.image4"
-												>
-													<input
-														type="file"
-														name="product_image_file4"
-														id="product_image_file4"
-														class="add-product-image-file"
-														accept="image/*"
-														@change="imageChanged('product_image4', $event)"
-													/>
-													<label for="product_image_file4">
-														<v-icon class="camera">photo_camera</v-icon>
-														Upload
-													</label>
-												</div>
-											</div>
-											<div class="product-image-change-section">
-												<input
-													type="file"
-													name="product_image_file4"
-													id="product_image_file4"
-													class="change-product-image-file"
-													accept="image/*"
-													@change="imageChanged('product_image4', $event)"
-												/>
-												<label for="product_image_file4" v-if="product.image4"
-													>Change</label
-												><label
-													class="text-btn"
-													v-if="product.image4"
-													@click="deleteProductImage('product_image4')"
-												>
-													/ Delete</label
-												>
-											</div>
-										</v-flex>
 									</v-layout>
 								</v-container>
 							</v-flex>
