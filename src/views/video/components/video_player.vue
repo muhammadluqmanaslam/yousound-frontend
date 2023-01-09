@@ -55,7 +55,7 @@
 			</div>
 
 			<div class="project-icon">
-				<img src="../../../assets/project.svg" width="32">
+				<img src="../../../assets/project.svg" width="25">
 			</div>
 
 			<div class="ad-show" v-if="assoc.assoc_type !== null">
@@ -1074,6 +1074,12 @@ export default {
 
 	& + li {
 		display: none;
+		& + li {
+			display: none;
+			& + li {
+				display: none;		
+			}	
+		}
 	}
 	
 	.video-overlay{
@@ -1100,9 +1106,17 @@ export default {
 			}
 		}
 		.project-icon{
+			z-index: 25;
 			position: absolute;
-			right: 5%;
-			bottom: 13%;
+			width: 90%;
+			left: 4%;
+			bottom: 105px;
+			z-index: 25;
+			height: auto;
+			text-align: right;
+			display: block;
+			top: auto;
+			padding-right: 0;
 		}
 
 		.ad-show{
@@ -1277,6 +1291,11 @@ export default {
 					border-radius: 5px;
 					color: white;
 					height: 32px;
+				}
+
+				.follow-btn {
+					border: 1px solid #959595 !important;
+					margin-top: 0;
 				}
 
 				.icon-button{

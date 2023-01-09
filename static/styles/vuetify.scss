@@ -131,18 +131,24 @@ able.table thead th:not(:first-child) {
   ul {
     margin-bottom: 0;
     background-color: #f9f9f9 !important;
-
+    .list__tile {
+      height: auto;
+    }
     .list__tile__title {
       padding: 0 10px;
       min-width: 60px;
+      opacity: 1 !important;
       .menu-list-div {
-        opacity: 90% !important;
+        color: #555 !important;
         &:hover {
-          opacity: 100% !important;
+          color: #000 !important;
         }
       }
     }
   }
+}
+.datatable__actions__select {
+  font-size: 0;
 }
 
 .menu__content.menu__content--avatar {

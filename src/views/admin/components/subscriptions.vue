@@ -191,14 +191,14 @@
               <div class="big_view">
                 <input type="text" class="search-input-general" placeholder="Search artists" v-model="search">
               </div>
-              <div class="small_view">
+              <!-- <div class="small_view">
                 <div class="search_icon" @click="(small_input = !small_input)">
                   <img src="../../../assets/search.svg" width="20">
                 </div>
                 <div class="position_input" v-if="small_input">
                   <input type="text" class="search-input-small" placeholder="Search artists" v-model="search">
                 </div>
-              </div>
+              </div> -->
             </div>
             <div v-if="(active_tab == 'cancelled' || active_tab == 'trial_drop_off')" class="ml-3 dflex align-center e-main">
               <vue-json-to-csv :json-data="cancelledEmails"
