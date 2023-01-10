@@ -107,6 +107,14 @@
 
                   </div>
                 </td>
+                <td v-if="active_tab == 'artists'" class="text-xs-center">
+                  <v-btn
+                    color="primary"
+                    class="signups-btn"
+                    @click.native="openVerificationModal(props.item)"
+                    >Verify User</v-btn
+                  >
+                </td>
                 <!-- <td v-if="active_tab == 'trial'" class="text-xs-center">
                   {{ props.item.trial_complete ? "Yes" : "No" }}
                 </td> -->
@@ -226,16 +234,16 @@
                 </div>
               </vue-json-to-csv>
               <div class="radio-btns">
-                <input type="radio" name="same-group" value="all" :checked="selectedExportOption == 'All'" @click="filterCsvData('All')">
-                <label>All</label>
+                <input type="radio" id="filter_all" name="same-group" value="all" :checked="selectedExportOption == 'All'" @click="filterCsvData('All')">
+                <label for="filter_all">All</label>
               </div>
               <div class="radio-btns">
-                <input type="radio" name="same-group" value="creators" @click="filterCsvData('creator')">
-                <label>Creators</label>
+                <input type="radio" id="filter_creators" name="same-group" value="creators" @click="filterCsvData('creator')">
+                <label for="filter_creators">Creators</label>
               </div>
                 <div class="radio-btns">
-                <input type="radio" name="same-group" value="lilsteners" @click="filterCsvData('listener')">
-                <label>Listeners</label>
+                <input type="radio" id="filter_lilsteners" name="same-group" value="lilsteners" @click="filterCsvData('listener')">
+                <label for="filter_lilsteners">Listeners</label>
               </div>
             </div>
           </div>
