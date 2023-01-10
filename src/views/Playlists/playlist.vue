@@ -1,6 +1,6 @@
 <template v-if="pageReady">
   <div class="playlist px-5">
-    <content-top-header class="mt-3">
+    <content-top-header class="mt-3 black-theme">
       <template slot="topHeader">
         <ul>
           <li
@@ -234,6 +234,9 @@ export default {
   .meta-summary {
     color: #1c1c1c;
     margin: 15px 0;
+  }
+  .toolbar__content ul li.active.tab-active{
+    border: 0px !important;
   }
 }
 </style>
