@@ -21,9 +21,7 @@
           <div
            
             class="full-overlay"
-            @click="
-              currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
-            "
+            
           >
             <div class="hover-info">
               <div class="item-name">{{ item.name }}</div>
@@ -340,3 +338,8 @@ export default {
   mounted() {},
 };
 </script>
+<style>
+  .items-price{ font-size: 16px; }
+  .full-overlay{padding: 20px !important;}
+  .slider-main-img.active .product-info{ border: 2px solid #fff; border-radius: 14px; }
+</style>

@@ -64,7 +64,7 @@
               </div>
               <div class="mt-4">
                 <VueSlickCarousel v-bind="slickOptions">
-                  <div v-for="(product, index) in trendingProducts" class="slider-main pr-3">
+                  <div v-for="(product, index) in trendingProducts" class="slider-main">
                     <div
                       class="slider-main-img"
                       :class="[mainProduct.id === product.id  ? 'slider-main-img active' : 'slider-main-img']"
@@ -317,7 +317,7 @@ figure {
       }
 
       &.active{
-        border: 2px solid #fff;
+        // border: 2px solid #fff;
       }
     }
 
