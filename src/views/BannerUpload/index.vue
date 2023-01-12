@@ -35,7 +35,7 @@
     margin-top: -24px;
     margin-bottom: 25px;
     position: relative;
-    z-index: 50;
+    z-index: 0;
 
     .repost-banner-back{
         position: absolute;

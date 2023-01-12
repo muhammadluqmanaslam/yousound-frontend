@@ -210,7 +210,6 @@ export default {
         { id: 'music', title: 'Music', icon: require('../../static/images/nav-music.svg') },
         { id: 'video', title: 'Video', icon: require('../../static/images/nav-video.svg') },
         { id: 'merch', title: 'Shop', icon: require('../../static/images/nav-shop.svg') },
-        { id: 'chart', title: 'Charts', icon: require('../../static/images/nav-fire.svg') },
       ],
       show_genre_selector_dialog: false,
       got_genre_tooltip: false,
