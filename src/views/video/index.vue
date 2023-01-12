@@ -562,6 +562,7 @@ figure {
 					border-radius: 30px;
 					cursor: pointer;
     				background-size: 45px;
+					background-color: #fff;
 				}
 
 				.icon-holder {

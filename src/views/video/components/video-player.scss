@@ -72,3 +72,11 @@
 	font-size: 25px;
 	z-index: 25;
 }
+
+
+.vjs-icon-play::before, .video-js .vjs-play-control .vjs-icon-placeholder::before, .video-js .vjs-big-play-button .vjs-icon-placeholder::before{
+	color: black !important;
+	font-size: 65px !important;
+	top: 21px !important;
+}
+.video-js .vjs-big-play-button{background-color: #fff !important; height: 3em !important; border-radius: 50% !important;}

@@ -338,7 +338,7 @@ export default {
   mounted() {},
 };
 </script>
-<style>
+<style scoped>
   .items-price{ font-size: 16px; }
   .full-overlay{padding: 20px !important;}
   .slider-main-img.active .product-info{ border: 2px solid #fff; border-radius: 14px; }
