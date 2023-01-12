@@ -102,7 +102,7 @@
                 </div>
               </div>
               <v-layout row wrap id="tee-product-container">
-                <v-flex xs6 sm4 lg4 class="product-list" v-for="product in products.filter(product => product.category.name === category.name).slice(0, 4)" :key="product.id">
+                <v-flex xs6 sm4 lg3 class="product-list" v-for="product in products.filter(product => product.category.name === category.name).slice(0, 4)" :key="product.id">
                   <!-- <product-card :hideOverlay="true" :dataObject="feed" /> -->
                   <product-card
                     hideOverlay

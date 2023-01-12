@@ -6,7 +6,7 @@
     <v-flex
       @mouseenter="is_component_hover = true"
       @mouseleave="is_component_hover = false"
-      xs12
+      xs10
       pa-0
       class="product-info"
     >
