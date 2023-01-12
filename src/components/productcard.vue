@@ -21,9 +21,7 @@
           <div
            
             class="full-overlay"
-            @click="
-              currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
-            "
+           
           >
             <div class="hover-info">
               <div class="item-name">{{ item.name }}</div>
@@ -40,9 +38,7 @@
           xs12
           class="product-actions"
           relative
-          @click="
-            currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
-          "
+          
         >
           <div class="product-label">${{ item.price | formatNumber }}</div>
           <!-- <v-flex xs12 class="touch-flex"></v-flex> -->
@@ -77,14 +73,12 @@
         </v-flex>
       </v-flex>
 
-      <div @click="currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()">
+      <div >
         <v-flex v-if="!noMeta" xs12 class="product-detail" pa-0>
           
           <p
             class="product-name cursor-pointer"
-            @click="
-              currentUser !== null ? $router.push({ name: 'SingleProduct', params: { id: item.id } }) : spotlightVideo()
-            "
+            
           >
             {{ item.name }}
           </p>
