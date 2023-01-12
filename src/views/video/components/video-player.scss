@@ -74,9 +74,20 @@
 }
 
 
-.vjs-icon-play::before, .video-js .vjs-play-control .vjs-icon-placeholder::before, .video-js .vjs-big-play-button .vjs-icon-placeholder::before{
+.vjs-has-started .vjs-icon-play::before, 
+.vjs-has-started .video-js .vjs-play-control .vjs-icon-placeholder::before, 
+.vjs-has-started .video-js .vjs-big-play-button .vjs-icon-placeholder::before{
 	color: black !important;
 	font-size: 65px !important;
 	top: 21px !important;
 }
-.video-js .vjs-big-play-button{background-color: #fff !important; height: 3em !important; border-radius: 50% !important;}
+.video-js .vjs-big-play-button .vjs-icon-placeholder::before {
+	content: "\f101";
+	color: #000;
+	font-size: 65px;
+	top: 21px;
+  }
+
+.video-js .vjs-big-play-button,
+.vjs-play-control .vjs-control .vjs-button .vjs-playing{background-color: #fff !important; height: 3em !important; border-radius: 50% !important;}
+
