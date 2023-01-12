@@ -3,8 +3,9 @@
 		<discover-nav 
 		pageName="video"
 
-		:class="show_nav ? 'navVisible': 'navHide'"
+		:class="show_nav ? 'navVisible': 'navHide'" disabled
 		/>
+
 		<div class="video-container-main"
 		@mouseenter="show_video_overlay = true; show_nav = true"
 		@mouseleave="hideOverlay(); show_nav = false"
@@ -19,7 +20,7 @@
 			control
 		></video>
 
-		<div class="video-overlay" v-if="firstTimePlay" :class="show_video_overlay ?'visibleOverlay' :'hideOverlay'">
+		<div class="video-overlay"  :class="show_video_overlay ?'visibleOverlay' :'hideOverlay'">
 			<div class="vo-content"> 
 				<h2 class="vo-heading">' {{ video.name }} '</h2>
 				<div class="vo-following-main">
@@ -367,8 +368,8 @@ export default {
 			player: null,
 			pipMode: false,
 			videoId: null,
-			show_video_overlay: false,
-			show_nav: false,
+			show_video_overlay: true,
+			show_nav: true,
 			firstTimePlay: false,
 			remainingTimerCalculator: null,
 			remainingTime: 0,
