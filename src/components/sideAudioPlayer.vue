@@ -41,7 +41,7 @@
                   <div class="user-info">
                     <router-link class="user-name" style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
                       item.user.username
-                    }}</router-link>
+                    }}???</router-link>
                   </div>
                 </div>
               </div>
@@ -52,9 +52,9 @@
                 :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
               >
                 <div style="max-width: 180px; padding-top: 13rem; padding-left: 10px">
-                  <label class="ellipsisIt" style="background-color: black;" id="trackName" v-if="this.playRandomSong">{{ track.name }}</label>
+                  <label class="ellipsisIt" style="background-color: black;" id="trackName" v-if="this.playRandomSong || item.user.username">{{ track.name }}</label>
                   <div class="user-info">
-                    <router-link class="user-name"  style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
+                    <router-link class="user-name"  style="background-color: black" v-if="this.playRandomSong || item.user.username" :to="'/' + item.user.slug">{{
                       item.user.username
                     }}</router-link>
                   </div>
