@@ -241,7 +241,7 @@ export function createRouter(settings) {
     },
     { path: '/cart', name: 'Cart', component: Cart, meta: { noPadding: true } },
     { path: '/cart/checkout', name: 'Checkout', component: Checkout },
-    { path: '/sell', name: 'Sell', component: Sell, meta: { bgGrey: true } },
+    { path: '/sell', name: 'Sell', component: Sell, meta: { bgLight: true } },
     { path: '/sell/order/:slug', name: 'OrderDetail', component: OrderDetail, meta: { noPadding: true } },
     { path: '/upload/product/add', name: 'AddProduct', component: AddProduct },
     { path: '/product/edit/:id', name: 'EditProduct', component: EditProduct },
