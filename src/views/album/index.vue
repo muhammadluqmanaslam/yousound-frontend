@@ -92,12 +92,8 @@
           </div>
         </v-container>
       </div>
-      <div class="global-header-viewall" v-if="(viewAllNew || viewAllPopular || viewAllTrending)">
+      <div class="global-header-viewall" v-if="(this.chosenGenres)">
         <div class="dflex align-center">
-          <div class="highlight-head mr-4 dflex align-center">
-            {{ viewAllNew ? 'New' : viewAllPopular ? 'Popular' : 'Trending' }}
-            <img class="ml-1 mt-1" src="../../assets/triangle-down.svg" width="8">
-          </div>
           <ul v-if="currentUser" v-for="genre in this.chosenGenres" class="dflex tablist">
             <li class="tab">
               <label>{{ genre.name }}</label>
