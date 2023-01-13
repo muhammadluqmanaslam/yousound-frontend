@@ -16,7 +16,12 @@
     }
   }
 }
-
+.list-track-view-item:hover .collection-counter{
+  display: none;
+}
+.list-track-view-item .collection-counter{
+  display: block;
+}
 .track-card {
   flex: 1 !important;
   width: 100% !important;
@@ -70,8 +75,8 @@
         &.forCollection{
           background: none;
           &:before {
-            counter-increment: section;
-            content: "" counter(section) "";
+            // counter-increment: section;
+            // content: "" counter(section) "";
             position: absolute;
             top: 8px;
             left: -25px;
@@ -79,7 +84,12 @@
             font-weight: 600;                
           }
         }
-       
+        .collection-counter{
+          position: absolute;
+          left: -25px;
+          top: 10px;
+          font-weight: 700;
+        }
         .track-count {
           position: absolute;
           margin: 0;

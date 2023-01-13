@@ -32,28 +32,10 @@
         </template>
 
 				<v-flex xs12 class="track-actions forCollection" v-if="forCollection">
+					<span v-if="!isPlaying || $store.state.player.isPaused" class="collection-counter">{{ objectIndex + 1 }}</span>
 					<span @click="gotoItem()">
 						<v-flex xs12 class="touch-flex"></v-flex>
 					</span>
-					
-					<v-btn
-						v-if="!isPlaying || $store.state.player.isPaused"
-						@click.native="playSong()"
-						class="play-button"
-						:class="{ 'play-button-2': playButton2 }"
-					>
-						<v-icon
-							:class="[
-								{
-									'play-button-2': playButton2,
-									iconHasWhiteBG: playButton2IconHasWhiteBG,
-									'black--text': playButton2IconHasWhiteBG,
-								}
-							]"
-						>
-							play_arrow
-						</v-icon>
-					</v-btn>
 					<v-btn
 						v-if="isPlaying && !$store.state.player.isPaused"
 						@click.native="pauseSong()"
@@ -71,6 +53,27 @@
 							pause
 						</v-icon>
 					</v-btn>
+					<v-btn
+						v-if="!isPlaying || $store.state.player.isPaused"
+						@click.native="playSong()"
+						class="play-button"
+						:class="{ 'play-button-2': playButton2 }"
+					>
+						
+						<v-icon
+							:class="[
+								{
+									'play-button-2': playButton2,
+									iconHasWhiteBG: playButton2IconHasWhiteBG,
+									'black--text': playButton2IconHasWhiteBG,
+								}
+							]"
+						>
+							play_arrow
+						</v-icon>
+					</v-btn>
+		
+					
 					<v-menu
 					v-if="currentUser && willMenuRender && !hideMoreMenu"
 					v-model="menu"
