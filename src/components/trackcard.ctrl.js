@@ -149,7 +149,8 @@ export default {
         if (currentItem.assoc_type === 'Album') {
           currentItem = currentItem.assoc
         }
-        if (playingItem.id === currentItem.id) {
+
+        if (playingItem.track.id === currentItem.track.id) {
           return true
         }
       }
