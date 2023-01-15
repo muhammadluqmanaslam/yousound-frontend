@@ -32,7 +32,7 @@
         </template>
 
 				<v-flex xs12 class="track-actions forCollection" v-if="forCollection">
-					<span v-if="!isPlaying || $store.state.player.isPaused" class="collection-counter">{{ objectIndex + 1 }}</span>
+					<span v-if="!isPlaying" class="collection-counter">{{ objectIndex + 1 }}</span>
 					<span @click="gotoItem()">
 						<v-flex xs12 class="touch-flex"></v-flex>
 					</span>
