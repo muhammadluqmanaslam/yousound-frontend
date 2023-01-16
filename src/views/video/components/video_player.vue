@@ -93,6 +93,16 @@
 						</v-btn>
 					</div>
 
+					<div v-else>
+						<v-btn
+							class="ad-btn"
+							block
+							@click="playSong()"
+						>
+							<span>Play Song</span>
+						</v-btn>
+					</div>
+
 				</div>
 
 				<div>
@@ -100,7 +110,7 @@
 				</div>
 			</div>
 
-			<div class="ad-d-bar" v-if="assoc.assoc_type !== null">
+			<div class="ad-d-bar" v-if="assoc.assoc_type !== null && displayListingProduct">
 				<img :src="assoc.itemPic" width="100%">
 			</div>
 		</div>
@@ -135,6 +145,15 @@
 					>
 						<span v-if="assoc.stock > 0">Add to cart</span>
 						<span v-else>Out of Stock</span>
+					</v-btn>
+				</div>
+				<div v-else>
+					<v-btn
+						class="ad-btn"
+						block
+						@click="playSong()"
+					>
+						<span>Play Song</span>
 					</v-btn>
 				</div>
 			</div>
@@ -348,6 +367,7 @@ import sendLoveModal from '@/components/sendlovemodal'
 import UserFollowBtn from "@/components/userFollowBtn";
 import CollectionService from '@/services/collection'
 import shareModal from "@/components/sharemodal";
+import { mapActions } from 'vuex'
 
 export default {
 	props: {
@@ -480,6 +500,21 @@ export default {
 		},
 	},
 	methods: {
+		...mapActions({
+      setPlaylist: 'player/setPlaylist',
+      setPlaylistIndex: 'player/setListIndex',
+      setTrackIndex: 'player/setTrackIndex',
+      setPlaying: "player/setPlayingStatus",
+    }),
+
+    playSong() {
+			this.player.pause()
+			this.setPlaylist([_.cloneDeep(this.video.assoc)])
+    	this.setPlaylistIndex(0)
+    	this.setPlaying(true)
+    	this.$root.$emit(MyEvents.AUDIO_PLAYER_PLAY, 0)
+    },
+
 		setFollowingStatus(userId, isFollowing) {
       if (this.video.user && this.video.user.id === userId) {
         this.video.user.is_following = isFollowing
@@ -707,7 +742,7 @@ export default {
 			vm.player.on('timeupdate', function() {
 				vm.seekTime1 = vm.seekTime2;
 				vm.seekTime2 = vm.player.currentTime();
-				if (vm.video.show_attachment_at !== null && vm.player.currentTime() >= vm.video.show_attachment_at && vm.player.currentTime() <= vm.video.show_attachment_at + 5) {
+				if ((vm.video.show_attachment_at === null && vm.player.currentTime() >= vm.video.duration/2 && vm.player.currentTime() <= vm.video.duration/2 + 5) || (vm.video.show_attachment_at !== null && vm.player.currentTime() >= vm.video.show_attachment_at && vm.player.currentTime() <= vm.video.show_attachment_at + 5)) {
 					vm.displayListingProduct = true
 				} else {
 					vm.displayListingProduct = false

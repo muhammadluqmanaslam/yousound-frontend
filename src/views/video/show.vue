@@ -53,7 +53,7 @@
 
 										<div class="divider my-4"></div>
 
-										<div class="attachment-block" @click="(showAttachProduct = true)">
+										<div class="attachment-block" v-if="stream.user.id === currentUser.id" @click="(showAttachProduct = true)">
 											<div><img src="../../assets/bold-plus.svg" width="16"></div>
 											<div class="_content">Attach content to video</div>
 										</div>
