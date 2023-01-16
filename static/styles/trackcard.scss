@@ -240,14 +240,6 @@
           }
         }
       }
-      &:hover {
-        .track-actions {
-          background: rgba(0,0,0,0.7);
-        }
-        .play-button-main {
-          opacity: 1;
-        }
-      }
     }
     .track-detail {
       margin-top: 10px;
@@ -290,16 +282,6 @@
       }
     }
   }
-  &:hover {
-    .track-actions {
-      &:before {
-        display: none;
-      }
-    }
-    .play-button {
-      opacity: 1 !important;
-    }
-  }
   &.playing {
     .track-actions {
       &:before {
@@ -311,7 +293,24 @@
     }
   }
 }
-
+.list-track-view-item {
+  &:hover {
+    .track-actions {
+      &:before {
+        display: none;
+      }
+    }
+    .play-button {
+      opacity: 1 !important;
+    }
+    .track-actions {
+      background: rgba(0,0,0,0.7);
+    }
+    .play-button-main {
+      opacity: 1;
+    }
+  }
+}
 .ys-dialog.ys-album-report-dialog {
   position: relative;
   padding: 0;

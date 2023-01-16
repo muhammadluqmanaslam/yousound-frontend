@@ -231,7 +231,7 @@
               <div class="profile-section">
                 <v-layout row>
                   <div class="profile-content-section relative">
-                    <div class="profile-avatar">
+                    <div class="profile-avatar mr-2">
                       <profile-item
                         :user="order.customer"
                         :className="'order-item-profile-avatar'"
@@ -278,7 +278,7 @@
                     "
                     row
                   >
-                    <v-flex xs10>
+                    <v-flex xs8 px-0>
                       <div class="order-content-section relative">
                         <div
                           class="product-cover-image"
@@ -301,7 +301,7 @@
                         </div>
                       </div>
                     </v-flex>
-                    <v-flex xs2>
+                    <v-flex xs4 px-0>
                       <div
                         class="order-status-section text-xs-center"
                         v-if="isCollaborated(item)"

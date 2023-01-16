@@ -84,7 +84,7 @@
 						></v-select>
 						<v-btn
 							v-if="assoc.assoc_type === 'ShopProduct'"
-							class="ad-btn"
+							class="mt-0"
 							block
 							@click="assoc.stock > 0 ? addToCart() : ''"
 						>
@@ -882,6 +882,7 @@ export default {
 		font-weight: 600;
 		color: white;
 		height: 35px;
+		display: block !important;
 	}
 	.ad-show{
 		color: white;
@@ -1005,6 +1006,7 @@ export default {
 					font-weight: 600;
 					color: white;
 					height: 35px;
+					display: block !important;
 				}
 			}
 	
@@ -1067,8 +1069,19 @@ export default {
 	transition-delay: 0s;
 }
 .video-js .vjs-big-play-button {
-	top: 44% !important;
-	left: 44% !important;
+	top: calc(50% - 47px) !important;
+	left: calc(50% + 0px) !important;
+	width: 75px;
+	height: 75px !important;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	.vjs-icon-placeholder {
+		&:before {
+			top: -7px;
+			font-size: 1.8em;
+			line-height: 1.67;
+		}
+	}
 }
 .video-container-main{
 	position: relative;
