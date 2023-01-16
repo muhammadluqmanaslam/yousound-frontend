@@ -93,7 +93,7 @@
         </v-container>
       </div>
       <div class="global-header-viewall" v-if="(this.chosenGenres)">
-        <div class="dflex align-center">
+        <div class="dflex align-center genres-list">
           <ul v-if="currentUser" v-for="genre in this.chosenGenres" class="dflex tablist">
             <li class="tab">
               <label>{{ genre.name }}</label>

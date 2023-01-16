@@ -32,7 +32,7 @@
 				<div
 					v-for="(playlist, index) in this.playlists"
 					:key="index"
-					class="playlist-holder"
+					class="playlist-holder pr-2"
 					@click="$router.push({path: `/playlist/${playlist.id}` })"
 				>
 					<div class="playlist-box">
