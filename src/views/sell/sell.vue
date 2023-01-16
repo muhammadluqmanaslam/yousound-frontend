@@ -229,40 +229,82 @@
 
             <template v-else>
               <div class="profile-section">
-                <v-layout row>
-                  <div class="profile-content-section relative">
+
+<v-layout row>
+                  <div class="profile-content-section relative w-100">
+                    <div class="dflex justify-space-between align-center w-100">
+                    <div class="dflex align-center">
+
+
                     <div class="profile-avatar mr-2">
                       <profile-item
                         :user="order.customer"
                         :className="'order-item-profile-avatar'"
                       ></profile-item>
                     </div>
-                    <div class="profile-content">
-                      <a href="#" class="user-name">{{
-                        order.customer.username
-                      }}</a>
-                      <label class="order-detail-text">
-                        purchased
-                        <b>${{ order.amount | formatNumber }}</b></label
-                      >
+
+
+                    <div>
+                    
+                      <div class="profile-content">
+                        <a href="#" class="user-name">{{
+                          order.customer.username
+                        }}</a>
+
+                        <label class="order-detail-text">
+                          Purchased
+                          <!-- <b> 
+                            ${{ order.amount | formatNumber }}
+                          </b>-->
+                          </label
+                        >
+
+                        <label class="order-date"><b>{{
+                          order.created_at | formatDate
+                        }}</b></label>
+                      </div>
+                   
                     </div>
-                    <div class="profile-actions">
-                      <router-link
-                        :to="`/sell/order/${order.id}`"
-                        class="order-detail-btn"
-                        >View Order Details</router-link
-                      >
-                      <a
-                        class="message-buyer-btn"
-                        @click="showMessageDialog(order)"
-                        >Message Buyer</a
-                      >
-                      <label class="order-date">{{
-                        order.created_at | formatDate
-                      }}</label>
-                    </div>
+                  
                   </div>
-                  <div class="status-section text-xs-center"></div>
+
+
+                    <div>
+                      <v-menu
+              
+                      down
+                      offset-y
+                      :nudge-top="-5"
+                      class="menu-content-x"
+                    >
+                      <v-btn round slot="activator">
+                        <v-icon dark right>more_horiz</v-icon>
+                      </v-btn>
+                      <v-list class="list-class">
+                        <v-list-tile
+                        
+                        >
+                          <v-list-tile-content>
+                            <router-link
+                            :to="`/sell/order/${order.id}`"
+                            class="order-detail-btn"
+                            >Order Details</router-link
+                          >
+                          <a
+                            class="message-buyer-btn"
+                            @click="showMessageDialog(order)"
+                            >Message Buyer</a
+                          >
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
+                    </div>
+
+
+                    
+                  </div>
+                </div>
                 </v-layout>
               </div>
               <div
