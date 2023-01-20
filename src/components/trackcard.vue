@@ -32,14 +32,15 @@
         </template>
 
 				<v-flex xs12 class="track-actions forCollection" v-if="forCollection">
-					<span v-if="!isPlaying" class="collection-counter">{{ objectIndex + 1 }}</span>
+					<span v-if="!isPlaying || $store.state.player.isPaused" class="collection-counter">{{ objectIndex + 1 }}</span>
 					<span @click="gotoItem()">
 						<v-flex xs12 class="touch-flex"></v-flex>
 					</span>
 					<v-btn
-						v-if="isPlaying && !$store.state.player.isPaused"
-						@click.native="pauseSong()"
-						class="play-button"
+						v-if="!isPlaying || $store.state.player.isPaused"
+						@click.native="playSong()"
+  					class="play-button"
+						:class="{ 'play-button-2': playButton2 }"
 					>
 						<v-icon
 							:class="[
@@ -50,14 +51,13 @@
 								},
 							]"
 						>
-							pause
+							play_arrow
 						</v-icon>
 					</v-btn>
 					<v-btn
-						v-if="!isPlaying || $store.state.player.isPaused"
-						@click.native="playSong()"
+						v-if="isPlaying && !$store.state.player.isPaused"
+						@click.native="pauseSong()"
 						class="play-button"
-						:class="{ 'play-button-2': playButton2 }"
 					>
 						
 						<v-icon
@@ -69,7 +69,7 @@
 								}
 							]"
 						>
-							play_arrow
+							pause
 						</v-icon>
 					</v-btn>
 		

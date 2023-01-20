@@ -240,6 +240,14 @@
           }
         }
       }
+      &:hover {
+        .track-actions {
+          background: rgba(0,0,0,0.7);
+        }
+        .play-button-main {
+          opacity: 1;
+        }
+      }
     }
     .track-detail {
       margin-top: 10px;

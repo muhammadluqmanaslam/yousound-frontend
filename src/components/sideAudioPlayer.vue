@@ -37,9 +37,9 @@
                 }"
               >
                 <div style="max-width: 180px; padding-top: 13rem; padding-left: 10px">
-                  <label class="ellipsisIt" style="background-color: black;" v-if="this.playRandomSong">{{ track.name }}</label>
+                  <label class="ellipsisIt cursor-pointer" style="background-color: black;">{{ track.name }}</label>
                   <div class="user-info">
-                    <router-link class="user-name" style="background-color: black" v-if="this.playRandomSong" :to="'/' + item.user.slug">{{
+                    <router-link class="user-name cursor-pointer" style="background-color: black" :to="'/' + item.user.slug">{{
                       item.user.username
                     }}???</router-link>
                   </div>
@@ -52,9 +52,9 @@
                 :style="{ 'background-image': 'url(' + item.cover.url + ')' }"
               >
                 <div style="max-width: 180px; padding-top: 13rem; padding-left: 10px">
-                  <label class="ellipsisIt" style="background-color: black;" id="trackName" v-if="this.playRandomSong || item.user.username">{{ track.name }}</label>
+                  <label class="ellipsisIt cursor-pointer" style="background-color: black;" id="trackName">{{ track.name }}</label>
                   <div class="user-info">
-                    <router-link class="user-name"  style="background-color: black" v-if="this.playRandomSong || item.user.username" :to="'/' + item.user.slug">{{
+                    <router-link class="user-name cursor-pointer"  style="background-color: black" :to="'/' + item.user.slug">{{
                       item.user.username
                     }}</router-link>
                   </div>
@@ -496,7 +496,6 @@ export default {
 
   data() {
     return {
-      playRandomSong: false,
       modalMode: false,
       playlist: [],
       index: 0,
@@ -711,12 +710,6 @@ export default {
     },
 
     play(index) {
-      if (localStorage.getItem("play") === 'random') {
-        this.playRandomSong = true
-      } else {
-        this.playRandomSong = false
-      }
-      console.log("========================= play random song", this.playRandomSong)
       if (this.currentUser) {
         this.remainingTimerCalculator = setInterval(this.timeCounter, 1000);
         this.fetchSubscriptionDetails();
@@ -800,8 +793,6 @@ export default {
             // this.isPlaying = false
           },
           onstop: function () {
-            this.playRandomSong = false
-            localStorage.removeItem("play")
             // Stop the wave animation.
             // this.isPlaying = false
             if (window.location.href.includes("discover")) {
@@ -823,6 +814,7 @@ export default {
           },
         });
         this.playingSound = sound
+
         let api_call = this.currentUser ? TrackService.playTrack(this.track.id) : TrackService.playTrackPublicUser(this.track.id)
         api_call.then((response) =>
           console.log("playing - track", this.track.id)
@@ -1060,7 +1052,12 @@ export default {
             }
           } else {
             if (window.location.href.includes("collection") || window.location.href.includes("playlist")) {
-              tracks.push(object.track)
+              if (object.tracks && object.tracks.length > 0) {
+                // Surprise me case in collections and playlists
+                tracks = object.tracks
+              } else {
+                tracks.push(object.track)
+              }
             } else {
               tracks = object.tracks;
             }

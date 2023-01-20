@@ -3,11 +3,16 @@
         <div class="side-player-placeholder__wrapper">
             <!-- <img :src="require('@/assets/player_radio.svg')" width="80%" alt=""> -->
             <div class="player_text">Hear What's Trending</div>
-            
-            <div class="cta__wrapper cursor-pointer" @click="loadFeeds('discover', 1)">
-              <img src="../assets/triangle-down.svg" width="15">
-                <span class="cta__text">Surprise me</span>
-            </div>
+            <v-btn
+              round
+              dark
+              class="cta__wrapper cursor-pointer cta__text"
+              :loading="loading"
+              @click.native="loadFeeds('discover', 1)"
+            >
+              <img src="../assets/triangle-down.svg" width="15" style="margin-right: 5px;">
+              Surprise me
+            </v-btn>
         </div>
         <div class="side-player-placeholder__action" v-if="isPlaying">
             <img :src="require('@/assets/ic_rewind_outline.svg')" class="_previous" alt="previous button">
@@ -43,6 +48,7 @@ export default {
         image: null,
       },
       isPlaying: false,
+      loading: false,
     }
   },
 
@@ -55,6 +61,7 @@ export default {
     }),
 
     loadFeeds(tab, page) {
+      this.loading = true
       const params = {
         filter: tab,
         page: page,
@@ -64,10 +71,14 @@ export default {
       }
       const api_response = this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
       api_response.then((response) => {
+        this.loading = false
+        this.$store.dispatch('error/showLoadingActivity', false)
         this.albums = response.body.albums
         this.playSong()
       })
       .catch((e) => {
+        this.loading = false
+        this.$store.dispatch('error/showLoadingActivity', false)
         this.$store.dispatch('error/showLoadingActivity', false)
         console.log('discover error', e)
       })
@@ -90,6 +101,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.application .theme--dark.btn:not(.btn--icon):not(.btn--flat), .theme--dark .btn:not(.btn--icon):not(.btn--flat) {
+    background-color: #32333d !important;
+}
 .side-player-placeholder {
     padding-left: 12px;
     padding-right: 12px;

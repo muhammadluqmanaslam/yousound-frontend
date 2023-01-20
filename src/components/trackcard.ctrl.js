@@ -9,6 +9,7 @@ import albumReportDialog from '@/components/album_report_dialog'
 import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
 import featureModal from "@/views/featureModal"
+import track from '../services/track'
 
 export default {
   components: {
@@ -149,9 +150,14 @@ export default {
         if (currentItem.assoc_type === 'Album') {
           currentItem = currentItem.assoc
         }
-
-        if (playingItem.track && playingItem.track.id === currentItem.track.id) {
-          return true
+        if (window.location.href.includes("collection") || window.location.href.includes("playlist")) {
+          if (playingItem.track && currentItem.track && playingItem.track.id === currentItem.track.id) {
+            return true
+          }
+        } else {
+          if (playingItem.id === currentItem.id) {
+            return true
+          }
         }
       }
       return false
