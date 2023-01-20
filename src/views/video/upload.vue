@@ -170,9 +170,9 @@
                 <label class="control-label">Attach Product/Album</label>
                 <div class="panel">
                   <v-select
-                    v-model="stream_assoc"
                     :items="mergedAttachmentItems"
                     item-text="name"
+                    v-model="selectedStream"
                     item-value="id"
                     placeholder="Type name to search your products & albums"
                     chips
@@ -202,7 +202,7 @@
                       </template>
 
                       <template v-else>
-                        <div class="dflex width100 align-centermy-3">
+                        <div class="dflex width100 align-centermy-3" @click="chooseAssoc(data.item)">
                           <v-list-tile-avatar>
                             <img v-if="data.item.album_type" :src="data.item.cover.url" />
                             <img v-else :src="data.item.covers[0].cover.url" />

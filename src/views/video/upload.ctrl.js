@@ -83,8 +83,8 @@ export default {
       },
       stream_cover_url: null,
       stream_assoc: {
-        type: 'Album',
-        value: null,
+        id: null,
+        type: null
       },
       digital_content: {
         file: null,
@@ -101,6 +101,7 @@ export default {
       video_upload_successfully: false,
       videoUrl: null,
       genre_name: null,
+      selectedStream: null,
     }
   },
 
@@ -261,6 +262,15 @@ export default {
   },
 
   methods: {
+    chooseAssoc(item) {
+      this.stream_assoc.id = item.id
+      if (item.album_type === 'album') {
+        this.stream_assoc.type = 'Album'
+      } else {
+        this.stream_assoc.type = 'ShopProduct'
+      }
+    },
+
     isActiveTab(tab) {
       return this.activeTab === tab
     },
@@ -507,10 +517,9 @@ export default {
               'stream[creator_recoup_cost]',
               Math.round(this.stream.creator_recoup_cost * 100)
             )
-
-            if (this.stream_assoc.value) {
+            if (this.stream_assoc.id && this.selectedStream) {
               formData.append('stream[assoc_type]', this.stream_assoc.type)
-              formData.append('stream[assoc_id]', this.stream_assoc.value.id)
+              formData.append('stream[assoc_id]', this.stream_assoc.id)
             }
 
             this.$store.dispatch('error/showLoadingActivity', true)

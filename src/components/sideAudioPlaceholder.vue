@@ -60,12 +60,11 @@ export default {
         page: page,
         genre: 'any',
         category: 'any',
-        per_page: 100,
+        per_page: 50,
       }
       const api_response = this.currentUser != null ? SearchService.searchDiscover(params) : SearchService.searchDiscoverPublicUser(params)
       api_response.then((response) => {
         this.albums = response.body.albums
-        localStorage.setItem("play", "random")
         this.playSong()
       })
       .catch((e) => {

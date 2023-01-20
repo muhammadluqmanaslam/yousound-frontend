@@ -59,57 +59,6 @@
 				<img src="../../../assets/project.svg" width="25">
 			</div>
 
-			<div class="ad-show" v-if="assoc.assoc_type !== null">
-				<div class="ad-show-img"><img :src="assoc.itemPic" width="100%"></div>
-
-				<div class="ad-show-content">
-					<div class="dflex align-center gap-10">
-						<div class="profile-img" :style="{'background-image': 'url(' + assoc.userImageUrl + ')',}"></div>
-						<div class="profile-text">{{ assoc.username }}</div>
-					</div>
-
-					<div class="ad-info my-3">
-						<div class="category">{{ assoc.category }}</div>
-						<div class="name my-1">{{ assoc.name }}</div>
-						<div class="price" v-if="assoc.assoc_type === 'ShopProduct'">${{ assoc.price }}</div>
-					</div>
-
-					<div class="ad-option" v-if="assoc.assoc_type === 'ShopProduct'">
-						<v-select
-							v-model="option"
-							:items="options()"
-							item-text="name"
-							item-value="id"
-							placeholder="Option"
-						></v-select>
-						<v-btn
-							v-if="assoc.assoc_type === 'ShopProduct'"
-							class="mt-0"
-							block
-							@click="assoc.stock > 0 ? addToCart() : ''"
-						>
-							<span v-if="assoc.stock > 0">Add to cart</span>
-							<span v-else>Out of Stock</span>
-						</v-btn>
-					</div>
-
-					<div v-else>
-						<v-btn
-							class="ad-btn"
-							block
-							@click="playSong()"
-						>
-							<span>Play Song</span>
-						</v-btn>
-					</div>
-
-				</div>
-
-				<div>
-
-				</div>
-			</div>
-
 			<div class="ad-d-bar" v-if="assoc.assoc_type !== null && displayListingProduct">
 				<img :src="assoc.itemPic" width="100%">
 			</div>

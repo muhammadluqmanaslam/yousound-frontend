@@ -150,7 +150,7 @@ export default {
           currentItem = currentItem.assoc
         }
 
-        if (playingItem.track.id === currentItem.track.id) {
+        if (playingItem.track && playingItem.track.id === currentItem.track.id) {
           return true
         }
       }
