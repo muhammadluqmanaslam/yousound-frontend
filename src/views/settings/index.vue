@@ -488,7 +488,56 @@
         </div>
       </div>
 
-      <div class="main-section" v-else-if="active_tab == 'bank-details'">
+      <div class="main-section upload-page" v-else-if="active_tab == 'bank-details'">
+        <v-container fluid grid-list-lg px-0 mb-4>
+          <v-layout upload-flex>
+            <v-flex xs12 class="upload-tab-container">
+              <div class="upload-tab-wrapper">
+                    <div class="text-left">
+                      <div class="dflex align-center">
+                        <img src="../../assets/visa.svg" width="32">
+                        <h3 class="secondary-heading">Accept Payments</h3>
+                      </div>
+                      <div class="upload-tab-description light">
+                        Connect to <a href="https://stripe.com" target="_blank">Stripe.com</a> to get paid & manage your customers
+                      </div> 
+                    </div>
+
+
+                    <div class="toggle-container">
+                      
+                      <v-btn v-if="currentUser.stripe_connected && currentUser.stripe_express_dashboard_link"
+                        depressed
+                        class="upload-tab-btn width-auto"
+                        :href=currentUser.stripe_express_dashboard_link>
+                          Stripe Express Dashboard
+                      </v-btn>
+                      <v-btn v-else
+                        depressed
+                        class="upload-tab-btn width-auto"
+                        :href="stripeLink"
+                        target="_blank"
+                      >
+                          Connect to Stripe
+                      </v-btn>
+
+                      <div v-if="currentUser.stripe_connected" class="dflex align-center mt-3">
+                        <div class="dflex align-center">
+                          <img src="../../assets/c-check.svg" width="25">
+                          <p class="bold-text">Connected</p>
+                        </div>
+                        <div>
+                          <a :href="stripeLink" class="anchor-text" target="_blank">
+                            Edit
+                          </a>
+                        </div>
+                      </div>
+                    
+                    </div>
+              </div>
+            </v-flex>
+          </v-layout>
+        </v-container>
         <div class="description-section">
           <!-- <p>
             In order to accept payments you must connect your
@@ -497,6 +546,7 @@
             Stripe will handle your banking information, refunds and/or
             disputes.
           </p> -->
+          
 
           <div class="app-bold _title">
             {{ currentUser.stripe_connected ? "Connect payment processor to accept payments & handle refunds." : "Connect to stripe to start getting paid for plays." }}
@@ -753,6 +803,8 @@
 </template>
 
 <script type="text/javascript" src="./index.ctrl.js"></script>
+<style src="../../../static/styles/upload.scss" lang="scss" scoped />
+
 <style lang="scss">
 .top-menu .__inner {
   font-weight: 400;

@@ -45,7 +45,7 @@
           @click="openGenreSelectorDialog()"
           v-if="filterShow"
         >
-        <div class="genre-filter-icon">
+        <!-- <div class="genre-filter-icon">
           <img src="../assets/setting-filter.svg" width="20">
         </div>
           <div v-show="showGenreTooltip" class="tooltip">
@@ -55,7 +55,7 @@
               & customize your experience
               <a @click.stop="got_genre_tooltip = true">Got it!</a>
             </div>
-          </div>
+          </div> -->
         </div>
 
 

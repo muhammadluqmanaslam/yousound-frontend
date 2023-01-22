@@ -402,14 +402,15 @@
               <h3 class="album-name">Album Name</h3>
               <div class="artist-name">Artist Name</div>
 
-              <div class="album-info mt-1">1 track  •  R&B / Soul   •  Uploaded 3 days ago</div>
+              <div class="album-info mt-1">{{ album.tracks.length }}
+                {{ "track" | pluralize(album.tracks.length) }}  •  {{ album.name }}   •  Uploaded {{ numberOfDays(album.released_at) }} days ago</div>
 
             </div>
 
 
             <div class="mt-3">
               <div class="album-title-x">Released date</div>
-              <div class="album-content-x">Jan 21, 1977</div>
+              <div class="album-content-x">{{ album.released_at | formatDate }}</div>
             </div>
 
             <div class="mt-3">
@@ -418,14 +419,14 @@
                 Artist name, Artist name, Artist name, Artist name, Artist name, Artist name, Artist name</div>
             </div>
 
-            <div class="mt-3">
+            <div class="mt-3" v-if="album.location && album.location != ''">
               <div class="album-title-x">Location this album represents</div>
-              <div class="album-content-x">Atlanta, Georgia, United States</div>
+              <div class="album-content-x">{{ album.location }}</div>
             </div>
 
              <div class="mt-3">
               <div class="album-title-x">About this album</div>
-              <div class="album-content-x">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+              <div class="album-content-x">{{ album.description }}</div>
             </div>
           </div>
         </div>
