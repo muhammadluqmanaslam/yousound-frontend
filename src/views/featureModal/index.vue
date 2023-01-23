@@ -66,8 +66,8 @@
 
 		<div class="divider mt-4 mb-5"></div>
 		<div>
-			<v-btn class="post-content" @click="saveTitleAndReview()">
-				Post content
+			<v-btn class="post-content" @click="saveTitleAndReview()" :loading="loading">
+				{{ webTitle || webReview || mobileTitle || mobileReview ? "Edit content" : "Post content" }}
 			</v-btn>
 		</div>
 	</div>
@@ -86,11 +86,15 @@ export default {
 			webReview: this.album.web_review,
 			mobileTitle: this.album.mobile_title,
 			mobileReview: this.album.mobile_review,
+			loading: false,
 		}
 	},
 
 	methods: {
 		saveTitleAndReview() {
+			this.loading = true
+			this.$store.dispatch("error/showLoadingActivity", true);
+
 			let params = {web_title: this.webTitle, web_review: this.webReview,
 				mobile_title: this.mobileTitle, mobile_review: this.mobileReview
 			}
@@ -100,10 +104,15 @@ export default {
 					'error/showSuccessToast',
 					['Successfully updated Title and Review.']
 				)
-				this.dismiss()
+				setTimeout(() => {
+					this.loading = false
+				  this.$store.dispatch("error/showLoadingActivity", false);
+					window.location.reload()
+				}, 1500)
 			})
 			.catch((e) => {
-				this.$store.dispatch('error/showLoadingActivity', false)
+				this.loading = false
+				this.$store.dispatch("error/showLoadingActivity", false);
 				this.$store.dispatch(
 					'error/showErrorToast',
 					e.body.errors || [e.body]

@@ -109,7 +109,7 @@
                     :noMeta="onMobile"
                     :altMeta="onMobile"
                     :altMetaPrice="onMobile"
-                    @click.native="verifyUser(product)"
+                    @click.native="productDisplay(product)"
                     :dataObject="product"
                   />
                 </v-flex>

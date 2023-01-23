@@ -10,6 +10,7 @@ import downloadModal from '@/components/downloadmodal'
 import shareModal from '@/components/sharemodal'
 import featureModal from "@/views/featureModal"
 import track from '../services/track'
+import CollectionService from '@/services/collection'
 
 export default {
   components: {
@@ -17,6 +18,7 @@ export default {
     downloadModal,
     shareModal,
     featureModal,
+    CollectionService,
   },
 
   props: {
@@ -205,6 +207,22 @@ export default {
     ...mapMutations({
       setAlbumPrevRoute: 'appMobile/setAlbumPrevRoute',
     }),
+
+    addToCollection(album) {
+      let params = { album_id: album.id }
+      CollectionService.createCollection(params)
+      .then((response) => {
+        this.$store.dispatch('error/showSuccessToast', [
+          'You just added ' + album.name + ' album in your collection.',
+        ])
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast',
+          e.body.errors || [e.body] || [e.body.error]
+        )
+      })
+    },
     gotoItem() {
       // store entry point before album page entry
       const currentRoute = this.$route.name

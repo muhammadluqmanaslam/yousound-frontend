@@ -150,6 +150,14 @@ export default {
       }
     },
 
+    productDisplay(product) {
+       if (this.currentUser == null) {
+        this.showRegisterModal = true;
+      } else {
+        this.$router.push({path: `product/${product.id}`})
+      }
+    },
+
     addToCollections() {
       ProductService.addIntoCollection(this.mainProduct.id)
       .then((resp) => {

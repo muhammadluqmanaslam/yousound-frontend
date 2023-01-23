@@ -120,16 +120,6 @@
             </v-list-tile-title>
           </v-list-tile>
           <v-list-tile
-            key="flag"
-            class="default-menu-item"
-            @click.native="flagItem()"
-          >
-            <v-list-tile-title>
-              <!-- <img class="track-status-icon" src="/static/images/ic_flag.png" /> -->
-              <label>Flag</label>
-            </v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile
             v-if="false && album.album_type != 'playlist'"
             key="add_to_playlist"
             class="default-menu-item track-menu-item has-sub-menu"

@@ -339,20 +339,6 @@
 					</v-btn>
 					<v-card>
 					  <v-list>
-						<v-list-tile
-						  v-if="item.user.id != currentUser.id"
-						  key="repost"
-						  @click.native="repostItem()"
-						  class="default-menu-item track-menu-item"
-						>
-						  <v-list-tile-title>
-							<div class="menu-list-item dflex align-center px-2">
-							  <img src="../assets/pencil 1.svg" width="16">
-							  <label class="ml-0">Repost</label>
-							</div>
-						  </v-list-tile-title>
-						</v-list-tile>
-						
 						<!-- <v-list-tile
 						  v-if="item.album_type != 'playlist'"
 						  key="download"
@@ -416,7 +402,7 @@
 								class="default-menu-item track-menu-item"
 							  >
 								<v-list-tile-title>
-								  <!-- <img
+                  <!-- <img
 									class="track-status-icon"
 									src="/static/images/ic_download.png"
 								  /> -->
@@ -426,51 +412,27 @@
 							</v-list>
 						  </v-menu>
 						</v-list-tile>
-						<v-list-tile
-						  v-if="
-							['admin', 'moderator'].indexOf(currentUser.user_type) >
-							  -1 && !item.recommended
-						  "
-						  key="recommended"
-						  @click="(showFeatureModal = true) && (menu = false)"
+
+						<v-list-tile v-if="['admin', 'moderator'].indexOf(currentUser.user_type) > -1
+						"
 						  class="default-menu-item track-menu-item"
-						>
-						  <v-list-tile-title>
-							<div class="menu-list-item dflex align-center px-2">
-							  <img src="../assets/star 1.svg" width="16">
-							  <label class="ml-0">Feature</label>
-							</div>
-						  </v-list-tile-title>
-						</v-list-tile>
-						<v-list-tile
-						  v-if="
-							['admin', 'moderator'].indexOf(currentUser.user_type) >
-							  -1 && item.recommended
-						  "
-						  key="unrecommended"
-						  @click.native="unrecommendAlbum()"
-						  class="default-menu-item track-menu-item"
-						>
-						  <v-list-tile-title>
-							<div class="menu-list-item dflex align-center px-2">
-							  <img src="../assets/star 1.svg" width="16">
-							  <label class="ml-0">Unfeature</label>
-							</div>
-						  </v-list-tile-title>
-						</v-list-tile>
-		
-						<v-list-tile
-						  class="default-menu-item track-menu-item"
+							@click="(showFeatureModal = true) && (menu = false)"
 						>
 						  <v-list-tile-title>
 							<div class="menu-list-item dflex align-center px-2">
 							  <img src="../assets/pencil 1.svg" width="16">
-							  <label class="ml-0">Edit feature</label>
+							  <label class="ml-0" v-if="item.web_title || item.web_review || item.mobile_title || item.mobile_review">
+									Edit Feature
+								</label>
+								<label class="ml-0" v-else>
+									Feature
+								</label>
 							</div>
 						  </v-list-tile-title>
 						</v-list-tile>
 		
 						<v-list-tile
+							@click.native="addToCollection(item)"
 						  class="default-menu-item track-menu-item"
 						>
 						  <v-list-tile-title>

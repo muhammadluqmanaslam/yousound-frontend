@@ -207,6 +207,12 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    numberOfDays(releasedDate) {
+      let currentDate = new Date()
+      releasedDate = new Date(releasedDate)
+      return Math.round((currentDate - releasedDate) / (1000 * 60 * 60 * 24));
+    },
+
     addToCollection() {
       let params = { album_id: this.album.id }
       CollectionService.createCollection(params)
