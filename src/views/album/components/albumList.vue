@@ -292,6 +292,7 @@
           <v-btn
             class="blue--text darken-1"
             flat="flat"
+            :loading="loading"
             @click.native="deleteAlbum()"
             >Ok</v-btn
           >
@@ -374,6 +375,7 @@ export default {
       toggle_album_status_dialog: false,
       show_album_delete_confirm_dialog: false,
       show_video_only_confirm_dialog: false,
+      loading: false,
     };
   },
 
@@ -404,16 +406,26 @@ export default {
 
   methods: {
     deleteAlbum() {
+      this.loading = true
+      this.$store.dispatch('error/showLoadingActivity', true)
       AlbumService.deleteAlbum(this.album.id)
         .then((response) => {
-          _.remove(this.albums, (item) => {
-            return item.id === this.album.id;
-          });
-          const arr = this.albums.slice();
-          this.albums = arr;
+          this.loading = false
+          this.$store.dispatch('error/showLoadingActivity', false)
+          // debugger
+          // const a = this.albums
+          // console.log("============", this.albums)
+          // _.remove(this.albums, (item) => {
+          //   return item.id === this.album.id;
+          // });
+          // const arr = this.albums.slice();
+          // this.albums = arr;
           this.show_album_delete_confirm_dialog = false;
+          this.reRenderManageAlbum();
         })
         .catch((e) => {
+          this.loading = false
+          this.$store.dispatch('error/showLoadingActivity', false)
           this.show_album_delete_confirm_dialog = false;
           this.$store.dispatch(
             "error/showErrorToast",
@@ -421,6 +433,11 @@ export default {
           );
         });
     },
+
+    reRenderManageAlbum() {
+      this.$emit("reRenderManageAlbum");
+    },
+
     toggleAlbumStatus(album) {
       const status = this.album.status;
       const toggle =

@@ -137,50 +137,6 @@ to your videos
 
       <v-container fluid grid-list-lg px-0 mb-4>
         <v-layout upload-flex>
-          <v-flex xs12 class="upload-tab-container">
-            <div class="upload-tab-wrapper">
-
-              <div class="text-left">
-                <div class="dflex align-center">
-                  <img src="../../assets/visa.svg" width="32">
-                  <h3 class="secondary-heading">Accept Payments</h3>
-                </div>
-                <div class="upload-tab-description light">
-                  Connect to <a href="https://stripe.com" target="_blank">Stripe.com</a> to get paid & manage your customers
-                </div> 
-              </div>
-
-
-              <div class="toggle-container">
-                
-                <v-btn v-if="currentUser.stripe_connected && currentUser.stripe_express_dashboard_link"
-                  depressed
-                  class="upload-tab-btn width-auto"
-                  :href=currentUser.stripe_express_dashboard_link>
-                    Stripe Express Dashboard
-                </v-btn>
-                <v-btn v-else
-                  depressed
-                  class="upload-tab-btn width-auto"
-                  :href="stripeLink()">
-                    Connect to Stripe
-                </v-btn>
-
-                <div v-if="currentUser.stripe_connected" class="dflex align-center mt-3">
-                  <div class="dflex align-center">
-                    <img src="../../assets/c-check.svg" width="25">
-                    <p class="bold-text">Connected</p>
-                  </div>
-                  <div>
-                    <a :href="stripeLink()" class="anchor-text">
-                      Edit
-                    </a>
-                  </div>
-                </div>
-               
-              </div>
-            </div>
-          </v-flex>
 
           <v-flex v-if="onMobile" xs12 class="upload-tab-container">
             <div class="upload-tab-wrapper">

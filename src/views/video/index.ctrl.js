@@ -54,7 +54,7 @@ export default {
         { id: 'live', title: 'Live' },
       ],
       selectedVideo: null,
-      viewAllTrendingVideos: false,
+      viewAllVideos: false,
       show_logout_modal: false,
       show_modalCard1: false,
       show_modalCard2: false,
@@ -64,6 +64,8 @@ export default {
       spotlightVideoSource: null,
       videoLoading: require('../../assets/loading.gif'),
       buttonHover: false,
+      viewAllIconClick: false,
+      selectedVideoCategoryName: null,
     }
   },
 
@@ -180,9 +182,9 @@ export default {
       this.selectedVideo = video
     },
 
-    displayAllTrendingVideos() {
-      this.trendingVideos = this.videos
-      this.viewAllTrendingVideos = true
+    displayAllVideos(categoryType) {
+      this.selectedVideoCategoryName = categoryType
+      this.viewAllVideos = true
     },
 
     loadData(tab, page) {
@@ -201,7 +203,6 @@ export default {
         // this will return a a prop limit if available
         this.videos = this.videos.slice(0, this.listLimit || this.videos.length)
         this.selectedVideo = this.videos[0]
-        this.trendingVideos = this.videos.slice(0, 10)
         this.isPageReady = true
         // this.videos.filter((v) => )
         // this.videos = [ ...this.videos, ...this.videos]

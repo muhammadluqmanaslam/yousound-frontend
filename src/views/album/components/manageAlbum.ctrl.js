@@ -121,6 +121,9 @@ export default {
     },
   },
   methods: {
+    reRenderManageAlbum() {
+      this.loadAlbums()
+    },
     setAlbumFilter(id) {
     //   update status if id is valid
     //   albumTab will be fallback idf id is not valid
@@ -257,6 +260,7 @@ export default {
     releaseAlbum(album) {
       AlbumService.releaseAlbum(album.id).then((response) => {
         this.active_tab = 'collaborated'
+        this.$store.dispatch('error/showSuccessToast', ['Successfully released album.'])
         this.loadAlbums()
       })
     },

@@ -70,7 +70,7 @@
     </content-top-header> -->
 
     <div class="page-content">
-      <div v-if="!viewAllTrendingVideos" class="music-banner-main" :style="`background: linear-gradient(180deg, rgba(33, 33, 33, 0.59) 0%, #000000 100%), url(${selectedVideo.cover.url})`">
+      <div v-if="!viewAllVideos" class="music-banner-main" :style="`background: linear-gradient(180deg, rgba(33, 33, 33, 0.59) 0%, #000000 100%), url(${selectedVideo.cover.url})`">
         <v-container>
           <div class="dflex album-flex align-center">
             <div class="album-main-content">
@@ -116,13 +116,13 @@
               <div class="font-lg">
                 Trending
               </div>
-              <div class="view-all cursor-pointer" @click="displayAllTrendingVideos()">
+              <div class="view-all cursor-pointer" @click="displayAllVideos('Trending')">
                 View All 
               </div>
             </div>
             <div class="mt-4">
             <VueSlickCarousel v-bind="slickOptions">
-              <div v-for="video in trendingVideos" class="slider-main pr-3">
+              <div v-for="video in videos.slice(0, 10)" class="slider-main pr-3">
                 <div class="slider-main-img" :class="[selectedVideo.id === video.id  ? 'active' : '']" @click="changeSelectedVideo(video)">
                   <img :src="video.cover.thumb.url" width="100%">
                   <div class="hover-absolute">
@@ -133,13 +133,13 @@
                         coverOnly
                       />
                     </div>
-					<div class="video-details">
-						<strong>{{ video.name }}</strong>
-						<p>100 views</p>
-					</div>
-                  <div class="icon-holder">
-                    <img src="../../assets/plus.svg" width="15">
-                  </div>
+										<div class="video-details">
+											<strong>{{ video.name }}</strong>
+											<p>100 views</p>
+										</div>
+										<div class="icon-holder">
+											<img src="../../assets/plus.svg" width="15">
+										</div>
                   </div>
 
                 </div>
@@ -156,55 +156,56 @@
           </video>
         </div> -->
       </div>
-      <v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllTrendingVideos"></v-container>
+      <v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllVideos">
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
             Popular
           </div>
-          <div class="text-small cursor-pointer">
+          <div class="text-small cursor-pointer" @click="displayAllVideos('Popular')">
             View all
           </div>
         </div>
         <div class="px-3">
-			<v-layout row wrap v-if="!hideOtherVideos" id="popular-video-album-container">
-			<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-			<v-flex 
-				v-for="(video) in videos.slice(0,10)" 
-				:key="video.name"
-				class="video-container"
-				:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
-			>
-				<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
-			</v-flex>
-			</v-layout>
-		</div>
+					<v-layout row wrap v-if="!hideOtherVideos" id="popular-video-album-container">
+					<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+						<v-flex 
+							v-for="(video) in videos.slice(0,10)" 
+							:key="video.name"
+							class="video-container"
+							:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+						>
+							<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+						</v-flex>
+					</v-layout>
+				</div>
 
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
             New
           </div>
-          <div class="text-small cursor-pointer">
+          <div class="text-small cursor-pointer" @click="displayAllVideos('New')">
             View all
           </div>
         </div>
-		<div class="px-3">
-			<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
-			<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-			<v-flex 
-				v-for="(video) in videos.slice(0,10)" 
-				:key="video.name"
-				class="video-container"
-				:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
-			>
-				<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
-			</v-flex>
-			</v-layout>
-		</div>
+				<div class="px-3">
+					<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
+					<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+					<v-flex 
+						v-for="(video) in videos.slice(0,10)" 
+						:key="video.name"
+						class="video-container"
+						:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+					>
+						<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+					</v-flex>
+					</v-layout>
+				</div>
+
         <div class="dflex justify-space-between align-center margin-top-x">
           <div class="text-big">
             Live broadcasts
           </div>
-          <div class="text-small cursor-pointer">
+          <div class="text-small cursor-pointer" @click="displayAllVideos('Live broadcasts')">
             View all
           </div>
         </div>
@@ -220,6 +221,28 @@
           </v-flex>
         </v-layout>
       </v-container>
+			<v-container v-if="viewAllVideos">
+				<div>
+					<div class="dflex justify-space-between align-center margin-top-x">
+						<div class="text-big">
+							{{ this.selectedVideoCategoryName }}
+						</div>
+					</div>
+					<div class="px-3">
+						<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
+						<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+						<v-flex 
+							v-for="(video) in videos" 
+							:key="video.name"
+							class="video-container"
+							:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+						>
+							<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+						</v-flex>
+						</v-layout>
+					</div>
+				</div>
+			</v-container>
 
       <div v-if="!isComp" class="text-xs-center">
         <v-btn

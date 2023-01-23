@@ -15,7 +15,9 @@
             :privateButtonAction="openPrivateConfirmDialog"
             :acceptButtonAction="acceptAlbum"
             :denyButtonAction="denyAlbum"
+            :releaseButtonAction="releaseAlbum"
             :textBtnToRight="textBtnToRight"
+       			@reRenderManageAlbum="reRenderManageAlbum"
             ></album-list>
         </div>
 
