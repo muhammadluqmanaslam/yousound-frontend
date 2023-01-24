@@ -217,7 +217,7 @@
           </div>
 
           <div v-if="isAuthenticated" class="flex-center py-5">
-            <comments :item="product" :comments="comments" :commentTableType="commentTableType" class="w-80"/>
+            <comments :item="product" :comments="comments" :commentTableType="commentTableType" class="w-80" @reRenderComments="reRenderComments"/>
           </div>
 
           <v-flex xs4>

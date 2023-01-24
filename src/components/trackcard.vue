@@ -430,6 +430,23 @@
 							</div>
 						  </v-list-tile-title>
 						</v-list-tile>
+
+						<v-list-tile
+						  v-if="
+							['admin', 'moderator'].indexOf(currentUser.user_type) >
+							  -1 && item.recommended
+						  "
+						  key="unrecommended"
+						  @click.native="unrecommendAlbum()"
+						  class="default-menu-item track-menu-item"
+						>
+						  <v-list-tile-title>
+							<div class="menu-list-item dflex align-center px-2">
+							  <img src="../assets/star 1.svg" width="16">
+							  <label class="ml-0">Unfeature</label>
+							</div>
+						  </v-list-tile-title>
+						</v-list-tile>
 		
 						<v-list-tile
 							@click.native="addToCollection(item)"

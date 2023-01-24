@@ -458,8 +458,11 @@ export default {
         .then((response) => {
           this.item.recommended = false
           this.$store.dispatch('error/showSuccessToast', [
-            'You just unrecommended ' + this.item.name,
+            'You just unfeatured ' + this.item.name,
           ])
+          setTimeout(() => {
+            window.location.reload()
+          }, 1500)
         })
         .catch((e) => {
           this.$store.dispatch(

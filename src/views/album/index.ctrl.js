@@ -208,17 +208,18 @@ export default {
       this.viewAllTrending = false
       this.newAlbums = []
       if (this.currentUser) {
-        let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+        this.newAlbums = this.albumData.new
+        // let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
 
-        if (genre_ids.length > 0) {
-          _.each(this.albumData.new, (newAlbum) => {
-            if (newAlbum.genres.length > 0 && genre_ids.includes(newAlbum.genres[0].id)) {
-              this.newAlbums.push(newAlbum)
-            }
-          })
-        } else {
-          this.newAlbums = this.albumData.new
-        }
+        // if (genre_ids.length > 0) {
+        //   _.each(this.albumData.new, (newAlbum) => {
+        //     if (newAlbum.genres.length > 0 && genre_ids.includes(newAlbum.genres[0].id)) {
+        //       this.newAlbums.push(newAlbum)
+        //     }
+        //   })
+        // } else {
+        //   this.newAlbums = this.albumData.new
+        // }
       } else {
         this.newAlbums = this.albumData.new
       }
@@ -230,16 +231,17 @@ export default {
       this.viewAllTrending = false
       this.popularAlbums = []
       if (this.currentUser) {
-        let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
-        if (genre_ids.length > 0) {
-          _.each(this.albumData.popular, (popularAlbum) => {
-            if (popularAlbum.genres.length > 0 && genre_ids.includes(popularAlbum.genres[0].id)) {
-              this.popularAlbums.push(popularAlbum)
-            }
-          })
-        } else {
-          this.popularAlbums = this.albumData.popular
-        }
+        this.popularAlbums = this.albumData.popular
+        // let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+        // if (genre_ids.length > 0) {
+        //   _.each(this.albumData.popular, (popularAlbum) => {
+        //     if (popularAlbum.genres.length > 0 && genre_ids.includes(popularAlbum.genres[0].id)) {
+        //       this.popularAlbums.push(popularAlbum)
+        //     }
+        //   })
+        // } else {
+        //   this.popularAlbums = this.albumData.popular
+        // }
       } else {
         this.popularAlbums = this.albumData.popular
       }
@@ -251,16 +253,17 @@ export default {
       this.viewAllTrending = true
       this.recommendedAlbums = []
       if (this.currentUser) {
-        let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
-        if (genre_ids.length > 0) {
-          _.each(this.albumData.recommended, (recommendedAlbum) => {
-            if (recommendedAlbum.genres.length > 0 && genre_ids.includes(recommendedAlbum.genres[0].id)) {
-              this.recommendedAlbums.push(recommendedAlbum)
-            }
-          })
-        } else {
-          this.recommendedAlbums = this.albumData.recommended
-        }
+        this.recommendedAlbums = this.albumData.recommended
+        // let genre_ids = this.currentUser.hidden_genres.map(genre => genre.id)
+        // if (genre_ids.length > 0) {
+        //   _.each(this.albumData.recommended, (recommendedAlbum) => {
+        //     if (recommendedAlbum.genres.length > 0 && genre_ids.includes(recommendedAlbum.genres[0].id)) {
+        //       this.recommendedAlbums.push(recommendedAlbum)
+        //     }
+        //   })
+        // } else {
+        //   this.recommendedAlbums = this.albumData.recommended
+        // }
       } else {
         this.recommendedAlbums = this.albumData.recommended
       }

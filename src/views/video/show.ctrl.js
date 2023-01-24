@@ -176,6 +176,20 @@ export default {
       setMobileFooter: 'appMobile/setMobileFooterOptions',
     }),
 
+    reRenderComments() {
+      const videoId = this.$route.params.videoId
+      CommentService.getComments({
+          commentable_type: 'Stream',
+          commentable_id: videoId,
+        }).then((resp) => {
+          this.comments = []
+          this.comments = resp.body.comments
+          this.comments_pagination = resp.body.pagination
+        }).catch((e) => {
+          console.log(e)
+        })
+    },
+
     getAttachmentItems() {
       Promise.all([
         AlbumService.getAlbums({

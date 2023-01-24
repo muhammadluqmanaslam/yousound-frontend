@@ -126,7 +126,7 @@
 	
 							</div>
 						</div>
-						<comments :item="stream" :comments="comments" roundAvatar />
+						<comments :item="stream" :comments="comments" roundAvatar @reRenderComments="reRenderComments"/>
 					</v-flex>
 					<v-flex v-else xs12 comment-wrapper class="px-4">
 						<chat

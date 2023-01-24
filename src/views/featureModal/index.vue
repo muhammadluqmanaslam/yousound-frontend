@@ -98,26 +98,36 @@ export default {
 			let params = {web_title: this.webTitle, web_review: this.webReview,
 				mobile_title: this.mobileTitle, mobile_review: this.mobileReview
 			}
-			AlbumService.updateTitleAndReview(this.album.id, params)
-			.then((res) => {
-				this.$store.dispatch(
-					'error/showSuccessToast',
-					['Successfully updated Title and Review.']
-				)
-				setTimeout(() => {
-					this.loading = false
-				  this.$store.dispatch("error/showLoadingActivity", false);
-					window.location.reload()
-				}, 1500)
-			})
-			.catch((e) => {
-				this.loading = false
-				this.$store.dispatch("error/showLoadingActivity", false);
-				this.$store.dispatch(
-					'error/showErrorToast',
-					e.body.errors || [e.body]
-				)
-			})
+
+      AlbumService.recommendAlbum(this.album.id)
+        .then((response) => {
+					AlbumService.updateTitleAndReview(this.album.id, params)
+					.then((res) => {
+						this.$store.dispatch(
+							'error/showSuccessToast',
+							['Successfully updated Title and Review.']
+						)
+						setTimeout(() => {
+							this.loading = false
+							this.$store.dispatch("error/showLoadingActivity", false);
+							window.location.reload()
+						}, 1500)
+					})
+					.catch((e) => {
+						this.loading = false
+						this.$store.dispatch("error/showLoadingActivity", false);
+						this.$store.dispatch(
+							'error/showErrorToast',
+							e.body.errors || [e.body]
+						)
+					})
+        })
+        .catch((e) => {
+          this.$store.dispatch(
+            'error/showErrorToast',
+            e.body.errors || [e.body]
+          )
+        })
 		},
 	},
 }

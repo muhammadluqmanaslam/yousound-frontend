@@ -129,18 +129,18 @@
                 <div>12 days left to ship or you will receive an automatic refund</div>
               </div>
                 <!-- track -->
-                <div class="trackDiv mt-3">
+                <div class="trackDiv mt-3" v-for="item in order_detail.items">
                   <div class="mb-2">
                     <span class="bold">
                       Shipped
                     </span>
                     with <span class="bold">
-                      USPS
-                    </span> 
+                      {{ item.tracking_site }}
+                    </span>
                   </div>
                   <div> <span class="bold">
                     Tracking:
-                  </span> 21829Z28XSHDKSHDFKEEIS
+                  </span> {{ item.tracking_number }}
                 </div>
                 <div>
                   <v-btn class="green-btn mt-2">Track order</v-btn>

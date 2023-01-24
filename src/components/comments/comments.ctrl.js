@@ -48,6 +48,7 @@ export default {
       CommentService.sendComment(params)
         .then((res) => {
           this.commentText = ''
+          this.reRenderComments()
         })
         .catch((e) => {
           console.log("e.body===", e.body)
@@ -56,6 +57,10 @@ export default {
                 e.body.errors || [e.body]
             )
         })
+    },
+
+    reRenderComments() {
+      this.$emit('reRenderComments');
     },
   },
 }

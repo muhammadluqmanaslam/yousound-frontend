@@ -81,7 +81,7 @@
                     :objects="recommendedAlbums"
                     :objectIndex="index"
                     :hideButtonAction="hideAlbum"
-                    hideMoreMenu
+                    willMenuRender
                     noAction
                   />
                 </div>
@@ -92,7 +92,7 @@
           </div>
         </v-container>
       </div>
-      <div class="global-header-viewall" v-if="(this.chosenGenres)">
+      <!-- <div class="global-header-viewall" v-if="(this.chosenGenres)">
         <div class="dflex align-center genres-list">
           <ul v-if="currentUser" v-for="genre in this.chosenGenres" class="dflex tablist">
             <li class="tab">
@@ -100,7 +100,7 @@
             </li>
           </ul>
         </div>
-      </div>
+      </div> -->
       <v-container fluid grid-list-lg px-0 v-if="viewAllTrending">
         <v-layout row wrap>
           <v-flex
@@ -115,7 +115,7 @@
               :objects="recommendedAlbums"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
-              hideMoreMenu
+              willMenuRender
             />
           </v-flex>
         </v-layout>
@@ -143,7 +143,7 @@
               :objects="newAlbums"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
-              hideMoreMenu
+              willMenuRender
             />
           </v-flex>
         </v-layout>
@@ -171,7 +171,7 @@
               :objects="popularAlbums"
               :objectIndex="index"
               :hideButtonAction="hideAlbum"
-              hideMoreMenu
+              willMenuRender
             />
           </v-flex>
         </v-layout>

@@ -232,7 +232,7 @@ export default {
           // remove products duplicate
           this.products = _.uniqBy(this.products, 'id')
           this.mainProduct = this.products[0]
-          this.trendingProducts = this.products.slice(0, 10)
+          this.trendingProducts = this.products.slice(0, 12)
           // const categories = _.chain(this.products).map('category').keyBy('id').map((v, k) => {return v}).sortBy('name').value()
           this.categories = response.body.categories.map((c) => ({
             id: c,

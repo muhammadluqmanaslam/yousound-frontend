@@ -207,6 +207,34 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
+    reRenderComments() {
+      this.comments = []
+      this.comment_pagination = {
+        count: 0,
+        current_page: 0,
+        per_page: 5,
+        total_count: 0,
+        total_pages: 0,
+      }
+      const params = {
+        commentable_type: 'Album',
+        commentable_id: this.album.id,
+        page: this.comment_pagination.current_page + 1,
+        per_page: this.comment_pagination.per_page,
+      }
+      CommentService.getComments(params)
+      .then((response) => {
+        this.comments = this.comments.concat(response.body.comments)
+        this.comment_pagination = response.body.pagination
+      })
+      .catch((e) => {
+        this.$store.dispatch(
+          'error/showErrorToast',
+          e.body.errors || [e.body]
+        )
+      })
+    },
+
     numberOfDays(releasedDate) {
       let currentDate = new Date()
       releasedDate = new Date(releasedDate)

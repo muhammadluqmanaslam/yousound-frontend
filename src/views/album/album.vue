@@ -331,7 +331,7 @@
         </v-flex>
 
         <v-flex xs12 album-comment-page v-if="currentUser">
-          <comments :item="album" :comments="comments" :commentTableType="commentTableType" />
+          <comments :item="album" :comments="comments" :commentTableType="commentTableType" @reRenderComments="reRenderComments" />
         </v-flex>
 
         <v-flex xs12 album-recent-page white v-if="currentUser">
@@ -413,10 +413,11 @@
               <div class="album-content-x">{{ album.released_at | formatDate }}</div>
             </div>
 
-            <div class="mt-3">
+            <div class="mt-3" v-if="album.collaborators.length > 0">
               <div class="album-title-x">Credits</div>
-              <div class="album-content-x">Artist name, Artist name, Artist name, Artist name, Artist name, Artist name, Artist name,
-                Artist name, Artist name, Artist name, Artist name, Artist name, Artist name, Artist name</div>
+              <div class="album-content-x" v-for="c in album.collaborators">
+                {{ c.user.username }}
+              </div>
             </div>
 
             <div class="mt-3" v-if="album.location && album.location != ''">

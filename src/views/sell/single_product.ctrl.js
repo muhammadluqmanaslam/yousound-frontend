@@ -338,6 +338,13 @@ export default {
     },
   },
   methods: {
+    reRenderComments() {
+      this.comment_pagination.current_page = 0
+      this.comment_pagination.per_page = 5
+      this.comments = []
+      this.loadMoreComments()
+    },
+
     closeShareDialog() {
       this.share_dialog = false
     },

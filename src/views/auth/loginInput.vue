@@ -162,7 +162,8 @@ export default {
           this.$root.$emit(MyEvents.AUTH_SIGNIN);
 
           this.$store.dispatch("error/showLoadingActivity", false);
-          this.$router.push({ name: "AlbumIndex" });
+          window.location.href = "/music/discover"
+          // this.$router.push({ name: "AlbumIndex" });
         })
         .catch((e) => {
           this.$router.push({ path: '/login' })
