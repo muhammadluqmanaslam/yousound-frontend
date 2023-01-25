@@ -124,9 +124,9 @@
               <!-- PendingDiv -->
               <div class="pendingDiv">
                 <div class="bold">
-                  Pending
+                  {{ this.order_status[order_detail.status] }}
                 </div>
-                <div>12 days left to ship or you will receive an automatic refund</div>
+                <div v-if="order_detail.status == 'order_pending'">{{ remainingDaysForShipment() }} days left to ship or you will receive an automatic refund</div>
               </div>
                 <!-- track -->
                 <div class="trackDiv mt-3" v-for="item in order_detail.items">

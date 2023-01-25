@@ -260,6 +260,8 @@ export default {
             this.artists = values[3].body.users
 
             this.album = values[1].body
+            this.majorValue = this.album.bpm_key
+            this.keyValue = this.album.bpm_value
             this.album_image_url = this.album.cover.url
             if (this.album.released_at) {
               this.album.released_at = moment(this.album.released_at).format(

@@ -21,6 +21,7 @@ export default {
         { id: 'cart', title: 'Cart', },
         { id: 'history', title: 'Order History', },
       ],
+      order_status: {'order_pending': 'Pending', 'order_shipped': 'Shipped', 'order_refunded': 'Refunded'}
     }
   },
 
@@ -40,107 +41,114 @@ export default {
       ].join(' ')
     },
 
-    subTotal() {
-      var sum = 0
-      for (let index in this.order_detail.items) {
-        const item = this.order_detail.items[index]
-        if (this.isDigitalProduct(item)) {
-          sum += item.price
-        } else {
-          sum += item.price * item.quantity
-        }
-      }
-      return sum
-    },
+		subTotal() {
+			var sum = 0
+			for (let index in this.order_detail.items) {
+				const item = this.order_detail.items[index]
+				if (this.isDigitalProduct(item)) {
+					sum += item.price
+				} else {
+					sum += item.price * item.quantity
+				}
+			}
+			return sum
+		},
 
-    shippingTotal() {
-      var sum = 0
-      for (let index in this.order_detail.items) {
-        const item = this.order_detail.items[index]
-        if (item.shipping_cost) {
-          sum += item.shipping_cost
-        }
-      }
-      return sum
-    },
+		shippingTotal() {
+			var sum = 0
+			for (let index in this.order_detail.items) {
+				const item = this.order_detail.items[index]
+				if (item.shipping_cost) {
+					sum += item.shipping_cost
+				}
+			}
+			return sum
+		},
 
-    taxTotal() {
-      var sum = 0
-      for (let index in this.order_detail.items) {
-        const item = this.order_detail.items[index]
-        if (item.tax) {
-          sum += item.tax
-        }
-      }
-      return sum
-    },
+		taxTotal() {
+			var sum = 0
+			for (let index in this.order_detail.items) {
+				const item = this.order_detail.items[index]
+				if (item.tax) {
+					sum += item.tax
+				}
+			}
+			return sum
+		},
 
-    refundAmount() {
-      return _.get(this.order_detail, 'refund_amount', 0)
-    },
+		refundAmount() {
+			return _.get(this.order_detail, 'refund_amount', 0)
+		},
 
-    stripeFee() {
-      return Stripe.calculateFee(
-        this.subTotal + this.shippingTotal + this.taxTotal
-      )
-    },
+		stripeFee() {
+			return Stripe.calculateFee(
+				this.subTotal + this.shippingTotal + this.taxTotal
+			)
+		},
 
-    total() {
-      return (
-        this.subTotal +
-        this.shippingTotal +
-        this.taxTotal +
-        this.stripeFee -
-        this.refundAmount
-      )
-    },
-  },
+		total() {
+			return (
+				this.subTotal +
+				this.shippingTotal +
+				this.taxTotal +
+				this.stripeFee -
+				this.refundAmount
+			)
+		},
+	},
 
-  created() {
-    // redirect to login when 401 error happens, check it in App.vue
-    // if (!this.currentUser) {
-    //   AuthService.clearTokenAndUserInfo()
-    //   this.$router.push({ path: '/login' })
-    //   return
-    // }
+	created() {
+		// redirect to login when 401 error happens, check it in App.vue
+		// if (!this.currentUser) {
+		//   AuthService.clearTokenAndUserInfo()
+		//   this.$router.push({ path: '/login' })
+		//   return
+		// }
 
-    this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: '' })
-    this.order_id = this.$route.params.slug
-    if (this.order_id) {
-      this.isPageReady = false
-      this.$store.dispatch('error/showLoadingActivity', true)
-      Promise.all([OrderService.getOrder(this.order_id)])
-        .then((values) => {
-          this.order_detail = values[0].body
+		this.$store.dispatch('navigator/goNextState', { page: 'sell', tab: '' })
+		this.order_id = this.$route.params.slug
+		if (this.order_id) {
+			this.isPageReady = false
+			this.$store.dispatch('error/showLoadingActivity', true)
+			Promise.all([OrderService.getOrder(this.order_id)])
+				.then((values) => {
+					this.order_detail = values[0].body
+					this.isPageReady = true
+					this.$store.dispatch('error/showLoadingActivity', false)
+				})
+				.catch((reason) => {
+					console.log(reason)
+					this.$store.dispatch('error/showLoadingActivity', false)
+					// this.$store.dispatch('error/showErrorToast', [reason])
+				})
+		}
+	},
 
-          this.isPageReady = true
-          this.$store.dispatch('error/showLoadingActivity', false)
-        })
-        .catch((reason) => {
-          console.log(reason)
-          this.$store.dispatch('error/showLoadingActivity', false)
-          // this.$store.dispatch('error/showErrorToast', [reason])
-        })
-    }
-  },
+	methods: {
+		remainingDaysForShipment() {
+			let shipmentDate = new Date(this.order_detail.updated_at)
+			let currentDate = new Date
+			let difference = currentDate.getTime() - shipmentDate.getTime()
+			let numberOfDays = Math.floor(difference / (1000 * 3600 * 24));
+			return numberOfDays > 21 ? 0 : 21 - numberOfDays
+		},
 
-  methods: {
-    isDigitalProduct(item) {
-      return _.get(item, 'product.category.is_digital', false)
-    },
-    isActiveTab(tab) {
-      return this.active_tab === tab
-    },
-    onTab(tab) {
-      this.$router.push({
-        path: this.$route.path,
-        hash: tab,
-        query: {
-          grid_view: this.grid_show,
-        },
-      })
-    },
-  },
+		isDigitalProduct(item) {
+			return _.get(item, 'product.category.is_digital', false)
+		},
+		isActiveTab(tab) {
+			return this.active_tab === tab
+		},
+		onTab(tab) {
+			this.$router.push({
+				path: this.$route.path,
+				hash: tab,
+				query: {
+					grid_view: this.grid_show,
+				},
+			})
+		},
+	},
 
   mounted() {},
 }

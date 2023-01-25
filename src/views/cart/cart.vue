@@ -421,30 +421,29 @@
 										"
 										:class="{
 											pending: item.status == 'item_ordered',
-											shipped: item.status == 'item_shipped',
+											'pending shipped': item.status == 'item_shipped',
 										}"
-										class="order-status-section"
+										class="order-status-section pending"
 									>
-										<div
-											v-if="item.status == 'item_ordered'"
-											class=""
-										>
-										 <li>Pending</li> 
+										<div>
+											<li>{{ order_status[item.status] }}</li>
+											<p v-if="item.status === 'item_ordered'">
+												Must ship by <b>{{ getItemDay(item) }}.</b> <b>{{ getItemDate(item) | formatDate }}</b> or this order is automatically refunded
+											</p>
+											<p v-if="item.status === 'item_shipped'">
+												Your item has shipped
+											</p>
+
+											<p v-if="item.status =='item_refunded'">
+												Your item has refunded
+											</p>
 										</div>
-										<div
-											v-if="item.status == 'item_refunded'"
-											class=""
-										>
-											Refunded
-										</div>
-										<div v-else class="">
-											Must ship by <b>Monday. Aug 21, 2022</b> or this order is automatically refunded
-										</div>
+
 										<div class="dflex align-center justify-space-between">
 											<div class="bold">Download</div>
-											<v-btn class="hollow-btn">sample.zip</v-btn>
+												<v-btn class="hollow-btn">sample.zip</v-btn>
+											</div>
 										</div>
-									</div>
 								</v-layout>
 							</div>
 						</v-flex>
