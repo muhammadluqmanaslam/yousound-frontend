@@ -1,144 +1,86 @@
 <template>
-  <v-flex xs12 sm12 class="album-finish-section">
-    <v-flex xs12 sm12 class="dismiss-section" @click="dismiss()"></v-flex>
-    <v-layout row wrap class="popup-section">
-      <v-flex xs12 class="title-section">
-        <label class="title-text"
-          >Your album has been released,
-          <router-link to="/upload/album" class="link-text"
-            >upload another</router-link
-          ></label
-        >
-      </v-flex>
-      <v-flex xs12 class="promote-album-section" v-if="false">
-        <v-flex xs12 class="header-section">
-          <label class="header-text">Promote your album</label>
-        </v-flex>
-        <div class="content-section">
-          <div class="promote-album-image">
-            <!-- <img id="promote_album_image" /> -->
-            <div
-              class="promote-image"
-              :style="{ 'background-image': 'url(' + itemCover + ')' }"
-            ></div>
-            <img src="/static/images/promote_frame.png" />
+  <v-flex class="collaborators-success-dialog">
+    <v-card>
+      <v-card-title class="headline">
+        <div class="dflex gap-15" style="padding-top: 10px">
+          <div>
+            <img src="../assets/black-check.svg" width="25">
           </div>
-          <div class="promote-album-description">
-            <label>
-              Reach your target audience<br />
-              Easily filter users by price, number of followers, user type<br />
-              Set your potential reach & measure speicfic engagement<br />
-              Favorite your best reposters for your next release.
-            </label>
-            <v-btn class="promote-btn" flat @click.native="showPromoteModal()"
-              >Promote this album</v-btn
-            >
+          <div class="headline-text" v-if="this.type === 'album'">
+            Your album was released! <a href="/upload/album" style="text-decoration: underline !important">Upload another</a> or go to <router-link to="/upload" style="text-decoration: underline !important">upload page</router-link> 
           </div>
-          <div class="promote-album-action"></div>
+          <div class="headline-text" v-else-if="this.type === 'stream'">
+            Your video was released! <a href="/upload/video" style="text-decoration: underline !important">Upload another</a> or go to <router-link to="/upload" style="text-decoration: underline !important">upload page</router-link> 
+          </div>
+          <div class="headline-text" v-else-if="this.type === 'product'">
+            Your product was released! <a href="/upload/product/add" style="text-decoration: underline !important">Upload another</a> or go to <router-link to="/upload" style="text-decoration: underline !important">upload page</router-link> 
+          </div>
         </div>
-      </v-flex>
-      <v-flex xs12 class="album-section">
-        <v-card>
-          <v-container pa-4 fluid>
-            <v-layout row>
-              <v-flex xs5>
-                <v-card-media
-                  :src="item.cover.url"
-                  height="270px"
-                  contain
-                ></v-card-media>
-              </v-flex>
-              <v-flex xs7>
-                <div class="card__content">
-                  <div class="album-name pt-2">{{ item.name }}</div>
-                  <div class="album-artist-name">
-                    {{ item.user.username }}
-                  </div>
-                  <div class="album-tracks-count">
-                    {{ item.tracks.length }} tracks
-                  </div>
-                  <div class="attachment" v-if="itemProduct">
-                    <h3 class="pt-3 pb-2">
-                      <v-icon right>attach_file</v-icon> Attachment
-                    </h3>
-                    <v-card>
-                      <v-container pa-0 fluid>
-                        <v-layout row>
-                          <v-flex xs3>
-                            <v-card-media
-                              :src="itemProduct.covers[0].cover.thumb.url"
-                              height="90px"
-                              contain
-                            ></v-card-media>
-                          </v-flex>
-                          <v-flex xs9>
-                            <div class="card__content">
-                              <div class="product-name">
-                                {{ itemProduct.name }}
-                              </div>
-                              <div class="product-price">
-                                ${{ itemProduct.price | formatNumber }}
-                              </div>
-                            </div>
-                          </v-flex>
-                        </v-layout>
-                      </v-container>
-                    </v-card>
-                  </div>
-                </div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-      </v-flex>
-      <v-flex xs12 px-4 class="item-section">
-        <v-flex xs12 class="header-section">
-          <label class="header-text pb-1">View & Share your album</label>
-        </v-flex>
-        <div class="album-detail-section pt-3 pb-4">
-          <router-link class="album-link" :to="albumURL">{{
-            albumURL
-          }}</router-link>
-          <v-flex xs12 class="share-social-section">
-            <v-btn class="social-share-btn ml-0"
-              ><v-icon>fa-envelope</v-icon></v-btn
-            >
-            <social-sharing v-bind:url="albumURL" inline-template>
-              <div class="social-section">
-                <network network="facebook">
-                  <!-- <i class="fa fa-fw fa-facebook"></i> Facebook -->
-                  <v-btn class="social-share-btn"
-                    ><v-icon>fa-facebook</v-icon></v-btn
-                  >
-                </network>
-                <network network="twitter">
-                  <!-- <i class="fa fa-fw fa-twitter"></i> Twitter -->
-                  <v-btn class="social-share-btn"
-                    ><v-icon>fa-twitter</v-icon></v-btn
-                  >
-                </network>
-              </div>
-            </social-sharing>
-            <div class="input-section">
-              <input
-                type="text"
-                class="form-control"
-                v-model="albumURL"
-                readonly
-              />
-              <v-btn
-                class="clipboard-btn"
-                v-clipboard:copy="albumURL"
-                v-clipboard:success="onCopy"
-                v-clipboard:error="onError"
-              >
-                <v-icon>fa-clipboard</v-icon>
-              </v-btn>
+      </v-card-title>
+
+      <div class="modal-body">
+        <div class="dflex gap-20">
+          <div class="w-30 border-round">
+            <img :src="item.cover.url" width="100%" v-if="type == 'stream' || type == 'album'">
+            <img :src="item.covers[0].cover.url" width="100%" v-else>
+          </div>
+          <div class="w-70">
+            <div>
+              <h3 class="main-head">{{ item.name }}</h3>
+              <p class="mb-0 second-head mx-0 my-0">{{ type == 'product' ? item.merchant.username : item.user.username }}</p>
+              <p class="light-text mx-0 my-0" v-if="type === 'album'">{{ item.tracks.length }} tracks</p>
+              <p class="light-text mx-0 my-0" v-if="type !== 'product'">{{ type === 'album' ? item.genres[0] && item.genres[0].name : item.genre.name }}</p>
+              <p class="light-text mx-0 my-0" v-if="type == 'product'">{{ item.category.name }}</p>
             </div>
-          </v-flex>
+            <hr class="my-4">
+
+            <div class="dflex align-center gap-20">
+              <div class="dflex align-center gap-15">
+                <a href="#"><img src="../assets/email-xcon.svg" width="16"></a>
+                <a href="#"><img src="../assets/facebook-xcon.svg" width="10"></a>
+                <a href="#"><img src="../assets/twitter-xcon.svg" width="17"></a>
+              </div>
+              <div class="url-bar">
+                <p class="mx-0 my-0">{{ albumURL }}</p>
+                <div
+                  class="clipboard-btn"
+                  v-clipboard:copy="albumURL"
+                  v-clipboard:success="onCopy"
+                  v-clipboard:error="onError"
+                >
+                  <img src="../assets/clone.svg" width="16">
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-      </v-flex>
-    </v-layout>
+      </div>
+
+      <div class="modal-footer">
+        <div class="dflex align-center justify-space-between gap-max">
+          <div class="w-100">
+            <h2 class="foot-head">
+              Promote your profile
+            </h2>
+            <p class="mx-0 my-0 mt-2">
+              Upload a spotlight video to promote your content to new subscribers!
+            </p>
+
+            <router-link to="#">
+              <v-btn class="mt-4 fx-btn ml-0">
+                Add spotlight
+              </v-btn>
+            </router-link>
+          </div>
+          <div class="w-100">
+            <img src="../assets/spotlight-demo.png" width="100%">
+          </div>
+        </div>
+
+      </div>
+    </v-card>
+
   </v-flex>
 </template>
 
@@ -159,6 +101,7 @@ export default {
       type: Function,
       required: true,
     },
+    type: String,
   },
 
   components: {},
@@ -193,8 +136,10 @@ export default {
   },
 
   created() {
-    if (this.item.slug) {
+    if (this.type === 'album') {
       this.albumURL = window.location.origin + "/album/" + this.item.slug;
+    } else if (this.type === 'stream') {
+      this.albumURL = window.location.origin + "/video/" + this.item.id + "/show";
     } else {
       this.albumURL = window.location.origin + "/product/" + this.item.id;
     }
@@ -219,3 +164,4 @@ export default {
   },
 };
 </script>
+<style scoped src="../../static/styles/album.scss" lang="scss"></style>

@@ -508,12 +508,12 @@ export default {
             })
             this.$router.push({ name: 'ManageIndex', params: {activeInnerFilter: 'products', activeInnerTab: 'pending'  } })
           } else {
-            this.productUrl = window.location.origin + '/product/' +response.body.id
             // this.$router.push({ path: '/sell#products' })
             this.hideCollaboratorsConfirmDialog()
+            localStorage.setItem("release_product", response.body.id)
+            this.$router.push({path: '/product'})
             this.product_upload_successfully = true
           }
-          this.product.name = this.product.description = ''
         })
         .catch((e) => {
           this.loading = false

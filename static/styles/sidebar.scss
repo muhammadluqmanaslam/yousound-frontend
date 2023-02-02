@@ -13,11 +13,12 @@
   overflow-x: hidden;
   overflow-y: auto;
   background: linear-gradient(to bottom, #262c35,#11101f) !important;
-  z-index: 11;
+  z-index: 9999;
   padding-bottom: 0;
   display: flex;
 flex-direction: column;
 justify-content: space-between;
+
 
   .divider{
     width: 92%;

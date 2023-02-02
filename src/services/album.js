@@ -197,11 +197,4 @@ export default {
       headers: { Authorization: $store.state.auth.token },
     })
   },
-
-  updateTitleAndReview(albumId, params) {
-    return Vue.http.get(API_BASE_URL + '/' + albumId + '/update_title_and_review', {
-      headers: { Authorization: $store.state.auth.token },
-      params: params,
-    })
-  },
 }

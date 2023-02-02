@@ -1,173 +1,217 @@
 <template>
-  <div class="page video-page index-page" :class="{isComp}" v-if="isPageReady">
-    <discover-nav v-if="!isComp && !onMobile" pageName="video" :searchShow="this.$store.state.app.sideBarMini" />
+	<div class="video-page index-page">
+		<div class="page " :class="{isComp}" v-if="isPageReady">
+			<discover-nav v-if="!isComp && !onMobile" pageName="video" :searchShow="this.$store.state.app.sideBarMini" />
 
-    <!-- <content-top-header
-      v-if="isPageReady"
-      absolute
-      class="__inner __doubleUl" height="35"
-      :class="{'px-5': !isComp, 'pl-0': isComp}"
-    >
-      <template slot="topHeader">
-        <ul :class="{'mr-3': !isComp}">
-          <li v-if="isComp">
-            <h1>Video</h1>
-          </li>
-          <template v-if="!isComp">
-            <li
-              v-for="tab in tabs"
-              :key="tab.id"
-              :href="`#${tab.id}`"
-              :class="{ active: isActiveTab(tab.id) }"
-            >
-              <label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
-            </li>
-          </template>
+			<!-- <content-top-header
+				v-if="isPageReady"
+				absolute
+				class="__inner __doubleUl" height="35"
+				:class="{'px-5': !isComp, 'pl-0': isComp}"
+			>
+				<template slot="topHeader">
+					<ul :class="{'mr-3': !isComp}">
+						<li v-if="isComp">
+							<h1>Video</h1>
+						</li>
+						<template v-if="!isComp">
+							<li
+								v-for="tab in tabs"
+								:key="tab.id"
+								:href="`#${tab.id}`"
+								:class="{ active: isActiveTab(tab.id) }"
+							>
+								<label @click="isPageReady && onTab(tab.id)">{{ tab.title }}</label>
+							</li>
+						</template>
 
-          <v-spacer v-if="isComp"></v-spacer>
+						<v-spacer v-if="isComp"></v-spacer>
 
-          <li
-            v-if="isComp" 
-            class="cursor-pointer"
-            @click="$router.push({name: 'VideoIndex'})"
-          >
-            View All
-          </li>
-        </ul>
+						<li
+							v-if="isComp" 
+							class="cursor-pointer"
+							@click="$router.push({name: 'VideoIndex'})"
+						>
+							View All
+						</li>
+					</ul>
 
-        <ul v-if="!isComp && !onMobile" class="ml-5">
-          <v-spacer></v-spacer>
-          <li class="my-2">
-            <v-menu
-              content-class="filter-menu__content"
-              id="genre_selector"
-              class="filter_menu"
-              style="display: block"
-              offset-y
-            >
-              <div slot="activator" class="genre-filter py-3">
-                <span class="mr-3">Genre:</span>
-                <span class="">{{ selected_genre.name }}</span>
-                <v-icon right>keyboard_arrow_down</v-icon>
-              </div>
-              <v-list>
-                <v-list-tile
-                  v-for="genre in available_genres"
-                  :key="genre.id"
-                  @click.native="setTab(genre.id)"
-                >
-                  <div class="cursor-pointer px-3">
-                    {{ genre.name }}
-                  </div>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-
-
-          </li>
-        </ul>
-      </template>
-    </content-top-header> -->
-
-    <div class="page-content">
-      <div v-if="!viewAllVideos" class="music-banner-main" :style="`background: linear-gradient(180deg, rgba(33, 33, 33, 0.59) 0%, #000000 100%), url(${selectedVideo.cover.url})`">
-        <v-container>
-          <div class="dflex album-flex align-center">
-            <div class="album-main-content">
-              <div class="album-title-main mb-2">'{{ selectedVideo.name }}'</div>
-              <div class="dflex align-center gap-10 album-group mb-4">
-                <div>
-                  <div class="album-group-image" style="background-image: url('../../assets/check_success.svg')"></div>
-                </div>
-                <div class="dflex align-center">
-                  <div class="album-group-title">{{ selectedVideo.user.display_name }}</div>
-                  <div class="ml-1">
-                    <img src="../../assets/check_success.svg" width='12'>
-                  </div>
-                </div>
-              </div>
-              <div class="album-title-description mb-2">{{ selectedVideo.description }}</div>
-
-              <div class="album-play dflex align-center gap-25">
-
-                <v-btn class="album-play-icon ml-0" @click="verifyUser()">
-                  <v-icon>
-                    play_arrow
-                  </v-icon>
-                </v-btn>
-
-                <div class="plus-icon main" @click="repostItem()">
-                  <img src="../../assets/plus.svg" width='15px'>
-                </div>
-
-                <div class="following-btn" v-if="selectedVideo.user && currentUser && selectedVideo.user.id !== currentUser.id">
-                  <user-follow-btn
-                    :user="selectedVideo.user"
-                    type="default"
-                    borderRadius
-                  />
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="slider-contain">
-            <div class="dflex align-center gap-25">
-              <div class="font-lg">
-                Trending
-              </div>
-              <div class="view-all cursor-pointer" @click="displayAllVideos('Trending')">
-                View All 
-              </div>
-            </div>
-            <div class="mt-4">
-            <VueSlickCarousel v-bind="slickOptions">
-              <div v-for="video in videos.slice(0, 10)" class="slider-main pr-3">
-                <div class="slider-main-img" :class="[selectedVideo.id === video.id  ? 'active' : '']" @click="changeSelectedVideo(video)">
-                  <img :src="video.cover.thumb.url" width="100%">
-                  <div class="hover-absolute">
-                    <div class="play-button-absolute">
-                      <video-box
-                        :hoverOverlay="false"
-                        :item="video"
-                        coverOnly
-                      />
-                    </div>
-										<div class="video-details">
-											<strong>{{ video.name }}</strong>
-											<p>100 views</p>
+					<ul v-if="!isComp && !onMobile" class="ml-5">
+						<v-spacer></v-spacer>
+						<li class="my-2">
+							<v-menu
+								content-class="filter-menu__content"
+								id="genre_selector"
+								class="filter_menu"
+								style="display: block"
+								offset-y
+							>
+								<div slot="activator" class="genre-filter py-3">
+									<span class="mr-3">Genre:</span>
+									<span class="">{{ selected_genre.name }}</span>
+									<v-icon right>keyboard_arrow_down</v-icon>
+								</div>
+								<v-list>
+									<v-list-tile
+										v-for="genre in available_genres"
+										:key="genre.id"
+										@click.native="setTab(genre.id)"
+									>
+										<div class="cursor-pointer px-3">
+											{{ genre.name }}
 										</div>
-										<div class="icon-holder">
-											<img src="../../assets/plus.svg" width="15">
+									</v-list-tile>
+								</v-list>
+							</v-menu>
+
+
+						</li>
+					</ul>
+				</template>
+			</content-top-header> -->
+
+			<div class="page-content">
+				<div v-if="!viewAllVideos" class="music-banner-main" :style="`background: linear-gradient(180deg, rgba(33, 33, 33, 0.59) 0%, #000000 100%), url(${selectedVideo.cover.url})`">
+					<v-container>
+						<div class="dflex album-flex align-center">
+							<div class="album-main-content">
+								<div class="album-title-main mb-4">'{{ selectedVideo.name }}'</div>
+								<div class="dflex align-center gap-10 album-group mb-4">
+									<div>
+										<div class="album-group-image" style="background-image: url('../../assets/check_success.svg')"></div>
+									</div>
+									<div class="dflex align-center">
+										<div class="album-group-title">{{ selectedVideo.user.display_name }}</div>
+										<div class="ml-1">
+											<img src="../../assets/check_success.svg" width='12'>
 										</div>
-                  </div>
+									</div>
+								</div>
+								<div class="album-title-description mb-2">{{ selectedVideo.description }}</div>
 
-                </div>
-              </div>
-            </VueSlickCarousel>
-          </div>
+								<div class="album-play dflex align-center gap-25">
 
-          </div>
-        </v-container>
-        <!-- <div class="video-container">
-          <video autoplay muted loop id="video-demo">
-            <source :src="demoVideo" type="video/mp4">
-            Your browser does not support HTML5 video.
-          </video>
-        </div> -->
-      </div>
-      <v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllVideos">
-        <div class="dflex justify-space-between align-center margin-top-x">
-          <div class="text-big">
-            Popular
-          </div>
-          <div class="text-small cursor-pointer" @click="displayAllVideos('Popular')">
-            View all
-          </div>
-        </div>
-        <div class="px-3">
-					<v-layout row wrap v-if="!hideOtherVideos" id="popular-video-album-container">
-					<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+									<v-btn class="album-play-icon ml-0" @click="verifyUser()">
+										<v-icon>
+											play_arrow
+										</v-icon>
+									</v-btn>
+
+									<div class="plus-icon main" @click="repostItem()">
+										<img src="../../assets/plus.svg" width='15px'>
+									</div>
+
+									<!-- <div class="following-btn" v-if="selectedVideo.user && currentUser && selectedVideo.user.id !== currentUser.id">
+										<user-follow-btn
+											:user="selectedVideo.user"
+											type="default"
+											borderRadius
+										/>
+									</div> -->
+								</div>
+							</div>
+
+						</div>
+						<div class="slider-contain">
+							<div class="dflex align-center gap-25">
+								<div class="font-lg">
+									Trending
+								</div>
+								<div class="view-all cursor-pointer" @click="displayAllVideos('Trending')">
+									View All 
+								</div>
+							</div>
+							<div class="mt-4">
+							<VueSlickCarousel v-bind="slickOptions">
+								<div v-for="video in videos.slice(0, 10)" class="slider-main pr-3">
+									<div class="slider-main-img" :class="[selectedVideo.id === video.id  ? 'active' : '']" @click="changeSelectedVideo(video)">
+										<img :src="video.cover.thumb.url" width="100%">
+										<div class="hover-absolute">
+											<div class="play-button-absolute">
+												<video-box
+													:hoverOverlay="false"
+													:item="video"
+													coverOnly
+												/>
+											</div>
+											<div class="video-details">
+												<strong>{{ video.name }}</strong>
+												<p>100 views</p>
+											</div>
+											<div class="icon-holder">
+												<img src="../../assets/plus.svg" width="15">
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</VueSlickCarousel>
+						</div>
+
+						</div>
+					</v-container>
+					<!-- <div class="video-container">
+						<video autoplay muted loop id="video-demo">
+							<source :src="demoVideo" type="video/mp4">
+							Your browser does not support HTML5 video.
+						</video>
+					</div> -->
+				</div>
+				<v-container fluid :grid-list-md="onMobile" px-0 pt-0 v-if="!viewAllVideos">
+					<div class="dflex justify-space-between align-center margin-top-x mb-2">
+						<div class="text-big">
+							Popular
+						</div>
+						<div class="text-small cursor-pointer" @click="displayAllVideos('Popular')">
+							View all
+						</div>
+					</div>
+					<div class="px-3">
+						<v-layout row wrap v-if="!hideOtherVideos" id="popular-video-album-container">
+						<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+							<v-flex 
+								v-for="(video) in videos.slice(0,10)" 
+								:key="video.name"
+								class="video-container"
+								:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+							>
+								<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+							</v-flex>
+						</v-layout>
+					</div>
+
+					<div class="dflex justify-space-between align-center margin-top-x">
+						<div class="text-big">
+							New
+						</div>
+						<div class="text-small cursor-pointer" @click="displayAllVideos('New')">
+							View all
+						</div>
+					</div>
+					<div class="px-3">
+						<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
+						<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+						<v-flex 
+							v-for="(video) in videos.slice(0,10)" 
+							:key="video.name"
+							class="video-container"
+							:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+						>
+							<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+						</v-flex>
+						</v-layout>
+					</div>
+
+					<div class="dflex justify-space-between align-center margin-top-x">
+						<div class="text-big">
+							Live broadcasts
+						</div>
+						<div class="text-small cursor-pointer" @click="displayAllVideos('Live broadcasts')">
+							View all
+						</div>
+					</div>
+					<v-layout row wrap v-if="!hideOtherVideos">
+						<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
 						<v-flex 
 							v-for="(video) in videos.slice(0,10)" 
 							:key="video.name"
@@ -177,168 +221,56 @@
 							<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
 						</v-flex>
 					</v-layout>
-				</div>
-
-        <div class="dflex justify-space-between align-center margin-top-x">
-          <div class="text-big">
-            New
-          </div>
-          <div class="text-small cursor-pointer" @click="displayAllVideos('New')">
-            View all
-          </div>
-        </div>
-				<div class="px-3">
-					<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
-					<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-					<v-flex 
-						v-for="(video) in videos.slice(0,10)" 
-						:key="video.name"
-						class="video-container"
-						:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
-					>
-						<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
-					</v-flex>
-					</v-layout>
-				</div>
-
-        <div class="dflex justify-space-between align-center margin-top-x">
-          <div class="text-big">
-            Live broadcasts
-          </div>
-          <div class="text-small cursor-pointer" @click="displayAllVideos('Live broadcasts')">
-            View all
-          </div>
-        </div>
-        <v-layout row wrap v-if="!hideOtherVideos">
-          <!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-          <v-flex 
-            v-for="(video) in videos.slice(0,10)" 
-            :key="video.name"
-            class="video-container"
-            :class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
-          >
-            <video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
-          </v-flex>
-        </v-layout>
-      </v-container>
-			<v-container v-if="viewAllVideos">
-				<div>
-					<div class="dflex justify-space-between align-center margin-top-x">
-						<div class="text-big">
-							{{ this.selectedVideoCategoryName }}
-						</div>
-					</div>
-					<div class="px-3">
-						<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
-						<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
-						<v-flex 
-							v-for="(video) in videos" 
-							:key="video.name"
-							class="video-container"
-							:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
-						>
-							<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
-						</v-flex>
-						</v-layout>
-					</div>
-				</div>
-			</v-container>
-
-      <div v-if="!isComp" class="text-xs-center">
-        <v-btn
-          v-if="isPageReady"
-          v-show="pagination.current_page < pagination.total_pages"
-          @click.native="loadMore()"
-          class="loadmore-btn"
-          >Load More</v-btn
-        >
-      </div>
-    </div>
-		<v-dialog v-model="show_modalCard1" content-class="dialog-w_auto dialog-no_shadow">
-			<div class="modal-card">
-				<div>
-					<img src="../../assets/nav_logo_white.png" width="135px">
-						</div>
-						<div class="modal-card-img">
-							<div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url + ')',}">
+				</v-container>
+				<v-container v-if="viewAllVideos">
+					<div>
+						<div class="dflex justify-space-between align-center margin-top-x">
+							<div class="text-big">
+								{{ this.selectedVideoCategoryName }}
 							</div>
-					</div>
-					<div class="text-center user-box">
-						<p>Sign up to experience</p>
-						<div class="user-div">
-							<p class="user-text"> {{ this.selectedVideo.user.username }}</p>
-							<img src="../../assets/check-white.svg" width="15px">
-					</div>
-				</div>
-
-				<div class="button-wrapper">
-					<router-link to="/signup">
-						<button class="modal-button">
-							Create account
-						</button>
-					</router-link>
-				</div>
-
-			</div>
-		</v-dialog>
-
-		<!-- Show MOdal 2 -->
-
-		<v-dialog v-model="show_modalCard2" content-class="dialog-w_auto dialog-no_shadow">
-			<div class="modal-card">
-				<div>
-					<img src="../../assets/nav_logo_white.png" width="135px">
 						</div>
-						<div class="modal-card-img">
-						<div class="modal-card-img-inner"
-						:style="`background-image: url(${bgDemoImg})`"
-						></div>
+						<div class="px-3">
+							<v-layout row wrap v-if="!hideOtherVideos" id="new-video-album-container">
+							<!-- <v-flex xs4 v-for="(video, i) in videos" :key="i" class="video-container top-3"> -->
+							<v-flex 
+								v-for="(video) in videos" 
+								:key="video.name"
+								class="video-container"
+								:class="[!isComp ? 'video-container top-3 xs12 sm3' : 'pl-0 xs4', {side_fullwidth: onMobile}]"
+							>
+								<video-box class="_sliced-top" :hoverOverlay="false" :item="video" />
+							</v-flex>
+							</v-layout>
+						</div>
 					</div>
-					<div class="text-center user-box">
-						<p>Sign up to experience</p>
-						<div class="user-div">
-							<p class="user-text"> {{ this.selectedVideo.user.username }}</p>
-							<img src="../../assets/check-white.svg" width="15px">
-					</div>
-				</div>
+				</v-container>
 
-				<div class="text-center font-inter">
-					<p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+				<div v-if="!isComp" class="text-xs-center">
+					<v-btn
+						v-if="isPageReady"
+						v-show="pagination.current_page < pagination.total_pages"
+						@click.native="loadMore()"
+						class="loadmore-btn"
+						>Load More</v-btn
+					>
 				</div>
-
-				<div class="button-wrapper">
-					<router-link to="/settings">
-						<button class="modal-button">
-							Start 30 day free trial
-						</button>
-					</router-link>
-				</div>
-
 			</div>
-		</v-dialog>
-
-		<!-- Show MOdal 3 -->
-
-		<v-dialog v-model="show_modalCard3" content-class="dialog-w_50 dialog-no_shadow">
-			<div class="modal-card-main">
-				<div class="modal-card-split">
+			<v-dialog v-model="show_modalCard1" content-class="dialog-w_auto dialog-no_shadow">
+				<div class="modal-card">
 					<div>
 						<img src="../../assets/nav_logo_white.png" width="135px">
 							</div>
 							<div class="modal-card-img">
-							<div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url + ')',}"></div>
+								<div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url + ')',}">
+								</div>
 						</div>
-						<div class="user-box">
+						<div class="text-center user-box">
 							<p>Sign up to experience</p>
 							<div class="user-div">
-								<p class="user-text">{{ this.selectedVideo.user.username }}</p>
+								<p class="user-text"> {{ this.selectedVideo.user.username }}</p>
 								<img src="../../assets/check-white.svg" width="15px">
 						</div>
 					</div>
-
-					<!-- <div class="text-center">
-						<p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
-					</div> -->
 
 					<div class="button-wrapper">
 						<router-link to="/signup">
@@ -349,39 +281,29 @@
 					</div>
 
 				</div>
+			</v-dialog>
 
-				<div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
-					<video playsinline autoplay loop id="bgvid">
-						<source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
-					</video>
-					<div class="volume-button">
-						<img src="../../assets/mute-icon.svg" width="17px">
-					</div>
+			<!-- Show MOdal 2 -->
 
-				</div>
-			</div>
-		</v-dialog>
-
-		<!-- Show MOdal 4 -->
-
-		<v-dialog v-model="show_modalCard4" content-class="dialog-w_50 dialog-no_shadow">
-			<div class="modal-card-main">
-				<div class="modal-card-split">
+			<v-dialog v-model="show_modalCard2" content-class="dialog-w_auto dialog-no_shadow">
+				<div class="modal-card">
 					<div>
 						<img src="../../assets/nav_logo_white.png" width="135px">
 							</div>
 							<div class="modal-card-img">
-							<div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url +')',}"></div>
+							<div class="modal-card-img-inner"
+							:style="`background-image: url(${bgDemoImg})`"
+							></div>
 						</div>
-						<div class="user-box">
+						<div class="text-center user-box">
 							<p>Sign up to experience</p>
 							<div class="user-div">
-								<p class="user-text">{{ this.selectedVideo.user.username }}</p>
+								<p class="user-text"> {{ this.selectedVideo.user.username }}</p>
 								<img src="../../assets/check-white.svg" width="15px">
 						</div>
 					</div>
 
-					<div class="font-inter">
+					<div class="text-center font-inter">
 						<p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
 					</div>
 
@@ -392,28 +314,116 @@
 							</button>
 						</router-link>
 					</div>
-				</div>
-
-				<div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
-					<video playsinline autoplay loop id="bgvid">
-						<source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
-					</video>
-					<button class="volume-button">
-						<img src="../../assets/mute-icon.svg" width="17px">
-					</button>
 
 				</div>
-			</div>
+			</v-dialog>
+
+			<!-- Show MOdal 3 -->
+
+			<v-dialog v-model="show_modalCard3" content-class="dialog-w_50 dialog-no_shadow">
+				<div class="modal-card-main">
+					<div class="modal-card-split">
+						<div>
+							<img src="../../assets/nav_logo_white.png" width="135px">
+								</div>
+								<div class="modal-card-img">
+								<div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url + ')',}"></div>
+							</div>
+							<div class="user-box">
+								<p>Sign up to experience</p>
+								<div class="user-div">
+									<p class="user-text">{{ this.selectedVideo.user.username }}</p>
+									<img src="../../assets/check-white.svg" width="15px">
+							</div>
+						</div>
+
+						<!-- <div class="text-center">
+							<p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+						</div> -->
+
+						<div class="button-wrapper">
+							<router-link to="/signup">
+								<button class="modal-button">
+									Create account
+								</button>
+							</router-link>
+						</div>
+
+					</div>
+
+					<div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+						<video playsinline autoplay loop id="bgvid">
+							<source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
+						</video>
+						<div class="volume-button">
+							<img src="../../assets/mute-icon.svg" width="17px">
+						</div>
+
+					</div>
+				</div>
+			</v-dialog>
+
+			<!-- Show MOdal 4 -->
+
+			<v-dialog v-model="show_modalCard4" content-class="dialog-w_50 dialog-no_shadow">
+				<div class="modal-card-main">
+					<div class="modal-card-split">
+						<div>
+							<img src="../../assets/nav_logo_white.png" width="135px">
+								</div>
+								<div class="modal-card-img">
+								<div class="modal-card-img-inner" :style="{'background-image': 'url(' + this.selectedVideo.user.avatar.thumb.url +')',}"></div>
+							</div>
+							<div class="user-box">
+								<p>Sign up to experience</p>
+								<div class="user-div">
+									<p class="user-text">{{ this.selectedVideo.user.username }}</p>
+									<img src="../../assets/check-white.svg" width="15px">
+							</div>
+						</div>
+
+						<div class="font-inter">
+							<p>Get full access. <b>50%</b> of your subscription is shared with creators you stream most. See who you support!</p>
+						</div>
+
+						<div class="button-wrapper">
+							<router-link to="/settings">
+								<button class="modal-button">
+									Start 30 day free trial
+								</button>
+							</router-link>
+						</div>
+					</div>
+
+					<div class="modal-card-title-img" :style="`background-image: url(${videoLoading})`">
+						<video playsinline autoplay loop id="bgvid">
+							<source v-if="spotlightVideoSource" :src="`https://stream.mux.com/${spotlightVideoSource}/low.mp4`" type="video/mp4">
+						</video>
+						<button class="volume-button">
+							<img src="../../assets/mute-icon.svg" width="17px">
+						</button>
+
+					</div>
+				</div>
+			</v-dialog>
+		</div>
+		<div v-else>
+			<figure>
+				<div class="dot white"></div>
+				<div class="dot"></div>
+				<div class="dot"></div>
+				<div class="dot"></div>
+				<div class="dot"></div>
+			</figure>
+		</div>
+		<v-dialog v-model="showReleaseVideoModal" style="margin-top: 3%" content-class="finish-modal">
+			<album-finish-modal v-if="showReleaseVideoModal"
+				:item="releaseVideo"
+				type="stream"
+				:promote="showPromoteModal"
+				:dismiss="dismissFinishDialog"
+			/>
 		</v-dialog>
-  </div>
-	<div v-else>
-		<figure>
-			<div class="dot white"></div>
-			<div class="dot"></div>
-			<div class="dot"></div>
-			<div class="dot"></div>
-			<div class="dot"></div>
-		</figure>
 	</div>
 </template>
 

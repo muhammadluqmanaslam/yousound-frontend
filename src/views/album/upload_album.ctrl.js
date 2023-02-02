@@ -92,7 +92,6 @@ export default {
       page_index: 1,
       total_pages: 1,
       items_per_page: 30,
-      show_collaborators_confirm_dialog: false,
       show_genre_selector_dialog: false,
       show_sample_clearance_license_modal: false,
       isPageReady: false,
@@ -670,7 +669,10 @@ export default {
           this.loading = false
           this.$store.dispatch('error/showLoadingActivity', false)
           this.$store.dispatch('navigator/setParams', { album_id: album_id })
-          this.show_collaborators_confirm_dialog = true
+          if (album_id) {
+            localStorage.setItem("release_album", album_id)
+            this.$router.push({path: '/music/discover'})
+          }
         })
         .catch((e) => {
           this.loading = false

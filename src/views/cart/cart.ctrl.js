@@ -15,6 +15,7 @@ import trackCard from '@/components/trackcard'
 import contentTopHeader from '@/components/contentTopHeader'
 import addressTab from '@/views/settings/components/address_tab'
 import paymentModal from '@/components/paymentmodal'
+import { Card, createToken, CardNumber, CardExpiry, CardCvc } from 'vue-stripe-elements'
 
 export default {
 	components: {
@@ -26,11 +27,22 @@ export default {
 		contentTopHeader,
 		addressTab,
 		paymentModal,
+		Card,
+    CardNumber,
+    CardExpiry,
+    CardCvc,
 	},
 
 	data() {
 		return {
+      stripe_publishable_key: process.env.STRIPE_PUBLISHABLE_KEY,
+      stripeOptions: {},
+      complete: false,
+			cardNumber: null,
+      cardExpiry: null,
+      cardCvc: null,
 			editDialog: false,
+			loading: false,
 			active_tab: 'cart',
 			tabs: [
 				{ id: 'cart', title: 'Cart', icon: require('../../../static/images/cart.svg') },
@@ -122,8 +134,14 @@ export default {
 	},
 
 	methods: {
+		sendPayment() {
+      createToken().then((data) => {
+        // this.closePaymentDialog()
+        this.orderItems(data.token)
+      })
+    },
+
 		getItemDay(item) {
-			const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 			const date = new Date(item.created_at)
 			date.setDate(date.getDate() + 21)
 			const day = days[date.getDay()]
@@ -131,7 +149,6 @@ export default {
 		},
 
 		getItemDate(item) {
-			const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 			const date = new Date(item.created_at)
 			date.setDate(date.getDate() + 21)
 			return date;
@@ -158,9 +175,11 @@ export default {
 				if (token) {
 					params['payment_token'] = token.id
 				}
-
+				this.loading = true
+				this.$store.dispatch('error/showLoadingActivity', true)
 				ItemService.orderItems(params)
 					.then((response) => {
+						this.loading = false
 						this.$store.dispatch('error/showLoadingActivity', false)
 						const orders = response.body || []
 						this.ordersCost.shipping_cost = this._.sumBy(
@@ -179,9 +198,11 @@ export default {
 						// this.$store.dispatch('error/showSuccessToast', ['Ordered successfully.'])
 						// this.$store.dispatch('navigator/goNextState', { page: 'cart', tab: 'history' })
 						// this.$router.push({path : '/cart#history'})
+						this.cartItems = []
 						this.openOrderCompleteDialog()
 					})
 					.catch((e) => {
+						this.loading = false
 						this.$store.dispatch('error/showLoadingActivity', false)
 						this.$store.dispatch(
 							'error/showErrorToast',
@@ -205,7 +226,7 @@ export default {
 					'Please add Shipping Address.',
 				])
 			} else {
-				this.showPaymentModal = true
+				this.sendPayment()
 			}
 		},
 
@@ -249,7 +270,6 @@ export default {
 						.then((values) => {
 							this.cartItems = values[0].body
 							this.cartCost = values[1].body
-
 							this.isPageReady = true
 							this.$store.dispatch('error/showLoadingActivity', false)
 						})
@@ -308,6 +328,7 @@ export default {
 		},
 
 		submit() {
+			this.loading = true
 			this.$store.dispatch('error/showLoadingActivity', true)
 			const funcs = (this.receivers || []).map((user) =>
 				UserService.checkStripeConnection(user.id).then(
@@ -318,13 +339,13 @@ export default {
 			Promise.all(funcs).then((values) => {
 				const error = this._.find(values, (v) => v.status === 'rejected')
 
-				this.loading = false
-				this.$store.dispatch('error/showLoadingActivity', false)
 				if (error) {
+					this.loading = false
+					this.$store.dispatch('error/showLoadingActivity', false)
 					this.receiver = error.user
 					this.show_error_dialog = true
 				} else {
-					this.cartItems = []
+					// this.cartItems = []
 					this.openPaymentDialog()
 				}
 			})

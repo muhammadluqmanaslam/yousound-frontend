@@ -8,9 +8,11 @@ import discoverNav from '@/components/discoverNav'
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import '../../../static/styles/video.scss'
 // import demoVideo from '../../assets/demo-video.mp4'
 import logoutModal from '../../views/LogoutModal'
 import UserFollowBtn from "@/components/userFollowBtn";
+import albumFinishModal from '@/components/albumfinishmodal'
 
 export default {
   props: {
@@ -24,6 +26,7 @@ export default {
     VueSlickCarousel,
     logoutModal,
     UserFollowBtn,
+    albumFinishModal,
   },
 
   data() {
@@ -66,6 +69,8 @@ export default {
       buttonHover: false,
       viewAllIconClick: false,
       selectedVideoCategoryName: null,
+      showReleaseVideoModal: false,
+      releaseVideo: null,
     }
   },
 
@@ -228,9 +233,28 @@ export default {
         this.loadData(this.activeTab, this.pagination.current_page)
       }
     },
+
+    showPromoteModal() {
+    },
+
+    dismissFinishDialog() {
+      this.showReleaseVideoModal = false
+    },
   },
 
   created() {
+    const releaseVideoId = localStorage.getItem("release_video")
+    if (releaseVideoId) {
+      StreamService.getStream(releaseVideoId).then((response) => {
+        this.releaseVideo = response.body
+        if (this.releaseVideo) {
+          this.showReleaseVideoModal = true
+          localStorage.removeItem("release_video")
+        }
+      }).catch((exception) => {
+        console.log(exception)
+      })
+    }
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
 
     const paramFilter = this.$route.params.filter || ''

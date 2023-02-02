@@ -22,6 +22,7 @@ export default {
       videos: [],
       show_album_finish_modal: false,
       isPageReady: false,
+      items_per_page: 100,
     }
   },
 
@@ -79,6 +80,7 @@ export default {
         only_follows: this.only_follows,
         page: page,
         per_page: this.items_per_page,
+        user_id: this.currentUser.id
       }
       StreamService.getStreams(params)
             .then((response) => {

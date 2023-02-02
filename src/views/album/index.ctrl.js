@@ -16,6 +16,7 @@ import trackCard from '@/components/trackcard'
 import contentTopHeader from '@/components/contentTopHeader'
 import discoverNav from '@/components/discoverNav'
 import UserFollowBtn from "@/components/userFollowBtn";
+import albumFinishModal from '@/components/albumfinishmodal'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -31,7 +32,8 @@ export default {
     contentTopHeader,
     discoverNav,
     VueSlickCarousel,
-    UserFollowBtn
+    UserFollowBtn,
+    albumFinishModal
   },
 
   data() {
@@ -80,6 +82,8 @@ export default {
       viewAllTrending: false,
       chosenGenres: [],
       buttonHover: false,
+      showReleaseAlbumModal: false,
+      releaseAlbum: null,
     }
   },
 
@@ -153,6 +157,16 @@ export default {
 	},
 
   created() {
+    const albumParams = localStorage.getItem("release_album")
+    if (albumParams) {
+      AlbumService.getAlbum(parseInt(albumParams)).then((resp) => {
+        this.releaseAlbum = resp.body
+        if (this.releaseAlbum) {
+          this.showReleaseAlbumModal = true
+          localStorage.removeItem("release_album")
+        }
+      })
+    }
   	this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     // if (!this.currentUser) {
     //   AuthService.clearTokenAndUserInfo()
@@ -305,6 +319,14 @@ export default {
 
     pauseSong() {
       this.$root.$emit(MyEvents.AUDIO_PLAYER_PAUSE)
+    },
+
+
+    showPromoteModal() {
+    },
+
+    dismissFinishDialog() {
+      this.showReleaseAlbumModal = false
     },
 
     loadFeeds(tab, page) {

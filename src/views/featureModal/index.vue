@@ -67,7 +67,7 @@
 		<div class="divider mt-4 mb-5"></div>
 		<div>
 			<v-btn class="post-content" @click="saveTitleAndReview()" :loading="loading">
-				{{ webTitle || webReview || mobileTitle || mobileReview ? "Edit content" : "Post content" }}
+			 	Post Content
 			</v-btn>
 		</div>
 	</div>
@@ -99,28 +99,17 @@ export default {
 				mobile_title: this.mobileTitle, mobile_review: this.mobileReview
 			}
 
-      AlbumService.recommendAlbum(this.album.id)
+      AlbumService.recommendAlbum(this.album.id, params)
         .then((response) => {
-					AlbumService.updateTitleAndReview(this.album.id, params)
-					.then((res) => {
-						this.$store.dispatch(
-							'error/showSuccessToast',
-							['Successfully updated Title and Review.']
-						)
-						setTimeout(() => {
-							this.loading = false
-							this.$store.dispatch("error/showLoadingActivity", false);
-							window.location.reload()
-						}, 1500)
-					})
-					.catch((e) => {
+					this.$store.dispatch(
+						'error/showSuccessToast',
+						['Album recommended successfully.']
+					)
+					setTimeout(() => {
 						this.loading = false
 						this.$store.dispatch("error/showLoadingActivity", false);
-						this.$store.dispatch(
-							'error/showErrorToast',
-							e.body.errors || [e.body]
-						)
-					})
+						window.location.reload()
+					}, 1500)
         })
         .catch((e) => {
           this.$store.dispatch(

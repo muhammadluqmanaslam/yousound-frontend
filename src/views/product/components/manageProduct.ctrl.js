@@ -35,6 +35,7 @@ export default {
       tabs: [
         { id: 'orders', title: 'Orders' },
         { id: 'products', title: 'Products' },
+        { id: 'inventory', title: 'Inventory' },
         { id: 'collaborations', title: 'Collaborations' },
         { id: 'pendings', title: 'Pending collaborations' },
       ],

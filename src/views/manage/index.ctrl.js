@@ -58,7 +58,7 @@ export default {
     },
     productMenuTabs() {
       const tabs = [
-        { id: 'inventory', title: 'Inventory' },
+        { id: 'published', title: 'Inventory' },
         { id: 'collaborated', title: 'Collaborations' },
         { id: 'pending', title: 'Pending collaborations' },
       ]

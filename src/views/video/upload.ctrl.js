@@ -98,7 +98,6 @@ export default {
       friends: [],
       isPageReady: false,
       videoFile: null,
-      video_upload_successfully: false,
       videoUrl: null,
       genre_name: null,
       selectedStream: null,
@@ -551,10 +550,10 @@ export default {
 
                 upload.on('success', () => {
                   this.loading = false
-                  this.video_upload_successfully = true
+                  localStorage.setItem("release_video", this.video.id)
+                  this.$router.push({path: '/video'})
                   this.$store.dispatch('error/showLoadingActivity', false)
                   console.log("Wrap it up, we're done here. 👋")
-                  this.videoUrl = window.location.origin + `/video/${this.video.id}/show`
                   // this.$router.push({ path: `/video/${this.video.id}/show` })
                 })
               })

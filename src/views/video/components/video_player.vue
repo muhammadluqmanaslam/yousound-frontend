@@ -1,10 +1,13 @@
 <template>
-	<div class="" :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
+	<div class="video-holder-box" :style="{'pointer-events':  currentUser.free_trial_time <= 0 && !this.isSubscribed ? 'none' : ''}">
 		<discover-nav 
 		pageName="video"
 
 		:class="show_nav ? 'navVisible': 'navHide'" disabled
 		/>
+
+		<div class="invisible-block"></div>
+
 
 		<div class="video-container-main"
 		@mouseenter="show_video_overlay = true; show_nav = true"
@@ -1014,6 +1017,14 @@ export default {
 	// -o-transition-delay: 1s;
 	// transition-delay: 1s;
 }
+.discover-nav {
+  position: relative;
+  z-index: 999;
+}
+
+.video-holder-box {
+	position: relative;
+}
 
 .navHide{
 	display: block;
@@ -1066,6 +1077,14 @@ export default {
 			line-height: 1.67;
 		}
 	}
+}
+.invisible-block {
+	background: transparent;
+	height: 73px;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	z-index: 998;
 }
 .video-container-main{
 	position: relative;

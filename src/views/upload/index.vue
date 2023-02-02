@@ -172,7 +172,34 @@ to your videos
             </div>
           </v-flex>
 
-          <v-flex xs12 class="upload-tab-container">
+          <v-flex xs6 class="upload-tab-container">
+            <div class="upload-tab-wrapper">
+              <div class="text-left upload-tab-text">
+                <div class="dflex align-center">
+                  <img src="../../assets/visa.svg" width="32">
+                  <h3 class="secondary-heading">Accept payments</h3>
+                </div>
+                <div class="upload-tab-description light">
+                  Connect to <a href="#">Stripe.com </a> to get paid & manage your customers
+                </div>
+                <div class="toggle-container connected">
+                  <div v-if="currentUser.stripe_connected" class="dflex align-center mt-3">
+                    <div class="dflex align-center">
+                      <img src="../../assets/c-check.svg" width="25">
+                      <p class="bold-text">Connected</p>
+                    </div>
+                    <div>
+                      <a :href="stripeLink" class="anchor-text" target="_blank">
+                        Edit
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </v-flex>
+
+          <v-flex xs6 class="upload-tab-container">
             <div class="upload-tab-wrapper">
 
               <div class="text-left">

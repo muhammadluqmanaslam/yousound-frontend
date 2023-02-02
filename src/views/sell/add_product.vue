@@ -117,7 +117,7 @@
 										<span class="black--text">Check box if product is available for <b>live stream only</b></span>
 									</template>
 									</v-checkbox>
-	 
+  
 								</v-flex> -->
 							</v-flex>
 						</v-flex>
@@ -718,84 +718,6 @@
 						>Cancel</v-btn
 					>
 				</v-card-actions>
-			</v-card>
-		</v-dialog>
-
-		<v-dialog v-if="product_upload_successfully"
-			v-model="product_upload_successfully"
-			content-class="collaborators-success-dialog"
-		>
-			<v-card>
-				<v-card-title class="headline">
-					<div class="dflex gap-15">
-						<div>
-							<img src="../../assets/black-check.svg" width="25">
-						</div>
-						<div class="headline-text">
-							Your product was released! <a href="/upload/product/add" style="text-decoration: underline !important">Upload another</a> or go to <router-link to="/upload" style="text-decoration: underline !important">upload page</router-link> 
-						</div>
-					</div>
-				</v-card-title>
-
-				<div class="modal-body">
-					<div class="dflex gap-20">
-						<div class="w-30 border-round">
-							<img :src="confirmationImage" width="100%">
-						</div>
-						<div class="w-70">
-							<div>
-								<h3 class="main-head">{{ product.name }}</h3>
-								<p class="mb-0 second-head mx-0 my-0">{{ currentUser.username }}</p>
-								<p class="light-text mx-0 my-0">{{ product_category }}</p>
-
-							</div>
-							<hr class="my-4">
-
-							<div class="dflex align-center gap-20">
-								<div class="dflex align-center gap-15">
-									<a href="#"><img src="../../assets/email-xcon.svg" width="16"></a>
-									<a href="#"><img src="../../assets/facebook-xcon.svg" width="10"></a>
-									<a href="#"><img src="../../assets/twitter-xcon.svg" width="17"></a>
-								</div>
-								<div class="url-bar">
-									<p class="mx-0 my-0">{{ productUrl }}</p>
-									<div
-										class="clipboard-btn"
-										v-clipboard:copy="productUrl"
-										v-clipboard:success="onCopy"
-										v-clipboard:error="onError"
-									>
-										<img src="../../assets/clone.svg" width="16">
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="modal-footer">
-					<div class="dflex align-center justify-space-between gap-max">
-						<div class="w-100">
-							<h2 class="foot-head">
-								Promote your profile
-							</h2>
-							<p class="mx-0 my-0 mt-2">
-								Upload a spotlight video to promote your content to new subscribers!
-							</p>
-
-							<router-link to="#">
-								<v-btn class="mt-4 fx-btn ml-0">
-									Add spotlight
-								</v-btn>
-							</router-link>
-						</div>
-						<div class="w-100">
-							<img src="../../assets/album-drop.gif" width="100%">
-						</div>
-					</div>
-
-				</div>
 			</v-card>
 		</v-dialog>
 	</div>

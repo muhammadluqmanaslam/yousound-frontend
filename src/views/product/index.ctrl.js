@@ -13,6 +13,7 @@ import contentTopHeader from '@/components/contentTopHeader'
 import discoverNav from '@/components/discoverNav'
 import UserFollowBtn from "@/components/userFollowBtn";
 import { MyEvents, Utils } from '@/helper'
+import albumFinishModal from '@/components/albumfinishmodal'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -27,7 +28,8 @@ export default {
     contentTopHeader,
     discoverNav,
     VueSlickCarousel,
-    UserFollowBtn
+    UserFollowBtn,
+    albumFinishModal
   },
 
   data() {
@@ -61,6 +63,8 @@ export default {
       viewAllTrending: false,
       trendingProducts: [],
       buttonHover: false,
+      releaseProduct: null,
+      showReleaseProductModal: false,
     }
   },
 
@@ -84,6 +88,16 @@ export default {
   },
 
   created() {
+    const prodParams = localStorage.getItem("release_product")
+    if (prodParams) {
+      ProductService.getProduct(parseInt(prodParams)).then((resp) => {
+        this.releaseProduct = resp.body
+        if (this.releaseProduct) {
+          this.showReleaseProductModal = true
+          localStorage.removeItem("release_product")
+        }
+      })
+    }
     this.$root.$on(MyEvents.USER_FOLLOW, this.setFollowingStatus)
     this.$store.dispatch('navigator/goNextState', {
       page: 'product',
@@ -110,6 +124,12 @@ export default {
   },
 
   methods: {
+    dismissFinishDialog() {
+      this.showReleaseProductModal = false
+    },
+
+    showPromoteModal() {
+    },
     setFollowingStatus(userId, isFollowing) {
       if (this.mainProduct.merchant && this.mainProduct.merchant.id === userId) {
         this.mainProduct.merchant.is_following = isFollowing

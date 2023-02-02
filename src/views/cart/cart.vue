@@ -176,11 +176,6 @@
 												}}</label
 											>
 										</div>
-										<div class="action-row">
-											<v-btn class="checkout-btn" @click.native="submit()"
-												>Proceed to Checkout</v-btn
-											>
-										</div>
 									</div>
 								</v-flex>
 
@@ -234,16 +229,37 @@
 										</div>
 										<div class="stripe-section-body">
 											<div class="lock">
-												<input type="text" placeholder="Card number">
+												<card-number
+													class="stripe-element card-number payment-card"
+													:class="{ complete }"
+													ref="cardNumber"
+													:stripe="stripe_publishable_key"
+													:options="stripeOptions"
+													@change="number = $event.complete"
+												/>
 												<img src="../../assets/lock.png" alt="" width="30">
 											</div>
-											<div>
-												<input type="text" placeholder="Name on card">
-											</div>
-											<div class="dflex bottom-details">
-												<div><input type="text" placeholder="Expiration date (MM / YY)"></div>
+											<div class="bottom-details">
+												<div>
+													<card-expiry
+														class="stripe-element card-expiry payment-card"
+														:class="{ complete }"
+														ref="cardExpiry"
+														:stripe="stripe_publishable_key"
+														:options="stripeOptions"
+														@change="expiry = $event.complete"
+													/>
+													</div>
 												<div class="question-mark">
-													<input type="text" placeholder="Security code">
+													
+														<card-cvc
+															class="stripe-element card-cvc payment-card"
+															:class="{ complete }"
+															ref="cardCvc"
+															:stripe="stripe_publishable_key"
+															:options="stripeOptions"
+															@change="cvc = $event.complete"
+														/>
 													<img src="../../assets/question.png" alt="" width="40">
 												</div>
 											</div>
@@ -262,8 +278,8 @@
 									</div>
 									<div class="payment-stripe-section-button">
 										<div class="btn-holder">
-											<v-btn class="checkout-btn"
-												>Pay now</v-btn
+											<v-btn class="checkout-btn" @click.native="submit()" :loading="loading"
+												>Pay ${{ (cartCost.total_cost + cartCost.fee_cost) | formatNumber }}</v-btn
 											>
 										</div>
 									</div>
