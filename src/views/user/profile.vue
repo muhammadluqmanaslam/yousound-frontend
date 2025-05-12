@@ -1162,10 +1162,10 @@
               <v-flex
                 xs6
                 class="custom-lg5"
-                v-for="(feed, index) in albums"
+                v-for="(feed, index) in albums.filter(t => t.collaborators_count == 0)"
                 :key="index"
               >
-                <track-card :objects="albums" :objectIndex="index"></track-card>
+                <track-card :objects="albums.filter(t => t.collaborators_count == 0)" :objectIndex="index"></track-card>
               </v-flex>
             </v-layout>
 
@@ -1176,10 +1176,10 @@
               <v-flex
                 xs6
                 class="custom-lg5"
-                v-for="(feed, index) in albums"
+                v-for="(feed, index) in albums.filter(t => t.collaborators_count > 0)"
                 :key="index"
               >
-                <track-card :objects="albums" :objectIndex="index"></track-card>
+                <track-card :objects="albums.filter(t => t.collaborators_count > 0)" :objectIndex="index"></track-card>
               </v-flex>
             </v-layout>
           </div>

@@ -15,6 +15,7 @@ import sendMessage from '@/components/sendmessage'
 import collaborateProduct from '@/views/sell/components/collaborate_product'
 import { Storage, MyCookies } from '@/helper'
 import contentTopHeader from '@/components/contentTopHeader'
+import albumFinishModal from '@/components/albumfinishmodal'
 
 const filterArrowDownString =
   '<i class="material-icons icon icon--right theme--dark">keyboard_arrow_down</i>'
@@ -26,6 +27,7 @@ export default {
     profileItem,
     sendMessage,
     contentTopHeader,
+    albumFinishModal
   },
 
   data() {
@@ -72,6 +74,8 @@ export default {
       total_pages: 1,
       items_per_page: 6 * 5,
       isPageReady: false,
+      releaseProduct: null,
+      showReleaseProductModal: false,
     }
   },
 
@@ -125,6 +129,12 @@ export default {
     },
   },
   methods: {
+    dismissFinishDialog() {
+      this.showReleaseProductModal = false
+    },
+
+    showPromoteModal() {
+    },
     setProductFilter(id) {
       // console.log('received id', id);
       //   update status if id is valid
@@ -469,6 +479,17 @@ export default {
       AuthService.clearTokenAndUserInfo()
       this.$router.push({ path: '/login' })
       return
+    }
+
+    const prodParams = localStorage.getItem("release_product")
+    if (prodParams) {
+      ProductService.getProduct(parseInt(prodParams)).then((resp) => {
+        this.releaseProduct = resp.body
+        if (this.releaseProduct) {
+          this.showReleaseProductModal = true
+          localStorage.removeItem("release_product")
+        }
+      })
     }
 
     if (

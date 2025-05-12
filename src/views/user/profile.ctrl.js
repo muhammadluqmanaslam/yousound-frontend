@@ -192,11 +192,11 @@ export default {
     },
   },
 
-  created() {
+  async created() {
     window.addEventListener('scroll', this.handleScroll)
-    this.ownStream()
-
     this.slug = this.$route.params.slug
+    await this.ownStream()
+
     const tab = this.$route.hash.substr(1)
     const grid_view =
       this.$route.query.grid_view === undefined
@@ -228,13 +228,20 @@ export default {
       setPlaying: 'player/setPlayingStatus',
     }),
 
-    ownStream(tab, page) {
+    async ownStream(tab, page) {
       this.$store.dispatch('error/showLoadingActivity', true)
+      let userId = this.currentUser.id
+      await UserService.getUserInfo(this.slug)
+        .then((response) => { userId = response.body.id })
+        .catch((err) => { console.log('error in fetching user info', err) })
       const params = {
         genre_id: 0, // default for all videos
         only_follows: this.only_follows,
         page: 1, // get page 1
+        per_page: 100,
+        user_id: userId
       }
+      console.log("========================", userId)
       StreamService.getStreams(params)
         .then((response) => {
           console.log(response.body.streams)

@@ -671,7 +671,7 @@ export default {
           this.$store.dispatch('navigator/setParams', { album_id: album_id })
           if (album_id) {
             localStorage.setItem("release_album", album_id)
-            this.$router.push({path: '/music/discover'})
+            this.$router.push({path: '/manage'})
           }
         })
         .catch((e) => {

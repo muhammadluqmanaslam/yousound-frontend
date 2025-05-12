@@ -97,6 +97,14 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <v-dialog v-model="showReleaseAlbumModal">
+          <album-finish-modal v-if="showReleaseAlbumModal"
+            :item="releaseAlbum"
+            type="album"
+            :promote="showPromoteModal"
+            :dismiss="dismissFinishDialog"
+          />
+        </v-dialog>
       </div>
     </div>
   </div>

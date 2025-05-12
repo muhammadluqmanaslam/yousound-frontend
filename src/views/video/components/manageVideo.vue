@@ -9,6 +9,14 @@
             </v-layout>
         </v-container>
       </div>
+      <v-dialog v-model="showReleaseVideoModal" style="margin-top: 3%" content-class="finish-modal">
+        <album-finish-modal v-if="showReleaseVideoModal"
+          :item="releaseVideo"
+          type="stream"
+          :promote="showPromoteModal"
+          :dismiss="dismissFinishDialog"
+        />
+      </v-dialog>
   </div>
 </template>
 

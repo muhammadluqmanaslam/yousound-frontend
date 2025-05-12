@@ -551,7 +551,7 @@ export default {
                 upload.on('success', () => {
                   this.loading = false
                   localStorage.setItem("release_video", this.video.id)
-                  this.$router.push({path: '/video'})
+                  this.$router.push({path: '/manage'})
                   this.$store.dispatch('error/showLoadingActivity', false)
                   console.log("Wrap it up, we're done here. 👋")
                   // this.$router.push({ path: `/video/${this.video.id}/show` })

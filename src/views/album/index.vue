@@ -121,35 +121,6 @@
         </v-layout>
       </v-container>
 
-      <v-container fluid grid-list-lg px-0 v-if="(!viewAllPopular && !viewAllNew)" id="trending-album-container">
-        <div class="dflex justify-space-between align-center mt-4 mb-2" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
-          <div class="text-big">
-            Trending
-          </div>
-          <div class="text-small cursor-pointer" @click="displayTrendingTracks()">
-            View all
-          </div>
-        </div>
-        <v-layout row wrap>
-          <v-flex
-            v-for="(recommended, index) in recommendedAlbums"
-            :key="index"
-            feed-card
-            sm3
-            custom-lg5
-            px-0
-          >
-            <track-card
-              :objects="recommendedAlbums"
-              :objectIndex="index"
-              :hideButtonAction="hideAlbum"
-              willMenuRender
-              noAction
-            />
-          </v-flex>
-        </v-layout>
-      </v-container>
-
       <v-container fluid grid-list-lg px-0 v-if="(!viewAllPopular && !viewAllTrending)" id="new-album-container">
         <div class="dflex justify-space-between align-center mt-4" v-if="(!viewAllNew && !viewAllTrending && !viewAllPopular)">
           <div class="text-big">
@@ -215,14 +186,7 @@
         <div class="dot"></div>
       </figure>
     </div>
-    <v-dialog v-model="showReleaseAlbumModal" content-class="finish-modal">
-      <album-finish-modal v-if="showReleaseAlbumModal"
-        :item="releaseAlbum"
-        type="album"
-        :promote="showPromoteModal"
-        :dismiss="dismissFinishDialog"
-      />
-    </v-dialog>
+
     <v-dialog
       v-if="currentUser"
       v-model="show_genre_selector_dialog"

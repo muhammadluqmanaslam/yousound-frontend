@@ -511,7 +511,7 @@ export default {
             // this.$router.push({ path: '/sell#products' })
             this.hideCollaboratorsConfirmDialog()
             localStorage.setItem("release_product", response.body.id)
-            this.$router.push({path: '/product'})
+            this.$router.push({path: '/manage'})
             this.product_upload_successfully = true
           }
         })

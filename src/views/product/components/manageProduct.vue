@@ -14,6 +14,14 @@
             @denyCollaboration="denyCollaboration"
             ></product-item>
         </div>
+        <v-dialog v-model="showReleaseProductModal" style="margin-top: 3%" content-class="finish-modal">
+          <album-finish-modal v-if="showReleaseProductModal"
+            :item="releaseProduct"
+            type="product"
+            :promote="showPromoteModal"
+            :dismiss="dismissFinishDialog"
+          />
+        </v-dialog>
       </div>
     </div>
   </div>

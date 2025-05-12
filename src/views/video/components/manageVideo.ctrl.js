@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import StreamService from '@/services/stream'
 import ListVideo from '@/views/video/components/listVideo'
+import albumFinishModal from '@/components/albumfinishmodal'
 
 export default {
   props: {
@@ -10,6 +11,7 @@ export default {
   },
   components: {
     ListVideo,
+    albumFinishModal
   },
 
   data() {
@@ -23,6 +25,8 @@ export default {
       show_album_finish_modal: false,
       isPageReady: false,
       items_per_page: 100,
+      showReleaseVideoModal: false,
+      releaseVideo: null,
     }
   },
 
@@ -57,6 +61,12 @@ export default {
     },
   },
   methods: {
+    showPromoteModal() {
+    },
+
+    dismissFinishDialog() {
+      this.showReleaseVideoModal = false
+    },
     setVideoFilter(id) {
     //   update status if id is valid
     //   albumTab will be fallback idf id is not valid
@@ -189,7 +199,18 @@ export default {
     //   this.$router.push({ path: '/' })
     //   return
     // }
-
+    const releaseVideoId = localStorage.getItem("release_video")
+    if (releaseVideoId) {
+      StreamService.getStream(releaseVideoId).then((response) => {
+        this.releaseVideo = response.body
+        if (this.releaseVideo) {
+          this.showReleaseVideoModal = true
+          localStorage.removeItem("release_video")
+        }
+      }).catch((exception) => {
+        console.log(exception)
+      })
+    }
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
 

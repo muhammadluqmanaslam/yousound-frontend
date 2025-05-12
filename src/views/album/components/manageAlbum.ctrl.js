@@ -2,6 +2,7 @@ import _ from 'lodash'
 import AlbumService from '@/services/album'
 import albumList from '@/views/album/components/albumList'
 import contentTopHeader from '@/components/contentTopHeader'
+import albumFinishModal from '@/components/albumfinishmodal'
 
 export default {
   props: {
@@ -12,6 +13,7 @@ export default {
   components: {
     contentTopHeader,
     albumList,
+    albumFinishModal
   },
 
   data() {
@@ -41,6 +43,8 @@ export default {
       show_video_only_confirm_dialog: false,
       show_album_finish_modal: false,
       isPageReady: false,
+      showReleaseAlbumModal: false,
+      releaseAlbum: null,
     }
   },
 
@@ -124,6 +128,14 @@ export default {
     reRenderManageAlbum() {
       this.loadAlbums()
     },
+
+    showPromoteModal() {
+    },
+
+    dismissFinishDialog() {
+      this.showReleaseAlbumModal = false
+    },
+
     setAlbumFilter(id) {
     //   update status if id is valid
     //   albumTab will be fallback idf id is not valid
@@ -355,9 +367,18 @@ export default {
     //   this.$router.push({ path: '/' })
     //   return
     // }
-
     const tab = this.$route.hash.substr(1)
     this.setTab(tab)
+    const albumParams = localStorage.getItem("release_album")
+    if (albumParams) {
+      AlbumService.getAlbum(parseInt(albumParams)).then((resp) => {
+        this.releaseAlbum = resp.body
+        if (this.releaseAlbum) {
+          this.showReleaseAlbumModal = true
+          localStorage.removeItem("release_album")
+        }
+      })
+    }
 
     const lastState = this.$store.getters['navigator/last']
     // console.log(lastState)

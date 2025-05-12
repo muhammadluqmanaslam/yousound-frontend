@@ -144,6 +144,11 @@ export default {
     if (this.userType === 'listener') {
       this.active_tab = 'payment'
     }
+    if (localStorage.getItem("release_product")) {
+      this.activeInnerFilter = 'products'
+    } else if (localStorage.getItem("release_video")) {
+      this.activeInnerFilter = 'videos'
+    }
   },
   mounted() {
     const {activeInnerFilter, activeInnerTab} = this.$route.params
@@ -156,7 +161,7 @@ export default {
     } else {
       this.activeInnerTab = 'published'
     }
-    
+
     this.setInnerTab(this.activeInnerTab)
   },
 }
