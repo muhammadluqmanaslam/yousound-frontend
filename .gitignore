@@ -16,3 +16,8 @@ config/dev.env.js
 config/prod.env.js
 
 .idea/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
